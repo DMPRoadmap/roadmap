@@ -7,7 +7,7 @@ describe IdentifierHelper do
 
   before do
     @user_scheme = create(:identifier_scheme, for_users: true)
-    ::DmpIdService.stubs(:identifier_scheme).returns(@user_scheme)
+    DmpIdService.stubs(:identifier_scheme).returns(@user_scheme)
   end
 
   describe '#id_for_display(id:, with_scheme_name)' do
@@ -21,9 +21,12 @@ describe IdentifierHelper do
     end
 
     it 'defaults to showing the scheme name (when in PROD)' do
+      env = Rails.env
       Rails.env = 'production'
       rslt = id_for_display(id: @identifier)
       expect(rslt.include?(@user_scheme.identifier_prefix)).to be(true)
+      # set it back afterward
+      Rails.env = env
     end
 
     it 'does not display the scheme name if flag is set' do
@@ -44,6 +47,7 @@ describe IdentifierHelper do
     end
 
     it 'returns the value when the scheme has no identifier_prefix' do
+      env = Rails.env
       Rails.env = 'production'
       val = Faker::Lorem.word
       @user_scheme.identifier_prefix = nil
@@ -51,24 +55,35 @@ describe IdentifierHelper do
       @identifier.value = val
       rslt = id_for_display(id: @identifier)
       expect(rslt).to eql("#{@user_scheme.description}: #{val}")
+      # set it back afterward
+      Rails.env = env
     end
 
     it 'returns the value as a link when the scheme has a identifier_prefix' do
+      env = Rails.env
       Rails.env = 'production'
       rslt = id_for_display(id: @identifier)
       expect(rslt.include?(@identifier.value)).to be(true)
+      # set it back afterward
+      Rails.env = env
     end
 
     it "returns the value with the DmpIdService's identifier prefix (when not in PROD)" do
+      env = Rails.env
       Rails.env = 'development'
       rslt = id_for_display(id: @identifier)
-      expect(rslt.include?(::DmpIdService.landing_page_url)).to be(true)
+      expect(rslt.include?(DmpIdService.landing_page_url)).to be(true)
+      # set it back afterward
+      Rails.env = env
     end
 
     it "returns the value with the DmpIdService's identifier prefix (when not in PROD) and flag set" do
+      env = Rails.env
       Rails.env = 'stage'
       rslt = id_for_display(id: @identifier, with_scheme_name: false)
-      expect(rslt.include?(::DmpIdService.landing_page_url)).to be(true)
+      expect(rslt.include?(DmpIdService.landing_page_url)).to be(true)
+      # set it back afterward
+      Rails.env = env
     end
   end
 end

@@ -426,7 +426,7 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/:id/mint
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
   def mint
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -445,28 +445,26 @@ class PlansController < ApplicationController
         ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
       end
 
-      render js: render_to_string(template: 'plans/mint.js.erb')
       redirect_to publish_plan_path(@plan), notice: success_message(@plan, _('registered'))
     else
-
       redirect_to publish_plan_path(@plan), alert: failure_message(@plan, _('register'))
     end
   rescue StandardError => e
+    # rubocop:disable Layout/LineLength
     Rails.logger.error "Either unable to register the DMP ID or unable to update the owner's ORCID record for plan #{params[:id]} /
                         and user #{current_user.id} - #{e.message}"
     Rails.logger.error e.backtrace
 
-    if @plan.dmp_id.present?
-      msg = _('Your DMP ID was registered but we were unable to add it to your ORCID record as a new work.')
-    else
-      msg = _("Something went wrong and we were unable to acquire a DMP ID for your plan. Please try again. If the problem /
-              persists please contact the help desk at %{helpdesk_email}") % {
-        helpdesk_email: Rails.configuration.x.organisation.helpdesk_email
-      }
-    end
+    msg = if @plan.dmp_id.present?
+            _('Your DMP ID was registered but we were unable to add it to your ORCID record as a new work.')
+          else
+            format(_("Something went wrong and we were unable to acquire a DMP ID for your plan. Please try again. If the problem /
+              persists please contact the help desk at %{helpdesk_email}"), helpdesk_email: Rails.configuration.x.organisation.helpdesk_email)
+          end
+    # rubocop:enable Layout/LineLength
     redirect_to publish_plan_path(@plan), alert: msg
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
 
   # ============================
   # = Private instance methods =

@@ -92,7 +92,6 @@ module Dmptool
         end
 
         it 'returns a new Org and associates it with the :registry_org' do
-          Rails.configuration.x.organisation.helpdesk_email = Faker::Internet.unique.email
           ror_scheme
           fundref_scheme
           registry_org = create(:registry_org)

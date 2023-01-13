@@ -77,7 +77,6 @@ unless @minimal
   if plan.visibility == 'publicly_visible'
     related_identifiers << RelatedIdentifier.new(identifier_type: :url,
                                                  relation_type: :is_metadata_for,
-                                                 work_type: :output_management_plan,
                                                  value: presenter.download_pdf_link)
   end
 
@@ -88,7 +87,7 @@ unless @minimal
       json.descriptor related.relation_type
       json.type related.identifier_type
       json.identifier related.value.start_with?('http') ? related.value : "https://doi.org/#{related.value}"
-      json.work_type related.work_type
+      json.work_type related.relation_type == 'is_metadata_for' ? 'output_management_plan' : related.work_type
     end
   end
 

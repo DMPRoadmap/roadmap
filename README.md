@@ -1,10 +1,10 @@
 # DMPTool
 
-[![Brakeman Status](https://github.com/CDLUC3/dmptool/workflows/Brakeman/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
-[![ESLint Status](https://github.com/CDLUC3/dmptool/workflows/ESLint/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
-[![Rubocop Status](https://github.com/CDLUC3/dmptool/workflows/Rubocop/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
-[![Pally Status](https://github.com/CDLUC3/dmptool/workflows/Pa11y%20Accessibility%20Checks/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
-[![MySQL Test Status](https://github.com/CDLUC3/dmptool/workflows/Tests%20-%20MySQL/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
+[![Brakeman Status](https://github.com/CDLUC3/dmptool/workflows/Brakeman/badge.svg?branch=main)](https://github.com/CDLUC3/dmptool/actions)
+[![ESLint Status](https://github.com/CDLUC3/dmptool/workflows/ESLint/badge.svg?branch=main)](https://github.com/CDLUC3/dmptool/actions)
+[![Rubocop Status](https://github.com/CDLUC3/dmptool/workflows/Rubocop/badge.svg?branch=main)](https://github.com/CDLUC3/dmptool/actions)
+[![Pally Status](https://github.com/CDLUC3/dmptool/workflows/Pa11y%20Accessibility%20Checks/badge.svg?branch=main)](https://github.com/CDLUC3/dmptool/actions)
+[![MySQL Test Status](https://github.com/CDLUC3/dmptool/workflows/Tests%20-%20MySQL/badge.svg?branch=main)](https://github.com/CDLUC3/dmptool/actions)
 
 The DMPTool is a free, open-source, online system for creating and managing data management plans (DMPs). DMPs are now required by many funding agencies as part of the grant proposal submission process.
 

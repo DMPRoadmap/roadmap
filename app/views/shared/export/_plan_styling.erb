@@ -1,84 +1,123 @@
 <style>
-  @import 'https://fonts.googleapis.com/css?family=<%= font_face.downcase.include?('times') ? 'Times' : 'Helvetica' %>';
+  @import 'https://fonts.googleapis.com/css?family=<%= font_face.downcase.include?('times') ? 'Times' : 'Roboto' %>';
 
   body {
     font-family: <%= font_face %>;
     font-size: <%= font_size %>;
+    line-height: 150%;
   }
   h1 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      padding: 0;
-    }
-    h2 {
-      font-size: 1.3rem;
-      font-weight: bold;
-      padding: 0;
-      margin: 1em 0 0 0;
-    }
-    h3 {
-      font-size: 1.1rem;
-      font-weight: bold;
-      padding: 0;
-      margin: 1em 0 0 0;
-    }
-    h2 + div.question > h3 {
-      margin: 0;
-    }
-    table, tr, td, th, tbody, thead, tfoot {
-      page-break-inside: avoid !important;
-    }
-    table {
-      border-collapse: collapse;
-    }
-    table caption {
-      font-weight: bold;
-      font-size: 1.1rem;
-      text-align: left;
-    }
-    th, td {
-      border: 1px solid black !important;
-      padding: 2px;
-    }
-    p {
-      margin: 0.25em 0;
-    }
-    .cover-page {
-      font-size: 1.1rem;
-    }
-    .question {
-      margin-top: 15px;
-      margin-bottom: 10px;
-    }
-    .question:first-child {
-      margin-top: 0;
-    }
-    .annotations {
-      margin-left: 15px;
-      margin-bottom: 10px;
-    }
-    hr.bottom {
-      position: absolute;
-      bottom: 0;
-    }
-    .bold {
-      font-weight: bold;
-    }
-    ul.research_output {
-      margin-bottom: 15px;
-    }
-    ul.research_output li {
-      margin-bottom: 5px;
-    }
-    ul.research_output li strong {
-      padding-right: 5px;
-    }
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
 
-    .break-after {
-      page-break-after: always;
-    }
+  div.cover-page p {
+    margin-left: 10px;
+    margin-bottom: 35px;
+  }
 
-    .break-before {
-      page-break-before: always;
-    }
+  div.section {
+    margin-bottom: 35px;
+  }
+  div.question {
+    margin-bottom: 25px;
+  }
+  div.question p {
+    margin: 0;
+  }
+
+  .break-after {
+    page-break-after: always;
+  }
+  .break-before {
+    page-break-before: always;
+  }
+
+
+  /*
+
+  body {
+    font-family: <%= font_face %>;
+    font-size: <%= font_size %>;
+    line-height: 150%;
+  }
+  h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0;
+  }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 0;
+    margin: 1em 0 0 0;
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0;
+    margin: 1em 0 0 0;
+  }
+  h2 + div.question > h3 {
+    margin: 0;
+  }
+  table, tr, td, th, tbody, thead, tfoot {
+    page-break-inside: avoid !important;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  table caption {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: left;
+  }
+  th, td {
+    border: 1px solid black !important;
+    padding: 2px;
+  }
+  p {
+    margin: 0.25em 0;
+  }
+  .cover-page {
+    font-size: 1.1rem;
+  }
+  .question {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  .question:first-child {
+    margin-top: 0;
+  }
+  .annotations {
+    margin-left: 15px;
+    margin-bottom: 10px;
+  }
+  hr.bottom {
+    position: absolute;
+    bottom: 0;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  ul.research_output {
+    margin-bottom: 15px;
+  }
+  ul.research_output li {
+    margin-bottom: 5px;
+  }
+  ul.research_output li strong {
+    padding-right: 5px;
+  }
+
+  .break-after {
+    page-break-after: always;
+  }
+
+  .break-before {
+    page-break-before: always;
+  }
+  */
 </style>

@@ -6,6 +6,7 @@ RSpec.describe Api::V2::Deserialization::Org do
   include Helpers::IdentifierHelper
 
   before do
+    @original_restrict = Rails.configuration.x.application.restrict_orgs
     # Org requires a language, so make sure a default is available!
     create(:language, default_language: true) unless Language.default
 
@@ -18,6 +19,10 @@ RSpec.describe Api::V2::Deserialization::Org do
                                       value: SecureRandom.uuid)
     @org.reload
     @json = { name: @name, abbreviation: @abbrev }
+  end
+
+  after do
+    Rails.configuration.x.application.restrict_orgs = @original_restrict
   end
 
   describe '#deserialize(json: {})' do
@@ -117,6 +122,7 @@ RSpec.describe Api::V2::Deserialization::Org do
       end
 
       it 'creates and returns a new Org record if the :registry_org does not have one assocciated' do
+        Rails.configuration.x.application.restrict_orgs = false
         result = described_class.send(:org_from_registry_org!, registry_org: @registry_org)
         expect(Org.all.last).to eql(result)
         expect(@registry_org.reload.org_id).to eql(result.id)

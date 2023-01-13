@@ -11,7 +11,7 @@ class DmpIdService
       return plan.dmp_id if plan.dmp_id.present? && !seeding
 
       svc = minter
-      return nil if svc.blank?
+      return nil if svc.blank? # || !minting_service_defined?
 
       dmp_id = svc.mint_dmp_id(plan: plan)
       return nil if dmp_id.blank?

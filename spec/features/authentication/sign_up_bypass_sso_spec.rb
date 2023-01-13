@@ -8,12 +8,21 @@ RSpec.describe 'Sign up and bypass SSO' do
   include Helpers::IdentifierHelper
 
   before do
+    @original_shib = Rails.configuration.x.shibboleth&.enabled
+    @original_disco = Rails.configuration.x.shibboleth.use_filtered_discovery_service
+    Rails.configuration.x.shibboleth&.enabled = true
+    Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
     mock_blog
     @email_domain = 'foo.edu'
-    @org = create(:org, contact_email: "help-desk@#{@email_domain}")
-    @registry_org = create(:registry_org, home_page: "http://#{@email_domain}", org: @org)
+    @org = create(:org, name: 'Test Org', contact_email: "help-desk@#{@email_domain}")
+    @registry_org = create(:registry_org, name: 'Test Registry Org', home_page: "http://#{@email_domain}", org: @org)
     @user = create(:user, email: "jane@#{@email_domain}", org: @org)
     visit root_path
+  end
+
+  after do
+    Rails.configuration.x.shibboleth.enabled = @original_shib
+    Rails.configuration.x.shibboleth.use_filtered_discovery_service = @original_disco
   end
 
   it 'does not display bypass link for unknown user with a known email domain for an unshibbolized org', js: true do

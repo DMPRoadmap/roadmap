@@ -128,7 +128,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
       end
 
       it 'initializes a new ResearchOutput' do
-        @json[:title] = Faker::Music::PearlJam.song
+        @json[:title] = Faker::Music::PearlJam.unique.song
         result = described_class.send(:find_or_initialize, plan: @plan, json: @json)
         expect(result.new_record?).to be(true)
         expect(result.title).to eql(@json[:title])

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Dmptool::UsersController, type: :request do
   before do
-    @controller = ::UsersController.new
+    @controller = UsersController.new
   end
 
   it 'UsersController includes our customizations' do

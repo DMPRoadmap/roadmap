@@ -28,14 +28,13 @@ module Dmptool
     end
 
     # PATCH /plans/:id/follow_up_update
+    # rubocop:disable Metrics/AbcSize
     def follow_up_update
       @plan = ::Plan.find(params[:id])
       authorize @plan
 
       attrs = plan_params
-      @plan.funder = process_org!(user: current_user, namespace: 'funder')
       @plan.grant = plan_params[:grant]
-      attrs.delete(:funder)
       attrs.delete(:grant)
 
       @plan.title = @plan.title.strip
@@ -46,6 +45,7 @@ module Dmptool
         redirect_to follow_up_plan_path, alert: failure_message(@plan, _('save'))
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def temporary_patch_delete_me_later
       # This is a temporary patch to fix an issue with one of the pt-BR translations

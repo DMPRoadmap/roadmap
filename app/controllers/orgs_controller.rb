@@ -152,7 +152,7 @@ class OrgsController < ApplicationController
 
   def org_params
     params.require(:org)
-          .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
+          .permit(:name, :abbreviation, :logo, :target_url, :contact_email, :contact_name,
                   :remove_logo, :managed, :feedback_enabled, :org_links,
                   :funder, :institution, :organisation,
                   :feedback_msg, :org_id, :org_name, :org_crosswalk,
