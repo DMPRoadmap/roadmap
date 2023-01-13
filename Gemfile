@@ -137,10 +137,6 @@ gem 'jwt'
 # OO authorization for Rails (https://github.com/elabs/pundit)
 gem 'pundit'
 
-# Protect your Rails and Rack apps from bad clients. Rack::Attack lets you easily decide when
-# to allow, block and throttle based on properties of the request.
-gem 'rack-attack'
-
 # ========== #
 # UI / VIEWS #
 # ========== #
