@@ -136,12 +136,12 @@ module ExternalApis
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                      xsi:schemaLocation="http://www.orcid.org/ns/work/work-3.0.xsd">
             <work:title>
-              <common:title>#{plan.title.encode(xml: :text)}</common:title>
+              <common:title>#{plan.title&.encode(xml: :text)}</common:title>
             </work:title>
-            <work:short-description>#{plan.description.encode(xml: :text)}</work:short-description>
+            <work:short-description>#{plan.description&.encode(xml: :text)}</work:short-description>
             <work:citation>
               <work:citation-type>formatted-unspecified</work:citation-type>
-              <work:citation-value>#{plan.citation.encode(xml: :text)}</work:citation-value>
+              <work:citation-value>#{plan.citation&.encode(xml: :text)}</work:citation-value>
             </work:citation>
             <work:type>data-management-plan</work:type>
             <common:publication-date>
