@@ -28,8 +28,9 @@ gem 'puma', group: :puma, require: false
 # SEE: https://dev.to/kolide/how-to-migrate-a-rails-6-app-from-sass-rails-to-cssbundling-rails-4l41
 gem 'sass-rails'
 
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker'
+# Use esbuild, rollup.js, or Webpack to bundle your JavaScript, then deliver it via the asset pipeline in Rails
+# Read more: https://github.com/rails/jsbundling-rails
+gem 'jsbundling-rails'
 
 # Turbo gives you the speed of a single-page web application without having to write any JavaScript..
 # Read more: https://github.com/hotwired/turbo-rails

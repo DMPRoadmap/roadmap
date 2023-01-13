@@ -238,6 +238,8 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jsbundling-rails (1.1.1)
+      railties (>= 6.0.0)
     json (2.6.2)
     json_schemer (0.2.23)
       ecma-re-validator (~> 0.3)
@@ -356,8 +358,6 @@ GEM
       rack (>= 1.2.0)
     rack-protection (3.0.4)
       rack
-    rack-proxy (0.7.4)
-      rack
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (6.1.7)
@@ -459,7 +459,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
     shellany (0.0.1)
     shoulda (4.0.0)
       shoulda-context (~> 2.0)
@@ -517,11 +516,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.4.3)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     webrick (1.7.0)
     websocket (1.2.9)
     websocket-driver (0.7.5)
@@ -575,6 +569,7 @@ DEPENDENCIES
   htmltoword
   httparty
   jbuilder
+  jsbundling-rails
   jwt
   kaminari
   ledermann-rails-settings
@@ -614,7 +609,6 @@ DEPENDENCIES
   web-console
   webdrivers (~> 5.2)
   webmock
-  webpacker
   wicked_pdf
   wkhtmltopdf-binary
   yard
@@ -624,4 +618,4 @@ RUBY VERSION
    ruby 2.7.6p219
 
 BUNDLED WITH
-   2.3.25
+   2.4.3
