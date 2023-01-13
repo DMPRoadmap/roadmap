@@ -6,12 +6,14 @@
 @use "utils";
 
 // Pull in the webpacker managed copy of Bootstrap Stylesheets
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
-@import "../../../node_modules/bootstrap-select/sass/bootstrap-select.scss";
+@import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "bootstrap-select/sass/bootstrap-select.scss";
 
 // Pull in the webapcker managed copy of JQuery-UI Stylesheets
 // we are using the Datepicker and Sortable at the very least
-@import "../../../node_modules/jquery-ui-sass/assets/sass/jquery-ui.scss";
+@import "jquery-ui-sass/assets/sass/jquery-ui.scss";
 
-@import "font-awesome-sprockets";
-@import "font-awesome";
+$fa-font-path: '.';
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/solid';

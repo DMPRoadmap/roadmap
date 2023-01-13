@@ -161,16 +161,6 @@ gem 'api-pagination'
 # STYLESHEETS #
 # =========== #
 
-# Integrate SassC-Ruby into Rails. (https://github.com/sass/sassc-rails)
-gem 'sassc-rails'
-
-# Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
-gem 'font-awesome-sass', '~> 5'
-
-# Use webpack to manage app-like JavaScript modules in Rails
-# (https://github.com/rails/webpacker)
-# gem "webpacker"
-
 # Parse CSS and add vendor prefixes to CSS rules using values from the Can
 # I Use website. (https://github.com/ai/autoprefixer-rails)
 gem 'autoprefixer-rails'
