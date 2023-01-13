@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const erbLoader = require('./loaders/erb')
+const erbLoader = require('./loaders/erb');
 
 const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 

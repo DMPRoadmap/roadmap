@@ -23,14 +23,13 @@ gem 'mimemagic'
 # Use Puma as the app server
 gem 'puma', group: :puma, require: false
 
-# Use SCSS for stylesheets
-# TODO : might need to move to cssbundling-rails
-# SEE: https://dev.to/kolide/how-to-migrate-a-rails-6-app-from-sass-rails-to-cssbundling-rails-4l41
-gem 'sass-rails'
-
 # Use esbuild, rollup.js, or Webpack to bundle your JavaScript, then deliver it via the asset pipeline in Rails
 # Read more: https://github.com/rails/jsbundling-rails
 gem 'jsbundling-rails'
+
+# Use Tailwind CSS, Bootstrap, Bulma, PostCSS, or Dart Sass to bundle and process your CSS
+# Read more: https://github.com/rails/cssbundling-rails
+gem 'cssbundling-rails'
 
 # Turbo gives you the speed of a single-page web application without having to write any JavaScript..
 # Read more: https://github.com/hotwired/turbo-rails
