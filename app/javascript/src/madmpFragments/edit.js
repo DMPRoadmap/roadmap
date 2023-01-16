@@ -19,7 +19,7 @@ $(() => {
     } else {
       $(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`).html('');
       $(`#collapse-${questionId}-research-output-${researchOutputId} .runs-tab`).hide();
-      $(`a[href="#notes-${questionId}-research-output-${researchOutputId}"]`).tab('show');
+      // $(`a[href="#notes-${questionId}-research-output-${researchOutputId}"]`).tab('show');
     }
   };
 
@@ -65,7 +65,7 @@ $(() => {
       }).done((data) => {
         doneCallback(data, target);
         formLoadingCallback(data, target, 'write_plan');
-        target.find('.schema_picker').data('fragment-id', data.fragment_id);
+        target.find('.form_picker').data('fragment-id', data.fragment_id);
       }).fail((error) => {
         failCallback(error, target);
       });
@@ -88,13 +88,13 @@ $(() => {
 
   // When selecting a new form in the form selector, sends the new schema and
   // fragment id to the server
-  $(document).on('change', '.schema_picker', (e) => {
+  $(document).on('change', '.form_picker', (e) => {
     const target = $(e.target);
     const schemaId = target.val();
     const fragmentId = target.data('fragment-id');
     const form = target.parents('.question').find('.form-answer');
     $.ajax({
-      url: `/madmp_fragments/change_schema/${fragmentId}?schema_id=${schemaId}`,
+      url: `/madmp_fragments/change_form/${fragmentId}?schema_id=${schemaId}`,
       method: 'get',
       beforeSend: () => {
         showSavingMessage(form);

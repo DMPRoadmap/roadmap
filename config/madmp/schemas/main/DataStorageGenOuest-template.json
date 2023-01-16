@@ -87,7 +87,7 @@
                 ]
             },
             "minItems": 1,
-            "description": "Informations requises pour une demande de ressources de stockage au Genci (une par type de service)",
+            "description": "Informations requises pour une demande de ressources de stockage à GenOuest",
             "label@fr_FR": "Demande de ressources à GenOuest",
             "label@en_GB": "Request for GenOuest resources",
             "form_label@fr_FR": "Demande de ressources à GenOuest",
@@ -166,13 +166,20 @@
         "genOuestServiceRequest"
     ],
     "to_string": [],
-    "run": {
-        "script_id": 3,
-        "name": "Genouest_notifyer_v1",
-        "label@fr_FR": "Notifier GenOuest",
-        "label@en_GB": "Notify GenOuest",
-        "tooltip@fr_FR": "Envoie à une adresse mail GenOUest une demande d'allocation d'espace de stockage",
-        "tooltip@en_GB": "Sends to the GenOuest facility a query for storage space",
-        "oneshot": true
-    }
+    "run": [
+        {
+            "script_id": 3,
+            "name": "Genouest_notifyer_v1",
+            "label@fr_FR": "Notifier GenOuest",
+            "label@en_GB": "Notify GenOuest",
+            "tooltip@fr_FR": "Envoie à une adresse mail GenOuest une demande d'allocation d'espace de stockage",
+            "tooltip@en_GB": "Sends to the GenOuest facility a query for storage space",
+            "oneshot": true,
+            "params": {
+                "recipients": [
+                    "florian.mazur@inist.fr"
+                ]
+            }
+        }
+    ]
 }

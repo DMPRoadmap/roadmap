@@ -15,9 +15,9 @@ module Dmpopidor
         @filter_admin = params[:filter_admin] == '1'
 
         scope = if current_user.can_super_admin?
-                  ::User.includes(:roles)
+                  ::User.includes(:department, :org, :perms, :roles, :identifiers)
                 else
-                  current_user.org.users.includes(:roles)
+                  current_user.org.users.includes(:department, :org, :perms, :roles, :identifiers)
                 end
 
         scope = scope.joins(:perms).distinct if @filter_admin

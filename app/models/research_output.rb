@@ -43,6 +43,10 @@ class ResearchOutput < ApplicationRecord
   # --------------------------------
   # Start DMP OPIDoR Customization
   # --------------------------------
+  extend UniqueRandom
+
+  attribute :uuid, :string, default: -> { unique_uuid(field_name: 'uuid') }
+
   attr_accessor :skip_fragments_creation
 
   prepend Dmpopidor::ResearchOutput

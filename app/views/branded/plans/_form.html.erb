@@ -2,21 +2,12 @@
 <div class="row">
   <div class="col-md-12">
     <%= form_for Plan.new, url: plans_path do |f| %>
-    <!-- Plan name section -->
-      <h1 id="project-title">
-        <%= _('Project title') %>
-      </h1>
-    <div class="form-group row">
-      <div class="form-group col-xs-6">
-        <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 'aria-label': 'project-title',
-              'data-toggle': 'tooltip',
-              'data-original-title': _('If applying for funding, state the project title exactly as in the proposal.')) %>
-      </div>
-    </div>
-
     <div class="row">
       <div class="col-md-12">
-        <h1><%= _('Choose a template') %></h1>
+        <h1>
+          <%= @template_context.eql?(::Template.contexts[:research_structure]) ? _('Creating a research structure DMP: ') : _('Creating a research project DMP: ') %>
+          <%= _('Choose a template') %>
+        </h1>
         <p class="left-indent">
             <%= _('You can either choose a template provided by your organisation, another organisation or a funder template. The default template is ') %>
             <strong><%= @default_template.title + "." %></strong>
@@ -101,7 +92,7 @@
             <%= hidden_field_tag 'template-option-target', template_options_path %>
             <div class="form-group row">
               <div class="col-md-6">
-                <%= select_tag(:plan_template_id, "<option value=\"-1\">#{_('Please select a template')}</option>", name: 'plan[template_id]', class: 'form-control', 'aria-describedby': 'template-selection') %>
+                <%= select_tag(:plan_template_id, "<option value=\"-1\">#{_('Please select a template')}</option>", name: 'plan[template_id]', class: 'form-control', 'aria-labelledby': 'template-selection') %>
                 <span class="message-block" style=""><%= _('Please select a template from the list.') %></span>
               </div>
             </div>

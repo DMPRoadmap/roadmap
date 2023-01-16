@@ -1,6 +1,8 @@
 <% 
   plan_fragment = @plan.json_fragment
-  contributors = plan_fragment.contributors.order("data->>'lastName', data->>'firstName'")
+  contributors = plan_fragment.contributors.order(
+    Arel.sql("data->>'lastName', data->>'firstName'")
+  )
   costs = Fragment::Cost.where(dmp_id: plan_fragment.id)
   locale = LocaleService.to_gettext(locale: @plan.template.locale)
   template = @plan.template 
@@ -32,7 +34,7 @@
   </div>
 
   <% I18n.with_locale @plan.template.locale  do %>
-    <h2><%= _("Project Details") %></h2>
+    <h2><%= @plan.template.research_project? ? _("Project Details") : _("Structure Details") %></h2>
   <% end %>
   <div class="plan-details">
     <%= render(partial: 'shared/export/display_madmp_fragment', locals: {

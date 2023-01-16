@@ -6,13 +6,20 @@ RSpec.describe 'api/v1/madmp/plans', type: :request do
   path '/api/v1/madmp/plans/{id}' do
     # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'Plan identifier'
+    parameter name: 'export_format',
+              in: :query, type: :string,
+              description: 'Export format (standard/rda)',
+              required: true,
+              default: 'standard',
+              enum: %w[standard rda]
 
-    get('Export Plan in the Standard format') do
+    get('Export Plan in the Standard or RDA format') do
       tags 'Plans'
       produces 'application/json'
       security [Bearer: []]
       response(200, 'successful') do
         let(:id) { '123' }
+        let(:export_format) { 'standard' }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -26,15 +33,23 @@ RSpec.describe 'api/v1/madmp/plans', type: :request do
     end
   end
 
-  path '/api/v1/madmp/plans/{id}/rda_export' do
-    parameter name: 'id', in: :path, type: :string, description: 'Plan indentifier'
+  path '/api/v1/madmp/plans/research_outputs/{uuid}' do
+    # You'll want to customize the parameter types...
+    parameter name: 'uuid', in: :path, type: :string, description: 'ResearchOutput UUID'
+    parameter name: 'export_format',
+              in: :query, type: :string,
+              description: 'Export format (standard/rda)',
+              required: true,
+              default: 'standard',
+              enum: %w[standard rda]
 
-    get('Export Plan in the RDA Common Standard format') do
+    get('Export Plan, for a given research_output, in the Standard or RDA format') do
       tags 'Plans'
       produces 'application/json'
       security [Bearer: []]
       response(200, 'successful') do
-        let(:id) { '123' }
+        let(:uuid) { 'aa-22-aa-4444' }
+        let(:export_format) { 'standard' }
 
         after do |example|
           example.metadata[:response][:content] = {

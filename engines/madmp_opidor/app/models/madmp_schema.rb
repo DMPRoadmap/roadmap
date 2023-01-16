@@ -24,6 +24,7 @@ class MadmpSchema < ApplicationRecord
   include ValidationMessages
 
   belongs_to :org, required: false
+  belongs_to :api_client, required: false
   has_many :madmp_fragments
   has_many :questions
 
@@ -74,7 +75,7 @@ class MadmpSchema < ApplicationRecord
   }
 
   scope :paginable, lambda {
-    select(:id, :label, :name, :classname, :version)
+    select(:id, :label, :name, :classname, :api_client_id, :version)
   }
 
   # =================
@@ -137,8 +138,17 @@ class MadmpSchema < ApplicationRecord
     CLASSNAME_TO_PROPERTY[classname]
   end
 
-  def extract_run_parameters
-    schema['run'] || nil
+  def extract_run_parameters(script_id: nil)
+    return [] if schema['run'].nil?
+    return schema['run'] if script_id.nil?
+
+    schema['run'].find { |run| run['script_id'] == script_id.to_i } || {}
+  end
+
+  def run_parameters?
+    return false if schema['run'].nil?
+
+    true
   end
 
   def const_data(locale)

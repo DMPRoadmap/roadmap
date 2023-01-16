@@ -25,9 +25,9 @@ module Api
         def plans_for_client
           return [] unless @user.present?
 
-          ids = @user.plans.pluck(&:id)
-          ids += @user.org.plans.pluck(&:id) if @user.org.present?
-          ids
+          ids = @user.plans.pluck(:id)
+          ids += @user.org.plans.pluck(:id) if @user.org.present?
+          ids.uniq
         end
 
         def plans_for_user
@@ -36,7 +36,7 @@ module Api
           ids = @user.org.plans.organisationally_visible.pluck(:id)
           ids += @user.plans.pluck(:id)
           ids += @user.org.plans.pluck(:id) if @user.can_org_admin?
-          ids
+          ids.uniq
         end
 
         def initialize(client, plan)

@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_21_093836) do
+ActiveRecord::Schema.define(version: 2022_11_04_142346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,18 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "answers_question_options_answer_id_idx"
     t.index ["question_option_id"], name: "answers_question_options_question_option_id_idx"
+  end
+
+  create_table "api_client_roles", force: :cascade do |t|
+    t.integer "access", default: 0, null: false
+    t.bigint "api_client_id", null: false
+    t.bigint "plan_id", null: false
+    t.bigint "research_output_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["api_client_id"], name: "index_api_client_roles_on_api_client_id"
+    t.index ["plan_id"], name: "index_api_client_roles_on_plan_id"
+    t.index ["research_output_id"], name: "index_api_client_roles_on_research_output_id"
   end
 
   create_table "api_clients", id: :serial, force: :cascade do |t|
@@ -204,6 +216,8 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.string "classname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "api_client_id"
+    t.index ["api_client_id"], name: "index_madmp_schemas_on_api_client_id"
     t.index ["org_id"], name: "index_madmp_schemas_on_org_id"
   end
 
@@ -475,6 +489,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.boolean "sensitive_data"
     t.bigint "byte_size"
     t.bigint "license_id"
+    t.string "uuid"
     t.index ["license_id"], name: "index_research_outputs_on_license_id"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
   end
@@ -568,6 +583,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.boolean "archived"
     t.text "links"
     t.integer "type", default: 0, null: false
+    t.integer "context", default: 0, null: false
     t.index ["customization_of", "version", "org_id"], name: "templates_customization_of_version_org_id_key", unique: true
     t.index ["family_id", "version"], name: "templates_family_id_version_key", unique: true
     t.index ["org_id"], name: "templates_org_id_idx"
@@ -663,6 +679,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "madmp_fragments", "answers"
   add_foreign_key "madmp_fragments", "madmp_schemas"
+  add_foreign_key "madmp_schemas", "api_clients"
   add_foreign_key "madmp_schemas", "orgs"
   add_foreign_key "notes", "answers"
   add_foreign_key "notes", "users"

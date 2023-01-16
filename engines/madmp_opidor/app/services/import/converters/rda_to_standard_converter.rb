@@ -118,7 +118,6 @@ module Import
             metadata_list.append(
               {
                 'description' => elem['description'],
-                'metadataLanguage' => elem['language'],
                 'metadataStandardId' => elem.dig('metadata_standard_id', 'identifier'),
                 'idType' => elem.dig('metadata_standard_id', 'type')
               }
@@ -169,7 +168,9 @@ module Import
             hosts_list.append(
               {
                 'availability' => elem.dig('host', 'availability'),
-                'certification' => [elem.dig('host', 'certified_with')],
+                'certification' => if elem.dig('host', 'certified_with').present?
+                                     [elem.dig('host', 'certified_with')]
+                                   end,
                 'description' => elem.dig('host', 'description'),
                 'geoLocation' => elem.dig('host', 'geo_location'),
                 'pidSystem' => elem.dig('host', 'pid_system'),
@@ -231,7 +232,8 @@ module Import
                   'description' => if dataset['data_quality_assurance'].present?
                                      dataset['data_quality_assurance'].first
                                    end, # else nil in implied
-                  'metadataStandard' => convert_metadata(dataset['metadata'])
+                  'metadataStandard' => convert_metadata(dataset['metadata']),
+                  'metadataLanguage' => dataset['metadata'].present? ? dataset['metadata'].first['language'] : nil
                 },
                 'researchOutputDescription' => {
                   'datasetId' => dataset.dig('dataset_id', 'identifier'),

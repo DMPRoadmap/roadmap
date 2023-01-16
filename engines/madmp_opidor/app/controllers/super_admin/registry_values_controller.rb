@@ -14,7 +14,7 @@ module SuperAdmin
       @registry_value = RegistryValue.find(params[:id])
       @registry = @registry_value.registry
       authorize(@registry)
-      if @registry_value.update_attributes(permitted_params)
+      if @registry_value.update(permitted_params)
         @registry_value.update(data: JSON.parse(permitted_params[:data]))
         flash.now[:notice] = success_message(@registry_value, _('updated'))
       else

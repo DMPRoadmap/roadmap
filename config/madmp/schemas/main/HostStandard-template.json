@@ -44,15 +44,18 @@
             "form_label@en_GB": "Geo location (country)"
         },
         "certification": {
-            "type": "string",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
             "description": "Certifications (CoreTrustSEal, DSA, WDS, ISO-9001, …)",
             "inputType": "dropdown",
             "label@fr_FR": "Certification",
             "label@en_GB": "Certification",
             "registry_name": "Certification",
             "overridable": true,
-            "form_label@fr_FR": "Certification",
-            "form_label@en_GB": "Certification"
+            "form_label@fr_FR": "Certification/Label qualité",
+            "form_label@en_GB": "Certification/Quality label"
         },
         "pidSystem": {
             "type": "array",
@@ -91,10 +94,12 @@
             "items": {
                 "type": "string"
             },
-            "minItems": 1,
             "description": "Standard(s) de métadonnées disponible(s)",
+            "inputType": "dropdown",
             "label@fr_FR": "Standards de métadonnées disponibles",
             "label@en_GB": "Available metadata standards",
+            "registry_name": "StandardsShort",
+            "overridable": true,
             "form_label@fr_FR": "Standards de métadonnées disponibles",
             "form_label@en_GB": "Available metadata standards"
         }
@@ -104,10 +109,11 @@
         "hostId",
         "idType",
         "geoLocation",
-        "hasVersioningPolicy",
-        "metadataStandard"
+        "hasVersioningPolicy"
     ],
     "to_string": [
-        "$.title"
+        "$.title",
+        " : ",
+        "$.hostId"
     ]
 }

@@ -42,7 +42,7 @@ module OrgAdmin
       # --------------------------------
       # End DMP OPIDoR Customization
       # --------------------------------
-      if @user.update_attributes(user_params)
+      if @user.update(user_params)
         flash.now[:notice] = success_message(@user, _('updated'))
       else
         flash.now[:alert] = failure_message(@user, _('update'))

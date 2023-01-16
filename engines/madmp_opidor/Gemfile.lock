@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     madmp_opidor (0.1.0)
+      activerecord-import (~> 1.4.0)
       jsonpath (~> 1.1.0)
       pundit (~> 2.2.0)
       rails (~> 6.1, >= 6.1.6.1)

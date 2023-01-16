@@ -1,5 +1,10 @@
 [
     {
+        "path": "BackupPolicyGenci-template.json",
+        "classname": "backup_policy",
+        "question_id": null
+    },
+    {
         "path": "BackupPolicyGenOuest-template.json",
         "classname": "backup_policy",
         "question_id": null
@@ -22,6 +27,11 @@
     {
         "path": "ControlledKeywordStandard-template.json",
         "classname": "controlled_keyword",
+        "question_id": null
+    },
+    {
+        "path": "CostGenci-template.json",
+        "classname": "cost",
         "question_id": null
     },
     {
@@ -95,6 +105,11 @@
         "question_id": null
     },
     {
+        "path": "DataStorageGenci-template.json",
+        "classname": "data_storage",
+        "question_id": null
+    },
+    {
         "path": "DataStorageGenOuest-template.json",
         "classname": "data_storage",
         "question_id": null
@@ -147,6 +162,21 @@
     {
         "path": "FundingStandard-template.json",
         "classname": "funding",
+        "question_id": null
+    },
+    {
+        "path": "GenciRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "GenciServiceRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "GenciStatus-template.json",
+        "classname": "specific_data",
         "question_id": null
     },
     {
@@ -265,6 +295,11 @@
         "question_id": null
     },
     {
+        "path": "TechnicalResourceGenci-template.json",
+        "classname": "technical_resource",
+        "question_id": null
+    },
+    {
         "path": "TechnicalResourceGenOuest-template.json",
         "classname": "technical_resource",
         "question_id": null
@@ -272,6 +307,31 @@
     {
         "path": "TechnicalResourceStandard-template.json",
         "classname": "technical_resource",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageMesoatLR-template.json",
+        "classname": "data_storage",
+        "question_id": null
+    },
+    {
+        "path": "BackupPolicyMesoatLR-template.json",
+        "classname": "backup_policy",
+        "question_id": null
+    },
+    {
+        "path": "TechnicalResourceMesoatLR-template.json",
+        "classname": "technical_resource",
+        "question_id": null
+    },
+    {
+        "path": "MesoatLRServiceRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "CostMesoatLR-template.json",
+        "classname": "cost",
         "question_id": null
     }
 ]

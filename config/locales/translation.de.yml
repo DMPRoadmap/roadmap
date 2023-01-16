@@ -117,6 +117,15 @@ de:
           konnte:"
       model_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
       required: muss ausgefüllt werden
+    unavailable_session: "Session %{id} ist nicht mehr im Arbeitsspeicher verfügbar.
+      \n\nSollte Ihr System auf einem Multi-Process-Server (wie Unicorn oder Puma)
+      laufen, dann speichert der Prozess, den diese Anfrage ansteuert, keine %{id}
+      im Arbeitspeicher. Sie sollten die Anzahl der Prozesse/Arbeiter auf eins (1)
+      setzen oder einen anderen Server für die Entwicklung verwenden."
+    unacceptable_request: " Im Accept-Header wird eine unterstützte Version erwartet."
+    connection_refused: |-
+      Ups! Konnte keine Verbindung zur Web-Console-Middleware herstellen.
+      Bitte stellen Sie sicher, dass ein Rails-Development-Server läuft.
     template:
       body: 'Bei den folgenden Feldern gibt es Unstimmigkeiten:'
       header:

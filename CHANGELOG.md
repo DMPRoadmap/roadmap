@@ -2,80 +2,80 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 05/12/2022
+- DMPRoadmap V4.0.1 : https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.1 
+- Amélioration de l'accessibilité des formulaires dynamiques
+- Export RDA : Ajout du convertisseur pour 'Crossref Funder ID' ver 'fundref' (issue gitbucket 449)
+- Le volet Recommandations est bien ouvert par défaut, dans le cas où il existe des recommandations (issue gitbucket 457)
+- Ajout d'une signature "light" au mail de notification de création/mise à jourd d'un client API (issue gitbucket 448)
 
-## 11/10/2022
-- Import RDA : 
-  - Correction d'un problème de mise en majuscule des valeurs yes/no
-- Export RDA : 
-  - `data_quality_assurance` utilise désormais QualityAssuranceMethodStandard/description ainsi que DocumentationQuality/description (issue gitbucket 399)
-  - Correction du format datetime iso8601 (issue gitbucket 399)
+## 24/11/2022
+- Le mail d'ajout de commentaires s'adresse désormais bien au contributeurs du plan et plus au propriétaire (issue gitbucket 448)
+- Correction du problème affectat l'adresse mail d'envoi du mail de complétion d'assistance/conseil. Auparavant l'application essayait d'envoyer le message avec l'adresse de contact de l'organisme, provocant des rejets du serveur mail hébergeant l'adresse.
+-  Amélioration de l'affichage du formulaire de choix des recommandations, pour les organismes n'ayant qu'un groupe de recommandations.
 
-## 10/10/2022
-- Export RDA : 
-  - `data_quality_assurance` utilise désormais QualityAssuranceMethodStandard/description (issue gitbucket 399)
-  - Ajout d'un convertisseur vers le format datetime iso8601 (issue gitbucket 413)
-  - Ajout de l'export du champ `issuedDate` (issue gitbucket 419)
-  - Les données de `host` sont désormais bien exportées si aucune `distribution` n'est déclarée (issue gitbucket 439)
-- Import RDA : 
-  - Correction d'un problème d'export de `hostId`et `versioningPolicy` de Host (issue gitbucket 414)
-  - Correction d'un problème d'import des champs yes/no : les champs ont désormais leur première lettre mise en majuscule 
-  - Ajout de l'import du champ `issued` (issue gitbucket 419)
+## 22/11/2022
+- Ajout d'une ligne blanche lors de la sélection du Client API lié à un MadmpSchema, permettant de retirer le client lié au schéma (issue gitbucket 450)
+- La création d'un plan Structure ne crée plus de PrincipalInvestigator (issue gitbucket 454)
 
-## 04/10/2022
-- Export RDA : Correction d'un problème survenant lorsque le `host` sélectionne n'a pas de `pidSystem` (issue gitbucket 437)
+## 21/11/2022
+- Export RDA : correction d'un problème de conversion de la certification (issue gitbucket 446)
+- Correction d'un problème de rafraichissement des listes de contributeurs pour les formulaires contenant plusieurs listes de contributeurs
+- Le mail d'ajout de commentaires s'envoit désormais à tous les contributeurs du plan (issue gitbucket 448)
+- Client API :
+  - Il n'est désormais plus possible de supprimer un client rattaché à un formulaire (issue gitbucket 450) 
+  - Amélioration du mail de création/modification d'un client  (issue gitbucket 451)
 
-## 03/10/2022
-- Export RDA : Correction d'un problème survenant lorsque l'unité de volume de la distribution n'est pas renseigné (issue gitbucket 437)
-- Ajout du nombre d'utilisateurs actifs dans la liste des utilisateurs disponible pour les Admin/SuperAdmin
+## 10/11/2022
+- Remplacement du logo de l'application par sa version vectorisée
+- Suppression du titre à la création d'un plan
 
-## 29/09/2022
-- Export RDA : Amélioration des convertisseurs (issue gitbucket 428)
-- Import RDA : Ajout d'un volumeUnit par défaut (issue gitbucket 388)
-- Correction d'un problème d'archivage des utilisateurs (issue gitbucket 376)
-- Export PDF/DOCX : Les libellés et entêtes des tableaux Produits de Recherche, Contributeurs et Budget sont affichés dans la langue du DMP (issue gitbucket 347)
+## Plan de Structure
+- Ajout de champ `context`à la table 'templates`
+- Ajout du choix du contexte (Research project ou Research Structure) au Modèle de DMP
+- Pour les plans créés à partir d'un modèle "Research Structure", le formulaire Projet est remplacé par le formulaire Structure
+- Par défaut un Modèle concerne un Projet de Recherche
+- Modification du menu de création de plan pour ajouter le choix du Plan Structure de Recherche
 
-## 23/09/2022
-- Amélioration du message de notification de changement de visibilité (issue gitbucket 420)
-- Le lien vers le swagger est désormais dans le pied de page
-- Correction d'un problème d'affichage du mail d'assistance dans la signature des emails de notification
-- Import RDA
-  - Ajout de convertisseurs pour les données provenants de référentiels (issue gitbucket 428)
-  - Seule la première valeur est importée pour `security_and_privacy`, `distribution/format`, `license` et `data_quality_assurance`
-- Export RDA
-  - Ajout d'un convertisseur pour les volumes des fichiers (bytes_size)
-- Amélioration du chargement des référentiels
-  - Utilisation de la librairie ActiveRecord-Import qui permet d'insérer plusieurs lignes à la fois. Les temps de chargement des référentiels sont gradement réduits.
-  - Retrait de la possibilité d'ajout d'une valeur dans un référentiel, le chargement d'un fichier est préférée
-  - Remplacement du bouton "Créer valeur" par "Editer Référentiel"
+Bugs connus et améliorations à venir : 
+- Bug : Création d'un PrincipalInvestigator pour les plans Structure de Recherche
+- Bug : Problème d'affichage des listes de StructureManager & DataSteward lors de l'ajout d'un nouveau contributeur dans l'une de ces listes. C'est un problème visuel, il disparait au rechargement de la page
+- A améliorer : Déplacer le choix entre Plan Projet et Structure dans le formulaire de création de plan.
 
-## 09/09/2022
-- Swagger : Ajout d'un message indiquant à l'utilisateur de s'authentifier. Les valeurs par défaut de la route /authenticate sont celle de l'autentification utilisateur (auparavant Client)
-- Amélioration de l'archivage automatique des utilisateurs après 5 ans. Seuls les utilisateurs actifs sont concernés. Le traitement devrait désormais bien archiver les comptes non connectés depuis plus de 5 ans.
-- Import RDA : 
-  - distribution/format (tableau) est désormais bien transformé en chaine de caractères (issue gitbucket 423)
-  - security_and_privacy ne devrait plus provoquer d'erreur lors de l'import. Les données sont tranformées en chaine de caractères (issue gitbucket 423)
-  - data_quality_assurance est désormais importé sans les crochets (issue gitbucket 423)
-- Export RDA : 
-  - distribution/format renvoit bien un tableau vide lors que le format est absent (issue gitbucket 424)
-  - data_quality_assurance renvoit désormais un tableau vide si aucune description n'est forunée dans DocumentationQuality (issue gitbucket 423)
-  - Correction d'un problème affectant l'export RDA par API
 
-## 08/08/2022
-Ces modifiations pourront faire l'objet d'une mise à jour corrective à mon retour.
-- Import RDA : un entrepôt vide n'est plus créé lorsque la donnée n'est pas présente dans le fichier d'import (issue gitbucket 424)
-- Reactivation du CATCHA, à valider en VI (issue gitbucket 427)
-- Correction du problème d'enregistrement des données organismes causée par un mauvais paramétrage de l'éditeur suite à sa mise à jour. (issue gitbucket 425)
+## 04/11/2022
+- Correction d'un problème de récupération des paramètres des boutons Runs dans les schemas, provocant un plantage lors de l'utilisation des boutons
+- Ajout de l'affichage du champ `uuid` dans l'onglet Produit de Recherche, avec un bouton permettant de copier la valeur du champ.
+- API Plans: 
+  - Suppression de l'option `research_outputs=` de la route `/api/v1/plans/:id`, on ne peut désormais qu'un (voir point suivant) ou tous les produits de recherche du plan.
+  - Ajout de la route `/api/v1/plans/research_outputs/:uuid` permettant de recupérer un plan limité au contenu du produit de recherche associé à l'UUID passé en paramètre.
+  - Lorsqu'un ClientAPI interroge la route `/api/v1/plans/research_outputs/:uuid`, un droit en lecture lui est automatiquement attribué sur le plan.
+  - Mise à jour de la documentation Swagger
 
-## 07/07/2022
-- Correction de l'ordre d'affichage des plans visibilité Organisme dans le tableau de bord (issue gitbucket 417)
-- Correction de la langue d'affichage des formulaires de création/edition dans l'onglet Produits de Recherche
-- Correction de l'ordre d'affichage des produits de recherche dans l'export PDF/DOCX
-- Affichage des questions dans les DMP publics (issue gitbucket 387)
-- Import RDA : 
-  - Correction du bug se produisant quand `"project": []` (issue gitbucket 416)
-  - Correction du mauvais formatage des licences, distribution/format, data_quality_assurance, security_and_privacy (issue gitbucket 407)
+## 27/10/2022
+- DMPRoadmap V4.0.0 : https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.0
+- Correction d'un problème empéchant le téléchargement des plans et l'accès à l'onglet Contributeurs
+- Import/Export RDA : 
+  - Correction d'un problème d'import de la certification du Host 
+  - Correction d'un problème d'export de la propriété `docIdentifier`présente dans `EthicalResources/ResourceReference`
 
-## 28/06/2022
-- Ajout de la documentation d'API sous forme de Swagger
-  - Accessible par l'URL `/api-docs`
-  - Accessible par le lien "API Docs" présent dans le bandeau de navigation pour les utilisateurs connectés ayant le droit d'utiliser l'API
+## 25/10/2022
+- Correction d'un bug affectant le champ `visibility` des Plans et Modèles de Plans
+- Import/Export RDA : Amélioration de l'import/export de `metadataLanguage`
+- Amélioration des notifications d'archivage des comptes non connecté depuis 5 ans
+
+## 14/10/2022
+- Ajout du champ `uuid` aux produits de recherche. Ce champ est généré automatiquement et sert d'identifiant unique au produit de recherche.
+
+### Gestion des droits d'accès aux plans pour les clients API
+
+- Ajout d'un sélecteur du client API dans le formulaire de création/modification des Schémas. Il permet d'indiquer qu'un formulaire appartient à un client
+- Ajout d'une interface de gestion des accès au plan par les clients dans l'onglet Partager (Gestion des Applications tierces). L'utilisateur peut ajouter au retirer l'accès au plan à un client (en lecture seulement pour le moment). Par défaut l'interface est cachée, à la manière des questions.
+- Lorsqu'un formulaire est lié à un client et que l'utilisateur clique sur un bouton Notification, un droit d'accès en lecture est attribué, sur le plan, au client lié au formulaire.
+- Lorsqu'un client interroge l'API Plans avec l'`uuid` d'un produit de recherche (voir ci-dessous), un droit d'accès en lecture lui est automatiquement attribué. On considère qu'en partageant l'UUID de son produit, le client a donné un accord implicite de lecture de son plan.
+
+### API Plans
+- Suppression de la route `/api/v1/madmp/plans/:id/rda_export`, désormais remplacée par une option `export_format`
+
+### Mise à jour roadmap
+- Mise à jour vers Ruby 2.7 et Rails 6 depuis la branche `development`du dépot Roadmap.

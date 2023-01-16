@@ -109,7 +109,7 @@ RSpec.describe GuidancesController, type: :controller do
       expect(@guidance.reload.published?).to eql(true)
     end
     it 'fails' do
-      Guidance.any_instance.stubs(:update_attributes).returns(false)
+      Guidance.any_instance.stubs(:update).returns(false)
       args = { published: false }
       put :admin_publish, params: { id: @guidance.id, guidance: args }
       expect(response).to redirect_to(admin_index_guidance_path)
@@ -137,7 +137,7 @@ RSpec.describe GuidancesController, type: :controller do
       expect(@guidance.reload.published?).to eql(false)
     end
     it 'fails' do
-      Guidance.any_instance.stubs(:update_attributes).returns(false)
+      Guidance.any_instance.stubs(:update).returns(false)
       args = { published: true }
       put :admin_unpublish, params: { id: @guidance.id, guidance: args }
       expect(response).to redirect_to(admin_index_guidance_path)

@@ -41,6 +41,13 @@ module Dmpopidor
         @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s) }
       end
 
+      # Added contributors to coverage of plans.
+      # Users will see both roles and contributor names if the role is filled
+      # @hash[:data_curation] = Contributor.where(plan_id: @plan.id).data_curation
+      # @hash[:investigation] = Contributor.where(plan_id: @plan.id).investigation
+      # @hash[:pa] = Contributor.where(plan_id: @plan.id).project_administration
+      # @hash[:other] = Contributor.where(plan_id: @plan.id).other
+
       if params.key?(:research_outputs)
         @hash[:research_outputs] = @hash[:research_outputs].order(display_order: :asc).select do |d|
           params[:research_outputs].include?(d[:id].to_s)

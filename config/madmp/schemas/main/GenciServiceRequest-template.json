@@ -51,20 +51,18 @@
         "amount": {
             "type": "number",
             "description": "Coût du service",
-            "label@fr_FR": "Coût du service (calcul automatique)",
-            "label@en_GB": "Cost of the service (automatic calculation)",
-            "form_label@fr_FR": "Coût du service",
-            "form_label@en_GB": "Cost of the service"
+            "label@fr_FR": "Coût du service  (coût calculé automatiquement)",
+            "label@en_GB": "Cost of the service (automatically calculated cost)",
+            "form_label@fr_FR": "Coût du service (coût calculé automatiquement)",
+            "form_label@en_GB": "Cost of the service (automatic calculation)"
         },
         "currency": {
             "type": "string",
             "description": "Monnaie dans laquelle ce coût est exprimé (Référentiel des monnaies. (Voir ISO 4217))",
-            "inputType": "dropdown",
             "label@fr_FR": "Devise",
             "label@en_GB": "Currency",
-            "registry_name": "ISO4217",
-            "default@fr_FR": "EUR",
-            "default@en_GB": "EUR",
+            "const@fr_FR": "EUR",
+            "const@en_GB": "EUR",
             "form_label@fr_FR": "Devise",
             "form_label@en_GB": "Currency"
         }

@@ -56,10 +56,10 @@
                 ]
             },
             "minItems": 1,
-            "description": "Informations requises pour une demande de ressources de stockage au Genci (une par type de service)",
-            "label@fr_FR": "Demande de ressources de stockage au GENCI",
+            "description": "Informations requises pour une demande de ressources de stockage chez Genci (une par type de service)",
+            "label@fr_FR": "Demande de ressources de stockage chez GENCI",
             "label@en_GB": "Request for storage resources from GENCI",
-            "form_label@fr_FR": "Demande de ressources de stockage au GENCI",
+            "form_label@fr_FR": "Demande de ressources de stockage chez GENCI",
             "form_label@en_GB": "Request for storage resources from GENCI"
         },
         "backupPolicy": {
@@ -89,19 +89,19 @@
         "securityMeasures": {
             "type": "string",
             "description": "Description des mesures prises pour assurer la sécurité des données",
-            "inputType": "textarea",
             "label@fr_FR": "Mesures de sécurité",
             "label@en_GB": "Security measures",
             "example@fr_FR": "Les données étant précieuses car impossibles ou coûteuses à reproduire, une copie des données sur une autre cassette est requise.",
             "example@en_GB": "Since the data is valuable because it is impossible or expensive to reproduce, a copy of the data on another tape is required",
+            "hidden": true,
             "form_label@fr_FR": "Mesures de sécurité",
             "form_label@en_GB": "Security measures"
         },
         "estimatedVolume": {
             "type": "number",
             "description": "Volume total des données stockées dans les différents centres gérés par le Genci",
-            "label@fr_FR": "Volume total des données (calcul automatique)",
-            "label@en_GB": "Total data volume (Automatic  calculation)",
+            "label@fr_FR": "Volume total des données (volume calculé automatiquement)",
+            "label@en_GB": "Total data volume (automatically calculated volume)",
             "form_label@fr_FR": "Volume total des données (calcul automatique)",
             "form_label@en_GB": "Total data volume (Automatic  calculation)"
         },
@@ -133,9 +133,9 @@
                 ]
             },
             "description": "Coût total des données stockées dans les différents centres gérés par le Genci",
-            "label@fr_FR": "Coût total de stockage (calcul automatique)",
-            "label@en_GB": "Total cost of storage (automatic calculation)",
-            "form_label@fr_FR": "Coût total de stockage (calcul automatique)",
+            "label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
+            "label@en_GB": "Total cost of storage (automatically calculated cost)",
+            "form_label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
             "form_label@en_GB": "Total cost of storage (Automatic calculation)"
         },
         "contributor": {
@@ -183,7 +183,13 @@
             "label@en_GB": "Notify Genci",
             "tooltip@fr_FR": "Envoie à une adresse mail Genci une demande de ressources de stockage",
             "tooltip@en_GB": "Sends to the Genci facility a query for storage space",
-            "oneshot": true
+            "params": {
+                "recipients": [
+                    "florian.mazur@inist.fr",
+                    "anne.busin@inist.fr",
+                    "francoise.cosserat@inist.fr"
+                ]
+            }
         }
     ]
 }

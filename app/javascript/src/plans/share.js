@@ -31,4 +31,10 @@ $(() => {
         notifier.renderAlert(`${xhr.statusCode} - ${xhr.statusText}`);
       }
     });
+
+  $('body').on('click', '.share-form .heading-button', (e) => {
+    $(e.currentTarget)
+      .find('i.fa-chevron-right, i.fa-chevron-down')
+      .toggleClass('fa-chevron-right fa-chevron-down');
+  });
 });

@@ -15,6 +15,7 @@ RSpec.describe Department, type: :model do
       subject = create(:department, org_id: org.id)
       expect(subject).to validate_uniqueness_of(:name)
         .scoped_to(:org_id)
+        .case_insensitive
         .with_message('must be unique')
     end
   end

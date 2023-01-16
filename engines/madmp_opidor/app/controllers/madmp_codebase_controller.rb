@@ -5,16 +5,13 @@ class MadmpCodebaseController < ApplicationController
   after_action :verify_authorized
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def run
     fragment = MadmpFragment.find(params[:fragment_id])
-    schema_runs = fragment.madmp_schema.extract_run_parameters
     script_id = params[:script_id]
-    params = if schema_runs.is_a?(Array)
-               schema_runs.find { |run| run['script_id'] == script_id.to_i }['params'] || {}
-             else
-               schema_runs['params'] || {}
-             end
+    schema_run = fragment.madmp_schema.extract_run_parameters(script_id: script_id)
+    script_name = schema_run['name'] || ''
+    script_params = schema_run['params'] || {}
 
     authorize fragment
 
@@ -26,8 +23,9 @@ class MadmpCodebaseController < ApplicationController
     #   "message" => _('New data have been added to your plan, please click on the "Reload" button.')
     # }, status: 200
     # return
+    fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.include?('notifyer')
     begin
-      response = fetch_run_data(fragment, script_id, params: params)
+      response = fetch_run_data(fragment, script_id, params: script_params)
       if response['return_code'].eql?(0)
         if response['data'].empty?
           render json: {
@@ -55,7 +53,7 @@ class MadmpCodebaseController < ApplicationController
       }, status: 500
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

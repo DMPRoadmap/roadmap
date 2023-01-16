@@ -7,53 +7,39 @@ module Api
       class PlansController < BaseApiController
         respond_to :json
         include MadmpExportHelper
-        # GET /api/v1/madmp/plans/:id
-        # rubocop:disable Metrics/AbcSize
+        # GET /api/v1/madmp/plans/:id(/research_outputs/:uuid)
+        # GET /api/v1/madmp/plans/research_outputs/:uuid
+        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         def show
-          plan = Plan.find(params[:id])
-          plan_fragment = plan.json_fragment
-          selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
-          # check if the user has permissions to use the API
-          unless Api::V1::Madmp::PlansPolicy.new(client, plan).show?
-            render_error(errors: 'Unauthorized to access plan', status: :unauthorized)
-            return
+          if params[:id].present?
+            plan = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve.find(params[:id])
+            selected_research_outputs = plan.research_output_ids
+          else
+            plan = Plan.joins(:research_outputs)
+                       .where(research_outputs: { uuid: params[:uuid] }).first
+            plan.add_api_client!(client) if client.is_a?(ApiClient)
+            selected_research_outputs = plan.research_outputs.where(uuid: params[:uuid]).pluck(:id)
           end
 
+          plan_fragment = plan.json_fragment
+          export_format = params[:export_format]
           respond_to do |format|
             format.json
-            render 'shared/export/madmp_export_templates/default/plan', locals: {
-              dmp: plan_fragment, selected_research_outputs: selected_research_outputs
-            }
+            if export_format.eql?('rda')
+              render 'shared/export/madmp_export_templates/rda/plan', locals: {
+                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+              }
+            else
+              render 'shared/export/madmp_export_templates/default/plan', locals: {
+                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+              }
+            end
             return
           end
         rescue ActiveRecord::RecordNotFound
           render_error(errors: [_('Plan not found')], status: :not_found)
         end
-        # rubocop:enable Metrics/AbcSize
-
-        # GET /api/v1/madmp/plans/:id/rda_export
-        # rubocop:disable Metrics/AbcSize
-        def rda_export
-          plan = Plan.find(params[:id])
-          plan_fragment = plan.json_fragment
-          selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
-          # check if the user has permissions to use the API
-          unless Api::V1::Madmp::PlansPolicy.new(client, plan).rda_export?
-            render_error(errors: 'Unauthorized to access plan', status: :unauthorized)
-            return
-          end
-
-          respond_to do |format|
-            format.json
-            render 'shared/export/madmp_export_templates/rda/plan', locals: {
-              dmp: plan_fragment, selected_research_outputs: selected_research_outputs
-            }
-            return
-          end
-        rescue ActiveRecord::RecordNotFound
-          render_error(errors: [_('Plan not found')], status: :not_found)
-        end
-        # rubocop:enable Metrics/AbcSize
+        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

@@ -1,0 +1,169 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataStorageMesoatLR",
+    "description": "DataStorageMesoatLR template",
+    "type": "object",
+    "class": "DataStorageMesoatLR",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des besoins de stockage",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResourceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceMesoatLR",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
+            "label@fr_FR": "Identification de la ressource",
+            "label@en_GB": "Resource identification",
+            "form_label@fr_FR": "Identification de MESO@LR",
+            "form_label@en_GB": "MESO@LR identification"
+        },
+        "mesoatLRServiceRequest": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "MesoatLRServiceRequest",
+            "required": [
+                "dbid"
+            ],
+            "description": "Informations requises pour une demande de ressources de stockage et calcul auprès du MESO@LR",
+            "label@fr_FR": "Demande de ressources à MESO@LR (en To)",
+            "label@en_GB": "Request for resources from MESO@LR (in TB)",
+            "form_label@fr_FR": "Demande de ressources de stockage et calcul à MESO@LR (en To)",
+            "form_label@en_GB": "Request for storage and compute resources from MESO@LR (in TB)"
+        },
+        "backupPolicy": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "BackupPolicyStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "BackupPolicyMesoatLR",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy",
+            "form_label@fr_FR": "Politique de sauvegarde de MESO@LR",
+            "form_label@en_GB": "MESO@LR backup policy"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures",
+            "const@fr_FR": "L’offre de service propose la réplication des données, cette copie conforme se situe dans une salle distance du stockage primaire. Complémentaire à cette réplication, la possibilité d’avoir des snapshots selon la politique choisie offre une excellente protection contre les ransomwares. La connexion se fait selon votre solution d’authentification souhaitée : Active Directory ou LDAP, sinon par le LDAP de Meso. Le Mésocentre n'est pas encore habilité à recevoir des données de santé.",
+            "const@en_GB": "The service offers data replication, this exact copy is located in a room remote from the primary storage. Complementary to this replication, the possibility of having snapshots according to the chosen policy offers excellent protection against ransomware. The connection is made according to your desired authentication solution: Active Directory or LDAP, otherwise by Meso's LDAP. The Mesocentre is not yet authorized to receive health data.",
+            "form_label@fr_FR": "Mesures de sécurité",
+            "form_label@en_GB": "Security measures"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostMesoatLR",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coût total des données stockées à MESO@LR",
+            "label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
+            "label@en_GB": "Total cost of storage (automatically calculated cost)",
+            "form_label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
+            "form_label@en_GB": "Total cost of storage (Automatic calculation)"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataStorageManager",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "label@fr_FR": "Personne en charge de la gestion du stockage des données",
+            "label@en_GB": "Person in charge of  data storage management",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Personne en charge de la gestion du stockage des données",
+            "form_label@en_GB": "Person in charge of  data storage management"
+        }
+    },
+    "required": [
+        "description",
+        "mesoatLRServiceRequest"
+    ],
+    "to_string": [],
+    "run": [
+        {
+            "script_id": 6,
+            "name": "mesoAtLR_storage_cost_computer_v1",
+            "label@fr_FR": "Calculer le coût de stockage",
+            "label@en_GB": "Compute data storage cost",
+            "tooltip@fr_FR": "Les tarifs de stockage (en HT) du mésocentre sont soumis aux conditions générales de vente de l'Université de Montpellier : https://meso-lr.umontpellier.fr/wp-content/uploads/2019/04/CGV_UM-FR_201904.pdf",
+            "tooltip@en_GB": "The storage prices (excluding VAT) of the mesocentre are subject to the general conditions of sale of the University of Montpellier : https://meso-lr.umontpellier.fr/wp-content/uploads/2019/04/CGV_UM-FR_201904.pdf"
+        },
+        {
+            "script_id": 7,
+            "name": "mesoatlr_notifyer_v1",
+            "label@fr_FR": "Notifier MESO@LR",
+            "label@en_GB": "Notify MESO@LR",
+            "tooltip@fr_FR": "Envoie une demande d'espace de stockage par mail au contact de MESO@LR",
+            "tooltip@en_GB": "Sends a request for storage space by email to the MESO@LR contact",
+            "params": {
+                "recipients": [
+                    "marie-christine.jacquemot@inist.fr",
+                    "anne.busin@inist.fr",
+                    "francoise.cosserat@inist.fr"
+                ]
+            }
+        }
+    ]
+}

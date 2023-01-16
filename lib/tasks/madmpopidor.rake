@@ -17,6 +17,22 @@ namespace :madmpopidor do
     p 'Upgrade complete'
   end
 
+  desc 'Upgrade to v3.4.0'
+  task v3_4_0: :environment do
+    p 'Upgrading to DMP OPIDoR v3.4.0'
+    p '------------------------------------------------------------------------'
+    Rake::Task['madmpopidor:initialize_research_ouputs_uuid'].execute
+    p '------------------------------------------------------------------------'
+    p 'Upgrade complete'
+  end
+
+  desc 'Initialize research outputs UUID'
+  task initialize_research_ouputs_uuid: :environment do
+    p 'Creating research outputs UUID...'
+    ResearchOutput.all.each(&:generate_uuid!)
+    p 'Done.'
+  end
+
   desc 'Initialize Dmp, Project, Meta & ResearchOutputs JSON fragments for the ancient plans'
   task initialize_plan_fragments: :environment do
     p 'Creating plans fragments...'

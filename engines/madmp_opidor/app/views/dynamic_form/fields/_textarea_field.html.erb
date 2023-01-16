@@ -16,6 +16,7 @@
             value: field_value, 
             class: "form-control #{field_class} tinymce tinymce_answer",
             type: input_type,
+            aria: { label: field_label, labelledby: field_id },
             id: field_id %>
   <% end %>
 </div>

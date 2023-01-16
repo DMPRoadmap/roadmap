@@ -42,8 +42,8 @@
             "description": "Libellé du coût",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
-            "const@fr_FR": "Estimation du coût de stockage",
-            "const@en_GB": "Estimated cost of storage",
+            "const@fr_FR": "Estimation du coût de stockage auprès des centres nationaux de GENCI",
+            "const@en_GB": "Estimated cost of storage at GENCI's national centres",
             "form_label@fr_FR": "Titre",
             "form_label@en_GB": "Title"
         }

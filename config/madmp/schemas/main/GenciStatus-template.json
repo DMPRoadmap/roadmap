@@ -8,6 +8,8 @@
     "properties": {
         "dataSize": {
             "type": "number",
+            "exclusiveMinimum": "0",
+            "exclusiveMaximum": "100",
             "description": "Volume des données concernées en octets",
             "label@fr_FR": "Taille des données",
             "label@en_GB": "Data size",
