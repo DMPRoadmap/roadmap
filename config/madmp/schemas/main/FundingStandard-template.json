@@ -34,7 +34,7 @@
             "description": "Identifiant du financement (convention de financement)",
             "label@fr_FR": "Identifiant du financement",
             "label@en_GB": "Grant Identifier",
-            "tooltip@fr_FR": "Aussi appelé Code de décision, Identifiant de la convention de subvention, Numéro de la convention de subvention, Numéro de subvention",
+            "tooltip@fr_FR": "Aussi appelé Code décision, Identifiant de la convention de subvention, Numéro de la convention de subvention, Numéro de subvention",
             "tooltip@en_GB": "Also called Decision code, Grant agreement ID, Grant agreement number, Award number",
             "form_label@fr_FR": "Identifiant du financement",
             "form_label@en_GB": "Grant Identifier"

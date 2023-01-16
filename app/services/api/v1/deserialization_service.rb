@@ -41,7 +41,7 @@ module Api
 
         # Translates the role in the json to a Contributor role
         def translate_role(role:)
-          default = ::Contributor.default_role
+          default = ::Contributor.role_default
           return default unless role.present?
 
           role = role.to_s unless role.is_a?(String)

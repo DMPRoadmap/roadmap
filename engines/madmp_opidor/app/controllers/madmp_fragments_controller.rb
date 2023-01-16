@@ -217,7 +217,7 @@ class MadmpFragmentsController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  def change_schema
+  def change_form
     @fragment = MadmpFragment.find(params[:id])
     @schemas = MadmpSchema.all
     target_schema = @schemas.find(params[:schema_id])
@@ -478,7 +478,7 @@ class MadmpFragmentsController < ApplicationController
       contributors = Fragment::Contributor.where(
         dmp_id: dmp_id,
         parent_id: parent_id
-      )
+      ).where("additional_info->>'property_name' = ?", property_name)
       # if the fragment is a Person, we consider that it's been edited from a Contributor list
       # we need to indicate that we want the contributor list to be displayed
       render_to_string(
@@ -537,7 +537,8 @@ class MadmpFragmentsController < ApplicationController
     section = question&.section
     plan = fragment.plan
     template = plan.template
-    run_parameters = fragment.madmp_schema.extract_run_parameters
+    madmp_schema = fragment.madmp_schema
+    run_parameters = madmp_schema.extract_run_parameters
     editable = plan.editable_by?(current_user.id)
 
     {
@@ -564,7 +565,7 @@ class MadmpFragmentsController < ApplicationController
           question: question,
           answer: answer,
           fragment: fragment,
-          madmp_schema: fragment.madmp_schema,
+          madmp_schema: madmp_schema,
           research_output: research_output,
           dmp_id: fragment.dmp_id,
           parent_id: fragment.parent_id,
@@ -572,10 +573,11 @@ class MadmpFragmentsController < ApplicationController
           readonly: !editable,
           base_template_org: template.base_org
         }, formats: [:html]),
-        'form_run' => if run_parameters.present?
+        'form_run' => if madmp_schema.run_parameters?
                         render_to_string(partial: 'dynamic_form/codebase/show', locals:
                         {
                           fragment: fragment,
+                          api_client: madmp_schema.api_client,
                           parameters: run_parameters,
                           template_locale: LocaleService.to_gettext(locale: template.locale)
                         }, formats: [:html])

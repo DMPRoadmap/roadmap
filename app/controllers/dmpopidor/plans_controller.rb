@@ -5,10 +5,12 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   module PlansController
     # CHANGES:
-    # Added Active Flag on Org
-    # rubocop:disable Metrics/AbcSize
+    # - Added Active Flag on Org
+    # - Added Template Context support for filtering orgs
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
     def new
       @plan = ::Plan.new
+      @template_context = Template.contexts[params[:context]] || 'research_project'
       authorize @plan
 
       # Get all of the available funders and non-funder orgs
@@ -16,9 +18,9 @@ module Dmpopidor
                       .includes(identifiers: :identifier_scheme)
                       .joins(:templates)
                       .where(templates: { published: true }).uniq.sort_by(&:name)
-      @orgs = (::Org.includes(identifiers: :identifier_scheme).managed.organisation +
-               ::Org.includes(identifiers: :identifier_scheme).managed.institution +
-               ::Org.includes(identifiers: :identifier_scheme).managed.default_orgs)
+      orgs_with_context = ::Org.includes(identifiers: :identifier_scheme).joins(:templates)
+                               .managed.where(templates: { context: @template_context })
+      @orgs = (orgs_with_context.organisation + orgs_with_context.institution + orgs_with_context.default_orgs)
       @orgs = @orgs.flatten
                    .select { |org| org.active == true }
                    .uniq.sort_by(&:name)
@@ -35,7 +37,7 @@ module Dmpopidor
       @is_test = params[:test] ||= false
       respond_to :html
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
     # PUT /plans/1
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize

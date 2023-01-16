@@ -9,10 +9,10 @@
 %>
 <div class="form-group allow-break-words">
   <% if locking || readonly %>
-    <div class="display-readonly-textarea-content">
+    <div class="display-readonly-textarea-content" id="question-text-<%= question.id %>-<%= research_output.id %>">
       <%= sanitize("<p>#{answer.text || question.default_value}</p>") %>
     </div>
   <% else %>
-    <%= text_area_tag('answer[text]', answer.text || question.default_value, id: "answer-text-#{question.id}-research-output-#{research_output.id}", class: "form-control tinymce_answer") %>
+    <%= text_area_tag('answer[text]', answer.text || question.default_value, id: "answer-text-#{question.id}-research-output-#{research_output.id}", class: "form-control tinymce_answer", aria: { labelledby: "question-text-#{question.id}-#{research_output.id}" }) %>
   <% end %>
 </div>

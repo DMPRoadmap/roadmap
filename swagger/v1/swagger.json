@@ -252,10 +252,22 @@
           "type": "string",
           "description": "Plan identifier",
           "required": true
+        },
+        {
+          "name": "export_format",
+          "in": "query",
+          "type": "string",
+          "description": "Export format (standard/rda)",
+          "required": true,
+          "default": "standard",
+          "enum": [
+            "standard",
+            "rda"
+          ]
         }
       ],
       "get": {
-        "summary": "Export Plan in the Standard format",
+        "summary": "Export Plan in the Standard or RDA format",
         "tags": [
           "Plans"
         ],
@@ -276,18 +288,30 @@
         }
       }
     },
-    "/api/v1/madmp/plans/{id}/rda_export": {
+    "/api/v1/madmp/plans/research_outputs/{uuid}": {
       "parameters": [
         {
-          "name": "id",
+          "name": "uuid",
           "in": "path",
           "type": "string",
-          "description": "Plan indentifier",
+          "description": "ResearchOutput UUID",
           "required": true
+        },
+        {
+          "name": "export_format",
+          "in": "query",
+          "type": "string",
+          "description": "Export format (standard/rda)",
+          "required": true,
+          "default": "standard",
+          "enum": [
+            "standard",
+            "rda"
+          ]
         }
       ],
       "get": {
-        "summary": "Export Plan in the RDA Common Standard format",
+        "summary": "Export Plan, for a given research_output, in the Standard or RDA format",
         "tags": [
           "Plans"
         ],

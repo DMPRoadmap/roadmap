@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Deserialization::Funding do
   before(:each) do
     # Org requires a language, so make sure a default is available!
-    create(:language, default_language: true) unless Language.default
+    create(:language, abbreviation: 'v1-fund', default_language: true) unless Language.default
 
     @funder = create(:org, :funder, name: Faker::Company.name)
     @plan = create(:plan)

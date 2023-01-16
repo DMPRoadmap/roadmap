@@ -21,7 +21,6 @@ module Dmpopidor
       @commenter_name  = @commenter.name
       @plan            = plan
       @plan_title      = @plan.title
-      @user_name       = @plan.owner.name
       @answer          = answer
       @question        = @answer.question
       @question_number = @question.number
@@ -33,7 +32,8 @@ module Dmpopidor
       @phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
 
       I18n.with_locale current_locale(collaborator) do
-        mail(to: @plan.owner.email,
+        @user_name = collaborator.name
+        mail(to: collaborator.email,
              subject: format(_('%{tool_name}: A new comment was added to %{plan_title}'), tool_name: tool_name,
                                                                                           plan_title: @plan.title))
       end
@@ -70,7 +70,7 @@ module Dmpopidor
       @role       = role
       @plan_title = @role.plan.title
       @user       = user
-      @username   = @user.name
+      @recepient  = @role.user
       @messaging  = role_text(@role)
       @helpdesk_email = helpdesk_email(org: @user.org)
 
@@ -133,8 +133,7 @@ module Dmpopidor
       @helpdesk_email = helpdesk_email(org: @plan.org)
 
       I18n.with_locale current_locale(recipient) do
-        sender = requestor.org.contact_email ||
-                 Rails.configuration.x.organisation.do_not_reply_email ||
+        sender = Rails.configuration.x.organisation.do_not_reply_email ||
                  Rails.configuration.x.organisation.email
 
         mail(to: recipient.email,
@@ -178,6 +177,24 @@ module Dmpopidor
              subject: format(_('Administrator privileges granted in %{tool_name}'), tool_name: tool_name))
       end
     end
+
+    # rubocop:disable Metrics/AbcSize
+    def api_credentials(api_client)
+      @api_client = api_client
+      return unless @api_client.contact_email.present?
+
+      @api_docs = Rails.configuration.x.application.api_documentation_urls[:v1]
+
+      @name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
+
+      @helpdesk_email = helpdesk_email(org: @api_client.org)
+
+      I18n.with_locale I18n.default_locale do
+        mail(to: @api_client.contact_email,
+             subject: format(_('%{tool_name} API client created/updated'), tool_name: tool_name))
+      end
+    end
+    # rubocop:enable Metrics/AbcSize
 
     ##################
     ## NEW METHODS ###

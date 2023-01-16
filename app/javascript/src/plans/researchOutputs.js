@@ -39,4 +39,10 @@ $(() => {
     form.find('.research-output-fields  .edit').hide();
     form.find('.research-output-fields  .cancel').hide();
   });
+  $('#research-outputs').on('click', '.research-output-fields .research-output-uuid .copy', (e) => {
+    const uuidField = $(e.target).parents('.research-output-uuid');
+    const uuid = uuidField.find('input').val();
+    uuidField.find('.action.copy').removeClass('fa-copy').addClass('fa-check');
+    navigator.clipboard.writeText(uuid);
+  });
 });

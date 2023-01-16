@@ -64,13 +64,28 @@
             },
             "minItems": 1,
             "description": "Ensemble des informations concernant les produits de recherche générés dans le cadre du projet ou activité de recherche"
+        },
+        "budget": {
+            "type": "object",
+            "class": "Budget",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "BudgetStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Budget lié à la gestion des données de recherche"
         }
     },
     "required": [
         "identifier",
         "meta",
         "project",
-        "researchOutput"
+        "researchOutput",
+        "budget"
     ],
     "to_string": []
 }

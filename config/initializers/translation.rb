@@ -37,7 +37,7 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   end
 elsif ENV['DOMAIN'] == 'client'
   TranslationIO.configure do |config|
-    config.api_key              = Rails.application.credentials.translation_io_api_key
+    config.api_key              = ENV.fetch('TRANSLATION_API_CLIENT', nil)
     config.source_locale        = 'en'
     config.target_locales       = CLIENT_LOCALES
     config.text_domain          = 'client'

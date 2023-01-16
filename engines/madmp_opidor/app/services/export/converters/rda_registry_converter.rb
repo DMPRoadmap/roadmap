@@ -20,7 +20,9 @@ module Export
             end
           else # Funder only support 'ISNI' & 'ORCID' as a AgentIDSystem value
             case val.downcase
-            when 'fundref', 'url'
+            when 'crossref funder id'
+              'fundref'
+            when 'url'
               val.downcase
             else
               'other'
@@ -51,7 +53,7 @@ module Export
         # rubocop:enable Metrics/CyclomaticComplexity
 
         def convert_certification(val)
-          return [] if val.nil? || val.empty?
+          return nil if val.blank?
 
           case val.first.downcase
           when 'dsa', 'wds', 'coretrustseal'

@@ -20,8 +20,6 @@
             ],
             "description": "Personnes impliquées dans les aspects juridiques",
             "inputType": "pickOrCreate",
-            "label@fr_FR": "Sélectionner une valeur dans la liste ou créer une nouvelle valeur en cliquant sur +",
-            "label@en_GB": "Select a value from the drop-down list or create a new value by clicking on +",
             "form_label@fr_FR": "Sélectionner une valeur dans la liste ou créer une nouvelle valeur en cliquant sur +",
             "form_label@en_GB": "Select a value from the drop-down list or create a new value by clicking on +"
         },

@@ -9,6 +9,7 @@
         "description": {
             "type": "string",
             "description": "Description de la politique de sauvegarde appliquée",
+            "inputType": "textarea",
             "label@fr_FR": "nom et description de la politique de stockage et sauvegarde",
             "label@en_GB": "Storage and backup policy name and description",
             "form_label@fr_FR": "Politique de stockage et sauvegarde",

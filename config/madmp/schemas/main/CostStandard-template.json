@@ -19,6 +19,7 @@
         },
         "amount": {
             "type": "number",
+            "minimum": "10",
             "description": "Valeur numérique du montant",
             "label@fr_FR": "Montant",
             "label@en_GB": "Amount",

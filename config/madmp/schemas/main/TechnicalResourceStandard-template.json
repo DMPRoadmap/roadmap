@@ -48,6 +48,8 @@
         "idType"
     ],
     "to_string": [
-        "$.title"
+        "$.title",
+        " : ",
+        "$.technicalResourceId"
     ]
 }

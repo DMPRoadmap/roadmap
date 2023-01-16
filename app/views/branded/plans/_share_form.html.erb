@@ -52,11 +52,11 @@
                   <% end %>
               <% end %>
           </td>
-              <% if administerable %>
-                <td>
-                  <% unless role.creator? || role.user == current_user then %>
-                    <%= link_to _('Remove'), role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
-                  <% end %>
+            <% if administerable %>
+              <td>
+                <% unless role.creator? || role.user == current_user then %>
+                  <%= link_to _('Remove'), role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
+                <% end %>
               </td>
             <% end %>
           </tr>
@@ -72,14 +72,14 @@
     <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
       <div class="form-group col-xs-8">
         <%= f.hidden_field :plan_id %>
-      <%= f.fields_for :user, new_role.user do |user| %>
-          <%= user.label :email, _('Email'), class: 'control-label'%>
-          <em class="sr-only"><%= email_tooltip %></em>
-          <%= user.email_field :email, class: "form-control", title: email_tooltip,
-                                     aria: { required: true },
-                                     required: true,
-                                     date: { toggle: "tooltip", html: true } %>
-        <% end %>
+        <%= f.fields_for :user, new_role.user do |user| %>
+            <%= user.label :email, _('Email'), class: 'control-label'%>
+            <em class="sr-only"><%= email_tooltip %></em>
+            <%= user.email_field :email, class: "form-control", title: email_tooltip,
+                                      aria: { required: true },
+                                      required: true,
+                                      data: { toggle: "tooltip", html: true } %>
+          <% end %>
       </div>
       <div class="clearfix"></div>
       <em class="sr-only"><%= permissions_tooltip %></em>
@@ -113,11 +113,11 @@
         </div>
       <% end %>
       <div class="clearfix"></div>
-    <% end %>  
+    <% end %>
   <% end %>
   <h2><%= _('Set plan visibility') %></h2>
   <p class="form-control-static">
-    <%= _('Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility.') %>
+    <%= _('Fully or partially completed plans can be made visible to administrators, organisations as well as public. Plans flagged as test projects remain private.') %>
   </p>
   <% allow_visibility = @plan.visibility_allowed? %>
   <%= form_for(@plan, url: visibility_plan_path, method: :post, remote: true, html: { id: 'set_visibility' }) do |f| %>
@@ -153,4 +153,5 @@
       </div>
     </fieldset>
   <% end %>
+  <%= render partial: 'plans/share_third_party',locals: { administerable: administerable } %>
 </div>

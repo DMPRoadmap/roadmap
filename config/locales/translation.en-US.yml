@@ -116,6 +116,9 @@ en-US:
         other: "%{count} errors prohibited this %{resource} from being saved:"
       model_invalid: 'Validation failed: %{errors}'
       required: must exist
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
     template:
       body: 'There were problems with the following fields:'
       header:
@@ -241,7 +244,7 @@ en-US:
         accept: Accept invitation
         accept_until: 'This invitation will be due in %{due_date}.
 
-'
+          '
         ignore:
     omniauth_callbacks:
       failure: Could not authenticate you from %{kind} because "%{reason}".

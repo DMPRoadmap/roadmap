@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'SuperAdmins Merge Orgs', type: :feature, js: true do
+RSpec.describe 'SuperAdmins Merge Orgs', type: :feature do
   before do
     Org.destroy_all
     @scheme = create(:identifier_scheme)
@@ -27,7 +27,7 @@ RSpec.describe 'SuperAdmins Merge Orgs', type: :feature, js: true do
     sign_in(@user)
   end
 
-  scenario 'Super admin merges an Org into another Org' do
+  scenario 'Super admin merges an Org into another Org', :js do
     org_name = @from_org.name
     click_link 'Admin'
     sleep(0.5)
@@ -43,10 +43,7 @@ RSpec.describe 'SuperAdmins Merge Orgs', type: :feature, js: true do
     click_link 'Merge'
     sleep(0.3)
     expect(page).to have_text('Merge Organisations')
-    find('#org_org_name').click
-    fill_in(:org_org_name, with: @to_org.name[0..6])
-    sleep(0.5)
-    choose_suggestion(@to_org.name)
+    choose_suggestion('org_org_name', @to_org)
 
     click_button 'Analyze'
     # Wait for response

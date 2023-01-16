@@ -11,8 +11,8 @@
             "description": "Titre du plan de gestion de données",
             "label@fr_FR": "Titre du plan",
             "label@en_GB": "Plan title",
-            "tooltip@fr_FR": "Titre généré automatiquement à partir du titre du projet en rafraichissant la page ou en changeant d'onglet. Il est modifiable. Titre affiché dans le tableau de bord",
-            "tooltip@en_GB": "Title generated automatically from the project title when refreshing the page or changing tabs. It can be modified. Title displayed in the dashboard",
+            "tooltip@fr_FR": "Titre généré automatiquement à partir du titre du projet. Il est modifiable. Titre affiché dans le tableau de bord",
+            "tooltip@en_GB": "Title generated automatically from the project title. It can be modified. Title displayed in the dashboard",
             "form_label@fr_FR": "* Titre du plan",
             "form_label@en_GB": "* Plan title"
         },
@@ -49,6 +49,19 @@
             "tooltip@en_GB": "Briefly describe the context and purpose of the DMP, the structure of the document and its relationship to other deliverables.",
             "form_label@fr_FR": "Objet/périmètre du plan et ses relations avec les autres livrables",
             "form_label@en_GB": "Plan purpose/scope and its relation to other deliverables"
+        },
+        "dmpKeyword": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Mo(s)-clé(s) issu(s) de la classification de l'OCDE (Field of science and technology)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
+            "label@en_GB": "Fields of science and technology (from OECD classification)",
+            "registry_name": "ClassificationOCDE",
+            "form_label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
+            "form_label@en_GB": "Fields of science and technology (from OECD classification)"
         },
         "dmpLanguage": {
             "type": "string",
@@ -140,8 +153,6 @@
             "inputType": "dropdown",
             "registry_name": "DMPLicenses",
             "overridable": true,
-            "tooltip@fr_FR": "Liste de licences SPDX. Version : 3.14 2021-08-08",
-            "tooltip@en_GB": "SPDX license list. Version: 3.14 2021-08-08",
             "form_label@fr_FR": "Licence du plan",
             "form_label@en_GB": "Plan license"
         },
@@ -162,12 +173,12 @@
                 ]
             },
             "description": "Références de documents éventuels à relier au plan de gestion de données (ex publications)",
-            "label@fr_FR": "Documents (publications, rapports, brevets….), sites web associés",
-            "label@en_GB": "Associated documents (publications,reports, patents...), website",
-            "tooltip@fr_FR": "Indiquer les documents (publications, rapports, brevets….) ou sites web à relier au plan de gestion de données ",
-            "tooltip@en_GB": "Provide the documents (publications,reports, patents...) and websites associated with the DMP ",
-            "form_label@fr_FR": "Lister les documents (publications, rapports, brevets….), sites web associés au plan ",
-            "form_label@en_GB": "List the documents (publications,reports, patents...), website associated with the DMP "
+            "label@fr_FR": "Documents (publications, rapports, brevets, plan expérimental….), sites web associés",
+            "label@en_GB": "Associated documents (publications,reports, patents, experimental plan...), website",
+            "tooltip@fr_FR": "Indiquer les documents (publications, rapports, brevets, plan expérimental….) ou sites web à relier au plan de gestion de données ",
+            "tooltip@en_GB": "Provide the documents (publications,reports, patents, experimental plan...) and websites associated with the DMP ",
+            "form_label@fr_FR": "Lister les documents (publications, rapports, brevets, plan expérimental….), sites web associés au plan ",
+            "form_label@en_GB": "List the documents (publications,reports, patents, experimental plan...), website associated with the DMP "
         },
         "associatedDmp": {
             "type": "array",

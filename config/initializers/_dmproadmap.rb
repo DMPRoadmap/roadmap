@@ -205,6 +205,9 @@ module DMPRoadmap
     # regardless of the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = true
 
+    # Check download of a plan coversheet tickbox
+    config.x.plans.download_coversheet_tickbox_checked = false
+
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #
     # ---------------------------------------------------- #
@@ -267,5 +270,10 @@ module DMPRoadmap
     # Link to external guidance about selecting one of the preferred licenses. A default
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
     config.x.madmp.preferred_licenses_guidance_url = 'https://creativecommons.org/about/cclicenses/'
+
+    # --------------------------------------------------- #
+    # DMP OPIDoR Features #
+    # --------------------------------------------------- #
+    config.x.dmpopidor.enable_research_structure_template = false
   end
 end

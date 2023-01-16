@@ -1,7 +1,10 @@
 
 <% dmp_fragment = @plan.json_fragment() %>
-<% meta_fragment = dmp_fragment.meta%>
-<% project_fragment = dmp_fragment.project%>
+<% meta_fragment = dmp_fragment.meta %>
+<% project_fragment = dmp_fragment.project %>
+<% project_schema = project_fragment.madmp_schema %>
+<% meta_schema = meta_fragment.madmp_schema %>
+
 <% anr_projects = Registry.find_by(name: "ANRProjects").registry_values %>
 <% locale = LocaleService.to_gettext(locale: @plan.template.locale)%>
 <div class="row">
@@ -15,7 +18,7 @@
         <div class="panel-heading question-text" role="tab" id="heading-plan-project">
           <div class="panel-title pull-left">
             <% I18n.with_locale @plan.template.locale do %>
-            <%= _("Project Details") %>
+              <%= @plan.template.research_project? ? _("Project Details") : _("Structure Details") %>
             <% end %>
           </div>
           <i class="fas fa-chevron-down pull-right" aria-hidden="true"></i>
@@ -24,43 +27,42 @@
       </div>
 
       <div id="plan_project" class="panel-collapse collapse in plan-details-content" role="tabpanel" aria-labelledby="heading-plan-project">
-        
-        <% project_schema = MadmpSchema.find_by(name: "ProjectStandard") %>
-        <% run_parameters = project_schema.extract_run_parameters %>
-        <% select_values = Registry.find_by(name: "ANRProjects").registry_values %>
-        <% tooltip = run_parameters["tooltip@#{locale}"]%>
-        <% if run_parameters.present? %>
-        <div class="panel-body">
-          <span 
-            class="col-md-8 project-selector-link"
-            data-original-title="<%= tooltip %>"
-            data-toggle="tooltip"
-          ><%= _("Click here if you have a project funded by ANR.") %></span>
-          <div class="col-md-12 dynamic-field select-field single-select project-selector"
-              data-fragment-id="<%= project_fragment.id%>"
-              data-script-id="<%= run_parameters["script_id"]%>">
-            <label class="control-label">
-              <%= _("Please enter the acronym, title or identifier of the project") %>
-              <a href="<%= about_registries_path %>" target="_blank"
-                data-toggle="tooltip" data-original-title="<%= _("Find out more.") %>">
-                <span class="registry-info fas fa-info-circle"></span>
-              </a>
-            </label>
-            <%= select_tag "anr_project",
-                        options_for_select(
-                            select_values.sort_by { |v| v.to_s(locale: locale)}
-                                         .map {|v| [ 
-                                    v.to_s(locale: locale), 
-                                    select_value(v, locale) 
-                                ] 
-                            }
-                        ),
-                      include_blank: true
-                      %>
-            <span class="error-zone"></span>
-            <span class="btn btn-default cancel-project-search"><%= _("Cancel") %></span>
+
+        <% if project_schema.run_parameters? && @plan.template.research_project? %>
+          <% select_values = Registry.find_by(name: "ANRProjects").registry_values %>
+          <% run_parameters = project_schema.extract_run_parameters[0] %>
+          <% tooltip = run_parameters["tooltip@#{locale}"]%>
+          <div class="panel-body">
+            <span 
+              class="col-md-8 project-selector-link"
+              data-original-title="<%= tooltip %>"
+              data-toggle="tooltip"
+            ><%= _("Click here if you have a project funded by ANR.") %></span>
+            <div class="col-md-12 dynamic-field select-field single-select project-selector"
+                data-fragment-id="<%= project_fragment.id%>"
+                data-script-id="<%= run_parameters["script_id"]%>">
+              <label class="control-label">
+                <%= _("Please enter the acronym, title or identifier of the project") %>
+                <a href="<%= about_registries_path %>" target="_blank"
+                  data-toggle="tooltip" data-original-title="<%= _("Find out more.") %>">
+                  <span class="registry-info fas fa-info-circle"></span>
+                </a>
+              </label>
+              <%= select_tag "anr_project",
+                          options_for_select(
+                              select_values.sort_by { |v| v.to_s(locale: locale)}
+                                          .map {|v| [ 
+                                      v.to_s(locale: locale), 
+                                      select_value(v, locale) 
+                                  ] 
+                              }
+                          ),
+                        include_blank: true
+                        %>
+              <span class="error-zone"></span>
+              <span class="btn btn-default cancel-project-search"><%= _("Cancel") %></span>
+            </div>
           </div>
-        </div>
         <% end %>
         
         
@@ -146,7 +148,6 @@
       </div>
 
       <div id="plan_metadata" class="panel-collapse collapse in plan-details-content" role="tabpanel" aria-labelledby="heading-plan-metadata">
-        <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
         <%= hidden_field_tag 'fragment-id', meta_fragment.id, class: "fragment-id" %>
         <div class="panel-body madmp-fragment"><!-- accordion body -->
           <% I18n.with_locale @plan.template.locale  do %>

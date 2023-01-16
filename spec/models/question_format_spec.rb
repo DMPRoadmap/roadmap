@@ -7,8 +7,8 @@ RSpec.describe QuestionFormat, type: :model do
     it { is_expected.to validate_presence_of(:title) }
 
     it {
-      is_expected.to validate_uniqueness_of(:title)
-        .with_message('must be unique')
+      is_expected.to validate_uniqueness_of(:title).case_insensitive
+                                                   .with_message('must be unique')
     }
 
     it { is_expected.to validate_presence_of(:description) }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  module V1
+  module V0
     module Madmp
       # Security rules for API V0 MadmpSchema endpoints
       class MadmpSchemaPolicy < ApplicationPolicy

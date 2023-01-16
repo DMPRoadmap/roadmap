@@ -40,7 +40,7 @@ module ActsAsSortable
 
     def update_numbers_sequentially!(ids)
       ids.each_with_index.map do |id, number|
-        find(id).update_attribute(:number, number + 1)
+        find(id).update(:number, number + 1)
       end
     end
   end

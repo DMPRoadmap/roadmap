@@ -91,8 +91,6 @@ class Plan < ApplicationRecord
 
   alias_attribute :name, :title
 
-  attribute :visibility, :integer, default: 3
-
   # ================
   # = Associations =
   # ================
@@ -117,7 +115,7 @@ class Plan < ApplicationRecord
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { distinct.published.reorder('id') },
+  has_many :guidance_group_options, -> { distinct.includes(:org).published.reorder('id') },
            through: :guidances,
            source: :guidance_group,
            class_name: 'GuidanceGroup'
@@ -147,6 +145,9 @@ class Plan < ApplicationRecord
 
   belongs_to :feedback_requestor, class_name: 'User', foreign_key: 'feedback_requestor_id', optional: true
 
+  has_many :api_client_roles, dependent: :destroy
+
+  has_many :api_clients, through: :api_client_roles
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------

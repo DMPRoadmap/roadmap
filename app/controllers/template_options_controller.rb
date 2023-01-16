@@ -91,7 +91,8 @@ class TemplateOptionsController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(research_org_id: org_params,
+    params.require(:plan).permit(:context,
+                                 research_org_id: org_params,
                                  funder_id: org_params)
   end
 

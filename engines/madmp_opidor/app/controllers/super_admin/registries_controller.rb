@@ -46,7 +46,7 @@ module SuperAdmin
       authorize(Registry)
       attrs = permitted_params
       @registry = Registry.find(params[:id])
-      if @registry.update_attributes(attrs.except(:values))
+      if @registry.update(attrs.except(:values))
         flash.now[:notice] = success_message(@registry, _('updated'))
       else
         flash.now[:alert] = failure_message(@registry, _('update'))

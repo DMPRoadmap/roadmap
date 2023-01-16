@@ -40,6 +40,8 @@
         "idType"
     ],
     "to_string": [
-        "$.title"
+        "$.title",
+        " : ",
+        "$.docIdentifier"
     ]
 }

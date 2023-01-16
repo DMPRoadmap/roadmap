@@ -17,25 +17,15 @@ module Api
 
           respond_to do |format|
             format.json
-            render 'shared/export/madmp_export_templates/default/plan', locals: {
-              dmp: plan_fragment, selected_research_outputs: selected_research_outputs
-            }
-            return
-          end
-        end
-
-        def rda_export
-          plan = Plan.find(params[:id])
-          plan_fragment = plan.json_fragment
-          selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
-          # check if the user has permissions to use the API
-          raise Pundit::NotAuthorizedError unless Api::V0::Madmp::PlanPolicy.new(@user, plan).rda_export?
-
-          respond_to do |format|
-            format.json
-            render 'shared/export/madmp_export_templates/rda/plan', locals: {
-              dmp: plan_fragment, selected_research_outputs: selected_research_outputs
-            }
+            if export_format.eql?('rda')
+              render 'shared/export/madmp_export_templates/rda/plan', locals: {
+                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+              }
+            else
+              render 'shared/export/madmp_export_templates/default/plan', locals: {
+                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+              }
+            end
             return
           end
         end

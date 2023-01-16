@@ -14,7 +14,8 @@
             <%= f.label :abbreviation, _('Abbreviated Name (20 chars max.)'), class: 'control-label' %>
             <%= f.text_field :abbreviation, maxlength: 20, 
                             class: 'form-control input edit',
-                            "aria-required": true, required: true,
+                            aria: { required: true, label: _('Abbreviated Name (20 chars max.)') },
+                            required: true,
                             "data-toggle": "tooltip", title: _('Research output name (20 chars max.)') %>
             <span class="readonly"><%= research_output.abbreviation %></span>
           </div>
@@ -22,11 +23,32 @@
             <%= f.label :title, _('Full Name'),  class: 'control-label' %>
             <%= f.text_field :title, value: research_output_data['title'],
                             class: 'form-control input edit',
-                            "aria-required": true, required: true,
+                            aria: { required: true, label: _('Research output title') },
+                            required: true,
                             "data-toggle": "tooltip", title: _('Research output title')   %>
             <span class="readonly"><%= research_output_data['title'] %></span>
           </div>
-          <% unless plan.template.structured? %>
+          <% if plan.template.structured? %>
+            <div class='research-output-field form-group research-output-uuid'>
+              <%= f.label :uuid,  class: 'control-label' do %>
+                <%= _('UUID') %> 
+                <i class="fas fa-question-circle action" 
+                   data-toggle="tooltip" 
+                   title="<%= _('Research output unique identifier')%>" ></i>
+              <% end %>
+              <%= f.text_field :uuid, value: research_output.uuid,
+                              class: 'form-control input edit',
+                              disabled: true,
+                              aria: { disabled: true, label: _('Research output unique identifier') },
+                              "data-toggle": "tooltip", title: _('Research output unique identifier')   %>
+              <span class="readonly">
+                <%= research_output.uuid %>
+                <i class="fas fa-copy action copy" 
+                   data-toggle="tooltip" 
+                   title="<%= _('Copy UUID to clipboard')%>" ></i>
+              </span>
+            </div>
+          <% else %>
             <div class='research-output-field form-group research-output-type'>
               <% registryValues = Registry.find_by(name:"ResearchDataType").registry_values %>
               <%= f.label :output_type_description, _('Type'),  class: 'control-label' %>
@@ -42,7 +64,7 @@
                           include_blank: true,
                           "data-toggle": "tooltip",
                           class: "form-control input edit",
-                          "aria-required": true,
+                          aria: { required: true, label: _('Research output type') },
                           id: "output_type_description"  %>
               <span class="readonly"><%= research_output_data['type'] %></span>
             </div>

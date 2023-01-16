@@ -37,6 +37,13 @@
 class Template < ApplicationRecord
   include GlobalHelpers
   extend UniqueRandom
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  # prepend Dmpopidor::Template
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   validates_with TemplateLinksValidator
 
@@ -55,6 +62,10 @@ class Template < ApplicationRecord
   # access to structured forms when adding a new question.
   self.inheritance_column = nil
   enum type: %i[classic structured]
+  # Context describes if the DMP is for a Research Project ou a Research Structure
+  # The Project Form is replaced by a Structure Form in the General information tab.
+  # New features might be added in the future
+  enum context: %i[research_project research_structure]
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
@@ -65,6 +76,7 @@ class Template < ApplicationRecord
   #
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
+  attribute :links, :text, default: { funder: [], sample_plan: [] }
   serialize :links, JSON
 
   attribute :published, :boolean, default: false
@@ -73,17 +85,7 @@ class Template < ApplicationRecord
   attribute :version, :integer, default: 0
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
-  attribute :links, :text, default: { funder: [], sample_plan: [] }
-  # TODO: re-add visibility setting? (this is handled in org_admin/create and
-  # relies on the org_id in the current callback-form)
-  attribute :visibility, :integer, default: 0
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
-  attribute :type, :integer, default: 0
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
+  attribute :visibility, default: Template.visibilities[:organisationally_visible]
 
   # ================
   # = Associations =
@@ -225,12 +227,16 @@ class Template < ApplicationRecord
   }
 
   # Retrieves unarchived templates whose title or org.name includes the term
-  # passed
+  # passed(We use search_term_orgs as alias for orgs to avoid issues with
+  # any orgs table join already present in loaded unarchived.)
   scope :search, lambda { |term|
-    unarchived.joins(:org)
-              .where('lower(templates.title) LIKE lower(:term) OR ' \
-                     'lower(orgs.name) LIKE lower(:term)',
-                     term: "%#{term}%")
+    unarchived
+      .joins(<<~SQL)
+        JOIN orgs AS search_term_orgs ON search_term_orgs.id = templates.org_id
+      SQL
+      .where('lower(templates.title) LIKE lower(:term)' \
+             'OR lower(search_term_orgs.name) LIKE lower(:term)',
+             term: "%#{term}%")
   }
 
   # defines the export setting for a template object
