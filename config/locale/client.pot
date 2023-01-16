@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-01-12 10:56+0100\n"
-"PO-Revision-Date: 2023-01-12 10:56+0100\n"
+"POT-Creation-Date: 2023-01-16 15:25+0100\n"
+"PO-Revision-Date: 2023-01-16 15:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -808,7 +808,7 @@ msgid "Administrator"
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:46 ../../app/helpers/plans_helper.rb:48
-#: ../../app/views/branded/layouts/application.html.erb:203
+#: ../../app/views/branded/layouts/application.html.erb:154
 msgid "Private"
 msgstr ""
 
@@ -827,7 +827,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:68
-#: ../../app/views/branded/layouts/application.html.erb:204
+#: ../../app/views/branded/layouts/application.html.erb:155
 msgid "Private: restricted to me and people I invite."
 msgstr ""
 
@@ -1179,7 +1179,7 @@ msgstr ""
 #: ../../app/views/branded/org_admin/departments/new.html.erb:23
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:130
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:217
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:113
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:117
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_edit_details.html.erb:120
@@ -1205,7 +1205,7 @@ msgid "example answer"
 msgstr ""
 
 #: ../../app/views/branded/answers/_new_edit.html.erb:96
-#: ../../app/views/branded/layouts/application.html.erb:174
+#: ../../app/views/branded/layouts/application.html.erb:125
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:146
 #: ../../app/views/branded/plans/_edit_details.html.erb:113
 #: ../../app/views/branded/plans/_edit_details.html.erb:183
@@ -1725,11 +1725,11 @@ msgstr ""
 msgid "Create plan for a Research Project"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:35
+#: ../../app/views/branded/layouts/_navigation.html.erb:36
 msgid "Create plan for a Research Structure"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:39
+#: ../../app/views/branded/layouts/_navigation.html.erb:41
 #: ../../app/views/branded/plans/_form.html.erb:147
 #: ../../app/views/branded/plans/_form.html.erb:148
 #: ../../app/views/branded/plans/import.html.erb:1
@@ -1737,23 +1737,23 @@ msgstr ""
 msgid "Import DMP"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:44
-#: ../../app/views/branded/layouts/_navigation.html.erb:51
+#: ../../app/views/branded/layouts/_navigation.html.erb:46
+#: ../../app/views/branded/layouts/_navigation.html.erb:53
 msgid "Public DMPs"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:47
-#: ../../app/views/branded/layouts/_navigation.html.erb:54
+#: ../../app/views/branded/layouts/_navigation.html.erb:49
+#: ../../app/views/branded/layouts/_navigation.html.erb:56
 #: ../../app/views/branded/public_pages/template_index.html.erb:1
 #: ../../app/views/branded/public_pages/template_index.html.erb:4
 msgid "DMP Templates"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:59
+#: ../../app/views/branded/layouts/_navigation.html.erb:61
 msgid "Help"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:64
+#: ../../app/views/branded/layouts/_navigation.html.erb:66
 msgid "More"
 msgstr ""
 
@@ -1791,84 +1791,84 @@ msgstr ""
 msgid "Learn more"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:163
+#: ../../app/views/branded/layouts/application.html.erb:114
 msgid "Error:"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:163
+#: ../../app/views/branded/layouts/application.html.erb:114
 msgid "Notice:"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:196
+#: ../../app/views/branded/layouts/application.html.erb:147
 msgid "This field is required."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:198
+#: ../../app/views/branded/layouts/application.html.erb:149
 #: ../../app/views/branded/shared/_create_account_form.html.erb:31
 msgid "Show password"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:199
+#: ../../app/views/branded/layouts/application.html.erb:150
 msgid "Select an organisation from the list."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:200
+#: ../../app/views/branded/layouts/application.html.erb:151
 msgid "My organisation isn't listed"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:202
+#: ../../app/views/branded/layouts/application.html.erb:153
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:40
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:44
 msgid "N/A"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:206
+#: ../../app/views/branded/layouts/application.html.erb:157
 msgid "Hide list."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:207
+#: ../../app/views/branded/layouts/application.html.erb:158
 msgid "See the full list of partner institutions."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:209
+#: ../../app/views/branded/layouts/application.html.erb:160
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:210
+#: ../../app/views/branded/layouts/application.html.erb:161
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:212
+#: ../../app/views/branded/layouts/application.html.erb:163
 #: ../../engines/madmp_opidor/app/views/madmp_fragments/_new.html.erb:28
 msgid "Loading ..."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:213
+#: ../../app/views/branded/layouts/application.html.erb:164
 msgid "Unable to load the section's content at this time."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:214
+#: ../../app/views/branded/layouts/application.html.erb:165
 msgid "Unable to load the question's content at this time."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:215
+#: ../../app/views/branded/layouts/application.html.erb:166
 msgid "Opens in a new window"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:217
+#: ../../app/views/branded/layouts/application.html.erb:168
 msgid ""
 "%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
 "ons."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:218
+#: ../../app/views/branded/layouts/application.html.erb:169
 msgid "No results are available for your entry."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:219
+#: ../../app/views/branded/layouts/application.html.erb:170
 msgid "Searching ..."
 msgstr ""
 
@@ -2201,56 +2201,56 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:52
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:53
 msgid "Context"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:63
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:67
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:15
 msgid "Status"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:66
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:70
 #: ../../app/views/branded/paginable/templates/_history.html.erb:8
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:40
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:43
 msgid "Published"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:68
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:72
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:46
 msgid "Unpublished"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:70
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:74
 #: ../../app/views/branded/paginable/templates/_history.html.erb:19
 msgid "Draft"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:77
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:81
 msgid "Created at"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:83
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:87
 #: ../../app/views/branded/paginable/templates/_history.html.erb:9
 msgid "Last updated"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:95
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:99
 msgid "Funder Links"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:98
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:102
 msgid ""
 "Add links to funder websites that provide additional information about the req"
 "uirements for this template"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:104
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:108
 msgid "Sample Plan Links"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/templates/_form.html.erb:107
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:111
 msgid "Add links to sample plans if provided by the funder."
 msgstr ""
 
@@ -3116,8 +3116,8 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:120
 msgid ""
-"Public, Administrator or organisational visibility is intended for finished pl"
-"ans. Note: test plans are set to private visibility."
+"Fully or partially completed plans can be made visible to administrators, orga"
+"nisations as well as public. Plans flagged as test projects remain private."
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:129
@@ -3564,7 +3564,12 @@ msgstr ""
 #: ../../app/views/branded/user_mailer/feedback_notification.html.erb:6
 msgid ""
 "%{requestor} has requested feedback on a plan %{link_html}. To add comments, p"
-"lease visit the  page under the Admin menu in %{tool_name} and open the plan."
+"lease visit the 'Plans' page under the Admin menu in %{tool_name} and open the"
+" plan."
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/feedback_notification.html.erb:17
+msgid "Alternatively, you can click the link below:"
 msgstr ""
 
 #: ../../app/views/branded/user_mailer/new_comment.html.erb:2
