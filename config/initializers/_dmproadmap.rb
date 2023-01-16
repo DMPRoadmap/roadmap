@@ -270,5 +270,10 @@ module DMPRoadmap
     # Link to external guidance about selecting one of the preferred licenses. A default
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
     config.x.madmp.preferred_licenses_guidance_url = 'https://creativecommons.org/about/cclicenses/'
+
+    # --------------------------------------------------- #
+    # DMP OPIDoR Features #
+    # --------------------------------------------------- #
+    config.x.dmpopidor.enable_research_structure_template = false
   end
 end
