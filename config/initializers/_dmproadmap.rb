@@ -70,7 +70,7 @@ module DMPRoadmap
     # Used throughout the system via ApplicationService.application_name
     config.x.application.name = 'DMP OPIDoR'
     # App version, displayed in the footer
-    config.x.application.version = 'V3.3.1'
+    config.x.application.version = 'V3.4.0'
     # App Github URL, displayed in the footer
     config.x.application.url = 'https://github.com/OPIDoR/DMPOPIDoR'
     config.x.application.release_notes_url = 'https://github.com/OPIDoR/DMPOPIDoR/wiki/Releases'
