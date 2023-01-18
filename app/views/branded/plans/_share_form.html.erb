@@ -153,5 +153,7 @@
       </div>
     </fieldset>
   <% end %>
-  <%= render partial: 'plans/share_third_party',locals: { administerable: administerable } %>
+  <% if @plan.template.structured? && @plan_client_roles.any? %>
+    <%= render partial: 'plans/share_third_party',locals: { administerable: administerable } %>
+  <% end %>
 </div>
