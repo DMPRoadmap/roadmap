@@ -4,7 +4,11 @@
 
 # Dump all tables except for those that have a User or OauthApplication
 # ---------
+# DMPTool
 # mysqldump dmp -h -u -p --no-create-db --no-tablespaces --set-gtid-purged=OFF --ignore-table=dmp.users --ignore-table=dmp.oauth_applications --ignore-table=dmp.oauth_access_tokens --ignore-table=dmp.oauth_access_grants --ignore-table=dmp.users_perms --ignore-table=dmp.external_api_access_tokens --ignore-table=dmp.api_logs > ../latest.sql
+
+# DMPHub
+# mysqldump dmphub -h -u -p --no-create-db --no-tablespaces --set-gtid-purged=OFF --ignore-table=dmphub.api_client_authorizations --ignore-table=dmphub.api_client_histories --ignore-table=dmphub.api_client_permissions --ignore-table=dmphub.api_clients --ignore-table=dmphub.provenances > ../latest.sql
 
 # Manually dump the user table based on the created_at date
 
