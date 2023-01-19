@@ -26,7 +26,7 @@ Devise.setup do |config|
 
   config.reset_password_within = 6.hours
 
-  config.send_password_change_notification = true
+  config.send_password_change_notification = false
 
   config.sign_out_via = :delete
 
