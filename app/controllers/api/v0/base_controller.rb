@@ -6,6 +6,7 @@ module Api
     class BaseController < ApplicationController
       protect_from_forgery with: :null_session
       before_action :define_resource, only: %i[destroy show update]
+      before_action :pagination_params, only: %i[index]
       respond_to :json
 
       # POST /api/{plural_resource_name}
