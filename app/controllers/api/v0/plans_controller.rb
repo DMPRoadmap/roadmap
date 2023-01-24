@@ -7,7 +7,7 @@ module Api
       include Paginable
 
       before_action :authenticate
-      before_action :page_params, except: %i[heartbeat]
+      # before_action :page_params, except: %i[heartbeat]
 
       ##
       # Creates a new plan based on the information passed in JSON to the API

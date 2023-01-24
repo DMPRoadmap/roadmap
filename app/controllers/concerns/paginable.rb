@@ -156,8 +156,7 @@ module Paginable
     if @args[:page] != 'ALL'
       # Can raise error if page is not a number
       scope = scope.page(@args[:page])
-                   .per(@args.fetch(:per_page, Rails.configuration.x.application.api_max_page_size))
-    end
+                   .per(@args.fetch(:per_page, Rails.configuration.x.results_per_page))    end
     scope
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
