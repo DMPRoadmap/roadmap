@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-01-16 15:25+0100\n"
-"PO-Revision-Date: 2023-01-16 15:25+0100\n"
+"POT-Creation-Date: 2023-01-24 13:48+0100\n"
+"PO-Revision-Date: 2023-01-24 13:48+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1241,7 +1241,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/plans/_edit_details.html.erb:120
 #: ../../app/views/branded/plans/_edit_details.html.erb:190
 #: ../../app/views/branded/plans/_share_form.html.erb:112
-#: ../../app/views/branded/plans/_share_third_party.html.erb:86
+#: ../../app/views/branded/plans/_share_third_party.html.erb:93
 #: ../../app/views/branded/research_outputs/_list.html.erb:101
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
@@ -1438,7 +1438,7 @@ msgstr "Rôles attribués (Produits de recherche associés)"
 #: ../../app/views/branded/paginable/templates/_history.html.erb:10
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
 #: ../../app/views/branded/plans/_share_form.html.erb:20
-#: ../../app/views/branded/plans/_share_third_party.html.erb:30
+#: ../../app/views/branded/plans/_share_third_party.html.erb:35
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:10
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:30
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:9
@@ -2559,7 +2559,7 @@ msgstr "Veuillez supprimer les schémas attachés au client API avant de le supp
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:80
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:78
 #: ../../app/views/branded/plans/_share_form.html.erb:58
-#: ../../app/views/branded/plans/_share_third_party.html.erb:43
+#: ../../app/views/branded/plans/_share_third_party.html.erb:49
 #: ../../app/views/research_outputs/_form.html.erb:180
 msgid "Remove"
 msgstr "Supprimer"
@@ -3302,13 +3302,13 @@ msgstr "Courriel"
 
 #: ../../app/views/branded/plans/_share_form.html.erb:18
 #: ../../app/views/branded/plans/_share_form.html.erb:91
-#: ../../app/views/branded/plans/_share_third_party.html.erb:28
-#: ../../app/views/branded/plans/_share_third_party.html.erb:77
+#: ../../app/views/branded/plans/_share_third_party.html.erb:33
+#: ../../app/views/branded/plans/_share_third_party.html.erb:84
 msgid "Permissions"
 msgstr "Permissions"
 
 #: ../../app/views/branded/plans/_share_form.html.erb:58
-#: ../../app/views/branded/plans/_share_third_party.html.erb:43
+#: ../../app/views/branded/plans/_share_third_party.html.erb:49
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
@@ -3365,24 +3365,58 @@ msgstr "Organisme : toute personne de mon organisme peut consulter mon plan"
 msgid "Public: anyone can view"
 msgstr "Public : visible par tous"
 
+#: ../../app/views/branded/plans/_share_third_party.html.erb:3
+msgid "Select a service you would like to share your plan with."
+msgstr "Sélectionnez un service avec laquelle vous souhaitez partager votre plan."
+
 #: ../../app/views/branded/plans/_share_third_party.html.erb:13
-msgid "Third party applications"
-msgstr "Applications tierces"
+msgid "External services"
+msgstr "Services externes"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:23
-msgid "Manage third party applications"
-msgstr "Gérer les applications tierces"
+#: ../../app/views/branded/plans/_share_third_party.html.erb:22
+msgid ""
+"An \"external service\" can be provided by an organisation, a platform or a data"
+" infrastructure. These services are allowed (by DMP OPIDoR team) to automatica"
+"lly collect information that is being captured in data management plan, once y"
+"ou have given them the authorization, in order to offer you some services."
+msgstr ""
+"Un \"service externe\" peut être un organisme, une plateforme ou une infrastruct"
+"ure souhaitant collecter de façon automatisée (API) des informations contenues"
+" dans des plans de gestion des données créés sur DMP OPIDoR. Tous les services"
+" externes proposés ont été validés par DMP OPIDoR."
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:27
+#: ../../app/views/branded/plans/_share_third_party.html.erb:24
+msgid "Manage external services"
+msgstr "Gérer les services externes"
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:26
+msgid ""
+"Below is a list of external services that you can authorize to access to your "
+"plan content. You may withdraw a service's right at any time by clicking on th"
+"e \"Remove\" button."
+msgstr ""
+"Vous trouverez ci-dessous un tableau récapitulatif des services externes pour "
+"lesquels vous avez donné votre accord pour accéder en lecture seule aux inform"
+"ations contenues dans votre PGD via l’API DMP OPIDoR. Vous pouvez à tout momen"
+"t retirer cette autorisation à l’aide du bouton \"Supprimer\"."
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:31
+msgid "External Service"
+msgstr "Service externe"
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:32
+msgid "Purpose"
+msgstr "Finalité"
+
 #: ../../app/views/branded/plans/_share_third_party.html.erb:60
-msgid "Application"
-msgstr "Application"
-
-#: ../../app/views/branded/plans/_share_third_party.html.erb:53
 msgid "Authorize third party applications"
 msgstr "Autoriser des applications tierces"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:82
+#: ../../app/views/branded/plans/_share_third_party.html.erb:67
+msgid "Application"
+msgstr "Application"
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:89
 msgid "Read only: can read the content of the dmp"
 msgstr "Lecture seule : peut lire le contenu du plan"
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-01-16 15:25+0100\n"
-"PO-Revision-Date: 2023-01-16 15:25+0100\n"
+"POT-Creation-Date: 2023-01-24 13:48+0100\n"
+"PO-Revision-Date: 2023-01-24 13:48+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -1186,7 +1186,7 @@ msgstr ""
 #: ../../app/views/branded/plans/_edit_details.html.erb:120
 #: ../../app/views/branded/plans/_edit_details.html.erb:190
 #: ../../app/views/branded/plans/_share_form.html.erb:112
-#: ../../app/views/branded/plans/_share_third_party.html.erb:86
+#: ../../app/views/branded/plans/_share_third_party.html.erb:93
 #: ../../app/views/branded/research_outputs/_list.html.erb:101
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
@@ -1370,7 +1370,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/templates/_history.html.erb:10
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
 #: ../../app/views/branded/plans/_share_form.html.erb:20
-#: ../../app/views/branded/plans/_share_third_party.html.erb:30
+#: ../../app/views/branded/plans/_share_third_party.html.erb:35
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:10
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:30
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:9
@@ -2399,7 +2399,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:80
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:78
 #: ../../app/views/branded/plans/_share_form.html.erb:58
-#: ../../app/views/branded/plans/_share_third_party.html.erb:43
+#: ../../app/views/branded/plans/_share_third_party.html.erb:49
 #: ../../app/views/research_outputs/_form.html.erb:180
 msgid "Remove"
 msgstr ""
@@ -3085,13 +3085,13 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:18
 #: ../../app/views/branded/plans/_share_form.html.erb:91
-#: ../../app/views/branded/plans/_share_third_party.html.erb:28
-#: ../../app/views/branded/plans/_share_third_party.html.erb:77
+#: ../../app/views/branded/plans/_share_third_party.html.erb:33
+#: ../../app/views/branded/plans/_share_third_party.html.erb:84
 msgid "Permissions"
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:58
-#: ../../app/views/branded/plans/_share_third_party.html.erb:43
+#: ../../app/views/branded/plans/_share_third_party.html.erb:49
 msgid "Are you sure?"
 msgstr ""
 
@@ -3141,24 +3141,50 @@ msgstr ""
 msgid "Public: anyone can view"
 msgstr ""
 
+#: ../../app/views/branded/plans/_share_third_party.html.erb:3
+msgid "Select a service you would like to share your plan with."
+msgstr ""
+
 #: ../../app/views/branded/plans/_share_third_party.html.erb:13
-msgid "Third party applications"
+msgid "External services"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:23
-msgid "Manage third party applications"
+#: ../../app/views/branded/plans/_share_third_party.html.erb:22
+msgid ""
+"An \"external service\" can be provided by an organisation, a platform or a data"
+" infrastructure. These services are allowed (by DMP OPIDoR team) to automatica"
+"lly collect information that is being captured in data management plan, once y"
+"ou have given them the authorization, in order to offer you some services."
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:27
+#: ../../app/views/branded/plans/_share_third_party.html.erb:24
+msgid "Manage external services"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:26
+msgid ""
+"Below is a list of external services that you can authorize to access to your "
+"plan content. You may withdraw a service's right at any time by clicking on th"
+"e \"Remove\" button."
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:31
+msgid "External Service"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:32
+msgid "Purpose"
+msgstr ""
+
 #: ../../app/views/branded/plans/_share_third_party.html.erb:60
-msgid "Application"
-msgstr ""
-
-#: ../../app/views/branded/plans/_share_third_party.html.erb:53
 msgid "Authorize third party applications"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:82
+#: ../../app/views/branded/plans/_share_third_party.html.erb:67
+msgid "Application"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:89
 msgid "Read only: can read the content of the dmp"
 msgstr ""
 
