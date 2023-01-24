@@ -29,6 +29,7 @@
             <span class="readonly"><%= research_output_data['title'] %></span>
           </div>
           <% if plan.template.structured? %>
+          <!--
             <div class='research-output-field form-group research-output-uuid'>
               <%= f.label :uuid,  class: 'control-label' do %>
                 <%= _('UUID') %> 
@@ -48,6 +49,7 @@
                    title="<%= _('Copy UUID to clipboard')%>" ></i>
               </span>
             </div>
+          -->
           <% else %>
             <div class='research-output-field form-group research-output-type'>
               <% registryValues = Registry.find_by(name:"ResearchDataType").registry_values %>
