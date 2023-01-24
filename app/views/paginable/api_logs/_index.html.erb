@@ -30,7 +30,11 @@
             <% when 'Plan' %>
               <%= link_to(_('Plan: %<id>s') % { id: entry.logable_id }, plan_path(entry.logable_id)) %>
             <% when 'RelatedIdentifier' %>
-              <%= link_to(_('Related work: %<id>s') % { id: entry.logable_id }, plan_path(entry.logable.identifiable_id)) %>
+              <% if entry.logable.nil? %>
+                <%= "Old #{entry.logable_type} was deleted when the latest production snapshot was loaded!" %>
+              <% else %>
+                <%= link_to(_('Related work: %<id>s') % { id: entry.logable_id }, plan_path(entry.logable.identifiable_id)) %>
+              <% end %>
             <% else %>
               <%= "#{entry.logable_type}: #{entry.logable_id}" %>
             <% end %>
