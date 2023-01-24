@@ -385,9 +385,11 @@ module OrgAdmin
       # If nil and the org is not a funder, we default to organisational
       # If present, we parse to retrieve the value
       if args[:visibility].nil?
-        org.funder? ? 'publicly_visible' : 'organisationally_visible'
+        org.funder? ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible]
+      elsif args.fetch(:visibility, '0') == '1'
+        Template.visibilities[:organisationally_visible]
       else
-        args.fetch(:visibility, '0') == '1' ? 'organisationally_visible' : 'publicly_visible'
+        Template.visibilities[:publicly_visible]
       end
     end
 
