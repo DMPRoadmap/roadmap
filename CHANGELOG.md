@@ -10,6 +10,7 @@
 - Updated JS that used to call the TinyMCE `setMode()` function so that it now calls `mode.set()` because the former is now deprecated.
 - Patched an issue that was causing a template's visibility to change to 'organizationally_visible' when saving on the template details page.
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
+- Fixed an issue with the Rails 6 keyword arguments change that was causing the `paginable_sort_link` to fail
 
 ### Changed
 
