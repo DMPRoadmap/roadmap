@@ -35,3 +35,5 @@ sandbox:
 production:
   <<: *defaults
   url: <%= Rails.application.secrets.database_url %>
+  adapter: <%= Rails.application.secrets.adapter %>
+  encoding: <%= Rails.application.secrets.encoding %>
