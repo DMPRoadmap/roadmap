@@ -389,7 +389,7 @@ module OrgAdmin
       # If present, we parse to retrieve the value
       if args[:visibility].nil?
         org.funder? ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible]
-      elsif ['0', 'organisationally_visible'].include?(args.fetch(:visibility, 'publicly_visible'))
+      elsif %w[0 organisationally_visible].include?(args.fetch(:visibility, 'publicly_visible'))
         Template.visibilities[:organisationally_visible]
       else
         Template.visibilities[:publicly_visible]
