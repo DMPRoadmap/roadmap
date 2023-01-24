@@ -9,6 +9,8 @@
   <%= render partial: 'phases/research_outputs_tabs', locals: { research_outputs: research_outputs } %>
 
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active answering-phase" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
+    <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
+    </div>
     <div class="section-description">
       <div class="display-readonly-textarea-content">
         <%= sanitize phase.description %>
