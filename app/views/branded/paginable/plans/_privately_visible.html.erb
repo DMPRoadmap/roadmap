@@ -30,6 +30,9 @@
               <%= check_box_tag "is_test", "1", (plan.visibility === "is_test"),
                                           id: "is_test_#{plan.id}",
                                           class: "set_test_plan",
+                                          aria: {
+                                            label: "#{plan.title} - test plan flag"
+                                          },
                                           data: { remote: true, method: :post,
                                                   url: set_test_plan_path(plan) } %>
               <label for="is_test_<%= plan.id %>">

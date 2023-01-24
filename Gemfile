@@ -235,6 +235,11 @@ gem 'activerecord_json_validator'
 
 gem 'rswag'
 
+# We need to freeze the mail gem version as the recently released 2.8.0 triggers an exception
+# We will need to check if it's fixed when we migrate to Ruby 3.0/3.1
+# See : https://github.com/DMPRoadmap/roadmap/issues/3254
+gem 'mail', '2.7.1'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
@@ -289,7 +294,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'webdrivers', '~> 5.2'
 
   # Automatically create snapshots when Cucumber steps fail with Capybara
   # and Rails (http://github.com/mattheworiordan/capybara-screenshot)

@@ -19,7 +19,7 @@ $(() => {
     } else {
       $(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`).html('');
       $(`#collapse-${questionId}-research-output-${researchOutputId} .runs-tab`).hide();
-      $(`a[href="#notes-${questionId}-research-output-${researchOutputId}"]`).tab('show');
+      // $(`a[href="#notes-${questionId}-research-output-${researchOutputId}"]`).tab('show');
     }
   };
 

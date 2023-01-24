@@ -117,7 +117,7 @@
   <% end %>
   <h2><%= _('Set plan visibility') %></h2>
   <p class="form-control-static">
-    <%= _('Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility.') %>
+    <%= _('Fully or partially completed plans can be made visible to administrators, organisations as well as public. Plans flagged as test projects remain private.') %>
   </p>
   <% allow_visibility = @plan.visibility_allowed? %>
   <%= form_for(@plan, url: visibility_plan_path, method: :post, remote: true, html: { id: 'set_visibility' }) do |f| %>
@@ -153,5 +153,7 @@
       </div>
     </fieldset>
   <% end %>
-  <%= render partial: 'plans/share_third_party',locals: { administerable: administerable } %>
+  <% if @plan.template.structured? && @plan_client_roles.any? %>
+    <%= render partial: 'plans/share_third_party',locals: { administerable: administerable } %>
+  <% end %>
 </div>

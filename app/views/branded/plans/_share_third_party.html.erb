@@ -1,6 +1,6 @@
 <% client_editor = ApiClientRole.new(edit: true, read: true) %>
 <% client_reader = ApiClientRole.new(read: true) %>
-<% client_tooltip = 'pouet' %>
+<% client_tooltip = _('Select a service you would like to share your plan with.') %>
 <% client_permissions_tooltip = '' %>
 
 <div class="heading-button" role="button" data-toggle="collapse"
@@ -10,7 +10,7 @@
       aria-controls="api_client_roles">
   <div class="panel-heading" role="tab" id="heading-api-client-roles">
     <div class="panel-title pull-left">
-      <%= _("Third party applications") %>
+      <%= _("External services") %>
     </div>
     <i class="fas fa-chevron-right pull-right" aria-hidden="true"></i>
     <div class="clearfix"></div>
@@ -19,12 +19,17 @@
 
 <div id="api_client_roles" class="panel-collapse collapse plan-details-content" role="tabpanel" aria-labelledby="heading-api-client-roles">
   <div class="panel-body">
+    <p><%= _('An "external service" can be provided by an organisation, a platform or a data infrastructure. These services are allowed (by DMP OPIDoR team) to automatically collect information that is being captured in data management plan, once you have given them the authorization, in order to offer you some services.') %></p>
     <% if @plan_client_roles.any? then %>
-      <h2><%= _('Manage third party applications')%></h2>
+      <h2><%= _('Manage external services')%></h2>
+      <p class="form-control-static">
+        <%= _('Below is a list of external services that you can authorize to access to your plan content. You may withdraw a service\'s right at any time by clicking on the "Remove" button.') %>
+      </p>
       <table class="table table-hover table-bordered" id="api-clients-table">
         <thead>
           <tr>
-            <th scope="col"><%= _('Application')%></th>
+            <th scope="col"><%= _('External Service')%></th>
+            <th scope="col"><%= _('Purpose')%></th>
             <th scope="col"><%= _('Permissions')%></th>
             <% if administerable %>
               <th scope="col"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
@@ -35,6 +40,7 @@
           <% @plan_client_roles.each do |client_role| %>
             <tr>
               <td><%= client_role.api_client.name %></td>
+              <td><%= client_role.api_client.description %></td>
               <td>
                 <span><%= display_client_role(client_role) %></span>
               </td>
@@ -49,6 +55,7 @@
       </table>
     <% end %>
 
+    <% administerable = false # Deactivated this form for now %>
     <% if administerable  %>
       <h2><%= _('Authorize third party applications') %></h2>
       <% new_client_role = ApiClientRole.new %>
