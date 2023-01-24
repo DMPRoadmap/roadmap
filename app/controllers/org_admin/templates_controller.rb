@@ -201,6 +201,8 @@ module OrgAdmin
         # Swap in the appropriate visibility enum value for the checkbox value
         args[:visibility] = parse_visibility(args, current_user.org)
 
+pp args
+
         template.assign_attributes(args)
         template.links = ActiveSupport::JSON.decode(params['template-links']) if params['template-links'].present?
         if template.save
@@ -389,7 +391,7 @@ module OrgAdmin
       # If nil and the org is not a funder, we default to organisational
       # If present, we parse to retrieve the value
       if args[:visibility].nil?
-        org.funder? ? 'publicly_visible' : 'organisationally_visible'
+        org.funder? ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible]
       else
         args.fetch(:visibility, '0') == '1' ? 'organisationally_visible' : 'publicly_visible'
       end
