@@ -3,8 +3,13 @@
 ## DMPTool Releases
 
 ### v4.0.5
+This version includes changes from [DMPRoadmap release v4.0.2](https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.2) see the release notes for details.
+
 #### New Feature / Functionality changes:
 - Added 'Preregistration' to list of available 'Work Type' values for research outputs on the Follow-up tab
+
+#### Bug Fixes:
+- Patched issue that was causing Templates to become 'organizationally_visible' when the title or links were updated.
 
 ### v4.0.4
 #### New Feature / Functionality changes:
