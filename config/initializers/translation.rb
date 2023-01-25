@@ -22,12 +22,12 @@ TranslationIO.configure do |config|
   #   'Annotation' => ['text']
   # }
   config.db_fields = {
-    'Theme' => ['title', 'description'],
-    'QuestionFormat' => ['title', 'description'],
-    'Template' => ['title', 'description'],
-    'Phase' => ['title', 'description'],
-    'Section' => ['title', 'description'],
-    'Question' => ['text', 'default_value'],
+    'Theme' => %w[title description],
+    'QuestionFormat' => %w[title description],
+    'Template' => %w[title description],
+    'Phase' => %w[title description],
+    'Section' => %w[title description],
+    'Question' => %w[text default_value],
     'Annotation' => ['text']
   }
   # PENDING TO VERIFY in 3.1.0
