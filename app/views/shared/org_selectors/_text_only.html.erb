@@ -1,5 +1,6 @@
 <%# ISSUE93: in case the change of plan-text field for funder affecting other pages,
-this view is specially created to force saving a new funder without warning message pop-up %>
+this view is specially created to force saving a new funder without warning message pop-up.
+Updated on ISSUE260: this view will pass empty source. Thus no suggestion will pop-up%>
 
 <%
 # Whether or not the org selection is required
@@ -22,10 +23,10 @@ presenter = OrgSelectionPresenter.new(orgs: orgs, selection: default_org)
 <div id="<%= SecureRandom.hex(6) %>_ui-front" class="ui-front"></div>
 
 <%# sources contains an array of Org names %>
-<%= form.hidden_field :org_sources, value: presenter.select_list %>
+<%= form.hidden_field :org_sources, value: "[]" %>
 <%# crosswalk contains an array of hashes that contain the Org name, id,
     identifiers like ROR and other info used by the OrgSelectionService %>
-<%= form.hidden_field :org_crosswalk, value: presenter.crosswalk %>
+<%= form.hidden_field :org_crosswalk, value: "[]" %>
 <%# gets updated with the matching record from crosswalk when the user
     selects or enters something %>
 <% if form.object[id_field]&.to_s =~ /[0-9]+/ || form.object[id_field].nil? %>

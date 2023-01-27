@@ -21,7 +21,7 @@ RSpec.describe 'SuperAdmins Merge Orgs', type: :feature, js: true do
     create(:tracker, org: @from_org)
     create(:user, org: @from_org)
 
-    @to_org = create(:org, :institution, plans: 2, managed: false)
+    @to_org = create(:org, :institution, plans: 2)
 
     @user = create(:user, :super_admin, org: create(:org))
     sign_in(@user)

@@ -47,7 +47,7 @@ RUN bundle config set force_ruby_platform true
 
 # /bundle/ruby/2.7.0/bin/rake error: Could not find nokogiri-1.13.6, mini_portile2-2.5.3 in locally installed gems (Bundler::GemNotFound)
 RUN bundle update rake 
-# RUN DATABASE_URL=nulldb://user:test@127.0.0.1/roadmap RAILS_ENV=production SECRET_KEY_BASE=change_me DEVISE_SECRET_KEY=pickasecuretoken bundle exec rake assets:precompile
+RUN DATABASE_URL=nulldb://user:test@127.0.0.1/roadmap RAILS_ENV=production SECRET_KEY_BASE=change_me DEVISE_SECRET_KEY=pickasecuretoken bundle exec rake assets:precompile
 
 EXPOSE 3000
 CMD bundle exec puma -C config/puma.rb

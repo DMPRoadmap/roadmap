@@ -8,7 +8,7 @@ label = label || _("Organisation")
 # Allows the hidden id field to be renamed for instances where there are
 # multiple org selectors on the same form
 id_field = id_field || :org_id
-presenter = OrgSelectionPresenter.new(orgs: orgs, selection: default_org)
+presenter = OrgSelectionPresenter.new(orgs: orgs.select{|org| org.managed == true}, selection: default_org)
 placeholder = _("Begin typing to see a list of suggestions.")
 %>
 

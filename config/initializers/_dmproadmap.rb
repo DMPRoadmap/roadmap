@@ -118,7 +118,7 @@ module DMPRoadmap
       }
     }
     # Setting to only take orgs from local and not allow on-the-fly creation
-    config.x.application.restrict_orgs = false
+    config.x.application.restrict_orgs = true
     # Setting to display phone number in contributor form
     config.x.application.display_contributor_phone_number = false
 

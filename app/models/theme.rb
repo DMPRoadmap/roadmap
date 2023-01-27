@@ -37,6 +37,14 @@ class Theme < ApplicationRecord
           search_pattern, search_pattern)
   }
 
+  # rubocop:disable Style/MultilineBlockChain, Style/BlockDelimiters
+  scope :sorted_by_translated_title, lambda {
+    all.each { |theme|
+      theme[:title] = _(theme[:title])
+    }.sort_by { |theme| theme[:title] }
+  }
+  # rubocop:enable Style/MultilineBlockChain, Style/BlockDelimiters
+
   # ===========================
   # = Public instance methods =
   # ===========================

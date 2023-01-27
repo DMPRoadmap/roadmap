@@ -453,6 +453,13 @@ class User < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
+  # For masking the ID that we send to rollbar
+  #
+  # Returns string
+  def id_as_hash
+    Digest::SHA2.hexdigest("#{Rails.application.secrets.secret_key_base}_#{id}")
+  end
+
   private
 
   # ============================
