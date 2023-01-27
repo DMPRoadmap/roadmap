@@ -156,7 +156,7 @@ module Dmptool
       #   ]
       # }
       # faceting_options = Rails.cache.fetch('public_plans/faceting_options', expires_in: 24.hours) do
-      Rails.cache.fetch('public_plans/faceting_options', expires_in: 2.minutes) do
+      Rails.cache.fetch('public_plans/faceting_options', expires_in: 12.hours) do
         languages = ::Language.joins('INNER JOIN plans on plans.language_id = languages.id')
                               .where('plans.visibility = ?', ::Plan.visibilities[:publicly_visible])
                               .order('count(plans.id) DESC, languages.name')
