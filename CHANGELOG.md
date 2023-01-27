@@ -10,6 +10,7 @@ This version includes changes from [DMPRoadmap release v4.0.2](https://github.co
 
 #### Bug Fixes:
 - Patched issue that was causing Templates to become 'organizationally_visible' when the title or links were updated.
+- Refactored the Public Plans page to be more efficient with memory usage [#419](https://github.com/CDLUC3/dmptool/issues/419)
 
 ### v4.0.4
 #### New Feature / Functionality changes:

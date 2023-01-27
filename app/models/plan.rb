@@ -47,6 +47,11 @@ class Plan < ApplicationRecord
   include DateRangeable
   include Identifiable
 
+  # ----------------------------------------
+  # Start DMPTool Customization
+  # ----------------------------------------
+  include Dmptool::Plan
+
   # DMPTool customization to support faceting the public plans by language
   # ----------------------------------------------------------------------
   belongs_to :language, default: -> { Language.default }

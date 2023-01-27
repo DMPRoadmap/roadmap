@@ -3,34 +3,59 @@
 module Dmptool
   # Customization to add the public facing 'Participating Institutions' page
   module PublicPagesController
+    # The publicly accessible list of participating institutions
+    def orgs
+      skip_authorization
+      ids = ::Org.where.not(::Org.funder_condition).pluck(:id)
+      @orgs = ::Org.participating.where(id: ids)
+    end
+
     # Override of the core DMPRoadmap public plans method
     #
     # GET|POST /plans_index
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def plan_index
-      term = process_search
-      @plans = ::Plan.includes(:org, :funder, :language, :template, :research_domain, roles: [:user])
+      selected_facets = process_facets
+      search_term = process_search
+      sort_by = process_sort_by
+
+      # Fetch the plan ids that match the user's search criteria
+      #    NOTE: changing the order of columns in `pluck` will impact drop_unused_facets()
+      plan_ids = ::Plan.joins(roles: [user: [:org]])
+                       .publicly_visible
+                       .search(search_term)
+                       .faceted_search(facets: selected_facets, sort_by: sort_by)
+                       .distinct
+                       .pluck('plans.id, plans.funder_id, plans.org_id, plans.language_id, plans.research_domain_id')
+
+      # If the user clicked 'View All', set the per_page to match the record count
+      per_page = plan_ids.length if public_plans_params[:all]
+      per_page = public_plans_params.fetch(:per_page, 10) if per_page.blank?
+
+      @viewing_all = public_plans_params[:all].present?
+
+      # Handle pagination unless the user clicked 'View All' (Always do this last!)
+      @paginated_plan_ids = Kaminari.paginate_array(plan_ids.map { |plan| plan[0] })
+                                    .page(public_plans_params.fetch(:page, 1))
+                                    .per(per_page)
+
+      # Only do a full fetch of the plans that are on the current page!
+      @plans = ::Plan.includes(:org, :funder, :language, :template, :research_domain, identifiers: [:identifier_scheme],
+                               roles: [user: [:org]])
+                     .joins(roles: [user: [:org]])
                      .publicly_visible
-                     .search(term)
-                     .order(process_sort_by)
+                     .where(::Role.creator_condition)
+                     .where('roles.active = true')
+                     .where('plans.id IN (?)', @paginated_plan_ids)
+                     .order(sort_by)
 
-      # Build the facets/search/sort/pagination settings
-      selections = public_plans_params.fetch(:facet, {})
-      @facets = {
-        search: public_plans_params.fetch(:search, ''),
-        sort_by: public_plans_params.fetch(:sort_by, 'featured'),
-        funders: build_facet(association: :funder, attr: :name,
-                             selected: selections.fetch(:funder_ids, [])),
-        institutions: build_facet(association: :org, attr: :name,
-                                  selected: selections.fetch(:institution_ids, [])),
-        languages: build_facet(association: :language, attr: :name,
-                               selected: selections.fetch(:language_ids, [])),
-        subjects: build_facet(association: :research_domain, attr: :label,
-                              selected: selections.fetch(:subject_ids, []))
-      }
-
-      # Process any faceting
-      process_facets
+      # Build the facets list and retain the user's current search, sort and faceting selections
+      @facets = cached_facet_options
+      build_facet(facet: :funders, ids: selected_facets[:funder_ids], plans: plan_ids, facet_pos_in_plans: 1)
+      build_facet(facet: :institutions, ids: selected_facets[:org_ids], plans: plan_ids, facet_pos_in_plans: 2)
+      build_facet(facet: :languages, ids: selected_facets[:lang_ids], plans: plan_ids, facet_pos_in_plans: 3)
+      build_facet(facet: :subjects, ids: selected_facets[:sub_ids], plans: plan_ids, facet_pos_in_plans: 4)
+      @facets = @facets.merge({ search: public_plans_params[:search], sort_by: public_plans_params[:sort_by] })
 
       # If the user clicked 'View All', set the per_page to match the record count
       per_page = @plans.length if public_plans_params[:all]
@@ -39,18 +64,12 @@ module Dmptool
       @viewing_all = public_plans_params[:all].present?
 
       # Handle pagination unless the user clicked 'View All' (Always do this last!)
-      @plans = Kaminari.paginate_array(@plans)
-                       .page(public_plans_params.fetch(:page, 1))
-                       .per(per_page)
+      # @plans = Kaminari.paginate_array(@plans)
+      #                  .page(public_plans_params.fetch(:page, 1))
+      #                  .per(per_page)
+
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
-    # The publicly accessible list of participating institutions
-    def orgs
-      skip_authorization
-      ids = ::Org.where.not(::Org.funder_condition).pluck(:id)
-      @orgs = ::Org.participating.where(id: ids)
-    end
 
     protected
 
@@ -69,25 +88,22 @@ module Dmptool
       name.length > 31 ? name[0..30] : name
     end
 
-    # Searches through the plans and builds a facet for the specified associated model
-    # e.g. templates = build_facet(plans: @plans, association: :template, attr: :title)
-    # rubocop:disable Metrics/AbcSize
-    def build_facet(association:, attr:, selected: [])
-      facet = {}
-      @plans.each do |plan|
-        next if plan.send(association.to_sym).blank?
+    # Select all of the facets the user has selected
+    def build_facet(facet:, ids:, plans:, facet_pos_in_plans:)
+      return [] unless @facets[facet.to_sym].present?
 
-        hash = facet.fetch(:"#{plan.send(association.to_sym).id}", {
-                             label: plan.send(association.to_sym).send(attr.to_sym),
-                             nbr_plans: 0,
-                             selected: selected.include?(plan.send(association.to_sym).id.to_s)
-                           })
-        hash[:nbr_plans] += 1
-        facet[:"#{plan.send(association.to_sym).id}"] = hash
+      relevant_plan_ids = plans.map { |plan| plan[facet_pos_in_plans].to_s }
+
+      # Only take the facets that apply to the current resultset!
+      @facets[facet.to_sym] = @facets[facet.to_sym].select do |id, _hash|
+        relevant_plan_ids.include?(id.to_s)
       end
-      facet = facet.sort_by { |_k, v| v[:nbr_plans] }.reverse
+      # Retain the user's selections and recalc the nbr_plans
+      @facets[facet.to_sym].each do |id, hash|
+        hash[:nbr_plans] = relevant_plan_ids.select { |plan_id| plan_id == id }.length
+        hash[:selected] = 'true' if ids.is_a?(Array) && ids.any? && ids.include?(id.to_s)
+      end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # Process the sort criteria
     def process_sort_by
@@ -95,7 +111,7 @@ module Dmptool
       when 'created_at'
         'plans.created_at desc'
       when 'title'
-        'plans.title asc'
+        "TRIM(plans.title) asc"
       else
         'plans.featured desc, plans.created_at desc'
       end
@@ -106,21 +122,72 @@ module Dmptool
       public_plans_params[:search].present? ? "%#{public_plans_params[:search]}%" : '%'
     end
 
-    # Filter the plans by the selected facets
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # Process the facet selections
     def process_facets
-      facets = public_plans_params.fetch(:facet, {})
-      funder_ids = facets.fetch(:funder_ids, [])
-      org_ids = facets.fetch(:institution_ids, [])
-      lang_ids = facets.fetch(:language_ids, [])
-      sub_ids = facets.fetch(:subject_ids, [])
-
-      # Filter the results based on the selected facets
-      @plans = @plans.select { |p| funder_ids.include?(p.funder_id.to_s) } if funder_ids.any?
-      @plans = @plans.select { |p| org_ids.include?(p.org_id.to_s) } if org_ids.any?
-      @plans = @plans.select { |p| lang_ids.include?(p.language_id.to_s) } if lang_ids.any?
-      @plans = @plans.select { |p| sub_ids.include?(p.research_domain_id.to_s) } if sub_ids.any?
+      public_plans_params.fetch(:facet, {})
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+    # Convert the results of the query into a Hash for our faceting section of the page
+    def result_to_hash(array: [])
+      hash = {}
+      # Build the Hash for our faceting portion of the UI
+      array.each do |item|
+        next unless hash["#{item[0]}"].nil?
+
+        hash["#{item[0]}"] = { label: item[1], nbr_plans: item[2], selected: 'false' }
+      end
+      hash
+    end
+
+    def cached_facet_options
+      # Stash all of the available faceting options into the cache so that its not using up valuable memory each time
+      # {
+      #   :funders=>
+      #     [:"170", {:label=>"United States Department of Agriculture (usda.gov)", :nbr_plans=>18, :selected=>false}]
+      #   ]
+      #   :institutions=> [
+      #     [:"4497", {:label=>"São Paulo Research Foundation (fapesp.br)", :nbr_plans=>313, :selected=>false}]
+      #   ]
+      #   :languages=> [
+      #     [:"2", {:label=>"English (US)", :nbr_plans=>707, :selected=>false}
+      #   ],
+      #   :subjects=> [
+      #     [:"6", {:label=>"Earth and related environmental sciences", :nbr_plans=>70, :selected=>false}
+      #   ]
+      # }
+      # faceting_options = Rails.cache.fetch('public_plans/faceting_options', expires_in: 24.hours) do
+      Rails.cache.fetch('public_plans/faceting_options', expires_in: 2.minutes) do
+        languages = ::Language.joins('INNER JOIN plans on plans.language_id = languages.id')
+                              .where('plans.visibility = ?', ::Plan.visibilities[:publicly_visible])
+                              .order('count(plans.id) DESC, languages.name')
+                              .group('languages.id, languages.name')
+                              .pluck('languages.id, languages.name, count(plans.id) as nbr_plans')
+
+        funders = ::Org.joins(:funded_plans).includes(:funded_plans)
+                      .where('plans.visibility = ?', ::Plan.visibilities[:publicly_visible])
+                      .order('count(plans.id) DESC, orgs.name')
+                      .group('orgs.id, orgs.name')
+                      .pluck('orgs.id, orgs.name, count(plans.id) as nbr_plans')
+
+        institutions = ::Org.joins(:plans).includes(:plans)
+                            .where('plans.visibility = ?', ::Plan.visibilities[:publicly_visible])
+                            .order('count(plans.id) DESC, orgs.name')
+                            .group('orgs.id, orgs.name')
+                            .pluck('orgs.id, orgs.name, count(plans.id) as nbr_plans')
+
+        subjects = ::ResearchDomain.joins('INNER JOIN plans on plans.research_domain_id = research_domains.id')
+                                  .where('plans.visibility = ?', ::Plan.visibilities[:publicly_visible])
+                                  .order('count(plans.id) DESC, research_domains.label')
+                                  .group('research_domains.id, research_domains.label')
+                                  .pluck('research_domains.id, research_domains.label, count(plans.id) as nbr_plans')
+
+       {
+          funders: result_to_hash(array: funders),
+          institutions: result_to_hash(array: institutions),
+          languages: result_to_hash(array: languages),
+          subjects: result_to_hash(array: subjects)
+        }
+      end
+    end
   end
 end

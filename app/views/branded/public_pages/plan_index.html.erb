@@ -11,5 +11,10 @@
 
 <% content_for :home do %>
   <%= render partial: '/public_pages/plans_results',
-             locals: { plans: @plans, sort_by: @facets[:sort_by] } %>
+             locals: { paginated_plan_ids: @paginated_plan_ids, plans: @plans, sort_by: @facets[:sort_by] } %>
 <% end %>
+
+<%
+mem = GetProcessMem.new
+p "MEMORY USAGE END: #{mem.mb}"
+%>

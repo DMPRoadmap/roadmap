@@ -229,6 +229,8 @@ GEM
     fuubar (2.5.1)
       rspec-core (~> 3.0)
       ruby-progressbar (~> 1.4)
+    get_process_mem (0.2.7)
+      ffi (~> 1.0)
     gettext (3.4.3)
       erubi
       locale (>= 2.0.5)
@@ -619,6 +621,7 @@ DEPENDENCIES
   flag_shih_tzu
   font-awesome-sass (~> 5)
   fuubar
+  get_process_mem
   guard
   htmltoword
   httparty
