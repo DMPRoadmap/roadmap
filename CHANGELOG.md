@@ -10,6 +10,7 @@
 - Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
 - Fixed discrepencies with default/max per_page values for API and UI pagination
 - Updated JS that used to call the TinyMCE `setMode()` function so that it now calls `mode.set()` because the former is now deprecated.
+- Fixed an issue with the Rails 6 keyword arguments change that was causing the `paginable_sort_link` to fail
 
 ### Changed
 
