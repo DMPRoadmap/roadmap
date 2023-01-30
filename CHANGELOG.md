@@ -7,6 +7,7 @@
 - Added popover for org profile page and added explanation for public plan
 ### Fixed
 
+- Updated the CSV export so that it now includes research outputs
 - Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
 - Fixed discrepencies with default/max per_page values for API and UI pagination
 - Updated JS that used to call the TinyMCE `setMode()` function so that it now calls `mode.set()` because the former is now deprecated.
