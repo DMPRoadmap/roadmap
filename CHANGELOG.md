@@ -7,8 +7,13 @@
 - Added popover for org profile page and added explanation for public plan
 ### Fixed
 
+- Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
+- Updated the CSV export so that it now includes research outputs
+- Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
+- Fixed discrepencies with default/max per_page values for API and UI pagination
 - Updated JS that used to call the TinyMCE `setMode()` function so that it now calls `mode.set()` because the former is now deprecated.
 - Patched an issue that was causing a template's visibility to change to 'organizationally_visible' when saving on the template details page.
+- Fixed an issue with the Rails 6 keyword arguments change that was causing the `paginable_sort_link` to fail
 
 ### Changed
 
