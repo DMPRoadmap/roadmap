@@ -11,6 +11,43 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
+  # ---------------------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------------------
+  attr_accessor :proc_id
+
+  # briley 1/30/23 - Adding these controller hooks to start logging memory usage stats
+  before_action do |controller|
+    @proc_id = SecureRandom.uuid
+    msg = "Using #{GetProcessMem.new.mb} MB @ #{Time.now.strftime('%Y-%m-%dT%H:%M:%S')} (request #{@proc_id}, pid #{Process.pid}) ::: "
+    msg += "Before #{controller.class.name} - #{controller.request.method} #{controller.request.url}\n"
+    Rails.configuration.x.memory_usage_log.call(msg)
+  rescue StandardError => e
+    Rails.logger.error "MEMORY USAGE - FATAL ERROR #{e.message}"
+    true
+  end
+
+  after_action do |controller|
+    msg = "Using #{GetProcessMem.new.mb} MB @ #{Time.now.strftime('%Y-%m-%dT%H:%M:%S')} (request #{@proc_id}, pid #{Process.pid}) ::: "
+    msg += "After #{controller.class.name} - #{controller.request.method} #{controller.request.url}\n"
+
+    # Garbage Collector stats
+    #
+    # TODO: Watch for large number of free slots appearing. This means that some code is allocating
+    #       large numbers of objects and then freeing them, which can permanently bloat the size of
+    #       the Ruby process!
+    stats = GC.stat
+    msg += "    GC COUNTS - major: #{stats[:major_gc_count]}, minor: #{stats[:minor_gc_count]}\n"
+    msg += "    HEAP PAGES - allocated: #{stats[:heap_allocated_pages]}, memory size: #{stats[:heap_sorted_length]}, available for new objects: #{stats[:heap_allocatable_pages]}, Eden: #{stats[:eden_pages]}, Tomb: #{stats[:tomb_pages]}\n"
+    msg += "    HEAP SLOTS - used/live: #{stats[:heap_live_slots]}, free: #{stats[:heap_free_slots]}, marked: #{stats[:heap_marked_slots]}\n"
+    msg += "    MALLOC - allocation size #{stats[:malloc_increase_bytes].to_f / 1000000} MB, limit: #{stats[:malloc_increase_bytes_limit].to_f / 1000000} MB\n\n"
+    Rails.configuration.x.memory_usage_log.call(msg)
+  rescue StandardError => e
+    Rails.logger.error "MEMORY USAGE - FATAL ERROR #{e.message}"
+    true
+  end
+  # ---------------------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------------------
+
   after_action :store_location
 
   include GlobalHelpers

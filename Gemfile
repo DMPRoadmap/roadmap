@@ -250,6 +250,9 @@ gem 'activerecord_json_validator'
 # user input (we're using it for PDF invoice downloads in Noko). (https://github.com/madrobby/zaru)
 gem 'zaru'
 
+# A memory profiler for Ruby
+gem 'get_process_mem'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
