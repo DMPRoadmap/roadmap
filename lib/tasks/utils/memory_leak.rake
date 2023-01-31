@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'objspace'
+
 namespace :memory_leak do
   desc 'Dump the current ObjectSpace'
   task dump_objects: :environment do
