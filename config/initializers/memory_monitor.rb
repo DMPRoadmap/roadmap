@@ -8,7 +8,7 @@ module DMPRoadmap
     # --------------------- #
 
     # The memory usage log file that will be used by ApplicationController and ApplicationRecord
-    memory_logger = lambda(msg) do
+    memory_logger = ->(msg) do
       file_name = Rails.root.join('log', "memory_utilization_#{Time.now.strftime('%Y-%m-%d')}.log")
       file = File.open(file_name, File.exist?(file_name) ? 'a' : 'w+')
       file.write(msg)
