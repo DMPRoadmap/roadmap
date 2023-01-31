@@ -43,7 +43,7 @@ module Api
       def show
         # See the Policy for details on what Plans are returned to the Caller based on the AccessToken
         @plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, 'both').resolve
-                                           .select { |plan| plan.id.to_s == params[:id] }.first
+                                           .find { |plan| plan.id.to_s == params[:id] }
 
         if @plan.present?
           respond_to do |format|

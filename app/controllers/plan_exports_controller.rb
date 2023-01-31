@@ -146,7 +146,7 @@ class PlanExportsController < ApplicationController
     # Sanitize bad characters and replace spaces with underscores
     ret = @plan.title
     ret = ret.strip.gsub(/\s+/, '_')
-    ret = ret.gsub(/"/, '')
+    ret = ret.tr(/"/, '')
     ret = ActiveStorage::Filename.new(ret).sanitized
     # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
     # of 255 characters, so this should provide enough of the title to allow the user

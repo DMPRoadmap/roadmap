@@ -6,6 +6,7 @@ module Dmptool
     extend ActiveSupport::Concern
 
     class_methods do
+      # rubocop:disable Metrics/AbcSize
       def faceted_search(facets: {}, sort_by: 'plans.featured desc, plans.created_at desc')
         return order(sort_by) unless facets.is_a?(ActionController::Parameters)
 
@@ -22,9 +23,10 @@ module Dmptool
         return order(sort_by) if clause.blank?
 
         where(clause.join(' AND '), funder_ids: funder_ids, org_ids: org_ids, language_ids: language_ids,
-              subject_ids: subject_ids)
+                                    subject_ids: subject_ids)
           .order(sort_by)
       end
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end

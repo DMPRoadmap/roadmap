@@ -81,7 +81,7 @@ module OrgSelection
       def lookup_org_by_name(hash:)
         clean_name = OrgSelection::SearchService.name_without_alias(name: hash[:name])
         orgs = Org.search(clean_name)
-        orgs.select { |o| exact_match?(rec: o, name2: hash[:name]) }.first
+        orgs.find { |o| exact_match?(rec: o, name2: hash[:name]) }
       end
 
       # Initialize a new Org from the hash

@@ -50,12 +50,12 @@ module Api
         def org_templates(templates: [])
           org_templates = Template.latest_version_per_org(@client.user.org).published
           custs = Template.latest_customized_version_per_org(@client.user.org).published
-          return (templates + org_templates).sort { |a, b| a.title <=> b.title } unless custs.any?
+          return (templates + org_templates).sort_by(&:title) unless custs.any?
 
           # Remove any templates that were customized by the org, we will use their customization
           templates.reject { |t| custs.map(&:customization_of).include?(t.family_id) }
 
-          (org_templates + custs + templates).sort { |a, b| a.title <=> b.title }
+          (org_templates + custs + templates).sort_by(&:title)
         end
         # rubocop:enable Metrics/AbcSize
       end

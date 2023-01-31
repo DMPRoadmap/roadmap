@@ -42,7 +42,7 @@ module Api
             return dflt unless json.present? && json[:work_type].present?
 
             val = json[:work_type].downcase
-            return dflt unless ::RelatedIdentifier.work_types.keys.include?(val)
+            return dflt unless ::RelatedIdentifier.work_types.key?(val)
 
             val
           end

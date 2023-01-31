@@ -2,6 +2,7 @@
 
 module Dmptool
   # Customization to add the public facing 'Participating Institutions' page
+  # rubocop:disable Metrics/ModuleLength
   module PublicPagesController
     # The publicly accessible list of participating institutions
     def orgs
@@ -41,7 +42,7 @@ module Dmptool
 
       # Only do a full fetch of the plans that are on the current page!
       @plans = ::Plan.includes(:org, :funder, :language, :template, :research_domain, identifiers: [:identifier_scheme],
-                               roles: [user: [:org]])
+                                                                                      roles: [user: [:org]])
                      .joins(roles: [user: [:org]])
                      .publicly_visible
                      .where(::Role.creator_condition)
@@ -56,18 +57,6 @@ module Dmptool
       build_facet(facet: :languages, ids: selected_facets[:lang_ids], plans: plan_ids, facet_pos_in_plans: 3)
       build_facet(facet: :subjects, ids: selected_facets[:sub_ids], plans: plan_ids, facet_pos_in_plans: 4)
       @facets = @facets.merge({ search: public_plans_params[:search], sort_by: public_plans_params[:sort_by] })
-
-      # If the user clicked 'View All', set the per_page to match the record count
-      per_page = @plans.length if public_plans_params[:all]
-      per_page = public_plans_params.fetch(:per_page, 10) if per_page.blank?
-
-      @viewing_all = public_plans_params[:all].present?
-
-      # Handle pagination unless the user clicked 'View All' (Always do this last!)
-      # @plans = Kaminari.paginate_array(@plans)
-      #                  .page(public_plans_params.fetch(:page, 1))
-      #                  .per(per_page)
-
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
@@ -83,12 +72,13 @@ module Dmptool
     def file_name(title)
       name = title.gsub(/[\r\n]/, ' ')
                   .gsub(/[^a-zA-Z\d\s]/, '')
-                  .gsub(/ /, '_')
+                  .tr(/ /, '_')
 
       name.length > 31 ? name[0..30] : name
     end
 
     # Select all of the facets the user has selected
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
     def build_facet(facet:, ids:, plans:, facet_pos_in_plans:)
       return [] unless @facets[facet.to_sym].present?
 
@@ -100,10 +90,11 @@ module Dmptool
       end
       # Retain the user's selections and recalc the nbr_plans
       @facets[facet.to_sym].each do |id, hash|
-        hash[:nbr_plans] = relevant_plan_ids.select { |plan_id| plan_id == id }.length
+        hash[:nbr_plans] = relevant_plan_ids.count(id)
         hash[:selected] = 'true' if ids.is_a?(Array) && ids.any? && ids.include?(id.to_s)
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
     # Process the sort criteria
     def process_sort_by
@@ -111,7 +102,7 @@ module Dmptool
       when 'created_at'
         'plans.created_at desc'
       when 'title'
-        "TRIM(plans.title) asc"
+        'TRIM(plans.title) asc'
       else
         'plans.featured desc, plans.created_at desc'
       end
@@ -132,13 +123,14 @@ module Dmptool
       hash = {}
       # Build the Hash for our faceting portion of the UI
       array.each do |item|
-        next unless hash["#{item[0]}"].nil?
+        next unless hash[item[0].to_s].nil?
 
-        hash["#{item[0]}"] = { label: item[1], nbr_plans: item[2], selected: 'false' }
+        hash[item[0].to_s] = { label: item[1], nbr_plans: item[2], selected: 'false' }
       end
       hash
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
     def cached_facet_options
       # Stash all of the available faceting options into the cache so that its not using up valuable memory each time
       # {
@@ -164,10 +156,10 @@ module Dmptool
                               .pluck('languages.id, languages.name, count(plans.id) as nbr_plans')
 
         funders = ::Org.joins(:funded_plans).includes(:funded_plans)
-                      .where('plans.visibility = ?', ::Plan.visibilities[:publicly_visible])
-                      .order('count(plans.id) DESC, orgs.name')
-                      .group('orgs.id, orgs.name')
-                      .pluck('orgs.id, orgs.name, count(plans.id) as nbr_plans')
+                       .where('plans.visibility = ?', ::Plan.visibilities[:publicly_visible])
+                       .order('count(plans.id) DESC, orgs.name')
+                       .group('orgs.id, orgs.name')
+                       .pluck('orgs.id, orgs.name, count(plans.id) as nbr_plans')
 
         institutions = ::Org.joins(:plans).includes(:plans)
                             .where('plans.visibility = ?', ::Plan.visibilities[:publicly_visible])
@@ -176,12 +168,12 @@ module Dmptool
                             .pluck('orgs.id, orgs.name, count(plans.id) as nbr_plans')
 
         subjects = ::ResearchDomain.joins('INNER JOIN plans on plans.research_domain_id = research_domains.id')
-                                  .where('plans.visibility = ?', ::Plan.visibilities[:publicly_visible])
-                                  .order('count(plans.id) DESC, research_domains.label')
-                                  .group('research_domains.id, research_domains.label')
-                                  .pluck('research_domains.id, research_domains.label, count(plans.id) as nbr_plans')
+                                   .where('plans.visibility = ?', ::Plan.visibilities[:publicly_visible])
+                                   .order('count(plans.id) DESC, research_domains.label')
+                                   .group('research_domains.id, research_domains.label')
+                                   .pluck('research_domains.id, research_domains.label, count(plans.id) as nbr_plans')
 
-       {
+        {
           funders: result_to_hash(array: funders),
           institutions: result_to_hash(array: institutions),
           languages: result_to_hash(array: languages),
@@ -189,5 +181,7 @@ module Dmptool
         }
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
   end
+  # rubocop:enable Metrics/ModuleLength
 end
