@@ -174,6 +174,7 @@ RSpec.describe GuidanceGroup, type: :model do
       end
     end
 
+    # rubocop:disable Performance/RedundantMerge
     context ':merge!(to_be_merged:)' do
       before(:each) do
         org = create(:org)
@@ -197,12 +198,12 @@ RSpec.describe GuidanceGroup, type: :model do
       end
       it 'merges associated :plans' do
         expected = @guidance_group.plans.length + @to_be_merged.plans.length
-        @guidance_group[:to_be_merged] = @to_be_merged
+        @guidance_group.merge!(to_be_merged: @to_be_merged)
         expect(@guidance_group.plans.length).to eql(expected)
       end
       it 'merges associated :guidances' do
         expected = @guidance_group.guidances.length + @to_be_merged.guidances.length
-        @guidance_group[:to_be_merged] = @to_be_merged
+        @guidance_group.merge!(to_be_merged: @to_be_merged)
         expect(@guidance_group.guidances.length).to eql(expected)
       end
       it 'removes the :to_be_merged GuidanceGroup' do
@@ -212,5 +213,6 @@ RSpec.describe GuidanceGroup, type: :model do
         expect(GuidanceGroup.find_by(id: original_id).present?).to eql(false)
       end
     end
+    # rubocop:enable Performance/RedundantMerge
   end
 end
