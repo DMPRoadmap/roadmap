@@ -498,53 +498,53 @@ RSpec.describe Org, type: :model do
     end
     it 'merges associated :annotations' do
       expected = @org.annotations.length + @to_be_merged.annotations.length
-      @org.merge!(to_be_merged: @to_be_merged)
+      @org[:to_be_merged] = @to_be_merged
       expect(@org.annotations.length).to eql(expected)
     end
     it 'merges associated :departments' do
       expected = @org.departments.length + @to_be_merged.departments.length
-      @org.merge!(to_be_merged: @to_be_merged)
+      @org[:to_be_merged] = @to_be_merged
       expect(@org.departments.length).to eql(expected)
     end
     it 'merges associated :funded_plans' do
       expected = @org.funded_plans.length + @to_be_merged.funded_plans.length
-      @org.merge!(to_be_merged: @to_be_merged)
+      @org[:to_be_merged] = @to_be_merged
       expect(@org.funded_plans.length).to eql(expected)
     end
     it 'merges associated :guidances' do
       expected = (@org.guidance_groups.first&.guidances&.length || 0) +
                  @to_be_merged.guidance_groups.first.guidances.length
-      @org.merge!(to_be_merged: @to_be_merged)
+      @org[:to_be_merged] = @to_be_merged
       expect(@org.guidance_groups.first.guidances.length).to eql(expected)
     end
     it 'merges associated :identifiers' do
       expected = @org.identifiers.length + @to_be_merged.identifiers.length
-      @org.merge!(to_be_merged: @to_be_merged)
+      @org[:to_be_merged] = @to_be_merged
       expect(@org.identifiers.length).to eql(expected)
     end
     it 'merges associated :plans' do
       expected = @org.plans.length + @to_be_merged.plans.length
-      @org.merge!(to_be_merged: @to_be_merged)
+      @org[:to_be_merged] = @to_be_merged
       expect(@org.plans.length).to eql(expected)
     end
     it 'merges associated :templates' do
       expected = @org.templates.length + @to_be_merged.templates.length
-      @org.merge!(to_be_merged: @to_be_merged)
+      @org[:to_be_merged] = @to_be_merged
       expect(@org.templates.length).to eql(expected)
     end
     it 'merges associated :token_permission_types' do
       expected = (@org.token_permission_types | @to_be_merged.token_permission_types).length
-      @org.merge!(to_be_merged: @to_be_merged)
+      @org[:to_be_merged] = @to_be_merged
       expect(@org.token_permission_types.length).to eql(expected)
     end
     it 'merges associated :tracker' do
       expected = @to_be_merged.tracker.code
-      @org.merge!(to_be_merged: @to_be_merged)
+      @org[:to_be_merged] = @to_be_merged
       expect(@org.tracker.code).to eql(expected)
     end
     it 'merges associated :users' do
       expected = @org.users.length + @to_be_merged.users.length
-      @org.merge!(to_be_merged: @to_be_merged)
+      @org[:to_be_merged] = @to_be_merged
       expect(@org.users.length).to eql(expected)
     end
     it 'removes the :to_be_merged Org' do

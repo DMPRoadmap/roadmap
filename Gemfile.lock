@@ -437,6 +437,9 @@ GEM
       parser (>= 3.1.1.0)
     rubocop-i18n (3.0.0)
       rubocop (~> 1.0)
+    rubocop-performance (1.15.2)
+      rubocop (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     ruby_dig (0.0.2)
@@ -540,6 +543,7 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
+  arm64-darwin-21
   arm64-darwin-22
   x86_64-linux
 
@@ -602,6 +606,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   rubocop-i18n
+  rubocop-performance
   sass-rails
   sassc-rails
   selenium-webdriver
@@ -625,4 +630,4 @@ RUBY VERSION
    ruby 2.7.6p219
 
 BUNDLED WITH
-   2.3.26
+   2.4.2

@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.0.3
+
+### Maintenance
+- Installed rubocop-performance gem and made suggested changes
+
 ### Added
 
 - Added CHANGELOG.md and Danger Github Action [#3257](https://github.com/DMPRoadmap/roadmap/issues/3257)

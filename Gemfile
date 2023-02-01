@@ -336,6 +336,9 @@ group :ci, :development do
   # Thread-safety checks via static analysis. A plugin for the RuboCop code style
   # enforcing & linting tool.
   # gem 'rubocop-thread_safety'
+
+  # Performance checks by Rubocop
+  gem 'rubocop-performance', require: false
 end
 
 group :development do
