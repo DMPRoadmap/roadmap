@@ -4,9 +4,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  # briley 1/30/23 - setting to false so that objects are not 'live' in memory after page load and can be cleaned
-  #                  up by the Ruby GC.
-  config.cache_classes = false # true
+  config.cache_classes = true
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
