@@ -260,9 +260,6 @@ gem 'get_process_mem'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-
-  # Performance checks by Rubocop
-  gem 'rubocop-performance', require: false
 end
 
 group :test do
@@ -370,6 +367,9 @@ group :ci, :development do
   # Thread-safety checks via static analysis. A plugin for the RuboCop code style
   # enforcing & linting tool.
   # gem 'rubocop-thread_safety'
+
+  # Performance checks by Rubocop
+  gem 'rubocop-performance', require: false
 end
 
 group :development do

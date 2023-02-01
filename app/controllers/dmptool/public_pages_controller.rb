@@ -72,7 +72,7 @@ module Dmptool
     def file_name(title)
       name = title.gsub(/[\r\n]/, ' ')
                   .gsub(/[^a-zA-Z\d\s]/, '')
-                  .tr(/ /, '_')
+                  .tr(' ', '_')
 
       name.length > 31 ? name[0..30] : name
     end

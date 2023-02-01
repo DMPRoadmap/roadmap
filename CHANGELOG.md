@@ -11,6 +11,12 @@ This version includes changes from [DMPRoadmap release v4.0.2](https://github.co
 #### Bug Fixes:
 - Patched issue that was causing Templates to become 'organizationally_visible' when the title or links were updated.
 - Refactored the Public Plans page to be more efficient with memory usage [#419](https://github.com/CDLUC3/dmptool/issues/419)
+- Fixed Subject of emails sent out when the user's password changes so that it no longer says 'Unauthorized password change' which was alarming.
+
+#### Maintenance:
+- Updated all gem and JS dependencies
+- Removed rack_attack gem
+- Installed rubocop-performance gem and updated DMPTool code to comply with suggestions. Then commented reference to the gem in .rubocop because it wanted to make too many changes to the base DMPRoadmap codebase. Will submit a PR to that repo directly for those changes and will then uncomment the ref.
 
 ### v4.0.4
 #### New Feature / Functionality changes:
