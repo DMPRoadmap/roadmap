@@ -2,6 +2,7 @@
 
 module OrgAdmin
   # Controller that handles templates
+  # rubocop:disable Metrics/ClassLength
   class TemplatesController < ApplicationController
     include Paginable
     include Versionable
@@ -413,4 +414,5 @@ module OrgAdmin
       end
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end
