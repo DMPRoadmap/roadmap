@@ -210,7 +210,8 @@ class Template < ApplicationRecord
     family_ids = families(funder_ids).distinct
                                      .pluck(:family_id) + [default.family_id]
     published(family_ids.uniq)
-      .where('visibility = :visibility OR is_default = :is_default',
+      .where('type = :type AND visibility = :visibility OR is_default = :is_default',
+             type: types[:classic],
              visibility: visibilities[:publicly_visible], is_default: true)
   }
 
