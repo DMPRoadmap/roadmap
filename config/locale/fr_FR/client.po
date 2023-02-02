@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-01-24 13:48+0100\n"
-"PO-Revision-Date: 2023-01-24 13:48+0100\n"
+"POT-Creation-Date: 2023-02-02 09:58+0100\n"
+"PO-Revision-Date: 2023-02-02 09:58+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1134,55 +1134,55 @@ msgstr "recommandation concernant"
 msgid "can't be less than zero"
 msgstr "ne peut être inférieur à zéro"
 
-#: ../../app/models/template.rb:247
+#: ../../app/models/template.rb:248
 msgid "can't be blank"
 msgstr "ne peut être vide"
 
-#: ../../app/models/template.rb:275
+#: ../../app/models/template.rb:276
 msgid "A historical template cannot be retrieved for being modified"
 msgstr "Un modèle historisé ne peut être extrait pour modification"
 
-#: ../../app/models/template.rb:399
+#: ../../app/models/template.rb:400
 msgid "generate_copy! requires an organisation target"
 msgstr "generate_copy! nécessite un organisme cible"
 
-#: ../../app/models/template.rb:408
+#: ../../app/models/template.rb:409
 msgid "Copy of %{template}"
 msgstr "Copie de %{template}"
 
-#: ../../app/models/template.rb:415
+#: ../../app/models/template.rb:416
 msgid "generate_version! requires a published template"
 msgstr "generate_version! nécessite un modèle publie"
 
-#: ../../app/models/template.rb:429
+#: ../../app/models/template.rb:430
 msgid "customize! requires an organisation target"
 msgstr "customize! nécessite un organisme cible"
 
-#: ../../app/models/template.rb:432
+#: ../../app/models/template.rb:433
 msgid "customize! requires a template from a funder"
 msgstr "customize! nécessite le modèle d'un financeur"
 
-#: ../../app/models/template.rb:468
+#: ../../app/models/template.rb:469
 msgid "You can not publish a published template.  "
 msgstr "Vous ne pouvez pas publier un modèle publié."
 
-#: ../../app/models/template.rb:472
+#: ../../app/models/template.rb:473
 msgid "You can not publish a historical version of this template.  "
 msgstr "Vous ne pouvez pas publier une ancienne version de ce modèle."
 
-#: ../../app/models/template.rb:477
+#: ../../app/models/template.rb:478
 msgid "You can not publish a template without phases.  "
 msgstr "Vous ne pouvez pas publier un modèle sans phases."
 
-#: ../../app/models/template.rb:482
+#: ../../app/models/template.rb:483
 msgid "You can not publish a template without sections in a phase.  "
 msgstr "Vous ne pouvez pas publier un modèle sans sections dans une phase."
 
-#: ../../app/models/template.rb:487
+#: ../../app/models/template.rb:488
 msgid "You can not publish a template without questions in a section.  "
 msgstr "Vous ne pouvez pas publier un modèle sans questions dans une section."
 
-#: ../../app/models/template.rb:491
+#: ../../app/models/template.rb:492
 msgid "Conditions in the template refer backwards"
 msgstr ""
 "Les conditions du modèle s'appliquent à une question positionnée avant celle-c"
@@ -1242,7 +1242,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/plans/_edit_details.html.erb:190
 #: ../../app/views/branded/plans/_share_form.html.erb:112
 #: ../../app/views/branded/plans/_share_third_party.html.erb:93
-#: ../../app/views/branded/research_outputs/_list.html.erb:101
+#: ../../app/views/branded/research_outputs/_list.html.erb:103
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
 #: ../../app/views/branded/users/_notification_preferences.html.erb:47
@@ -1627,7 +1627,7 @@ msgstr "Publié ?"
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:134
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:136
 #: ../../app/views/branded/plans/_edit_details.html.erb:63
-#: ../../app/views/branded/research_outputs/_list.html.erb:102
+#: ../../app/views/branded/research_outputs/_list.html.erb:104
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:67
 #: ../../app/views/research_outputs/_form.html.erb:183
@@ -2346,7 +2346,7 @@ msgid "Locale"
 msgstr "Langue"
 
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:41
-#: ../../app/views/branded/research_outputs/_list.html.erb:54
+#: ../../app/views/branded/research_outputs/_list.html.erb:56
 #: ../../app/views/research_outputs/_form.html.erb:14
 msgid "Type"
 msgstr "Type"
@@ -2532,7 +2532,7 @@ msgid "Homepage"
 msgstr "Page d'accueil"
 
 #: ../../app/views/branded/paginable/api_clients/_index.html.erb:15
-#: ../../app/views/branded/research_outputs/_list.html.erb:73
+#: ../../app/views/branded/research_outputs/_list.html.erb:75
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:42
 msgid "Contact"
 msgstr "Personne contact"
@@ -3555,42 +3555,42 @@ msgstr "Nom complet"
 msgid "Research output title"
 msgstr "Titre du produit de recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:34
+#: ../../app/views/branded/research_outputs/_list.html.erb:35
 msgid "UUID"
 msgstr "UUID"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:37
-#: ../../app/views/branded/research_outputs/_list.html.erb:42
+#: ../../app/views/branded/research_outputs/_list.html.erb:38
 #: ../../app/views/branded/research_outputs/_list.html.erb:43
+#: ../../app/views/branded/research_outputs/_list.html.erb:44
 msgid "Research output unique identifier"
 msgstr "Identifiant unique du produit de recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:48
+#: ../../app/views/branded/research_outputs/_list.html.erb:49
 msgid "Copy UUID to clipboard"
 msgstr "Copier l'UUID dans le presse-papiers"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:67
+#: ../../app/views/branded/research_outputs/_list.html.erb:69
 #: ../../app/views/research_outputs/_form.html.erb:27
 msgid "Research output type"
 msgstr "Type de résultat de la recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:94
+#: ../../app/views/branded/research_outputs/_list.html.erb:96
 msgid "Persistent Identifier"
 msgstr "Identifiant Pérenne"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:96
+#: ../../app/views/branded/research_outputs/_list.html.erb:98
 msgid "If exists, please fill in the research output persistant identifier."
 msgstr "Renseigner l’identifiant pérenne du produit de recherche s’il existe."
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:108
+#: ../../app/views/branded/research_outputs/_list.html.erb:110
 msgid "Edit research output"
 msgstr "Modifier le produit de recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:111
+#: ../../app/views/branded/research_outputs/_list.html.erb:113
 msgid "Move research output"
 msgstr "Déplacer le produit de recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:116
+#: ../../app/views/branded/research_outputs/_list.html.erb:118
 msgid ""
 "Deleting this research output will remove the associated answers. Do you confi"
 "rm ?"
@@ -3598,7 +3598,7 @@ msgstr ""
 "En supprimant ce produit de recherche, les réponses associées seront également"
 " supprimées. Confirmez-vous la suppression ?"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:119
+#: ../../app/views/branded/research_outputs/_list.html.erb:121
 msgid "Delete research output"
 msgstr "Supprimer le produit de recherche"
 
@@ -4381,11 +4381,11 @@ msgstr "Enregistrer"
 #:
 #: ../../engines/madmp_opidor/app/views/dynamic_form/codebase/_run_button.html.erb:7
 msgid ""
-"By using this notification, you will allow \"%{client_name}\" to access the cont"
-"ent of your plan. Do you confirm ?"
+"By using this notification, you will allow \"%{client_name}\" to access the full"
+" content of your plan. Do you confirm ?"
 msgstr ""
-"En utilisant cette notification, vous autorisez \"%{client_name}\" à accéder au "
-"contenu de votre plan. Vous confirmez ?"
+"En utilisant cette notification, vous autorisez \"%{client_name}\" à accéder à l"
+"'intégralité du contenu de votre plan. Vous confirmez ?"
 
 #:
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/_fragment_select_field.html.erb:61
