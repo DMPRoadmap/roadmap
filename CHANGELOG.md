@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 02/02/2023
+- Retrait des modèles structurés de la liste des modèles personnalisables (issue gitbucket 463)
+- Amélioration du message de confirmation d'envoi d'une notification depuis l'onglet Runs, lors de la rédaction du plan.
+
 ## 05/12/2022
 - DMPRoadmap V4.0.1 : https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.1 
 - Amélioration de l'accessibilité des formulaires dynamiques
