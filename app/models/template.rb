@@ -212,7 +212,7 @@ class Template < ApplicationRecord
     published(family_ids.uniq)
       .where('type = :type AND visibility = :visibility OR is_default = :is_default',
              type: types[:classic],
-             visibility: visibilities[:publicly_visible], is_default: true)
+             visibility: visibilities[:publicly_visible], is_default: false)
   }
 
   # Retrieves unarchived templates with public visibility
