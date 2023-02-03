@@ -250,8 +250,10 @@ gem 'activerecord_json_validator'
 # user input (we're using it for PDF invoice downloads in Noko). (https://github.com/madrobby/zaru)
 gem 'zaru'
 
-# A memory profiler for Ruby
-gem 'get_process_mem'
+# We need to freeze the mail gem version as the recently released 2.8.0 triggers an exception
+# We will need to check if it's fixed when we migrate to Ruby 3.0/3.1
+# See : https://github.com/DMPRoadmap/roadmap/issues/3254
+gem 'mail', '2.7.1'
 
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
@@ -331,6 +333,9 @@ group :test do
   # This gem brings back assigns to your controller tests as well as assert_template
   # to both controller and integration tests.
   gem 'rails-controller-testing'
+
+  # automating code review
+  gem 'danger', '~> 9.0', require: false
 end
 
 group :ci, :development do
