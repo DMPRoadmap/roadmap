@@ -93,8 +93,9 @@ $(() => {
     const schemaId = target.val();
     const fragmentId = target.data('fragment-id');
     const form = target.parents('.question').find('.form-answer');
+    const locale = form.find('.locale').val();
     $.ajax({
-      url: `/madmp_fragments/change_form/${fragmentId}?schema_id=${schemaId}`,
+      url: `/madmp_fragments/change_form/${fragmentId}?schema_id=${schemaId}&locale=${locale}`,
       method: 'get',
       beforeSend: () => {
         showSavingMessage(form);

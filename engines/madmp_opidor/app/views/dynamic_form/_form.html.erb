@@ -3,6 +3,7 @@
 <% data = current_fragment.data unless current_fragment.nil? %>
 <% additional_info = current_fragment.additional_info unless current_fragment.nil? %>
 <% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
+<% defaults = schema.defaults(template_locale) %>
 
 <% dmp_fragments = current_fragment.present? ? current_fragment.dmp_fragments() : [] %>
 
@@ -16,20 +17,13 @@
   <% label = form_label(prop, template_locale, readonly)%>
   <% ttip = prop["tooltip@#{template_locale}"] %>
   <% example = prop["example@#{template_locale}"] ? "ex: #{prop["example@#{template_locale}"]}": nil %>
-  <% default_value = prop["default@#{template_locale}"] %>
-  <% const = prop["const@#{template_locale}"]%>
+  <% default_value = defaults[key] %>
+  <% is_const = prop["isConst"] %>
 
   <%# Constant values are displayed as readonly text field %>
   <% if prop["hidden"].present?%>
-    <% value = const.present? ? const : value %>
+    <% value = value.present? ? value : default_value %>
     <%= create_hidden_field(f, value, field_name) %>
-    
-    <% next %>
-  <% end %>
-
-  <%# Constant values are displayed as readonly text field %>
-  <% if const.present?%>
-    <%= create_const_field(f, const, field_name, label) %>
     
     <% next %>
   <% end %>
@@ -155,12 +149,13 @@
     <% else %>
       <%= render(partial: 'dynamic_form/fields/fragment_list_field', locals: { 
         field_values: values, 
-        readonly: readonly,
+        readonly: readonly || is_const,
         parent_id: current_fragment.id,
         schema: sub_schema,
         table_header: table_header,
         template_locale: template_locale,
         property_name: key,
+        is_const: is_const,
         field_label: label, ttip: ttip, answer_id: nil 
         }
       ) %>
@@ -195,8 +190,12 @@
 
   <%# String Field %>
   <% if prop['type'].eql?('string') %>
+    <%# Constant values are displayed as readonly text field %>
+    <% if is_const.present? %>
+      <% value = value.present? ? value : default_value %>
+      <%= create_const_field(f, value, field_name, label) %>
     <%# Text Area %>
-    <% if prop['inputType']&.eql?('textarea') %>
+    <% elsif prop['inputType']&.eql?('textarea') %>
       <%= create_textarea_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, example: example, ttip: ttip, default_value: default_value) %>
     <% elsif prop['format'].nil? %>
       <%# Text Field %>
