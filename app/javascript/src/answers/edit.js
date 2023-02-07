@@ -176,7 +176,10 @@ const editorHandlers = (editor) => {
   editor.on('Blur', () => blurHandler(editor));
   editor.on('Focus', () => focusHandler(editor));
 };
-
+/*
+  Detaches events from a specific form including its tinymce editor
+  @param { objecg } - jQueryForm to remove events
+*/
 const detachEditorHandlers = (editor) => {
   // Remove listeners to blur and focus events for a tinymce instance
   editor.on('Blur', () => false);
