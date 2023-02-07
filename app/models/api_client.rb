@@ -140,6 +140,6 @@ class ApiClient < ApplicationRecord
 
   # Set the scopes
   def ensure_scopes
-    self.scopes = default_scopes.sort { |a, b| a <=> b }.join(' ') if scopes.blank?
+    self.scopes = default_scopes.sort.join(' ') if scopes.blank?
   end
 end

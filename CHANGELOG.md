@@ -3,8 +3,20 @@
 ## DMPTool Releases
 
 ### v4.0.5
+This version includes changes from [DMPRoadmap release v4.0.2](https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.2) see the release notes for details.
+
 #### New Feature / Functionality changes:
 - Added 'Preregistration' to list of available 'Work Type' values for research outputs on the Follow-up tab
+
+#### Bug Fixes:
+- Patched issue that was causing Templates to become 'organizationally_visible' when the title or links were updated.
+- Refactored the Public Plans page to be more efficient with memory usage [#419](https://github.com/CDLUC3/dmptool/issues/419)
+- Fixed Subject of emails sent out when the user's password changes so that it no longer says 'Unauthorized password change' which was alarming.
+
+#### Maintenance:
+- Updated all gem and JS dependencies
+- Removed rack_attack gem
+- Installed rubocop-performance gem and updated DMPTool code to comply with suggestions. Then commented reference to the gem in .rubocop because it wanted to make too many changes to the base DMPRoadmap codebase. Will submit a PR to that repo directly for those changes and will then uncomment the ref.
 
 ### v4.0.4
 #### New Feature / Functionality changes:
@@ -34,5 +46,27 @@
 - Adjusted rack_attack config to help research #419
 - Added this CHANGELOG.md
 
-
+---
 ## Changes from the upstream DMPRoadmap repository
+
+## v4.0.2
+
+### Added
+
+- Added CHANGELOG.md and Danger Github Action [#3257](https://github.com/DMPRoadmap/roadmap/issues/3257)
+- Added validation with custom error message in research_output.rb to ensure a user does not enter a very large value as 'Anticipated file size'. [#3161](https://github.com/DMPRoadmap/roadmap/issues/3161)
+- Added popover for org profile page and added explanation for public plan
+### Fixed
+
+- Updated JS that used to call the TinyMCE `setMode()` function so that it now calls `mode.set()` because the former is now deprecated.
+- Patched an issue that was causing a template's visibility to change to 'organizationally_visible' when saving on the template details page.
+- Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
+- Fixed an issue with the Rails 6 keyword arguments change that was causing the `paginable_sort_link` to fail
+- Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
+- Fixed discrepencies with default/max per_page values for API and UI pagination
+- Updated the CSV export so that it now includes research outputs
+
+### Changed
+
+- Added scss files to EditorConfig
+- Change csv file name for statistics from 'Completed' to 'Created'

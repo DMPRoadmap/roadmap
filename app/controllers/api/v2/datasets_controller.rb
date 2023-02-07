@@ -50,7 +50,7 @@ module Api
       # Feth the plan identified in the JSON
       def fetch_plan
         @plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, nil).resolve
-                                           .select { |plan| plan.id = params[:id] }.first
+                                           .find { |plan| plan.id = params[:id] }
         return true if @plan.present?
 
         render_error(errors: _('Plan not found'), status: :not_found)

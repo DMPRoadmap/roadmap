@@ -119,7 +119,7 @@ module Api
       def log_activity(subject:, change_type:)
         return false unless @client.present? && subject.present? && change_type.present? &&
                             @client.is_a?(ApiClient) &&
-                            ApiLog.change_types.keys.include?(change_type.to_s)
+                            ApiLog.change_types.key?(change_type.to_s)
 
         activity = case change_type.to_sym
                    when :added

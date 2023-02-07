@@ -1,6 +1,7 @@
-# require:
+require:
 #   - rubocop-rails
 #   - rubocop-rspec
+#   - rubocop-performance
 
 # ----------------
 # - INSTRUCTIONS -

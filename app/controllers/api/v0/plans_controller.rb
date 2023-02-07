@@ -9,52 +9,6 @@ module Api
       before_action :authenticate
       before_action :page_params, except: %i[heartbeat]
 
-      ##
-      # Creates a new plan based on the information passed in JSON to the API
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-      def index
-        raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, nil).index?
-
-        if params[:per_page].present?
-          max_pages = Rails.configuration.x.application.api_max_page_size
-          params[:per_page] = max_pages if params[:per_page].to_i > max_pages
-        end
-
-        # Get all the Org Admin plans
-        org_admin_plans = @user.org.org_admin_plans
-        @plans = org_admin_plans.preload([{ roles: :user }, { answers: :question_options },
-                                          template: [{ phases: {
-                                            sections: { questions: %i[question_format themes] }
-                                          } }, :org]])
-
-        # Filter on list of users
-        user_ids = extract_param_list(params, 'user')
-        @plans = @plans.where(roles: { user_id: user_ids, access: Role.bit_values(:editor) }) if user_ids.present?
-        # filter on dates
-        if params['created_after'].present? || params['created_before'].present?
-          @plans = @plans.where(created_at: dates_to_range(params, 'created_after', 'created_before'))
-        end
-        if params['updated_after'].present? || params['updated_before'].present?
-          @plans = @plans.where(updated_at: dates_to_range(params, 'updated_after', 'updated_before'))
-        end
-        if params['remove_tests'].present? && params['remove_tests'].downcase == 'true'
-          @plans = @plans.where.not(visibility: Plan.visibilities[:is_test])
-        end
-        # filter on funder (dmptemplate_id)
-        template_ids = extract_param_list(params, 'template')
-        @plans = @plans.where(templates: { family_id: template_ids }) if template_ids.present?
-        # filter on id(s)
-        plan_ids = extract_param_list(params, 'plan')
-        @plans = @plans.where(id: plan_ids) if plan_ids.present?
-        # apply pagination after filtering
-        @args = { per_page: params[:per_page], page: params[:page] }
-        @plans = refine_query(@plans)
-        respond_with @plans
-      end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def create
         @template = Template.live(params[:template_id])
@@ -104,6 +58,54 @@ module Api
         end
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      def index
+        raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, nil).index?
+
+        if params[:per_page].present?
+          max_pages = Rails.configuration.x.application.api_max_page_size
+          params[:per_page] = max_pages if params[:per_page].to_i > max_pages
+        end
+
+        # Get all the Org Admin plans
+        org_admin_plans = @user.org.org_admin_plans
+        @plans = org_admin_plans.preload([{ roles: :user }, { answers: :question_options },
+                                          template: [{ phases: {
+                                            sections: { questions: %i[question_format themes] }
+                                          } }, :org]])
+
+        # Filter on list of users
+        user_ids = extract_param_list(params, 'user')
+        @plans = @plans.where(roles: { user_id: user_ids, access: Role.bit_values(:editor) }) if user_ids.present?
+        # filter on dates
+        if params['created_after'].present? || params['created_before'].present?
+          @plans = @plans.where(created_at: dates_to_range(params, 'created_after', 'created_before'))
+        end
+        if params['updated_after'].present? || params['updated_before'].present?
+          @plans = @plans.where(updated_at: dates_to_range(params, 'updated_after', 'updated_before'))
+        end
+        if params['remove_tests'].present? && params['remove_tests'].downcase == 'true'
+          @plans = @plans.where.not(visibility: Plan.visibilities[:is_test])
+        end
+        # filter on funder (dmptemplate_id)
+        template_ids = extract_param_list(params, 'template')
+        @plans = @plans.where(templates: { family_id: template_ids }) if template_ids.present?
+        # filter on id(s)
+        plan_ids = extract_param_list(params, 'plan')
+        @plans = @plans.where(id: plan_ids) if plan_ids.present?
+        # apply pagination after filtering
+        max_per_page = Rails.configuration.x.application.api_max_page_size
+        page = params.fetch('page', 1).to_i
+        per_page = params.fetch('per_page', max_per_page).to_i
+        per_page = max_per_page if @per_page > max_per_page
+        @args = { per_page: per_page, page: page }
+        @plans = refine_query(@plans)
+        respond_with @plans
+      end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       private
 

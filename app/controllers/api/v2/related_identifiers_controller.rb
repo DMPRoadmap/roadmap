@@ -21,7 +21,7 @@ module Api
         render_error(errors: _('Plan not found'), status: :not_found) and return if plan.blank?
 
         plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, nil).resolve
-                                          .select { |p| p.id = plan.id }.first
+                                          .find { |p| p.id = plan.id }
         render_error(errors: _('Plan not found'), status: :not_found) and return if plan.blank?
 
         related_identifiers = json.fetch(:dmproadmap_related_identifiers, [])
