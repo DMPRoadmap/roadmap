@@ -121,7 +121,7 @@ module ExportablePlan
     end
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity
   def prepare_coversheet
     hash = {}
 
@@ -186,7 +186,7 @@ module ExportablePlan
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prepare_coversheet_for_csv(csv, _headings, hash)
     csv << [_('Title: '), format(_('%{title}'), title: title)]
     csv << if Array(hash[:attribution]).many?
@@ -229,23 +229,9 @@ module ExportablePlan
     csv << []
     csv << []
   end
+
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-  # rubocop:disable Metrics/AbcSize
-  def prepare_research_outputs_for_csv(csv, _headings, hash)
-    return false unless hash[:research_outputs].present? && hash[:research_outputs].any?
-
-    csv << [_('Research Outputs: ')]
-    # Convert the hash keys to column headers
-    csv << hash[:research_outputs].first.keys.map { |key| key.to_s.capitalize.tr('_', ' ') }
-    hash[:research_outputs].each do |research_output|
-      csv << research_output.values
-    end
-    csv << []
-    csv << []
-  end
-  # rubocop:enable Metrics/AbcSize
 
   def prepare_related_identifiers_for_csv(csv, _headings, hash)
     csv << [_('Related Works: ')]
@@ -263,7 +249,7 @@ module ExportablePlan
 
     csv << [_('Research Outputs: ')]
     # Convert the hash keys to column headers
-    csv << hash[:research_outputs].first.keys.map { |key| key.to_s.capitalize.gsub('_', ' ') }
+    csv << hash[:research_outputs].first.keys.map { |key| key.to_s.capitalize.tr('_', ' ') }
     hash[:research_outputs].each do |research_output|
       csv << research_output.values
     end
