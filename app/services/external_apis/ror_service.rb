@@ -105,7 +105,7 @@ module ExternalApis
       end
 
       # Recursive method that can handle multiple ROR result pages if necessary
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/AbcSize
       def process_pages(term:, json:, filters: [])
         return [] if json.blank?
 
@@ -117,7 +117,7 @@ module ExternalApis
         return results unless pages > 1
 
         # Gather the results from the additional page (only up to the max)
-        (2..(pages > max_pages ? max_pages : pages)).each do |page|
+        (2..([pages, max_pages].min)).each do |page|
           json = query_ror(term: term, page: page, filters: filters)
           results += parse_results(json: json)
         end
@@ -129,7 +129,7 @@ module ExternalApis
         log_error(method: 'ROR search', error: e)
         results || []
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/AbcSize
 
       # Convert the JSON items into a hash
       # rubocop:disable Metrics/AbcSize
