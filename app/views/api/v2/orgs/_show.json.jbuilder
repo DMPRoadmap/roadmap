@@ -3,8 +3,8 @@
 # locals: org
 
 json.name org.name
-json.abbreviation org.abbreviation
-json.region org.region&.abbreviation
+# json.abbreviation org.abbreviation
+# json.region org.region&.abbreviation
 
 if org.identifiers.any?
   json.affiliation_id do

@@ -44,6 +44,7 @@ namespace :housekeeping do
                 .where('identifiers.value LIKE ?', 'https://doi.org/%')
                 .distinct
                 .order(created_at: :desc)
+                .limit(1)
                 .each do |identifier|
         next unless identifier.value.present? && identifier.identifiable.present?
 

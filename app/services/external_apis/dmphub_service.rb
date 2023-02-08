@@ -13,6 +13,10 @@ module ExternalApis
         Rails.configuration.x.dmphub&.api_base_url || super
       end
 
+      def auth_url
+        Rails.configuration.x.dmphub&.auth_url
+      end
+
       def active?
         Rails.configuration.x.dmphub&.active || super
       end
@@ -33,8 +37,8 @@ module ExternalApis
         Rails.configuration.x.dmphub&.client_secret
       end
 
-      def auth_path
-        Rails.configuration.x.dmphub&.auth_path
+      def token_path
+        Rails.configuration.x.dmphub&.token_path
       end
 
       def mint_path
@@ -69,15 +73,24 @@ module ExternalApis
       # rubocop:disable Metrics/AbcSize
       def mint_dmp_id(plan:)
         # TODO: Add the auth check and header back in once Cognito is working!
-        return nil unless active? && plan.present? && #auth
+        return nil unless active? && plan.present? && auth
 
-        hdrs = {
-          # Authorization: @token,
-          'Server-Agent': "#{caller_name} (#{client_id})"
+        opts = {
+          follow_redirects: true,
+          limit: 6,
+          headers: {
+            'authorization': @token,
+            'Server-Agent': "#{caller_name} (#{client_id})",
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: json_from_template(plan: plan)
         }
-        payload = json_from_template(plan: plan)
-        resp = http_post(uri: "#{api_base_url}#{mint_path}",
-                         additional_headers: hdrs, debug: false, data: payload)
+        # opts[:debug_output] = $stdout
+        resp = HTTParty.post("#{api_base_url}#{mint_path}", opts)
+
+        # resp = http_post(uri: "#{api_base_url}#{mint_path}",
+        #                  additional_headers: hdrs, debug: false, data: payload)
 
         # DMPHub returns a 201 (created) when a new DMP ID has been minted or
         #                a 405 (method_not_allowed) when a DMP ID already exists
@@ -102,7 +115,7 @@ module ExternalApis
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       def update_dmp_id(plan:)
         # TODO: Add the auth check and header back in once Cognito is working!
-        return nil unless active? && plan.present? # && auth
+        return nil unless active? && plan.present? && auth
 
         hdrs = {
           #Authorization: @token,
@@ -132,7 +145,7 @@ module ExternalApis
       # Delete the DMP ID
       def delete_dmp_id(plan:)
          # TODO: Add the auth check and header back in once Cognito is working!
-         return nil unless active? && plan.present? # && auth
+         return nil unless active? && plan.present? && auth
 
          hdrs = {
            #Authorization: @token,
@@ -222,14 +235,24 @@ module ExternalApis
 
       # Authenticate with the DMPHub
       def auth
-        data = {
-          grant_type: 'client_credentials',
-          client_id: client_id,
-          client_secret: client_secret
-        }
+        scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'stg' : 'dev'
+        # scopes = "#{auth_url}#{scope_env}.read #{auth_url}#{scope_env}.write"
+        scopes = "#{auth_url}#{scope_env}.read"
+        creds = Base64.strict_encode64("#{client_id}:#{client_secret}")
 
-        resp = http_post(uri: "#{api_base_url}#{auth_path}",
-                         additional_headers: {}, data: data.to_json, debug: false)
+        opts = {
+          follow_redirects: true,
+          limit: 6,
+          headers: {
+            'authorization': "Basic #{creds}",
+            'Server-Agent': "#{caller_name} (#{client_id})",
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+          },
+          body: "grant_type=client_credentials&scope=#{scopes}"
+        }
+        # opts[:debug_output] = $stdout
+        resp = HTTParty.post("#{auth_url}#{token_path}", opts)
         unless resp.present? && resp.code == 200
           handle_http_failure(method: 'DMPHub mint_dmp_id', http_response: resp)
           return nil
@@ -240,10 +263,11 @@ module ExternalApis
 
       # Process the authentication response from DMPHub to retrieve the JWT
       def process_token(json:)
-        hash = JSON.parse(json).with_indifferent_access
-        return nil unless hash[:access_token].present? && hash[:token_type].present?
+        hash = JSON.parse(json)
+        return nil unless hash['access_token'].present?
 
-        "#{hash[:token_type]}: #{hash[:access_token]}"
+        # "#{hash[:token_type]}: #{hash[:access_token]}"
+        hash['access_token']
       # If a JSON parse error occurs then return results of a local table search
       rescue JSON::ParserError => e
         log_error(method: 'DMPHub authentication', error: e)

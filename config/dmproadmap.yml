@@ -120,8 +120,9 @@ default: &default
   # DMPHub is a DMP metadata repository that will mint DMP IDs and provide a landing page for them.
   # See https://github.com/CDLUC3/dmphub
   dmphub_active: true
-  dmphub_url: "http://localhost:3001/api/v0/"
-  dmphub_landing_page_url: "http://localhost:3001/dmps/doi:"
+  dmphub_url: "https://api.dmphub-dev.cdlib.org/"
+  dmphub_landing_page_url: "https://dmphub-dev.cdlib.org/dmps/doi:"
+  dmphub_auth_url: 'https://auth.dmphub-dev.cdlib.org/'
   # You should also check the config/initializers/external_apis/dmphub.rb config
 
   # Google Analytics config. Tracker root is the base key for your application
