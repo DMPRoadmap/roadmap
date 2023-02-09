@@ -1,9 +1,31 @@
+<%
+# Convert points to pixels
+case font_size
+when '8pt'
+  converted_size = '10pt'
+when '9pt'
+  converted_size = '11pt'
+when '10pt'
+  converted_size = '12pt'
+when '11pt'
+  converted_size = '14pt'
+when '12pt'
+  converted_size = '15pt'
+when '13pt'
+  converted_size = '16pt'
+when '14pt'
+  converted_size = '18pt'
+else
+  converted_size = '14pt'
+end
+%>
+
 <style>
   @import 'https://fonts.googleapis.com/css?family=<%= font_face.downcase.include?('times') ? 'Times' : 'Roboto' %>';
 
   html body {
     font-family: <%= font_face %>;
-    font-size: <%= font_size %>;
+    font-size: <%= converted_size %>;
     line-height: 150%;
   }
 
