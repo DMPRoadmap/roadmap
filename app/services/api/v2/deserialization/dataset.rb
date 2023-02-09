@@ -172,7 +172,7 @@ module Api
             return research_output unless research_output.present? && json.is_a?(Array)
 
             # Attempt to grab the current license
-            licenses = json.sort { |a, b| a[:start_date] <=> b[:start_date] }
+            licenses = json.sort_by { |a| a[:start_date] }
             prior_licenses = licenses.select do |license|
               date = Api::V2::DeserializationService.safe_date(value: license[:start_date])
               date <= Time.zone.now

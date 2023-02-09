@@ -11,7 +11,7 @@ module Api
       def index
         templates = Api::V2::TemplatesPolicy::Scope.new(@client).resolve
 
-        templates = templates.sort { |a, b| a.title <=> b.title }
+        templates = templates.sort_by(&:title)
         @items = paginate_response(results: templates)
 
         # param to return phases in the payload (includes sections -> questions -> question options)

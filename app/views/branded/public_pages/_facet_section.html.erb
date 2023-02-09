@@ -7,15 +7,18 @@ Expecting :facets to be an array of hashes like:
 Where "123" is the :id of the 'Example University' Org
 %>
 <section class="c-facet js-facet">
+  <% keys = facets.keys %>
   <header>
-    <h3><%= '%<label>s (%<nbr_funders>s)' % { label: label, nbr_funders: facets.length } %></h3>
+    <h3><%= '%<label>s (%<nbr_items>s)' % { label: label, nbr_items: keys.length } %></h3>
     <button type="button" class="c-facet__toggle-list js-facet__toggle-list" aria-label="filters"
             aria-expanded="false"></button>
   </header>
+
   <ul class="c-facet__list js-facet__list" hidden>
-    <% facets[0..4].each do |id, hash| %>
+    <% keys[0..4].each do |id| %>
+      <% hash = facets[id] %>
       <li>
-        <input type="checkbox"<%= hash[:selected] ? ' checked' : '' %>
+        <input type="checkbox"<%= hash[:selected]&.downcase == 'true' ? ' checked' : '' %>
                id="facet_<%= namespace.underscore %>_ids_<%= id %>"
                name="facet[<%= namespace.underscore %>_ids][]" value="<%= id %>">
 
@@ -24,14 +27,15 @@ Where "123" is the :id of the 'Example University' Org
         </label>
       </li>
     <% end %>
-    <% if facets.length > 5 %>
+    <% if keys.length > 5 %>
       <li>
         <details class="c-more">
           <summary><%= _('Show more') %></summary>
           <ul>
-          <% facets[5..facets.length].each do |id, hash| %>
+          <% keys[5..facets.length].each do |id| %>
+            <% hash = facets[id] %>
             <li>
-              <input type="checkbox"<%= hash[:selected] ? ' checked' : '' %>
+              <input type="checkbox"<%= hash[:selected]&.downcase == 'true' ? ' checked' : '' %>
                      id="facet_<%= namespace.underscore %>_ids_<%= id %>"
                      name="facet[<%= namespace.underscore %>_ids][]" value="<%= id %>">
 

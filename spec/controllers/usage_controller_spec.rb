@@ -101,7 +101,7 @@ RSpec.describe UsageController do
     end
 
     it 'assigns the correct csv data' do
-      expected = "Month,No. Completed Plans\n" \
+      expected = "Month,No. Created Plans\n" \
                  "#{@date.strftime('%b-%y')},#{@plan_stat.count}\n" \
                  "Total,#{@plan_stat.count}\n"
       expect(response.content_type).to eq('text/csv')

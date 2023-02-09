@@ -47,6 +47,13 @@ class Plan < ApplicationRecord
   include DateRangeable
   include Identifiable
 
+  # ----------------------------------------
+  # Start DMPTool Customization
+  # ----------------------------------------
+  include Dmptool::Plan
+
+  DMP_ID_TYPES = %w[doi ark].freeze
+
   # DMPTool customization to support faceting the public plans by language
   # ----------------------------------------------------------------------
   belongs_to :language, default: -> { Language.default }
@@ -589,7 +596,7 @@ class Plan < ApplicationRecord
 
   # Returns the plan's identifier (either a DOI/ARK)
   def landing_page
-    identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+    identifiers.find { |i| DMP_ID_TYPES.include?(i.identifier_format) }
   end
 
   # Retrieves the Plan's most recent DOI
@@ -597,8 +604,7 @@ class Plan < ApplicationRecord
     return nil unless Rails.configuration.x.madmp.enable_dmp_id_registration
 
     id = identifiers.includes(:identifier_scheme)
-                    .select { |i| i.identifier_scheme == DmpIdService.identifier_scheme }
-                    .last
+                    .reverse.find { |i| i.identifier_scheme == DmpIdService.identifier_scheme }
     return id if id.present?
   end
 
@@ -706,8 +712,7 @@ class Plan < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def related_identifiers_attributes=(params)
     # Remove any that the user may have deleted
-    related_identifiers.reject { |r_id| params.keys.include?(r_id.id.to_s) }
-                       .each(&:destroy)
+    related_identifiers.reject { |r_id| params.key?(r_id.id.to_s) }.each(&:destroy)
 
     # Update existing or add new
     params.each do |id, related_identifier_hash|

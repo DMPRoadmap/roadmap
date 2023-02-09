@@ -1,7 +1,7 @@
-<%# locals: plans, sort_by %>
+<%# locals: paginated_plan_ids, plans, sort_by %>
 
 <div class="t-publicplans__section-header">
-  <h2><%= _('Plans (%<nbr_plans>s)') % { nbr_plans: plans.total_count } %></h2>
+  <h2><%= _('Plans (%<nbr_plans>s)') % { nbr_plans: paginated_plan_ids.total_count } %></h2>
 
   <div class="c-sort">
     <label for="sort-select"><%= _('Sort by:') %></label>
@@ -29,8 +29,10 @@
       <%= link_to plan.title, plan_export_path(plan, format: :pdf, export: { question_headings: true }), target: '_blank' %>
     </h3>
     <div class="c-plan-creator">
-      <% if plan.owner.present? %>
-        <%= [plan.owner.name(false), plan.owner.org&.name].join(', ') %>
+      <% if plan.roles.first.user.present? %>
+      <%# if plan.owner.present? %>
+        <%= [plan.roles.first.user.name(false), plan.roles.first.user.org&.name].join(', ') %>
+        <%#= [plan.owner.name(false), plan.owner.org&.name].join(', ') %>
       <% else %>
         <%= plan.org&.name %>
       <% end %>
@@ -56,8 +58,7 @@
   page_params.delete('page')
   page_params.delete('per_page')
   %>
-
-  <% if @plans.total_pages > 1 %>
+  <% if @paginated_plan_ids.total_pages > 1 %>
     <%= link_to _('View All'), page_params.merge({ all: true }),
                 aria: { label: _('View all results') } %>
   <% elsif @viewing_all %>
@@ -66,5 +67,5 @@
   <% end %>
 
   <%# See /branded/kaminari/_paginator.html.erb for the pagination links html %>
-  <%= paginate(plans) %>
+  <%= paginate(paginated_plan_ids) %>
 </nav>

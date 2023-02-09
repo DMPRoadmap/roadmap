@@ -2,6 +2,7 @@
 
 module OrgAdmin
   # Controller that handles templates
+  # rubocop:disable Metrics/ClassLength
   class TemplatesController < ApplicationController
     include Paginable
     include Versionable
@@ -200,7 +201,6 @@ module OrgAdmin
         args = template_params
         # Swap in the appropriate visibility enum value for the checkbox value
         args[:visibility] = parse_visibility(args, current_user.org)
-
         template.assign_attributes(args)
         template.links = ActiveSupport::JSON.decode(params['template-links']) if params['template-links'].present?
         if template.save
@@ -389,9 +389,11 @@ module OrgAdmin
       # If nil and the org is not a funder, we default to organisational
       # If present, we parse to retrieve the value
       if args[:visibility].nil?
-        org.funder? ? 'publicly_visible' : 'organisationally_visible'
+        org.funder? ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible]
+      elsif %w[0 organisationally_visible].include?(args.fetch(:visibility, 'publicly_visible'))
+        Template.visibilities[:organisationally_visible]
       else
-        args.fetch(:visibility, '0') == '1' ? 'organisationally_visible' : 'publicly_visible'
+        Template.visibilities[:publicly_visible]
       end
     end
 
@@ -412,4 +414,5 @@ module OrgAdmin
       end
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

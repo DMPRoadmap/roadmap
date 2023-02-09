@@ -137,10 +137,6 @@ gem 'jwt'
 # OO authorization for Rails (https://github.com/elabs/pundit)
 gem 'pundit'
 
-# Protect your Rails and Rack apps from bad clients. Rack::Attack lets you easily decide when
-# to allow, block and throttle based on properties of the request.
-gem 'rack-attack'
-
 # ========== #
 # UI / VIEWS #
 # ========== #
@@ -254,6 +250,11 @@ gem 'activerecord_json_validator'
 # user input (we're using it for PDF invoice downloads in Noko). (https://github.com/madrobby/zaru)
 gem 'zaru'
 
+# We need to freeze the mail gem version as the recently released 2.8.0 triggers an exception
+# We will need to check if it's fixed when we migrate to Ruby 3.0/3.1
+# See : https://github.com/DMPRoadmap/roadmap/issues/3254
+gem 'mail', '2.7.1'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
@@ -332,6 +333,9 @@ group :test do
   # This gem brings back assigns to your controller tests as well as assert_template
   # to both controller and integration tests.
   gem 'rails-controller-testing'
+
+  # automating code review
+  gem 'danger', '~> 9.0', require: false
 end
 
 group :ci, :development do
@@ -368,6 +372,9 @@ group :ci, :development do
   # Thread-safety checks via static analysis. A plugin for the RuboCop code style
   # enforcing & linting tool.
   # gem 'rubocop-thread_safety'
+
+  # Performance checks by Rubocop
+  gem 'rubocop-performance', require: false
 end
 
 group :development do
