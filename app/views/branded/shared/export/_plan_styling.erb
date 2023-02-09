@@ -1,9 +1,31 @@
+<%
+# Convert points to pixels
+case font_size
+when '8pt'
+  converted_size = '10pt'
+when '9pt'
+  converted_size = '11pt'
+when '10pt'
+  converted_size = '12pt'
+when '11pt'
+  converted_size = '14pt'
+when '12pt'
+  converted_size = '15pt'
+when '13pt'
+  converted_size = '16pt'
+when '14pt'
+  converted_size = '18pt'
+else
+  converted_size = '14pt'
+end
+%>
+
 <style>
   @import 'https://fonts.googleapis.com/css?family=<%= font_face.downcase.include?('times') ? 'Times' : 'Roboto' %>';
 
-  body {
+  html body {
     font-family: <%= font_face %>;
-    font-size: <%= font_size %>;
+    font-size: <%= converted_size %>;
     line-height: 150%;
   }
 
@@ -15,14 +37,10 @@
   }
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.5em;
   }
   h2 {
-    font-size: 1.3rem;
-  }
-  h3 {
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-size: 1.3em;
   }
 
   div.cover-page p {
@@ -36,6 +54,10 @@
   div.question {
     margin-bottom: 25px;
   }
+  div.question h3 {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
 
   table, tr, td, th, tbody, thead, tfoot {
     page-break-inside: avoid !important;
@@ -45,7 +67,7 @@
   }
   table caption {
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.1em;
     text-align: left;
   }
   th, td {

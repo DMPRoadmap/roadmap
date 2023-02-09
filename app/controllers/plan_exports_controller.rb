@@ -122,7 +122,7 @@ class PlanExportsController < ApplicationController
            margin: @formatting[:margin],
            # wkhtmltopdf behavior is based on the OS so force the zoom level
            # See 'Gotchas' section of https://github.com/mileszs/wicked_pdf
-           zoom: 0.78125,
+           # zoom: 0.78125,
            # show_as_html: params.key?('debug'),
            page_size: 'Letter',
            footer: {
