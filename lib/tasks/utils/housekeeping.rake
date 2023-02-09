@@ -48,6 +48,7 @@ namespace :housekeeping do
                 # .where('plans.id IN ?', [78147])                      # bad grant_id type
                 # 77012, 70251, 69178, 67898, 66250 no contact
                 .distinct
+                .limit(1)
                 .order(created_at: :desc)
                 .each do |identifier|
         next unless identifier.value.present? && identifier.identifiable.present?

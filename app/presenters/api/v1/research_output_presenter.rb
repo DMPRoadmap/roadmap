@@ -19,6 +19,18 @@ module Api
         @license_start_date = determine_license_start_date(output: output)
       end
 
+      # Converts the data_access level to RDA common standard
+      def converted_access(data_access:)
+        case data_access
+        when 'open'
+          'open'
+        when 'restricted'
+          'shared'
+        else
+          'closed'
+        end
+      end
+
       private
 
       def identifier
