@@ -42,14 +42,18 @@ namespace :housekeeping do
       Identifier.includes(:identifiable)
                 .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
                 .where('identifiers.value LIKE ?', 'https://doi.org/%')
+                # .where('plans.id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
+                # .where('plans.id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
+                # .where('plans.id IN ?', [83085])                      # preregistration
+                # .where('plans.id IN ?', [78147])                      # bad grant_id type
+                # 77012, 70251, 69178, 67898, 66250 no contact
                 .distinct
                 .order(created_at: :desc)
-                .limit(1)
                 .each do |identifier|
         next unless identifier.value.present? && identifier.identifiable.present?
 
         # Pause after every 10 so that we do not get rate limited
-        sleep(5) if pauser >= 10
+        sleep(3) if pauser >= 10
         pauser = pauser >= 10 ? 0 : pauser + 1
 
         # Refetch the Plan and all of it's child objects
@@ -60,7 +64,7 @@ namespace :housekeeping do
         begin
           # See if it exists
           puts "Processing Plan: #{identifier.identifiable_id}, DMP ID: #{identifier.value}"
-          url = "#{DmpIdService.landing_page_url}/#{identifier.value}"
+          url = "#{DmpIdService.landing_page_url}#{identifier.value}"
           url = identifier.value.to_s.gsub('https://doi.org', DmpIdService.landing_page_url)
           resp = HTTParty.get(url, { follow_redirects: true, limit: 6 })
 

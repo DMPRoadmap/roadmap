@@ -84,6 +84,18 @@ class ResearchOutputPresenter
     ]
   end
 
+  # Converts the data_access level to RDA common standard
+  def converted_access(data_access:)
+    case data_access
+    when 'open'
+      'open'
+    when 'restricted'
+      'shared'
+    else
+      'closed'
+    end
+  end
+
   # Converts the byte_size into a more friendly value (e.g. 15.4 MB)
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def converted_file_size(size:)

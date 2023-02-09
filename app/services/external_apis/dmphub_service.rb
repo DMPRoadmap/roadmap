@@ -117,14 +117,20 @@ module ExternalApis
         # TODO: Add the auth check and header back in once Cognito is working!
         return nil unless active? && plan.present? && auth
 
-        hdrs = {
-          #Authorization: @token,
-          'Server-Agent': "#{caller_name} (#{client_id})"
+        opts = {
+          follow_redirects: true,
+          limit: 6,
+          headers: {
+            'authorization': @token,
+            'Server-Agent': "#{caller_name} (#{client_id})",
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: json_from_template(plan: plan)
         }
-
+        # opts[:debug_output] = $stdout
         target = format("#{api_base_url}#{callback_path}", dmp_id: plan.dmp_id&.value_without_scheme_prefix)
-        payload = json_from_template(plan: plan)
-        resp = http_put(uri: target, additional_headers: hdrs, debug: false, data: payload)
+        resp = HTTParty.put(target, opts)
 
         # DMPHub returns a 200 when successful
         unless resp.present? && resp.code == 200
@@ -236,8 +242,7 @@ module ExternalApis
       # Authenticate with the DMPHub
       def auth
         scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'stg' : 'dev'
-        # scopes = "#{auth_url}#{scope_env}.read #{auth_url}#{scope_env}.write"
-        scopes = "#{auth_url}#{scope_env}.read"
+        scopes = "#{auth_url}#{scope_env}.read #{auth_url}#{scope_env}.write"
         creds = Base64.strict_encode64("#{client_id}:#{client_secret}")
 
         opts = {

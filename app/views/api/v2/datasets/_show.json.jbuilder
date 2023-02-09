@@ -29,7 +29,7 @@ if output.is_a?(ResearchOutput)
   json.distribution output.repositories do |repository|
     json.title "Anticipated distribution for #{output.title}"
     json.byte_size output.byte_size
-    json.data_access output.access
+    json.data_access presenter.converted_access(data_access: output.access)
 
     json.host do
       json.title repository.name
