@@ -1,9 +1,31 @@
+<%
+# Convert points to pixels
+case font_size
+when '8pt'
+  pixel_size = '11px'
+when '9pt'
+  pixel_size = '12px'
+when '10pt'
+  pixel_size = '13px'
+when '11pt'
+  pixel_size = '15px'
+when '12pt'
+  pixel_size = '16px'
+when '13pt'
+  pixel_size = '17px'
+when '14pt'
+  pixel_size = '19px'
+else
+  pixel_size = '15px'
+end
+%>
+
 <style>
   @import 'https://fonts.googleapis.com/css?family=<%= font_face.downcase.include?('times') ? 'Times' : 'Roboto' %>';
 
-  body {
+  html body p {
     font-family: <%= font_face %>;
-    font-size: <%= font_size %>;
+    font-size: <%= pixel_size %>;
     line-height: 150%;
   }
 
@@ -15,12 +37,15 @@
   }
 
   h1 {
+    font-family: <%= font_face %>;
     font-size: 1.5rem;
   }
   h2 {
+    font-family: <%= font_face %>;
     font-size: 1.3rem;
   }
   h3 {
+    font-family: <%= font_face %>;
     font-size: 1.1rem;
     font-weight: bold;
   }
@@ -44,6 +69,7 @@
     border-collapse: collapse;
   }
   table caption {
+    font-family: <%= font_face %>;
     font-weight: bold;
     font-size: 1.1rem;
     text-align: left;
