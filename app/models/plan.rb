@@ -441,7 +441,6 @@ class Plan < ApplicationRecord
   def owner
     r = roles.select { |rr| rr.active && rr.administrator }
              .min { |a, b| a.created_at <=> b.created_at }
-    # return the selected user or nil
     r&.user
   end
 
