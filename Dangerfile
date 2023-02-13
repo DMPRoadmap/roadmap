@@ -26,8 +26,7 @@ declared_trivial = (github.pr_title + github.pr_body).include?('#trivial') || !h
 
 if !git.modified_files.include?('CHANGELOG.md') && !declared_trivial
   raise(
-    "Please include a CHANGELOG entry. \n
-    You can find it at [CHANGELOG.md](https://github.com/portagenetwork/roadmap/blob/deployment-portage/CHANGELOG.md).",
+    'Please include a CHANGELOG entry. You can find it at [CHANGELOG.md](https://github.com/portagenetwork/roadmap/blob/deployment-portage/CHANGELOG.md).',
     sticky: false
   )
 end
