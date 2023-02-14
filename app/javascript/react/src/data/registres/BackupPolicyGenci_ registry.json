@@ -1,0 +1,32 @@
+{"BackupPolicyGenci": [
+    {
+        "label": {
+            "en_GB": "IDRIS backup policy",
+            "fr_FR": "Politique de sauvegarde IDRIS"
+        },
+        "description": "Politique de sauvegarde IDRIS : Les espaces $HOME et $WORK sont sauvegardés régulièrement via un mécanisme de snapshots : ce sont des instantanés de ces arborescences permettant de récupérer un fichier ou un répertoire corrompu ou effacé par erreur",
+        "backupFrequency": "Régulièrement",
+        "backupType": "Snapshot sur espace de travail si nécessaire",
+        "storageType": ["Bande magnétique"]
+    },
+    {
+        "label": {
+            "en_GB": "TGCC backup policy",
+            "fr_FR": "Politique de sauvegarde TGCC"
+        },
+        "description": "Politique de sauvegarde TGCC : brève description de la politique de sauvegarde du TGCC",
+        "backupFrequency": "Fréquence de sauvegarde du TGCC",
+        "backupType": "Type de sauvegarde du TGCC",
+        "storageType": ["Serveur NAS"]
+    },
+    {
+        "label": {
+            "en_GB": "Cines backup policy",
+            "fr_FR": "Politique de sauvegarde Cines"
+        },
+        "description": "Politique de sauvegarde Cines : brève description de la politique de sauvegarde du Cines",
+        "backupFrequency": "Fréquence de sauvegarde du Cines",
+        "backupType": "Type de sauvegarde du Cines",
+        "storageType": ["Cloud","Bande magnétique"]
+    }
+]}

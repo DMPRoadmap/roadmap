@@ -1,0 +1,91 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DMPStandard",
+    "description": "DMPStandard template",
+    "type": "object",
+    "class": "DMPStandard",
+    "properties": {
+        "identifier": {
+            "type": "number",
+            "description": "Identifiant interne à l'application DMP OPIDoR"
+        },
+        "meta": {
+            "type": "object",
+            "class": "Meta",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "MetaStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Ensemble des métadonnées concernant le plan de gestion de données",
+            "label@fr_FR": "Métadonnées du plan",
+            "label@en_GB": "Plan Metadata",
+            "form_label@fr_FR": "Métadonnées du plan",
+            "form_label@en_GB": "Plan Metadata"
+        },
+        "project": {
+            "type": "object",
+            "class": "Project",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ProjectStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Aspects relatifs au projet de recherche ou activité de recherche",
+            "label@fr_FR": "Renseignements sur le projet",
+            "label@en_GB": "Project Details",
+            "form_label@fr_FR": "Renseignements sur le projet",
+            "form_label@en_GB": "Project Details"
+        },
+        "researchOutput": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResearchOutput",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ResearchOutputStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Ensemble des informations concernant les produits de recherche générés dans le cadre du projet ou activité de recherche"
+        },
+        "budget": {
+            "type": "object",
+            "class": "Budget",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "BudgetStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Budget lié à la gestion des données de recherche"
+        }
+    },
+    "required": [
+        "identifier",
+        "meta",
+        "project",
+        "researchOutput",
+        "budget"
+    ],
+    "to_string": []
+}

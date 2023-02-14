@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ContributorStandard",
+    "description": "ContributorStandard template",
+    "type": "object",
+    "class": "ContributorStandard",
+    "properties": {
+        "person": {
+            "type": "object",
+            "class": "Person",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "PersonStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Personnes impliquées dans la production et gestion des données",
+            "inputType": "pickOrCreate",
+            "form_label@fr_FR": "Sélectionner une valeur dans la liste déroulante",
+            "form_label@en_GB": "Select a person from the drop-down list"
+        },
+        "role": {
+            "type": "string",
+            "description": "Rôle d'une personne dans la gestion et production des données",
+            "inputType": "dropdown",
+            "label@fr_FR": "Rôle",
+            "label@en_GB": "Role",
+            "registry_name": "Role",
+            "tooltip@fr_FR": "Sélectionner dans la liste déroulante le rôle du contributeur",
+            "tooltip@en_GB": "Choose in the dropdown the contributor's role",
+            "form_label@fr_FR": "Rôle",
+            "form_label@en_GB": "Role"
+        }
+    },
+    "required": [
+        "person",
+        "role"
+    ],
+    "to_string": [
+        "$.person.firstName",
+        " ",
+        "$.person.lastName ",
+        " (",
+        "$.role",
+        ")"
+    ]
+}

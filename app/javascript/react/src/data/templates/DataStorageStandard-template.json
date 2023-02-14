@@ -1,0 +1,148 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataStorageStandard",
+    "description": "DataStorageStandard template",
+    "type": "object",
+    "class": "DataStorageStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des besoins de stockage",
+            "inputType": "textarea",
+            "label@fr_FR": "Besoins de stockage",
+            "label@en_GB": "Storage needs",
+            "form_label@fr_FR": "Décrire les besoins de stockage",
+            "form_label@en_GB": "Describe storage needs"
+        },
+        "estimatedVolume": {
+            "type": "number",
+            "description": "Volume estimé des données",
+            "label@fr_FR": "Volume estimé des données",
+            "label@en_GB": "Estimated volume of data",
+            "form_label@fr_FR": "Volume estimé des données",
+            "form_label@en_GB": "Estimated volume of data"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "inputType": "dropdown",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "registry_name": "VolumeUnit",
+            "overridable": true,
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource/équipement utilisée pour le stockage et sauvegarde des données",
+            "label@fr_FR": "Equipements, plateaux techniques",
+            "label@en_GB": "Equipments, technical platforms",
+            "inputType": "dropdown",
+            "registry_name": "StorageServices",
+            "overridable": true,
+            "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour le stockage et sauvegarde des données",
+            "form_label@en_GB": "Equipments, technical platforms used for data storage and backup"
+        },
+        "backupPolicy": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "BackupPolicy",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "BackupPolicyStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy",
+            "form_label@fr_FR": "Politique de sauvegarde",
+            "form_label@en_GB": "Backup policy"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Mesures prises pour la sécurité des données",
+            "label@en_GB": "Measures taken for data security",
+            "tooltip@fr_FR": "Décrire les mesures de sécurité des données, en particulier si vos données sont sensibles (données à caractère personnel, secrets commerciaux…) et indiquer qui aura accès aux données",
+            "tooltip@en_GB": "Describe the data security measures, in particular if your data is sensitive (personal data, trade secrets, etc.) and indicate who will have access to the data",
+            "form_label@fr_FR": "Décrire les mesures prises pour assurer la sécurité des données",
+            "form_label@en_GB": "Describe the measures taken to ensure data security"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataStorageManager",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "label@fr_FR": "Responsables du stockage des données",
+            "label@en_GB": "Persons in charge of storage",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Responsables du stockage des données",
+            "form_label@en_GB": "Persons in charge of storage"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés au stockage des données",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "form_label@fr_FR": "Coûts liés au stockage et à la sauvegarde des données",
+            "form_label@en_GB": "Data storage and backup associated costs"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

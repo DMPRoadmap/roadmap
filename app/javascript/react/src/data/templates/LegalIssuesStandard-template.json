@@ -1,0 +1,75 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "LegalIssuesStandard",
+    "description": "LegalIssuesStandard template",
+    "type": "object",
+    "class": "LegalIssuesStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description générale des aspects juridiques",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Facultatif si vous détaillez des aspects particuliers",
+            "tooltip@en_GB": "Optional if specific issues are detailed",
+            "form_label@fr_FR": "Décrire les aspects juridiques généraux de votre projet",
+            "form_label@en_GB": "Describe the general legal issues of your project"
+        },
+        "legalReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "LegalReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Référence(s) de document(s) en lien avec les aspects juridiques",
+            "label@fr_FR": "Références associées",
+            "label@en_GB": "Related references",
+            "tooltip@fr_FR": "Par exemple, accord de consortium",
+            "tooltip@en_GB": "For example, consortium agreement",
+            "form_label@fr_FR": "Indiquer la ou les références de documents en lien avec les aspects juridiques",
+            "form_label@en_GB": "Indicate the reference(s) of documents related to legal aspects"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "LegalExpert",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) en charge des aspects juridiques",
+            "label@fr_FR": "Responsables juridiques",
+            "label@en_GB": "Legal experts",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Responsables juridiques",
+            "form_label@en_GB": "Legal experts"
+        }
+    },
+    "required": [
+        "legalReference"
+    ],
+    "to_string": []
+}

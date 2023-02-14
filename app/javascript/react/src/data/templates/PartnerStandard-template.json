@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "PartnerStandard",
+    "description": "PartnerStandard template",
+    "type": "object",
+    "class": "PartnerStandard",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Nom de l'organisation ou structure partenaire",
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name",
+            "form_label@fr_FR": "Nom du partenaire",
+            "form_label@en_GB": "Partner name"
+        },
+        "orgId": {
+            "type": "string",
+            "description": "Identifiant de l'organisation ou structure partenaire",
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier",
+            "form_label@fr_FR": "Identifiant du partenaire",
+            "form_label@en_GB": "Partner identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant (ROR)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "registry_name": "AgentIdSystem",
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant du partenaire",
+            "form_label@en_GB": "Partner identifier type"
+        },
+        "rnsr": {
+            "type": "string",
+            "description": "Idenfiant RNSR",
+            "label@fr_FR": "Identifiant RNSR",
+            "label@en_GB": "RNSR identifier",
+            "form_label@fr_FR": "Identifiant RNSR du partenaire",
+            "form_label@en_GB": "Partner RNSR identifier"
+        }
+    },
+    "required": [
+        "name"
+    ],
+    "to_string": [
+        "$.name",
+        " (",
+        "$.rnsr",
+        ") "
+    ],
+    "unicity": [
+        "rnsr"
+    ]
+}

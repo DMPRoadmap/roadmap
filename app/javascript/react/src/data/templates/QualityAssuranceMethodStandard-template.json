@@ -1,0 +1,74 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "QualityAssuranceMethodStandard",
+    "description": "QualityAssuranceMethodStandard template",
+    "type": "object",
+    "class": "QualityAssuranceMethodStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description de la méthodologie appliquée pour assurer la qualité scientifique et documentaire des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Par exemple : répétition des expériences, démarche de relecture par des tiers, essais croisés",
+            "tooltip@en_GB": "For example: repetition of experiments, proofreading by third parties, cross-testing",
+            "form_label@fr_FR": "Décrire les procédures de contrôle qualité mises en place",
+            "form_label@en_GB": "Describe the quality control procedures applied"
+        },
+        "methodReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MethodReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Référence(s) de protocole(s) d'assurance qualité",
+            "label@fr_FR": "Références associées",
+            "label@en_GB": "Related references",
+            "tooltip@fr_FR": "Par exemple : le plan d'assurance qualité des données",
+            "tooltip@en_GB": "For example: data quality assurance plan",
+            "form_label@fr_FR": "Indiquer le ou les documents de référence",
+            "form_label@en_GB": "Indicate the reference document(s)"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataQualityManager",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) impliquée(s) dans l'assurance qualité des données",
+            "label@fr_FR": "Responsables de la qualité des données",
+            "label@en_GB": "Data quality managers",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Responsables de la qualité des données",
+            "form_label@en_GB": "Data quality managers"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

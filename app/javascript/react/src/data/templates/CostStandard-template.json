@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "CostStandard",
+    "description": "CostStandard template",
+    "type": "object",
+    "class": "CostStandard",
+    "properties": {
+        "costType": {
+            "type": "string",
+            "description": "Type de coût engagé",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type de coût",
+            "label@en_GB": "Cost type",
+            "registry_name": "CostType",
+            "overridable": true,
+            "form_label@fr_FR": "Type de coût",
+            "form_label@en_GB": "Cost type"
+        },
+        "amount": {
+            "type": "number",
+            "minimum": "10",
+            "description": "Valeur numérique du montant",
+            "label@fr_FR": "Montant",
+            "label@en_GB": "Amount",
+            "tooltip@fr_FR": "Saisir le montant",
+            "tooltip@en_GB": "Enter the amount",
+            "form_label@fr_FR": "Montant",
+            "form_label@en_GB": "Amount"
+        },
+        "currency": {
+            "type": "string",
+            "description": "Monnaie dans laquelle ce coût est exprimé (Référentiel des monnaies. (Voir ISO 4217))",
+            "inputType": "dropdown",
+            "label@fr_FR": "Devise",
+            "label@en_GB": "Currency",
+            "registry_name": "ISO4217",
+            "form_label@fr_FR": "Devise",
+            "form_label@en_GB": "Currency"
+        },
+        "title": {
+            "type": "string",
+            "description": "Libellé du coût",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "form_label@fr_FR": "Titre",
+            "form_label@en_GB": "Title"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description/justificatif des coûts",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        }
+    },
+    "required": [
+        "costType",
+        "amount",
+        "currency",
+        "title"
+    ],
+    "to_string": [
+        "$.costType",
+        " : ",
+        "$.amount",
+        " ",
+        "$.currency"
+    ]
+}

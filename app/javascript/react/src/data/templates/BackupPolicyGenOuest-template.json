@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "BackupPolicyGenOuest",
+    "description": "BackupPolicyGenOuest template",
+    "type": "object",
+    "class": "BackupPolicyGenOuest",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description de la politique de sauvegarde appliquée",
+            "label@fr_FR": "Politique de stockage et sauvegarde",
+            "label@en_GB": "Storage and backup policy",
+            "const@fr_FR": "Des snapshots sont créés toutes les heures sur les « homes ». Ceux-ci sont conservés pendant 5 semaines. Sur les répertoires projets, des snapshots sont créés tous les jours et conservés pendant 5 semaines. Aucun snapshot n’est réalisé sur les espaces de calcul.",
+            "const@en_GB": "Home Snapshots are created every hour and preserved for 5 weeks. Snapshots of project directories are produced every day and preserved for 5 weeks. No snapshot of computing spaces are produced.",
+            "form_label@fr_FR": "Politique de stockage et sauvegarde",
+            "form_label@en_GB": "Storage and backup policy"
+        },
+        "backupFrequency": {
+            "type": "string",
+            "description": "Fréquence de sauvegarde",
+            "label@fr_FR": "Fréquence des sauvegardes",
+            "label@en_GB": "Backup frequency",
+            "const@fr_FR": "Chaque heure",
+            "const@en_GB": "Hourly",
+            "form_label@fr_FR": "Fréquence des sauvegardes",
+            "form_label@en_GB": "Backup frequency"
+        },
+        "backupType": {
+            "type": "string",
+            "description": "Mode de sauvegarde (incrémentale, différentielle, complète, miroir, …)",
+            "label@fr_FR": "Type de sauvegarde",
+            "label@en_GB": "Backup type",
+            "const@fr_FR": "complète",
+            "const@en_GB": "complete",
+            "form_label@fr_FR": "Type de sauvegarde",
+            "form_label@en_GB": "Backup type"
+        },
+        "storageType": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Support de stockage des données",
+            "label@fr_FR": "Supports de stockage",
+            "label@en_GB": "Storage types",
+            "const@fr_FR": "Disque dur",
+            "const@en_GB": "Hard drive",
+            "form_label@fr_FR": "Supports de stockage",
+            "form_label@en_GB": "Storage types"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": [
+        "$.description"
+    ]
+}

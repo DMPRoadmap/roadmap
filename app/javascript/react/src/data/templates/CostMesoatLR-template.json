@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "CostMesoatLR",
+    "description": "CostMesoatLR template",
+    "type": "object",
+    "class": "CostMesoatLR",
+    "properties": {
+        "costType": {
+            "type": "string",
+            "description": "Type de coût engagé",
+            "label@fr_FR": "Type de coût",
+            "label@en_GB": "Cost type",
+            "const@fr_FR": "Stockage",
+            "const@en_GB": "Storage",
+            "form_label@fr_FR": "Type de coût",
+            "form_label@en_GB": "Cost type"
+        },
+        "amount": {
+            "type": "number",
+            "description": "Valeur numérique du montant",
+            "label@fr_FR": "Montant",
+            "label@en_GB": "Amount",
+            "form_label@fr_FR": "Montant",
+            "form_label@en_GB": "Amount"
+        },
+        "currency": {
+            "type": "string",
+            "description": "Monnaie dans laquelle ce coût est exprimé (Référentiel des monnaies. (Voir ISO 4217))",
+            "label@fr_FR": "Devise",
+            "label@en_GB": "Currency",
+            "const@fr_FR": "EUR",
+            "const@en_GB": "EUR",
+            "form_label@fr_FR": "Devise",
+            "form_label@en_GB": "Currency"
+        },
+        "title": {
+            "type": "string",
+            "description": "Libellé du coût",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "const@fr_FR": "Estimation du coût de stockage et calcul auprès du mésocentre MESO@LR",
+            "const@en_GB": "Estimated cost of storage and compute at MESO@LR",
+            "form_label@fr_FR": "Titre",
+            "form_label@en_GB": "Title"
+        }
+    },
+    "required": [
+        "costType",
+        "amount",
+        "currency",
+        "title"
+    ],
+    "to_string": [
+        "$.costType",
+        " : ",
+        "$.amount",
+        " ",
+        "$.currency"
+    ]
+}

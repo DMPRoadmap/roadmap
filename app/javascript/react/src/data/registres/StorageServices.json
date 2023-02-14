@@ -1,0 +1,1604 @@
+{
+    "StorageServices":[
+    {
+        "label": {
+            "en_GB": "ABiMS, Plateforme   ABiMS, Analysis   and   Bioinformatics   for   Marine Science.",
+            "fr_FR": "ABiMS, Plateforme   ABiMS, Analysis   and   Bioinformatics   for   Marine Science."
+        },
+        "title": "ABiMS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ABiMS",
+        "idType": "URL",
+        "serviceContact": "support.abims@sb-roscoff.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Adisp, Archives de Donn\u00e9es Issues de la Statistique Publique",
+            "fr_FR": "Adisp, Archives de Donn\u00e9es Issues de la Statistique Publique"
+        },
+        "title": "Adisp",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Adisp",
+        "idType": "URL",
+        "serviceContact": "http://www.progedo-adisp.fr/contact.php"
+    },
+    {
+        "label": {
+            "en_GB": "Adonis, Acquisition de DONn\u00e9eS \u00e0 l\u2019Inra",
+            "fr_FR": "Adonis, Acquisition de DONn\u00e9eS \u00e0 l\u2019Inra"
+        },
+        "title": "Adonis",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Adonis",
+        "idType": "URL",
+        "serviceContact": "adonis@inra.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Apollon, Laser Apollon",
+            "fr_FR": "Apollon, Laser Apollon"
+        },
+        "title": "Apollon",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Apollon",
+        "idType": "URL",
+        "serviceContact": "https://apollonlaserfacility.cnrs.fr/contacts/"
+    },
+    {
+        "label": {
+            "en_GB": "BCMT, Bureau Central de Magn\u00e9tisme Terrestre",
+            "fr_FR": "BCMT, Bureau Central de Magn\u00e9tisme Terrestre"
+        },
+        "title": "BCMT",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/BCMT",
+        "idType": "URL",
+        "serviceContact": "lesur@ipgp.fr"
+    },
+    {
+        "label": {
+            "en_GB": "BGI, Bureau Gravim\u00e9trique International, International Gravimetric Bureau",
+            "fr_FR": "BGI, Bureau Gravim\u00e9trique International, International Gravimetric Bureau"
+        },
+        "title": "BGI",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/BGI",
+        "idType": "URL",
+        "serviceContact": "bgi@cnes.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Bilille, Service en bio-informatique de Lille, Plateforme de bioinformatique de Lille",
+            "fr_FR": "Bilille, Service en bio-informatique de Lille, Plateforme de bioinformatique de Lille"
+        },
+        "title": "Bilille",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Bilille",
+        "idType": "URL",
+        "serviceContact": "helene.touzet@univ-lille.fr"
+    },
+    {
+        "label": {
+            "en_GB": "BioImage Archive",
+            "fr_FR": "BioImage Archive"
+        },
+        "title": "BioImage Archive",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/BioImage Archive",
+        "idType": "URL",
+        "serviceContact": "bioimage-archive@ebi.ac.uk"
+    },
+    {
+        "label": {
+            "en_GB": "C3I, Centre Commun de Calcul Intensif",
+            "fr_FR": "C3I, Centre Commun de Calcul Intensif"
+        },
+        "title": "C3I",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/C3I",
+        "idType": "URL",
+        "serviceContact": "Pascal.Poullet@univ-antilles.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CALI, CAlcul en LImousin",
+            "fr_FR": "CALI, CAlcul en LImousin"
+        },
+        "title": "CALI",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CALI",
+        "idType": "URL",
+        "serviceContact": "christophe.guiffaut@unilim.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online,",
+            "fr_FR": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online,"
+        },
+        "title": "CALLISTO",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CALLISTO",
+        "idType": "URL",
+        "serviceContact": "support.calmip at univ-toulouse.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CALMIP, Calcul en Midi-Pyr\u00e9n\u00e9es, M\u00e9socentre CALMIP, UMS 3667",
+            "fr_FR": "CALMIP, Calcul en Midi-Pyr\u00e9n\u00e9es, M\u00e9socentre CALMIP, UMS 3667"
+        },
+        "title": "CALMIP",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CALMIP",
+        "idType": "URL",
+        "serviceContact": "admin.calmip@univ-toulouse.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CASD, Centre d\u2019acc\u00e8s s\u00e9curis\u00e9 aux donn\u00e9es, GIP CASD",
+            "fr_FR": "CASD, Centre d\u2019acc\u00e8s s\u00e9curis\u00e9 aux donn\u00e9es, GIP CASD"
+        },
+        "title": "CASD",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CASD",
+        "idType": "URL",
+        "serviceContact": "service@casd.eu"
+    },
+    {
+        "label": {
+            "en_GB": "CBP-PSMN, Centre Blaise Pascal - P\u00f4le Scientifique de Mod\u00e9lisation Num\u00e9rique",
+            "fr_FR": "CBP-PSMN, Centre Blaise Pascal - P\u00f4le Scientifique de Mod\u00e9lisation Num\u00e9rique"
+        },
+        "title": "CBP-PSMN",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CBP-PSMN",
+        "idType": "URL",
+        "serviceContact": "http://www.ens-lyon.fr/PSMN/doku.php?id=contact:forms:accueil"
+    },
+    {
+        "label": {
+            "en_GB": "CBiB, Centre de Bioinformatique de Bordeaux",
+            "fr_FR": "CBiB, Centre de Bioinformatique de Bordeaux"
+        },
+        "title": "CBiB",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CBiB",
+        "idType": "URL",
+        "serviceContact": "macha.nikolski@u-bordeaux.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CC-IN2P3, Centre de calcul de l'IN2P3, Centre de calcul de l'IN2P3/CNRS, Centre de Calcul de l'Institut National de Physique Nucl\u00e9aire et de Physique des Particules,Computing Centre of the National Institute of Nuclear Physics and Particle Physics,UAR 6402",
+            "fr_FR": "CC-IN2P3, Centre de calcul de l'IN2P3, Centre de calcul de l'IN2P3/CNRS, Centre de Calcul de l'Institut National de Physique Nucl\u00e9aire et de Physique des Particules,Computing Centre of the National Institute of Nuclear Physics and Particle Physics,UAR 6402"
+        },
+        "title": "CC-IN2P3",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CC-IN2P3",
+        "idType": "URL",
+        "serviceContact": "contact@cc.in2p3.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CCIAM, Centre de Calcul Intensif d\u2019Aix-Marseille, M\u00e9socentre d\u2019Aix-Marseille Universit\u00e9",
+            "fr_FR": "CCIAM, Centre de Calcul Intensif d\u2019Aix-Marseille, M\u00e9socentre d\u2019Aix-Marseille Universit\u00e9"
+        },
+        "title": "CCIAM",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CCIAM",
+        "idType": "URL",
+        "serviceContact": "mesocentre-techn@univ-amu.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CCIPL, Centre de Calcul Intensif des Pays de la Loire",
+            "fr_FR": "CCIPL, Centre de Calcul Intensif des Pays de la Loire"
+        },
+        "title": "CCIPL",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CCIPL",
+        "idType": "URL",
+        "serviceContact": "ccipl-contact@univ-nantes.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CCRT, Centre de Calcul Recherche et Technologie",
+            "fr_FR": "CCRT, Centre de Calcul Recherche et Technologie"
+        },
+        "title": "CCRT",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CCRT",
+        "idType": "URL",
+        "serviceContact": "contactweb.ccrt@cea.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CCUR, Centre de Calcul de l\u2019Universit\u00e9 de la R\u00e9union",
+            "fr_FR": "CCUR, Centre de Calcul de l\u2019Universit\u00e9 de la R\u00e9union"
+        },
+        "title": "CCUR",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CCUR",
+        "idType": "URL",
+        "serviceContact": "ccur@support.univ-reunion.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CCUS, Centre de Calcul de l'Universit\u00e9 de Strasbourg, M\u00e9socentre de l'Universit\u00e9 de Strasbourg, P\u00f4le HPC Unistra",
+            "fr_FR": "CCUS, Centre de Calcul de l'Universit\u00e9 de Strasbourg, M\u00e9socentre de l'Universit\u00e9 de Strasbourg, P\u00f4le HPC Unistra"
+        },
+        "title": "CCUS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CCUS",
+        "idType": "URL",
+        "serviceContact": "support@unistra.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CCuB, Centre de Calcul de l\u2019Universit\u00e9 de Bourgogne",
+            "fr_FR": "CCuB, Centre de Calcul de l\u2019Universit\u00e9 de Bourgogne"
+        },
+        "title": "CCuB",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CCuB",
+        "idType": "URL",
+        "serviceContact": "ccub@u-bourgogne.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CDS-SAT, Centres de Donn\u00e9es et Services satellites - ODATIS, CDS-satellite",
+            "fr_FR": "CDS-SAT, Centres de Donn\u00e9es et Services satellites - ODATIS, CDS-satellite"
+        },
+        "title": "CDS-SAT",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CDS-SAT",
+        "idType": "URL",
+        "serviceContact": "contact@odatis-ocean.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CFHT, Observatoire Canada-France-Hawaii Telescope, T\u00e9lescope Canada-France-Hawa\u00ef Observatory",
+            "fr_FR": "CFHT, Observatoire Canada-France-Hawaii Telescope, T\u00e9lescope Canada-France-Hawa\u00ef Observatory"
+        },
+        "title": "CFHT",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CFHT",
+        "idType": "URL",
+        "serviceContact": "Martin.Giard@cnrs-dir.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CINES Calcul intensif, Centre Informatique National de l\u2019Enseignement Sup\u00e9rieur Calcul intensif",
+            "fr_FR": "CINES Calcul intensif, Centre Informatique National de l\u2019Enseignement Sup\u00e9rieur Calcul intensif"
+        },
+        "title": "CINES Calcul intensif",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CINES Calcul intensif",
+        "idType": "URL",
+        "serviceContact": "Mel administratif : contact-admin@cines.fr \nMel technique : svp@cines.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CIREVE, Centre Interdisciplinaire de R\u00e9alit\u00e9 Virtuelle",
+            "fr_FR": "CIREVE, Centre Interdisciplinaire de R\u00e9alit\u00e9 Virtuelle"
+        },
+        "title": "CIREVE",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CIREVE",
+        "idType": "URL",
+        "serviceContact": "sophie.madeleine@unicaen.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CRIANN, Centre R\u00e9gional Informatique et d'Applications Num\u00e9riques de Normandie, M\u00e9socentre de calcul pour la Normandie",
+            "fr_FR": "CRIANN, Centre R\u00e9gional Informatique et d'Applications Num\u00e9riques de Normandie, M\u00e9socentre de calcul pour la Normandie"
+        },
+        "title": "CRIANN",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CRIANN",
+        "idType": "URL",
+        "serviceContact": "admin@criann.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CaSciModOT, Calcul Scientifique et Mod\u00e9lisation Orl\u00e9ans Tours,Centre de Calcul Scientifique en r\u00e9gion Centre, CCSC",
+            "fr_FR": "CaSciModOT, Calcul Scientifique et Mod\u00e9lisation Orl\u00e9ans Tours,Centre de Calcul Scientifique en r\u00e9gion Centre, CCSC"
+        },
+        "title": "CaSciModOT",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CaSciModOT",
+        "idType": "URL",
+        "serviceContact": "jean-louis.rouet@univ-orleans.fr"
+    },
+    {
+        "label": {
+            "en_GB": "CeDONA, Centre de Donn\u00e9es pour l'Observation en Nouvelle Aquitaine, Centre de Donn\u00e9es CeDONA, Centre de Donn\u00e9es OASU, OASU - CD",
+            "fr_FR": "CeDONA, Centre de Donn\u00e9es pour l'Observation en Nouvelle Aquitaine, Centre de Donn\u00e9es CeDONA, Centre de Donn\u00e9es OASU, OASU - CD"
+        },
+        "title": "CeDONA",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CeDONA",
+        "idType": "URL",
+        "serviceContact": "Pas de contact"
+    },
+    {
+        "label": {
+            "en_GB": "CeSAM, Centre de donn\u00e9es de l'Observatoire des Sciences de l'Univers PyTHEAS,  Centre de donn\u00e9es Pytheas,Pyth\u00e9as Data Centre, Centre de donn\u00e9eS Astrophysiques de Marseille",
+            "fr_FR": "CeSAM, Centre de donn\u00e9es de l'Observatoire des Sciences de l'Univers PyTHEAS,  Centre de donn\u00e9es Pytheas,Pyth\u00e9as Data Centre, Centre de donn\u00e9eS Astrophysiques de Marseille"
+        },
+        "title": "CeSAM",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CeSAM",
+        "idType": "URL",
+        "serviceContact": "https://www.lam.fr/cesam/le-centre/article/membres-du-cesam"
+    },
+    {
+        "label": {
+            "en_GB": "CeSGO, Centre e-Science Grand Ouest",
+            "fr_FR": "CeSGO, Centre e-Science Grand Ouest"
+        },
+        "title": "CeSGO",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CeSGO",
+        "idType": "URL",
+        "serviceContact": "https://www.cesgo.org/fr/contact/"
+    },
+    {
+        "label": {
+            "en_GB": "Centre Calcul UCP, Centre De Calcul de l'UCP, Centre De Calcul de CY Cergy Paris Universit\u00e9",
+            "fr_FR": "Centre Calcul UCP, Centre De Calcul de l'UCP, Centre De Calcul de CY Cergy Paris Universit\u00e9"
+        },
+        "title": "Centre Calcul UCP",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Centre Calcul UCP",
+        "idType": "URL",
+        "serviceContact": "http://www.cdc.u-cergy.fr/spip.php?article47"
+    },
+    {
+        "label": {
+            "en_GB": "Cid.curie.fr, Curie Image Database,iManage, OpenImadis",
+            "fr_FR": "Cid.curie.fr, Curie Image Database,iManage, OpenImadis"
+        },
+        "title": "Cid.curie.fr",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Cid.curie.fr",
+        "idType": "URL",
+        "serviceContact": "perrine.paul-gilloteaux@france-bioimaging.org"
+    },
+    {
+        "label": {
+            "en_GB": "CoCoON, Collections de Corpus Oraux Num\u00e9riques - anciennement Centre de Ressources pour la Description de l'Oral (CRDO) - Groupe Gestion documentaire et r\u00e9servoir de donn\u00e9es",
+            "fr_FR": "CoCoON, Collections de Corpus Oraux Num\u00e9riques - anciennement Centre de Ressources pour la Description de l'Oral (CRDO) - Groupe Gestion documentaire et r\u00e9servoir de donn\u00e9es"
+        },
+        "title": "CoCoON",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CoCoON",
+        "idType": "URL",
+        "serviceContact": "cocoon_web@huma-num.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Collec-Science",
+            "fr_FR": "Collec-Science"
+        },
+        "title": "Collec-Science",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Collec-Science",
+        "idType": "URL",
+        "serviceContact": "eric.quinton at inrae.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Cyber-Caroth\u00e8que Nationale, Cyber Cores Repository",
+            "fr_FR": "Cyber-Caroth\u00e8que Nationale, Cyber Cores Repository"
+        },
+        "title": "Cyber-Caroth\u00e8que Nationale",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Cyber-Caroth\u00e8que Nationale",
+        "idType": "URL",
+        "serviceContact": "support@cybercarotheque.fr"
+    },
+    {
+        "label": {
+            "en_GB": "DISA, Donn\u00e9es : Int\u00e9gration, Structuration et Analyse",
+            "fr_FR": "DISA, Donn\u00e9es : Int\u00e9gration, Structuration et Analyse"
+        },
+        "title": "DISA",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/DISA",
+        "idType": "URL",
+        "serviceContact": "https://lienss.univ-larochelle.fr/Contacts-1504"
+    },
+    {
+        "label": {
+            "en_GB": "Dat@UBFC",
+            "fr_FR": "Dat@UBFC"
+        },
+        "title": "Dat@UBFC",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Dat@UBFC",
+        "idType": "URL",
+        "serviceContact": "dataubfc-equipe@ubfc.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Data.gouv.fr",
+            "fr_FR": "Data.gouv.fr"
+        },
+        "title": "Data.gouv.fr",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Data.gouv.fr",
+        "idType": "URL",
+        "serviceContact": "info@data.gouv.fr"
+    },
+    {
+        "label": {
+            "en_GB": "DataCenter@UPSud",
+            "fr_FR": "DataCenter@UPSud"
+        },
+        "title": "DataCenter@UPSud",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/DataCenter@UPSud",
+        "idType": "URL",
+        "serviceContact": "https://www.mesocentre.u-psud.fr/contact/"
+    },
+    {
+        "label": {
+            "en_GB": "E-WATCH",
+            "fr_FR": "E-WATCH"
+        },
+        "title": "E-WATCH",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/E-WATCH",
+        "idType": "URL",
+        "serviceContact": "jean-baptiste.laurent@cirad.fr"
+    },
+    {
+        "label": {
+            "en_GB": "E.cenaris, Centre National de Surveillance des Risques du Sol et du Sous-Sol",
+            "fr_FR": "E.cenaris, Centre National de Surveillance des Risques du Sol et du Sous-Sol"
+        },
+        "title": "E.cenaris",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/E.cenaris",
+        "idType": "URL",
+        "serviceContact": "cenaris@ineris.fr"
+    },
+    {
+        "label": {
+            "en_GB": "EELS Data Base, EELS DB. Electron Energy Loss Spectroscopy Data Base. Inner & Outer Shell Excitation Spectrum Repository",
+            "fr_FR": "EELS Data Base, EELS DB. Electron Energy Loss Spectroscopy Data Base. Inner & Outer Shell Excitation Spectrum Repository"
+        },
+        "title": "EELS Data Base",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/EELS Data Base",
+        "idType": "URL",
+        "serviceContact": "https://eelsdb.eu/about/"
+    },
+    {
+        "label": {
+            "en_GB": "EHESS Pole Num\u00e9rique Recherche",
+            "fr_FR": "EHESS Pole Num\u00e9rique Recherche"
+        },
+        "title": "EHESS Pole Num\u00e9rique Recherche",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/EHESS Pole Num\u00e9rique Recherche",
+        "idType": "URL",
+        "serviceContact": "recherche.dsi@ehess.fr"
+    },
+    {
+        "label": {
+            "en_GB": "EMSO-France, European Multidisciplinary Seafloor and water column Observatory \u2013 France, R\u00e9seau europ\u00e9en d\u2019observatoires sous-marins pour l\u2019environnement",
+            "fr_FR": "EMSO-France, European Multidisciplinary Seafloor and water column Observatory \u2013 France, R\u00e9seau europ\u00e9en d\u2019observatoires sous-marins pour l\u2019environnement"
+        },
+        "title": "EMSO-France",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/EMSO-France",
+        "idType": "URL",
+        "serviceContact": "http://www.emso-fr.org/sendform/contact"
+    },
+    {
+        "label": {
+            "en_GB": "ESPRI, Centre de donn\u00e9es et de services ESPRI, CDS ESPRI",
+            "fr_FR": "ESPRI, Centre de donn\u00e9es et de services ESPRI, CDS ESPRI"
+        },
+        "title": "ESPRI",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ESPRI",
+        "idType": "URL",
+        "serviceContact": "cds-espri@ipsl.jussieu.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ESRF, European Synchrotron Radiation Facility, Installation Europ\u00e9enne de Rayonnement Synchrotron, Source Europ\u00e9enne de Rayonnement Synchrotron,ESRF EBS",
+            "fr_FR": "ESRF, European Synchrotron Radiation Facility, Installation Europ\u00e9enne de Rayonnement Synchrotron, Source Europ\u00e9enne de Rayonnement Synchrotron,ESRF EBS"
+        },
+        "title": "ESRF",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ESRF",
+        "idType": "URL",
+        "serviceContact": "https://www.esrf.eu/UsersAndScience/UserGuide/Contacts"
+    },
+    {
+        "label": {
+            "en_GB": "EXPLOR, M\u00e9socentre Explor, Ensemble de Calcul Scientifique Pour la Lorraine",
+            "fr_FR": "EXPLOR, M\u00e9socentre Explor, Ensemble de Calcul Scientifique Pour la Lorraine"
+        },
+        "title": "EXPLOR",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/EXPLOR",
+        "idType": "URL",
+        "serviceContact": "http://explor.univ-lorraine.fr/contacts/"
+    },
+    {
+        "label": {
+            "en_GB": "EcoTaxa",
+            "fr_FR": "EcoTaxa"
+        },
+        "title": "EcoTaxa",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/EcoTaxa",
+        "idType": "URL",
+        "serviceContact": "marc.picheral@obs-vlfr.fr"
+    },
+    {
+        "label": {
+            "en_GB": "EcogenO, Plateforme d'\u00c9co-G\u00e9nomique Ecogeno",
+            "fr_FR": "EcogenO, Plateforme d'\u00c9co-G\u00e9nomique Ecogeno"
+        },
+        "title": "EcogenO",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/EcogenO",
+        "idType": "URL",
+        "serviceContact": "genomics@univ-rennes1.fr"
+    },
+    {
+        "label": {
+            "en_GB": "European XFEL, European X-ray Free Electron Laser",
+            "fr_FR": "European XFEL, European X-ray Free Electron Laser"
+        },
+        "title": "European XFEL",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/European XFEL",
+        "idType": "URL",
+        "serviceContact": "maria.faury@cea.fr"
+    },
+    {
+        "label": {
+            "en_GB": "FACe, Fran\u00e7ois Arago Centre, Centre Fran\u00e7ois Arago",
+            "fr_FR": "FACe, Fran\u00e7ois Arago Centre, Centre Fran\u00e7ois Arago"
+        },
+        "title": "FACe",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/FACe",
+        "idType": "URL",
+        "serviceContact": "https://si-apc.pages.in2p3.fr/face-website/contact/"
+    },
+    {
+        "label": {
+            "en_GB": "FLI IAM, France Life Imaging Management et Analyse de l\u2019Information. Noeud IAM",
+            "fr_FR": "FLI IAM, France Life Imaging Management et Analyse de l\u2019Information. Noeud IAM"
+        },
+        "title": "FLI IAM",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/FLI IAM",
+        "idType": "URL",
+        "serviceContact": "regine.trebossen (at) cea.fr"
+    },
+    {
+        "label": {
+            "en_GB": "FR-SOLARIS, Infrastructure de Recherche fran\u00e7aise sur le solaire thermique concentr\u00e9",
+            "fr_FR": "FR-SOLARIS, Infrastructure de Recherche fran\u00e7aise sur le solaire thermique concentr\u00e9"
+        },
+        "title": "FR-SOLARIS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/FR-SOLARIS",
+        "idType": "URL",
+        "serviceContact": "https://www.fr-solaris.cnrs.fr/contact/"
+    },
+    {
+        "label": {
+            "en_GB": "France Grilles",
+            "fr_FR": "France Grilles"
+        },
+        "title": "France Grilles",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/France Grilles",
+        "idType": "URL",
+        "serviceContact": "info@france-grilles.fr"
+    },
+    {
+        "label": {
+            "en_GB": "GRICAD, Grenoble Alpes Recherche - Infrastructure de Calcul Intensif et de Donn\u00e9es, UAR 3758",
+            "fr_FR": "GRICAD, Grenoble Alpes Recherche - Infrastructure de Calcul Intensif et de Donn\u00e9es, UAR 3758"
+        },
+        "title": "GRICAD",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/GRICAD",
+        "idType": "URL",
+        "serviceContact": "sos-calcul-gricad@univ-grenoble-alpes.fr"
+    },
+    {
+        "label": {
+            "en_GB": "GRIF, Grille au service de la Recherche en \u00cele-de-France",
+            "fr_FR": "GRIF, Grille au service de la Recherche en \u00cele-de-France"
+        },
+        "title": "GRIF",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/GRIF",
+        "idType": "URL",
+        "serviceContact": "https://grif.fr/"
+    },
+    {
+        "label": {
+            "en_GB": "GSO-DC, Observatoire Virtuel du Grand Sud-Ouest, OV-GSO Data Centre, Centre de donn\u00e9es OV-GSO",
+            "fr_FR": "GSO-DC, Observatoire Virtuel du Grand Sud-Ouest, OV-GSO Data Centre, Centre de donn\u00e9es OV-GSO"
+        },
+        "title": "GSO-DC",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/GSO-DC",
+        "idType": "URL",
+        "serviceContact": "https://ov-gso.irap.omp.eu/doku.php?id=contact"
+    },
+    {
+        "label": {
+            "en_GB": "Galactica, Plateforme Galactica",
+            "fr_FR": "Galactica, Plateforme Galactica"
+        },
+        "title": "Galactica",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Galactica",
+        "idType": "URL",
+        "serviceContact": "https://galactica.isima.fr/contact/"
+    },
+    {
+        "label": {
+            "en_GB": "GeOrchestra, geOrchestra Spatial Data Infrastructure",
+            "fr_FR": "GeOrchestra, geOrchestra Spatial Data Infrastructure"
+        },
+        "title": "GeOrchestra",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/GeOrchestra",
+        "idType": "URL",
+        "serviceContact": "psc@georchestra.org (Project Steering Committee)"
+    },
+    {
+        "label": {
+            "en_GB": "GenOuest, Plateforme GenOuest, Plateforme de bio-informatique de Rennes, GenOuest bioinformatics, UMR 6074",
+            "fr_FR": "GenOuest, Plateforme GenOuest, Plateforme de bio-informatique de Rennes, GenOuest bioinformatics, UMR 6074"
+        },
+        "title": "GenOuest",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/GenOuest",
+        "idType": "URL",
+        "serviceContact": "https://www.genouest.org/contact/"
+    },
+    {
+        "label": {
+            "en_GB": "GenoToul Bioinfo, GenoToul Bioinformatique, Plateforme Bioinformatique GenoToul, Genotoul Bioinformatics",
+            "fr_FR": "GenoToul Bioinfo, GenoToul Bioinformatique, Plateforme Bioinformatique GenoToul, Genotoul Bioinformatics"
+        },
+        "title": "GenoToul Bioinfo",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/GenoToul Bioinfo",
+        "idType": "URL",
+        "serviceContact": "http://bioinfo.genotoul.fr/index.php/about-us/contact-us/"
+    },
+    {
+        "label": {
+            "en_GB": "Grid'5000 Grenoble, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Grenoble",
+            "fr_FR": "Grid'5000 Grenoble, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Grenoble"
+        },
+        "title": "Grid'5000 Grenoble",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Grenoble",
+        "idType": "URL",
+        "serviceContact": "ct@lists.grid5000.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Grid'5000 Lille, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Lille",
+            "fr_FR": "Grid'5000 Lille, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Lille"
+        },
+        "title": "Grid'5000 Lille",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Lille",
+        "idType": "URL",
+        "serviceContact": "ct@lists.grid5000.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Grid'5000 Lyon, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Lyon",
+            "fr_FR": "Grid'5000 Lyon, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Lyon"
+        },
+        "title": "Grid'5000 Lyon",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Lyon",
+        "idType": "URL",
+        "serviceContact": "ct@lists.grid5000.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Grid'5000 Nancy, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Nancy",
+            "fr_FR": "Grid'5000 Nancy, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Nancy"
+        },
+        "title": "Grid'5000 Nancy",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Nancy",
+        "idType": "URL",
+        "serviceContact": "ct@lists.grid5000.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Grid'5000 Nantes, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Nantes",
+            "fr_FR": "Grid'5000 Nantes, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Nantes"
+        },
+        "title": "Grid'5000 Nantes",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Nantes",
+        "idType": "URL",
+        "serviceContact": "ct@lists.grid5000.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Grid'5000 Rennes, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Rennes",
+            "fr_FR": "Grid'5000 Rennes, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Rennes"
+        },
+        "title": "Grid'5000 Rennes",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Rennes",
+        "idType": "URL",
+        "serviceContact": "ct@lists.grid5000.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Grid'5000 Sophia-Antipolis, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Sophia-Antipolis",
+            "fr_FR": "Grid'5000 Sophia-Antipolis, Globalisation des Ressources Informatiques et des Donn\u00e9es, Grid5000 Sophia-Antipolis"
+        },
+        "title": "Grid'5000 Sophia-Antipolis",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Grid'5000 Sophia-Antipolis",
+        "idType": "URL",
+        "serviceContact": "ct@lists.grid5000.fr"
+    },
+    {
+        "label": {
+            "en_GB": "G\u00e9oSAS, Portail de l\u2019information g\u00e9ographique de l\u2019Unit\u00e9 Mixte de Recherche Sol Agro et hydrosyst\u00e8mes, Spatialisation (UMR SAS) INRAE \u2013 Institut Agro sur les sites de Rennes et de Quimper.",
+            "fr_FR": "G\u00e9oSAS, Portail de l\u2019information g\u00e9ographique de l\u2019Unit\u00e9 Mixte de Recherche Sol Agro et hydrosyst\u00e8mes, Spatialisation (UMR SAS) INRAE \u2013 Institut Agro sur les sites de Rennes et de Quimper."
+        },
+        "title": "G\u00e9oSAS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/G\u00e9oSAS",
+        "idType": "URL",
+        "serviceContact": "geosas_adm@framalistes.org"
+    },
+    {
+        "label": {
+            "en_GB": "HAL, Archive ouverte HAL",
+            "fr_FR": "HAL, Archive ouverte HAL"
+        },
+        "title": "HAL",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/HAL",
+        "idType": "URL",
+        "serviceContact": "hal.support@ccsd.cnrs.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Huma-Num Box",
+            "fr_FR": "Huma-Num Box"
+        },
+        "title": "Huma-Num Box",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Huma-Num Box",
+        "idType": "URL",
+        "serviceContact": "cogrid@huma-num.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Humanum-Loire, Huma-Num Loire",
+            "fr_FR": "Humanum-Loire, Huma-Num Loire"
+        },
+        "title": "Humanum-Loire",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Humanum-Loire",
+        "idType": "URL",
+        "serviceContact": "plateforme.msh@univ-nantes.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ICARE, Centre de donn\u00e9es et de services ICARE, Interaction Clouds Aerosols Radiations, CDS-ICARE, UMS 2877",
+            "fr_FR": "ICARE, Centre de donn\u00e9es et de services ICARE, Interaction Clouds Aerosols Radiations, CDS-ICARE, UMS 2877"
+        },
+        "title": "ICARE",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ICARE",
+        "idType": "URL",
+        "serviceContact": "icare-contact@univ-lille.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ICI-CNSC, Institut de Calcul Intensif - Centrale Nantes Supercomputing, M\u00e9socentre de calcul de Centrale Nantes",
+            "fr_FR": "ICI-CNSC, Institut de Calcul Intensif - Centrale Nantes Supercomputing, M\u00e9socentre de calcul de Centrale Nantes"
+        },
+        "title": "ICI-CNSC",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ICI-CNSC",
+        "idType": "URL",
+        "serviceContact": "cnsc-tech@ec-nantes.fr"
+    },
+    {
+        "label": {
+            "en_GB": "IDOC-DATA, IDOC-DATA, Integrated Data and Operation Center, OSUPS Data Centre, Centre de donn\u00e9es des Sciences de l'Univers de Paris Saclay, Centre de donn\u00e9es de l'OSUPS, OSUPS-DC",
+            "fr_FR": "IDOC-DATA, IDOC-DATA, Integrated Data and Operation Center, OSUPS Data Centre, Centre de donn\u00e9es des Sciences de l'Univers de Paris Saclay, Centre de donn\u00e9es de l'OSUPS, OSUPS-DC"
+        },
+        "title": "IDOC-DATA",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/IDOC-DATA",
+        "idType": "URL",
+        "serviceContact": "idoc@u-psud.fr"
+    },
+    {
+        "label": {
+            "en_GB": "IDRIS, Institut du d\u00e9veloppement et des ressources en informatique scientifique, UAR 851",
+            "fr_FR": "IDRIS, Institut du d\u00e9veloppement et des ressources en informatique scientifique, UAR 851"
+        },
+        "title": "IDRIS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/IDRIS",
+        "idType": "URL",
+        "serviceContact": "assist@idris.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ILL, Institut Max Von Laue-Paul Langevin, Institut Laue Langevin",
+            "fr_FR": "ILL, Institut Max Von Laue-Paul Langevin, Institut Laue Langevin"
+        },
+        "title": "ILL",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ILL",
+        "idType": "URL",
+        "serviceContact": "user-office@ill.eu"
+    },
+    {
+        "label": {
+            "en_GB": "ILL Data Portal, Portail de donn\u00e9es de l'Institut Laue Langevin",
+            "fr_FR": "ILL Data Portal, Portail de donn\u00e9es de l'Institut Laue Langevin"
+        },
+        "title": "ILL Data Portal",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ILL Data Portal",
+        "idType": "URL",
+        "serviceContact": "user-office@ill.eu"
+    },
+    {
+        "label": {
+            "en_GB": "IPGP-DC, Centre de donn\u00e9es de l'IPGP, IPGP Data Center",
+            "fr_FR": "IPGP-DC, Centre de donn\u00e9es de l'IPGP, IPGP Data Center"
+        },
+        "title": "IPGP-DC",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/IPGP-DC",
+        "idType": "URL",
+        "serviceContact": "datacenter@ipgp.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ISCD, Institut des Sciences du Calcul et des Donn\u00e9es",
+            "fr_FR": "ISCD, Institut des Sciences du Calcul et des Donn\u00e9es"
+        },
+        "title": "ISCD",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ISCD",
+        "idType": "URL",
+        "serviceContact": "iscd@sorbonne-universite.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ISGI, Service International des Indices Magn\u00e9tiques, International Service of Geomagnetic Indices",
+            "fr_FR": "ISGI, Service International des Indices Magn\u00e9tiques, International Service of Geomagnetic Indices"
+        },
+        "title": "ISGI",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ISGI",
+        "idType": "URL",
+        "serviceContact": "isgi@unistra.fr"
+    },
+    {
+        "label": {
+            "en_GB": "JMMC, Centre Jean-Marie Mariotti, P\u00f4le JMMC",
+            "fr_FR": "JMMC, Centre Jean-Marie Mariotti, P\u00f4le JMMC"
+        },
+        "title": "JMMC",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/JMMC",
+        "idType": "URL",
+        "serviceContact": "Gilles.Duvert@univ-grenoble-alpes.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Kinsources, Archive, share, analyze and compare kinship data",
+            "fr_FR": "Kinsources, Archive, share, analyze and compare kinship data"
+        },
+        "title": "Kinsources",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Kinsources",
+        "idType": "URL",
+        "serviceContact": "contact@kinsources.net"
+    },
+    {
+        "label": {
+            "en_GB": "LCG Tier2 CPPM, Plateforme Calcul Intensif du Centre de Physique des Particules de Marseille",
+            "fr_FR": "LCG Tier2 CPPM, Plateforme Calcul Intensif du Centre de Physique des Particules de Marseille"
+        },
+        "title": "LCG Tier2 CPPM",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/LCG Tier2 CPPM",
+        "idType": "URL",
+        "serviceContact": "gridadmin@cppm.in2p3.fr"
+    },
+    {
+        "label": {
+            "en_GB": "LCG Tier2 LPC Clermont, Service informatique du Laboratoire de Physique de Clermont",
+            "fr_FR": "LCG Tier2 LPC Clermont, Service informatique du Laboratoire de Physique de Clermont"
+        },
+        "title": "LCG Tier2 LPC Clermont",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/LCG Tier2 LPC Clermont",
+        "idType": "URL",
+        "serviceContact": "jean-claude.chevaleyre at clermont.in2p3.fr"
+    },
+    {
+        "label": {
+            "en_GB": "LIGAN-PM, FG LIGAN-PM, Plateforme de s\u00e9quen\u00e7age LIGAN, Lille Integrative Genomic Advanced Network Genomic Platform",
+            "fr_FR": "LIGAN-PM, FG LIGAN-PM, Plateforme de s\u00e9quen\u00e7age LIGAN, Lille Integrative Genomic Advanced Network Genomic Platform"
+        },
+        "title": "LIGAN-PM",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/LIGAN-PM",
+        "idType": "URL",
+        "serviceContact": "http://ligan.good.cnrs.fr/informations-pratiques/contact/"
+    },
+    {
+        "label": {
+            "en_GB": "LNCMI-Grenoble, Laboratoire National des Champs Magn\u00e9tiques Intenses - Grenoble, UPR 3229",
+            "fr_FR": "LNCMI-Grenoble, Laboratoire National des Champs Magn\u00e9tiques Intenses - Grenoble, UPR 3229"
+        },
+        "title": "LNCMI-Grenoble",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/LNCMI-Grenoble",
+        "idType": "URL",
+        "serviceContact": "users-G.experiments@lncmi.cnrs.fr"
+    },
+    {
+        "label": {
+            "en_GB": "LNCMI-Toulouse, Laboratoire National des Champs Magn\u00e9tiques Intenses - Toulouse, UPR 3228",
+            "fr_FR": "LNCMI-Toulouse, Laboratoire National des Champs Magn\u00e9tiques Intenses - Toulouse, UPR 3228"
+        },
+        "title": "LNCMI-Toulouse",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/LNCMI-Toulouse",
+        "idType": "URL",
+        "serviceContact": "nicolas.bruyant@lncmi.cnrs.fr"
+    },
+    {
+        "label": {
+            "en_GB": "LOFAR/NenuFAR, International Low Frequency Radio Array Telescope \u2013 LOFAR FR - NenuFAR",
+            "fr_FR": "LOFAR/NenuFAR, International Low Frequency Radio Array Telescope \u2013 LOFAR FR - NenuFAR"
+        },
+        "title": "LOFAR/NenuFAR",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/LOFAR/NenuFAR",
+        "idType": "URL",
+        "serviceContact": "Philippe.Zarka@obspm.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MASER, Mesures, Analyses et Simulation d'Emissions Radio,\nMeasurements, Analyses, Simulations of Emission in the Radio range",
+            "fr_FR": "MASER, Mesures, Analyses et Simulation d'Emissions Radio,\nMeasurements, Analyses, Simulations of Emission in the Radio range"
+        },
+        "title": "MASER",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MASER",
+        "idType": "URL",
+        "serviceContact": "contact.maser@obspm.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MCIA, M\u00e9socentre de Calcul Intensif Aquitain",
+            "fr_FR": "MCIA, M\u00e9socentre de Calcul Intensif Aquitain"
+        },
+        "title": "MCIA",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MCIA",
+        "idType": "URL",
+        "serviceContact": "pierre.gay@u-bordeaux.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MESO@LR, Mesocentre Meso@LR",
+            "fr_FR": "MESO@LR, Mesocentre Meso@LR"
+        },
+        "title": "MESO@LR",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MESO@LR",
+        "idType": "URL",
+        "serviceContact": "meso-lr@umontpellier.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MSH Clermont-Ferrand : Plateforme informatique - Bases de donn\u00e9es, P\u00f4le Informatique - Bases de donn\u00e9es MSH Clermont-Ferrand",
+            "fr_FR": "MSH Clermont-Ferrand : Plateforme informatique - Bases de donn\u00e9es, P\u00f4le Informatique - Bases de donn\u00e9es MSH Clermont-Ferrand"
+        },
+        "title": "MSH Clermont-Ferrand : Plateforme informatique - Bases de donn\u00e9es",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MSH Clermont-Ferrand : Plateforme informatique - Bases de donn\u00e9es",
+        "idType": "URL",
+        "serviceContact": "thibault.falvard_at_univ-bpclermont.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MSH Lorraine - La Plateforme ECHO",
+            "fr_FR": "MSH Lorraine - La Plateforme ECHO"
+        },
+        "title": "MSH Lorraine - La Plateforme ECHO",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MSH Lorraine - La Plateforme ECHO",
+        "idType": "URL",
+        "serviceContact": "plateforme-echo@univ-lorraine.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MSH Val de Loire:Atelier Num\u00e9rique",
+            "fr_FR": "MSH Val de Loire:Atelier Num\u00e9rique"
+        },
+        "title": "MSH Val de Loire:Atelier Num\u00e9rique",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MSH Val de Loire:Atelier Num\u00e9rique",
+        "idType": "URL",
+        "serviceContact": "laurence.rageot@univ-tours.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MSHS Poitiers : Plateforme de num\u00e9risation",
+            "fr_FR": "MSHS Poitiers : Plateforme de num\u00e9risation"
+        },
+        "title": "MSHS Poitiers : Plateforme de num\u00e9risation",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MSHS Poitiers : Plateforme de num\u00e9risation",
+        "idType": "URL",
+        "serviceContact": "david.chesnet@univ-poitiers.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MUST, M\u00e9socentre de calcul et de stockage de l'Universit\u00e9 Savoie Mont Blanc, M\u00e9socentre de calcul et de stockage ouvert sur la grille EGI/LCG",
+            "fr_FR": "MUST, M\u00e9socentre de calcul et de stockage de l'Universit\u00e9 Savoie Mont Blanc, M\u00e9socentre de calcul et de stockage ouvert sur la grille EGI/LCG"
+        },
+        "title": "MUST",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MUST",
+        "idType": "URL",
+        "serviceContact": "nadine.neyroud@lapp.in2p3.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Maison de la t\u00e9l\u00e9d\u00e9tection, Maison de la t\u00e9l\u00e9d\u00e9tection de Montpellier",
+            "fr_FR": "Maison de la t\u00e9l\u00e9d\u00e9tection, Maison de la t\u00e9l\u00e9d\u00e9tection de Montpellier"
+        },
+        "title": "Maison de la t\u00e9l\u00e9d\u00e9tection",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Maison de la t\u00e9l\u00e9d\u00e9tection",
+        "idType": "URL",
+        "serviceContact": "Pas de contact mail"
+    },
+    {
+        "label": {
+            "en_GB": "MarsSI, PSUP/MarsSI",
+            "fr_FR": "MarsSI, PSUP/MarsSI"
+        },
+        "title": "MarsSI",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MarsSI",
+        "idType": "URL",
+        "serviceContact": "cathy.quantin-nataf@univ-lyon1.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MatriCS, Plateforme de Mod\u00e9lisation et Calcul Scientifique",
+            "fr_FR": "MatriCS, Plateforme de Mod\u00e9lisation et Calcul Scientifique"
+        },
+        "title": "MatriCS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MatriCS",
+        "idType": "URL",
+        "serviceContact": "matrics@u-picardie.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MeSU, Plateforme MeSU",
+            "fr_FR": "MeSU, Plateforme MeSU"
+        },
+        "title": "MeSU",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MeSU",
+        "idType": "URL",
+        "serviceContact": "nicolas.benoit@sorbonne-universite.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MesoPSL, M\u00e9socentre de Calcul PSL",
+            "fr_FR": "MesoPSL, M\u00e9socentre de Calcul PSL"
+        },
+        "title": "MesoPSL",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MesoPSL",
+        "idType": "URL",
+        "serviceContact": "support@mesopsl.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MesoUPSaclay, M\u00e9socentre de l\u2019Universit\u00e9 Paris-Saclay",
+            "fr_FR": "MesoUPSaclay, M\u00e9socentre de l\u2019Universit\u00e9 Paris-Saclay"
+        },
+        "title": "MesoUPSaclay",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MesoUPSaclay",
+        "idType": "URL",
+        "serviceContact": "https://mesocentre.universite-paris-saclay.fr/formulaire.html"
+    },
+    {
+        "label": {
+            "en_GB": "M\u00e9diHAL, Archive ouverte de photographies et d'images scientifiques",
+            "fr_FR": "M\u00e9diHAL, Archive ouverte de photographies et d'images scientifiques"
+        },
+        "title": "M\u00e9diHAL",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/M\u00e9diHAL",
+        "idType": "URL",
+        "serviceContact": "medihal@ccsd.cnrs.fr"
+    },
+    {
+        "label": {
+            "en_GB": "M\u00e9soLUM, M\u00e9socentre LUmi\u00e8re Mati\u00e8re, Grappe Massivement Parall\u00e8le de Calcul Scientifique, GMPCS",
+            "fr_FR": "M\u00e9soLUM, M\u00e9socentre LUmi\u00e8re Mati\u00e8re, Grappe Massivement Parall\u00e8le de Calcul Scientifique, GMPCS"
+        },
+        "title": "M\u00e9soLUM",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/M\u00e9soLUM",
+        "idType": "URL",
+        "serviceContact": "georges.raseev@u-psud.fr"
+    },
+    {
+        "label": {
+            "en_GB": "M\u00e9socentre Clermont Auvergne",
+            "fr_FR": "M\u00e9socentre Clermont Auvergne"
+        },
+        "title": "M\u00e9socentre Clermont Auvergne",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/M\u00e9socentre Clermont Auvergne",
+        "idType": "URL",
+        "serviceContact": "https://hub.mesocentre.uca.fr/"
+    },
+    {
+        "label": {
+            "en_GB": "M\u00e9socentre ESPRI, M\u00e9socentre de l'IPSL pour les sciences du climat",
+            "fr_FR": "M\u00e9socentre ESPRI, M\u00e9socentre de l'IPSL pour les sciences du climat"
+        },
+        "title": "M\u00e9socentre ESPRI",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/M\u00e9socentre ESPRI",
+        "idType": "URL",
+        "serviceContact": "mesocentre@ipsl.fr"
+    },
+    {
+        "label": {
+            "en_GB": "M\u00e9socentre Franche-Comt\u00e9, M\u00e9socentre de calcul de Franche-Comt\u00e9, MesoFC",
+            "fr_FR": "M\u00e9socentre Franche-Comt\u00e9, M\u00e9socentre de calcul de Franche-Comt\u00e9, MesoFC"
+        },
+        "title": "M\u00e9socentre Franche-Comt\u00e9",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/M\u00e9socentre Franche-Comt\u00e9",
+        "idType": "URL",
+        "serviceContact": "mesocentre@univ-fcomte.fr"
+    },
+    {
+        "label": {
+            "en_GB": "M\u00e9socentre Moulon, Moulon m\u00e9socentre, M\u00e9socentre de calcul Fusion",
+            "fr_FR": "M\u00e9socentre Moulon, Moulon m\u00e9socentre, M\u00e9socentre de calcul Fusion"
+        },
+        "title": "M\u00e9socentre Moulon",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/M\u00e9socentre Moulon",
+        "idType": "URL",
+        "serviceContact": "fusion_support@groupes.renater.fr"
+    },
+    {
+        "label": {
+            "en_GB": "M\u00e9socentre de Lille, M\u00e9so-centre de Calcul Scientifique Intensif de l'Universit\u00e9 de Lille, M\u00e9socentre de Calcul Scientifique Intensif de l'Universit\u00e9 de Lille, M\u00e9socentre de l'Universit\u00e9 de Lille",
+            "fr_FR": "M\u00e9socentre de Lille, M\u00e9so-centre de Calcul Scientifique Intensif de l'Universit\u00e9 de Lille, M\u00e9socentre de Calcul Scientifique Intensif de l'Universit\u00e9 de Lille, M\u00e9socentre de l'Universit\u00e9 de Lille"
+        },
+        "title": "M\u00e9socentre de Lille",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/M\u00e9socentre de Lille",
+        "idType": "URL",
+        "serviceContact": "hpc@univ-lille.fr"
+    },
+    {
+        "label": {
+            "en_GB": "NOEMA, NOrthern Extended Millimeter Array",
+            "fr_FR": "NOEMA, NOrthern Extended Millimeter Array"
+        },
+        "title": "NOEMA",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/NOEMA",
+        "idType": "URL",
+        "serviceContact": "gautier@iram.fr"
+    },
+    {
+        "label": {
+            "en_GB": "OCA-DC (Domino), Centre de donn\u00e9es de l'Observatoire des Sciences de l'Univers de la C\u00f4te d\u2019Azur, Centre de donn\u00e9es de l'OCA, OCA Data Centre (DOMINO)",
+            "fr_FR": "OCA-DC (Domino), Centre de donn\u00e9es de l'Observatoire des Sciences de l'Univers de la C\u00f4te d\u2019Azur, Centre de donn\u00e9es de l'OCA, OCA Data Centre (DOMINO)"
+        },
+        "title": "OCA-DC (Domino)",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/OCA-DC (Domino)",
+        "idType": "URL",
+        "serviceContact": "eric.slezak@obs-azur.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ODENORE, Observatoire des non-recours aux droits et services",
+            "fr_FR": "ODENORE, Observatoire des non-recours aux droits et services"
+        },
+        "title": "ODENORE",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ODENORE",
+        "idType": "URL",
+        "serviceContact": "contact-odenore@msh-alpes.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ODSAS, Online Digital Sources and Annotation System",
+            "fr_FR": "ODSAS, Online Digital Sources and Annotation System"
+        },
+        "title": "ODSAS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ODSAS",
+        "idType": "URL",
+        "serviceContact": "contact@odsas.net"
+    },
+    {
+        "label": {
+            "en_GB": "OPGC: Observatoire virtuel, Observatoire virtuel OPGC",
+            "fr_FR": "OPGC: Observatoire virtuel, Observatoire virtuel OPGC"
+        },
+        "title": "OPGC: Observatoire virtuel",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/OPGC: Observatoire virtuel",
+        "idType": "URL",
+        "serviceContact": "e.delage@opgc.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ORPHEE-LLB, Laboratoire L\u00e9on Brillouin-Orph\u00e9e, LLB-ORPHEE, R\u00e9acteur Orph\u00e9e",
+            "fr_FR": "ORPHEE-LLB, Laboratoire L\u00e9on Brillouin-Orph\u00e9e, LLB-ORPHEE, R\u00e9acteur Orph\u00e9e"
+        },
+        "title": "ORPHEE-LLB",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ORPHEE-LLB",
+        "idType": "URL",
+        "serviceContact": "llb-sec@cea.fr"
+    },
+    {
+        "label": {
+            "en_GB": "OSIRIM, Observatoire des Syst\u00e8mes d'Indexation et de Recherche d'Information Multim\u00e9dia",
+            "fr_FR": "OSIRIM, Observatoire des Syst\u00e8mes d'Indexation et de Recherche d'Information Multim\u00e9dia"
+        },
+        "title": "OSIRIM",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/OSIRIM",
+        "idType": "URL",
+        "serviceContact": "osirim@irit.fr"
+    },
+    {
+        "label": {
+            "en_GB": "OSUG-DC, Centre de donn\u00e9es de l\u2019Observatoire des Sciences de l'Univers de Grenoble, Centre de donn\u00e9es de l\u2019OSUG, OSUG Data Centre",
+            "fr_FR": "OSUG-DC, Centre de donn\u00e9es de l\u2019Observatoire des Sciences de l'Univers de Grenoble, Centre de donn\u00e9es de l\u2019OSUG, OSUG Data Centre"
+        },
+        "title": "OSUG-DC",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/OSUG-DC",
+        "idType": "URL",
+        "serviceContact": "osug-dc-request at univ-grenoble-alpes.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Observatoire des sciences humaines et sociales, OSHS, Observatoire des SHS",
+            "fr_FR": "Observatoire des sciences humaines et sociales, OSHS, Observatoire des SHS"
+        },
+        "title": "Observatoire des sciences humaines et sociales",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Observatoire des sciences humaines et sociales",
+        "idType": "URL",
+        "serviceContact": "contact@alliance-athena.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Onyxia - SSP Cloud Datalab",
+            "fr_FR": "Onyxia - SSP Cloud Datalab"
+        },
+        "title": "Onyxia - SSP Cloud Datalab",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Onyxia - SSP Cloud Datalab",
+        "idType": "URL",
+        "serviceContact": "Tchap : https://www.tchap.gouv.fr/#/room/#SSPCloudXDpAw6v:agent.finances.tchap.gouv.fr"
+    },
+    {
+        "label": {
+            "en_GB": "OpenImadis, iManage Strandls, curie Image Data Management",
+            "fr_FR": "OpenImadis, iManage Strandls, curie Image Data Management"
+        },
+        "title": "OpenImadis",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/OpenImadis",
+        "idType": "URL",
+        "serviceContact": "perrine.paul-gilloteaux@france-bioimaging.org"
+    },
+    {
+        "label": {
+            "en_GB": "P2CHPD, P\u00f4le de Comp\u00e9tence en Calcul Haute Performance D\u00e9di\u00e9",
+            "fr_FR": "P2CHPD, P\u00f4le de Comp\u00e9tence en Calcul Haute Performance D\u00e9di\u00e9"
+        },
+        "title": "P2CHPD",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/P2CHPD",
+        "idType": "URL",
+        "serviceContact": "marc.buffat@univ-lyon1.fr"
+    },
+    {
+        "label": {
+            "en_GB": "PADC, Paris Astronomical Data Centre, Centre de donn\u00e9es astronomique de Paris",
+            "fr_FR": "PADC, Paris Astronomical Data Centre, Centre de donn\u00e9es astronomique de Paris"
+        },
+        "title": "PADC",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/PADC",
+        "idType": "URL",
+        "serviceContact": "https://padc.obspm.fr/contacts/"
+    },
+    {
+        "label": {
+            "en_GB": "PCDM, P\u00f4le de Calcul et de Donn\u00e9es pour la Mer, P\u00f4le de Calcul Intensif pour la Mer (ancien nom)",
+            "fr_FR": "PCDM, P\u00f4le de Calcul et de Donn\u00e9es pour la Mer, P\u00f4le de Calcul Intensif pour la Mer (ancien nom)"
+        },
+        "title": "PCDM",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/PCDM",
+        "idType": "URL",
+        "serviceContact": "pcdm@ifremer.fr"
+    },
+    {
+        "label": {
+            "en_GB": "PETA, Stockage donn\u00e9es recherche PETA",
+            "fr_FR": "PETA, Stockage donn\u00e9es recherche PETA"
+        },
+        "title": "PETA",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/PETA",
+        "idType": "URL",
+        "serviceContact": "peta-contact@univ-lorraine.fr"
+    },
+    {
+        "label": {
+            "en_GB": "PHYMATH, M\u00e9socentre PHYMATH",
+            "fr_FR": "PHYMATH, M\u00e9socentre PHYMATH"
+        },
+        "title": "PHYMATH",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/PHYMATH",
+        "idType": "URL",
+        "serviceContact": "polytechnique.labos-phymath.informatique@groupes.renater.fr"
+    },
+    {
+        "label": {
+            "en_GB": "PMCS2I, P\u00f4le de Mod\u00e9lisation et Calcul en Science de l'Ing\u00e9nieur et de l'Information",
+            "fr_FR": "PMCS2I, P\u00f4le de Mod\u00e9lisation et Calcul en Science de l'Ing\u00e9nieur et de l'Information"
+        },
+        "title": "PMCS2I",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/PMCS2I",
+        "idType": "URL",
+        "serviceContact": "calcul.support@ec-lyon.fr"
+    },
+    {
+        "label": {
+            "en_GB": "PUD-GA, Plateforme Universitaire de Donn\u00e9es Grenoble Alpes",
+            "fr_FR": "PUD-GA, Plateforme Universitaire de Donn\u00e9es Grenoble Alpes"
+        },
+        "title": "PUD-GA",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/PUD-GA",
+        "idType": "URL",
+        "serviceContact": "magaye.sall@msh-alpes.fr"
+    },
+    {
+        "label": {
+            "en_GB": "PUD-UP, PUD-Poitiers, Plateforme Universitaire de Donn\u00e9es Universit\u00e9 de Poitiers",
+            "fr_FR": "PUD-UP, PUD-Poitiers, Plateforme Universitaire de Donn\u00e9es Universit\u00e9 de Poitiers"
+        },
+        "title": "PUD-UP",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/PUD-UP",
+        "idType": "URL",
+        "serviceContact": "emmanuel.idohou@univ-poitiers.fr"
+    },
+    {
+        "label": {
+            "en_GB": "PlantBioInfoPF, Plant Bioinformatics Facility, Plateforme de bioinformatique des plantes",
+            "fr_FR": "PlantBioInfoPF, Plant Bioinformatics Facility, Plateforme de bioinformatique des plantes"
+        },
+        "title": "PlantBioInfoPF",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/PlantBioInfoPF",
+        "idType": "URL",
+        "serviceContact": "urgi-contact@inrae.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Plateforme A2S, Plateforme A\u00b2S, Plateforme de calcul pour les Applications de Surveillance par Satellite, Application Satellite Survey",
+            "fr_FR": "Plateforme A2S, Plateforme A\u00b2S, Plateforme de calcul pour les Applications de Surveillance par Satellite, Application Satellite Survey"
+        },
+        "title": "Plateforme A2S",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme A2S",
+        "idType": "URL",
+        "serviceContact": "plateforme-a2s@unistra.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Plateforme ADN, Archives Documentation Num\u00e9risation",
+            "fr_FR": "Plateforme ADN, Archives Documentation Num\u00e9risation"
+        },
+        "title": "Plateforme ADN",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme ADN",
+        "idType": "URL",
+        "serviceContact": "adn.mshdijon@u-bourgogne.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Plateforme Humanit\u00e9s num\u00e9riques",
+            "fr_FR": "Plateforme Humanit\u00e9s num\u00e9riques"
+        },
+        "title": "Plateforme Humanit\u00e9s num\u00e9riques",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme Humanit\u00e9s num\u00e9riques",
+        "idType": "URL",
+        "serviceContact": "numerique@mshb.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Plateforme g\u00e9omatique de l\u2019EHESS",
+            "fr_FR": "Plateforme g\u00e9omatique de l\u2019EHESS"
+        },
+        "title": "Plateforme g\u00e9omatique de l\u2019EHESS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Plateforme g\u00e9omatique de l\u2019EHESS",
+        "idType": "URL",
+        "serviceContact": "eric.mermet@ehess.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Progedo-Loire, PUD Nantes, PUD Progedo-Loire, Plateforme Universitaire de Donn\u00e9es des Pays-de-la-Loire",
+            "fr_FR": "Progedo-Loire, PUD Nantes, PUD Progedo-Loire, Plateforme Universitaire de Donn\u00e9es des Pays-de-la-Loire"
+        },
+        "title": "Progedo-Loire",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Progedo-Loire",
+        "idType": "URL",
+        "serviceContact": "plateforme.msh@univ-nantes.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ROMEO, Centre de Calcul de Champagne-Ardenne ROMEO, Centre de Calcul R\u00e9gional ROMEO",
+            "fr_FR": "ROMEO, Centre de Calcul de Champagne-Ardenne ROMEO, Centre de Calcul R\u00e9gional ROMEO"
+        },
+        "title": "ROMEO",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ROMEO",
+        "idType": "URL",
+        "serviceContact": "romeo@univ-reims.fr"
+    },
+    {
+        "label": {
+            "en_GB": "S-CAPAD, Service de Calcul Parall\u00e8le et de Traitement de Donn\u00e9es en sciences de la Terre, Service de Calcul Parall\u00e8le et de Traitement de Donn\u00e9es de l'IPGP",
+            "fr_FR": "S-CAPAD, Service de Calcul Parall\u00e8le et de Traitement de Donn\u00e9es en sciences de la Terre, Service de Calcul Parall\u00e8le et de Traitement de Donn\u00e9es de l'IPGP"
+        },
+        "title": "S-CAPAD",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/S-CAPAD",
+        "idType": "URL",
+        "serviceContact": "scapad@ipgp.fr"
+    },
+    {
+        "label": {
+            "en_GB": "SANDRE, Service Service d'administration national des donn\u00e9es et r\u00e9f\u00e9rentiels sur l'eau",
+            "fr_FR": "SANDRE, Service Service d'administration national des donn\u00e9es et r\u00e9f\u00e9rentiels sur l'eau"
+        },
+        "title": "SANDRE",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/SANDRE",
+        "idType": "URL",
+        "serviceContact": "http://www.sandre.eaufrance.fr/formulaire/contact"
+    },
+    {
+        "label": {
+            "en_GB": "SATMOS, Service d\u2019Archivage et de Traitement M\u00e9t\u00e9orologique des Observations Satellitaires, CDS-SATMOS",
+            "fr_FR": "SATMOS, Service d\u2019Archivage et de Traitement M\u00e9t\u00e9orologique des Observations Satellitaires, CDS-SATMOS"
+        },
+        "title": "SATMOS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/SATMOS",
+        "idType": "URL",
+        "serviceContact": "satmos@meteo.fr"
+    },
+    {
+        "label": {
+            "en_GB": "SCIGNE, Scientific Cloud Infrastructure in Grand Est",
+            "fr_FR": "SCIGNE, Scientific Cloud Infrastructure in Grand Est"
+        },
+        "title": "SCIGNE",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/SCIGNE",
+        "idType": "URL",
+        "serviceContact": "scigne@iphc.cnrs.fr"
+    },
+    {
+        "label": {
+            "en_GB": "SIGAMM, M\u00e9socentre de calcul intensif Sigamm (Simulations intensives en g\u00e9ophysique, astronomie, m\u00e9canique et math\u00e9matiques)",
+            "fr_FR": "SIGAMM, M\u00e9socentre de calcul intensif Sigamm (Simulations intensives en g\u00e9ophysique, astronomie, m\u00e9canique et math\u00e9matiques)"
+        },
+        "title": "SIGAMM",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/SIGAMM",
+        "idType": "URL",
+        "serviceContact": "https://crimson.oca.eu/fr/acces-fonctionnement/205-pour-avoir-un-compte"
+    },
+    {
+        "label": {
+            "en_GB": "SOLEIL, Source Optimis\u00e9e de Lumi\u00e8re d\u2019Energie Interm\u00e9diaire du LURE, Synchrotron SOLEIL",
+            "fr_FR": "SOLEIL, Source Optimis\u00e9e de Lumi\u00e8re d\u2019Energie Interm\u00e9diaire du LURE, Synchrotron SOLEIL"
+        },
+        "title": "SOLEIL",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/SOLEIL",
+        "idType": "URL",
+        "serviceContact": "webcom@synchrotron-soleil.fr"
+    },
+    {
+        "label": {
+            "en_GB": "SONEL, Syst\u00e8me d'observation du niveau des eaux littorales",
+            "fr_FR": "SONEL, Syst\u00e8me d'observation du niveau des eaux littorales"
+        },
+        "title": "SONEL",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/SONEL",
+        "idType": "URL",
+        "serviceContact": "https://www.sonel.org/-Contacts-SONEL-.html"
+    },
+    {
+        "label": {
+            "en_GB": "SPIRAL2, GANIL-SPIRAL2, Grand Acc\u00e9l\u00e9rateur National d\u2019Ions Lourds \u2013 Syst\u00e8me de production d\u2019Ions Radioactifs en Ligne de 2e g\u00e9n\u00e9ration",
+            "fr_FR": "SPIRAL2, GANIL-SPIRAL2, Grand Acc\u00e9l\u00e9rateur National d\u2019Ions Lourds \u2013 Syst\u00e8me de production d\u2019Ions Radioactifs en Ligne de 2e g\u00e9n\u00e9ration"
+        },
+        "title": "SPIRAL2",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/SPIRAL2",
+        "idType": "URL",
+        "serviceContact": "navin@ganil.fr"
+    },
+    {
+        "label": {
+            "en_GB": "SWOMed",
+            "fr_FR": "SWOMed"
+        },
+        "title": "SWOMed",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/SWOMed",
+        "idType": "URL",
+        "serviceContact": "araboudi@fealinx.com"
+    },
+    {
+        "label": {
+            "en_GB": "ShareDocs",
+            "fr_FR": "ShareDocs"
+        },
+        "title": "ShareDocs",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ShareDocs",
+        "idType": "URL",
+        "serviceContact": "cogrid@huma-num.fr"
+    },
+    {
+        "label": {
+            "en_GB": "South Green, Plateforme South Green de bioinformatique, SGBP",
+            "fr_FR": "South Green, Plateforme South Green de bioinformatique, SGBP"
+        },
+        "title": "South Green",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/South Green",
+        "idType": "URL",
+        "serviceContact": "admin.bioinfo@cirad.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Symogih.org, Syst\u00e8me modulaire de gestion de l'information historique",
+            "fr_FR": "Symogih.org, Syst\u00e8me modulaire de gestion de l'information historique"
+        },
+        "title": "Symogih.org",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Symogih.org",
+        "idType": "URL",
+        "serviceContact": "http://symogih.org/symogih-contacts"
+    },
+    {
+        "label": {
+            "en_GB": "TEFOR Paris Saclay, Trang\u00e9n\u00e8se pour les Etudes Fonctionnelles chez les ORganismes mod\u00e8les  Paris-Saclay, TPS",
+            "fr_FR": "TEFOR Paris Saclay, Trang\u00e9n\u00e8se pour les Etudes Fonctionnelles chez les ORganismes mod\u00e8les  Paris-Saclay, TPS"
+        },
+        "title": "TEFOR Paris Saclay",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/TEFOR Paris Saclay",
+        "idType": "URL",
+        "serviceContact": "https://tps.tefor.net/#contact"
+    },
+    {
+        "label": {
+            "en_GB": "TGCC, Tr\u00e8s Grand Centre de Calcul",
+            "fr_FR": "TGCC, Tr\u00e8s Grand Centre de Calcul"
+        },
+        "title": "TGCC",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/TGCC",
+        "idType": "URL",
+        "serviceContact": "hotline.tgcc@cea.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Theia, P\u00f4le de donn\u00e9es et de services pour les surfaces continentales, P\u00f4le Theia, P\u00f4le th\u00e9matique surfaces continentales",
+            "fr_FR": "Theia, P\u00f4le de donn\u00e9es et de services pour les surfaces continentales, P\u00f4le Theia, P\u00f4le th\u00e9matique surfaces continentales"
+        },
+        "title": "Theia",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Theia",
+        "idType": "URL",
+        "serviceContact": "nicolas.baghdadi@inrae.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Tourbi\u00e8res Syst\u00e8me d'Information SNO Tourbi\u00e8res, SNO Tourbi\u00e8res SI",
+            "fr_FR": "Tourbi\u00e8res Syst\u00e8me d'Information SNO Tourbi\u00e8res, SNO Tourbi\u00e8res SI"
+        },
+        "title": "Tourbi\u00e8res Syst\u00e8me d'Information SNO Tourbi\u00e8res",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Tourbi\u00e8res Syst\u00e8me d'Information SNO Tourbi\u00e8res",
+        "idType": "URL",
+        "serviceContact": "Sebastien.Gogo_at_univ-orleans.fr\ncontact.sno-tourbieres@cnrs-orleans.fr"
+    },
+    {
+        "label": {
+            "en_GB": "VirtualData, Centre de donn\u00e9es grille de calcul simulation calcul massif",
+            "fr_FR": "VirtualData, Centre de donn\u00e9es grille de calcul simulation calcul massif"
+        },
+        "title": "VirtualData",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/VirtualData",
+        "idType": "URL",
+        "serviceContact": "https://virtualdata.ias.u-psud.fr/contacts"
+    },
+    {
+        "label": {
+            "en_GB": "Vitam, Programme Vitam, Valeurs immat\u00e9rielles transmises aux archives pour m\u00e9moire",
+            "fr_FR": "Vitam, Programme Vitam, Valeurs immat\u00e9rielles transmises aux archives pour m\u00e9moire"
+        },
+        "title": "Vitam",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Vitam",
+        "idType": "URL",
+        "serviceContact": "contact@programmevitam.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Vocabulaires Ouverts @INRAE, Linked Open Vocabularies \u00e0 l\u2019Inrae, Linked Open Vocabularies @ INRAE",
+            "fr_FR": "Vocabulaires Ouverts @INRAE, Linked Open Vocabularies \u00e0 l\u2019Inrae, Linked Open Vocabularies @ INRAE"
+        },
+        "title": "Vocabulaires Ouverts @INRAE",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Vocabulaires Ouverts @INRAE",
+        "idType": "URL",
+        "serviceContact": "digitalist@inrae.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ALTAG3D",
+            "fr_FR": "ALTAG3D"
+        },
+        "title": "ALTAG3D",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ALTAG3D",
+        "idType": "URL",
+        "serviceContact": "consortium3d-coordination@services.cnrs.fr"
+    },
+    {
+        "label": {
+            "en_GB": "E-FLORA-sys",
+            "fr_FR": "E-FLORA-sys"
+        },
+        "title": "E-FLORA-sys",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/E-FLORA-sys",
+        "idType": "URL",
+        "serviceContact": "sylvain.plantureux@univ-lorraine.fr"
+    },
+    {
+        "label": {
+            "en_GB": "E-RECOLNAT, Portail du r\u00e9seau des collections naturalistes fran\u00e7aises e-ReColNat",
+            "fr_FR": "E-RECOLNAT, Portail du r\u00e9seau des collections naturalistes fran\u00e7aises e-ReColNat"
+        },
+        "title": "E-RECOLNAT",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/E-RECOLNAT",
+        "idType": "URL",
+        "serviceContact": "marc.pignal@mnhn.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ICONICS",
+            "fr_FR": "ICONICS"
+        },
+        "title": "ICONICS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ICONICS",
+        "idType": "URL",
+        "serviceContact": "iconics@icm-institute.org"
+    }
+]
+}

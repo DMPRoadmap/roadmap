@@ -1,0 +1,85 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "GenciServiceRequest",
+    "description": "GenciServiceRequest template",
+    "type": "object",
+    "class": "GenciServiceRequest",
+    "properties": {
+        "serviceType": {
+            "type": "string",
+            "description": "Le type de service",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type de service",
+            "label@en_GB": "Service type",
+            "registry_name": "GenciServiceType",
+            "form_label@fr_FR": "Type de service",
+            "form_label@en_GB": "Service type"
+        },
+        "nationalCenter": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "Centre national dans lequel seront réalisés les calculs et stockage",
+            "inputType": "dropdown",
+            "label@fr_FR": "Centre national",
+            "label@en_GB": "National center",
+            "registry_name": "GenciCenter",
+            "form_label@fr_FR": "Centre national",
+            "form_label@en_GB": "National center"
+        },
+        "initialRequest": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GenciRequest",
+            "required": [
+                "dbid"
+            ],
+            "description": "La demande initiale",
+            "label@fr_FR": "Demande initiale",
+            "label@en_GB": "Initial request",
+            "form_label@fr_FR": "Demande initiale",
+            "form_label@en_GB": "Initial request"
+        },
+        "amount": {
+            "type": "number",
+            "description": "Coût du service",
+            "label@fr_FR": "Coût du service  (coût calculé automatiquement)",
+            "label@en_GB": "Cost of the service (automatically calculated cost)",
+            "form_label@fr_FR": "Coût du service (coût calculé automatiquement)",
+            "form_label@en_GB": "Cost of the service (automatic calculation)"
+        },
+        "currency": {
+            "type": "string",
+            "description": "Monnaie dans laquelle ce coût est exprimé (Référentiel des monnaies. (Voir ISO 4217))",
+            "label@fr_FR": "Devise",
+            "label@en_GB": "Currency",
+            "const@fr_FR": "EUR",
+            "const@en_GB": "EUR",
+            "form_label@fr_FR": "Devise",
+            "form_label@en_GB": "Currency"
+        }
+    },
+    "required": [
+        "serviceType",
+        "nationalCenter",
+        "initialRequest"
+    ],
+    "to_string": [
+        "$.nationalCenter",
+        " : ",
+        "$.serviceType",
+        " ( ",
+        "$.amount",
+        " ",
+        "$.currency",
+        ") "
+    ]
+}

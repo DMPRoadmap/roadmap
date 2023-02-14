@@ -1,0 +1,142 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ProjectStandard",
+    "description": "ProjectStandard template",
+    "type": "object",
+    "class": "ProjectStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre du projet",
+            "label@fr_FR": "Titre du projet",
+            "label@en_GB": "Project title",
+            "form_label@fr_FR": "Titre du projet",
+            "form_label@en_GB": "Project title"
+        },
+        "acronym": {
+            "type": "string",
+            "description": "Acronyme du projet",
+            "label@fr_FR": "Acronyme",
+            "label@en_GB": "Acronym",
+            "form_label@fr_FR": "Acronyme du projet",
+            "form_label@en_GB": "Project acronym"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description du projet",
+            "inputType": "textarea",
+            "label@fr_FR": "Résumé",
+            "label@en_GB": "Abstract",
+            "form_label@fr_FR": "Résumé du projet",
+            "form_label@en_GB": "Project abstract"
+        },
+        "funding": {
+            "type": "array",
+            "table_header@fr_FR": "Financeur : identifiant du financement",
+            "table_header@en_GB": "Funder: funding identifier",
+            "items": {
+                "type": "object",
+                "class": "Funding",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "FundingStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Source(s) de financement d'un projet ou d'une activité de recherche",
+            "label@fr_FR": "Sources de financement",
+            "label@en_GB": "Funding",
+            "form_label@fr_FR": "Indiquer les sources de financement du projet",
+            "form_label@en_GB": "Indicate the funding of the project"
+        },
+        "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Début de projet",
+            "label@fr_FR": "Date de début",
+            "label@en_GB": "Start date",
+            "form_label@fr_FR": "Date de début du projet",
+            "form_label@en_GB": "Project start date"
+        },
+        "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Fin de projet",
+            "label@fr_FR": "Date de fin",
+            "label@en_GB": "End date",
+            "form_label@fr_FR": "Date de fin du projet",
+            "form_label@en_GB": "Project end date"
+        },
+        "partner": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "Partner",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "PartnerStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Partenaires d'un projet ou d'une activité de recherche",
+            "label@fr_FR": "Partenaires",
+            "label@en_GB": "Partners",
+            "inputType": "dropdown",
+            "registry_name": "Partners",
+            "overridable": true,
+            "form_label@fr_FR": "Lister les partenaires associés au projet",
+            "form_label@en_GB": "List the partners associated with the project"
+        },
+        "principalInvestigator": {
+            "type": "object",
+            "class": "Contributor",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "PrincipalInvestigator",
+            "required": [
+                "dbid"
+            ],
+            "description": "Coordinateur principal du projet",
+            "label@fr_FR": "Coordinateur du projet",
+            "label@en_GB": "Project coordinator",
+            "tooltip@fr_FR": "Aussi appelé Investigateur principal",
+            "tooltip@en_GB": "also called Principal investigator",
+            "form_label@fr_FR": "Coordinateur du projet",
+            "form_label@en_GB": "Project coordinator"
+        }
+    },
+    "required": [
+        "title",
+        "acronym",
+        "description",
+        "funding",
+        "startDate",
+        "endDate",
+        "partner",
+        "principalInvestigator"
+    ],
+    "to_string": [],
+    "run": [
+        {
+            "script_id": 4,
+            "name": "Anr_data_fetcher_v2",
+            "label@fr_FR": "Importer informations si projet ANR",
+            "label@en_GB": "Fill informations if ANR project "
+        }
+    ]
+}

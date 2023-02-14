@@ -1,0 +1,64 @@
+{
+    "Archives": [
+        {
+            "label": {
+                "en_GB": "CINES Preservation, CINES Long Term Preservation, PAC - Archiving Platform at CINES",
+                "fr_FR": "CINES Archivage numérique pérenne, Centre Informatique National de l’Enseignement Supérieur Archivage Numérique Pérenne , PAC - Plateforme d'Archivage au CINES, CINES PAC"
+            },
+            "title": "CINES Archivage numérique pérenne",
+            "hostId": "https://cat.opidor.fr/index.php/CINES_Archivage_numérique_pérenne",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": ["CoreTrustSeal"],
+            "pidSystem": null,
+            "hasVersioningPolicy": null,
+            "availability": null,
+            "metadataStandard": null
+        },
+        {
+            "label": {
+                "en_GB": "Huma-Num : Archivage à long terme",
+                "fr_FR": "Huma-Num : Archivage à long terme"
+            },
+            "title": "Huma-Num : Archivage à long terme",
+            "hostId": "https://cat.opidor.fr/index.php/Huma-Num_:_Archivage_à_long_terme",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": [],
+            "pidSystem": null,
+            "hasVersioningPolicy": null,
+            "availability": null,
+            "metadataStandard": null
+        },
+        {
+            "label": {
+                "en_GB": "Programme Vitam, Valeurs immatérielles transmises aux archives pour mémoire",
+                "fr_FR": "Programme Vitam, Valeurs immatérielles transmises aux archives pour mémoire"
+            },
+            "title": "Vitam",
+            "hostId": "https://cat.opidor.fr/index.php/Vitam",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": [],
+            "pidSystem": null,
+            "hasVersioningPolicy": null,
+            "availability": null,
+            "metadataStandard": null
+        },
+        {
+            "label": {
+                "en_GB": "Software Heritage, Software Heritage Archive",
+                "fr_FR": "Software Heritage, Software Heritage Archive"
+            },
+            "title": "Software Heritage",
+            "hostId": "https://cat.opidor.fr/index.php/Software_Heritage",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": [],
+            "pidSystem": null,
+            "hasVersioningPolicy": null,
+            "availability": null,
+            "metadataStandard": null
+        }
+    ]
+}

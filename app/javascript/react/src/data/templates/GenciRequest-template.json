@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "GenciRequest",
+    "description": "GenciRequest template",
+    "type": "object",
+    "class": "GenciRequest",
+    "properties": {
+        "initialStatus": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GenciStatus",
+            "required": [
+                "dbid"
+            ],
+            "description": "Etat initial",
+            "label@fr_FR": "Etat initial",
+            "label@en_GB": "Initial status",
+            "form_label@fr_FR": "Etat initial",
+            "form_label@en_GB": "Initial status"
+        },
+        "oneYearStatus": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GenciStatus",
+            "required": [
+                "dbid"
+            ],
+            "description": "Etat à un an",
+            "label@fr_FR": "Après un an de production de résultats",
+            "label@en_GB": "One year status",
+            "form_label@fr_FR": "Après un an de production de résultats",
+            "form_label@en_GB": "One year status"
+        },
+        "storageTime": {
+            "type": "number",
+            "description": "Durée de stockage après projet",
+            "label@fr_FR": "Durée de stockage (en mois)",
+            "label@en_GB": "Storage time (months)",
+            "example@fr_FR": "Durée de stockage après la fin de vie du projet, en mois (pas dans le cas d'un service de type workdir",
+            "form_label@fr_FR": "Durée de stockage (en mois)",
+            "form_label@en_GB": "Storage time (months)"
+        },
+        "justification": {
+            "type": "string",
+            "description": "Justification du besoin",
+            "inputType": "textarea",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "justification",
+            "example@fr_FR": "La justification est obligatoire. Pour un espace de travail, préciser les besoins de stockage dans cet espace pendant les simulations, le processus de génération ou les modalités d’utilisation des données (traitements envisagés, outils logiciels), leur durée de vie estimée. Pour un espace de stockage, préciser les besoins en taille de stockage, la méthode d’organisation utilisée pour réduire le nombre de fichiers. Le sort final des données à l’issue de la période de stockage doit aussi être précisé : restitution, destruction, diffusion.",
+            "example@en_GB": "A justification is compulsory. For a working directory, specify storage needs during simulations, data generation process or their use (treatments, softwares) and  their estimated life span. For a storage space, specify the storage size requirements, the organization method used to reduce the number of files. The final fate of the data at the end of the storage period must also be specified: restitution, destruction, distribution.",
+            "form_label@fr_FR": "Justification",
+            "form_label@en_GB": "justification"
+        }
+    },
+    "required": [
+        "initialStatus",
+        "oneYearStatus",
+        "storageTime",
+        "justification"
+    ],
+    "to_string": []
+}

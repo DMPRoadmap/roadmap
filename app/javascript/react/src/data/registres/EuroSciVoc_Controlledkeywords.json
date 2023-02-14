@@ -1,0 +1,382 @@
+{
+    "EuroSciVoc": [
+        {
+            "label": {
+                "fr_FR": "agriculture, sylviculture et pêche",
+                "en_GB": "agriculture, forestry, and fisheries"
+            },
+            "keyword": "agriculture, forestry, and fisheries",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/4df60e5a-a143-45d2-b1a6-c2dcb31d977a"
+        },
+        {
+            "label": {
+                "fr_FR": "arts",
+                "en_GB": "arts"
+            },
+            "keyword": "arts",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/a55114ca-1ad7-4c52-a261-d753fbeb3529"
+        },
+        {
+            "label": {
+                "fr_FR": "autres génies et technologies",
+                "en_GB": "other engineering and technologies"
+            },
+            "keyword": "other engineering and technologies",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/14e75836-6f05-46f9-9c82-ca12468b0452"
+        },
+        {
+            "label": {
+                "fr_FR": "autres lettres",
+                "en_GB": "other humanities"
+            },
+            "keyword": "other humanities",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/e2120c91-f57d-4f96-8992-59c109634f1c"
+        },
+        {
+            "label": {
+                "fr_FR": "autres sciences agricoles",
+                "en_GB": "other agricultural sciences"
+            },
+            "keyword": "other agricultural sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/fba9976f-0a7e-410c-8fce-3a6cef46f5e1"
+        },
+        {
+            "label": {
+                "fr_FR": "autres sciences médicales",
+                "en_GB": "other medical sciences"
+            },
+            "keyword": "other medical sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/a357cf4d-48e6-4d5d-b8bf-3e39cbbbe713"
+        },
+        {
+            "label": {
+                "fr_FR": "autres sciences naturelles",
+                "en_GB": "other natural sciences"
+            },
+            "keyword": "other natural sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/e5178751-bb89-45c6-802b-2d2374b3ecc3"
+        },
+        {
+            "label": {
+                "fr_FR": "autres sciences sociales",
+                "en_GB": "other social sciences"
+            },
+            "keyword": "other social sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/0bf709d0-834b-4448-a89c-7fb04cece64a"
+        },
+        {
+            "label": {
+                "fr_FR": "biotechnologie agricole",
+                "en_GB": "agricultural biotechnology"
+            },
+            "keyword": "agricultural biotechnology",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/1d8b779c-f72c-40fe-a8b9-22608c4e9df4"
+        },
+        {
+            "label": {
+                "fr_FR": "biotechnologie médicale",
+                "en_GB": "medical biotechnology"
+            },
+            "keyword": "medical biotechnology",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/495b214f-06c8-45b9-a5d2-64e2df5dc2e3"
+        },
+        {
+            "label": {
+                "fr_FR": "biotechnologie environnementale",
+                "en_GB": "environmental biotechnology"
+            },
+            "keyword": "environmental biotechnology",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/776bf529-b4bb-458b-ad4f-50b327a822ce"
+        },
+        {
+            "label": {
+                "fr_FR": "biotechnologie industrielle",
+                "en_GB": "industrial biotechnology"
+            },
+            "keyword": "industrial biotechnology",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/12df4518-adab-4191-a79f-74eb18ad1688"
+        },
+        {
+            "label": {
+                "fr_FR": "droit",
+                "en_GB": "law"
+            },
+            "keyword": "law",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/77030c6f-37d5-46d0-961c-b2a053ecb8d7"
+        },
+        {
+            "label": {
+                "fr_FR": "économie et affaires",
+                "en_GB": "economics and business"
+            },
+            "keyword": "economics and business",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/052bc92d-760c-43ab-958e-2330c72a4212"
+        },
+        {
+            "label": {
+                "fr_FR": "génie chimique",
+                "en_GB": "chemical engineering"
+            },
+            "keyword": "chemical engineering",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/10352c4c-328e-4dac-a89c-44b6be1420e9"
+        },
+        {
+            "label": {
+                "fr_FR": "génie civil",
+                "en_GB": "civil engineering"
+            },
+            "keyword": "civil engineering",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/26770c2b-64ce-4611-896f-cdefb4893317"
+        },
+        {
+            "label": {
+                "fr_FR": "génie de l'environnement",
+                "en_GB": "environmental engineering"
+            },
+            "keyword": "environmental engineering",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/4df60e5a-a143-45d2-b1a6-c2dcb31d977a"
+        },
+        {
+            "label": {
+                "fr_FR": "génie mécanique",
+                "en_GB": "mechanical engineering"
+            },
+            "keyword": "mechanical engineering",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/ea994073-d367-4ed7-9df3-4477a9c6cf6f"
+        },
+        {
+            "label": {
+                "fr_FR": "génie électrique, génie électronique et génie de l'information",
+                "en_GB": "electrical engineering, electronic engineering, information engineering"
+            },
+            "keyword": "electrical engineering, electronic engineering, information engineering",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/325a846e-9c47-4aca-9358-5c8facd2e812"
+        },
+        {
+            "label": {
+                "fr_FR": "géographie sociale et économique",
+                "en_GB": "social geography"
+            },
+            "keyword": "social geography",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/8614801c-e2ae-4e99-93b0-cfecb09c4f35"
+        },
+        {
+            "label": {
+                "fr_FR": "histoire et archéologie",
+                "en_GB": "history and archaeology"
+            },
+            "keyword": "history and archaeology",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/de62b610-a9d3-430b-92ff-366f28f7b1c7"
+        },
+        {
+            "label": {
+                "fr_FR": "informatique et science de l'information",
+                "en_GB": "computer and information sciences"
+            },
+            "keyword": "computer and information sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/e437ed99-4a4e-4fb3-af7e-fae6a2c2a800"
+        },
+        {
+            "label": {
+                "fr_FR": "ingénierie des materiaux",
+                "en_GB": "materials engineering"
+            },
+            "keyword": "materials engineering",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/dc9a4100-9eb3-4956-8fd8-b67ea07a70ad"
+        },
+        {
+            "label": {
+                "fr_FR": "ingénierie médicale",
+                "en_GB": "medical engineering"
+            },
+            "keyword": "medical engineering",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/742439ad-5d62-4e2d-bd77-0eb7caaa75f4"
+        },
+        {
+            "label": {
+                "fr_FR": "langues et littérature",
+                "en_GB": "languages and literature"
+            },
+            "keyword": "languages and literature",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/1ad04442-4f97-4a5e-aba8-4fc2889faeca"
+        },
+        {
+            "label": {
+                "fr_FR": "mathématiques",
+                "en_GB": "mathematics"
+            },
+            "keyword": "mathematics",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/5ac3ab8e-7d50-4091-94e2-0eec71c915db"
+        },
+        {
+            "label": {
+                "fr_FR": "médecine clinique",
+                "en_GB": "clinical medicine"
+            },
+            "keyword": "clinical medicine",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/a348fcd2-3bdd-46f9-aa2c-a91301f1e12e"
+        },
+        {
+            "label": {
+                "fr_FR": "médecine fondamentale",
+                "en_GB": "basic medicine"
+            },
+            "keyword": "basic medicine",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/5c631d7c-2a8c-40b4-9ba9-71121e2d5e63"
+        },
+        {
+            "label": {
+                "fr_FR": "médecine vétérinaire",
+                "en_GB": "veterinary sciences"
+            },
+            "keyword": "veterinary sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/55e533c2-cad7-45bc-a66f-e813cda04e70"
+        },
+        {
+            "label": {
+                "fr_FR": "médias et communication",
+                "en_GB": "media and communications"
+            },
+            "keyword": "media and communications",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/8d3657d8-563a-47fb-a5c2-5592b08365b5"
+        },
+        {
+            "label": {
+                "fr_FR": "nanotechnologie",
+                "en_GB": "nanotechnology"
+            },
+            "keyword": "nanotechnology",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/739766f0-539e-4fba-8144-9249bb38719a"
+        },
+        {
+            "label": {
+                "fr_FR": "philosophie, éthique et religion",
+                "en_GB": "philosophy, ethics and religion"
+            },
+            "keyword": "philosophy, ethics and religion",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/866c484a-44d8-4fde-b54f-3b1d9f8ca612"
+        },
+        {
+            "label": {
+                "fr_FR": "psychologie",
+                "en_GB": "psychology"
+            },
+            "keyword": "psychology",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/5c66325e-b247-4e52-92ec-544ae4d061cc"
+        },
+        {
+            "label": {
+                "fr_FR": "science politique",
+                "en_GB": "political sciences"
+            },
+            "keyword": "political sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/f8714203-d97f-4852-b051-3b63b2795faa"
+        },
+        {
+            "label": {
+                "fr_FR": "sciences animales et liées à l'industrie laitière",
+                "en_GB": "animal and dairy science"
+            },
+            "keyword": "animal and dairy science",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/b33c5338-c5bb-4026-8b86-7e2ff7cd2e3c"
+        },
+        {
+            "label": {
+                "fr_FR": "sciences biologiques",
+                "en_GB": "biological sciences"
+            },
+            "keyword": "biological sciences (natural sciences)",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/803cff73-504b-41ae-9873-1836c76c15d1"
+        },
+        {
+            "label": {
+                "fr_FR": "sciences chimiques",
+                "en_GB": "chemical sciences"
+            },
+            "keyword": "chemical sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/bce870dd-43f3-4656-8866-d76b0d71f5b8"
+        },
+        {
+            "label": {
+                "fr_FR": "sciences de la Terre et sciences connexes de l'environnement",
+                "en_GB": "earth and related environmental sciences"
+            },
+            "keyword": "earth and related environmental sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/4a8788fc-4172-461c-ae94-40be4f39043f"
+        },
+        {
+            "label": {
+                "fr_FR": "sciences de la santé",
+                "en_GB": "health sciences"
+            },
+            "keyword": "health sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/34b9c059-9e6c-4ec1-8a96-845c95c1a978"
+        },
+        {
+            "label": {
+                "fr_FR": "sciences de l'éducation",
+                "en_GB": "educational sciences"
+            },
+            "keyword": "educational sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/734e0a2e-5a5f-4bee-aff1-39389370e524"
+        },
+        {
+            "label": {
+                "fr_FR": "sciences physiques",
+                "en_GB": "physical sciences"
+            },
+            "keyword": "physical sciences",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/d3b09b78-ac5c-4fc3-b58a-9573daf0e304"
+        },
+        {
+            "label": {
+                "fr_FR": "sociologie",
+                "en_GB": "sociology"
+            },
+            "keyword": "sociology",
+            "keywordSchema": "EuroSciVoc",
+            "keywordUrl": "http://data.europa.eu/8mn/euroscivoc/839b7158-09d9-4799-aacc-bb07d00c1668"
+        }
+    ]
+}

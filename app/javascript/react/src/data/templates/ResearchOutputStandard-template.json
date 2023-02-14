@@ -1,0 +1,233 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ResearchOutputStandard",
+    "description": "ResearchOutputStandard template",
+    "type": "object",
+    "class": "ResearchOutputStandard",
+    "properties": {
+        "researchOutputDescription": {
+            "type": "object",
+            "class": "ResearchOutputDescription",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ResearchOutputDescriptionStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Description générale du produit de recherche",
+            "label@fr_FR": "Description des produits de recherche",
+            "label@en_GB": "Research output description",
+            "form_label@fr_FR": "Description des produits de recherche",
+            "form_label@en_GB": "Research output description"
+        },
+        "reuse": {
+            "type": "object",
+            "class": "DataReuse",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "DataReuseStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "",
+            "label@fr_FR": "Réutilisation de données",
+            "label@en_GB": "Reuse of data",
+            "form_label@fr_FR": "Réutilisation de données",
+            "form_label@en_GB": "Reuse of data"
+        },
+        "personalDataIssues": {
+            "type": "object",
+            "class": "PersonalDataIssues",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "PersonalDataIssuesStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Mesures à prendre concernant les données personnelles contenues dans les données",
+            "label@fr_FR": "Procédures/mesures liées aux données personnelles",
+            "label@en_GB": "Personal data issues",
+            "form_label@fr_FR": "Procédures/mesures liées aux données personnelles",
+            "form_label@en_GB": "Personal data issues"
+        },
+        "legalIssues": {
+            "type": "object",
+            "class": "LegalIssues",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "LegalIssuesStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Mesures à prendre pour respecter les droits spécifiques couvrant les données sensibles",
+            "label@fr_FR": "Aspects juridiques",
+            "label@en_GB": "Legal issues",
+            "form_label@fr_FR": "Aspects juridiques",
+            "form_label@en_GB": "Legal issues"
+        },
+        "ethicalIssues": {
+            "type": "object",
+            "class": "EthicalIssues",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "EthicalIssuesStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Mesures à prendre si des des enjeux éthiques entrent en considération",
+            "label@fr_FR": "Enjeux éthiques",
+            "label@en_GB": "Ethical issues",
+            "form_label@fr_FR": "Enjeux éthiques",
+            "form_label@en_GB": "Ethical issues"
+        },
+        "dataCollection": {
+            "type": "object",
+            "class": "DataCollection",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "DataCollectionStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Aspects relatifs à la collecte des données pour ce produit de recherche",
+            "label@fr_FR": "Collecte des données",
+            "label@en_GB": "Data collection",
+            "form_label@fr_FR": "Collecte des données",
+            "form_label@en_GB": "Data collection"
+        },
+        "dataProcessing": {
+            "type": "object",
+            "class": "DataProcessing",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "DataProcessingStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Aspects relatifs au traitement des données pendant le processus de recherche",
+            "label@fr_FR": "Traitement des données",
+            "label@en_GB": "Data processing",
+            "form_label@fr_FR": "Traitement des données",
+            "form_label@en_GB": "Data processing"
+        },
+        "dataStorage": {
+            "type": "object",
+            "class": "DataStorage",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "DataStorageStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Aspects relatifs au stockage des données pendant le processus de recherche",
+            "label@fr_FR": "Stockage des données",
+            "label@en_GB": "Data storage",
+            "form_label@fr_FR": "Stockage des données",
+            "form_label@en_GB": "Data storage"
+        },
+        "documentationQuality": {
+            "type": "object",
+            "class": "DocumentationQuality",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "DocumentationQualityStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Informations relatives aux outils et méthodes de documentation des données et à la qualité de celles-ci",
+            "label@en_EN": "Documentation quality",
+            "form_label@en_EN": "Documentation quality"
+        },
+        "qualityAssuranceMethod": {
+            "type": "object",
+            "class": "QualityAssuranceMethod",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "QualityAssuranceMethodStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Méthodes d'assurance qualité mises en œuvre",
+            "label@fr_FR": "Méthode(s) d'assurance qualité",
+            "label@en_GB": "Quality assurance method",
+            "form_label@fr_FR": "Méthode(s) d'assurance qualité",
+            "form_label@en_GB": "Quality assurance method"
+        },
+        "sharing": {
+            "type": "object",
+            "class": "DataSharing",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "DataSharingStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Aspects relatifs au partage des données",
+            "label@fr_FR": "Partage",
+            "label@en_GB": "Sharing",
+            "form_label@fr_FR": "Partage",
+            "form_label@en_GB": "Sharing"
+        },
+        "preservationIssues": {
+            "type": "object",
+            "class": "DataPreservation",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "DataPreservationStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Aspects relatifs à la conservation des données",
+            "label@en_GB": "Preservation Issues",
+            "form_label@en_GB": "Preservation Issues"
+        }
+    },
+    "required": [
+        "researchOutputDescription",
+        "reuse",
+        "dataCollection",
+        "dataStorage",
+        "documentationQuality",
+        "qualityAssuranceMethod",
+        "sharing",
+        "preservationIssues"
+    ],
+    "to_string": []
+}

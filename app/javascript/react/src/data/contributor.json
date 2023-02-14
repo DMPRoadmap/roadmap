@@ -1,0 +1,24 @@
+[
+  {
+    "nameType": "Personne",
+    "lastName": "FAURE",
+    "firstName": "Benjamin",
+    "mbox": "benji.f63@wanadoo.fr"
+  },
+  {
+    "nameType": "Personne",
+    "lastName": "LAIREZ",
+    "firstName": "Pierre",
+    "affiliationName": "Inria Saclay-Ile-de-France",
+    "affiliationId": "200818248E",
+    "affiliationIdType": "RNSR"
+  },
+  {
+    "nameType": "Personne",
+    "lastName": "CHENEVIER",
+    "firstName": "Pascale",
+    "affiliationName": "Systèmes Moléculaires et Matériaux pour l'Energie et la Santé",
+    "affiliationId": null,
+    "affiliationIdType": "RNSR"
+  }
+]

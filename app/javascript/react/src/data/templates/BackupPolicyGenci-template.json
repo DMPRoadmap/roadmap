@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "BackupPolicyGenci",
+    "description": "BackupPolicyGenci template",
+    "type": "object",
+    "class": "BackupPolicyGenci",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description de la politique de sauvegarde appliquée",
+            "inputType": "textarea",
+            "label@fr_FR": "nom et description de la politique de stockage et sauvegarde",
+            "label@en_GB": "Storage and backup policy name and description",
+            "form_label@fr_FR": "Politique de stockage et sauvegarde",
+            "form_label@en_GB": "Storage and backup policy"
+        },
+        "backupFrequency": {
+            "type": "string",
+            "description": "Fréquence de sauvegarde",
+            "label@fr_FR": "Fréquence des sauvegardes",
+            "label@en_GB": "Backup frequency",
+            "form_label@fr_FR": "Fréquence des sauvegardes",
+            "form_label@en_GB": "Backup frequency"
+        },
+        "backupType": {
+            "type": "string",
+            "description": "Mode de sauvegarde (incrémentale, différentielle, complète, miroir, …)",
+            "label@fr_FR": "Type de sauvegarde",
+            "label@en_GB": "Backup type",
+            "form_label@fr_FR": "Type de sauvegarde",
+            "form_label@en_GB": "Backup type"
+        },
+        "storageType": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Support de stockage des données",
+            "label@fr_FR": "Supports de stockage",
+            "label@en_GB": "Storage types",
+            "form_label@fr_FR": "Supports de stockage",
+            "form_label@en_GB": "Storage types"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": [
+        "$.description"
+    ]
+}

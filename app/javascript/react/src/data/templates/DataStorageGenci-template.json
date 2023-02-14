@@ -1,0 +1,195 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataStorageGenci",
+    "description": "DataStorageGenci template",
+    "type": "object",
+    "class": "DataStorageGenci",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des besoins de stockage",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "example@fr_FR": "Des demandes d'heures de calcul et de stockage sont soumises auprès de centres de calcul gérés par le GENCI ",
+            "example@en_GB": "Requests for computing hours and storage are submitted to computing centers managed by GENCI",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResourceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceGenci",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
+            "label@fr_FR": "Identification de la ressource",
+            "label@en_GB": "Resource identification",
+            "form_label@fr_FR": "Identification de la ressource",
+            "form_label@en_GB": "Resource identification"
+        },
+        "genciServiceRequest": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "SpecificData",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "GenciServiceRequest",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Informations requises pour une demande de ressources de stockage chez Genci (une par type de service)",
+            "label@fr_FR": "Demande de ressources de stockage chez GENCI",
+            "label@en_GB": "Request for storage resources from GENCI",
+            "form_label@fr_FR": "Demande de ressources de stockage chez GENCI",
+            "form_label@en_GB": "Request for storage resources from GENCI"
+        },
+        "backupPolicy": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "BackupPolicyStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "BackupPolicyGenci",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy",
+            "inputType": "dropdown",
+            "registry_name": "BackupPolicyGenci",
+            "form_label@fr_FR": "Politique de sauvegarde",
+            "form_label@en_GB": "Backup policy"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures",
+            "example@fr_FR": "Les données étant précieuses car impossibles ou coûteuses à reproduire, une copie des données sur une autre cassette est requise.",
+            "example@en_GB": "Since the data is valuable because it is impossible or expensive to reproduce, a copy of the data on another tape is required",
+            "hidden": true,
+            "form_label@fr_FR": "Mesures de sécurité",
+            "form_label@en_GB": "Security measures"
+        },
+        "estimatedVolume": {
+            "type": "number",
+            "description": "Volume total des données stockées dans les différents centres gérés par le Genci",
+            "label@fr_FR": "Volume total des données (volume calculé automatiquement)",
+            "label@en_GB": "Total data volume (automatically calculated volume)",
+            "form_label@fr_FR": "Volume total des données (calcul automatique)",
+            "form_label@en_GB": "Total data volume (Automatic  calculation)"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "const@fr_FR": "To",
+            "const@en_GB": "TB",
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostGenci",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coût total des données stockées dans les différents centres gérés par le Genci",
+            "label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
+            "label@en_GB": "Total cost of storage (automatically calculated cost)",
+            "form_label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
+            "form_label@en_GB": "Total cost of storage (Automatic calculation)"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataStorageManager",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "label@fr_FR": "Personne en charge de la gestion du stockage des données",
+            "label@en_GB": "Person in charge of  data storage management",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Personne en charge de la gestion du stockage des données",
+            "form_label@en_GB": "Person in charge of  data storage management"
+        }
+    },
+    "required": [
+        "description",
+        "genciServiceRequest"
+    ],
+    "to_string": [],
+    "run": [
+        {
+            "script_id": 2,
+            "name": "Genci_cost_calculator_v2",
+            "label@fr_FR": "Calculer le coût de stockage",
+            "label@en_GB": "Compute data storage cost"
+        },
+        {
+            "script_id": 5,
+            "name": "Genci_notifyer_v1",
+            "label@fr_FR": "Notifier Genci",
+            "label@en_GB": "Notify Genci",
+            "tooltip@fr_FR": "Envoie à une adresse mail Genci une demande de ressources de stockage",
+            "tooltip@en_GB": "Sends to the Genci facility a query for storage space",
+            "params": {
+                "recipients": [
+                    "florian.mazur@inist.fr",
+                    "anne.busin@inist.fr",
+                    "francoise.cosserat@inist.fr"
+                ]
+            }
+        }
+    ]
+}

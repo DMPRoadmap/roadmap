@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "MesoatLRRequest",
+    "description": "MesoatLRRequest template",
+    "type": "object",
+    "class": "MesoatLRRequest",
+    "properties": {
+        "justification": {
+            "type": "string",
+            "description": "Justification du besoin",
+            "inputType": "textarea",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "justification",
+            "form_label@fr_FR": "Justification",
+            "form_label@en_GB": "justification"
+        },
+        "dataSize": {
+            "type": "number",
+            "description": "Volume des données concernées en téraoctets",
+            "label@fr_FR": "Taille des données",
+            "label@en_GB": "Data size",
+            "form_label@fr_FR": "Taille des données",
+            "form_label@en_GB": "Data size"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "const@fr_FR": "To",
+            "const@en_GB": "TB",
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        },
+        "endStorageDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de fin de stockage",
+            "label@fr_FR": "Fin du stockage",
+            "label@en_GB": "End of storage",
+            "form_label@fr_FR": "Fin du stockage",
+            "form_label@en_GB": "End of storage"
+        }
+    },
+    "required": [
+        "justification",
+        "dataSize",
+        "volumeUnit",
+        "endStorageDate"
+    ],
+    "to_string": []
+}

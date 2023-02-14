@@ -1,0 +1,681 @@
+{"MetadataTools":[
+    {
+        "label": {
+            "en_GB": "AgriMetamaker",
+            "fr_FR": "AgriMetamaker"
+        },
+        "name": "AgriMetamaker",
+        "description": "<p>A service to facilitate the publication of metadata in the AGRIS Repository; it conforms to the the AGRIS Application Profile, which draws from the Dublin Core&#160;and&#160;AgMES&#160;standards.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t1",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "ANZ-MEST (Metadata Entry and Search Tool)",
+            "fr_FR": "ANZ-MEST (Metadata Entry and Search Tool)"
+        },
+        "name": "ANZ-MEST (Metadata Entry and Search Tool)",
+        "description": "<p>A GeoNetwork web application for metadata management and searching, with profiles available for two extensions of ISO 19115: ANZLIC and the Marine Community Profile.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t2",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Converis",
+            "fr_FR": "Converis"
+        },
+        "name": "Converis",
+        "description": "<p>Current research information system implementing the CERIF standard. Originally developed by Avedas but now a product of Thomson Reuters.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t3",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "AVM Adobe Metadata Panels",
+            "fr_FR": "AVM Adobe Metadata Panels"
+        },
+        "name": "AVM Adobe Metadata Panels",
+        "description": "<p>A set of metadata panels that can be added to Adobe Creative Suite 4 applications to allow AVM-compliant metadata to be entered directly into images.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t4",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "AVM Web Tool",
+            "fr_FR": "AVM Web Tool"
+        },
+        "name": "AVM Web Tool",
+        "description": "<p>A web-based tool for assembling an AVM-compliant <a href=\"http://www.adobe.com/products/xmp/\">XMP<\/a> packet for insertion into an image file.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t5",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Bio-Formats",
+            "fr_FR": "Bio-Formats"
+        },
+        "name": "Bio-Formats",
+        "description": "<p>Bio-Formats reads proprietary microscopy image data and metadata, and converts them to OME-TIFF, a combination of TIFF and OME-XML.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t6",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "CF Compliance Checker",
+            "fr_FR": "CF Compliance Checker"
+        },
+        "name": "CF Compliance Checker",
+        "description": "<p>A utility that checks netCDF files for CF-compliance.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t7",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "CIF2Cell",
+            "fr_FR": "CIF2Cell"
+        },
+        "name": "CIF2Cell",
+        "description": "<p>A tool to generate the geometrical setup for various electronic structure codes from a CIF file.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t8",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "CIM Comparator Tool",
+            "fr_FR": "CIM Comparator Tool"
+        },
+        "name": "CIM Comparator Tool",
+        "description": "<p>The CIM Comparator is a web-based tool for comparing and contrasting CIM metadata records currently stored in the CIM archive. It allows users to compare scientific properties across models and their components. Currently the Comparator is limited to the comparison of CMIP5 metadata. The results of the comparison are available in HTML or exportable CSV.<p/>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t9",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "CIM Questionnaire Generator",
+            "fr_FR": "CIM Questionnaire Generator"
+        },
+        "name": "CIM Questionnaire Generator",
+        "description": "<p>The CIM Questionnaire generates a customizable web-based questionnaire based on the <a href=\"http://rd-alliance.github.io/metadata-directory/standards/cim-common-information-model.html\">CIM<\/a> schema.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t10",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "CIM Viewer Tool",
+            "fr_FR": "CIM Viewer Tool"
+        },
+        "name": "CIM Viewer Tool",
+        "description": "<p>The CIM Viewer is a light-weight JavaScript platform independent API that other software stacks can use to display CIM metadata.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t11",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "CKAN",
+            "fr_FR": "CKAN"
+        },
+        "name": "CKAN",
+        "description": "<p>Tool which utilizes the DCAT standard. CKAN is a powerful data management system that makes data accessible &#8211; by providing tools to streamline publishing, sharing, finding and using data.<\/p><p>CKAN is aimed at data publishers (national and regional governments, companies and organizations) wanting to make their data open and available. Portals that use CKAN include <a href=\"http://data.gov.uk\">http://data.gov.uk<\/a> and <a href=\"http://open-data.europa.eu\">http://open-data.europa.eu<\/a>. The United States <a href=\"http://data.gov\">http://data.gov<\/a> uses a version of CKAN wrapped up as the <a href=\"https://github.com/opengovplatform/opengovplatform-beta\">Open Government Platform<\/a>.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t12",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "CMOR (Climate Model Output Rewriter)",
+            "fr_FR": "CMOR (Climate Model Output Rewriter)"
+        },
+        "name": "CMOR (Climate Model Output Rewriter)",
+        "description": "<p>A set of C-based functions, with bindings to both Python and FORTRAN 90, that can be used to produce CF-compliant netCDF files.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t13",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Darwin Core Archive Assistant",
+            "fr_FR": "Darwin Core Archive Assistant"
+        },
+        "name": "Darwin Core Archive Assistant",
+        "description": "<p>A web application that offers data publishers wishing to serve to the GBIF network an easy interface for describing data elements as basic text files, composing an appropriate XML Darwin Core descriptor file to accompany them.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t14",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Darwin Core Archive Validator",
+            "fr_FR": "Darwin Core Archive Validator"
+        },
+        "name": "Darwin Core Archive Validator",
+        "description": "<p>A tool to validate XML metadata against the Darwin Core Text Guidelines.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t15",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Data Package libraries",
+            "fr_FR": "Data Package libraries"
+        },
+        "name": "Data Package libraries",
+        "description": "<p>A collection of libraries for working with Data Packages in various programming languages, and scripts for importing them into databases.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t16",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Data Package Validator",
+            "fr_FR": "Data Package Validator"
+        },
+        "name": "Data Package Validator",
+        "description": "<p>The Data Package Validator takes the URL of a Data Package and checks whether it conforms to the Data Package specification.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t17",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Data Package Viewer",
+            "fr_FR": "Data Package Viewer"
+        },
+        "name": "Data Package Viewer",
+        "description": "<p>The Data Package Viewer takes the URL of a Data Package and provides a human-friendly view of it.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t18",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Data Packagist",
+            "fr_FR": "Data Packagist"
+        },
+        "name": "Data Packagist",
+        "description": "<p>The Data Packagist is a Web-based tool for writing a Data Package descriptor file (datapackage.json).<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t19",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "DataCite Metadata Store API",
+            "fr_FR": "DataCite Metadata Store API"
+        },
+        "name": "DataCite Metadata Store API",
+        "description": "<p>RESTFUL API for registering datasets with the DataCite organization. The interface uses the DataCite Metadata Schema.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t20",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "DCMI Tools and Software",
+            "fr_FR": "DCMI Tools and Software"
+        },
+        "name": "DCMI Tools and Software",
+        "description": "<p>The DCMI Tools Community list of tools and software implementing Dublin Core.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t21",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "DDI Tools",
+            "fr_FR": "DDI Tools"
+        },
+        "name": "DDI Tools",
+        "description": "<p>The Data Documentaion Initiative website's list of tools to implement the DDI standard.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t22",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "DdiEditor",
+            "fr_FR": "DdiEditor"
+        },
+        "name": "DdiEditor",
+        "description": "<p>DdiEditor is a DDI-Lifecycle Editing Framework developed by the DDA - Danish Data Archive.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t23",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "DDI on Rails",
+            "fr_FR": "DDI on Rails"
+        },
+        "name": "DDI on Rails",
+        "description": "<p>Server-side software for building a data portal, with a particular focus on survey datasets. It uses DDI to provide access to the data at the level of concepts and variables. For an example of it in use, see the <a href=\"https://paneldata.org/\">SOEPinfo data portal<\/a>.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t24",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Pure",
+            "fr_FR": "Pure"
+        },
+        "name": "Pure",
+        "description": "<p>Current research information system developed by Elsevier that implements the CERIF standard.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t25",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "FGDC/CDSGM Tools",
+            "fr_FR": "FGDC/CDSGM Tools"
+        },
+        "name": "FGDC/CDSGM Tools",
+        "description": "<p>The FGDC website's list of tools to implement the CSDGM standard.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t26",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Fiji",
+            "fr_FR": "Fiji"
+        },
+        "name": "Fiji",
+        "description": "<p><a href=\"http://fiji.sc/Fiji\">Fiji<\/a> is an image processing package that supports the <a href=\"http://www.openmicroscopy.org/site/support/ome-model/\">OME data model<\/a> for images <\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t27",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "FISH Interoperability Toolkit",
+            "fr_FR": "FISH Interoperability Toolkit"
+        },
+        "name": "FISH Interoperability Toolkit",
+        "description": "<p>A suite of tools using the MIDAS Heritage metadata standard to facilitate the process of moving information between the wide variety of information systems used to record the historic environment.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t28",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "FITS Image Software Packages",
+            "fr_FR": "FITS Image Software Packages"
+        },
+        "name": "FITS Image Software Packages",
+        "description": null,
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t29",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "GAVO DaCHS - Data Center Helper Suite",
+            "fr_FR": "GAVO DaCHS - Data Center Helper Suite"
+        },
+        "name": "GAVO DaCHS - Data Center Helper Suite",
+        "description": "<p>The software that underlies the German Astrophysical Virtual Observatory (GAVO), packaged so that it can be used to set up other Virtual Observatory-compliant data centres.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t30",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Geodoc Metadata Editor",
+            "fr_FR": "Geodoc Metadata Editor"
+        },
+        "name": "Geodoc Metadata Editor",
+        "description": "<p>The Geodoc metadata editor tool allows users to create, validate, edit and export geospatial metadata records. It also supports the creation and export of metadata records as XML output files compliant with a number of standards, including <a href=\"http://www.gogeo.ac.uk/gogeo/metadata/agmap.htm\">UK AGMAP 2.1<\/a>, ISO 19115, FGDC, DDI, and Dublin Core.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t31",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Esri Geoportal Server",
+            "fr_FR": "Esri Geoportal Server"
+        },
+        "name": "Esri Geoportal Server",
+        "description": "<p>Geoportal Server is a standards-based, open source product that enables discovery and use of geospatial resources including data and services.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t32",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "ICAT",
+            "fr_FR": "ICAT"
+        },
+        "name": "ICAT",
+        "description": "<p>A metadata storage service that implements CSMD Version 2.5 to record information about physical science experiments.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t33",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "ICATLite",
+            "fr_FR": "ICATLite"
+        },
+        "name": "ICATLite",
+        "description": "<p>A sister project of ICAT, consisting of a suite of CSMD-based software tools designed to&#160;support derived data management&#160;in the scientific research process.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t34",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Integrated Publishing Toolkit",
+            "fr_FR": "Integrated Publishing Toolkit"
+        },
+        "name": "Integrated Publishing Toolkit",
+        "description": "<p>A software platform using Darwin Core and EML to facilitate the efficient publishing of biodiversity data on the Internet, using the GBIF network.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t35",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "ISA Software Suite",
+            "fr_FR": "ISA Software Suite"
+        },
+        "name": "ISA Software Suite",
+        "description": "<p>The open source ISA metadata tracking tools facilitate ISA-TAB-compliant collection, curation, local management and reuse of datasets in an increasingly diverse set of life science domains.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t36",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Istat SDMX Framework Project",
+            "fr_FR": "Istat SDMX Framework Project"
+        },
+        "name": "Istat SDMX Framework Project",
+        "description": "<p>A suite of tools for managing data and metadata in SDMX.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t37",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "IUCr checkCIF",
+            "fr_FR": "IUCr checkCIF"
+        },
+        "name": "IUCr checkCIF",
+        "description": "<p>A tool used to check the integrity and cosistency of crystal structure encodings in CIF&#160;format.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t38",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Linked Data Cubes Explorer",
+            "fr_FR": "Linked Data Cubes Explorer"
+        },
+        "name": "Linked Data Cubes Explorer",
+        "description": "<p>The Linked Data Cubes Explorer allows for the analysis of statistical datasets using the RDF Cube Vocabulary.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t39",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "M3Cat",
+            "fr_FR": "M3Cat"
+        },
+        "name": "M3Cat",
+        "description": "<p>A tool for the creation and cataloguing of geospatial metadata, including CSDGM and ISO 19115.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t40",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Metacat",
+            "fr_FR": "Metacat"
+        },
+        "name": "Metacat",
+        "description": "<p>Metacat is a repository for data and metadata that helps scientists find, understand, and effectively use the data sets they manage or that have been created by others.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t41",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "MOLGENIS",
+            "fr_FR": "MOLGENIS"
+        },
+        "name": "MOLGENIS",
+        "description": "<p>A software generator to rapidly build web databases and a suite of web databases for genotype, phenotype, QTL and analysis pipelines.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t42",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Morpho",
+            "fr_FR": "Morpho"
+        },
+        "name": "Morpho",
+        "description": "<p>An application for accessing and manipulating metadata and data (both locally and on the network), with wizards creating metadata files using a subset of Ecological Metadata Language (EML).<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t43",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "ncISO",
+            "fr_FR": "ncISO"
+        },
+        "name": "ncISO",
+        "description": "<p>A package of tools that facilitates the generation of ISO 19115-2 metadata from NetCDF data sources.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t44",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "NetCDF",
+            "fr_FR": "NetCDF"
+        },
+        "name": "NetCDF",
+        "description": "<p>A set of software libraries and self-describing, machine-independent data formats that conform to the CF metadata conventions. They support the creation, access, and sharing of array-oriented scientific data.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t45",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "OMERO",
+            "fr_FR": "OMERO"
+        },
+        "name": "OMERO",
+        "description": "<p>Repository software for organising, viewing, analysing and sharing biological microscopy images. It supports proprietary file formats but normalises to OME-TIFF/OME-XML.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t46",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "PATRIC Download Tool",
+            "fr_FR": "PATRIC Download Tool"
+        },
+        "name": "PATRIC Download Tool",
+        "description": "<p>Tool for downloading data from PATRIC.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t47",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "PDBx/mmCIF Software Resources",
+            "fr_FR": "PDBx/mmCIF Software Resources"
+        },
+        "name": "PDBx/mmCIF Software Resources",
+        "description": "Parsing, validation, and visualization tools and libraries supporting  PDBx/mmCIF, the data standard used by the Worldwide Protein Data Bank.",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t48",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "PIMMS (Portable Infrastructure for the Metafor Metadata System)",
+            "fr_FR": "PIMMS (Portable Infrastructure for the Metafor Metadata System)"
+        },
+        "name": "PIMMS (Portable Infrastructure for the Metafor Metadata System)",
+        "description": "<p>A methodology and toolset for documenting climatology simulation experiments using the Metafor CIM.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t49",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "ProteoRed Tools",
+            "fr_FR": "ProteoRed Tools"
+        },
+        "name": "ProteoRed Tools",
+        "description": "<p>Bioinformatics tools to create and extract metadata compliant with the MIBBI-registered MIAPE minimum requirements.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t50", "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Saada",
+            "fr_FR": "Saada"
+        },
+        "name": "Saada",
+        "description": "<p>A tool for publishing astronomical data files as online databases suitable for integration into the international Virtual Observatory.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t51",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "SDAC Tools",
+            "fr_FR": "SDAC Tools"
+        },
+        "name": "SDAC Tools",
+        "description": "<p>A set of four tools for working with SDAC-compliant archives: <tt>acut<\/tt> can be used to edit text files in a columnar fashion; <tt>trcol<\/tt> removes or transforms columns from a text file; <tt>anafile<\/tt> verifies that data files conform to their description; <tt>tofits<\/tt> converts SDAC tables to FITS tables.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t52",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "SDMX Editor",
+            "fr_FR": "SDMX Editor"
+        },
+        "name": "SDMX Editor",
+        "description": "<p>A simple tool for managing and accessing statistical metadata, using the SDMX framework.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t53",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "SDMX Mapping Assistant",
+            "fr_FR": "SDMX Mapping Assistant"
+        },
+        "name": "SDMX Mapping Assistant",
+        "description": "<p>A tool to facilitate the mapping between the structural metadata provided by an SDMX-ML Data Structure Definition and those that reside in a database of a dissemination environment.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t54",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "SDMX Tool Repository",
+            "fr_FR": "SDMX Tool Repository"
+        },
+        "name": "SDMX Tool Repository",
+        "description": "<p>A list of software tools supporting the SDMX standard.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t55",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "SeaDataNet Software",
+            "fr_FR": "SeaDataNet Software"
+        },
+        "name": "SeaDataNet Software",
+        "description": "<p>A suite of tools designed by SeaDataNet to facilitate the creation, editing, and conversion of ocean and marine data and metadata. Particular tools are available for preparing ISO 19115-conformant XML metadata files for the SeaDataNet directories.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t56",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Software for CIF",
+            "fr_FR": "Software for CIF"
+        },
+        "name": "Software for CIF",
+        "description": "<p>The International Union of Crystallography's list of programs and libraries available for use with CIF files.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t57",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "SOS (Sensor Observation Service)",
+            "fr_FR": "SOS (Sensor Observation Service)"
+        },
+        "name": "SOS (Sensor Observation Service)",
+        "description": "<p>This tool uses the Observations and Measurements standard to define a Web service interface which allows querying observations, sensor metadata, as well as representations of observed features.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t58",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "SPASE Metadata Editor",
+            "fr_FR": "SPASE Metadata Editor"
+        },
+        "name": "SPASE Metadata Editor",
+        "description": "<p>A web-based editor for generating SPASE descriptions.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t59",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "SPASE Tools",
+            "fr_FR": "SPASE Tools"
+        },
+        "name": "SPASE Tools",
+        "description": "<p>The SPASE website's list of tools for working with SPASE metadata and the SPASE framework.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t60",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Stat/Transfer",
+            "fr_FR": "Stat/Transfer"
+        },
+        "name": "Stat/Transfer",
+        "description": "<p>A tool to enable the automated transfer of statistical data between programs. The software supports version 3.1 of the specification and will read and write XML schemas and associated delimited data files.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t61",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Symplectic Elements",
+            "fr_FR": "Symplectic Elements"
+        },
+        "name": "Symplectic Elements",
+        "description": "<p>Current research information system implementing the CERIF standard.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t62",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "WiscLINC Metadata Tools Review",
+            "fr_FR": "WiscLINC Metadata Tools Review"
+        },
+        "name": "WiscLINC Metadata Tools Review",
+        "description": "<p>The Wisconsin Land INformation Clearinghouse review of metadata tools used for documenting geospatial data and serving geospatial metadata. It includes tools for CSDGM, ISO 19115, Dublin Core, and DIF.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t63",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "OpenAIRE Validator",
+            "fr_FR": "OpenAIRE Validator"
+        },
+        "name": "OpenAIRE Validator",
+        "description": "<p>This service validates OAI-PMH metadata records against the OpenAIRE Guidelines for publication repositories, data archives and current research information systems.<\/p>",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t64",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "geometa",
+            "fr_FR": "geometa"
+        },
+        "name": "geometa",
+        "description": "Geometa is an R package that offers facilities to handle reading and writing of geographic metadata defined with OGC/ISO 19115, 11119 and 19110 geographic information metadata standards, and encoded using the ISO 19139 XML standard. It also includes a facility to check the validity of ISO 19139 XML encoded metadata. The package can be used in integrated (meta)data management flows to generate business metadata compliant with ISO/OGC standards. Metadata generated with geometa can then be published to standard web metadata catalogues by means of related R packages such as <a href=\"http://github.com/eblondel/ows4R/wiki\" target=\"_blank\">ows4R<\/a> (R interface to OGC Web-Services) or <a href=\"http://github.com/eblondel/geonapi/wiki\" target=\"_blank\">geonapi<\/a> (R Interface to GeoNetwork API).",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t65",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Dataverse",
+            "fr_FR": "Dataverse"
+        },
+        "name": "Dataverse",
+        "description": "Dataverse is an open source web application to share, preserve, cite, explore, and analyze research data. It facilitates making data available to others, and allows you to replicate others' work more easily. Researchers, journals, data authors, publishers, data distributors, and affiliated institutions all receive academic credit and web visibility.\r\n\r\nDataverse has grown considerably over time and is now a major international collaborative project. We encourage you to join us.",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t66",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "OpenAIRE PROVIDE Validator Service",
+            "fr_FR": "OpenAIRE PROVIDE Validator Service"
+        },
+        "name": "OpenAIRE PROVIDE Validator Service",
+        "description": "The OpenAIRE Validator Service allows data source managers to validate the OAI-PMH publisher of their sources against the OpenAIRE Guidelines (different versions of the guidelines). The tool returns a detailed evaluation of compliance together with feedback on what has to be fixed in the metadata to achieve compliance. ",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t67",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "ExtractIng",
+            "fr_FR": "ExtractIng"
+        },
+        "name": "ExtractIng",
+        "description": "ExtractIng is a prototypical tool developed at the High Performance Computing Center Stuttgart to parse existing metadata out of textual files like input or log files and convert this information into the EngMeta metadata scheme. It can be used to automate metadata capture within the research process. ExtractIng is configurable in a very flexible way to support different input formats.",
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t68",
+        "idType": "URL"
+    }
+]}

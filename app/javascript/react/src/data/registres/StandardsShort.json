@@ -1,0 +1,412 @@
+{
+  "StandardsShort": [
+    {
+      "en_GB": "ABCD (Access to Biological Collection Data)",
+      "fr_FR": "ABCD (Access to Biological Collection Data)"
+    },
+    {
+      "en_GB": "AgMES (Agricultural Metadata Element Set)",
+      "fr_FR": "AgMES (Agricultural Metadata Element Set)"
+    },
+    {
+      "en_GB": "AVM (Astronomy Visualization Metadata)",
+      "fr_FR": "AVM (Astronomy Visualization Metadata)"
+    },
+    {
+      "en_GB": "CERIF (Common European Research Information Format)",
+      "fr_FR": "CERIF (Common European Research Information Format)"
+    },
+    {
+      "en_GB": "CF (Climate and Forecast) Metadata Conventions",
+      "fr_FR": "CF (Climate and Forecast) Metadata Conventions"
+    },
+    {
+      "en_GB": "CIF (Crystallographic Information Framework)",
+      "fr_FR": "CIF (Crystallographic Information Framework)"
+    },
+    {
+      "en_GB": "CIM (Common Information Model)",
+      "fr_FR": "CIM (Common Information Model)"
+    },
+    {
+      "en_GB": "CSMD (Core Scientific Metadata Model)",
+      "fr_FR": "CSMD (Core Scientific Metadata Model)"
+    },
+    {
+      "en_GB": "Darwin Core",
+      "fr_FR": "Darwin Core"
+    },
+    {
+      "en_GB": "Data Package",
+      "fr_FR": "Data Package"
+    },
+    {
+      "en_GB": "DataCite Metadata Schema",
+      "fr_FR": "DataCite Metadata Schema"
+    },
+    {
+      "en_GB": "DCAT (Data Catalog Vocabulary)",
+      "fr_FR": "DCAT (Data Catalog Vocabulary)"
+    },
+    {
+      "en_GB": "DDI (Data Documentation Initiative)",
+      "fr_FR": "DDI (Data Documentation Initiative)"
+    },
+    {
+      "en_GB": "DIF (Directory Interchange Format)",
+      "fr_FR": "DIF (Directory Interchange Format)"
+    },
+    {
+      "en_GB": "Dublin Core",
+      "fr_FR": "Dublin Core"
+    },
+    {
+      "en_GB": "EML (Ecological Metadata Language)",
+      "fr_FR": "EML (Ecological Metadata Language)"
+    },
+    {
+      "en_GB": "FGDC/CSDGM (Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata)",
+      "fr_FR": "FGDC/CSDGM (Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata)"
+    },
+    {
+      "en_GB": "FITS (Flexible Image Transport System)",
+      "fr_FR": "FITS (Flexible Image Transport System)"
+    },
+    {
+      "en_GB": "Genome Metadata",
+      "fr_FR": "Genome Metadata"
+    },
+    {
+      "en_GB": "International Virtual Observatory Alliance Technical Specifications",
+      "fr_FR": "International Virtual Observatory Alliance Technical Specifications"
+    },
+    {
+      "en_GB": "ISA-Tab",
+      "fr_FR": "ISA-Tab"
+    },
+    {
+      "en_GB": "ISO 19115",
+      "fr_FR": "ISO 19115"
+    },
+    {
+      "en_GB": "MIBBI (Minimum Information for Biological and Biomedical Investigations)",
+      "fr_FR": "MIBBI (Minimum Information for Biological and Biomedical Investigations)"
+    },
+    {
+      "en_GB": "MIDAS-Heritage",
+      "fr_FR": "MIDAS-Heritage"
+    },
+    {
+      "en_GB": "NeXus",
+      "fr_FR": "NeXus"
+    },
+    {
+      "en_GB": "OAI-ORE (Open Archives Initiative Object Reuse and Exchange)",
+      "fr_FR": "OAI-ORE (Open Archives Initiative Object Reuse and Exchange)"
+    },
+    {
+      "en_GB": "Observ-OM",
+      "fr_FR": "Observ-OM"
+    },
+    {
+      "en_GB": "Observations and Measurements",
+      "fr_FR": "Observations and Measurements"
+    },
+    {
+      "en_GB": "OME-XML (Open Microscopy Environment XML)",
+      "fr_FR": "OME-XML (Open Microscopy Environment XML)"
+    },
+    {
+      "en_GB": "PDBx/mmCIF (Protein Data Bank Exchange Dictionary and the Macromolecular Crystallographic Information Framework)",
+      "fr_FR": "PDBx/mmCIF (Protein Data Bank Exchange Dictionary and the Macromolecular Crystallographic Information Framework)"
+    },
+    {
+      "en_GB": "PREMIS",
+      "fr_FR": "PREMIS"
+    },
+    {
+      "en_GB": "Protocol Data Element Definitions",
+      "fr_FR": "Protocol Data Element Definitions"
+    },
+    {
+      "en_GB": "PROV",
+      "fr_FR": "PROV"
+    },
+    {
+      "en_GB": "QuDEx (Qualitative Data Exchange Format)",
+      "fr_FR": "QuDEx (Qualitative Data Exchange Format)"
+    },
+    {
+      "en_GB": "RDF Data Cube Vocabulary",
+      "fr_FR": "RDF Data Cube Vocabulary"
+    },
+    {
+      "en_GB": "Repository-Developed Metadata Schemas",
+      "fr_FR": "Repository-Developed Metadata Schemas"
+    },
+    {
+      "en_GB": "SDAC (Standard for Documentation of Astronomical Catalogues)",
+      "fr_FR": "SDAC (Standard for Documentation of Astronomical Catalogues)"
+    },
+    {
+      "en_GB": "SDMX (Statistical Data and Metadata Exchange)",
+      "fr_FR": "SDMX (Statistical Data and Metadata Exchange)"
+    },
+    {
+      "en_GB": "SPASE Data Model",
+      "fr_FR": "SPASE Data Model"
+    },
+    {
+      "en_GB": "UKEOF",
+      "fr_FR": "UKEOF"
+    },
+    {
+      "en_GB": "ABCDDNA",
+      "fr_FR": "ABCDDNA"
+    },
+    {
+      "en_GB": "ABCDEFG (Access to Biological Collection Databases Extended for Geosciences)",
+      "fr_FR": "ABCDEFG (Access to Biological Collection Databases Extended for Geosciences)"
+    },
+    {
+      "en_GB": "AGLS Metadata Profile",
+      "fr_FR": "AGLS Metadata Profile"
+    },
+    {
+      "en_GB": "AGRIS Application Profile",
+      "fr_FR": "AGRIS Application Profile"
+    },
+    {
+      "en_GB": "ANZLIC Metadata Profile",
+      "fr_FR": "ANZLIC Metadata Profile"
+    },
+    {
+      "en_GB": "Apple Core",
+      "fr_FR": "Apple Core"
+    },
+    {
+      "en_GB": "Asset Description Metadata Schema (ADMS)",
+      "fr_FR": "Asset Description Metadata Schema (ADMS)"
+    },
+    {
+      "en_GB": "CARARE metadata schema",
+      "fr_FR": "CARARE metadata schema"
+    },
+    {
+      "en_GB": "CESSDA MLI - Council of European Social Science Data Archives Minimum Level of Information",
+      "fr_FR": "CESSDA MLI - Council of European Social Science Data Archives Minimum Level of Information"
+    },
+    {
+      "en_GB": "COARDS Conventions",
+      "fr_FR": "COARDS Conventions"
+    },
+    {
+      "en_GB": "Cruise Summary Reports",
+      "fr_FR": "Cruise Summary Reports"
+    },
+    {
+      "en_GB": "CSDGM Extensions for Remote Sensing Metadata",
+      "fr_FR": "CSDGM Extensions for Remote Sensing Metadata"
+    },
+    {
+      "en_GB": "Darwin Core Geospatial Extension",
+      "fr_FR": "Darwin Core Geospatial Extension"
+    },
+    {
+      "en_GB": "Dryad Metadata Application Profile",
+      "fr_FR": "Dryad Metadata Application Profile"
+    },
+    {
+      "en_GB": "DwC Germplasm",
+      "fr_FR": "DwC Germplasm"
+    },
+    {
+      "en_GB": "eBank UK Metadata Application Profile",
+      "fr_FR": "eBank UK Metadata Application Profile"
+    },
+    {
+      "en_GB": "EDMED Metadata Profile",
+      "fr_FR": "EDMED Metadata Profile"
+    },
+    {
+      "en_GB": "FGDC/CSDGM Biological Data Profile",
+      "fr_FR": "FGDC/CSDGM Biological Data Profile"
+    },
+    {
+      "en_GB": "FITS World Coordinate System (WCS)",
+      "fr_FR": "FITS World Coordinate System (WCS)"
+    },
+    {
+      "en_GB": "GBIF Metadata Profile",
+      "fr_FR": "GBIF Metadata Profile"
+    },
+    {
+      "en_GB": "GESMES/TS (Generic Statistical Message for Time Series)",
+      "fr_FR": "GESMES/TS (Generic Statistical Message for Time Series)"
+    },
+    {
+      "en_GB": "GSIM (Generic Statistical Information Model)",
+      "fr_FR": "GSIM (Generic Statistical Information Model)"
+    },
+    {
+      "en_GB": "HISPID (Herbarium Information Standards and Protocols for Interchange of Data)",
+      "fr_FR": "HISPID (Herbarium Information Standards and Protocols for Interchange of Data)"
+    },
+    {
+      "en_GB": "IMPEx Data Model",
+      "fr_FR": "IMPEx Data Model"
+    },
+    {
+      "en_GB": "INSPIRE Metadata Regulation",
+      "fr_FR": "INSPIRE Metadata Regulation"
+    },
+    {
+      "en_GB": "ISA-TAB Nano",
+      "fr_FR": "ISA-TAB Nano"
+    },
+    {
+      "en_GB": "isaconfig-diXa",
+      "fr_FR": "isaconfig-diXa"
+    },
+    {
+      "en_GB": "ISO 19115-2 - Imagery and gridded data",
+      "fr_FR": "ISO 19115-2 - Imagery and gridded data"
+    },
+    {
+      "en_GB": "ISO 19115 North American Profile",
+      "fr_FR": "ISO 19115 North American Profile"
+    },
+    {
+      "en_GB": "Marine Community Profile",
+      "fr_FR": "Marine Community Profile"
+    },
+    {
+      "en_GB": "MIBBI Portal",
+      "fr_FR": "MIBBI Portal"
+    },
+    {
+      "en_GB": "OME-TIFF (Open Microscopy Environment TIFF)",
+      "fr_FR": "OME-TIFF (Open Microscopy Environment TIFF)"
+    },
+    {
+      "en_GB": "Resource Metadata for the Virtual Observatory",
+      "fr_FR": "Resource Metadata for the Virtual Observatory"
+    },
+    {
+      "en_GB": "Shoreline Metadata Profile",
+      "fr_FR": "Shoreline Metadata Profile"
+    },
+    {
+      "en_GB": "SNRNASM ISA-Tab",
+      "fr_FR": "SNRNASM ISA-Tab"
+    },
+    {
+      "en_GB": "Tabular Data Package",
+      "fr_FR": "Tabular Data Package"
+    },
+    {
+      "en_GB": "TIDCC (Towards an International Data Commons for Crystallography)",
+      "fr_FR": "TIDCC (Towards an International Data Commons for Crystallography)"
+    },
+    {
+      "en_GB": "UK AGMAP (Academic Geospatial Metadata Application Profile)",
+      "fr_FR": "UK AGMAP (Academic Geospatial Metadata Application Profile)"
+    },
+    {
+      "en_GB": "UK Gemini",
+      "fr_FR": "UK Gemini"
+    },
+    {
+      "en_GB": "USGIN (US Geoscience Information Network) Metadata Profile",
+      "fr_FR": "USGIN (US Geoscience Information Network) Metadata Profile"
+    },
+    {
+      "en_GB": "VarioML",
+      "fr_FR": "VarioML"
+    },
+    {
+      "en_GB": "WaterML",
+      "fr_FR": "WaterML"
+    },
+    {
+      "en_GB": "WMO Core Metadata Profile",
+      "fr_FR": "WMO Core Metadata Profile"
+    },
+    {
+      "en_GB": "EURISCO Descriptors",
+      "fr_FR": "EURISCO Descriptors"
+    },
+    {
+      "en_GB": "IDF (International DOI Foundation) Metadata Kernel",
+      "fr_FR": "IDF (International DOI Foundation) Metadata Kernel"
+    },
+    {
+      "en_GB": "IGSN, International GeoSample Number",
+      "fr_FR": "IGSN, International GeoSample Number"
+    },
+    {
+      "en_GB": "MAGE-TAB",
+      "fr_FR": "MAGE-TAB"
+    },
+    {
+      "en_GB": "MARC (Machine-Readable Cataloging)",
+      "fr_FR": "MARC (Machine-Readable Cataloging)"
+    },
+    {
+      "en_GB": "NetCDF Attribute Convention for Dataset Discovery",
+      "fr_FR": "NetCDF Attribute Convention for Dataset Discovery"
+    },
+    {
+      "en_GB": "ODAM Structural Metadata, Open Data for Access and Mining Structural Metadata",
+      "fr_FR": "ODAM Structural Metadata, Open Data for Access and Mining Structural Metadata"
+    },
+    {
+      "en_GB": "OECD Dataset Metadata",
+      "fr_FR": "OECD Dataset Metadata"
+    },
+    {
+      "en_GB": "OECD Minimum Data Set",
+      "fr_FR": "OECD Minimum Data Set"
+    },
+    {
+      "en_GB": "OpenAIRE Guidelines",
+      "fr_FR": "OpenAIRE Guidelines"
+    },
+    {
+      "en_GB": "CEDAR Template Model",
+      "fr_FR": "CEDAR Template Model"
+    },
+    {
+      "en_GB": "JSON-LD (JavaScript Object Notation for Linked Data)",
+      "fr_FR": "JSON-LD (JavaScript Object Notation for Linked Data)"
+    },
+    {
+      "en_GB": "EAD (Encoded Archival Description)",
+      "fr_FR": "EAD (Encoded Archival Description)"
+    },
+    {
+      "en_GB": "MODS (Metadata Object Description Schema)",
+      "fr_FR": "MODS (Metadata Object Description Schema)"
+    },
+    {
+      "en_GB": "RIF-CS (Registry Interchange Format – Collections and Services)",
+      "fr_FR": "RIF-CS (Registry Interchange Format – Collections and Services)"
+    },
+    {
+      "en_GB": "TEI (Text Encoding Initiative) Guidelines",
+      "fr_FR": "TEI (Text Encoding Initiative) Guidelines"
+    },
+    {
+      "en_GB": "EngMeta",
+      "fr_FR": "EngMeta"
+    },
+    {
+      "en_GB": "schema.org",
+      "fr_FR": "schema.org"
+    },
+    {
+      "en_GB": "RO-Crate",
+      "fr_FR": "RO-Crate"
+    }
+  ]
+}

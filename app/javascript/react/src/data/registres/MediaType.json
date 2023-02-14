@@ -1,0 +1,207 @@
+{
+    "MediaType": [
+        {
+            "label": {
+                "fr_FR": "aac",
+                "en_GB": "aac"
+            },
+            "value": "audio/aac"
+        },
+        {
+            "label": {
+                "fr_FR": "csv",
+                "en_GB": "csv"
+            },
+            "value": "text/csv"
+        },
+        {
+            "label": {
+                "fr_FR": "doc",
+                "en_GB": "doc"
+            },
+            "value": "application/msword"
+        },
+        {
+            "label": {
+                "fr_FR": "docx",
+                "en_GB": "docx"
+            },
+            "value": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        },
+        {
+            "label": {
+                "fr_FR": "gif",
+                "en_GB": "gi"
+            },
+            "value": "image/gif"
+        },
+        {
+            "label": {
+                "fr_FR": "html",
+                "en_GB": "html"
+            },
+            "value": "text/html"
+        },
+        {
+            "label": {
+                "fr_FR": "jpeg",
+                "en_GB": "jpeg"
+            },
+            "value": "image/JPEG"
+        },
+        {
+            "label": {
+                "fr_FR": "js",
+                "en_GB": "js"
+            },
+            "value": "application/javascript"
+        },
+        {
+            "label": {
+                "fr_FR": "json",
+                "en_GB": "json"
+            },
+            "value": "application/json"
+        },
+        {
+            "label": {
+                "fr_FR": "markdown",
+                "en_GB": "markdown"
+            },
+            "value": "text/markdown"
+        },
+        {
+            "label": {
+                "fr_FR": "mpeg",
+                "en_GB": "mpeg"
+            },
+            "value": "video/mpeg4-generic"
+        },
+        {
+            "label": {
+                "fr_FR": "mp4",
+                "en_GB": "mp4"
+            },
+            "value": "video/mp4"
+        },
+        {
+            "label": {
+                "fr_FR": "ods",
+                "en_GB": "ods"
+            },
+            "value": "application/vnd.oasis.opendocument.spreadsheet"
+        },
+        {
+            "label": {
+                "fr_FR": "odt",
+                "en_GB": "odt"
+            },
+            "value": "aapplication/vnd.oasis.opendocument.text"
+        },
+        {
+            "label": {
+                "fr_FR": "png",
+                "en_GB": "png"
+            },
+            "value": "image/png"
+        },
+        {
+            "label": {
+                "fr_FR": "pdf",
+                "en_GB": "pdf"
+            },
+            "value": "application/pdf"
+        },
+        {
+            "label": {
+                "fr_FR": "ppt",
+                "en_GB": "ppt"
+            },
+            "value": "application/vnd.ms-powerpoint"
+        },
+        {
+            "label": {
+                "fr_FR": "pptx",
+                "en_GB": "pptx"
+            },
+            "value": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        },
+        {
+            "label": {
+                "fr_FR": "quicktime",
+                "en_GB": "quicktime"
+            },
+            "value": "video/quicktime"
+        },
+        {
+            "label": {
+                "fr_FR": "rar",
+                "en_GB": "rar"
+            },
+            "value": "application/vnd.rar"
+        },
+        {
+            "label": {
+                "fr_FR": "rtf",
+                "en_GB": "rtf"
+            },
+            "value": "application/rtf"
+        },
+        {
+            "label": {
+                "fr_FR": "svg",
+                "en_GB": "svg"
+            },
+            "value": "image/svg+xml"
+        },
+        {
+            "label": {
+                "fr_FR": "tif, tiff",
+                "en_GB": "tif, tiff"
+            },
+            "value": "image/tiff"
+        },
+        {
+            "label": {
+                "fr_FR": "svg",
+                "en_GB": "svg"
+            },
+            "value": "image/svg+xml"
+        },
+        {
+            "label": {
+                "fr_FR": "xhtml",
+                "en_GB": "xhtml"
+            },
+            "value": "application/xhtml+xml"
+        },
+        {
+            "label": {
+                "fr_FR": "xls",
+                "en_GB": "xls"
+            },
+            "value": "application/vnd.ms-excel"
+        },
+        {
+            "label": {
+                "fr_FR": "xlsx",
+                "en_GB": "xlsx"
+            },
+            "value": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        },
+        {
+            "label": {
+                "fr_FR": "xml",
+                "en_GB": "xml"
+            },
+            "value": "application/xml"
+        },
+        {
+            "label": {
+                "fr_FR": "zip",
+                "en_GB": "zip"
+            },
+            "value": "application/zip"
+        }
+    ]
+}

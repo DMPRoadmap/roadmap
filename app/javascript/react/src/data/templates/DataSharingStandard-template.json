@@ -1,0 +1,136 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataSharingStandard",
+    "description": "DataSharingStandard template",
+    "type": "object",
+    "class": "DataSharingStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Aspects relatifs au partage des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Modalités de partage",
+            "label@en_GB": "Modalities of sharing",
+            "form_label@fr_FR": "Décrire les modalités de partage",
+            "form_label@en_GB": "Describe the modalities of sharing"
+        },
+        "reusability": {
+            "type": "string",
+            "description": "Potentiel de réutilisation des données et/ou limites de réutilisation",
+            "label@fr_FR": "Potentiel de réutilisation",
+            "label@en_GB": "Reusability",
+            "tooltip@fr_FR": "Potentiel et/ou limite de réutilisation",
+            "tooltip@en_GB": "Potential and/or limits of data resusability",
+            "example@fr_FR": "Réutilisation pour de futures recherches ou d’autres finalités (enseignement, innovation, reproduction/transparence de la science)",
+            "example@en_GB": "Reuse for future research or other purposes (education, innovation, reproduction/transparency of science, etc.)",
+            "form_label@fr_FR": "Potentiel de réutilisation",
+            "form_label@en_GB": "Reusability"
+        },
+        "host": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "Host",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "HostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Entrepôt ou autre hébergement dans lequel les données seront mises à disposition",
+            "label@fr_FR": "Entrepôt/Catalogue de données",
+            "label@en_GB": "Data repository/catalogs",
+            "inputType": "dropdown",
+            "registry_name": "Repositories",
+            "overridable": true,
+            "substitutable": true,
+            "form_label@fr_FR": "Choisir un entrepôt et/ou un catalogue pour déposer ou exposer les données",
+            "form_label@en_GB": "Choose a data repository / catalog  to deposit or describe the data "
+        },
+        "distribution": {
+            "type": "array",
+            "table_header@fr_FR": "Nom du fichier (Type MIME)",
+            "table_header@en_GB": "File name (MIME type)",
+            "items": {
+                "type": "object",
+                "class": "Distribution",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DistributionStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Distribution physique des données",
+            "label@fr_FR": "Caractéristiques des fichiers déposés",
+            "label@en_GB": "Uploaded files characteristics",
+            "tooltip@fr_FR": "Un ensemble de données peut être composé de plusieurs fichiers, disponibles sous différents formats",
+            "tooltip@en_GB": "A dataset can be composed of several files, available in different formats",
+            "form_label@fr_FR": "Décrire chaque fichier et ses caractéristiques",
+            "form_label@en_GB": "Describe each file and its characteristics"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataSharingManager",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) impliquée(s) dans la mise à disposition des données",
+            "label@fr_FR": "Responsables du depôt et de la diffusion des données",
+            "label@en_GB": "Persons in charge of data deposition and diffusion",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Responsables du dépôt et de la diffusion des données",
+            "form_label@en_GB": "Persons in charge of data deposition and diffusion"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés au dépôt des données dans un entrepôt",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "form_label@fr_FR": "Coûts liés au partage des données",
+            "form_label@en_GB": "Data sharing associated costs"
+        }
+    },
+    "required": [
+        "description",
+        "distribution"
+    ],
+    "to_string": []
+}

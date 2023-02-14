@@ -1,0 +1,202 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "../Documentation/Implementation/data_model/Json/",
+  "title": "MetaStandard",
+  "description": "MetaStandard template",
+  "type": "object",
+  "class": "MetaStandard",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Titre du plan de gestion de données",
+      "label@fr_FR": "Titre du plan",
+      "label@en_GB": "Plan title",
+      "tooltip@fr_FR": "Titre généré automatiquement à partir du titre du projet. Il est modifiable. Titre affiché dans le tableau de bord",
+      "tooltip@en_GB": "Title generated automatically from the project title. It can be modified. Title displayed in the dashboard",
+      "form_label@fr_FR": "* Titre du plan",
+      "form_label@en_GB": "* Plan title"
+    },
+    "deliverableNumber": {
+      "type": "string",
+      "description": "Numéro du livrable auquel est rattaché le DMP",
+      "label@fr_FR": "Livrable",
+      "label@en_GB": "Deliverable",
+      "tooltip@fr_FR": "Indiquer si besoin le numéro de livrable correspondant au DMP",
+      "tooltip@en_GB": "Indicate if necessary the deliverable number corresponding to the DMP",
+      "example@fr_FR": "Livrable D8.2",
+      "example@en_GB": "Deliverable D8.2",
+      "form_label@fr_FR": "Numéro du livrable",
+      "form_label@en_GB": "Deliverable number"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version du DMP",
+      "inputType": "dropdown",
+      "label@fr_FR": "Version",
+      "label@en_GB": "Version",
+      "registry_name": "DMPVersion",
+      "overridable": true,
+      "form_label@fr_FR": "Version du DMP",
+      "form_label@en_GB": "DMP version"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description de la portée du plan de gestion",
+      "inputType": "textarea",
+      "label@fr_FR": "Objet/périmètre du plan",
+      "label@en_GB": "Plan purpose/scope",
+      "tooltip@fr_FR": "Décrire brièvement le contexte et l'objectif du DMP, la structure du document ainsi que ses relations avec les autres livrables.",
+      "tooltip@en_GB": "Briefly describe the context and purpose of the DMP, the structure of the document and its relationship to other deliverables.",
+      "form_label@fr_FR": "Objet/périmètre du plan et ses relations avec les autres livrables",
+      "form_label@en_GB": "Plan purpose/scope and its relation to other deliverables"
+    },
+    "dmpKeyword": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Mo(s)-clé(s) issu(s) de la classification de l'OCDE (Field of science and technology)",
+      "inputType": "dropdown",
+      "label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
+      "label@en_GB": "Fields of science and technology (from OECD classification)",
+      "registry_name": "ClassificationOCDE",
+      "form_label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
+      "form_label@en_GB": "Fields of science and technology (from OECD classification)"
+    },
+    "dmpLanguage": {
+      "type": "string",
+      "length": "3",
+      "description": "Langue utilisée pour rédiger le DMP",
+      "inputType": "dropdown",
+      "label@fr_FR": "Langue",
+      "label@en_GB": "Language",
+      "registry_name": "ISO639-3",
+      "form_label@fr_FR": "* Langue de rédaction du plan",
+      "form_label@en_GB": "* Language in which the plan is drafted"
+    },
+    "contact": {
+      "type": "object",
+      "class": "Contributor",
+      "properties": {
+        "dbid": {
+          "type": "number"
+        }
+      },
+      "template_name": "DMPCoordinator",
+      "required": ["dbid"],
+      "description": "Personne responsable de la réalisation et suivi du plan de gestion de données",
+      "label@fr_FR": "Responsable du plan",
+      "label@en_GB": "DMP manager",
+      "tooltip@fr_FR": "Personne qui coordonne la planification de la gestion des données, aussi appelée auteur ou responsable du DMP. Par défaut, la personne qui crée le DMP sur DMP OPIDoR",
+      "tooltip@en_GB": "Person who coordinates data management planning, also called DMP author or manager. By default, the person who creates the DMP with DMP OPIDoR",
+      "form_label@fr_FR": "* Responsable du plan",
+      "form_label@en_GB": "* DMP manager"
+    },
+    "creationDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date de création du DMP",
+      "label@fr_FR": "Date de création",
+      "label@en_GB": "Creation date",
+      "hidden": true,
+      "form_label@fr_FR": "* Date de création",
+      "form_label@en_GB": "* Creation date"
+    },
+    "lastModifiedDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date de dernière modification du DMP",
+      "label@fr_FR": "Date de dernière modification",
+      "label@en_GB": "Last modification date",
+      "hidden": true,
+      "form_label@fr_FR": "* Date de dernière modification",
+      "form_label@en_GB": "* Last modification date"
+    },
+    "dmpId": {
+      "type": "string",
+      "description": "Identifiant pérenne attribué au plan de gestion de données",
+      "label@fr_FR": "Identifiant",
+      "label@en_GB": "Identifier",
+      "tooltip@fr_FR": "Indiquer l’identifiant du plan après son éventuelle publication ou dépôt dans une archive",
+      "tooltip@en_GB": "Provide the plan ID after possible publishing or deposit in an archive",
+      "form_label@fr_FR": "* Identifiant du plan",
+      "form_label@en_GB": "* Plan identifier"
+    },
+    "idType": {
+      "type": "string",
+      "description": "Type d'identifiant ressource",
+      "inputType": "dropdown",
+      "label@fr_FR": "Type d'identifiant",
+      "label@en_GB": "Identifier type",
+      "registry_name": "PIDSystem",
+      "overridable": true,
+      "form_label@fr_FR": "* Type d'identifiant",
+      "form_label@en_GB": "* Identifier type"
+    },
+    "license": {
+      "type": "object",
+      "class": "License",
+      "properties": {
+        "dbid": {
+          "type": "number"
+        }
+      },
+      "template_name": "LicenseStandard",
+      "required": ["dbid"],
+      "description": "Licence apposée au plan de gestion de données pour faciliter la réutilisation de son contenu",
+      "label@fr_FR": "Licence",
+      "label@en_GB": "License",
+      "inputType": "dropdown",
+      "registry_name": "DMPLicenses",
+      "overridable": true,
+      "form_label@fr_FR": "Licence du plan",
+      "form_label@en_GB": "Plan license"
+    },
+    "relatedDoc": {
+      "type": "array",
+      "table_header": null,
+      "items": {
+        "type": "object",
+        "class": "ResourceReference",
+        "properties": {
+          "dbid": {
+            "type": "number"
+          }
+        },
+        "template_name": "ResourceReferenceStandard",
+        "required": ["dbid"]
+      },
+      "description": "Références de documents éventuels à relier au plan de gestion de données (ex publications)",
+      "label@fr_FR": "Documents (publications, rapports, brevets, plan expérimental….), sites web associés",
+      "label@en_GB": "Associated documents (publications,reports, patents, experimental plan...), website",
+      "tooltip@fr_FR": "Indiquer les documents (publications, rapports, brevets, plan expérimental….) ou sites web à relier au plan de gestion de données ",
+      "tooltip@en_GB": "Provide the documents (publications,reports, patents, experimental plan...) and websites associated with the DMP ",
+      "form_label@fr_FR": "Lister les documents (publications, rapports, brevets, plan expérimental….), sites web associés au plan ",
+      "form_label@en_GB": "List the documents (publications,reports, patents, experimental plan...), website associated with the DMP "
+    },
+    "associatedDmp": {
+      "type": "array",
+      "table_header": null,
+      "items": {
+        "type": "object",
+        "class": "ResourceReference",
+        "properties": {
+          "dbid": {
+            "type": "number"
+          }
+        },
+        "template_name": "ResourceReferenceStandard",
+        "required": ["dbid"]
+      },
+      "description": "Autres plans de gestion de données en lien avec le projet, rédigés par exemple pour être autorisé à utiliser une resourceTechniques",
+      "label@fr_FR": "Plans de gestion en lien avec le projet",
+      "label@en_GB": "Management plans related to the project",
+      "tooltip@fr_FR": "Indiquer les plans de gestion de données en lien avec le projet",
+      "tooltip@en_GB": "Provide the other DMPs associated with the project",
+      "form_label@fr_FR": "Lister les autres plans de gestion en lien avec le projet",
+      "form_label@en_GB": "List the other management plans related to the project"
+    }
+  },
+  "required": ["title", "dmpLanguage", "contact", "creationDate", "lastModifiedDate"],
+  "to_string": []
+}

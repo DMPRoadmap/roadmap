@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "TechnicalResourceStandard",
+    "description": "TechnicalResourceStandard template",
+    "type": "object",
+    "class": "TechnicalResourceStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Intitulé de la resource technique",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "form_label@fr_FR": "Titre",
+            "form_label@en_GB": "Title"
+        },
+        "technicalResourceId": {
+            "type": "string",
+            "description": "Identifiant pérenne ou Url de référence",
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier",
+            "form_label@fr_FR": "Identifiant de la ressource technique",
+            "form_label@en_GB": "Technical resource identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "registry_name": "PIDSystem",
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant de la ressource technique",
+            "form_label@en_GB": "Technical resource identifier type"
+        },
+        "serviceContact": {
+            "type": "string",
+            "description": "Adresse contact d'un service",
+            "label@fr_FR": "Contact",
+            "label@en_GB": "Contact",
+            "form_label@fr_FR": "Adresse de contact du service",
+            "form_label@en_GB": "Contact address of the service"
+        }
+    },
+    "required": [
+        "title",
+        "technicalResourceId",
+        "idType"
+    ],
+    "to_string": [
+        "$.title",
+        " : ",
+        "$.technicalResourceId"
+    ]
+}

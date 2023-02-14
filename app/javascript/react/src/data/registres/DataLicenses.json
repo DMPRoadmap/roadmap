@@ -1,0 +1,3620 @@
+{
+  "DataLicenses": [
+    {
+      "label": {
+        "en_GB": "CC-BY-4.0",
+        "fr_FR": "CC-BY-4.0"
+      },
+      "licenseName": "Creative Commons Attribution 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "etalab-2.0",
+        "fr_FR": "etalab-2.0"
+      },
+      "licenseName": "Etalab Open License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/etalab-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC0-1.0",
+        "fr_FR": "CC0-1.0"
+      },
+      "licenseName": "Creative Commons Zero v1.0 Universal",
+      "licenseUrl": "http://spdx.org/licenses/CC0-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "ODC-By-1.0",
+        "fr_FR": "ODC-By-1.0"
+      },
+      "licenseName": "Open Data Commons Attribution License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/ODC-By-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "ODbL-1.0",
+        "fr_FR": "ODbL-1.0"
+      },
+      "licenseName": "Open Data Commons Open Database License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/ODbL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "PDDL-1.0",
+        "fr_FR": "PDDL-1.0"
+      },
+      "licenseName": "Open Data Commons Public Domain Dedication & License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/PDDL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-4.0",
+        "fr_FR": "CC-BY-NC-4.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-ND-4.0",
+        "fr_FR": "CC-BY-ND-4.0"
+      },
+      "licenseName": "Creative Commons Attribution No Derivatives 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-ND-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-SA-4.0",
+        "fr_FR": "CC-BY-SA-4.0"
+      },
+      "licenseName": "Creative Commons Attribution Share Alike 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-SA-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-ND-4.0",
+        "fr_FR": "CC-BY-NC-ND-4.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-ND-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-SA-4.0",
+        "fr_FR": "CC-BY-NC-SA-4.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial Share Alike 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-SA-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "0BSD",
+        "fr_FR": "0BSD"
+      },
+      "licenseName": "BSD Zero Clause License",
+      "licenseUrl": "http://spdx.org/licenses/0BSD.json"
+    },
+    {
+      "label": {
+        "en_GB": "AAL",
+        "fr_FR": "AAL"
+      },
+      "licenseName": "Attribution Assurance License",
+      "licenseUrl": "http://spdx.org/licenses/AAL.json"
+    },
+    {
+      "label": {
+        "en_GB": "ADSL",
+        "fr_FR": "ADSL"
+      },
+      "licenseName": "Amazon Digital Services License",
+      "licenseUrl": "http://spdx.org/licenses/ADSL.json"
+    },
+    {
+      "label": {
+        "en_GB": "AFL-1.1",
+        "fr_FR": "AFL-1.1"
+      },
+      "licenseName": "Academic Free License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/AFL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "AFL-1.2",
+        "fr_FR": "AFL-1.2"
+      },
+      "licenseName": "Academic Free License v1.2",
+      "licenseUrl": "http://spdx.org/licenses/AFL-1.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "AFL-2.0",
+        "fr_FR": "AFL-2.0"
+      },
+      "licenseName": "Academic Free License v2.0",
+      "licenseUrl": "http://spdx.org/licenses/AFL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "AFL-2.1",
+        "fr_FR": "AFL-2.1"
+      },
+      "licenseName": "Academic Free License v2.1",
+      "licenseUrl": "http://spdx.org/licenses/AFL-2.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "AFL-3.0",
+        "fr_FR": "AFL-3.0"
+      },
+      "licenseName": "Academic Free License v3.0",
+      "licenseUrl": "http://spdx.org/licenses/AFL-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "AGPL-1.0",
+        "fr_FR": "AGPL-1.0"
+      },
+      "licenseName": "Affero General Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/AGPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "AGPL-1.0-only",
+        "fr_FR": "AGPL-1.0-only"
+      },
+      "licenseName": "Affero General Public License v1.0 only",
+      "licenseUrl": "http://spdx.org/licenses/AGPL-1.0-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "AGPL-1.0-or-later",
+        "fr_FR": "AGPL-1.0-or-later"
+      },
+      "licenseName": "Affero General Public License v1.0 or later",
+      "licenseUrl": "http://spdx.org/licenses/AGPL-1.0-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "AGPL-3.0",
+        "fr_FR": "AGPL-3.0"
+      },
+      "licenseName": "GNU Affero General Public License v3.0",
+      "licenseUrl": "http://spdx.org/licenses/AGPL-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "AGPL-3.0-only",
+        "fr_FR": "AGPL-3.0-only"
+      },
+      "licenseName": "GNU Affero General Public License v3.0 only",
+      "licenseUrl": "http://spdx.org/licenses/AGPL-3.0-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "AGPL-3.0-or-later",
+        "fr_FR": "AGPL-3.0-or-later"
+      },
+      "licenseName": "GNU Affero General Public License v3.0 or later",
+      "licenseUrl": "http://spdx.org/licenses/AGPL-3.0-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "AMDPLPA",
+        "fr_FR": "AMDPLPA"
+      },
+      "licenseName": "AMD's plpa_map.c License",
+      "licenseUrl": "http://spdx.org/licenses/AMDPLPA.json"
+    },
+    {
+      "label": {
+        "en_GB": "AML",
+        "fr_FR": "AML"
+      },
+      "licenseName": "Apple MIT License",
+      "licenseUrl": "http://spdx.org/licenses/AML.json"
+    },
+    {
+      "label": {
+        "en_GB": "AMPAS",
+        "fr_FR": "AMPAS"
+      },
+      "licenseName": "Academy of Motion Picture Arts and Sciences BSD",
+      "licenseUrl": "http://spdx.org/licenses/AMPAS.json"
+    },
+    {
+      "label": {
+        "en_GB": "ANTLR-PD",
+        "fr_FR": "ANTLR-PD"
+      },
+      "licenseName": "ANTLR Software Rights Notice",
+      "licenseUrl": "http://spdx.org/licenses/ANTLR-PD.json"
+    },
+    {
+      "label": {
+        "en_GB": "ANTLR-PD-fallback",
+        "fr_FR": "ANTLR-PD-fallback"
+      },
+      "licenseName": "ANTLR Software Rights Notice with license fallback",
+      "licenseUrl": "http://spdx.org/licenses/ANTLR-PD-fallback.json"
+    },
+    {
+      "label": {
+        "en_GB": "APAFML",
+        "fr_FR": "APAFML"
+      },
+      "licenseName": "Adobe Postscript AFM License",
+      "licenseUrl": "http://spdx.org/licenses/APAFML.json"
+    },
+    {
+      "label": {
+        "en_GB": "APL-1.0",
+        "fr_FR": "APL-1.0"
+      },
+      "licenseName": "Adaptive Public License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/APL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "APSL-1.0",
+        "fr_FR": "APSL-1.0"
+      },
+      "licenseName": "Apple Public Source License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/APSL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "APSL-1.1",
+        "fr_FR": "APSL-1.1"
+      },
+      "licenseName": "Apple Public Source License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/APSL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "APSL-1.2",
+        "fr_FR": "APSL-1.2"
+      },
+      "licenseName": "Apple Public Source License 1.2",
+      "licenseUrl": "http://spdx.org/licenses/APSL-1.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "APSL-2.0",
+        "fr_FR": "APSL-2.0"
+      },
+      "licenseName": "Apple Public Source License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/APSL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Abstyles",
+        "fr_FR": "Abstyles"
+      },
+      "licenseName": "Abstyles License",
+      "licenseUrl": "http://spdx.org/licenses/Abstyles.json"
+    },
+    {
+      "label": {
+        "en_GB": "Adobe-2006",
+        "fr_FR": "Adobe-2006"
+      },
+      "licenseName": "Adobe Systems Incorporated Source Code License Agreement",
+      "licenseUrl": "http://spdx.org/licenses/Adobe-2006.json"
+    },
+    {
+      "label": {
+        "en_GB": "Adobe-Glyph",
+        "fr_FR": "Adobe-Glyph"
+      },
+      "licenseName": "Adobe Glyph List License",
+      "licenseUrl": "http://spdx.org/licenses/Adobe-Glyph.json"
+    },
+    {
+      "label": {
+        "en_GB": "Afmparse",
+        "fr_FR": "Afmparse"
+      },
+      "licenseName": "Afmparse License",
+      "licenseUrl": "http://spdx.org/licenses/Afmparse.json"
+    },
+    {
+      "label": {
+        "en_GB": "Aladdin",
+        "fr_FR": "Aladdin"
+      },
+      "licenseName": "Aladdin Free Public License",
+      "licenseUrl": "http://spdx.org/licenses/Aladdin.json"
+    },
+    {
+      "label": {
+        "en_GB": "Apache-1.0",
+        "fr_FR": "Apache-1.0"
+      },
+      "licenseName": "Apache License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/Apache-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Apache-1.1",
+        "fr_FR": "Apache-1.1"
+      },
+      "licenseName": "Apache License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/Apache-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "Apache-2.0",
+        "fr_FR": "Apache-2.0"
+      },
+      "licenseName": "Apache License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/Apache-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Artistic-1.0",
+        "fr_FR": "Artistic-1.0"
+      },
+      "licenseName": "Artistic License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/Artistic-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Artistic-1.0-Perl",
+        "fr_FR": "Artistic-1.0-Perl"
+      },
+      "licenseName": "Artistic License 1.0 (Perl)",
+      "licenseUrl": "http://spdx.org/licenses/Artistic-1.0-Perl.json"
+    },
+    {
+      "label": {
+        "en_GB": "Artistic-1.0-cl8",
+        "fr_FR": "Artistic-1.0-cl8"
+      },
+      "licenseName": "Artistic License 1.0 w/clause 8",
+      "licenseUrl": "http://spdx.org/licenses/Artistic-1.0-cl8.json"
+    },
+    {
+      "label": {
+        "en_GB": "Artistic-2.0",
+        "fr_FR": "Artistic-2.0"
+      },
+      "licenseName": "Artistic License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/Artistic-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-1-Clause",
+        "fr_FR": "BSD-1-Clause"
+      },
+      "licenseName": "BSD 1-Clause License",
+      "licenseUrl": "http://spdx.org/licenses/BSD-1-Clause.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-2-Clause",
+        "fr_FR": "BSD-2-Clause"
+      },
+      "licenseName": "BSD 2-Clause \"Simplified\" License",
+      "licenseUrl": "http://spdx.org/licenses/BSD-2-Clause.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-2-Clause-FreeBSD",
+        "fr_FR": "BSD-2-Clause-FreeBSD"
+      },
+      "licenseName": "BSD 2-Clause FreeBSD License",
+      "licenseUrl": "http://spdx.org/licenses/BSD-2-Clause-FreeBSD.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-2-Clause-NetBSD",
+        "fr_FR": "BSD-2-Clause-NetBSD"
+      },
+      "licenseName": "BSD 2-Clause NetBSD License",
+      "licenseUrl": "http://spdx.org/licenses/BSD-2-Clause-NetBSD.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-2-Clause-Patent",
+        "fr_FR": "BSD-2-Clause-Patent"
+      },
+      "licenseName": "BSD-2-Clause Plus Patent License",
+      "licenseUrl": "http://spdx.org/licenses/BSD-2-Clause-Patent.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-2-Clause-Views",
+        "fr_FR": "BSD-2-Clause-Views"
+      },
+      "licenseName": "BSD 2-Clause with views sentence",
+      "licenseUrl": "http://spdx.org/licenses/BSD-2-Clause-Views.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-3-Clause",
+        "fr_FR": "BSD-3-Clause"
+      },
+      "licenseName": "BSD 3-Clause \"New\" or \"Revised\" License",
+      "licenseUrl": "http://spdx.org/licenses/BSD-3-Clause.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-3-Clause-Attribution",
+        "fr_FR": "BSD-3-Clause-Attribution"
+      },
+      "licenseName": "BSD with attribution",
+      "licenseUrl": "http://spdx.org/licenses/BSD-3-Clause-Attribution.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-3-Clause-Clear",
+        "fr_FR": "BSD-3-Clause-Clear"
+      },
+      "licenseName": "BSD 3-Clause Clear License",
+      "licenseUrl": "http://spdx.org/licenses/BSD-3-Clause-Clear.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-3-Clause-LBNL",
+        "fr_FR": "BSD-3-Clause-LBNL"
+      },
+      "licenseName": "Lawrence Berkeley National Labs BSD variant license",
+      "licenseUrl": "http://spdx.org/licenses/BSD-3-Clause-LBNL.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-3-Clause-No-Nuclear-License",
+        "fr_FR": "BSD-3-Clause-No-Nuclear-License"
+      },
+      "licenseName": "BSD 3-Clause No Nuclear License",
+      "licenseUrl": "http://spdx.org/licenses/BSD-3-Clause-No-Nuclear-License.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-3-Clause-No-Nuclear-License-2014",
+        "fr_FR": "BSD-3-Clause-No-Nuclear-License-2014"
+      },
+      "licenseName": "BSD 3-Clause No Nuclear License 2014",
+      "licenseUrl": "http://spdx.org/licenses/BSD-3-Clause-No-Nuclear-License-2014.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-3-Clause-No-Nuclear-Warranty",
+        "fr_FR": "BSD-3-Clause-No-Nuclear-Warranty"
+      },
+      "licenseName": "BSD 3-Clause No Nuclear Warranty",
+      "licenseUrl": "http://spdx.org/licenses/BSD-3-Clause-No-Nuclear-Warranty.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-3-Clause-Open-MPI",
+        "fr_FR": "BSD-3-Clause-Open-MPI"
+      },
+      "licenseName": "BSD 3-Clause Open MPI variant",
+      "licenseUrl": "http://spdx.org/licenses/BSD-3-Clause-Open-MPI.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-4-Clause",
+        "fr_FR": "BSD-4-Clause"
+      },
+      "licenseName": "BSD 4-Clause \"Original\" or \"Old\" License",
+      "licenseUrl": "http://spdx.org/licenses/BSD-4-Clause.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-4-Clause-Shortened",
+        "fr_FR": "BSD-4-Clause-Shortened"
+      },
+      "licenseName": "BSD 4 Clause Shortened",
+      "licenseUrl": "http://spdx.org/licenses/BSD-4-Clause-Shortened.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-4-Clause-UC",
+        "fr_FR": "BSD-4-Clause-UC"
+      },
+      "licenseName": "BSD-4-Clause (University of California-Specific)",
+      "licenseUrl": "http://spdx.org/licenses/BSD-4-Clause-UC.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-Protection",
+        "fr_FR": "BSD-Protection"
+      },
+      "licenseName": "BSD Protection License",
+      "licenseUrl": "http://spdx.org/licenses/BSD-Protection.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSD-Source-Code",
+        "fr_FR": "BSD-Source-Code"
+      },
+      "licenseName": "BSD Source Code Attribution",
+      "licenseUrl": "http://spdx.org/licenses/BSD-Source-Code.json"
+    },
+    {
+      "label": {
+        "en_GB": "BSL-1.0",
+        "fr_FR": "BSL-1.0"
+      },
+      "licenseName": "Boost Software License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/BSL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "BUSL-1.1",
+        "fr_FR": "BUSL-1.1"
+      },
+      "licenseName": "Business Source License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/BUSL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "Bahyph",
+        "fr_FR": "Bahyph"
+      },
+      "licenseName": "Bahyph License",
+      "licenseUrl": "http://spdx.org/licenses/Bahyph.json"
+    },
+    {
+      "label": {
+        "en_GB": "Barr",
+        "fr_FR": "Barr"
+      },
+      "licenseName": "Barr License",
+      "licenseUrl": "http://spdx.org/licenses/Barr.json"
+    },
+    {
+      "label": {
+        "en_GB": "Beerware",
+        "fr_FR": "Beerware"
+      },
+      "licenseName": "Beerware License",
+      "licenseUrl": "http://spdx.org/licenses/Beerware.json"
+    },
+    {
+      "label": {
+        "en_GB": "BitTorrent-1.0",
+        "fr_FR": "BitTorrent-1.0"
+      },
+      "licenseName": "BitTorrent Open Source License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/BitTorrent-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "BitTorrent-1.1",
+        "fr_FR": "BitTorrent-1.1"
+      },
+      "licenseName": "BitTorrent Open Source License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/BitTorrent-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "BlueOak-1.0.0",
+        "fr_FR": "BlueOak-1.0.0"
+      },
+      "licenseName": "Blue Oak Model License 1.0.0",
+      "licenseUrl": "http://spdx.org/licenses/BlueOak-1.0.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Borceux",
+        "fr_FR": "Borceux"
+      },
+      "licenseName": "Borceux license",
+      "licenseUrl": "http://spdx.org/licenses/Borceux.json"
+    },
+    {
+      "label": {
+        "en_GB": "CAL-1.0",
+        "fr_FR": "CAL-1.0"
+      },
+      "licenseName": "Cryptographic Autonomy License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/CAL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CAL-1.0-Combined-Work-Exception",
+        "fr_FR": "CAL-1.0-Combined-Work-Exception"
+      },
+      "licenseName": "Cryptographic Autonomy License 1.0 (Combined Work Exception)",
+      "licenseUrl": "http://spdx.org/licenses/CAL-1.0-Combined-Work-Exception.json"
+    },
+    {
+      "label": {
+        "en_GB": "CATOSL-1.1",
+        "fr_FR": "CATOSL-1.1"
+      },
+      "licenseName": "Computer Associates Trusted Open Source License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/CATOSL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-1.0",
+        "fr_FR": "CC-BY-1.0"
+      },
+      "licenseName": "Creative Commons Attribution 1.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-2.0",
+        "fr_FR": "CC-BY-2.0"
+      },
+      "licenseName": "Creative Commons Attribution 2.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-2.5",
+        "fr_FR": "CC-BY-2.5"
+      },
+      "licenseName": "Creative Commons Attribution 2.5 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-2.5.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-3.0",
+        "fr_FR": "CC-BY-3.0"
+      },
+      "licenseName": "Creative Commons Attribution 3.0 Unported",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-3.0-AT",
+        "fr_FR": "CC-BY-3.0-AT"
+      },
+      "licenseName": "Creative Commons Attribution 3.0 Austria",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-3.0-AT.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-3.0-US",
+        "fr_FR": "CC-BY-3.0-US"
+      },
+      "licenseName": "Creative Commons Attribution 3.0 United States",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-3.0-US.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-1.0",
+        "fr_FR": "CC-BY-NC-1.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial 1.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-2.0",
+        "fr_FR": "CC-BY-NC-2.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial 2.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-2.5",
+        "fr_FR": "CC-BY-NC-2.5"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial 2.5 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-2.5.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-3.0",
+        "fr_FR": "CC-BY-NC-3.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial 3.0 Unported",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-ND-1.0",
+        "fr_FR": "CC-BY-NC-ND-1.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 1.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-ND-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-ND-2.0",
+        "fr_FR": "CC-BY-NC-ND-2.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 2.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-ND-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-ND-2.5",
+        "fr_FR": "CC-BY-NC-ND-2.5"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 2.5 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-ND-2.5.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-ND-3.0",
+        "fr_FR": "CC-BY-NC-ND-3.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 3.0 Unported",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-ND-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-ND-3.0-IGO",
+        "fr_FR": "CC-BY-NC-ND-3.0-IGO"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 3.0 IGO",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-ND-3.0-IGO.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-SA-1.0",
+        "fr_FR": "CC-BY-NC-SA-1.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial Share Alike 1.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-SA-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-SA-2.0",
+        "fr_FR": "CC-BY-NC-SA-2.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial Share Alike 2.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-SA-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-SA-2.5",
+        "fr_FR": "CC-BY-NC-SA-2.5"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial Share Alike 2.5 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-SA-2.5.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-SA-3.0",
+        "fr_FR": "CC-BY-NC-SA-3.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial Share Alike 3.0 Unported",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-SA-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-ND-1.0",
+        "fr_FR": "CC-BY-ND-1.0"
+      },
+      "licenseName": "Creative Commons Attribution No Derivatives 1.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-ND-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-ND-2.0",
+        "fr_FR": "CC-BY-ND-2.0"
+      },
+      "licenseName": "Creative Commons Attribution No Derivatives 2.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-ND-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-ND-2.5",
+        "fr_FR": "CC-BY-ND-2.5"
+      },
+      "licenseName": "Creative Commons Attribution No Derivatives 2.5 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-ND-2.5.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-ND-3.0",
+        "fr_FR": "CC-BY-ND-3.0"
+      },
+      "licenseName": "Creative Commons Attribution No Derivatives 3.0 Unported",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-ND-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-SA-1.0",
+        "fr_FR": "CC-BY-SA-1.0"
+      },
+      "licenseName": "Creative Commons Attribution Share Alike 1.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-SA-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-SA-2.0",
+        "fr_FR": "CC-BY-SA-2.0"
+      },
+      "licenseName": "Creative Commons Attribution Share Alike 2.0 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-SA-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-SA-2.0-UK",
+        "fr_FR": "CC-BY-SA-2.0-UK"
+      },
+      "licenseName": "Creative Commons Attribution Share Alike 2.0 England and Wales",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-SA-2.0-UK.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-SA-2.5",
+        "fr_FR": "CC-BY-SA-2.5"
+      },
+      "licenseName": "Creative Commons Attribution Share Alike 2.5 Generic",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-SA-2.5.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-SA-3.0",
+        "fr_FR": "CC-BY-SA-3.0"
+      },
+      "licenseName": "Creative Commons Attribution Share Alike 3.0 Unported",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-SA-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-SA-3.0-AT",
+        "fr_FR": "CC-BY-SA-3.0-AT"
+      },
+      "licenseName": "Creative Commons Attribution-Share Alike 3.0 Austria",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-SA-3.0-AT.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-PDDC",
+        "fr_FR": "CC-PDDC"
+      },
+      "licenseName": "Creative Commons Public Domain Dedication and Certification",
+      "licenseUrl": "http://spdx.org/licenses/CC-PDDC.json"
+    },
+    {
+      "label": {
+        "en_GB": "CDDL-1.0",
+        "fr_FR": "CDDL-1.0"
+      },
+      "licenseName": "Common Development and Distribution License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/CDDL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CDDL-1.1",
+        "fr_FR": "CDDL-1.1"
+      },
+      "licenseName": "Common Development and Distribution License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/CDDL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "CDLA-Permissive-1.0",
+        "fr_FR": "CDLA-Permissive-1.0"
+      },
+      "licenseName": "Community Data License Agreement Permissive 1.0",
+      "licenseUrl": "http://spdx.org/licenses/CDLA-Permissive-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CDLA-Sharing-1.0",
+        "fr_FR": "CDLA-Sharing-1.0"
+      },
+      "licenseName": "Community Data License Agreement Sharing 1.0",
+      "licenseUrl": "http://spdx.org/licenses/CDLA-Sharing-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CECILL-1.0",
+        "fr_FR": "CECILL-1.0"
+      },
+      "licenseName": "CeCILL Free Software License Agreement v1.0",
+      "licenseUrl": "http://spdx.org/licenses/CECILL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CECILL-1.1",
+        "fr_FR": "CECILL-1.1"
+      },
+      "licenseName": "CeCILL Free Software License Agreement v1.1",
+      "licenseUrl": "http://spdx.org/licenses/CECILL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "CECILL-2.0",
+        "fr_FR": "CECILL-2.0"
+      },
+      "licenseName": "CeCILL Free Software License Agreement v2.0",
+      "licenseUrl": "http://spdx.org/licenses/CECILL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CECILL-2.1",
+        "fr_FR": "CECILL-2.1"
+      },
+      "licenseName": "CeCILL Free Software License Agreement v2.1",
+      "licenseUrl": "http://spdx.org/licenses/CECILL-2.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "CECILL-B",
+        "fr_FR": "CECILL-B"
+      },
+      "licenseName": "CeCILL-B Free Software License Agreement",
+      "licenseUrl": "http://spdx.org/licenses/CECILL-B.json"
+    },
+    {
+      "label": {
+        "en_GB": "CECILL-C",
+        "fr_FR": "CECILL-C"
+      },
+      "licenseName": "CeCILL-C Free Software License Agreement",
+      "licenseUrl": "http://spdx.org/licenses/CECILL-C.json"
+    },
+    {
+      "label": {
+        "en_GB": "CERN-OHL-1.1",
+        "fr_FR": "CERN-OHL-1.1"
+      },
+      "licenseName": "CERN Open Hardware Licence v1.1",
+      "licenseUrl": "http://spdx.org/licenses/CERN-OHL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "CERN-OHL-1.2",
+        "fr_FR": "CERN-OHL-1.2"
+      },
+      "licenseName": "CERN Open Hardware Licence v1.2",
+      "licenseUrl": "http://spdx.org/licenses/CERN-OHL-1.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "CERN-OHL-P-2.0",
+        "fr_FR": "CERN-OHL-P-2.0"
+      },
+      "licenseName": "CERN Open Hardware Licence Version 2 - Permissive",
+      "licenseUrl": "http://spdx.org/licenses/CERN-OHL-P-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CERN-OHL-S-2.0",
+        "fr_FR": "CERN-OHL-S-2.0"
+      },
+      "licenseName": "CERN Open Hardware Licence Version 2 - Strongly Reciprocal",
+      "licenseUrl": "http://spdx.org/licenses/CERN-OHL-S-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CERN-OHL-W-2.0",
+        "fr_FR": "CERN-OHL-W-2.0"
+      },
+      "licenseName": "CERN Open Hardware Licence Version 2 - Weakly Reciprocal",
+      "licenseUrl": "http://spdx.org/licenses/CERN-OHL-W-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CNRI-Jython",
+        "fr_FR": "CNRI-Jython"
+      },
+      "licenseName": "CNRI Jython License",
+      "licenseUrl": "http://spdx.org/licenses/CNRI-Jython.json"
+    },
+    {
+      "label": {
+        "en_GB": "CNRI-Python",
+        "fr_FR": "CNRI-Python"
+      },
+      "licenseName": "CNRI Python License",
+      "licenseUrl": "http://spdx.org/licenses/CNRI-Python.json"
+    },
+    {
+      "label": {
+        "en_GB": "CNRI-Python-GPL-Compatible",
+        "fr_FR": "CNRI-Python-GPL-Compatible"
+      },
+      "licenseName": "CNRI Python Open Source GPL Compatible License Agreement",
+      "licenseUrl": "http://spdx.org/licenses/CNRI-Python-GPL-Compatible.json"
+    },
+    {
+      "label": {
+        "en_GB": "CPAL-1.0",
+        "fr_FR": "CPAL-1.0"
+      },
+      "licenseName": "Common Public Attribution License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/CPAL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CPL-1.0",
+        "fr_FR": "CPL-1.0"
+      },
+      "licenseName": "Common Public License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/CPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CPOL-1.02",
+        "fr_FR": "CPOL-1.02"
+      },
+      "licenseName": "Code Project Open License 1.02",
+      "licenseUrl": "http://spdx.org/licenses/CPOL-1.02.json"
+    },
+    {
+      "label": {
+        "en_GB": "CUA-OPL-1.0",
+        "fr_FR": "CUA-OPL-1.0"
+      },
+      "licenseName": "CUA Office Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/CUA-OPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Caldera",
+        "fr_FR": "Caldera"
+      },
+      "licenseName": "Caldera License",
+      "licenseUrl": "http://spdx.org/licenses/Caldera.json"
+    },
+    {
+      "label": {
+        "en_GB": "ClArtistic",
+        "fr_FR": "ClArtistic"
+      },
+      "licenseName": "Clarified Artistic License",
+      "licenseUrl": "http://spdx.org/licenses/ClArtistic.json"
+    },
+    {
+      "label": {
+        "en_GB": "Condor-1.1",
+        "fr_FR": "Condor-1.1"
+      },
+      "licenseName": "Condor Public License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/Condor-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "Crossword",
+        "fr_FR": "Crossword"
+      },
+      "licenseName": "Crossword License",
+      "licenseUrl": "http://spdx.org/licenses/Crossword.json"
+    },
+    {
+      "label": {
+        "en_GB": "CrystalStacker",
+        "fr_FR": "CrystalStacker"
+      },
+      "licenseName": "CrystalStacker License",
+      "licenseUrl": "http://spdx.org/licenses/CrystalStacker.json"
+    },
+    {
+      "label": {
+        "en_GB": "Cube",
+        "fr_FR": "Cube"
+      },
+      "licenseName": "Cube License",
+      "licenseUrl": "http://spdx.org/licenses/Cube.json"
+    },
+    {
+      "label": {
+        "en_GB": "D-FSL-1.0",
+        "fr_FR": "D-FSL-1.0"
+      },
+      "licenseName": "Deutsche Freie Software Lizenz",
+      "licenseUrl": "http://spdx.org/licenses/D-FSL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "DOC",
+        "fr_FR": "DOC"
+      },
+      "licenseName": "DOC License",
+      "licenseUrl": "http://spdx.org/licenses/DOC.json"
+    },
+    {
+      "label": {
+        "en_GB": "DRL-1.0",
+        "fr_FR": "DRL-1.0"
+      },
+      "licenseName": "Detection Rule License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/DRL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "DSDP",
+        "fr_FR": "DSDP"
+      },
+      "licenseName": "DSDP License",
+      "licenseUrl": "http://spdx.org/licenses/DSDP.json"
+    },
+    {
+      "label": {
+        "en_GB": "Dotseqn",
+        "fr_FR": "Dotseqn"
+      },
+      "licenseName": "Dotseqn License",
+      "licenseUrl": "http://spdx.org/licenses/Dotseqn.json"
+    },
+    {
+      "label": {
+        "en_GB": "ECL-1.0",
+        "fr_FR": "ECL-1.0"
+      },
+      "licenseName": "Educational Community License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/ECL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "ECL-2.0",
+        "fr_FR": "ECL-2.0"
+      },
+      "licenseName": "Educational Community License v2.0",
+      "licenseUrl": "http://spdx.org/licenses/ECL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "EFL-1.0",
+        "fr_FR": "EFL-1.0"
+      },
+      "licenseName": "Eiffel Forum License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/EFL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "EFL-2.0",
+        "fr_FR": "EFL-2.0"
+      },
+      "licenseName": "Eiffel Forum License v2.0",
+      "licenseUrl": "http://spdx.org/licenses/EFL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "EPICS",
+        "fr_FR": "EPICS"
+      },
+      "licenseName": "EPICS Open License",
+      "licenseUrl": "http://spdx.org/licenses/EPICS.json"
+    },
+    {
+      "label": {
+        "en_GB": "EPL-1.0",
+        "fr_FR": "EPL-1.0"
+      },
+      "licenseName": "Eclipse Public License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/EPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "EPL-2.0",
+        "fr_FR": "EPL-2.0"
+      },
+      "licenseName": "Eclipse Public License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/EPL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "EUDatagrid",
+        "fr_FR": "EUDatagrid"
+      },
+      "licenseName": "EU DataGrid Software License",
+      "licenseUrl": "http://spdx.org/licenses/EUDatagrid.json"
+    },
+    {
+      "label": {
+        "en_GB": "EUPL-1.0",
+        "fr_FR": "EUPL-1.0"
+      },
+      "licenseName": "European Union Public License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/EUPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "EUPL-1.1",
+        "fr_FR": "EUPL-1.1"
+      },
+      "licenseName": "European Union Public License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/EUPL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "EUPL-1.2",
+        "fr_FR": "EUPL-1.2"
+      },
+      "licenseName": "European Union Public License 1.2",
+      "licenseUrl": "http://spdx.org/licenses/EUPL-1.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "Entessa",
+        "fr_FR": "Entessa"
+      },
+      "licenseName": "Entessa Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/Entessa.json"
+    },
+    {
+      "label": {
+        "en_GB": "ErlPL-1.1",
+        "fr_FR": "ErlPL-1.1"
+      },
+      "licenseName": "Erlang Public License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/ErlPL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "Eurosym",
+        "fr_FR": "Eurosym"
+      },
+      "licenseName": "Eurosym License",
+      "licenseUrl": "http://spdx.org/licenses/Eurosym.json"
+    },
+    {
+      "label": {
+        "en_GB": "FSFAP",
+        "fr_FR": "FSFAP"
+      },
+      "licenseName": "FSF All Permissive License",
+      "licenseUrl": "http://spdx.org/licenses/FSFAP.json"
+    },
+    {
+      "label": {
+        "en_GB": "FSFUL",
+        "fr_FR": "FSFUL"
+      },
+      "licenseName": "FSF Unlimited License",
+      "licenseUrl": "http://spdx.org/licenses/FSFUL.json"
+    },
+    {
+      "label": {
+        "en_GB": "FSFULLR",
+        "fr_FR": "FSFULLR"
+      },
+      "licenseName": "FSF Unlimited License (with License Retention)",
+      "licenseUrl": "http://spdx.org/licenses/FSFULLR.json"
+    },
+    {
+      "label": {
+        "en_GB": "FTL",
+        "fr_FR": "FTL"
+      },
+      "licenseName": "Freetype Project License",
+      "licenseUrl": "http://spdx.org/licenses/FTL.json"
+    },
+    {
+      "label": {
+        "en_GB": "Fair",
+        "fr_FR": "Fair"
+      },
+      "licenseName": "Fair License",
+      "licenseUrl": "http://spdx.org/licenses/Fair.json"
+    },
+    {
+      "label": {
+        "en_GB": "Frameworx-1.0",
+        "fr_FR": "Frameworx-1.0"
+      },
+      "licenseName": "Frameworx Open License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/Frameworx-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "FreeBSD-DOC",
+        "fr_FR": "FreeBSD-DOC"
+      },
+      "licenseName": "FreeBSD Documentation License",
+      "licenseUrl": "http://spdx.org/licenses/FreeBSD-DOC.json"
+    },
+    {
+      "label": {
+        "en_GB": "FreeImage",
+        "fr_FR": "FreeImage"
+      },
+      "licenseName": "FreeImage Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/FreeImage.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.1",
+        "fr_FR": "GFDL-1.1"
+      },
+      "licenseName": "GNU Free Documentation License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.1-invariants-only",
+        "fr_FR": "GFDL-1.1-invariants-only"
+      },
+      "licenseName": "GNU Free Documentation License v1.1 only - invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.1-invariants-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.1-invariants-or-later",
+        "fr_FR": "GFDL-1.1-invariants-or-later"
+      },
+      "licenseName": "GNU Free Documentation License v1.1 or later - invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.1-invariants-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.1-no-invariants-only",
+        "fr_FR": "GFDL-1.1-no-invariants-only"
+      },
+      "licenseName": "GNU Free Documentation License v1.1 only - no invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.1-no-invariants-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.1-no-invariants-or-later",
+        "fr_FR": "GFDL-1.1-no-invariants-or-later"
+      },
+      "licenseName": "GNU Free Documentation License v1.1 or later - no invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.1-no-invariants-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.1-only",
+        "fr_FR": "GFDL-1.1-only"
+      },
+      "licenseName": "GNU Free Documentation License v1.1 only",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.1-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.1-or-later",
+        "fr_FR": "GFDL-1.1-or-later"
+      },
+      "licenseName": "GNU Free Documentation License v1.1 or later",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.1-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.2",
+        "fr_FR": "GFDL-1.2"
+      },
+      "licenseName": "GNU Free Documentation License v1.2",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.2-invariants-only",
+        "fr_FR": "GFDL-1.2-invariants-only"
+      },
+      "licenseName": "GNU Free Documentation License v1.2 only - invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.2-invariants-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.2-invariants-or-later",
+        "fr_FR": "GFDL-1.2-invariants-or-later"
+      },
+      "licenseName": "GNU Free Documentation License v1.2 or later - invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.2-invariants-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.2-no-invariants-only",
+        "fr_FR": "GFDL-1.2-no-invariants-only"
+      },
+      "licenseName": "GNU Free Documentation License v1.2 only - no invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.2-no-invariants-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.2-no-invariants-or-later",
+        "fr_FR": "GFDL-1.2-no-invariants-or-later"
+      },
+      "licenseName": "GNU Free Documentation License v1.2 or later - no invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.2-no-invariants-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.2-only",
+        "fr_FR": "GFDL-1.2-only"
+      },
+      "licenseName": "GNU Free Documentation License v1.2 only",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.2-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.2-or-later",
+        "fr_FR": "GFDL-1.2-or-later"
+      },
+      "licenseName": "GNU Free Documentation License v1.2 or later",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.2-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.3",
+        "fr_FR": "GFDL-1.3"
+      },
+      "licenseName": "GNU Free Documentation License v1.3",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.3.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.3-invariants-only",
+        "fr_FR": "GFDL-1.3-invariants-only"
+      },
+      "licenseName": "GNU Free Documentation License v1.3 only - invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.3-invariants-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.3-invariants-or-later",
+        "fr_FR": "GFDL-1.3-invariants-or-later"
+      },
+      "licenseName": "GNU Free Documentation License v1.3 or later - invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.3-invariants-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.3-no-invariants-only",
+        "fr_FR": "GFDL-1.3-no-invariants-only"
+      },
+      "licenseName": "GNU Free Documentation License v1.3 only - no invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.3-no-invariants-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.3-no-invariants-or-later",
+        "fr_FR": "GFDL-1.3-no-invariants-or-later"
+      },
+      "licenseName": "GNU Free Documentation License v1.3 or later - no invariants",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.3-no-invariants-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.3-only",
+        "fr_FR": "GFDL-1.3-only"
+      },
+      "licenseName": "GNU Free Documentation License v1.3 only",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.3-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GFDL-1.3-or-later",
+        "fr_FR": "GFDL-1.3-or-later"
+      },
+      "licenseName": "GNU Free Documentation License v1.3 or later",
+      "licenseUrl": "http://spdx.org/licenses/GFDL-1.3-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GL2PS",
+        "fr_FR": "GL2PS"
+      },
+      "licenseName": "GL2PS License",
+      "licenseUrl": "http://spdx.org/licenses/GL2PS.json"
+    },
+    {
+      "label": {
+        "en_GB": "GLWTPL",
+        "fr_FR": "GLWTPL"
+      },
+      "licenseName": "Good Luck With That Public License",
+      "licenseUrl": "http://spdx.org/licenses/GLWTPL.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-1.0",
+        "fr_FR": "GPL-1.0"
+      },
+      "licenseName": "GNU General Public License v1.0 only",
+      "licenseUrl": "http://spdx.org/licenses/GPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-1.0+",
+        "fr_FR": "GPL-1.0+"
+      },
+      "licenseName": "GNU General Public License v1.0 or later",
+      "licenseUrl": "http://spdx.org/licenses/GPL-1.0+.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-1.0-only",
+        "fr_FR": "GPL-1.0-only"
+      },
+      "licenseName": "GNU General Public License v1.0 only",
+      "licenseUrl": "http://spdx.org/licenses/GPL-1.0-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-1.0-or-later",
+        "fr_FR": "GPL-1.0-or-later"
+      },
+      "licenseName": "GNU General Public License v1.0 or later",
+      "licenseUrl": "http://spdx.org/licenses/GPL-1.0-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-2.0",
+        "fr_FR": "GPL-2.0"
+      },
+      "licenseName": "GNU General Public License v2.0 only",
+      "licenseUrl": "http://spdx.org/licenses/GPL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-2.0+",
+        "fr_FR": "GPL-2.0+"
+      },
+      "licenseName": "GNU General Public License v2.0 or later",
+      "licenseUrl": "http://spdx.org/licenses/GPL-2.0+.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-2.0-only",
+        "fr_FR": "GPL-2.0-only"
+      },
+      "licenseName": "GNU General Public License v2.0 only",
+      "licenseUrl": "http://spdx.org/licenses/GPL-2.0-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-2.0-or-later",
+        "fr_FR": "GPL-2.0-or-later"
+      },
+      "licenseName": "GNU General Public License v2.0 or later",
+      "licenseUrl": "http://spdx.org/licenses/GPL-2.0-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-2.0-with-GCC-exception",
+        "fr_FR": "GPL-2.0-with-GCC-exception"
+      },
+      "licenseName": "GNU General Public License v2.0 w/GCC Runtime Library exception",
+      "licenseUrl": "http://spdx.org/licenses/GPL-2.0-with-GCC-exception.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-2.0-with-autoconf-exception",
+        "fr_FR": "GPL-2.0-with-autoconf-exception"
+      },
+      "licenseName": "GNU General Public License v2.0 w/Autoconf exception",
+      "licenseUrl": "http://spdx.org/licenses/GPL-2.0-with-autoconf-exception.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-2.0-with-bison-exception",
+        "fr_FR": "GPL-2.0-with-bison-exception"
+      },
+      "licenseName": "GNU General Public License v2.0 w/Bison exception",
+      "licenseUrl": "http://spdx.org/licenses/GPL-2.0-with-bison-exception.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-2.0-with-classpath-exception",
+        "fr_FR": "GPL-2.0-with-classpath-exception"
+      },
+      "licenseName": "GNU General Public License v2.0 w/Classpath exception",
+      "licenseUrl": "http://spdx.org/licenses/GPL-2.0-with-classpath-exception.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-2.0-with-font-exception",
+        "fr_FR": "GPL-2.0-with-font-exception"
+      },
+      "licenseName": "GNU General Public License v2.0 w/Font exception",
+      "licenseUrl": "http://spdx.org/licenses/GPL-2.0-with-font-exception.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-3.0",
+        "fr_FR": "GPL-3.0"
+      },
+      "licenseName": "GNU General Public License v3.0 only",
+      "licenseUrl": "http://spdx.org/licenses/GPL-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-3.0+",
+        "fr_FR": "GPL-3.0+"
+      },
+      "licenseName": "GNU General Public License v3.0 or later",
+      "licenseUrl": "http://spdx.org/licenses/GPL-3.0+.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-3.0-only",
+        "fr_FR": "GPL-3.0-only"
+      },
+      "licenseName": "GNU General Public License v3.0 only",
+      "licenseUrl": "http://spdx.org/licenses/GPL-3.0-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-3.0-or-later",
+        "fr_FR": "GPL-3.0-or-later"
+      },
+      "licenseName": "GNU General Public License v3.0 or later",
+      "licenseUrl": "http://spdx.org/licenses/GPL-3.0-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-3.0-with-GCC-exception",
+        "fr_FR": "GPL-3.0-with-GCC-exception"
+      },
+      "licenseName": "GNU General Public License v3.0 w/GCC Runtime Library exception",
+      "licenseUrl": "http://spdx.org/licenses/GPL-3.0-with-GCC-exception.json"
+    },
+    {
+      "label": {
+        "en_GB": "GPL-3.0-with-autoconf-exception",
+        "fr_FR": "GPL-3.0-with-autoconf-exception"
+      },
+      "licenseName": "GNU General Public License v3.0 w/Autoconf exception",
+      "licenseUrl": "http://spdx.org/licenses/GPL-3.0-with-autoconf-exception.json"
+    },
+    {
+      "label": {
+        "en_GB": "Giftware",
+        "fr_FR": "Giftware"
+      },
+      "licenseName": "Giftware License",
+      "licenseUrl": "http://spdx.org/licenses/Giftware.json"
+    },
+    {
+      "label": {
+        "en_GB": "Glide",
+        "fr_FR": "Glide"
+      },
+      "licenseName": "3dfx Glide License",
+      "licenseUrl": "http://spdx.org/licenses/Glide.json"
+    },
+    {
+      "label": {
+        "en_GB": "Glulxe",
+        "fr_FR": "Glulxe"
+      },
+      "licenseName": "Glulxe License",
+      "licenseUrl": "http://spdx.org/licenses/Glulxe.json"
+    },
+    {
+      "label": {
+        "en_GB": "HPND",
+        "fr_FR": "HPND"
+      },
+      "licenseName": "Historical Permission Notice and Disclaimer",
+      "licenseUrl": "http://spdx.org/licenses/HPND.json"
+    },
+    {
+      "label": {
+        "en_GB": "HPND-sell-variant",
+        "fr_FR": "HPND-sell-variant"
+      },
+      "licenseName": "Historical Permission Notice and Disclaimer - sell variant",
+      "licenseUrl": "http://spdx.org/licenses/HPND-sell-variant.json"
+    },
+    {
+      "label": {
+        "en_GB": "HTMLTIDY",
+        "fr_FR": "HTMLTIDY"
+      },
+      "licenseName": "HTML Tidy License",
+      "licenseUrl": "http://spdx.org/licenses/HTMLTIDY.json"
+    },
+    {
+      "label": {
+        "en_GB": "HaskellReport",
+        "fr_FR": "HaskellReport"
+      },
+      "licenseName": "Haskell Language Report License",
+      "licenseUrl": "http://spdx.org/licenses/HaskellReport.json"
+    },
+    {
+      "label": {
+        "en_GB": "Hippocratic-2.1",
+        "fr_FR": "Hippocratic-2.1"
+      },
+      "licenseName": "Hippocratic License 2.1",
+      "licenseUrl": "http://spdx.org/licenses/Hippocratic-2.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "IBM-pibs",
+        "fr_FR": "IBM-pibs"
+      },
+      "licenseName": "IBM PowerPC Initialization and Boot Software",
+      "licenseUrl": "http://spdx.org/licenses/IBM-pibs.json"
+    },
+    {
+      "label": {
+        "en_GB": "ICU",
+        "fr_FR": "ICU"
+      },
+      "licenseName": "ICU License",
+      "licenseUrl": "http://spdx.org/licenses/ICU.json"
+    },
+    {
+      "label": {
+        "en_GB": "IJG",
+        "fr_FR": "IJG"
+      },
+      "licenseName": "Independent JPEG Group License",
+      "licenseUrl": "http://spdx.org/licenses/IJG.json"
+    },
+    {
+      "label": {
+        "en_GB": "IPA",
+        "fr_FR": "IPA"
+      },
+      "licenseName": "IPA Font License",
+      "licenseUrl": "http://spdx.org/licenses/IPA.json"
+    },
+    {
+      "label": {
+        "en_GB": "IPL-1.0",
+        "fr_FR": "IPL-1.0"
+      },
+      "licenseName": "IBM Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/IPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "ISC",
+        "fr_FR": "ISC"
+      },
+      "licenseName": "ISC License",
+      "licenseUrl": "http://spdx.org/licenses/ISC.json"
+    },
+    {
+      "label": {
+        "en_GB": "ImageMagick",
+        "fr_FR": "ImageMagick"
+      },
+      "licenseName": "ImageMagick License",
+      "licenseUrl": "http://spdx.org/licenses/ImageMagick.json"
+    },
+    {
+      "label": {
+        "en_GB": "Imlib2",
+        "fr_FR": "Imlib2"
+      },
+      "licenseName": "Imlib2 License",
+      "licenseUrl": "http://spdx.org/licenses/Imlib2.json"
+    },
+    {
+      "label": {
+        "en_GB": "Info-ZIP",
+        "fr_FR": "Info-ZIP"
+      },
+      "licenseName": "Info-ZIP License",
+      "licenseUrl": "http://spdx.org/licenses/Info-ZIP.json"
+    },
+    {
+      "label": {
+        "en_GB": "Intel",
+        "fr_FR": "Intel"
+      },
+      "licenseName": "Intel Open Source License",
+      "licenseUrl": "http://spdx.org/licenses/Intel.json"
+    },
+    {
+      "label": {
+        "en_GB": "Intel-ACPI",
+        "fr_FR": "Intel-ACPI"
+      },
+      "licenseName": "Intel ACPI Software License Agreement",
+      "licenseUrl": "http://spdx.org/licenses/Intel-ACPI.json"
+    },
+    {
+      "label": {
+        "en_GB": "Interbase-1.0",
+        "fr_FR": "Interbase-1.0"
+      },
+      "licenseName": "Interbase Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/Interbase-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "JPNIC",
+        "fr_FR": "JPNIC"
+      },
+      "licenseName": "Japan Network Information Center License",
+      "licenseUrl": "http://spdx.org/licenses/JPNIC.json"
+    },
+    {
+      "label": {
+        "en_GB": "JSON",
+        "fr_FR": "JSON"
+      },
+      "licenseName": "JSON License",
+      "licenseUrl": "http://spdx.org/licenses/JSON.json"
+    },
+    {
+      "label": {
+        "en_GB": "JasPer-2.0",
+        "fr_FR": "JasPer-2.0"
+      },
+      "licenseName": "JasPer License",
+      "licenseUrl": "http://spdx.org/licenses/JasPer-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "LAL-1.2",
+        "fr_FR": "LAL-1.2"
+      },
+      "licenseName": "Licence Art Libre 1.2",
+      "licenseUrl": "http://spdx.org/licenses/LAL-1.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "LAL-1.3",
+        "fr_FR": "LAL-1.3"
+      },
+      "licenseName": "Licence Art Libre 1.3",
+      "licenseUrl": "http://spdx.org/licenses/LAL-1.3.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-2.0",
+        "fr_FR": "LGPL-2.0"
+      },
+      "licenseName": "GNU Library General Public License v2 only",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-2.0+",
+        "fr_FR": "LGPL-2.0+"
+      },
+      "licenseName": "GNU Library General Public License v2 or later",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-2.0+.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-2.0-only",
+        "fr_FR": "LGPL-2.0-only"
+      },
+      "licenseName": "GNU Library General Public License v2 only",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-2.0-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-2.0-or-later",
+        "fr_FR": "LGPL-2.0-or-later"
+      },
+      "licenseName": "GNU Library General Public License v2 or later",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-2.0-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-2.1",
+        "fr_FR": "LGPL-2.1"
+      },
+      "licenseName": "GNU Lesser General Public License v2.1 only",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-2.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-2.1+",
+        "fr_FR": "LGPL-2.1+"
+      },
+      "licenseName": "GNU Library General Public License v2.1 or later",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-2.1+.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-2.1-only",
+        "fr_FR": "LGPL-2.1-only"
+      },
+      "licenseName": "GNU Lesser General Public License v2.1 only",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-2.1-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-2.1-or-later",
+        "fr_FR": "LGPL-2.1-or-later"
+      },
+      "licenseName": "GNU Lesser General Public License v2.1 or later",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-2.1-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-3.0",
+        "fr_FR": "LGPL-3.0"
+      },
+      "licenseName": "GNU Lesser General Public License v3.0 only",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-3.0+",
+        "fr_FR": "LGPL-3.0+"
+      },
+      "licenseName": "GNU Lesser General Public License v3.0 or later",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-3.0+.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-3.0-only",
+        "fr_FR": "LGPL-3.0-only"
+      },
+      "licenseName": "GNU Lesser General Public License v3.0 only",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-3.0-only.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPL-3.0-or-later",
+        "fr_FR": "LGPL-3.0-or-later"
+      },
+      "licenseName": "GNU Lesser General Public License v3.0 or later",
+      "licenseUrl": "http://spdx.org/licenses/LGPL-3.0-or-later.json"
+    },
+    {
+      "label": {
+        "en_GB": "LGPLLR",
+        "fr_FR": "LGPLLR"
+      },
+      "licenseName": "Lesser General Public License For Linguistic Resources",
+      "licenseUrl": "http://spdx.org/licenses/LGPLLR.json"
+    },
+    {
+      "label": {
+        "en_GB": "LPL-1.0",
+        "fr_FR": "LPL-1.0"
+      },
+      "licenseName": "Lucent Public License Version 1.0",
+      "licenseUrl": "http://spdx.org/licenses/LPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "LPL-1.02",
+        "fr_FR": "LPL-1.02"
+      },
+      "licenseName": "Lucent Public License v1.02",
+      "licenseUrl": "http://spdx.org/licenses/LPL-1.02.json"
+    },
+    {
+      "label": {
+        "en_GB": "LPPL-1.0",
+        "fr_FR": "LPPL-1.0"
+      },
+      "licenseName": "LaTeX Project Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/LPPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "LPPL-1.1",
+        "fr_FR": "LPPL-1.1"
+      },
+      "licenseName": "LaTeX Project Public License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/LPPL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "LPPL-1.2",
+        "fr_FR": "LPPL-1.2"
+      },
+      "licenseName": "LaTeX Project Public License v1.2",
+      "licenseUrl": "http://spdx.org/licenses/LPPL-1.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "LPPL-1.3a",
+        "fr_FR": "LPPL-1.3a"
+      },
+      "licenseName": "LaTeX Project Public License v1.3a",
+      "licenseUrl": "http://spdx.org/licenses/LPPL-1.3a.json"
+    },
+    {
+      "label": {
+        "en_GB": "LPPL-1.3c",
+        "fr_FR": "LPPL-1.3c"
+      },
+      "licenseName": "LaTeX Project Public License v1.3c",
+      "licenseUrl": "http://spdx.org/licenses/LPPL-1.3c.json"
+    },
+    {
+      "label": {
+        "en_GB": "Latex2e",
+        "fr_FR": "Latex2e"
+      },
+      "licenseName": "Latex2e License",
+      "licenseUrl": "http://spdx.org/licenses/Latex2e.json"
+    },
+    {
+      "label": {
+        "en_GB": "Leptonica",
+        "fr_FR": "Leptonica"
+      },
+      "licenseName": "Leptonica License",
+      "licenseUrl": "http://spdx.org/licenses/Leptonica.json"
+    },
+    {
+      "label": {
+        "en_GB": "LiLiQ-P-1.1",
+        "fr_FR": "LiLiQ-P-1.1"
+      },
+      "licenseName": "Licence Libre du Québec – Permissive version 1.1",
+      "licenseUrl": "http://spdx.org/licenses/LiLiQ-P-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "LiLiQ-R-1.1",
+        "fr_FR": "LiLiQ-R-1.1"
+      },
+      "licenseName": "Licence Libre du Québec – Réciprocité version 1.1",
+      "licenseUrl": "http://spdx.org/licenses/LiLiQ-R-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "LiLiQ-Rplus-1.1",
+        "fr_FR": "LiLiQ-Rplus-1.1"
+      },
+      "licenseName": "Licence Libre du Québec – Réciprocité forte version 1.1",
+      "licenseUrl": "http://spdx.org/licenses/LiLiQ-Rplus-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "Libpng",
+        "fr_FR": "Libpng"
+      },
+      "licenseName": "libpng License",
+      "licenseUrl": "http://spdx.org/licenses/Libpng.json"
+    },
+    {
+      "label": {
+        "en_GB": "Linux-OpenIB",
+        "fr_FR": "Linux-OpenIB"
+      },
+      "licenseName": "Linux Kernel Variant of OpenIB.org license",
+      "licenseUrl": "http://spdx.org/licenses/Linux-OpenIB.json"
+    },
+    {
+      "label": {
+        "en_GB": "MIT",
+        "fr_FR": "MIT"
+      },
+      "licenseName": "MIT License",
+      "licenseUrl": "http://spdx.org/licenses/MIT.json"
+    },
+    {
+      "label": {
+        "en_GB": "MIT-0",
+        "fr_FR": "MIT-0"
+      },
+      "licenseName": "MIT No Attribution",
+      "licenseUrl": "http://spdx.org/licenses/MIT-0.json"
+    },
+    {
+      "label": {
+        "en_GB": "MIT-CMU",
+        "fr_FR": "MIT-CMU"
+      },
+      "licenseName": "CMU License",
+      "licenseUrl": "http://spdx.org/licenses/MIT-CMU.json"
+    },
+    {
+      "label": {
+        "en_GB": "MIT-advertising",
+        "fr_FR": "MIT-advertising"
+      },
+      "licenseName": "Enlightenment License (e16)",
+      "licenseUrl": "http://spdx.org/licenses/MIT-advertising.json"
+    },
+    {
+      "label": {
+        "en_GB": "MIT-enna",
+        "fr_FR": "MIT-enna"
+      },
+      "licenseName": "enna License",
+      "licenseUrl": "http://spdx.org/licenses/MIT-enna.json"
+    },
+    {
+      "label": {
+        "en_GB": "MIT-feh",
+        "fr_FR": "MIT-feh"
+      },
+      "licenseName": "feh License",
+      "licenseUrl": "http://spdx.org/licenses/MIT-feh.json"
+    },
+    {
+      "label": {
+        "en_GB": "MIT-open-group",
+        "fr_FR": "MIT-open-group"
+      },
+      "licenseName": "MIT Open Group variant",
+      "licenseUrl": "http://spdx.org/licenses/MIT-open-group.json"
+    },
+    {
+      "label": {
+        "en_GB": "MITNFA",
+        "fr_FR": "MITNFA"
+      },
+      "licenseName": "MIT +no-false-attribs license",
+      "licenseUrl": "http://spdx.org/licenses/MITNFA.json"
+    },
+    {
+      "label": {
+        "en_GB": "MPL-1.0",
+        "fr_FR": "MPL-1.0"
+      },
+      "licenseName": "Mozilla Public License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/MPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "MPL-1.1",
+        "fr_FR": "MPL-1.1"
+      },
+      "licenseName": "Mozilla Public License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/MPL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "MPL-2.0",
+        "fr_FR": "MPL-2.0"
+      },
+      "licenseName": "Mozilla Public License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/MPL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "MPL-2.0-no-copyleft-exception",
+        "fr_FR": "MPL-2.0-no-copyleft-exception"
+      },
+      "licenseName": "Mozilla Public License 2.0 (no copyleft exception)",
+      "licenseUrl": "http://spdx.org/licenses/MPL-2.0-no-copyleft-exception.json"
+    },
+    {
+      "label": {
+        "en_GB": "MS-PL",
+        "fr_FR": "MS-PL"
+      },
+      "licenseName": "Microsoft Public License",
+      "licenseUrl": "http://spdx.org/licenses/MS-PL.json"
+    },
+    {
+      "label": {
+        "en_GB": "MS-RL",
+        "fr_FR": "MS-RL"
+      },
+      "licenseName": "Microsoft Reciprocal License",
+      "licenseUrl": "http://spdx.org/licenses/MS-RL.json"
+    },
+    {
+      "label": {
+        "en_GB": "MTLL",
+        "fr_FR": "MTLL"
+      },
+      "licenseName": "Matrix Template Library License",
+      "licenseUrl": "http://spdx.org/licenses/MTLL.json"
+    },
+    {
+      "label": {
+        "en_GB": "MakeIndex",
+        "fr_FR": "MakeIndex"
+      },
+      "licenseName": "MakeIndex License",
+      "licenseUrl": "http://spdx.org/licenses/MakeIndex.json"
+    },
+    {
+      "label": {
+        "en_GB": "MirOS",
+        "fr_FR": "MirOS"
+      },
+      "licenseName": "The MirOS Licence",
+      "licenseUrl": "http://spdx.org/licenses/MirOS.json"
+    },
+    {
+      "label": {
+        "en_GB": "Motosoto",
+        "fr_FR": "Motosoto"
+      },
+      "licenseName": "Motosoto License",
+      "licenseUrl": "http://spdx.org/licenses/Motosoto.json"
+    },
+    {
+      "label": {
+        "en_GB": "MulanPSL-1.0",
+        "fr_FR": "MulanPSL-1.0"
+      },
+      "licenseName": "Mulan Permissive Software License, Version 1",
+      "licenseUrl": "http://spdx.org/licenses/MulanPSL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "MulanPSL-2.0",
+        "fr_FR": "MulanPSL-2.0"
+      },
+      "licenseName": "Mulan Permissive Software License, Version 2",
+      "licenseUrl": "http://spdx.org/licenses/MulanPSL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Multics",
+        "fr_FR": "Multics"
+      },
+      "licenseName": "Multics License",
+      "licenseUrl": "http://spdx.org/licenses/Multics.json"
+    },
+    {
+      "label": {
+        "en_GB": "Mup",
+        "fr_FR": "Mup"
+      },
+      "licenseName": "Mup License",
+      "licenseUrl": "http://spdx.org/licenses/Mup.json"
+    },
+    {
+      "label": {
+        "en_GB": "NASA-1.3",
+        "fr_FR": "NASA-1.3"
+      },
+      "licenseName": "NASA Open Source Agreement 1.3",
+      "licenseUrl": "http://spdx.org/licenses/NASA-1.3.json"
+    },
+    {
+      "label": {
+        "en_GB": "NBPL-1.0",
+        "fr_FR": "NBPL-1.0"
+      },
+      "licenseName": "Net Boolean Public License v1",
+      "licenseUrl": "http://spdx.org/licenses/NBPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "NCGL-UK-2.0",
+        "fr_FR": "NCGL-UK-2.0"
+      },
+      "licenseName": "Non-Commercial Government Licence",
+      "licenseUrl": "http://spdx.org/licenses/NCGL-UK-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "NCSA",
+        "fr_FR": "NCSA"
+      },
+      "licenseName": "University of Illinois/NCSA Open Source License",
+      "licenseUrl": "http://spdx.org/licenses/NCSA.json"
+    },
+    {
+      "label": {
+        "en_GB": "NGPL",
+        "fr_FR": "NGPL"
+      },
+      "licenseName": "Nethack General Public License",
+      "licenseUrl": "http://spdx.org/licenses/NGPL.json"
+    },
+    {
+      "label": {
+        "en_GB": "NIST-PD",
+        "fr_FR": "NIST-PD"
+      },
+      "licenseName": "NIST Public Domain Notice",
+      "licenseUrl": "http://spdx.org/licenses/NIST-PD.json"
+    },
+    {
+      "label": {
+        "en_GB": "NIST-PD-fallback",
+        "fr_FR": "NIST-PD-fallback"
+      },
+      "licenseName": "NIST Public Domain Notice with license fallback",
+      "licenseUrl": "http://spdx.org/licenses/NIST-PD-fallback.json"
+    },
+    {
+      "label": {
+        "en_GB": "NLOD-1.0",
+        "fr_FR": "NLOD-1.0"
+      },
+      "licenseName": "Norwegian Licence for Open Government Data",
+      "licenseUrl": "http://spdx.org/licenses/NLOD-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "NLPL",
+        "fr_FR": "NLPL"
+      },
+      "licenseName": "No Limit Public License",
+      "licenseUrl": "http://spdx.org/licenses/NLPL.json"
+    },
+    {
+      "label": {
+        "en_GB": "NOSL",
+        "fr_FR": "NOSL"
+      },
+      "licenseName": "Netizen Open Source License",
+      "licenseUrl": "http://spdx.org/licenses/NOSL.json"
+    },
+    {
+      "label": {
+        "en_GB": "NPL-1.0",
+        "fr_FR": "NPL-1.0"
+      },
+      "licenseName": "Netscape Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/NPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "NPL-1.1",
+        "fr_FR": "NPL-1.1"
+      },
+      "licenseName": "Netscape Public License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/NPL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "NPOSL-3.0",
+        "fr_FR": "NPOSL-3.0"
+      },
+      "licenseName": "Non-Profit Open Software License 3.0",
+      "licenseUrl": "http://spdx.org/licenses/NPOSL-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "NRL",
+        "fr_FR": "NRL"
+      },
+      "licenseName": "NRL License",
+      "licenseUrl": "http://spdx.org/licenses/NRL.json"
+    },
+    {
+      "label": {
+        "en_GB": "NTP",
+        "fr_FR": "NTP"
+      },
+      "licenseName": "NTP License",
+      "licenseUrl": "http://spdx.org/licenses/NTP.json"
+    },
+    {
+      "label": {
+        "en_GB": "NTP-0",
+        "fr_FR": "NTP-0"
+      },
+      "licenseName": "NTP No Attribution",
+      "licenseUrl": "http://spdx.org/licenses/NTP-0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Naumen",
+        "fr_FR": "Naumen"
+      },
+      "licenseName": "Naumen Public License",
+      "licenseUrl": "http://spdx.org/licenses/Naumen.json"
+    },
+    {
+      "label": {
+        "en_GB": "Net-SNMP",
+        "fr_FR": "Net-SNMP"
+      },
+      "licenseName": "Net-SNMP License",
+      "licenseUrl": "http://spdx.org/licenses/Net-SNMP.json"
+    },
+    {
+      "label": {
+        "en_GB": "NetCDF",
+        "fr_FR": "NetCDF"
+      },
+      "licenseName": "NetCDF license",
+      "licenseUrl": "http://spdx.org/licenses/NetCDF.json"
+    },
+    {
+      "label": {
+        "en_GB": "Newsletr",
+        "fr_FR": "Newsletr"
+      },
+      "licenseName": "Newsletr License",
+      "licenseUrl": "http://spdx.org/licenses/Newsletr.json"
+    },
+    {
+      "label": {
+        "en_GB": "Nokia",
+        "fr_FR": "Nokia"
+      },
+      "licenseName": "Nokia Open Source License",
+      "licenseUrl": "http://spdx.org/licenses/Nokia.json"
+    },
+    {
+      "label": {
+        "en_GB": "Noweb",
+        "fr_FR": "Noweb"
+      },
+      "licenseName": "Noweb License",
+      "licenseUrl": "http://spdx.org/licenses/Noweb.json"
+    },
+    {
+      "label": {
+        "en_GB": "Nunit",
+        "fr_FR": "Nunit"
+      },
+      "licenseName": "Nunit License",
+      "licenseUrl": "http://spdx.org/licenses/Nunit.json"
+    },
+    {
+      "label": {
+        "en_GB": "O-UDA-1.0",
+        "fr_FR": "O-UDA-1.0"
+      },
+      "licenseName": "Open Use of Data Agreement v1.0",
+      "licenseUrl": "http://spdx.org/licenses/O-UDA-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OCCT-PL",
+        "fr_FR": "OCCT-PL"
+      },
+      "licenseName": "Open CASCADE Technology Public License",
+      "licenseUrl": "http://spdx.org/licenses/OCCT-PL.json"
+    },
+    {
+      "label": {
+        "en_GB": "OCLC-2.0",
+        "fr_FR": "OCLC-2.0"
+      },
+      "licenseName": "OCLC Research Public License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/OCLC-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OFL-1.0",
+        "fr_FR": "OFL-1.0"
+      },
+      "licenseName": "SIL Open Font License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/OFL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OFL-1.0-RFN",
+        "fr_FR": "OFL-1.0-RFN"
+      },
+      "licenseName": "SIL Open Font License 1.0 with Reserved Font Name",
+      "licenseUrl": "http://spdx.org/licenses/OFL-1.0-RFN.json"
+    },
+    {
+      "label": {
+        "en_GB": "OFL-1.0-no-RFN",
+        "fr_FR": "OFL-1.0-no-RFN"
+      },
+      "licenseName": "SIL Open Font License 1.0 with no Reserved Font Name",
+      "licenseUrl": "http://spdx.org/licenses/OFL-1.0-no-RFN.json"
+    },
+    {
+      "label": {
+        "en_GB": "OFL-1.1",
+        "fr_FR": "OFL-1.1"
+      },
+      "licenseName": "SIL Open Font License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/OFL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "OFL-1.1-RFN",
+        "fr_FR": "OFL-1.1-RFN"
+      },
+      "licenseName": "SIL Open Font License 1.1 with Reserved Font Name",
+      "licenseUrl": "http://spdx.org/licenses/OFL-1.1-RFN.json"
+    },
+    {
+      "label": {
+        "en_GB": "OFL-1.1-no-RFN",
+        "fr_FR": "OFL-1.1-no-RFN"
+      },
+      "licenseName": "SIL Open Font License 1.1 with no Reserved Font Name",
+      "licenseUrl": "http://spdx.org/licenses/OFL-1.1-no-RFN.json"
+    },
+    {
+      "label": {
+        "en_GB": "OGC-1.0",
+        "fr_FR": "OGC-1.0"
+      },
+      "licenseName": "OGC Software License, Version 1.0",
+      "licenseUrl": "http://spdx.org/licenses/OGC-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OGDL-Taiwan-1.0",
+        "fr_FR": "OGDL-Taiwan-1.0"
+      },
+      "licenseName": "Taiwan Open Government Data License, version 1.0",
+      "licenseUrl": "http://spdx.org/licenses/OGDL-Taiwan-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OGL-Canada-2.0",
+        "fr_FR": "OGL-Canada-2.0"
+      },
+      "licenseName": "Open Government Licence - Canada",
+      "licenseUrl": "http://spdx.org/licenses/OGL-Canada-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OGL-UK-1.0",
+        "fr_FR": "OGL-UK-1.0"
+      },
+      "licenseName": "Open Government Licence v1.0",
+      "licenseUrl": "http://spdx.org/licenses/OGL-UK-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OGL-UK-2.0",
+        "fr_FR": "OGL-UK-2.0"
+      },
+      "licenseName": "Open Government Licence v2.0",
+      "licenseUrl": "http://spdx.org/licenses/OGL-UK-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OGL-UK-3.0",
+        "fr_FR": "OGL-UK-3.0"
+      },
+      "licenseName": "Open Government Licence v3.0",
+      "licenseUrl": "http://spdx.org/licenses/OGL-UK-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OGTSL",
+        "fr_FR": "OGTSL"
+      },
+      "licenseName": "Open Group Test Suite License",
+      "licenseUrl": "http://spdx.org/licenses/OGTSL.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-1.1",
+        "fr_FR": "OLDAP-1.1"
+      },
+      "licenseName": "Open LDAP Public License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-1.2",
+        "fr_FR": "OLDAP-1.2"
+      },
+      "licenseName": "Open LDAP Public License v1.2",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-1.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-1.3",
+        "fr_FR": "OLDAP-1.3"
+      },
+      "licenseName": "Open LDAP Public License v1.3",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-1.3.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-1.4",
+        "fr_FR": "OLDAP-1.4"
+      },
+      "licenseName": "Open LDAP Public License v1.4",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-1.4.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.0",
+        "fr_FR": "OLDAP-2.0"
+      },
+      "licenseName": "Open LDAP Public License v2.0 (or possibly 2.0A and 2.0B)",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.0.1",
+        "fr_FR": "OLDAP-2.0.1"
+      },
+      "licenseName": "Open LDAP Public License v2.0.1",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.0.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.1",
+        "fr_FR": "OLDAP-2.1"
+      },
+      "licenseName": "Open LDAP Public License v2.1",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.2",
+        "fr_FR": "OLDAP-2.2"
+      },
+      "licenseName": "Open LDAP Public License v2.2",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.2.1",
+        "fr_FR": "OLDAP-2.2.1"
+      },
+      "licenseName": "Open LDAP Public License v2.2.1",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.2.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.2.2",
+        "fr_FR": "OLDAP-2.2.2"
+      },
+      "licenseName": "Open LDAP Public License 2.2.2",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.2.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.3",
+        "fr_FR": "OLDAP-2.3"
+      },
+      "licenseName": "Open LDAP Public License v2.3",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.3.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.4",
+        "fr_FR": "OLDAP-2.4"
+      },
+      "licenseName": "Open LDAP Public License v2.4",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.4.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.5",
+        "fr_FR": "OLDAP-2.5"
+      },
+      "licenseName": "Open LDAP Public License v2.5",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.5.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.6",
+        "fr_FR": "OLDAP-2.6"
+      },
+      "licenseName": "Open LDAP Public License v2.6",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.6.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.7",
+        "fr_FR": "OLDAP-2.7"
+      },
+      "licenseName": "Open LDAP Public License v2.7",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.7.json"
+    },
+    {
+      "label": {
+        "en_GB": "OLDAP-2.8",
+        "fr_FR": "OLDAP-2.8"
+      },
+      "licenseName": "Open LDAP Public License v2.8",
+      "licenseUrl": "http://spdx.org/licenses/OLDAP-2.8.json"
+    },
+    {
+      "label": {
+        "en_GB": "OML",
+        "fr_FR": "OML"
+      },
+      "licenseName": "Open Market License",
+      "licenseUrl": "http://spdx.org/licenses/OML.json"
+    },
+    {
+      "label": {
+        "en_GB": "OPL-1.0",
+        "fr_FR": "OPL-1.0"
+      },
+      "licenseName": "Open Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/OPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OSET-PL-2.1",
+        "fr_FR": "OSET-PL-2.1"
+      },
+      "licenseName": "OSET Public License version 2.1",
+      "licenseUrl": "http://spdx.org/licenses/OSET-PL-2.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "OSL-1.0",
+        "fr_FR": "OSL-1.0"
+      },
+      "licenseName": "Open Software License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/OSL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OSL-1.1",
+        "fr_FR": "OSL-1.1"
+      },
+      "licenseName": "Open Software License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/OSL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "OSL-2.0",
+        "fr_FR": "OSL-2.0"
+      },
+      "licenseName": "Open Software License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/OSL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OSL-2.1",
+        "fr_FR": "OSL-2.1"
+      },
+      "licenseName": "Open Software License 2.1",
+      "licenseUrl": "http://spdx.org/licenses/OSL-2.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "OSL-3.0",
+        "fr_FR": "OSL-3.0"
+      },
+      "licenseName": "Open Software License 3.0",
+      "licenseUrl": "http://spdx.org/licenses/OSL-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "OpenSSL",
+        "fr_FR": "OpenSSL"
+      },
+      "licenseName": "OpenSSL License",
+      "licenseUrl": "http://spdx.org/licenses/OpenSSL.json"
+    },
+    {
+      "label": {
+        "en_GB": "PHP-3.0",
+        "fr_FR": "PHP-3.0"
+      },
+      "licenseName": "PHP License v3.0",
+      "licenseUrl": "http://spdx.org/licenses/PHP-3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "PHP-3.01",
+        "fr_FR": "PHP-3.01"
+      },
+      "licenseName": "PHP License v3.01",
+      "licenseUrl": "http://spdx.org/licenses/PHP-3.01.json"
+    },
+    {
+      "label": {
+        "en_GB": "PSF-2.0",
+        "fr_FR": "PSF-2.0"
+      },
+      "licenseName": "Python Software Foundation License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/PSF-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Parity-6.0.0",
+        "fr_FR": "Parity-6.0.0"
+      },
+      "licenseName": "The Parity Public License 6.0.0",
+      "licenseUrl": "http://spdx.org/licenses/Parity-6.0.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Parity-7.0.0",
+        "fr_FR": "Parity-7.0.0"
+      },
+      "licenseName": "The Parity Public License 7.0.0",
+      "licenseUrl": "http://spdx.org/licenses/Parity-7.0.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Plexus",
+        "fr_FR": "Plexus"
+      },
+      "licenseName": "Plexus Classworlds License",
+      "licenseUrl": "http://spdx.org/licenses/Plexus.json"
+    },
+    {
+      "label": {
+        "en_GB": "PolyForm-Noncommercial-1.0.0",
+        "fr_FR": "PolyForm-Noncommercial-1.0.0"
+      },
+      "licenseName": "PolyForm Noncommercial License 1.0.0",
+      "licenseUrl": "http://spdx.org/licenses/PolyForm-Noncommercial-1.0.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "PolyForm-Small-Business-1.0.0",
+        "fr_FR": "PolyForm-Small-Business-1.0.0"
+      },
+      "licenseName": "PolyForm Small Business License 1.0.0",
+      "licenseUrl": "http://spdx.org/licenses/PolyForm-Small-Business-1.0.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "PostgreSQL",
+        "fr_FR": "PostgreSQL"
+      },
+      "licenseName": "PostgreSQL License",
+      "licenseUrl": "http://spdx.org/licenses/PostgreSQL.json"
+    },
+    {
+      "label": {
+        "en_GB": "Python-2.0",
+        "fr_FR": "Python-2.0"
+      },
+      "licenseName": "Python License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/Python-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "QPL-1.0",
+        "fr_FR": "QPL-1.0"
+      },
+      "licenseName": "Q Public License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/QPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Qhull",
+        "fr_FR": "Qhull"
+      },
+      "licenseName": "Qhull License",
+      "licenseUrl": "http://spdx.org/licenses/Qhull.json"
+    },
+    {
+      "label": {
+        "en_GB": "RHeCos-1.1",
+        "fr_FR": "RHeCos-1.1"
+      },
+      "licenseName": "Red Hat eCos Public License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/RHeCos-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "RPL-1.1",
+        "fr_FR": "RPL-1.1"
+      },
+      "licenseName": "Reciprocal Public License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/RPL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "RPL-1.5",
+        "fr_FR": "RPL-1.5"
+      },
+      "licenseName": "Reciprocal Public License 1.5",
+      "licenseUrl": "http://spdx.org/licenses/RPL-1.5.json"
+    },
+    {
+      "label": {
+        "en_GB": "RPSL-1.0",
+        "fr_FR": "RPSL-1.0"
+      },
+      "licenseName": "RealNetworks Public Source License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/RPSL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "RSA-MD",
+        "fr_FR": "RSA-MD"
+      },
+      "licenseName": "RSA Message-Digest License",
+      "licenseUrl": "http://spdx.org/licenses/RSA-MD.json"
+    },
+    {
+      "label": {
+        "en_GB": "RSCPL",
+        "fr_FR": "RSCPL"
+      },
+      "licenseName": "Ricoh Source Code Public License",
+      "licenseUrl": "http://spdx.org/licenses/RSCPL.json"
+    },
+    {
+      "label": {
+        "en_GB": "Rdisc",
+        "fr_FR": "Rdisc"
+      },
+      "licenseName": "Rdisc License",
+      "licenseUrl": "http://spdx.org/licenses/Rdisc.json"
+    },
+    {
+      "label": {
+        "en_GB": "Ruby",
+        "fr_FR": "Ruby"
+      },
+      "licenseName": "Ruby License",
+      "licenseUrl": "http://spdx.org/licenses/Ruby.json"
+    },
+    {
+      "label": {
+        "en_GB": "SAX-PD",
+        "fr_FR": "SAX-PD"
+      },
+      "licenseName": "Sax Public Domain Notice",
+      "licenseUrl": "http://spdx.org/licenses/SAX-PD.json"
+    },
+    {
+      "label": {
+        "en_GB": "SCEA",
+        "fr_FR": "SCEA"
+      },
+      "licenseName": "SCEA Shared Source License",
+      "licenseUrl": "http://spdx.org/licenses/SCEA.json"
+    },
+    {
+      "label": {
+        "en_GB": "SGI-B-1.0",
+        "fr_FR": "SGI-B-1.0"
+      },
+      "licenseName": "SGI Free Software License B v1.0",
+      "licenseUrl": "http://spdx.org/licenses/SGI-B-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "SGI-B-1.1",
+        "fr_FR": "SGI-B-1.1"
+      },
+      "licenseName": "SGI Free Software License B v1.1",
+      "licenseUrl": "http://spdx.org/licenses/SGI-B-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "SGI-B-2.0",
+        "fr_FR": "SGI-B-2.0"
+      },
+      "licenseName": "SGI Free Software License B v2.0",
+      "licenseUrl": "http://spdx.org/licenses/SGI-B-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "SHL-0.5",
+        "fr_FR": "SHL-0.5"
+      },
+      "licenseName": "Solderpad Hardware License v0.5",
+      "licenseUrl": "http://spdx.org/licenses/SHL-0.5.json"
+    },
+    {
+      "label": {
+        "en_GB": "SHL-0.51",
+        "fr_FR": "SHL-0.51"
+      },
+      "licenseName": "Solderpad Hardware License, Version 0.51",
+      "licenseUrl": "http://spdx.org/licenses/SHL-0.51.json"
+    },
+    {
+      "label": {
+        "en_GB": "SISSL",
+        "fr_FR": "SISSL"
+      },
+      "licenseName": "Sun Industry Standards Source License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/SISSL.json"
+    },
+    {
+      "label": {
+        "en_GB": "SISSL-1.2",
+        "fr_FR": "SISSL-1.2"
+      },
+      "licenseName": "Sun Industry Standards Source License v1.2",
+      "licenseUrl": "http://spdx.org/licenses/SISSL-1.2.json"
+    },
+    {
+      "label": {
+        "en_GB": "SMLNJ",
+        "fr_FR": "SMLNJ"
+      },
+      "licenseName": "Standard ML of New Jersey License",
+      "licenseUrl": "http://spdx.org/licenses/SMLNJ.json"
+    },
+    {
+      "label": {
+        "en_GB": "SMPPL",
+        "fr_FR": "SMPPL"
+      },
+      "licenseName": "Secure Messaging Protocol Public License",
+      "licenseUrl": "http://spdx.org/licenses/SMPPL.json"
+    },
+    {
+      "label": {
+        "en_GB": "SNIA",
+        "fr_FR": "SNIA"
+      },
+      "licenseName": "SNIA Public License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/SNIA.json"
+    },
+    {
+      "label": {
+        "en_GB": "SPL-1.0",
+        "fr_FR": "SPL-1.0"
+      },
+      "licenseName": "Sun Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/SPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "SSH-OpenSSH",
+        "fr_FR": "SSH-OpenSSH"
+      },
+      "licenseName": "SSH OpenSSH license",
+      "licenseUrl": "http://spdx.org/licenses/SSH-OpenSSH.json"
+    },
+    {
+      "label": {
+        "en_GB": "SSH-short",
+        "fr_FR": "SSH-short"
+      },
+      "licenseName": "SSH short notice",
+      "licenseUrl": "http://spdx.org/licenses/SSH-short.json"
+    },
+    {
+      "label": {
+        "en_GB": "SSPL-1.0",
+        "fr_FR": "SSPL-1.0"
+      },
+      "licenseName": "Server Side Public License, v 1",
+      "licenseUrl": "http://spdx.org/licenses/SSPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "SWL",
+        "fr_FR": "SWL"
+      },
+      "licenseName": "Scheme Widget Library (SWL) Software License Agreement",
+      "licenseUrl": "http://spdx.org/licenses/SWL.json"
+    },
+    {
+      "label": {
+        "en_GB": "Saxpath",
+        "fr_FR": "Saxpath"
+      },
+      "licenseName": "Saxpath License",
+      "licenseUrl": "http://spdx.org/licenses/Saxpath.json"
+    },
+    {
+      "label": {
+        "en_GB": "Sendmail",
+        "fr_FR": "Sendmail"
+      },
+      "licenseName": "Sendmail License",
+      "licenseUrl": "http://spdx.org/licenses/Sendmail.json"
+    },
+    {
+      "label": {
+        "en_GB": "Sendmail-8.23",
+        "fr_FR": "Sendmail-8.23"
+      },
+      "licenseName": "Sendmail License 8.23",
+      "licenseUrl": "http://spdx.org/licenses/Sendmail-8.23.json"
+    },
+    {
+      "label": {
+        "en_GB": "SimPL-2.0",
+        "fr_FR": "SimPL-2.0"
+      },
+      "licenseName": "Simple Public License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/SimPL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Sleepycat",
+        "fr_FR": "Sleepycat"
+      },
+      "licenseName": "Sleepycat License",
+      "licenseUrl": "http://spdx.org/licenses/Sleepycat.json"
+    },
+    {
+      "label": {
+        "en_GB": "Spencer-86",
+        "fr_FR": "Spencer-86"
+      },
+      "licenseName": "Spencer License 86",
+      "licenseUrl": "http://spdx.org/licenses/Spencer-86.json"
+    },
+    {
+      "label": {
+        "en_GB": "Spencer-94",
+        "fr_FR": "Spencer-94"
+      },
+      "licenseName": "Spencer License 94",
+      "licenseUrl": "http://spdx.org/licenses/Spencer-94.json"
+    },
+    {
+      "label": {
+        "en_GB": "Spencer-99",
+        "fr_FR": "Spencer-99"
+      },
+      "licenseName": "Spencer License 99",
+      "licenseUrl": "http://spdx.org/licenses/Spencer-99.json"
+    },
+    {
+      "label": {
+        "en_GB": "StandardML-NJ",
+        "fr_FR": "StandardML-NJ"
+      },
+      "licenseName": "Standard ML of New Jersey License",
+      "licenseUrl": "http://spdx.org/licenses/StandardML-NJ.json"
+    },
+    {
+      "label": {
+        "en_GB": "SugarCRM-1.1.3",
+        "fr_FR": "SugarCRM-1.1.3"
+      },
+      "licenseName": "SugarCRM Public License v1.1.3",
+      "licenseUrl": "http://spdx.org/licenses/SugarCRM-1.1.3.json"
+    },
+    {
+      "label": {
+        "en_GB": "TAPR-OHL-1.0",
+        "fr_FR": "TAPR-OHL-1.0"
+      },
+      "licenseName": "TAPR Open Hardware License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/TAPR-OHL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "TCL",
+        "fr_FR": "TCL"
+      },
+      "licenseName": "TCL/TK License",
+      "licenseUrl": "http://spdx.org/licenses/TCL.json"
+    },
+    {
+      "label": {
+        "en_GB": "TCP-wrappers",
+        "fr_FR": "TCP-wrappers"
+      },
+      "licenseName": "TCP Wrappers License",
+      "licenseUrl": "http://spdx.org/licenses/TCP-wrappers.json"
+    },
+    {
+      "label": {
+        "en_GB": "TMate",
+        "fr_FR": "TMate"
+      },
+      "licenseName": "TMate Open Source License",
+      "licenseUrl": "http://spdx.org/licenses/TMate.json"
+    },
+    {
+      "label": {
+        "en_GB": "TORQUE-1.1",
+        "fr_FR": "TORQUE-1.1"
+      },
+      "licenseName": "TORQUE v2.5+ Software License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/TORQUE-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "TOSL",
+        "fr_FR": "TOSL"
+      },
+      "licenseName": "Trusster Open Source License",
+      "licenseUrl": "http://spdx.org/licenses/TOSL.json"
+    },
+    {
+      "label": {
+        "en_GB": "TU-Berlin-1.0",
+        "fr_FR": "TU-Berlin-1.0"
+      },
+      "licenseName": "Technische Universitaet Berlin License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/TU-Berlin-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "TU-Berlin-2.0",
+        "fr_FR": "TU-Berlin-2.0"
+      },
+      "licenseName": "Technische Universitaet Berlin License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/TU-Berlin-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "UCL-1.0",
+        "fr_FR": "UCL-1.0"
+      },
+      "licenseName": "Upstream Compatibility License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/UCL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "UPL-1.0",
+        "fr_FR": "UPL-1.0"
+      },
+      "licenseName": "Universal Permissive License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/UPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Unicode-DFS-2015",
+        "fr_FR": "Unicode-DFS-2015"
+      },
+      "licenseName": "Unicode License Agreement - Data Files and Software (2015)",
+      "licenseUrl": "http://spdx.org/licenses/Unicode-DFS-2015.json"
+    },
+    {
+      "label": {
+        "en_GB": "Unicode-DFS-2016",
+        "fr_FR": "Unicode-DFS-2016"
+      },
+      "licenseName": "Unicode License Agreement - Data Files and Software (2016)",
+      "licenseUrl": "http://spdx.org/licenses/Unicode-DFS-2016.json"
+    },
+    {
+      "label": {
+        "en_GB": "Unicode-TOU",
+        "fr_FR": "Unicode-TOU"
+      },
+      "licenseName": "Unicode Terms of Use",
+      "licenseUrl": "http://spdx.org/licenses/Unicode-TOU.json"
+    },
+    {
+      "label": {
+        "en_GB": "Unlicense",
+        "fr_FR": "Unlicense"
+      },
+      "licenseName": "The Unlicense",
+      "licenseUrl": "http://spdx.org/licenses/Unlicense.json"
+    },
+    {
+      "label": {
+        "en_GB": "VOSTROM",
+        "fr_FR": "VOSTROM"
+      },
+      "licenseName": "VOSTROM Public License for Open Source",
+      "licenseUrl": "http://spdx.org/licenses/VOSTROM.json"
+    },
+    {
+      "label": {
+        "en_GB": "VSL-1.0",
+        "fr_FR": "VSL-1.0"
+      },
+      "licenseName": "Vovida Software License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/VSL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Vim",
+        "fr_FR": "Vim"
+      },
+      "licenseName": "Vim License",
+      "licenseUrl": "http://spdx.org/licenses/Vim.json"
+    },
+    {
+      "label": {
+        "en_GB": "W3C",
+        "fr_FR": "W3C"
+      },
+      "licenseName": "W3C Software Notice and License (2002-12-31)",
+      "licenseUrl": "http://spdx.org/licenses/W3C.json"
+    },
+    {
+      "label": {
+        "en_GB": "W3C-19980720",
+        "fr_FR": "W3C-19980720"
+      },
+      "licenseName": "W3C Software Notice and License (1998-07-20)",
+      "licenseUrl": "http://spdx.org/licenses/W3C-19980720.json"
+    },
+    {
+      "label": {
+        "en_GB": "W3C-20150513",
+        "fr_FR": "W3C-20150513"
+      },
+      "licenseName": "W3C Software Notice and Document License (2015-05-13)",
+      "licenseUrl": "http://spdx.org/licenses/W3C-20150513.json"
+    },
+    {
+      "label": {
+        "en_GB": "WTFPL",
+        "fr_FR": "WTFPL"
+      },
+      "licenseName": "Do What The F*ck You Want To Public License",
+      "licenseUrl": "http://spdx.org/licenses/WTFPL.json"
+    },
+    {
+      "label": {
+        "en_GB": "Watcom-1.0",
+        "fr_FR": "Watcom-1.0"
+      },
+      "licenseName": "Sybase Open Watcom Public License 1.0",
+      "licenseUrl": "http://spdx.org/licenses/Watcom-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Wsuipa",
+        "fr_FR": "Wsuipa"
+      },
+      "licenseName": "Wsuipa License",
+      "licenseUrl": "http://spdx.org/licenses/Wsuipa.json"
+    },
+    {
+      "label": {
+        "en_GB": "Zlib",
+        "fr_FR": "Zlib"
+      },
+      "licenseName": "zlib License",
+      "licenseUrl": "http://spdx.org/licenses/Zlib.json"
+    },
+    {
+      "label": {
+        "en_GB": "X11",
+        "fr_FR": "X11"
+      },
+      "licenseName": "X11 License",
+      "licenseUrl": "http://spdx.org/licenses/X11.json"
+    },
+    {
+      "label": {
+        "en_GB": "XFree86-1.1",
+        "fr_FR": "XFree86-1.1"
+      },
+      "licenseName": "XFree86 License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/XFree86-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "XSkat",
+        "fr_FR": "XSkat"
+      },
+      "licenseName": "XSkat License",
+      "licenseUrl": "http://spdx.org/licenses/XSkat.json"
+    },
+    {
+      "label": {
+        "en_GB": "Xerox",
+        "fr_FR": "Xerox"
+      },
+      "licenseName": "Xerox License",
+      "licenseUrl": "http://spdx.org/licenses/Xerox.json"
+    },
+    {
+      "label": {
+        "en_GB": "Xnet",
+        "fr_FR": "Xnet"
+      },
+      "licenseName": "X.Net License",
+      "licenseUrl": "http://spdx.org/licenses/Xnet.json"
+    },
+    {
+      "label": {
+        "en_GB": "YPL-1.0",
+        "fr_FR": "YPL-1.0"
+      },
+      "licenseName": "Yahoo! Public License v1.0",
+      "licenseUrl": "http://spdx.org/licenses/YPL-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "YPL-1.1",
+        "fr_FR": "YPL-1.1"
+      },
+      "licenseName": "Yahoo! Public License v1.1",
+      "licenseUrl": "http://spdx.org/licenses/YPL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "ZPL-1.1",
+        "fr_FR": "ZPL-1.1"
+      },
+      "licenseName": "Zope Public License 1.1",
+      "licenseUrl": "http://spdx.org/licenses/ZPL-1.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "ZPL-2.0",
+        "fr_FR": "ZPL-2.0"
+      },
+      "licenseName": "Zope Public License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/ZPL-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "ZPL-2.1",
+        "fr_FR": "ZPL-2.1"
+      },
+      "licenseName": "Zope Public License 2.1",
+      "licenseUrl": "http://spdx.org/licenses/ZPL-2.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "Zed",
+        "fr_FR": "Zed"
+      },
+      "licenseName": "Zed License",
+      "licenseUrl": "http://spdx.org/licenses/Zed.json"
+    },
+    {
+      "label": {
+        "en_GB": "Zend-2.0",
+        "fr_FR": "Zend-2.0"
+      },
+      "licenseName": "Zend License v2.0",
+      "licenseUrl": "http://spdx.org/licenses/Zend-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "Zimbra-1.3",
+        "fr_FR": "Zimbra-1.3"
+      },
+      "licenseName": "Zimbra Public License v1.3",
+      "licenseUrl": "http://spdx.org/licenses/Zimbra-1.3.json"
+    },
+    {
+      "label": {
+        "en_GB": "Zimbra-1.4",
+        "fr_FR": "Zimbra-1.4"
+      },
+      "licenseName": "Zimbra Public License v1.4",
+      "licenseUrl": "http://spdx.org/licenses/Zimbra-1.4.json"
+    },
+    {
+      "label": {
+        "en_GB": "blessing",
+        "fr_FR": "blessing"
+      },
+      "licenseName": "SQLite Blessing",
+      "licenseUrl": "http://spdx.org/licenses/blessing.json"
+    },
+    {
+      "label": {
+        "en_GB": "bzip2-1.0.5",
+        "fr_FR": "bzip2-1.0.5"
+      },
+      "licenseName": "bzip2 and libbzip2 License v1.0.5",
+      "licenseUrl": "http://spdx.org/licenses/bzip2-1.0.5.json"
+    },
+    {
+      "label": {
+        "en_GB": "bzip2-1.0.6",
+        "fr_FR": "bzip2-1.0.6"
+      },
+      "licenseName": "bzip2 and libbzip2 License v1.0.6",
+      "licenseUrl": "http://spdx.org/licenses/bzip2-1.0.6.json"
+    },
+    {
+      "label": {
+        "en_GB": "copyleft-next-0.3.0",
+        "fr_FR": "copyleft-next-0.3.0"
+      },
+      "licenseName": "copyleft-next 0.3.0",
+      "licenseUrl": "http://spdx.org/licenses/copyleft-next-0.3.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "copyleft-next-0.3.1",
+        "fr_FR": "copyleft-next-0.3.1"
+      },
+      "licenseName": "copyleft-next 0.3.1",
+      "licenseUrl": "http://spdx.org/licenses/copyleft-next-0.3.1.json"
+    },
+    {
+      "label": {
+        "en_GB": "curl",
+        "fr_FR": "curl"
+      },
+      "licenseName": "curl License",
+      "licenseUrl": "http://spdx.org/licenses/curl.json"
+    },
+    {
+      "label": {
+        "en_GB": "diffmark",
+        "fr_FR": "diffmark"
+      },
+      "licenseName": "diffmark license",
+      "licenseUrl": "http://spdx.org/licenses/diffmark.json"
+    },
+    {
+      "label": {
+        "en_GB": "dvipdfm",
+        "fr_FR": "dvipdfm"
+      },
+      "licenseName": "dvipdfm License",
+      "licenseUrl": "http://spdx.org/licenses/dvipdfm.json"
+    },
+    {
+      "label": {
+        "en_GB": "eCos-2.0",
+        "fr_FR": "eCos-2.0"
+      },
+      "licenseName": "eCos license version 2.0",
+      "licenseUrl": "http://spdx.org/licenses/eCos-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "eGenix",
+        "fr_FR": "eGenix"
+      },
+      "licenseName": "eGenix.com Public License 1.1.0",
+      "licenseUrl": "http://spdx.org/licenses/eGenix.json"
+    },   
+    {
+      "label": {
+        "en_GB": "gSOAP-1.3b",
+        "fr_FR": "gSOAP-1.3b"
+      },
+      "licenseName": "gSOAP Public License v1.3b",
+      "licenseUrl": "http://spdx.org/licenses/gSOAP-1.3b.json"
+    },
+    {
+      "label": {
+        "en_GB": "gnuplot",
+        "fr_FR": "gnuplot"
+      },
+      "licenseName": "gnuplot License",
+      "licenseUrl": "http://spdx.org/licenses/gnuplot.json"
+    },
+    {
+      "label": {
+        "en_GB": "iMatix",
+        "fr_FR": "iMatix"
+      },
+      "licenseName": "iMatix Standard Function Library Agreement",
+      "licenseUrl": "http://spdx.org/licenses/iMatix.json"
+    },
+    {
+      "label": {
+        "en_GB": "libpng-2.0",
+        "fr_FR": "libpng-2.0"
+      },
+      "licenseName": "PNG Reference Library version 2",
+      "licenseUrl": "http://spdx.org/licenses/libpng-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "libselinux-1.0",
+        "fr_FR": "libselinux-1.0"
+      },
+      "licenseName": "libselinux public domain notice",
+      "licenseUrl": "http://spdx.org/licenses/libselinux-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "libtiff",
+        "fr_FR": "libtiff"
+      },
+      "licenseName": "libtiff License",
+      "licenseUrl": "http://spdx.org/licenses/libtiff.json"
+    },
+    {
+      "label": {
+        "en_GB": "mpich2",
+        "fr_FR": "mpich2"
+      },
+      "licenseName": "mpich2 License",
+      "licenseUrl": "http://spdx.org/licenses/mpich2.json"
+    },
+    {
+      "label": {
+        "en_GB": "psfrag",
+        "fr_FR": "psfrag"
+      },
+      "licenseName": "psfrag License",
+      "licenseUrl": "http://spdx.org/licenses/psfrag.json"
+    },
+    {
+      "label": {
+        "en_GB": "psutils",
+        "fr_FR": "psutils"
+      },
+      "licenseName": "psutils License",
+      "licenseUrl": "http://spdx.org/licenses/psutils.json"
+    },
+    {
+      "label": {
+        "en_GB": "wxWindows",
+        "fr_FR": "wxWindows"
+      },
+      "licenseName": "wxWindows Library License",
+      "licenseUrl": "http://spdx.org/licenses/wxWindows.json"
+    },
+    {
+      "label": {
+        "en_GB": "xinetd",
+        "fr_FR": "xinetd"
+      },
+      "licenseName": "xinetd License",
+      "licenseUrl": "http://spdx.org/licenses/xinetd.json"
+    },
+    {
+      "label": {
+        "en_GB": "xpp",
+        "fr_FR": "xpp"
+      },
+      "licenseName": "XPP License",
+      "licenseUrl": "http://spdx.org/licenses/xpp.json"
+    },
+    {
+      "label": {
+        "en_GB": "zlib-acknowledgement",
+        "fr_FR": "zlib-acknowledgement"
+      },
+      "licenseName": "zlib/libpng License with Acknowledgement",
+      "licenseUrl": "http://spdx.org/licenses/zlib-acknowledgement.json"
+    }
+  ]
+}

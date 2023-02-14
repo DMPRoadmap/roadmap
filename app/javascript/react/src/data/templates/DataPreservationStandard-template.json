@@ -1,0 +1,144 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataPreservationStandard",
+    "description": "DataPreservationStandard template",
+    "type": "object",
+    "class": "DataPreservationStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des contraintes réglementaires à prendre en compte pour la conservation des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "Justification",
+            "tooltip@fr_FR": "Préciser les raisons justifiant la conservation à long terme des données, critères de choix, valeur à long terme, contraintes réglementaires",
+            "tooltip@en_GB": "Specify the reasons justifying the long term preservation of data, selection criteria, long-term value, regulatory constraints",
+            "form_label@fr_FR": "Justifier la conservation à long terme",
+            "form_label@en_GB": "Long term preservation justification"
+        },
+        "dataSize": {
+            "type": "number",
+            "description": "Volume des données concernées en octets",
+            "label@fr_FR": "Volume estimé des données",
+            "label@en_GB": "Estimated volume of data",
+            "form_label@fr_FR": "Volume estimé des données",
+            "form_label@en_GB": "Estimated volume of data"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "inputType": "dropdown",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "registry_name": "VolumeUnit",
+            "overridable": true,
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        },
+        "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Début de conservation",
+            "label@fr_FR": "Date de début",
+            "label@en_GB": "Start date",
+            "form_label@fr_FR": "Date de début",
+            "form_label@en_GB": "Start date"
+        },
+        "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Fin de conservation",
+            "label@fr_FR": "Date de fin",
+            "label@en_GB": "End date",
+            "form_label@fr_FR": "Date de fin",
+            "form_label@en_GB": "End date"
+        },
+        "host": {
+            "type": "object",
+            "class": "Host",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "HostStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Centre, entrepôt dans lequel les données seront archivées à long terme si nécessaire",
+            "label@fr_FR": "Archive",
+            "label@en_GB": "Archive",
+            "inputType": "dropdown",
+            "registry_name": "Archives",
+            "overridable": true,
+            "form_label@fr_FR": "Choisir une archive pour conserver les données à long terme",
+            "form_label@en_GB": "Choose an archive for long-term data preservation"
+        },
+        "finalDisposition": {
+            "type": "string",
+            "description": "Sort final des données (destruction, pronumberation de la conservation, …)",
+            "label@fr_FR": "Dispositions finales",
+            "label@en_GB": "Final dispositions",
+            "tooltip@fr_FR": "Sort final : devenir des données à échéance de leur durée de conservation (élimination, conservation définitive, tri)",
+            "tooltip@en_GB": "Final outcome: future of data at the end of their preservation period (elimination, definitive conservation, sorting)",
+            "form_label@fr_FR": "Dispositions finales",
+            "form_label@en_GB": "Final dispositions"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataPreservationManager",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) en charge de la conservation à number term des données",
+            "label@fr_FR": "Responsables de la conservation à long terme des données",
+            "label@en_GB": "Persons in charge of long term data preservation",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Responsables de la conservation à long terme des données",
+            "form_label@en_GB": "Persons in charge of long term data preservation"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coût(s) lié(s) à la conservation à number terme des données",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "form_label@fr_FR": "Coûts liés à la conservation à long terme des données",
+            "form_label@en_GB": "Long term data preservation associated costs"
+        }
+    },
+    "required": [
+        "dataSize",
+        "startDate",
+        "endDate",
+        "finalDisposition"
+    ],
+    "to_string": []
+}

@@ -1,0 +1,3111 @@
+{"Repositories":[
+    {
+        "label": {
+            "en_GB": "2P2IDB, Protein-Protein Interaction Inhibition Database",
+            "fr_FR": "2P2IDB, Protein-Protein Interaction Inhibition Database"
+        },
+        "title": "2P2IDB",
+        "hostId": "https://cat.opidor.fr/index.php/2P2IDB",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "3Soleil, Surveillance sol du Soleil et du rayonnement solaire (3Soleil)",
+            "fr_FR": "3Soleil, Surveillance sol du Soleil et du rayonnement solaire (3Soleil)"
+        },
+        "title": "3Soleil",
+        "hostId": "https://cat.opidor.fr/index.php/3Soleil",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "ABCdb, Archaeal and Bacterial ABC Systems database",
+            "fr_FR": "ABCdb, Archaeal and Bacterial ABC Systems database"
+        },
+        "title": "ABCdb",
+        "hostId": "https://cat.opidor.fr/index.php/ABCdb",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ACTRIS DC, ACTRIS Data Centre",
+            "fr_FR": "ACTRIS DC, ACTRIS Data Centre"
+        },
+        "title": "ACTRIS DC",
+        "hostId": "https://cat.opidor.fr/index.php/ACTRIS DC",
+        "idType": "URL",
+        "geoLocation": "FI"
+    },
+    {
+        "label": {
+            "en_GB": "ADEME Portail open data, Portail open data de l'ADEME",
+            "fr_FR": "ADEME Portail open data, Portail open data de l'ADEME"
+        },
+        "title": "ADEME Portail open data",
+        "hostId": "https://cat.opidor.fr/index.php/ADEME Portail open data",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "ADES, Acc\u00e8s aux Donn\u00e9es sur les Eaux Souterraines",
+            "fr_FR": "ADES, Acc\u00e8s aux Donn\u00e9es sur les Eaux Souterraines"
+        },
+        "title": "ADES",
+        "hostId": "https://cat.opidor.fr/index.php/ADES",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "AGRHYS, AGro-HYdroSyst\u00e8mes, ORE AGRHYS",
+            "fr_FR": "AGRHYS, AGro-HYdroSyst\u00e8mes, ORE AGRHYS"
+        },
+        "title": "AGRHYS",
+        "hostId": "https://cat.opidor.fr/index.php/AGRHYS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "AIEA Bases de donn\u00e9es, Service de donn\u00e9es nucl\u00e9aires de l'AIEA, IAEA Nuclear Data Services",
+            "fr_FR": "AIEA Bases de donn\u00e9es, Service de donn\u00e9es nucl\u00e9aires de l'AIEA, IAEA Nuclear Data Services"
+        },
+        "title": "AIEA Bases de donn\u00e9es",
+        "hostId": "https://cat.opidor.fr/index.php/AIEA Bases de donn\u00e9es",
+        "idType": "URL",
+        "geoLocation": "AT"
+    },
+    {
+        "label": {
+            "en_GB": "AMMA-CATCH-DB, Observatoire \u00e9co-hydro-m\u00e9t\u00e9o en Afrique de l'Ouest, Observatoire hydrologique, \u00e9cologique et m\u00e9t\u00e9orologique de long terme en Afrique de l\u2019Ouest",
+            "fr_FR": "AMMA-CATCH-DB, Observatoire \u00e9co-hydro-m\u00e9t\u00e9o en Afrique de l'Ouest, Observatoire hydrologique, \u00e9cologique et m\u00e9t\u00e9orologique de long terme en Afrique de l\u2019Ouest"
+        },
+        "title": "AMMA-CATCH-DB",
+        "hostId": "https://cat.opidor.fr/index.php/AMMA-CATCH-DB",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "ANISEED, Ascidian Network for InSitu Expression and Embryological Data",
+            "fr_FR": "ANISEED, Ascidian Network for InSitu Expression and Embryological Data"
+        },
+        "title": "ANISEED",
+        "hostId": "https://cat.opidor.fr/index.php/ANISEED",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ELIXIR Data Resources"]
+    },
+    {
+        "label": {
+            "en_GB": "ANPERSANA",
+            "fr_FR": "ANPERSANA"
+        },
+        "title": "ANPERSANA",
+        "hostId": "https://cat.opidor.fr/index.php/ANPERSANA",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "APIS, Auroral Planetary Imaging and Spectroscopy",
+            "fr_FR": "APIS, Auroral Planetary Imaging and Spectroscopy"
+        },
+        "title": "APIS",
+        "hostId": "https://cat.opidor.fr/index.php/APIS",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "ARCHITOUL, Archi'Toul",
+            "fr_FR": "ARCHITOUL, Archi'Toul"
+        },
+        "title": "ARCHITOUL",
+        "hostId": "https://cat.opidor.fr/index.php/ARCHITOUL",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["Audio-Visio"]
+    },
+    {
+        "label": {
+            "en_GB": "ASPIC Portail, Archives Spectrophotom\u00e9triques publiques integr\u00e9es au CeSAM, Archive of Spectrophotometry Publicly available In Cesam",
+            "fr_FR": "ASPIC Portail, Archives Spectrophotom\u00e9triques publiques integr\u00e9es au CeSAM, Archive of Spectrophotometry Publicly available In Cesam"
+        },
+        "title": "ASPIC Portail",
+        "hostId": "https://cat.opidor.fr/index.php/ASPIC Portail",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "AVISO+, Archiving, Validation and Interpretation of Satellite Oceanographic data",
+            "fr_FR": "AVISO+, Archiving, Validation and Interpretation of Satellite Oceanographic data"
+        },
+        "title": "AVISO+",
+        "hostId": "https://cat.opidor.fr/index.php/AVISO+",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Adisp, Archives de Donn\u00e9es Issues de la Statistique Publique",
+            "fr_FR": "Adisp, Archives de Donn\u00e9es Issues de la Statistique Publique"
+        },
+        "title": "Adisp",
+        "hostId": "https://cat.opidor.fr/index.php/Adisp",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Aeris, P\u00f4le de donn\u00e9es et de services pour l'atmosph\u00e8re, P\u00f4le th\u00e9matique Aeris, P\u00f4le th\u00e9matique atmosph\u00e8re",
+            "fr_FR": "Aeris, P\u00f4le de donn\u00e9es et de services pour l'atmosph\u00e8re, P\u00f4le th\u00e9matique Aeris, P\u00f4le th\u00e9matique atmosph\u00e8re"
+        },
+        "title": "Aeris",
+        "hostId": "https://cat.opidor.fr/index.php/Aeris",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Aladin, Aladin Sky Atlas",
+            "fr_FR": "Aladin, Aladin Sky Atlas"
+        },
+        "title": "Aladin",
+        "hostId": "https://cat.opidor.fr/index.php/Aladin",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "AnaEE-France Metadata Catalog",
+            "fr_FR": "AnaEE-France Metadata Catalog"
+        },
+        "title": "AnaEE-France Metadata Catalog",
+        "hostId": "https://cat.opidor.fr/index.php/AnaEE-France Metadata Catalog",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "AnaEE-France entrep\u00f4t, Entrep\u00f4t de donn\u00e9es AnaEE-France",
+            "fr_FR": "AnaEE-France entrep\u00f4t, Entrep\u00f4t de donn\u00e9es AnaEE-France"
+        },
+        "title": "AnaEE-France entrep\u00f4t",
+        "hostId": "https://cat.opidor.fr/index.php/AnaEE-France entrep\u00f4t",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ArchiPolis catalogue, Archives des sciences sociales du politique",
+            "fr_FR": "ArchiPolis catalogue, Archives des sciences sociales du politique"
+        },
+        "title": "ArchiPolis catalogue",
+        "hostId": "https://cat.opidor.fr/index.php/ArchiPolis catalogue",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Archives sonores CNRS - Mus\u00e9e de l'Homme",
+            "fr_FR": "Archives sonores CNRS - Mus\u00e9e de l'Homme"
+        },
+        "title": "Archives sonores CNRS - Mus\u00e9e de l'Homme",
+        "hostId": "https://cat.opidor.fr/index.php/Archives sonores CNRS - Mus\u00e9e de l'Homme",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ArkeoGIS, Partage et utilisation de donn\u00e9es spatialis\u00e9es sur le pass\u00e9,",
+            "fr_FR": "ArkeoGIS, Partage et utilisation de donn\u00e9es spatialis\u00e9es sur le pass\u00e9,"
+        },
+        "title": "ArkeoGIS",
+        "hostId": "https://cat.opidor.fr/index.php/ArkeoGIS",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["Spatio"]
+    },
+    {
+        "label": {
+            "en_GB": "Aurad\u00e9, Bassin Versant Exp\u00e9rimental de l'Aurad\u00e9, BVE Aurad\u00e9",
+            "fr_FR": "Aurad\u00e9, Bassin Versant Exp\u00e9rimental de l'Aurad\u00e9, BVE Aurad\u00e9"
+        },
+        "title": "Aurad\u00e9",
+        "hostId": "https://cat.opidor.fr/index.php/Aurad\u00e9",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BAOBAB, Portail de donn\u00e9es Afrique de l'Ouest",
+            "fr_FR": "BAOBAB, Portail de donn\u00e9es Afrique de l'Ouest"
+        },
+        "title": "BAOBAB",
+        "hostId": "https://cat.opidor.fr/index.php/BAOBAB",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BASECOL, Ro-Vibrational Collisional Excitation Database and Utilities",
+            "fr_FR": "BASECOL, Ro-Vibrational Collisional Excitation Database and Utilities"
+        },
+        "title": "BASECOL",
+        "hostId": "https://cat.opidor.fr/index.php/BASECOL",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BASS2000, Base de donn\u00e9es solaire Sol. Solar Survey Archive",
+            "fr_FR": "BASS2000, Base de donn\u00e9es solaire Sol. Solar Survey Archive"
+        },
+        "title": "BASS2000",
+        "hostId": "https://cat.opidor.fr/index.php/BASS2000",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ICSU-WDS"]
+    },
+    {
+        "label": {
+            "en_GB": "BCSF-RENASS, Bureau Central Sismologique Fran\u00e7ais-R\u00e9seau National de surveillance sismologue, BCSF-R\u00e9NaSS",
+            "fr_FR": "BCSF-RENASS, Bureau Central Sismologique Fran\u00e7ais-R\u00e9seau National de surveillance sismologue, BCSF-R\u00e9NaSS"
+        },
+        "title": "BCSF-RENASS",
+        "hostId": "https://cat.opidor.fr/index.php/BCSF-RENASS",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "BDOH, Base de Donn\u00e9es des Observatoires en Hydrologie\u00a0",
+            "fr_FR": "BDOH, Base de Donn\u00e9es des Observatoires en Hydrologie\u00a0"
+        },
+        "title": "BDOH",
+        "hostId": "https://cat.opidor.fr/index.php/BDOH",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BGI, Bureau Gravim\u00e9trique International, International Gravimetric Bureau",
+            "fr_FR": "BGI, Bureau Gravim\u00e9trique International, International Gravimetric Bureau"
+        },
+        "title": "BGI",
+        "hostId": "https://cat.opidor.fr/index.php/BGI",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BIII, BioImage Informatics Index, BISE",
+            "fr_FR": "BIII, BioImage Informatics Index, BISE"
+        },
+        "title": "BIII",
+        "hostId": "https://cat.opidor.fr/index.php/BIII",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": [
+            "ELIXIR Data Resources",
+            "ELIXIR Recommended Interoperability Resources"
+        ]
+    },
+    {
+        "label": {
+            "en_GB": "BIPM, Bureau International des Poids et Mesures",
+            "fr_FR": "BIPM, Bureau International des Poids et Mesures"
+        },
+        "title": "BIPM",
+        "hostId": "https://cat.opidor.fr/index.php/BIPM",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BVH, Biblioth\u00e8ques Virtuelles Humanistes",
+            "fr_FR": "BVH, Biblioth\u00e8ques Virtuelles Humanistes"
+        },
+        "title": "BVH",
+        "hostId": "https://cat.opidor.fr/index.php/BVH",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BeQuali, Banque d\u2019enqu\u00eates qualitatives en sciences humaines et sociales",
+            "fr_FR": "BeQuali, Banque d\u2019enqu\u00eates qualitatives en sciences humaines et sociales"
+        },
+        "title": "BeQuali",
+        "hostId": "https://cat.opidor.fr/index.php/BeQuali",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BioEmergences, Dynamiques multi\u00e9chelles dans la morphogen\u00e8se, Multilevel Dynamics in Morphogenesis, FRE 2039",
+            "fr_FR": "BioEmergences, Dynamiques multi\u00e9chelles dans la morphogen\u00e8se, Multilevel Dynamics in Morphogenesis, FRE 2039"
+        },
+        "title": "BioEmergences",
+        "hostId": "https://cat.opidor.fr/index.php/BioEmergences",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BioImage Archive",
+            "fr_FR": "BioImage Archive"
+        },
+        "title": "BioImage Archive",
+        "hostId": "https://cat.opidor.fr/index.php/BioImage Archive",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Bureau central de l'IDS, IDS Central Bureau, Central Bureau-International DORIS Service",
+            "fr_FR": "Bureau central de l'IDS, IDS Central Bureau, Central Bureau-International DORIS Service"
+        },
+        "title": "Bureau central de l'IDS",
+        "hostId": "https://cat.opidor.fr/index.php/Bureau central de l'IDS",
+        "idType": "URL",
+        "geoLocation": "GB"
+    },
+    {
+        "label": {
+            "en_GB": "CADE, Centre d\u2019Analyse de Donn\u00e9es Etendues",
+            "fr_FR": "CADE, Centre d\u2019Analyse de Donn\u00e9es Etendues"
+        },
+        "title": "CADE",
+        "hostId": "https://cat.opidor.fr/index.php/CADE",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online,",
+            "fr_FR": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online,"
+        },
+        "title": "CALLISTO",
+        "hostId": "https://cat.opidor.fr/index.php/CALLISTO",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CASD, Centre d\u2019acc\u00e8s s\u00e9curis\u00e9 aux donn\u00e9es, GIP CASD",
+            "fr_FR": "CASD, Centre d\u2019acc\u00e8s s\u00e9curis\u00e9 aux donn\u00e9es, GIP CASD"
+        },
+        "title": "CASD",
+        "hostId": "https://cat.opidor.fr/index.php/CASD",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": [
+            "Certification ISO 27001 \u2013 Management de la S\u00e9curit\u00e9 de l\u2019Information",
+            "Certification H\u00e9bergeur de donn\u00e9es de sant\u00e9 (HDS)",
+            "SNDS \u2013 Homologation au R\u00e9f\u00e9rentiel de S\u00e9curit\u00e9 des Donn\u00e9es de Sant\u00e9"
+        ]
+    },
+    {
+        "label": {
+            "en_GB": "CATdb, Complete Arabidopsis Trancriptome database",
+            "fr_FR": "CATdb, Complete Arabidopsis Trancriptome database"
+        },
+        "title": "CATdb",
+        "hostId": "https://cat.opidor.fr/index.php/CATdb",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CAZy, Carbohydrate-Active enZYmes Database",
+            "fr_FR": "CAZy, Carbohydrate-Active enZYmes Database"
+        },
+        "title": "CAZy",
+        "hostId": "https://cat.opidor.fr/index.php/CAZy",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CDGP, Centre de donn\u00e9es de g\u00e9othermie profonde",
+            "fr_FR": "CDGP, Centre de donn\u00e9es de g\u00e9othermie profonde"
+        },
+        "title": "CDGP",
+        "hostId": "https://cat.opidor.fr/index.php/CDGP",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CDPP, Centre de donn\u00e9es pour la physiques des plasmas naturels du syst\u00e8me solaire, Plasma Physics Data Center",
+            "fr_FR": "CDPP, Centre de donn\u00e9es pour la physiques des plasmas naturels du syst\u00e8me solaire, Plasma Physics Data Center"
+        },
+        "title": "CDPP",
+        "hostId": "https://cat.opidor.fr/index.php/CDPP",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "CDS, IR CDS, Centre de Donn\u00e9es astronomiques de Strasbourg, Strasbourg astronomical Data Center",
+            "fr_FR": "CDS, IR CDS, Centre de Donn\u00e9es astronomiques de Strasbourg, Strasbourg astronomical Data Center"
+        },
+        "title": "CDS",
+        "hostId": "https://cat.opidor.fr/index.php/CDS",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": [
+            "SNO",
+            "CoreTrustSeal",
+            "WDS",
+            "Centre de r\u00e9f\u00e9rence th\u00e9matique Astronomie et astrophysique de Recherche Data Gouv"
+        ]
+    },
+    {
+        "label": {
+            "en_GB": "CDS Portal",
+            "fr_FR": "CDS Portal"
+        },
+        "title": "CDS Portal",
+        "hostId": "https://cat.opidor.fr/index.php/CDS Portal",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": [
+            "CoreTrustSeal",
+            "WDS"
+        ]
+    },
+    {
+        "label": {
+            "en_GB": "CDS-IS, CDS-in situ, Centres de donn\u00e9es et Services in situ - ODATIS",
+            "fr_FR": "CDS-IS, CDS-in situ, Centres de donn\u00e9es et Services in situ - ODATIS"
+        },
+        "title": "CDS-IS",
+        "hostId": "https://cat.opidor.fr/index.php/CDS-IS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CDS-SAT, Centres de Donn\u00e9es et Services satellites - ODATIS, CDS-satellite",
+            "fr_FR": "CDS-SAT, Centres de Donn\u00e9es et Services satellites - ODATIS, CDS-satellite"
+        },
+        "title": "CDS-SAT",
+        "hostId": "https://cat.opidor.fr/index.php/CDS-SAT",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CEBA g\u00e9oportail, G\u00e9oportail du CEBA",
+            "fr_FR": "CEBA g\u00e9oportail, G\u00e9oportail du CEBA"
+        },
+        "title": "CEBA g\u00e9oportail",
+        "hostId": "https://cat.opidor.fr/index.php/CEBA g\u00e9oportail",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CENHTOR, Centre de ressourcEs Num\u00e9riques des Humanit\u00e9s et des TerritOiRes",
+            "fr_FR": "CENHTOR, Centre de ressourcEs Num\u00e9riques des Humanit\u00e9s et des TerritOiRes"
+        },
+        "title": "CENHTOR",
+        "hostId": "https://cat.opidor.fr/index.php/CENHTOR",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CERN Open Data Portal, Portail des donn\u00e9es ouvertes du CERN",
+            "fr_FR": "CERN Open Data Portal, Portail des donn\u00e9es ouvertes du CERN"
+        },
+        "title": "CERN Open Data Portal",
+        "hostId": "https://cat.opidor.fr/index.php/CERN Open Data Portal",
+        "idType": "URL",
+        "geoLocation": "CH"
+    },
+    {
+        "label": {
+            "en_GB": "CERSAT, CDS-SAT-CERSAT, Centre d'Exploitation et de Recherche SATellitaire, Centre ERS d'Archivage et de Traitement",
+            "fr_FR": "CERSAT, CDS-SAT-CERSAT, Centre d'Exploitation et de Recherche SATellitaire, Centre ERS d'Archivage et de Traitement"
+        },
+        "title": "CERSAT",
+        "hostId": "https://cat.opidor.fr/index.php/CERSAT",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CESBIO, Centre d'\u00e9tudes spatiales de la biosph\u00e8re, UMR 5126",
+            "fr_FR": "CESBIO, Centre d'\u00e9tudes spatiales de la biosph\u00e8re, UMR 5126"
+        },
+        "title": "CESBIO",
+        "hostId": "https://cat.opidor.fr/index.php/CESBIO",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CMEMS, Copernicus Marine Service, Copernicus Marine Environment Monitoring Service, Service de Surveillance de l'Environnement Marin de Copernicus",
+            "fr_FR": "CMEMS, Copernicus Marine Service, Copernicus Marine Environment Monitoring Service, Service de Surveillance de l'Environnement Marin de Copernicus"
+        },
+        "title": "CMEMS",
+        "hostId": "https://cat.opidor.fr/index.php/CMEMS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CRISPR-Cas++, CRISPRCas++",
+            "fr_FR": "CRISPR-Cas++, CRISPRCas++"
+        },
+        "title": "CRISPR-Cas++",
+        "hostId": "https://cat.opidor.fr/index.php/CRISPR-Cas++",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ELIXIR Data Resources"]
+    },
+    {
+        "label": {
+            "en_GB": "CRYOBS-CLIM, La CRYosph\u00e8re, un OBServatoire du CLIMat",
+            "fr_FR": "CRYOBS-CLIM, La CRYosph\u00e8re, un OBServatoire du CLIMat"
+        },
+        "title": "CRYOBS-CLIM",
+        "hostId": "https://cat.opidor.fr/index.php/CRYOBS-CLIM",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CTOH, Centre de Topographie des Oc\u00e9ans et de l\u2019Hydrosph\u00e8re, Centre pour les \u00e9tudes topographiques Oc\u00e9an-Hydrosph\u00e8re",
+            "fr_FR": "CTOH, Centre de Topographie des Oc\u00e9ans et de l\u2019Hydrosph\u00e8re, Centre pour les \u00e9tudes topographiques Oc\u00e9an-Hydrosph\u00e8re"
+        },
+        "title": "CTOH",
+        "hostId": "https://cat.opidor.fr/index.php/CTOH",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "Campagnes Oc\u00e9anographiques Fran\u00e7aises, French Oceanographic Cruise",
+            "fr_FR": "Campagnes Oc\u00e9anographiques Fran\u00e7aises, French Oceanographic Cruise"
+        },
+        "title": "Campagnes Oc\u00e9anographiques Fran\u00e7aises",
+        "hostId": "https://cat.opidor.fr/index.php/Campagnes Oc\u00e9anographiques Fran\u00e7aises",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CartoMundi",
+            "fr_FR": "CartoMundi"
+        },
+        "title": "CartoMundi",
+        "hostId": "https://cat.opidor.fr/index.php/CartoMundi",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["Spatio"]
+    },
+    {
+        "label": {
+            "en_GB": "CeDONA, Centre de Donn\u00e9es pour l'Observation en Nouvelle Aquitaine, Centre de Donn\u00e9es CeDONA, Centre de Donn\u00e9es OASU, OASU - CD",
+            "fr_FR": "CeDONA, Centre de Donn\u00e9es pour l'Observation en Nouvelle Aquitaine, Centre de Donn\u00e9es CeDONA, Centre de Donn\u00e9es OASU, OASU - CD"
+        },
+        "title": "CeDONA",
+        "hostId": "https://cat.opidor.fr/index.php/CeDONA",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CeSAM, Centre de donn\u00e9es de l'Observatoire des Sciences de l'Univers PyTHEAS,  Centre de donn\u00e9es Pytheas,Pyth\u00e9as Data Centre, Centre de donn\u00e9eS Astrophysiques de Marseille",
+            "fr_FR": "CeSAM, Centre de donn\u00e9es de l'Observatoire des Sciences de l'Univers PyTHEAS,  Centre de donn\u00e9es Pytheas,Pyth\u00e9as Data Centre, Centre de donn\u00e9eS Astrophysiques de Marseille"
+        },
+        "title": "CeSAM",
+        "hostId": "https://cat.opidor.fr/index.php/CeSAM",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Centre d'analyse IDS, IDS Analysis Center, Analysis Center International DORIS Service, GRGS IDS Analysis Center,CNES/CLS Analysis Center for IDS",
+            "fr_FR": "Centre d'analyse IDS, IDS Analysis Center, Analysis Center International DORIS Service, GRGS IDS Analysis Center,CNES/CLS Analysis Center for IDS"
+        },
+        "title": "Centre d'analyse IDS",
+        "hostId": "https://cat.opidor.fr/index.php/Centre d'analyse IDS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Centre d'analyse IGS, CNES/CLS Analysis Center for IGS, GRGS IGS Analysis center",
+            "fr_FR": "Centre d'analyse IGS, CNES/CLS Analysis Center for IGS, GRGS IGS Analysis center"
+        },
+        "title": "Centre d'analyse IGS",
+        "hostId": "https://cat.opidor.fr/index.php/Centre d'analyse IGS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Centre d'analyse ILRS du GRGS, GRGS ILRS Associated Analysis Center",
+            "fr_FR": "Centre d'analyse ILRS du GRGS, GRGS ILRS Associated Analysis Center"
+        },
+        "title": "Centre d'analyse ILRS du GRGS",
+        "hostId": "https://cat.opidor.fr/index.php/Centre d'analyse ILRS du GRGS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Centre de combinaison IDS, IDS Combination Center, Combinaison Center International DORIS Service",
+            "fr_FR": "Centre de combinaison IDS, IDS Combination Center, Combinaison Center International DORIS Service"
+        },
+        "title": "Centre de combinaison IDS",
+        "hostId": "https://cat.opidor.fr/index.php/Centre de combinaison IDS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Centre de conventions de l\u2019IERS, IERS Convention Center",
+            "fr_FR": "Centre de conventions de l\u2019IERS, IERS Convention Center"
+        },
+        "title": "Centre de conventions de l\u2019IERS",
+        "hostId": "https://cat.opidor.fr/index.php/Centre de conventions de l\u2019IERS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Centre de donn\u00e9es de l'IDS, IGN IDS Global Data Center, IGN DORIS data center",
+            "fr_FR": "Centre de donn\u00e9es de l'IDS, IGN IDS Global Data Center, IGN DORIS data center"
+        },
+        "title": "Centre de donn\u00e9es de l'IDS",
+        "hostId": "https://cat.opidor.fr/index.php/Centre de donn\u00e9es de l'IDS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Centre de produit ITRS, International Terrestrial Reference Frame, Centre de produit du Rep\u00e8re International de R\u00e9f\u00e9rence Terrestre, ITRS Centre",
+            "fr_FR": "Centre de produit ITRS, International Terrestrial Reference Frame, Centre de produit du Rep\u00e8re International de R\u00e9f\u00e9rence Terrestre, ITRS Centre"
+        },
+        "title": "Centre de produit ITRS",
+        "hostId": "https://cat.opidor.fr/index.php/Centre de produit ITRS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Centre de services de l'IDS, IGN-IPGP IDS Analysis Center",
+            "fr_FR": "Centre de services de l'IDS, IGN-IPGP IDS Analysis Center"
+        },
+        "title": "Centre de services de l'IDS",
+        "hostId": "https://cat.opidor.fr/index.php/Centre de services de l'IDS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CeremaData",
+            "fr_FR": "CeremaData"
+        },
+        "title": "CeremaData",
+        "hostId": "https://cat.opidor.fr/index.php/CeremaData",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ChArMEx database, Chemistry-Aerosol Mediterranean eXperiment",
+            "fr_FR": "ChArMEx database, Chemistry-Aerosol Mediterranean eXperiment"
+        },
+        "title": "ChArMEx database",
+        "hostId": "https://cat.opidor.fr/index.php/ChArMEx database",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Chimioth\u00e8que Nationale, GIS Chimioth\u00e8que Nationale",
+            "fr_FR": "Chimioth\u00e8que Nationale, GIS Chimioth\u00e8que Nationale"
+        },
+        "title": "Chimioth\u00e8que Nationale",
+        "hostId": "https://cat.opidor.fr/index.php/Chimioth\u00e8que Nationale",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Cid.curie.fr, Curie Image Database,iManage, OpenImadis",
+            "fr_FR": "Cid.curie.fr, Curie Image Database,iManage, OpenImadis"
+        },
+        "title": "Cid.curie.fr",
+        "hostId": "https://cat.opidor.fr/index.php/Cid.curie.fr",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Cirad : Annuaire de donn\u00e9es",
+            "fr_FR": "Cirad : Annuaire de donn\u00e9es"
+        },
+        "title": "Cirad : Annuaire de donn\u00e9es",
+        "hostId": "https://cat.opidor.fr/index.php/Cirad : Annuaire de donn\u00e9es",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CoCoON, Collections de Corpus Oraux Num\u00e9riques - anciennement Centre de Ressources pour la Description de l'Oral (CRDO) - Groupe Gestion documentaire et r\u00e9servoir de donn\u00e9es",
+            "fr_FR": "CoCoON, Collections de Corpus Oraux Num\u00e9riques - anciennement Centre de Ressources pour la Description de l'Oral (CRDO) - Groupe Gestion documentaire et r\u00e9servoir de donn\u00e9es"
+        },
+        "title": "CoCoON",
+        "hostId": "https://cat.opidor.fr/index.php/CoCoON",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Conservatoire National des Donn\u00e9es 3D, CND3D",
+            "fr_FR": "Conservatoire National des Donn\u00e9es 3D, CND3D"
+        },
+        "title": "Conservatoire National des Donn\u00e9es 3D",
+        "hostId": "https://cat.opidor.fr/index.php/Conservatoire National des Donn\u00e9es 3D",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Coriolis, CDS-IS-Coriolis, Centre de donn\u00e9es et services in situ Coriolis, Coriolis-CD,",
+            "fr_FR": "Coriolis, CDS-IS-Coriolis, Centre de donn\u00e9es et services in situ Coriolis, Coriolis-CD,"
+        },
+        "title": "Coriolis",
+        "hostId": "https://cat.opidor.fr/index.php/Coriolis",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["CoreTrustSeal"]
+    },
+    {
+        "label": {
+            "en_GB": "Criminocorpus",
+            "fr_FR": "Criminocorpus"
+        },
+        "title": "Criminocorpus",
+        "hostId": "https://cat.opidor.fr/index.php/Criminocorpus",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Cyber-Caroth\u00e8que Nationale, Cyber Cores Repository",
+            "fr_FR": "Cyber-Caroth\u00e8que Nationale, Cyber Cores Repository"
+        },
+        "title": "Cyber-Caroth\u00e8que Nationale",
+        "hostId": "https://cat.opidor.fr/index.php/Cyber-Caroth\u00e8que Nationale",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Cybergeo Dataverse, European journal of geography, Revue europ\u00e9enne de g\u00e9ographie",
+            "fr_FR": "Cybergeo Dataverse, European journal of geography, Revue europ\u00e9enne de g\u00e9ographie"
+        },
+        "title": "Cybergeo Dataverse",
+        "hostId": "https://cat.opidor.fr/index.php/Cybergeo Dataverse",
+        "idType": "URL",
+        "geoLocation": "US"
+    },
+    {
+        "label": {
+            "en_GB": "DATA BRGM",
+            "fr_FR": "DATA BRGM"
+        },
+        "title": "DATA BRGM",
+        "hostId": "https://cat.opidor.fr/index.php/DATA BRGM",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "DATA TERRA Repository",
+            "fr_FR": "DATA TERRA Repository"
+        },
+        "title": "DATA TERRA Repository",
+        "hostId": "https://cat.opidor.fr/index.php/DATA TERRA Repository",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "DOREL, DOnn\u00e9es de REcherche Lorraines, Entrep\u00f4t de donn\u00e9es de la recherche de l'Universit\u00e9 de Lorraine",
+            "fr_FR": "DOREL, DOnn\u00e9es de REcherche Lorraines, Entrep\u00f4t de donn\u00e9es de la recherche de l'Universit\u00e9 de Lorraine"
+        },
+        "title": "DOREL",
+        "hostId": "https://cat.opidor.fr/index.php/DOREL",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "DRIIHM : Plateforme d'acc\u00e8s, Portail Labex DRIIHM, Portail Dispositif de Recherche Interdisciplinaire sur les Interactions Hommes-Milieux",
+            "fr_FR": "DRIIHM : Plateforme d'acc\u00e8s, Portail Labex DRIIHM, Portail Dispositif de Recherche Interdisciplinaire sur les Interactions Hommes-Milieux"
+        },
+        "title": "DRIIHM : Plateforme d'acc\u00e8s",
+        "hostId": "https://cat.opidor.fr/index.php/DRIIHM : Plateforme d'acc\u00e8s",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "DYNALIT, Dynamique du litoral et trait de la c\u00f4te",
+            "fr_FR": "DYNALIT, Dynamique du litoral et trait de la c\u00f4te"
+        },
+        "title": "DYNALIT",
+        "hostId": "https://cat.opidor.fr/index.php/DYNALIT",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "Dat@OSU, Portail d'acc\u00e8s aux donn\u00e9es de l'OSU Theta",
+            "fr_FR": "Dat@OSU, Portail d'acc\u00e8s aux donn\u00e9es de l'OSU Theta"
+        },
+        "title": "Dat@OSU",
+        "hostId": "https://cat.opidor.fr/index.php/Dat@OSU",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Data Cirad, Entrep\u00f4t de donn\u00e9es de recherche du CIRAD, CIRAD Dataverse",
+            "fr_FR": "Data Cirad, Entrep\u00f4t de donn\u00e9es de recherche du CIRAD, CIRAD Dataverse"
+        },
+        "title": "Data Cirad",
+        "hostId": "https://cat.opidor.fr/index.php/Data Cirad",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Data ECLA, Plateforme de donn\u00e9es et de visualisation sur les \u00e9cosyst\u00e8mes lacustres",
+            "fr_FR": "Data ECLA, Plateforme de donn\u00e9es et de visualisation sur les \u00e9cosyst\u00e8mes lacustres"
+        },
+        "title": "Data ECLA",
+        "hostId": "https://cat.opidor.fr/index.php/Data ECLA",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Data INRAE, Portail Data INRAE, portail des donn\u00e9es Inrae, espace institutionnel de donn\u00e9es INRAE",
+            "fr_FR": "Data INRAE, Portail Data INRAE, portail des donn\u00e9es Inrae, espace institutionnel de donn\u00e9es INRAE"
+        },
+        "title": "Data INRAE",
+        "hostId": "https://cat.opidor.fr/index.php/Data INRAE",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Data Univ Gustave Eiffel, Donn\u00e9es de recherche de l'Universit\u00e9 Gustave Eiffel, Universit\u00e9 Gustave Eiffel research data",
+            "fr_FR": "Data Univ Gustave Eiffel, Donn\u00e9es de recherche de l'Universit\u00e9 Gustave Eiffel, Universit\u00e9 Gustave Eiffel research data"
+        },
+        "title": "Data Univ Gustave Eiffel",
+        "hostId": "https://cat.opidor.fr/index.php/Data Univ Gustave Eiffel",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Data eaufrance, R\u00e9pertoire des donn\u00e9es publiques sur l'eau",
+            "fr_FR": "Data eaufrance, R\u00e9pertoire des donn\u00e9es publiques sur l'eau"
+        },
+        "title": "Data eaufrance",
+        "hostId": "https://cat.opidor.fr/index.php/Data eaufrance",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Data.InDoRES, Entrep\u00f4t de donn\u00e9es InDoRES, Inventaire des Donn\u00e9es de la Recherche en Environnement et Soci\u00e9t\u00e9s",
+            "fr_FR": "Data.InDoRES, Entrep\u00f4t de donn\u00e9es InDoRES, Inventaire des Donn\u00e9es de la Recherche en Environnement et Soci\u00e9t\u00e9s"
+        },
+        "title": "Data.InDoRES",
+        "hostId": "https://cat.opidor.fr/index.php/Data.InDoRES",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Data.gouv.fr",
+            "fr_FR": "Data.gouv.fr"
+        },
+        "title": "Data.gouv.fr",
+        "hostId": "https://cat.opidor.fr/index.php/Data.gouv.fr",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Data.shom.fr, Portail data.shom.fr, SHOM-CD",
+            "fr_FR": "Data.shom.fr, Portail data.shom.fr, SHOM-CD"
+        },
+        "title": "Data.shom.fr",
+        "hostId": "https://cat.opidor.fr/index.php/Data.shom.fr",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "DataIned, Catalogue Nesstar des enqu\u00eates de l'INED (ancien nom), Serveur Nesstar de l'INED, Networked Social Science Tools And Resources",
+            "fr_FR": "DataIned, Catalogue Nesstar des enqu\u00eates de l'INED (ancien nom), Serveur Nesstar de l'INED, Networked Social Science Tools And Resources"
+        },
+        "title": "DataIned",
+        "hostId": "https://cat.opidor.fr/index.php/DataIned",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "DataSuds, Des donn\u00e9es ouvertes pour une science durable au Sud, Dataverse IRD",
+            "fr_FR": "DataSuds, Des donn\u00e9es ouvertes pour une science durable au Sud, Dataverse IRD"
+        },
+        "title": "DataSuds",
+        "hostId": "https://cat.opidor.fr/index.php/DataSuds",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Datagora",
+            "fr_FR": "Datagora"
+        },
+        "title": "Datagora",
+        "hostId": "https://cat.opidor.fr/index.php/Datagora",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "DemoMed, L'Observatoire D\u00e9mographique de la M\u00e9diterran\u00e9e",
+            "fr_FR": "DemoMed, L'Observatoire D\u00e9mographique de la M\u00e9diterran\u00e9e"
+        },
+        "title": "DemoMed",
+        "hostId": "https://cat.opidor.fr/index.php/DemoMed",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Didomena, Did\u03ccmena, Entrep\u00f4t de donn\u00e9es de la recherche de l'EHESS",
+            "fr_FR": "Didomena, Did\u03ccmena, Entrep\u00f4t de donn\u00e9es de la recherche de l'EHESS"
+        },
+        "title": "Didomena",
+        "hostId": "https://cat.opidor.fr/index.php/Didomena",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Dinamis, Dispositif Institutionnel National d\u2019Approvisionnement Mutualis\u00e9 en Imagerie Satellitaire",
+            "fr_FR": "Dinamis, Dispositif Institutionnel National d\u2019Approvisionnement Mutualis\u00e9 en Imagerie Satellitaire"
+        },
+        "title": "Dinamis",
+        "hostId": "https://cat.opidor.fr/index.php/Dinamis",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Draix Bl\u00e9one, Observatoire Draix-Bl\u00e9one, ORE Draix Bl\u00e9one",
+            "fr_FR": "Draix Bl\u00e9one, Observatoire Draix-Bl\u00e9one, ORE Draix Bl\u00e9one"
+        },
+        "title": "Draix Bl\u00e9one",
+        "hostId": "https://cat.opidor.fr/index.php/Draix Bl\u00e9one",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "DustEM, Interstellar dust physics",
+            "fr_FR": "DustEM, Interstellar dust physics"
+        },
+        "title": "DustEM",
+        "hostId": "https://cat.opidor.fr/index.php/DustEM",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "EBAS, Climate relevant Aerosol Properties (CLAP), Bases de donn\u00e9es chimie de l'atmosph\u00e8re",
+            "fr_FR": "EBAS, Climate relevant Aerosol Properties (CLAP), Bases de donn\u00e9es chimie de l'atmosph\u00e8re"
+        },
+        "title": "EBAS",
+        "hostId": "https://cat.opidor.fr/index.php/EBAS",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "ECCAD, Emissions of atmospheric Compounds and Compilation of Ancillary Data, Service de donn\u00e9es ECCAD",
+            "fr_FR": "ECCAD, Emissions of atmospheric Compounds and Compilation of Ancillary Data, Service de donn\u00e9es ECCAD"
+        },
+        "title": "ECCAD",
+        "hostId": "https://cat.opidor.fr/index.php/ECCAD",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "EELS Data Base, EELS DB. Electron Energy Loss Spectroscopy Data Base. Inner & Outer Shell Excitation Spectrum Repository",
+            "fr_FR": "EELS Data Base, EELS DB. Electron Energy Loss Spectroscopy Data Base. Inner & Outer Shell Excitation Spectrum Repository"
+        },
+        "title": "EELS Data Base",
+        "hostId": "https://cat.opidor.fr/index.php/EELS Data Base",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ERORUN, Observatoire de l'EROsion \u00e0 la R\u00e9UNion",
+            "fr_FR": "ERORUN, Observatoire de l'EROsion \u00e0 la R\u00e9UNion"
+        },
+        "title": "ERORUN",
+        "hostId": "https://cat.opidor.fr/index.php/ERORUN",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ESPRI, Centre de donn\u00e9es et de services ESPRI, CDS ESPRI",
+            "fr_FR": "ESPRI, Centre de donn\u00e9es et de services ESPRI, CDS ESPRI"
+        },
+        "title": "ESPRI",
+        "hostId": "https://cat.opidor.fr/index.php/ESPRI",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ESRF Data Portal, Data.esrf.fr, ESRF data repository",
+            "fr_FR": "ESRF Data Portal, Data.esrf.fr, ESRF data repository"
+        },
+        "title": "ESRF Data Portal",
+        "hostId": "https://cat.opidor.fr/index.php/ESRF Data Portal",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ESTHER database, ESTerases and alpha/beta-Hydrolase Enzymes and Relatives",
+            "fr_FR": "ESTHER database, ESTerases and alpha/beta-Hydrolase Enzymes and Relatives"
+        },
+        "title": "ESTHER database",
+        "hostId": "https://cat.opidor.fr/index.php/ESTHER database",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "EUROCHAMP DC, EUROCHAMP Data Center",
+            "fr_FR": "EUROCHAMP DC, EUROCHAMP Data Center"
+        },
+        "title": "EUROCHAMP DC",
+        "hostId": "https://cat.opidor.fr/index.php/EUROCHAMP DC",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Earth Orientation Center, IERS EOP PC, International Earth Rotation et Reference Systems Service, Earth Orientation Parameter Product Center, Service de la rotation de la Terre",
+            "fr_FR": "Earth Orientation Center, IERS EOP PC, International Earth Rotation et Reference Systems Service, Earth Orientation Parameter Product Center, Service de la rotation de la Terre"
+        },
+        "title": "Earth Orientation Center",
+        "hostId": "https://cat.opidor.fr/index.php/Earth Orientation Center",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "Eaufrance, EauFrance, Portail Eaufrance, Portail SIE, Portail Service public d'information sur l'eau, Portail Syst\u00e8me d'information sur l'eau",
+            "fr_FR": "Eaufrance, EauFrance, Portail Eaufrance, Portail SIE, Portail Service public d'information sur l'eau, Portail Syst\u00e8me d'information sur l'eau"
+        },
+        "title": "Eaufrance",
+        "hostId": "https://cat.opidor.fr/index.php/Eaufrance",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "EcoTaxa",
+            "fr_FR": "EcoTaxa"
+        },
+        "title": "EcoTaxa",
+        "hostId": "https://cat.opidor.fr/index.php/EcoTaxa",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Etalab:code.etalab.gouv.fr",
+            "fr_FR": "Etalab:code.etalab.gouv.fr"
+        },
+        "title": "Etalab:code.etalab.gouv.fr",
+        "hostId": "https://cat.opidor.fr/index.php/Etalab:code.etalab.gouv.fr",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Etalab:sill.etalab.gouv.fr, Socle interminist\u00e9riel de logiciels libres",
+            "fr_FR": "Etalab:sill.etalab.gouv.fr, Socle interminist\u00e9riel de logiciels libres"
+        },
+        "title": "Etalab:sill.etalab.gouv.fr",
+        "hostId": "https://cat.opidor.fr/index.php/Etalab:sill.etalab.gouv.fr",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Exoplanet, Encyclop\u00e9dies des plan\u00e8tes extrasolaires, Extrasolar Planets Encyclopedia",
+            "fr_FR": "Exoplanet, Encyclop\u00e9dies des plan\u00e8tes extrasolaires, Extrasolar Planets Encyclopedia"
+        },
+        "title": "Exoplanet",
+        "hostId": "https://cat.opidor.fr/index.php/Exoplanet",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "F-VADMC, VADMC Portal",
+            "fr_FR": "F-VADMC, VADMC Portal"
+        },
+        "title": "F-VADMC",
+        "hostId": "https://cat.opidor.fr/index.php/F-VADMC",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "FReSH, France Recherche en Sant\u00e9 Humaine, Portail des \u00e9tudes en sant\u00e9",
+            "fr_FR": "FReSH, France Recherche en Sant\u00e9 Humaine, Portail des \u00e9tudes en sant\u00e9"
+        },
+        "title": "FReSH",
+        "hostId": "https://cat.opidor.fr/index.php/FReSH",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ForM@Ter, P\u00f4le de donn\u00e9es et de services pour la Terre Solide, P\u00f4le th\u00e9matique Terre solide",
+            "fr_FR": "ForM@Ter, P\u00f4le de donn\u00e9es et de services pour la Terre Solide, P\u00f4le th\u00e9matique Terre solide"
+        },
+        "title": "ForM@Ter",
+        "hostId": "https://cat.opidor.fr/index.php/ForM@Ter",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "France Cohortes, Donn\u00e9es de recherche en sant\u00e9 publique, US 47",
+            "fr_FR": "France Cohortes, Donn\u00e9es de recherche en sant\u00e9 publique, US 47"
+        },
+        "title": "France Cohortes",
+        "hostId": "https://cat.opidor.fr/index.php/France Cohortes",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "GAZPAR, Galaxy photometric redshifts (Z) and physical PARameters",
+            "fr_FR": "GAZPAR, Galaxy photometric redshifts (Z) and physical PARameters"
+        },
+        "title": "GAZPAR",
+        "hostId": "https://cat.opidor.fr/index.php/GAZPAR",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "GBIF portail France, Portail GBIF France, Syst\u00e8me Mondial d'Information sur la Biodiversit\u00e9 France, Global Biodiversity Information Facility France",
+            "fr_FR": "GBIF portail France, Portail GBIF France, Syst\u00e8me Mondial d'Information sur la Biodiversit\u00e9 France, Global Biodiversity Information Facility France"
+        },
+        "title": "GBIF portail France",
+        "hostId": "https://cat.opidor.fr/index.php/GBIF portail France",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "GEISA, GEISA Spectroscopic database",
+            "fr_FR": "GEISA, GEISA Spectroscopic database"
+        },
+        "title": "GEISA",
+        "hostId": "https://cat.opidor.fr/index.php/GEISA",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "GEOSCOPE, Observatoire R\u00e9seau global de stations sismologiques large bande GEOSOPE, R\u00e9seau global fran\u00e7ais de stations sismologiques large bande",
+            "fr_FR": "GEOSCOPE, Observatoire R\u00e9seau global de stations sismologiques large bande GEOSOPE, R\u00e9seau global fran\u00e7ais de stations sismologiques large bande"
+        },
+        "title": "GEOSCOPE",
+        "hostId": "https://cat.opidor.fr/index.php/GEOSCOPE",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "GEOSUD : Portail images satellites, Portail images satellites GEOSUD",
+            "fr_FR": "GEOSUD : Portail images satellites, Portail images satellites GEOSUD"
+        },
+        "title": "GEOSUD : Portail images satellites",
+        "hostId": "https://cat.opidor.fr/index.php/GEOSUD : Portail images satellites",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "GSO-DC, Observatoire Virtuel du Grand Sud-Ouest, OV-GSO Data Centre, Centre de donn\u00e9es OV-GSO",
+            "fr_FR": "GSO-DC, Observatoire Virtuel du Grand Sud-Ouest, OV-GSO Data Centre, Centre de donn\u00e9es OV-GSO"
+        },
+        "title": "GSO-DC",
+        "hostId": "https://cat.opidor.fr/index.php/GSO-DC",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "GWOSC, Gravitational Wave Open Science Center",
+            "fr_FR": "GWOSC, Gravitational Wave Open Science Center"
+        },
+        "title": "GWOSC",
+        "hostId": "https://cat.opidor.fr/index.php/GWOSC",
+        "idType": "URL",
+        "geoLocation": "US"
+    },
+    {
+        "label": {
+            "en_GB": "Ganoub, Base de donn\u00e9es de la  Phonoth\u00e8que de la MMSH",
+            "fr_FR": "Ganoub, Base de donn\u00e9es de la  Phonoth\u00e8que de la MMSH"
+        },
+        "title": "Ganoub",
+        "hostId": "https://cat.opidor.fr/index.php/Ganoub",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["Audio-Visio"]
+    },
+    {
+        "label": {
+            "en_GB": "GenomeHubs, South Green Genome Hub Genome Hub",
+            "fr_FR": "GenomeHubs, South Green Genome Hub Genome Hub"
+        },
+        "title": "GenomeHubs",
+        "hostId": "https://cat.opidor.fr/index.php/GenomeHubs",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ELIXIR Data Resources"]
+    },
+    {
+        "label": {
+            "en_GB": "Geosur, Centre de donn\u00e9es et de services de l'OSU-R\u00e9union",
+            "fr_FR": "Geosur, Centre de donn\u00e9es et de services de l'OSU-R\u00e9union"
+        },
+        "title": "Geosur",
+        "hostId": "https://cat.opidor.fr/index.php/Geosur",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "GnpIS, Genetic and Genomic Information System",
+            "fr_FR": "GnpIS, Genetic and Genomic Information System"
+        },
+        "title": "GnpIS",
+        "hostId": "https://cat.opidor.fr/index.php/GnpIS",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ELIXIR Data Resources"]
+    },
+    {
+        "label": {
+            "en_GB": "G\u00e9oSAS, Portail de l\u2019information g\u00e9ographique de l\u2019Unit\u00e9 Mixte de Recherche Sol Agro et hydrosyst\u00e8mes, Spatialisation (UMR SAS) INRAE \u2013 Institut Agro sur les sites de Rennes et de Quimper.",
+            "fr_FR": "G\u00e9oSAS, Portail de l\u2019information g\u00e9ographique de l\u2019Unit\u00e9 Mixte de Recherche Sol Agro et hydrosyst\u00e8mes, Spatialisation (UMR SAS) INRAE \u2013 Institut Agro sur les sites de Rennes et de Quimper."
+        },
+        "title": "G\u00e9oSAS",
+        "hostId": "https://cat.opidor.fr/index.php/G\u00e9oSAS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "G\u00e9oportail, Portail national de la connaissance du territoire",
+            "fr_FR": "G\u00e9oportail, Portail national de la connaissance du territoire"
+        },
+        "title": "G\u00e9oportail",
+        "hostId": "https://cat.opidor.fr/index.php/G\u00e9oportail",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "H+, Nework of hydrogeological research sites, R\u00e9seau National de sites Hydrog\u00e9ologiques",
+            "fr_FR": "H+, Nework of hydrogeological research sites, R\u00e9seau National de sites Hydrog\u00e9ologiques"
+        },
+        "title": "H+",
+        "hostId": "https://cat.opidor.fr/index.php/H+",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "HAL, Archive ouverte HAL",
+            "fr_FR": "HAL, Archive ouverte HAL"
+        },
+        "title": "HAL",
+        "hostId": "https://cat.opidor.fr/index.php/HAL",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "HEMERA, HEMERA Data Center",
+            "fr_FR": "HEMERA, HEMERA Data Center"
+        },
+        "title": "HEMERA",
+        "hostId": "https://cat.opidor.fr/index.php/HEMERA",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "HEPData, High Energy Physics Data Repository",
+            "fr_FR": "HEPData, High Energy Physics Data Repository"
+        },
+        "title": "HEPData",
+        "hostId": "https://cat.opidor.fr/index.php/HEPData",
+        "idType": "URL",
+        "geoLocation": "CH"
+    },
+    {
+        "label": {
+            "en_GB": "HYBAM, HYdro-g\u00e9ochimie du Bassin AMazonien,Amazon Basin Water Ressources Observation Service, SO-HYBAM",
+            "fr_FR": "HYBAM, HYdro-g\u00e9ochimie du Bassin AMazonien,Amazon Basin Water Ressources Observation Service, SO-HYBAM"
+        },
+        "title": "HYBAM",
+        "hostId": "https://cat.opidor.fr/index.php/HYBAM",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "Hairesis",
+            "fr_FR": "Hairesis"
+        },
+        "title": "Hairesis",
+        "hostId": "https://cat.opidor.fr/index.php/Hairesis",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Health Data Hub, Plateforme des donn\u00e9es de sant\u00e9, PDS",
+            "fr_FR": "Health Data Hub, Plateforme des donn\u00e9es de sant\u00e9, PDS"
+        },
+        "title": "Health Data Hub",
+        "hostId": "https://cat.opidor.fr/index.php/Health Data Hub",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "HyMeX database, Hydrological cycle in the Mediterranean eXperiment",
+            "fr_FR": "HyMeX database, Hydrological cycle in the Mediterranean eXperiment"
+        },
+        "title": "HyMeX database",
+        "hostId": "https://cat.opidor.fr/index.php/HyMeX database",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "HyperLEDA, Database for physics of galaxies, Lyon-Meudon Extragalactic Database , LEDA database, Hyper-Linked Extragalactic Databases and Archives \u00a0",
+            "fr_FR": "HyperLEDA, Database for physics of galaxies, Lyon-Meudon Extragalactic Database , LEDA database, Hyper-Linked Extragalactic Databases and Archives \u00a0"
+        },
+        "title": "HyperLEDA",
+        "hostId": "https://cat.opidor.fr/index.php/HyperLEDA",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "IAGOS-France, In-service Aircraft for Global Observing System, Instruments de mesure embarqu\u00e9s sur avions pour l\u2019observation globale, IAGOS DC",
+            "fr_FR": "IAGOS-France, In-service Aircraft for Global Observing System, Instruments de mesure embarqu\u00e9s sur avions pour l\u2019observation globale, IAGOS DC"
+        },
+        "title": "IAGOS-France",
+        "hostId": "https://cat.opidor.fr/index.php/IAGOS-France",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "IASI, Portail de donn\u00e9es  issues de l'instrument IASI, IASI Portal, Atmospheric composition data products",
+            "fr_FR": "IASI, Portail de donn\u00e9es  issues de l'instrument IASI, IASI Portal, Atmospheric composition data products"
+        },
+        "title": "IASI",
+        "hostId": "https://cat.opidor.fr/index.php/IASI",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "IBENS Opendata",
+            "fr_FR": "IBENS Opendata"
+        },
+        "title": "IBENS Opendata",
+        "hostId": "https://cat.opidor.fr/index.php/IBENS Opendata",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ICARE, Centre de donn\u00e9es et de services ICARE, Interaction Clouds Aerosols Radiations, CDS-ICARE, UMS 2877",
+            "fr_FR": "ICARE, Centre de donn\u00e9es et de services ICARE, Interaction Clouds Aerosols Radiations, CDS-ICARE, UMS 2877"
+        },
+        "title": "ICARE",
+        "hostId": "https://cat.opidor.fr/index.php/ICARE",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ICube-SERTIT, Service R\u00e9gional de Traitement d\u2019Image et de T\u00e9l\u00e9d\u00e9tection",
+            "fr_FR": "ICube-SERTIT, Service R\u00e9gional de Traitement d\u2019Image et de T\u00e9l\u00e9d\u00e9tection"
+        },
+        "title": "ICube-SERTIT",
+        "hostId": "https://cat.opidor.fr/index.php/ICube-SERTIT",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ISO 9001"]
+    },
+    {
+        "label": {
+            "en_GB": "IDOC-DATA, IDOC-DATA, Integrated Data and Operation Center, OSUPS Data Centre, Centre de donn\u00e9es des Sciences de l'Univers de Paris Saclay, Centre de donn\u00e9es de l'OSUPS, OSUPS-DC",
+            "fr_FR": "IDOC-DATA, IDOC-DATA, Integrated Data and Operation Center, OSUPS Data Centre, Centre de donn\u00e9es des Sciences de l'Univers de Paris Saclay, Centre de donn\u00e9es de l'OSUPS, OSUPS-DC"
+        },
+        "title": "IDOC-DATA",
+        "hostId": "https://cat.opidor.fr/index.php/IDOC-DATA",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "ILL Data Portal, Portail de donn\u00e9es de l'Institut Laue Langevin",
+            "fr_FR": "ILL Data Portal, Portail de donn\u00e9es de l'Institut Laue Langevin"
+        },
+        "title": "ILL Data Portal",
+        "hostId": "https://cat.opidor.fr/index.php/ILL Data Portal",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "IMCCE Eph\u00e9m\u00e9rides portail, Portail des \u00e9ph\u00e9m\u00e9rides de l'Institut de M\u00e9canique C\u00e9leste et de Calcul des Eph\u00e9m\u00e9rides (IMCEE)",
+            "fr_FR": "IMCCE Eph\u00e9m\u00e9rides portail, Portail des \u00e9ph\u00e9m\u00e9rides de l'Institut de M\u00e9canique C\u00e9leste et de Calcul des Eph\u00e9m\u00e9rides (IMCEE)"
+        },
+        "title": "IMCCE Eph\u00e9m\u00e9rides portail",
+        "hostId": "https://cat.opidor.fr/index.php/IMCCE Eph\u00e9m\u00e9rides portail",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "IMGT, International ImMunoGeneTics information system, Syst\u00e8me d'information international en ImMunoG\u00e9n\u00e9Tique",
+            "fr_FR": "IMGT, International ImMunoGeneTics information system, Syst\u00e8me d'information international en ImMunoG\u00e9n\u00e9Tique"
+        },
+        "title": "IMGT",
+        "hostId": "https://cat.opidor.fr/index.php/IMGT",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": [
+            "GPTR",
+            "IBiSA",
+            "ISO 9001:2015",
+            "NFX 50-900",
+            "ELIXIR Data Resources"
+        ]
+    },
+    {
+        "label": {
+            "en_GB": "INDAAF, International Network Deposition And Atmospheric Chemistry in Africa",
+            "fr_FR": "INDAAF, International Network Deposition And Atmospheric Chemistry in Africa"
+        },
+        "title": "INDAAF",
+        "hostId": "https://cat.opidor.fr/index.php/INDAAF",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "INDIGEO, INfrastructure scientifique de Donn\u00e9es et d\u2019Informations GEOspatialis\u00e9es sur l\u2019environnement",
+            "fr_FR": "INDIGEO, INfrastructure scientifique de Donn\u00e9es et d\u2019Informations GEOspatialis\u00e9es sur l\u2019environnement"
+        },
+        "title": "INDIGEO",
+        "hostId": "https://cat.opidor.fr/index.php/INDIGEO",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "INPN, Inventaire National du Patrimoine Naturel",
+            "fr_FR": "INPN, Inventaire National du Patrimoine Naturel"
+        },
+        "title": "INPN",
+        "hostId": "https://cat.opidor.fr/index.php/INPN",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "INSPIRE-HEP, INSPIRE-HEP High Energy Physics",
+            "fr_FR": "INSPIRE-HEP, INSPIRE-HEP High Energy Physics"
+        },
+        "title": "INSPIRE-HEP",
+        "hostId": "https://cat.opidor.fr/index.php/INSPIRE-HEP",
+        "idType": "URL",
+        "geoLocation": "CH"
+    },
+    {
+        "label": {
+            "en_GB": "IO Data Science",
+            "fr_FR": "IO Data Science"
+        },
+        "title": "IO Data Science",
+        "hostId": "https://cat.opidor.fr/index.php/IO Data Science",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "IPGP-DC, Centre de donn\u00e9es de l'IPGP, IPGP Data Center",
+            "fr_FR": "IPGP-DC, Centre de donn\u00e9es de l'IPGP, IPGP Data Center"
+        },
+        "title": "IPGP-DC",
+        "hostId": "https://cat.opidor.fr/index.php/IPGP-DC",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ISFinder, Insertion Sequence Finder",
+            "fr_FR": "ISFinder, Insertion Sequence Finder"
+        },
+        "title": "ISFinder",
+        "hostId": "https://cat.opidor.fr/index.php/ISFinder",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ISG, International Service for the Geoid",
+            "fr_FR": "ISG, International Service for the Geoid"
+        },
+        "title": "ISG",
+        "hostId": "https://cat.opidor.fr/index.php/ISG",
+        "idType": "URL",
+        "geoLocation": "IT"
+    },
+    {
+        "label": {
+            "en_GB": "ISGI, Service International des Indices Magn\u00e9tiques, International Service of Geomagnetic Indices",
+            "fr_FR": "ISGI, Service International des Indices Magn\u00e9tiques, International Service of Geomagnetic Indices"
+        },
+        "title": "ISGI",
+        "hostId": "https://cat.opidor.fr/index.php/ISGI",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": [
+            "SNO",
+            "WDS"
+        ]
+    },
+    {
+        "label": {
+            "en_GB": "ISM Services, Interstellar Medium Platform, P\u00f4le de diffusion des Mod\u00e8les de R\u00e9f\u00e9rence pour la Mati\u00e8re Interstellaire",
+            "fr_FR": "ISM Services, Interstellar Medium Platform, P\u00f4le de diffusion des Mod\u00e8les de R\u00e9f\u00e9rence pour la Mati\u00e8re Interstellaire"
+        },
+        "title": "ISM Services",
+        "hostId": "https://cat.opidor.fr/index.php/ISM Services",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ISTEX, Information scientifique et technique d\u2019excellence, Initiative d\u2019excellence de l\u2019Information Scientifique et Technique",
+            "fr_FR": "ISTEX, Information scientifique et technique d\u2019excellence, Initiative d\u2019excellence de l\u2019Information Scientifique et Technique"
+        },
+        "title": "ISTEX",
+        "hostId": "https://cat.opidor.fr/index.php/ISTEX",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "InDoRES, Inventaire des Donn\u00e9es de Recherche en Environnement et Soci\u00e9t\u00e9s, Portail InDoRES, UMS 3468 Bases de donn\u00e9es Biodiversit\u00e9, \u00c9cologie, Environnement Soci\u00e9t\u00e9s : Annuaire de donn\u00e9es",
+            "fr_FR": "InDoRES, Inventaire des Donn\u00e9es de Recherche en Environnement et Soci\u00e9t\u00e9s, Portail InDoRES, UMS 3468 Bases de donn\u00e9es Biodiversit\u00e9, \u00c9cologie, Environnement Soci\u00e9t\u00e9s : Annuaire de donn\u00e9es"
+        },
+        "title": "InDoRES",
+        "hostId": "https://cat.opidor.fr/index.php/InDoRES",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Infevers, The registry of Auto-Inflammatory Disease mutations",
+            "fr_FR": "Infevers, The registry of Auto-Inflammatory Disease mutations"
+        },
+        "title": "Infevers",
+        "hostId": "https://cat.opidor.fr/index.php/Infevers",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "InfoTerre, Portail d'acc\u00e8s \u00e0 l'information scientifique et technique du BRGM",
+            "fr_FR": "InfoTerre, Portail d'acc\u00e8s \u00e0 l'information scientifique et technique du BRGM"
+        },
+        "title": "InfoTerre",
+        "hostId": "https://cat.opidor.fr/index.php/InfoTerre",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "International Celestial Reference System Product Center, ICRS-PC,  Centre de produits du syst\u00e8me c\u00e9leste",
+            "fr_FR": "International Celestial Reference System Product Center, ICRS-PC,  Centre de produits du syst\u00e8me c\u00e9leste"
+        },
+        "title": "International Celestial Reference System Product Center",
+        "hostId": "https://cat.opidor.fr/index.php/International Celestial Reference System Product Center",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "IrsteaData",
+            "fr_FR": "IrsteaData"
+        },
+        "title": "IrsteaData",
+        "hostId": "https://cat.opidor.fr/index.php/IrsteaData",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Isidore",
+            "fr_FR": "Isidore"
+        },
+        "title": "Isidore",
+        "hostId": "https://cat.opidor.fr/index.php/Isidore",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "JMMC, Centre Jean-Marie Mariotti, P\u00f4le JMMC",
+            "fr_FR": "JMMC, Centre Jean-Marie Mariotti, P\u00f4le JMMC"
+        },
+        "title": "JMMC",
+        "hostId": "https://cat.opidor.fr/index.php/JMMC",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "KARST, Service National d\u2019Observation du KARST, SNO KARST",
+            "fr_FR": "KARST, Service National d\u2019Observation du KARST, SNO KARST"
+        },
+        "title": "KARST",
+        "hostId": "https://cat.opidor.fr/index.php/KARST",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "KIDA, Base de donn\u00e9es cin\u00e9tiques pour l'astrochimie, Kinetic Database for Astrochemistry",
+            "fr_FR": "KIDA, Base de donn\u00e9es cin\u00e9tiques pour l'astrochimie, Kinetic Database for Astrochemistry"
+        },
+        "title": "KIDA",
+        "hostId": "https://cat.opidor.fr/index.php/KIDA",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "Kalideos",
+            "fr_FR": "Kalideos"
+        },
+        "title": "Kalideos",
+        "hostId": "https://cat.opidor.fr/index.php/Kalideos",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Kinsources, Archive, share, analyze and compare kinship data",
+            "fr_FR": "Kinsources, Archive, share, analyze and compare kinship data"
+        },
+        "title": "Kinsources",
+        "hostId": "https://cat.opidor.fr/index.php/Kinsources",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "LIENSs Portail de donn\u00e9es, LIttoral ENvironnement et Soci\u00e9t\u00e9s",
+            "fr_FR": "LIENSs Portail de donn\u00e9es, LIttoral ENvironnement et Soci\u00e9t\u00e9s"
+        },
+        "title": "LIENSs Portail de donn\u00e9es",
+        "hostId": "https://cat.opidor.fr/index.php/LIENSs Portail de donn\u00e9es",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "LMGM MLST databases, Multilocus Sequence Typing databases",
+            "fr_FR": "LMGM MLST databases, Multilocus Sequence Typing databases"
+        },
+        "title": "LMGM MLST databases",
+        "hostId": "https://cat.opidor.fr/index.php/LMGM MLST databases",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "LPC Hadrontherapy",
+            "fr_FR": "LPC Hadrontherapy"
+        },
+        "title": "LPC Hadrontherapy",
+        "hostId": "https://cat.opidor.fr/index.php/LPC Hadrontherapy",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "M-TROPICS, Multiscale Tropical Catchments",
+            "fr_FR": "M-TROPICS, Multiscale Tropical Catchments"
+        },
+        "title": "M-TROPICS",
+        "hostId": "https://cat.opidor.fr/index.php/M-TROPICS",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "MASER, Mesures, Analyses et Simulation d'Emissions Radio,\nMeasurements, Analyses, Simulations of Emission in the Radio range",
+            "fr_FR": "MASER, Mesures, Analyses et Simulation d'Emissions Radio,\nMeasurements, Analyses, Simulations of Emission in the Radio range"
+        },
+        "title": "MASER",
+        "hostId": "https://cat.opidor.fr/index.php/MASER",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "MEDOC, Multi Experiment Data & Operation Center",
+            "fr_FR": "MEDOC, Multi Experiment Data & Operation Center"
+        },
+        "title": "MEDOC",
+        "hostId": "https://cat.opidor.fr/index.php/MEDOC",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "MISTRALS database, MISTRALS data portal, Mediterranean Integrated Studies at Regional and Local Scales, Portail de donn\u00e9es du programme MISTRALS",
+            "fr_FR": "MISTRALS database, MISTRALS data portal, Mediterranean Integrated Studies at Regional and Local Scales, Portail de donn\u00e9es du programme MISTRALS"
+        },
+        "title": "MISTRALS database",
+        "hostId": "https://cat.opidor.fr/index.php/MISTRALS database",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "MP3C, Minor Planet Physical Properties Catalogue",
+            "fr_FR": "MP3C, Minor Planet Physical Properties Catalogue"
+        },
+        "title": "MP3C",
+        "hostId": "https://cat.opidor.fr/index.php/MP3C",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Maison de la t\u00e9l\u00e9d\u00e9tection, Maison de la t\u00e9l\u00e9d\u00e9tection de Montpellier",
+            "fr_FR": "Maison de la t\u00e9l\u00e9d\u00e9tection, Maison de la t\u00e9l\u00e9d\u00e9tection de Montpellier"
+        },
+        "title": "Maison de la t\u00e9l\u00e9d\u00e9tection",
+        "hostId": "https://cat.opidor.fr/index.php/Maison de la t\u00e9l\u00e9d\u00e9tection",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Mars SEIS Data Service, MSDS",
+            "fr_FR": "Mars SEIS Data Service, MSDS"
+        },
+        "title": "Mars SEIS Data Service",
+        "hostId": "https://cat.opidor.fr/index.php/Mars SEIS Data Service",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "MatrixDB, Extracellular Matrix Interaction Database",
+            "fr_FR": "MatrixDB, Extracellular Matrix Interaction Database"
+        },
+        "title": "MatrixDB",
+        "hostId": "https://cat.opidor.fr/index.php/MatrixDB",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ELIXIR Data Resources"]
+    },
+    {
+        "label": {
+            "en_GB": "Milieumarinfrance, Milieu Marin France, MilieuMarinFrance, Service public d'information sur le milieu marin, Syst\u00e8me d'information sur les\u00a0milieux marins, SIMM, Portail SIMM",
+            "fr_FR": "Milieumarinfrance, Milieu Marin France, MilieuMarinFrance, Service public d'information sur le milieu marin, Syst\u00e8me d'information sur les\u00a0milieux marins, SIMM, Portail SIMM"
+        },
+        "title": "Milieumarinfrance",
+        "hostId": "https://cat.opidor.fr/index.php/Milieumarinfrance",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "M\u00e9diHAL, Archive ouverte de photographies et d'images scientifiques",
+            "fr_FR": "M\u00e9diHAL, Archive ouverte de photographies et d'images scientifiques"
+        },
+        "title": "M\u00e9diHAL",
+        "hostId": "https://cat.opidor.fr/index.php/M\u00e9diHAL",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Nakala",
+            "fr_FR": "Nakala"
+        },
+        "title": "Nakala",
+        "hostId": "https://cat.opidor.fr/index.php/Nakala",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Naturefrance, Syst\u00e8me d'information sur la\u00a0biodiversit\u00e9, NatureFrance, Portail NatureFrance, Portail SIB",
+            "fr_FR": "Naturefrance, Syst\u00e8me d'information sur la\u00a0biodiversit\u00e9, NatureFrance, Portail NatureFrance, Portail SIB"
+        },
+        "title": "Naturefrance",
+        "hostId": "https://cat.opidor.fr/index.php/Naturefrance",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Navigae, Plateforme de recherche Navigae",
+            "fr_FR": "Navigae, Plateforme de recherche Navigae"
+        },
+        "title": "Navigae",
+        "hostId": "https://cat.opidor.fr/index.php/Navigae",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Norine, Nonribosomal peptides",
+            "fr_FR": "Norine, Nonribosomal peptides"
+        },
+        "title": "Norine",
+        "hostId": "https://cat.opidor.fr/index.php/Norine",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ELIXIR Data Resources"]
+    },
+    {
+        "label": {
+            "en_GB": "Notre-Dame de Paris Chantier scientifique",
+            "fr_FR": "Notre-Dame de Paris Chantier scientifique"
+        },
+        "title": "Notre-Dame de Paris Chantier scientifique",
+        "hostId": "https://cat.opidor.fr/index.php/Notre-Dame de Paris Chantier scientifique",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "OCA-DC (Domino), Centre de donn\u00e9es de l'Observatoire des Sciences de l'Univers de la C\u00f4te d\u2019Azur, Centre de donn\u00e9es de l'OCA, OCA Data Centre (DOMINO)",
+            "fr_FR": "OCA-DC (Domino), Centre de donn\u00e9es de l'Observatoire des Sciences de l'Univers de la C\u00f4te d\u2019Azur, Centre de donn\u00e9es de l'OCA, OCA Data Centre (DOMINO)"
+        },
+        "title": "OCA-DC (Domino)",
+        "hostId": "https://cat.opidor.fr/index.php/OCA-DC (Domino)",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "ODATIS, P\u00f4le de donn\u00e9es Oc\u00e9an-ODATIS, Donn\u00e9es et Services pour l'oc\u00e9an, Pole th\u00e9matique ODATIS,  P\u00f4le th\u00e9matique Oc\u00e9an",
+            "fr_FR": "ODATIS, P\u00f4le de donn\u00e9es Oc\u00e9an-ODATIS, Donn\u00e9es et Services pour l'oc\u00e9an, Pole th\u00e9matique ODATIS,  P\u00f4le th\u00e9matique Oc\u00e9an"
+        },
+        "title": "ODATIS",
+        "hostId": "https://cat.opidor.fr/index.php/ODATIS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "OHGE, Observatoire Hydro-G\u00e9ochimique de l'Environnement",
+            "fr_FR": "OHGE, Observatoire Hydro-G\u00e9ochimique de l'Environnement"
+        },
+        "title": "OHGE",
+        "hostId": "https://cat.opidor.fr/index.php/OHGE",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "OHM-CV, Observatoire Hydrom\u00e9t\u00e9orologique M\u00e9dit\u00e9rran\u00e9en C\u00e9venne-Vivarais, OHM-CV portail",
+            "fr_FR": "OHM-CV, Observatoire Hydrom\u00e9t\u00e9orologique M\u00e9dit\u00e9rran\u00e9en C\u00e9venne-Vivarais, OHM-CV portail"
+        },
+        "title": "OHM-CV",
+        "hostId": "https://cat.opidor.fr/index.php/OHM-CV",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "OISO-donn\u00e9es, Oc\u00e9an Indien Service d'Observation, Portail d'acc\u00e8s aux donn\u00e9es du Service d'observation Oc\u00e9an Indien",
+            "fr_FR": "OISO-donn\u00e9es, Oc\u00e9an Indien Service d'Observation, Portail d'acc\u00e8s aux donn\u00e9es du Service d'observation Oc\u00e9an Indien"
+        },
+        "title": "OISO-donn\u00e9es",
+        "hostId": "https://cat.opidor.fr/index.php/OISO-donn\u00e9es",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "OLKi Platform, Plateforme OLKi, Open Language and Knowledge for Citizens",
+            "fr_FR": "OLKi Platform, Plateforme OLKi, Open Language and Knowledge for Citizens"
+        },
+        "title": "OLKi Platform",
+        "hostId": "https://cat.opidor.fr/index.php/OLKi Platform",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "OMERE, Observatoire M\u00e9diterran\u00e9en de l'Environnement Rural et de l'Eau, ORE OMERE",
+            "fr_FR": "OMERE, Observatoire M\u00e9diterran\u00e9en de l'Environnement Rural et de l'Eau, ORE OMERE"
+        },
+        "title": "OMERE",
+        "hostId": "https://cat.opidor.fr/index.php/OMERE",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "OMIV, Observatoire Multidisciplinaire des Instabilit\u00e9s de Versants",
+            "fr_FR": "OMIV, Observatoire Multidisciplinaire des Instabilit\u00e9s de Versants"
+        },
+        "title": "OMIV",
+        "hostId": "https://cat.opidor.fr/index.php/OMIV",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "ONB, Observatoire national de la biodiversit\u00e9",
+            "fr_FR": "ONB, Observatoire national de la biodiversit\u00e9"
+        },
+        "title": "ONB",
+        "hostId": "https://cat.opidor.fr/index.php/ONB",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "OPGC: Observatoire virtuel, Observatoire virtuel OPGC",
+            "fr_FR": "OPGC: Observatoire virtuel, Observatoire virtuel OPGC"
+        },
+        "title": "OPGC: Observatoire virtuel",
+        "hostId": "https://cat.opidor.fr/index.php/OPGC: Observatoire virtuel",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "ORACLE, GIS ORACLE,Observatoire ORACLE, BVRE Orgeval (Bassin Versant Repr\u00e9sentatif et Exp\u00e9rimental)",
+            "fr_FR": "ORACLE, GIS ORACLE,Observatoire ORACLE, BVRE Orgeval (Bassin Versant Repr\u00e9sentatif et Exp\u00e9rimental)"
+        },
+        "title": "ORACLE",
+        "hostId": "https://cat.opidor.fr/index.php/ORACLE",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ORDaR, OTELo Research Data Repository",
+            "fr_FR": "ORDaR, OTELo Research Data Repository"
+        },
+        "title": "ORDaR",
+        "hostId": "https://cat.opidor.fr/index.php/ORDaR",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "OREME Portail, Portail de donn\u00e9es OSU OREME",
+            "fr_FR": "OREME Portail, Portail de donn\u00e9es OSU OREME"
+        },
+        "title": "OREME Portail",
+        "hostId": "https://cat.opidor.fr/index.php/OREME Portail",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "OSR SO, Observatoire Spatial R\u00e9gional Sud-Ouest",
+            "fr_FR": "OSR SO, Observatoire Spatial R\u00e9gional Sud-Ouest"
+        },
+        "title": "OSR SO",
+        "hostId": "https://cat.opidor.fr/index.php/OSR SO",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "OSUG-DC, Centre de donn\u00e9es de l\u2019Observatoire des Sciences de l'Univers de Grenoble, Centre de donn\u00e9es de l\u2019OSUG, OSUG Data Centre",
+            "fr_FR": "OSUG-DC, Centre de donn\u00e9es de l\u2019Observatoire des Sciences de l'Univers de Grenoble, Centre de donn\u00e9es de l\u2019OSUG, OSUG Data Centre"
+        },
+        "title": "OSUG-DC",
+        "hostId": "https://cat.opidor.fr/index.php/OSUG-DC",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "OSURIS, OSUR Information Syst\u00e8me, G\u00e9oportail OSURIS de l'OSUR",
+            "fr_FR": "OSURIS, OSUR Information Syst\u00e8me, G\u00e9oportail OSURIS de l'OSUR"
+        },
+        "title": "OSURIS",
+        "hostId": "https://cat.opidor.fr/index.php/OSURIS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "OTHU, Observatoire de Terrain en Hydrologie Urbaine, FED 4161",
+            "fr_FR": "OTHU, Observatoire de Terrain en Hydrologie Urbaine, FED 4161"
+        },
+        "title": "OTHU",
+        "hostId": "https://cat.opidor.fr/index.php/OTHU",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ObsERA, Observatoire de l'Eau et de l'Erosion aux Antilles",
+            "fr_FR": "ObsERA, Observatoire de l'Eau et de l'Erosion aux Antilles"
+        },
+        "title": "ObsERA",
+        "hostId": "https://cat.opidor.fr/index.php/ObsERA",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "Observatoire des sciences humaines et sociales, OSHS, Observatoire des SHS",
+            "fr_FR": "Observatoire des sciences humaines et sociales, OSHS, Observatoire des SHS"
+        },
+        "title": "Observatoire des sciences humaines et sociales",
+        "hostId": "https://cat.opidor.fr/index.php/Observatoire des sciences humaines et sociales",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Ocean Barcode Atlas, OBA, Atlas code-barres de l'oc\u00e9an",
+            "fr_FR": "Ocean Barcode Atlas, OBA, Atlas code-barres de l'oc\u00e9an"
+        },
+        "title": "Ocean Barcode Atlas",
+        "hostId": "https://cat.opidor.fr/index.php/Ocean Barcode Atlas",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Ocean Gene Atlas, OGA, Atlas g\u00e9n\u00e9tique de l'oc\u00e9an",
+            "fr_FR": "Ocean Gene Atlas, OGA, Atlas g\u00e9n\u00e9tique de l'oc\u00e9an"
+        },
+        "title": "Ocean Gene Atlas",
+        "hostId": "https://cat.opidor.fr/index.php/Ocean Gene Atlas",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ELIXIR Data Resources"]
+    },
+    {
+        "label": {
+            "en_GB": "OpenArchaeo, Prototype OpenArcheo",
+            "fr_FR": "OpenArchaeo, Prototype OpenArcheo"
+        },
+        "title": "OpenArchaeo",
+        "hostId": "https://cat.opidor.fr/index.php/OpenArchaeo",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "OpenData ESR, Open Data sur l'enseignement sup\u00e9rieur et la recherche; data.enseignementsup-recherche.gouv.fr ; Open data ESR",
+            "fr_FR": "OpenData ESR, Open Data sur l'enseignement sup\u00e9rieur et la recherche; data.enseignementsup-recherche.gouv.fr ; Open data ESR"
+        },
+        "title": "OpenData ESR",
+        "hostId": "https://cat.opidor.fr/index.php/OpenData ESR",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "OpenEdition portail, Portail OpenEdition",
+            "fr_FR": "OpenEdition portail, Portail OpenEdition"
+        },
+        "title": "OpenEdition portail",
+        "hostId": "https://cat.opidor.fr/index.php/OpenEdition portail",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "OpenObs, Requ\u00eateur National sur les donn\u00e9es biodiversit\u00e9",
+            "fr_FR": "OpenObs, Requ\u00eateur National sur les donn\u00e9es biodiversit\u00e9"
+        },
+        "title": "OpenObs",
+        "hostId": "https://cat.opidor.fr/index.php/OpenObs",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Orphadata",
+            "fr_FR": "Orphadata"
+        },
+        "title": "Orphadata",
+        "hostId": "https://cat.opidor.fr/index.php/Orphadata",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": [
+            "ELIXIR Data Resources",
+            "ELIXIR Core Data Resources"
+        ]
+    },
+    {
+        "label": {
+            "en_GB": "Orphanet, Plateforme d'information et de services pour les maladies rares et les m\u00e9dicaments orphelins,US 14",
+            "fr_FR": "Orphanet, Plateforme d'information et de services pour les maladies rares et les m\u00e9dicaments orphelins,US 14"
+        },
+        "title": "Orphanet",
+        "hostId": "https://cat.opidor.fr/index.php/Orphanet",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": [
+            "RDiRC Recognized Resources",
+            "ELIXIR Core Data Resource",
+            "ELIXIR Data Resources"
+        ]
+    },
+    {
+        "label": {
+            "en_GB": "Ortolang, Outils et Ressources pour un Traitement Optimis\u00e9 de la LANGue, Open Resources and TOols for LanGuage",
+            "fr_FR": "Ortolang, Outils et Ressources pour un Traitement Optimis\u00e9 de la LANGue, Open Resources and TOols for LanGuage"
+        },
+        "title": "Ortolang",
+        "hostId": "https://cat.opidor.fr/index.php/Ortolang",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "PACEA Collections, PACEA Collections",
+            "fr_FR": "PACEA Collections, PACEA Collections"
+        },
+        "title": "PACEA Collections",
+        "hostId": "https://cat.opidor.fr/index.php/PACEA Collections",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "PADC, Paris Astronomical Data Centre, Centre de donn\u00e9es astronomique de Paris",
+            "fr_FR": "PADC, Paris Astronomical Data Centre, Centre de donn\u00e9es astronomique de Paris"
+        },
+        "title": "PADC",
+        "hostId": "https://cat.opidor.fr/index.php/PADC",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "PANDOR, Portail Archives Num\u00e9riques et Donn\u00e9es de la Recherche",
+            "fr_FR": "PANDOR, Portail Archives Num\u00e9riques et Donn\u00e9es de la Recherche"
+        },
+        "title": "PANDOR",
+        "hostId": "https://cat.opidor.fr/index.php/PANDOR",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "PDG, Particle Data Group",
+            "fr_FR": "PDG, Particle Data Group"
+        },
+        "title": "PDG",
+        "hostId": "https://cat.opidor.fr/index.php/PDG",
+        "idType": "URL",
+        "geoLocation": "US"
+    },
+    {
+        "label": {
+            "en_GB": "PELAGIS - Donn\u00e9es d'\u00e9chouages, Syst\u00e8me d\u2019observation pour la conservation des mammif\u00e8res et oiseaux marins - Donn\u00e9es d'\u00e9chouages",
+            "fr_FR": "PELAGIS - Donn\u00e9es d'\u00e9chouages, Syst\u00e8me d\u2019observation pour la conservation des mammif\u00e8res et oiseaux marins - Donn\u00e9es d'\u00e9chouages"
+        },
+        "title": "PELAGIS - Donn\u00e9es d'\u00e9chouages",
+        "hostId": "https://cat.opidor.fr/index.php/PELAGIS - Donn\u00e9es d'\u00e9chouages",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "PEPS, Plateforme d\u2019Exploitation des Produits Sentinels",
+            "fr_FR": "PEPS, Plateforme d\u2019Exploitation des Produits Sentinels"
+        },
+        "title": "PEPS",
+        "hostId": "https://cat.opidor.fr/index.php/PEPS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "PNDB : Portail de donn\u00e9es m\u00e9tadonn\u00e9es, Portail de donn\u00e9es du P\u00f4le National de Donn\u00e9es de Biodiversit\u00e9, Metadata Portal of Biodiversity Research Observatories",
+            "fr_FR": "PNDB : Portail de donn\u00e9es m\u00e9tadonn\u00e9es, Portail de donn\u00e9es du P\u00f4le National de Donn\u00e9es de Biodiversit\u00e9, Metadata Portal of Biodiversity Research Observatories"
+        },
+        "title": "PNDB : Portail de donn\u00e9es m\u00e9tadonn\u00e9es",
+        "hostId": "https://cat.opidor.fr/index.php/PNDB : Portail de donn\u00e9es m\u00e9tadonn\u00e9es",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "POLLUX, Base de donn\u00e9es de spectres stellaires POLLUX",
+            "fr_FR": "POLLUX, Base de donn\u00e9es de spectres stellaires POLLUX"
+        },
+        "title": "POLLUX",
+        "hostId": "https://cat.opidor.fr/index.php/POLLUX",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "PSuP, Planetary Surface Portal",
+            "fr_FR": "PSuP, Planetary Surface Portal"
+        },
+        "title": "PSuP",
+        "hostId": "https://cat.opidor.fr/index.php/PSuP",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "Pangloss, Collection Pangloss",
+            "fr_FR": "Pangloss, Collection Pangloss"
+        },
+        "title": "Pangloss",
+        "hostId": "https://cat.opidor.fr/index.php/Pangloss",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ParameciumDB",
+            "fr_FR": "ParameciumDB"
+        },
+        "title": "ParameciumDB",
+        "hostId": "https://cat.opidor.fr/index.php/ParameciumDB",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ELIXIR Data Resources"]
+    },
+    {
+        "label": {
+            "en_GB": "PerSCiDO, Plateforme du LABEX PERSYVAL-Lab (Pervasive Systems and Algorithms) pour la SCIence des DOnn\u00e9es",
+            "fr_FR": "PerSCiDO, Plateforme du LABEX PERSYVAL-Lab (Pervasive Systems and Algorithms) pour la SCIence des DOnn\u00e9es"
+        },
+        "title": "PerSCiDO",
+        "hostId": "https://cat.opidor.fr/index.php/PerSCiDO",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Pers\u00e9e.fr, Portail Pers\u00e9e",
+            "fr_FR": "Pers\u00e9e.fr, Portail Pers\u00e9e"
+        },
+        "title": "Pers\u00e9e.fr",
+        "hostId": "https://cat.opidor.fr/index.php/Pers\u00e9e.fr",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Pierre Auger Observatory Open Data, Auger Open Data",
+            "fr_FR": "Pierre Auger Observatory Open Data, Auger Open Data"
+        },
+        "title": "Pierre Auger Observatory Open Data",
+        "hostId": "https://cat.opidor.fr/index.php/Pierre Auger Observatory Open Data",
+        "idType": "URL",
+        "geoLocation": "AR"
+    },
+    {
+        "label": {
+            "en_GB": "Planetary Climate Database",
+            "fr_FR": "Planetary Climate Database"
+        },
+        "title": "Planetary Climate Database",
+        "hostId": "https://cat.opidor.fr/index.php/Planetary Climate Database",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "PlantRNA",
+            "fr_FR": "PlantRNA"
+        },
+        "title": "PlantRNA",
+        "hostId": "https://cat.opidor.fr/index.php/PlantRNA",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Plus-Sismique, Seismic Plus Portal",
+            "fr_FR": "Plus-Sismique, Seismic Plus Portal"
+        },
+        "title": "Plus-Sismique",
+        "hostId": "https://cat.opidor.fr/index.php/Plus-Sismique",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "PolarBase",
+            "fr_FR": "PolarBase"
+        },
+        "title": "PolarBase",
+        "hostId": "https://cat.opidor.fr/index.php/PolarBase",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Portail 3D SHS, Portail 3D du consortium 3D SHS",
+            "fr_FR": "Portail 3D SHS, Portail 3D du consortium 3D SHS"
+        },
+        "title": "Portail 3D SHS",
+        "hostId": "https://cat.opidor.fr/index.php/Portail 3D SHS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Portail Biblissima",
+            "fr_FR": "Portail Biblissima"
+        },
+        "title": "Portail Biblissima",
+        "hostId": "https://cat.opidor.fr/index.php/Portail Biblissima",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Portail Epid\u00e9miologie France, Health Databases",
+            "fr_FR": "Portail Epid\u00e9miologie France, Health Databases"
+        },
+        "title": "Portail Epid\u00e9miologie France",
+        "hostId": "https://cat.opidor.fr/index.php/Portail Epid\u00e9miologie France",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Portail de donn\u00e9es marines, IFREMER-SISMER Portail de donn\u00e9es marines",
+            "fr_FR": "Portail de donn\u00e9es marines, IFREMER-SISMER Portail de donn\u00e9es marines"
+        },
+        "title": "Portail de donn\u00e9es marines",
+        "hostId": "https://cat.opidor.fr/index.php/Portail de donn\u00e9es marines",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["CoreTrustSeal"]
+    },
+    {
+        "label": {
+            "en_GB": "Portail spatial IGN, Spatial IGN",
+            "fr_FR": "Portail spatial IGN, Spatial IGN"
+        },
+        "title": "Portail spatial IGN",
+        "hostId": "https://cat.opidor.fr/index.php/Portail spatial IGN",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Quetelet PROGEDO Diffusion, Catalogue de donn\u00e9es en sciences humaines et sociales pour la recherche, R\u00e9seau fran\u00e7ais des centres de donn\u00e9es pour les sciences sociales",
+            "fr_FR": "Quetelet PROGEDO Diffusion, Catalogue de donn\u00e9es en sciences humaines et sociales pour la recherche, R\u00e9seau fran\u00e7ais des centres de donn\u00e9es pour les sciences sociales"
+        },
+        "title": "Quetelet PROGEDO Diffusion",
+        "hostId": "https://cat.opidor.fr/index.php/Quetelet PROGEDO Diffusion",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "RELMIN, Le statut l\u00e9gal des minorit\u00e9s religieuses dans l\u2019espace euro-m\u00e9diterran\u00e9en (V\u00e8me \u2013XV\u00e8me si\u00e8cles), The legal status of religious minorities in the Euro-Mediterranean world (5th -15th centuries)",
+            "fr_FR": "RELMIN, Le statut l\u00e9gal des minorit\u00e9s religieuses dans l\u2019espace euro-m\u00e9diterran\u00e9en (V\u00e8me \u2013XV\u00e8me si\u00e8cles), The legal status of religious minorities in the Euro-Mediterranean world (5th -15th centuries)"
+        },
+        "title": "RELMIN",
+        "hostId": "https://cat.opidor.fr/index.php/RELMIN",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "REPAIRS Escalavage et Indemnit\u00e9s",
+            "fr_FR": "REPAIRS Escalavage et Indemnit\u00e9s"
+        },
+        "title": "REPAIRS Escalavage et Indemnit\u00e9s",
+        "hostId": "https://cat.opidor.fr/index.php/REPAIRS Escalavage et Indemnit\u00e9s",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "RGP, Reseau GNSS permanent",
+            "fr_FR": "RGP, Reseau GNSS permanent"
+        },
+        "title": "RGP",
+        "hostId": "https://cat.opidor.fr/index.php/RGP",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Radars MF, Radars M\u00e9t\u00e9o France",
+            "fr_FR": "Radars MF, Radars M\u00e9t\u00e9o France"
+        },
+        "title": "Radars MF",
+        "hostId": "https://cat.opidor.fr/index.php/Radars MF",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Real Collobrier, Observatoire du Real Collobrier, BVRE R\u00e9al Collobrier",
+            "fr_FR": "Real Collobrier, Observatoire du Real Collobrier, BVRE R\u00e9al Collobrier"
+        },
+        "title": "Real Collobrier",
+        "hostId": "https://cat.opidor.fr/index.php/Real Collobrier",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Recherche Data Gouv",
+            "fr_FR": "Recherche Data Gouv"
+        },
+        "title": "Recherche Data Gouv",
+        "hostId": "https://cat.opidor.fr/index.php/Recherche Data Gouv",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "ReefTemps, R\u00e9seau d'observation des eaux c\u00f4ti\u00e8res du Pacifique insulaire",
+            "fr_FR": "ReefTemps, R\u00e9seau d'observation des eaux c\u00f4ti\u00e8res du Pacifique insulaire"
+        },
+        "title": "ReefTemps",
+        "hostId": "https://cat.opidor.fr/index.php/ReefTemps",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "ResPaDon, R\u00e9seau de Partenaires pour l\u2019analyse et l\u2019exploration de donn\u00e9es num\u00e9riques",
+            "fr_FR": "ResPaDon, R\u00e9seau de Partenaires pour l\u2019analyse et l\u2019exploration de donn\u00e9es num\u00e9riques"
+        },
+        "title": "ResPaDon",
+        "hostId": "https://cat.opidor.fr/index.php/ResPaDon",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "RunMyCode",
+            "fr_FR": "RunMyCode"
+        },
+        "title": "RunMyCode",
+        "hostId": "https://cat.opidor.fr/index.php/RunMyCode",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "R\u00e9f\u00e9rentiels autorit\u00e9 Biblissima",
+            "fr_FR": "R\u00e9f\u00e9rentiels autorit\u00e9 Biblissima"
+        },
+        "title": "R\u00e9f\u00e9rentiels autorit\u00e9 Biblissima",
+        "hostId": "https://cat.opidor.fr/index.php/R\u00e9f\u00e9rentiels autorit\u00e9 Biblissima",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "R\u00e9seau des Zones Ateliers : G\u00e9ocatalogue, LTER-France Metadata Node, eLTER-France RZA portail, R\u00e9seau des Zones Ateliers G\u00e9ocatalogue",
+            "fr_FR": "R\u00e9seau des Zones Ateliers : G\u00e9ocatalogue, LTER-France Metadata Node, eLTER-France RZA portail, R\u00e9seau des Zones Ateliers G\u00e9ocatalogue"
+        },
+        "title": "R\u00e9seau des Zones Ateliers : G\u00e9ocatalogue",
+        "hostId": "https://cat.opidor.fr/index.php/R\u00e9seau des Zones Ateliers : G\u00e9ocatalogue",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "R\u00e9sif Seismic data portal, Portail d'acc\u00e8s aux donn\u00e9es sismologiques RESIF, French seismologic and geodetic network",
+            "fr_FR": "R\u00e9sif Seismic data portal, Portail d'acc\u00e8s aux donn\u00e9es sismologiques RESIF, French seismologic and geodetic network"
+        },
+        "title": "R\u00e9sif Seismic data portal",
+        "hostId": "https://cat.opidor.fr/index.php/R\u00e9sif Seismic data portal",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "R\u00e9sif-RAP, R\u00e9seau national acc\u00e9l\u00e9rom\u00e9trique permanent fran\u00e7ais - R\u00e9sif",
+            "fr_FR": "R\u00e9sif-RAP, R\u00e9seau national acc\u00e9l\u00e9rom\u00e9trique permanent fran\u00e7ais - R\u00e9sif"
+        },
+        "title": "R\u00e9sif-RAP",
+        "hostId": "https://cat.opidor.fr/index.php/R\u00e9sif-RAP",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "R\u00e9sif-RENAG, R\u00e9seau national GNSS permanent fran\u00e7ais - RESIF",
+            "fr_FR": "R\u00e9sif-RENAG, R\u00e9seau national GNSS permanent fran\u00e7ais - RESIF"
+        },
+        "title": "R\u00e9sif-RENAG",
+        "hostId": "https://cat.opidor.fr/index.php/R\u00e9sif-RENAG",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "R\u00e9sif-RLBP, R\u00e9seau large bande permanent fran\u00e7ais",
+            "fr_FR": "R\u00e9sif-RLBP, R\u00e9seau large bande permanent fran\u00e7ais"
+        },
+        "title": "R\u00e9sif-RLBP",
+        "hostId": "https://cat.opidor.fr/index.php/R\u00e9sif-RLBP",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "SAFIRE-data, Portail de donn\u00e9es du Service Fran\u00e7ais des Avions Instrument\u00e9s pour la Recherche en Environnement",
+            "fr_FR": "SAFIRE-data, Portail de donn\u00e9es du Service Fran\u00e7ais des Avions Instrument\u00e9s pour la Recherche en Environnement"
+        },
+        "title": "SAFIRE-data",
+        "hostId": "https://cat.opidor.fr/index.php/SAFIRE-data",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "SATMOS, Service d\u2019Archivage et de Traitement M\u00e9t\u00e9orologique des Observations Satellitaires, CDS-SATMOS",
+            "fr_FR": "SATMOS, Service d\u2019Archivage et de Traitement M\u00e9t\u00e9orologique des Observations Satellitaires, CDS-SATMOS"
+        },
+        "title": "SATMOS",
+        "hostId": "https://cat.opidor.fr/index.php/SATMOS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "SEANOE, Sea Scientific Open Data Edition",
+            "fr_FR": "SEANOE, Sea Scientific Open Data Edition"
+        },
+        "title": "SEANOE",
+        "hostId": "https://cat.opidor.fr/index.php/SEANOE",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["CoreTrustSeal"]
+    },
+    {
+        "label": {
+            "en_GB": "SEDOO, SErvice de DOnn\u00e9es de l\u2019Observatoire Midi-Pyr\u00e9n\u00e9es, CDS-SEDOO",
+            "fr_FR": "SEDOO, SErvice de DOnn\u00e9es de l\u2019Observatoire Midi-Pyr\u00e9n\u00e9es, CDS-SEDOO"
+        },
+        "title": "SEDOO",
+        "hostId": "https://cat.opidor.fr/index.php/SEDOO",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "SIB, Syst\u00e8me d'information sur la biodiversit\u00e9",
+            "fr_FR": "SIB, Syst\u00e8me d'information sur la biodiversit\u00e9"
+        },
+        "title": "SIB",
+        "hostId": "https://cat.opidor.fr/index.php/SIB",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "SIE, Syst\u00e8me d\u2019Information sur l\u2019Eau",
+            "fr_FR": "SIE, Syst\u00e8me d\u2019Information sur l\u2019Eau"
+        },
+        "title": "SIE",
+        "hostId": "https://cat.opidor.fr/index.php/SIE",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "SIMBAD, SIMBAD Astronomical Database, Set of Identifications, Measurements, and Bibliography for Astronomical Data",
+            "fr_FR": "SIMBAD, SIMBAD Astronomical Database, Set of Identifications, Measurements, and Bibliography for Astronomical Data"
+        },
+        "title": "SIMBAD",
+        "hostId": "https://cat.opidor.fr/index.php/SIMBAD",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "SIMM, Syst\u00e8me d'information sur les milieux marins",
+            "fr_FR": "SIMM, Syst\u00e8me d'information sur les milieux marins"
+        },
+        "title": "SIMM",
+        "hostId": "https://cat.opidor.fr/index.php/SIMM",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "SINP, Syst\u00e8me d\u2019Information de l\u2019iNventaire du Patrimoine naturel,Syst\u00e8me d'Information sur la Nature et les Paysages",
+            "fr_FR": "SINP, Syst\u00e8me d\u2019Information de l\u2019iNventaire du Patrimoine naturel,Syst\u00e8me d'Information sur la Nature et les Paysages"
+        },
+        "title": "SINP",
+        "hostId": "https://cat.opidor.fr/index.php/SINP",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "SNDS, Syst\u00e8me National des Donn\u00e9es de Sant\u00e9",
+            "fr_FR": "SNDS, Syst\u00e8me National des Donn\u00e9es de Sant\u00e9"
+        },
+        "title": "SNDS",
+        "hostId": "https://cat.opidor.fr/index.php/SNDS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "SNOV, Observatoires volcanologiques et sismologiques",
+            "fr_FR": "SNOV, Observatoires volcanologiques et sismologiques"
+        },
+        "title": "SNOV",
+        "hostId": "https://cat.opidor.fr/index.php/SNOV",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "SO CORAIL, Site d'Observation INSU CORAIL, SNO CORAIL",
+            "fr_FR": "SO CORAIL, Site d'Observation INSU CORAIL, SNO CORAIL"
+        },
+        "title": "SO CORAIL",
+        "hostId": "https://cat.opidor.fr/index.php/SO CORAIL",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "SOMLIT, Service d'Observation en Milieu Littoral",
+            "fr_FR": "SOMLIT, Service d'Observation en Milieu Littoral"
+        },
+        "title": "SOMLIT",
+        "hostId": "https://cat.opidor.fr/index.php/SOMLIT",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "SPHERE-DC, Centre de donn\u00e9es SPHERE, SPHERE Data Center",
+            "fr_FR": "SPHERE-DC, Centre de donn\u00e9es SPHERE, SPHERE Data Center"
+        },
+        "title": "SPHERE-DC",
+        "hostId": "https://cat.opidor.fr/index.php/SPHERE-DC",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "SPlotOpen",
+            "fr_FR": "SPlotOpen"
+        },
+        "title": "SPlotOpen",
+        "hostId": "https://cat.opidor.fr/index.php/SPlotOpen",
+        "idType": "URL",
+        "geoLocation": "DE"
+    },
+    {
+        "label": {
+            "en_GB": "SSHADE-F, Solid Spectroscopy Hosting Architecture of Databases and Expertise",
+            "fr_FR": "SSHADE-F, Solid Spectroscopy Hosting Architecture of Databases and Expertise"
+        },
+        "title": "SSHADE-F",
+        "hostId": "https://cat.opidor.fr/index.php/SSHADE-F",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "Science Ensemble, Portail des sciences participatives",
+            "fr_FR": "Science Ensemble, Portail des sciences participatives"
+        },
+        "title": "Science Ensemble",
+        "hostId": "https://cat.opidor.fr/index.php/Science Ensemble",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Service public de la donn\u00e9e",
+            "fr_FR": "Service public de la donn\u00e9e"
+        },
+        "title": "Service public de la donn\u00e9e",
+        "hostId": "https://cat.opidor.fr/index.php/Service public de la donn\u00e9e",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Sextant, Infrastructure de donn\u00e9es g\u00e9ographiques marines et littorales, IDG marines et littorales",
+            "fr_FR": "Sextant, Infrastructure de donn\u00e9es g\u00e9ographiques marines et littorales, IDG marines et littorales"
+        },
+        "title": "Sextant",
+        "hostId": "https://cat.opidor.fr/index.php/Sextant",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Software Heritage, Software Heritage Archive, SWH",
+            "fr_FR": "Software Heritage, Software Heritage Archive, SWH"
+        },
+        "title": "Software Heritage",
+        "hostId": "https://cat.opidor.fr/index.php/Software Heritage",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "SulfAtlas, Database of Sulfatases",
+            "fr_FR": "SulfAtlas, Database of Sulfatases"
+        },
+        "title": "SulfAtlas",
+        "hostId": "https://cat.opidor.fr/index.php/SulfAtlas",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["ELIXIR Data Resources"]
+    },
+    {
+        "label": {
+            "en_GB": "TEMPO : Portail de donn\u00e9es, Portail de donn\u00e9es du R\u00e9seau national d'observatoires de la ph\u00e9nologie, SOERE TEMPO",
+            "fr_FR": "TEMPO : Portail de donn\u00e9es, Portail de donn\u00e9es du R\u00e9seau national d'observatoires de la ph\u00e9nologie, SOERE TEMPO"
+        },
+        "title": "TEMPO : Portail de donn\u00e9es",
+        "hostId": "https://cat.opidor.fr/index.php/TEMPO : Portail de donn\u00e9es",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "TETIS : Plateformes de donn\u00e9es, Plateformes de donn\u00e9es de UMR TETIS, Territoires, Environnement, T\u00e9l\u00e9detection et Information Spatiale, UMR 91, UMR 9000, UMR 1470",
+            "fr_FR": "TETIS : Plateformes de donn\u00e9es, Plateformes de donn\u00e9es de UMR TETIS, Territoires, Environnement, T\u00e9l\u00e9detection et Information Spatiale, UMR 91, UMR 9000, UMR 1470"
+        },
+        "title": "TETIS : Plateformes de donn\u00e9es",
+        "hostId": "https://cat.opidor.fr/index.php/TETIS : Plateformes de donn\u00e9es",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Technoth\u00e8que",
+            "fr_FR": "Technoth\u00e8que"
+        },
+        "title": "Technoth\u00e8que",
+        "hostId": "https://cat.opidor.fr/index.php/Technoth\u00e8que",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Tela Botanica, R\u00e9seau des botanistes francophones, R\u00e9seau Tela Botanica",
+            "fr_FR": "Tela Botanica, R\u00e9seau des botanistes francophones, R\u00e9seau Tela Botanica"
+        },
+        "title": "Tela Botanica",
+        "hostId": "https://cat.opidor.fr/index.php/Tela Botanica",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Telma, Traitement \u00c9lectronique des Manuscrits et des Archives",
+            "fr_FR": "Telma, Traitement \u00c9lectronique des Manuscrits et des Archives"
+        },
+        "title": "Telma",
+        "hostId": "https://cat.opidor.fr/index.php/Telma",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "TerMEx database, Terra Mediterranean eXperiment",
+            "fr_FR": "TerMEx database, Terra Mediterranean eXperiment"
+        },
+        "title": "TerMEx database",
+        "hostId": "https://cat.opidor.fr/index.php/TerMEx database",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Theia, P\u00f4le de donn\u00e9es et de services pour les surfaces continentales, P\u00f4le Theia, P\u00f4le th\u00e9matique surfaces continentales",
+            "fr_FR": "Theia, P\u00f4le de donn\u00e9es et de services pour les surfaces continentales, P\u00f4le Theia, P\u00f4le th\u00e9matique surfaces continentales"
+        },
+        "title": "Theia",
+        "hostId": "https://cat.opidor.fr/index.php/Theia",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Theia/OZCAR-SI, Syst\u00e8me d'Information des donn\u00e9es in situ des surfaces continentales commun \u00e0 Theia et OZCAR, Syst\u00e8me d\u2019Information Theia/OZCAR",
+            "fr_FR": "Theia/OZCAR-SI, Syst\u00e8me d'Information des donn\u00e9es in situ des surfaces continentales commun \u00e0 Theia et OZCAR, Syst\u00e8me d\u2019Information Theia/OZCAR"
+        },
+        "title": "Theia/OZCAR-SI",
+        "hostId": "https://cat.opidor.fr/index.php/Theia/OZCAR-SI",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Tourbi\u00e8res Syst\u00e8me d'Information SNO Tourbi\u00e8res, SNO Tourbi\u00e8res SI",
+            "fr_FR": "Tourbi\u00e8res Syst\u00e8me d'Information SNO Tourbi\u00e8res, SNO Tourbi\u00e8res SI"
+        },
+        "title": "Tourbi\u00e8res Syst\u00e8me d'Information SNO Tourbi\u00e8res",
+        "hostId": "https://cat.opidor.fr/index.php/Tourbi\u00e8res Syst\u00e8me d'Information SNO Tourbi\u00e8res",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "Universit\u00e9 de Strasbourg : Entrep\u00f4t de donn\u00e9es, Entrep\u00f4t de donn\u00e9es de l'Universit\u00e9 de Strasbourg",
+            "fr_FR": "Universit\u00e9 de Strasbourg : Entrep\u00f4t de donn\u00e9es, Entrep\u00f4t de donn\u00e9es de l'Universit\u00e9 de Strasbourg"
+        },
+        "title": "Universit\u00e9 de Strasbourg : Entrep\u00f4t de donn\u00e9es",
+        "hostId": "https://cat.opidor.fr/index.php/Universit\u00e9 de Strasbourg : Entrep\u00f4t de donn\u00e9es",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "VESPA Portail, Virtual European Solar and Planetary Access (VESPA), Portail VESPA",
+            "fr_FR": "VESPA Portail, Virtual European Solar and Planetary Access (VESPA), Portail VESPA"
+        },
+        "title": "VESPA Portail",
+        "hostId": "https://cat.opidor.fr/index.php/VESPA Portail",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "VO Solar System Objects Portal, VO Solar System Portal, Portail VO syst\u00e8me solaire, Portail Syst\u00e8me Solaire - Observatoire Virtuel de l'IMCCE, OV-IMCCE, Portail OV Syst\u00e8me solaire de l'IMCCE",
+            "fr_FR": "VO Solar System Objects Portal, VO Solar System Portal, Portail VO syst\u00e8me solaire, Portail Syst\u00e8me Solaire - Observatoire Virtuel de l'IMCCE, OV-IMCCE, Portail OV Syst\u00e8me solaire de l'IMCCE"
+        },
+        "title": "VO Solar System Objects Portal",
+        "hostId": "https://cat.opidor.fr/index.php/VO Solar System Objects Portal",
+        "idType": "URL",
+        "geoLocation": "FR",
+        "certification": ["SNO"]
+    },
+    {
+        "label": {
+            "en_GB": "VRP-REP, Vehicle Routing Problem REPository",
+            "fr_FR": "VRP-REP, Vehicle Routing Problem REPository"
+        },
+        "title": "VRP-REP",
+        "hostId": "https://cat.opidor.fr/index.php/VRP-REP",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Vigie-Nature, Vigie Nature, Programme de Sciences participatives",
+            "fr_FR": "Vigie-Nature, Vigie Nature, Programme de Sciences participatives"
+        },
+        "title": "Vigie-Nature",
+        "hostId": "https://cat.opidor.fr/index.php/Vigie-Nature",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "VizieR, VizieR database",
+            "fr_FR": "VizieR, VizieR database"
+        },
+        "title": "VizieR",
+        "hostId": "https://cat.opidor.fr/index.php/VizieR",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "WebOAI, Catalogue OAI du Consortium CAHIER",
+            "fr_FR": "WebOAI, Catalogue OAI du Consortium CAHIER"
+        },
+        "title": "WebOAI",
+        "hostId": "https://cat.opidor.fr/index.php/WebOAI",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Webservice-Energy Catalog",
+            "fr_FR": "Webservice-Energy Catalog"
+        },
+        "title": "Webservice-Energy Catalog",
+        "hostId": "https://cat.opidor.fr/index.php/Webservice-Energy Catalog",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "WheatIS, Wheat@URGI,",
+            "fr_FR": "WheatIS, Wheat@URGI,"
+        },
+        "title": "WheatIS",
+        "hostId": "https://cat.opidor.fr/index.php/WheatIS",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Zenodo",
+            "fr_FR": "Zenodo"
+        },
+        "title": "Zenodo",
+        "hostId": "https://cat.opidor.fr/index.php/Zenodo",
+        "idType": "URL",
+        "geoLocation": "CH"
+    },
+    {
+        "label": {
+            "en_GB": "Data Sciences Po, Entrep\u00f4t institutionnel de donn\u00e9es de la recherche de Sciences Po",
+            "fr_FR": "Data Sciences Po, Entrep\u00f4t institutionnel de donn\u00e9es de la recherche de Sciences Po"
+        },
+        "title": "Data Sciences Po",
+        "hostId": "https://cat.opidor.fr/index.php/Data Sciences Po",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "E-FLORA-sys",
+            "fr_FR": "E-FLORA-sys"
+        },
+        "title": "E-FLORA-sys",
+        "hostId": "https://cat.opidor.fr/index.php/E-FLORA-sys",
+        "idType": "URL",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "E-RECOLNAT, Portail du r\u00e9seau des collections naturalistes fran\u00e7aises e-ReColNat",
+            "fr_FR": "E-RECOLNAT, Portail du r\u00e9seau des collections naturalistes fran\u00e7aises e-ReColNat"
+        },
+        "title": "E-RECOLNAT",
+        "hostId": "https://cat.opidor.fr/index.php/E-RECOLNAT",
+        "idType": "URL",
+        "geoLocation": "FR"
+    }
+]
+}

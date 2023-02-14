@@ -1,0 +1,122 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "PersonStandard",
+    "description": "PersonStandard template",
+    "type": "object",
+    "class": "PersonStandard",
+    "properties": {
+        "nameType": {
+            "type": "string",
+            "description": "Type du nom",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type (organisation ou personne)",
+            "label@en_GB": "Type (organisation or person)",
+            "registry_name": "NameTypeValues",
+            "form_label@fr_FR": "Type (organisation ou personne)",
+            "form_label@en_GB": "Type (organisation or person)"
+        },
+        "lastName": {
+            "type": "string",
+            "description": "Nom de famille",
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Last name",
+            "example@fr_FR": "Dupont, Service d'Ingénierie des Systèmes d’Information, Comité d'éthique",
+            "example@en_GB": "Dupont, Information Systems Engineering Department, Ethics comittee",
+            "form_label@fr_FR": "* Nom",
+            "form_label@en_GB": "* Last name"
+        },
+        "firstName": {
+            "type": "string",
+            "description": "Prénom",
+            "label@fr_FR": "Prénom",
+            "label@en_GB": "First name",
+            "tooltip@fr_FR": "Saisir un prénom, s'il s'agit d'une personne physique",
+            "tooltip@en_GB": "Enter a first name, if it is a natural person",
+            "form_label@fr_FR": "Prénom",
+            "form_label@en_GB": "First name"
+        },
+        "mbox": {
+            "type": "string",
+            "format": "email",
+            "description": "Adresse mail de la personne",
+            "label@fr_FR": "Email",
+            "label@en_GB": "Email",
+            "form_label@fr_FR": "* Email",
+            "form_label@en_GB": "* Email"
+        },
+        "personId": {
+            "type": "string",
+            "description": "Valeur de l'identifiant",
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier",
+            "example@fr_FR": "https://orcid.org/0000-0002-9148-9926",
+            "example@en_GB": "https://orcid.org/0000-0002-9148-9926",
+            "form_label@fr_FR": "* Identifiant",
+            "form_label@en_GB": "* Identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant (ORCID id)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "registry_name": "AgentIdSystem",
+            "overridable": true,
+            "form_label@fr_FR": "* Type d'identifiant",
+            "form_label@en_GB": "* Identifier type"
+        },
+        "affiliationName": {
+            "type": "string",
+            "description": "Nom de l'affiliation",
+            "label@fr_FR": "Nom de l'affiliation",
+            "label@en_GB": "Affiliation name",
+            "tooltip@fr_FR": "Utiliser de préférence le nom de la structure enregistrée dans le RNSR. Dans le cas d'une organisation, indiquer le nom de l'établissement de rattachement",
+            "tooltip@en_GB": "Preferably use the name of the structure registered in RNSR. In case of an organizational name, you can add here the name of the formal institution to which the creator belongs",
+            "example@fr_FR": "INIST Institut de l'information scientifique et technique",
+            "example@en_GB": "INIST Institut de l'information scientifique et technique ",
+            "form_label@fr_FR": "Nom de l'affiliation",
+            "form_label@en_GB": "Affiliation name"
+        },
+        "affiliationId": {
+            "type": "string",
+            "description": "Identifiant de l'affiliation",
+            "label@fr_FR": "Identifiant de l'affiliation",
+            "label@en_GB": "Affiliation identifier",
+            "example@fr_FR": "198822446E",
+            "example@en_GB": "198822446E",
+            "form_label@fr_FR": "Identifiant de l'affiliation",
+            "form_label@en_GB": "Affiliation identifier"
+        },
+        "affiliationIdType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant de l'affiliation",
+            "label@en_GB": "Affiliation identifier type",
+            "registry_name": "AgentIdSystem",
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant de l'affiliation",
+            "form_label@en_GB": "Affiliation identifier type"
+        }
+    },
+    "required": [
+        "nameType",
+        "lastName",
+        "firstName",
+        "personId",
+        "idType",
+        "affiliationName",
+        "affiliationId",
+        "affiliationIdType"
+    ],
+    "to_string": [
+        "$.lastName",
+        " ",
+        "$.firstName"
+    ],
+    "unicity": [
+        "firstName",
+        "lastName"
+    ]
+}
