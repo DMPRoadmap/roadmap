@@ -9,6 +9,7 @@ label = label || _("Organisation")
 # multiple org selectors on the same form
 id_field = id_field || :org_id
 presenter = OrgSelectionPresenter.new(orgs: orgs.select{|org| org.managed == true}, selection: default_org)
+# add unmanaged filter to local_only to fix issue275, see PR#276 for explaination
 placeholder = _("Begin typing to see a list of suggestions.")
 %>
 
