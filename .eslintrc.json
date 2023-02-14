@@ -6,18 +6,25 @@
     "jasmine": true
   },
   "extends": [
+    "plugin:react/jsx-runtime",
     "plugin:react/recommended",
     "airbnb-base"
   ],
   "parserOptions": {
     "ecmaVersion": 2018,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "globals": {
     "timeago": true,
     "fixture": true,
     "spyOnEvent": true
   },
+  "plugins": [
+    "react"
+  ],
   "rules": {
     "import/no-unresolved": "off",
     "indent": [
@@ -36,11 +43,17 @@
       "error",
       "always"
     ],
-    "prefer-destructuring": ["error", {
-      "array": false,
-      "object": false
-    }, {
-      "enforceForRenamedProperties": false
-    }]
+    "prefer-destructuring": [
+      "error",
+      {
+        "array": false,
+        "object": false
+      },
+      {
+        "enforceForRenamedProperties": false
+      }
+    ],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   }
 }
