@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.1.0 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-02-13 17:41-0500\n"
-"PO-Revision-Date: 2023-02-13 23:44+0100\n"
+"POT-Creation-Date: 2023-02-14 12:37-0500\n"
+"PO-Revision-Date: 2023-02-14 18:42+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -49216,15 +49216,15 @@ msgstr ""
 
 #: ../../app/presenters/research_output_presenter.rb:81
 msgid "Generalist (multidisciplinary)"
-msgstr ""
+msgstr "Généraliste (multidisciplinaire)"
 
 #: ../../app/presenters/research_output_presenter.rb:82
 msgid "Discipline specific"
-msgstr ""
+msgstr "Discipline spécifique"
 
 #: ../../app/presenters/research_output_presenter.rb:83
 msgid "Institutional"
-msgstr ""
+msgstr "Institutionnel"
 
 #: ../../app/presenters/research_output_presenter.rb:119
 #: ../../app/presenters/research_output_presenter.rb:126
@@ -50788,12 +50788,12 @@ msgstr ""
 #: ../../app/views/layouts/modal_search/_form.html.erb:8
 #: ../../app/views/layouts/modal_search/_results.html.erb:6
 msgid "No results matched your filter criteria."
-msgstr ""
+msgstr "Aucun résultat ne correspond à vos critères de filtrage."
 
 #: ../../app/views/layouts/modal_search/_form.html.erb:24
 #: ../../app/views/layouts/modal_search/_form.html.erb:66
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: ../../app/views/layouts/modal_search/_form.html.erb:27
 msgid "%{topic} search"
@@ -50801,7 +50801,7 @@ msgstr ""
 
 #: ../../app/views/layouts/modal_search/_form.html.erb:49
 msgid "Apply filter(s)"
-msgstr ""
+msgstr "Appliquer un ou plusieurs filtres"
 
 #: ../../app/views/layouts/modal_search/_result.html.erb:9
 msgid "Select"
@@ -52923,11 +52923,11 @@ msgstr ""
 
 #: ../../app/views/research_outputs/repositories/_search.html.erb:12
 msgid "- Select a subject area -"
-msgstr ""
+msgstr "- Sélectionnez une matière -"
 
 #: ../../app/views/research_outputs/repositories/_search.html.erb:21
 msgid "- Select a repository type -"
-msgstr ""
+msgstr "- Sélectionnez un type de référentiel -"
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:18
 #: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:34
@@ -53076,7 +53076,7 @@ msgstr ""
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:60
 msgid "Grant number / URL: "
-msgstr ""
+msgstr "Numéro de la subvention / URL :"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:67
 #: ../../app/views/shared/export/_plan_txt.erb:34
@@ -53120,7 +53120,7 @@ msgstr ""
 
 #: ../../app/views/shared/org_selectors/_combined.html.erb:15
 #: ../../app/views/shared/org_selectors/_external_only.html.erb:13
-#: ../../app/views/shared/org_selectors/_local_only.html.erb:12
+#: ../../app/views/shared/org_selectors/_local_only.html.erb:13
 msgid "Begin typing to see a list of suggestions."
 msgstr "Commencez à taper pour voir une liste de suggestions."
 
@@ -53132,7 +53132,7 @@ msgid ""
 "different form."
 msgstr ""
 
-#: ../../app/views/shared/org_selectors/_local_only.html.erb:45
+#: ../../app/views/shared/org_selectors/_local_only.html.erb:46
 msgid "The name you entered was not one of the listed suggestions!"
 msgstr "Le nom que vous avez entré ne faisait pas partie des suggestions énumérées!"
 
