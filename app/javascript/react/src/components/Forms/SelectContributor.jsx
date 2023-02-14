@@ -1,17 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
-
-import Modal from "react-bootstrap/Modal";
+import { Modal, Button } from "react-bootstrap";
 import BuilderForm from "../Builder/BuilderForm";
 import Select from "react-select";
 import { deleteByIndex, parsePatern } from "../../utils/GeneratorUtils";
-import { Button } from "react-bootstrap";
 import { GlobalContext } from "../context/Global";
 import swal from "sweetalert";
 import toast from "react-hot-toast";
+import { getSchema } from "../../services/DmpServiceApi";
 
-function SelectContributor({ label, arrayList, name, changeValue, template, keyValue, level, tooltip }) {
+function SelectContributor({
+  label,
+  arrayList,
+  name,
+  changeValue,
+  template,
+  keyValue,
+  level,
+  tooltip,
+}) {
   const [list, setlist] = useState([]);
-  let registerFile = require(`../../data/templates/${template}-template.json`);
 
   const [show, setShow] = useState(false);
   const [options, setoptions] = useState(null);
@@ -19,6 +26,31 @@ function SelectContributor({ label, arrayList, name, changeValue, template, keyV
   const { form, setform, temp, settemp } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
 
+  const [registerFile, setregisterFile] = useState(null);
+
+  useEffect(() => {
+    getSchema(template, "token").then((el) => {
+      setregisterFile(el);
+      if (!form[keyValue]) {
+        return;
+      }
+      const patern = el.to_string;
+      if (!patern.length) {
+        return;
+      }
+      setlist(form[keyValue].map((el) => parsePatern(el.person, patern)));
+    });
+  }, [template, form[keyValue], registerFile]);
+
+  /* A hook that is called when the component is mounted. It is used to set the options of the select list. */
+  useEffect(() => {
+    const options = arrayList.map((option) => ({
+      value: option.firstName + " " + option.lastName,
+      label: option.firstName + " " + option.lastName,
+      object: option,
+    }));
+    setoptions(options);
+  }, []);
   /**
    * It closes the modal and resets the state of the modal.
    */
@@ -35,28 +67,6 @@ function SelectContributor({ label, arrayList, name, changeValue, template, keyV
     setShow(isOpen);
   };
 
-  /* It's a useEffect hook that is called when the component is mounted. It is used to set the options of the select list. */
-  useEffect(() => {
-    if (!form[keyValue]) {
-      return;
-    }
-    const patern = registerFile.to_string;
-    if (!patern.length) {
-      return;
-    }
-    setlist(form[keyValue].map((el) => parsePatern(el.person, patern)));
-  }, [form[keyValue], registerFile]);
-
-  /* A hook that is called when the component is mounted. It is used to set the options of the select list. */
-  useEffect(() => {
-    const options = arrayList.map((option) => ({
-      value: option.firstName + " " + option.lastName,
-      label: option.firstName + " " + option.lastName,
-      object: option,
-    }));
-    setoptions(options);
-  }, []);
-
   /**
    * It takes the value of the input field and adds it to the list array.
    * @param e - the event object
@@ -72,7 +82,9 @@ function SelectContributor({ label, arrayList, name, changeValue, template, keyV
       changeValue({ target: { name, value: [...selectObject, object] } });
 
       const newObject = { person: object, role: "from list" };
-      const arr3 = form[keyValue] ? [...form[keyValue], newObject] : [newObject];
+      const arr3 = form[keyValue]
+        ? [...form[keyValue], newObject]
+        : [newObject];
       setform({ ...form, [keyValue]: arr3 });
     } else {
       changeValue({ target: { name, value } });
@@ -111,7 +123,10 @@ function SelectContributor({ label, arrayList, name, changeValue, template, keyV
   const handleAddToList = () => {
     if (index !== null) {
       const objectPerson = { person: temp, role: "from create" };
-      setform({ ...form, [keyValue]: [...deleteByIndex(form[keyValue], index), objectPerson] });
+      setform({
+        ...form,
+        [keyValue]: [...deleteByIndex(form[keyValue], index), objectPerson],
+      });
       const parsedPatern = parsePatern(temp, registerFile.to_string);
       setlist([...deleteByIndex([...list], index), parsedPatern]);
     } else {
@@ -150,25 +165,37 @@ function SelectContributor({ label, arrayList, name, changeValue, template, keyV
       <div className="form-group">
         <label>{label}</label>
         {tooltip && (
-          <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
+          <span
+            className="m-4"
+            data-toggle="tooltip"
+            data-placement="top"
+            title={tooltip}
+          >
             ?
           </span>
         )}
         <div className="row">
-          <div className="col-10">
+          <div className="col-md-10">
             <Select
               onChange={handleChangeList}
               options={options}
               name={name}
               //defaultValue={isEdit ? isEdit[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle."}
               defaultValue={{
-                label: temp ? temp[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
-                value: temp ? temp[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                label: temp
+                  ? temp[name]
+                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                value: temp
+                  ? temp[name]
+                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
               }}
             />
           </div>
-          <div className="col-2">
-            <i className="fas fa-plus-square text-primary mt-2" onClick={handleShow}></i>
+          <div className="col-md-2">
+            <i
+              className="fas fa-plus-square text-primary icon-margin-top"
+              onClick={handleShow}
+            ></i>
           </div>
         </div>
 
@@ -176,33 +203,48 @@ function SelectContributor({ label, arrayList, name, changeValue, template, keyV
           {list &&
             list.map((el, idx) => (
               <div key={idx} className="row border">
-                <div className="col-10">
+                <div className="col-md-10">
                   <p className="border m-2"> {list[idx]} </p>
                 </div>
-                <div className="col-1">
-                  {level === 1 && <i className="fa fa-edit m-3 text-primary" aria-hidden="true" onClick={() => handleEdit(idx)}></i>}
+                <div className="col-md-1">
+                  {level === 1 && (
+                    <i
+                      className="fa fa-edit icon-margin-top text-primary"
+                      aria-hidden="true"
+                      onClick={() => handleEdit(idx)}
+                    ></i>
+                  )}
                 </div>
-                <div className="col-1">
-                  <i className="fa fa-close m-3  text-danger" aria-hidden="true" onClick={() => handleDeleteListe(idx)}></i>
+                <div className="col-md-1">
+                  <i
+                    className="fa fa-close icon-margin-top text-danger"
+                    aria-hidden="true"
+                    onClick={() => handleDeleteListe(idx)}
+                  ></i>
                 </div>
               </div>
             ))}
         </div>
       </div>
       <>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Body>
-            <BuilderForm shemaObject={registerFile} level={level + 1}></BuilderForm>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Fermer
-            </Button>
-            <Button variant="primary" onClick={handleAddToList}>
-              Enregistrer
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        {registerFile && (
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Body>
+              <BuilderForm
+                shemaObject={registerFile}
+                level={level + 1}
+              ></BuilderForm>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Fermer
+              </Button>
+              <Button variant="primary" onClick={handleAddToList}>
+                Enregistrer
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        )}
       </>
     </>
   );

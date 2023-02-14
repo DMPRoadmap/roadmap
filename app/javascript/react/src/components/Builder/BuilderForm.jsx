@@ -14,7 +14,9 @@ function BuilderForm({ shemaObject, level }) {
    */
   const changeValue = (event) => {
     const { name, value } = event.target;
-    level === 1 ? setform({ ...form, [name]: value }) : settemp({ ...temp, [name]: value });
+    level === 1
+      ? setform({ ...form, [name]: value })
+      : settemp({ ...temp, [name]: value });
   };
 
   /**
@@ -22,7 +24,14 @@ function BuilderForm({ shemaObject, level }) {
    * @returns An array of React components.
    */
 
-  return <HandleGenerateForms shemaObject={shemaObject} level={level} lng={lng} changeValue={changeValue}></HandleGenerateForms>;
+  return (
+    <HandleGenerateForms
+      shemaObject={shemaObject}
+      level={level}
+      lng={lng}
+      changeValue={changeValue}
+    ></HandleGenerateForms>
+  );
 }
 
 export default BuilderForm;

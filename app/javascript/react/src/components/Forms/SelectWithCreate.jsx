@@ -1,22 +1,97 @@
 import React, { useContext, useEffect, useState } from "react";
-import Modal from "react-bootstrap/Modal";
 import BuilderForm from "../Builder/BuilderForm";
 import Select from "react-select";
-import { checkRequiredForm, deleteByIndex, getLabelName, parsePatern } from "../../utils/GeneratorUtils";
-import { Button } from "react-bootstrap";
+import {
+  checkRequiredForm,
+  deleteByIndex,
+  getLabelName,
+  parsePatern,
+} from "../../utils/GeneratorUtils";
+import { Modal, Button } from "react-bootstrap";
 import { GlobalContext } from "../context/Global";
 import swal from "sweetalert";
 import toast from "react-hot-toast";
+import {
+  getRegistry,
+  getRegistryValue,
+  getSchema,
+} from "../../services/DmpServiceApi";
 
-function SelectWithCreate({ label, arrayList, name, changeValue, template, keyValue, level, tooltip }) {
+function SelectWithCreate({
+  label,
+  registry,
+  name,
+  changeValue,
+  template,
+  keyValue,
+  level,
+  tooltip,
+}) {
   const [list, setlist] = useState([]);
-  let registerFile = require(`../../data/templates/${template}-template.json`);
 
   const [show, setShow] = useState(false);
   const [options, setoptions] = useState(null);
   const [selectObject, setselectObject] = useState([]);
   const { form, setform, temp, settemp, lng } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
+
+  const [registerFile, setregisterFile] = useState(null);
+
+  /* A hook that is called when the component is mounted. It is used to set the options of the select list. */
+  useEffect(() => {
+    getSchema(template, "token").then((el) => {
+      setregisterFile(el);
+      if (form[keyValue]) {
+        const patern = el.to_string;
+        if (patern.length > 0) {
+          Promise.all(form[keyValue].map((el) => parsePatern(el, patern))).then(
+            (listParsed) => {
+              setlist(listParsed);
+            }
+          );
+        }
+      }
+    });
+  }, [template, form[keyValue]]);
+
+  /* A hook that is called when the component is mounted. It is used to set the options of the select list. */
+  useEffect(() => {
+    let isMounted = true;
+    const createOptions = (data) => {
+      return data.map((option) => ({
+        value:
+          lng === "fr"
+            ? option?.fr_FR || option?.label?.fr_FR
+            : option?.en_GB || option?.label?.en_GB,
+        label:
+          lng === "fr"
+            ? option?.fr_FR || option?.label?.fr_FR
+            : option?.en_GB || option?.label?.en_GB,
+        object: option,
+      }));
+    };
+    const setOptions = (data) => {
+      if (isMounted) {
+        setoptions(data);
+      }
+    };
+    getRegistryValue(registry, "token")
+      .then((res) => {
+        if (res) {
+          setOptions(createOptions(res));
+        } else {
+          return getRegistry(registry, "token").then((resRegistry) => {
+            setOptions(createOptions(resRegistry));
+          });
+        }
+      })
+      .catch((error) => {
+        // handle errors
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, [registry, lng]);
 
   /**
    * It closes the modal and resets the state of the modal.
@@ -34,43 +109,32 @@ function SelectWithCreate({ label, arrayList, name, changeValue, template, keyVa
     setShow(isOpen);
   };
 
-  /* It's a useEffect hook that is called when the component is mounted. It is used to set the options of the select list. */
-  useEffect(() => {
-    if (form[keyValue]) {
-      const patern = registerFile.to_string;
-      //si le patern n'est pas vide
-      if (patern.length > 0) {
-        let listParsed = [];
-        form[keyValue].map((el) => {
-          listParsed.push(parsePatern(el, patern));
-        });
-        setlist(listParsed);
-      }
-    }
-  }, []);
-
-  /* A hook that is called when the component is mounted. It is used to set the options of the select list. */
-  useEffect(() => {
-    const options = arrayList.map((option) => ({
-      value: lng === "fr" ? option?.fr_FR || option?.label?.fr_FR : option?.en_GB || option?.label?.en_GB,
-      label: lng === "fr" ? option?.fr_FR || option?.label?.fr_FR : option?.en_GB || option?.label?.en_GB,
-      object: option,
-    }));
-    setoptions(options);
-  }, []);
-
   /**
    * It takes the value of the input field and adds it to the list array.
    * @param e - the event object
    */
   const handleChangeList = (e) => {
     const patern = registerFile.to_string;
-    const parsedPatern = patern.length > 0 ? parsePatern(e.object, patern) : null;
-    const updatedList = patern.length > 0 ? [...list, parsedPatern] : [...list, e.value];
+    const parsedPatern =
+      patern.length > 0 ? parsePatern(e.object, patern) : null;
+    const updatedList =
+      patern.length > 0 ? [...list, parsedPatern] : [...list, e.value];
     setlist(updatedList);
-    setselectObject(patern.length > 0 ? [...selectObject, e.object] : selectObject);
-    changeValue({ target: { name: name, value: patern.length > 0 ? [...selectObject, e.object] : e.value } });
-    setform({ ...form, [keyValue]: form[keyValue] ? [...form[keyValue], ...[e.object]] : [e.object] });
+    setselectObject(
+      patern.length > 0 ? [...selectObject, e.object] : selectObject
+    );
+    changeValue({
+      target: {
+        name: name,
+        value: patern.length > 0 ? [...selectObject, e.object] : e.value,
+      },
+    });
+    setform({
+      ...form,
+      [keyValue]: form[keyValue]
+        ? [...form[keyValue], ...[e.object]]
+        : [e.object],
+    });
   };
 
   /**
@@ -110,7 +174,9 @@ function SelectWithCreate({ label, arrayList, name, changeValue, template, keyVa
 
     const checkForm = checkRequiredForm(registerFile, temp);
     if (checkForm) {
-      toast.error("Veuiller remplire le champs " + getLabelName(checkForm, registerFile));
+      toast.error(
+        "Veuiller remplire le champs " + getLabelName(checkForm, registerFile)
+      );
     } else {
       if (index !== null) {
         const deleteIndex = deleteByIndex(form[keyValue], index);
@@ -155,25 +221,37 @@ function SelectWithCreate({ label, arrayList, name, changeValue, template, keyVa
       <div className="form-group">
         <label>{label}</label>
         {tooltip && (
-          <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
+          <span
+            className="m-4"
+            data-toggle="tooltip"
+            data-placement="top"
+            title={tooltip}
+          >
             ?
           </span>
         )}
         <div className="row">
-          <div className="col-10">
+          <div className="col-md-10">
             <Select
               onChange={handleChangeList}
               options={options}
               name={name}
               //defaultValue={isEdit ? isEdit[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle."}
               defaultValue={{
-                label: temp ? temp[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
-                value: temp ? temp[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                label: temp
+                  ? temp[name]
+                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                value: temp
+                  ? temp[name]
+                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
               }}
             />
           </div>
-          <div className="col-2">
-            <i className="fas fa-plus-square text-primary mt-3" onClick={handleShow}></i>
+          <div className="col-md-2">
+            <i
+              className="fas fa-plus-square text-primary icon-margin-top mt-3"
+              onClick={handleShow}
+            ></i>
           </div>
         </div>
 
@@ -181,14 +259,24 @@ function SelectWithCreate({ label, arrayList, name, changeValue, template, keyVa
           {list &&
             list.map((el, idx) => (
               <div key={idx} className="row border">
-                <div className="col-10">
+                <div className="col-md-10">
                   <p className="border m-2"> {list[idx]} </p>
                 </div>
-                <div className="col-1">
-                  {level === 1 && <i className="fa fa-edit m-3 text-primary" aria-hidden="true" onClick={() => handleEdit(idx)}></i>}
+                <div className="col-md-1">
+                  {level === 1 && (
+                    <i
+                      className="fa fa-edit icon-margin-top text-primary"
+                      aria-hidden="true"
+                      onClick={() => handleEdit(idx)}
+                    ></i>
+                  )}
                 </div>
-                <div className="col-1">
-                  <i className="fa fa-close m-3  text-danger" aria-hidden="true" onClick={() => handleDeleteListe(idx)}></i>
+                <div className="col-md-1">
+                  <i
+                    className="fa fa-close icon-margin-top text-danger"
+                    aria-hidden="true"
+                    onClick={() => handleDeleteListe(idx)}
+                  ></i>
                 </div>
               </div>
             ))}
@@ -197,7 +285,10 @@ function SelectWithCreate({ label, arrayList, name, changeValue, template, keyVa
       <>
         <Modal show={show} onHide={handleClose}>
           <Modal.Body>
-            <BuilderForm shemaObject={registerFile} level={level + 1}></BuilderForm>
+            <BuilderForm
+              shemaObject={registerFile}
+              level={level + 1}
+            ></BuilderForm>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>

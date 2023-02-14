@@ -1,11 +1,17 @@
-import React, { useContext, useState } from "react";
-import Modal from "react-bootstrap/Modal";
+import React, { useContext, useEffect, useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 import BuilderForm from "../Builder/BuilderForm";
 import { GlobalContext } from "../context/Global";
-import Button from "react-bootstrap/Button";
-import { checkRequiredForm, createMarkup, deleteByIndex, getLabelName, parsePatern } from "../../utils/GeneratorUtils";
+import {
+  checkRequiredForm,
+  createMarkup,
+  deleteByIndex,
+  getLabelName,
+  parsePatern,
+} from "../../utils/GeneratorUtils";
 import swal from "sweetalert";
 import toast from "react-hot-toast";
+import { getSchema } from "../../services/DmpServiceApi";
 
 /**
  * It takes a template name as an argument, loads the template file, and then renders a modal with the template file as a prop.
@@ -13,10 +19,16 @@ import toast from "react-hot-toast";
  * @returns A React component.
  */
 function ModalTemplate({ value, template, keyValue, level, tooltip }) {
-  let registerFile = require(`../../data/templates/${template}-template.json`);
   const [show, setShow] = useState(false);
   const { form, setform, temp, settemp, lng } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
+
+  const [registerFile, setregisterFile] = useState(null);
+  useEffect(() => {
+    getSchema(template, "token").then((el) => {
+      setregisterFile(el);
+    });
+  }, [template]);
 
   /**
    * The function sets the show state to false
@@ -34,7 +46,10 @@ function ModalTemplate({ value, template, keyValue, level, tooltip }) {
     if (!temp) return handleClose();
 
     const checkForm = checkRequiredForm(registerFile, temp);
-    if (checkForm) return toast.error(`Veuiller remplire le champs ${getLabelName(checkForm, registerFile)}`);
+    if (checkForm)
+      return toast.error(
+        `Veuiller remplire le champs ${getLabelName(checkForm, registerFile)}`
+      );
 
     if (index !== null) {
       const deleteIndex = deleteByIndex(form[keyValue], index);
@@ -103,36 +118,65 @@ function ModalTemplate({ value, template, keyValue, level, tooltip }) {
   return (
     <>
       <div className="border p-2 mb-2">
-        <p>{lng === "fr" ? value["form_label@fr_FR"] : value["form_label@en_GB"]}</p>
+        <p>
+          {lng === "fr" ? value["form_label@fr_FR"] : value["form_label@en_GB"]}
+        </p>
         {tooltip && (
-          <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
+          <span
+            className="m-4"
+            data-toggle="tooltip"
+            data-placement="top"
+            title={tooltip}
+          >
             ?
           </span>
         )}
         <div style={{ margin: "20px 90px 20px 20px" }}>
           {form[keyValue] &&
+            registerFile &&
             form[keyValue].map((el, idx) => (
               <div key={idx} className="row border">
                 <div className="col-10">
-                  <div className="preview" dangerouslySetInnerHTML={createMarkup(parsePatern(el, registerFile.to_string))}></div>
+                  <div
+                    className="preview"
+                    dangerouslySetInnerHTML={createMarkup(
+                      parsePatern(el, registerFile.to_string)
+                    )}
+                  ></div>
                 </div>
                 <div className="col-1">
-                  {level === 1 && <i className="fa fa-edit m-3 text-primary" aria-hidden="true" onClick={() => handleEdit(idx)}></i>}
+                  {level === 1 && (
+                    <i
+                      className="fa fa-edit m-3 text-primary"
+                      aria-hidden="true"
+                      onClick={() => handleEdit(idx)}
+                    ></i>
+                  )}
                 </div>
                 <div className="col-1">
-                  <i className="fa fa-close m-3  text-danger" aria-hidden="true" onClick={() => handleDeleteListe(idx)}></i>
+                  <i
+                    className="fa fa-close m-3  text-danger"
+                    aria-hidden="true"
+                    onClick={() => handleDeleteListe(idx)}
+                  ></i>
                 </div>
               </div>
             ))}
         </div>
 
-        <button className="btn btn-primary" onClick={() => handleShow(true)}>
+        <button
+          className="btn btn-primary button-margin"
+          onClick={() => handleShow(true)}
+        >
           Créé
         </button>
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
-          <BuilderForm shemaObject={registerFile} level={level + 1}></BuilderForm>
+          <BuilderForm
+            shemaObject={registerFile}
+            level={level + 1}
+          ></BuilderForm>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

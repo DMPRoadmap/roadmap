@@ -1,20 +1,4 @@
 import DOMPurify from "dompurify";
-import registreValueTemplates from "../data/templates/registry_values.json";
-
-/**
- * It takes a string as an argument, and returns an array of objects
- * @param registreName - "registre_name"
- * @returns the value of the variable registerList.
- */
-export function getRegistryList(registreName) {
-  let registerList = null;
-  registerList = registreValueTemplates[registreName];
-  if (registerList) {
-    return registerList;
-  }
-  let registerFile = require(`../data/registres/${registreName}.json`);
-  return (registerList = registerFile[registreName]);
-}
 
 /**
  * It takes a JSON object and a list of keys, and returns a string that is the concatenation of the values of the keys in the JSON object
@@ -105,7 +89,9 @@ export function checkRequiredForm(standardTemplate, form) {
   }, {});
   //check the empty object
   const filteredEntries = Object.entries(newForm).filter(
-    ([key, value]) => listRequired.includes(key) && (value === "" || value === "<p></p>" || value === "<p></p>\n")
+    ([key, value]) =>
+      listRequired.includes(key) &&
+      (value === "" || value === "<p></p>" || value === "<p></p>\n")
   );
   const result = Object.fromEntries(filteredEntries);
   return Object.keys(result)[0];

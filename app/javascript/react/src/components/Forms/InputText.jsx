@@ -6,7 +6,16 @@ import { GlobalContext } from "../context/Global";
  * It's a function that takes in a bunch of props and returns a div with a label, an input, and a small tag.
  * @returns A React Component
  */
-function InputText({ label, type, placeholder, name, changeValue, tooltip, hidden, isConst }) {
+function InputText({
+  label,
+  type,
+  placeholder,
+  name,
+  changeValue,
+  tooltip,
+  hidden,
+  isConst,
+}) {
   const { setform, temp } = useContext(GlobalContext);
   const [text, settext] = useState(null);
   const [isRequired, setisRequired] = useState(false);
@@ -37,16 +46,26 @@ function InputText({ label, type, placeholder, name, changeValue, tooltip, hidde
     <div className="form-group">
       <label>{label}</label>
       {tooltip && (
-        <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
+        <span
+          className=""
+          data-toggle="tooltip"
+          data-placement="top"
+          title={tooltip}
+        >
           ?
         </span>
       )}
-
       <input
-        // required={checkRequired(requiredList, name)}
-        // pattern={checkPatern(type)}
         type={type}
-        value={isConst === false ? (temp ? temp[name] : text == null ? "" : text) : isConst}
+        value={
+          isConst === false
+            ? temp
+              ? temp[name]
+              : text == null
+              ? ""
+              : text
+            : isConst
+        }
         className={isRequired ? "form-control outline-red" : "form-control"}
         hidden={hidden}
         placeholder={placeholder}
