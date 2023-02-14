@@ -3,6 +3,7 @@ import {
   failCallback,
 } from '../../answers/edit';
 import { formLoadingCallback } from '../../utils/dynamicFormHelper';
+import { Tinymce } from '../../utils/tinymce.js.erb';
 // import TimeagoFactory from '../../utils/timeagoFactory';
 
 $(() => {
@@ -84,6 +85,12 @@ $(() => {
     $(e.currentTarget)
       .find('i.fa-chevron-right, i.fa-chevron-down')
       .toggleClass('fa-chevron-right fa-chevron-down');
+  });
+
+  $('body').on('click', '.question .dialog-toggle', (e) => {
+    const toggleTarget = $(e.currentTarget).data('toggle');
+    Tinymce.init({ selector: `#${toggleTarget} .note` });
+    document.getElementById(toggleTarget).showModal();
   });
 
   // When selecting a new form in the form selector, sends the new schema and

@@ -81,7 +81,10 @@
                           <div class="panel-title pull-left">
                             <%= sanitize(question.text) %> 
                           </div>
-                          <i class="fas fa-chevron-right pull-right" aria-hidden="true"></i>
+                          <div class="panel-title pull-right">
+                            <i class="fas fa-bell comment-toggle" aria-hidden="true"></i>
+                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                          </div>
                           <div class="clearfix"></div>
                         </div>
                       </div>
@@ -102,6 +105,12 @@
                               </div>
                             <% end %>
                             <div class="question-form">
+                              <div class="col-md-12">
+                                <span class="dialog-toggle"  data-toggle="notes-<%= question.id %>-research-output-<%= research_output.id %>">
+                                  Comments 
+                                  <i class="fas fa-bell" aria-hidden="true"></i>
+                                </span>
+                              </div>
                               <div id="<%= "answer-locking-#{consolidated_id}" %>" 
                                   class="answer-locking"></div>
                               <div id="<%= "answer-form-#{consolidated_id}" %>" class="answer-form"> 
@@ -143,6 +152,13 @@
                               </div>
                             </div>
                           </div>
+
+  <% if plan.present? %>
+    <dialog id="notes-<%= question.id %>-research-output-<%= research_output.id %>" class="notes">
+      <i class="fas fa-times close-comments pull-right" data-close="notes-<%= question.id %>-research-output-<%= research_output.id %>"></i>
+      <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer, research_output: research_output } %>
+    </dialog>
+  <% end %>
                           <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
                           <div class="guidance-section" style="<%= style %>">
                             <!-- Guidances and notes partial view -->
