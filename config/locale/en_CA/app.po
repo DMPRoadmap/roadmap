@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.1.0 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-02-14 12:37-0500\n"
-"PO-Revision-Date: 2023-02-14 18:42+0100\n"
+"POT-Creation-Date: 2023-02-15 14:18-0500\n"
+"PO-Revision-Date: 2023-02-15 20:19+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -2361,6 +2361,9 @@ msgid ""
 "a organisation &ndash; factors that will improve the usability of your data an"
 "d contribute to the success of your project.</p>"
 msgstr ""
+"<p>The section addresses issues such as standards, naming conventions, and dat"
+"a organization &ndash; factors that will improve the usability of your data an"
+"d contribute to the success of your project.</p>"
 
 msgid ""
 "<p>La description des donn&eacute;es facilite la gestion du projet &agrave; ch"
@@ -2495,6 +2498,10 @@ msgid ""
 " &ndash; factors that will improve the usability of your data and contribute t"
 "o the success of your project.</span></p>"
 msgstr ""
+"<p><span style=\"font-weight: 400;\">This section addresses data collection issu"
+"es such as data types, file formats, naming conventions, and data organization"
+" &ndash; factors that will improve the usability of your data and contribute t"
+"o the success of your project.</span></p>"
 
 msgid ""
 "<p>Il est essentiel de planifier la fa&ccedil;on dont les donn&eacute;es de re"
@@ -2990,6 +2997,10 @@ msgid ""
 "ve the usability of your data and contribute to the success of your project.</"
 "p>"
 msgstr ""
+"<p>This section addresses data collection issues such as data types, file form"
+"ats, naming conventions, and data organization &ndash; factors that will impro"
+"ve the usability of your data and contribute to the success of your project.</"
+"p>"
 
 msgid ""
 "<p>Some Canadian research funding agencies now have policies requiring researc"
@@ -38644,7 +38655,6 @@ msgstr ""
 #: ../../app/controllers/api/v0/plans_controller.rb:28
 msgid "user must be in your organisation"
 msgstr ""
-"user must be in your organization\n"
 
 #: ../../app/controllers/api/v0/plans_controller.rb:59
 msgid "Bad Parameters"
@@ -38656,7 +38666,7 @@ msgstr ""
 #: ../../app/controllers/usage_controller.rb:99
 #: ../../app/controllers/usage_controller.rb:120
 msgid "Month"
-msgstr "Month"
+msgstr ""
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:41
 #: ../../app/controllers/usage_controller.rb:99
@@ -38735,7 +38745,7 @@ msgstr ""
 
 #: ../../app/controllers/application_controller.rb:40
 msgid "You need to sign in or sign up before continuing."
-msgstr "You need to sign in or sign up before continuing."
+msgstr ""
 
 #: ../../app/controllers/application_controller.rb:108
 msgid "Unable to %{action} the %{object}. %{errors}"
@@ -38764,7 +38774,6 @@ msgstr ""
 #: ../../app/controllers/application_controller.rb:131
 msgid "organisation"
 msgstr ""
-"organization\n"
 
 #: ../../app/controllers/application_controller.rb:132
 msgid "permission"
@@ -38817,7 +38826,6 @@ msgstr ""
 #: ../../app/controllers/concerns/template_methods.rb:8
 msgid "customisation"
 msgstr ""
-"customization\n"
 
 #: ../../app/controllers/concerns/template_methods.rb:8
 msgid "template"
@@ -39126,7 +39134,6 @@ msgstr ""
 #: ../../app/views/usage/_filter.html.erb:41
 msgid "Organisation"
 msgstr ""
-"Organization\n"
 
 #: ../../app/controllers/org_admin/plans_controller.rb:59
 msgid "Owner name"
@@ -39216,17 +39223,14 @@ msgstr ""
 #: ../../app/controllers/orgs_controller.rb:120
 msgid "No organisations are currently registered."
 msgstr ""
-"No organizations are currently registered.\n"
 
 #: ../../app/controllers/orgs_controller.rb:131
 msgid "Please choose an organisation"
 msgstr ""
-"Please choose an organization\n"
 
 #: ../../app/controllers/orgs_controller.rb:140
 msgid "Your organisation does not seem to be properly configured."
 msgstr ""
-"Your organization does not seem to be properly configured.\n"
 
 #: ../../app/controllers/plan_exports_controller.rb:102
 msgid "Created using %{application_name}. Last modified %{date}"
@@ -39268,7 +39272,6 @@ msgstr ""
 #: ../../app/controllers/plans_controller.rb:130
 msgid "template with customisations by the"
 msgstr ""
-"template with customizations by the\n"
 
 #: ../../app/controllers/plans_controller.rb:395
 msgid "copied"
@@ -39349,8 +39352,6 @@ msgid ""
 "Please select an organisation from the list, or enter your organisation's name"
 "."
 msgstr ""
-"Please select an organization from the list, or enter your organization's name"
-".\n"
 
 #: ../../app/controllers/registrations_controller.rb:212
 msgid "Please enter your password to change email address."
@@ -39477,18 +39478,14 @@ msgid ""
 "Your organisation affiliation has been changed. You may now edit templates for"
 " %{org_name}."
 msgstr ""
-"Your organization affiliation has been changed. You may now edit templates for"
-" %{org_name}.\n"
 
 #: ../../app/controllers/super_admin/org_swaps_controller.rb:28
 msgid "Unable to change your organisation affiliation at this time."
 msgstr ""
-"Unable to change your organization affiliation at this time.\n"
 
 #: ../../app/controllers/super_admin/org_swaps_controller.rb:31
 msgid "Unknown organisation."
 msgstr ""
-"Unknown organization.\n"
 
 #: ../../app/controllers/super_admin/orgs_controller.rb:70
 msgid "There seems to be a problem with your logo. Please upload it again."
@@ -39606,16 +39603,14 @@ msgstr ""
 #: ../../app/helpers/customizable_template_link_helper.rb:13
 msgid "Transfer customisation"
 msgstr ""
-"Transfer customization\n"
 
 #: ../../app/helpers/customizable_template_link_helper.rb:18
 msgid "Edit customisation"
 msgstr ""
-"Edit customization\n"
 
 #: ../../app/helpers/customizable_template_link_helper.rb:22
 msgid "Customise"
-msgstr "Customize"
+msgstr ""
 
 #: ../../app/helpers/exports_helper.rb:38
 msgid "Creators:"
@@ -39641,7 +39636,6 @@ msgid ""
 msgstr ""
 
 #: ../../app/helpers/identifier_helper.rb:6
-#: ../../spec/helpers/identifier_helper_spec.rb:14
 msgid "None defined"
 msgstr ""
 
@@ -39680,7 +39674,6 @@ msgstr ""
 #: ../../app/helpers/perms_helper.rb:9
 msgid "Add organisations"
 msgstr ""
-"Add organizations\n"
 
 #: ../../app/helpers/perms_helper.rb:10
 #: ../../app/views/org_admin/templates/index.html.erb:25
@@ -39710,12 +39703,10 @@ msgstr ""
 #: ../../app/views/users/_admin_grant_permissions.html.erb:37
 msgid "Manage organisation details"
 msgstr ""
-"Manage organization details\n"
 
 #: ../../app/helpers/perms_helper.rb:16
 msgid "Grant API to organisations"
 msgstr ""
-"Grant API to organizations\n"
 
 #: ../../app/helpers/plans_helper.rb:8
 #: ../../app/views/paginable/plans/_index.html.erb:8
@@ -39753,7 +39744,6 @@ msgstr ""
 #: ../../app/helpers/plans_helper.rb:35
 msgid "Organisation: anyone at my organisation can view."
 msgstr ""
-"Organization: anyone at my organization can view.\n"
 
 #: ../../app/helpers/plans_helper.rb:37
 msgid "Public: anyone can view."
@@ -39919,7 +39909,7 @@ msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:134
 msgid " Customised By: "
-msgstr "Customized By:"
+msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:143
 msgid "Title: "
@@ -40059,7 +40049,7 @@ msgstr ""
 #: ../../app/models/concerns/validation_messages.rb:11
 #: ../../app/models/template.rb:223
 msgid "can't be blank"
-msgstr "can't be blank"
+msgstr ""
 
 #: ../../app/models/concerns/validation_messages.rb:13
 #: ../../app/models/identifier.rb:134
@@ -40133,7 +40123,7 @@ msgstr ""
 
 #: ../../app/models/plan.rb:58
 msgid "organisational"
-msgstr "organizational"
+msgstr ""
 
 #: ../../app/models/plan.rb:59
 msgid "public"
@@ -40210,7 +40200,6 @@ msgstr ""
 #: ../../app/models/template.rb:386
 msgid "generate_copy! requires an organisation target"
 msgstr ""
-"generate_copy! requires an organization target\n"
 
 #: ../../app/models/template.rb:395
 msgid "Copy of %{template}"
@@ -40223,7 +40212,6 @@ msgstr ""
 #: ../../app/models/template.rb:416
 msgid "customize! requires an organisation target"
 msgstr ""
-"customize! requires an organization target\n"
 
 #: ../../app/models/template.rb:419
 msgid "customize! requires a template from a funder"
@@ -40435,7 +40423,6 @@ msgid ":title is required for each :dataset"
 msgstr ""
 
 #: ../../app/services/api/v1/json_validation_service.rb:53
-#: ../../spec/services/api/v1/json_validation_service_spec.rb:128
 msgid "invalid JSON"
 msgstr ""
 
@@ -40576,11 +40563,11 @@ msgid " by %{user_name}"
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:31
-msgid " questions from your plan."
+msgid "This answer removes "
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:31
-msgid "This answer removes "
+msgid " questions from your plan."
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:37
@@ -40796,15 +40783,15 @@ msgid "Thank you for registering. Please confirm your email address"
 msgstr ""
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
-msgid "into your browser"
-msgstr ""
-
-#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
 msgid "Click here to confirm your account"
 msgstr ""
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
 msgid "or copy"
+msgstr ""
+
+#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
+msgid "into your browser"
 msgstr ""
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:18
@@ -41007,13 +40994,10 @@ msgid ""
 "Your account has been linked to your organisation. You can now login with that"
 " method."
 msgstr ""
-"Your account has been linked to your organization. You can now login with that"
-" method.\n"
 
 #: ../../app/views/devise/registrations/_external_identifier.html.erb:37
 msgid "Unlink your account from your organisation. You can link again at any time."
 msgstr ""
-"Unlink your account from your organization. You can link again at any time.\n"
 
 #: ../../app/views/devise/registrations/_external_identifier.html.erb:38
 msgid "Are you sure you want to unlink your institutional credentials?"
@@ -41038,8 +41022,6 @@ msgid ""
 "Are you sure you want to change your organisational affiliation? Doing so will"
 " remove your administrative privileges."
 msgstr ""
-"Are you sure you want to change your organizational affiliation? Doing so will"
-" remove your administrative privileges.\n"
 
 #: ../../app/views/devise/registrations/_password_confirmation.html.erb:27
 msgid "Yes, I understand that I will lose my administrative privileges"
@@ -41070,8 +41052,6 @@ msgid ""
 "Changing your organisation will result in the loss of your administrative priv"
 "ileges."
 msgstr ""
-"Changing your organization will result in the loss of your administrative priv"
-"ileges.\n"
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:43
 #: ../../app/views/org_admin/users/edit.html.erb:31
@@ -41099,7 +41079,6 @@ msgstr ""
 #: ../../app/views/users/_current_privileges.html.erb:5
 msgid "Organisational Admin"
 msgstr ""
-"Organizational Admin\n"
 
 #: ../../app/views/devise/registrations/edit.html.erb:1
 #: ../../app/views/devise/registrations/edit.html.erb:4
@@ -41185,9 +41164,6 @@ msgid ""
 "ser where the guidance has come from. We suggest you use the organisation or d"
 "epartment name e.g. \"OU\" or \"Maths & Stats\""
 msgstr ""
-"Add an appropriate name for your guidance group. This name will tell the end u"
-"ser where the guidance has come from. We suggest you use the organization or d"
-"epartment name e.g. \"OU\" or \"Maths & Stats\"\n"
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:4
 msgid ""
@@ -41219,12 +41195,12 @@ msgid "Published"
 msgstr ""
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:19
-msgid " (e.g. School/ Department) "
+#: ../../app/views/paginable/guidance_groups/_index.html.erb:8
+msgid "Optional subset"
 msgstr ""
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:19
-#: ../../app/views/paginable/guidance_groups/_index.html.erb:8
-msgid "Optional subset"
+msgid " (e.g. School/ Department) "
 msgstr ""
 
 #: ../../app/views/guidance_groups/_index_by_theme.html.erb:10
@@ -41280,9 +41256,6 @@ msgid ""
 ". a particular College / School, Institute or department. When you create guid"
 "ance you'll be asked to assign it to a guidance group."
 msgstr ""
-"First create a guidance group. This could be organization wide or a subset e.g"
-". a particular College / School, Institute or department. When you create guid"
-"ance you'll be asked to assign it to a guidance group.\n"
 
 #: ../../app/views/guidances/admin_index.html.erb:15
 msgid "Guidance group list"
@@ -41328,10 +41301,6 @@ msgid ""
 "ch you create guidance groups, across all templates that have questions with t"
 "he corresponding theme tags."
 msgstr ""
-"Select one or more themes that are relevant to this guidance. This will displa"
-"y your generic organization-level guidance, or any Schools/Departments for whi"
-"ch you create guidance groups, across all templates that have questions with t"
-"he corresponding theme tags.\n"
 
 #: ../../app/views/guidances/new_edit.html.erb:37
 msgid "Select which group this guidance relates to."
@@ -41488,14 +41457,12 @@ msgstr ""
 #: ../../app/views/usage/_filter.html.erb:20
 msgid "Organisations"
 msgstr ""
-"Organizations\n"
 
 #: ../../app/views/layouts/_branding.html.erb:75
 #: ../../app/views/orgs/admin_edit.html.erb:1
 #: ../../app/views/orgs/admin_edit.html.erb:6
 msgid "Organisation details"
 msgstr ""
-"Organization details\n"
 
 #: ../../app/views/layouts/_branding.html.erb:84
 #: ../../app/views/org_admin/templates/index.html.erb:4
@@ -41693,12 +41660,10 @@ msgstr ""
 #: ../../app/views/layouts/application.html.erb:138
 msgid "Select an organisation from the list."
 msgstr ""
-"Select an organization from the list.\n"
 
 #: ../../app/views/layouts/application.html.erb:139
 msgid "My organisation isn't listed"
 msgstr ""
-"My organization isn't listed\n"
 
 #: ../../app/views/layouts/application.html.erb:141
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:39
@@ -41718,13 +41683,10 @@ msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
 msgstr ""
-"Unable to find a suitable template for the research organization and funder yo"
-"u selected.\n"
 
 #: ../../app/views/layouts/application.html.erb:149
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
-"Please select a research organization and funder to continue.\n"
 
 #: ../../app/views/layouts/application.html.erb:151
 msgid "Loading ..."
@@ -41979,7 +41941,7 @@ msgstr ""
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:9
 msgid "Customise phase"
-msgstr "Customize phase"
+msgstr ""
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:11
 msgid "Edit phase"
@@ -42039,7 +42001,7 @@ msgstr ""
 
 #: ../../app/views/org_admin/phases/preview.html.erb:11
 msgid "Back to customise phase"
-msgstr "Back to customize phase"
+msgstr ""
 
 #: ../../app/views/org_admin/phases/preview.html.erb:18
 msgid "Back to edit phase"
@@ -42102,11 +42064,11 @@ msgid "Feedback requested"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Notify the plan owner that I have finished providing feedback"
+msgid "Complete"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Complete"
+msgid "Notify the plan owner that I have finished providing feedback"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:39
@@ -42142,11 +42104,11 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "New question:"
+msgid "Question %{number}:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %{number}:"
+msgid "New question:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:15
@@ -42197,13 +42159,6 @@ msgid ""
 "similarly themed organisation-level guidance to appear alongside your question"
 "."
 msgstr ""
-"Select one or more themes that are relevant to this question. This will allow "
-"similarly themed organization-level guidance to appear alongside your question"
-".\n"
-
-#: ../../app/views/org_admin/questions/_form.html.erb:102
-msgid "You are about to delete question #%{question_number}. Are you sure?"
-msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:102
 #: ../../app/views/org_admin/sections/_form.html.erb:19
@@ -42211,6 +42166,10 @@ msgstr ""
 #: ../../app/views/super_admin/notifications/_form.html.erb:68
 #: ../../app/views/super_admin/themes/_form.html.erb:15
 msgid "Delete"
+msgstr ""
+
+#: ../../app/views/org_admin/questions/_form.html.erb:102
+msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_index.html.erb:14
@@ -42258,8 +42217,6 @@ msgid ""
 "Click the links below to view organisational guidance\n"
 "                        related to the themes associated with this question."
 msgstr ""
-"Click the links below to view organizational guidance\n"
-"                        related to the themes associated with this question."
 
 #: ../../app/views/org_admin/questions/_show.html.erb:168
 msgid ""
@@ -42273,8 +42230,6 @@ msgid ""
 "There is no organisational guidance related to the themes associated with this"
 " question."
 msgstr ""
-"There is no organizational guidance related to the themes associated with this"
-" question.\n"
 
 #: ../../app/views/org_admin/questions/_show.html.erb:181
 #: ../../app/views/org_admin/questions/_show.html.erb:193
@@ -42411,7 +42366,6 @@ msgstr ""
 #: ../../app/views/org_admin/templates/_show.html.erb:22
 msgid "Customisations are published"
 msgstr ""
-"Customizations are published\n"
 
 #: ../../app/views/org_admin/templates/_show.html.erb:21
 #: ../../app/views/paginable/templates/_customisable.html.erb:33
@@ -42424,7 +42378,6 @@ msgstr ""
 #: ../../app/views/org_admin/templates/_show.html.erb:26
 msgid "Customisations are unpublished"
 msgstr ""
-"Customizations are unpublished\n"
 
 #: ../../app/views/org_admin/templates/_show.html.erb:37
 msgid "available to the public"
@@ -42438,7 +42391,6 @@ msgstr ""
 #: ../../app/views/org_admin/templates/history.html.erb:4
 msgid "Template Customisation History"
 msgstr ""
-"Template Customization History\n"
 
 #: ../../app/views/org_admin/templates/history.html.erb:4
 msgid "Template History"
@@ -42459,8 +42411,6 @@ msgid ""
 "If you would like to modify one of the templates below, you must first change "
 "your organisation affiliation."
 msgstr ""
-"If you would like to modify one of the templates below, you must first change "
-"your organization affiliation.\n"
 
 #: ../../app/views/org_admin/templates/index.html.erb:32
 msgid ""
@@ -42471,17 +42421,10 @@ msgid ""
 " want to add questions to funder templates use the 'customise template' option"
 "s below."
 msgstr ""
-"If you wish to add an organizational template for a Data Management Plan, use "
-"the 'create template' button. You can create more than one template if desired"
-" e.g. one for researchers and one for PhD students. Your template will be pres"
-"ented to users within your organization when no funder templates apply. If you"
-" want to add questions to funder templates use the 'customize template' option"
-"s below.\n"
 
 #: ../../app/views/org_admin/templates/index.html.erb:63
 msgid "Customisable Templates"
 msgstr ""
-"Customizable Templates\n"
 
 #: ../../app/views/org_admin/templates/index.html.erb:80
 #: ../../app/views/org_admin/templates/index.html.erb:93
@@ -42500,7 +42443,7 @@ msgstr ""
 
 #: ../../app/views/org_admin/templates/index.html.erb:89
 msgid "Not customised (%{count})"
-msgstr "Not customized (%{count})"
+msgstr ""
 
 #: ../../app/views/org_admin/templates/index.html.erb:118
 msgid "Create a template"
@@ -42542,7 +42485,6 @@ msgstr ""
 #: ../../app/views/orgs/_external_identifiers.html.erb:50
 msgid "Organisation Lookup"
 msgstr ""
-"Organization Lookup\n"
 
 #: ../../app/views/orgs/_external_identifiers.html.erb:69
 msgid ""
@@ -42594,7 +42536,6 @@ msgstr ""
 #: ../../app/views/orgs/_profile_form.html.erb:4
 msgid "Links will be displayed next to your organisation's logo"
 msgstr ""
-"Links will be displayed next to your organization's logo\n"
 
 #: ../../app/views/orgs/_profile_form.html.erb:5
 msgid ""
@@ -42611,12 +42552,10 @@ msgstr ""
 #: ../../app/views/orgs/_profile_form.html.erb:22
 msgid "Organisation full name"
 msgstr ""
-"Organization full name\n"
 
 #: ../../app/views/orgs/_profile_form.html.erb:28
 msgid "Organisation abbreviated name"
 msgstr ""
-"Organization abbreviated name\n"
 
 #: ../../app/views/orgs/_profile_form.html.erb:39
 msgid ""
@@ -42636,7 +42575,6 @@ msgstr ""
 #: ../../app/views/orgs/_profile_form.html.erb:60
 msgid "This will remove your organisation's logo"
 msgstr ""
-"This will remove your organization's logo\n"
 
 #: ../../app/views/orgs/_profile_form.html.erb:61
 msgid "Remove logo"
@@ -42652,7 +42590,6 @@ msgstr ""
 #: ../../app/views/orgs/_profile_form.html.erb:80
 msgid "Organisation URLs"
 msgstr ""
-"Organization URLs\n"
 
 #: ../../app/views/orgs/_profile_form.html.erb:92
 #: ../../app/views/orgs/_profile_form.html.erb:97
@@ -42683,7 +42620,6 @@ msgstr ""
 #: ../../app/views/orgs/_profile_form.html.erb:140
 msgid "Organisation Types"
 msgstr ""
-"Organization Types\n"
 
 #: ../../app/views/orgs/_profile_form.html.erb:155
 msgid "Institution"
@@ -42692,13 +42628,11 @@ msgstr ""
 #: ../../app/views/orgs/_profile_form.html.erb:168
 msgid "Organisation type(s)"
 msgstr ""
-"Organization type(s)\n"
 
 #: ../../app/views/orgs/admin_edit.html.erb:9
 #: ../../app/views/super_admin/orgs/new.html.erb:7
 msgid "View all organisations"
 msgstr ""
-"View all organizations\n"
 
 #: ../../app/views/orgs/admin_edit.html.erb:18
 #: ../../app/views/super_admin/orgs/new.html.erb:16
@@ -42721,12 +42655,10 @@ msgstr ""
 #: ../../app/views/orgs/shibboleth_ds.html.erb:4
 msgid "Find your organisation to sign in"
 msgstr ""
-"Find your organization to sign in\n"
 
 #: ../../app/views/orgs/shibboleth_ds.html.erb:12
 msgid "Look up your organisation here"
 msgstr ""
-"Look up your organization here\n"
 
 #: ../../app/views/orgs/shibboleth_ds.html.erb:16
 msgid "Please select one"
@@ -42745,7 +42677,6 @@ msgstr ""
 #: ../../app/views/orgs/shibboleth_ds.html.erb:76
 msgid "Organisation not in the list?"
 msgstr ""
-"Organization not in the list?\n"
 
 #: ../../app/views/orgs/shibboleth_ds.html.erb:78
 msgid "Create an account with any email address"
@@ -42866,7 +42797,6 @@ msgstr ""
 #: ../../app/views/paginable/orgs/_index.html.erb:7
 msgid "Organisation Type(s)"
 msgstr ""
-"Organization Type(s)\n"
 
 #: ../../app/views/paginable/orgs/_index.html.erb:9
 msgid "Managed"
@@ -43043,9 +42973,6 @@ msgid ""
 "on(s) and make any necessary changes. When you are done, you must return to th"
 "e Actions menu and publish your customisation(s)."
 msgstr ""
-"Select 'Transfer customization' in the Actions menu to review your customizati"
-"on (s) and make any necessary changes. When you are done, you must return to t"
-"he Actions menu and publish your customization (s).\n"
 
 #: ../../app/views/paginable/templates/_customisable.html.erb:41
 msgid "Not customized"
@@ -43094,12 +43021,10 @@ msgstr ""
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:1
 msgid "Sample plans are provided by a funder, an organisation or a trusted party."
 msgstr ""
-"Sample plans are provided by a funder, an organization or a trusted party.\n"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:8
 msgid "Organisation Name"
 msgstr ""
-"Organization Name\n"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:9
 msgid "Last Updated"
@@ -43199,7 +43124,6 @@ msgstr ""
 #: ../../app/views/plans/_download_form.html.erb:57
 msgid "supplementary section(s) not requested by funding organisation"
 msgstr ""
-"supplementary section(s) not requested by funding organization\n"
 
 #: ../../app/views/plans/_download_form.html.erb:65
 msgid "PDF formatting"
@@ -43253,18 +43177,14 @@ msgid ""
 "To help you write your plan, %{application_name} can show you guidance from a "
 "variety of organisations."
 msgstr ""
-"To help you write your plan, %{application_name} can show you guidance from a "
-"variety of organizations.\n"
 
 #: ../../app/views/plans/_guidance_selection.html.erb:9
 msgid "Select up to 6 organisations to see their guidance."
 msgstr ""
-"Select up to 6 organizations to see their guidance.\n"
 
 #: ../../app/views/plans/_guidance_selection.html.erb:18
 msgid "Find guidance from additional organisations below"
 msgstr ""
-"Find guidance from additional organizations below\n"
 
 #: ../../app/views/plans/_guidance_selection.html.erb:19
 msgid "See the full list"
@@ -43280,9 +43200,6 @@ msgid ""
 "variety of organisations. Please choose up to 6 organisations of the following"
 " organisations who offer guidance relevant to your plan."
 msgstr ""
-"To help you write your plan, %{application_name} can show you guidance from a "
-"variety of organizations. Please choose up to 6 organizations of the following"
-" organizations who offer guidance relevant to your plan.\n"
 
 #: ../../app/views/plans/_guidance_selection.html.erb:42
 msgid "Don't forget to save your changes after making your selections."
@@ -43351,7 +43268,6 @@ msgstr ""
 #: ../../app/views/plans/_project_details.html.erb:6
 msgid "A pertinent ID as determined by the funder and/or organisation."
 msgstr ""
-"A pertinent ID as determined by the funder and/or organization.\n"
 
 #: ../../app/views/plans/_project_details.html.erb:7
 msgid ""
@@ -43473,23 +43389,17 @@ msgid ""
 "nswer at least %{percentage}%% of the questions to enable these options. Note:"
 " test plans are set to private visibility by default."
 msgstr ""
-"Public or organizational visibility is intended for finished plans. You must a"
-"nswer at least %{percentage}%% of the questions to enable these options. Note:"
-" test plans are set to private visibility by default."
 
 #: ../../app/views/plans/_share_form.html.erb:19
 msgid ""
 "Private: visible to me, specified collaborators and administrators at my organ"
 "isation"
 msgstr ""
-"Private: visible to me, specified collaborators and administrators at my organ"
-"ization\n"
 
 #: ../../app/views/plans/_share_form.html.erb:27
 #: ../../app/views/user_mailer/plan_visibility.html.erb:12
 msgid "Organisation: anyone at my organisation can view"
 msgstr ""
-"Organization: anyone at my organization can view\n"
 
 #: ../../app/views/plans/_share_form.html.erb:35
 msgid "Public: anyone can view or download from the Public DMPs page"
@@ -43571,9 +43481,6 @@ msgid ""
 "nd shared within your organisation. This allows you to download a PDF and view"
 " their plans as samples or to discover new research data."
 msgstr ""
-"The table below lists the plans that users at your organization have created a"
-"nd shared within your organization. This allows you to download a PDF and view"
-" their plans as samples or to discover new research data.\n"
 
 #: ../../app/views/plans/new.html.erb:3
 msgid "If applying for funding, state the project title exactly as in the proposal."
@@ -43582,12 +43489,10 @@ msgstr ""
 #: ../../app/views/plans/new.html.erb:4
 msgid "You must select a research organisation from the list or click the checkbox."
 msgstr ""
-"You must select a research organization from the list or click the checkbox.\n"
 
 #: ../../app/views/plans/new.html.erb:5
 msgid "Please select a valid research organisation from the list."
 msgstr ""
-"Please select a valid research organization from the list.\n"
 
 #: ../../app/views/plans/new.html.erb:6
 msgid "You must select a funder from the list or click the checkbox."
@@ -43596,7 +43501,6 @@ msgstr ""
 #: ../../app/views/plans/new.html.erb:7
 msgid "Please select a valid funding organisation from the list."
 msgstr ""
-"Please select a valid funding organization from the list.\n"
 
 #: ../../app/views/plans/new.html.erb:14
 msgid ""
@@ -43611,20 +43515,16 @@ msgstr ""
 #: ../../app/views/plans/new.html.erb:47
 msgid "Indicate the primary research organisation"
 msgstr ""
-"Indicate the primary research organization\n"
 
 #: ../../app/views/plans/new.html.erb:69
 msgid ""
 "No research organisation associated with this plan or my research organisation"
 " is not listed"
 msgstr ""
-"No research organization associated with this plan or my research organization"
-" is not listed\n"
 
 #: ../../app/views/plans/new.html.erb:80
 msgid "Select the primary funding organisation"
 msgstr ""
-"Select the primary funding organization\n"
 
 #: ../../app/views/plans/new.html.erb:99
 msgid "No funder associated with this plan or my funder is not listed"
@@ -43643,8 +43543,6 @@ msgid ""
 "We found multiple DMP templates corresponding to your primary research organis"
 "ation"
 msgstr ""
-"We found multiple DMP templates corresponding to your primary research organiz"
-"ation\n"
 
 #: ../../app/views/public_pages/plan_index.html.erb:8
 msgid ""
@@ -43660,7 +43558,6 @@ msgstr ""
 #: ../../app/views/public_pages/template_index.html.erb:6
 msgid "Templates are provided by a funder, an organisation, or a trusted party."
 msgstr ""
-"Templates are provided by a funder, an organization, or a trusted party.\n"
 
 #: ../../app/views/public_pages/template_index.html.erb:8
 msgid "There are currently no public Templates."
@@ -44003,9 +43900,6 @@ msgid ""
 "double check that your organisation does not appear in the list in a slightly "
 "different form."
 msgstr ""
-"A new entry will be created for the organization you have named above. Please "
-"double check that your organization does not appear in the list in a slightly "
-"different form.\n"
 
 #: ../../app/views/shared/org_selectors/_local_only.html.erb:46
 msgid "The name you entered was not one of the listed suggestions!"
@@ -44256,7 +44150,6 @@ msgstr ""
 #: ../../app/views/static_pages/help.html.erb:47
 msgid "Organisational: anyone at your organisation can view your plan."
 msgstr ""
-"Organizational: anyone at your organization can view your plan.\n"
 
 #: ../../app/views/static_pages/help.html.erb:48
 msgid "Public: anyone can view your plan in the Public DMPs list."
@@ -44267,8 +44160,6 @@ msgid ""
 "By default all new and test plans will be set to ‘Private’ visibility. ‘Public"
 "’ and ‘Organisational’ visibility are intended for finished plans."
 msgstr ""
-"By default all new and test plans will be set to ‘Private’ visibility. ‘Public"
-"’ and ‘Organizational’ visibility are intended for finished plans.\n"
 
 #: ../../app/views/static_pages/help.html.erb:54
 msgid ""
@@ -44279,12 +44170,6 @@ msgid ""
 "o each question. You will be notified by email when an administrator provides "
 "feedback."
 msgstr ""
-"There may also be an option to request feedback on your plan. This is availabl"
-"e when research support staff at your organization have enabled this service. "
-"Click to ‘Request feedback’ and your local administrators will be alerted to y"
-"our request. Their comments will be visible in the ‘Comments’ field adjacent t"
-"o each question. You will be notified by email when an administrator provides "
-"feedback.\n"
 
 #: ../../app/views/static_pages/help.html.erb:57
 msgid "Download plans"
@@ -44507,7 +44392,6 @@ msgstr ""
 #: ../../app/views/super_admin/orgs/index.html.erb:8
 msgid "Create Organisation"
 msgstr ""
-"Create Organization\n"
 
 #: ../../app/views/super_admin/orgs/merge_analyze.js.erb:7
 msgid ""
@@ -44518,7 +44402,6 @@ msgstr ""
 #: ../../app/views/super_admin/orgs/new.html.erb:4
 msgid "New organisation"
 msgstr ""
-"New organization\n"
 
 #: ../../app/views/super_admin/themes/_form.html.erb:17
 msgid "Are you sure you want to delete the theme \"%{title}\"?"
@@ -44626,7 +44509,6 @@ msgstr ""
 #: ../../app/views/translation_io_exports/_themes.html.erb:7
 msgid "Data Organisation"
 msgstr ""
-"Data Organization\n"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:8
 msgid "Data Organization"
@@ -44854,8 +44736,6 @@ msgid ""
 "Use the filters to run organisational usage statistics for a custom date range"
 "."
 msgstr ""
-"Use the filters to run organizational usage statistics for a custom date range"
-".\n"
 
 #: ../../app/views/usage/_filter.html.erb:11
 msgid "Run your own filter"
@@ -44914,8 +44794,6 @@ msgid ""
 "The graphs display new users and plans for your organisation over the past yea"
 "r. You can download a CSV report for each graph."
 msgstr ""
-"The graphs display new users and plans for your organization over the past yea"
-"r. You can download a CSV report for each graph.\n"
 
 #: ../../app/views/usage/_user_statistics.html.erb:12
 msgid ""
@@ -44983,8 +44861,6 @@ msgid ""
 "More information about administering the %{tool_name} for users at your organi"
 "sation is available at the %{help_url}."
 msgstr ""
-"More information about administering the %{tool_name} for users at your organi"
-"zation is available at the %{help_url}.\n"
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:2
 msgid "Hello %{name},"
@@ -45081,11 +44957,11 @@ msgid "Hello "
 msgstr ""
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:5
-msgid " has been removed by "
+msgid "Your access to "
 msgstr ""
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:5
-msgid "Your access to "
+msgid " has been removed by "
 msgstr ""
 
 #: ../../app/views/user_mailer/plan_visibility.html.erb:5
@@ -45115,15 +44991,15 @@ msgid "Hello %{recipient_name},"
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " in a plan called "
-msgstr ""
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " to "
+msgstr ""
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " in a plan called "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
@@ -45157,23 +45033,19 @@ msgstr ""
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:16
 msgid "Organisational admin privileges"
-msgstr "Organizational admin privileges"
+msgstr ""
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:19
 msgid ""
 "Allows the user to assign permissions to other users within the same organisat"
 "ion. Users can only assign permissions they own themselves"
 msgstr ""
-"Allows the user to assign permissions to other users within the same organizat"
-"ion. Users can only assign permissions they own themselves\n"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:23
 msgid ""
 "Allows the user to create new organisational templates, edit existing ones and"
 " customise funder templates"
 msgstr ""
-"Allows the user to create new organizational templates, edit existing ones and"
-" customize funder templates\n"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:27
 msgid "Allows the user to create and edit guidance"
@@ -45194,13 +45066,10 @@ msgid ""
 "Allows the user to amend the organisation details (name, URL etc) and add basi"
 "c branding such as the logo"
 msgstr ""
-"Allows the user to amend the organization details (name, URL etc) and add basi"
-"c branding such as the logo\n"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:39
 msgid "Allows the user to review plans submitted by organisational users"
 msgstr ""
-"Allows the user to review plans submitted by organizational users\n"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:41
 msgid "Review plans"
@@ -45209,27 +45078,22 @@ msgstr ""
 #: ../../app/views/users/_admin_grant_permissions.html.erb:51
 msgid "Allows the user to create new organisations"
 msgstr ""
-"Allows the user to create new organizations\n"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:53
 msgid "Add Organisations"
 msgstr ""
-"Add Organizations\n"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:55
 msgid "Allows the user to manage organisation affiliation"
 msgstr ""
-"Allows the user to manage organization affiliation\n"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:57
 msgid "Manage organisation affiliation"
 msgstr ""
-"Manage organization affiliation\n"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:59
 msgid "Allows the user to grant API access to organisations."
 msgstr ""
-"Allows the user to grant API access to organizations.\n"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:61
 msgid "Grant API access"
@@ -45285,8 +45149,6 @@ msgid ""
 "Below is a list of users registered for your organisation. You can\n"
 "        sort the data by each field."
 msgstr ""
-"Below is a list of users registered for your organization. You can\n"
-"        sort the data by each field."
 
 #: ../../app/views/users/admin_index.html.erb:22
 msgid "Download users"
@@ -45298,24 +45160,4 @@ msgstr ""
 
 #: ../../app/views/users/refresh_token.js.erb:1
 msgid "Unable to regenerate your API token."
-msgstr ""
-
-#: i18n_placeholders.rb:4
-msgid "activerecord.errors.messages.record_invalid"
-msgstr ""
-
-#: i18n_placeholders.rb:6
-msgid "activerecord.errors.models.user.attributes.current_password.invalid"
-msgstr ""
-
-#: i18n_placeholders.rb:8
-msgid "activerecord.errors.models.user.attributes.email.blank"
-msgstr ""
-
-#: i18n_placeholders.rb:10
-msgid "activerecord.errors.models.user.attributes.password.blank"
-msgstr ""
-
-#: i18n_placeholders.rb:12
-msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
 msgstr ""

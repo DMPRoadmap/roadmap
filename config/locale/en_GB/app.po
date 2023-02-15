@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.1.0 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-02-14 12:37-0500\n"
-"PO-Revision-Date: 2023-02-14 18:42+0100\n"
+"POT-Creation-Date: 2023-02-15 14:18-0500\n"
+"PO-Revision-Date: 2023-02-15 20:19+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -39625,7 +39625,6 @@ msgid ""
 msgstr ""
 
 #: ../../app/helpers/identifier_helper.rb:6
-#: ../../spec/helpers/identifier_helper_spec.rb:14
 msgid "None defined"
 msgstr ""
 
@@ -40413,7 +40412,6 @@ msgid ":title is required for each :dataset"
 msgstr ""
 
 #: ../../app/services/api/v1/json_validation_service.rb:53
-#: ../../spec/services/api/v1/json_validation_service_spec.rb:128
 msgid "invalid JSON"
 msgstr ""
 
@@ -40554,11 +40552,11 @@ msgid " by %{user_name}"
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:31
-msgid " questions from your plan."
+msgid "This answer removes "
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:31
-msgid "This answer removes "
+msgid " questions from your plan."
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:37
@@ -40774,15 +40772,15 @@ msgid "Thank you for registering. Please confirm your email address"
 msgstr ""
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
-msgid "into your browser"
-msgstr ""
-
-#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
 msgid "Click here to confirm your account"
 msgstr ""
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
 msgid "or copy"
+msgstr ""
+
+#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
+msgid "into your browser"
 msgstr ""
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:18
@@ -41186,12 +41184,12 @@ msgid "Published"
 msgstr ""
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:19
-msgid " (e.g. School/ Department) "
+#: ../../app/views/paginable/guidance_groups/_index.html.erb:8
+msgid "Optional subset"
 msgstr ""
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:19
-#: ../../app/views/paginable/guidance_groups/_index.html.erb:8
-msgid "Optional subset"
+msgid " (e.g. School/ Department) "
 msgstr ""
 
 #: ../../app/views/guidance_groups/_index_by_theme.html.erb:10
@@ -42055,11 +42053,11 @@ msgid "Feedback requested"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Notify the plan owner that I have finished providing feedback"
+msgid "Complete"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Complete"
+msgid "Notify the plan owner that I have finished providing feedback"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:39
@@ -42095,11 +42093,11 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "New question:"
+msgid "Question %{number}:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %{number}:"
+msgid "New question:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:15
@@ -42152,15 +42150,15 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:102
-msgid "You are about to delete question #%{question_number}. Are you sure?"
-msgstr ""
-
-#: ../../app/views/org_admin/questions/_form.html.erb:102
 #: ../../app/views/org_admin/sections/_form.html.erb:19
 #: ../../app/views/super_admin/api_clients/_form.html.erb:79
 #: ../../app/views/super_admin/notifications/_form.html.erb:68
 #: ../../app/views/super_admin/themes/_form.html.erb:15
 msgid "Delete"
+msgstr ""
+
+#: ../../app/views/org_admin/questions/_form.html.erb:102
+msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_index.html.erb:14
@@ -44945,11 +44943,11 @@ msgid "Hello "
 msgstr ""
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:5
-msgid " has been removed by "
+msgid "Your access to "
 msgstr ""
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:5
-msgid "Your access to "
+msgid " has been removed by "
 msgstr ""
 
 #: ../../app/views/user_mailer/plan_visibility.html.erb:5
@@ -44979,15 +44977,15 @@ msgid "Hello %{recipient_name},"
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " in a plan called "
-msgstr ""
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " to "
+msgstr ""
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " in a plan called "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
@@ -45148,24 +45146,4 @@ msgstr ""
 
 #: ../../app/views/users/refresh_token.js.erb:1
 msgid "Unable to regenerate your API token."
-msgstr ""
-
-#: i18n_placeholders.rb:4
-msgid "activerecord.errors.messages.record_invalid"
-msgstr ""
-
-#: i18n_placeholders.rb:6
-msgid "activerecord.errors.models.user.attributes.current_password.invalid"
-msgstr ""
-
-#: i18n_placeholders.rb:8
-msgid "activerecord.errors.models.user.attributes.email.blank"
-msgstr ""
-
-#: i18n_placeholders.rb:10
-msgid "activerecord.errors.models.user.attributes.password.blank"
-msgstr ""
-
-#: i18n_placeholders.rb:12
-msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
 msgstr ""

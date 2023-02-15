@@ -202,8 +202,7 @@ gem 'zaru'
 # INTERNATIONALIZATION #
 # ==================== #
 
-# gem "translation"
-gem 'translation', git: 'https://github.com/lagoan/translation_io_rails', branch: 'fix/broken_db_fake_method_calls'
+gem 'translation', git: 'https://github.com/pengyin-shan/translation_io_rails', branch: 'fix/broken_db_fake_method_calls'
 
 # ========= #
 # UTILITIES #
