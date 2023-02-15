@@ -70,8 +70,6 @@ I18n.default_locale = :'en-CA'
 #   end
 # end
 
-
-
 # # Setup languages
 #
 # table = ActiveRecord::Base.connection.table_exists?("languages") rescue false
