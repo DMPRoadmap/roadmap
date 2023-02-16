@@ -215,6 +215,7 @@
   <% end %>
   <%# Number Field %>
   <% if prop['type'].eql?('integer') || prop['type'].eql?('number') %>
+    <% value = value.present? ? value : default_value %>
     <%= create_number_field(f, value, field_name,
           label, field_id, prop['minimum'], prop['maximum'], 
           required: required, readonly: readonly, validation: validation, ttip: ttip ) %>
