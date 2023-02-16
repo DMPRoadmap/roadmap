@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/pengyin-shan/translation_io_rails
-  revision: 833b1049e1200911066991301fab507c868f8ece
+  remote: https://github.com/lagoan/translation_io_rails
+  revision: 1975821394c8c84da9458d7c6a588c862cdcb46e
   branch: fix/broken_db_fake_method_calls
   specs:
     translation (1.22)
@@ -185,7 +185,7 @@ GEM
     faraday-net_http (3.0.2)
     ffi (1.15.5)
     flag_shih_tzu (0.3.23)
-    fog-aws (3.17.0)
+    fog-aws (3.18.0)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
       fog-xml (~> 0.1)
@@ -459,7 +459,7 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.26.0)
       parser (>= 3.2.1.0)
-    rubocop-capybara (2.17.0)
+    rubocop-capybara (2.17.1)
       rubocop (~> 1.41)
     rubocop-i18n (3.0.0)
       rubocop (~> 1.0)
@@ -529,7 +529,7 @@ GEM
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.11)
-    timeout (0.3.1)
+    timeout (0.3.2)
     tomparse (0.4.2)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
