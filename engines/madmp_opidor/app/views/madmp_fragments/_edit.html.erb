@@ -51,7 +51,7 @@
                       pickable_schemas: pickable_schemas,
                       question: question, 
                       research_output: research_output 
-            } unless pickable_schemas.length <= 1 && ['meta', 'project'].include?(fragment.classname) %>
+            } if pickable_schemas.length > 1 && !['meta', 'project'].include?(fragment.classname) %>
         </div>
         <div class="answer-save-zone">
           <span class="message-zone"><%= _('You have pending changes, please save')%></span>
