@@ -193,6 +193,7 @@ class PlansController < ApplicationController
           abbreviation: 'Default',
           title: 'Default research output',
           is_default: true,
+          byte_size: 1,
           display_order: 1
         )
         # --------------------------------
