@@ -2,10 +2,18 @@
 
 ## TODO Verify functionality after merging
 
+# # Control ignored source paths
+# # Note, all prefixes of the directory you want to translate must be defined here
+def ignore_paths
+  Dir['**/'] - Dir['app/**/']
+end
+
 TranslationIO.configure do |config|
   config.api_key        = Rails.application.secrets.translation_io_api_key
   config.source_locale  = 'en'
   config.target_locales = %w[en-CA en-GB fr-CA]
+  config.ignored_source_paths = ignore_paths
+  config.disable_yaml         = true
 
   # Uncomment this if you don't want to use gettext
   # config.disable_gettext = true
@@ -60,23 +68,6 @@ I18n.default_locale = :'en-CA'
 #     config.disable_yaml         = true
 #     config.locales_path         = Rails.root.join("config", "locale")
 #   end
-# end
-
-# # Control ignored source paths
-# # Note, all prefixes of the directory you want to translate must be defined here
-# def ignore_paths
-#   Dir.glob("**/*").select { |f| File.directory? f }
-#      .collect { |name| "#{name}/" }
-#   - ["app/",
-#      "app/views/",
-#      "app/views/branded/",
-#      "app/views/branded/public_pages/",
-#      "app/views/branded/home/",
-#      "app/views/branded/contact_us/",
-#      "app/views/branded/contact_us/contacts/",
-#      "app/views/branded/shared/",
-#      "app/views/branded/layouts/",
-#      "app/views/branded/static_pages/"]
 # end
 
 # # Setup languages

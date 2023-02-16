@@ -8,6 +8,14 @@
 
 - Updated rubocop setting to disable the debug checking after upgrading to rubocop 1.45 [#316](https://github.com/portagenetwork/roadmap/issues/316)
 
+- Unmanaged organization will not show in all org selector except the creating new organization page [#260](https://github.com/portagenetwork/roadmap/issues/260)
+
+- Allowed contributors to choose organization [#273](https://github.com/portagenetwork/roadmap/issues/273)
+
+- Allowed admin to see unmanaged org name when creating new org to avoid duplication [#275](https://github.com/portagenetwork/roadmap/issues/275)
+
+- Force Github actions using Ubuntu 20.04 to fix wkhtmltopdf-binary issue [#266](https://github.com/portagenetwork/roadmap/issues/266)
+
 ## [3.0.4+portage-3.0.16] - 2022-12-14
 
 ### Changed
