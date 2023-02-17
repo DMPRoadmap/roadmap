@@ -105,8 +105,8 @@ Lint/UnexpectedBlockArity: # new in 1.5
 Lint/UnmodifiedReduceAccumulator: # new in 1.1
   Enabled: true
 Lint/Debugger: # new in 1.45.0
-Description: 'Check for debugger calls.'
-Enabled: false
+  Description: 'Check for debugger calls.'
+  Enabled: false
 
 
 # -----------
