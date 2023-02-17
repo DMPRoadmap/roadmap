@@ -2,11 +2,61 @@
 
 ## [3.1.0+portage-3.1.0] - 2023-02-22
 
+### Added
+
+- In project detail page, users can now specify a primary research domain for their project (e.g. Biology, Computer Science, Humanities, etc.). This information appears in the DMP's JSON as a 'tag'
+
+- In project detail page, users can now indicate and describe any ethical concerns that concern their research data. Clicking the checkbox will display a field to describe the concerns and a URL field to link to a report. This information appears in the DMP's JSON.
+
+- Added a new 'Research Outputs' tab that allows users to specify information about their intended research outputs [#2738](https://github.com/portagenetwork/DMPRoadmap/issues/2738). User can specify the type (e.g. dataset, software, image, etc.), name and a description of the output, size (if applicable), whether or not it contains sensitive info or PII, what the initial access level will be (e.g. open, restricted, closed) and the anticipated publication date:
+
+- ![Research Output](https://user-images.githubusercontent.com/1204467/162054150-e58ec156-18bb-4c2f-a516-1f28e14c3204.png "Research Outputs")
+
+- Allowed user to select an appropriate license in Research Outputs tab (note that the options come from the [SPDX license registry](https://spdx.org/licenses/)) [#2607](https://github.com/portagenetwork/DMPRoadmap/issues/2607)
+
+- Allowed user to any metadata standards that will be followed (e.g. Dublin Core) in Research Outputs tab (note that the list of standards comes from the [RDA Metadata standards catalog](https://rdamsc.bath.ac.uk/))  [#2798](https://github.com/portagenetwork/DMPRoadmap/issues/2798)
+
+- Allowed user to select the repositories they intend to preserve the object in (e.g. Dryad, Zenodo, GitHub, or an institutional repository) in Research Outputs tab (note that the list of repositories comes from the [re3data registry](https://www.re3data.org/)) [#2605](https://github.com/portagenetwork/DMPRoadmap/issues/2605)
+
+- Added research outputs result to downloaded PDF file in a table format [#2812](https://github.com/portagenetwork/DMPRoadmap/issues/2812)
+
+- Updated APIs to add research outputs result the downloaded JSON file, appears as 'Dataset' information
+
+- Added helpdesk email address field to `Organisation's details`. This email will be used in the email signature for emails sent from the system (assuming the recipient of the email is a member of the same Organisation) [#3140](https://github.com/portagenetwork/DMPRoadmap/issues/3140)
+
+- Added data migration rake tasks and migrated DMP Assistant database from MariaDB 10 to PostgreSQL 12 to better accommodate JSON format data
+
+- Sandbox testing flag can be turned on/off so org admin can change *locally hosted* DMP Assistant to a sandbox testing environment
+
+- Added rubocop test and code side support [#264](https://github.com/portagenetwork/roadmap/issues/264)
+
+- Updated rubocop setting to disable the debug checking after upgrading to rubocop 1.45 [#316](https://github.com/portagenetwork/roadmap/issues/316)
+
+- Added more clear error message to remind user not to fresh the page when 'saving plan' process is stuck and success message is not shown as expected [#241](https://github.com/portagenetwork/roadmap/issues/241)
+
+- Added static page for server upgrading time [#310](https://github.com/portagenetwork/roadmap/issues/310)
+
+- Make comments/guidances area collapsible to gives the researcher more space to see their answers [#3123](https://github.com/portagenetwork/DMPRoadmap/issues/3123)
+
+### Changed
+
+- DMP Assistant migrated all data from MariaDB 10 to PostgreSQL 12
+
+- Updated all Gems and JS dependencies
+
+- Used excel sheet to track upgrading process [#187](https://github.com/portagenetwork/roadmap/issues/187)
+
+- Updated th french translations for Portage template for systematic reviews [#269](https://github.com/portagenetwork/roadmap/issues/269)
+
+- Adjusted Dockerfile.Production to move `rails assets:precomile` step to `docker-compose.yml` file [#282](https://github.com/portagenetwork/roadmap/issues/282)
+
+- Relived memory load in translation syncing process by adjusting configuration so that only code in `app` folder will be scanner and translated [#313](https://github.com/portagenetwork/roadmap/issues/313)
+
+- Adjusted customized translation.io source code to add `unscoped` method for necessary table to fit PostgreSQL syntax (https://github.com/lagoan/translation_io_rails/pull/2)
+
 ### Fixed
 
 - Reversed `perm_helper.rb` changes to reduce translation.io sync memory pressure and added rubocop exception for `translation.rb` [#315](https://github.com/portagenetwork/roadmap/issues/315)
-
-- Updated rubocop setting to disable the debug checking after upgrading to rubocop 1.45 [#316](https://github.com/portagenetwork/roadmap/issues/316)
 
 - Unmanaged organization will not show in all org selector except the creating new organization page [#260](https://github.com/portagenetwork/roadmap/issues/260)
 
@@ -15,6 +65,66 @@
 - Allowed admin to see unmanaged org name when creating new org to avoid duplication [#275](https://github.com/portagenetwork/roadmap/issues/275)
 
 - Force Github actions using Ubuntu 20.04 to fix wkhtmltopdf-binary issue [#266](https://github.com/portagenetwork/roadmap/issues/266)
+
+- Clarified of String and Array behavior for plan exports [#268](https://github.com/portagenetwork/roadmap/issues/268)
+
+- Fixed the error that `app.pot` headers accidentals appear in the empty text box of *writing plans* area [#308](https://github.com/portagenetwork/roadmap/issues/308)
+
+- Fixed for pagination of plans retrieved using the REST API V0 [#3105](https://github.com/portagenetwork/DMPRoadmap/issues/3105)
+
+- Security vulnerability patches [#3100](https://github.com/portagenetwork/DMPRoadmap/issues/3100), [#3097](https://github.com/portagenetwork/DMPRoadmap/issues/3097), [#3093](https://github.com/portagenetwork/DMPRoadmap/issues/3093), [#3077](https://github.com/portagenetwork/DMPRoadmap/issues/3077)
+
+- Fixed issues/inconsistencies with policies [#3084](https://github.com/portagenetwork/DMPRoadmap/issues/3084) [#3099](https://github.com/portagenetwork/DMPRoadmap/issues/3099)
+
+- Fix for issue downloading PDFs [#3054](https://github.com/portagenetwork/DMPRoadmap/issues/3054)[#3049](https://github.com/portagenetwork/DMPRoadmap/issues/3049) [#3098](https://github.com/portagenetwork/DMPRoadmap/issues/3098)
+
+- Fix for issue displaying users as collaborators on a plan after they have removed themselves Fix for issue downloading PDFs [#3095](https://github.com/portagenetwork/DMPRoadmap/issues/3095)
+
+- Fix for API v0 not supplying the owner email address Fix for issue downloading PDFs [#3094](https://github.com/portagenetwork/DMPRoadmap/issues/3094)
+
+- Fix for bug preventing Super Admins from creating new Orgs [#3091](https://github.com/portagenetwork/DMPRoadmap/issues/3091)
+
+- Fix for issue causing deleted plans to appear in the Org Admin list of plans [#3087](https://github.com/portagenetwork/DMPRoadmap/issues/3087)
+
+- Fix for CSV downloads [#3085](https://github.com/portagenetwork/DMPRoadmap/issues/3085)[#3075](https://github.com/portagenetwork/DMPRoadmap/issues/3075)
+
+- Fix for pagination and search on the Admin plans page [#3069](https://github.com/portagenetwork/DMPRoadmap/issues/3069) [#3073](https://github.com/portagenetwork/DMPRoadmap/issues/3073)
+
+- Fix for strings that were not included in translation content [#3081](https://github.com/portagenetwork/DMPRoadmap/issues/3081)[#3050](https://github.com/portagenetwork/DMPRoadmap/issues/3050)
+
+- Fix for issue with contributor org logic not adhering to the restrict_orgs config flag [#3078](https://github.com/portagenetwork/DMPRoadmap/issues/3078)[#3060](https://github.com/portagenetwork/DMPRoadmap/issues/3060)
+
+- Fix for adding contributors [#3071](https://github.com/portagenetwork/DMPRoadmap/issues/3071)
+
+- Removed phone number field from contributor page  [#3067](https://github.com/portagenetwork/DMPRoadmap/issues/3067)
+
+- Fixed issue with merging users  [#3065](https://github.com/portagenetwork/DMPRoadmap/issues/3065)
+
+- Fixed issue with emails  [#3052](https://github.com/portagenetwork/DMPRoadmap/issues/3052)
+
+- Fix for users unable to see API page  [#3047](https://github.com/portagenetwork/DMPRoadmap/issues/3047)
+
+- Upgraded Rubocop and updated all files accordingly  [#3048](https://github.com/portagenetwork/DMPRoadmap/issues/3048)  [#3045](https://github.com/portagenetwork/DMPRoadmap/issues/3045)
+
+- Fixed an issue that was preventing Org Admins from seeing the 'Share' tab  [#3131](https://github.com/portagenetwork/DMPRoadmap/issues/3131)
+
+- Fixed an issue that was causing errors when Org Admins tried to save changes to a template  [#3071](https://github.com/portagenetwork/DMPRoadmap/issues/3038)
+
+- Patched an issue that continued to show users as collaborators on a Plan's Share tab even after they had removed themselves from the Plan  [#3126](https://github.com/portagenetwork/DMPRoadmap/issues/3126)
+
+- Fixed an issue that was causing TinyMCE editors to have an incorrect size when they initially load  [#3141](https://github.com/portagenetwork/DMPRoadmap/issues/3141)
+
+- Various fixes for the APIs
+
+- Patched issue that was always using the default template when creating a new DMP in API v1  [#3137](https://github.com/portagenetwork/DMPRoadmap/issues/3137)
+
+- Fixed an issue that was preventing plans from being created via API v0  [#3135](https://github.com/portagenetwork/DMPRoadmap/issues/3135)
+
+- Addressed an issue that was preventing users from being unassigned from a department in API v0  [#3132](https://github.com/portagenetwork/DMPRoadmap/issues/3132)
+
+- Reverted change to our use of string format tokens that was made during an upgrade of Rubocop. The preferred format is once again Some %{variable_name} text  [#3138](https://github.com/portagenetwork/DMPRoadmap/issues/3128)
+
+- Fixed some potential PDF downloading problems
 
 ## [3.0.4+portage-3.0.16] - 2022-12-14
 
