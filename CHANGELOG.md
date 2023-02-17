@@ -4,23 +4,23 @@
 
 ### Added
 
-- In project detail page, users can now specify a primary research domain for their project (e.g. Biology, Computer Science, Humanities, etc.). This information appears in the DMP's JSON as a 'tag'
+- In the project detail page, users can now specify a primary research domain for their project (e.g. Biology, Computer Science, Humanities, etc.). This information appears in the DMP's JSON as a 'tag'
 
-- In project detail page, users can now indicate and describe any ethical concerns that concern their research data. Clicking the checkbox will display a field to describe the concerns and a URL field to link to a report. This information appears in the DMP's JSON.
+- On the project detail page, users can now indicate and describe any ethical concerns that concern their research data. Clicking the checkbox will display a field to describe the concerns and a URL field to link to a report. This information appears in the DMP's JSON.
 
 - Added a new 'Research Outputs' tab that allows users to specify information about their intended research outputs [#2738](https://github.com/portagenetwork/DMPRoadmap/issues/2738). User can specify the type (e.g. dataset, software, image, etc.), name and a description of the output, size (if applicable), whether or not it contains sensitive info or PII, what the initial access level will be (e.g. open, restricted, closed) and the anticipated publication date:
 
 - ![Research Output](https://user-images.githubusercontent.com/1204467/162054150-e58ec156-18bb-4c2f-a516-1f28e14c3204.png "Research Outputs")
 
-- Allowed user to select an appropriate license in Research Outputs tab (note that the options come from the [SPDX license registry](https://spdx.org/licenses/)) [#2607](https://github.com/portagenetwork/DMPRoadmap/issues/2607)
+- Allowed user to select an appropriate license in the Research Outputs tab (note that the options come from the [SPDX license registry](https://spdx.org/licenses/)) [#2607](https://github.com/portagenetwork/DMPRoadmap/issues/2607)
 
-- Allowed user to any metadata standards that will be followed (e.g. Dublin Core) in Research Outputs tab (note that the list of standards comes from the [RDA Metadata standards catalog](https://rdamsc.bath.ac.uk/))  [#2798](https://github.com/portagenetwork/DMPRoadmap/issues/2798)
+- Allowed user to any metadata standards that will be followed (e.g. Dublin Core) in the Research Outputs tab (note that the list of standards comes from the [RDA Metadata standards catalog](https://rdamsc.bath.ac.uk/))  [#2798](https://github.com/portagenetwork/DMPRoadmap/issues/2798)
 
-- Allowed user to select the repositories they intend to preserve the object in (e.g. Dryad, Zenodo, GitHub, or an institutional repository) in Research Outputs tab (note that the list of repositories comes from the [re3data registry](https://www.re3data.org/)) [#2605](https://github.com/portagenetwork/DMPRoadmap/issues/2605)
+- Allowed users to select the repositories they intend to preserve the object in (e.g. Dryad, Zenodo, GitHub, or an institutional repository) in the Research Outputs tab (note that the list of repositories comes from the [re3data registry](https://www.re3data.org/)) [#2605](https://github.com/portagenetwork/DMPRoadmap/issues/2605)
 
 - Added research outputs result to downloaded PDF file in a table format [#2812](https://github.com/portagenetwork/DMPRoadmap/issues/2812)
 
-- Updated APIs to add research outputs result the downloaded JSON file, appears as 'Dataset' information
+- Updated APIs to add research outputs result to the downloaded JSON file, which appears as 'Dataset' information
 
 - Added helpdesk email address field to `Organisation's details`. This email will be used in the email signature for emails sent from the system (assuming the recipient of the email is a member of the same Organisation) [#3140](https://github.com/portagenetwork/DMPRoadmap/issues/3140)
 
@@ -32,11 +32,11 @@
 
 - Updated rubocop setting to disable the debug checking after upgrading to rubocop 1.45 [#316](https://github.com/portagenetwork/roadmap/issues/316)
 
-- Added more clear error message to remind user not to fresh the page when 'saving plan' process is stuck and success message is not shown as expected [#241](https://github.com/portagenetwork/roadmap/issues/241)
+- Added more clear error message to remind users not to fresh the page when the 'saving plan' process is stuck and the success message is not shown as expected [#241](https://github.com/portagenetwork/roadmap/issues/241)
 
 - Added static page for server upgrading time [#310](https://github.com/portagenetwork/roadmap/issues/310)
 
-- Make comments/guidances area collapsible to gives the researcher more space to see their answers [#3123](https://github.com/portagenetwork/DMPRoadmap/issues/3123)
+- Make the comments/guidances are collapsible to give the researcher more space to see their answers [#3123](https://github.com/portagenetwork/DMPRoadmap/issues/3123)
 
 ### Changed
 
@@ -44,23 +44,23 @@
 
 - Updated all Gems and JS dependencies
 
-- Used excel sheet to track upgrading process [#187](https://github.com/portagenetwork/roadmap/issues/187)
+- Used excel sheet to track the upgrading process [#187](https://github.com/portagenetwork/roadmap/issues/187)
 
-- Updated th french translations for Portage template for systematic reviews [#269](https://github.com/portagenetwork/roadmap/issues/269)
+- Updated the french translations for the Portage template for systematic reviews [#269](https://github.com/portagenetwork/roadmap/issues/269)
 
-- Adjusted Dockerfile.Production to move `rails assets:precomile` step to `docker-compose.yml` file [#282](https://github.com/portagenetwork/roadmap/issues/282)
+- Adjusted Dockerfile.Production to move `rails assets:precompile` step to `docker-compose.yml` file [#282](https://github.com/portagenetwork/roadmap/issues/282)
 
-- Relived memory load in translation syncing process by adjusting configuration so that only code in `app` folder will be scanner and translated [#313](https://github.com/portagenetwork/roadmap/issues/313)
+- Relived memory load in the translation syncing process by adjusting configuration so that only code in the `app` folder will be scanned and translated [#313](https://github.com/portagenetwork/roadmap/issues/313)
 
-- Adjusted customized translation.io source code to add `unscoped` method for necessary table to fit PostgreSQL syntax (https://github.com/lagoan/translation_io_rails/pull/2)
+- Adjusted customized translation.io source code to add `unscoped` method for the necessary table to fit PostgreSQL syntax (https://github.com/lagoan/translation_io_rails/pull/2)
 
 ### Fixed
 
 - Reversed `perm_helper.rb` changes to reduce translation.io sync memory pressure and added rubocop exception for `translation.rb` [#315](https://github.com/portagenetwork/roadmap/issues/315)
 
-- Unmanaged organization will not show in all org selector except the creating new organization page [#260](https://github.com/portagenetwork/roadmap/issues/260)
+- Unmanaged organization will not show in all org selectors except the creating new organization page [#260](https://github.com/portagenetwork/roadmap/issues/260)
 
-- Allowed contributors to choose organization [#273](https://github.com/portagenetwork/roadmap/issues/273)
+- Allowed contributors to choose organizations [#273](https://github.com/portagenetwork/roadmap/issues/273)
 
 - Allowed admin to see unmanaged org name when creating new org to avoid duplication [#275](https://github.com/portagenetwork/roadmap/issues/275)
 
@@ -122,7 +122,7 @@
 
 - Addressed an issue that was preventing users from being unassigned from a department in API v0  [#3132](https://github.com/portagenetwork/DMPRoadmap/issues/3132)
 
-- Reverted change to our use of string format tokens that was made during an upgrade of Rubocop. The preferred format is once again Some %{variable_name} text  [#3138](https://github.com/portagenetwork/DMPRoadmap/issues/3128)
+- Reverted change to our use of string format tokens that were made during an upgrade of Rubocop. The preferred format is once again Some %{variable_name} text  [#3138](https://github.com/portagenetwork/DMPRoadmap/issues/3128)
 
 - Fixed some potential PDF downloading problems
 
