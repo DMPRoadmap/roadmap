@@ -6,6 +6,15 @@ class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
   include DynamicFormHelper
 
+  def show
+    @fragment = MadmpFragment.find(params[:id])
+    authorize @fragment
+    render json: {
+      'fragment' => @fragment.get_full_fragment,
+      'schema' => @fragment.madmp_schema.schema
+    }
+  end
+
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
   # Method is only called when saving the form in the modal

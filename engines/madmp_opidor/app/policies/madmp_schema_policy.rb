@@ -6,6 +6,10 @@ class MadmpSchemaPolicy < ApplicationPolicy
     @user.can_super_admin?
   end
 
+  def show?
+    true
+  end
+
   def new?
     @user.can_super_admin?
   end
