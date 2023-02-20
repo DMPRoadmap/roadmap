@@ -1,6 +1,7 @@
 import React from 'react';
 import { get } from 'lodash';
 import NewsItem from './news/NewsItem.jsx';
+import { getNews } from '../services/NewsServiceApi.js';
 
 // eslint-disable-next-line react/prop-types, arrow-body-style
 class HomepageNews extends React.Component {
@@ -14,11 +15,10 @@ class HomepageNews extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://opidor.fr/wp-json/wp/v2/posts?per_page=3&categories=5&_embed')
-      .then((res) => res.json())
+    getNews()
       .then(
         (result) => {
-          const news = result.map((r) => ({
+          const news = result.data.map((r) => ({
             id: r.id,
             title: r.title.rendered,
             link: r.link,
