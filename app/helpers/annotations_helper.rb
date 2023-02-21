@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Helper methods for Annotations
 module AnnotationsHelper
-
   # rubocop:disable all
   TOOLTIPS_FOR_TEXT = {
     example_answer: _("You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted."),
@@ -12,5 +12,4 @@ module AnnotationsHelper
   def tooltip_for_annotation_text(annotation)
     TOOLTIPS_FOR_TEXT[annotation.type.to_sym]
   end
-
 end

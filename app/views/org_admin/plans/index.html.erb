@@ -1,7 +1,7 @@
-<% title "Plans" %>
+<% title "#{current_user.org.name} Plans" %>
 <div class="row">
   <div class="col-md-12">
-    <h1><%= _('Plans') % { org_name: current_user.org.name } %></h1>
+    <h1><%= _('%{org_name} Plans') % { org_name: current_user.org.name } %></h1>
   </div>
 </div>
 

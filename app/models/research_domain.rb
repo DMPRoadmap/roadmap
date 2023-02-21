@@ -19,14 +19,14 @@
 #
 #  fk_rails_...  (parent_id => research_domains.id)
 #
-class ResearchDomain < ApplicationRecord
 
+# Object that represents a disciple (e.g. Physics, Social Sciences, etc.)
+class ResearchDomain < ApplicationRecord
   # ================
   # = Associations =
   # ================
 
   # Self join
-  has_many :sub_fields, class_name: "ResearchDomain", foreign_key: "parent_id"
-  belongs_to :parent, class_name: "ResearchDomain", optional: true
-
+  has_many :sub_fields, class_name: 'ResearchDomain', foreign_key: 'parent_id'
+  belongs_to :parent, class_name: 'ResearchDomain', optional: true
 end

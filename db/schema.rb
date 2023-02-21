@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_19_160319) do
+ActiveRecord::Schema.define(version: 2022_03_15_104737) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -247,6 +247,37 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.boolean "default_language"
   end
 
+  create_table "licenses", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "identifier", null: false
+    t.string "uri", null: false
+    t.boolean "osi_approved", default: false
+    t.boolean "deprecated", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identifier", "osi_approved", "deprecated"], name: "index_license_on_identifier_and_criteria"
+    t.index ["identifier"], name: "index_licenses_on_identifier"
+    t.index ["uri"], name: "index_licenses_on_uri"
+  end
+
+  create_table "metadata_standards", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "rdamsc_id"
+    t.string "uri"
+    t.json "locations"
+    t.json "related_entities"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "metadata_standards_research_outputs", force: :cascade do |t|
+    t.bigint "metadata_standard_id"
+    t.bigint "research_output_id"
+    t.index ["metadata_standard_id"], name: "metadata_research_outputs_on_metadata"
+    t.index ["research_output_id"], name: "metadata_research_outputs_on_ro"
+  end
+
   create_table "notes", id: :integer, force: :cascade do |t|
     t.integer "user_id"
     t.text "text", limit: 16777215
@@ -360,6 +391,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.boolean "feedback_enabled", default: false
     t.text "feedback_msg", limit: 16777215
     t.boolean "managed", default: false, null: false
+    t.string "helpdesk_email"
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
   end
@@ -553,6 +585,27 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.integer "super_region_id"
   end
 
+  create_table "repositories", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "homepage"
+    t.string "contact"
+    t.string "uri", null: false
+    t.json "info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["homepage"], name: "index_repositories_on_homepage"
+    t.index ["name"], name: "index_repositories_on_name"
+    t.index ["uri"], name: "index_repositories_on_uri"
+  end
+
+  create_table "repositories_research_outputs", force: :cascade do |t|
+    t.bigint "research_output_id"
+    t.bigint "repository_id"
+    t.index ["repository_id"], name: "index_repositories_research_outputs_on_repository_id"
+    t.index ["research_output_id"], name: "index_repositories_research_outputs_on_research_output_id"
+  end
+
   create_table "research_domains", force: :cascade do |t|
     t.string "identifier", null: false
     t.string "label", null: false
@@ -578,6 +631,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.bigint "byte_size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "license_id"
+    t.index ["license_id"], name: "index_research_outputs_on_license_id"
     t.index ["output_type"], name: "index_research_outputs_on_output_type"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
   end
@@ -845,6 +900,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
   add_foreign_key "questions_themes", "questions"
   add_foreign_key "questions_themes", "themes"
   add_foreign_key "research_domains", "research_domains", column: "parent_id"
+  add_foreign_key "research_outputs", "licenses"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"

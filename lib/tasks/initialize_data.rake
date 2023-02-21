@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 namespace :initialize_data do
-  desc "Add RDA Question Type"
+  desc 'Add RDA Question Type'
   task rda_ques: :environment do
     rda_q_title = 'RDA Metadata Standards'
     # check if already in the database
     rda_q = QuestionFormat.find_by(title: rda_q_title)
     if rda_q.blank?
-      rda_q = QuestionFormat.new()
+      rda_q = QuestionFormat.new
       rda_q.title = rda_q_title
       puts 'Question format does not exist, adding'
     else
@@ -13,7 +15,7 @@ namespace :initialize_data do
     end
     rda_q.option_based = false # keeping this false as options not stored locally
     rda_q.formattype = QuestionFormat.formattypes[:rda_metadata]
-    rda_q.description = "https://rdamsc.bath.ac.uk/api/"
+    rda_q.description = 'https://rdamsc.bath.ac.uk/api/'
     if rda_q.save
       puts 'Sucessfully added/updated'
     else

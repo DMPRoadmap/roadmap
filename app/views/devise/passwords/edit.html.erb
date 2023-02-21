@@ -11,19 +11,19 @@
       <%= devise_error_messages! %>
       <%= f.hidden_field :reset_password_token %>
 
-        <div class="form-group">
-          <%= f.label(:password, _('New password'), class: 'control-label') %>
-          <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
-        </div>
-        <div class="form-group">
-          <%= f.label(:password_confirmation, _('Password confirmation'), class: 'control-label') %>
-          <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true) %>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" id="passwords_toggle" class="passwords_toggle"/><%= _('Show passwords') %>
-          </label>
-        </div>
+      <div class="form-group">
+        <%= f.label(:password, _('New password'), class: 'control-label') %>
+        <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
+      </div>
+      <div class="form-group">
+        <%= f.label(:password_confirmation, _('Password confirmation'), class: 'control-label') %>
+        <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true) %>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="passwords_toggle" class="passwords_toggle"/><%= _('Show passwords') %>
+        </label>
+      </div>
       
       <% if Rails.configuration.x.recaptcha.enabled %>
         <div class="form-group">

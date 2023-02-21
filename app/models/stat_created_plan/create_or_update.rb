@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
+# Usage Stats
 class StatCreatedPlan
-
+  # Usage statistics helper
   class CreateOrUpdate
-
     class << self
-
+      # rubocop:disable Metrics/MethodLength
       def do(start_date:, end_date:, org:, filtered: false)
         count = count_plans(start_date: start_date, end_date: end_date, org: org,
                             filtered: filtered)
@@ -32,6 +32,7 @@ class StatCreatedPlan
           StatCreatedPlan.create(attrs)
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       private
 
@@ -73,9 +74,9 @@ class StatCreatedPlan
         roleable_plan_ids = roleable_plans.pluck(:plan_id).uniq
 
         template_counts = Plan.joins(:template).where(id: roleable_plan_ids)
-                              .group("templates.family_id").count
+                              .group('templates.family_id').count
         most_recent_versions = Template.where(family_id: template_counts.keys)
-                                       .group(:family_id).maximum("version")
+                                       .group(:family_id).maximum('version')
         most_recent_versions = most_recent_versions.map { |k, v| "#{k}=#{v}" }
         template_names = Template.where("CONCAT(family_id, '=', version) IN (?)",
                                         most_recent_versions).pluck(:family_id, :title)
@@ -84,9 +85,6 @@ class StatCreatedPlan
         end
       end
       # rubocop:enable Metrics/AbcSize
-
     end
-
   end
-
 end

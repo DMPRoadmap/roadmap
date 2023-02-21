@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 describe Plan do
-
   include IdentifierHelper
   include RolesHelper
   include TemplateHelper
 
-  context "validations" do
+  context 'validations' do
     it { is_expected.to validate_presence_of(:title) }
 
     it { is_expected.to validate_presence_of(:template) }
@@ -21,32 +20,30 @@ describe Plan do
 
     it { is_expected.not_to allow_value(nil).for(:complete) }
 
-    describe "dates" do
+    describe 'dates' do
       before(:each) do
         @plan = build(:plan)
       end
 
-      it "allows start_date to be nil" do
+      it 'allows start_date to be nil' do
         @plan.start_date = nil
         @plan.end_date = Time.now + 3.days
         expect(@plan.valid?).to eql(true)
       end
-      it "allows end_date to be nil" do
+      it 'allows end_date to be nil' do
         @plan.start_date = Time.now + 3.days
         @plan.end_date = nil
         expect(@plan.valid?).to eql(true)
       end
-      it "does not allow end_date to come before start_date" do
+      it 'does not allow end_date to come before start_date' do
         @plan.start_date = Time.now + 3.days
         @plan.end_date = Time.now
         expect(@plan.valid?).to eql(false)
       end
     end
-
   end
 
-  context "associations" do
-
+  context 'associations' do
     it { is_expected.to belong_to :template }
 
     it { is_expected.to belong_to :org }
@@ -78,131 +75,98 @@ describe Plan do
     it { is_expected.to have_many(:identifiers) }
 
     it { is_expected.to have_many(:contributors) }
-
   end
 
-  describe ".publicly_visible" do
-
+  describe '.publicly_visible' do
     subject { Plan.publicly_visible }
 
-    context "when plan visibility is publicly_visible" do
-
+    context 'when plan visibility is publicly_visible' do
       let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.to include(plan) }
-
     end
 
-    context "when plan visibility is organisationally_visible" do
-
+    context 'when plan visibility is organisationally_visible' do
       let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is is_test" do
-
+    context 'when plan visibility is is_test' do
       let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is privately_visible" do
-
+    context 'when plan visibility is privately_visible' do
       let!(:plan) { create(:plan, :creator, :privately_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
-
   end
 
-  describe ".organisationally_visible" do
-
+  describe '.organisationally_visible' do
     subject { Plan.organisationally_visible }
 
-    context "when plan visibility is publicly_visible" do
-
+    context 'when plan visibility is publicly_visible' do
       let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is organisationally_visible" do
-
+    context 'when plan visibility is organisationally_visible' do
       let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it { is_expected.to include(plan) }
-
     end
 
-    context "when plan visibility is is_test" do
-
+    context 'when plan visibility is is_test' do
       let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is privately_visible" do
-
+    context 'when plan visibility is privately_visible' do
       let!(:plan) { create(:plan, :creator, :privately_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
-
   end
 
-  describe ".privately_visible" do
-
+  describe '.privately_visible' do
     subject { Plan.privately_visible }
 
-    context "when plan visibility is publicly_visible" do
-
+    context 'when plan visibility is publicly_visible' do
       let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is organisationally_visible" do
-
+    context 'when plan visibility is organisationally_visible' do
       let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is is_test" do
-
+    context 'when plan visibility is is_test' do
       let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is privately_visible" do
-
+    context 'when plan visibility is privately_visible' do
       let!(:plan) { create(:plan, :creator, :privately_visible) }
 
       it { is_expected.to include(plan) }
-
     end
-
   end
 
-  describe ".organisationally_or_publicly_visible" do
-
+  describe '.organisationally_or_publicly_visible' do
     let!(:user) { create(:user) }
 
     subject { Plan.organisationally_or_publicly_visible(user) }
 
-    context "when user is creator" do
-
+    context 'when user is creator' do
       before do
         create(:role, :creator, user: user, plan: plan)
       end
@@ -210,11 +174,9 @@ describe Plan do
       let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when user is administrator" do
-
+    context 'when user is administrator' do
       before do
         create(:role, :administrator, user: user, plan: plan)
       end
@@ -222,11 +184,9 @@ describe Plan do
       let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when user is commenter" do
-
+    context 'when user is commenter' do
       before do
         create(:role, :commenter, user: user, plan: plan)
       end
@@ -234,11 +194,9 @@ describe Plan do
       let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when user is editor" do
-
+    context 'when user is editor' do
       before do
         create(:role, :editor, user: user, plan: plan)
       end
@@ -246,11 +204,9 @@ describe Plan do
       let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is publicly_visible" do
-
+    context 'when plan visibility is publicly_visible' do
       before do
         new_user = create(:user, org: user.org)
         create(:role, :creator, :administrator, :editor, :commenter,
@@ -264,14 +220,12 @@ describe Plan do
                         question: template.phases.first.sections.first.questions.first)
       end
 
-      it "includes publicly_visible plans" do
+      it 'includes publicly_visible plans' do
         is_expected.to include(plan)
       end
-
     end
 
-    context "when plan visibility is organisationally_visible" do
-
+    context 'when plan visibility is organisationally_visible' do
       before do
         new_user = create(:user, org: user.org)
         create(:role, :creator, :administrator, :editor, :commenter,
@@ -285,14 +239,12 @@ describe Plan do
                         question: template.phases.first.sections.first.questions.first)
       end
 
-      it "includes organisationally_visible plans" do
+      it 'includes organisationally_visible plans' do
         is_expected.to include(plan)
       end
-
     end
 
-    context "when plan is not complete" do
-
+    context 'when plan is not complete' do
       before do
         new_user = create(:user, org: user.org)
         create(:role, :creator, :administrator, :editor, :commenter,
@@ -301,111 +253,86 @@ describe Plan do
 
       let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
-      it "includes organisationally_visible plans" do
+      it 'includes organisationally_visible plans' do
         is_expected.not_to include(plan)
       end
-
     end
 
-    context "when plan visibility is is_test" do
-
+    context 'when plan visibility is is_test' do
       let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is privately_visible" do
-
+    context 'when plan visibility is privately_visible' do
       let!(:plan) { create(:plan, :creator, :privately_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan has no active roles" do
-
+    context 'when plan has no active roles' do
       let!(:plan) { build_plan }
 
-      it "should not be included" do
+      it 'should not be included' do
         plan.roles.inject(&:deactivate!)
         is_expected.to_not include(plan)
       end
-
     end
-
   end
 
-  describe ".is_test" do
-
+  describe '.is_test' do
     subject { Plan.is_test }
 
-    context "when plan visibility is publicly_visible" do
-
+    context 'when plan visibility is publicly_visible' do
       let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is organisationally_visible" do
-
+    context 'when plan visibility is organisationally_visible' do
       let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
 
-    context "when plan visibility is is_test" do
-
+    context 'when plan visibility is is_test' do
       let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.to include(plan) }
-
     end
 
-    context "when plan visibility is privately_visible" do
-
+    context 'when plan visibility is privately_visible' do
       let!(:plan) { create(:plan, :creator, :privately_visible) }
 
       it { is_expected.not_to include(plan) }
-
     end
-
   end
 
-  describe ".active" do
-
+  describe '.active' do
     let!(:plan) { create(:plan, :creator) }
 
     let!(:user) { create(:user) }
 
     subject { Plan.active(user) }
 
-    context "where user role is active" do
-
+    context 'where user role is active' do
       before do
         create(:role, :active, :creator, user: user, plan: plan)
       end
 
       it { is_expected.to include(plan) }
-
     end
 
-    context "where user role is not active" do
-
+    context 'where user role is not active' do
       before do
         create(:role, :inactive, :creator, user: user, plan: plan)
       end
 
       it { is_expected.not_to include(plan) }
-
     end
-
   end
 
-  describe ".load_for_phase" do
-
+  describe '.load_for_phase' do
     let!(:template) { create(:template) }
 
     let!(:plan) { create(:plan, :creator, template: template) }
@@ -418,48 +345,40 @@ describe Plan do
 
     subject { Plan.load_for_phase(plan.id, phase.id) }
 
-    context "when Plan ID is valid and Phase ID is valid child" do
-
-      it "returns an Array" do
+    context 'when Plan ID is valid and Phase ID is valid child' do
+      it 'returns an Array' do
         expect(subject).to be_an(Array)
       end
 
-      it "returns the Plan first" do
+      it 'returns the Plan first' do
         expect(subject.first).to eql(plan)
       end
 
-      it "returns the Phase second" do
+      it 'returns the Phase second' do
         expect(subject.second).to eql(phase)
       end
-
     end
 
-    context "when Plan ID is valid and Phase ID is not valid child" do
-
+    context 'when Plan ID is valid and Phase ID is not valid child' do
       let!(:phase) { create(:phase) }
 
-      it "raises an exception" do
+      it 'raises an exception' do
         # TODO: This is not ideal behaviour. Fix this.
         expect { subject }.to raise_error(NoMethodError)
       end
-
     end
 
-    context "when Plan ID is not valid" do
-
+    context 'when Plan ID is not valid' do
       let!(:plan) { stub(id: 0) }
 
-      it "raises an exception" do
+      it 'raises an exception' do
         # TODO: This is not ideal behaviour. Fix this.
         expect { subject }.to raise_error(NoMethodError)
       end
-
     end
-
   end
 
-  describe ".deep_copy" do
-
+  describe '.deep_copy' do
     let!(:plan) do
       create(:plan, :creator, answers: 2, guidance_groups: 2,
                               feedback_requested: true)
@@ -468,57 +387,51 @@ describe Plan do
     subject { Plan.deep_copy(plan) }
 
     it "prepends the title with 'Copy'" do
-      expect(subject.title).to include("Copy")
+      expect(subject.title).to include('Copy')
     end
 
-    it "sets feedback_requested to false" do
+    it 'sets feedback_requested to false' do
       expect(subject.feedback_requested).to eql(false)
     end
 
-    it "copies the title from source" do
+    it 'copies the title from source' do
       expect(subject.title).to include(plan.title)
     end
 
-    it "persists the record" do
+    it 'persists the record' do
       expect(subject).to be_persisted
     end
 
-    it "creates new copies of the answers" do
+    it 'creates new copies of the answers' do
       expect(subject.answers).to have(2).items
     end
 
-    it "duplicates the guidance groups" do
+    it 'duplicates the guidance groups' do
       expect(subject.guidance_groups).to have(2).items
     end
   end
 
-  describe ".search" do
+  describe '.search' do
+    subject { Plan.search('foo') }
 
-    subject { Plan.search("foo") }
-
-    context "when Plan title matches term" do
-
-      let!(:plan) { create(:plan, :creator, title: "foolike title") }
+    context 'when Plan title matches term' do
+      let!(:plan) { create(:plan, :creator, title: 'foolike title') }
 
       it { is_expected.to include(plan) }
-
     end
 
-    context "when Template title matches term" do
-
-      let!(:template) { create(:template, title: "foolike title") }
+    context 'when Template title matches term' do
+      let!(:template) { create(:template, title: 'foolike title') }
 
       let!(:plan) { create(:plan, :creator, template: template) }
 
       it { is_expected.to include(plan) }
-
     end
 
-    context "when Organisation name matches term" do
+    context 'when Organisation name matches term' do
+      let!(:plan)  { create(:plan, :creator, description: 'foolike desc') }
 
-      let!(:plan)  { create(:plan, :creator, description: "foolike desc") }
-
-      let!(:org) { create(:org, name: "foolike name") }
+      let!(:org) { create(:org, name: 'foolike name') }
 
       before do
         user = plan.owner
@@ -526,42 +439,37 @@ describe Plan do
         user.save
       end
 
-      it "returns organisation name" do
-        expect(subject).to include(plan)
-      end
-
-    end
-
-    context "when Contributor name matches term" do
-      let!(:plan) { create(:plan, :creator, description: "foolike desc") }
-      let!(:contributor) { create(:contributor, plan: plan, name: "Dr. Foo Bar") }
-
-      it "returns contributor name" do
+      it 'returns organisation name' do
         expect(subject).to include(plan)
       end
     end
 
-    context "when neither title matches term" do
+    context 'when Contributor name matches term' do
+      let!(:plan) { create(:plan, :creator, description: 'foolike desc') }
+      let!(:contributor) { create(:contributor, plan: plan, name: 'Dr. Foo Bar') }
 
-      let!(:plan) { create(:plan, :creator, description: "foolike desc") }
+      it 'returns contributor name' do
+        expect(subject).to include(plan)
+      end
+    end
+
+    context 'when neither title matches term' do
+      let!(:plan) { create(:plan, :creator, description: 'foolike desc') }
 
       it { is_expected.not_to include(plan) }
-
     end
-
   end
 
-  describe ".stats_filter" do
-
+  describe '.stats_filter' do
     subject { Plan.all.stats_filter }
 
-    context "when plan visibility is test" do
+    context 'when plan visibility is test' do
       let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.not_to include(plan) }
     end
 
-    context "when plan visibility is not test" do
+    context 'when plan visibility is not test' do
       let!(:p1)  { create(:plan, :creator, :publicly_visible) }
       let!(:p2)  { create(:plan, :creator, :privately_visible) }
       let!(:p3)  { create(:plan, :creator, :organisationally_visible) }
@@ -570,70 +478,59 @@ describe Plan do
       it { is_expected.to include(p2) }
       it { is_expected.to include(p3) }
     end
-
   end
 
-  describe "#answer" do
-
+  describe '#answer' do
     let!(:plan) { create(:plan, :creator, answers: 1) }
 
     let!(:question) { create(:question) }
 
     subject { plan.answer(question.id, create_if_missing) }
 
-    context "when create_if_missing is true and answer exists on the DB" do
-
+    context 'when create_if_missing is true and answer exists on the DB' do
       let!(:create_if_missing) { true }
 
       let!(:answer) { create(:answer, plan: plan, question: question) }
 
-      it "returns the existing Answer" do
+      it 'returns the existing Answer' do
         expect(subject).to eql(answer)
       end
-
     end
 
     context "when create_if_missing is true and answer doesn't exist on the DB" do
-
       let!(:create_if_missing) { true }
 
-      it "returns a new Answer" do
+      it 'returns a new Answer' do
         expect(subject).to be_an(Answer)
       end
 
       it "doesn't persist the new Answer" do
         expect(subject).to be_new_record
       end
-
     end
 
-    context "when create_if_missing is false and qid exists on the DB" do
-
+    context 'when create_if_missing is false and qid exists on the DB' do
       let!(:create_if_missing) { false }
 
       let!(:answer) { create(:answer, plan: plan, question: question) }
 
-      it "returns the existing Answer" do
+      it 'returns the existing Answer' do
         expect(subject).to eql(answer)
       end
-
     end
 
     context "when create_if_missing is false and qid doesn't exist on the DB" do
-
       let!(:create_if_missing) { false }
 
       let!(:answer) { nil }
 
-      it "returns nil" do
+      it 'returns nil' do
         expect(subject).to be_nil
       end
-
     end
   end
 
-  describe "#guidance_group_options" do
-
+  describe '#guidance_group_options' do
     let!(:plan) { create(:plan, :creator) }
 
     subject { plan.guidance_group_options }
@@ -649,30 +546,24 @@ describe Plan do
       @theme.guidances << @guidance
     end
 
-    context "when guidance groups are unpublished" do
-
+    context 'when guidance groups are unpublished' do
       before do
         @guidance_group.update(published: false)
       end
 
-      it "excludes the guidance group from options" do
+      it 'excludes the guidance group from options' do
         expect(subject).not_to include(@guidance_group)
       end
-
     end
 
-    context "when guidance groups are published" do
-
-      it "includes the guidance group in options" do
+    context 'when guidance groups are published' do
+      it 'includes the guidance group in options' do
         expect(subject).to include(@guidance_group)
       end
-
     end
-
   end
 
-  describe "#request_feedback" do
-
+  describe '#request_feedback' do
     subject { plan.request_feedback(user) }
 
     let!(:org)  { create(:org, contact_email: nil) }
@@ -684,7 +575,7 @@ describe Plan do
     before do
       # Create 2 Org admins for this Org.
       create_list(:user, 2, org: org).each do |user|
-        user.perms << Perm.where(name: "modify_guidance").first_or_create
+        user.perms << Perm.where(name: 'modify_guidance').first_or_create
       end
       ActionMailer::Base.deliveries = []
     end
@@ -699,24 +590,20 @@ describe Plan do
       expect { subject }.not_to change { ActionMailer::Base.deliveries.size }
     end
 
-    context "when org contact_email present" do
-
+    context 'when org contact_email present' do
       before do
         org.update!(contact_email: Faker::Internet.safe_email)
       end
 
-      it "emails the admins" do
+      it 'emails the admins' do
         expect { subject }.to change {
           ActionMailer::Base.deliveries.size
         }.by(1)
       end
-
     end
-
   end
 
-  describe "#complete_feedback" do
-
+  describe '#complete_feedback' do
     subject { plan.complete_feedback(user) }
 
     let!(:org)  { create(:org) }
@@ -750,172 +637,159 @@ describe Plan do
       expect { subject }.not_to change { ActionMailer::Base.deliveries.size }
     end
 
-    context "when user feedback provided pref is true" do
-
+    context 'when user feedback provided pref is true' do
       before do
         User.any_instance.stubs(:get_preferences)
             .returns(users: { feedback_provided: true })
       end
 
-      it "emails the owners" do
+      it 'emails the owners' do
         expect { subject }.to change {
           ActionMailer::Base.deliveries.size
         }.by(2)
       end
-
     end
-
   end
 
-  describe "#guidance_by_question_as_hash" do
-
-  end
-
-  describe "#editable_by?" do
-
+  describe '#editable_by?' do
     let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
-    it "when role is inactive" do
+    it 'when role is inactive' do
       role = subject.roles.editor.first
       role.deactivate!
       user = role.user
       expect(subject.editable_by?(user.id)).to eql(false)
     end
 
-    it "when user is a creator" do
+    it 'when user is a creator' do
       # All creators should be able to edit
       subject.roles.creator.pluck(:user_id).each do |user_id|
         expect(subject.editable_by?(user_id)).to eql(true)
       end
     end
 
-    it "when user is a administrator" do
+    it 'when user is a administrator' do
       # All administrators (aka coowners) should be able to edit
       subject.roles.administrator.pluck(:user_id).each do |user_id|
         expect(subject.editable_by?(user_id)).to eql(true)
       end
     end
 
-    it "when user is a editor" do
+    it 'when user is a editor' do
       # All editors should be able to edit
       subject.roles.editor.pluck(:user_id).each do |user_id|
         expect(subject.editable_by?(user_id)).to eql(true)
       end
     end
 
-    it "when user is a commenter" do
+    it 'when user is a commenter' do
       # Commenters should only be able to edit if they are also
       # a creator, administrator or editor
       subject.roles.commenter.each do |role|
         expect(subject.editable_by?(role.user.id)).to eql(role.editor?)
       end
     end
-
   end
 
-  describe "#readable_by?" do
-
+  describe '#readable_by?' do
     let!(:user) { create(:user, org: create(:org)) }
     let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
-    context "config allows for admin viewing" do
-
-      it "super admins" do
+    context 'config allows for admin viewing' do
+      it 'super admins' do
         Rails.configuration.x.plans.super_admins_read_all = true
-        user.perms << create(:perm, name: "add_organisations")
+        user.perms << create(:perm, name: 'add_organisations')
         expect(subject.readable_by?(user.id)).to eql(true)
       end
 
-      it "org admins" do
+      it 'org admins' do
         Rails.configuration.x.plans.org_admins_read_all = true
         user.org_id = plan.owner.org_id
         user.save
-        user.perms << create(:perm, name: "modify_guidance")
+        user.perms << create(:perm, name: 'modify_guidance')
         expect(subject.readable_by?(user.id)).to eql(true)
       end
     end
 
-    context "config does not allow admin viewing" do
-
+    context 'config does not allow admin viewing' do
       before(:each) do
         Rails.configuration.x.plans.org_admins_read_all = false
       end
 
-      it "super admins" do
+      it 'super admins' do
         Rails.configuration.x.plans.super_admins_read_all = false
-        user.perms << create(:perm, name: "add_organisations")
+        user.perms << create(:perm, name: 'add_organisations')
         expect(subject.readable_by?(user.id)).to eql(false)
       end
 
-      it "org admins" do
-        user.perms << create(:perm, name: "modify_guidance")
+      it 'org admins' do
+        user.perms << create(:perm, name: 'modify_guidance')
         expect(subject.readable_by?(user.id)).to eql(false)
       end
     end
 
-    context "non-admin user" do
-
-      it "when role is inactive" do
+    context 'non-admin user' do
+      it 'when role is inactive' do
         role = subject.roles.commenter.first
         role.deactivate!
         user = role.user
         expect(subject.readable_by?(user.id)).to eql(false)
       end
 
-      it "when user is a creator" do
+      it 'when user is a creator' do
         # All creators should be able to read
         subject.roles.creator.pluck(:user_id).each do |user_id|
           expect(subject.readable_by?(user_id)).to eql(true)
         end
       end
 
-      it "when user is a administrator" do
+      it 'when user is a administrator' do
         # All administrators should be able to read
         subject.roles.administrator.pluck(:user_id).each do |user_id|
           expect(subject.readable_by?(user_id)).to eql(true)
         end
       end
 
-      it "when user is a editor" do
+      it 'when user is a editor' do
         # All editors should be able to read
         subject.roles.editor.pluck(:user_id).each do |user_id|
           expect(subject.readable_by?(user_id)).to eql(true)
         end
       end
 
-      it "when user is a commenter" do
+      it 'when user is a commenter' do
         # All commenters should be able to read
         subject.roles.commenter.pluck(:user_id).each do |user_id|
           expect(subject.readable_by?(user_id)).to eql(true)
         end
       end
 
-      context "When user is a reviewer" do
+      context 'When user is a reviewer' do
         before do
           user.org = plan.owner.org
           user.save
           user.perms << create(:perm, :review_org_plans)
         end
 
-        it "when user is a reviewer and feedback requested" do
+        it 'when user is a reviewer and feedback requested' do
           # All reviewers of the same org should be able to comment
           plan.feedback_requested = true
           plan.save
           expect(subject.readable_by?(user.id)).to eql(true)
         end
 
-        it "when user is a reviewer and feedback not requested" do
+        it 'when user is a reviewer and feedback not requested' do
           Rails.configuration.x.plans.org_admins_read_all = false
           plan.feedback_requested = false
           plan.save
           expect(subject.readable_by?(user.id)).to eql(false)
         end
 
-        it "when user is a reviewer of a different org and feedback requested" do
+        it 'when user is a reviewer of a different org and feedback requested' do
           # reviewers of other orgs should have no access
           user.org = create(:org)
           user.save
@@ -926,7 +800,7 @@ describe Plan do
         end
       end
 
-      it "when user is not reviewer, has no roles on the plan and feedback requested" do
+      it 'when user is not reviewer, has no roles on the plan and feedback requested' do
         # All reviewers should be able to comment
         user.org = plan.owner.org
         user.save
@@ -936,11 +810,10 @@ describe Plan do
       end
     end
 
-    context "explicit sharing does not conflict with admin-viewing" do
-
-      it "super admins" do
+    context 'explicit sharing does not conflict with admin-viewing' do
+      it 'super admins' do
         Rails.configuration.x.plans.super_admins_read_all = false
-        user.perms << create(:perm, name: "add_organisations")
+        user.perms << create(:perm, name: 'add_organisations')
         role = subject.roles.commenter.first
         role.user_id = user.id
         role.save!
@@ -948,9 +821,9 @@ describe Plan do
         expect(subject.readable_by?(user.id)).to eql(true)
       end
 
-      it "org admins" do
+      it 'org admins' do
         Rails.configuration.x.plans.org_admins_read_all = false
-        user.perms << create(:perm, name: "modify_guidance")
+        user.perms << create(:perm, name: 'modify_guidance')
         role = subject.roles.commenter.first
         role.user_id = user.id
         role.save!
@@ -960,41 +833,40 @@ describe Plan do
     end
   end
 
-  describe "#commentable_by?" do
-
+  describe '#commentable_by?' do
     let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
-    it "when role is inactive" do
+    it 'when role is inactive' do
       role = subject.roles.commenter.first
       role.deactivate!
       user = role.user
       expect(subject.commentable_by?(user.id)).to eql(false)
     end
 
-    it "when user is a creator" do
+    it 'when user is a creator' do
       # All creators should be able to comment
       subject.roles.creator.pluck(:user_id).each do |user_id|
         expect(subject.commentable_by?(user_id)).to eql(true)
       end
     end
 
-    it "when user is a administrator" do
+    it 'when user is a administrator' do
       # All administrators should be able to comment
       subject.roles.administrator.pluck(:user_id).each do |user_id|
         expect(subject.commentable_by?(user_id)).to eql(true)
       end
     end
 
-    it "when user is a editor" do
+    it 'when user is a editor' do
       # All editors should be able to comment
       subject.roles.editor.pluck(:user_id).each do |user_id|
         expect(subject.commentable_by?(user_id)).to eql(true)
       end
     end
 
-    it "when user is a commenter" do
+    it 'when user is a commenter' do
       # All commenters should be able to comment
       subject.roles.commenter.pluck(:user_id).each do |user_id|
         expect(subject.commentable_by?(user_id)).to eql(true)
@@ -1003,27 +875,26 @@ describe Plan do
 
     let(:user) { create(:user) }
 
-    context "when user is a reviewer" do
-
+    context 'when user is a reviewer' do
       before do
         user.org = plan.owner.org
         user.save
         user.perms << create(:perm, :review_org_plans)
       end
-      it "of the same org and feedback requested" do
+      it 'of the same org and feedback requested' do
         # All reviewers of the same org should be able to comment
         plan.feedback_requested = true
         plan.save
         expect(subject.commentable_by?(user.id)).to eql(true)
       end
 
-      it "of the same org and feedback not requested" do
+      it 'of the same org and feedback not requested' do
         plan.feedback_requested = false
         plan.save
         expect(subject.commentable_by?(user.id)).to eql(false)
       end
 
-      it "of a different org and feedback requested" do
+      it 'of a different org and feedback requested' do
         # All reviewers of other orgs should not be able to comment
         user.org = create(:org)
         user.save
@@ -1033,10 +904,9 @@ describe Plan do
         plan.save
         expect(subject.commentable_by?(user.id)).to eql(false)
       end
-
     end
 
-    it "when user is not reviewer, has no roles on the plan and feedback requested" do
+    it 'when user is not reviewer, has no roles on the plan and feedback requested' do
       # All reviewers should be able to comment
       user.org = plan.owner.org
       user.save
@@ -1044,37 +914,35 @@ describe Plan do
       plan.save
       expect(subject.commentable_by?(user.id)).to eql(false)
     end
-
   end
 
-  describe "#administerable_by?" do
-
+  describe '#administerable_by?' do
     let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
-    it "when role is inactive" do
+    it 'when role is inactive' do
       role = subject.roles.administrator.first
       role.deactivate!
       user = role.user
       expect(subject.administerable_by?(user.id)).to eql(false)
     end
 
-    it "when user is a creator" do
+    it 'when user is a creator' do
       # All creators should be able to administer
       subject.roles.creator.pluck(:user_id).each do |user_id|
         expect(subject.administerable_by?(user_id)).to eql(true)
       end
     end
 
-    it "when user is a administrator" do
+    it 'when user is a administrator' do
       # All administrators should be able to administer
       subject.roles.administrator.pluck(:user_id).each do |user_id|
         expect(subject.administerable_by?(user_id)).to eql(true)
       end
     end
 
-    it "when user is a editor" do
+    it 'when user is a editor' do
       # Editors should only be able to administer if they are also
       # a creator or administrator
       subject.roles.editor.each do |role|
@@ -1082,17 +950,16 @@ describe Plan do
       end
     end
 
-    it "when user is a commenter" do
+    it 'when user is a commenter' do
       # Commenters should only be able to administer if they are also
       # a creator or administrator
       subject.roles.commenter.each do |role|
         expect(subject.administerable_by?(role.user.id)).to eql(role.administrator?)
       end
     end
-
   end
 
-  describe "#reviewable_by?" do
+  describe '#reviewable_by?' do
     let!(:plan) { build_plan(true, true, true) }
     let!(:user) { create(:user) }
 
@@ -1104,11 +971,11 @@ describe Plan do
 
     subject { plan }
 
-    it "when user is not a reviewer" do
+    it 'when user is not a reviewer' do
       expect(subject.reviewable_by?(user.id)).to eql(false)
     end
 
-    it "when user is a reviewer" do
+    it 'when user is a reviewer' do
       user.org = plan.owner.org
       user.save
       user.perms << Perm.review_plans
@@ -1117,17 +984,14 @@ describe Plan do
       expect(plan.feedback_requested?).to eql(true)
       expect(subject.reviewable_by?(user.id)).to eql(true)
     end
-
   end
 
-  describe "#latest_update" do
-
+  describe '#latest_update' do
     let!(:plan) { create(:plan, :creator, updated_at: 5.minutes.ago) }
 
     subject { plan.latest_update.to_i }
 
-    context "when plan updated_at is latest" do
-
+    context 'when plan updated_at is latest' do
       before do
         create_list(:phase, 2, template: plan.template,
                                updated_at: 6.minutes.ago)
@@ -1136,11 +1000,9 @@ describe Plan do
       it "returns the plan's updated_at value" do
         is_expected.to be_within(5.seconds).of(5.minutes.ago.to_i)
       end
-
     end
 
-    context "when plan has phases updated_at latest" do
-
+    context 'when plan has phases updated_at latest' do
       before do
         create_list(:phase, 2, template: plan.template)
       end
@@ -1148,52 +1010,45 @@ describe Plan do
       it "returns the plan's updated_at value" do
         is_expected.to be_within(5.seconds).of(Time.current.to_i)
       end
-
     end
-
   end
 
-  describe "#name" do
+  describe '#name' do
+    let!(:plan) { build(:plan, :creator, title: 'Foo bar') }
 
-    let!(:plan) { build(:plan, :creator, title: "Foo bar") }
-
-    it "returns the title" do
-      expect(plan.name).to eql("Foo bar")
+    it 'returns the title' do
+      expect(plan.name).to eql('Foo bar')
     end
-
   end
 
-  describe "#owner" do
-
+  describe '#owner' do
     let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
-    it "is the creator" do
+    it 'is the creator' do
       user = subject.roles.creator.first.user
       expect(subject.owner).to eql(user)
     end
 
-    it "is the administrator if there is no creator" do
+    it 'is the administrator if there is no creator' do
       subject.roles.creator.first.deactivate!
       user = subject.roles.where(active: true).administrator.first.user
       expect(subject.owner).to eql(user)
     end
-
   end
 
-  describe "#add_user" do
-
+  describe '#add_user' do
     let!(:user) { create(:user, org: create(:org)) }
     let!(:plan) { build_plan }
 
     subject { plan }
 
-    it "returns false if user does not exist" do
+    it 'returns false if user does not exist' do
       expect(subject.add_user!(326_465)).to eql(false)
     end
 
-    it "adds the creator" do
+    it 'adds the creator' do
       expect(subject.add_user!(user.id, :creator)).to eql(true)
       role = Role.find_by(user_id: user.id, plan_id: subject.id)
       expect(role.creator?).to eql(true)
@@ -1203,7 +1058,7 @@ describe Plan do
       expect(role.reviewer?).to eql(false)
     end
 
-    it "adds the administrator" do
+    it 'adds the administrator' do
       expect(subject.add_user!(user.id, :administrator)).to eql(true)
       role = Role.find_by(user_id: user.id, plan_id: subject.id)
       expect(role.creator?).to eql(false)
@@ -1213,7 +1068,7 @@ describe Plan do
       expect(role.reviewer?).to eql(false)
     end
 
-    it "adds the editor" do
+    it 'adds the editor' do
       expect(subject.add_user!(user.id, :editor)).to eql(true)
       role = Role.find_by(user_id: user.id, plan_id: subject.id)
       expect(role.creator?).to eql(false)
@@ -1223,7 +1078,7 @@ describe Plan do
       expect(role.reviewer?).to eql(false)
     end
 
-    it "adds the commenter" do
+    it 'adds the commenter' do
       expect(subject.add_user!(user.id, :commenter)).to eql(true)
       role = Role.find_by(user_id: user.id, plan_id: subject.id)
       expect(role.creator?).to eql(false)
@@ -1233,7 +1088,7 @@ describe Plan do
       expect(role.reviewer?).to eql(false)
     end
 
-    it "defaults to commenter if access_level is not a known symbol" do
+    it 'defaults to commenter if access_level is not a known symbol' do
       expect(subject.add_user!(user.id)).to eql(true)
       role = Role.find_by(user_id: user.id, plan_id: subject.id)
       expect(role.creator?).to eql(false)
@@ -1242,101 +1097,89 @@ describe Plan do
       expect(role.commenter?).to eql(true)
       expect(role.reviewer?).to eql(false)
     end
-
   end
 
-  describe "#shared?" do
-
-    it "is not shared if the only user is the creator" do
+  describe '#shared?' do
+    it 'is not shared if the only user is the creator' do
       plan = build_plan
       expect(plan.shared?).to eql(false)
     end
 
-    it "is shared if the plan has an administrator" do
+    it 'is shared if the plan has an administrator' do
       plan = build_plan(true, false, false)
       expect(plan.shared?).to eql(true)
     end
 
-    it "is shared if the plan has an editor" do
+    it 'is shared if the plan has an editor' do
       plan = build_plan(false, true, false)
       expect(plan.shared?).to eql(true)
     end
 
-    it "is shared if the plan has an commenter" do
+    it 'is shared if the plan has an commenter' do
       plan = build_plan(false, false, true)
       expect(plan.shared?).to eql(true)
     end
-
   end
 
-  describe "#owner_and_coowners" do
-
+  describe '#owner_and_coowners' do
     let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
-    it "includes the creator" do
+    it 'includes the creator' do
       user = subject.roles.creator.first.user
       expect(subject.owner_and_coowners).to include(user)
     end
 
-    it "includes the administrator" do
+    it 'includes the administrator' do
       user = subject.roles.administrator.first.user
       expect(subject.owner_and_coowners).to include(user)
     end
 
-    it "does not include the editor" do
+    it 'does not include the editor' do
       # Only if the editor is not also an administrator or creator
       subject.roles.editor.each do |role|
-        if !role.creator? && !role.administrator?
-          expect(subject.owner_and_coowners).to_not include(role.user)
-        end
+        expect(subject.owner_and_coowners).to_not include(role.user) if !role.creator? && !role.administrator?
       end
     end
 
-    it "does not include the commenter" do
+    it 'does not include the commenter' do
       # Only if the commenter is not also an administrator or creator
       subject.roles.commenter.each do |role|
-        if !role.creator? && !role.administrator?
-          expect(subject.owner_and_coowners).to_not include(role.user)
-        end
+        expect(subject.owner_and_coowners).to_not include(role.user) if !role.creator? && !role.administrator?
       end
     end
-
   end
 
-  describe ".authors" do
+  describe '.authors' do
     let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
-    it "includes the creator" do
+    it 'includes the creator' do
       user = subject.roles.creator.first.user
       expect(subject.authors).to include(user)
     end
 
-    it "includes the administrator" do
+    it 'includes the administrator' do
       user = subject.roles.administrator.first.user
       expect(subject.authors).to include(user)
     end
 
-    it "includes the editor" do
+    it 'includes the editor' do
       user = subject.roles.editor.first.user
       expect(subject.authors).to include(user)
     end
 
-    it "does not include the commenter" do
+    it 'does not include the commenter' do
       # Only if the commenter is not also an editor, administrator or creator
       subject.roles.commenter.each do |role|
-        if !role.creator? && !role.administrator? && !role.editor?
-          expect(subject.authors).to_not include(role.user)
-        end
+        expect(subject.authors).to_not include(role.user) if !role.creator? && !role.administrator? && !role.editor?
       end
     end
   end
 
-  describe "#percent_answered" do
-
+  describe '#percent_answered' do
     let!(:template) { create(:template) }
 
     let!(:plan) { create(:plan, :creator, template: template) }
@@ -1357,14 +1200,12 @@ describe Plan do
       end
     end
 
-    it "returns the percentage of questions with valid answers" do
+    it 'returns the percentage of questions with valid answers' do
       expect(subject.to_i).to eql(33)
     end
-
   end
 
-  describe "#num_questions" do
-
+  describe '#num_questions' do
     let!(:template) { create(:template) }
 
     let!(:plan) { create(:plan, :creator, template: template) }
@@ -1382,11 +1223,9 @@ describe Plan do
     it "returns the number of questions belonging to this plan's sections" do
       expect(subject).to eql(12)
     end
-
   end
 
-  describe "#visibility_allowed?" do
-
+  describe '#visibility_allowed?' do
     let!(:template) { create(:template) }
 
     let!(:plan) { create(:plan, :creator, template: template) }
@@ -1402,31 +1241,25 @@ describe Plan do
       end
     end
 
-    context "when requisite number of questions answered" do
-
+    context 'when requisite number of questions answered' do
       before do
         Rails.configuration.x.plans.default_percentage_answered = 75
       end
 
       it { is_expected.to eql(true) }
-
     end
 
-    context "when requisite number of questions not answered" do
-
+    context 'when requisite number of questions not answered' do
       before do
         Rails.configuration.x.plans.default_percentage_answered = 76
       end
 
       it { is_expected.to eql(false) }
     end
-
   end
 
-  describe "#question_exists?" do
-
-    context "when Question with ID and Plan exists" do
-
+  describe '#question_exists?' do
+    context 'when Question with ID and Plan exists' do
       let!(:question) { create(:question) }
 
       let!(:plan) { create(:plan, :creator, template: question.section.phase.template) }
@@ -1434,11 +1267,9 @@ describe Plan do
       subject { plan.question_exists?(question.id) }
 
       it { is_expected.to eql(true) }
-
     end
 
     context "when Question with ID and Plan don't exist" do
-
       let!(:question) { create(:question) }
 
       let!(:plan) { create(:plan, :creator) }
@@ -1446,41 +1277,33 @@ describe Plan do
       subject { plan.question_exists?(question.id) }
 
       it { is_expected.to eql(false) }
-
     end
-
   end
 
-  describe "#percent_answered" do
-
+  describe '#percent_answered' do
     let!(:template) { create(:template, phases: 1, sections: 1, questions: 1) }
 
     let!(:plan) { create(:plan, :creator, template: template) }
 
     subject { plan.percent_answered }
 
-    context "when has no answers" do
-
+    context 'when has no answers' do
       it { is_expected.to eql(0) }
-
     end
 
-    context "when has answers that are not valid" do
-
+    context 'when has answers that are not valid' do
       let!(:question) do
         create(:question, :textarea, section: template.phases.first.sections.first)
       end
 
       before do
-        create_list(:answer, 1, text: "", plan: plan, question: question)
+        create_list(:answer, 1, text: '', plan: plan, question: question)
       end
 
       it { is_expected.to eql(0) }
-
     end
 
-    context "when has answers that are valid" do
-
+    context 'when has answers that are valid' do
       let!(:question) do
         create(:question, :textarea, section: template.phases.first.sections.first)
       end
@@ -1490,37 +1313,36 @@ describe Plan do
       end
 
       it { is_expected.to eql(50.0) }
-
     end
   end
 
-  describe "#landing_page" do
+  describe '#landing_page' do
     let!(:plan) { create(:plan, :creator) }
 
-    it "returns nil if no DOI or ARK is available" do
+    it 'returns nil if no DOI or ARK is available' do
       expect(plan.landing_page).to eql(nil)
     end
-    it "returns the DOI if available" do
-      id = create(:identifier, identifiable: plan, value: "10.9999/123erge/45f")
+    it 'returns the DOI if available' do
+      id = create(:identifier, identifiable: plan, value: '10.9999/123erge/45f')
       plan.reload
       expect(plan.landing_page).to eql(id)
     end
-    it "returns the ARK if available" do
-      id = create(:identifier, identifiable: plan, value: "ark:10.9999/123")
+    it 'returns the ARK if available' do
+      id = create(:identifier, identifiable: plan, value: 'ark:10.9999/123')
       plan.reload
       expect(plan.landing_page).to eql(id)
     end
   end
 
-  describe "#grant association sanity checks" do
+  describe '#grant association sanity checks' do
     let!(:plan) { create(:plan, :creator) }
 
-    it "allows a grant identifier to be associated" do
+    it 'allows a grant identifier to be associated' do
       plan.grant = build(:identifier, identifier_scheme: nil)
       plan.save
       expect(plan.grant.new_record?).to eql(false)
     end
-    it "allows a grant identifier to be deleted" do
+    it 'allows a grant identifier to be deleted' do
       plan.grant = build(:identifier, identifier_scheme: nil)
       plan.save
       plan.grant = nil
@@ -1528,7 +1350,7 @@ describe Plan do
       expect(plan.grant).to eql(nil)
       expect(Identifier.last).to eql(nil)
     end
-    it "does not allow multiple grants on a single plan" do
+    it 'does not allow multiple grants on a single plan' do
       plan.grant = build(:identifier, identifier_scheme: nil)
       plan.save
       val = SecureRandom.uuid
@@ -1538,7 +1360,7 @@ describe Plan do
       expect(plan.grant.value).to eql(val)
       expect(Identifier.all.length).to eql(1)
     end
-    it "allows the same grant to be associated with different plans" do
+    it 'allows the same grant to be associated with different plans' do
       val = SecureRandom.uuid
       id = build(:identifier, identifier_scheme: nil, value: val)
       plan.grant = id
@@ -1551,15 +1373,15 @@ describe Plan do
     end
   end
 
-  describe "#grant association sanity checks" do
+  describe '#grant association sanity checks' do
     let!(:plan) { create(:plan, :creator) }
 
-    it "allows a grant identifier to be associated" do
+    it 'allows a grant identifier to be associated' do
       plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
       plan.save
       expect(plan.grant.new_record?).to eql(false)
     end
-    it "allows a grant identifier to be deleted" do
+    it 'allows a grant identifier to be deleted' do
       plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
       plan.save
       plan.grant = { value: nil }
@@ -1567,7 +1389,7 @@ describe Plan do
       expect(plan.grant).to eql(nil)
       expect(Identifier.last).to eql(nil)
     end
-    it "does not allow multiple grants on a single plan" do
+    it 'does not allow multiple grants on a single plan' do
       plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
       plan.save
       val = SecureRandom.uuid
@@ -1578,5 +1400,4 @@ describe Plan do
       expect(Identifier.all.length).to eql(1)
     end
   end
-
 end

@@ -1,10 +1,9 @@
 defaults: &defaults
-  adapter: mysql2
-  encoding: utf8mb4
+  adapter: <%= ENV["DATABASE_ADAPTER"] || Rails.application.secrets.database_adapter %>
+  encoding: <%= ENV["DATABASE_ENCODING"] || Rails.application.secrets.database_encoding %>
   pool: 16
-  # database: <%= ENV["MYSQL_DATABASE"] %>
-  username: <%= ENV["MYSQL_USER"] %>
-  password: <%= ENV["MYSQL_PASSWORD"] %>
+  username: <%= ENV["DATABASE_USER"] || Rails.application.secrets.database_user %>
+  password: <%= ENV["DATABASE_PASSWORD"] || Rails.application.secrets.database_password %>
   host: <%= ENV["DATABASE_URL"] || '127.0.0.1' %>
 
 development:

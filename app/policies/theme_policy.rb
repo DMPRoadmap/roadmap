@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
+# Security rules for editing themes
+# Note the method names here correspond with controller actions
 class ThemePolicy < ApplicationPolicy
-
-  def initialize(user, *_args)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-
-    @user = user
-  end
+  # NOTE: @user is the signed_in_user
 
   def index?
     @user.can_super_admin?
@@ -31,5 +28,4 @@ class ThemePolicy < ApplicationPolicy
   def destroy?
     @user.can_super_admin?
   end
-
 end

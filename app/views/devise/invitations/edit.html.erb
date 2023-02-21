@@ -32,9 +32,9 @@
         <%= render partial: @org_partial,
                    locals: {
                      form: f,
+                     orgs: @all_orgs,
                      default_org: nil,
-                     required: true,
-                     orgs: @all_orgs
+                     required: true
                    } %>
       </div>
       <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>

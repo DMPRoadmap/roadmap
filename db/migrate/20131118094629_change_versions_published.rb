@@ -5,11 +5,12 @@ class ChangeVersionsPublished < ActiveRecord::Migration[4.2]
     # Since we ultimately drop the Version model we must check for it before
     # attempting to manipulate data
     if table_exists?('versions')
-      Version.reset_column_information # make the new column available to model methods
-      Version.all.each do |v|
-        v.published_tmp = v.published == 't' ? true : false
-        v.save
-      end
+      # Commented out following to avoid NameError: uninitialized constant ChangeVersionsPublished::Version error
+      # Version.reset_column_information # make the new column available to model methods
+      # Version.all.each do |v|
+      #   v.published_tmp = v.published == 't' ? true : false
+      #   v.save
+      # end
     end
     
     remove_column :versions, :published

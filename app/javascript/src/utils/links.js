@@ -1,4 +1,7 @@
-import writtenNumber from 'written-number';
+// 3.1.0: /* global i18nLocale */... part is confirmed to be removed
+
+import 'number-to-text/converters/en-us';
+import { convertToText } from 'number-to-text/index';
 import { isFunction } from './isType';
 
 const getLinks = (elem) => $(elem).find('.link').map((i, el) => {
@@ -88,10 +91,7 @@ $(() => {
   $('.links').find('.max-number-links').each((i, el) => {
     const target = $(el);
     const max = target.closest('.links').attr('data-max-number-links');
-    /* global i18nLocale */
-    // defined in application.html.erb
-    const language = i18nLocale.split('-')[0];
-    target.text(writtenNumber(max, { lang: language }));
+    target.text(convertToText(max).toLowerCase());
   });
 });
 

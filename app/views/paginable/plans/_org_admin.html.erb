@@ -40,7 +40,7 @@
           <td><%= l(plan.created_at.to_date, formats: :short) %></td>
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td class="plan-visibility">
-            <%= sanitize(display_visibility(plan.visibility)) %>
+            <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
           </td>
         </tr>
       <% end %>

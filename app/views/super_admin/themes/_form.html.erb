@@ -14,7 +14,7 @@
      <% unless @theme.new_record? %>
        <%= link_to(_('Delete'), super_admin_theme_path(@theme), class: 'btn btn-default',
          rel: 'nofollow', 'data-method': 'delete',
-         'data-confirm': _("Are you sure you want to delete the theme \"%{title}\"?") % { title: _(@theme.title) }) %>
+         'data-confirm': _("Are you sure you want to delete the theme \"%{title}\"?") % { title: @theme.title }) %>
      <% end %>
      <%= link_to(_('Cancel'), super_admin_themes_path, class: 'btn btn-default', role: 'button') %>
    </div>

@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
-class Paginable::NotificationsController < ApplicationController
+module Paginable
+  # Controller for paginating/sorting/searching the notifications table
+  class NotificationsController < ApplicationController
+    include Paginable
 
-  include Paginable
-
-  # /paginable/notifications/index/:page
-  def index
-    authorize(Notification)
-    paginable_renderise(partial: "index", scope: Notification.all, format: :json)
+    # /paginable/notifications/index/:page
+    def index
+      authorize(Notification)
+      paginable_renderise(partial: 'index', scope: Notification.all, format: :json)
+    end
   end
-
 end

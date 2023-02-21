@@ -29,8 +29,7 @@
                  form: f,
                  orgs: orgs,
                  default_org: current_user.org,
-                 required: true,
-                 orgs: @orgs
+                 required: true
                } %>
   </div>
   <% if org_admin %>
@@ -67,9 +66,7 @@
     </div>
   <% end %>
 
-  <!-- SHIBBOLETH CREDENTIALS -->
   <% @identifier_schemes.each do |scheme| %>
-    <% next if scheme.name.downcase == 'shibboleth' && !Rails.application.config.shibboleth_enabled %>
     <div class="form-group col-xs-8">
       <% if scheme.name.downcase == 'shibboleth' %>
         <label class='control-label'>
