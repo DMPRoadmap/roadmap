@@ -1,32 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import BuilderForm from "../Builder/BuilderForm";
 import Select from "react-select";
-import {
-  checkRequiredForm,
-  deleteByIndex,
-  getLabelName,
-  parsePatern,
-} from "../../utils/GeneratorUtils";
+import { checkRequiredForm, deleteByIndex, getLabelName, parsePatern } from "../../utils/GeneratorUtils";
 import { Modal, Button } from "react-bootstrap";
 import { GlobalContext } from "../context/Global";
 import swal from "sweetalert";
 import toast from "react-hot-toast";
-import {
-  getRegistry,
-  getRegistryValue,
-  getSchema,
-} from "../../services/DmpServiceApi";
+import { getRegistry, getRegistryValue, getSchema } from "../../services/DmpServiceApi";
 
-function SelectWithCreate({
-  label,
-  registry,
-  name,
-  changeValue,
-  template,
-  keyValue,
-  level,
-  tooltip,
-}) {
+function SelectWithCreate({ label, registry, name, changeValue, template, keyValue, level, tooltip, header }) {
   const [list, setlist] = useState([]);
 
   const [show, setShow] = useState(false);
@@ -44,11 +26,9 @@ function SelectWithCreate({
       if (form[keyValue]) {
         const patern = el.to_string;
         if (patern.length > 0) {
-          Promise.all(form[keyValue].map((el) => parsePatern(el, patern))).then(
-            (listParsed) => {
-              setlist(listParsed);
-            }
-          );
+          Promise.all(form[keyValue].map((el) => parsePatern(el, patern))).then((listParsed) => {
+            setlist(listParsed);
+          });
         }
       }
     });
@@ -59,14 +39,8 @@ function SelectWithCreate({
     let isMounted = true;
     const createOptions = (data) => {
       return data.map((option) => ({
-        value:
-          lng === "fr"
-            ? option?.fr_FR || option?.label?.fr_FR
-            : option?.en_GB || option?.label?.en_GB,
-        label:
-          lng === "fr"
-            ? option?.fr_FR || option?.label?.fr_FR
-            : option?.en_GB || option?.label?.en_GB,
+        value: lng === "fr" ? option?.fr_FR || option?.label?.fr_FR : option?.en_GB || option?.label?.en_GB,
+        label: lng === "fr" ? option?.fr_FR || option?.label?.fr_FR : option?.en_GB || option?.label?.en_GB,
         object: option,
       }));
     };
@@ -115,26 +89,12 @@ function SelectWithCreate({
    */
   const handleChangeList = (e) => {
     const patern = registerFile.to_string;
-    const parsedPatern =
-      patern.length > 0 ? parsePatern(e.object, patern) : null;
-    const updatedList =
-      patern.length > 0 ? [...list, parsedPatern] : [...list, e.value];
+    const parsedPatern = patern.length > 0 ? parsePatern(e.object, patern) : null;
+    const updatedList = patern.length > 0 ? [...list, parsedPatern] : [...list, e.value];
     setlist(updatedList);
-    setselectObject(
-      patern.length > 0 ? [...selectObject, e.object] : selectObject
-    );
-    changeValue({
-      target: {
-        name: name,
-        value: patern.length > 0 ? [...selectObject, e.object] : e.value,
-      },
-    });
-    setform({
-      ...form,
-      [keyValue]: form[keyValue]
-        ? [...form[keyValue], ...[e.object]]
-        : [e.object],
-    });
+    setselectObject(patern.length > 0 ? [...selectObject, e.object] : selectObject);
+    changeValue({ target: { name: name, value: patern.length > 0 ? [...selectObject, e.object] : e.value } });
+    setform({ ...form, [keyValue]: form[keyValue] ? [...form[keyValue], ...[e.object]] : [e.object] });
   };
 
   /**
@@ -174,9 +134,7 @@ function SelectWithCreate({
 
     const checkForm = checkRequiredForm(registerFile, temp);
     if (checkForm) {
-      toast.error(
-        "Veuiller remplire le champs " + getLabelName(checkForm, registerFile)
-      );
+      toast.error("Veuiller remplire le champs " + getLabelName(checkForm, registerFile));
     } else {
       if (index !== null) {
         const deleteIndex = deleteByIndex(form[keyValue], index);
@@ -221,12 +179,7 @@ function SelectWithCreate({
       <div className="form-group">
         <label>{label}</label>
         {tooltip && (
-          <span
-            className="m-4"
-            data-toggle="tooltip"
-            data-placement="top"
-            title={tooltip}
-          >
+          <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
             ?
           </span>
         )}
@@ -238,57 +191,50 @@ function SelectWithCreate({
               name={name}
               //defaultValue={isEdit ? isEdit[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle."}
               defaultValue={{
-                label: temp
-                  ? temp[name]
-                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
-                value: temp
-                  ? temp[name]
-                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                label: temp ? temp[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                value: temp ? temp[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
               }}
             />
           </div>
           <div className="col-md-2">
-            <i
-              className="fas fa-plus-square text-primary icon-margin-top mt-3"
-              onClick={handleShow}
-            ></i>
+            <i className="fas fa-plus-square text-primary icon-margin-top mt-3" onClick={handleShow}></i>
           </div>
         </div>
 
-        <div style={{ margin: "20px 90px 20px 20px" }}>
-          {list &&
-            list.map((el, idx) => (
-              <div key={idx} className="row border">
-                <div className="col-md-10">
-                  <p className="border m-2"> {list[idx]} </p>
-                </div>
-                <div className="col-md-1">
-                  {level === 1 && (
-                    <i
-                      className="fa fa-edit icon-margin-top text-primary"
-                      aria-hidden="true"
-                      onClick={() => handleEdit(idx)}
-                    ></i>
-                  )}
-                </div>
-                <div className="col-md-1">
-                  <i
-                    className="fa fa-close icon-margin-top text-danger"
-                    aria-hidden="true"
-                    onClick={() => handleDeleteListe(idx)}
-                  ></i>
-                </div>
-              </div>
-            ))}
-        </div>
+        {form[keyValue] && list && (
+          <table style={{ marginTop: "20px" }} className="table table-bordered">
+            <thead>
+              {form[keyValue].length > 0 && header && (
+                <tr>
+                  <th scope="col">{header}</th>
+                  <th scope="col"></th>
+                </tr>
+              )}
+            </thead>
+            <tbody>
+              {form[keyValue].map((el, idx) => (
+                <tr key={idx}>
+                  <td scope="row">
+                    <p className="border m-2"> {list[idx]} </p>
+                  </td>
+                  <td style={{ width: "10%" }}>
+                    <div className="col-md-1">
+                      {level === 1 && <i className="fa fa-edit icon-margin-top text-primary" aria-hidden="true" onClick={() => handleEdit(idx)}></i>}
+                    </div>
+                    <div className="col-md-1">
+                      <i className="fa fa-times icon-margin-top text-danger" aria-hidden="true" onClick={() => handleDeleteListe(idx)}></i>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
       <>
         <Modal show={show} onHide={handleClose}>
           <Modal.Body>
-            <BuilderForm
-              shemaObject={registerFile}
-              level={level + 1}
-            ></BuilderForm>
+            <BuilderForm shemaObject={registerFile} level={level + 1}></BuilderForm>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>

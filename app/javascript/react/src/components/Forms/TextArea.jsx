@@ -7,15 +7,12 @@ import htmlToDraft from "html-to-draftjs";
 import { GlobalContext } from "../context/Global";
 
 function TextArea({ label, name, changeValue, tooltip }) {
-  const { temp } = useContext(GlobalContext);
+  const { form, temp } = useContext(GlobalContext);
   /* Setting the initial state of the editor. */
   useEffect(() => {
-    const blocksFromHtml = htmlToDraft(temp ? temp[name] : "<p></p>");
+    const blocksFromHtml = htmlToDraft(temp ? temp[name] : form[name] ? form[name] : "<p></p>");
     const { contentBlocks, entityMap } = blocksFromHtml;
-    const contentState = ContentState.createFromBlockArray(
-      contentBlocks,
-      entityMap
-    );
+    const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
     const editorStateDraft = EditorState.createWithContent(contentState);
     setEditorState(editorStateDraft);
   }, []);
@@ -28,9 +25,7 @@ function TextArea({ label, name, changeValue, tooltip }) {
    */
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
-    const description = draftToHtml(
-      convertToRaw(editorState.getCurrentContent())
-    );
+    const description = draftToHtml(convertToRaw(editorState.getCurrentContent()));
     changeValue({ target: { name: name, value: description } });
   };
 
@@ -41,12 +36,7 @@ function TextArea({ label, name, changeValue, tooltip }) {
         <div>
           <label className="form-label mb-0 mt-2 text-lg">{label}</label>
           {tooltip && (
-            <span
-              className="m-4"
-              data-toggle="tooltip"
-              data-placement="top"
-              title={tooltip}
-            >
+            <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
               ?
             </span>
           )}
@@ -60,6 +50,9 @@ function TextArea({ label, name, changeValue, tooltip }) {
             editorClassName="editorClassName"
             name={name}
             onEditorStateChange={onEditorStateChange}
+            // toolbar={{
+            //   options: ["inline", "blockType"],
+            // }}
           />
         </div>
       </div>

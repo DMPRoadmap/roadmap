@@ -4,7 +4,7 @@ import { GlobalContext } from "../context/Global";
 import swal from "sweetalert";
 import { getRegistry, getRegistryValue } from "../../services/DmpServiceApi";
 
-function SelectMultipleList({ label, registry, name, changeValue, tooltip }) {
+function SelectMultipleList({ label, registry, name, changeValue, tooltip, header }) {
   const [list, setlist] = useState([]);
   const [options, setoptions] = useState(null);
   const { temp, settemp, lng } = useContext(GlobalContext);
@@ -14,14 +14,8 @@ function SelectMultipleList({ label, registry, name, changeValue, tooltip }) {
     let isMounted = true;
     const createOptions = (data) => {
       return data.map((option) => ({
-        value:
-          lng === "fr"
-            ? option?.fr_FR || option?.label?.fr_FR
-            : option?.en_GB || option?.label?.en_GB,
-        label:
-          lng === "fr"
-            ? option?.fr_FR || option?.label?.fr_FR
-            : option?.en_GB || option?.label?.en_GB,
+        value: lng === "fr" ? option?.fr_FR || option?.label?.fr_FR : option?.en_GB || option?.label?.en_GB,
+        label: lng === "fr" ? option?.fr_FR || option?.label?.fr_FR : option?.en_GB || option?.label?.en_GB,
         object: option,
       }));
     };
@@ -97,12 +91,7 @@ function SelectMultipleList({ label, registry, name, changeValue, tooltip }) {
       <div className="form-group">
         <label>{label}</label>
         {tooltip && (
-          <span
-            className="m-4"
-            data-toggle="tooltip"
-            data-placement="top"
-            title={tooltip}
-          >
+          <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
             ?
           </span>
         )}
@@ -114,17 +103,14 @@ function SelectMultipleList({ label, registry, name, changeValue, tooltip }) {
               name={name}
               //defaultValue={isEdit ? isEdit[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle."}
               defaultValue={{
-                label: temp
-                  ? temp[name]
-                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
-                value: temp
-                  ? temp[name]
-                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                label: temp ? temp[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                value: temp ? temp[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
               }}
             />
           </div>
         </div>
         <div style={{ margin: "20px 30px 20px 20px" }}>
+          {header && <p>{header}</p>}
           {list &&
             list.map((el, idx) => (
               <div key={idx} className="row border">
@@ -132,11 +118,7 @@ function SelectMultipleList({ label, registry, name, changeValue, tooltip }) {
                   <p className="border m-2"> {list[idx]} </p>
                 </div>
                 <div className="col-md-1">
-                  <i
-                    className="fa fa-close icon-margin-top text-danger"
-                    aria-hidden="true"
-                    onClick={() => handleDeleteListe(idx)}
-                  ></i>
+                  <i className="fa fa-times icon-margin-top text-danger" aria-hidden="true" onClick={() => handleDeleteListe(idx)}></i>
                 </div>
               </div>
             ))}

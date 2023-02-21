@@ -8,6 +8,8 @@ import SelectMultipleList from "../Forms/SelectMultipleList";
 import SelectSingleList from "../Forms/SelectSingleList";
 import SelectWithCreate from "../Forms/SelectWithCreate";
 import listContributor from "../../data/contributor.json";
+import SelectFunder from "../Forms/SelectFunder";
+import TinyArea from "../Forms/TinyArea";
 
 function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
   const objectProp = shemaObject.properties;
@@ -101,6 +103,7 @@ function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
                 template={value.items.template_name}
                 level={level}
                 keyValue={key}
+                header={value["table_header@fr_FR"]}
               ></SelectWithCreate>
             );
           } else {
@@ -120,7 +123,6 @@ function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
           // si on a type === array et items.type === object
           if (value.items.type === "object") {
             if (key === "contributor" && value.items.class === "Contributor") {
-              //console.log("TODO : condition contributor à voir");
               data.push(
                 <SelectContributor
                   label={label}
@@ -128,10 +130,11 @@ function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
                   key={key}
                   arrayList={listContributor}
                   changeValue={changeValue}
-                  template={"PersonStandard"}
+                  registry={value.items.template_name}
                   keyValue={key}
                   level={level}
                   tooltip={tooltip}
+                  header={value["table_header@fr_FR"]}
                 ></SelectContributor>
               );
             } else {
@@ -143,6 +146,7 @@ function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
                   template={value.items.template_name}
                   keyValue={key}
                   level={level}
+                  header={value["table_header@fr_FR"]}
                 ></ModalTemplate>
               );
             }
@@ -162,7 +166,6 @@ function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
       // condition 3
       if (value.type === "object") {
         // condition 3.1
-
         if (value.hasOwnProperty("template_name")) {
           //console.log(" Sous fragment unique (sous formulaire)");
           if (value.inputType === "pickOrCreate") {
@@ -176,6 +179,23 @@ function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
                 keyValue={key}
                 level={level}
               ></ModalTemplate>
+            );
+          }
+
+          if (value.class === "Contributor") {
+            //console.log("TODO : condition funder à voir");
+            data.push(
+              <SelectFunder
+                label={label}
+                name={key}
+                key={key}
+                arrayList={listContributor}
+                changeValue={changeValue}
+                registry={value.template_name}
+                keyValue={key}
+                level={level}
+                tooltip={tooltip}
+              ></SelectFunder>
             );
           }
         }
