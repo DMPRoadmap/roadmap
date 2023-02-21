@@ -20,7 +20,6 @@ class ApplicationRecord < ActiveRecord::Base
 
     # Generates the appropriate where clause for a JSON field based on the DB type
     def safe_json_where_clause(column:, hash_key:)
-      p mysql_db?
       return "(#{column}->>'#{hash_key}' LIKE ?)" if postgres_db?
 
       # return "#{column} LIKE ?)" if maria_db?
