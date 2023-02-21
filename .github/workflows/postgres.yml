@@ -42,6 +42,7 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         cache: 'yarn'
+        node-version: 16
 
     # Install the Postgres developer packages
     - name: 'Install Postgresql Packages'

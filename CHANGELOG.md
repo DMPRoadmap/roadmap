@@ -5,6 +5,7 @@
 - Added CHANGELOG.md and Danger Github Action [#3257](https://github.com/DMPRoadmap/roadmap/issues/3257)
 - Added validation with custom error message in research_output.rb to ensure a user does not enter a very large value as 'Anticipated file size'. [#3161](https://github.com/DMPRoadmap/roadmap/issues/3161)
 - Added popover for org profile page and added explanation for public plan
+
 ### Fixed
 
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
@@ -19,3 +20,5 @@
 
 - Added scss files to EditorConfig
 - Change csv file name for statistics from 'Completed' to 'Created'
+- Added lib tasks as exclusive from debugger rubocop check after rubocop upgrading to >= v1.45 [#3291](https://github.com/DMPRoadmap/roadmap/issues/3291)
+- Added node version specification (v16) to eslint, PostgreSQL and MySQL github action to eliminate `digital routine enveloped` error [#319](https://github.com/portagenetwork/roadmap/issues/319)
