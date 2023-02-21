@@ -126,6 +126,9 @@
 
 - Fixed some potential PDF downloading problems
 
+- Updated Github Actions to use specified node version [#319](https://github.com/portagenetwork/roadmap/issues/319)
+
+
 ## [3.0.4+portage-3.0.16] - 2022-12-14
 
 ### Changed
