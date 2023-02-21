@@ -25,7 +25,6 @@ if defined?(Rollbar)
     config.person_username_method = 'id_as_hash'
     config.person_email_method = 'id_as_hash'
 
-
     # Read GDPR guidelines here: https://docs.rollbar.com/docs/ruby#section-gdpr-hipaa
     config.collect_user_ip = true
     config.anonymize_user_ip = true

@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
+# Helper class for displaying identifiers
 class IdentifierPresenter
-
-  attr_reader :schemes
-  attr_reader :identifiable
+  attr_reader :schemes, :identifiable
 
   def initialize(identifiable:)
     @identifiable = identifiable
@@ -25,6 +24,8 @@ class IdentifierPresenter
 
   private
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def load_schemes
     # Load the schemes for the current context
     schemes = IdentifierScheme.for_orgs if @identifiable.is_a?(Org)
@@ -38,9 +39,10 @@ class IdentifierPresenter
     # a curated list of Orgs that can use institutional login
     if @identifiable.is_a?(Org) &&
        !Rails.configuration.x.shibboleth.use_filtered_discovery_service
-      schemes = schemes.reject { |scheme| scheme.name.downcase == "shibboleth" }
+      schemes = schemes.reject { |scheme| scheme.name.downcase == 'shibboleth' }
     end
     schemes
   end
-
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

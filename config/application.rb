@@ -6,18 +6,15 @@ require 'csv'
 require 'nulldb/rails'
 require_relative "boot"
 
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module DMPRoadmap
-
+  # DMP Assistant application
   class Application < Rails::Application
-
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
-
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -38,6 +35,9 @@ module DMPRoadmap
     config.action_view.sanitized_allowed_tags = %w[
       p br strong em a table thead tbody tr td th tfoot caption ul ol li
     ]
+    # CVE-2022-32224: add some compatibility with YAML.safe_load
+    # Rails 5,6,7 are using YAML.safe_load as the default YAML deserializer
+    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol, Date, Time]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -52,7 +52,7 @@ module DMPRoadmap
     config.action_controller.include_all_helpers = true
 
     # Set the default host for mailer URLs
-    config.action_mailer.default_url_options = { :host => Rails.application.secrets.mailer_default_host }
+    config.action_mailer.default_url_options = { host: Rails.application.secrets.mailer_default_host }
 
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
@@ -76,9 +76,7 @@ module DMPRoadmap
     # config.active_record.raise_in_transactional_callbacks = true
 
     # Load Branded terminology (e.g. organization name, application name, etc.)
-    if File.exists?(Rails.root.join('config/branding.yml'))
-      config.branding = config_for(:branding).deep_symbolize_keys
-    end
+    config.branding = config_for(:branding).deep_symbolize_keys if File.exist?(Rails.root.join('config/branding.yml'))
 
     # The default visibility setting for new plans
     #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
@@ -101,9 +99,7 @@ module DMPRoadmap
     # specific funder. The view for choosing a funder when creating a plan
     # removed the option for selecting a funder. A funder is needed to show the
     # customized templates. For this reason we are specifying in the
-    # documentation the funder that 
+    # documentation the funder that
     config.default_funder_name = Rails.application.secrets.default_funder_name
-
   end
-
 end

@@ -7,9 +7,7 @@
       <%= link_to _('Deselect all'), '#', id: 'deselect_all' %>
     </p>
 
-    <p class="form-control-static">
-      <strong> <%= _('All Users') %> </strong>
-    </p>
+    <p class="form-control-static"><%= _('All Users') %></p>
     <div class="checkbox">
       <label>
         <%= check_box_tag 'user[prefs][users][new_comment]', true, @prefs[:users][:new_comment] %><%= _('A new comment has been added to my DMP')  %>
@@ -38,9 +36,7 @@
       </div>
     <% end %>
 
-    <p class="form-control-static">
-      <strong><%= _('DMP owners and co-owners') %> </strong>
-    </p>
+    <p class="form-control-static"><strong><%= _('DMP owners and co-owners') %></strong></p>
 
     <div class="checkbox">
       <label>

@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 # == Schema Information
@@ -33,10 +32,9 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
+# Object that represents a DMP template
 # rubocop:disable Metrics/ClassLength
-
 class Template < ApplicationRecord
-
   include GlobalHelpers
   extend UniqueRandom
 
@@ -48,14 +46,13 @@ class Template < ApplicationRecord
   # template should also always be publicly_visible.
   enum visibility: %i[organisationally_visible publicly_visible]
 
-  VISIBILITY_ORDER = %i[organisationally_visible publicly_visible]
-
   # Stores links as an JSON object:
   # {funder: [{"link":"www.example.com","text":"foo"}, ...],
   #  sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
   #
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
+  attribute :links, :text, default: { funder: [], sample_plan: [] }
   serialize :links, JSON
 
   attribute :published, :boolean, default: false
@@ -64,10 +61,7 @@ class Template < ApplicationRecord
   attribute :version, :integer, default: 0
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
-  attribute :links, :text, default: { funder: [], sample_plan: [] }
-  # TODO: re-add visibility setting? (this is handled in org_admin/create and
-  # relies on the org_id in the current callback-form)
-  attribute :visibility, :integer, default: 0
+  attribute :visibility, default: Template.visibilities[:organisationally_visible]
 
   # ================
   # = Associations =
@@ -140,7 +134,7 @@ class Template < ApplicationRecord
               .joins(<<~SQL)
                 INNER JOIN templates ON current.version = templates.version
                   AND current.family_id = templates.family_id
-                INNER JOIN orgs orgs_latest ON orgs_latest.id = templates.org_id
+                INNER JOIN orgs ON orgs.id = templates.org_id
               SQL
   }
 
@@ -153,7 +147,7 @@ class Template < ApplicationRecord
       .joins(<<~SQL)
         INNER JOIN templates ON current.version = templates.version
           AND current.customization_of = templates.customization_of
-        INNER JOIN orgs org_customized ON org_customized.id = templates.org_id
+        INNER JOIN orgs ON orgs.id = templates.org_id
       SQL
       .where(templates: { org_id: org_id })
   }
@@ -174,7 +168,7 @@ class Template < ApplicationRecord
     family_ids = families(org_id).pluck(:family_id)
     latest_customized_version(family_ids, org_id)
   }
-  
+
   # Retrieves templates with distinct family_id. It can be filtered down if
   # org_id is passed
   scope :families, lambda { |org_id = nil|
@@ -189,21 +183,11 @@ class Template < ApplicationRecord
   # default template)
   scope :latest_customizable, lambda {
     funder_ids = Org.funder.pluck(:id)
-    # Make sure we include the default template
-
-    # family_ids = families(funder_ids).distinct
-    #                                  .pluck(:family_id) + [default.family_id]
-
-    # published(family_ids.uniq)
-    #   .where("visibility = :visibility",
-    #          visibility: visibilities[:publicly_visible])
-
-       funder_ids = Org.funder.pluck(:id)
-       family_ids = families(funder_ids).distinct
-                                        .pluck(:family_id) + [default.family_id]
-       published(family_ids.uniq)
-         .where("visibility = :visibility OR is_default = :is_default",
-                visibility: visibilities[:publicly_visible], is_default: true)
+    family_ids = families(funder_ids).distinct
+                                     .pluck(:family_id) + [default.family_id]
+    published(family_ids.uniq)
+      .where('visibility = :visibility OR is_default = :is_default',
+             visibility: visibilities[:publicly_visible], is_default: true)
   }
 
   # Retrieves unarchived templates with public visibility
@@ -218,19 +202,21 @@ class Template < ApplicationRecord
     unarchived.where(visibility: visibilities[:organisationally_visible])
   }
 
-    # Retrieves unarchived templates whose title or org.name includes the term
-  # passed
+  # Retrieves unarchived templates whose title or org.name includes the term
+  # passed(We use search_term_orgs as alias for orgs to avoid issues with
+  # any orgs table join already present in loaded unarchived.)
   scope :search, lambda { |term|
-    unarchived.joins(<<~SQL)
-      LEFT JOIN orgs orgs_search ON templates.org_id = orgs_search.id
-    SQL
-    .where("lower(templates.title) LIKE lower(:term) OR " +
-                     "lower(orgs_search.name) LIKE lower(:term)",
-                     term: "%#{term}%")
+    unarchived
+      .joins(<<~SQL)
+        JOIN orgs AS search_term_orgs ON search_term_orgs.id = templates.org_id
+      SQL
+      .where('lower(templates.title) LIKE lower(:term)' \
+             'OR lower(search_term_orgs.name) LIKE lower(:term)',
+             term: "%#{term}%")
   }
 
   # defines the export setting for a template object
-  has_settings :export, class_name: "Settings::Template" do |s|
+  has_settings :export, class_name: 'Settings::Template' do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
 
@@ -262,7 +248,7 @@ class Template < ApplicationRecord
     elsif template.latest? && !template.generate_version?
       template
     else
-      raise _("A historical template cannot be retrieved for being modified")
+      raise _('A historical template cannot be retrieved for being modified')
     end
   end
 
@@ -272,14 +258,14 @@ class Template < ApplicationRecord
   # Template::latest_version scope method for an adequate instantiation of
   # template instances.
   def self.latest_version_per_family(family_id = nil)
-    chained_scope = unarchived.select("MAX(version) AS version", :family_id)
+    chained_scope = unarchived.select('MAX(version) AS version', :family_id)
     chained_scope = chained_scope.where(family_id: family_id) if family_id.present?
     chained_scope.group(:family_id)
   end
 
   def self.latest_customized_version_per_customised_of(customization_of = nil,
                                                        org_id = nil)
-    chained_scope = select("MAX(version) AS version", :customization_of)
+    chained_scope = select('MAX(version) AS version', :customization_of)
     chained_scope = chained_scope.where(customization_of: customization_of)
     chained_scope = chained_scope.where(org_id: org_id) if org_id.present?
     chained_scope.group(:customization_of)
@@ -303,7 +289,8 @@ class Template < ApplicationRecord
   # Creates a copy of the current template
   # raises ActiveRecord::RecordInvalid when save option is true and validations
   # fails.
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def deep_copy(attributes: {}, **options)
     copy = dup
     if attributes.respond_to?(:each_pair)
@@ -336,7 +323,8 @@ class Template < ApplicationRecord
 
     copy
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # Retrieves the template's org or the org of the template this one is derived
   # from of it is a customization
@@ -352,7 +340,7 @@ class Template < ApplicationRecord
   #
   # Returns Boolean
   def latest?
-    id == Template.latest_version(family_id).pluck("templates.id").first
+    id == Template.latest_version(family_id).pluck('templates.id').first
   end
 
   # Determines whether or not a new version should be generated
@@ -363,7 +351,7 @@ class Template < ApplicationRecord
   # Determines whether or not a customization for the customizing_org passed
   # should be generated
   def customize?(customizing_org)
-    if customizing_org.is_a?(Org) && (org.funder? || is_default)
+    if customizing_org.is_a?(Org) && (org.funder_only? || is_default)
       return !Template.unarchived.where(customization_of: family_id,
                                         org: customizing_org).exists?
     end
@@ -371,9 +359,9 @@ class Template < ApplicationRecord
   end
 
   # Determines whether or not a customized template should be upgraded
-  def upgrade_customization? 
+  def upgrade_customization?
     return false unless customization_of?
-    
+
     funder_template = Template.published(customization_of).select(:created_at).first
     return false unless funder_template.present?
 
@@ -395,49 +383,42 @@ class Template < ApplicationRecord
   # for the specified org
   def generate_copy!(org)
     # Assume customizing_org is persisted
-    raise _("generate_copy! requires an organisation target") unless org.is_a?(Org)
+    raise _('generate_copy! requires an organisation target') unless org.is_a?(Org)
 
-    template = deep_copy(
+    deep_copy(
       attributes: {
         version: 0,
         published: false,
         family_id: new_family_id,
         org: org,
         is_default: false,
-        title: _("Copy of %{template}") % { template: title }
+        title: format(_('Copy of %{template}'), template: title)
       }, modifiable: true, save: true
     )
-    template
   end
 
   # Generates a new copy of self with an incremented version number
   def generate_version!
-    raise _("generate_version! requires a published template") unless published
+    raise _('generate_version! requires a published template') unless published
 
-    template = deep_copy(
-        attributes: {
+    deep_copy(
+      attributes: {
         version: version + 1,
         published: false,
         org: org
-        }, save: true
+      }, save: true
     )
-    template
   end
-  
-  
+
   # Generates a new copy of self for the specified customizing_org
   def customize!(customizing_org)
     # Assume customizing_org is persisted
-    unless customizing_org.is_a?(Org)
-      raise ArgumentError, _("customize! requires an organisation target")
-    end
+    raise ArgumentError, _('customize! requires an organisation target') unless customizing_org.is_a?(Org)
 
     # Assume self has org associated
-    unless org.funder? || is_default
-      raise ArgumentError, _("customize! requires a template from a funder")
-    end
+    raise ArgumentError, _('customize! requires a template from a funder') if !org.funder_only? && !is_default
 
-    customization = deep_copy(
+    deep_copy(
       attributes: {
         version: 0,
         published: false,
@@ -448,7 +429,6 @@ class Template < ApplicationRecord
         is_default: false
       }, modifiable: false, save: true
     )
-    customization
   end
 
   # Generates a new copy of self including latest changes from the funder this
@@ -466,54 +446,54 @@ class Template < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def publishability
-    error = ""
+    error = ''
     publishable = true
     # template must be the most recent draft
     if published
-      error += _("You can not publish a published template.  ")
+      error += _('You can not publish a published template.  ')
       publishable = false
     end
-    unless latest? 
-      error += _("You can not publish a historical version of this template. ")
-      publishable = false 
+    unless latest?
+      error += _('You can not publish a historical version of this template.  ')
+      publishable = false
       # all templates have atleast one phase
     end
-    if phases.count <= 0 
-      error += _("You can not publish a template without phases. ")
-      publishable = false 
+    if phases.count <= 0
+      error += _('You can not publish a template without phases.  ')
+      publishable = false
       # all phases must have atleast 1 section
     end
-    unless phases.map { |p| p.sections.count.positive? }.reduce(true) { |fin, val| fin and val }
-      error += _("You can not publish a template without sections in a phase. ")
+    unless phases.map { |p| p.sections.count.positive? }.reduce(true) { |fin, val| fin && val }
+      error += _('You can not publish a template without sections in a phase.  ')
       publishable = false
       # all sections must have atleast one question
     end
-    unless sections.map { |s| s.questions.count.positive? }.reduce(true) { |fin, val| fin and val }
-      error += _("You can not publish a template without questions in a section.  ")
+    unless sections.map { |s| s.questions.count.positive? }.reduce(true) { |fin, val| fin && val }
+      error += _('You can not publish a template without questions in a section.  ')
       publishable = false
     end
     if invalid_condition_order
-      error += _("Conditions in the template refer backwards")
+      error += _('Conditions in the template refer backwards')
       publishable = false
     end
     [publishable, error]
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # TODO: refactor to use UniqueRandom
   # Generate a new random family identifier
   def self.new_family_id
-    family_id = loop do
+    loop do
       random = rand 2_147_483_647
       break random unless Template.exists?(family_id: random)
     end
-    family_id
   end
 
   private
-    
+
   # ============================
   # = Private instance methods =
   # ============================
@@ -537,7 +517,7 @@ class Template < ApplicationRecord
       next unless question.option_based?
 
       question.conditions.each do |condition|
-        next unless condition.action_type == "remove"
+        next unless condition.action_type == 'remove'
 
         condition.remove_data.each do |rem_id|
           rem_question = Question.find(rem_id.to_s)
@@ -552,5 +532,5 @@ class Template < ApplicationRecord
     question1.section.number < question2.section.number ||
       (question1.section.number == question2.section.number && question1.number < question2.number)
   end
-
 end
+# rubocop:enable Metrics/ClassLength

@@ -9,8 +9,6 @@ import 'tinymce/plugins/autoresize';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/paste';
 import 'tinymce/plugins/advlist';
-import 'tinymce-i18n/langs/en_CA';
-import 'tinymce-i18n/langs/fr_FR';
 
 // Other dependencies
 import { isObject, isString } from './isType';
@@ -31,7 +29,7 @@ export const defaultOptions = {
   target_list: false,
   elementpath: false,
   resize: true,
-  min_height: 230,
+  autoresize_min_height: 230,
   autoresize_bottom_margin: 10,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
@@ -48,7 +46,6 @@ export const defaultOptions = {
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
   skin_url: '/tinymce/skins/lightgray',
-  // content_css: '/tinymce/skins/lightgray/content.min.css'
   content_css: ['/tinymce/tinymce.css'],
 };
 /*
@@ -108,9 +105,9 @@ export const Tinymce = {
     let myDefaultOptions = $.extend(true, {language: tinymceLocale}, defaultOptions)
     
     if (isObject(options)) {
-      tinymce.init($.extend(true, myDefaultOptions, options)).then(resizeEditors);
+      tinymce.init($.extend(true, defaultOptions, options)).then(resizeEditors);
     } else {
-      tinymce.init(myDefaultOptions).then(resizeEditors);
+      tinymce.init(defaultOptions).then(resizeEditors);
     }
 
     // Connect the label to the Tinymce iframe

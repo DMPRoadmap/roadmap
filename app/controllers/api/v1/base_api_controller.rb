@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     # Base API Controller
     class BaseApiController < ApplicationController
-
       # Skipping the standard Rails authenticity tokens passed in UI
       skip_before_action :verify_authenticity_token
 
@@ -26,14 +23,14 @@ module Api
 
       # GET /api/v1/heartbeat
       def heartbeat
-        render "/api/v1/heartbeat", status: :ok
+        render '/api/v1/heartbeat', status: :ok
       end
 
       protected
 
       def render_error(errors:, status:)
         @payload = { errors: [errors] }
-        render "/api/v1/error", status: status
+        render '/api/v1/error', status: status
       end
 
       private
@@ -63,12 +60,14 @@ module Api
       # Retrieve the requested pagination params or use defaults
       # only allow 100 per page as the max
       def pagination_params
-        @page = params.fetch("page", 1).to_i
-        @per_page = params.fetch("per_page", 20).to_i
-        @per_page = 100 if @per_page > 100
+        max_per_page = Rails.configuration.x.application.api_max_page_size
+        @page = params.fetch('page', 1).to_i
+        @per_page = params.fetch('per_page', max_per_page).to_i
+        @per_page = max_per_page if @per_page > max_per_page
       end
 
       # Parse the body of the incoming request
+      # rubocop:disable Metrics/AbcSize
       def parse_request
         return false unless request.present? && request.body.present?
 
@@ -78,10 +77,11 @@ module Api
         rescue JSON::ParserError => e
           Rails.logger.error "JSON Parser: #{e.message}"
           Rails.logger.error request.body
-          render_error(errors: _("Invalid JSON format"), status: :bad_request)
+          render_error(errors: _('Invalid JSON format'), status: :bad_request)
           false
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       # ==========================
 
@@ -189,9 +189,6 @@ module Api
            storage_type availability geo_location certified_with pid_system] +
           [host_ids: identifier_permitted_params]
       end
-
     end
-
   end
-
 end

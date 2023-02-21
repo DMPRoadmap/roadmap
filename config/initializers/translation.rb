@@ -1,31 +1,40 @@
+# frozen_string_literal: true
+
 ## TODO Verify functionality after merging
+
+# # Control ignored source paths
+# # Note, all prefixes of the directory you want to translate must be defined here
+def ignore_paths
+  Dir['**/'] - Dir['app/**/']
+end
 
 TranslationIO.configure do |config|
   config.api_key        = Rails.application.secrets.translation_io_api_key
   config.source_locale  = 'en'
-  config.target_locales = ['en-CA', 'en-GB', 'fr-CA']
-  
+  config.target_locales = %w[en-CA en-GB fr-CA]
+  config.ignored_source_paths = ignore_paths
+  config.disable_yaml         = true
+
   # Uncomment this if you don't want to use gettext
   # config.disable_gettext = true
 
   # Uncomment this if you already use gettext or fast_gettext
   config.locales_path = File.join('config', 'locale')
   config.db_fields = {
-    'Theme' => ['title', 'description'],
-    'QuestionFormat' => ['title', 'description'],
-    'Template' => ['title', 'description'],
-    'Phase' => ['title', 'description'],
-    'Section' => ['title', 'description'],
-    'Question' => ['text', 'default_value'],
+    'Theme' => %w[title description],
+    'QuestionFormat' => %w[title description],
+    'Template' => %w[title description],
+    'Phase' => %w[title description],
+    'Section' => %w[title description],
+    'Question' => %w[text default_value],
     'Annotation' => ['text']
   }
-
   # Find other useful usage information here:
   # https://github.com/translation/rails#readme
 end
 
 I18n.enforce_available_locales = false
-I18n.default_locale = :"en-CA"
+I18n.default_locale = :'en-CA'
 
 # frozen_string_literal: true
 
@@ -61,28 +70,10 @@ I18n.default_locale = :"en-CA"
 #   end
 # end
 
-# # Control ignored source paths
-# # Note, all prefixes of the directory you want to translate must be defined here
-# def ignore_paths
-#   Dir.glob("**/*").select { |f| File.directory? f }
-#      .collect { |name| "#{name}/" }
-#   - ["app/",
-#      "app/views/",
-#      "app/views/branded/",
-#      "app/views/branded/public_pages/",
-#      "app/views/branded/home/",
-#      "app/views/branded/contact_us/",
-#      "app/views/branded/contact_us/contacts/",
-#      "app/views/branded/shared/",
-#      "app/views/branded/layouts/",
-#      "app/views/branded/static_pages/"]
-# end
-
 # # Setup languages
-# # rubocop:disable Style/RescueModifier
+#
 # table = ActiveRecord::Base.connection.table_exists?("languages") rescue false
-# # rubocop:enable Style/RescueModifier
-# if table
+# # if table
 #   def default_locale
 #     Language.default.try(:abbreviation) || "en-GB"
 #   end

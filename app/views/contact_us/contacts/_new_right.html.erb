@@ -7,7 +7,7 @@
       Rails.configuration.x.organisation.address.fetch(:line4, ""),
       Rails.configuration.x.organisation.address.fetch(:country, "")].compact.each do |addr_line| %>
 <% if addr_line.present? %>
-    <%= addr_line %><br>
+  <%= addr_line.is_a?(Array) ? addr_line.join(' ') : addr_line %><br>
 <% end %>
 <% end %>
 </address>

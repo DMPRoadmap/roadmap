@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module TemplateHelper
-
   def build_template(nbr_phases = 0, nbr_sections = 0, nbr_questions = 0)
     template = create(:template, phases: nbr_phases)
 
@@ -15,5 +14,4 @@ module TemplateHelper
     end
     template
   end
-
 end

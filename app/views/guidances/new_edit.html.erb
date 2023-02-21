@@ -26,13 +26,10 @@ end
         <%= f.text_area :text, rows: 10, class: "form-control", spellcheck: true,
                         aria: { required: true } %>
       </div>
-      <!-- THEMES -->
-      
       <%= render partial: 'org_admin/shared/theme_selector',
-                 locals: { f: f, all_themes: Theme.sorted_by_translated_title, as_radio: false, required: true,
+                 locals: { f: f, all_themes: Theme.all.order("title"), as_radio: false, required: true,
                            in_error: @guidance.errors[:themes].present?,
                            popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags.') } %>
-      
       <div class="form-group">
         <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'control-label' %>
         <%= f.collection_select(:guidance_group_id,

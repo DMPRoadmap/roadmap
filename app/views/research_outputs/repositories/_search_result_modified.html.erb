@@ -1,0 +1,117 @@
+<%# locals: result
+  :result          - the object we will be rending (e.g. instance of a model, a hash, etc.)
+%>
+
+<% if result.present? %>
+  <%= hidden_field_tag "research_output[repositories_attributes[#{result.id}][id]]", result.id %>
+
+  <p><%= result.description %></p>
+
+  <b>Parsing result.info</b>
+  <p><%= result.info %></p>
+  <p><%= result.info.class %></p>
+
+
+  <% 
+    if result.info.is_a? String
+        new_s = JSON.parse result.info.gsub('=>', ':') 
+      else
+        new_s = ""
+    end
+  %>
+
+
+
+  <% unless selected %>
+    <div class="tags">
+      <% line_breaker = 0 %>
+        <% if result.info.is_a? String then keywords = new_s else  keywords = result.info end%>
+        <% keywords.fetch("keywords", []).each do |tag| %>
+          <% if line_breaker >= 50 %>
+            <% line_breaker = 0 %>
+          <% end %>
+          <% line_breaker += tag.length %>
+          <div class="tag">
+            <%= link_to tag, search_path, class: "facet",
+                        title: _("Click to view repositories related to %{subject}") % { subject: tag },
+                        data: {
+                          remote: true,
+                          params: { research_output: { search_term: tag } }.to_param,
+                          method: search_method
+                        } %>
+          </div>
+        <% end %>
+    </div>
+  <% end %>
+
+<div class="more-info more-info-<%= result.id %>">
+<%= link_to _("More info"), "#", class: "more-info-link" %>
+
+  <div class="info hidden">
+    <dl>
+      <dt><%= _("Repository URL") %></dt>
+      <dd>
+        <%= link_to result.homepage, result.homepage, target: "_blank", class: "has-new-window-popup-info" %>
+      </dd>
+
+      <dt><%= _("Contact") %></dt>
+      <dd>
+        <% if result.contact.present? %>
+          <%= link_to result.contact, "mailto:#{result.contact}" %>
+        <% else %>
+          <%= _("Unknown") %>
+        <% end %>
+      </dd>
+
+      <dt><%= _("Data access") %></dt>
+      <dd><%= if result.info.is_a? String then new_s.fetch("access", _("Unknown")).humanize else result.info.fetch("access", _("Unknown")).humanize end%></dd>
+
+      <dt><%= _("Persistent identifier type") %></dt>
+      <dd><%= if result.info.is_a? String then new_s.fetch("pid_system", _("Unknown")) else result.info.fetch("pid_system", _("Unknown")) end%></dd>
+
+      <dt><%= _("Policies") %></dt>
+      <dd>
+        <ul>
+          <%= if result.info.is_a? String then policies = new_s.fetch("policies", [_("Unknown")]) else policies = result.info.fetch("policies", [_("Unknown")]) end%>
+          <% policies.uniq.each do |policy| %>
+            <li><%= link_to policy["name"], policy["url"] %></li>
+          <% end %>
+        </ul>
+      </dd>
+
+      <dt><%= _("Data upload") %></dt>
+      <dd>
+        <%if result.info.is_a? String %>
+           <% new_s.fetch("upload_types", [{ type: _("Unknown") }]).each do |upload_type| %>
+            <% if upload_type.is_a? String
+                l_array = []
+                result.locations.to_s.tr('[', '').tr(']', '').split('},').each do|json_str|
+                  l_array.push(json_str.gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge))
+                end
+                upload_type = l_array
+            end%>
+            <%= upload_type.fetch("type", _("Unknown")).humanize %>: <%= upload_type["restriction"].gsub("registration", "").underscore.humanize %>
+           <% end %>
+        <% else %>
+          <% result.info.fetch("upload_types", [{ type: _("Unknown") }]).each do |upload_type| %>
+            <%= upload_type.fetch("type", _("Unknown")).humanize %>: <%= upload_type["restriction"].gsub("registration", "").underscore.humanize %>
+          <% end %>
+        <%end%>
+      </dd>
+
+      <dt><%= _("Provider type") %></dt>
+      <%if result.info.is_a? String %>
+        <dd><%= new_s.fetch("provider_types", [_("Unknown")]).map{ |item| item.underscore.humanize }.join(", ") %></dd>
+      <%else%>
+        <dd><%= result.info.fetch("provider_types", [_("Unknown")]).map{ |item| item.underscore.humanize }.join(", ") %></dd>
+      <%end%>
+      <dt><%= _("Repository type") %></dt>
+      <%if result.info.is_a? String %>
+        <dd><%= new_s.fetch("types", [_("Unknown")]).map(&:humanize).join(", ") %></dd>
+      <%else%>
+        <dd><%= result.info.fetch("types", [_("Unknown")]).map(&:humanize).join(", ") %></dd>
+      <%end%>
+    </dl>
+  </div>
+</div>
+<% end %>
