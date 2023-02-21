@@ -74,14 +74,6 @@ module ExportablePlan
     hash[:customization] = template.customization_of.present?
     hash[:title] = title
     hash[:answers] = answers
-    # --------------------------------
-    # Start DMP OPIDoR Customization
-    # Changes: Added Research outputs
-    # --------------------------------
-    hash[:research_outputs] = research_outputs
-    # --------------------------------
-    # End DMP OPIDoR Customization
-    # --------------------------------
 
     # add the relevant questions/answers
     phases = []
@@ -115,7 +107,15 @@ module ExportablePlan
     hash[:phases] = phases
 
     # include any research outputs
-    hash[:research_outputs] = prepare_research_outputs
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # Changes: Added Research outputs
+    # --------------------------------
+    # hash[:research_outputs] = prepare_research_outputs
+    hash[:research_outputs] = research_outputs
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
 
     record_plan_export(user, :pdf)
 
