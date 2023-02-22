@@ -88,9 +88,8 @@ module ExternalApis
         }
         # opts[:debug_output] = $stdout
         resp = HTTParty.post("#{api_base_url}#{mint_path}", opts)
-
-        # resp = http_post(uri: "#{api_base_url}#{mint_path}",
-        #                  additional_headers: hdrs, debug: false, data: payload)
+        # puts "CALLED DMPHUB AND GOT:"
+        # pp resp.body
 
         # DMPHub returns a 201 (created) when a new DMP ID has been minted or
         #                a 405 (method_not_allowed) when a DMP ID already exists
@@ -131,6 +130,8 @@ module ExternalApis
         # opts[:debug_output] = $stdout
         target = format("#{api_base_url}#{callback_path}", dmp_id: plan.dmp_id&.value_without_scheme_prefix)
         resp = HTTParty.put(target, opts)
+        # puts "CALLED DMPHUB AND GOT:"
+        # pp resp.body
 
         # DMPHub returns a 200 when successful
         unless resp.present? && resp.code == 200
