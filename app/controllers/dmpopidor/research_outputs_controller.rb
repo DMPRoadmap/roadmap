@@ -80,7 +80,6 @@ module Dmpopidor
         abbreviation: "Research Output #{max_order}",
         title: "New research output #{max_order}",
         is_default: false,
-        byte_size: 1,
         display_order: max_order
       )
 
