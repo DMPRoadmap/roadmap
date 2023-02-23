@@ -8,8 +8,8 @@ import SelectMultipleList from "../Forms/SelectMultipleList";
 import SelectSingleList from "../Forms/SelectSingleList";
 import SelectWithCreate from "../Forms/SelectWithCreate";
 import listContributor from "../../data/contributor.json";
-import SelectFunder from "../Forms/SelectFunder";
 import TinyArea from "../Forms/TinyArea";
+import SelectInvestigator from "../Forms/SelectInvestigator";
 
 function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
   const objectProp = shemaObject.properties;
@@ -35,13 +35,14 @@ function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
 
         if (value.inputType === "textarea") {
           data.push(
-            <TextArea
+            <TinyArea
+              level={level}
               key={key}
               label={label}
               name={key}
               changeValue={changeValue}
               tooltip={tooltip}
-            ></TextArea>
+            ></TinyArea>
           );
           //sethtmlGenerator(data);
         }
@@ -185,7 +186,7 @@ function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
           if (value.class === "Contributor") {
             //console.log("TODO : condition funder à voir");
             data.push(
-              <SelectFunder
+              <SelectInvestigator
                 label={label}
                 name={key}
                 key={key}
@@ -195,7 +196,7 @@ function HandleGenerateForms({ shemaObject, level, lng, changeValue }) {
                 keyValue={key}
                 level={level}
                 tooltip={tooltip}
-              ></SelectFunder>
+              ></SelectInvestigator>
             );
           }
         }

@@ -78,6 +78,7 @@ function ModalTemplate({ value, template, keyValue, level, tooltip, header }) {
    * @param idx - the index of the item in the array
    */
   const handleEdit = (idx) => {
+    console.log(form[keyValue][idx]);
     settemp(form[keyValue][idx]);
     setShow(true);
     setindex(idx);
@@ -153,6 +154,48 @@ function ModalTemplate({ value, template, keyValue, level, tooltip, header }) {
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
+          {keyValue === "funding" && index !== null && temp && (
+            <div className="col-md-12 funder">
+              <fieldset className="sub-fragment registry">
+                <legend className="sub-fragment registry legend">
+                  Financeurs
+                  <a href="#">
+                    <span className="registry-info fas fa-info-circle" />
+                  </a>
+                </legend>
+                <div className="col-md-12 fragment-display">
+                  <div className="fragment-property">
+                    <span className="property-label">Nom du financeur : </span>
+                    <span className="property-value">{temp?.funder?.name}</span>
+                  </div>
+                  <div className="fragment-property">
+                    <span className="property-label">Identifiant : </span>
+                    <span className="property-value">{temp?.funder?.funderId}</span>
+                  </div>
+                  <div className="fragment-property">
+                    <span className="property-label">Type d'identifiant : </span>
+                    <span className="property-value">{temp?.funder?.idType}</span>
+                  </div>
+                  <fieldset className="fragment-display sub-fragment">
+                    <legend className="legend">Politique de données</legend>
+                    <div className="fragment-property">
+                      <span className="property-label">Titre : </span>
+                      <span className="property-value">{temp?.funder?.dataPolicy?.title}</span>
+                    </div>
+                    <div className="fragment-property">
+                      <span className="property-label">Identifiant : </span>
+                      <span className="property-value">{temp?.funder?.dataPolicy?.docIdentifier}</span>
+                    </div>
+                    <div className="fragment-property">
+                      <span className="property-label">Type d'identifiant : </span>
+                      <span className="property-value">{temp?.funder?.dataPolicy?.idType}</span>
+                    </div>
+                  </fieldset>
+                </div>
+              </fieldset>
+            </div>
+          )}
+
           <BuilderForm shemaObject={registerFile} level={level + 1}></BuilderForm>
         </Modal.Body>
         <Modal.Footer>

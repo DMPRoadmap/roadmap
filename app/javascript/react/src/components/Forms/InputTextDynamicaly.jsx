@@ -55,7 +55,7 @@ function InputTextDynamicaly({ label, name, tooltip }) {
               </div>
               <div className="col-3">
                 <button type="button" className="btn btn-primary px-3 m-2" onClick={addFields}>
-                  <i className="fab fa-plus" aria-hidden="true" />
+                  <i className="fa fa-plus" aria-hidden="true" />
                 </button>
                 <button type="button" className="btn btn-danger px-3 m-2" onClick={() => removeFields(index)}>
                   <i className="fa fa-trash" aria-hidden="true" />

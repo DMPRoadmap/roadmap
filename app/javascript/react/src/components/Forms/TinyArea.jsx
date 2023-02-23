@@ -1,19 +1,20 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context/Global";
 import { Editor } from "@tinymce/tinymce-react";
 
-function TinyArea({ label, name, changeValue, tooltip }) {
+function TinyArea({ label, name, changeValue, tooltip, level }) {
   const { form, temp } = useContext(GlobalContext);
+  const [text, settext] = useState("<p></p>");
 
-  const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
+  useEffect(() => {
+    const defaultValue = temp ? temp[name] : form[name] ? form[name] : "<p></p>";
+    const updatedText = level === 1 ? defaultValue : temp ? temp[name] : "<p></p>";
+    settext(updatedText);
+  }, [level, name]);
 
   const handleChange = (e) => {
     changeValue({ target: { name: name, value: e } });
+    settext(e);
   };
   return (
     <div className="form-group ticket-summernote mr-4 ml-4 border">
@@ -30,10 +31,11 @@ function TinyArea({ label, name, changeValue, tooltip }) {
           <Editor
             apiKey={"xvzn7forg8ganzrt5s9id02obr84ky126f85409p7ny84ava"}
             onEditorChange={(newText) => handleChange(newText)}
-            onInit={(evt, editor) => (editorRef.current = editor)}
-            initialValue={temp ? temp[name] : form[name] ? form[name] : "<p></p>"}
+            // onInit={(evt, editor) => (editorRef.current = editor)}
+            value={text}
             name={name}
             init={{
+              branding: false,
               height: 200,
               menubar: false,
               plugins: [

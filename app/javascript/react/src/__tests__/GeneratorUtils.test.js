@@ -1,4 +1,13 @@
-import { parsePatern, createMarkup, deleteByIndex, getCheckPatern, checkRequiredForm, isEmptyObject, getLabelName } from "../utils/GeneratorUtils";
+import {
+  parsePatern,
+  createMarkup,
+  deleteByIndex,
+  getCheckPatern,
+  checkRequiredForm,
+  isEmptyObject,
+  getLabelName,
+  getDefaultLabel,
+} from "../utils/GeneratorUtils";
 
 describe("parsePattern", () => {
   it("returns a string with keys mapped to their values in the data object", () => {
@@ -300,4 +309,37 @@ describe("getLabelName", () => {
 
     expect(getLabelName(value, object)).toBe("nom et description de la politique de stockage et sauvegarde");
   });
+});
+
+describe("getDefaultLabel", () => {
+  const temp = {
+    funder: {
+      label: {
+        fr_FR: "Temp label",
+      },
+    },
+  };
+  const form = {
+    estimatedVolume: "12",
+  };
+
+  test("should return the fr_FR label from temp object", () => {
+    const result = getDefaultLabel(temp, form, "funder");
+    expect(result).toEqual("Temp label");
+  });
+
+  test("should return the string value from temp", () => {
+    const result = getDefaultLabel({ ...temp, costType: "Temp string" }, form, "costType");
+    expect(result).toEqual("Temp string");
+  });
+
+  test("should return the form value if temp is falsy", () => {
+    const result = getDefaultLabel(null, form, "estimatedVolume");
+    expect(result).toEqual("12");
+  });
+
+  // test("should return undefined if funder does not exist in temp or form", () => {
+  //   const result = getDefaultLabel(temp, form, "unknownName");
+  //   expect(result).toBeUndefined();
+  // });
 });

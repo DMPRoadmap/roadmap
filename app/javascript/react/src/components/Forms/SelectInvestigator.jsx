@@ -7,7 +7,7 @@ import swal from "sweetalert";
 import toast from "react-hot-toast";
 import { getContributor, getSchema } from "../../services/DmpServiceApi";
 
-function SelectFunder({ label, name, changeValue, registry, keyValue, level, tooltip }) {
+function SelectInvestigator({ label, name, changeValue, registry, keyValue, level, tooltip }) {
   const [show, setShow] = useState(false);
   const [options, setoptions] = useState(null);
   const { form, setform, temp, settemp } = useContext(GlobalContext);
@@ -176,4 +176,4 @@ function SelectFunder({ label, name, changeValue, registry, keyValue, level, too
   );
 }
 
-export default SelectFunder;
+export default SelectInvestigator;
