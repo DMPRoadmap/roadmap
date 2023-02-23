@@ -1,19 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../context/Global";
-import { Editor } from "@tinymce/tinymce-react";
+import React, { useContext, useEffect, useState } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
+import { GlobalContext } from '../context/Global';
 
-function TinyArea({ label, name, changeValue, tooltip, level }) {
+function TinyArea({
+  label, name, changeValue, tooltip, level,
+}) {
   const { form, temp } = useContext(GlobalContext);
-  const [text, settext] = useState("<p></p>");
+  const [text, settext] = useState('<p></p>');
 
   useEffect(() => {
-    const defaultValue = temp ? temp[name] : form[name] ? form[name] : "<p></p>";
-    const updatedText = level === 1 ? defaultValue : temp ? temp[name] : "<p></p>";
+    const defaultValue = temp ? temp[name] : form[name] ? form[name] : '<p></p>';
+    const updatedText = level === 1 ? defaultValue : temp ? temp[name] : '<p></p>';
     settext(updatedText);
   }, [level, name]);
 
   const handleChange = (e) => {
-    changeValue({ target: { name: name, value: e } });
+    changeValue({ target: { name, value: e } });
     settext(e);
   };
   return (
@@ -29,26 +31,22 @@ function TinyArea({ label, name, changeValue, tooltip, level }) {
         </div>
         <div>
           <Editor
-            apiKey={"xvzn7forg8ganzrt5s9id02obr84ky126f85409p7ny84ava"}
             onEditorChange={(newText) => handleChange(newText)}
             // onInit={(evt, editor) => (editorRef.current = editor)}
             value={text}
             name={name}
             init={{
               branding: false,
-              height: 200,
+              height: 230,
               menubar: false,
               plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table paste code help wordcount",
+                'table autoresize link paste advlist lists',
               ],
               toolbar:
-                "undo redo | formatselect | " +
-                "bold italic backcolor | alignleft aligncenter " +
-                "alignright alignjustify | bullist numlist outdent indent | " +
-                "removeformat | help",
-              content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table',
+              content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+              skin_url: '/tinymce/skins/oxide',
+              content_css: ['/tinymce/tinymce.css'],
             }}
           />
         </div>

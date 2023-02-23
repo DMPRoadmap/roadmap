@@ -1,9 +1,11 @@
-import { useContext } from "react";
-import { GlobalContext } from "../context/Global";
-import HandleGenerateForms from "./HandleGenerateForms";
+import React, { useContext } from 'react';
+import { GlobalContext } from '../context/Global';
+import HandleGenerateForms from './HandleGenerateForms';
 
-function BuilderForm({ shemaObject, level }) {
-  const { form, setform, temp, settemp, lng } = useContext(GlobalContext);
+function BuilderForm({ shemaObject, level, xsrf }) {
+  const {
+    form, setform, temp, settemp,
+  } = useContext(GlobalContext);
 
   /**
    * Object destructuring
@@ -28,8 +30,8 @@ function BuilderForm({ shemaObject, level }) {
     <HandleGenerateForms
       shemaObject={shemaObject}
       level={level}
-      lng={lng}
       changeValue={changeValue}
+      xsrf={xsrf}
     ></HandleGenerateForms>
   );
 }

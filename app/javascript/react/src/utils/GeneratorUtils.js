@@ -6,7 +6,7 @@ import DOMPurify from "dompurify";
  * @param keys - ["$..name", "$..age", "$..address.street"]
  * @returns The value of the key in the object.
  */
-export function parsePatern(data, keys) {
+export function parsePattern(data, keys) {
   //https://www.measurethat.net/Benchmarks/Show/2335/1/slice-vs-substr-vs-substring-with-no-end-index
   const isArrayMatch = /^(.*)\[[0-9]+\]$/gi;
   return keys

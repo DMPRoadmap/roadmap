@@ -34,11 +34,11 @@ let shemaObject = {
 describe("HandleGenerateForms component", () => {
   it("should render input elements correctly", () => {
     const level = 1;
-    const lng = "fr";
+    const locale = "fr_FR";
     const changeValue = jest.fn();
     const wrapper = mount(
       <Global>
-        <HandleGenerateForms shemaObject={shemaObject} level={level} lng={lng} changeValue={changeValue} />
+        <HandleGenerateForms shemaObject={shemaObject} level={level} locale={locale} changeValue={changeValue} />
       </Global>
     );
     expect(wrapper.find("SelectSingleList").prop("label")).toBe("Unité");

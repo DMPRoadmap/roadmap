@@ -33,13 +33,29 @@ let shemaObject = {
 describe("HandleGenerateForms component", () => {
   it("should render input elements correctly", () => {
     const level = 1;
-    const lng = "fr";
+    const locale = "fr_FR";
     const changeValue = jest.fn();
     render(
       <Global>
-        <HandleGenerateForms shemaObject={shemaObject} level={level} lng={lng} changeValue={changeValue} />
+        <HandleGenerateForms shemaObject={shemaObject} level={level} locale={locale} changeValue={changeValue} />
       </Global>
     );
     expect(screen.getByText("Décrire les besoins de stockage")).toBeInTheDocument();
+  });
+});
+
+describe("HandleGenerateForms component", () => {
+  it("should render input elements correctly", () => {
+    const level = 1;
+    const locale = "fr_FR";
+    const changeValue = jest.fn();
+    const wrapper = mount(
+      <Global>
+        <HandleGenerateForms shemaObject={shemaObject} level={level} locale={locale} changeValue={changeValue} />
+      </Global>
+    );
+    expect(wrapper.find("TextArea").prop("label")).toBe("Décrire les besoins de stockage");
+    // expect(wrapper.find("TextArea").prop("tooltip")).toBe("Tooltip 1");
+    //expect(wrapper.find("TextArea").prop("name")).toBe("description");
   });
 });

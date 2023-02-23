@@ -1,51 +1,54 @@
-import React, { useContext, useEffect, useState } from "react";
-import Select from "react-select";
-import { getRegistry, getRegistryValue } from "../../services/DmpServiceApi";
-import { getDefaultLabel } from "../../utils/GeneratorUtils";
-import { GlobalContext } from "../context/Global";
+import React, { useContext, useEffect, useState } from 'react';
+import Select from 'react-select';
+import { getRegistry, getRegistryValue } from '../../services/DmpServiceApi';
+import { getDefaultLabel } from '../../utils/GeneratorUtils';
+import { GlobalContext } from '../context/Global';
 
-function SelectSingleList({ label, name, changeValue, tooltip, registry }) {
+function SelectSingleList({
+  label, name, changeValue, tooltip, registryId,
+}) {
   const [options, setoptions] = useState(null);
-  const { form, temp, lng } = useContext(GlobalContext);
+  const { form, temp, locale } = useContext(GlobalContext);
 
-  /* A hook that is called when the component is mounted. It is used to set the options of the select list. */
+  /*
+  A hook that is called when the component is mounted.
+  It is used to set the options of the select list.
+  */
   useEffect(() => {
     let isMounted = true;
-    const createOptions = (data) => {
-      return data.map((option) => ({
-        value: lng === "fr" ? option?.fr_FR || option?.label?.fr_FR : option?.en_GB || option?.label?.en_GB,
-        label: lng === "fr" ? option?.fr_FR || option?.label?.fr_FR : option?.en_GB || option?.label?.en_GB,
-        object: option,
-      }));
-    };
+    const createOptions = (data) => data.map((option) => ({
+      value: option.label ? option.label[locale] : option[locale],
+      label: option.label ? option.label[locale] : option[locale],
+      object: option,
+    }));
     const setOptions = (data) => {
       if (isMounted) {
         setoptions(data);
       }
     };
-    getRegistryValue(registry, "token").then((res) => {
+    getRegistryValue(registryId, 'token').then((res) => {
       if (res) {
         setOptions(createOptions(res));
       } else {
-        return getRegistry(registry, "token").then((resRegistry) => {
-          setOptions(createOptions(resRegistry));
+        return getRegistry(registryId, 'token').then((resRegistry) => {
+          setOptions(createOptions(resRegistry.data));
         });
       }
     });
     return () => {
       isMounted = false;
     };
-  }, [registry, lng]);
+  }, [registryId, locale]);
 
   /**
    * It takes the value of the input field and adds it to the list array.
    * @param e - the event object
    */
   const handleChangeList = (e) => {
-    if (name === "funder") {
-      changeValue({ target: { name: name, value: e.object } });
+    if (name === 'funder') {
+      changeValue({ target: { name, value: e.object } });
     } else {
-      changeValue({ target: { name: name, value: e.value } });
+      changeValue({ target: { name, value: e.value } });
     }
   };
 

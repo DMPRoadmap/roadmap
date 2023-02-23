@@ -1,21 +1,25 @@
-import React, { createContext, useEffect, useReducer, useState } from "react";
+import React, {
+  createContext, useEffect, useReducer, useState,
+} from 'react';
 
 /**
- * If the formInfo is null, remove the form from localStorage, otherwise return the form with the formInfo.
+ * If the formInfo is null, remove the form from localStorage,
+ * otherwise return the form with the formInfo.
  * @param form - the current state of the form
  * @param formInfo - This is the object that contains the form data.
- * @returns The reducer is returning a new object that is a combination of the form object and the formInfo object.
+ * @returns The reducer is returning a new object that is a combination of the
+ * form object and the formInfo object.
  */
-let reducer = (form, formInfo) => {
+const reducer = (form, formInfo) => {
   if (formInfo === null) {
-    localStorage.removeItem("form");
+    localStorage.removeItem('form');
     return {};
   }
   return { ...form, ...formInfo };
 };
 
 /* It's getting the form from localStorage. */
-const localState = JSON.parse(localStorage.getItem("form"));
+const localState = JSON.parse(localStorage.getItem('form'));
 export const GlobalContext = createContext();
 
 /**
@@ -27,14 +31,17 @@ export const GlobalContext = createContext();
 function Global({ children }) {
   const [form, setform] = useReducer(reducer, localState || {});
   const [temp, settemp] = useState(null);
-  const [lng, setlng] = useState("fr");
+  const [locale, setlocale] = useState(null);
+  const [dmpId, setdmpId] = useState(null);
 
   useEffect(() => {
     /* It's setting the form in localStorage. */
-    localStorage.setItem("form", JSON.stringify(form));
+    localStorage.setItem('form', JSON.stringify(form));
   }, [form]);
 
-  return <GlobalContext.Provider value={{ form, setform, temp, settemp, lng, setlng }}>{children}</GlobalContext.Provider>;
+  return <GlobalContext.Provider value={{
+    form, setform, temp, settemp, locale, setlocale, dmpId, setdmpId,
+  }}>{children}</GlobalContext.Provider>;
 }
 
 export default Global;

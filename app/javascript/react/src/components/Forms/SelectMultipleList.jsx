@@ -1,36 +1,37 @@
-import React, { useContext, useEffect, useState } from "react";
-import Select from "react-select";
-import { GlobalContext } from "../context/Global";
-import swal from "sweetalert";
-import { getRegistry, getRegistryValue } from "../../services/DmpServiceApi";
+import React, { useContext, useEffect, useState } from 'react';
+import Select from 'react-select';
+import swal from 'sweetalert';
+import { GlobalContext } from '../context/Global';
+import { getRegistry } from '../../services/DmpServiceApi';
 
-function SelectMultipleList({ label, registry, name, changeValue, tooltip, header }) {
+function SelectMultipleList({
+  label, registryId, name, changeValue, tooltip, header,
+}) {
   const [list, setlist] = useState([]);
   const [options, setoptions] = useState(null);
-  const { temp, settemp, lng } = useContext(GlobalContext);
+  const { temp, settemp, locale } = useContext(GlobalContext);
 
-  /* A hook that is called when the component is mounted. It is used to set the options of the select list. */
+  /* A hook that is called when the component is mounted.
+  It is used to set the options of the select list. */
   useEffect(() => {
     let isMounted = true;
-    const createOptions = (data) => {
-      return data.map((option) => ({
-        value: lng === "fr" ? option?.fr_FR || option?.label?.fr_FR : option?.en_GB || option?.label?.en_GB,
-        label: lng === "fr" ? option?.fr_FR || option?.label?.fr_FR : option?.en_GB || option?.label?.en_GB,
-        object: option,
-      }));
-    };
+    const createOptions = (data) => data.map((option) => ({
+      value: option.label ? option.label[locale] : option[locale],
+      label: option.label ? option.label[locale] : option[locale],
+      object: option,
+    }));
     const setOptions = (data) => {
       if (isMounted) {
         setoptions(data);
       }
     };
-    getRegistryValue(registry, "token")
+    getRegistry(registryId, 'token')
       .then((res) => {
         if (res) {
-          setOptions(createOptions(res));
+          setOptions(createOptions(res.data));
         } else {
-          return getRegistry(registry, "token").then((resRegistry) => {
-            setOptions(createOptions(resRegistry));
+          return getRegistry(registryId, 'token').then((resRegistry) => {
+            setOptions(createOptions(resRegistry.data));
           });
         }
       })
@@ -40,7 +41,7 @@ function SelectMultipleList({ label, registry, name, changeValue, tooltip, heade
     return () => {
       isMounted = false;
     };
-  }, [registry, lng]);
+  }, [registryId, locale]);
 
   /**
    * It takes the value of the input field and adds it to the list array.
@@ -48,11 +49,12 @@ function SelectMultipleList({ label, registry, name, changeValue, tooltip, heade
    */
   const handleChangeList = (e) => {
     const copieList = [...(list || []), e.value];
-    changeValue({ target: { name: name, value: [...copieList] } });
+    changeValue({ target: { name, value: [...copieList] } });
     setlist(copieList);
   };
 
-  /* A hook that is called when the component is mounted. It is used to set the options of the select list. */
+  /* A hook that is called when the component is mounted.
+  It is used to set the options of the select list. */
   useEffect(() => {
     if (temp) {
       setlist(temp[name]);
@@ -60,14 +62,15 @@ function SelectMultipleList({ label, registry, name, changeValue, tooltip, heade
   }, [temp]);
 
   /**
-   * It creates a new array, then removes the item at the index specified by the parameter, then sets the state to the new array.
+   * It creates a new array, then removes the item at the index specified by the parameter,
+   * then sets the state to the new array.
    * @param idx - the index of the item in the array
    */
   const handleDeleteListe = (idx) => {
     swal({
-      title: "Ëtes-vous sûr ?",
-      text: "Voulez-vous vraiment supprimer cet élément ?",
-      icon: "info",
+      title: 'Ëtes-vous sûr ?',
+      text: 'Voulez-vous vraiment supprimer cet élément ?',
+      icon: 'info',
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
@@ -79,8 +82,8 @@ function SelectMultipleList({ label, registry, name, changeValue, tooltip, heade
         }
         setlist(newList);
         settemp({ ...temp, [name]: newList });
-        swal("Opération effectuée avec succès!", {
-          icon: "success",
+        swal('Opération effectuée avec succès!', {
+          icon: 'success',
         });
       }
     });
@@ -101,18 +104,18 @@ function SelectMultipleList({ label, registry, name, changeValue, tooltip, heade
               onChange={handleChangeList}
               options={options}
               name={name}
-              //defaultValue={isEdit ? isEdit[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle."}
+              // defaultValue={isEdit ? isEdit[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle."}
               defaultValue={{
-                label: temp ? temp[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
-                value: temp ? temp[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                label: temp ? temp[name] : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
+                value: temp ? temp[name] : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
               }}
             />
           </div>
         </div>
-        <div style={{ margin: "20px 30px 20px 20px" }}>
+        <div style={{ margin: '20px 30px 20px 20px' }}>
           {header && <p>{header}</p>}
-          {list &&
-            list.map((el, idx) => (
+          {list
+            && list.map((el, idx) => (
               <div key={idx} className="row border">
                 <div className="col-md-11">
                   <p className="border m-2"> {list[idx]} </p>

@@ -1,53 +1,56 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import BuilderForm from "../Builder/BuilderForm";
-import { parsePatern } from "../../utils/GeneratorUtils";
-import { GlobalContext } from "../context/Global";
-import swal from "sweetalert";
-import toast from "react-hot-toast";
-import { getContributor, getSchema } from "../../services/DmpServiceApi";
+import React, { useContext, useEffect, useState } from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import toast from 'react-hot-toast';
+import BuilderForm from '../Builder/BuilderForm';
+import { parsePattern } from '../../utils/GeneratorUtils';
+import { GlobalContext } from '../context/Global';
+import { getContributors, getSchema } from '../../services/DmpServiceApi';
 
-function SelectInvestigator({ label, name, changeValue, registry, keyValue, level, tooltip }) {
+function SelectInvestigator({ label, name, changeValue, templateId, keyValue, level, tooltip }) {
   const [show, setShow] = useState(false);
   const [options, setoptions] = useState(null);
-  const { form, setform, temp, settemp } = useContext(GlobalContext);
+  const {
+    form, setform, temp, settemp, locale, dmpId,
+  } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
-  const [registerFile, setregisterFile] = useState(null);
+  const [template, setTemplate] = useState(null);
   const [role, setrole] = useState(null);
   const [selectedValue, setselectedValue] = useState(null);
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
-    getContributor("token").then((res) => {
-      const options = res.data.map((option) => ({
-        value: option.firstName + " " + option.lastName,
-        label: option.firstName + " " + option.lastName,
+    getContributors(dmpId, templateId, 'token').then((res) => {
+      console.log(res.data.results);
+      const builtOptions = res.data.results.map((option) => ({
+        value: option.id,
+        label: option.text,
         object: option,
       }));
-      setoptions(options);
+      setoptions(builtOptions);
     });
   }, []);
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
-    getSchema(registry, "token").then((resRegistry) => {
-      setrole(resRegistry.properties.role["const@fr_FR"]);
-      setregisterFile(resRegistry.properties.person.template_name);
-      const template = resRegistry.properties.person["template_name"];
-      setrole(resRegistry.properties.role["const@fr_FR"]);
-      getSchema(template, "token").then((res) => {
-        setregisterFile(res);
+    getSchema(templateId, 'token').then((res) => {
+      const resTemplate = res.data;
+      setrole(resTemplate.properties.role[`const@${locale}`]);
+      setTemplate(resTemplate.properties.person.schema_id);
+      const subTemplateId = resTemplate.properties.person.schema_id;
+      setrole(resTemplate.properties.role[`const@${locale}`]);
+      getSchema(subTemplateId, 'token').then((resSubTemplate) => {
+        setTemplate(resSubTemplate.data);
         if (!form[keyValue]) {
           return;
         }
-        const patern = res.to_string;
+        const patern = resSubTemplate.data.to_string;
         if (!patern.length) {
           return;
         }
-        setselectedValue(parsePatern(form[keyValue].person, patern));
+        setselectedValue(parsePattern(form[keyValue].person, patern));
       });
     });
-  }, [registry]);
+  }, [templateId]);
 
   /**
    * It closes the modal and resets the state of the modal.
@@ -66,12 +69,12 @@ function SelectInvestigator({ label, name, changeValue, registry, keyValue, leve
   };
 
   const handleChangeList = (e) => {
-    const patern = registerFile.to_string;
+    const patern = template.to_string;
     const { object, value } = options[e.target.value];
     setselectedValue(options[e.target.value].value);
     if (patern.length > 0) {
       changeValue({ target: { name, value: [object] } });
-      setform({ ...form, [keyValue]: { person: object, role: role } });
+      setform({ ...form, [keyValue]: { person: object, role } });
     } else {
       changeValue({ target: { name, value } });
     }
@@ -83,16 +86,16 @@ function SelectInvestigator({ label, name, changeValue, registry, keyValue, leve
    * If the index is null, then just save the item.
    */
   const handleAddToList = () => {
-    //edit
+    // edit
     if (index !== null) {
-      //const objectPerson = { person: temp, role: "from create" };
-      setform({ ...form, [keyValue]: { person: temp, role: role } });
-      setselectedValue(parsePatern(temp, registerFile.to_string));
+      // const objectPerson = { person: temp, role: "from create" };
+      setform({ ...form, [keyValue]: { person: temp, role } });
+      setselectedValue(parsePattern(temp, template.to_string));
     } else {
-      //save new
+      // save new
       handleSave();
     }
-    toast.success("Enregistrement a été effectué avec succès !");
+    toast.success('Enregistrement a été effectué avec succès !');
     settemp(null);
     handleClose();
   };
@@ -102,18 +105,18 @@ function SelectInvestigator({ label, name, changeValue, registry, keyValue, leve
    * temporary person object and add it to the list array, then it will close the modal and set the temporary person object to null.
    */
   const handleSave = () => {
-    //const objectPerson = { person: temp, role: "from create" };
-    setform({ ...form, [keyValue]: { person: temp, role: role } });
+    // const objectPerson = { person: temp, role: "from create" };
+    setform({ ...form, [keyValue]: { person: temp, role } });
     handleClose();
     settemp(null);
-    setselectedValue(parsePatern(temp, registerFile.to_string));
+    setselectedValue(parsePattern(temp, template.to_string));
   };
   /**
    * It sets the state of the temp variable to the value of the form[keyValue][idx] variable.
    * @param idx - the index of the item in the array
    */
   const handleEdit = (idx) => {
-    settemp(form[keyValue]["person"]);
+    settemp(form[keyValue].person);
     setShow(true);
     setindex(idx);
   };
@@ -130,10 +133,10 @@ function SelectInvestigator({ label, name, changeValue, registry, keyValue, leve
         <div className="row">
           <div className="col-md-10">
             {options && (
-              <select id="company" className="form-control" onChange={handleChangeList}>
+              <select className="form-control" onChange={handleChangeList}>
                 <option>Sélectionnez une valeur de la liste ou saisissez une nouvelle.</option>
                 {options.map((o, idx) => (
-                  <option key={o.value} value={idx}>
+                  <option key={idx} value={o.value}>
                     {o.label}
                   </option>
                 ))}
@@ -146,20 +149,20 @@ function SelectInvestigator({ label, name, changeValue, registry, keyValue, leve
           </div>
         </div>
         {selectedValue && (
-          <div style={{ margin: "10px" }}>
+          <div style={{ margin: '10px' }}>
             <strong>Valeur sélectionnée :</strong> {selectedValue}
             <a href="#" onClick={() => handleEdit(0)}>
-              {" "}
+              {' '}
               (modifié)
             </a>
           </div>
         )}
       </div>
       <>
-        {registerFile && (
+        {template && (
           <Modal show={show} onHide={handleClose}>
             <Modal.Body>
-              <BuilderForm shemaObject={registerFile} level={level + 1}></BuilderForm>
+              <BuilderForm shemaObject={template} level={level + 1}></BuilderForm>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>

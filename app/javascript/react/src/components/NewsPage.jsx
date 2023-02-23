@@ -1,7 +1,7 @@
 import React from 'react';
 import { get } from 'lodash';
-import NewsItem from './NewsItem.jsx';
-import { getNews } from '../../services/NewsServiceApi.js';
+import NewsItem from './news/NewsItem.jsx';
+import { getNews } from '../services/NewsServiceApi.js';
 
 // eslint-disable-next-line react/prop-types, arrow-body-style
 class HomepageNews extends React.Component {

@@ -40,12 +40,12 @@ let shemaObject = {
 describe("Handle Generate TextArea", () => {
   it("should render input elements correctly", () => {
     const level = 1;
-    const lng = "fr";
+    const locale = "fr_FR";
     const changeValue = jest.fn();
     //GlobalContext.Provider value={temp}
     render(
       <Global>
-        <HandleGenerateForms shemaObject={shemaObject} level={level} lng={lng} changeValue={changeValue} />
+        <HandleGenerateForms shemaObject={shemaObject} level={level} locale={locale} changeValue={changeValue} />
       </Global>
     );
     expect(screen.getByText("Coûts liés au stockage et à la sauvegarde des données")).toBeInTheDocument();
