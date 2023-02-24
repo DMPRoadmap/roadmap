@@ -42,7 +42,7 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         cache: 'yarn'
-        node-version: 16
+    - run: echo 'NODE_OPTIONS="--openssl-legacy-provider"' >> $GITHUB_ENV
 
     # Install the Postgres developer packages
     - name: 'Install Postgresql Packages'
