@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.1.0+portage-3.1.1] - 2023-02-24
+
+### Fixed 
+
+- Fixed 500 error when admins try to downloading  [#328](https://github.com/portagenetwork/roadmap/issues/328)
+
 ## [3.1.0+portage-3.1.0] - 2023-02-22
 
 ### Added
