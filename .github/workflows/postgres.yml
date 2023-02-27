@@ -43,7 +43,7 @@ jobs:
       with:
         cache: 'yarn'
     - name: Override NODE options for the most recent version
-      if: matrix.node-version >= '17'
+      if: matrix.node-version == '18'
       run: echo "NODE_OPTIONS=--openssl-legacy-provider" >> $GITHUB_ENV
 
     # Install the Postgres developer packages
