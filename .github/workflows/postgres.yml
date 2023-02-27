@@ -37,12 +37,15 @@ jobs:
       with:
         ruby-version: 2.7.6
         bundler-cache: true
-
+        
+    ## - run: echo 'NODE_OPTIONS="--openssl-legacy-provider"' >> $GITHUB_ENV 
+    ## /home/runner/runners/2.301.1/externals/node12/bin/node: --openssl-legacy-provider is not allowed in NODE_OPTIONS
+ 
     # Install Node
-    - run: echo 'NODE_OPTIONS="--openssl-legacy-provider"' >> $GITHUB_ENV
     - uses: actions/setup-node@v2
       with:
         cache: 'yarn'
+        node-version: 16
 
     # Install the Postgres developer packages
     - name: 'Install Postgresql Packages'

@@ -15,11 +15,8 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         cache: 'yarn'
-    - run: node --version
-      env:
-        NODE_OPTIONS: "--openssl-legacy-provider"
+        node-version: 16
         
-
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'
       run: yarn install
