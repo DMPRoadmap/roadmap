@@ -5,6 +5,8 @@
 - Added CHANGELOG.md and Danger Github Action [#3257](https://github.com/DMPRoadmap/roadmap/issues/3257)
 - Added validation with custom error message in research_output.rb to ensure a user does not enter a very large value as 'Anticipated file size'. [#3161](https://github.com/DMPRoadmap/roadmap/issues/3161)
 - Added popover for org profile page and added explanation for public plan
+- Allow users to download both single phase and  in PDF, TEXT and DOCX format. CSV file can only download single phase instead of all phases.
+
 ### Fixed
 
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
