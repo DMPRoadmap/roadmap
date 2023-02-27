@@ -29,6 +29,9 @@
             <% if plan.administerable_by?(current_user.id) then %>
               <%= check_box_tag :is_test, "1", (plan.visibility === "is_test"),
                                           class: "set_test_plan",
+                                          aria: {
+                                            label: "#{plan.title} - test plan flag"
+                                          },
                                           data: { remote: true, method: :post,
                                                   url: set_test_plan_path(plan) } %>
             <% else %>

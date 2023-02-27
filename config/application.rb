@@ -26,6 +26,11 @@ module DMPRoadmap
     # --------------------------------- #
     # Ensure that Zeitwerk knows to load our classes in the lib directory
     config.eager_load_paths << config.root.join('lib')
+
+    # CVE-2022-32224: add some compatibility with YAML.safe_load
+    # Rails 5,6,7 are using YAML.safe_load as the default YAML deserializer
+    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol, Date, Time]
+
     # Have Zeitwerk skip generators because the generator templates are
     # incompatible with the Rails module/class naming conventions
     Rails.autoloaders.main.ignore(config.root.join('lib/generators'))
