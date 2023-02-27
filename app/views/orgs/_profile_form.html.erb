@@ -3,6 +3,9 @@
 <%
   shared_links_tooltip = _('Links will be displayed next to your organisation\'s logo')
   org_config_info_tooltip =  _('This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes.')
+  org_types_tooltip = _(
+  'This information can only be changed by a system administrator. Contact %{support_email} if you have questions or to request changes.' % { support_email: Rails.configuration.x.organisation.email}
+  )
 %>
 
 <%= form_for(org, url: url, html: { multipart: true, method: method,
@@ -80,7 +83,7 @@
                    links: org.links.fetch("org", []),
                    max_number_links: Rails.configuration.x.max_number_links_funder,
                    tooltip: shared_links_tooltip }) %>
-      <%= hidden_field_tag('org_links', value: org.links) %>
+      <%= hidden_field_tag('org_links', org.links) %>
     </div>
   </div>
 
@@ -136,7 +139,13 @@
   <div class="row">
     <% if current_user.can_super_admin? %>
       <fieldset class="col-xs-8">
-        <legend><%= _('Organisation Types') %></legend>
+        <legend>
+          <%= _('Organisation Types') %>
+            &nbsp; <a href="#" aria-label="<%= _('Text') %>" data-toggle="tooltip" data-placement="right" title="<%= org_types_tooltip %>">
+            <i class="fas fa-question-circle fa-reverse" ></i>
+            <em class="sr-only"></em>
+          </a>
+        </legend>
         <div class="checkbox">
           <%= f.label :funder do %>
             <%= f.check_box :funder, { class: 'org_types', value: org.funder? }, "true", "false" %>
@@ -159,7 +168,13 @@
     <% else %>
       <div class="col-xs-8">
         <dl>
-          <dt><%= _('Organisation type(s)') %></dt>
+          <dt>
+            <%= _('Organisation type(s)') %>
+              &nbsp; <a href="#" aria-label="<%= _('Text') %>" data-toggle="tooltip" data-placement="right" title="<%= org_types_tooltip %>">
+              <i class="fas fa-question-circle fa-reverse" ></i>
+              <em class="sr-only"></em>
+            </a>
+          </dt>
           <dd><%= org.org_type_to_s %></dd>
         </dl>
       </div>
