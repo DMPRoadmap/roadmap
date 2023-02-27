@@ -42,9 +42,9 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         cache: 'yarn'
-    - run: node --version
-        env:
-          NODE_OPTIONS: "--openssl-legacy-provider"
+    - name: Override NODE options for the most recent version
+      if: matrix.node-version >= '17'
+      run: echo "NODE_OPTIONS=--openssl-legacy-provider" >> $GITHUB_ENV
 
     # Install the Postgres developer packages
     - name: 'Install Postgresql Packages'
