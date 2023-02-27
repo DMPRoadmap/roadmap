@@ -39,6 +39,7 @@ jobs:
         bundler-cache: true
 
     # Install Node
+    - run: echo 'NODE_OPTIONS="--openssl-legacy-provider"' >> $GITHUB_ENV
     - uses: actions/setup-node@v2
       with:
         cache: 'yarn'
