@@ -169,12 +169,12 @@ function ModalTemplate({
                       {level === 1 && (
                         <span>
                           <a
-                            className="add-fragment"
+                            className="text-primary"
                             href="#"
                             aria-hidden="true"
                             onClick={() => handleEdit(idx)}
                           >
-                            <i className="fa fa-edit m-3 text-primary" />
+                            <i className="fa fa-edit" />
                           </a>
                         </span>
                       )}
@@ -182,12 +182,12 @@ function ModalTemplate({
                     <div className="col-md-1">
                       <span>
                         <a
-                          className="add-fragment"
+                          className="text-danger"
                           href="#"
                           aria-hidden="true"
                           onClick={() => handleDeleteListe(idx)}
                         >
-                          <i className="fa fa-times m-3  text-danger" />
+                          <i className="fa fa-times" />
                         </a>
                       </span>
                     </div>

@@ -241,10 +241,10 @@ function SelectWithCreate({
               }}
             />
           </div>
-          <div className="col-md-2">
+          <div className="col-md-2" style={{ marginTop: "8px" }}>
             <span>
-              <a className="add-fragment" href="#" onClick={handleShow}>
-                <i className="fas fa-plus-square text-primary icon-margin-top" />
+              <a className="text-primary" href="#" onClick={handleShow}>
+                <i className="fas fa-plus-square" />
               </a>
             </span>
           </div>
@@ -271,27 +271,27 @@ function SelectWithCreate({
                       {level === 1 && (
                         <span>
                           <a
-                            className="add-fragment"
+                            className="text-primary"
                             href="#"
                             aria-hidden="true"
                             onClick={() => handleEdit(idx)}
                           >
-                            <i className="fa fa-edit icon-margin-top text-primary" />
+                            <i className="fa fa-edit" />
                           </a>
                         </span>
-                      )}{' '}
+                      )}
                     </div>
                     <div className="col-md-1">
                       <span>
                         <a
-                          className="add-fragment"
+                          className="text-danger"
                           href="#"
                           aria-hidden="true"
                           onClick={() => handleDeleteListe(idx)}
                         >
-                          <i className="fa fa-times icon-margin-top text-danger" />
+                          <i className="fa fa-times" />
                         </a>
-                      </span>{' '}
+                      </span>
                     </div>
                   </td>
                 </tr>
