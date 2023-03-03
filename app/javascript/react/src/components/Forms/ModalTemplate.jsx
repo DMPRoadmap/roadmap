@@ -1,13 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import swal from 'sweetalert';
-import toast from 'react-hot-toast';
-import BuilderForm from '../Builder/BuilderForm';
-import { GlobalContext } from '../context/Global';
+import React, { useContext, useEffect, useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import swal from "sweetalert";
+import toast from "react-hot-toast";
+import BuilderForm from "../Builder/BuilderForm";
+import { GlobalContext } from "../context/Global";
 import {
-  checkRequiredForm, createMarkup, deleteByIndex, getLabelName, parsePattern,
-} from '../../utils/GeneratorUtils';
-import { getSchema } from '../../services/DmpServiceApi';
+  checkRequiredForm,
+  createMarkup,
+  deleteByIndex,
+  getLabelName,
+  parsePattern,
+} from "../../utils/GeneratorUtils";
+import { getSchema } from "../../services/DmpServiceApi";
 
 /**
  * It takes a template name as an argument, loads the template file, and then
@@ -16,17 +20,20 @@ import { getSchema } from '../../services/DmpServiceApi';
  * @returns A React component.
  */
 function ModalTemplate({
-  value, templateId, keyValue, level, tooltip, header,
+  value,
+  templateId,
+  keyValue,
+  level,
+  tooltip,
+  header,
 }) {
   const [show, setShow] = useState(false);
-  const {
-    form, setform, temp, settemp, locale,
-  } = useContext(GlobalContext);
+  const { form, setform, temp, settemp, locale } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
 
   const [template, setTemplate] = useState(null);
   useEffect(() => {
-    getSchema(templateId, 'token').then((res) => {
+    getSchema(templateId, "token").then((res) => {
       setTemplate(res.data);
     });
   }, [templateId]);
@@ -47,7 +54,10 @@ function ModalTemplate({
     if (!temp) return handleClose();
 
     const checkForm = checkRequiredForm(template, temp);
-    if (checkForm) return toast.error(`Veuiller remplire le champs ${getLabelName(checkForm, template)}`);
+    if (checkForm)
+      return toast.error(
+        `Veuiller remplire le champs ${getLabelName(checkForm, template)}`
+      );
 
     if (index !== null) {
       const deleteIndex = deleteByIndex(form[keyValue], index);
@@ -55,7 +65,7 @@ function ModalTemplate({
       settemp(null);
     } else {
       handleSave();
-      toast.success('Enregistrement a été effectué avec succès !');
+      toast.success("Enregistrement a été effectué avec succès !");
     }
     handleClose();
   };
@@ -100,9 +110,9 @@ function ModalTemplate({
    */
   const handleDeleteListe = (idx) => {
     swal({
-      title: 'Ëtes-vous sûr ?',
-      text: 'Voulez-vous vraiment supprimer cet élément ?',
-      icon: 'info',
+      title: "Ëtes-vous sûr ?",
+      text: "Voulez-vous vraiment supprimer cet élément ?",
+      icon: "info",
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
@@ -110,8 +120,8 @@ function ModalTemplate({
         const deleteIndex = deleteByIndex(form[keyValue], idx);
         setform({ ...form, [keyValue]: deleteIndex });
         // toast.success("Congé accepté");
-        swal('Opération effectuée avec succès!', {
-          icon: 'success',
+        swal("Opération effectuée avec succès!", {
+          icon: "success",
         });
       }
     });
@@ -122,13 +132,18 @@ function ModalTemplate({
       <div className="border p-2 mb-2">
         <p>{value[`form_label@${locale}`]}</p>
         {tooltip && (
-          <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
+          <span
+            className="m-4"
+            data-toggle="tooltip"
+            data-placement="top"
+            title={tooltip}
+          >
             ?
           </span>
         )}
 
         {form[keyValue] && template && (
-          <table style={{ marginTop: '20px' }} className="table table-bordered">
+          <table style={{ marginTop: "20px" }} className="table table-bordered">
             <thead>
               {form[keyValue].length > 0 && template && header && (
                 <tr>
@@ -141,15 +156,40 @@ function ModalTemplate({
               {form[keyValue].map((el, idx) => (
                 <tr key={idx}>
                   <td scope="row">
-                    <div className="preview" dangerouslySetInnerHTML={createMarkup(parsePattern(el, template.to_string))}></div>
+                    <div
+                      className="preview"
+                      dangerouslySetInnerHTML={createMarkup(
+                        parsePattern(el, template.to_string)
+                      )}
+                    ></div>
                   </td>
 
-                  <td style={{ width: '10%' }}>
+                  <td style={{ width: "10%" }}>
                     <div className="col-md-1">
-                      {level === 1 && <i className="fa fa-edit m-3 text-primary" aria-hidden="true" onClick={() => handleEdit(idx)}></i>}
+                      {level === 1 && (
+                        <span>
+                          <a
+                            className="add-fragment"
+                            href="#"
+                            aria-hidden="true"
+                            onClick={() => handleEdit(idx)}
+                          >
+                            <i className="fa fa-edit m-3 text-primary" />
+                          </a>
+                        </span>
+                      )}
                     </div>
                     <div className="col-md-1">
-                      <i className="fa fa-times m-3  text-danger" aria-hidden="true" onClick={() => handleDeleteListe(idx)}></i>
+                      <span>
+                        <a
+                          className="add-fragment"
+                          href="#"
+                          aria-hidden="true"
+                          onClick={() => handleDeleteListe(idx)}
+                        >
+                          <i className="fa fa-times m-3  text-danger" />
+                        </a>
+                      </span>
                     </div>
                   </td>
                 </tr>
@@ -158,7 +198,10 @@ function ModalTemplate({
           </table>
         )}
 
-        <button className="btn btn-primary button-margin" onClick={() => handleShow(true)}>
+        <button
+          className="btn btn-primary button-margin"
+          onClick={() => handleShow(true)}
+        >
           Créé
         </button>
       </div>
@@ -180,25 +223,39 @@ function ModalTemplate({
                   </div>
                   <div className="fragment-property">
                     <span className="property-label">Identifiant : </span>
-                    <span className="property-value">{temp?.funder?.funderId}</span>
+                    <span className="property-value">
+                      {temp?.funder?.funderId}
+                    </span>
                   </div>
                   <div className="fragment-property">
-                    <span className="property-label">Type d'identifiant : </span>
-                    <span className="property-value">{temp?.funder?.idType}</span>
+                    <span className="property-label">
+                      Type d'identifiant :{" "}
+                    </span>
+                    <span className="property-value">
+                      {temp?.funder?.idType}
+                    </span>
                   </div>
                   <fieldset className="fragment-display sub-fragment">
                     <legend className="legend">Politique de données</legend>
                     <div className="fragment-property">
                       <span className="property-label">Titre : </span>
-                      <span className="property-value">{temp?.funder?.dataPolicy?.title}</span>
+                      <span className="property-value">
+                        {temp?.funder?.dataPolicy?.title}
+                      </span>
                     </div>
                     <div className="fragment-property">
                       <span className="property-label">Identifiant : </span>
-                      <span className="property-value">{temp?.funder?.dataPolicy?.docIdentifier}</span>
+                      <span className="property-value">
+                        {temp?.funder?.dataPolicy?.docIdentifier}
+                      </span>
                     </div>
                     <div className="fragment-property">
-                      <span className="property-label">Type d'identifiant : </span>
-                      <span className="property-value">{temp?.funder?.dataPolicy?.idType}</span>
+                      <span className="property-label">
+                        Type d'identifiant :{" "}
+                      </span>
+                      <span className="property-value">
+                        {temp?.funder?.dataPolicy?.idType}
+                      </span>
                     </div>
                   </fieldset>
                 </div>

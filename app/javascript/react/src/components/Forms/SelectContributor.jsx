@@ -1,31 +1,37 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import Select from 'react-select';
-import swal from 'sweetalert';
-import toast from 'react-hot-toast';
-import BuilderForm from '../Builder/BuilderForm';
-import { deleteByIndex, parsePattern } from '../../utils/GeneratorUtils';
-import { GlobalContext } from '../context/Global';
-import { getContributors, getSchema } from '../../services/DmpServiceApi';
+import React, { useContext, useEffect, useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import Select from "react-select";
+import swal from "sweetalert";
+import toast from "react-hot-toast";
+import BuilderForm from "../Builder/BuilderForm";
+import { deleteByIndex, parsePattern } from "../../utils/GeneratorUtils";
+import { GlobalContext } from "../context/Global";
+import { getContributors, getSchema } from "../../services/DmpServiceApi";
 
 function SelectContributor({
-  label, name, changeValue, templateId, keyValue, level, tooltip, header,
+  label,
+  name,
+  changeValue,
+  templateId,
+  keyValue,
+  level,
+  tooltip,
+  header,
 }) {
   const [list, setlist] = useState([]);
 
   const [show, setShow] = useState(false);
   const [options, setoptions] = useState(null);
   const [selectObject, setselectObject] = useState([]);
-  const {
-    form, setform, temp, settemp, locale, dmpId,
-  } = useContext(GlobalContext);
+  const { form, setform, temp, settemp, locale, dmpId } =
+    useContext(GlobalContext);
   const [index, setindex] = useState(null);
   const [template, settemplate] = useState(null);
   const [role, setrole] = useState(null);
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
-    getContributors(dmpId, templateId, 'token').then((res) => {
+    getContributors(dmpId, templateId, "token").then((res) => {
       const builtOptions = res.data.results.map((option) => ({
         value: option.id,
         label: option.text,
@@ -37,11 +43,11 @@ function SelectContributor({
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
-    getSchema(templateId, 'token').then((res) => {
+    getSchema(templateId, "token").then((res) => {
       setrole(res.properties.role[`const@${locale}`]);
       settemplate(res.properties.person.schema_id);
       const personTemplateId = res.properties.person.schema_id;
-      getSchema(personTemplateId, 'token').then((res) => {
+      getSchema(personTemplateId, "token").then((res) => {
         settemplate(res.data);
       });
 
@@ -89,7 +95,9 @@ function SelectContributor({
       changeValue({ target: { name, value: [...selectObject, object] } });
 
       const newObject = { person: object, role };
-      const arr3 = form[keyValue] ? [...form[keyValue], newObject] : [newObject];
+      const arr3 = form[keyValue]
+        ? [...form[keyValue], newObject]
+        : [newObject];
       setform({ ...form, [keyValue]: arr3 });
     } else {
       changeValue({ target: { name, value } });
@@ -102,9 +110,9 @@ function SelectContributor({
    */
   const handleDeleteListe = (idx) => {
     swal({
-      title: 'Ëtes-vous sûr ?',
-      text: 'Voulez-vous vraiment supprimer cet élément ?',
-      icon: 'info',
+      title: "Ëtes-vous sûr ?",
+      text: "Voulez-vous vraiment supprimer cet élément ?",
+      icon: "info",
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
@@ -113,8 +121,8 @@ function SelectContributor({
         setlist(deleteByIndex(newList, idx));
         const deleteIndex = deleteByIndex(form[keyValue], idx);
         setform({ ...form, [keyValue]: deleteIndex });
-        swal('Opération effectuée avec succès!', {
-          icon: 'success',
+        swal("Opération effectuée avec succès!", {
+          icon: "success",
         });
       }
     });
@@ -129,13 +137,16 @@ function SelectContributor({
   const handleAddToList = () => {
     if (index !== null) {
       const objectPerson = { person: temp, role };
-      setform({ ...form, [keyValue]: [...deleteByIndex(form[keyValue], index), objectPerson] });
+      setform({
+        ...form,
+        [keyValue]: [...deleteByIndex(form[keyValue], index), objectPerson],
+      });
       const parsedPatern = parsePattern(temp, template.to_string);
       setlist([...deleteByIndex([...list], index), parsedPatern]);
     } else {
       handleSave();
     }
-    toast.success('Enregistrement a été effectué avec succès !');
+    toast.success("Enregistrement a été effectué avec succès !");
     settemp(null);
     handleClose();
   };
@@ -170,7 +181,12 @@ function SelectContributor({
       <div className="form-group">
         <label>{label}</label>
         {tooltip && (
-          <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
+          <span
+            className="m-4"
+            data-toggle="tooltip"
+            data-placement="top"
+            title={tooltip}
+          >
             ?
           </span>
         )}
@@ -181,18 +197,31 @@ function SelectContributor({
               options={options}
               name={name}
               defaultValue={{
-                label: temp ? temp[name] : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
-                value: temp ? temp[name] : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
+                label: temp
+                  ? temp[name]
+                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                value: temp
+                  ? temp[name]
+                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
               }}
             />
           </div>
           <div className="col-md-2">
-            <i className="fas fa-plus-square text-primary icon-margin-top" onClick={handleShow}></i>
+            <span>
+              <a
+                className="add-fragment"
+                href="#"
+                aria-hidden="true"
+                onClick={handleShow}
+              >
+                <i className="fas fa-plus-square text-primary icon-margin-top" />
+              </a>
+            </span>
           </div>
         </div>
 
         {form[keyValue] && list && (
-          <table style={{ marginTop: '20px' }} className="table table-bordered">
+          <table style={{ marginTop: "20px" }} className="table table-bordered">
             <thead>
               {form[keyValue].length > 0 && header && (
                 <tr>
@@ -207,12 +236,32 @@ function SelectContributor({
                   <td scope="row">
                     <p className="border m-2"> {list[idx]} </p>
                   </td>
-                  <td style={{ width: '10%' }}>
+                  <td style={{ width: "10%" }}>
                     <div className="col-md-1">
-                      {level === 1 && <i className="fa fa-edit icon-margin-top text-primary" aria-hidden="true" onClick={() => handleEdit(idx)}></i>}
+                      {level === 1 && (
+                        <span>
+                          <a
+                            className="add-fragment"
+                            href="#"
+                            aria-hidden="true"
+                            onClick={() => handleEdit(idx)}
+                          >
+                            <i className="fa fa-edit icon-margin-top text-primary" />
+                          </a>
+                        </span>
+                      )}
                     </div>
                     <div className="col-md-1">
-                      <i className="fa fa-times icon-margin-top text-danger" aria-hidden="true" onClick={() => handleDeleteListe(idx)}></i>
+                      <span>
+                        <a
+                          className="add-fragment"
+                          href="#"
+                          aria-hidden="true"
+                          onClick={() => handleDeleteListe(idx)}
+                        >
+                          <i className="fa fa-times icon-margin-top text-danger" />
+                        </a>
+                      </span>
                     </div>
                   </td>
                 </tr>
@@ -225,7 +274,10 @@ function SelectContributor({
         {template && (
           <Modal show={show} onHide={handleClose}>
             <Modal.Body>
-              <BuilderForm shemaObject={template} level={level + 1}></BuilderForm>
+              <BuilderForm
+                shemaObject={template}
+                level={level + 1}
+              ></BuilderForm>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>

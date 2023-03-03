@@ -1,17 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import toast from 'react-hot-toast';
-import BuilderForm from '../Builder/BuilderForm';
-import { parsePattern } from '../../utils/GeneratorUtils';
-import { GlobalContext } from '../context/Global';
-import { getContributors, getSchema } from '../../services/DmpServiceApi';
+import React, { useContext, useEffect, useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import toast from "react-hot-toast";
+import BuilderForm from "../Builder/BuilderForm";
+import { parsePattern } from "../../utils/GeneratorUtils";
+import { GlobalContext } from "../context/Global";
+import { getContributors, getSchema } from "../../services/DmpServiceApi";
 
-function SelectInvestigator({ label, name, changeValue, templateId, keyValue, level, tooltip }) {
+function SelectInvestigator({
+  label,
+  name,
+  changeValue,
+  templateId,
+  keyValue,
+  level,
+  tooltip,
+}) {
   const [show, setShow] = useState(false);
   const [options, setoptions] = useState(null);
-  const {
-    form, setform, temp, settemp, locale, dmpId,
-  } = useContext(GlobalContext);
+  const { form, setform, temp, settemp, locale, dmpId } =
+    useContext(GlobalContext);
   const [index, setindex] = useState(null);
   const [template, setTemplate] = useState(null);
   const [role, setrole] = useState(null);
@@ -19,7 +26,7 @@ function SelectInvestigator({ label, name, changeValue, templateId, keyValue, le
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
-    getContributors(dmpId, templateId, 'token').then((res) => {
+    getContributors(dmpId, templateId, "token").then((res) => {
       console.log(res.data.results);
       const builtOptions = res.data.results.map((option) => ({
         value: option.id,
@@ -32,13 +39,13 @@ function SelectInvestigator({ label, name, changeValue, templateId, keyValue, le
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
-    getSchema(templateId, 'token').then((res) => {
+    getSchema(templateId, "token").then((res) => {
       const resTemplate = res.data;
       setrole(resTemplate.properties.role[`const@${locale}`]);
       setTemplate(resTemplate.properties.person.schema_id);
       const subTemplateId = resTemplate.properties.person.schema_id;
       setrole(resTemplate.properties.role[`const@${locale}`]);
-      getSchema(subTemplateId, 'token').then((resSubTemplate) => {
+      getSchema(subTemplateId, "token").then((resSubTemplate) => {
         setTemplate(resSubTemplate.data);
         if (!form[keyValue]) {
           return;
@@ -95,7 +102,7 @@ function SelectInvestigator({ label, name, changeValue, templateId, keyValue, le
       // save new
       handleSave();
     }
-    toast.success('Enregistrement a été effectué avec succès !');
+    toast.success("Enregistrement a été effectué avec succès !");
     settemp(null);
     handleClose();
   };
@@ -126,7 +133,12 @@ function SelectInvestigator({ label, name, changeValue, templateId, keyValue, le
       <div className="form-group">
         <label>{label}</label>
         {tooltip && (
-          <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
+          <span
+            className="m-4"
+            data-toggle="tooltip"
+            data-placement="top"
+            title={tooltip}
+          >
             ?
           </span>
         )}
@@ -134,7 +146,9 @@ function SelectInvestigator({ label, name, changeValue, templateId, keyValue, le
           <div className="col-md-10">
             {options && (
               <select className="form-control" onChange={handleChangeList}>
-                <option>Sélectionnez une valeur de la liste ou saisissez une nouvelle.</option>
+                <option>
+                  Sélectionnez une valeur de la liste ou saisissez une nouvelle.
+                </option>
                 {options.map((o, idx) => (
                   <option key={idx} value={o.value}>
                     {o.label}
@@ -145,14 +159,23 @@ function SelectInvestigator({ label, name, changeValue, templateId, keyValue, le
             )}
           </div>
           <div className="col-md-2">
-            <i className="fas fa-plus-square text-primary icon-margin-top" onClick={handleShow}></i>
+            <span>
+              <a
+                className="add-fragment"
+                href="#"
+                aria-hidden="true"
+                onClick={handleShow}
+              >
+                <i className="fas fa-plus-square text-primary icon-margin-top" />
+              </a>
+            </span>
           </div>
         </div>
         {selectedValue && (
-          <div style={{ margin: '10px' }}>
+          <div style={{ margin: "10px" }}>
             <strong>Valeur sélectionnée :</strong> {selectedValue}
             <a href="#" onClick={() => handleEdit(0)}>
-              {' '}
+              {" "}
               (modifié)
             </a>
           </div>
@@ -162,7 +185,10 @@ function SelectInvestigator({ label, name, changeValue, templateId, keyValue, le
         {template && (
           <Modal show={show} onHide={handleClose}>
             <Modal.Body>
-              <BuilderForm shemaObject={template} level={level + 1}></BuilderForm>
+              <BuilderForm
+                shemaObject={template}
+                level={level + 1}
+              ></BuilderForm>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
