@@ -274,6 +274,6 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
-    config.x.dmpopidor.enable_research_structure_template = false
+    config.x.dmpopidor.enable_research_structure_template = true
   end
 end

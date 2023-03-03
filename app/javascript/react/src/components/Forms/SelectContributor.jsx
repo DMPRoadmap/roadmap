@@ -31,7 +31,7 @@ function SelectContributor({
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
-    getContributors(dmpId, templateId, "token").then((res) => {
+    getContributors(dmpId, templateId).then((res) => {
       const builtOptions = res.data.results.map((option) => ({
         value: option.id,
         label: option.text,
@@ -43,11 +43,11 @@ function SelectContributor({
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
-    getSchema(templateId, "token").then((res) => {
+    getSchema(templateId).then((res) => {
       setrole(res.properties.role[`const@${locale}`]);
       settemplate(res.properties.person.schema_id);
       const personTemplateId = res.properties.person.schema_id;
-      getSchema(personTemplateId, "token").then((res) => {
+      getSchema(personTemplateId).then((res) => {
         settemplate(res.data);
       });
 

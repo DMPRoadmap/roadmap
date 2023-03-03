@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import Select from "react-select";
-import swal from "sweetalert";
-import { GlobalContext } from "../context/Global";
-import { getRegistry } from "../../services/DmpServiceApi";
+import React, { useContext, useEffect, useState } from 'react';
+import Select from 'react-select';
+import swal from 'sweetalert';
+import { GlobalContext } from '../context/Global';
+import { getRegistry } from '../../services/DmpServiceApi';
 
 function SelectMultipleList({
   label,
@@ -20,23 +20,22 @@ function SelectMultipleList({
   It is used to set the options of the select list. */
   useEffect(() => {
     let isMounted = true;
-    const createOptions = (data) =>
-      data.map((option) => ({
-        value: option.label ? option.label[locale] : option[locale],
-        label: option.label ? option.label[locale] : option[locale],
-        object: option,
-      }));
+    const createOptions = (data) => data.map((option) => ({
+      value: option.label ? option.label[locale] : option[locale],
+      label: option.label ? option.label[locale] : option[locale],
+      object: option,
+    }));
     const setOptions = (data) => {
       if (isMounted) {
         setoptions(data);
       }
     };
-    getRegistry(registryId, "token")
+    getRegistry(registryId)
       .then((res) => {
         if (res) {
           setOptions(createOptions(res.data));
         } else {
-          return getRegistry(registryId, "token").then((resRegistry) => {
+          return getRegistry(registryId).then((resRegistry) => {
             setOptions(createOptions(resRegistry.data));
           });
         }
@@ -74,9 +73,9 @@ function SelectMultipleList({
    */
   const handleDeleteListe = (idx) => {
     swal({
-      title: "Ëtes-vous sûr ?",
-      text: "Voulez-vous vraiment supprimer cet élément ?",
-      icon: "info",
+      title: 'Ëtes-vous sûr ?',
+      text: 'Voulez-vous vraiment supprimer cet élément ?',
+      icon: 'info',
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
@@ -88,8 +87,8 @@ function SelectMultipleList({
         }
         setlist(newList);
         settemp({ ...temp, [name]: newList });
-        swal("Opération effectuée avec succès!", {
-          icon: "success",
+        swal('Opération effectuée avec succès!', {
+          icon: 'success',
         });
       }
     });
@@ -115,22 +114,21 @@ function SelectMultipleList({
               onChange={handleChangeList}
               options={options}
               name={name}
-              // defaultValue={isEdit ? isEdit[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle."}
               defaultValue={{
                 label: temp
                   ? temp[name]
-                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                  : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
                 value: temp
                   ? temp[name]
-                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                  : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
               }}
             />
           </div>
         </div>
-        <div style={{ margin: "20px 30px 20px 20px" }}>
+        <div style={{ margin: '20px 30px 20px 20px' }}>
           {header && <p>{header}</p>}
-          {list &&
-            list.map((el, idx) => (
+          {list
+            && list.map((el, idx) => (
               <div key={idx} className="row border">
                 <div className="col-md-11">
                   <p className="border m-2"> {list[idx]} </p>
@@ -145,7 +143,7 @@ function SelectMultipleList({
                     >
                       <i className="fa fa-times icon-margin-top text-danger" />
                     </a>
-                  </span>{" "}
+                  </span>{' '}
                 </div>
               </div>
             ))}

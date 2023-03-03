@@ -26,7 +26,7 @@ function SelectInvestigator({
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
-    getContributors(dmpId, templateId, "token").then((res) => {
+    getContributors(dmpId, templateId).then((res) => {
       console.log(res.data.results);
       const builtOptions = res.data.results.map((option) => ({
         value: option.id,
@@ -39,13 +39,13 @@ function SelectInvestigator({
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
-    getSchema(templateId, "token").then((res) => {
+    getSchema(templateId).then((res) => {
       const resTemplate = res.data;
       setrole(resTemplate.properties.role[`const@${locale}`]);
       setTemplate(resTemplate.properties.person.schema_id);
       const subTemplateId = resTemplate.properties.person.schema_id;
       setrole(resTemplate.properties.role[`const@${locale}`]);
-      getSchema(subTemplateId, "token").then((resSubTemplate) => {
+      getSchema(subTemplateId).then((resSubTemplate) => {
         setTemplate(resSubTemplate.data);
         if (!form[keyValue]) {
           return;

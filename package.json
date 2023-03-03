@@ -82,6 +82,7 @@
     "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.15.0",
     "react-hot-toast": "^2.4.0",
+    "react-loader-spinner": "^5.3.4",
     "react-proptypes": "^1.0.0",
     "react-select": "^5.7.0",
     "regenerator-runtime": "^0.13.5",

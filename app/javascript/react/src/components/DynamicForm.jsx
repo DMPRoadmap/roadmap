@@ -6,19 +6,24 @@ import toast from 'react-hot-toast';
 import BuilderForm from './Builder/BuilderForm.jsx';
 import { GlobalContext } from './context/Global.jsx';
 import { checkRequiredForm, getLabelName } from '../utils/GeneratorUtils';
-import { getFragment } from '../services/DmpServiceApi';
+import { getFragment, saveForm } from '../services/DmpServiceApi';
+import CustomSpinner from './Shared/CustomSpinner.jsx';
 
-function DynamicForm({ fragmentId, dmpId, locale = 'en_GB', xsrf }) {
+function DynamicForm({ fragmentId, dmpId, locale = 'en_GB' }) {
   const { form, setform, setlocale, setdmpId } = useContext(GlobalContext);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   // eslint-disable-next-line global-require
   const [standardTemplate, setStandardTemplate] = useState(null);
   useEffect(() => {
+    setLoading(true);
     setlocale(locale);
     setdmpId(dmpId);
-    getFragment(fragmentId, xsrf).then((res) => {
+    getFragment(fragmentId).then((res) => {
       setStandardTemplate(res.data.schema);
       setform(res.data.fragment);
-    }).catch(console.error);
+    }).catch(console.error)
+      .finally(() => setLoading(false));
   }, [fragmentId]);
 
   /**
@@ -27,23 +32,36 @@ function DynamicForm({ fragmentId, dmpId, locale = 'en_GB', xsrf }) {
    */
   const handleSaveForm = (e) => {
     e.preventDefault();
+    setLoading(true);
     const checkForm = checkRequiredForm(standardTemplate, form);
     if (checkForm) {
       toast.error(`Veuiller remplir le champ ${getLabelName(checkForm, standardTemplate)}`);
     } else {
-      console.log(form);
+      saveForm(fragmentId, form).then((res) => {
+        toast.success(res.data.message);
+      }).catch((error) => {
+        toast.success(error.data.message);
+      })
+        .finally(() => setLoading(false));
     }
   };
 
   return (
     <>
-      <div className="col-10 m-4"></div>
-      <div className="m-4">
-        <BuilderForm shemaObject={standardTemplate} level={1} xsrf={xsrf}></BuilderForm>
-      </div>
-      <button onClick={handleSaveForm} className="btn btn-primary m-4">
-        Enregistrer
-      </button>
+      {loading && (
+        <div className="overlay">
+          <CustomSpinner></CustomSpinner>
+        </div>
+      )}
+      {!loading && error && <p>error</p>}
+      {!loading && !error && standardTemplate && (
+        <div className="m-4">
+          <BuilderForm shemaObject={standardTemplate} level={1}></BuilderForm>
+          <button onClick={handleSaveForm} className="btn btn-primary m-4">
+            Enregistrer
+          </button>
+        </div>
+      )}
     </>
   );
 }
@@ -53,7 +71,6 @@ DynamicForm.propTypes = {
   dmpId: PropTypes.number,
   schemaId: PropTypes.number,
   locale: PropTypes.string,
-  xsrf: PropTypes.string,
 };
 
 export default DynamicForm;

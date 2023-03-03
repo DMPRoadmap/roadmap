@@ -26,11 +26,11 @@ function SelectSingleList({
         setoptions(data);
       }
     };
-    getRegistryValue(registryId, 'token').then((res) => {
+    getRegistryValue(registryId).then((res) => {
       if (res) {
         setOptions(createOptions(res));
       } else {
-        return getRegistry(registryId, 'token').then((resRegistry) => {
+        return getRegistry(registryId).then((resRegistry) => {
           setOptions(createOptions(resRegistry.data));
         });
       }

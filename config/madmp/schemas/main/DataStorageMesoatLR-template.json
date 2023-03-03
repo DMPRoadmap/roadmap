@@ -26,7 +26,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "TechnicalResourceMesoatLR",
+                "template_name": "TechnicalResourceStandard",
                 "required": [
                     "dbid"
                 ]
@@ -35,7 +35,8 @@
             "label@fr_FR": "Identification de la ressource",
             "label@en_GB": "Resource identification",
             "form_label@fr_FR": "Identification de MESO@LR",
-            "form_label@en_GB": "MESO@LR identification"
+            "form_label@en_GB": "MESO@LR identification",
+            "isConst": true
         },
         "mesoatLRServiceRequest": {
             "type": "object",
@@ -66,7 +67,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "BackupPolicyMesoatLR",
+                "template_name": "BackupPolicyStandard",
                 "required": [
                     "dbid"
                 ]
@@ -75,17 +76,17 @@
             "label@fr_FR": "Politique de sauvegarde",
             "label@en_GB": "Backup policy",
             "form_label@fr_FR": "Politique de sauvegarde de MESO@LR",
-            "form_label@en_GB": "MESO@LR backup policy"
+            "form_label@en_GB": "MESO@LR backup policy",
+            "isConst": true
         },
         "securityMeasures": {
             "type": "string",
             "description": "Description des mesures prises pour assurer la sécurité des données",
             "label@fr_FR": "Mesures de sécurité",
             "label@en_GB": "Security measures",
-            "const@fr_FR": "L’offre de service propose la réplication des données, cette copie conforme se situe dans une salle distance du stockage primaire. Complémentaire à cette réplication, la possibilité d’avoir des snapshots selon la politique choisie offre une excellente protection contre les ransomwares. La connexion se fait selon votre solution d’authentification souhaitée : Active Directory ou LDAP, sinon par le LDAP de Meso. Le Mésocentre n'est pas encore habilité à recevoir des données de santé.",
-            "const@en_GB": "The service offers data replication, this exact copy is located in a room remote from the primary storage. Complementary to this replication, the possibility of having snapshots according to the chosen policy offers excellent protection against ransomware. The connection is made according to your desired authentication solution: Active Directory or LDAP, otherwise by Meso's LDAP. The Mesocentre is not yet authorized to receive health data.",
             "form_label@fr_FR": "Mesures de sécurité",
-            "form_label@en_GB": "Security measures"
+            "form_label@en_GB": "Security measures",
+            "isConst": true
         },
         "cost": {
             "type": "array",
@@ -141,6 +142,50 @@
         "mesoatLRServiceRequest"
     ],
     "to_string": [],
+    "default": {
+        "fr_FR": {
+            "securityMeasures": "L’offre de service propose la réplication des données, cette copie conforme se situe dans une salle distance du stockage primaire. Complémentaire à cette réplication, la possibilité d’avoir des snapshots selon la politique choisie offre une excellente protection contre les ransomwares. La connexion se fait selon votre solution d’authentification souhaitée : Active Directory ou LDAP, sinon par le LDAP de Meso. Le Mésocentre n'est pas encore habilité à recevoir des données de santé.",
+            "facility": [
+                {
+                    "title": "MESO@LR",
+                    "technicalResourceId": "https://cat.opidor.fr/index.php/MESO@LR",
+                    "idType": "URL",
+                    "serviceContact": "meso-lr@umontpellier.fr"
+                }
+            ],
+            "backupPolicy": [
+                {
+                    "description": "Politique de sauvegarde de MESO@LR : Votre espace est sauvegardé par snapshots et réplication. Les snapshots sont des copies des données à des moments réguliers et prédéfinis, permettant de revenir en arrière en cas de fausse manipulation sur un fichier. Les snapshots ne vont stocker que les différences sur les fichiers modifiés depuis le dernier snapshot. La réplication permet une sauvegarde complète des données. Cette copie des données se fait dans une salle physiquement distante du stockage initial. Elle permet une récupération des données lorsque toutes les données sont détruites",
+                    "backupFrequency": "Paramétrable",
+                    "backupType": "miroir",
+                    "storageType": [
+                        "Serveur NAS"
+                    ]
+                }
+            ]
+        },
+        "en_GB": {
+            "securityMeasures": "The service offers data replication, this exact copy is located in a room remote from the primary storage. Complementary to this replication, the possibility of having snapshots according to the chosen policy offers excellent protection against ransomware. The connection is made according to your desired authentication solution: Active Directory or LDAP, otherwise by Meso's LDAP. The Mesocentre is not yet authorized to receive health data.",
+            "facility": [
+                {
+                    "title": "MESO@LR",
+                    "technicalResourceId": "https://cat.opidor.fr/index.php/MESO@LR",
+                    "idType": "URL",
+                    "serviceContact": "meso-lr@umontpellier.fr"
+                }
+            ],
+            "backupPolicy": [
+                {
+                    "description": "MESO@LR backup policy : Your space is backed up by snapshots and replication. Snapshots are copies of data at regular and predefined times, allowing to go back in case of false manipulation on a file. Snapshots will only store differences on files modified since the last snapshot. Replication allows full backup of data. This copy of the data is made in a room physically remote from the initial storage. It allows data recovery when all data is destroyed",
+                    "backupFrequency": "Parametrable",
+                    "backupType": "mirror",
+                    "storageType": [
+                        "NAS server"
+                    ]
+                }
+            ]
+        }
+    },
     "run": [
         {
             "script_id": 6,

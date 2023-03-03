@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import Select from "react-select";
-import { Modal, Button } from "react-bootstrap";
-import swal from "sweetalert";
-import toast from "react-hot-toast";
-import { GlobalContext } from "../context/Global";
+import React, { useContext, useEffect, useState } from 'react';
+import Select from 'react-select';
+import { Modal, Button } from 'react-bootstrap';
+import swal from 'sweetalert';
+import toast from 'react-hot-toast';
+import { GlobalContext } from '../context/Global';
 import {
   checkRequiredForm,
   deleteByIndex,
   getLabelName,
   parsePattern,
-} from "../../utils/GeneratorUtils";
-import BuilderForm from "../Builder/BuilderForm";
-import { getRegistry, getSchema } from "../../services/DmpServiceApi";
+} from '../../utils/GeneratorUtils';
+import BuilderForm from '../Builder/BuilderForm';
+import { getRegistry, getSchema } from '../../services/DmpServiceApi';
 
 function SelectWithCreate({
   label,
@@ -29,7 +29,9 @@ function SelectWithCreate({
   const [show, setShow] = useState(false);
   const [options, setoptions] = useState(null);
   const [selectObject, setselectObject] = useState([]);
-  const { form, setform, temp, settemp, locale } = useContext(GlobalContext);
+  const {
+    form, setform, temp, settemp, locale,
+  } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
 
   const [template, setTemplate] = useState(null);
@@ -37,13 +39,13 @@ function SelectWithCreate({
   /* A hook that is called when the component is mounted.
   It is used to set the options of the select list. */
   useEffect(() => {
-    getSchema(templateId, "token").then((res) => {
+    getSchema(templateId).then((res) => {
       setTemplate(res.data);
       if (form[keyValue]) {
         const patern = res.data.to_string;
         if (patern.length > 0) {
           Promise.all(
-            form[keyValue].map((el) => parsePattern(el, patern))
+            form[keyValue].map((el) => parsePattern(el, patern)),
           ).then((listParsed) => {
             setlist(listParsed);
           });
@@ -56,23 +58,22 @@ function SelectWithCreate({
   It is used to set the options of the select list. */
   useEffect(() => {
     let isMounted = true;
-    const createOptions = (data) =>
-      data.map((option) => ({
-        value: option.label ? option.label[locale] : option[locale],
-        label: option.label ? option.label[locale] : option[locale],
-        object: option,
-      }));
+    const createOptions = (data) => data.map((option) => ({
+      value: option.label ? option.label[locale] : option[locale],
+      label: option.label ? option.label[locale] : option[locale],
+      object: option,
+    }));
     const setOptions = (data) => {
       if (isMounted) {
         setoptions(data);
       }
     };
-    getRegistry(registryId, "token")
+    getRegistry(registryId)
       .then((res) => {
         if (res) {
           setOptions(createOptions(res.data));
         } else {
-          return getRegistry(registryId, "token").then((resRegistry) => {
+          return getRegistry(registryId).then((resRegistry) => {
             setOptions(createOptions(resRegistry.data));
           });
         }
@@ -108,13 +109,11 @@ function SelectWithCreate({
    */
   const handleChangeList = (e) => {
     const pattern = template.to_string;
-    const parsedPatern =
-      pattern.length > 0 ? parsePattern(e.object, pattern) : null;
-    const updatedList =
-      pattern.length > 0 ? [...list, parsedPatern] : [...list, e.value];
+    const parsedPatern = pattern.length > 0 ? parsePattern(e.object, pattern) : null;
+    const updatedList = pattern.length > 0 ? [...list, parsedPatern] : [...list, e.value];
     setlist(updatedList);
     setselectObject(
-      pattern.length > 0 ? [...selectObject, e.object] : selectObject
+      pattern.length > 0 ? [...selectObject, e.object] : selectObject,
     );
     changeValue({
       target: {
@@ -137,9 +136,9 @@ function SelectWithCreate({
    */
   const handleDeleteListe = (idx) => {
     swal({
-      title: "Ëtes-vous sûr ?",
-      text: "Voulez-vous vraiment supprimer cet élément ?",
-      icon: "info",
+      title: 'Ëtes-vous sûr ?',
+      text: 'Voulez-vous vraiment supprimer cet élément ?',
+      icon: 'info',
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
@@ -148,8 +147,8 @@ function SelectWithCreate({
         setlist(deleteByIndex(newList, idx));
         const deleteIndex = deleteByIndex(form[keyValue], idx);
         setform({ ...form, [keyValue]: deleteIndex });
-        swal("Opération effectuée avec succès!", {
-          icon: "success",
+        swal('Opération effectuée avec succès!', {
+          icon: 'success',
         });
       }
     });
@@ -170,7 +169,7 @@ function SelectWithCreate({
     const checkForm = checkRequiredForm(template, temp);
     if (checkForm) {
       toast.error(
-        `Veuiller remplire le champs ${getLabelName(checkForm, template)}`
+        `Veuiller remplire le champs ${getLabelName(checkForm, template)}`,
       );
     } else {
       if (index !== null) {
@@ -186,7 +185,7 @@ function SelectWithCreate({
       } else {
         handleSave();
       }
-      toast.success("Enregistrement a été effectué avec succès !");
+      toast.success('Enregistrement a été effectué avec succès !');
     }
   };
 
@@ -235,10 +234,10 @@ function SelectWithCreate({
               defaultValue={{
                 label: temp
                   ? temp[name]
-                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                  : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
                 value: temp
                   ? temp[name]
-                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                  : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
               }}
             />
           </div>
@@ -252,7 +251,7 @@ function SelectWithCreate({
         </div>
 
         {form[keyValue] && list && (
-          <table style={{ marginTop: "20px" }} className="table table-bordered">
+          <table style={{ marginTop: '20px' }} className="table table-bordered">
             <thead>
               {form[keyValue].length > 0 && header && (
                 <tr>
@@ -267,7 +266,7 @@ function SelectWithCreate({
                   <td scope="row">
                     <p className="border m-2"> {list[idx]} </p>
                   </td>
-                  <td style={{ width: "10%" }}>
+                  <td style={{ width: '10%' }}>
                     <div className="col-md-1">
                       {level === 1 && (
                         <span>
@@ -280,7 +279,7 @@ function SelectWithCreate({
                             <i className="fa fa-edit icon-margin-top text-primary" />
                           </a>
                         </span>
-                      )}{" "}
+                      )}{' '}
                     </div>
                     <div className="col-md-1">
                       <span>
@@ -292,7 +291,7 @@ function SelectWithCreate({
                         >
                           <i className="fa fa-times icon-margin-top text-danger" />
                         </a>
-                      </span>{" "}
+                      </span>{' '}
                     </div>
                   </td>
                 </tr>

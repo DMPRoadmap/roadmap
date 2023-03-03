@@ -10,13 +10,12 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 class FormRoot extends React.Component {
   render() {
-    console.log(this.props.fragmentId, this.props.dmpId, this.props.schemaId);
     return (
       <Global>
         <DynamicForm schemaId={this.props.schemaId}
           dmpId={this.props.dmpId}
           fragmentId={this.props.fragmentId}
-          locale={this.props.locale} xsrf={this.props.xsrf} />
+          locale={this.props.locale} />
         <Toaster position="top-center" reverseOrder={false} />
       </Global>
     );
@@ -28,7 +27,6 @@ FormRoot.propTypes = {
   dmpId: PropTypes.number,
   schemaId: PropTypes.number,
   locale: PropTypes.string,
-  xsrf: PropTypes.string,
 };
 
 export default FormRoot;

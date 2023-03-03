@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { GlobalContext } from '../context/Global';
 import HandleGenerateForms from './HandleGenerateForms';
 
-function BuilderForm({ shemaObject, level, xsrf }) {
+function BuilderForm({ shemaObject, level }) {
   const {
     form, setform, temp, settemp,
   } = useContext(GlobalContext);
@@ -31,7 +31,6 @@ function BuilderForm({ shemaObject, level, xsrf }) {
       shemaObject={shemaObject}
       level={level}
       changeValue={changeValue}
-      xsrf={xsrf}
     ></HandleGenerateForms>
   );
 }

@@ -33,7 +33,7 @@ function ModalTemplate({
 
   const [template, setTemplate] = useState(null);
   useEffect(() => {
-    getSchema(templateId, "token").then((res) => {
+    getSchema(templateId).then((res) => {
       setTemplate(res.data);
     });
   }, [templateId]);
