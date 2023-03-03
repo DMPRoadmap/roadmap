@@ -135,17 +135,17 @@ function SelectMultipleList({
                 <div className="col-md-11">
                   <p className="border m-2"> {list[idx]} </p>
                 </div>
-                <div className="col-md-1">
+                <div className="col-md-1" style={{ marginTop: "8px" }}>
                   <span>
                     <a
-                      className="add-fragment"
+                      className="text-danger"
                       href="#"
                       aria-hidden="true"
                       onClick={() => handleDeleteListe(idx)}
                     >
-                      <i className="fa fa-times icon-margin-top text-danger" />
+                      <i className="fa fa-times" />
                     </a>
-                  </span>{" "}
+                  </span>
                 </div>
               </div>
             ))}
