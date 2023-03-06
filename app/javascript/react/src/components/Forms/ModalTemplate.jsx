@@ -129,26 +129,17 @@ function ModalTemplate({
 
   return (
     <>
-      <div className="border p-2 mb-2">
-        <p>{value[`form_label@${locale}`]}</p>
-        {tooltip && (
-          <span
-            className="m-4"
-            data-toggle="tooltip"
-            data-placement="top"
-            title={tooltip}
-          >
-            ?
-          </span>
-        )}
-
+      <fieldset className="sub-fragment border p-2 mb-2">
+        <legend className="sub-fragment" data-toggle="tooltip" data-original-title={tooltip}>
+          {value[`form_label@${locale}`]}
+        </legend>
         {form[keyValue] && template && (
-          <table style={{ marginTop: "20px" }} className="table table-bordered">
+          <table style={{ marginTop: "20px" }} className="table table-bordered linked-fragments-list">
             <thead>
               {form[keyValue].length > 0 && template && header && (
                 <tr>
                   <th scope="col">{header}</th>
-                  <th scope="col"></th>
+                  <th scope="col">Actions</th>
                 </tr>
               )}
             </thead>
@@ -204,7 +195,7 @@ function ModalTemplate({
         >
           Créé
         </button>
-      </div>
+      </fieldset>
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
           {keyValue === "funding" && index !== null && temp && (
