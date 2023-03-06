@@ -4,7 +4,7 @@ import HandleGenerateForms from './HandleGenerateForms';
 
 function BuilderForm({ shemaObject, level }) {
   const {
-    form, setform, temp, settemp,
+    formData, setFormData, subData, setSubData,
   } = useContext(GlobalContext);
 
   /**
@@ -17,8 +17,8 @@ function BuilderForm({ shemaObject, level }) {
   const changeValue = (event) => {
     const { name, value } = event.target;
     level === 1
-      ? setform({ ...form, [name]: value })
-      : settemp({ ...temp, [name]: value });
+      ? setFormData({ ...formData, [name]: value })
+      : setSubData({ ...subData, [name]: value });
   };
 
   /**

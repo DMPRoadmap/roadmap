@@ -109,14 +109,15 @@ export function isEmptyObject(obj) {
  * It takes a value and an object as parameters and returns the value of the key that matches the value parameter.
  * @param value - the key of the object
  * @param object - the object that contains the properties
+ * @param locale - locale of the form
  * @returns The value of the key "form_label@fr_FR" if it exists, otherwise the value of the key "label@fr_FR"
  */
-export function getLabelName(value, object) {
+export function getLabelName(value, object, locale) {
   const keyObject = object.properties;
-  if (keyObject[value].hasOwnProperty("form_label@fr_FR")) {
-    return keyObject[value]["form_label@fr_FR"];
+  if (keyObject[value].hasOwnProperty(`form_label@${locale}`)) {
+    return keyObject[value][`form_label@${locale}`];
   }
-  return keyObject[value]["label@fr_FR"];
+  return keyObject[value][`label@${locale}`];
 }
 
 /**
@@ -126,4 +127,18 @@ export function getLabelName(value, object) {
  */
 export function formatNumberWithSpaces(num) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+/**
+ * Reformats registry values into a readable object list
+ * @param {*} registryValues 
+ * @param {*} locale 
+ * @returns a formatted tab with select options
+ */
+export function createOptions(registryValues, locale) {
+  return registryValues.map((option) => ({
+    value: option.label ? option.label[locale] : option[locale],
+    label: option.label ? option.label[locale] : option[locale],
+    object: option,
+  }));
 }

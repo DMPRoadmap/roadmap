@@ -1,40 +1,32 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Select from 'react-select';
-import { getRegistry, getRegistryValue } from '../../services/DmpServiceApi';
-import { getDefaultLabel } from '../../utils/GeneratorUtils';
+import { getRegistry } from '../../services/DmpServiceApi';
+import { createOptions } from '../../utils/GeneratorUtils';
 import { GlobalContext } from '../context/Global';
 
 function SelectSingleList({
-  label, name, changeValue, tooltip, registryId,
+  label, propName, changeValue, tooltip, registryId,
 }) {
   const [options, setoptions] = useState(null);
-  const { form, temp, locale } = useContext(GlobalContext);
-
+  const { formData, subData, locale } = useContext(GlobalContext);
   /*
   A hook that is called when the component is mounted.
   It is used to set the options of the select list.
   */
   useEffect(() => {
     let isMounted = true;
-    const createOptions = (data) => data.map((option) => ({
-      value: option.label ? option.label[locale] : option[locale],
-      label: option.label ? option.label[locale] : option[locale],
-      object: option,
-    }));
     const setOptions = (data) => {
       if (isMounted) {
         setoptions(data);
       }
     };
-    getRegistryValue(registryId).then((res) => {
-      if (res) {
-        setOptions(createOptions(res));
-      } else {
-        return getRegistry(registryId).then((resRegistry) => {
-          setOptions(createOptions(resRegistry.data));
-        });
-      }
-    });
+    getRegistry(registryId)
+      .then((res) => {
+        setOptions(createOptions(res.data, locale));
+      })
+      .catch((error) => {
+        // handle errors
+      });
     return () => {
       isMounted = false;
     };
@@ -45,10 +37,10 @@ function SelectSingleList({
    * @param e - the event object
    */
   const handleChangeList = (e) => {
-    if (name === 'funder') {
-      changeValue({ target: { name, value: e.object } });
+    if (propName === 'funder') {
+      changeValue({ target: { propName, value: e.object } });
     } else {
-      changeValue({ target: { name, value: e.value } });
+      changeValue({ target: { propName, value: e.value } });
     }
   };
 
@@ -66,11 +58,8 @@ function SelectSingleList({
             <Select
               onChange={handleChangeList}
               options={options}
-              name={name}
-              defaultValue={{
-                label: getDefaultLabel(temp, form, name),
-                value: getDefaultLabel(temp, form, name),
-              }}
+              name={propName}
+              value={subData ? subData[propName] : formData[propName]}
             />
           </div>
         </div>

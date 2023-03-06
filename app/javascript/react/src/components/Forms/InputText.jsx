@@ -10,20 +10,20 @@ import { GlobalContext } from '../context/Global';
 function InputText({
   label, type, placeholder, name, changeValue, tooltip, hidden, isConst,
 }) {
-  const { form, setform, temp } = useContext(GlobalContext);
+  const { formData, setFormData, temp } = useContext(GlobalContext);
   const [text, settext] = useState(null);
   const [isRequired, setisRequired] = useState(false);
 
   /* It's setting the state of the form to the value of the isConst variable. */
   useEffect(() => {
     if (isConst !== false) {
-      setform({ [name]: isConst });
+      setFormData({ [name]: isConst });
     }
   }, []);
 
   useEffect(() => {
-    settext(form[name]);
-  }, [form[name]]);
+    settext(formData[name]);
+  }, [formData[name]]);
 
   /**
    * It takes a number, formats it to a string, and then sets the

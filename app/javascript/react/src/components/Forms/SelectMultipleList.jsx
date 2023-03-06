@@ -3,6 +3,7 @@ import Select from 'react-select';
 import swal from 'sweetalert';
 import { GlobalContext } from '../context/Global';
 import { getRegistry } from '../../services/DmpServiceApi';
+import { createOptions } from '../../utils/GeneratorUtils';
 
 function SelectMultipleList({
   label,
@@ -14,17 +15,12 @@ function SelectMultipleList({
 }) {
   const [list, setlist] = useState([]);
   const [options, setoptions] = useState(null);
-  const { temp, settemp, locale } = useContext(GlobalContext);
+  const { subData, setSubData, locale } = useContext(GlobalContext);
 
   /* A hook that is called when the component is mounted.
   It is used to set the options of the select list. */
   useEffect(() => {
     let isMounted = true;
-    const createOptions = (data) => data.map((option) => ({
-      value: option.label ? option.label[locale] : option[locale],
-      label: option.label ? option.label[locale] : option[locale],
-      object: option,
-    }));
     const setOptions = (data) => {
       if (isMounted) {
         setoptions(data);
@@ -32,13 +28,7 @@ function SelectMultipleList({
     };
     getRegistry(registryId)
       .then((res) => {
-        if (res) {
-          setOptions(createOptions(res.data));
-        } else {
-          return getRegistry(registryId).then((resRegistry) => {
-            setOptions(createOptions(resRegistry.data));
-          });
-        }
+        setOptions(createOptions(res.data, locale));
       })
       .catch((error) => {
         // handle errors
@@ -61,10 +51,10 @@ function SelectMultipleList({
   /* A hook that is called when the component is mounted.
   It is used to set the options of the select list. */
   useEffect(() => {
-    if (temp) {
-      setlist(temp[name]);
+    if (subData) {
+      setlist(subData[name]);
     }
-  }, [temp]);
+  }, [subData]);
 
   /**
    * It creates a new array, then removes the item at the index specified by the parameter,
@@ -86,7 +76,7 @@ function SelectMultipleList({
           newList.splice(idx, 1); // 2nd parameter means remove one item only
         }
         setlist(newList);
-        settemp({ ...temp, [name]: newList });
+        setSubData({ ...subData, [name]: newList });
         swal('Opération effectuée avec succès!', {
           icon: 'success',
         });
@@ -115,11 +105,11 @@ function SelectMultipleList({
               options={options}
               name={name}
               defaultValue={{
-                label: temp
-                  ? temp[name]
+                label: subData
+                  ? subData[name]
                   : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
-                value: temp
-                  ? temp[name]
+                value: subData
+                  ? subData[name]
                   : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
               }}
             />

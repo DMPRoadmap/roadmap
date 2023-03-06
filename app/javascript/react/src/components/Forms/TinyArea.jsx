@@ -5,11 +5,11 @@ import { GlobalContext } from '../context/Global';
 function TinyArea({
   label, name, changeValue, tooltip, level,
 }) {
-  const { form, temp } = useContext(GlobalContext);
+  const { formData, temp } = useContext(GlobalContext);
   const [text, settext] = useState('<p></p>');
 
   useEffect(() => {
-    const defaultValue = temp ? temp[name] : form[name] ? form[name] : '<p></p>';
+    const defaultValue = temp ? temp[name] : formData[name] ? formData[name] : '<p></p>';
     const updatedText = level === 1 ? defaultValue : temp ? temp[name] : '<p></p>';
     settext(updatedText);
   }, [level, name]);

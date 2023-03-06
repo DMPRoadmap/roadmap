@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import Select from "react-select";
-import swal from "sweetalert";
-import toast from "react-hot-toast";
-import BuilderForm from "../Builder/BuilderForm";
-import { deleteByIndex, parsePattern } from "../../utils/GeneratorUtils";
-import { GlobalContext } from "../context/Global";
-import { getContributors, getSchema } from "../../services/DmpServiceApi";
+import React, { useContext, useEffect, useState } from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import Select from 'react-select';
+import swal from 'sweetalert';
+import toast from 'react-hot-toast';
+import BuilderForm from '../Builder/BuilderForm';
+import { deleteByIndex, parsePattern } from '../../utils/GeneratorUtils';
+import { GlobalContext } from '../context/Global';
+import { getContributors, getSchema } from '../../services/DmpServiceApi';
 
 function SelectContributor({
   label,
@@ -23,8 +23,9 @@ function SelectContributor({
   const [show, setShow] = useState(false);
   const [options, setoptions] = useState(null);
   const [selectObject, setselectObject] = useState([]);
-  const { form, setform, temp, settemp, locale, dmpId } =
-    useContext(GlobalContext);
+  const {
+    formData, setFormData, subData, setSubData, locale, dmpId,
+  } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
   const [template, settemplate] = useState(null);
   const [role, setrole] = useState(null);
@@ -47,11 +48,11 @@ function SelectContributor({
       setrole(res.properties.role[`const@${locale}`]);
       settemplate(res.properties.person.schema_id);
       const personTemplateId = res.properties.person.schema_id;
-      getSchema(personTemplateId).then((res) => {
-        settemplate(res.data);
+      getSchema(personTemplateId).then((resSchema) => {
+        settemplate(resSchema.data);
       });
 
-      if (!form[keyValue]) {
+      if (!formData[keyValue]) {
         return;
       }
       const pattern = res.to_string;
@@ -59,16 +60,16 @@ function SelectContributor({
         return;
       }
 
-      setlist(form[keyValue].map((el) => parsePattern(el, pattern)));
+      setlist(formData[keyValue].map((el) => parsePattern(el, pattern)));
     });
-  }, [form[keyValue], templateId]);
+  }, [formData[keyValue], templateId]);
 
   /**
    * It closes the modal and resets the state of the modal.
    */
   const handleClose = () => {
     setShow(false);
-    settemp(null);
+    setSubData(null);
     setindex(null);
   };
   /**
@@ -95,10 +96,10 @@ function SelectContributor({
       changeValue({ target: { name, value: [...selectObject, object] } });
 
       const newObject = { person: object, role };
-      const arr3 = form[keyValue]
-        ? [...form[keyValue], newObject]
+      const arr3 = formData[keyValue]
+        ? [...formData[keyValue], newObject]
         : [newObject];
-      setform({ ...form, [keyValue]: arr3 });
+      setFormData({ ...formData, [keyValue]: arr3 });
     } else {
       changeValue({ target: { name, value } });
       setlist([...list, value]);
@@ -110,19 +111,19 @@ function SelectContributor({
    */
   const handleDeleteListe = (idx) => {
     swal({
-      title: "Ëtes-vous sûr ?",
-      text: "Voulez-vous vraiment supprimer cet élément ?",
-      icon: "info",
+      title: 'Ëtes-vous sûr ?',
+      text: 'Voulez-vous vraiment supprimer cet élément ?',
+      icon: 'info',
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
         const newList = [...list];
         setlist(deleteByIndex(newList, idx));
-        const deleteIndex = deleteByIndex(form[keyValue], idx);
-        setform({ ...form, [keyValue]: deleteIndex });
-        swal("Opération effectuée avec succès!", {
-          icon: "success",
+        const deleteIndex = deleteByIndex(formData[keyValue], idx);
+        setFormData({ ...formData, [keyValue]: deleteIndex });
+        swal('Opération effectuée avec succès!', {
+          icon: 'success',
         });
       }
     });
@@ -130,24 +131,24 @@ function SelectContributor({
 
   /**
    * If the index is not null, then delete the item at the index,
-   * add the temp item to the end of the array,
+   * add the subData item to the end of the array,
    * and then splice the item from the list array.
    * If the index is null, then just save the item.
    */
   const handleAddToList = () => {
     if (index !== null) {
-      const objectPerson = { person: temp, role };
-      setform({
-        ...form,
-        [keyValue]: [...deleteByIndex(form[keyValue], index), objectPerson],
+      const objectPerson = { person: subData, role };
+      setFormData({
+        ...formData,
+        [keyValue]: [...deleteByIndex(formData[keyValue], index), objectPerson],
       });
-      const parsedPatern = parsePattern(temp, template.to_string);
+      const parsedPatern = parsePattern(subData, template.to_string);
       setlist([...deleteByIndex([...list], index), parsedPatern]);
     } else {
       handleSave();
     }
-    toast.success("Enregistrement a été effectué avec succès !");
-    settemp(null);
+    toast.success('Enregistrement a été effectué avec succès !');
+    setSubData(null);
     handleClose();
   };
 
@@ -158,20 +159,20 @@ function SelectContributor({
    * modal and set the temporary person object to null.
    */
   const handleSave = () => {
-    const objectPerson = { person: temp, role };
-    setform({ ...form, [keyValue]: [...(form[keyValue] || []), objectPerson] });
-    const parsedPatern = parsePattern(temp, template.to_string);
+    const objectPerson = { person: subData, role };
+    setFormData({ ...formData, [keyValue]: [...(formData[keyValue] || []), objectPerson] });
+    const parsedPatern = parsePattern(subData, template.to_string);
     setlist([...list, parsedPatern]);
     handleClose();
-    settemp(null);
+    setSubData(null);
   };
 
   /**
-   * It sets the state of the temp variable to the value of the form[keyValue][idx] variable.
+   * It sets the state of the subData variable to the value of the form[keyValue][idx] variable.
    * @param idx - the index of the item in the array
    */
   const handleEdit = (idx) => {
-    settemp(form[keyValue][idx].person);
+    setSubData(formData[keyValue][idx].person);
     setShow(true);
     setindex(idx);
   };
@@ -197,16 +198,16 @@ function SelectContributor({
               options={options}
               name={name}
               defaultValue={{
-                label: temp
-                  ? temp[name]
-                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
-                value: temp
-                  ? temp[name]
-                  : "Sélectionnez une valeur de la liste ou saisissez une nouvelle.",
+                label: subData
+                  ? subData[name]
+                  : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
+                value: subData
+                  ? subData[name]
+                  : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
               }}
             />
           </div>
-          <div className="col-md-2" style={{ marginTop: "8px" }}>
+          <div className="col-md-2" style={{ marginTop: '8px' }}>
             <span>
               <a
                 className="text-primary"
@@ -220,10 +221,10 @@ function SelectContributor({
           </div>
         </div>
 
-        {form[keyValue] && list && (
-          <table style={{ marginTop: "20px" }} className="table table-bordered">
+        {formData[keyValue] && list && (
+          <table style={{ marginTop: '20px' }} className="table table-bordered">
             <thead>
-              {form[keyValue].length > 0 && header && (
+              {formData[keyValue].length > 0 && header && (
                 <tr>
                   <th scope="col">{header}</th>
                   <th scope="col"></th>
@@ -231,12 +232,12 @@ function SelectContributor({
               )}
             </thead>
             <tbody>
-              {form[keyValue].map((el, idx) => (
+              {formData[keyValue].map((el, idx) => (
                 <tr key={idx}>
                   <td scope="row">
                     <p className="border m-2"> {list[idx]} </p>
                   </td>
-                  <td style={{ width: "10%" }}>
+                  <td style={{ width: '10%' }}>
                     <div className="col-md-1">
                       {level === 1 && (
                         <span>

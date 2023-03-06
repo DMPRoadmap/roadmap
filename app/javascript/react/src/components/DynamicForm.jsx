@@ -10,7 +10,7 @@ import { getFragment, saveForm } from '../services/DmpServiceApi';
 import CustomSpinner from './Shared/CustomSpinner.jsx';
 
 function DynamicForm({ fragmentId, dmpId, locale = 'en_GB' }) {
-  const { form, setform, setlocale, setdmpId } = useContext(GlobalContext);
+  const { formData, setFormData, setlocale, setdmpId } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   // eslint-disable-next-line global-require
@@ -21,7 +21,7 @@ function DynamicForm({ fragmentId, dmpId, locale = 'en_GB' }) {
     setdmpId(dmpId);
     getFragment(fragmentId).then((res) => {
       setStandardTemplate(res.data.schema);
-      setform(res.data.fragment);
+      setFormData(res.data.fragment);
     }).catch(console.error)
       .finally(() => setLoading(false));
   }, [fragmentId]);
@@ -33,11 +33,11 @@ function DynamicForm({ fragmentId, dmpId, locale = 'en_GB' }) {
   const handleSaveForm = (e) => {
     e.preventDefault();
     setLoading(true);
-    const checkForm = checkRequiredForm(standardTemplate, form);
+    const checkForm = checkRequiredForm(standardTemplate, formData);
     if (checkForm) {
-      toast.error(`Veuiller remplir le champ ${getLabelName(checkForm, standardTemplate)}`);
+      toast.error(`Veuiller remplir le champ ${getLabelName(checkForm, standardTemplate, locale)}`);
     } else {
-      saveForm(fragmentId, form).then((res) => {
+      saveForm(fragmentId, formData).then((res) => {
         toast.success(res.data.message);
       }).catch((error) => {
         toast.success(error.data.message);

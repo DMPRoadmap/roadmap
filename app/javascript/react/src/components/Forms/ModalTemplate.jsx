@@ -28,7 +28,7 @@ function ModalTemplate({
   header,
 }) {
   const [show, setShow] = useState(false);
-  const { form, setform, temp, settemp, locale } = useContext(GlobalContext);
+  const { formData, setformData, subData, setSubData, locale } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
 
   const [template, setTemplate] = useState(null);
@@ -42,27 +42,27 @@ function ModalTemplate({
    */
   const handleClose = () => {
     setShow(false);
-    settemp(null);
+    setSubData(null);
     setindex(null);
   };
 
   /**
-   * If the temp variable is not empty, check if the form is valid, if it is,
-   * add the temp variable to the form, if it's not, show an error message.
+   * If the subData variable is not empty, check if the form is valid, if it is,
+   * add the subData variable to the form, if it's not, show an error message.
    */
   const handleAddToList = () => {
-    if (!temp) return handleClose();
+    if (!subData) return handleClose();
 
-    const checkForm = checkRequiredForm(template, temp);
+    const checkForm = checkRequiredForm(template, subData);
     if (checkForm)
       return toast.error(
-        `Veuiller remplire le champs ${getLabelName(checkForm, template)}`
+        `Veuiller remplir le champs ${getLabelName(checkForm, template)}`
       );
 
     if (index !== null) {
-      const deleteIndex = deleteByIndex(form[keyValue], index);
-      setform({ ...form, [keyValue]: [...deleteIndex, temp] });
-      settemp(null);
+      const deleteIndex = deleteByIndex(formData[keyValue], index);
+      setformData({ ...formData, [keyValue]: [...deleteIndex, subData] });
+      setSubData(null);
     } else {
       handleSave();
       toast.success("Enregistrement a été effectué avec succès !");
@@ -72,13 +72,13 @@ function ModalTemplate({
 
   /**
    * When the user clicks the save button, the form is updated with the new data,
-   * the temp is set to null, and the modal is closed.
+   * the subData is set to null, and the modal is closed.
    */
   const handleSave = () => {
-    let newObject = form[keyValue] || [];
-    newObject = [...newObject, temp];
-    setform({ ...form, [keyValue]: newObject });
-    settemp(null);
+    let newObject = formData[keyValue] || [];
+    newObject = [...newObject, subData];
+    setformData({ ...formData, [keyValue]: newObject });
+    setSubData(null);
     handleClose();
   };
 
@@ -97,8 +97,8 @@ function ModalTemplate({
    * @param idx - the index of the item in the array
    */
   const handleEdit = (idx) => {
-    console.log(form[keyValue][idx]);
-    settemp(form[keyValue][idx]);
+    console.log(formData[keyValue][idx]);
+    setSubData(formData[keyValue][idx]);
     setShow(true);
     setindex(idx);
   };
@@ -117,8 +117,8 @@ function ModalTemplate({
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        const deleteIndex = deleteByIndex(form[keyValue], idx);
-        setform({ ...form, [keyValue]: deleteIndex });
+        const deleteIndex = deleteByIndex(formData[keyValue], idx);
+        setformData({ ...formData, [keyValue]: deleteIndex });
         // toast.success("Congé accepté");
         swal("Opération effectuée avec succès!", {
           icon: "success",
@@ -133,10 +133,10 @@ function ModalTemplate({
         <legend className="sub-fragment" data-toggle="tooltip" data-original-title={tooltip}>
           {value[`form_label@${locale}`]}
         </legend>
-        {form[keyValue] && template && (
+        {formData[keyValue] && template && (
           <table style={{ marginTop: "20px" }} className="table table-bordered linked-fragments-list">
             <thead>
-              {form[keyValue].length > 0 && template && header && (
+              {formData[keyValue].length > 0 && template && header && (
                 <tr>
                   <th scope="col">{header}</th>
                   <th scope="col">Actions</th>
@@ -144,7 +144,7 @@ function ModalTemplate({
               )}
             </thead>
             <tbody>
-              {form[keyValue].map((el, idx) => (
+              {formData[keyValue].map((el, idx) => (
                 <tr key={idx}>
                   <td scope="row">
                     <div
@@ -198,7 +198,7 @@ function ModalTemplate({
       </fieldset>
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
-          {keyValue === "funding" && index !== null && temp && (
+          {keyValue === "funding" && index !== null && subData && (
             <div className="col-md-12 funder">
               <fieldset className="sub-fragment registry">
                 <legend className="sub-fragment registry legend">
@@ -210,12 +210,12 @@ function ModalTemplate({
                 <div className="col-md-12 fragment-display">
                   <div className="fragment-property">
                     <span className="property-label">Nom du financeur : </span>
-                    <span className="property-value">{temp?.funder?.name}</span>
+                    <span className="property-value">{subData?.funder?.name}</span>
                   </div>
                   <div className="fragment-property">
                     <span className="property-label">Identifiant : </span>
                     <span className="property-value">
-                      {temp?.funder?.funderId}
+                      {subData?.funder?.funderId}
                     </span>
                   </div>
                   <div className="fragment-property">
@@ -223,7 +223,7 @@ function ModalTemplate({
                       Type d'identifiant :{" "}
                     </span>
                     <span className="property-value">
-                      {temp?.funder?.idType}
+                      {subData?.funder?.idType}
                     </span>
                   </div>
                   <fieldset className="fragment-display sub-fragment">
@@ -231,13 +231,13 @@ function ModalTemplate({
                     <div className="fragment-property">
                       <span className="property-label">Titre : </span>
                       <span className="property-value">
-                        {temp?.funder?.dataPolicy?.title}
+                        {subData?.funder?.dataPolicy?.title}
                       </span>
                     </div>
                     <div className="fragment-property">
                       <span className="property-label">Identifiant : </span>
                       <span className="property-value">
-                        {temp?.funder?.dataPolicy?.docIdentifier}
+                        {subData?.funder?.dataPolicy?.docIdentifier}
                       </span>
                     </div>
                     <div className="fragment-property">
@@ -245,7 +245,7 @@ function ModalTemplate({
                         Type d'identifiant :{" "}
                       </span>
                       <span className="property-value">
-                        {temp?.funder?.dataPolicy?.idType}
+                        {subData?.funder?.dataPolicy?.idType}
                       </span>
                     </div>
                   </fieldset>

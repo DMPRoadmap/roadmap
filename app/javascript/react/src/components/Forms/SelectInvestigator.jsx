@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import toast from "react-hot-toast";
-import BuilderForm from "../Builder/BuilderForm";
-import { parsePattern } from "../../utils/GeneratorUtils";
-import { GlobalContext } from "../context/Global";
-import { getContributors, getSchema } from "../../services/DmpServiceApi";
+import React, { useContext, useEffect, useState } from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import toast from 'react-hot-toast';
+import BuilderForm from '../Builder/BuilderForm';
+import { parsePattern } from '../../utils/GeneratorUtils';
+import { GlobalContext } from '../context/Global';
+import { getContributors, getSchema } from '../../services/DmpServiceApi';
 
 function SelectInvestigator({
   label,
@@ -17,8 +17,9 @@ function SelectInvestigator({
 }) {
   const [show, setShow] = useState(false);
   const [options, setoptions] = useState(null);
-  const { form, setform, temp, settemp, locale, dmpId } =
-    useContext(GlobalContext);
+  const {
+    formData, setFormData, subData, setSubData, locale, dmpId,
+  } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
   const [template, setTemplate] = useState(null);
   const [role, setrole] = useState(null);
@@ -27,7 +28,6 @@ function SelectInvestigator({
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
     getContributors(dmpId, templateId).then((res) => {
-      console.log(res.data.results);
       const builtOptions = res.data.results.map((option) => ({
         value: option.id,
         label: option.text,
@@ -47,14 +47,14 @@ function SelectInvestigator({
       setrole(resTemplate.properties.role[`const@${locale}`]);
       getSchema(subTemplateId).then((resSubTemplate) => {
         setTemplate(resSubTemplate.data);
-        if (!form[keyValue]) {
+        if (!formData[keyValue]) {
           return;
         }
         const patern = resSubTemplate.data.to_string;
         if (!patern.length) {
           return;
         }
-        setselectedValue(parsePattern(form[keyValue].person, patern));
+        setselectedValue(parsePattern(formData[keyValue].person, patern));
       });
     });
   }, [templateId]);
@@ -64,11 +64,12 @@ function SelectInvestigator({
    */
   const handleClose = () => {
     setShow(false);
-    settemp(null);
+    setSubData(null);
     setindex(null);
   };
   /**
-   * The function takes a boolean value as an argument and sets the state of the show variable to the value of the argument.
+   * The function takes a boolean value as an argument and sets
+   * the state of the show variable to the value of the argument.
    * @param isOpen - boolean
    */
   const handleShow = (isOpen) => {
@@ -81,49 +82,52 @@ function SelectInvestigator({
     setselectedValue(options[e.target.value].value);
     if (patern.length > 0) {
       changeValue({ target: { name, value: [object] } });
-      setform({ ...form, [keyValue]: { person: object, role } });
+      setFormData({ ...formData, [keyValue]: { person: object, role } });
     } else {
       changeValue({ target: { name, value } });
     }
   };
 
   /**
-   * If the index is not null, then delete the item at the index, add the temp item to the end of the array,
+   * If the index is not null, then delete the item at the index,
+   * add the subData item to the end of the array,
    * and then splice the item from the list array.
    * If the index is null, then just save the item.
    */
   const handleAddToList = () => {
     // edit
     if (index !== null) {
-      // const objectPerson = { person: temp, role: "from create" };
-      setform({ ...form, [keyValue]: { person: temp, role } });
-      setselectedValue(parsePattern(temp, template.to_string));
+      // const objectPerson = { person: subData, role: "from create" };
+      setFormData({ ...formData, [keyValue]: { person: subData, role } });
+      setselectedValue(parsePattern(subData, template.to_string));
     } else {
       // save new
       handleSave();
     }
-    toast.success("Enregistrement a été effectué avec succès !");
-    settemp(null);
+    toast.success('Enregistrement a été effectué avec succès !');
+    setSubData(null);
     handleClose();
   };
 
   /**
-   * When the user clicks the save button, the function will take the temporary person object and add it to the form object, then it will parse the
-   * temporary person object and add it to the list array, then it will close the modal and set the temporary person object to null.
+   * When the user clicks the save button, the function will take the
+   * temporary person object and add it to the form object, then it will parse the
+   * temporary person object and add it to the list array, then it will close
+   * the modal and set the temporary person object to null.
    */
   const handleSave = () => {
-    // const objectPerson = { person: temp, role: "from create" };
-    setform({ ...form, [keyValue]: { person: temp, role } });
+    // const objectPerson = { person: subData, role: "from create" };
+    setFormData({ ...formData, [keyValue]: { person: subData, role } });
     handleClose();
-    settemp(null);
-    setselectedValue(parsePattern(temp, template.to_string));
+    setSubData(null);
+    setselectedValue(parsePattern(subData, template.to_string));
   };
   /**
-   * It sets the state of the temp variable to the value of the form[keyValue][idx] variable.
+   * It sets the state of the subData variable to the value of the form[keyValue][idx] variable.
    * @param idx - the index of the item in the array
    */
   const handleEdit = (idx) => {
-    settemp(form[keyValue].person);
+    setSubData(formData[keyValue].person);
     setShow(true);
     setindex(idx);
   };
@@ -158,7 +162,7 @@ function SelectInvestigator({
               </select>
             )}
           </div>
-          <div className="col-md-2" style={{ marginTop: "8px" }}>
+          <div className="col-md-2" style={{ marginTop: '8px' }}>
             <span>
               <a
                 className="text-primary"
@@ -172,10 +176,10 @@ function SelectInvestigator({
           </div>
         </div>
         {selectedValue && (
-          <div style={{ margin: "10px" }}>
+          <div style={{ margin: '10px' }}>
             <strong>Valeur sélectionnée :</strong> {selectedValue}
             <a href="#" onClick={() => handleEdit(0)}>
-              {" "}
+              {' '}
               (modifié)
             </a>
           </div>

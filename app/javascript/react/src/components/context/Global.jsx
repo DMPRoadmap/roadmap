@@ -29,18 +29,18 @@ export const GlobalContext = createContext();
  * @returns The GlobalContext.Provider is being returned.
  */
 function Global({ children }) {
-  const [form, setform] = useReducer(reducer, localState || {});
-  const [temp, settemp] = useState(null);
+  const [formData, setFormData] = useReducer(reducer, localState || {});
+  const [subData, setSubData] = useState(null);
   const [locale, setlocale] = useState(null);
   const [dmpId, setdmpId] = useState(null);
 
   useEffect(() => {
     /* It's setting the form in localStorage. */
-    localStorage.setItem('form', JSON.stringify(form));
-  }, [form]);
+    localStorage.setItem('form', JSON.stringify(formData));
+  }, [formData]);
 
   return <GlobalContext.Provider value={{
-    form, setform, temp, settemp, locale, setlocale, dmpId, setdmpId,
+    formData, setFormData, subData, setSubData, locale, setlocale, dmpId, setdmpId,
   }}>{children}</GlobalContext.Provider>;
 }
 

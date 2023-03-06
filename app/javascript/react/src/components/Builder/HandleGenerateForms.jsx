@@ -16,15 +16,15 @@ function HandleGenerateForms({
 }) {
   const { locale, dmpId } = useContext(GlobalContext);
   if (!shemaObject) return false;
-  const objectProp = shemaObject.properties;
+  const properties = shemaObject.properties;
   const data = [];
   // si type shema is an object
   // retun est code html
   if (shemaObject.type === 'object') {
-    for (const [key, value] of Object.entries(objectProp)) {
+    for (const [key, value] of Object.entries(properties)) {
       const label = value[`form_label@${locale}`];
       const tooltip = value[`tooltip@${locale}`];
-      const isConst = value.hasOwnProperty(`const@${locale}`) ? value[`const@${locale}`] : false;
+      const isConst = Object.prototype.hasOwnProperty.call(value, `const@${locale}`) ? value[`const@${locale}`] : false;
       // condition 1
       if (value.type === 'string' || value.type === 'number') {
         // Condition 1.1
@@ -47,12 +47,12 @@ function HandleGenerateForms({
         // si inputType === dropdown
         if (
           value.inputType === 'dropdown'
-          && value.hasOwnProperty('registry_name')
+          && Object.prototype.hasOwnProperty.call(value, 'registry_id')
         ) {
           data.push(
             <SelectSingleList
               label={label}
-              name={key}
+              propName={key}
               key={key}
               registryId={value.registry_id}
               changeValue={changeValue}
@@ -64,7 +64,7 @@ function HandleGenerateForms({
         // Condition 1.3
         // si on pas inputType propriete
 
-        if (!value.hasOwnProperty('inputType')) {
+        if (!Object.prototype.hasOwnProperty.call(value, 'inputType')) {
           data.push(
             <InputText
               key={key}
@@ -88,7 +88,7 @@ function HandleGenerateForms({
         // si inputType === dropdown et on n'a pas de registry_name
         if (
           value.inputType === 'dropdown'
-          && value.hasOwnProperty('registry_id')
+          && Object.prototype.hasOwnProperty.call(value, 'registry_id')
         ) {
           if (value.items.schema_id) {
             data.push(
@@ -164,7 +164,7 @@ function HandleGenerateForms({
       if (value.type === 'object') {
         // condition 3.1
 
-        if (value.hasOwnProperty('schema_id')) {
+        if (Object.prototype.hasOwnProperty.call(value, 'schema_id')) {
           // console.log(" Sous fragment unique (sous formulaire)");
           if (value.inputType === 'pickOrCreate') {
             data.push(
@@ -175,6 +175,7 @@ function HandleGenerateForms({
                 templateId={value.schema_id}
                 keyValue={key}
                 level={level}
+                header={value[`table_header@${locale}`]}
               ></ModalTemplate>,
             );
           }
@@ -198,12 +199,12 @@ function HandleGenerateForms({
         }
         // codition 3.2
         if (value.inputType === 'dropdown') {
-          if (value.hasOwnProperty('registry_name')) {
+          if (Object.prototype.hasOwnProperty.call(value, 'registry_id')) {
             data.push(
               <SelectSingleList
                 registryId={value.registry_id}
                 label={label}
-                name={key}
+                propName={key}
                 changeValue={changeValue}
                 tooltip={tooltip}
                 level={level}

@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { GlobalContext } from '../context/Global';
 import {
   checkRequiredForm,
+  createOptions,
   deleteByIndex,
   getLabelName,
   parsePattern,
@@ -30,7 +31,7 @@ function SelectWithCreate({
   const [options, setoptions] = useState(null);
   const [selectObject, setselectObject] = useState([]);
   const {
-    form, setform, temp, settemp, locale,
+    formData, setFormData, subData, setSubData, locale,
   } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
 
@@ -41,28 +42,23 @@ function SelectWithCreate({
   useEffect(() => {
     getSchema(templateId).then((res) => {
       setTemplate(res.data);
-      if (form[keyValue]) {
+      if (formData[keyValue]) {
         const patern = res.data.to_string;
         if (patern.length > 0) {
           Promise.all(
-            form[keyValue].map((el) => parsePattern(el, patern)),
+            formData[keyValue].map((el) => parsePattern(el, patern)),
           ).then((listParsed) => {
             setlist(listParsed);
           });
         }
       }
     });
-  }, [templateId, form[keyValue]]);
+  }, [templateId, formData[keyValue]]);
 
   /* A hook that is called when the component is mounted.
   It is used to set the options of the select list. */
   useEffect(() => {
     let isMounted = true;
-    const createOptions = (data) => data.map((option) => ({
-      value: option.label ? option.label[locale] : option[locale],
-      label: option.label ? option.label[locale] : option[locale],
-      object: option,
-    }));
     const setOptions = (data) => {
       if (isMounted) {
         setoptions(data);
@@ -70,13 +66,7 @@ function SelectWithCreate({
     };
     getRegistry(registryId)
       .then((res) => {
-        if (res) {
-          setOptions(createOptions(res.data));
-        } else {
-          return getRegistry(registryId).then((resRegistry) => {
-            setOptions(createOptions(resRegistry.data));
-          });
-        }
+        setOptions(createOptions(res.data, locale));
       })
       .catch((error) => {
         // handle errors
@@ -91,7 +81,7 @@ function SelectWithCreate({
    */
   const handleClose = () => {
     setShow(false);
-    settemp(null);
+    setSubData(null);
     setindex(null);
   };
   /**
@@ -121,10 +111,10 @@ function SelectWithCreate({
         value: pattern.length > 0 ? [...selectObject, e.object] : e.value,
       },
     });
-    setform({
-      ...form,
-      [keyValue]: form[keyValue]
-        ? [...form[keyValue], ...[e.object]]
+    setFormData({
+      ...formData,
+      [keyValue]: formData[keyValue]
+        ? [...formData[keyValue], ...[e.object]]
         : [e.object],
     });
   };
@@ -145,8 +135,8 @@ function SelectWithCreate({
       if (willDelete) {
         const newList = [...list];
         setlist(deleteByIndex(newList, idx));
-        const deleteIndex = deleteByIndex(form[keyValue], idx);
-        setform({ ...form, [keyValue]: deleteIndex });
+        const deleteIndex = deleteByIndex(formData[keyValue], idx);
+        setFormData({ ...formData, [keyValue]: deleteIndex });
         swal('Opération effectuée avec succès!', {
           icon: 'success',
         });
@@ -156,31 +146,31 @@ function SelectWithCreate({
 
   /**
    * If the index is not null, then delete the item at the index,
-   * add the temp item to the end of the array,
+   * add the subData item to the end of the array,
    * and then splice the item from the list array.
    * If the index is null, then just save the item.
    */
   const handleAddToList = () => {
-    if (!temp) {
+    if (!subData) {
       handleClose();
       return;
     }
 
-    const checkForm = checkRequiredForm(template, temp);
+    const checkForm = checkRequiredForm(template, subData);
     if (checkForm) {
       toast.error(
         `Veuiller remplire le champs ${getLabelName(checkForm, template)}`,
       );
     } else {
       if (index !== null) {
-        const deleteIndex = deleteByIndex(form[keyValue], index);
-        const concatedObject = [...deleteIndex, temp];
-        setform({ ...form, [keyValue]: concatedObject });
+        const deleteIndex = deleteByIndex(formData[keyValue], index);
+        const concatedObject = [...deleteIndex, subData];
+        setFormData({ ...formData, [keyValue]: concatedObject });
         const newList = deleteByIndex([...list], index);
-        const parsedPatern = parsePattern(temp, template.to_string);
+        const parsedPatern = parsePattern(subData, template.to_string);
         const copieList = [...newList, parsedPatern];
         setlist(copieList);
-        settemp(null);
+        setSubData(null);
         handleClose();
       } else {
         handleSave();
@@ -193,67 +183,55 @@ function SelectWithCreate({
    * I'm trying to add a new object to an array of objects, and then add that array to a new object.
    */
   const handleSave = () => {
-    const newObject = form[keyValue] ? [...form[keyValue], temp] : [temp];
-    setform({ ...form, [keyValue]: newObject });
-    setlist([...list, parsePattern(temp, template.to_string)]);
+    const newObject = formData[keyValue] ? [...formData[keyValue], subData] : [subData];
+    setFormData({ ...formData, [keyValue]: newObject });
+    setlist([...list, parsePattern(subData, template.to_string)]);
     handleClose();
-    settemp(null);
+    setSubData(null);
   };
 
   /**
-   * It sets the state of the temp variable to the value of the form[keyValue][idx] variable.
+   * It sets the state of the subData variable to the value of the formData[keyValue][idx] variable.
    * @param idx - the index of the item in the array
    */
   const handleEdit = (idx) => {
-    settemp(form[keyValue][idx]);
+    setSubData(formData[keyValue][idx]);
     setShow(true);
     setindex(idx);
   };
 
   return (
     <>
-      <div className="form-group">
-        <label className="control-label">{label}</label>
-        {tooltip && (
-          <span
-            className="m-4"
-            data-toggle="tooltip"
-            data-placement="top"
-            title={tooltip}
-          >
-            ?
+      <fieldset className="sub-fragment registry">
+        <legend className="sub-fragment" data-toggle="tooltip" data-original-title={tooltip}>
+          {label}
+        </legend>
+        <div className="col-md-12 dynamic-field">
+          <Select
+            className='form-control'
+            onChange={handleChangeList}
+            options={options}
+            name={name}
+            defaultValue={{
+              label: subData
+                ? subData[name]
+                : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
+              value: subData
+                ? subData[name]
+                : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
+            }}
+          />
+          <span>
+            <a className="text-primary" href="#" onClick={handleShow}>
+              <i className="fas fa-plus-square" />
+            </a>
           </span>
-        )}
-        <div className="row">
-          <div className="col-md-10">
-            <Select
-              onChange={handleChangeList}
-              options={options}
-              name={name}
-              // defaultValue={isEdit ? isEdit[name] : "Sélectionnez une valeur de la liste ou saisissez une nouvelle."}
-              defaultValue={{
-                label: temp
-                  ? temp[name]
-                  : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
-                value: temp
-                  ? temp[name]
-                  : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
-              }}
-            />
-          </div>
-          <div className="col-md-2" style={{ marginTop: "8px" }}>
-            <span>
-              <a className="text-primary" href="#" onClick={handleShow}>
-                <i className="fas fa-plus-square" />
-              </a>
-            </span>
-          </div>
         </div>
 
-        {form[keyValue] && list && (
+        {formData[keyValue] && list && (
           <table style={{ marginTop: '20px' }} className="table table-bordered">
             <thead>
-              {form[keyValue].length > 0 && header && (
+              {formData[keyValue].length > 0 && header && (
                 <tr>
                   <th scope="col">{header}</th>
                   <th scope="col"></th>
@@ -261,7 +239,7 @@ function SelectWithCreate({
               )}
             </thead>
             <tbody>
-              {form[keyValue].map((el, idx) => (
+              {formData[keyValue].map((el, idx) => (
                 <tr key={idx}>
                   <td scope="row">
                     <p className="border m-2"> {list[idx]} </p>
@@ -299,7 +277,7 @@ function SelectWithCreate({
             </tbody>
           </table>
         )}
-      </div>
+      </fieldset>
       <>
         <Modal show={show} onHide={handleClose}>
           <Modal.Body>
