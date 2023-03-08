@@ -11,8 +11,8 @@ module FragmentImport
     fragmented_data = {}
 
     # rubocop:disable Metrics/BlockLength
-    import_data.each do |prop, content|
-      next if content.nil?
+    import_data.each do |prop, sub_data|
+      next if sub_data.nil?
 
       schema_prop = schema.schema['properties'][prop]
       fragmented_data = import_data if prop.eql?('custom_value')
@@ -20,7 +20,6 @@ module FragmentImport
 
       if schema_prop['type'].eql?('object') &&
          schema_prop['schema_id'].present?
-        sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop['schema_id'])
         # For persons, we need to check if the person exists and set manually
         # the dbid in the parent fragment
@@ -66,7 +65,7 @@ module FragmentImport
         # ARRAY FIELDS
         ####################################
         # Seems like sending empty arrays through the API set them as nil so we need to initialize them
-        fragment_list = content || []
+        fragment_list = sub_data || []
         fragment_list = [fragment_list] unless fragment_list.is_a?(Array)
 
         fragment_list.each do |sub_fragment_data|
@@ -86,13 +85,12 @@ module FragmentImport
           sub_fragment.raw_import(sub_fragment_data, sub_schema, sub_fragment.id)
         end
       else
-        fragmented_data[prop] = content
+        fragmented_data[prop] = sub_data
       end
     end
     # rubocop:enable Metrics/BlockLength
 
     fragmented_data.try(:permit!)
-    p fragmented_data
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')
@@ -110,17 +108,16 @@ module FragmentImport
     fragmented_data = {}
 
     # rubocop:disable Metrics/BlockLength
-    import_data.each do |prop, content|
+    import_data.each do |prop, sub_data|
       schema_prop = schema.properties[prop]
 
       next if schema_prop&.dig('type').nil?
 
       if schema_prop['type'].eql?('object') &&
          schema_prop['schema_id'].present?
-        sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop['schema_id'])
 
-        if content['id'].present?
+        if sub_data['id'].present?
           api_fragment = MadmpFragment.find(sub_data['id'])
           api_fragment.import_with_ids(sub_data, sub_schema)
           # else
@@ -145,7 +142,7 @@ module FragmentImport
         # ARRAY FIELDS
         ####################################
         # Seems like sending empty arrays through the API set them as nil so we need to initialize them
-        fragment_list = content || []
+        fragment_list = sub_data || []
         fragment_list.each do |sub_fragment_data|
           sub_schema = MadmpSchema.find(schema_prop['items']['schema_id'])
 
@@ -167,7 +164,7 @@ module FragmentImport
           end
         end
       else
-        fragmented_data[prop] = content
+        fragmented_data[prop] = sub_data
       end
     end
     # rubocop:enable Metrics/BlockLength
@@ -188,7 +185,7 @@ module FragmentImport
     fragmented_data = {}
 
     # rubocop:disable Metrics/BlockLength
-    import_data.each do |prop, content|
+    import_data.each do |prop, sub_data|
       schema_prop = schema.properties[prop]
 
       next if schema_prop&.dig('type').nil?
@@ -198,8 +195,7 @@ module FragmentImport
         ####################################
         # OBJECT FIELDS
         ####################################
-        sub_data = content # TMP: for readability
-        next if content['action'].nil?
+        next if sub_data['action'].nil?
 
         sub_schema = MadmpSchema.find(schema_prop['schema_id'])
 
@@ -227,7 +223,7 @@ module FragmentImport
         ####################################
         # ARRAY FIELDS
         ####################################
-        data_list = content # TMP: for readability
+        data_list = sub_data # TMP: for readability
         data_list.each do |cb_data|
           next if cb_data['action'].nil?
 
@@ -251,7 +247,7 @@ module FragmentImport
           end
         end
       else
-        fragmented_data[prop] = content
+        fragmented_data[prop] = sub_data
       end
     end
     # rubocop:enable Metrics/BlockLength

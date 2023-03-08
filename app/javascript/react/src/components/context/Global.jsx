@@ -12,14 +12,14 @@ import React, {
  */
 const reducer = (form, formInfo) => {
   if (formInfo === null) {
-    localStorage.removeItem('form');
+    localStorage.removeItem('formData');
     return {};
   }
   return { ...form, ...formInfo };
 };
 
 /* It's getting the form from localStorage. */
-const localState = JSON.parse(localStorage.getItem('form'));
+const localState = JSON.parse(localStorage.getItem('formData'));
 export const GlobalContext = createContext();
 
 /**
@@ -36,7 +36,7 @@ function Global({ children }) {
 
   useEffect(() => {
     /* It's setting the form in localStorage. */
-    localStorage.setItem('form', JSON.stringify(formData));
+    localStorage.setItem('formData', JSON.stringify(formData));
   }, [formData]);
 
   return <GlobalContext.Provider value={{
