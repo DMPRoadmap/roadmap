@@ -437,6 +437,12 @@ class MadmpFragment < ApplicationRecord
     research_output_fragment.data['research_output_id']
   end
 
+  def research_output
+    return nil if research_output_fragment.nil?
+
+    ResearchOutput.find(research_output_fragment.data['research_output_id'])
+  end
+
   # rubocop:disable Metrics/AbcSize
   def update_meta_fragment
     meta_fragment = dmp.meta

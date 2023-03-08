@@ -109,7 +109,7 @@ class MadmpCodebaseController < ApplicationController
         dmp_language: fragment.dmp.locale,
         dmp_id: fragment.dmp_id,
         research_output_id: fragment.research_output_fragment&.id,
-        params: params
+        params: params.merge({ ro_uuid: fragment.research_output.uuid })
       })
   end
 
