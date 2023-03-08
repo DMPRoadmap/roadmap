@@ -9,6 +9,16 @@ function SelectSingleList({
 }) {
   const [options, setoptions] = useState(null);
   const { formData, subData, locale } = useContext(GlobalContext);
+  const [error, setError] = useState(null);
+
+  let value;
+  if (subData && typeof subData[propName] !== 'object') {
+    value = subData[propName];
+  } else if (formData && typeof formData[propName] !== 'object') {
+    value = formData[propName];
+  } else {
+    value = '';
+  }
   /*
   A hook that is called when the component is mounted.
   It is used to set the options of the select list.
@@ -24,8 +34,8 @@ function SelectSingleList({
       .then((res) => {
         setOptions(createOptions(res.data, locale));
       })
-      .catch((error) => {
-        // handle errors
+      .catch((err) => {
+        setError(err);
       });
     return () => {
       isMounted = false;
@@ -38,9 +48,9 @@ function SelectSingleList({
    */
   const handleChangeList = (e) => {
     if (propName === 'funder') {
-      changeValue({ target: { propName, value: e.object } });
+      changeValue({ target: { name: propName, value: e.object } });
     } else {
-      changeValue({ target: { propName, value: e.value } });
+      changeValue({ target: { name: propName, value: e.value } });
     }
   };
 
@@ -59,7 +69,7 @@ function SelectSingleList({
               onChange={handleChangeList}
               options={options}
               name={propName}
-              value={subData ? subData[propName] : formData[propName]}
+              inputValue={value}
             />
           </div>
         </div>
