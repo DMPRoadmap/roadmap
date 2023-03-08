@@ -40,17 +40,6 @@ export async function getSchema(id) {
   return response;
 }
 
-export async function getRegistryValue(t) {
-  try {
-    const response = await axios.get('https://api.publicapis.org/entries', createHeaders(csrf));
-    const result = require('../data/templates/registry_values.json');
-    return result[t];
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
-}
-
 export async function getRegistry(id) {
   let response;
   try {
