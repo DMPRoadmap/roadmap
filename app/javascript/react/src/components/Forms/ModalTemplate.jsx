@@ -28,7 +28,7 @@ function ModalTemplate({
   header,
 }) {
   const [show, setShow] = useState(false);
-  const { formData, setformData, subData, setSubData, locale } = useContext(GlobalContext);
+  const { formData, setFormData, subData, setSubData, locale } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
 
   const [template, setTemplate] = useState(null);
@@ -61,7 +61,7 @@ function ModalTemplate({
 
     if (index !== null) {
       const deleteIndex = deleteByIndex(formData[keyValue], index);
-      setformData({ ...formData, [keyValue]: [...deleteIndex, subData] });
+      setFormData({ ...formData, [keyValue]: [...deleteIndex, subData] });
       setSubData(null);
     } else {
       handleSave();
@@ -77,7 +77,7 @@ function ModalTemplate({
   const handleSave = () => {
     let newObject = formData[keyValue] || [];
     newObject = [...newObject, subData];
-    setformData({ ...formData, [keyValue]: newObject });
+    setFormData({ ...formData, [keyValue]: newObject });
     setSubData(null);
     handleClose();
   };
@@ -118,7 +118,7 @@ function ModalTemplate({
     }).then((willDelete) => {
       if (willDelete) {
         const deleteIndex = deleteByIndex(formData[keyValue], idx);
-        setformData({ ...formData, [keyValue]: deleteIndex });
+        setFormData({ ...formData, [keyValue]: deleteIndex });
         // toast.success("Congé accepté");
         swal("Opération effectuée avec succès!", {
           icon: "success",

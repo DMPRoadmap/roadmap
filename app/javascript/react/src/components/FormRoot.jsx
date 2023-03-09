@@ -6,7 +6,6 @@ import DynamicForm from './DynamicForm.jsx';
 import Global from './context/Global.jsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 class FormRoot extends React.Component {
   render() {
