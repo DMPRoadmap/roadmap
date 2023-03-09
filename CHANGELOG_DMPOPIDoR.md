@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 09/03/2023
+- Ajout de la prise en compte de l'UUID lors d'un appel à la Codebase (notification, calcul ...)
+
 ## 16/02/2023
 - DMPRoadmap V4.0.2 : https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.2
 - Correction du problème d'affichage des valeurs par défaut dans les champs "number" (issue gitbucket 467)
