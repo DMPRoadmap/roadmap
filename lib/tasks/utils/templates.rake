@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLength, Metrics/AbcSize
+# rubocop:disable Layout/LineLength, Metrics/AbcSize, Lint/Debugger
 namespace :templates do
   desc 'Repair Templates whose descendents have NIL versionable_id values'
   task fix_templates_with_nil_versionable_ids: :environment do
@@ -257,4 +257,4 @@ namespace :templates do
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
-# rubocop:enable Layout/LineLength, Metrics/AbcSize
+# rubocop:enable Layout/LineLength, Metrics/AbcSize, Lint/Debugger

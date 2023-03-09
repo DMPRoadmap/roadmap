@@ -2,6 +2,7 @@
 
 require 'data_cleanup'
 
+# rubocop:disable Lint/Debugger
 namespace :data_cleanup do
   desc 'Check each record on the DB is valid and report'
   task find_invalid_records: :environment do
@@ -300,3 +301,4 @@ namespace :data_cleanup do
     [ids, "  #{ids.count} records that have an invalid #{attributes}. See the #{validator} for further details"]
   end
 end
+# rubocop:enable Lint/Debugger
