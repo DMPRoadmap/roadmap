@@ -5,9 +5,9 @@ const toggleSpinner = (visible) => {
 
   if (spinnerBlock.length > 0) {
     if (visible) {
-      spinnerBlock.removeClass('hidden');
+      spinnerBlock.removeClass('d-none');
     } else {
-      spinnerBlock.addClass('hidden');
+      spinnerBlock.addClass('d-none');
     }
   }
 };
