@@ -96,6 +96,10 @@ require('@rails/ujs').start();
 // require("@rails/activestorage").start()
 // require("@rails/actioncable").start()
 
+// Setup JS functions/libraries so that they're available within the js.erb templates
+window.$ = jQuery;
+window.jQuery = jQuery;
+
 // Allow js.erb files to access the notificationHelper functions
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
