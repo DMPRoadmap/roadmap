@@ -21,6 +21,7 @@
 #  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
+#  api_client_id                     :integer
 #  research_domain_id                :bigint
 #
 # Indexes
@@ -34,12 +35,14 @@
 #
 #  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (api_client_id => api_clients.id)
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
 FactoryBot.define do
   factory :plan do
     title { Faker::Company.bs }
+    visibility { Plan.visibilities[:privately_visible] }
     template
     org
     identifier { SecureRandom.hex }
@@ -69,19 +72,27 @@ FactoryBot.define do
       end
     end
     trait :organisationally_visible do
-      visibility { 'organisationally_visible' }
+      after(:create) do |plan|
+        plan.update(visibility: Plan.visibilities[:organisationally_visible])
+      end
     end
 
     trait :publicly_visible do
-      visibility { 'publicly_visible' }
+      after(:create) do |plan|
+        plan.update(visibility: Plan.visibilities[:publicly_visible])
+      end
     end
 
     trait :is_test do
-      visibility { 'is_test' }
+      after(:create) do |plan|
+        plan.update(visibility: Plan.visibilities[:is_test])
+      end
     end
 
     trait :privately_visible do
-      visibility { 'privately_visible' }
+      after(:create) do |plan|
+        plan.update(visibility: Plan.visibilities[:privately_visible])
+      end
     end
 
     after(:create) do |plan, evaluator|

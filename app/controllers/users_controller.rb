@@ -21,9 +21,11 @@ class UsersController < ApplicationController
         @filter_admin = false
 
         @users = if current_user.can_super_admin?
-                   User.includes(:roles).page(1)
+                   User.includes(:department, :org, :perms, :roles, :identifiers).page(1)
                  else
-                   current_user.org.users.includes(:roles).page(1)
+                   current_user.org.users
+                               .includes(:department, :org, :perms, :roles, :identifiers)
+                               .page(1)
                  end
       end
 
@@ -125,7 +127,7 @@ class UsersController < ApplicationController
     pref.save
 
     # Include active tab in redirect path
-    redirect_to "#{edit_user_registration_path}\#notification-preferences",
+    redirect_to "#{edit_user_registration_path}#notification-preferences",
                 notice: success_message(pref, _('saved'))
   end
   # rubocop:enable Metrics/AbcSize
@@ -144,14 +146,14 @@ class UsersController < ApplicationController
       user.save!
       render json: {
         code: 1,
-        msg: format(_("Successfully %<action>s %<username>s's account."),
+        msg: format(_("Successfully %{action} %{username}'s account."),
                     action: user.active ? _('activated') : _('deactivated'),
                     username: user.name(false))
       }
     rescue StandardError
       render json: {
         code: 0,
-        msg: format(_('Unable to %<action>s %<username>s'),
+        msg: format(_('Unable to %{action} %{username}'),
                     action: user.active ? _('activate') : _('deactivate'),
                     username: user.name(false))
       }

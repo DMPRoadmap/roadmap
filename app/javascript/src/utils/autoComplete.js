@@ -218,3 +218,4 @@ export const initAutocomplete = (selector) => {
     }
   }
 };
+export default initAutocomplete;

@@ -23,7 +23,7 @@ class RolesController < ApplicationController
        role_params[:user][:email].present? && plan.present?
 
       if @role.plan.owner.present? && @role.plan.owner.email == role_params[:user][:email]
-        flash[:notice] = format(_('Cannot share plan with %<email>s since that email matches
+        flash[:notice] = format(_('Cannot share plan with %{email} since that email matches
                                    with the owner of the plan.'),
                                 email: role_params[:user][:email])
       else
@@ -33,7 +33,7 @@ class RolesController < ApplicationController
                .count
                .positive? # role already exists
 
-          flash[:notice] = format(_('Plan is already shared with %<email>s.'),
+          flash[:notice] = format(_('Plan is already shared with %{email}.'),
                                   email: role_params[:user][:email])
         else
           # rubocop:disable Metrics/BlockNesting
@@ -44,12 +44,12 @@ class RolesController < ApplicationController
                            surname: _('Surname'),
                            org: current_user.org },
                          current_user)
-            message = format(_('Invitation to %<email>s issued successfully.'),
+            message = format(_('Invitation to %{email} issued successfully.'),
                              email: role_params[:user][:email])
             user = User.where_case_insensitive('email', role_params[:user][:email]).first
           end
 
-          message += format(_('Plan shared with %<email>s.'), email: user.email)
+          message += format(_('Plan shared with %{email}.'), email: user.email)
           @role.user = user
 
           if @role.save
@@ -81,13 +81,13 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     authorize @role
 
-    if @role.update_attributes(access: role_params[:access])
+    if @role.update(access: role_params[:access])
       deliver_if(recipients: @role.user, key: 'users.added_as_coowner') do |_r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now
       end
       render json: {
         code: 1,
-        msg: format(_('Successfully changed the permissions for %<email>. They have been
+        msg: format(_('Successfully changed the permissions for %{email}. They have been
                        notified via email.'), email: @role.user.email)
       }
     else

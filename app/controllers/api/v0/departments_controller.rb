@@ -47,16 +47,22 @@ module Api
         raise Pundit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, @department).assign_users?
 
         assign_users_to(@department.id)
-        redirect_to users_api_v0_departments_path
+
+        @users = @user.org.users.includes(:department)
+        render users_api_v0_departments_path
       end
 
       ##
       # Remove departments from the list of users
       def unassign_users
-        raise Pudndit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, @department).assign_users?
+        @department = Department.find(params[:id])
+
+        raise Pundit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, @department).assign_users?
 
         assign_users_to(nil)
-        redirect_to users_api_v0_departments_path
+
+        @users = @user.org.users.includes(:department)
+        render users_api_v0_departments_path
       end
 
       private

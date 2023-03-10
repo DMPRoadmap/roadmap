@@ -6,10 +6,12 @@
 <% permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)') %>
 
 <h2><%= _('Set plan visibility') %></h2>
-<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.configuration.x.plans.default_percentage_answered } %></p>
 <% allow_visibility = @plan.visibility_allowed? %>
 <%= form_with model: @plan, id: "set_visibility" do |f| %>
   <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
+    <legend>
+      <p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.configuration.x.plans.default_percentage_answered } %></p>
+    </legend>
     <div class="form-group col-xs-8">
       <div class="radio">
         <%= label_tag :visibility_privately_visible do %>
@@ -32,7 +34,7 @@
           <%= f.radio_button :visibility, :publicly_visible,
                              data: { url: visibility_plan_path(@plan),
                                      remote: true, method: :post }  %>
-          <%= _('Public: anyone can view') %>
+          <%= _('Public: anyone can view or download from the Public DMPs page') %>
         <% end %>
       </div>
     </div>

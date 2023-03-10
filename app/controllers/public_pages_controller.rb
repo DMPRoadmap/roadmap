@@ -30,7 +30,7 @@ class PublicPagesController < ApplicationController
     @template = Template.live(params[:id])
     # covers authorization for this action.
     # Pundit dosent support passing objects into scoped policies
-    unless PublicPagePolicy.new(@template).template_export?
+    unless PublicPagePolicy.new(current_user, @template).template_export?
       msg = 'You are not authorized to export that template'
       redirect_to public_templates_path, notice: msg and return
       # raise Pundit::NotAuthorizedError
@@ -64,7 +64,7 @@ class PublicPagesController < ApplicationController
                  template: 'template_exports/template_export',
                  margin: @formatting[:margin],
                  footer: {
-                   center: format(_('Template created using the %<application_name>s service. Last modified %<date>s'),
+                   center: format(_('Template created using the %{application_name} service. Last modified %{date}'),
                                   application_name: ApplicationService.application_name,
                                   date: l(@template.updated_at.to_date, formats: :short)),
                    font_size: 8,

@@ -10,7 +10,6 @@ RSpec.describe OrgsController, type: :controller do
     @org = create(:org)
     @user = create(:user, :super_admin, org: @org)
     @logo = Rack::Test::UploadedFile.new 'spec/support/mocks/logo_file.png', 'image/png'
-
     @controller = OrgsController.new
   end
 

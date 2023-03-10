@@ -18,7 +18,8 @@ module Csvable
                       .map(&:to_s)
                 end
 
-      CSV.generate({ col_sep: sep }) do |csv|
+      args = { col_sep: sep }
+      CSV.generate(**args) do |csv|
         csv << headers
         data.each do |row|
           csv << row.values

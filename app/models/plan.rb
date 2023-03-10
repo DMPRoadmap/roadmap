@@ -20,6 +20,7 @@
 #  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
+#  api_client_id                     :integer
 #  research_domain_id                :bigint
 #  funding_status                    :integer
 #  ethical_issues                    :boolean
@@ -37,10 +38,12 @@
 #
 #  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (api_client_id => api_clients.id)
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
 # Object that represents an DMP
+# rubocop:disable Metrics/ClassLength
 class Plan < ApplicationRecord
   include ConditionalUserMailer
   include ExportablePlan
@@ -72,8 +75,6 @@ class Plan < ApplicationRecord
 
   alias_attribute :name, :title
 
-  attribute :visibility, :integer, default: 3
-
   # ================
   # = Associations =
   # ================
@@ -83,6 +84,8 @@ class Plan < ApplicationRecord
   belongs_to :org
 
   belongs_to :funder, class_name: 'Org', optional: true
+
+  belongs_to :api_client, optional: true
 
   belongs_to :research_domain, optional: true
 
@@ -96,7 +99,7 @@ class Plan < ApplicationRecord
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { distinct.published.reorder('id') },
+  has_many :guidance_group_options, -> { distinct.includes(:org).published.reorder('id') },
            through: :guidances,
            source: :guidance_group,
            class_name: 'GuidanceGroup'
@@ -111,9 +114,13 @@ class Plan < ApplicationRecord
 
   has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
 
-  has_many :exported_plans
+  has_many :exported_plans, dependent: :destroy
 
   has_many :contributors, dependent: :destroy
+
+  has_one :grant, as: :identifiable, dependent: :destroy, class_name: 'Identifier'
+
+  has_many :research_outputs, dependent: :destroy
 
   # =====================
   # = Nested Attributes =
@@ -434,7 +441,7 @@ class Plan < ApplicationRecord
   def owner
     r = roles.select { |rr| rr.active && rr.administrator }
              .min { |a, b| a.created_at <=> b.created_at }
-    r.nil? ? nil : r.user
+    r&.user
   end
 
   # Creates a role for the specified user (will update the user's
@@ -474,7 +481,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def shared?
-    roles.reject(&:creator).any?
+    roles.select(&:active).reject(&:creator).any?
   end
 
   alias shared shared?
@@ -608,3 +615,4 @@ class Plan < ApplicationRecord
     errors.add(:end_date, _('must be after the start date')) if end_date < start_date
   end
 end
+# rubocop:enable Metrics/ClassLength

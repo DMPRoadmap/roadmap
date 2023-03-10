@@ -68,7 +68,8 @@ class Contributor < ApplicationRecord
             2 => :investigation,
             3 => :project_administration,
             4 => :other,
-            column: 'roles'
+            column: 'roles',
+            check_for_column: !Rails.env.test?
 
   # ==========
   # = Scopes =
@@ -87,12 +88,8 @@ class Contributor < ApplicationRecord
   # ========================
   # = Static Class Methods =
   # ========================
-
-  class << self
-    # returns the default role
-    def default_role
-      'other'
-    end
+  def self.role_default
+    'other'
   end
 
   # Check for equality by matching on Plan, ORCID, email or name
@@ -138,12 +135,12 @@ class Contributor < ApplicationRecord
                  _("can't be blank."))
     end
 
-    if name.blank? && email.blank? && errors.size.zero?
+    if name.blank? && email.blank? && errors.empty?
       errors.add(:name, _("can't be blank if no email is provided."))
       errors.add(:email, _("can't be blank if no name is provided."))
     end
 
-    errors.size.zero?
+    errors.empty?
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 end

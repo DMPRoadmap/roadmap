@@ -11,12 +11,10 @@ module ActsAsSortable
       ids = ids.map(&:to_i) & parent.public_send("#{model_name.singular}_ids")
       return if ids.empty?
 
-      case connection.adapter_name
-      when 'PostgreSQL' then update_numbers_postgresql!(ids)
-      when 'Mysql2'     then update_numbers_mysql2!(ids)
-      else
-        update_numbers_sequentially!(ids)
-      end
+      update_numbers_postgresql!(ids) if ApplicationRecord.postgres_db?
+      update_numbers_mysql2!(ids) if ApplicationRecord.mysql_db?
+      update_numbers_sequentially!(ids) unless ApplicationRecord.postgres_db? ||
+                                               ApplicationRecord.mysql_db?
     end
 
     private

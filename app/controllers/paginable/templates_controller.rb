@@ -13,18 +13,18 @@ module Paginable
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
     def index
       authorize Template
-      templates = Template.latest_version.where(customization_of: nil)
+      templates = Template.includes(:org).latest_version.where(customization_of: nil)
       case params[:f]
       when 'published'
         template_ids = templates.select { |t| t.published? || t.draft? }.collect(&:family_id)
-        templates = Template.latest_version(template_ids).where(customization_of: nil)
+        templates = Template.includes(:org).latest_version(template_ids).where(customization_of: nil)
       when 'unpublished'
         template_ids = templates.select { |t| !t.published? && !t.draft? }.collect(&:family_id)
-        templates = Template.latest_version(template_ids).where(customization_of: nil)
+        templates = Template.includes(:org).latest_version(template_ids).where(customization_of: nil)
       end
       paginable_renderise(
         partial: 'index',
-        scope: templates.includes(:org),
+        scope: templates,
         query_params: { sort_field: 'templates.title', sort_direction: :asc },
         locals: { action: 'index' },
         format: :json
@@ -105,8 +105,9 @@ module Paginable
       paginable_renderise(
         partial: 'history',
         scope: @templates,
-        query_params: { sort_field: 'templates.title', sort_direction: :asc },
-        locals: { current: @templates.maximum(:version) }
+        query_params: { sort_field: 'templates.version', sort_direction: :desc },
+        locals: { current: @templates.maximum(:version) },
+        format: :json
       )
     end
   end

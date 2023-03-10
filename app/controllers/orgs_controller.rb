@@ -33,7 +33,11 @@ class OrgsController < ApplicationController
     @org = Org.find(params[:id])
     authorize @org
 
-    @org.logo = attrs[:logo] if attrs[:logo]
+    # If a new logo was supplied then use it, otherwise retain the existing one
+    attrs[:logo] = attrs[:logo].present? ? attrs[:logo] : @org.logo
+    # Remove the logo if the user checked the box
+    attrs[:logo] = nil if attrs[:remove_logo] == '1'
+
     tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
     @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
 
@@ -84,11 +88,11 @@ class OrgsController < ApplicationController
         end
         @org.save
       end
-      redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
+      redirect_to "#{admin_edit_org_path(@org)}##{tab}",
                   notice: success_message(@org, _('saved'))
     else
       failure = failure_message(@org, _('save')) if failure.blank?
-      redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
+      redirect_to "#{admin_edit_org_path(@org)}##{tab}", alert: failure
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -219,6 +223,7 @@ class OrgsController < ApplicationController
                   :remove_logo, :managed, :feedback_enabled, :org_links,
                   :funder, :institution, :organisation,
                   :feedback_msg, :org_id, :org_name, :org_crosswalk,
+                  :helpdesk_email,
                   identifiers_attributes: %i[identifier_scheme_id value],
                   tracker_attributes: %i[code id])
   end

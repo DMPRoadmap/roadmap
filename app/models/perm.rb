@@ -35,7 +35,8 @@ class Perm < ApplicationRecord
   # ===============
 
   validates :name, presence: { message: PRESENCE_MESSAGE },
-                   uniqueness: { message: UNIQUENESS_MESSAGE }
+                   uniqueness: { message: UNIQUENESS_MESSAGE,
+                                 case_sensitive: false }
 
   # =================
   # = Class methods =

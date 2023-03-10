@@ -1,3 +1,6 @@
+<%
+ download_coversheet_tickbox_checked = Rails.configuration.x.plans.download_coversheet_tickbox_checked || false
+%>
 <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
 
   <h2><%= _('Format') %></h2>
@@ -23,7 +26,7 @@
       <legend><%= _("Optional plan components") %></legend>
       <div class="checkbox">
         <%= label_tag 'export[project_details]' do %>
-          <%= check_box_tag 'export[project_details]', true, false %>
+          <%= check_box_tag 'export[project_details]', true, download_coversheet_tickbox_checked %>
           <%= _('project details coversheet') %>
         <% end %>
       </div>
@@ -39,6 +42,14 @@
           <%= _('unanswered questions') %>
         <% end %>
       </div>
+      <% if @plan.research_outputs.any? %>
+        <div class="checkbox">
+          <%= label_tag 'export[research_outputs]' do %>
+            <%= check_box_tag 'export[research_outputs]', true, true %>
+            <%= _('research outputs') %>
+          <% end %>
+        </div>
+      <% end %>
       <% if @plan.template.customization_of.present? %>
         <div class="checkbox">
           <%= label_tag 'export[custom_sections]' do %>
@@ -111,7 +122,7 @@
             options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a,
                                @export_settings.formatting[:margin][:right]),
             class: 'form-control',
-            "data-default": @plan.template.settings(:export).formatting[:margin][:rigth] %>
+            "data-default": @plan.template.settings(:export).formatting[:margin][:right] %>
       </div>
     </div>
   </div>

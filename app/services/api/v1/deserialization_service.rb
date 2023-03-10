@@ -41,7 +41,7 @@ module Api
 
         # Translates the role in the json to a Contributor role
         def translate_role(role:)
-          default = ::Contributor.default_role
+          default = ::Contributor.role_default
           return default unless role.present?
 
           role = role.to_s unless role.is_a?(String)
@@ -57,15 +57,14 @@ module Api
         end
 
         # Retrieve any JSON schema extensions for this application
-        # rubocop:disable Metrics/AbcSize
         def app_extensions(json: {})
           return {} unless json.present? && json[:extension].present?
 
-          app = ::ApplicationService.application_name.split('-').first.downcase
-          ext = json[:extension].select { |item| item[app.to_sym].present? }
-          ext.first.present? ? ext.first[app.to_sym] : {}
+          # Note the symbol of the dmproadmap json object
+          # nested in extensions which is the container for the json template object, etc.
+          ext = json[:extension].select { |item| item[:dmproadmap].present? }
+          ext.first.present? ? ext.first[:dmproadmap] : {}
         end
-        # rubocop:enable Metrics/AbcSize
 
         # Determines whether or not the value is a DOI/ARK
         def doi?(value:)

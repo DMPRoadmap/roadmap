@@ -1,9 +1,27 @@
 <hr />
-<h1><%= @plan.title %></h1>
+<h1><%= _("Plan Overview") %></h1>
 <p><em><%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %></em></p>
 <br/>
 <div class="cover-page">
+  <p><b><%= _("Title: ") %></b><%= @hash[:title] %></p><br>
+
   <p><strong><%= _("Creator:") %></strong><%= @hash[:attribution] %></p><br>
+
+  <%# Added contributors to coverage of plans. 
+    # Users will see both roles and contributor names if the role is filled %>
+  <%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
+  <% if @hash[:investigation].present? %>
+  <p><b><%= _("Principal Investigator: ") %></b><%= @hash[:investigation].map(&:name).join(', ') %></p><br>
+  <% end %>
+  <% if @hash[:data_curation].present? %>
+  <p><b><%= _("Data Manager: ") %></b><%= @hash[:data_curation].map(&:name).join(', ') %></p><br>
+  <% end %>
+  <% if @hash[:pa].present? %>
+  <p><b><%= _("Project Administrator: ") %></b><%= @hash[:pa].map(&:name).join(', ') %></p><br>
+  <% end %>
+  <% if @hash[:other].present? %>
+  <p><b><%= _("Contributor: ") %></b><%= @hash[:other].map(&:name).join(', ') %></p><br>
+  <% end %>
 
   <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 

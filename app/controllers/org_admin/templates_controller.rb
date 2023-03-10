@@ -17,7 +17,7 @@ module OrgAdmin
       templates = Template.latest_version.where(customization_of: nil)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs              = Org.managed
+      @orgs              = Org.includes(:identifiers).managed
       @title             = _('All Templates')
       @templates         = templates.includes(:org).page(1)
       @query_params      = { sort_field: 'templates.title', sort_direction: 'asc' }
@@ -42,9 +42,9 @@ module OrgAdmin
                           .where(customization_of: nil, org_id: current_user.org.id)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs  = current_user.can_super_admin? ? Org.all : nil
+      @orgs  = current_user.can_super_admin? ? Org.includes(:identifiers).all : nil
       @title = if current_user.can_super_admin?
-                 format(_('%<org_name>s Templates'), org_name: current_user.org.name)
+                 format(_('%{org_name} Templates'), org_name: current_user.org.name)
                else
                  _('Own Templates')
                end
@@ -80,7 +80,7 @@ module OrgAdmin
       end
       published = customizations.select { |t| t.published? || t.draft? }.length
 
-      @orgs = current_user.can_super_admin? ? Org.all : []
+      @orgs = current_user.can_super_admin? ? Org.includes(:identifiers).all : []
       @title = _('Customizable Templates')
       @templates = funder_templates
       @customizations = customizations
@@ -108,8 +108,8 @@ module OrgAdmin
                        .includes(sections: { questions: :question_options })
                        .order('phases.number', 'sections.number', 'questions.number',
                               'question_options.number')
-                       .select('phases.title', 'phases.description', 'sections.title',
-                               'questions.text', 'question_options.text')
+                       .select('phases.title', 'phases.description', 'phases.modifiable',
+                               'sections.title', 'questions.text', 'question_options.text')
       unless template.latest?
         # rubocop:disable Layout/LineLength
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
@@ -136,6 +136,7 @@ module OrgAdmin
                               'question_options.number')
                        .select('phases.title',
                                'phases.description',
+                               'phases.modifiable',
                                'sections.title',
                                'questions.text',
                                'question_options.text')
@@ -212,7 +213,7 @@ module OrgAdmin
       rescue ActiveSupport::JSON.parse_error
         render(json: {
                  status: :bad_request,
-                 msg: format(_('Error parsing links for a %<template>s'),
+                 msg: format(_('Error parsing links for a %{template}'),
                              template: template_type(template))
                })
         nil
@@ -292,11 +293,11 @@ module OrgAdmin
     def unpublish
       template = Template.find(params[:id])
       authorize template
-      versions = Template.where(family_id: template.family_id)
-      versions.each do |version|
-        unless version.update_attributes!(published: false)
-          flash[:alert] = _("Unable to unpublish your #{template_type(template)}.")
-        end
+      Template.transaction do
+        # expected: template is latest
+        template.generate_version! if template.published? && template.plans.any?
+        Template.where(family_id: template.family_id)
+                .update_all(published: false)
       end
       flash[:notice] = _("Successfully unpublished your #{template_type(template)}") unless flash[:alert].present?
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
@@ -340,7 +341,7 @@ module OrgAdmin
                    template: 'template_exports/template_export',
                    margin: @formatting[:margin],
                    footer: {
-                     center: format(_('Template created using the %<application_name>s service. Last modified %<date>s'), application_name: ApplicationService.application_name, date: l(@template.updated_at.to_date, formats: :short)),
+                     center: format(_('Template created using the %{application_name} service. Last modified %{date}'), application_name: ApplicationService.application_name, date: l(@template.updated_at.to_date, formats: :short)),
                      font_size: 8,
                      spacing: (@formatting[:margin][:bottom] / 2) - 4,
                      right: '[page] of [topage]',
@@ -384,9 +385,11 @@ module OrgAdmin
       # If nil and the org is not a funder, we default to organisational
       # If present, we parse to retrieve the value
       if args[:visibility].nil?
-        org.funder? ? 'publicly_visible' : 'organisationally_visible'
+        org.funder? ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible]
+      elsif %w[0 organisationally_visible].include?(args.fetch(:visibility, 'publicly_visible'))
+        Template.visibilities[:organisationally_visible]
       else
-        args.fetch(:visibility, '0') == '1' ? 'organisationally_visible' : 'publicly_visible'
+        Template.visibilities[:publicly_visible]
       end
     end
 

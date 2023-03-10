@@ -124,7 +124,7 @@ pt-BR:
       processos / trabalhadores para um (1) ou usando um servidor diferente em desenvolvimento.
     unacceptable_request: 'Uma versão suportada é esperada no cabeçalho Accept.
 
-'
+      '
     connection_refused: |
       Opa! Falha ao conectar-se ao middleware do console da Web.
       Por favor, certifique-se de que um servidor de desenvolvimento de trilhos está sendo executado.

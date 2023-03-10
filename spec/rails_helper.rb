@@ -1,14 +1,19 @@
 # frozen_string_literal: true
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
+# Do not change the order of these require statements, they are dependent on one another!
 require 'spec_helper'
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
+
+require 'rspec/rails'
+
+# This file is copied to spec/ when you run 'rails generate rspec:install'
+require 'capybara/rails'
+require 'webmock/rspec'
+
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
-require 'rspec/rails'
-# require "capybara-screenshot/rspec"
-require 'webmock/rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -24,15 +29,30 @@ require 'webmock/rspec'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-Dir[Rails.root.join('spec/mixins/*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec/mixins/*.rb')].each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.s
-ActiveRecord::Migration.maintain_test_schema!
+#
+# No need to run this during CI because we build the DB from the schema
+# ActiveRecord::Migration.maintain_test_schema!
 
+# Block all external HTTP requests except to the Google APIs URL so that WebDrivers can fetch
+# the latest Chromedrivers.
+WebMock.disable_net_connect!(
+  allow_localhost: true,
+  allow: %w[chromedriver.storage.googleapis.com]
+)
+
+# Configure RSpec
 RSpec.configure do |config|
+  config.include(AutoCompleteHelper, type: :feature)
+  config.include(CapybaraHelper, type: :feature)
+  config.include(SessionsHelper, type: :feature)
+  config.include(TinyMceHelper,  type: :feature)
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.

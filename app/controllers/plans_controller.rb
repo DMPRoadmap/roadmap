@@ -15,7 +15,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def index
     authorize Plan
-    @plans = Plan.includes(:roles, :org).active(current_user).page(1)
+    @plans = Plan.includes(:roles).active(current_user).page(1)
     @organisationally_or_publicly_visible = if current_user.org.is_other?
                                               []
                                             else
@@ -81,9 +81,9 @@ class PlansController < ApplicationController
 
       @plan.title = if plan_params[:title].blank?
                       if current_user.firstname.blank?
-                        format(_('My Plan (%<title>s)'), title: @plan.template.title)
+                        format(_('My Plan (%{title})'), title: @plan.template.title)
                       else
-                        format(_('%<user_name>s Plan'), user_name: "#{current_user.firstname}'s")
+                        format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
                       end
                     else
                       plan_params[:title]
@@ -162,8 +162,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(
-      template: { phases: { sections: { questions: :answers } } },
-      plans_guidance_groups: { guidance_group: :guidances }
+      :guidance_groups, template: [:phases]
     ).find(params[:id])
     authorize @plan
 
@@ -174,7 +173,6 @@ class PlansController < ApplicationController
                   end
     # Get all of the available funders
     @funders = Org.funder
-                  .includes(identifiers: :identifier_scheme)
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
@@ -192,8 +190,9 @@ class PlansController < ApplicationController
     if @all_ggs_grouped_by_org.include?(current_user.org)
       @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
     end
+    @default_orgs = Org.default_orgs
     @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
+      @important_ggs << [org, ggs] if @default_orgs.include?(org)
 
       # If this is one of the already selected guidance groups its important!
       @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
@@ -229,7 +228,7 @@ class PlansController < ApplicationController
       { template: {
         phases: {
           sections: {
-            questions: %i[question_format question_options annotations themes]
+            questions: %i[question_format annotations]
           }
         }
       } },
@@ -270,9 +269,8 @@ class PlansController < ApplicationController
       funder_attrs[:org_id] = plan_params[:funder][:id]
       funder = org_from_params(params_in: funder_attrs)
       @plan.funder_id = funder&.id
+      @plan.grant = plan_params[:grant]
       attrs.delete(:funder)
-
-      process_grant(grant_params: plan_params[:grant])
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)
 
@@ -422,13 +420,13 @@ class PlansController < ApplicationController
       else
         # rubocop:disable Layout/LineLength
         render status: :forbidden, json: {
-          msg: format(_("Unable to change the plan's status since it is needed at least %<percentage}>s percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
+          msg: format(_("Unable to change the plan's status since it is needed at least %{percentage} percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
         }
         # rubocop:enable Layout/LineLength
       end
     else
       render status: :not_found,
-             json: { msg: format(_('Unable to find plan id %{<plan_id>s'),
+             json: { msg: format(_('Unable to find plan id %{plan_id}'),
                                  plan_id: params[:id]) }
     end
   end
@@ -526,7 +524,7 @@ class PlansController < ApplicationController
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a; }
+    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a }
     render('/phases/edit', locals: {
              base_template_org: phase.template.base_org,
              plan: plan,
@@ -537,29 +535,5 @@ class PlansController < ApplicationController
              guidance_presenter: GuidancePresenter.new(plan)
            })
   end
-
-  # Update, destroy or add the grant
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def process_grant(grant_params:)
-    return false unless grant_params.present?
-
-    grant = @plan.grant
-
-    # delete it if it has been blanked out
-    if grant_params[:value].blank? && grant.present?
-      grant.destroy
-      @plan.grant = nil
-    elsif grant_params[:value] != grant&.value
-      if grant.present?
-        grant.update(value: grant_params[:value])
-      elsif grant_params[:value].present?
-        @plan.grant = Identifier.new(identifier_scheme: nil, identifiable: @plan,
-                                     value: grant_params[:value])
-      end
-    end
-  end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
 # rubocop:enable Metrics/ClassLength

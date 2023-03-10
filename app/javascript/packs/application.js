@@ -26,6 +26,7 @@ import 'bootstrap-select';
 import '../src/utils/accordion';
 import '../src/utils/autoComplete';
 import '../src/utils/externalLink';
+import '../src/utils/modalSearch';
 import '../src/utils/outOfFocus';
 import '../src/utils/paginable';
 import '../src/utils/panelHeading';
@@ -58,6 +59,7 @@ import '../src/plans/index.js.erb';
 import '../src/plans/new';
 import '../src/plans/share';
 import '../src/publicTemplates/show';
+import '../src/researchOutputs/form';
 import '../src/roles/edit';
 import '../src/shared/createAccountForm';
 import '../src/shared/signInForm';
@@ -84,14 +86,14 @@ import '../src/superAdmin/themes/newEdit';
 import '../src/superAdmin/users/edit';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
-// and Turbolinks. ActiveStorage and ActionCable would also need to be in here
+// and Turbo. ActiveStorage and ActionCable would also need to be in here
 // if we decide to implement either before Rails 6
 require('@rails/ujs').start();
 
-// TODO: Disabled turbolinks for the time being because our custom JS is not
+// TODO: Disabled turbo for the time being because our custom JS is not
 //       properly setup to work with it. We should review the docs:
-//       https://github.com/turbolinks/turbolinks
-// require('turbolinks').start();
+//       https://github.com/hotwired/turbo-rails
+// import "@hotwired/turbo-rails".
 // require("@rails/activestorage").start()
 // require("@rails/actioncable").start()
 

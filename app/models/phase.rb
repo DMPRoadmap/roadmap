@@ -102,7 +102,7 @@ class Phase < ApplicationRecord
     copy.template_id = options.fetch(:template_id, nil)
     copy.save!(validate: false) if options.fetch(:save, false)
     options[:phase_id] = copy.id
-    sections.each { |section| copy.sections << section.deep_copy(options) }
+    sections.each { |section| copy.sections << section.deep_copy(**options) }
     copy
   end
 
@@ -139,7 +139,7 @@ class Phase < ApplicationRecord
   end
 
   def visibility_allowed?(plan)
-    value = Rational(num_answered_questions(plan), plan.num_questions) * 100
+    value = Rational(num_answered_questions(plan), plan.num_questions).to_f * 100
     value >= Rails.configuration.x.plans.default_percentage_answered.to_f
   end
 end
