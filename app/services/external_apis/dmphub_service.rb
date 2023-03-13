@@ -141,6 +141,7 @@ module ExternalApis
         end
 
         dmp_id = process_response(response: resp)
+        plan.update()
         update_subscription(plan: plan) if dmp_id.present?
         dmp_id
       rescue StandardError => e

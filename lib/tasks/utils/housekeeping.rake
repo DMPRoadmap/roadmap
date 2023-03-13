@@ -39,6 +39,9 @@ namespace :housekeeping do
     scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
     if scheme.present?
       pauser = 0
+
+      managed_orgs = Org.where(managed: true).pluck(:id)
+
       Identifier.includes(:identifiable)
                 .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
                 .where('identifiers.value LIKE ?', 'https://doi.org/%')
@@ -47,8 +50,9 @@ namespace :housekeeping do
                 # .where('plans.id IN ?', [83085])                      # preregistration
                 # .where('plans.id IN ?', [78147])                      # bad grant_id type
                 # 77012, 70251, 69178, 67898, 66250 no contact
+                # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
                 .distinct
-                .limit(2)
+                # .limit(2)
                 .order(created_at: :desc)
                 .each do |identifier|
         next unless identifier.value.present? && identifier.identifiable.present?
@@ -62,11 +66,16 @@ namespace :housekeeping do
                               contributors: [:org, { identifiers: [:identifier_scheme] }],
                               identifiers: [:identifier_scheme])
                     .find_by(id: identifier.identifiable.id)
+
+
+        next unless managed_orgs.include?(plan.org_id)
+
         begin
           # See if it exists
           puts "Processing Plan: #{identifier.identifiable_id}, DMP ID: #{identifier.value}"
           url = "#{DmpIdService.landing_page_url}#{identifier.value}"
-          url = identifier.value.to_s.gsub('https://doi.org', DmpIdService.landing_page_url)
+          url = identifier.value.to_s.gsub('https://doi.org', "#{DmpIdService.api_base_url}dmps")
+          puts "    - #{url}"
           resp = HTTParty.get(url, { follow_redirects: true, limit: 6 })
 
           case resp.code
@@ -75,8 +84,9 @@ namespace :housekeeping do
             identifier = DmpIdService.mint_dmp_id(plan: plan, seeding: true)
             identifier.save if identifier.is_a?(Identifier)
           when 200
-            puts "   Updating DMP ID"
-            DmpIdService.update_dmp_id(plan: plan)
+            puts "   Already registered at #{url}"
+            # puts "   Updating DMP ID"
+            # DmpIdService.update_dmp_id(plan: plan)
           else
             puts "   Unable to process DMP - got a #{resp.code} from #{DmpIdService.name}"
             puts resp.body

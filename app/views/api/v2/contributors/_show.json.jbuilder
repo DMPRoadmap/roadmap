@@ -15,7 +15,7 @@ if !is_contact && contributor.selected_roles.any?
 end
 
 if contributor.org.present? && ['No funder', 'Non Partner Institution'].exclude?(contributor.org.name)
-  json.affiliation do
+  json.dmproadmap_affiliation do
     json.partial! 'api/v2/orgs/show', org: contributor.org
   end
 end

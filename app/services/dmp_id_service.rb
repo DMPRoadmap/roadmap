@@ -94,6 +94,14 @@ class DmpIdService
       svc.respond_to?(:landing_page_url) ? svc.landing_page_url : nil
     end
 
+    # Return the inheriting service's :landing_page_url (defined in their config)
+    def api_base_url
+      svc = minter
+      return nil if svc.blank?
+
+      svc.respond_to?(:api_base_url) ? svc.api_base_url : nil
+    end
+
     private
 
     # Fetch the active DMP ID minting service

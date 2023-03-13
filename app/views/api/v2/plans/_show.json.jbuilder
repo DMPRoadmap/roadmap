@@ -95,13 +95,13 @@ unless @minimal
 
   # TODO: Refactor as we determine how best to fully implement sponsors
   if plan.template&.sponsor.present?
-    json.dmproadmap_sponsors [plan.template&.sponsor] do |sponsor|
+    json.dmproadmap_research_facilities [plan.template&.sponsor] do |sponsor|
       json.name sponsor.name
       json.type 'field_station'
 
       ror = sponsor.identifier_for_scheme(scheme: 'ror')
       if ror.present?
-        json.sponsor_id do
+        json.facility_id do
           json.partial! 'api/v2/identifiers/show', identifier: ror
         end
       end

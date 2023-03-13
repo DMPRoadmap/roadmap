@@ -14,8 +14,7 @@ module Api
         @plan = plan
         @client = client
 
-        @data_contact = @plan.owner
-        @data_contact = @plan.owner_and_coowners.first unless @data_contact.present?
+        @data_contact = ::Role.where(access: 15, plan_id: @plan.id).first&.user
 
         @plan.contributors.each do |contributor|
           # If there is no owner for the plan, use the user with the data_curation role
