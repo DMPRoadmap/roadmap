@@ -22,6 +22,7 @@ class MadmpFragmentsController < ApplicationController
   end
 
   # TODO: will become update
+  # Needs some rework
   def update_json
     @fragment = MadmpFragment.find(params[:id])
     form_data = JSON.parse(request.body.string)
@@ -153,6 +154,7 @@ class MadmpFragmentsController < ApplicationController
         authorize @fragment
       else
         schema = @schemas.find(p_params[:schema_id])
+        defaults = schema.defaults(p_params[:template_locale])
         classname = schema.classname
         parent_id = p_params[:parent_id] unless classname.eql?('person')
         @fragment = MadmpFragment.new(
@@ -175,6 +177,7 @@ class MadmpFragmentsController < ApplicationController
           user_id: current_user.id
         )
         @fragment.instantiate
+        @fragment.handle_defaults(defaults)
       end
     end
 
@@ -279,7 +282,7 @@ class MadmpFragmentsController < ApplicationController
 
     authorize @fragment
 
-    return unless @fragment.present? && @fragment.schema_conversion(target_schema)
+    return unless @fragment.present? && @fragment.schema_conversion(target_schema, params[:locale])
 
     render json: render_fragment_form(@fragment, stale_fragment: @stale_fragment)
   end

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-01-24 13:48+0100\n"
-"PO-Revision-Date: 2023-01-24 13:48+0100\n"
+"POT-Creation-Date: 2023-02-02 09:58+0100\n"
+"PO-Revision-Date: 2023-02-02 09:58+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -1083,55 +1083,55 @@ msgstr ""
 msgid "can't be less than zero"
 msgstr ""
 
-#: ../../app/models/template.rb:247
+#: ../../app/models/template.rb:248
 msgid "can't be blank"
 msgstr "can't be blank"
 
-#: ../../app/models/template.rb:275
+#: ../../app/models/template.rb:276
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:399
+#: ../../app/models/template.rb:400
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:408
+#: ../../app/models/template.rb:409
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:415
+#: ../../app/models/template.rb:416
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:429
+#: ../../app/models/template.rb:430
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:432
+#: ../../app/models/template.rb:433
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:468
+#: ../../app/models/template.rb:469
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:472
+#: ../../app/models/template.rb:473
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:477
+#: ../../app/models/template.rb:478
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:482
+#: ../../app/models/template.rb:483
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:487
+#: ../../app/models/template.rb:488
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 
-#: ../../app/models/template.rb:491
+#: ../../app/models/template.rb:492
 msgid "Conditions in the template refer backwards"
 msgstr ""
 
@@ -1187,7 +1187,7 @@ msgstr ""
 #: ../../app/views/branded/plans/_edit_details.html.erb:190
 #: ../../app/views/branded/plans/_share_form.html.erb:112
 #: ../../app/views/branded/plans/_share_third_party.html.erb:93
-#: ../../app/views/branded/research_outputs/_list.html.erb:101
+#: ../../app/views/branded/research_outputs/_list.html.erb:103
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
 #: ../../app/views/branded/users/_notification_preferences.html.erb:47
@@ -1540,7 +1540,7 @@ msgstr ""
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:134
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:136
 #: ../../app/views/branded/plans/_edit_details.html.erb:63
-#: ../../app/views/branded/research_outputs/_list.html.erb:102
+#: ../../app/views/branded/research_outputs/_list.html.erb:104
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:67
 #: ../../app/views/research_outputs/_form.html.erb:183
@@ -2197,7 +2197,7 @@ msgid "Locale"
 msgstr ""
 
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:41
-#: ../../app/views/branded/research_outputs/_list.html.erb:54
+#: ../../app/views/branded/research_outputs/_list.html.erb:56
 #: ../../app/views/research_outputs/_form.html.erb:14
 msgid "Type"
 msgstr ""
@@ -2372,7 +2372,7 @@ msgid "Homepage"
 msgstr ""
 
 #: ../../app/views/branded/paginable/api_clients/_index.html.erb:15
-#: ../../app/views/branded/research_outputs/_list.html.erb:73
+#: ../../app/views/branded/research_outputs/_list.html.erb:75
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:42
 msgid "Contact"
 msgstr ""
@@ -3309,48 +3309,48 @@ msgstr ""
 msgid "Research output title"
 msgstr ""
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:34
+#: ../../app/views/branded/research_outputs/_list.html.erb:35
 msgid "UUID"
 msgstr ""
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:37
-#: ../../app/views/branded/research_outputs/_list.html.erb:42
+#: ../../app/views/branded/research_outputs/_list.html.erb:38
 #: ../../app/views/branded/research_outputs/_list.html.erb:43
+#: ../../app/views/branded/research_outputs/_list.html.erb:44
 msgid "Research output unique identifier"
 msgstr ""
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:48
+#: ../../app/views/branded/research_outputs/_list.html.erb:49
 msgid "Copy UUID to clipboard"
 msgstr ""
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:67
+#: ../../app/views/branded/research_outputs/_list.html.erb:69
 #: ../../app/views/research_outputs/_form.html.erb:27
 msgid "Research output type"
 msgstr ""
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:94
+#: ../../app/views/branded/research_outputs/_list.html.erb:96
 msgid "Persistent Identifier"
 msgstr ""
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:96
+#: ../../app/views/branded/research_outputs/_list.html.erb:98
 msgid "If exists, please fill in the research output persistant identifier."
 msgstr ""
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:108
+#: ../../app/views/branded/research_outputs/_list.html.erb:110
 msgid "Edit research output"
 msgstr ""
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:111
+#: ../../app/views/branded/research_outputs/_list.html.erb:113
 msgid "Move research output"
 msgstr ""
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:116
+#: ../../app/views/branded/research_outputs/_list.html.erb:118
 msgid ""
 "Deleting this research output will remove the associated answers. Do you confi"
 "rm ?"
 msgstr ""
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:119
+#: ../../app/views/branded/research_outputs/_list.html.erb:121
 msgid "Delete research output"
 msgstr ""
 
@@ -4059,8 +4059,8 @@ msgstr ""
 #:
 #: ../../engines/madmp_opidor/app/views/dynamic_form/codebase/_run_button.html.erb:7
 msgid ""
-"By using this notification, you will allow \"%{client_name}\" to access the cont"
-"ent of your plan. Do you confirm ?"
+"By using this notification, you will allow \"%{client_name}\" to access the full"
+" content of your plan. Do you confirm ?"
 msgstr ""
 
 #:

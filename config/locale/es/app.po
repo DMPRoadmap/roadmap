@@ -1,14 +1,14 @@
-# Spanish translations for DMPRoadmap-Development package.
-# Copyright (C) 2022 DMPRoadmap-Development
-# This file is distributed under the same license as the DMPRoadmap-Development package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# Spanish translations for roadmap package.
+# Copyright (C) 2023 roadmap
+# This file is distributed under the same license as the roadmap package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: DMPRoadmap-Development 1.0\n"
+"Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-11-30 14:11-0500\n"
-"PO-Revision-Date: 2022-11-30 20:11+0100\n"
+"POT-Creation-Date: 2023-02-03 09:02+0100\n"
+"PO-Revision-Date: 2023-02-03 09:02+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -72,7 +72,6 @@ msgid "users_joined"
 msgstr "usuarios_ unidos"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:89
-#: ../../app/controllers/usage_controller.rb:87
 msgid "No. Completed Plans"
 msgstr "No. Planes completados"
 
@@ -92,7 +91,7 @@ msgstr "Planes"
 msgid "Missing or invalid JSON"
 msgstr "JSON faltante o inválido"
 
-#: ../../app/controllers/api/v1/base_api_controller.rb:79
+#: ../../app/controllers/api/v1/base_api_controller.rb:80
 msgid "Invalid JSON format"
 msgstr "Formato JSON no válido"
 
@@ -504,7 +503,7 @@ msgstr "Modelo"
 #: ../../app/helpers/plans_helper.rb:22
 #: ../../app/helpers/settings_template_helper.rb:16
 #: ../../app/views/devise/registrations/_password_confirmation.html.erb:22
-#: ../../app/views/orgs/_profile_form.html.erb:155
+#: ../../app/views/orgs/_profile_form.html.erb:164
 #: ../../app/views/paginable/orgs/_index.html.erb:5
 #: ../../app/views/paginable/plans/_index.html.erb:7
 #: ../../app/views/paginable/plans/_org_admin.html.erb:20
@@ -615,7 +614,7 @@ msgstr "Por favor elige una organización"
 msgid "Your organisation does not seem to be properly configured."
 msgstr "Su organización no parece estar correctamente configurada."
 
-#: ../../app/controllers/plan_exports_controller.rb:99
+#: ../../app/controllers/plan_exports_controller.rb:100
 msgid "Created using %{application_name}. Last modified %{date}"
 msgstr "Creado usando %{application_name}. Última modificación %{date}"
 
@@ -933,6 +932,10 @@ msgstr "fusionado"
 msgid "merge"
 msgstr "Unir"
 
+#: ../../app/controllers/usage_controller.rb:87
+msgid "No. Created Plans"
+msgstr ""
+
 #: ../../app/controllers/users/invitations_controller.rb:33
 msgid ""
 "You are already signed in as another user. Please log out to activate your inv"
@@ -1029,7 +1032,7 @@ msgid "Creators:"
 msgstr "Creadores:"
 
 #: ../../app/helpers/exports_helper.rb:38
-#: ../../app/models/concerns/exportable_plan.rb:147
+#: ../../app/models/concerns/exportable_plan.rb:178
 #: ../../app/views/shared/export/_plan_coversheet.erb:8
 #: ../../app/views/shared/export/_plan_txt.erb:4
 msgid "Creator:"
@@ -1129,6 +1132,10 @@ msgstr "Administrar los detalles de la organización"
 msgid "Grant API to organisations"
 msgstr "Otorgar API a organizaciones"
 
+#: ../../app/helpers/perms_helper.rb:17
+msgid "Review organisational plans"
+msgstr ""
+
 #: ../../app/helpers/plans_helper.rb:8
 #: ../../app/views/paginable/plans/_index.html.erb:8
 #: ../../app/views/paginable/plans/_org_admin.html.erb:21
@@ -1204,7 +1211,7 @@ msgid "Plan Description"
 msgstr "Descripción"
 
 #: ../../app/helpers/settings_template_helper.rb:15
-#: ../../app/views/orgs/_profile_form.html.erb:143
+#: ../../app/views/orgs/_profile_form.html.erb:152
 #: ../../app/views/paginable/templates/_customisable.html.erb:7
 #: ../../app/views/paginable/templates/_organisational.html.erb:12
 #: ../../app/views/plans/_project_details.html.erb:156
@@ -1309,149 +1316,149 @@ msgstr "Privilegios de administrador otorgados en %{tool_name}"
 msgid "%{tool_name} API changes"
 msgstr "%{tool_name} Cambios de API"
 
-#: ../../app/models/concerns/exportable_plan.rb:30
+#: ../../app/models/concerns/exportable_plan.rb:31
 msgid "Phase"
 msgstr "Fase"
 
-#: ../../app/models/concerns/exportable_plan.rb:32
+#: ../../app/models/concerns/exportable_plan.rb:33
 #: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Section"
 msgstr "Sección"
 
-#: ../../app/models/concerns/exportable_plan.rb:32
+#: ../../app/models/concerns/exportable_plan.rb:33
 #: ../../app/models/exported_plan.rb:116
 msgid "Question"
 msgstr "Pregunta"
 
-#: ../../app/models/concerns/exportable_plan.rb:32
-#: ../../app/models/concerns/exportable_plan.rb:34
+#: ../../app/models/concerns/exportable_plan.rb:33
+#: ../../app/models/concerns/exportable_plan.rb:35
 #: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Answer"
 msgstr "responder"
 
-#: ../../app/models/concerns/exportable_plan.rb:134
+#: ../../app/models/concerns/exportable_plan.rb:142
 msgid " Customised By: "
 msgstr " Personalizado por:"
 
-#: ../../app/models/concerns/exportable_plan.rb:143
+#: ../../app/models/concerns/exportable_plan.rb:174
 #: ../../app/views/shared/export/_plan_coversheet.erb:6
 msgid "Title: "
 msgstr "Título:"
 
-#: ../../app/models/concerns/exportable_plan.rb:143
+#: ../../app/models/concerns/exportable_plan.rb:174
 msgid "%{title}"
 msgstr "%{title}"
 
-#: ../../app/models/concerns/exportable_plan.rb:145
+#: ../../app/models/concerns/exportable_plan.rb:176
 #: ../../app/views/shared/export/_plan_txt.erb:4
 msgid "Creators: "
 msgstr "Creadores:"
 
-#: ../../app/models/concerns/exportable_plan.rb:145
-#: ../../app/models/concerns/exportable_plan.rb:147
+#: ../../app/models/concerns/exportable_plan.rb:176
+#: ../../app/models/concerns/exportable_plan.rb:178
 msgid "%{authors}"
 msgstr "%{authors}"
 
-#: ../../app/models/concerns/exportable_plan.rb:150
+#: ../../app/models/concerns/exportable_plan.rb:181
 #: ../../app/views/shared/export/_plan_coversheet.erb:14
 #: ../../app/views/shared/export/_plan_txt.erb:9
 msgid "Principal Investigator: "
 msgstr "Investigador principal:"
 
-#: ../../app/models/concerns/exportable_plan.rb:151
+#: ../../app/models/concerns/exportable_plan.rb:182
 msgid "%{investigation}"
 msgstr "%{investigation}"
 
-#: ../../app/models/concerns/exportable_plan.rb:154
+#: ../../app/models/concerns/exportable_plan.rb:185
 msgid "Date Manager: "
 msgstr "Administrador de fechas:"
 
-#: ../../app/models/concerns/exportable_plan.rb:155
+#: ../../app/models/concerns/exportable_plan.rb:186
 msgid "%{data_curation}"
 msgstr "%{data_curation}"
 
-#: ../../app/models/concerns/exportable_plan.rb:158
+#: ../../app/models/concerns/exportable_plan.rb:189
 #: ../../app/views/shared/export/_plan_coversheet.erb:20
 #: ../../app/views/shared/export/_plan_txt.erb:15
 msgid "Project Administrator: "
 msgstr "Administrador de Proyectos:"
 
-#: ../../app/models/concerns/exportable_plan.rb:158
+#: ../../app/models/concerns/exportable_plan.rb:189
 msgid "%{pa}"
 msgstr "%{pa}"
 
-#: ../../app/models/concerns/exportable_plan.rb:161
+#: ../../app/models/concerns/exportable_plan.rb:192
 #: ../../app/views/shared/export/_plan_coversheet.erb:23
 #: ../../app/views/shared/export/_plan_txt.erb:18
 msgid "Contributor: "
 msgstr "Contribuyente:"
 
-#: ../../app/models/concerns/exportable_plan.rb:161
+#: ../../app/models/concerns/exportable_plan.rb:192
 msgid "%{other}"
 msgstr "%{other}"
 
-#: ../../app/models/concerns/exportable_plan.rb:163
+#: ../../app/models/concerns/exportable_plan.rb:194
 #: ../../app/views/shared/export/_plan_coversheet.erb:26
 #: ../../app/views/shared/export/_plan_txt.erb:20
 msgid "Affiliation: "
 msgstr "Afiliación:"
 
-#: ../../app/models/concerns/exportable_plan.rb:163
+#: ../../app/models/concerns/exportable_plan.rb:194
 msgid "%{affiliation}"
 msgstr "%{affiliation}"
 
-#: ../../app/models/concerns/exportable_plan.rb:165
-#: ../../app/models/concerns/exportable_plan.rb:167
+#: ../../app/models/concerns/exportable_plan.rb:196
+#: ../../app/models/concerns/exportable_plan.rb:198
 #: ../../app/views/shared/export/_plan_coversheet.erb:32
 #: ../../app/views/shared/export/_plan_txt.erb:22
 #: ../../app/views/shared/export/_plan_txt.erb:24
 msgid "Template: "
 msgstr "Modelo:"
 
-#: ../../app/models/concerns/exportable_plan.rb:165
+#: ../../app/models/concerns/exportable_plan.rb:196
 msgid "%{funder}"
 msgstr "%{funder}"
 
-#: ../../app/models/concerns/exportable_plan.rb:167
+#: ../../app/models/concerns/exportable_plan.rb:198
 msgid "%{template}"
 msgstr "%{template}"
 
-#: ../../app/models/concerns/exportable_plan.rb:169
+#: ../../app/models/concerns/exportable_plan.rb:200
 #: ../../app/views/shared/export/_plan_txt.erb:27
 msgid "Grant number: "
 msgstr "Conceder número:"
 
-#: ../../app/models/concerns/exportable_plan.rb:169
+#: ../../app/models/concerns/exportable_plan.rb:200
 msgid "%{grant_number}"
 msgstr "%{grant_number}"
 
-#: ../../app/models/concerns/exportable_plan.rb:171
+#: ../../app/models/concerns/exportable_plan.rb:202
 #: ../../app/views/shared/export/_plan_coversheet.erb:42
 #: ../../app/views/shared/export/_plan_txt.erb:30
 msgid "Project abstract: "
 msgstr "Resumen del proyecto:"
 
-#: ../../app/models/concerns/exportable_plan.rb:171
+#: ../../app/models/concerns/exportable_plan.rb:202
 msgid "%{description}"
 msgstr "%{description}"
 
-#: ../../app/models/concerns/exportable_plan.rb:173
+#: ../../app/models/concerns/exportable_plan.rb:204
 #: ../../app/views/shared/export/_plan_coversheet.erb:58
 #: ../../app/views/shared/export/_plan_txt.erb:33
 msgid "Last modified: "
 msgstr "Última modificación:"
 
-#: ../../app/models/concerns/exportable_plan.rb:173
+#: ../../app/models/concerns/exportable_plan.rb:204
 msgid "%{date}"
 msgstr "%{date}"
 
-#: ../../app/models/concerns/exportable_plan.rb:174
+#: ../../app/models/concerns/exportable_plan.rb:205
 #: ../../app/views/shared/export/_plan_coversheet.erb:65
 #: ../../app/views/shared/export/_plan_txt.erb:34
 msgid "Copyright information:"
 msgstr "Informacion registrada:"
 
-#: ../../app/models/concerns/exportable_plan.rb:175
+#: ../../app/models/concerns/exportable_plan.rb:206
 msgid ""
 "The above plan creator(s) have agreed that others may use as\n"
 "             much of the text of this plan as they would like in their own pla"
@@ -1475,7 +1482,11 @@ msgstr ""
 "alguna con\n"
 "             tu proyecto o propuesta"
 
-#: ../../app/models/concerns/exportable_plan.rb:198
+#: ../../app/models/concerns/exportable_plan.rb:221
+msgid "Research Outputs: "
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:244
 msgid "Not Answered"
 msgstr "Sin respuesta"
 
@@ -1946,7 +1957,7 @@ msgstr "Por favor espere, los estándares se están cargando."
 #: ../../app/views/org_admin/templates/_form.html.erb:82
 #: ../../app/views/org_admin/users/edit.html.erb:54
 #: ../../app/views/orgs/_feedback_form.html.erb:38
-#: ../../app/views/orgs/_profile_form.html.erb:182
+#: ../../app/views/orgs/_profile_form.html.erb:197
 #: ../../app/views/plans/_edit_details.html.erb:11
 #: ../../app/views/plans/_guidance_selection.html.erb:23
 #: ../../app/views/questions/_preview_question.html.erb:111
@@ -2330,16 +2341,16 @@ msgid "Hello"
 msgstr "Hola"
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
+msgid "Your"
+msgstr "Tu"
+
+#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
 msgid ""
 "account has been locked due to an excessive number of unsuccessful sign in att"
 "empts."
 msgstr ""
 "la cuenta se ha bloqueado debido a un número excesivo de intentos de inicio de"
 " sesión fallidos."
-
-#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
-msgid "Your"
-msgstr "Tu"
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:6
 msgid "Click the link below to unlock your account"
@@ -2906,7 +2917,7 @@ msgid "GitHub"
 msgstr "Github"
 
 #: ../../app/views/layouts/_navigation.html.erb:12
-#: ../../app/views/orgs/_profile_form.html.erb:55
+#: ../../app/views/orgs/_profile_form.html.erb:58
 msgid "logo"
 msgstr "Logo"
 
@@ -2984,12 +2995,12 @@ msgid "%{application_name}"
 msgstr "DMPonline"
 
 #: ../../app/views/layouts/application.html.erb:91
-msgid "Notice:"
-msgstr "Darse cuenta:"
-
-#: ../../app/views/layouts/application.html.erb:91
 msgid "Error:"
 msgstr "Error:"
+
+#: ../../app/views/layouts/application.html.erb:91
+msgid "Notice:"
+msgstr "Darse cuenta:"
 
 #: ../../app/views/layouts/application.html.erb:102
 msgid "Loading..."
@@ -3437,6 +3448,8 @@ msgid "Order"
 msgstr "Orden"
 
 #: ../../app/views/org_admin/question_options/_option_fields.html.erb:6
+#: ../../app/views/orgs/_profile_form.html.erb:144
+#: ../../app/views/orgs/_profile_form.html.erb:173
 #: ../../app/views/paginable/guidances/_index.html.erb:6
 #: ../../app/views/shared/_links.html.erb:13
 msgid "Text"
@@ -3955,15 +3968,21 @@ msgstr ""
 "óngase en contacto con el servicio de asistencia si tiene preguntas o para sol"
 "icitar cambios."
 
-#: ../../app/views/orgs/_profile_form.html.erb:21
+#: ../../app/views/orgs/_profile_form.html.erb:6
+msgid ""
+"This information can only be changed by a system administrator. Contact %{supp"
+"ort_email} if you have questions or to request changes."
+msgstr ""
+
+#: ../../app/views/orgs/_profile_form.html.erb:24
 msgid "Organisation full name"
 msgstr "Nombre completo de la organización"
 
-#: ../../app/views/orgs/_profile_form.html.erb:27
+#: ../../app/views/orgs/_profile_form.html.erb:30
 msgid "Organisation abbreviated name"
 msgstr "Nombre abreviado de la organización"
 
-#: ../../app/views/orgs/_profile_form.html.erb:38
+#: ../../app/views/orgs/_profile_form.html.erb:41
 msgid ""
 "A managed Org is one that can have its own Guidance and/or Templates. An unman"
 "aged Org is one that was automatically created by the system when a user enter"
@@ -3973,70 +3992,70 @@ msgstr ""
 "tillas. Una Org no administrada es aquella que fue creada automáticamente por "
 "el sistema cuando un usuario la ingresó / seleccionó."
 
-#: ../../app/views/orgs/_profile_form.html.erb:39
+#: ../../app/views/orgs/_profile_form.html.erb:42
 msgid "Managed? (allows Org Admins to access the Admin menu)"
 msgstr ""
 "Gestionado? (permite a los administradores de la organización acceder al menú "
 "Admin)"
 
-#: ../../app/views/orgs/_profile_form.html.erb:51
+#: ../../app/views/orgs/_profile_form.html.erb:54
 msgid "Organization logo"
 msgstr "Logotipo de la organización"
 
-#: ../../app/views/orgs/_profile_form.html.erb:59
+#: ../../app/views/orgs/_profile_form.html.erb:62
 msgid "This will remove your organisation's logo"
 msgstr "Esto eliminará el logotipo de su organización."
 
-#: ../../app/views/orgs/_profile_form.html.erb:60
+#: ../../app/views/orgs/_profile_form.html.erb:63
 msgid "Remove logo"
 msgstr "Quitar logo"
 
-#: ../../app/views/orgs/_profile_form.html.erb:62
+#: ../../app/views/orgs/_profile_form.html.erb:65
 #: ../../app/views/orgs/shibboleth_ds.html.erb:34
 #: ../../app/views/plans/new.html.erb:64 ../../app/views/plans/new.html.erb:93
 #: ../../app/views/shared/_sign_in_form.html.erb:23
 msgid "or"
 msgstr "o"
 
-#: ../../app/views/orgs/_profile_form.html.erb:79
+#: ../../app/views/orgs/_profile_form.html.erb:82
 msgid "Organisation URLs"
 msgstr "URLs de organización"
 
-#: ../../app/views/orgs/_profile_form.html.erb:91
-#: ../../app/views/orgs/_profile_form.html.erb:96
+#: ../../app/views/orgs/_profile_form.html.erb:94
+#: ../../app/views/orgs/_profile_form.html.erb:99
 msgid "Help Desk email"
 msgstr "Correo electrónico de la mesa de ayuda"
 
-#: ../../app/views/orgs/_profile_form.html.erb:105
+#: ../../app/views/orgs/_profile_form.html.erb:108
 msgid "Administrator contact"
 msgstr "Contacto del administrador"
 
-#: ../../app/views/orgs/_profile_form.html.erb:110
+#: ../../app/views/orgs/_profile_form.html.erb:113
 msgid "Contact email"
 msgstr "Email de contacto"
 
-#: ../../app/views/orgs/_profile_form.html.erb:114
+#: ../../app/views/orgs/_profile_form.html.erb:117
 #: ../../app/views/shared/_links.html.erb:35
 msgid "Link text"
 msgstr "Texto del enlace"
 
-#: ../../app/views/orgs/_profile_form.html.erb:122
+#: ../../app/views/orgs/_profile_form.html.erb:125
 msgid "Google Analytics Tracker"
 msgstr "Rastreador de Google Analytics"
 
-#: ../../app/views/orgs/_profile_form.html.erb:128
+#: ../../app/views/orgs/_profile_form.html.erb:131
 msgid "Tracker Code"
 msgstr "Código de seguimiento"
 
-#: ../../app/views/orgs/_profile_form.html.erb:139
+#: ../../app/views/orgs/_profile_form.html.erb:143
 msgid "Organisation Types"
 msgstr "Tipos de organizacion"
 
-#: ../../app/views/orgs/_profile_form.html.erb:149
+#: ../../app/views/orgs/_profile_form.html.erb:158
 msgid "Institution"
 msgstr "institución"
 
-#: ../../app/views/orgs/_profile_form.html.erb:162
+#: ../../app/views/orgs/_profile_form.html.erb:172
 msgid "Organisation type(s)"
 msgstr "Tipo (s) de organización"
 
@@ -4335,19 +4354,19 @@ msgstr "Ver"
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:77
 msgid ""
-"Are you sure you wish to remove this plan? Any collaborators will still be abl"
-"e to access it."
-msgstr ""
-"¿Estás seguro de que deseas eliminar este plan? Cualquier colaborador podrá se"
-"guir accediendo."
-
-#: ../../app/views/paginable/plans/_privately_visible.html.erb:77
-msgid ""
 "Are you sure you wish to remove this public plan? This will remove it from the"
 " Public DMPs page but any collaborators will still be able to access it."
 msgstr ""
 "¿Estás seguro de que deseas eliminar este plan público? Esto lo eliminará de l"
 "a página de DMP públicos, pero cualquier colaborador podrá acceder a él."
+
+#: ../../app/views/paginable/plans/_privately_visible.html.erb:77
+msgid ""
+"Are you sure you wish to remove this plan? Any collaborators will still be abl"
+"e to access it."
+msgstr ""
+"¿Estás seguro de que deseas eliminar este plan? Cualquier colaborador podrá se"
+"guir accediendo."
 
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:17
 msgid "Not Applicable"
@@ -4875,8 +4894,8 @@ msgid "Organisation: anyone at my organisation can view"
 msgstr "Organización: cualquiera en mi organización puede ver"
 
 #: ../../app/views/plans/_share_form.html.erb:37
-msgid "Public: anyone can view"
-msgstr "Público: cualquiera puede ver"
+msgid "Public: anyone can view or download from the Public DMPs page"
+msgstr ""
 
 #: ../../app/views/plans/_share_form.html.erb:44
 msgid "Manage collaborators"
@@ -5558,12 +5577,12 @@ msgid "on the homepage."
 msgstr "en la página de inicio."
 
 #: ../../app/views/static_pages/about_us.html.erb:35
-msgid "page for guidance."
-msgstr "página de orientación."
-
-#: ../../app/views/static_pages/about_us.html.erb:35
 msgid "Please visit the"
 msgstr "Por favor visite el"
+
+#: ../../app/views/static_pages/about_us.html.erb:35
+msgid "page for guidance."
+msgstr "página de orientación."
 
 #: ../../app/views/static_pages/about_us.html.erb:37
 msgid "Customising for your Organisation"
@@ -6511,20 +6530,20 @@ msgid "Hello %{recipient_name},"
 msgstr "Hola %{recipient_name}"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " to "
-msgstr " a"
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " based on the template "
-msgstr " basado en la plantilla"
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
 msgstr " está creando un plan de gestión de datos y ha respondido"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " to "
+msgstr " a"
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " in a plan called "
 msgstr " en un plan llamado"
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " based on the template "
+msgstr " basado en la plantilla"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
@@ -6681,12 +6700,12 @@ msgid "Download users"
 msgstr "Descargar usuarios"
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Unable to regenerate your API token."
-msgstr "No se puede volver a generar su token de API."
-
-#: ../../app/views/users/refresh_token.js.erb:1
 msgid "Successfully regenerate your API token."
 msgstr "Regenere con éxito su token de API."
+
+#: ../../app/views/users/refresh_token.js.erb:1
+msgid "Unable to regenerate your API token."
+msgstr "No se puede volver a generar su token de API."
 
 #: i18n_placeholders.rb:4
 msgid "activerecord.errors.messages.record_invalid"

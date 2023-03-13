@@ -426,7 +426,8 @@ module DynamicFormHelper
 
       case prop['type']
       when 'integer', 'number'
-        formated_data[key] = data[key].tr(' ', '').to_i
+        # if data was an empty string, to_i sets the value to 0, sets it nil
+        formated_data[key] = data[key].empty? ? nil : data[key].tr(' ', '').to_i
       when 'boolean'
         formated_data[key] = data[key] == '1'
       when 'array'

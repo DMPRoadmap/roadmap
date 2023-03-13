@@ -18,7 +18,7 @@ module Settings
   class Template < RailsSettings::SettingObject
     VALID_FONT_FACES = [
       '"Times New Roman", Times, Serif',
-      'Arial, Helvetica, Sans-Serif'
+      'Roboto, Arial, Sans-Serif'
     ].freeze
 
     VALID_FONT_SIZE_RANGE = (8..14).freeze

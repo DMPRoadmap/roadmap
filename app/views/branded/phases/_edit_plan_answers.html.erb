@@ -119,7 +119,8 @@
                                   <% if fragment.nil? %>
                                     <% parent_fragment = research_output.json_fragment %>
                                     <%= render(partial: '/madmp_fragments/new',
-                                            locals: { question: question,
+                                            locals: { template: template,
+                                                      question: question,
                                                       answer: answer,
                                                       madmp_schema: question.madmp_schema,
                                                       research_output: research_output,
