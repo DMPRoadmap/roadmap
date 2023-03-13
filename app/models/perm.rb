@@ -16,6 +16,8 @@ class Perm < ApplicationRecord
     private
 
     def lazy_load(name)
+      return Perm.find_by(name: name) if Rails.env.development?
+
       Rails.cache
            .fetch("Perm.find_by_name(#{name})", expires_in: 5.seconds, cache_nils: false) do
              Perm.find_by(name: name)
