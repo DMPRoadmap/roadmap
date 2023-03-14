@@ -612,7 +612,6 @@ DEPENDENCIES
   ledermann-rails-settings
   listen
   madmp_opidor!
-  mail
   mimemagic
   mocha
   mysql2
