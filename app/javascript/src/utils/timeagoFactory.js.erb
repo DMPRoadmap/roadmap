@@ -1,4 +1,5 @@
 import getConstant from './constants';
+import { format, register } from 'timeago.js';
 
 // Dynamically register all of the available locales if they have a timeago file
 <% available = [] %>
@@ -17,13 +18,13 @@ import getConstant from './constants';
 const TimeagoFactory = (() => {
   // Register all of the locales with Timeago
   <% available.each do |locale| %>
-    timeago.register('<%= locale %>', <%= locale %>);
+    register('<%= locale %>', <%= locale %>);
   <% end %>
 
   const defaultLocale = '<%= LocaleService.to_gettext(locale: LocaleService.default_locale) %>'
 
   const convertTime = (currentLocale, el) => {
-    return timeago.format($(el).attr('datetime'), `${currentLocale}`);
+    return format($(el).attr('datetime'), `${currentLocale}`);
   };
 
   return {

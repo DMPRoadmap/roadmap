@@ -4,7 +4,7 @@
 # on how and when to run each task.
 require 'set'
 
-# rubocop:disable Naming/VariableNumber, Lint/Debugger
+# rubocop:disable Naming/VariableNumber
 namespace :upgrade do
   desc 'upgrade to Rails 5, rename task after naming release'
   task v2_3_0: :environment do
@@ -1342,4 +1342,4 @@ namespace :upgrade do
     number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
   end
 end
-# rubocop:enable Naming/VariableNumber, Lint/Debugger
+# rubocop:enable Naming/VariableNumber

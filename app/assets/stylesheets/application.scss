@@ -1,17 +1,19 @@
 // Import locally defined variables. Load this before 'bootstrap'
-@import "variables/*";
+
+@use "variables";
+
+@use "blocks";
+@use "utils";
 
 // Pull in the webpacker managed copy of Bootstrap Stylesheets
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../../../node_modules/bootstrap-select/sass/bootstrap-select.scss";
-
-// Pull in the DMPRoadmap CSS
-@import "blocks/*";
-@import "utils/*";
 
 // Pull in the webapcker managed copy of JQuery-UI Stylesheets
 // we are using the Datepicker and Sortable at the very least
 @import "../../../node_modules/jquery-ui-sass/assets/sass/jquery-ui.scss";
 
-// Pull in Fontawesome
-@import "font-awesome";
+$fa-font-path: '.';
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/solid';
