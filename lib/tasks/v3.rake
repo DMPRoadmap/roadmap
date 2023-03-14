@@ -3,7 +3,7 @@
 # Upgrade tasks for 3.x versions. See https://github.com/DMPRoadmap/roadmap/releases for information
 # on how and when to run each task.
 
-# rubocop:disable Naming/VariableNumber, Lint/Debugger
+# rubocop:disable Naming/VariableNumber
 namespace :v3 do
   desc 'Upgrade from v2.2.0 to v3.0.0'
   task upgrade_3_0_0: :environment do
@@ -70,4 +70,4 @@ namespace :v3 do
     end
   end
 end
-# rubocop:enable Naming/VariableNumber, Lint/Debugger
+# rubocop:enable Naming/VariableNumber

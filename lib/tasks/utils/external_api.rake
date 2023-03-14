@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Lint/Debugger
 namespace :external_api do
   desc 'Fetch the latest RDA Metadata Standards'
   task load_rdamsc_standards: :environment do
@@ -117,4 +116,3 @@ namespace :external_api do
     end
   end
 end
-# rubocop:enable Lint/Debugger
