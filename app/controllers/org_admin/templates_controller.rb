@@ -102,6 +102,15 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+    def preferences
+      template = Template.find(params[:id])
+      authorize Template
+      render 'preferences', locals: {
+        partial_path: 'edit',
+        template: template
+      }
+    end
+
     # GET /org_admin/templates/[:id]
     # rubocop:disable Metrics/AbcSize,
     def show

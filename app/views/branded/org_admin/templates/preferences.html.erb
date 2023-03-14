@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Organizational Admin Preferences</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- render navigation tabs for the template-->
+    <%= render partial: "org_admin/templates/navigation",
+               locals: { template: template } %>
+  </div>
+</div>
+
+<h2>Research Outputs</h2>
+<div class="row">
+  <div class="col-md-12">
+    <input type="checkbox" id="enable_research"/>
+    <label for="enable_research">Enable research outputs tab?</label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <label for="define_output">Define output types:</label>
+    <div>
+      <select id="define_output">
+        <option>Use defaults</option>
+        <option>Use mine</option>
+        <option>Add mine to defaults</option>
+      </select>
+    </div>
+    <div><output style="display:inline">Proteomics</output><a>❌</a></div>
+    <div><output style="display:inline">Sensor (wearable)</output><a>❌</a></div>
+    <div><button>Add an output type</button></div>
+  </div>
+</div>
+
+<h2>Preferred repositories</h2>
+<div class="row">
+  <div class="col-md-12">
+    <input type="checkbox" id="require_repo"/>
+    <label for="require_repo">Require reserachers to select from this list?</label>
+    <div><output style="display:inline">Adjusted and Homogenized Canadian Climate Data</output><a>Remove</a></div>
+    <div><button>Add a repository</button></div>
+  </div>
+</div>
+
+<h2>Preferred metadata standards</h2>
+<div class="row">
+  <div class="col-md-12">
+    <input type="checkbox" id="require_meta"/>
+    <label for="require_meta">Require reserachers to select from this list?</label>
+    <div><output style="display:inline">Observ-OM</output><a>Remove</a></div>
+    <div><button>Add a metadata standard</button></div>
+  </div>
+</div>
+
+<h2>Preferred licenses</h2>
+<div class="row">
+  <div class="col-md-12">
+    <div>
+      <select id="define_license">
+        <option>Use defaults</option>
+        <option>Use mine</option>
+        <option>Add mine to defaults</option>
+      </select>
+    </div>
+    <div><output style="display:inline">CC0 - 1.0</output><a>❌</a></div>
+    <div><output style="display:inline">BSD - 3 - Clause</output><a>❌</a></div>
+    <div>
+      <select id="licenses">
+        <option>MIT</option>
+      </select>
+      <button>Add license</button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <button>Save</button>
+  </div>
+</div>

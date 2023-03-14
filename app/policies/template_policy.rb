@@ -9,6 +9,10 @@ class TemplatePolicy < ApplicationPolicy
     @user.can_super_admin?
   end
 
+  def preferences?
+    @user.can_modify_templates?
+  end
+
   def organisational?
     @user.can_modify_templates?
   end
