@@ -1,6 +1,7 @@
 /* eslint-disable */
 /*global window:false, setTimeout:true, console:true */
 /*
+https://github.com/dobarkod/cookie-banner
 Copyright (C) 2013-2015 Good Code and Cookie Banner contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

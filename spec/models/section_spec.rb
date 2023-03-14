@@ -37,7 +37,7 @@ RSpec.describe Section, type: :model do
 
     let!(:section) { create(:section) }
 
-    subject { section.deep_copy(options) }
+    subject { section.deep_copy(**options) }
 
     context 'when no options provided' do
       before do

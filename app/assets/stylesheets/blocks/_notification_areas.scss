@@ -1,6 +1,4 @@
-.notification-area {
-
-}
+@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
 
 .notification-area--floating {
   position: fixed;

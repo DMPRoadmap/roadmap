@@ -1,3 +1,4 @@
+@use '../variables/colours' as *;
 // Overrides Bootstrap 3.0's nav-tabs
 
 /* nav-tabs and nav-pills styling */
@@ -14,8 +15,8 @@
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:focus,
 .nav-tabs > li.active > a:hover {
-  background-color: $color-seccondary-background;
-  color: $color-seccondary-text;
+  background-color: $color-secondary-background;
+  color: $color-secondary-text;
   border: 1px solid $color-border-default;
   border-bottom-color: transparent; /* Only nav-tabs have a transparent border-bottom */
 }
@@ -24,8 +25,8 @@
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:focus,
 .nav-pills > li.active > a:hover {
-  background-color: $color-seccondary-background;
-  color: $color-seccondary-text;
+  background-color: $color-secondary-background;
+  color: $color-secondary-text;
   border: 1px solid $color-border-default;
 }
 .nav-pills > li:last-child > a:hover,
