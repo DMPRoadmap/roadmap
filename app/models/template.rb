@@ -130,8 +130,6 @@ class Template < ApplicationRecord
 
   scope :unarchived, -> { where(archived: false) }
 
-  scope :enable_research_outputs, -> { where(enable_research_outputs: true) }
-
   scope :published, lambda { |family_id = nil|
     if family_id.present?
       unarchived.where(published: true, family_id: family_id)

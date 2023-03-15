@@ -90,18 +90,17 @@ RSpec.describe Template do
   end
 
   describe '.enable_research_outputs' do
-    subject { described_class.enable_research_outputs }
 
     context 'when template has research outputs enabled' do
       let!(:template) { create(:template, enable_research_outputs: true) }
 
-      it { is_expected.to include(template) }
+      it { expect(template.enable_research_outputs).to be true }
     end
 
     context 'when template does not have research outputs enabled' do
       let!(:template) { create(:template, enable_research_outputs: false) }
 
-      it { is_expected.not_to include(template) }
+      it { expect(template.enable_research_outputs).to be false }
     end
   end
 
