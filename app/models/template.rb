@@ -19,6 +19,7 @@
 #  updated_at       :datetime
 #  family_id        :integer
 #  org_id           :integer
+#  enable_research_outputs :boolean
 #
 # Indexes
 #
@@ -62,6 +63,7 @@ class Template < ApplicationRecord
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
   attribute :visibility, default: Template.visibilities[:organisationally_visible]
+  attribute :enable_research_outputs, :boolean, default: true
 
   # ================
   # = Associations =
@@ -127,6 +129,8 @@ class Template < ApplicationRecord
   scope :archived, -> { where(archived: true) }
 
   scope :unarchived, -> { where(archived: false) }
+
+  scope :enable_research_outputs, -> { where(enable_research_outputs: true) }
 
   scope :published, lambda { |family_id = nil|
     if family_id.present?

@@ -649,6 +649,7 @@ ActiveRecord::Schema.define(version: 2022_03_15_104737) do
     t.text "links"
     t.string "email_subject"
     t.text "email_body"
+    t.boolean "enable_research_outputs"
     t.integer "sponsor_id"
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
