@@ -114,7 +114,13 @@ module OrgAdmin
     def save_preferences
       template = Template.find(params[:id])
       authorize Template
-      template.update(enable_research_outputs: template_params[:enable_research_outputs])
+      template.update(
+        enable_research_outputs: template_params[:enable_research_outputs], 
+        user_guidance_research_outputs: template_params[:user_guidance_research_outputs],
+        user_guidance_repositories: template_params[:user_guidance_repositories],
+        user_guidance_metadata_standards: template_params[:user_guidance_metadata_standards],
+        user_guidance_licenses: template_params[:user_guidance_licenses]
+      )
       preferences
     end
 
@@ -395,7 +401,7 @@ module OrgAdmin
       #         }
       # While this is working as-is we should consider folding these into
       # the template: :links context.
-      params.require(:template).permit(:title, :description, :visibility, :links, :enable_research_outputs)
+      params.require(:template).permit(:title, :description, :visibility, :links, :enable_research_outputs, :user_guidance_research_outputs, :user_guidance_repositories, :user_guidance_metadata_standards, :user_guidance_licenses)
     end
 
     def parse_visibility(args, org)

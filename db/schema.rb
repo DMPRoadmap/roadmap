@@ -651,6 +651,10 @@ ActiveRecord::Schema.define(version: 2022_03_15_104737) do
     t.text "email_body"
     t.integer "sponsor_id"
     t.boolean "enable_research_outputs"
+    t.text "user_guidance_research_outputs"
+    t.text "user_guidance_repositories"
+    t.text "user_guidance_metadata_standards"
+    t.text "user_guidance_licenses"
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
