@@ -400,6 +400,7 @@ Rails.application.routes.draw do
 
       member do
         get 'preferences'
+        patch 'preferences', action: :save_preferences
         get 'history'
         get 'email'
         get 'template_export', action: :template_export

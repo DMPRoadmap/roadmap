@@ -15,8 +15,15 @@
 <h2>Research Outputs</h2>
 <div class="row">
   <div class="col-md-12">
-    <input type="checkbox" id="enable_research"/>
-    <label for="enable_research">Enable research outputs tab?</label>
+    <%= form_for(template, url: {action: :save_preferences}, html: { 'data-method': :patch }) do |f| %>
+      <div class="form-group">
+        <%= f.check_box :enable_research_outputs, style: 'width: auto' %>
+        <%= f.label :enable_research_outputs, _('Enable research outputs tab?'), class: 'control-label' %>
+      </div>
+      <div class="form-group">
+        <%= f.submit _('Save Research Outputs Preferences'), class: "btn btn-primary" %>
+      </div>
+    <% end %>
   </div>
 </div>
 

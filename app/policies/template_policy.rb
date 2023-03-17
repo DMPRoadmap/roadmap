@@ -61,6 +61,10 @@ class TemplatePolicy < ApplicationPolicy
     @user.can_super_admin? || (@user.can_modify_templates?  &&  (@record.org_id == @user.org_id))
   end
 
+  def save_preferences?
+    @user.can_modify_templates?
+  end
+
   # AJAX Calls
   def copy?
     @user.can_super_admin? || (@user.can_modify_templates?  &&  (@record.org_id == @user.org_id))

@@ -111,6 +111,13 @@ module OrgAdmin
       }
     end
 
+    def save_preferences
+      template = Template.find(params[:id])
+      authorize Template
+      template.update(enable_research_outputs: template_params[:enable_research_outputs])
+      preferences
+    end
+
     # GET /org_admin/templates/[:id]
     # rubocop:disable Metrics/AbcSize,
     def show
@@ -388,7 +395,7 @@ module OrgAdmin
       #         }
       # While this is working as-is we should consider folding these into
       # the template: :links context.
-      params.require(:template).permit(:title, :description, :visibility, :links)
+      params.require(:template).permit(:title, :description, :visibility, :links, :enable_research_outputs)
     end
 
     def parse_visibility(args, org)
