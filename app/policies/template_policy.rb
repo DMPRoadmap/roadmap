@@ -58,7 +58,7 @@ class TemplatePolicy < ApplicationPolicy
   end
 
   def template_export?
-    @user.can_super_admin? || (@user.can_modify_templates?  &&  (@record.org_id == @user.org_id))
+    @user.can_super_admin? || (@user.can_modify_templates? && (@record.org_id == @user.org_id))
   end
 
   def save_preferences?

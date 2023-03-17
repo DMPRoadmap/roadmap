@@ -90,7 +90,6 @@ RSpec.describe Template do
   end
 
   describe '.enable_research_outputs' do
-
     context 'when template has research outputs enabled' do
       let!(:template) { create(:template, enable_research_outputs: true) }
 
