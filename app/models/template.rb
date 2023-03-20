@@ -64,6 +64,14 @@ class Template < ApplicationRecord
   attribute :family_id, :integer, default: -> { Template.new_family_id }
   attribute :visibility, default: Template.visibilities[:organisationally_visible]
   attribute :enable_research_outputs, :boolean, default: true
+  attribute :customize_output_types, :boolean, default: false
+  attribute :customize_repositories, :boolean, default: false
+  attribute :customize_metadata_standards, :boolean, default: false
+  attribute :customize_licenses, :boolean, default: false
+  attribute :user_guidance_output_formats, :text, default: nil
+  attribute :user_guidance_repositories, :text, default: nil
+  attribute :user_guidance_metadata_standards, :text, default: nil
+  attribute :user_guidance_licenses, :text, default: nil
 
   # ================
   # = Associations =

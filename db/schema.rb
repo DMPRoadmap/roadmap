@@ -650,11 +650,15 @@ ActiveRecord::Schema.define(version: 2023_03_17_180438) do
     t.string "email_subject"
     t.text "email_body"
     t.integer "sponsor_id"
-    t.boolean "enable_research_outputs"
-    t.text "user_guidance_research_outputs"
+    t.boolean "enable_research_outputs", default: true
+    t.text "user_guidance_output_formats"
     t.text "user_guidance_repositories"
     t.text "user_guidance_metadata_standards"
     t.text "user_guidance_licenses"
+    t.boolean "customize_output_types", :boolean, default: false
+    t.boolean "customize_repositories", :boolean, default: false
+    t.boolean "customize_metadata_standards", :boolean, default: false
+    t.boolean "customize_licenses, :boolean", default: false
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"

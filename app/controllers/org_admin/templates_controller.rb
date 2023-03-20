@@ -119,7 +119,11 @@ module OrgAdmin
         user_guidance_research_outputs: template_params[:user_guidance_research_outputs],
         user_guidance_repositories: template_params[:user_guidance_repositories],
         user_guidance_metadata_standards: template_params[:user_guidance_metadata_standards],
-        user_guidance_licenses: template_params[:user_guidance_licenses]
+        user_guidance_licenses: template_params[:user_guidance_licenses],
+        customize_output_types: template_params[:customize_output_types] != 0,
+        customize_repositories: template_params[:customize_repositories],
+        customize_metadata_standards: template_params[:customize_metadata_standards],
+        customize_licenses: template_params[:customize_licenses] != 0
       )
       preferences
     end
@@ -403,7 +407,10 @@ module OrgAdmin
       # the template: :links context.
       params.require(:template).permit(:title, :description, :visibility, :links, :enable_research_outputs,
                                        :user_guidance_research_outputs, :user_guidance_repositories,
-                                       :user_guidance_metadata_standards, :user_guidance_licenses)
+                                       :user_guidance_metadata_standards, :user_guidance_licenses,
+                                       :customize_output_types, :customize_repositories, 
+                                       :customize_metadata_standards, :customize_licenses
+                                      )
     end
 
     def parse_visibility(args, org)
