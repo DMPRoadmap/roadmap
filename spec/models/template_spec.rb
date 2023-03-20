@@ -138,7 +138,7 @@ RSpec.describe Template do
     context 'when template has no user_guidance' do
       let!(:template) { create(:template) }
 
-      it { expect(template.user_guidance_output_formats).to be nil }
+      it { expect(template.user_guidance_output_types).to be nil }
       it { expect(template.user_guidance_repositories).to be nil }
       it { expect(template.user_guidance_metadata_standards).to be nil }
       it { expect(template.user_guidance_licenses).to be nil }
@@ -146,11 +146,11 @@ RSpec.describe Template do
 
     context 'when template has no user_guidance' do
       let!(:template) do
-        create(:template, user_guidance_output_formats: 'a', user_guidance_repositories: 'b',
+        create(:template, user_guidance_output_types: 'a', user_guidance_repositories: 'b',
                           user_guidance_metadata_standards: 'c', user_guidance_licenses: 'd')
       end
 
-      it { expect(template.user_guidance_output_formats).to eq 'a' }
+      it { expect(template.user_guidance_output_types).to eq 'a' }
       it { expect(template.user_guidance_repositories).to eq 'b' }
       it { expect(template.user_guidance_metadata_standards).to eq 'c' }
       it { expect(template.user_guidance_licenses).to eq 'd' }

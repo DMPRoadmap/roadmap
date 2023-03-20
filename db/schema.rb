@@ -651,7 +651,7 @@ ActiveRecord::Schema.define(version: 2023_03_17_180438) do
     t.text "email_body"
     t.integer "sponsor_id"
     t.boolean "enable_research_outputs", default: true
-    t.text "user_guidance_output_formats"
+    t.text "user_guidance_output_types"
     t.text "user_guidance_repositories"
     t.text "user_guidance_metadata_standards"
     t.text "user_guidance_licenses"
