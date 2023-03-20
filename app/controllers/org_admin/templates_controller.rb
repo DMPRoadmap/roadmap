@@ -111,6 +111,8 @@ module OrgAdmin
       }
     end
 
+    # GET /org_admin/templates/[:id]
+    # rubocop:disable Metrics/AbcSize,
     def save_preferences
       template = Template.find(params[:id])
       authorize Template
@@ -127,6 +129,7 @@ module OrgAdmin
       )
       preferences
     end
+    # rubocop:enable Metrics/AbcSize,
 
     # GET /org_admin/templates/[:id]
     # rubocop:disable Metrics/AbcSize,
@@ -408,9 +411,8 @@ module OrgAdmin
       params.require(:template).permit(:title, :description, :visibility, :links, :enable_research_outputs,
                                        :user_guidance_research_outputs, :user_guidance_repositories,
                                        :user_guidance_metadata_standards, :user_guidance_licenses,
-                                       :customize_output_types, :customize_repositories, 
-                                       :customize_metadata_standards, :customize_licenses
-                                      )
+                                       :customize_output_types, :customize_repositories,
+                                       :customize_metadata_standards, :customize_licenses)
     end
 
     def parse_visibility(args, org)
