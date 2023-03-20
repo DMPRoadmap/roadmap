@@ -1,8 +1,8 @@
 import { Tinymce } from '../../../utils/tinymce';
 
 $(() => {
-  if ($('#template_user_guidance_research_outputs').length > 0) {
-    Tinymce.init({ selector: '#template_user_guidance_research_outputs' });
+  if ($('#template_user_guidance_output_types').length > 0) {
+    Tinymce.init({ selector: '#template_user_guidance_output_types' });
   }
   if ($('#template_user_guidance_repositories').length > 0) {
     Tinymce.init({ selector: '#template_user_guidance_repositories' });

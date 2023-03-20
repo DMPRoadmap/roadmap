@@ -27,11 +27,15 @@
   <div class="col-md-12">
     <label for="define_output">Define output types:</label>
     <div>
-      <select id="define_output" disabled>
-        <option>Use defaults</option>
-        <option>Use mine</option>
-        <option>Add mine to defaults</option>
-      </select>
+      <%
+        opts = [
+          ['Use defaults', '0'],
+          ['Use mine', '1'],
+          ['Add mine to defaults', '2']
+        ]
+        opt = template.customize_output_types ? '1' : '0'
+      %>
+      <%= select_tag 'customize_output_types_sel', options_for_select(opts, opt) %>
     </div>
     <div><output style="display:inline">Proteomics</output><a>❌</a></div>
     <div><output style="display:inline">Sensor (wearable)</output><a>❌</a></div>
@@ -42,8 +46,8 @@
 <div class="row">
   <div class="col-md-12">
     <div class="form-group">
-        <%= f.label(:user_guidance_research_outputs, _('End User Guidance for Research Outputs')) %>
-        <%= f.text_area(:user_guidance_research_outputs,
+        <%= f.label(:user_guidance_output_types, _('End User Guidance for Research Outputs')) %>
+        <%= f.text_area(:user_guidance_output_types,
             class: "form-control tinymce",
             rows: 4) %>
     </div>
@@ -53,8 +57,8 @@
 <h2>Preferred repositories</h2>
 <div class="row">
   <div class="col-md-12">
-    <input type="checkbox" id="require_repo" disabled/>
-    <label for="require_repo">Require reserachers to select from this list?</label>
+    <%= f.check_box :customize_repositories, style: 'width: auto' %>
+    <%= f.label :customize_repositories, _('Require reserachers to select from this list?'), class: 'control-label' %>
     <div><output style="display:inline">Adjusted and Homogenized Canadian Climate Data</output><a>Remove</a></div>
     <div><button disabled style="color: gray">Add a repository</button></div>
   </div>
@@ -74,8 +78,8 @@
 <h2>Preferred metadata standards</h2>
 <div class="row">
   <div class="col-md-12">
-    <input type="checkbox" id="require_meta" disabled/>
-    <label for="require_meta">Require reserachers to select from this list?</label>
+    <%= f.check_box :customize_metadata_standards, style: 'width: auto' %>
+    <%= f.label :customize_metadata_standards, _('Require reserachers to select from this list?'), class: 'control-label' %>
     <div><output style="display:inline">Observ-OM</output><a>Remove</a></div>
     <div><button disabled style="color: gray">Add a metadata standard</button></div>
   </div>
@@ -97,11 +101,14 @@
 <div class="row">
   <div class="col-md-12">
     <div>
-      <select id="define_license"  disabled>
-        <option>Use defaults</option>
-        <option>Use mine</option>
-        <option>Add mine to defaults</option>
-      </select>
+      <%
+        opts = [
+          ['Use defaults', '0'],
+          ['Use mine', '1'],
+        ]
+        opt = template.customize_licenses ? '1' : '0'
+      %>
+      <%= select_tag 'customize_licenses_sel', options_for_select(opts, opt) %>
     </div>
     <div><output style="display:inline">CC0 - 1.0</output><a>❌</a></div>
     <div><output style="display:inline">BSD - 3 - Clause</output><a>❌</a></div>

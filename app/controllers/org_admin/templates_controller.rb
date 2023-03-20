@@ -122,10 +122,10 @@ module OrgAdmin
         user_guidance_repositories: template_params[:user_guidance_repositories],
         user_guidance_metadata_standards: template_params[:user_guidance_metadata_standards],
         user_guidance_licenses: template_params[:user_guidance_licenses],
-        customize_output_types: template_params[:customize_output_types] != 0,
+        customize_output_types: params[:customize_output_types_sel] != '0',
         customize_repositories: template_params[:customize_repositories],
         customize_metadata_standards: template_params[:customize_metadata_standards],
-        customize_licenses: template_params[:customize_licenses] != 0
+        customize_licenses: params[:customize_licenses_sel] != '0'
       )
       preferences
     end
