@@ -107,7 +107,8 @@ module OrgAdmin
       authorize Template
       render 'preferences', locals: {
         partial_path: 'edit',
-        template: template
+        template: template,
+        output_types: ResearchOutput.output_types
       }
     end
 
@@ -129,7 +130,7 @@ module OrgAdmin
       )
       preferences
     end
-    # rubocop:enable Metrics/AbcSize,
+    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/[:id]
     # rubocop:disable Metrics/AbcSize,
