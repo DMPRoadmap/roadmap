@@ -5,7 +5,8 @@ module Api
     # Helper methods for research outputs
     class ResearchOutputPresenter
       attr_reader :dataset_id, :preservation_statement, :security_and_privacy, :license_start_date,
-                  :data_quality_assurance, :distributions, :metadata, :technical_resources
+                  :data_quality_assurance, :distributions, :metadata, :technical_resources,
+                  :research_output_type
 
       def initialize(output:)
         @research_output = output
@@ -13,6 +14,11 @@ module Api
 
         @plan = output.plan
         @dataset_id = identifier
+
+        # The DMPHub only recognizes the DEFAULT research_output_types, so use 'other' if these
+        # are custom types added by an admin
+        use_other = !ResearchOutput::DEFAULT_OUTPUT_TYPES.include?(output.research_output_type)
+        @research_output_type = use_other ? 'other' : output.research_output_type
 
         load_narrative_content
 
