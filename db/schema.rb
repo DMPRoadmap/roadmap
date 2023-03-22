@@ -561,6 +561,7 @@ ActiveRecord::Schema.define(version: 2022_03_15_104737) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "license_id"
+    t.string "research_output_type", default: 'dataset', null: false
     t.index ["license_id"], name: "index_research_outputs_on_license_id"
     t.index ["output_type"], name: "index_research_outputs_on_output_type"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"

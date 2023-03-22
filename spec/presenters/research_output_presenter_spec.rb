@@ -19,7 +19,7 @@ RSpec.describe ResearchOutputPresenter do
       expect(sample[0].scan(/^[a-zA-Z\s]*$/).any?).to be(true)
       expect(sample[1].scan(/^[a-z]*$/).any?).to be(true)
       expect(sample[0].underscore).to eql(sample[1])
-      expect(ResearchOutput.output_types[sample[1]].present?).to be(true)
+      expect(ResearchOutput::DEFAULT_OUTPUT_TYPES.include?(sample[1])).to be(true)
     end
   end
 
@@ -109,15 +109,15 @@ RSpec.describe ResearchOutputPresenter do
       expect(presenter.display_type).to eql('')
     end
 
-    it "returns the user's description if the output_type is other" do
-      research_output = build(:research_output, output_type: 'other',
+    it "returns the user's description if the research_output_type is other" do
+      research_output = build(:research_output, research_output_type: 'other',
                                                 output_type_description: 'foo')
       presenter = described_class.new(research_output: research_output)
       expect(presenter.display_type).to eql('foo')
     end
 
-    it 'returns the humanized version of the output_type' do
-      presenter = described_class.new(research_output: build(:research_output, output_type: :image))
+    it 'returns the humanized version of the research_output_type' do
+      presenter = described_class.new(research_output: build(:research_output, research_output_type: 'image'))
       expect(presenter.display_type).to eql('Image')
     end
   end

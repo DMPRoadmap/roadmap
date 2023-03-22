@@ -10,8 +10,7 @@ class ResearchOutputPresenter
 
   # Returns the output_type list for a select_tag
   def selectable_output_types
-    ResearchOutput.output_types
-                  .map { |k, _v| [k.humanize, k] }
+    ResearchOutput::DEFAULT_OUTPUT_TYPES.map { |k| [k.humanize, k] }
   end
 
   # Returns the access options for a select tag
@@ -109,9 +108,9 @@ class ResearchOutputPresenter
   def display_type
     return '' unless @research_output.is_a?(ResearchOutput)
     # Return the user entered text for the type if they selected 'other'
-    return @research_output.output_type_description if @research_output.other?
+    return @research_output.output_type_description if @research_output.research_output_type == 'other'
 
-    @research_output.output_type.gsub('_', ' ').capitalize
+    @research_output.research_output_type.humanize.capitalize
   end
 
   # Returns the display name(s) of the repository(ies)
