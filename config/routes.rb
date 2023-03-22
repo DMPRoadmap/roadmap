@@ -341,7 +341,6 @@ Rails.application.routes.draw do
       get 'publicly_visible/:page', action: :publicly_visible,
                                     on: :collection, as: :publicly_visible
       get ':id/history/:page', action: :history, on: :collection, as: :history
-      get ':id/preferences/:page', action: :preferences, on: :collection, as: :preferences
     end
     # Paginable actions for guidances
     resources :guidances, only: [] do

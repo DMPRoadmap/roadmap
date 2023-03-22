@@ -20,3 +20,4 @@ namespace :v4 do
     puts 'DONE'
   end
 end
+# rubocop:enable Naming/VariableNumber

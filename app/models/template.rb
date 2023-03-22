@@ -19,7 +19,16 @@
 #  updated_at       :datetime
 #  family_id        :integer
 #  org_id           :integer
-#  enable_research_outputs :boolean
+#  enable_research_outputs           :boolean
+#  user_guidance_output_types        :string(255)
+#  user_guidance_repositories        :string(255)
+#  user_guidance_metadata_standards  :string(255)
+#  user_guidance_licenses            :string(255)
+#  customize_output_types            :boolean
+#  customize_repositories            :boolean
+#  customize_metadata_standards      :boolean
+#  customize_licenses                :boolean
+
 #
 # Indexes
 #

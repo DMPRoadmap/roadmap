@@ -40,7 +40,7 @@ class ResearchOutput < ApplicationRecord
   include ValidationMessages
 
   DEFAULT_OUTPUT_TYPES = %w[audiovisual collection data_paper dataset event image interactive_resource
-                            model_representation physical_object service software sound text workflow]
+                            model_representation physical_object service software sound text workflow].freeze
 
   enum output_type: { audiovisual: 0, collection: 1, data_paper: 2, dataset: 3, event: 4, image: 5,
                       interactive_resource: 6, model_representation: 7, physical_object: 8,

@@ -5,6 +5,18 @@
 ### v4.1.0
 **Note: This version includes a change to the research_outputs table!** We have added a new `research_outputs.research_output_type` field that stores a string value. It is a replacement for the old `research_outputs.output_type` integer field. You will need to run: `bin/rails db:migrate && bin/rails v4:upgrade_4_1_0` to make the change to your data model and migrate your existing data to the new field.
 
+- Added the following columns to the `templates` table
+  - `enable_research_outputs`
+  - `user_guidance_output_types`
+  - `user_guidance_repositories`
+  - `user_guidance_metadata_standards`
+  - `user_guidance_licenses`
+  - `customize_output_types`
+  - `customize_repositories`
+  - `customize_metadata_standards`
+  - `customize_licenses`
+- Updated the Templates model (and RSpec factory and tests) to use new field
+- Created the Template Preferences View
 - Added column `research_output_type` to the `research_outputs` table
 - Added `v4:upgrade_4_1_0` rake task to migrate data from `output_type` and `output_type_description` to the new `research_output_type` field
 - Updated the ResearchOutput model (and RSpec factory and tests) to use new field

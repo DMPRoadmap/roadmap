@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <h1>Organizational Admin Preferences</h1>
+    <h1>Template Preferences</h1>
   </div>
 </div>
 
@@ -28,15 +28,7 @@
   <div class="col-md-3">
     <label for="define_output">Define output types:</label>
     <div>
-      <%
-        opts = [
-          ['Use defaults', '0'],
-          ['Use mine', '1'],
-          ['Add mine to defaults', '2']
-        ]
-        opt = template.customize_output_types ? '1' : '0'
-      %>
-      <%= select_tag 'customize_output_types_sel', options_for_select(opts, opt) %>
+     <%= select_tag 'customize_output_types_sel', options_for_select(select_override_options, template.customize_output_types ? '1' : '0') %>
     </div>
   </div>
   <div class="col-md-6">
