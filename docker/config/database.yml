@@ -1,0 +1,12 @@
+defaults: &defaults
+  adapter: 'mysql2'
+  encoding: 'utf8mb4'
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  port: <%= ENV['DB_PORT'] || 3306 %>
+  database: <%= ENV['DB_NAME'] || 'roadmap' %>
+  username: <%= ENV['DB_USERNAME'] || 'root' %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  pool: <%= ENV['DB_PASSWORD'] || 16 %>
+
+ci:
+  <<: *defaults
