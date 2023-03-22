@@ -29,16 +29,6 @@ RSpec.describe ResearchOutput do
                                                                .scoped_to(:plan_id)
                                                                .with_message('must be unique')
     }
-
-    it "requires :output_type_description if :research_output_type is 'other'" do
-      @subject.research_output_type = 'other'
-      expect(@subject).to validate_presence_of(:output_type_description)
-    end
-
-    it "does not require :output_type_description if :research_output_type is 'dataset'" do
-      @subject.research_output_type = 'dataset'
-      expect(@subject).not_to validate_presence_of(:output_type_description)
-    end
   end
 
   it 'factory builds a valid model' do

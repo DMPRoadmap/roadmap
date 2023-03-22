@@ -38,7 +38,6 @@ FactoryBot.define do
     description             { Faker::Lorem.paragraph }
     is_default              { [nil, true, false].sample }
     display_order           { Faker::Number.between(from: 1, to: 20) }
-    output_type_description { Faker::Lorem.sentence }
     personal_data           { [nil, true, false].sample }
     release_date            { 1.month.from_now }
     sensitive_data          { [nil, true, false].sample }

@@ -107,8 +107,6 @@ class ResearchOutputPresenter
   # Returns the humanized version of the output_type enum variable
   def display_type
     return '' unless @research_output.is_a?(ResearchOutput)
-    # Return the user entered text for the type if they selected 'other'
-    return @research_output.output_type_description if @research_output.research_output_type == 'other'
 
     @research_output.research_output_type.humanize.capitalize
   end

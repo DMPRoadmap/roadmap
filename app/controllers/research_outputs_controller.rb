@@ -19,7 +19,7 @@ class ResearchOutputsController < ApplicationController
 
   # GET /plans/:plan_id/research_outputs/new
   def new
-    @research_output = ResearchOutput.new(plan_id: @plan.id, output_type: '')
+    @research_output = ResearchOutput.new(plan_id: @plan.id, research_output_type: '')
     authorize @research_output
   end
 
@@ -88,7 +88,7 @@ class ResearchOutputsController < ApplicationController
   def select_output_type
     @plan = Plan.find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(
-      plan: @plan, output_type: output_params[:output_type]
+      plan: @plan, research_output_type: output_params[:research_output_type]
     )
     authorize @research_output
   end
@@ -148,7 +148,7 @@ class ResearchOutputsController < ApplicationController
 
   def output_params
     params.require(:research_output)
-          .permit(%i[title abbreviation description output_type output_type_description
+          .permit(%i[title abbreviation description research_output_type
                      sensitive_data personal_data file_size file_size_unit mime_type_id
                      release_date access coverage_start coverage_end coverage_region
                      mandatory_attribution license_id],
@@ -190,8 +190,8 @@ class ResearchOutputsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-  # There are certain fields on the form that are visible based on the selected output_type. If the
-  # ResearchOutput previously had a value for any of these and the output_type then changed making
+  # There are certain fields on the form that are visible based on the selected research_output_type. If the
+  # ResearchOutput previously had a value for any of these and the research_output_type then changed making
   # one of these arguments invisible, then we need to blank it out here since the Rails form will
   # not send us the value
   def process_nillable_values(args:)

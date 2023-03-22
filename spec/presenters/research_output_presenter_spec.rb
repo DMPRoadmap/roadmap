@@ -109,13 +109,6 @@ RSpec.describe ResearchOutputPresenter do
       expect(presenter.display_type).to eql('')
     end
 
-    it "returns the user's description if the research_output_type is other" do
-      research_output = build(:research_output, research_output_type: 'other',
-                                                output_type_description: 'foo')
-      presenter = described_class.new(research_output: research_output)
-      expect(presenter.display_type).to eql('foo')
-    end
-
     it 'returns the humanized version of the research_output_type' do
       presenter = described_class.new(research_output: build(:research_output, research_output_type: 'image'))
       expect(presenter.display_type).to eql('Image')

@@ -2,6 +2,15 @@
 
 ## DMPTool Releases
 
+### v4.1.0
+**Note: This version includes a change to the research_outputs table!** We have added a new `research_outputs.research_output_type` field that stores a string value. It is a replacement for the old `research_outputs.output_type` integer field. You will need to run: `bin/rails db:migrate && bin/rails v4:upgrade_4_1_0` to make the change to your data model and migrate your existing data to the new field.
+
+- Added column `research_output_type` to the `research_outputs` table
+- Added `v4:upgrade_4_1_0` rake task to migrate data from `output_type` and `output_type_description` to the new `research_output_type` field
+- Updated the ResearchOutput model (and RSpec factory and tests) to use new field
+- Replaced the old `output_types` enum on the ResearchOutput model with `DEFAULT_OUTPUT_TYPES` array
+- Updated presenters (and RSpec tests) and controller to work with the new field
+
 ### v4.0.5
 This version includes changes from [DMPRoadmap release v4.0.2](https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.2) see the release notes for details.
 
