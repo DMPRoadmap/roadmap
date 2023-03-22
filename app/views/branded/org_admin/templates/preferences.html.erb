@@ -23,8 +23,9 @@
   </div>
 </div>
 
+<h2>Output Types</h2>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-3">
     <label for="define_output">Define output types:</label>
     <div>
       <%
@@ -37,9 +38,28 @@
       %>
       <%= select_tag 'customize_output_types_sel', options_for_select(opts, opt) %>
     </div>
-    <div><output style="display:inline">Proteomics</output><a>❌</a></div>
-    <div><output style="display:inline">Sensor (wearable)</output><a>❌</a></div>
-    <div><button disabled style="color: gray">Add an output type</button></div>
+  </div>
+  <div class="col-md-6">
+    <div class="selectable_items" id="default-output-types">
+    <fieldset class="selectable_items">
+      <legend>Default Output Types</legend>
+      <ul>
+        <% output_types.keys.each do |ot|%>
+          <li class="output_type selectable_item">
+            <span class="selectable_item_label"><%= ot.humanize %></span>
+          </li>
+        <% end %>
+      </ul>
+    </fieldset>
+    </div>
+    <div class="selectable_items" id="my-output-types" >
+    <fieldset class="selectable_items">
+      <legend>My Output Types</legend>
+        <ul>
+        </ul>
+      <div><input id="new_output_type" type="text"/> <button id="add_output_type">Add an output type</button></div>
+    </fieldset>
+    </div>
   </div>
 </div>
 
