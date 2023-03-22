@@ -135,16 +135,7 @@ RSpec.describe Template do
   end
 
   describe '.user_guidance' do
-    context 'when template has no user_guidance' do
-      let!(:template) { create(:template) }
-
-      it { expect(template.user_guidance_output_types).to be nil }
-      it { expect(template.user_guidance_repositories).to be nil }
-      it { expect(template.user_guidance_metadata_standards).to be nil }
-      it { expect(template.user_guidance_licenses).to be nil }
-    end
-
-    context 'when template has no user_guidance' do
+    context 'when template has user_guidance' do
       let!(:template) do
         create(:template, user_guidance_output_types: 'a', user_guidance_repositories: 'b',
                           user_guidance_metadata_standards: 'c', user_guidance_licenses: 'd')

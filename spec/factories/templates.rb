@@ -19,6 +19,15 @@
 #  updated_at       :datetime
 #  family_id        :integer
 #  org_id           :integer
+#  enable_research_outputs           :boolean
+#  user_guidance_output_types        :string(255)
+#  user_guidance_repositories        :string(255)
+#  user_guidance_metadata_standards  :string(255)
+#  user_guidance_licenses            :string(255)
+#  customize_output_types            :boolean
+#  customize_repositories            :boolean
+#  customize_metadata_standards      :boolean
+#  customize_licenses                :boolean
 #
 # Indexes
 #
@@ -41,8 +50,17 @@ FactoryBot.define do
     is_default { false }
     published { false }
     archived { false }
+    enable_research_outputs { true }
+    customize_output_types { false }
+    customize_repositories { false }
+    customize_metadata_standards { false }
+    customize_licenses { false }
     email_subject { Faker::Lorem.sentence }
     email_body { Faker::Lorem.paragraph }
+    user_guidance_output_types { Faker::Lorem.paragraph }
+    user_guidance_repositories { Faker::Lorem.paragraph }
+    user_guidance_metadata_standards { Faker::Lorem.paragraph }
+    user_guidance_licenses { Faker::Lorem.paragraph }
 
     sequence(:version)
 
