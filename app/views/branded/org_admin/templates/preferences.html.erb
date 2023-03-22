@@ -40,20 +40,20 @@
     </div>
   </div>
   <div class="col-md-6">
-    <div style="margin-bottom: 30px" id="default-output-types">
-    <fieldset style="border: thin solid gray; padding: 10px; border-radius: 5px;">
+    <div class="selectable_items" id="default-output-types">
+    <fieldset class="selectable_items">
       <legend>Default Output Types</legend>
       <ul>
         <% output_types.keys.each do |ot|%>
-          <li class="output_type" style="display: inline-block;">
-            <span style="padding: 4px; border: thin solid gray; border-radius: 5px; margin: 3px; display: inline-block"><%= ot.humanize %></span>
+          <li class="output_type selectable_item">
+            <span class="selectable_item_label"><%= ot.humanize %></span>
           </li>
         <% end %>
       </ul>
     </fieldset>
     </div>
-    <div style="margin-bottom: 30px" id="my-output-types" >
-    <fieldset style="border: thin solid gray; padding: 10px; border-radius: 5px">
+    <div class="selectable_items" id="my-output-types" >
+    <fieldset class="selectable_items">
       <legend>My Output Types</legend>
         <ul>
         </ul>

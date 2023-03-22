@@ -32,19 +32,17 @@ $(() => {
   showOutputTypeSelections();
 
   function addOutputType(v, vclass) {
-    const li = $('<li class="output_type" style="display: inline-block;"/>').addClass(vclass).appendTo('#my-output-types ul');
-    const a = $('<a href="#" class="output_type_remove" aria-label="Remove this related work"/>').appendTo(li);
+    const li = $('<li/>').addClass('selectable_item').addClass('output_type').addClass(vclass)
+      .appendTo('#my-output-types ul');
+    const a = $('<a href="#" aria-label="Remove this related work"/>').addClass('output_type_remove').appendTo(li);
     a.on('click', (e) => {
       e.stopPropagation();
       $(e.currentTarget).parents('li.output_type').remove();
     });
-    const span = $('<span style="padding: 4px; border: thin solid gray; border-radius: 5px; margin: 3px;display: inline-block;"/>').appendTo(a);
+    const span = $('<span/>').addClass('selectable_item_label').addClass(vclass).appendTo(a);
     span.text(v.replace(/^\s+|\s+$/g, ''));
-    if (vclass === 'custom') {
-      span.css('background-color', 'yellow');
-    }
     $('<i class="fas fa-times-circle fa-reverse remove-output-type" aria-hidden="true"/>').appendTo(a);
-    $('<input class="output_type" type="hidden" name="output_type[]" autocomplete="off"/>').attr('value', v).appendTo(li);
+    $('<input class="output_type" type="hidden" name="output_type_description[]" autocomplete="off"/>').attr('value', v).appendTo(li);
   }
 
   $('#customize_output_types_sel').on('change', (e) => {
