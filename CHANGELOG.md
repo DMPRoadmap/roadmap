@@ -57,17 +57,18 @@ For more detailed explanation, please refer to this video : https://www.youtube.
 
 ### GitHub actions updates
 - Added node version specification (v16) to eslint, PostgreSQL and MySQL github action to eliminate `digital routine enveloped` error [#319](https://github.com/portagenetwork/roadmap/issues/319)
-### Bug Fixes
 
+### Enhancements
+- Added enum to the funding status attribute of plan model to make the dropdown of 'funding status' being translatable
+
+### Bug Fixes
 
 ## v4.0.2
 
 ### Added
-
 - Added CHANGELOG.md and Danger Github Action [#3257](https://github.com/DMPRoadmap/roadmap/issues/3257)
 - Added validation with custom error message in research_output.rb to ensure a user does not enter a very large value as 'Anticipated file size'. [#3161](https://github.com/DMPRoadmap/roadmap/issues/3161)
 - Added popover for org profile page and added explanation for public plan
-- Added enum to the funding status attribute of plan model to make the dropdown of 'funding status' being translatable
 
 ### Fixed
 
