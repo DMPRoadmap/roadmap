@@ -16,7 +16,7 @@ jobs:
       with:
         cache: 'yarn'
         node-version: 16
-        
+
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'
       run: yarn install
