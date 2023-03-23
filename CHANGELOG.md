@@ -81,3 +81,5 @@ For more detailed explanation, please refer to this video : https://www.youtube.
 
 - Added scss files to EditorConfig
 - Change csv file name for statistics from 'Completed' to 'Created'
+- Added lib tasks as exclusive from debugger rubocop check after rubocop upgrading to >= v1.45 [#3291](https://github.com/DMPRoadmap/roadmap/issues/3291)
+- Added node version specification (v16) to eslint, PostgreSQL and MySQL github action to eliminate `digital routine enveloped` error [#319](https://github.com/portagenetwork/roadmap/issues/319)
