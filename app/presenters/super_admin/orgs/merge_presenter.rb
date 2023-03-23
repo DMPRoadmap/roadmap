@@ -22,7 +22,7 @@ module SuperAdmin
         @from_org_entries = prepare_org(org: @from_org)
         @to_org_entries = prepare_org(org: @to_org)
         @mergeable_entries = prepare_mergeables
-        @categories = @from_org_entries.keys.sort { |a, b| a <=> b }
+        @categories = @from_org_entries.keys.sort
 
         # Specific Org columns
         @from_org_attributes = org_attributes(org: @from_org)
@@ -39,19 +39,19 @@ module SuperAdmin
         return {} unless org.present? && org.is_a?(Org)
 
         {
-          annotations: org.annotations.sort { |a, b| a.text <=> b.text },
-          departments: org.departments.sort { |a, b| a.name <=> b.name },
-          funded_plans: org.funded_plans.sort { |a, b| a.title <=> b.title },
+          annotations: org.annotations.sort_by(&:text),
+          departments: org.departments.sort_by(&:name),
+          funded_plans: org.funded_plans.sort_by(&:title),
           guidances: org.guidance_groups.collect(&:guidances).flatten,
-          identifiers: org.identifiers.sort { |a, b| a.value <=> b.value },
+          identifiers: org.identifiers.sort_by(&:value),
           # TODO: Org.plans is overridden and does not clearly identify Orgs that 'own'
           #       the plan (i.e. the one the user selected as the 'Research Org')
           #       Loading them directly here until issue #2724 is resolved
-          plans: Plan.where(org: org).sort { |a, b| a.title <=> b.title },
-          templates: org.templates.sort { |a, b| a.title <=> b.title },
-          token_permission_types: org.token_permission_types.sort { |a, b| a.to_s <=> b.to_s },
+          plans: Plan.where(org: org).sort_by(&:title),
+          templates: org.templates.sort_by(&:title),
+          token_permission_types: org.token_permission_types.sort_by(&:to_s),
           tracker: [org.tracker].compact,
-          users: org.users.sort { |a, b| a.email <=> b.email }
+          users: org.users.sort_by(&:email)
         }
       end
       # rubocop:enable Metrics/AbcSize

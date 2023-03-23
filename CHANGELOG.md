@@ -51,6 +51,12 @@ For more detailed explanation, please refer to this video : https://www.youtube.
 - Cleaned up `spec/rails_helper.rb` and `spec/spec_helper.rb`
 - Simplified the `spec/support/capybara.rb` helper to work with the latest version of Capybara and use its built in headless Chrome driver
 
+### Added Rubocop performance gem
+- Installed rubocop-performance gem and made suggested changes
+
+### Bug Fixes
+
+
 ## v4.0.2
 
 ### Added

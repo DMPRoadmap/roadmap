@@ -278,6 +278,9 @@ group :ci, :development do
   # RuboCop rules for detecting and autocorrecting undecorated strings for i18n
   # (gettext and rails-i18n)
   gem 'rubocop-i18n'
+
+  # Performance checks by Rubocop
+  gem 'rubocop-performance', require: false
 end
 
 group :development do
