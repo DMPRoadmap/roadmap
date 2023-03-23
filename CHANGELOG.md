@@ -4,8 +4,11 @@
 
 ### v4.0.8
 
+Patch includes gem and JS dependency updates as well as a few bug fixes
+
 ### Bug Fixes:
 - Patch [issue #447](https://github.com/CDLUC3/dmptool/issues/447) that was deleting all prior related identifiers when a user adds a new related identifier on the 'Follow up' tab.
+- Patch Github Actions to lock Node at v16.6 to deal with a version compatability issue with openSSL
 
 ### v4.0.5
 This version includes changes from [DMPRoadmap release v4.0.2](https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.2) see the release notes for details.
