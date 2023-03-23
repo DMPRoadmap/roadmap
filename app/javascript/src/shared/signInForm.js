@@ -1,4 +1,4 @@
-import * as Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import { isValidText } from '../utils/isValidInputType';
 
 $(() => {

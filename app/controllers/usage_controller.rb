@@ -35,7 +35,8 @@ class UsageController < ApplicationController
     # for global usage
     authorize :usage
 
-    data = Org::TotalCountStatService.call(filtered: parse_filtered) # TODO: Update
+    args = { filtered: parse_filtered }
+    data = Org::TotalCountStatService.call(**args) # TODO: Update
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
@@ -162,24 +163,24 @@ class UsageController < ApplicationController
   end
 
   def user_data(args:, as_json: false, sort: :asc)
-    @users_per_month = StatJoinedUser.monthly_range(args.except(:filtered))
+    @users_per_month = StatJoinedUser.monthly_range(**args.except(:filtered))
                                      .order(date: sort)
     @users_per_month = @users_per_month.map(&:to_json) if as_json
   end
 
   def plan_data(args:, as_json: false, sort: :asc)
-    @plans_per_month = StatCreatedPlan.monthly_range(args)
+    @plans_per_month = StatCreatedPlan.monthly_range(**args)
                                       .where.not(details: '{"by_template":[]}')
                                       .order(date: sort)
     @plans_per_month = @plans_per_month.map(&:to_json) if as_json
   end
 
   def total_plans(args:)
-    @total_org_plans = StatCreatedPlan.monthly_range(args).sum(:count)
+    @total_org_plans = StatCreatedPlan.monthly_range(**args).sum(:count)
   end
 
   def total_users(args:)
-    @total_org_users = StatJoinedUser.monthly_range(args.except(:filtered)).sum(:count)
+    @total_org_users = StatJoinedUser.monthly_range(**args.except(:filtered)).sum(:count)
   end
 
   def first_plan_date
