@@ -16,7 +16,8 @@ end
 warn('Please add a detailed summary in the description.') if github.pr_body.length < 3
 
 # Warn when there is a big PR
-warn('This PR is too big! Consider breaking it down into smaller PRs.') if git.lines_of_code > 1000
+warn('This PR is too big! Consider breaking it down into smaller PRs.') if git.lines_of_code > 1000 &&
+                                                                           !git.pr_title.include?('-beta')
 
 # Make it more obvious that a PR is a work in progress and shouldn't be merged yet
 warn('PR is classed as Work in Progress') if github.pr_title.include? '[WIP]'
