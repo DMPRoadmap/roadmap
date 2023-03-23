@@ -1,3 +1,6 @@
+@use '../variables/colours' as *;
+@use '../variables/typography' as *;
+
 /* Setting font-family for improving screen legibility */
 body, .tooltip, .popover {
   font-family: $font-family;

@@ -219,7 +219,7 @@ module Api
         raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
 
         @org_plans = @user.org.plans
-        if params['remove_tests'].present? && params['remove_tests'].downcase == 'true'
+        if params['remove_tests'].present? && params['remove_tests'].casecmp('true').zero?
           @org_plans = @org_plans.where.not(visibility: Plan.visibilities[:is_test])
         end
         if params['start_date'].present? || params['end_date'].present?
