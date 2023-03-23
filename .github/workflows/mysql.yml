@@ -11,8 +11,6 @@ jobs:
       DB_ADAPTER: mysql2
       MYSQL_PWD: root
       RAILS_ENV: test
-      # Added to handle issue compiling assets that was causing OpenSSL to throw: ERR_OSSL_EVP_UNSUPPORTED
-      NODE_OPTIONS: --openssl-legacy-provider
 
     steps:
     # Checkout the repo
@@ -27,7 +25,7 @@ jobs:
     # Install Node
     - uses: actions/setup-node@v3
       with:
-        node-version: '19.6.0'
+        node-version: '16.6.0'
         cache: 'yarn'
 
     # Copy all of the example configs over
