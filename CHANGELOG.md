@@ -60,6 +60,7 @@ For more detailed explanation, please refer to this video : https://www.youtube.
 
 ### Enhancements
 - Added enum to the funding status attribute of plan model to make the dropdown of 'funding status' being translatable
+- Allow users to download both single phase and  in PDF, TEXT and DOCX format. CSV file can only download single phase instead of all phases.
 
 ### Bug Fixes
 
