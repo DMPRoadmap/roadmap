@@ -108,7 +108,7 @@ module Api
 
       # Get the Plan's owner
       def determine_owner(client:, plan:)
-        contact = plan.contributors.select(&:data_curation?).first
+        contact = plan.contributors.find(&:data_curation?)
         # Use the contact if it was sent in and has an affiliation defined
         return contact if contact.present? && contact.org.present?
 

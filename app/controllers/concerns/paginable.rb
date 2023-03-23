@@ -8,7 +8,7 @@ module Paginable
 
   ##
   # Regex to validate sort_field param is safe
-  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]+$/.freeze
+  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]+$/
 
   PAGINATION_QUERY_PARAMS = %i[page sort_field sort_direction
                                search controller action].freeze
@@ -175,7 +175,7 @@ module Paginable
     dir = 'down' if sort_direction.to_s == 'DESC'
     class_name = "fas fa-sort-#{dir}" if @args[:sort_field] == sort_field
     <<~HTML.html_safe
-      <i class="fas #{class_name}"
+      <i class="#{class_name}"
          aria-hidden="true"
          style="float: right; font-size: 1.2em;">
 
