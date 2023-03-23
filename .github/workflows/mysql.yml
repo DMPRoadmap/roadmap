@@ -14,7 +14,7 @@ jobs:
 
     steps:
     # Checkout the repo
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
@@ -23,8 +23,9 @@ jobs:
         bundler-cache: true
 
     # Install Node
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v3
       with:
+        node-version: '16.6.0'
         cache: 'yarn'
 
     # Copy all of the example configs over
