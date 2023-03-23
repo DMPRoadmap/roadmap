@@ -342,6 +342,7 @@ class Plan < ApplicationRecord
   #  emails confirmation messages to owners
   #  emails org admins and org contact
   #  adds org admins to plan with the 'reviewer' Role
+  # rubocop:disable Metrics/AbcSize
   def request_feedback(user)
     Plan.transaction do
       self.feedback_requested = true
@@ -361,6 +362,7 @@ class Plan < ApplicationRecord
       false
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   ##
   # Finalizes the feedback for the plan: Emails confirmation messages to owners

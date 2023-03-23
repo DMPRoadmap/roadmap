@@ -110,7 +110,7 @@ module Api
           errs << BAD_ID_MSG if id.present? && !identifier_valid?(json: id)
           errs
         end
-end
+      end
     end
   end
 end
