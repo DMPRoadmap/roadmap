@@ -64,6 +64,9 @@ class ResearchOutput < ApplicationRecord
                                            allow_nil: true, allow_blank: true,
                                            message: UNIQUENESS_MESSAGE }
 
+  validates_numericality_of :byte_size, greater_than: 0, less_than_or_equal_to: 2**63,
+                                        allow_blank: true,
+                                        message: '(Anticipated file size) is too large. Please enter a smaller value.'
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
 

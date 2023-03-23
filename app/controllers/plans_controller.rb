@@ -237,7 +237,7 @@ class PlansController < ApplicationController
                .find(params[:id])
     authorize plan
     phase_id = params[:phase_id].to_i
-    phase = plan.template.phases.select { |p| p.id == phase_id }.first
+    phase = plan.template.phases.find { |p| p.id == phase_id }
     raise ActiveRecord::RecordNotFound if phase.nil?
 
     guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
@@ -524,7 +524,7 @@ class PlansController < ApplicationController
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a; }
+    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a }
     render('/phases/edit', locals: {
              base_template_org: phase.template.base_org,
              plan: plan,
