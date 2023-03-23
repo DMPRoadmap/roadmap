@@ -48,6 +48,9 @@
     <fieldset class="selectable_items">
       <legend>My Output Types</legend>
         <ul>
+        <% template.template_output_types.each do |ot| %>
+        <input class="output_type_init" type="hidden" data="<%= ot.id %>" value="<%= ot.research_output_type %>"/>
+        <% end %>
         </ul>
       <div><input id="new_output_type" type="text"/> <button id="add_output_type">Add an output type</button></div>
     </fieldset>

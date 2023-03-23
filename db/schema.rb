@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_22_145714) do
+ActiveRecord::Schema.define(version: 2023_03_23_000459) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -631,6 +631,12 @@ ActiveRecord::Schema.define(version: 2023_03_22_145714) do
     t.datetime "last_notified"
     t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
     t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
+  end
+
+  create_table "template_output_types", id: :integer, force: :cascade do |t|
+    t.integer "template_id"
+    t.string "research_output_type"
+    t.index ["template_id"], name: "index_template_output_types_on_template_id"
   end
 
   create_table "templates", id: :integer, force: :cascade do |t|

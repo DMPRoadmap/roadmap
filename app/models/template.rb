@@ -102,6 +102,10 @@ class Template < ApplicationRecord
 
   has_many :conditions, through: :questions
 
+  has_many :template_output_types
+
+  accepts_nested_attributes_for :template_output_types
+
   # ----------------------------------------
   # Start DMPTool Customization
   # ----------------------------------------

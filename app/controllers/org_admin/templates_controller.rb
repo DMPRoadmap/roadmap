@@ -112,25 +112,17 @@ module OrgAdmin
       }
     end
 
-    # GET /org_admin/templates/[:id]
-    # rubocop:disable Metrics/AbcSize,
+    # GET /org_admin/templates/[:id] # ,
     def save_preferences
       template = Template.find(params[:id])
       authorize Template
-      template.update(
-        enable_research_outputs: template_params[:enable_research_outputs],
-        user_guidance_output_types: template_params[:user_guidance_output_types],
-        user_guidance_repositories: template_params[:user_guidance_repositories],
-        user_guidance_metadata_standards: template_params[:user_guidance_metadata_standards],
-        user_guidance_licenses: template_params[:user_guidance_licenses],
-        customize_output_types: params[:customize_output_types_sel] != '0',
-        customize_repositories: template_params[:customize_repositories],
-        customize_metadata_standards: template_params[:customize_metadata_standards],
-        customize_licenses: params[:customize_licenses_sel] != '0'
-      )
+      template.update(template_output_types: [])
+      args = template_params
+      args[:customize_output_types] = params[:customize_output_types_sel] != '0'
+      args[:customize_licenses] = params[:customize_licenses_sel] != '0'
+      template.update(args)
       preferences
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/[:id]
     # rubocop:disable Metrics/AbcSize,
@@ -413,7 +405,8 @@ module OrgAdmin
                                        :user_guidance_output_types, :user_guidance_repositories,
                                        :user_guidance_metadata_standards, :user_guidance_licenses,
                                        :customize_output_types, :customize_repositories,
-                                       :customize_metadata_standards, :customize_licenses)
+                                       :customize_metadata_standards, :customize_licenses,
+                                       template_output_types_attributes: %i[id research_output_type])
     end
 
     def parse_visibility(args, org)
