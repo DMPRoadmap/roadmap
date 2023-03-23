@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fixed an issue that was preventing uses from leaving the research output byte_size field blank
+- Patched issue that was causing template visibility to default to organizationally visible after saving
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
 - Updated the CSV export so that it now includes research outputs
 - Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
