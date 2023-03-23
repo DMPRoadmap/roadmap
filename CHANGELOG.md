@@ -7,6 +7,7 @@
 - Added popover for org profile page and added explanation for public plan
 ### Fixed
 
+- Patched issue that was causing template visibility to default to organizationally visible after saving
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
 - Updated the CSV export so that it now includes research outputs
 - Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
