@@ -25,6 +25,7 @@ jobs:
     # Install Node
     - uses: actions/setup-node@v3
       with:
+        node-version: '19.6.0'
         cache: 'yarn'
 
     # Copy all of the example configs over
