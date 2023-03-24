@@ -32,8 +32,8 @@ $(() => {
   }
 
   function addOutputType(v) {
-    let vnorm = v.replace(/^\s+|\s+$/g, '');
-    vnorm = vnorm.charAt(0).toUpperCase() + vnorm.slice(1);
+    const vnorm = v.replace(/^\s+|\s+$/g, '').toLowerCase();
+    const vnormDisp = vnorm.charAt(0).toUpperCase() + vnorm.slice(1);
     if (checkOutputType('#my-output-types', vnorm)) {
       return;
     }
@@ -46,7 +46,7 @@ $(() => {
       $(e.currentTarget).parents('li.output_type').remove();
     });
     const span = $('<span/>').addClass('selectable_item_label').addClass(vclass).appendTo(a);
-    span.text(vnorm);
+    span.text(vnormDisp);
     const index = $('#my-output-types ul li').length;
     $('<i class="fas fa-times-circle fa-reverse remove-output-type" aria-hidden="true"/>').appendTo(a);
     const name = `template[template_output_types_attributes[${index}][research_output_type]]`;
