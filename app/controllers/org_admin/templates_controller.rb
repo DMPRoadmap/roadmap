@@ -116,11 +116,14 @@ module OrgAdmin
     def save_preferences
       template = Template.find(params[:id])
       authorize Template
-      template.update(template_output_types: [])
+
       args = template_params
       args[:customize_output_types] = params[:customize_output_types_sel] != '0'
       args[:customize_licenses] = params[:customize_licenses_sel] != '0'
-      template.update(args)
+      Template.transaction do
+        template.update(template_output_types: [])
+        template.update(args)
+      end
       preferences
     end
 
