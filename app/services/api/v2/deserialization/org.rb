@@ -62,7 +62,7 @@ module Api
             # Postgres and MySQL handle index_of differently, so check the DB type
             postgres = ::ApplicationRecord.postgres_db?
             where = 'name' if name.include?('(')
-            where = 'substring(name, 0, strpos(name, \'(\'))' if postgres && where.nil?
+            where = 'substring(name, 0, strpos(name, \' (\'))' if postgres && where.nil?
             where = 'SUBSTRING_INDEX(name,\'(\',1)' if where.blank?
             where = "LOWER(#{where}) = ?"
 
