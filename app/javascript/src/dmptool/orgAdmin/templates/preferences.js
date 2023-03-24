@@ -50,7 +50,7 @@ $(() => {
     const index = $('#my-output-types ul li').length;
     $('<i class="fas fa-times-circle fa-reverse remove-output-type" aria-hidden="true"/>').appendTo(a);
     const name = `template[template_output_types_attributes[${index}][research_output_type]]`;
-    $('<input class="output_type" type="hidden" autocomplete="off"/>').attr('name', name).attr('value', v).appendTo(li);
+    $('<input class="output_type" type="hidden" autocomplete="off"/>').attr('name', name).attr('value', vnorm).appendTo(li);
   }
 
   $('input.output_type_init').each((n) => {
