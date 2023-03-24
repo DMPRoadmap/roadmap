@@ -4,11 +4,15 @@
 
 ### v4.0.8
 
-Patch includes gem and JS dependency updates as well as a few bug fixes
+### Features
+- Update to the Org admin Plans page that will now show the date that feedback was requested. [#434](https://github.com/CDLUC3/dmptool/issues/434)
+- Changed the language around the confusing checkbox/option text on the download plan page (for PDF download) and changed defaults so that only the section heading and question text are enabled by default. [#435](https://github.com/CDLUC3/dmptool/issues/435)
 
 ### Bug Fixes:
+- Fixed an issue causing the mouse pointer to change to a text icon when hovering over hyperlinks for Chrome and Firefox. It now correctly displays the hand pointer [issue #445](https://github.com/CDLUC3/dmptool/issues/445)
 - Patch [issue #447](https://github.com/CDLUC3/dmptool/issues/447) that was deleting all prior related identifiers when a user adds a new related identifier on the 'Follow up' tab.
 - Patch Github Actions to lock Node at v16.6 to deal with a version compatability issue with openSSL
+- Attempt to patch issue that was causing registry_orgs search by name to fail for Postgres distributions that is causing Rspec tests to fail for `spec/services/api/v2/deserialization/*.rb`. Perhaps someone out there with Postgres can debug, fix and submit a PR.
 
 ### v4.0.5
 This version includes changes from [DMPRoadmap release v4.0.2](https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.2) see the release notes for details.
