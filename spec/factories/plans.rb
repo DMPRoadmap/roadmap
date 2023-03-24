@@ -21,6 +21,8 @@
 #  grant_id                          :integer
 #  api_client_id                     :integer
 #  research_domain_id                :bigint
+#  feedback_start_at                 :datetime
+#  feedback_end_at                  :datetime
 #
 # Indexes
 #

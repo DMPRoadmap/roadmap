@@ -23,6 +23,18 @@
 - Replaced the old `output_types` enum on the ResearchOutput model with `DEFAULT_OUTPUT_TYPES` array
 - Updated presenters (and RSpec tests) and controller to work with the new field
 
+### v4.0.8
+
+### Features
+- Update to the Org admin Plans page that will now show the date that feedback was requested. [#434](https://github.com/CDLUC3/dmptool/issues/434)
+- Changed the language around the confusing checkbox/option text on the download plan page (for PDF download) and changed defaults so that only the section heading and question text are enabled by default. [#435](https://github.com/CDLUC3/dmptool/issues/435)
+
+### Bug Fixes:
+- Fixed an issue causing the mouse pointer to change to a text icon when hovering over hyperlinks for Chrome and Firefox. It now correctly displays the hand pointer [issue #445](https://github.com/CDLUC3/dmptool/issues/445)
+- Patch [issue #447](https://github.com/CDLUC3/dmptool/issues/447) that was deleting all prior related identifiers when a user adds a new related identifier on the 'Follow up' tab.
+- Patch Github Actions to lock Node at v16.6 to deal with a version compatability issue with openSSL
+- Attempt to patch issue that was causing registry_orgs search by name to fail for Postgres distributions that is causing Rspec tests to fail for `spec/services/api/v2/deserialization/*.rb`. Perhaps someone out there with Postgres can debug, fix and submit a PR.
+
 ### v4.0.5
 This version includes changes from [DMPRoadmap release v4.0.2](https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.2) see the release notes for details.
 
@@ -77,8 +89,15 @@ This version includes changes from [DMPRoadmap release v4.0.2](https://github.co
 - Added CHANGELOG.md and Danger Github Action [#3257](https://github.com/DMPRoadmap/roadmap/issues/3257)
 - Added validation with custom error message in research_output.rb to ensure a user does not enter a very large value as 'Anticipated file size'. [#3161](https://github.com/DMPRoadmap/roadmap/issues/3161)
 - Added popover for org profile page and added explanation for public plan
+
 ### Fixed
 
+- Fixed an issue that was preventing uses from leaving the research output byte_size field blank
+- Patched issue that was causing template visibility to default to organizationally visible after saving
+- Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
+- Updated the CSV export so that it now includes research outputs
+- Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
+- Fixed discrepencies with default/max per_page values for API and UI pagination
 - Updated JS that used to call the TinyMCE `setMode()` function so that it now calls `mode.set()` because the former is now deprecated.
 - Patched an issue that was causing a template's visibility to change to 'organizationally_visible' when saving on the template details page.
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
@@ -86,6 +105,10 @@ This version includes changes from [DMPRoadmap release v4.0.2](https://github.co
 - Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
 - Fixed discrepencies with default/max per_page values for API and UI pagination
 - Updated the CSV export so that it now includes research outputs
+- Fixed an issue with the Rails 6 keyword arguments change that was causing the `paginable_sort_link` to fail
+- Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
+- Fixed an issue with the Rails 6 keyword arguments change that was causing the `paginable_sort_link` to fail
+- Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
 
 ### Changed
 

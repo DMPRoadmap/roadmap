@@ -397,6 +397,8 @@ ActiveRecord::Schema.define(version: 2023_03_23_000459) do
     t.bigint "research_domain_id"
     t.boolean "featured", default: false
     t.bigint "language_id"
+    t.datetime "feedback_start_at"
+    t.datetime "feedback_end_at"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["language_id"], name: "index_plans_on_language_id"

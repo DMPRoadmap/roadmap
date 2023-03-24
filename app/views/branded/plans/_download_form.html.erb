@@ -20,44 +20,43 @@
       <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
     <% end %>
     <fieldset>
-      <legend><%= _("Optional plan components") %></legend>
       <div class="checkbox">
         <%= label_tag 'export[project_details]' do %>
           <%= check_box_tag 'export[project_details]', true, Rails.configuration.x.dmproadmap.download_coversheet_tickbox_checked %>
-          <%= _('project details coversheet') %>
+          <%= _('include a project details coversheet') %>
         <% end %>
       </div>
       <div class="checkbox">
         <%= label_tag 'export[section_headings]' do %>
           <%= check_box_tag 'export[section_headings]', true, true %>
-          <%= _('section headings') %>
+          <%= _('include the section headings') %>
         <% end %>
       </div>
       <div class="checkbox">
         <%= label_tag 'export[question_text]' do %>
           <%= check_box_tag 'export[question_text]', true, true %>
-          <%= _('question text (will only display your answers)') %>
+          <%= _('include the question text') %>
         <% end %>
       </div>
       <div class="checkbox">
         <%= label_tag 'export[unanswered_questions]' do %>
-          <%= check_box_tag 'export[unanswered_questions]', true, true %>
-          <%= _('unanswered questions') %>
+          <%= check_box_tag 'export[unanswered_questions]', true, false %>
+          <%= _('include any unanswered questions') %>
         <% end %>
       </div>
       <% if @plan.template.customization_of.present? %>
         <div class="checkbox">
           <%= label_tag 'export[custom_sections]' do %>
-            <%= check_box_tag 'export[custom_sections]', true, true %>
-            <%= _('supplementary section(s) not requested by funding organisation') %>
+            <%= check_box_tag 'export[custom_sections]', true, false %>
+            <%= _('include supplementary section(s) not requested by funding organisation') %>
           <% end %>
         </div>
       <% end %>
       <% if @plan.research_outputs.any? %>
         <div class="checkbox">
           <%= label_tag 'export[research_outputs]' do %>
-            <%= check_box_tag 'export[research_outputs]', true, true %>
-            <%= _('research outputs') %>
+            <%= check_box_tag 'export[research_outputs]', true, false %>
+            <%= _('include a table of your research outputs') %>
           <% end %>
         </div>
       <% end %>
@@ -65,7 +64,7 @@
         <div class="checkbox">
           <%= label_tag 'export[related_identifiers]' do %>
             <%= check_box_tag 'export[related_identifiers]', true, false %>
-            <%= _('related works') %>
+            <%= _('include the list of related works') %>
           <% end %>
         </div>
       <% end %>

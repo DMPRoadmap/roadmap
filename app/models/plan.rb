@@ -24,6 +24,8 @@
 #  ethical_issues                    :boolean
 #  ethical_issues_description        :text
 #  ethical_issues_report             :string
+#  feedback_start_at                 :datetime
+#  feedback_end_at                  :datetime
 #
 # Indexes
 #
@@ -267,6 +269,8 @@ class Plan < ApplicationRecord
     plan_copy = plan.dup
     plan_copy.title = "Copy of #{plan.title}"
     plan_copy.feedback_requested = false
+    plan_copy.feedback_start_at = nil
+    plan_copy.feedback_end_at = nil
     plan_copy.save!
     plan.answers.each do |answer|
       answer_copy = Answer.deep_copy(answer)
@@ -338,9 +342,12 @@ class Plan < ApplicationRecord
   #  emails confirmation messages to owners
   #  emails org admins and org contact
   #  adds org admins to plan with the 'reviewer' Role
+  # rubocop:disable Metrics/AbcSize
   def request_feedback(user)
     Plan.transaction do
       self.feedback_requested = true
+      self.feedback_start_at = Time.now
+      self.feedback_end_at = nil
       return false unless save!
 
       # Send an email to the org-admin contact
@@ -355,6 +362,7 @@ class Plan < ApplicationRecord
       false
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   ##
   # Finalizes the feedback for the plan: Emails confirmation messages to owners
@@ -363,6 +371,7 @@ class Plan < ApplicationRecord
   def complete_feedback(org_admin)
     Plan.transaction do
       self.feedback_requested = false
+      self.feedback_end_at = Time.now
       return false unless save!
 
       # Send an email confirmation to the owners and co-owners
