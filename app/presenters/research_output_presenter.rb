@@ -10,7 +10,11 @@ class ResearchOutputPresenter
 
   # Returns the output_type list for a select_tag
   def selectable_output_types
-    ResearchOutput::DEFAULT_OUTPUT_TYPES.map { |k| [k.humanize, k] }
+    if (research_output.plan.template.customize_output_types?)
+      research_output.plan.template.template_output_types.map { |ot| [ot.research_output_type, ot.research_output_type] }
+    else
+      ResearchOutput::DEFAULT_OUTPUT_TYPES.map { |k| [k.humanize, k] }
+    end
   end
 
   # Returns the access options for a select tag
