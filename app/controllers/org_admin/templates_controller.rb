@@ -128,12 +128,6 @@ module OrgAdmin
     end
     # rubocop:enable Metrics/AbcSize,
 
-    # GET /org_admin/templates/:id/edit
-    def new
-      authorize Template
-      @template = current_org.templates.new
-    end
-
     # GET /org_admin/templates/new
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def edit
