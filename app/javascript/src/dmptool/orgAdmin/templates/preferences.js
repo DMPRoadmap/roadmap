@@ -19,12 +19,12 @@ $(() => {
   }
   showOutputTypeSelections();
 
-  function isStandard(v) {
+  function checkOutputType(sel, v) {
     let res = false;
-    $('#default-output-types ul li.output_type span').each((n) => {
-      const node = $($('#default-output-types ul li.output_type span').get(n));
-      console.log(`${node.text()} ${v}`);
-      if (v == node.text()) {
+    const ns = $(sel).find('ul li.output_type span');
+    ns.each((n) => {
+      const node = $(ns.get(n));
+      if (v === node.text()) {
         res = true;
       }
     });
@@ -32,9 +32,12 @@ $(() => {
   }
 
   function addOutputType(v) {
-    const vnorm = v.replace(/^\s+|\s+$/g, '');
-    vnorm.charAt(0).toUpperCase();
-    const vclass = isStandard(vnorm) ? 'standard' : 'custom';
+    let vnorm = v.replace(/^\s+|\s+$/g, '');
+    vnorm = vnorm.charAt(0).toUpperCase() + vnorm.slice(1);
+    if (checkOutputType('#my-output-types', vnorm)) {
+      return;
+    }
+    const vclass = checkOutputType('#default-output-types', vnorm) ? 'standard' : 'custom';
     const li = $('<li/>').addClass('selectable_item').addClass('output_type').addClass(vclass)
       .appendTo('#my-output-types ul');
     const a = $('<a href="#" aria-label="Remove this output type"/>').addClass('output_type_remove').appendTo(li);
@@ -69,7 +72,7 @@ $(() => {
     showOutputTypeSelections();
   });
 
-  $('#add_output_type').on('click', (e) => {
+  $('#add_output_type').on('click', () => {
     const v = $('#new_output_type').val();
     if (v !== '') {
       addOutputType(v);
