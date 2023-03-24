@@ -28,6 +28,12 @@
       <span>&nbsp;<%= _('for all users (will appear on funder requirements page)') %></span>
     </div>
   </div>
+<% else %>
+  <%
+  visibility = f.object.visibility
+  visibility = f.object.funder? ? 'publicly_visible' : 'organisationally_visible' if visibility.nil?
+  %>
+  <%= f.hidden_field :visibility, value: visibility %>
 <% end %>
 
 <div class="form-group col-xs-8">
