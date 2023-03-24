@@ -9,9 +9,9 @@ Rack::Attack.enabled = true
 Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new # defaults to Rails.cache
 
 # Throttle should send a 429 Error responsec code and display public/429.html
-Rack::Attack.throttled_responder = lambda do |env|
+Rack::Attack.throttled_responder = lambda do |_env|
   html = ActionView::Base.empty.render(file: 'public/429.html')
-  [429, {'Content-Type' => 'text/html'}, [html]]
+  [429, { 'Content-Type' => 'text/html' }, [html]]
 end
 
 # Throttle attempts to a particular path. 2 POSTs to /users/password every 30 seconds
