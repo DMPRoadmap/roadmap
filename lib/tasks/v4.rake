@@ -18,10 +18,10 @@ namespace :v4 do
     end
 
     puts 'DONE'
-
+  end
+end
 # Upgrade tasks for 34.x versions.
 
-# rubocop:disable Naming/VariableNumber
 namespace :v4 do
   desc 'Upgrade from v4.0.7 to v4.0.8'
   task upgrade_4_0_8: :environment do

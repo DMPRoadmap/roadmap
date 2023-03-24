@@ -209,9 +209,10 @@ class ExportedPlan < ApplicationRecord
   def questions
     question_settings = settings(:export).fields[:questions]
     @questions ||= if question_settings.present?
-                     if question_settings == :all
+                     case question_settings
+                     when :all
                        Question.where(section_id: plan.sections.collect(&:id)).pluck(:id)
-                     elsif question_settings.is_a?(Array)
+                     when Array
                        question_settings
                      else
                        []
