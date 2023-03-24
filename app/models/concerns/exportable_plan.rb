@@ -258,6 +258,21 @@ module ExportablePlan
   end
   # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
+  def prepare_research_outputs_for_csv(csv, _headings, hash)
+    return false unless hash[:research_outputs].present? && hash[:research_outputs].any?
+
+    csv << [_('Research Outputs: ')]
+    # Convert the hash keys to column headers
+    csv << hash[:research_outputs].first.keys.map { |key| key.to_s.capitalize.gsub('_', ' ') }
+    hash[:research_outputs].each do |research_output|
+      csv << research_output.values
+    end
+    csv << []
+    csv << []
+  end
+  # rubocop:enable Metrics/AbcSize
+
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
   # rubocop:disable Metrics/ParameterLists, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
