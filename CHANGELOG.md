@@ -43,6 +43,11 @@ With the removal of the webpacker gem, the DartSass package has been installed t
 - Sass variables are no longer declared globally and have to be included in files where they are used.
 For more detailed explanation, please refer to this video : https://www.youtube.com/watch?v=CR-a8upNjJ0
 
+### Introduction of RackAttack
+[Rack Attack](https://github.com/rack/rack-attack) is middleware that can be used to help protect the application from malicious activity. You can establish white/black lists for specific IP addresses and also define rate limits.
+
+- Using Rack-attack address vulnerabilities pointed out in password reset and login: there was no request rate limit.[#3214](https://github.com/DMPRoadmap/roadmap/issues/3214)
+
 ### Cleanup of Capybara configuration
 - Cleaned up Gemfile by:
   - removing gems that were already commented out
@@ -71,8 +76,9 @@ For more detailed explanation, please refer to this video : https://www.youtube.
 - Added validation with custom error message in research_output.rb to ensure a user does not enter a very large value as 'Anticipated file size'. [#3161](https://github.com/DMPRoadmap/roadmap/issues/3161)
 - Added popover for org profile page and added explanation for public plan
 
-### Fixed
+ - Added rack-attack version 6.6.1 gem. https://rubygems.org/gems/rack-attack/versions/6.6.1
 
+### Fixed
 - Fixed an issue that was preventing uses from leaving the research output byte_size field blank
 - Patched issue that was causing template visibility to default to organizationally visible after saving
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
