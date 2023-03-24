@@ -8,7 +8,7 @@
 
 The DMPTool is a free, open-source, online system for creating and managing data management plans (DMPs). DMPs are now required by many funding agencies as part of the grant proposal submission process.
 
-Click here for the latest [releases].(https://github.com/CDLUC3/dmptool/releases/)
+Click here for the latest [releases](https://github.com/CDLUC3/dmptool/releases/).
 
 ## Infrastructure
 
@@ -121,7 +121,7 @@ Issues will be triaged by our team and if applicable will be moved/opened in the
 
 ## Contributing
 
-See the [Contributing Guide](https://github.com/DMPRoadmap/roadmap/wiki/Get-involved)
+See the [Contributing Guide](https://github.com/DMPRoadmap/roadmap/wiki/Get-involved).
 
 ## License
 The DMPTool project uses the <a href="./LICENSE.md">MIT License</a>.

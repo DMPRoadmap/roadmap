@@ -9,7 +9,7 @@ tooltip = _('Add another research output to this plan.')
     <% if plan.related_identifiers.any? %>
       <% plan.related_identifiers
             .order(citation: :desc, work_type: :asc)
-            .each do |related_identifier| %>
+            .each_with_index do |related_identifier, idx| %>
         <%
         id = related_identifier.id.nil? ? 0 : related_identifier.id
         name_base = "plan[related_identifiers_attributes[#{id}]"
@@ -17,8 +17,14 @@ tooltip = _('Add another research output to this plan.')
         %>
         <div class="col-md-12 citation">
           <span class="col-md-10">
+            <%# We need to add each identifiers fields here so that they are submitted and retained! %>
+            <% %w[citation identifier_type relation_type value work_type].each do |attr| %>
+              <%= hidden_field_tag "plan[related_identifiers_attributes[#{idx + 1}][#{attr}]]",
+                                 related_identifier.send(attr.to_sym) %>
+            <% end %>
             <% if related_identifier.citation.present? %>
               <%= sanitize(related_identifier.citation) %>
+
             <% else %>
               <%= related_identifier.work_type&.humanize %>:&nbsp;
               <% if related_identifier.value.start_with?("http") %>

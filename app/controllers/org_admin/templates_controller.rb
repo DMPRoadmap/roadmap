@@ -128,12 +128,6 @@ module OrgAdmin
     end
     # rubocop:enable Metrics/AbcSize,
 
-    # GET /org_admin/templates/:id/edit
-    def new
-      authorize Template
-      @template = current_org.templates.new
-    end
-
     # GET /org_admin/templates/new
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def edit
@@ -163,6 +157,16 @@ module OrgAdmin
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    # GET /org_admin/templates/new
+    def new
+      authorize Template
+      @template = current_org.templates.new
+      # If the Org is a funder set the visibility to Public otherwise set to Organizational
+      # for Orgs that are both, the admin will see controls on the page to let them choose.
+      # The default is already 'organisationally_visible' so change it if this is a funder
+      @template.visibility = Template.visibilities[:publicly_visible] if current_org.funder?
+    end
 
     # POST /org_admin/templates
     # rubocop:disable Metrics/AbcSize
