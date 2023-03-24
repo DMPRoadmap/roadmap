@@ -1,12 +1,12 @@
 version: '3'
 services:
   db:
-    image: mariadb:10.5
+    image: postgres:12.14
     volumes:
-      - db_volume:/var/lib/mysql
+      - db_volume:/var/lib/postgresql/data
     env_file:
       - ./.env
     ports:
-      - '3306:3306'
+      - '5432:5432'
 volumes:
   db_volume:
