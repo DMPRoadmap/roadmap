@@ -667,7 +667,7 @@ ActiveRecord::Schema.define(version: 2023_03_23_000459) do
     t.boolean "customize_output_types", :boolean, default: false
     t.boolean "customize_repositories", :boolean, default: false
     t.boolean "customize_metadata_standards", :boolean, default: false
-    t.boolean "customize_licenses, :boolean", default: false
+    t.boolean "customize_licenses", :boolean, default: false
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
