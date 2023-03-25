@@ -17,7 +17,7 @@ describe 'api/v2/datasets/_show.json.jbuilder' do
         end
 
         it 'includes :type' do
-          expect(@json[:type]).to eql(@research_output.output_type)
+          expect(@json[:type]).to eql(@research_output.research_output_type)
         end
 
         it 'includes :title' do

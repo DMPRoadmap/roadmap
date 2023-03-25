@@ -398,6 +398,8 @@ Rails.application.routes.draw do
                                           controller: 'template_customization_transfers'
 
       member do
+        get 'preferences'
+        patch 'preferences', action: :save_preferences
         get 'history'
         get 'email'
         get 'template_export', action: :template_export

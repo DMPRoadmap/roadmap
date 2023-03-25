@@ -19,6 +19,16 @@
 #  updated_at       :datetime
 #  family_id        :integer
 #  org_id           :integer
+#  enable_research_outputs           :boolean
+#  user_guidance_output_types        :string(255)
+#  user_guidance_repositories        :string(255)
+#  user_guidance_metadata_standards  :string(255)
+#  user_guidance_licenses            :string(255)
+#  customize_output_types            :boolean
+#  customize_repositories            :boolean
+#  customize_metadata_standards      :boolean
+#  customize_licenses                :boolean
+
 #
 # Indexes
 #
@@ -62,6 +72,15 @@ class Template < ApplicationRecord
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
   attribute :visibility, default: Template.visibilities[:organisationally_visible]
+  attribute :enable_research_outputs, :boolean, default: true
+  attribute :customize_output_types, :boolean, default: false
+  attribute :customize_repositories, :boolean, default: false
+  attribute :customize_metadata_standards, :boolean, default: false
+  attribute :customize_licenses, :boolean, default: false
+  attribute :user_guidance_output_types, :text, default: nil
+  attribute :user_guidance_repositories, :text, default: nil
+  attribute :user_guidance_metadata_standards, :text, default: nil
+  attribute :user_guidance_licenses, :text, default: nil
 
   # ================
   # = Associations =
@@ -82,6 +101,10 @@ class Template < ApplicationRecord
   has_many :question_options, through: :questions
 
   has_many :conditions, through: :questions
+
+  has_many :template_output_types
+
+  accepts_nested_attributes_for :template_output_types
 
   # ----------------------------------------
   # Start DMPTool Customization

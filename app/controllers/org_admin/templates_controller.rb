@@ -102,6 +102,31 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+    def preferences
+      template = Template.find(params[:id])
+      authorize Template
+      render 'preferences', locals: {
+        partial_path: 'edit',
+        template: template,
+        output_types: ResearchOutput.output_types
+      }
+    end
+
+    # GET /org_admin/templates/[:id] # ,
+    def save_preferences
+      template = Template.find(params[:id])
+      authorize Template
+
+      args = template_params
+      args[:customize_output_types] = params[:customize_output_types_sel] != '0'
+      args[:customize_licenses] = params[:customize_licenses_sel] != '0'
+      Template.transaction do
+        template.update(template_output_types: [])
+        template.update(args)
+      end
+      preferences
+    end
+
     # GET /org_admin/templates/[:id]
     # rubocop:disable Metrics/AbcSize,
     def show
@@ -379,7 +404,12 @@ module OrgAdmin
       #         }
       # While this is working as-is we should consider folding these into
       # the template: :links context.
-      params.require(:template).permit(:title, :description, :visibility, :links)
+      params.require(:template).permit(:title, :description, :visibility, :links, :enable_research_outputs,
+                                       :user_guidance_output_types, :user_guidance_repositories,
+                                       :user_guidance_metadata_standards, :user_guidance_licenses,
+                                       :customize_output_types, :customize_repositories,
+                                       :customize_metadata_standards, :customize_licenses,
+                                       template_output_types_attributes: %i[id research_output_type])
     end
 
     def parse_visibility(args, org)

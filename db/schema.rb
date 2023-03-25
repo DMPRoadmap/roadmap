@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_13_145848) do
+ActiveRecord::Schema.define(version: 2023_03_23_000459) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -563,6 +563,7 @@ ActiveRecord::Schema.define(version: 2023_03_13_145848) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "license_id"
+    t.string "research_output_type", default: 'dataset', null: false
     t.index ["license_id"], name: "index_research_outputs_on_license_id"
     t.index ["output_type"], name: "index_research_outputs_on_output_type"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
@@ -634,6 +635,12 @@ ActiveRecord::Schema.define(version: 2023_03_13_145848) do
     t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
   end
 
+  create_table "template_output_types", id: :integer, force: :cascade do |t|
+    t.integer "template_id"
+    t.string "research_output_type"
+    t.index ["template_id"], name: "index_template_output_types_on_template_id"
+  end
+
   create_table "templates", id: :integer, force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -652,6 +659,15 @@ ActiveRecord::Schema.define(version: 2023_03_13_145848) do
     t.string "email_subject"
     t.text "email_body"
     t.integer "sponsor_id"
+    t.boolean "enable_research_outputs", default: true
+    t.text "user_guidance_output_types"
+    t.text "user_guidance_repositories"
+    t.text "user_guidance_metadata_standards"
+    t.text "user_guidance_licenses"
+    t.boolean "customize_output_types", default: false
+    t.boolean "customize_repositories", default: false
+    t.boolean "customize_metadata_standards", default: false
+    t.boolean "customize_licenses", default: false
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"

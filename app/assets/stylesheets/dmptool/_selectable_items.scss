@@ -1,0 +1,25 @@
+li.selectable_item {
+    display: inline-block;
+}
+
+span.selectable_item_label {
+    padding: 4px; 
+    border: thin solid gray; 
+    border-radius: 5px; margin: 3px;
+    display: inline-block;
+}
+
+span.selectable_item_label.custom {
+    color: $color-white;
+    background-color: $color-dark-blue;
+}
+
+fieldset.selectable_items {
+    border: thin solid gray; 
+    padding: 10px; 
+    border-radius: 5px;
+}
+
+div.selectable_items {
+    margin-bottom: 30px;
+}
