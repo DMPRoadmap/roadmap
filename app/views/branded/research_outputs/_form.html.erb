@@ -18,10 +18,10 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
     <div class="col-md-12">
       <span class="col-md-3" aria-hidden="true" data-toggle="tooltip" title="<%= @plan.template.user_guidance_output_types %>">
-        <%= f.select :output_type, options_for_select(presenter.selectable_output_types, f.object.output_type),
+        <%= f.select :research_output_type, options_for_select(presenter.selectable_output_types, f.object.research_output_type),
                      {
                        include_blank: _("- Please select one -"),
-                       selected: (research_output.output_type.present? ? research_output.output_type : "" )
+                       selected: (research_output.research_output_type.present? ? research_output.research_output_type : "" )
                      }, {
                        class: "form-control",
                        aria: { required: true, label: _("Research output type") },
