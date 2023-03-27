@@ -30,9 +30,10 @@ RUN apt-get -qqy update \
                           xfonts-base \
                           xfonts-75dpi \
                           yarn \
-		                      python \
+		                  python \
                           shared-mime-info \
-		                      nodejs -qqy \
+		                  nodejs -qqy \
+                          chromium \
     && rm -rf /var/lib/apt/lists/*
 
 # Env variables for application
@@ -40,13 +41,12 @@ ENV DB_ADAPTER=mysql2
 ENV NODE_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=false
 
+COPY . /application/
+WORKDIR /application
+
 # Ensure its using the timezone we want
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# Set the default editor for the generation of rails credentials
-RUN touch ~/.bashrc
-RUN echo "export EDITOR=vim" >> ~/.bashrc
 
 # Install Bundler
 RUN gem install bundler
@@ -69,9 +69,6 @@ COPY docker/config/environments/ci.rb config/environments/ci.rb
 COPY docker/config/initializers/dragonfly.rb config/initializers/dragonfly.rb
 COPY docker/config/initializers/wicked_pdf.rb config/initializers/wicked_pdf.rb
 COPY docker/config/webpack/ci.js config/webpack/ci.js
-
-# Initialize the credentials file
-RUN EDITOR='echo "$(cat config/credentials.yml.example)" >' bin/rails credentials:edit
 
 # Add the wkhtmltopdf path to the ENV variables
 RUN export WICKED_PDF_PATH=`which wkhtmltopdf`
