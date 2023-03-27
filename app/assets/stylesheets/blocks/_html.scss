@@ -4,6 +4,8 @@
 // blocks.
 
 html {
+  font-size: 0.95rem;
+  font-weight: 300;
   position: relative;
   min-height: 100%;
 }
@@ -64,4 +66,9 @@ a {
 h1, h2, h3, h4, h5, h6 {
   /* font-family: "GillSansLight"; */
   color: $color-heading-text;
+}
+
+
+.fas:not(.small) {
+  font-size: 1rem;
 }
