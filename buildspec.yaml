@@ -36,10 +36,7 @@ phases:
       # Build the Docker image and tag it
       - echo Build started on `date`
       - echo Building the Docker image...
-
-      - echo $(ls $CODEBUILD_SRC_DIR)
-
-      - cd $CODEBUILD_SRC_DIR/application
+      - cd $CODEBUILD_SRC_DIR
       - docker build -t $SHORT_ECR_URI:latest .
       - docker tag $ECR_REPOSITORY_URI:latest $SHORT_ECR_URI:$IMAGE_TAG
   post_build:
@@ -47,9 +44,9 @@ phases:
       # Push the Docker image to the ECR repository. Fargate will pick it up an deploy automatically
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - cd $CODEBUILD_SRC_DIR/application
+      - cd $CODEBUILD_SRC_DIR
       - docker push $SHORT_ECR_URI:latest
       - docker push $SHORT_ECR_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"uc3-dmp-roadmap","imageUri":"%s"}]' $ECR_REPOSITORY_URI:$IMAGE_TAG > dmproadmap_image.json
-      - cat dmproadmap_image.json
+      - printf '[{"name":"dmptool-$RAILS_ENV","imageUri":"%s"}]' $ECR_REPOSITORY_URI:$IMAGE_TAG > dmptool_$RAILS_ENV_image.json
+      - cat dmptool_$RAILS_ENV_image.json
