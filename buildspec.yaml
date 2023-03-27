@@ -16,7 +16,7 @@ phases:
       - export AWS_VERSION=$(aws --version)
 
       # This is the DMPTool codebase directory
-      - echo "CDLUC3/dmptool dir -- ${CODEBUILD_SRC_DIR_dmptool_commit}"
+      - echo "CDLUC3/dmptool dir -- ${CODEBUILD_SRC_DIR}"
 
       # Fetch the Git commit from the repo so it can be displayed in the footer of the site
       - export DMPTOOL_COMMIT=$(git describe --tags)
@@ -36,6 +36,9 @@ phases:
       # Build the Docker image and tag it
       - echo Build started on `date`
       - echo Building the Docker image...
+
+      - echo $(ls $CODEBUILD_SRC_DIR)
+
       - cd $CODEBUILD_SRC_DIR/application
       - docker build -t $SHORT_ECR_URI:latest .
       - docker tag $ECR_REPOSITORY_URI:latest $SHORT_ECR_URI:$IMAGE_TAG
