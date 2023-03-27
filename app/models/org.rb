@@ -142,8 +142,10 @@ class Org < ApplicationRecord
   # This gives all managed orgs api access whenever saved or updated.
   before_save :ensure_api_access, if: ->(org) { org.managed? }
 
-  # Make sure we clean up the org names that were entered manually
-  before_save :clean_up_name
+  before_validation lambda { |data|
+    data.sanitize_fields(:name)
+    data.name&.strip!
+  }
 
   # If the physical logo file is no longer on disk we do not want it to prevent the
   # model from saving. This typically happens when you copy the database to another
@@ -424,9 +426,5 @@ class Org < ApplicationRecord
     TokenPermissionType.all.each do |perm|
       token_permission_types << perm unless token_permission_types.include?(perm)
     end
-  end
-
-  def clean_up_name
-    name.strip!
   end
 end
