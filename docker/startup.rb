@@ -15,7 +15,7 @@ end
 chdir "#{APP_ROOT}/application" do
 
   puts "You are here: #{APP_ROOT}/application"
-  puts "Here contains: #{Dir.children.join(', ')}"
+  puts "Here contains: #{Dir.children("#{APP_ROOT}/application").join(', ')}"
 
   prefix = "RAILS_ENV=#{ENV['RAILS_ENV']}"
   system! "bin/rails db:environment:set RAILS_ENV=#{ENV['RAILS_ENV']}"
