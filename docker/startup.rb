@@ -12,7 +12,7 @@ def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
 end
 
-chdir "#{APP_ROOT}" do
+chdir "#{APP_ROOT}/application" do
   prefix = "RAILS_ENV=#{ENV['RAILS_ENV']}"
   system! "bin/rails db:environment:set RAILS_ENV=#{ENV['RAILS_ENV']}"
 
