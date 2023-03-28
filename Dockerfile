@@ -57,22 +57,25 @@ WORKDIR /application
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+# Clear out any old Gem and JS dependencies that might be in the image
+RUN rm -rf node_modules vendor
+
 # Install Bundler
 RUN gem install bundler
 # RUN bin/rails db:environment:set RAILS_ENV=$RAILS_ENV
 RUN bundle config set without 'pgsql thin rollbar development test'
 RUN mkdir pid
 
-# Clear out any old Gem and JS dependencies that might be in the image
-RUN rm -rf node_modules vendor
-
 # Load dependencies
 RUN bundle lock --add-platform x86_64-linux && bundle install --jobs 20 --retry 5
 RUN yarn --frozen-lockfile --production && yarn install
 
-# Copy the credentials
+# Copy the credentials that CodeBuild created and placed in the ./docker directory
 COPY docker/master.key ./config/
 COPY docker/credentials.yml.enc ./config/
+
+# If there is an upgrade.sh script, copy that over
+RUN if [[ -f "docker/upgrade.sh" ]]; then cp docker/upgrade.sh ./upgrade.sh && chown 755 ./upgrade.sh; fi
 
 # Copy the startup script into the container
 COPY --chown=755 docker/startup.rb ./startup.rb
