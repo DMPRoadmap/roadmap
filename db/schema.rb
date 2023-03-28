@@ -637,7 +637,7 @@ ActiveRecord::Schema.define(version: 2023_03_28_172119) do
 
   create_table "template_licenses", id: :integer, force: :cascade do |t|
     t.integer "template_id"
-    t.integer "license_id"
+    t.bigint "license_id"
     t.index ["template_id"], name: "index_template_licences_on_template_id"
     t.index ["license_id"], name: "index_template_licences_on_license_id"
   end
