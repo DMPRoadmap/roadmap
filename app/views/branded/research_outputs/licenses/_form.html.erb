@@ -2,6 +2,7 @@
 <%
 default_guidance = "https://choosealicense.com/"
 
+customized_licenses = presenter.customized_licenses
 preferred_licenses = presenter.preferred_licenses
 preferred_licenses << ["- Other Licenses - will load a complete list -", "0"]
 
@@ -13,7 +14,7 @@ selected = research_output.license_id
 # If the user has selected 'Other Licenses' or they have a selection that is not in the preferred list
 show_preferred = selected.nil? || (selected != 0 && preferred_licenses.map { |array| array[1] }.include?(selected))
 
-options = show_preferred ? preferred_licenses : presenter.complete_licenses
+options = customized_licenses.empty? ? (show_preferred ? preferred_licenses : presenter.complete_licenses) : customized_licenses
 guidance = show_preferred ? preferred_guidance : default_guidance
 
 args = { include_blank: _("- Please select one -"), selected: selected, class: "form-control",

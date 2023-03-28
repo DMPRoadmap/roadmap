@@ -51,6 +51,11 @@ class ResearchOutputPresenter
     License.preferred.map { |license| [license.identifier, license.id] }
   end
 
+  # Returns the customized set of licenses for a template
+  def customized_licenses
+    @research_output.plan.template.licenses.map { |license| [license.identifier, license.id] }
+  end
+
   # Returns whether or not we should capture the byte_size based on the output_type
   def byte_sizable?
     @research_output.audiovisual? || @research_output.sound? || @research_output.image? ||
