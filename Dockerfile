@@ -42,7 +42,6 @@ RUN apt-get -qqy update \
                           chromium \
     && rm -rf /var/lib/apt/lists/*
 
-RUN echo RAILS_ENV=development >>/etc/environment
 # Always run Rails and Node in Production for the ECS hosted environments
 # Use the other env variables defined in the ECS config in the dmp-hub-cfn repo to tailor
 # specific functionality (e.g. RAILS_LOG_LEVEL, RAILS_SERVE_STATIC_FILES, etc.)
