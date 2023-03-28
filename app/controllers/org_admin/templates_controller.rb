@@ -108,7 +108,10 @@ module OrgAdmin
       render 'preferences', locals: {
         partial_path: 'edit',
         template: template,
-        output_types: ResearchOutput.output_types
+        output_types: ResearchOutput.output_types,
+        preferred_licenses: License.preferred.map { |license| [license.identifier, license.id] },
+        licenses: License.selectable.map{ |license| [license.identifier, license.id] },
+        my_licenses: []
       }
     end
 

@@ -26,7 +26,7 @@
 <h2>Output Types</h2>
 <div class="row">
   <div class="col-md-3">
-    <label for="define_output">Define output types:</label>
+    <label for="customize_output_types_sel">Define output types:</label>
     <div>
      <%= select_tag 'customize_output_types_sel', options_for_select(select_override_options, template.customize_output_types ? '1' : '0') %>
     </div>
@@ -125,13 +125,38 @@
       %>
       <%= select_tag 'customize_licenses_sel', options_for_select(opts, opt) %>
     </div>
-    <div><output style="display:inline">CC0 - 1.0</output><a>❌</a></div>
-    <div><output style="display:inline">BSD - 3 - Clause</output><a>❌</a></div>
-    <div>
-      <select id="licenses" disabled>
-        <option>MIT</option>
-      </select>
-      <button disabled style="color: gray">Add license</button>
+  </div>
+  <div class="col-md-6">
+    <div class="selectable_items" id="default-licenses">
+    <fieldset class="selectable_items">
+      <legend>Default Licenses</legend>
+      <ul>
+        <% preferred_licenses.each do |lic|%>
+          <li class="license selectable_item">
+            <span class="selectable_item_label"><%= lic[0] %></span>
+            <input class="license" type="hidden" data="<%= lic[0] %>" value="<%= lic[1] %>"/>
+          </li>
+        <% end %>
+      </ul>
+    </fieldset>
+    </div>
+    <div class="selectable_items" id="my-licenses" >
+    <fieldset class="selectable_items">
+      <legend>My Licenses</legend>
+        <ul>
+        <% my_licenses.each do |lic| %>
+        <input class="license_init" type="hidden" data="<%= lic[0] %>" value="<%= lic[1] %>"/>
+        <% end %>
+        </ul>
+      <div>
+        <%
+          args = { include_blank: _("- Please select one -"), class: "form-control",
+           aria: { label: _('Initial license') } }
+        %>
+        <%= select_tag "new_license", options_for_select(licenses), args %>
+        <button id="add_license">Add a license</button>
+      </div>
+    </fieldset>
     </div>
   </div>
 </div>
