@@ -16,7 +16,6 @@ phases:
       - export AWS_VERSION=$(aws --version)
 
       # Display some info about the build environment
-      - echo "Rails env - ${RAILS_ENV}"
       - echo "CDLUC3/dmptool dir -- ${CODEBUILD_SRC_DIR}"
 
       # Fetch the Git commit from the repo so it can be displayed in the footer of the site
@@ -26,6 +25,11 @@ phases:
       - echo $ECR_REPOSITORY_URI >> .ecr
       - export SHORT_ECR_URI=$(awk '{gsub("$ECR_REPOSITORY_NAME", "");print}' .ecr)
       - rm .ecr
+
+      # Build the Rails credentials
+      - echo Building credentials files
+      - echo $MASTER_KEY >> docker/master.key
+      - echo $CREDENTIALS_ENC >> docker/credentials.yml.enc
 
       # Set the repository URI to your ECR image and add an image tag with the first seven characters of the Git commit ID of the source.
       - echo Logging in to Amazon ECR ...
@@ -49,6 +53,5 @@ phases:
       - docker push $SHORT_ECR_URI:latest
       - docker push $SHORT_ECR_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - echo "Rails env - ${RAILS_ENV}"
-      - printf '[{"name":"dmptool-${RAILS_ENV}","imageUri":"%s"}]' $ECR_REPOSITORY_URI:$IMAGE_TAG > dmptool_$RAILS_ENV_image.json
-      - cat dmptool_$RAILS_ENV_image.json
+      - printf '[{"name":"dmptool","imageUri":"%s"}]' $ECR_REPOSITORY_URI:$IMAGE_TAG > dmptool_image.json
+      - cat dmptool_image.json

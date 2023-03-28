@@ -1,3 +1,9 @@
+#
+# NOTE:
+#
+# This Dockerfile is meant for running the application in an AWS ECS container. The required
+# Rails credentials and ENV variables are all defined by the CloudFormation template and passed
+# into the container on startup
 FROM ruby:3.0
 
 RUN echo $(apt-cache search magick)
@@ -36,10 +42,14 @@ RUN apt-get -qqy update \
                           chromium \
     && rm -rf /var/lib/apt/lists/*
 
-# Env variables for application
-ENV DB_ADAPTER=mysql2
+RUN echo RAILS_ENV=development >>/etc/environment
+# Always run Rails and Node in Production for the ECS hosted environments
+# Use the other env variables defined in the ECS config in the dmp-hub-cfn repo to tailor
+# specific functionality (e.g. RAILS_LOG_LEVEL, RAILS_SERVE_STATIC_FILES, etc.)
+ENV RAILS_ENV=production
 ENV NODE_ENV=production
-ENV RAILS_SERVE_STATIC_FILES=false
+
+RUN echo Using RAILS_ENV: ${RAILS_ENV}, NODE_ENV: ${NODE_ENV}
 
 COPY . /application/
 WORKDIR /application
@@ -50,29 +60,20 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install Bundler
 RUN gem install bundler
-RUN bundle config set without 'pgsql thin rollbar'
+# RUN bin/rails db:environment:set RAILS_ENV=$RAILS_ENV
+RUN bundle config set without 'pgsql thin rollbar development test'
 RUN mkdir pid
 
+# Clear out any old Gem and JS dependencies that might be in the image
+RUN rm -rf node_modules vendor
+
 # Load dependencies
-RUN bundle install --jobs 20 --retry 5
+RUN bundle lock --add-platform x86_64-linux && bundle install --jobs 20 --retry 5
+RUN yarn --frozen-lockfile --production && yarn install
 
-# Install and run Yarn
-# RUN npm install -g yarn
-RUN rm -rf node_modules
-RUN yarn --frozen-lockfile --production
-# RUN yarn install
-
-# Copy the custom config files for Docker
-COPY docker/config/database.yml config/database.yml
-COPY docker/config/webpacker.yml config/webpacker.yml
-COPY docker/config/environments/ci.rb config/environments/ci.rb
-COPY docker/config/initializers/dragonfly.rb config/initializers/dragonfly.rb
-COPY docker/config/initializers/wicked_pdf.rb config/initializers/wicked_pdf.rb
-COPY docker/config/webpack/ci.js config/webpack/ci.js
-
-# Add the wkhtmltopdf path to the ENV variables
-RUN export WICKED_PDF_PATH=`which wkhtmltopdf`
-RUN echo $WICKED_PDF_PATH
+# Copy the credentials
+COPY docker/master.key ./config/
+COPY docker/credentials.yml.enc ./config/
 
 # Copy the startup script into the container
 COPY --chown=755 docker/startup.rb ./startup.rb
