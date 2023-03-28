@@ -109,18 +109,6 @@ namespace :data_cleanup do
     p 'Done'
   end
 
-  desc "Remove spaces around organizations names'"
-  task remove_spaces_around_org_names: :environment do
-    Org.where('name ~* ?', '\s+$').find_each do |org|
-      org.name&.strip!
-      org.save
-    end
-    Org.where('name ~* ?', '^\s+').find_each do |org|
-      org.name&.strip!
-      org.save
-    end
-  end
-
   private
 
   def report_known_invalidations(results, model_name, validation_error)
