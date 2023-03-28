@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_23_000459) do
+ActiveRecord::Schema.define(version: 2023_03_28_172119) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -635,6 +635,13 @@ ActiveRecord::Schema.define(version: 2023_03_23_000459) do
     t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
   end
 
+  create_table "template_licences", id: :integer, force: :cascade do |t|
+    t.integer "template_id"
+    t.integer "license_id"
+    t.index ["template_id"], name: "index_template_licences_on_template_id"
+    t.index ["license_id"], name: "index_template_licences_on_license_id"
+  end
+
   create_table "template_output_types", id: :integer, force: :cascade do |t|
     t.integer "template_id"
     t.string "research_output_type"
@@ -786,6 +793,9 @@ ActiveRecord::Schema.define(version: 2023_03_23_000459) do
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
   add_foreign_key "templates", "orgs"
+  add_foreign_key "template_licenses", "templates"
+  add_foreign_key "template_licenses", "licenses"
+  add_foreign_key "template_output_types", "templates"
   add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"
   add_foreign_key "trackers", "orgs"
