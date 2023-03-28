@@ -142,6 +142,11 @@ class Org < ApplicationRecord
   # This gives all managed orgs api access whenever saved or updated.
   before_save :ensure_api_access, if: ->(org) { org.managed? }
 
+  before_validation lambda { |data|
+    data.sanitize_fields(:name)
+    data.name&.strip!
+  }
+
   # If the physical logo file is no longer on disk we do not want it to prevent the
   # model from saving. This typically happens when you copy the database to another
   # environment. The orgs.logo_uid stores the path to the physical logo file that is

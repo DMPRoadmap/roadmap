@@ -1,10 +1,16 @@
 # Changelog
 
+## [3.1.0+portage-3.1.2] - 2023-03-28
+
+### Fixed 
+
+- Resolved problem with updating plans [#333](https://github.com/portagenetwork/roadmap/issues/333)
+
 ## [3.1.0+portage-3.1.1] - 2023-02-24
 
 ### Fixed 
 
-- Fixed 500 error when admins try to downloading  [#328](https://github.com/portagenetwork/roadmap/issues/328)
+- Fixed 500 error when admins try to downloading [#328](https://github.com/portagenetwork/roadmap/issues/328)
 
 ## [3.1.0+portage-3.1.0] - 2023-02-22
 

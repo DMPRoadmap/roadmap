@@ -19,7 +19,7 @@ services:
       - db
 
   db:
-    image: mariadb:10.5
+    image: postgres:12.14
     volumes:
       - db_volume:/var/lib/mysql
     env_file:
