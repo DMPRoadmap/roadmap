@@ -126,13 +126,13 @@ $(() => {
     span.text(v);
     const index = $('#my-licenses ul li').length;
     $('<i class="fas fa-times-circle fa-reverse remove-license" aria-hidden="true"/>').appendTo(a);
-    const name = `template[template_licenses_attributes[${index}][research_license]]`;
-    $('<input class="license" type="hidden" autocomplete="off"/>').attr('data', name).val(id).appendTo(li);
+    const name = `template[licenses_attributes[${index}][id]]`;
+    $('<input class="license" type="hidden" autocomplete="off"/>').attr('name', name).val(id).appendTo(li);
   }
 
   $('input.license_init').each((n) => {
     const node = $($('input.license_init').get(n));
-    addLicense(node.val(), node.attr('name'));
+    addLicense(node.val(), node.attr('data'));
   }).remove();
 
   $('#customize_licenses_sel').on('change', (e) => {

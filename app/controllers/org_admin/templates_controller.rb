@@ -110,8 +110,7 @@ module OrgAdmin
         template: template,
         output_types: ResearchOutput.output_types,
         preferred_licenses: License.preferred.map { |license| [license.identifier, license.id] },
-        licenses: License.selectable.map{ |license| [license.identifier, license.id] },
-        my_licenses: []
+        licenses: License.selectable.map { |license| [license.identifier, license.id] }
       }
     end
 
@@ -124,7 +123,7 @@ module OrgAdmin
       args[:customize_output_types] = params[:customize_output_types_sel] != '0'
       args[:customize_licenses] = params[:customize_licenses_sel] != '0'
       Template.transaction do
-        template.update(template_output_types: [])
+        template.update(template_output_types: [], licenses: [])
         template.update(args)
       end
       preferences
@@ -412,7 +411,8 @@ module OrgAdmin
                                        :user_guidance_metadata_standards, :user_guidance_licenses,
                                        :customize_output_types, :customize_repositories,
                                        :customize_metadata_standards, :customize_licenses,
-                                       template_output_types_attributes: %i[id research_output_type])
+                                       template_output_types_attributes: %i[id research_output_type],
+                                       licenses_attributes: %i[id])
     end
 
     def parse_visibility(args, org)

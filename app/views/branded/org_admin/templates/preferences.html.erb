@@ -144,8 +144,8 @@
     <fieldset class="selectable_items">
       <legend>My Licenses</legend>
         <ul>
-        <% my_licenses.each do |lic| %>
-        <input class="license_init" type="hidden" data="<%= lic[0] %>" value="<%= lic[1] %>"/>
+        <% template.licenses.each do |lic| %>
+          <input class="license_init" type="hidden" data="<%= lic[:identifier] %>" value="<%= lic[:id] %>"/>
         <% end %>
         </ul>
       <div>

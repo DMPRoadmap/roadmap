@@ -106,6 +106,10 @@ class Template < ApplicationRecord
 
   accepts_nested_attributes_for :template_output_types
 
+  has_many :template_licenses
+
+  has_many :licenses, through: :template_licenses
+
   # ----------------------------------------
   # Start DMPTool Customization
   # ----------------------------------------
@@ -513,6 +517,12 @@ class Template < ApplicationRecord
     loop do
       random = rand 2_147_483_647
       break random unless Template.exists?(family_id: random)
+    end
+  end
+
+  def licenses_attributes=(params)
+    params.each do |_i, license_params|
+      licenses << License.find_by(id: license_params[:id])
     end
   end
 
