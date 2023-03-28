@@ -635,7 +635,7 @@ ActiveRecord::Schema.define(version: 2023_03_28_172119) do
     t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
   end
 
-  create_table "template_licences", id: :integer, force: :cascade do |t|
+  create_table "template_licenses", id: :integer, force: :cascade do |t|
     t.integer "template_id"
     t.integer "license_id"
     t.index ["template_id"], name: "index_template_licences_on_template_id"
