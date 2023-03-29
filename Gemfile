@@ -167,6 +167,9 @@ group :aws do
   gem 'dragonfly-s3_data_store'
 end
 
+# A collection of text algorithms (http://github.com/threedaymonk/text)
+gem 'text', require: false
+
 # ========== #
 # PAGINATION #
 # ========== #
@@ -322,10 +325,6 @@ group :test do
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   # gem 'guard-rspec'
 
-  gem 'capistrano'
-
-  gem 'capistrano-rails'
-
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
   gem 'webmock'
@@ -387,9 +386,6 @@ group :development do
   # Simple Progress Bar for output to a terminal
   # (http://github.com/paul/progress_bar)
   gem 'progress_bar', require: false
-
-  # A collection of text algorithms (http://github.com/threedaymonk/text)
-  gem 'text', require: false
 
   # Better error page for Rails and other Rack apps
   # (https://github.com/charliesome/better_errors)

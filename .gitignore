@@ -134,3 +134,7 @@ yarn-debug.log*
 
 # Ignore briley AWS cloud9 script to start the application
 cloud9-start.sh
+
+# Ignore Docker credential files
+docker/master.key
+docker/credentials.yml.enc

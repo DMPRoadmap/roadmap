@@ -42,10 +42,7 @@ RUN apt-get -qqy update \
                           chromium \
     && rm -rf /var/lib/apt/lists/*
 
-# Always run Rails and Node in Production for the ECS hosted environments
-# Use the other env variables defined in the ECS config in the dmp-hub-cfn repo to tailor
-# specific functionality (e.g. RAILS_LOG_LEVEL, RAILS_SERVE_STATIC_FILES, etc.)
-ENV RAILS_ENV=production
+# Always run Node in Production for the ECS hosted environments
 ENV NODE_ENV=production
 
 RUN echo Using RAILS_ENV: ${RAILS_ENV}, NODE_ENV: ${NODE_ENV}
@@ -62,23 +59,33 @@ RUN rm -rf node_modules vendor
 
 # Install Bundler
 RUN gem install bundler
-# RUN bin/rails db:environment:set RAILS_ENV=$RAILS_ENV
-RUN bundle config set without 'pgsql thin rollbar development test'
+
 RUN mkdir pid
 
-# Load dependencies
-RUN bundle lock --add-platform x86_64-linux && bundle install --jobs 20 --retry 5
+# Rails requires the Spring preloader to run migrations and to compile our assets, so run
+# those tasks in development mode
+ENV RAILS_ENV=development
+RUN bundle config set without 'pgsql thin rollbar test'
+RUN bundle install --jobs 20 --retry 5
 RUN yarn --frozen-lockfile --production && yarn install
 
 # Copy the credentials that CodeBuild created and placed in the ./docker directory
 COPY docker/master.key ./config/
 COPY docker/credentials.yml.enc ./config/
 
-# If there is an upgrade.sh script, copy that over
-RUN if [[ -f "docker/upgrade.sh" ]]; then cp docker/upgrade.sh ./upgrade.sh && chown 755 ./upgrade.sh; fi
+# Copy over the upgrade script and run the tasks (db migration, rake tasks, etc.)
+COPY --chown=755 docker/upgrade.sh ./upgrade.sh
+RUN ./upgrade.sh
 
-# Copy the startup script into the container
-COPY --chown=755 docker/startup.rb ./startup.rb
+RUN bin/rails assets:clobber
+RUN bin/rails assets:precompile
+
+# Now that we're done with the migrations, asset compilation and upgrade tasks, we can rebuild the
+# bundle for production
+RUN rm -rf vendor
+ENV RAILS_ENV=production
+RUN bundle config set without 'pgsql thin rollbar development test'
+RUN RUN bundle lock --add-platform x86_64-linux && bundle install --jobs 20 --retry 5
 
 # expose correct ports
 #   25 - email server
@@ -86,4 +93,4 @@ COPY --chown=755 docker/startup.rb ./startup.rb
 #   3306 - database server
 EXPOSE 25 80 443 3306
 
-CMD ["ruby", "startup.rb"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb", "-p", "80"]
