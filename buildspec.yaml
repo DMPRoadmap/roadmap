@@ -27,9 +27,9 @@ phases:
       - rm .ecr
 
       # Build the Rails credentials
-      - echo Building credentials files
-      - echo $MASTER_KEY >> docker/master.key
       - echo $CREDENTIALS_ENC >> docker/credentials.yml.enc
+
+      - cat docker/credentials.yml.enc
 
       # Set the repository URI to your ECR image and add an image tag with the first seven characters of the Git commit ID of the source.
       - echo Logging in to Amazon ECR ...
