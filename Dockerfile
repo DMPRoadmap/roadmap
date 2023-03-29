@@ -77,8 +77,8 @@ COPY docker/credentials.yml.enc ./config/
 # COPY --chown=755 docker/upgrade.sh ./upgrade.sh
 # RUN ./upgrade.sh
 
-RUN bin/rails assets:clobber
-RUN bin/rails assets:precompile
+# RUN bin/rails assets:clobber
+# RUN bin/rails assets:precompile
 
 # Now that we're done with the migrations, asset compilation and upgrade tasks, we can rebuild the
 # bundle for production
