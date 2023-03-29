@@ -62,13 +62,6 @@ RUN gem install bundler
 
 RUN mkdir pid
 
-# Rails requires the Spring preloader to run migrations and to compile our assets, so run
-# those tasks in development mode
-ENV RAILS_ENV=development
-RUN bundle config set without 'pgsql thin rollbar test'
-RUN bundle install --jobs 20 --retry 5
-RUN yarn --frozen-lockfile --production && yarn install
-
 # Copy the credentials that CodeBuild created and placed in the ./docker directory
 COPY docker/master.key ./config/
 COPY docker/credentials.yml.enc ./config/
@@ -76,6 +69,13 @@ COPY docker/credentials.yml.enc ./config/
 # Copy over the upgrade script and run the tasks (db migration, rake tasks, etc.)
 # COPY --chown=755 docker/upgrade.sh ./upgrade.sh
 # RUN ./upgrade.sh
+
+# Rails requires the Spring preloader to run migrations and to compile our assets, so run
+# those tasks in development mode
+# ENV RAILS_ENV=development
+# RUN bundle config set without 'pgsql thin rollbar test'
+# RUN bundle install --jobs 20 --retry 5
+# RUN yarn --frozen-lockfile --production && yarn install
 
 # RUN bin/rails assets:clobber
 # RUN bin/rails assets:precompile
@@ -85,7 +85,7 @@ COPY docker/credentials.yml.enc ./config/
 RUN rm -rf vendor
 ENV RAILS_ENV=production
 RUN bundle config set without 'pgsql thin rollbar development test'
-RUN RUN bundle lock --add-platform x86_64-linux && bundle install --jobs 20 --retry 5
+RUN bundle install --jobs 20 --retry 5
 
 # expose correct ports
 #   25 - email server
