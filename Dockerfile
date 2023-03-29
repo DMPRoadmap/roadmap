@@ -74,8 +74,8 @@ COPY docker/master.key ./config/
 COPY docker/credentials.yml.enc ./config/
 
 # Copy over the upgrade script and run the tasks (db migration, rake tasks, etc.)
-COPY --chown=755 docker/upgrade.sh ./upgrade.sh
-RUN ./upgrade.sh
+# COPY --chown=755 docker/upgrade.sh ./upgrade.sh
+# RUN ./upgrade.sh
 
 RUN bin/rails assets:clobber
 RUN bin/rails assets:precompile
