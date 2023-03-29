@@ -63,7 +63,6 @@ RUN gem install bundler
 RUN mkdir pid
 
 # Copy the credentials that CodeBuild created and placed in the ./docker directory
-COPY docker/master.key ./config/
 COPY docker/credentials.yml.enc ./config/
 
 # Copy over the upgrade script and run the tasks (db migration, rake tasks, etc.)
