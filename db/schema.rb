@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_28_172119) do
+ActiveRecord::Schema.define(version: 2023_03_29_235100) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -668,6 +668,8 @@ ActiveRecord::Schema.define(version: 2023_03_28_172119) do
     t.integer "sponsor_id"
     t.boolean "enable_research_outputs", default: true
     t.text "user_guidance_output_types"
+    t.text "user_guidance_output_types_title"
+    t.text "user_guidance_output_types_description"
     t.text "user_guidance_repositories"
     t.text "user_guidance_metadata_standards"
     t.text "user_guidance_licenses"
