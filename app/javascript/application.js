@@ -12,7 +12,6 @@ import 'regenerator-runtime/runtime';
 
 // Pull in Bootstrap JS functionality
 import 'bootstrap';
-import 'bootstrap-3-typeahead';
 import 'bootstrap-select';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -29,10 +28,8 @@ import './src/utils/modalSearch';
 import './src/utils/outOfFocus';
 import './src/utils/paginable';
 import './src/utils/panelHeading';
-import './src/utils/popoverHelper';
 import './src/utils/requiredField';
 import './src/utils/tabHelper';
-import './src/utils/tooltipHelper';
 
 // Specific functions from the Utilities files that will be made available to
 // the js.erb templates in the `window.x` statements below
