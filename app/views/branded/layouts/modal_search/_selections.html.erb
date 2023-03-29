@@ -28,7 +28,7 @@ locals:
              } %>
 </div>
 <div class="col-md-12">
-  <div class="col-md-3" data-toggle="tooltip" title="<%= tooltip %>">
+  <div class="col-md-3" data-toggle="tooltip" title="<%= defined? tooltip ? tooltip : '' %>">
     <%= button_tag button_label, type: "button", class: "btn btn-default",
                    data: { toggle: "modal", target: "#modal-search-#{namespace}" } %>
   </div>
