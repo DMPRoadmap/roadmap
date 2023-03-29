@@ -27,7 +27,47 @@ module Dmptool
 
         render '/org_admin/templates/email' # .js.erb'
       end
+      # rubocop:enable Metrics/AbcSize
+
+      def preferences
+        template = Template.find(params[:id])
+        authorize Template
+        render 'preferences', locals: {
+          partial_path: 'edit',
+          template: template,
+          output_types: ResearchOutput.output_types,
+          preferred_licenses: License.preferred.map { |license| [license.identifier, license.id] },
+          licenses: License.selectable.map { |license| [license.identifier, license.id] }
+        }
+      end
+  
+      # GET /org_admin/templates/[:id] # ,
+      def save_preferences
+        template = Template.find(params[:id])
+        authorize Template
+  
+        args = preference_params
+        args[:customize_output_types] = params[:customize_output_types_sel] != '0'
+        args[:customize_licenses] = params[:customize_licenses_sel] != '0'
+        Template.transaction do
+          template.update(template_output_types: [], licenses: [])
+          template.update(args)
+        end
+        preferences
+      end
+
+      private
+
+      def preference_params
+        params.require(:template).permit(
+          :title, :description, :visibility, :links, :enable_research_outputs,
+          :user_guidance_output_types, :user_guidance_repositories,
+          :user_guidance_metadata_standards, :user_guidance_licenses,
+          :customize_output_types, :customize_repositories,
+          :customize_metadata_standards, :customize_licenses,
+          template_output_types_attributes: %i[id research_output_type],
+          licenses_attributes: %i[id])
+      end
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end
