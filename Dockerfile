@@ -75,7 +75,6 @@ COPY docker/credentials.yml.enc ./config/
 # ENV RAILS_ENV=development
 # RUN bundle config set without 'pgsql thin rollbar test'
 # RUN bundle install --jobs 20 --retry 5
-# RUN yarn --frozen-lockfile --production && yarn install
 
 # RUN bin/rails assets:clobber
 # RUN bin/rails assets:precompile
@@ -86,6 +85,7 @@ RUN rm -rf vendor
 ENV RAILS_ENV=production
 RUN bundle config set without 'pgsql thin rollbar development test'
 RUN bundle install --jobs 20 --retry 5
+RUN yarn --frozen-lockfile --production && yarn install
 
 # expose correct ports
 #   25 - email server
