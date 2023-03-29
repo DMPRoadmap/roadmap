@@ -10,6 +10,20 @@ $(() => {
 });
 
 $(() => {
+  function setPrefsControls() {
+    if ($('#template_enable_research_outputs:checked').is('*')) {
+      $('h2.prefs_option, div.prefs_option').show();
+    } else {
+      $('h2.prefs_option, div.prefs_option').hide();
+    }
+  }
+  $('#template_enable_research_outputs').on('click', () => {
+    setPrefsControls();
+  });
+  setPrefsControls();
+});
+
+$(() => {
   $('a.output_type_remove').on('click', (e) => {
     e.stopPropagation();
     $(e.currentTarget).parents('li.output_type').remove();

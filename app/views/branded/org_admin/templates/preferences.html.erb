@@ -23,8 +23,8 @@
   </div>
 </div>
 
-<h2>Output Types</h2>
-<div class="row">
+<h2 class="prefs_option">Output Types</h2>
+<div class="row prefs_option">
   <div class="col-md-3">
     <label for="customize_output_types_sel">Define output types:</label>
     <div>
@@ -58,7 +58,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row prefs_option">
   <div class="col-md-12">
     <div class="form-group">
         <%= f.label(:user_guidance_output_types, _('End User Guidance for Output Types')) %>
@@ -69,8 +69,8 @@
   </div>
 </div>
 
-<h2>Preferred repositories</h2>
-<div class="row">
+<h2 class="prefs_option">Preferred repositories</h2>
+<div class="row prefs_option">
   <div class="col-md-12">
     <%= f.check_box :customize_repositories, style: 'width: auto' %>
     <%= f.label :customize_repositories, _('Require reserachers to select from this list?'), class: 'control-label' %>
@@ -78,7 +78,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row prefs_option">
   <div class="col-md-12">
     <div class="form-group">
         <%= f.label(:user_guidance_repositories, _('End User Guidance for Repositories')) %>
@@ -89,8 +89,8 @@
   </div>
 </div>
 
-<h2>Preferred metadata standards</h2>
-<div class="row">
+<h2 class="prefs_option">Preferred metadata standards</h2>
+<div class="row prefs_option">
   <div class="col-md-12">
     <%= f.check_box :customize_metadata_standards, style: 'width: auto' %>
     <%= f.label :customize_metadata_standards, _('Require reserachers to select from this list?'), class: 'control-label' %>
@@ -98,7 +98,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row prefs_option">
   <div class="col-md-12">
     <div class="form-group">
         <%= f.label(:user_guidance_metadata_standards, _('End User Guidance for Metadata Standards')) %>
@@ -110,8 +110,8 @@
 </div>
 
 
-<h2>Preferred licenses</h2>
-<div class="row">
+<h2 class="prefs_option">Preferred licenses</h2>
+<div class="row prefs_option">
   <div class="col-md-12">
     <div>
       <%
@@ -159,7 +159,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row prefs_option">
   <div class="col-md-12">
     <div class="form-group">
         <%= f.label(:user_guidance_licenses, _('End User Guidance for Licences')) %>

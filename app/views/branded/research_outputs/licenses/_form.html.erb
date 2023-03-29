@@ -21,11 +21,13 @@ args = { include_blank: _("- Please select one -"), selected: selected, class: "
          aria: { label: _('Initial license') } }
 args[:data] = { remote: true, url: plan_license_selection_path(research_output.plan), method: :get } if show_preferred
 %>
-<div class="col-md-8" data-toggle="tooltip" title="<%= @plan.template.user_guidance_licenses %>">
-  <span class="col-md-4">
+<div class="col-md-12">
+  <span class="col-md-4" data-toggle="tooltip" title="<%= @plan.template.user_guidance_licenses %>">
     <%= label_tag _("Initial license"), _("Initial license"), class: "control-label" %>
     <%= select_tag "research_output[license_id]", options_for_select(options, selected), args %>
   </span>
+</div>
+<div class="col-md-12">
   <span class="col-md-4">
     <div>&nbsp;</div>
     <p>
