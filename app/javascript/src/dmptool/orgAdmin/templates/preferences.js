@@ -1,3 +1,14 @@
+import { Tinymce } from '../../../utils/tinymce';
+
+$(() => {
+  if ($('#template_user_guidance_repositories').length > 0) {
+    Tinymce.init({ selector: '#template_user_guidance_repositories' });
+  }
+  if ($('#template_user_guidance_metadata_standards').length > 0) {
+    Tinymce.init({ selector: '#template_user_guidance_metadata_standards' });
+  }
+});
+
 $(() => {
   $('a.output_type_remove').on('click', (e) => {
     e.stopPropagation();
@@ -32,10 +43,10 @@ $(() => {
   function addOutputType(v) {
     const vnorm = v.replace(/^\s+|\s+$/g, '').toLowerCase();
     const vnormDisp = vnorm.charAt(0).toUpperCase() + vnorm.slice(1);
-    if (checkOutputType('#my-output-types', vnorm)) {
+    if (checkOutputType('#my-output-types', vnormDisp)) {
       return;
     }
-    const vclass = checkOutputType('#default-output-types', vnorm) ? 'standard' : 'custom';
+    const vclass = checkOutputType('#default-output-types', vnormDisp) ? 'standard' : 'custom';
     const li = $('<li/>').addClass('selectable_item').addClass('output_type').addClass(vclass)
       .appendTo('#my-output-types ul');
     const a = $('<a aria-label="Remove this output type"/>').addClass('output_type_remove').appendTo(li);
@@ -104,7 +115,8 @@ $(() => {
     const ns = $(sel).find('ul li.license');
     ns.each((n) => {
       const node = $(ns.get(n));
-      if (v === node.find('input.license').val()) {
+      const cv = node.find('input.license').val();
+      if (v === cv) {
         res = true;
       }
     });
@@ -115,14 +127,15 @@ $(() => {
     if (checkLicense('#my-licenses', id)) {
       return;
     }
-    const li = $('<li/>').addClass('selectable_item').addClass('license')
+    const vclass = checkLicense('#default-licenses', id) ? 'standard' : 'custom';
+    const li = $('<li/>').addClass('selectable_item').addClass('license').addClass(vclass)
       .appendTo('#my-licenses ul');
     const a = $('<a aria-label="Remove this license"/>').addClass('license_remove').appendTo(li);
     a.on('click', (e) => {
       e.stopPropagation();
       $(e.currentTarget).parents('li.license').remove();
     });
-    const span = $('<span/>').addClass('selectable_item_label').appendTo(a);
+    const span = $('<span/>').addClass('selectable_item_label').addClass(vclass).appendTo(a);
     span.text(v);
     const index = $('#my-licenses ul li').length;
     $('<i class="fas fa-times-circle fa-reverse remove-license" aria-hidden="true"/>').appendTo(a);

@@ -61,10 +61,10 @@
 <div class="row">
   <div class="col-md-12">
     <div class="form-group">
-        <%= f.label(:user_guidance_output_types, _('End User Guidance for Research Outputs')) %>
+        <%= f.label(:user_guidance_output_types, _('End User Guidance for Output Types')) %>
         <%= f.text_area(:user_guidance_output_types,
             class: "form-control tinymce",
-            rows: 4) %>
+            rows: 2) %>
     </div>
   </div>
 </div>
@@ -74,7 +74,6 @@
   <div class="col-md-12">
     <%= f.check_box :customize_repositories, style: 'width: auto' %>
     <%= f.label :customize_repositories, _('Require reserachers to select from this list?'), class: 'control-label' %>
-    <div><output style="display:inline">Adjusted and Homogenized Canadian Climate Data</output><a>Remove</a></div>
     <div><button disabled style="color: gray">Add a repository</button></div>
   </div>
 </div>
@@ -85,7 +84,7 @@
         <%= f.label(:user_guidance_repositories, _('End User Guidance for Repositories')) %>
         <%= f.text_area(:user_guidance_repositories,
             class: "form-control tinymce",
-            rows: 4) %>
+            rows: 3) %>
     </div>
   </div>
 </div>
@@ -95,7 +94,6 @@
   <div class="col-md-12">
     <%= f.check_box :customize_metadata_standards, style: 'width: auto' %>
     <%= f.label :customize_metadata_standards, _('Require reserachers to select from this list?'), class: 'control-label' %>
-    <div><output style="display:inline">Observ-OM</output><a>Remove</a></div>
     <div><button disabled style="color: gray">Add a metadata standard</button></div>
   </div>
 </div>
@@ -106,7 +104,7 @@
         <%= f.label(:user_guidance_metadata_standards, _('End User Guidance for Metadata Standards')) %>
         <%= f.text_area(:user_guidance_metadata_standards,
             class: "form-control tinymce",
-            rows: 4) %>
+            rows: 3) %>
     </div>
   </div>
 </div>
@@ -167,7 +165,7 @@
         <%= f.label(:user_guidance_licenses, _('End User Guidance for Licences')) %>
         <%= f.text_area(:user_guidance_licenses,
             class: "form-control tinymce",
-            rows: 4) %>
+            rows: 2) %>
     </div>
   </div>
 </div>
