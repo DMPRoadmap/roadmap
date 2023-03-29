@@ -103,7 +103,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
                   result_partial: "research_outputs/repositories/search_result",
                   search_path: plan_repository_search_path(research_output.plan),
                   search_method: :get,
-                  tooltip: @plan.template.user_guidance_repositories
+                  guidance: @plan.template.user_guidance_repositories
                 } %>
     </div>
   <% end %>
@@ -127,7 +127,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
                   result_partial: "research_outputs/metadata_standards/search_result",
                   search_path: plan_metadata_standard_search_path(research_output.plan),
                   search_method: :get,
-                  tooltip: @plan.template.user_guidance_metadata_standards
+                  guidance: @plan.template.user_guidance_metadata_standards
                 } %>
     </div>
   <% end %>
