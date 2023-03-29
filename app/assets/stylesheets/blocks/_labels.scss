@@ -1,5 +1,4 @@
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
-
+@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;
 /* label stlying */
 .label {
   font-size: 85%;
@@ -8,7 +7,7 @@
 
 /* RADIO BUTTONS */
 .radio label {
-  margin-right: $grid-gutter-width / 2;
+  margin-right: calc($grid-gutter-width / 2);
 }
 
 /* Remove mandatory * from check_box_tag in Admin search */

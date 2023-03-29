@@ -1,6 +1,5 @@
 @use '../variables/colours' as *;
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
-
+@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;
 // Override FontAwesome icons
 
 /* FONTAWESOME STYLING */

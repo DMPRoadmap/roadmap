@@ -1,5 +1,4 @@
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
-
+@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;
 .notification-area--floating {
   position: fixed;
   top: 4rem;
@@ -9,7 +8,7 @@
   width: 90vw;
 
   // Non-mobile settings
-  @media (min-width: #{$screen-sm-min}) {
+  @include media-breakpoint-up(sm) {
     right: 4rem;
     width: 300px;
   }

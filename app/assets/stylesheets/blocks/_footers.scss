@@ -1,4 +1,4 @@
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
+@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;
 /* For sticky footer */
 #footer-navbar {
   margin-bottom: 0px;
@@ -8,6 +8,6 @@
   border-radius:0px;
   z-index: 1;
   ul {
-    padding-right: $grid-gutter-width / 2;
+    padding-right: calc($grid-gutter-width / 2);
   }
 }
