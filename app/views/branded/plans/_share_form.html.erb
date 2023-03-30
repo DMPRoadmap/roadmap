@@ -88,7 +88,7 @@
                       'data-html': true,
                       title: permissions_tooltip,
                       'data-placement':'right' do %>
-        <%= content_tag :legend , _('Permissions') %>
+        <%= content_tag :legend , _('Permissions'), class: 'legend-label' %>
         <div class="form-group">
           <div class="radio">
             <%= f.label :administrator_access do %>
@@ -143,7 +143,11 @@
         </div>
         <div class="radio">
           <%= f.label :visibility_publicly_visible do %>
-            <%= f.radio_button :visibility, :publicly_visible %>
+            <%= f.radio_button :visibility,
+                               :publicly_visible,
+                               id: 'set-plan-public',
+                               data: {:confirm => _('Deleting this research output will remove the associated answers. Do you confirm ?')} 
+            %>
             <%= _('Public: anyone can view') %>
           <% end %>
         </div>
