@@ -40,12 +40,12 @@ module Dmptool
           licenses: License.selectable.map { |license| [license.identifier, license.id] }
         }
       end
-  
+
       # GET /org_admin/templates/[:id] # ,
       def save_preferences
         template = Template.find(params[:id])
         authorize Template
-  
+
         args = preference_params
         args[:customize_output_types] = params[:customize_output_types_sel] != '0'
         args[:customize_licenses] = params[:customize_licenses_sel] != '0'
@@ -67,7 +67,8 @@ module Dmptool
           :customize_output_types, :customize_repositories,
           :customize_metadata_standards, :customize_licenses,
           template_output_types_attributes: %i[id research_output_type],
-          licenses_attributes: %i[id])
+          licenses_attributes: %i[id]
+        )
       end
     end
   end

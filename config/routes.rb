@@ -483,6 +483,5 @@ Rails.application.routes.draw do
     get 'Shibboleth.sso/Login', controller: :mock_shibboleth_identity_providers, action: :login,
                                 as: 'new_mocked_shib_idp'
   end
-
 end
 # rubocop:enable Metrics/BlockLength
