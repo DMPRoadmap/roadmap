@@ -398,8 +398,15 @@ Rails.application.routes.draw do
                                           controller: 'template_customization_transfers'
 
       member do
+        # ------------------------------------------
+        # Start DMPTool customizations
+        # ------------------------------------------
+        # DMPTool Template Preferences
         get 'preferences'
         patch 'preferences', action: :save_preferences
+        # ------------------------------------------
+        # End DMPTool customizations
+        # ------------------------------------------
         get 'history'
         get 'email'
         get 'template_export', action: :template_export
@@ -476,5 +483,6 @@ Rails.application.routes.draw do
     get 'Shibboleth.sso/Login', controller: :mock_shibboleth_identity_providers, action: :login,
                                 as: 'new_mocked_shib_idp'
   end
+
 end
 # rubocop:enable Metrics/BlockLength

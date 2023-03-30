@@ -60,8 +60,9 @@ module Dmptool
 
       def preference_params
         params.require(:template).permit(
-          :title, :description, :visibility, :links, :enable_research_outputs,
+          :enable_research_outputs,
           :user_guidance_output_types, :user_guidance_repositories,
+          :user_guidance_output_types_title, :user_guidance_output_types_description,
           :user_guidance_metadata_standards, :user_guidance_licenses,
           :customize_output_types, :customize_repositories,
           :customize_metadata_standards, :customize_licenses,

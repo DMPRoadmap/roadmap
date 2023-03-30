@@ -69,6 +69,28 @@
   </div>
 </div>
 
+<div class="row prefs_option">
+  <div class="col-md-12">
+    <div class="form-group">
+        <%= f.label(:user_guidance_output_types, _('End User Guidance for Output Types Title')) %>
+        <%= f.text_area(:user_guidance_output_types_title,
+            class: "form-control tinymce",
+            rows: 2) %>
+    </div>
+  </div>
+</div>
+
+<div class="row prefs_option">
+  <div class="col-md-12">
+    <div class="form-group">
+        <%= f.label(:user_guidance_output_types, _('End User Guidance for Output Types Description')) %>
+        <%= f.text_area(:user_guidance_output_types_description,
+            class: "form-control tinymce",
+            rows: 2) %>
+    </div>
+  </div>
+</div>
+
 <h2 class="prefs_option">Preferred repositories</h2>
 <div class="row prefs_option">
   <div class="col-md-12">
