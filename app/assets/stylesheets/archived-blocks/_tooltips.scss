@@ -1,0 +1,13 @@
+.tooltip-inner {
+  min-width: 320px;
+  max-width: 100%;
+  text-align: left;
+}
+
+@media (max-width: 320px) {
+  .tooltip-inner {
+    min-width: initial;
+    max-width: 120px;
+    text-align: left;
+  }
+}
