@@ -1,0 +1,11 @@
+@use '../variables/colours' as *;
+.question_container {
+  
+  dl.dl-horizontal {
+    padding-right: 10px;
+    border-right: 1px solid $color-black;
+  }
+  .fa-plus, .fa-minus {
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,5 @@
+@use '../variables/colours' as *;
+.input-group-addon {
+  border-radius: 0px;
+  background-color: $color-primary-background;
+}
