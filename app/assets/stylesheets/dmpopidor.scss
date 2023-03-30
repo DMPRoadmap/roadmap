@@ -576,7 +576,7 @@ header .main-nav {
   }
 
   // Tabs
-  .nav-tabs {
+  .nav-tabs, .nav-pills {
     background-color: $blue;
 
     li>a {
@@ -1006,7 +1006,7 @@ header .main-nav {
     }
 
     // Tabs
-    .nav-tabs {
+    .nav-tabs, .nav-pills {
       background-color: $rust;
 
       li>a:hover,
