@@ -45,11 +45,12 @@ no_results_msg = _("No results matched your filter criteria.")
         </h3>
       </div>
 
+      <!-- Non Dmptool invocations may not define a guidance field -->
       <% if defined? guidance %>
-        <% unless guidance.strip.empty? %>
+        <% unless guidance&.strip&.empty? %>
         <div class="modal-header">
           <fieldset class="user-guidance">
-            <label>User Guidance</label>
+            <label>Tooltip</label>
             <div>
             <%= sanitize(guidance) %>
             </div>
