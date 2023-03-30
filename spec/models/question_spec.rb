@@ -106,7 +106,7 @@ RSpec.describe Question, type: :model do
 
     let!(:options) { {} }
 
-    subject { question.deep_copy(options) }
+    subject { question.deep_copy(**options) }
 
     context 'when no options are provided' do
       before do
@@ -163,7 +163,7 @@ RSpec.describe Question, type: :model do
 
       it "ignores the original record's value" do
         question.modifiable = false
-        expect(question.deep_copy(options).modifiable).to eql(true)
+        expect(question.deep_copy(**options).modifiable).to eql(true)
       end
     end
 

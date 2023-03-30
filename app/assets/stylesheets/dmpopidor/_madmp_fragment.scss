@@ -1,3 +1,6 @@
+@use './colours' as *;
+@use './overlay' as *;
+
 .madmp-fragment {
   .dynamic-field {
     display: flex;

@@ -1,3 +1,5 @@
+@use './accordions' as *;
+
 #user-profile {
   .profile-form {
     @include dmpopidor-accordion-large;

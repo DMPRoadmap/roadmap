@@ -56,7 +56,8 @@ RSpec.describe Annotation, type: :model do
     context 'when question_id option is set' do
       before do
         @annotation = create(:annotation)
-        @new_annotation = @annotation.deep_copy(question_id: 1)
+        args = { question_id: 1 }
+        @new_annotation = @annotation.deep_copy(**args)
       end
 
       it 'sets question_id to nil' do

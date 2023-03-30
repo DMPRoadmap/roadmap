@@ -1,47 +1,45 @@
 /* 
  DMPOPIDoR Stylesheet
 */
-@import "select2/dist/css/select2.min.css";
-@import "@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css";
 
-@import './variables/colours';
-@import './dmpopidor/colours';
-@import './dmpopidor/icons';
-@import './dmpopidor/typography';
+@use './variables/colours' as *;
+@use './dmpopidor/colours' as *;
+@use './dmpopidor/icons' as *;
+@use './dmpopidor/typography' as *;
 
-@import './dmpopidor/accessibility';
-@import './dmpopidor/accordions';
-@import './dmpopidor/buttons';
-@import './dmpopidor/checkbox';
-@import './dmpopidor/dropdowns';
-@import './dmpopidor/html';
-@import './dmpopidor/navs';
-@import './dmpopidor/new_window_popup';
-@import './dmpopidor/overlay';
-@import './dmpopidor/select2';
-@import './dmpopidor/tables';
+@use './dmpopidor/accessibility' as *;
+@use './dmpopidor/accordions' as *;
+@use './dmpopidor/buttons' as *;
+@use './dmpopidor/checkbox' as *;
+@use './dmpopidor/dropdowns' as *;
+@use './dmpopidor/html' as *;
+@use './dmpopidor/navs' as *;
+@use './dmpopidor/new_window_popup' as *;
+@use './dmpopidor/overlay' as *;
+@use './dmpopidor/select2' as *;
+@use './dmpopidor/tables' as *;
 
-@import './dmpopidor/footer';
-@import './dmpopidor/header';
-@import './dmpopidor/homepage';
-@import './dmpopidor/madmp_fragment';
-@import './dmpopidor/news';
-@import './dmpopidor/notes';
-@import './dmpopidor/plan';
-@import './dmpopidor/user_profile';
+@use './dmpopidor/footer' as *;
+@use './dmpopidor/header' as *;
+@use './dmpopidor/homepage' as *;
+@use './dmpopidor/madmp_fragment' as *;
+@use './dmpopidor/news' as *;
+@use './dmpopidor/notes' as *;
+@use './dmpopidor/plan' as *;
+@use './dmpopidor/user_profile' as *;
 
 body {
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
 }
 
 .modal-backdrop {
-    z-index: 4;
+  z-index: 4;
 }
 
 #header-signin {
-    z-index: 7;
+  z-index: 7;
 }
 
 
@@ -61,7 +59,7 @@ body {
   width: 100%;
   max-width: 1440px;
 
-  & > :first-child:not(#plan-navigation) {
+  &> :first-child:not(#plan-navigation) {
     padding-top: 50px;
   }
 }
@@ -69,42 +67,60 @@ body {
 /*
     DROPDOWNS
 */
-#admin-dropdown, .plan-actions {
+#admin-dropdown,
+.plan-actions {
 
-    .dmpopidor-dropdown {
-        background-color: $white;
-        li {
-            a, a:active,a:focus,a:visited {
-                color: $blue;
-    
-            }
-            a:hover {
-                color: $white;
-                background-color: $blue;
-            }
-        }
-        li.active {
-            a, a:active,a:focus,a:visited {
-                background-color: $blue;
-                color: $white;
-            }
-        }
+  .dmpopidor-dropdown {
+    background-color: $white;
+
+    li {
+
+      a,
+      a:active,
+      a:focus,
+      a:visited {
+        color: $blue;
+
+      }
+
+      a:hover {
+        color: $white;
+        background-color: $blue;
+      }
     }
-    .open {
-        a {
-            background-color: $white;
-        }
+
+    li.active {
+
+      a,
+      a:active,
+      a:focus,
+      a:visited {
+        background-color: $blue;
+        color: $white;
+      }
     }
+  }
+
+  .open {
+    a {
+      background-color: $white;
+    }
+  }
 }
+
 #admin-dropdown {
-    .dmpopidor-dropdown {
-        li.active {
-            a, a:active,a:focus,a:visited {
-                background-color: $rust;
-                color: $white;
-            }
-        }
+  .dmpopidor-dropdown {
+    li.active {
+
+      a,
+      a:active,
+      a:focus,
+      a:visited {
+        background-color: $rust;
+        color: $white;
+      }
     }
+  }
 }
 
 
@@ -118,14 +134,14 @@ body {
     top: 66%;
     right: 0;
     z-index: 5;
-  
+
     .contact-icon {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-    
+
       background-color: $rust;
       color: white;
       text-transform: uppercase;
@@ -135,201 +151,225 @@ body {
       width: 90px;
       border-radius: 10px 0 0 10px;
       margin-bottom: 10px;
-  
+
       i {
         font-size: xx-large;
       }
+
       &:hover {
         background-color: $dark-blue;
       }
     }
   }
 
-    /** tooltips */
-    .tooltip {
-        .tooltip-arrow {
-            color: $blue;
-            border-bottom-color: $blue;
-        }
-        .tooltip-inner {
-            background-color: $blue;
-            font-size: 14px;
-            font-weight: 600;
-            text-align: center;
-            min-width: initial;
-        }
-    }
-    .label-info {
-        background-color: $blue;
+  /** tooltips */
+  .tooltip {
+    .tooltip-arrow {
+      color: $blue;
+      border-bottom-color: $blue;
     }
 
-    /** Focus outline required for accessibility */
-    input, select, .form-control {
-        &:focus,
-        &:hover,
-        &:active {
-        outline-style: solid !important;
-        outline-color: $blue !important;
-        outline-width: 2px !important;
-        }
+    .tooltip-inner {
+      background-color: $blue;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      min-width: initial;
+    }
+  }
+
+  .label-info {
+    background-color: $blue;
+  }
+
+  /** Focus outline required for accessibility */
+  input,
+  select,
+  .form-control {
+
+    &:focus,
+    &:hover,
+    &:active {
+      outline-style: solid !important;
+      outline-color: $blue !important;
+      outline-width: 2px !important;
+    }
+  }
+
+  a {
+    color: #5D4A27;
+    text-decoration: underline;
+  }
+
+  /*
+        STATIC PAGES
+    */
+  .static_page_content {
+    padding-top: 25px;
+  }
+
+  .news_page h2 {
+    font-size: xx-large;
+    color: $dark-blue;
+  }
+
+  /* 
+        PLAN EDIT
+    */
+  // Progress bar 
+  .progress-bar {
+    background-color: $blue;
+  }
+
+  // example answer
+  .example-answer {
+    overflow: auto;
+
+    .example-answer-link {
+      cursor: pointer;
+      background-color: $blue;
+      display: block;
+    }
+  }
+
+  // main border
+  .panel-default {
+    border: none;
+  }
+
+
+  // .schema-picker{
+  //     display: flex;
+
+  //     .tab-content {
+  //         flex: 10;
+  //     }
+
+  //     .nav-pills {
+  //         width: inherit;
+  //         display: flex;
+  //         flex: 2;
+  //         flex-direction: column;
+  //         li {
+  //             writing-mode: vertical-lr;
+  //             text-orientation: mixed;
+  //         }
+  //     }
+  // }
+
+  // Plan Download
+
+  #download_form {
+    #json-formatting {
+      display: none;
+    }
+  }
+
+  // News
+  .question-divider {
+    border-bottom: 2px solid $very-very-light-blue;
+  }
+
+  /*
+        ADMIN AREA
+    */
+  &.org-admin {
+
+    h1,
+    h2 {
+      color: $rust;
     }
 
     a {
-        &:focus,
-        &:active {
-        outline-style: dotted !important;
-        outline-color: $blue !important;
-        outline-width: 1px !important;
-        }
-        
-        &:hover:not(.accessible) {
-        outline-style: none !important;
-        }
+      color: $rust;
     }
 
-    /*
-        STATIC PAGES
-    */
-    .static_page_content {
-        padding-top: 25px;
-    }
 
-    .news_page h2 {
-      font-size: xx-large;
-      color: $dark-blue;
-    }
-    
-    /* 
-        PLAN EDIT
-    */
-    // Progress bar 
-    .progress-bar {
-        background-color: $blue;
-    }
-    // example answer
-    .example-answer {
-        overflow: auto;
-        .example-answer-link {
-            cursor: pointer;
-            background-color: $blue;
-            display: block;
-        }
-    }
     // main border
     .panel-default {
-        border: none;
+      border-color: $rust;
+    }
+
+    // Sections & Phases
+    .heading-button>.panel-heading,
+    .panel-default>.panel-heading {
+      background-color: $rust;
     }
 
 
-    // .schema-picker{
-    //     display: flex;
 
-    //     .tab-content {
-    //         flex: 10;
-    //     }
+  }
 
-    //     .nav-pills {
-    //         width: inherit;
-    //         display: flex;
-    //         flex: 2;
-    //         flex-direction: column;
-    //         li {
-    //             writing-mode: vertical-lr;
-    //             text-orientation: mixed;
-    //         }
-    //     }
-    // }
-
-    // Plan Download
-
-    #download_form {
-        #json-formatting {
-            display: none;
-        }
+  /*
+    SUPER ADMIN
+  */
+  &.super-admin {
+  
+    a {
+      color: $black;
+      text-decoration: underline;
     }
-
-    // News
-    .question-divider {
-        border-bottom: 2px solid $very-very-light-blue;
+  
+    .btn-default,
+    .btn-default:hover,
+    .btn-default:focus,
+    .btn-default:active,
+    .btn-default:visited,
+    .btn-default:active:hover,
+    .btn-default.active:hover {
+      border-color: $yellow;
+      background-color: $yellow;
+      color: $black;
+      text-decoration: none;
     }
-
-    /*
-        ADMIN AREA
-    */
-    &.org-admin {
-        h1,
-        h2 {
-            color: $rust;
-        }
     
-        a {
-            color: $rust;
-        }
-        
-
-        // main border
-        .panel-default {
-            border-color: $rust;
-        }
-        // Sections & Phases
-        .heading-button > .panel-heading, 
-        .panel-default > .panel-heading {
-            background-color: $rust;
-        }
+    .combobox-clear-button,
+    .combobox-clear-button:hover,
+    .combobox-clear-button:focus {
+      color: $yellow;
+    }
     
     
+    .btn-link {
+      color: $black;
+      text-decoration: underline;
+    }
     
+    .registry-value-actions a {
+      text-decoration: none;
     }
-       
-
-
-
-
-
-    /*
-        SUPER ADMIN
-    */
-    &.super-admin {
-        h1,
-        h2 {
-            color: $black;
-        }
-
-        a {
-            color: $black;
-            text-decoration: underline;
-        }
-    }
+  }
 
 }
+
 
 /*
     CIL MESSAGE
-*/ 
+*/
 
-.cil_message > p {
-    font-size: x-small;
-    font-style: italic;
-    line-height: 1.5em;
-    padding-bottom: 4px;
+.cil_message>p {
+  font-size: x-small;
+  font-style: italic;
+  line-height: 1.5em;
+  padding-bottom: 4px;
 }
 
 .institution-login i {
-    display: inline-block;
-    padding-left: 5px;
-    transform: scaleX(-1);
-    -webkit-transform:scaleX(-1);
-    -moz-transform:scaleX(-1);
-    -o-transform:scaleX(-1);
+  display: inline-block;
+  padding-left: 5px;
+  transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
 }
 
 /* 
     CONTACT US
 */
 .dmpopidor-contact-us {
-    .column-right {
-        border-left: 2px solid $rust;
-    }
+  .column-right {
+    border-left: 2px solid $rust;
+  }
 
 }
 
@@ -339,13 +379,14 @@ body {
 */
 
 .cookiebanner-close {
-    &:focus,
-    &:hover,
-    &:active {
+
+  &:focus,
+  &:hover,
+  &:active {
     outline-style: solid !important;
     outline-color: $blue !important;
     outline-width: 2px !important;
-    }
+  }
 }
 
 /*
@@ -353,109 +394,109 @@ body {
 */
 
 .plan-form {
-    .tab-content {
-        padding: 25px 25px 50px 25px;
-        border: 1px solid $blue;
+  .tab-content {
+    padding: 25px 25px 50px 25px;
+    border: 1px solid $blue;
+  }
+
+  .form-tabs {
+    display: flex;
+    flex: 1;
+
+    li>span {
+      display: block;
+      padding: 10px 15px;
+      cursor: pointer;
+
+      i {
+        display: none;
+      }
     }
 
-    .form-tabs {
-        display: flex;
-        flex: 1;
+    li>span:hover,
+    li>span:focus,
+    li.active>span,
+    li.active>span:focus,
+    li.active>span:hover {
+      color: $white;
+      border-bottom-color: transparent;
+      background-color: $white;
+      color: $blue;
+      border: 1px solid $blue;
+      border-bottom-color: transparent;
 
-        li > span {
-            display: block;
-            padding: 10px 15px;
-            cursor: pointer;
-
-            i {
-                display: none;
-            }
-        }
-
-        li > span:hover, 
-        li > span:focus, 
-        li.active > span, 
-        li.active > span:focus, 
-        li.active > span:hover {
-            color: $white;
-            border-bottom-color: transparent;
-            background-color: $white;
-            color: $blue;
-            border: 1px solid $blue;
-            border-bottom-color: transparent;
-
-            i {
-                display: inline;
-            }
-        }
+      i {
+        display: inline;
+      }
     }
+  }
 
-    #no_org h3 {
-        color: $rust;
-    }
+  #no_org h3 {
+    color: $rust;
+  }
 }
 
 #available-templates {
-    .message-block {
-        color: $blue;
-    }
+  .message-block {
+    color: $blue;
+  }
 }
 
 /*
     Share Form
 */
 .share-form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    .panel-heading {
-        background-color: $white;
-        color: $rust;
-        border-bottom: 2px solid $rust;
-        border-right: 2px solid $rust;
-        .panel-title {
-            color: $rust;
-            font-weight: bold;
-        }
-    }
-    #new_role {
-        border-bottom: 0.5px groove $color-border-light;
-    }
-}
-/* Beta ribbons */
+  .panel-heading {
+    background-color: $white;
+    color: $rust;
+    border-bottom: 2px solid $rust;
+    border-right: 2px solid $rust;
 
-.corner-ribbon{
-    width: 200px;
-    background: $rust;
-    position: absolute;
-    top: 25px;
-    left: -50px;
-    text-align: center;
-    line-height: 50px;
-    letter-spacing: 1px;
-    color: #f0f0f0;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-
-    &.sticky{
-        position: fixed;
+    .panel-title {
+      color: $rust;
+      font-weight: bold;
     }
-    &.shadow{
-        box-shadow: 0 0 3px rgba(0,0,0,.3);
-    }
-
-    &.top-left{
-        top: 25px;
-        left: -50px;
-        transform: rotate(-45deg);
-        -webkit-transform: rotate(-45deg);
-    }
-
-    &.red{background: $rust;}
-      
   }
 
+  #new_role {
+    border-bottom: 0.5px groove $color-border-light;
+  }
+}
+
+/* Beta ribbons */
+
+.corner-ribbon {
+  width: 200px;
+  background: $rust;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  line-height: 50px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+
+  &.sticky {
+    position: fixed;
+  }
+
+  &.shadow {
+    box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+  }
+
+  &.top-left {
+    top: 25px;
+    left: -50px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+}
 
 .rda-message {
-    display: none;
+  display: none;
 }

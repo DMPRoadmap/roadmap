@@ -59,8 +59,10 @@
           });
         </script>
     <![endif]-->
-    <%= stylesheet_link_tag(stylesheet_manifest_file) %>
-    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script type="text/javascript" id="cookiebanner"
+            src="https://cdnjs.cloudflare.com/ajax/libs/cookie-banner/1.2.2/cookiebanner.min.js"></script>
     <%= javascript_tag do %>
       var options = { 
         message: '<%= _("By continuing to browse, without changing your settings, you accept the use of cookies to measure the traffic of the website with the software Matomo. For more information, to change or manage your settings, please visit our Privacy Statement page.")%>',

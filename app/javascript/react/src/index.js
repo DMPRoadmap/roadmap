@@ -1,6 +1,6 @@
 import { define } from 'remount';
 import FormRoot from './components/FormRoot.jsx';
-import HomepageNews from './components/HomepageNewsPage';
+import HomepageNews from './components/HomepageNewsPage.jsx';
 import NewsPage from './components/NewsPage.jsx';
 
 define({

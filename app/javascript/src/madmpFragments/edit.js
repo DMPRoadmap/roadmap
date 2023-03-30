@@ -1,8 +1,8 @@
 import {
   doneCallback,
   failCallback,
-} from '../../answers/edit';
-import { formLoadingCallback } from '../../utils/dynamicFormHelper';
+} from '../answers/edit';
+import { formLoadingCallback } from '../utils/dynamicFormHelper';
 // import TimeagoFactory from '../../utils/timeagoFactory';
 
 $(() => {

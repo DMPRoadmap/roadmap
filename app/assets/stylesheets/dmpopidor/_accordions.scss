@@ -1,3 +1,5 @@
+@use './colours' as *;
+
 @mixin dmpopidor-accordion-large {
   border-radius: 20px;
   padding: 20px;

@@ -1,3 +1,5 @@
+@use './colours' as *;
+
 @mixin dmpopidor-dropdown {
   .dmpopidor-dropdown {
     li {

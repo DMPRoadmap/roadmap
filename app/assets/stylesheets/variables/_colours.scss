@@ -22,7 +22,7 @@ $color-muted: #CCC;
 */
 // Backgrounds
 $color-primary-background: $color-grey;
-$color-seccondary-background: $color-white;
+$color-secondary-background: $color-white;
 $color-muted-background: $color-muted;
 $color-navbar-background: $color-grey-darkest;
 $color-navbar-background-active: darken($color-navbar-background, 10%) ;
@@ -32,7 +32,7 @@ $color-icon-bar-background: $color-white;
 
 // Text
 $color-primary-text: $color-white;
-$color-seccondary-text: $color-grey;
+$color-secondary-text: $color-grey;
 $color-heading-text: $color-black;
 $color-navbar-text: $color-grey-light;
 $color-navbar-text-hover: $color-white;
