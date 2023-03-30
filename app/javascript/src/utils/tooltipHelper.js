@@ -1,5 +1,3 @@
-import 'bootstrap/js/tooltip';
-
 $(() => {
   // When using a tooltip on a tinymce textarea, add the HTML attributes for the tooltips to
   // the parent `<div class="form-group">`. TODO: this does not work on focus though since tinymce
