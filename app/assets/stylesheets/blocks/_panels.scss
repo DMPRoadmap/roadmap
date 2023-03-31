@@ -2,10 +2,10 @@
 @use "../../../../node_modules/bootstrap/scss/bootstrap" as *;
 // Override Bootstrap 3.0's Panels
 
-.panel-default {
+.panel {
   border-color: $color-border-default;
 }
-.heading-button > .panel-heading, .panel-default > .panel-heading {
+.heading-button > .panel-heading, .panel > .panel-heading {
   background-color: $color-primary-background;
   color: $color-primary-text;
   border-top-right-radius: 0px;
