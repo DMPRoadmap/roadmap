@@ -29,27 +29,27 @@
             <span class="readonly"><%= research_output_data['title'] %></span>
           </div>
           <% if plan.template.structured? %>
-          <!--
-            <div class='research-output-field form-group research-output-uuid'>
-              <%= f.label :uuid,  class: 'control-label' do %>
-                <%= _('UUID') %> 
-                <i class="fas fa-question-circle action" 
-                   data-toggle="tooltip" 
-                   title="<%= _('Research output unique identifier')%>" ></i>
-              <% end %>
-              <%= f.text_field :uuid, value: research_output.uuid,
-                              class: 'form-control input edit',
-                              disabled: true,
-                              aria: { disabled: true, label: _('Research output unique identifier') },
-                              "data-toggle": "tooltip", title: _('Research output unique identifier')   %>
-              <span class="readonly">
-                <%= research_output.uuid %>
-                <i class="fas fa-copy action copy" 
-                   data-toggle="tooltip" 
-                   title="<%= _('Copy UUID to clipboard')%>" ></i>
-              </span>
-            </div>
-          -->
+            <% if Rails.configuration.x.dmpopidor.enable_research_outputs_uuid %>
+              <div class='research-output-field form-group research-output-uuid'>
+                <%= f.label :uuid,  class: 'control-label' do %>
+                  <%= _('UUID') %> 
+                  <i class="fas fa-question-circle action" 
+                    data-toggle="tooltip" 
+                    title="<%= _('Research output unique identifier')%>" ></i>
+                <% end %>
+                <%= f.text_field :uuid, value: research_output.uuid,
+                                class: 'form-control input edit',
+                                disabled: true,
+                                aria: { disabled: true, label: _('Research output unique identifier') },
+                                "data-toggle": "tooltip", title: _('Research output unique identifier')   %>
+                <span class="readonly">
+                  <%= research_output.uuid %>
+                  <i class="fas fa-copy action copy" 
+                    data-toggle="tooltip" 
+                    title="<%= _('Copy UUID to clipboard')%>" ></i>
+                </span>
+              </div>
+            <% end %>
           <% else %>
             <div class='research-output-field form-group research-output-type'>
               <% registryValues = Registry.find_by(name:"ResearchDataType").registry_values %>
