@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 import * as notifier from '../utils/notificationHelper';
 // import { isObject, isString } from '../utils/isType';
 import { isObject, isString } from '../utils/isType';
@@ -39,22 +41,18 @@ $(() => {
   });
 
   // Addec confirm message for visibility change if set visibility is Public
-  $('#set_visibility').on('ajax:beforeSend', (e) => {
-    const xhr = e.detail[0];
-    const target = $('#set_visibility .change-visibility');
-    const selectedValue = $('input[name="plan[visibility]"]:checked').val();
-    const confirmMessage = target.data('confirm');
-    let confirmed = true;
-
-    if (selectedValue === 'publicly_visible') {
-      // TODO : replace confirm()
-      // eslint-disable-next-line
-      confirmed = confirm(confirmMessage);
-    }
-    if (!confirmed) {
-      xhr.abort();
-      return false;
-    }
-    return true;
+  $('#set_visibility').on('click', '.set-plan-public', (e) => {
+    e.preventDefault();
+    const target = $(e.target);
+    const confirmMessage = target.data('confirm-message');
+    Swal.fire({
+      text: confirmMessage,
+      showDenyButton: true,
+      width: 500,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        target.prop('checked', true);
+      }
+    });
   });
 });
