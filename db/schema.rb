@@ -683,6 +683,20 @@ ActiveRecord::Schema.define(version: 2023_03_29_235100) do
     t.index ["org_id"], name: "index_templates_on_org_id"
   end
 
+  create_table "template_repositories", id: :integer, force: :cascade do |t|
+    t.integer "template_id"
+    t.bigint "repository_id"
+    t.index ["template_id"], name: "index_template_repositories_on_template_id"
+    t.index ["repository_id"], name: "index_template_repositories_on_repository_id"
+  end
+
+  create_table "template_metadata_standards", id: :integer, force: :cascade do |t|
+    t.integer "template_id"
+    t.bigint "metadata_standard_id"
+    t.index ["template_id"], name: "index_template_metadata_standard_son_template_id"
+    t.index ["metadata_standard_id"], name: "index_template_metadata_standards_on_metadata_standard_id"
+  end
+
   create_table "themes", id: :integer, force: :cascade do |t|
     t.string "title"
     t.text "description"

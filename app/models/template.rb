@@ -112,6 +112,14 @@ class Template < ApplicationRecord
 
   has_many :licenses, through: :template_licenses
 
+  has_many :template_repositories
+
+  has_many :repositories, through: :template_repositories
+
+  has_many :template_metadata_standards
+
+  has_many :metadata_standards, through: :template_metadata_standards
+
   # ----------------------------------------
   # Start DMPTool Customization
   # ----------------------------------------

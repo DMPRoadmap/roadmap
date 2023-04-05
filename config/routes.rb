@@ -404,6 +404,8 @@ Rails.application.routes.draw do
         # DMPTool Template Preferences
         get 'preferences'
         patch 'preferences', action: :save_preferences
+        get :repository_search
+        get :metadata_standard_search
         # ------------------------------------------
         # End DMPTool customizations
         # ------------------------------------------

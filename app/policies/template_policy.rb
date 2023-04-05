@@ -13,6 +13,14 @@ class TemplatePolicy < ApplicationPolicy
     @user.can_modify_templates?
   end
 
+  def repository_search?
+    @user.can_modify_templates?
+  end
+
+  def metadata_standard_search?
+    @user.can_modify_templates?
+  end
+
   def organisational?
     @user.can_modify_templates?
   end
