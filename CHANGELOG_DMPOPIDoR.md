@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 05/04/2023
+- Amélioration des fenetres de confirmation pour le partage d'un plan public, l'import ANR, l'envoi d'une notification et la suppression d'un sous fragment dans une liste de sous fragment. (Installation de la librarie Sweetalert2)
+- Correction d'un problème d'affichage des logos Twitter et Github dans le pied de page
+
 ## 31/03/2023
 - Correction de problèmes CSS divers (Taille de certains textes, onglets Recommendations/Commentaires)
 - Ajout d'une fenêtre de validation lorsqu'un plan est passé en public.
