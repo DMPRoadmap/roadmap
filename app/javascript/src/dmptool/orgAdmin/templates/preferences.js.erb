@@ -211,3 +211,43 @@ $(() => {
   });
   setModalButtonMetadata();
 });
+
+$(() => {
+  function check(sel_enable, sel_count, msg) {
+    if ($(sel_enable).is("*")){
+      if ($(sel_count).length == 0) {
+        alert(msg);
+        return false;
+      }
+    }
+    return true;
+  } 
+
+  $('form.edit_template').on('submit', (e) => {
+    let b = true;
+    b = b & check(
+      "#customize_output_types_sel option[value!='0']:selected",
+      "input.output_type[type='hidden']:enabled",
+      'At least one preferred OUTPUT TYPE must be selected if you are enabling a preferred list.'
+    );
+    b = b & check(
+      '#template_customize_repositories:checked',
+      '#modal-search-repositories-selections div.modal-search-result-label',
+      'At least one preferred REPOSITORY must be selected if you are enabling a preferred list.'
+    );
+    b = b & check(
+      '#template_customize_metadata_standards:checked',
+      '#modal-search-metadata_standards-selections div.modal-search-result-label',
+      'At least one preferred METADATA STANDARD must be selected if you are enabling a preferred list.'
+    );
+    b = b & check(
+      "#customize_licenses_sel option[value!='0']:selected",
+      "#my-licenses input.license[type='hidden']:enabled",
+      'At least one preferred LICENSE must be selected if you are enabling a preferred list.'
+    );
+    if (!b) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  })
+})
