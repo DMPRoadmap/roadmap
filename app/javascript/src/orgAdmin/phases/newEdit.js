@@ -1,5 +1,5 @@
 // import 'bootstrap-sass/assets/javascripts/bootstrap/collapse';
-import { Tinymce } from '../../utils/tinymce.js.erb';
+import { Tinymce } from '../../utils/tinymce.js';
 import { isObject, isString } from '../../utils/isType';
 import getConstant from '../../utils/constants';
 import { addAsterisks } from '../../utils/requiredField';
@@ -9,7 +9,7 @@ import initQuestionOption from '../questionOptions/index';
 import updateConditions from '../conditions/updateConditions';
 
 $(() => {
-  Tinymce.init({ selector: '.phase' });
+  Tinymce.init({ selector: '#phase_description' });
   const parentSelector = '.section-group';
 
   const initQuestion = (context) => {
@@ -18,7 +18,8 @@ $(() => {
       // For some reason the toolbar options are retained after the call to
       // Tinymce.init() on the views/notifications/edit.js file. Tried 'Object.assign'
       // instead of '$.extend' but it made no difference.
-      Tinymce.init({
+      /*Tinymce.init({
+        selector:
         selector: `#${context} .question`,
         init_instance_callback(editor) {
           // When the text editor changes to blank, set the corresponding destroy
@@ -30,7 +31,7 @@ $(() => {
             $hiddenField.val(editor.getContent() === '');
           });
         },
-      });
+      });*/
       initQuestionOption(context);
       addAsterisks(`#${context}`);
       // Swap in the question_formats when the user selects an option based question type
@@ -61,24 +62,34 @@ $(() => {
       // For some reason the toolbar options are retained after the call to Tinymce.init() on
       // the views/notifications/edit.js file. Tried 'Object.assign' instead of '$.extend' but it
       // made no difference
+
+console.log(`SELECTOR: ${selector}`);
+
       Tinymce.init({
-        selector: `${selector} .section`,
-        init_instance_callback(editor) {
+        selector: selector,
+        init_instance_callback: (editor) => {
           // When the text editor changes to blank, set the corresponding destroy
           // field to true (if present).
-          editor.on('Change', () => {
-            const $texteditor = $(editor.targetElm);
+          editor.on('Change', (editor) => {
+
+console.log(`Editor: ${editor.id} is now initialized.`);
+
+            const $texteditor = $(editor.getContentAreaContainer());
             const $fieldset = $texteditor.parents('fieldset');
             const $hiddenField = $fieldset.find('input[type=hidden][id$="_destroy"]');
             $hiddenField.val(editor.getContent() === '');
           });
         },
       });
+
       const questionForm = $(selector).find('.question_form');
       if (questionForm.length > 0) {
+
+console.log(`QUESTION SELECTOR: ${selector}`);
+
         // Load Tinymce when the 'show' form has a question form.
         // ONLY applicable for template customizations
-        Tinymce.init({
+        /*Tinymce.init({
           selector: `${selector} .question_form .question`,
           init_instance_callback(editor) {
             // When the text editor changes to blank, set the corresponding destroy
@@ -90,7 +101,7 @@ $(() => {
               $hiddenField.val(editor.getContent() === '');
             });
           },
-        });
+        });*/
       }
     }
   };
@@ -108,8 +119,17 @@ $(() => {
       // Display the section's html
       panelBody.attr('data-loaded', 'true');
       panelBody.html(e.detail[0].html);
+
       // Wire up the section
-      initSection(`#${panel.attr('id')}`);
+      const prefix = 'collapseSection'
+      let sectionId = panel.attr('id');
+      if (sectionId.startsWith(prefix)) {
+        sectionId = `${sectionId.replace(prefix, '')}_section_description`
+      }
+
+console.log(`Section: ${sectionId}`);
+
+      initSection(`#${sectionId}`);
     }
   });
 
@@ -161,5 +181,6 @@ $(() => {
     initSection(`#${currentSection.attr('id')}`);
   }
   // Handle the new section
-  initSection('#new_section_new_section');
+  // initSection('#new_section_section_description');
+  Tinymce.init({ selector: '#new_section_section_description' });
 });
