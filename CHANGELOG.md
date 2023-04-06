@@ -26,6 +26,10 @@
   - Created UI to save preferred Licenses for a Template
 - Created table template_output_types
   - Created UI to save preferred Output Types for a Template
+- Created table template_repositories
+  - Customize modal search to populate this relation
+- Created table template_metadata_standards
+  - Customize modal search to populate this relation
 
 ### v4.0.8
 

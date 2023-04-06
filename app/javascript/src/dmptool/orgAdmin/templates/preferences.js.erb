@@ -183,3 +183,31 @@ $(() => {
     return false;
   });
 });
+
+$(() => {
+  function setModalButtonRepo() {
+    if ($('#template_customize_repositories:checked').is('*')){
+      $('#prefs-repositories').show();
+    } else {
+      $('#prefs-repositories').hide();
+    }
+  }
+  $('#template_customize_repositories').on('change', (e) => {
+    setModalButtonRepo();
+  });
+  setModalButtonRepo();
+});
+
+$(() => {
+  function setModalButtonMetadata() {
+    if ($('#template_customize_metadata_standards:checked').is('*')){
+      $('#prefs-metadata_standards').show();
+    } else {
+      $('#prefs-metadata_standards').hide();
+    }
+  }
+  $('#template_customize_metadata_standards').on('change', (e) => {
+    setModalButtonMetadata();
+  });
+  setModalButtonMetadata();
+});

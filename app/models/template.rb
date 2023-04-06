@@ -536,6 +536,18 @@ class Template < ApplicationRecord
     end
   end
 
+  def repositories_attributes=(params)
+    params.each do |_i, repository_params|
+      repositories << Repository.find_by(id: repository_params[:id])
+    end
+  end
+
+  def metadata_standards_attributes=(params)
+    params.each do |_i, metadata_standard_params|
+      metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
+    end
+  end
+
   private
 
   # ============================
