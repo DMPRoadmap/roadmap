@@ -7,7 +7,7 @@
   %>
 
   <span class="col-md-5">
-    <%= select_tag :"research_output[subject_filter]",
+    <%= select_tag :"template[subject_filter]",
                    options_for_select(ResearchOutputPresenter.selectable_subjects),
                    include_blank: _("- Select a subject area -"),
                    class: "form-control",
@@ -17,7 +17,7 @@
   </span>
 
   <span class="col-md-5">
-    <%= select_tag :"research_output[type_filter]",
+    <%= select_tag :"template[type_filter]",
                    options_for_select(ResearchOutputPresenter.selectable_repository_types),
                    include_blank: _("- Select a repository type -"),
                    class: "form-control",
@@ -32,8 +32,8 @@
              namespace: "repositories",
              label: "Repository",
              search_examples: "(e.g. DNA, titanium, FAIR, etc.)",
-             model_instance: research_output,
-             search_path: plan_repository_search_path(research_output.plan),
+             model_instance: template,
+             search_path: repository_search_org_admin_template_path(template),
              search_method: :get,
-             guidance: research_output.plan.template.user_guidance_repositories
+             guidance: ''
            } %>

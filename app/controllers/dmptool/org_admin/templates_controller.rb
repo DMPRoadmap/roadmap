@@ -57,18 +57,18 @@ module Dmptool
       end
 
       def repository_search
-        template = Template.find(params[:id])
+        @template = Template.find(params[:id])
         authorize Template
 
         @search_results = Repository.by_type(repo_search_params[:type_filter])
         @search_results = @search_results.by_subject(repo_search_params[:subject_filter])
         @search_results = @search_results.search(repo_search_params[:search_term])
     
-        @search_results = @search_results.order(:name).page(params[:page])
+        @search_results = @search_results.order(:name).page(params[:page])   
       end
 
       def metadata_standard_search
-        template = Template.find(params[:id])
+        @template = Template.find(params[:id])
         authorize Template
 
         @search_results = MetadataStandard.search(metadata_standard_search_params[:search_term])
@@ -79,11 +79,11 @@ module Dmptool
       private
 
       def repo_search_params
-        params.permit(%i[search_term subject_filter type_filter])
+        params.require(:template).permit(%i[search_term subject_filter type_filter])
       end
 
       def metadata_standard_search_params
-        params.permit(%i[search_term])
+        params.require(:template).permit(%i[search_term])
       end
 
       def preference_params
