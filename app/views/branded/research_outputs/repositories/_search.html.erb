@@ -35,5 +35,6 @@
              model_instance: research_output,
              search_path: plan_repository_search_path(research_output.plan),
              search_method: :get,
-             guidance: research_output.plan.template.user_guidance_repositories
+             guidance: research_output.plan.template.user_guidance_repositories,
+             preload: research_output.plan.template.preload_repositories?
            } %>

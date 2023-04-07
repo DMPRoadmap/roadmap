@@ -298,6 +298,14 @@ class Template < ApplicationRecord
     end
   end
 
+  def preload_repositories?
+    template_repositories.any? && template_repositories.length < 10
+  end
+
+  def preload_metadata_standards?
+    template_repositories.any? && template_repositories.length < 10
+  end
+
   # Retrieves the latest templates, i.e. those with maximum version associated.
   # It can be filtered down if family_id is passed. NOTE, the template objects
   # instantiated only contain version and family attributes populated. See

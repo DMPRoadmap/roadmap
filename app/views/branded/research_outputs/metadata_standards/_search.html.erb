@@ -12,5 +12,6 @@
              model_instance: research_output,
              search_path: plan_metadata_standard_search_path(research_output.plan),
              search_method: :get,
-             guidance: research_output.plan.template.user_guidance_metadata_standards
+             guidance: research_output.plan.template.user_guidance_metadata_standards,
+             preload: research_output.plan.template.preload_metadata_standards?
            } %>

@@ -59,6 +59,8 @@ no_results_msg = _("No results matched your filter criteria.")
         <% end %>
       <% end %>
 
+      <input type="hidden" id="preload-modal-list" value="<% if defined? preload %><%= preload ? 1 : 0 %>"<% end %>/>
+      
       <div class="modal-body">
         <%# Search filters %>
         <%= form_with model: model_instance, url: search_path, method: search_method, local: false,
