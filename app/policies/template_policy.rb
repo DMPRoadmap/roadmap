@@ -21,6 +21,10 @@ class TemplatePolicy < ApplicationPolicy
     @user.can_modify_templates?
   end
 
+  def define_custom_repository?
+    @user.can_modify_templates?
+  end
+
   def organisational?
     @user.can_modify_templates?
   end

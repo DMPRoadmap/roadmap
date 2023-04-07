@@ -60,6 +60,11 @@ module Dmptool
       end
       # rubocop:enable Metrics/AbcSize
 
+      def define_custom_repository
+        @template = Template.find(params[:id])
+        authorize Template
+      end
+
       # rubocop:disable Metrics/AbcSize
       def repository_search
         @template = Template.find(params[:id])

@@ -96,8 +96,11 @@
   <div class="col-md-12">
     <%= f.check_box :customize_repositories, style: 'width: auto' %>
     <%= f.label :customize_repositories, _('Require reserachers to select from a specific list?'), class: 'control-label' %>
-    <div id="prefs-repositories">
-      <%= render partial: "layouts/modal_search/selections",
+  </div>
+  <div id="prefs-repositories">
+    <div class="col-md-12">
+      <div>
+        <%= render partial: "layouts/modal_search/selections",
                 locals: {
                   namespace: "repositories",
                   button_label: _("Add a repository"),
@@ -110,6 +113,11 @@
                   guidance: '',
                   preload: false
                 } %>
+      </div>
+      <div>
+        <%= button_tag _("Define a Custom Repository"), type: "button", class: "btn btn-default",
+                   data: { toggle: "modal", target: "#modal-define-custom-repository" } %>
+      <div>
     </div>
   </div>
 </div>
@@ -231,5 +239,7 @@
 <% end %>
 
 <%= render partial: "org_admin/templates/repositories/search", locals: { template: template } %>
+
+<%= render partial: "org_admin/templates/repositories/define_custom", locals: { template: template } %>
 
 <%= render partial: "org_admin/templates/metadata_standards/search", locals: { template: template } %>
