@@ -98,8 +98,8 @@ class Repository < ApplicationRecord
   # = Scopes =
   # ==========
 
-  scope :by_template, lambda {|template_id|
-    joins(:templates).where("templates.id = :template_id", template_id: template_id)
+  scope :by_template, lambda { |template_id|
+    joins(:templates).where('templates.id = :template_id', template_id: template_id)
   }
 
   scope :by_type, lambda { |type|
