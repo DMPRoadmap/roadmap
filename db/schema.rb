@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_04_231434) do
+ActiveRecord::Schema.define(version: 2023_04_07_233805) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -526,8 +526,10 @@ ActiveRecord::Schema.define(version: 2023_04_04_231434) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uri", null: false
+    t.integer "custom_repository_owner_template_id", null: true
     t.index ["homepage"], name: "index_repositories_on_homepage"
     t.index ["name"], name: "index_repositories_on_name"
+    t.index ["custom_repository_owner_template_id"], name: "index_custom_repository_owner_template_id"
   end
 
   create_table "repositories_research_outputs", force: :cascade do |t|
