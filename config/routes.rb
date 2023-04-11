@@ -398,8 +398,17 @@ Rails.application.routes.draw do
                                           controller: 'template_customization_transfers'
 
       member do
+        # ------------------------------------------
+        # Start DMPTool customizations
+        # ------------------------------------------
+        # DMPTool Template Preferences
         get 'preferences'
         patch 'preferences', action: :save_preferences
+        get :repository_search
+        get :metadata_standard_search
+        # ------------------------------------------
+        # End DMPTool customizations
+        # ------------------------------------------
         get 'history'
         get 'email'
         get 'template_export', action: :template_export

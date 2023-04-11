@@ -22,6 +22,14 @@
 - Updated the ResearchOutput model (and RSpec factory and tests) to use new field
 - Replaced the old `output_types` enum on the ResearchOutput model with `DEFAULT_OUTPUT_TYPES` array
 - Updated presenters (and RSpec tests) and controller to work with the new field
+- Created table template_licenses
+  - Created UI to save preferred Licenses for a Template
+- Created table template_output_types
+  - Created UI to save preferred Output Types for a Template
+- Created table template_repositories
+  - Customize modal search to populate this relation
+- Created table template_metadata_standards
+  - Customize modal search to populate this relation
 
 ### v4.0.8
 

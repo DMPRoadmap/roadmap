@@ -92,10 +92,15 @@ class Repository < ApplicationRecord
   # ================
 
   has_and_belongs_to_many :research_outputs
+  has_and_belongs_to_many :templates, join_table: :template_repositories
 
   # ==========
   # = Scopes =
   # ==========
+
+  scope :by_template, lambda { |template_id|
+    joins(:templates).where('templates.id = :template_id', template_id: template_id)
+  }
 
   scope :by_type, lambda { |type|
     where(safe_json_where_clause(column: 'info', hash_key: 'types'), "%#{type}%")

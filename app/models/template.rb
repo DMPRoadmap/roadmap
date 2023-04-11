@@ -78,6 +78,8 @@ class Template < ApplicationRecord
   attribute :customize_metadata_standards, :boolean, default: false
   attribute :customize_licenses, :boolean, default: false
   attribute :user_guidance_output_types, :text, default: nil
+  attribute :user_guidance_output_types_title, :text, default: nil
+  attribute :user_guidance_output_types_description, :text, default: nil
   attribute :user_guidance_repositories, :text, default: nil
   attribute :user_guidance_metadata_standards, :text, default: nil
   attribute :user_guidance_licenses, :text, default: nil
@@ -105,6 +107,18 @@ class Template < ApplicationRecord
   has_many :template_output_types
 
   accepts_nested_attributes_for :template_output_types
+
+  has_many :template_licenses
+
+  has_many :licenses, through: :template_licenses
+
+  has_many :template_repositories
+
+  has_many :repositories, through: :template_repositories
+
+  has_many :template_metadata_standards
+
+  has_many :metadata_standards, through: :template_metadata_standards
 
   # ----------------------------------------
   # Start DMPTool Customization
@@ -282,6 +296,14 @@ class Template < ApplicationRecord
     else
       raise _('A historical template cannot be retrieved for being modified')
     end
+  end
+
+  def preload_repositories?
+    template_repositories.any? && template_repositories.length < 10
+  end
+
+  def preload_metadata_standards?
+    template_repositories.any? && template_repositories.length < 10
   end
 
   # Retrieves the latest templates, i.e. those with maximum version associated.
@@ -513,6 +535,24 @@ class Template < ApplicationRecord
     loop do
       random = rand 2_147_483_647
       break random unless Template.exists?(family_id: random)
+    end
+  end
+
+  def licenses_attributes=(params)
+    params.each do |_i, license_params|
+      licenses << License.find_by(id: license_params[:id])
+    end
+  end
+
+  def repositories_attributes=(params)
+    params.each do |_i, repository_params|
+      repositories << Repository.find_by(id: repository_params[:id])
+    end
+  end
+
+  def metadata_standards_attributes=(params)
+    params.each do |_i, metadata_standard_params|
+      metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
     end
   end
 

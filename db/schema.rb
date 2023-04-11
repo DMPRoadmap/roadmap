@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_23_000459) do
+ActiveRecord::Schema.define(version: 2023_04_04_231434) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -635,6 +635,13 @@ ActiveRecord::Schema.define(version: 2023_03_23_000459) do
     t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
   end
 
+  create_table "template_licenses", id: :integer, force: :cascade do |t|
+    t.integer "template_id"
+    t.bigint "license_id"
+    t.index ["template_id"], name: "index_template_licences_on_template_id"
+    t.index ["license_id"], name: "index_template_licences_on_license_id"
+  end
+
   create_table "template_output_types", id: :integer, force: :cascade do |t|
     t.integer "template_id"
     t.string "research_output_type"
@@ -661,6 +668,8 @@ ActiveRecord::Schema.define(version: 2023_03_23_000459) do
     t.integer "sponsor_id"
     t.boolean "enable_research_outputs", default: true
     t.text "user_guidance_output_types"
+    t.text "user_guidance_output_types_title"
+    t.text "user_guidance_output_types_description"
     t.text "user_guidance_repositories"
     t.text "user_guidance_metadata_standards"
     t.text "user_guidance_licenses"
@@ -672,6 +681,20 @@ ActiveRecord::Schema.define(version: 2023_03_23_000459) do
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
     t.index ["org_id"], name: "index_templates_on_org_id"
+  end
+
+  create_table "template_repositories", id: :integer, force: :cascade do |t|
+    t.integer "template_id"
+    t.bigint "repository_id"
+    t.index ["template_id"], name: "index_template_repositories_on_template_id"
+    t.index ["repository_id"], name: "index_template_repositories_on_repository_id"
+  end
+
+  create_table "template_metadata_standards", id: :integer, force: :cascade do |t|
+    t.integer "template_id"
+    t.bigint "metadata_standard_id"
+    t.index ["template_id"], name: "index_template_metadata_standard_son_template_id"
+    t.index ["metadata_standard_id"], name: "index_template_metadata_standards_on_metadata_standard_id"
   end
 
   create_table "themes", id: :integer, force: :cascade do |t|
@@ -786,6 +809,9 @@ ActiveRecord::Schema.define(version: 2023_03_23_000459) do
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
   add_foreign_key "templates", "orgs"
+  add_foreign_key "template_licenses", "templates"
+  add_foreign_key "template_licenses", "licenses"
+  add_foreign_key "template_output_types", "templates"
   add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"
   add_foreign_key "trackers", "orgs"

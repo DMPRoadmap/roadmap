@@ -109,7 +109,12 @@ class ResearchOutputsController < ApplicationController
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
-    @search_results = Repository.by_type(repo_search_params[:type_filter])
+    @search_results = Repository.by_template(@plan.template.id)
+    @search_results = if @search_results.any?
+                        @search_results.by_type(repo_search_params[:type_filter])
+                      else
+                        Repository.by_type(repo_search_params[:type_filter])
+                      end
     @search_results = @search_results.by_subject(repo_search_params[:subject_filter])
     @search_results = @search_results.search(repo_search_params[:search_term])
 
@@ -134,15 +139,24 @@ class ResearchOutputsController < ApplicationController
   end
 
   # GET /plans/:id/metadata_standard_search
+  # rubocop:disable Metrics/AbcSize
   def metadata_standard_search
     @plan = Plan.find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
-    @search_results = MetadataStandard.search(metadata_standard_search_params[:search_term])
-                                      .order(:title)
-                                      .page(params[:page])
+    @search_results = MetadataStandard.by_template(@plan.template.id)
+    @search_results = if @search_results.any?
+                        @search_results.search(metadata_standard_search_params[:search_term])
+                                       .order(:title)
+                                       .page(params[:page])
+                      else
+                        MetadataStandard.search(metadata_standard_search_params[:search_term])
+                                        .order(:title)
+                                        .page(params[:page])
+                      end
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
