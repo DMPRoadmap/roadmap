@@ -114,13 +114,30 @@
                   preload: false
                 } %>
       </div>
-      <div>
-        <%= button_tag _("Define a Custom Repository"), type: "button", class: "btn btn-default",
-                   data: { toggle: "modal", target: "#modal-define-custom-repository" } %>
-      <div>
     </div>
   </div>
 </div>
+
+<h2 class="prefs_option">Customized repositories</h2>
+<div class="row prefs_option">
+  <div>
+    <% template.customized_repositories.each do |r| %>
+      <div>
+      <%= f.hidden_field "customized_repositories_attributes[#{r.id}][id]", id: "customized_repositories_id_#{r.id}", value: r.id, class: 'customized_repositories' %>
+      <%= f.hidden_field "customized_repositories_attributes[#{r.id}][name]", id: "customized_repositories_name_#{r.id}", value: r.name %>
+      <%= f.hidden_field "customized_repositories_attributes[#{r.id}][description]", id: "customized_repositories_description_#{r.id}", value: r.description %>
+      <%= f.hidden_field "customized_repositories_attributes[#{r.id}][uri]", id: "customized_repositories_uri_#{r.id}", value: r.uri %>
+      </div>
+    <% end %>
+  </div>
+  <div class="customized_repositories col-md-12">
+  </div>
+  <div class="col-md-12">
+        <%= button_tag _("Define a Custom Repository"), type: "button", class: "btn btn-default",
+                   data: { toggle: "modal", target: "#modal-define-custom-repository" } %>
+  </div>
+</div>
+
 
 <div class="row prefs_option">
   <div class="col-md-12">
@@ -143,7 +160,7 @@
                 locals: {
                   namespace: "metadata_standards",
                   button_label: _("Add a metadata standard"),
-                  item_name_attr: :name,
+                  item_name_attr: :title,
                   results: template.metadata_standards,
                   selected: true,
                   result_partial: "org_admin/templates/metadata_standards/search_result",

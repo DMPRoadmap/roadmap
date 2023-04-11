@@ -1,4 +1,5 @@
 import { Tinymce } from '../../../utils/tinymce';
+import getConstant from '../../../utils/constants';
 
 $(() => {
   if ($('#template_user_guidance_repositories').length > 0) {
@@ -63,7 +64,7 @@ $(() => {
     const vclass = checkOutputType('#default-output-types', vnormDisp) ? 'standard' : 'custom';
     const li = $('<li/>').addClass('selectable_item').addClass('output_type').addClass(vclass)
       .appendTo('#my-output-types ul');
-    const a = $('<a/>').attr('aria-label', "Remove this output type").addClass('output_type_remove').appendTo(li);
+    const a = $('<a/>').attr('aria-label', getConstant('PREFS_REMOVE_OUTPUT_TYPE')).addClass('output_type_remove').appendTo(li);
     a.on('click', (e) => {
       e.stopPropagation();
       $(e.currentTarget).parents('li.output_type').remove();
@@ -144,7 +145,7 @@ $(() => {
     const vclass = checkLicense('#default-licenses', id) ? 'standard' : 'custom';
     const li = $('<li/>').addClass('selectable_item').addClass('license').addClass(vclass)
       .appendTo('#my-licenses ul');
-    const a = $('<a/>').attr('aria-label', "Remove this license").addClass('license_remove').appendTo(li);
+    const a = $('<a/>').attr('aria-label', getConstant('PREFS_REMOVE_LICENSE')).addClass('license_remove').appendTo(li);
     a.on('click', (e) => {
       e.stopPropagation();
       $(e.currentTarget).parents('li.license').remove();
@@ -186,7 +187,7 @@ $(() => {
 
 $(() => {
   function setModalButtonRepo() {
-    if ($('#template_customize_repositories:checked').is('*')){
+    if ($('#template_customize_repositories:checked').is('*')) {
       $('#prefs-repositories').show();
     } else {
       $('#prefs-repositories').hide();
@@ -200,7 +201,7 @@ $(() => {
 
 $(() => {
   function setModalButtonMetadata() {
-    if ($('#template_customize_metadata_standards:checked').is('*')){
+    if ($('#template_customize_metadata_standards:checked').is('*')) {
       $('#prefs-metadata_standards').show();
     } else {
       $('#prefs-metadata_standards').hide();
@@ -213,41 +214,130 @@ $(() => {
 });
 
 $(() => {
-  function check(sel_enable, sel_count, msg) {
-    if ($(sel_enable).is("*")){
-      if ($(sel_count).length == 0) {
+  function check(selEnable, selCount, msg) {
+    if ($(selEnable).is('*')) {
+      if ($(selCount).length === 0) {
         alert(msg);
         return false;
       }
     }
     return true;
-  } 
+  }
 
   $('form.edit_template').on('submit', (e) => {
     let b = true;
-    b = b & check(
-      "#customize_output_types_sel option[value!='0']:selected",
-      "input.output_type[type='hidden']:enabled",
-      "At least one preferred OUTPUT TYPE must be selected if you are enabling a preferred list."
+    b = b && check(
+      '#customize_output_types_sel option[value!="0"]:selected',
+      'input.output_type[type="hidden"]:enabled',
+      getConstant('PREFS_REQ_OUTPUT_TYPE'),
     );
-    b = b & check(
+    b = b && check(
       '#template_customize_repositories:checked',
       '#modal-search-repositories-selections div.modal-search-result-label',
-      "At least one preferred REPOSITORY must be selected if you are enabling a preferred list."
+      getConstant('PREFS_REQ_REPOSITORY'),
     );
-    b = b & check(
+    b = b && check(
       '#template_customize_metadata_standards:checked',
       '#modal-search-metadata_standards-selections div.modal-search-result-label',
-      "At least one preferred METADATA STANDARD must be selected if you are enabling a preferred list."
+      getConstant('PREFS_REQ_METADATA_STANDARDS'),
     );
-    b = b & check(
-      "#customize_licenses_sel option[value!='0']:selected",
-      "#my-licenses input.license[type='hidden']:enabled",
-      "At least one preferred LICENSE must be selected if you are enabling a preferred list."
+    b = b && check(
+      '#customize_licenses_sel option[value!="0"]:selected',
+      '#my-licenses input.license[type="hidden"]:enabled',
+      getConstant('PREFS_REQ_LICENSE'),
     );
     if (!b) {
       e.stopPropagation();
       e.preventDefault();
     }
-  })
-})
+  });
+});
+
+$(() => {
+  function showCustomRepositoryData(id, name, description, uri) {
+    const dispdiv = $('<div/>').addClass('col-md-12').appendTo('div.customized_repositories');
+    if (id !== '') {
+      dispdiv.attr('id', id);
+    }
+    const divsr = $('<div/>').addClass('col-md-12').addClass('modal-search-result').appendTo(dispdiv);
+    const divlabel = $('<div/>').addClass('modal-search-result-label').text(name).appendTo(divsr);
+    if (id === '') {
+      const sid = $('input.custom_repository_seq').length + 1000000;
+      $('<input/>').attr('type', 'hidden')
+        .attr('name', `template[customized_repositories_attributes[${sid}][name]]`)
+        .addClass('custom_repository_seq')
+        .val(name)
+        .appendTo(divsr);
+      $('<input/>').attr('type', 'hidden')
+        .attr('name', `template[customized_repositories_attributes[${sid}][description]]`)
+        .val(description)
+        .appendTo(divsr);
+      $('<input/>').attr('type', 'hidden')
+        .attr('name', `template[customized_repositories_attributes[${sid}][uri]]`)
+        .val(uri)
+        .appendTo(divsr);
+    } else {
+      $(`#customized_repositories_id_${id}`).appendTo(divsr);
+      $(`#customized_repositories_name_${id}`).appendTo(divsr);
+      $(`#customized_repositories_description_${id}`).appendTo(divsr);
+      $(`#customized_repositories_uri_${id}`).appendTo(divsr);
+    }
+    $('<a/>').addClass('modal-search-result-unselector')
+      .attr('title', `Click to remove ${name}`)
+      .attr('href', '#')
+      .text(getConstant('PREFS_REMOVE'))
+      .appendTo(divlabel);
+    $('<p/>').text(description).appendTo(divsr);
+    const p = $('<p/>').appendTo(divsr);
+    $('<a/>').attr('href', uri).text(uri).appendTo(p);
+    return divsr;
+  }
+
+  function showCustomRepository(id, name, description, uri) {
+    if ($(`#customized_repositories_id_${id}`).is('*')) {
+      const disp = `customized_repositories_display_${id}`;
+      const dispid = `#${disp}`;
+      if (!$(dispid).is('*')) {
+        showCustomRepositoryData(id, name, description, uri);
+      }
+    }
+  }
+
+  function trimmedVal(sel) {
+    return $(sel).val().replace(/^\s+/, '').replace(/\s+$/, '');
+  }
+
+  function checkEmpty(sel) {
+    return trimmedVal(sel) === '';
+  }
+  const crs = $('input.customized_repositories');
+  crs.each((n) => {
+    const id = $(crs.get(n)).val();
+    showCustomRepository(
+      id,
+      $(`#customized_repositories_name_${id}`).val(),
+      $(`#customized_repositories_description_${id}`).val(),
+      $(`#customized_repositories_uri_${id}`).val(),
+    );
+  });
+
+  $('.custrepo').on('blur keypress', () => {
+    const d = checkEmpty('#template_custom_repo_name')
+            || checkEmpty('#template_custom_repo_description')
+            || checkEmpty('#template_custom_repo_uri');
+    $('#save_custom_repository').attr('disabled', d);
+  });
+
+  $('#save_custom_repository').on('click', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    showCustomRepositoryData(
+      '',
+      trimmedVal('#template_custom_repo_name'),
+      trimmedVal('#template_custom_repo_description'),
+      trimmedVal('#template_custom_repo_uri'),
+    );
+    $('.custrepo').val('');
+    $('button.close').trigger('click');
+  });
+});
