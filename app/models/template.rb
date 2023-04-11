@@ -563,7 +563,12 @@ class Template < ApplicationRecord
         customized_repositories << Repository.new(
           name: repository_params[:name],
           description: repository_params[:description],
-          uri: repository_params[:uri]
+          uri: repository_params[:uri],
+          info: {
+            types: [''],
+            subjects: [''],
+            upload_types: []
+          }.to_json
         )
       end
     end

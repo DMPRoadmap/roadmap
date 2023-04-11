@@ -109,12 +109,12 @@ class ResearchOutputsController < ApplicationController
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
-    @search_results = Repository.by_template(@plan.template.id)
-    @search_results = if @search_results.any?
-                        @search_results.by_type(repo_search_params[:type_filter])
+    @search_results = if @plan.template.template_repositories.any?
+                        Repository.preferred_or_custom_by_template(@plan.template.id)
                       else
-                        Repository.by_type(repo_search_params[:type_filter])
+                        Repository.standard_or_custom_by_template(@plan.template.id)
                       end
+    @search_results = @search_results.by_type(repo_search_params[:type_filter])
     @search_results = @search_results.by_subject(repo_search_params[:subject_filter])
     @search_results = @search_results.search(repo_search_params[:search_term])
 
