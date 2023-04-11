@@ -30,6 +30,9 @@
   - Customize modal search to populate this relation
 - Created table template_metadata_standards
   - Customize modal search to populate this relation
+- Modify repositories table to allow for the definition of customized repositories for a template.
+  - UI to create customized repositories
+  - UI to select customized, preferred and/or standard repositories for a research output.
 
 ### v4.0.8
 
