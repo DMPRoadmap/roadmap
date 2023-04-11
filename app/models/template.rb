@@ -112,9 +112,14 @@ class Template < ApplicationRecord
 
   has_many :licenses, through: :template_licenses
 
+  # preferred repository relationship - repositories can be used by many templates
   has_many :template_repositories
 
+  # preferred repository relationship - repositories can be used by many templates
   has_many :repositories, through: :template_repositories
+
+  # customized repository relationship - customized repositories belong to a single template
+  has_many :customized_repositories, foreign_key: 'custom_repository_owner_template_id', class_name: 'Repository'
 
   has_many :template_metadata_standards
 
@@ -303,7 +308,7 @@ class Template < ApplicationRecord
   end
 
   def preload_metadata_standards?
-    template_repositories.any? && template_repositories.length < 10
+    template_metadata_standards.any? && template_metadata_standards.length < 10
   end
 
   # Retrieves the latest templates, i.e. those with maximum version associated.
@@ -547,6 +552,25 @@ class Template < ApplicationRecord
   def repositories_attributes=(params)
     params.each do |_i, repository_params|
       repositories << Repository.find_by(id: repository_params[:id])
+    end
+  end
+
+  def customized_repositories_attributes=(params)
+    params.each do |_i, repository_params|
+      if repository_params[:id]
+        customized_repositories << Repository.find_by(id: repository_params[:id])
+      elsif repository_params[:name]
+        customized_repositories << Repository.new(
+          name: repository_params[:name],
+          description: repository_params[:description],
+          uri: repository_params[:uri],
+          info: {
+            types: [''],
+            subjects: [''],
+            upload_types: []
+          }.to_json
+        )
+      end
     end
   end
 

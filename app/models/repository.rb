@@ -98,8 +98,37 @@ class Repository < ApplicationRecord
   # = Scopes =
   # ==========
 
-  scope :by_template, lambda { |template_id|
-    joins(:templates).where('templates.id = :template_id', template_id: template_id)
+  scope :preferred_by_template, lambda { |template_id|
+    where(%{
+      exists (
+        select 1
+        from template_repositories tr
+        where tr.template_id=:template_id
+        and tr.repository_id=repositories.id
+      )
+    },
+          template_id: template_id)
+  }
+
+  scope :custom_by_template, lambda { |template_id|
+    where(%(custom_repository_owner_template_id=:template), template_id: template_id)
+  }
+
+  scope :preferred_or_custom_by_template, lambda { |template_id|
+    where(%{
+      custom_repository_owner_template_id=:template_id OR exists (
+        select 1
+        from template_repositories tr
+        where tr.template_id=:template_id
+        and tr.repository_id=repositories.id
+      )
+    },
+          template_id: template_id)
+  }
+
+  scope :standard_or_custom_by_template, lambda { |template_id|
+    where(%(custom_repository_owner_template_id=:template_id OR custom_repository_owner_template_id is null),
+          template_id: template_id)
   }
 
   scope :by_type, lambda { |type|

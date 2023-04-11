@@ -406,6 +406,7 @@ Rails.application.routes.draw do
         patch 'preferences', action: :save_preferences
         get :repository_search
         get :metadata_standard_search
+        put :define_custom_repository
         # ------------------------------------------
         # End DMPTool customizations
         # ------------------------------------------

@@ -32,6 +32,7 @@ module Dmptool
       def preferences
         template = Template.find(params[:id])
         authorize Template
+
         render 'preferences', locals: {
           partial_path: 'edit',
           template: template,
@@ -51,7 +52,8 @@ module Dmptool
         args[:customize_output_types] = params[:customize_output_types_sel] != '0'
         args[:customize_licenses] = params[:customize_licenses_sel] != '0'
         Template.transaction do
-          template.update(template_output_types: [], licenses: [], repositories: [], metadata_standards: [])
+          template.update(template_output_types: [], licenses: [], repositories: [], customized_repositories: [],
+                          metadata_standards: [])
           template.update(args)
           template.update(repositories: []) if preference_params[:customize_repositories] == '0'
           template.update(metadata_standards: []) if preference_params[:customize_metadata_standards] == '0'
@@ -59,6 +61,13 @@ module Dmptool
         preferences
       end
       # rubocop:enable Metrics/AbcSize
+
+      def define_custom_repository
+        @template = Template.find(params[:id])
+        authorize Template
+
+        preferences
+      end
 
       # rubocop:disable Metrics/AbcSize
       def repository_search
@@ -101,7 +110,10 @@ module Dmptool
           :customize_output_types, :customize_repositories,
           :customize_metadata_standards, :customize_licenses,
           template_output_types_attributes: %i[id research_output_type],
-          licenses_attributes: %i[id], repositories_attributes: %i[id], metadata_standards_attributes: %i[id]
+          licenses_attributes: %i[id],
+          repositories_attributes: %i[id],
+          customized_repositories_attributes: %i[id name description uri],
+          metadata_standards_attributes: %i[id]
         )
       end
     end
