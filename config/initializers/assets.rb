@@ -19,11 +19,11 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules/@fortawes
 puts "Copying Bootstrap glyphicons to the public directory ..."
 source_dir = Dir.glob(Rails.root.join('node_modules', 'bootstrap', 'fonts', 'glyphicons-halflings-regular.*'))
 destination_dir = Rails.root.join('public', 'fonts', 'bootstrap')
-Dir.mkdir(destination_dir) unless Dir.exists?(destination_dir)
+FileUtils.mkdir_p(destination_dir)
 FileUtils.cp_r(source_dir, destination_dir)
 
 puts "Copying TinyMCE skins to the public directory ..."
 source_dir = Dir.glob(Rails.root.join('node_modules', 'tinymce', 'skins', 'ui', 'oxide'))
 destination_dir = Rails.root.join('public', 'tinymce', 'skins')
-Dir.mkdir(destination_dir) unless Dir.exists?(destination_dir)
+FileUtils.mkdir_p(destination_dir)
 FileUtils.cp_r(source_dir, destination_dir)
