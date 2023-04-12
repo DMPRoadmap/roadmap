@@ -1,3 +1,6 @@
+@use '../variables/colours' as *;
+@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
+
 // Override FontAwesome icons
 
 /* FONTAWESOME STYLING */
@@ -5,7 +8,7 @@
   font-size: 1.7rem;
 }
 .fa-reverse {
-  color: $color-seccondary-text;
+  color: $color-secondary-text;
 }
 .fa-sort, .fa-sort-up, .fa-sort-down {
   color: $color-primary-text;

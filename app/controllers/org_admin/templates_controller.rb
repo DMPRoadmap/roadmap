@@ -18,7 +18,7 @@ module OrgAdmin
     def index
       authorize Template
       templates = Template.latest_version.where(customization_of: nil)
-      published = templates.select { |t| t.published? || t.draft? }.length
+      published = templates.count { |t| t.published? || t.draft? }
 
       @orgs              = Org.includes(identifiers: :identifier_scheme).managed
       @title             = _('All Templates')
@@ -43,7 +43,7 @@ module OrgAdmin
       authorize Template
       templates = Template.latest_version_per_org(current_user.org.id)
                           .where(customization_of: nil, org_id: current_user.org.id)
-      published = templates.select { |t| t.published? || t.draft? }.length
+      published = templates.count { |t| t.published? || t.draft? }
 
       @orgs  = Org.includes(identifiers: :identifier_scheme).all if current_user.can_super_admin?
       @title = if current_user.can_super_admin?
@@ -81,7 +81,7 @@ module OrgAdmin
       customizations = customizations.select do |t|
         funder_template_families.include?(t.customization_of)
       end
-      published = customizations.select { |t| t.published? || t.draft? }.length
+      published = customizations.count { |t| t.published? || t.draft? }
 
       @orgs  = Org.includes(identifiers: :identifier_scheme).all if current_user.can_super_admin?
       @title = _('Customizable Templates')
@@ -336,7 +336,7 @@ module OrgAdmin
       @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
       begin
-        safe_title = @template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, '_')
+        safe_title = @template.title.gsub(/[^a-zA-Z\d\s]/, '').tr(' ', '_')
         file_name = "#{safe_title}_v#{@template.version}"
         respond_to do |format|
           format.docx do

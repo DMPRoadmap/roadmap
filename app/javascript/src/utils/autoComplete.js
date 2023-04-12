@@ -1,4 +1,4 @@
-import 'jquery-ui/autocomplete';
+import 'jquery-ui/ui/widgets/autocomplete';
 import getConstant from './constants';
 import toggleConditionalFields from './conditionalFields';
 import toggleSpinner from './spinner';

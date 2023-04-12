@@ -109,6 +109,8 @@ RSpec.describe Question do
 
     let!(:options) { {} }
 
+    subject { question.deep_copy(**options) }
+
     context 'when no options are provided' do
       before do
         create_list(:question_option, 4, question: question)
