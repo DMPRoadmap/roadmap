@@ -5,7 +5,7 @@
 </h4>
 
 <%= form_for(question, url: url,
-                       namespace: question.id.present? ? question.id : 'new_question',
+                       namespace: question.id.present? ? "q_#{question.id}" : 'new_question',
                        html: { method: method, class: 'question_form' }) do |f| %>
 
   <% current_format = question.question_format.present? ? question.question_format : QuestionFormat.find_by(formattype: QuestionFormat.formattypes[:textarea]) %>
