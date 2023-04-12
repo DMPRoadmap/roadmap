@@ -93,6 +93,8 @@ class Repository < ApplicationRecord
 
   has_and_belongs_to_many :research_outputs
   has_and_belongs_to_many :templates, join_table: :template_repositories
+  attribute :custom_repository_owner_template_id
+
 
   # ==========
   # = Scopes =
@@ -116,19 +118,21 @@ class Repository < ApplicationRecord
 
   scope :preferred_or_custom_by_template, lambda { |template_id|
     where(%{
-      custom_repository_owner_template_id=:template_id OR exists (
-        select 1
-        from template_repositories tr
-        where tr.template_id=:template_id
-        and tr.repository_id=repositories.id
+      (
+        custom_repository_owner_template_id=:template_id OR exists (
+          select 1
+          from template_repositories tr
+          where tr.template_id=:template_id
+          and tr.repository_id=repositories.id
+        )
       )
-    },
-          template_id: template_id)
+    }, template_id: template_id).order('custom_repository_owner_template_id desc, name desc')
   }
 
   scope :standard_or_custom_by_template, lambda { |template_id|
-    where(%(custom_repository_owner_template_id=:template_id OR custom_repository_owner_template_id is null),
-          template_id: template_id)
+    where(%{
+      (custom_repository_owner_template_id=:template_id OR custom_repository_owner_template_id is null)
+    }, template_id: template_id).order('custom_repository_owner_template_id desc, name')
   }
 
   scope :by_type, lambda { |type|

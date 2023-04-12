@@ -304,11 +304,11 @@ class Template < ApplicationRecord
   end
 
   def preload_repositories?
-    template_repositories.any? && template_repositories.length < 10
+    true
   end
 
   def preload_metadata_standards?
-    template_metadata_standards.any? && template_metadata_standards.length < 10
+    true
   end
 
   # Retrieves the latest templates, i.e. those with maximum version associated.
@@ -575,9 +575,12 @@ class Template < ApplicationRecord
 
   def customized_repositories_attributes=(params)
     params.each do |_i, repository_params|
+      repo = nil
       if repository_params[:id]
-        customized_repositories << Repository.find_by(id: repository_params[:id])
-      elsif repository_params[:name]
+        repo = Repository.find_by(id: repository_params[:id])
+        customized_repositories << repo unless repo.nil?
+      end
+      if repo.nil? && repository_params[:name]
         customized_repositories << Repository.new(
           name: repository_params[:name],
           description: repository_params[:description],
