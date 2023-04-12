@@ -16,6 +16,10 @@
 - Froze `lib/deprecators/*.rb` constants that were Strings
 - Updated places that were incorrectly using keyword args. See [this article](https://makandracards.com/makandra/496481-changes-to-positional-and-keyword-args-in-ruby-3-0) for an overview
 
+#### Upgraded TinyMCE
+
+- Upgraded TinyMCE to v6
+
 #### Removed webpacker gem
 
 As Webpacker is no longer maintained by the Rails community, we have replaced it by `jsbundling-rails` and `cssbundling-rails` for the Javascript & CSS compilation.
