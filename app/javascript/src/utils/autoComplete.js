@@ -1,4 +1,4 @@
-import 'jquery-ui/autocomplete';
+import 'jquery-ui/ui/widgets/autocomplete';
 import getConstant from './constants';
 import toggleConditionalFields from './conditionalFields';
 import toggleSpinner from './spinner';
@@ -210,6 +210,8 @@ export const initAutoComplete = (selector) => {
   const suggestions = relatedSuggestions(id);
   const checkbox = relatedNotInListCheckbox(id);
   const textbox = relatedCustomOrgField(id);
+
+console.log(`Initializing autocomplete for: ${selector}`);
 
   // Initialize the JQuery autocomplete functionality
   autocomplete.autocomplete({

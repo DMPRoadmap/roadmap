@@ -477,6 +477,7 @@ RSpec.describe Org do
     end
   end
 
+  # rubocop:disable Performance/RedundantMerge
   context ':merge!(to_be_merged:)' do
     before do
       @scheme = create(:identifier_scheme)
@@ -586,6 +587,7 @@ RSpec.describe Org do
       expect(described_class.find_by(id: original_id).present?).to be(false)
     end
   end
+  # rubocop:enable Performance/RedundantMerge
 
   context 'private methods' do
     describe ':merge_attributes!(to_be_merged:)' do

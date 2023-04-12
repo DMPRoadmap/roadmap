@@ -67,7 +67,7 @@ class ExportedPlan < ApplicationRecord
   end
 
   def owner
-    plan.roles.to_a.find(&:creator?).user
+    plan.roles.to_a.find(&:creator?)&.user
   end
 
   def funder

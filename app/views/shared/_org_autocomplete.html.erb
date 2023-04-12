@@ -62,7 +62,7 @@ user_entered = default_org.present? &&
     <%= org_fields.label :"#{[namespace, "name"].compact.join("_")}", label %>
 
     <%= org_fields.text_field :"#{[namespace, "name"].compact.join("_")}",
-                              class: "#{classes}",
+                              class: "auto-complete #{classes}",
                               placeholder: placeholder,
                               value: user_entered ? nil : default_org&.name,
                               list: "autocomplete-#{autocomplete_id}",
@@ -121,7 +121,7 @@ user_entered = default_org.present? &&
     <% end %>
 
     <script type="text/javascript">
-      initAutoComplete('#<%= ["org", "autocomplete", namespace, "name"].compact.join("_") %>');
+      // initAutoComplete('#<%= ["org", "autocomplete", namespace, "name"].compact.join("_") %>');
     </script>
   </div>
 <% end %>

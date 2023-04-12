@@ -1,4 +1,3 @@
-import { Tinymce } from '../utils/tinymce';
 import toggleConditionalFields from '../utils/conditionalFields';
 import getConstant from '../utils/constants';
 import toggleSpinner from '../utils/spinner';
@@ -10,8 +9,8 @@ $(() => {
   const form = $('form.edit_plan');
 
   if (form.length > 0) {
-    Tinymce.init({ selector: '#plan_description' });
-    Tinymce.init({ selector: '#plan_ethical_issues_description' });
+    Tinymce.init({ selector: 'textarea#plan_description' });
+    Tinymce.init({ selector: 'textarea#plan_ethical_issues_description' });
 
     $('#is_test').click((e) => {
       $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : 'privately_visible');

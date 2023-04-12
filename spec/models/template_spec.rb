@@ -717,7 +717,8 @@ RSpec.describe Template do
         template.deep_copy(**args)
       end
 
-      let!(:template) { create(:template, :published, phases: 2) }
+      args = { attributes: { family_id: 123 }, save: true }
+      subject { template.deep_copy(**args) }
 
       it 'returns a persisted record' do
         expect(subject).to be_persisted
@@ -739,7 +740,8 @@ RSpec.describe Template do
         template.deep_copy(**args)
       end
 
-      let!(:template) { create(:template, :published, phases: 2) }
+      args = { attributes: { family_id: 123 }, save: false }
+      subject { template.deep_copy(**args) }
 
       it 'returns a new record' do
         expect(subject).to be_new_record
@@ -750,7 +752,7 @@ RSpec.describe Template do
       end
 
       it "doesn't set template_id on phases" do
-        expect(subject.phases.map(&:template_id).compact).to be_empty
+        expect(subject.phases.filter_map(&:template_id)).to be_empty
       end
     end
   end

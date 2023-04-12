@@ -1,7 +1,6 @@
 // TODO: we need to be able to swap in the appropriate locale here
 import 'number-to-text/converters/en-us';
 import { isObject } from '../utils/isType';
-import { Tinymce } from '../utils/tinymce';
 import { eachLinks } from '../utils/links';
 
 $(() => {
