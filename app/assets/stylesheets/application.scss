@@ -15,5 +15,7 @@
 
 $fa-font-path: '.';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
+// Uncomment this line if you plan on using brand icons (Twitter, Github ...)
+// @import '@fortawesome/fontawesome-free/scss/brands';
 @import '@fortawesome/fontawesome-free/scss/regular';
 @import '@fortawesome/fontawesome-free/scss/solid';
