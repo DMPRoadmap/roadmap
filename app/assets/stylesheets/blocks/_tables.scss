@@ -1,3 +1,5 @@
+@use '../variables/colours' as *;
+@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
 // This file contains overrides to the core Bootstrap 3.x styling
 .table { border: 1px solid $color-border-default; }
 .table thead > tr > th { border-bottom: none; }
@@ -9,11 +11,11 @@ thead th {
 }
 
 thead th.table-scope {
-  background-color: $color-seccondary-background;
+  background-color: $color-secondary-background;
   font-weight: normal;
 
   a {
-    color: $color-seccondary-text;
+    color: $color-secondary-text;
     padding: 2px ($grid-gutter-width / 2) 2px 2px;
   }
 }
@@ -46,7 +48,7 @@ th.download-column {
 
 @media (min-width: 768px) {
   .table-responsive {
-    overflow: visible;
+    overflow: visible !important;
   }
 }
 
@@ -56,7 +58,7 @@ th.download-column {
 
     thead > tr > th {
       border: none;
-      background-color: $color-seccondary-background;
+      background-color: $color-secondary-background;
       color: $color-text-black;
     }
     tbody > tr > td { border: none; }
