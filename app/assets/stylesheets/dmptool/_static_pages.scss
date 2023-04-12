@@ -1,3 +1,5 @@
+@use '../variables/colours' as *;
+
 .static-page {
   h2 {
     color: $color-primary-background;

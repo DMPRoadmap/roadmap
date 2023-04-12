@@ -1,5 +1,5 @@
 import { isObject, isString } from '../utils/isType';
-import TimeagoFactory from '../utils/timeagoFactory';
+import TimeagoFactory from '../utils/timeagoFactory.js.erb';
 
 $(() => {
   const defaultViewSelector = (questionId) => `#note_new${questionId}`;

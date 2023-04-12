@@ -211,6 +211,8 @@ export const initAutoComplete = (selector) => {
   const checkbox = relatedNotInListCheckbox(id);
   const textbox = relatedCustomOrgField(id);
 
+console.log(`Initializing autocomplete for: ${selector}`);
+
   // Initialize the JQuery autocomplete functionality
   autocomplete.autocomplete({
     source: (req, resp) => search(autocomplete, req.term, resp),

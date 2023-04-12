@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { Tinymce } from '../utils/tinymce';
-=======
-import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../utils/autoComplete';
-import { Tinymce } from '../utils/tinymce.js';
->>>>>>> 4df85c7086aa1ab78048f4988757715354922231
 import toggleConditionalFields from '../utils/conditionalFields';
 import getConstant from '../utils/constants';
 import toggleSpinner from '../utils/spinner';

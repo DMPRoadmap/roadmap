@@ -36,25 +36,34 @@ import './src/utils/tooltipHelper';
 
 // Specific functions from the Utilities files that will be made available to
 // the js.erb templates in the `window.x` statements below
-import { renderAlert, renderNotice } from './src/utils/notificationHelper';
+import getConstant from './src/utils/constants';
+import { renderAlert, renderNotice, hideNotifications } from './src/utils/notificationHelper';
 import toggleSpinner from './src/utils/spinner';
+import { Tinymce } from './src/utils/tinymce';
+import { initAutoComplete } from './src/utils/autoComplete';
+import { addAsterisks } from './src/utils/requiredField';
+import { togglisePasswords } from './src/utils/passwordHelper';
 
 // View specific JS
 import './src/answers/conditions';
 import './src/answers/edit';
 import './src/answers/rdaMetadata';
-import './src/contributors/form';
-import './src/devise/invitations/edit';
+// ----------------------------------------------------------
+// DMPTool Customization. We have rewritten the org selection widget and the Devise forms so no need for
+// those JS files anymore, so commenting out below
+// ----------------------------------------------------------
+// import './src/contributors/form';
+// import './src/devise/invitations/edit';
 import './src/devise/passwords/edit';
 import './src/devise/registrations/edit';
-import './src/devise/registrations/new';
+// import './src/devise/registrations/new';
 import './src/guidances/newEdit';
 import './src/notes/index';
 import './src/orgs/adminEdit';
-import './src/orgs/shibbolethDs';
+// import './src/orgs/shibbolethDs';
 import './src/plans/download';
 import './src/plans/editDetails';
-import './src/plans/index.js.erb';
+// import './src/plans/index.js.erb';
 import './src/plans/new';
 import './src/plans/share';
 import './src/publicTemplates/show';
@@ -87,10 +96,10 @@ import './src/superAdmin/users/edit';
 // ==========================
 // = DMPTool customizations =
 // ==========================
-import '../src/dmptool/recaptcha_aria';
-import '../src/dmptool/public_pages/plans_index';
-import '../src/dmptool/orgAdmin/plans/index';
-import '../src/dmptool/users/passwords/edit';
+import './src/dmptool/recaptcha_aria';
+import './src/dmptool/public_pages/plans_index';
+import './src/dmptool/orgAdmin/plans/index';
+import './src/dmptool/users/passwords/edit';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbo. ActiveStorage and ActionCable would also need to be in here
