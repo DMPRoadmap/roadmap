@@ -16,9 +16,14 @@
 - Froze `lib/deprecators/*.rb` constants that were Strings
 - Updated places that were incorrectly using keyword args. See [this article](https://makandracards.com/makandra/496481-changes-to-positional-and-keyword-args-in-ruby-3-0) for an overview
 
-#### Upgraded TinyMCE
+#### Upgraded TinyMCE to v6
 
-- Upgraded TinyMCE to v6
+- Upgraded TinyMCE to v6 (v5 EOL is April 20 2023)
+- Adjusted JS code to conform to new TinyMCE version
+- Adjusted views to work with the new version
+- Updated variables.scss file to fix issue with button text/background color contrast
+- Updated blocks/_tables.scss to fix issue with dropdown menu overlap against table
+- updated config/initializers/assets.rb to copy over the tinymce skins and bootstrap glyphicons to the public directory so that they are accessible by TinyMCE and Bootstrap code
 
 #### Removed webpacker gem
 
