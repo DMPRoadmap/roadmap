@@ -48,7 +48,7 @@ th.download-column {
 
 @media (min-width: 768px) {
   .table-responsive {
-    overflow: visible;
+    overflow: visible !important;
   }
 }
 
