@@ -48,6 +48,8 @@ module Dmptool
         template = Template.find(params[:id])
         authorize Template
 
+        version = template.generate_version! if template.generate_version?
+
         args = preference_params
         args[:customize_output_types] = params[:customize_output_types_sel] != '0'
         args[:customize_licenses] = params[:customize_licenses_sel] != '0'

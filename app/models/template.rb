@@ -104,24 +104,24 @@ class Template < ApplicationRecord
 
   has_many :conditions, through: :questions
 
-  has_many :template_output_types
+  has_many :template_output_types, dependent: :destroy
 
   accepts_nested_attributes_for :template_output_types
 
-  has_many :template_licenses
+  has_many :template_licenses, dependent: :destroy
 
   has_many :licenses, through: :template_licenses
 
   # preferred repository relationship - repositories can be used by many templates
-  has_many :template_repositories
+  has_many :template_repositories, dependent: :destroy
 
   # preferred repository relationship - repositories can be used by many templates
   has_many :repositories, through: :template_repositories
 
   # customized repository relationship - customized repositories belong to a single template
-  has_many :customized_repositories, foreign_key: 'custom_repository_owner_template_id', class_name: 'Repository'
+  has_many :customized_repositories, foreign_key: 'custom_repository_owner_template_id', class_name: 'Repository', dependent: :destroy
 
-  has_many :template_metadata_standards
+  has_many :template_metadata_standards, dependent: :destroy
 
   has_many :metadata_standards, through: :template_metadata_standards
 
@@ -367,6 +367,24 @@ class Template < ApplicationRecord
       end
 
       cond.save if cond.changed?
+    end
+
+    template_output_types.each do |t|
+      copy.template_output_types << TemplateOutputType.new(template: copy, research_output_type: t.research_output_type)
+    end
+    template_repositories.each do |t|
+      copy.template_repositories << TemplateRepository.new(template: copy, repository: t.repository)
+    end
+    template_metadata_standards.each do |t|
+      copy.template_metadata_standards << TemplateMetadataStandard.new(template: copy, metadata_standard: t.metadata_standard)
+    end
+    template_licenses.each do |t|
+      copy.template_licenses << TemplateLicense.new(template: copy, license: t.license)
+    end
+    customized_repositories.each do |t|
+      tt = t.dup
+      tt.save!
+      copy.customized_repositories << tt
     end
 
     copy
