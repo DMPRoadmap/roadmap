@@ -1,4 +1,4 @@
-<%# locals: { field_values, parent_id, schema, table_header, template_locale, property_name, ttip } %>
+<%# locals: { field_values, parent_id, schema, table_header, template_locale, property_name, ttip, is_const } %>
 <% ttip ||= nil %>
 <% field_values = [] if field_values.nil? %>
 <% field_label = field_label || 'No label defined' %>
@@ -19,7 +19,7 @@
                 parent_id: parent_id,
                 schema_id: schema.id,
                 readonly: readonly,
-                deletable: !readonly,
+                deletable: !readonly && !is_const,
                 template_locale: template_locale,
                 property_name: property_name,
                 query_id: query_id
@@ -27,7 +27,7 @@
             ) %>
       </tbody>
     </table>
-    <% unless parent_id.nil? || readonly %>
+    <% unless parent_id.nil? || readonly || is_const %>
       <span data-toggle="modal" data-target="#modal-window">
         <%= link_to _('Create'), new_edit_linked_madmp_fragments_url(
                 nil, 

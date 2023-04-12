@@ -88,7 +88,7 @@
                       'data-html': true,
                       title: permissions_tooltip,
                       'data-placement':'right' do %>
-        <%= content_tag :legend , _('Permissions') %>
+        <%= content_tag :legend , _('Permissions'), class: 'legend-label' %>
         <div class="form-group">
           <div class="radio">
             <%= f.label :administrator_access do %>
@@ -143,13 +143,18 @@
         </div>
         <div class="radio">
           <%= f.label :visibility_publicly_visible do %>
-            <%= f.radio_button :visibility, :publicly_visible %>
+            <%= f.radio_button :visibility, 
+                               :publicly_visible, class: 'set-plan-public',
+                                data: { 
+                                  confirm_message: _('You have chosen to make your plan public. Before confirming, please ensure that your plan is complete. This DMP can be used as an example for other, please fill the different sections. Do you confirm?')
+                                } 
+            %>
             <%= _('Public: anyone can view') %>
           <% end %>
         </div>
       </div>
       <div class="col-xs-8">
-        <%= f.submit(_('Update'), class: "btn btn-primary") %>
+        <%= f.submit(_('Update'), class: "btn btn-primary change-visibility") %>
       </div>
     </fieldset>
   <% end %>

@@ -94,6 +94,10 @@ class MadmpSchema < ApplicationRecord
     schema['properties']
   end
 
+  def defaults(locale)
+    schema['default'].present? ? schema['default'][locale] : {}
+  end
+
   def sub_schemas
     path = JsonPath.new('$..schema_id')
     ids = path.on(schema)

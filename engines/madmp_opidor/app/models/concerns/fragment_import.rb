@@ -92,7 +92,6 @@ module FragmentImport
     # rubocop:enable Metrics/BlockLength
 
     fragmented_data.try(:permit!)
-    p fragmented_data
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')

@@ -265,8 +265,9 @@ class MadmpFragment < ApplicationRecord
   # This method take a fragment and convert its data with the target schema
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def schema_conversion(target_schema)
+  def schema_conversion(target_schema, locale)
     origin_schema_properties = madmp_schema.properties
+    target_schema_defaults = target_schema.defaults(locale)
     converted_data = {}
 
     # rubocop:disable Metrics/BlockLength
@@ -280,7 +281,7 @@ class MadmpFragment < ApplicationRecord
           next if converted_data[key].empty? || converted_data[key].first.nil?
 
           target_sub_schema = MadmpSchema.find(target_prop['items']['schema_id'])
-          converted_data[key].map { |v| MadmpFragment.find(v['dbid']).schema_conversion(target_sub_schema) }
+          converted_data[key].map { |v| MadmpFragment.find(v['dbid']).schema_conversion(target_sub_schema, locale) }
         end
       elsif origin_prop['type'].eql?('object')
         converted_data[key] = data[key]
@@ -288,7 +289,7 @@ class MadmpFragment < ApplicationRecord
 
         sub_fragment = MadmpFragment.find(data[key]['dbid'])
         target_sub_schema = MadmpSchema.find(target_prop['schema_id'])
-        sub_fragment.schema_conversion(target_sub_schema)
+        sub_fragment.schema_conversion(target_sub_schema, locale)
       elsif origin_prop['type'].eql?('array')
         if target_prop['type'].eql?('object')
           target_sub_schema = MadmpSchema.find(target_prop['schema_id'])
@@ -306,7 +307,7 @@ class MadmpFragment < ApplicationRecord
             sub_fragment.instantiate
           else
             first_id = data[key].first['dbid']
-            MadmpFragment.find(first_id).schema_conversion(target_sub_schema)
+            MadmpFragment.find(first_id).schema_conversion(target_sub_schema, locale)
             converted_data[key] = { 'dbid' => first_id }
           end
         else
@@ -321,7 +322,7 @@ class MadmpFragment < ApplicationRecord
       data: converted_data,
       madmp_schema_id: target_schema.id
     )
-    update_children_references
+    handle_defaults(target_schema_defaults)
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -356,6 +357,10 @@ class MadmpFragment < ApplicationRecord
     update!(data: new_data)
   end
   # rubocop:enable Metrics/AbcSize
+
+  def handle_defaults(defaults)
+    raw_import(defaults, madmp_schema) # if defaults.any?
+  end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -430,6 +435,12 @@ class MadmpFragment < ApplicationRecord
     return nil if research_output_fragment.nil?
 
     research_output_fragment.data['research_output_id']
+  end
+
+  def research_output
+    return nil if research_output_fragment.nil?
+
+    ResearchOutput.find(research_output_fragment.data['research_output_id'])
   end
 
   # rubocop:disable Metrics/AbcSize

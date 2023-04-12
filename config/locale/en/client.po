@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-02-02 09:58+0100\n"
-"PO-Revision-Date: 2023-02-02 09:58+0100\n"
+"POT-Creation-Date: 2023-03-31 08:37+0200\n"
+"PO-Revision-Date: 2023-03-31 08:37+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -366,7 +366,7 @@ msgstr "Please choose an organisation"
 msgid "Your organisation does not seem to be properly configured."
 msgstr "Your organisation does not seem to be properly configured."
 
-#: ../../app/controllers/plan_exports_controller.rb:113
+#: ../../app/controllers/plan_exports_controller.rb:114
 msgid "Created using %{application_name}. Last modified %{date}"
 msgstr "Created using %{application_name}. Last modified %{date}"
 
@@ -605,24 +605,24 @@ msgstr ""
 "Your account has been successfully linked to your institutional credentials. Y"
 "ou will now be able to sign in with them."
 
-#: ../../app/controllers/usage_controller.rb:66
-#: ../../app/controllers/usage_controller.rb:87
+#: ../../app/controllers/usage_controller.rb:67
+#: ../../app/controllers/usage_controller.rb:88
 msgid "Month"
 msgstr "Month"
 
-#: ../../app/controllers/usage_controller.rb:66
+#: ../../app/controllers/usage_controller.rb:67
 msgid "No. Users joined"
 msgstr "No. Users joined"
 
-#: ../../app/controllers/usage_controller.rb:72
-#: ../../app/controllers/usage_controller.rb:93
+#: ../../app/controllers/usage_controller.rb:73
+#: ../../app/controllers/usage_controller.rb:94
 #: ../../app/views/branded/users/admin_index.html.erb:7
 msgid "Total"
 msgstr "Total"
 
-#: ../../app/controllers/usage_controller.rb:87
-msgid "No. Completed Plans"
-msgstr "No. Completed Plans"
+#: ../../app/controllers/usage_controller.rb:88
+msgid "No. Created Plans"
+msgstr "No. Created Plans"
 
 #: ../../app/controllers/users_controller.rb:164
 msgid "Successfully %{action} %{username}'s account."
@@ -847,7 +847,7 @@ msgid "Administrator"
 msgstr "Administrator"
 
 #: ../../app/helpers/plans_helper.rb:46 ../../app/helpers/plans_helper.rb:48
-#: ../../app/views/branded/layouts/application.html.erb:154
+#: ../../app/views/branded/layouts/application.html.erb:156
 msgid "Private"
 msgstr "Private"
 
@@ -868,7 +868,7 @@ msgstr ""
 " organisation."
 
 #: ../../app/helpers/plans_helper.rb:68
-#: ../../app/views/branded/layouts/application.html.erb:155
+#: ../../app/views/branded/layouts/application.html.erb:157
 msgid "Private: restricted to me and people I invite."
 msgstr "Private: restricted to me and people I invite."
 
@@ -1034,7 +1034,7 @@ msgid "DMP manager"
 msgstr "DMP manager"
 
 #: ../../app/models/dmpopidor/plan.rb:111
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:440
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:451
 msgid "\"%{project_title}\" project DMP"
 msgstr "\"%{project_title}\" project DMP"
 
@@ -1141,39 +1141,39 @@ msgstr "generate_copy! requires an organisation target"
 msgid "Copy of %{template}"
 msgstr "Copy of %{template}"
 
-#: ../../app/models/template.rb:416
+#: ../../app/models/template.rb:417
 msgid "generate_version! requires a published template"
 msgstr "generate_version! requires a published template"
 
-#: ../../app/models/template.rb:430
+#: ../../app/models/template.rb:432
 msgid "customize! requires an organisation target"
 msgstr "customize! requires an organisation target"
 
-#: ../../app/models/template.rb:433
+#: ../../app/models/template.rb:435
 msgid "customize! requires a template from a funder"
 msgstr "customize! requires a template from a funder"
 
-#: ../../app/models/template.rb:469
+#: ../../app/models/template.rb:472
 msgid "You can not publish a published template.  "
 msgstr "You can not publish a published template.  "
 
-#: ../../app/models/template.rb:473
+#: ../../app/models/template.rb:476
 msgid "You can not publish a historical version of this template.  "
 msgstr "You can not publish a historical version of this template.  "
 
-#: ../../app/models/template.rb:478
+#: ../../app/models/template.rb:481
 msgid "You can not publish a template without phases.  "
 msgstr "You can not publish a template without phases.  "
 
-#: ../../app/models/template.rb:483
+#: ../../app/models/template.rb:486
 msgid "You can not publish a template without sections in a phase.  "
 msgstr "You can not publish a template without sections in a phase.  "
 
-#: ../../app/models/template.rb:488
+#: ../../app/models/template.rb:491
 msgid "You can not publish a template without questions in a section.  "
 msgstr "You can not publish a template without questions in a section.  "
 
-#: ../../app/models/template.rb:492
+#: ../../app/models/template.rb:495
 msgid "Conditions in the template refer backwards"
 msgstr "Conditions in the template refer backwards"
 
@@ -1229,9 +1229,10 @@ msgstr "Please wait, Standards are loading"
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_edit_details.html.erb:120
 #: ../../app/views/branded/plans/_edit_details.html.erb:190
+#: ../../app/views/branded/plans/_guidance_selection.html.erb:23
 #: ../../app/views/branded/plans/_share_form.html.erb:112
 #: ../../app/views/branded/plans/_share_third_party.html.erb:93
-#: ../../app/views/branded/research_outputs/_list.html.erb:103
+#: ../../app/views/branded/research_outputs/_list.html.erb:101
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
 #: ../../app/views/branded/users/_notification_preferences.html.erb:47
@@ -1250,8 +1251,8 @@ msgid "example answer"
 msgstr "example answer"
 
 #: ../../app/views/branded/answers/_new_edit.html.erb:96
-#: ../../app/views/branded/layouts/application.html.erb:125
-#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:146
+#: ../../app/views/branded/layouts/application.html.erb:127
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:147
 #: ../../app/views/branded/plans/_edit_details.html.erb:113
 #: ../../app/views/branded/plans/_edit_details.html.erb:183
 #: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:43
@@ -1609,7 +1610,8 @@ msgstr "Published?"
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:134
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:136
 #: ../../app/views/branded/plans/_edit_details.html.erb:63
-#: ../../app/views/branded/research_outputs/_list.html.erb:104
+#: ../../app/views/branded/plans/_guidance_selection.html.erb:35
+#: ../../app/views/branded/research_outputs/_list.html.erb:102
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:67
 #: ../../app/views/research_outputs/_form.html.erb:183
@@ -1856,7 +1858,7 @@ msgstr "Sign in"
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-#: ../../app/views/branded/layouts/application.html.erb:66
+#: ../../app/views/branded/layouts/application.html.erb:68
 msgid ""
 "By continuing to browse, without changing your settings, you accept the use of"
 " cookies to measure the traffic of the website with the software Matomo. For m"
@@ -1868,54 +1870,54 @@ msgstr ""
 "ore information, to change or manage your settings, please visit our Privacy S"
 "tatement page."
 
-#: ../../app/views/branded/layouts/application.html.erb:68
+#: ../../app/views/branded/layouts/application.html.erb:70
 msgid "Accept"
 msgstr "Accept"
 
-#: ../../app/views/branded/layouts/application.html.erb:71
+#: ../../app/views/branded/layouts/application.html.erb:73
 msgid "Learn more"
 msgstr "Learn more"
 
-#: ../../app/views/branded/layouts/application.html.erb:114
+#: ../../app/views/branded/layouts/application.html.erb:116
 msgid "Error:"
 msgstr "Error:"
 
-#: ../../app/views/branded/layouts/application.html.erb:114
+#: ../../app/views/branded/layouts/application.html.erb:116
 msgid "Notice:"
 msgstr "Notice:"
 
-#: ../../app/views/branded/layouts/application.html.erb:147
+#: ../../app/views/branded/layouts/application.html.erb:149
 msgid "This field is required."
 msgstr "This field is required."
 
-#: ../../app/views/branded/layouts/application.html.erb:149
+#: ../../app/views/branded/layouts/application.html.erb:151
 #: ../../app/views/branded/shared/_create_account_form.html.erb:31
 msgid "Show password"
 msgstr "Show password"
 
-#: ../../app/views/branded/layouts/application.html.erb:150
+#: ../../app/views/branded/layouts/application.html.erb:152
 msgid "Select an organisation from the list."
 msgstr "Select an organisation from the list."
 
-#: ../../app/views/branded/layouts/application.html.erb:151
+#: ../../app/views/branded/layouts/application.html.erb:153
 msgid "My organisation isn't listed"
 msgstr "My organisation isn't listed"
 
-#: ../../app/views/branded/layouts/application.html.erb:153
+#: ../../app/views/branded/layouts/application.html.erb:155
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:40
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:44
 msgid "N/A"
 msgstr "N/A"
 
-#: ../../app/views/branded/layouts/application.html.erb:157
+#: ../../app/views/branded/layouts/application.html.erb:159
 msgid "Hide list."
 msgstr "Hide list."
 
-#: ../../app/views/branded/layouts/application.html.erb:158
+#: ../../app/views/branded/layouts/application.html.erb:160
 msgid "See the full list of partner institutions."
 msgstr "See the full list of partner institutions."
 
-#: ../../app/views/branded/layouts/application.html.erb:160
+#: ../../app/views/branded/layouts/application.html.erb:162
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
@@ -1923,28 +1925,28 @@ msgstr ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
 
-#: ../../app/views/branded/layouts/application.html.erb:161
+#: ../../app/views/branded/layouts/application.html.erb:163
 msgid "Please select a research organisation and funder to continue."
 msgstr "Please select a research organisation and funder to continue."
 
-#: ../../app/views/branded/layouts/application.html.erb:163
-#: ../../engines/madmp_opidor/app/views/madmp_fragments/_new.html.erb:28
+#: ../../app/views/branded/layouts/application.html.erb:165
+#: ../../engines/madmp_opidor/app/views/madmp_fragments/_new.html.erb:29
 msgid "Loading ..."
 msgstr "Loading ..."
 
-#: ../../app/views/branded/layouts/application.html.erb:164
+#: ../../app/views/branded/layouts/application.html.erb:166
 msgid "Unable to load the section's content at this time."
 msgstr "Unable to load the section's content at this time."
 
-#: ../../app/views/branded/layouts/application.html.erb:165
+#: ../../app/views/branded/layouts/application.html.erb:167
 msgid "Unable to load the question's content at this time."
 msgstr "Unable to load the question's content at this time."
 
-#: ../../app/views/branded/layouts/application.html.erb:166
+#: ../../app/views/branded/layouts/application.html.erb:168
 msgid "Opens in a new window"
 msgstr "Opens in a new window"
 
-#: ../../app/views/branded/layouts/application.html.erb:168
+#: ../../app/views/branded/layouts/application.html.erb:170
 msgid ""
 "%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
@@ -1954,11 +1956,11 @@ msgstr ""
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
 "ons."
 
-#: ../../app/views/branded/layouts/application.html.erb:169
+#: ../../app/views/branded/layouts/application.html.erb:171
 msgid "No results are available for your entry."
 msgstr "No results are available for your entry."
 
-#: ../../app/views/branded/layouts/application.html.erb:170
+#: ../../app/views/branded/layouts/application.html.erb:172
 msgid "Searching ..."
 msgstr "Searching ..."
 
@@ -2309,7 +2311,7 @@ msgid "Locale"
 msgstr "Locale"
 
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:41
-#: ../../app/views/branded/research_outputs/_list.html.erb:56
+#: ../../app/views/branded/research_outputs/_list.html.erb:54
 #: ../../app/views/research_outputs/_form.html.erb:14
 msgid "Type"
 msgstr "Type"
@@ -2491,7 +2493,7 @@ msgid "Homepage"
 msgstr "Homepage"
 
 #: ../../app/views/branded/paginable/api_clients/_index.html.erb:15
-#: ../../app/views/branded/research_outputs/_list.html.erb:75
+#: ../../app/views/branded/research_outputs/_list.html.erb:73
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:42
 msgid "Contact"
 msgstr "Contact"
@@ -3176,6 +3178,48 @@ msgstr "Next"
 msgid "Use Default Template"
 msgstr "Use Default Template"
 
+#: ../../app/views/branded/plans/_guidance_selection.html.erb:6
+msgid ""
+"To help you write your plan, %{application_name} can show you guidance from a "
+"variety of organisations."
+msgstr ""
+"To help you write your plan, %{application_name} can show you guidance from a "
+"variety of organisations."
+
+#: ../../app/views/branded/plans/_guidance_selection.html.erb:9
+msgid "Select up to 6 organisations to see their guidance."
+msgstr "Select up to 6 organisations to see their guidance."
+
+#: ../../app/views/branded/plans/_guidance_selection.html.erb:18
+msgid "Find guidance from additional organisations below"
+msgstr "Find guidance from additional organisations below"
+
+#: ../../app/views/branded/plans/_guidance_selection.html.erb:19
+msgid "See the full list"
+msgstr "See the full list"
+
+#: ../../app/views/branded/plans/_guidance_selection.html.erb:26
+msgid "There is no additional guidance for this template."
+msgstr "There is no additional guidance for this template."
+
+#: ../../app/views/branded/plans/_guidance_selection.html.erb:38
+msgid "Select Guidance"
+msgstr "Select Guidance"
+
+#: ../../app/views/branded/plans/_guidance_selection.html.erb:40
+msgid ""
+"To help you write your plan, %{application_name} can show you guidance from a "
+"variety of organisations. Please choose up to 6 organisations of the following"
+" organisations who offer guidance relevant to your plan."
+msgstr ""
+"To help you write your plan, %{application_name} can show you guidance from a "
+"variety of organisations. Please choose up to 6 organisations of the following"
+" organisations who offer guidance relevant to your plan."
+
+#: ../../app/views/branded/plans/_guidance_selection.html.erb:42
+msgid "Don't forget to save your changes after making your selections."
+msgstr "Don't forget to save your changes after making your selections."
+
 #: ../../app/views/branded/plans/_navigation.html.erb:4
 msgid "General information"
 msgstr "General information"
@@ -3309,6 +3353,16 @@ msgstr "Organisation: anyone at my organisation can view"
 #: ../../app/views/branded/plans/_share_form.html.erb:147
 msgid "Public: anyone can view"
 msgstr "Public: anyone can view"
+
+#: ../../app/views/branded/plans/_share_form.html.erb:154
+msgid ""
+"You have chosen to make your plan public. Before confirming, please ensure tha"
+"t your plan is complete. This DMP can be used as an example for other, please "
+"fill the different sections. Do you confirm?"
+msgstr ""
+"You have chosen to make your plan public. Before confirming, please ensure tha"
+"t your plan is complete. This DMP can be used as an example for other, please "
+"fill the different sections. Do you confirm?"
 
 #: ../../app/views/branded/plans/_share_third_party.html.erb:3
 msgid "Select a service you would like to share your plan with."
@@ -3498,42 +3552,42 @@ msgstr "Full Name"
 msgid "Research output title"
 msgstr "Research output title"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:35
+#: ../../app/views/branded/research_outputs/_list.html.erb:34
 msgid "UUID"
 msgstr "UUID"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:38
+#: ../../app/views/branded/research_outputs/_list.html.erb:37
+#: ../../app/views/branded/research_outputs/_list.html.erb:42
 #: ../../app/views/branded/research_outputs/_list.html.erb:43
-#: ../../app/views/branded/research_outputs/_list.html.erb:44
 msgid "Research output unique identifier"
 msgstr "Research output unique identifier"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:49
+#: ../../app/views/branded/research_outputs/_list.html.erb:48
 msgid "Copy UUID to clipboard"
 msgstr "Copy UUID to clipboard"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:69
+#: ../../app/views/branded/research_outputs/_list.html.erb:67
 #: ../../app/views/research_outputs/_form.html.erb:27
 msgid "Research output type"
 msgstr "Research output type"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:96
+#: ../../app/views/branded/research_outputs/_list.html.erb:94
 msgid "Persistent Identifier"
 msgstr "Persistent Identifier"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:98
+#: ../../app/views/branded/research_outputs/_list.html.erb:96
 msgid "If exists, please fill in the research output persistant identifier."
 msgstr "If exists, please fill in the research output persistant identifier."
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:110
+#: ../../app/views/branded/research_outputs/_list.html.erb:108
 msgid "Edit research output"
 msgstr "Edit research output"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:113
+#: ../../app/views/branded/research_outputs/_list.html.erb:111
 msgid "Move research output"
 msgstr "Move research output"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:118
+#: ../../app/views/branded/research_outputs/_list.html.erb:116
 msgid ""
 "Deleting this research output will remove the associated answers. Do you confi"
 "rm ?"
@@ -3541,7 +3595,7 @@ msgstr ""
 "Deleting this research output will remove the associated answers. Do you confi"
 "rm ?"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:121
+#: ../../app/views/branded/research_outputs/_list.html.erb:119
 msgid "Delete research output"
 msgstr "Delete research output"
 
@@ -4228,8 +4282,8 @@ msgid "New data have been added to your plan, please click on the \"Reload\" but
 msgstr "New data have been added to your plan, please click on the \"Reload\" button."
 
 #: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:38
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:155
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:316
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:157
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:318
 msgid "Element is already present in your plan."
 msgstr "Element is already present in your plan."
 
