@@ -58,8 +58,7 @@ RSpec.describe UsageController do
           it 'returns the expected data' do
             # Controller returns results in date ascending order so resort the
             # records after extracting the ones we want first
-            expected = @annual[0..months - 1].sort { |a, b| a.date <=> b.date }
-                                             .map { |stat| obj_to_hash(obj: stat) }
+            expected = @annual[0..months - 1].sort_by(&:date).map { |stat| obj_to_hash(obj: stat) }
             expect(assigns(:plans_per_month)).to eql(expected.flatten)
           end
         end

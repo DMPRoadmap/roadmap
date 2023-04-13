@@ -1,6 +1,5 @@
 import getConstant from '../utils/constants';
 import { isUndefined, isObject } from '../utils/isType';
-import { Tinymce } from '../utils/tinymce';
 
 $(() => {
   const form = $('.research_output_form');

@@ -64,6 +64,8 @@ class Plan < ApplicationRecord
   # = Constants =
   # =============
 
+  DMP_ID_TYPES = %w[ark doi].freeze
+
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
@@ -71,6 +73,12 @@ class Plan < ApplicationRecord
     publicly_visible: _('public'),
     is_test: _('test'),
     privately_visible: _('private')
+  }.freeze
+
+  FUNDING_STATUS = {
+    planned: _('Planned'),
+    funded: _('Funded'),
+    denied: _('Denied')
   }.freeze
 
   # ==============
@@ -315,7 +323,7 @@ class Plan < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
   def answer(qid, create_if_missing = true)
     answer = answers.select { |a| a.question_id == qid }
-                    .max { |a, b| a.created_at <=> b.created_at }
+                    .max_by(&:created_at)
     if answer.nil? && create_if_missing
       question = Question.find(qid)
       answer = Answer.new
@@ -469,7 +477,9 @@ class Plan < ApplicationRecord
   # Returns User
   # Returns nil
   def owner
-    roles.administrator.where(active: true).order(:created_at).first&.user
+    r = roles.select { |rr| rr.active && rr.administrator }
+             .min_by(&:created_at)
+    r&.user
   end
 
   # Creates a role for the specified user (will update the user's
@@ -538,7 +548,7 @@ class Plan < ApplicationRecord
   #
   # Returns Integer
   def num_answered_questions(phase = nil)
-    return answers.select(&:answered?).length if phase.blank?
+    return answers.count(&:answered?) unless phase.present?
 
     answered = answers.select do |answer|
       answer.answered? && phase.questions.include?(answer.question)

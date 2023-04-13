@@ -46,6 +46,8 @@ RSpec.describe QuestionOption do
 
     let!(:question_option) { create(:question_option, is_default: true) }
 
+    subject { question_option.deep_copy(**options) }
+
     context 'when no options provided' do
       it 'builds a new record' do
         expect(subject).to be_new_record

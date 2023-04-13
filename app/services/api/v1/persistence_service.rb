@@ -96,9 +96,9 @@ module Api
             next unless contributor.is_a?(Contributor)
 
             # See if we've already processed this contributor
-            existing = out.select { |c| c == contributor }.first
-            out << contributor if existing.blank?
-            next if existing.blank?
+            existing = out.find { |c| c == contributor }
+            out << contributor unless existing.present?
+            next unless existing.present?
 
             existing.merge(contributor)
           end

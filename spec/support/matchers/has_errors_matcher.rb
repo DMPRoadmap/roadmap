@@ -4,7 +4,7 @@ require 'rspec/expectations'
 
 RSpec::Matchers.define :have_errors do |_expected|
   match do
-    actual.body.match(/Error:/)
+    actual.body.include?('Error:')
   end
 
   failure_message do |_actual|

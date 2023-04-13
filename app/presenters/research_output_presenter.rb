@@ -42,7 +42,7 @@ class ResearchOutputPresenter
   # Returns the available licenses for a select tag
   def complete_licenses
     License.selectable
-           .sort { |a, b| a.identifier <=> b.identifier }
+           .sort_by(&:identifier)
            .map { |license| [license.identifier, license.id] }
   end
 
@@ -81,7 +81,7 @@ class ResearchOutputPresenter
       '12-Social and Behavioural Sciences',
       '42-Thermal Engineering/Process Engineering'
     ].map do |subject|
-      [subject.split('-').last, subject.gsub('-', ' ')]
+      [subject.split('-').last, subject.tr('-', ' ')]
     end
   end
 
