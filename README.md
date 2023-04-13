@@ -17,24 +17,6 @@ The tool has four main functions:
 
 Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/releases/).
 
-#### Pre-requisites
-Roadmap is a Ruby on Rails application and you will need to have:
-* Ruby = 2.7.6
-* Rails = 6.1
-* MySQL >= 5.0 OR PostgreSQL
-
-Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org.
-
-Further details on how to install MySQL and create your first user and database. Be sure to follow the instructions for your particular environment.
-* Install: http://dev.mysql.com/downloads/mysql/
-* Create a user: http://dev.mysql.com/doc/refman/5.7/en/create-user.html
-* Create the database: http://dev.mysql.com/doc/refman/5.7/en/creating-database.html
-
-You may also find the following resources handy:
-
-* The Getting Started Guide: http://guides.rubyonrails.org/getting_started.html
-* Ruby on Rails Tutorial Book: http://www.railstutorial.org/
-
 #### Installation
 See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installation) on the Wiki.
 
