@@ -22,6 +22,12 @@ module TemplateHelper
       template.org_id = current_user.org.id
   end
 
+  def template_preference_customizable?(template)
+    template.latest? &&
+      template.id.present? &&
+      template.org_id = current_user.org.id
+  end
+
   def links_to_a_elements(links, separator = ', ')
     a = links.map do |l|
       "<a href=\"#{l['link']}\">#{l['text']}</a>"
