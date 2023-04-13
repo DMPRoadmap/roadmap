@@ -53,19 +53,24 @@ module Dmptool
         template = Template.find(params[:id])
         authorize Template
 
-        template.generate_version! if template.generate_version?
-
         args = preference_params
         args[:customize_output_types] = params[:customize_output_types_sel] != '0'
         args[:customize_licenses] = params[:customize_licenses_sel] != '0'
+
         Template.transaction do
-          template.update(template_output_types: [], licenses: [], repositories: [], customized_repositories: [],
-                          metadata_standards: [])
-          template.update(args)
-          template.update(repositories: []) if preference_params[:customize_repositories] == '0'
-          template.update(metadata_standards: []) if preference_params[:customize_metadata_standards] == '0'
+          # Get the current template or a new version if applicable
+          @template = get_modifiable(template)
+          @template.update(template_output_types: [], licenses: [], repositories: [], customized_repositories: [],
+                           metadata_standards: [])
+          @template.update(args)
+          @template.update(repositories: []) if preference_params[:customize_repositories] == '0'
+          @template.update(metadata_standards: []) if preference_params[:customize_metadata_standards] == '0'
+        rescue StandardError => e
+          Rails.logger.error "Unable to save the Template preferences for #{template.id} - #{e.message}"
+          redirect_to preferences_org_admin_template_path(template), alert: failure_message(@template, _('save')) and return
         end
-        preferences
+
+        redirect_to preferences_org_admin_template_path(@template), notice: success_message(@template, _('saved'))
       end
       # rubocop:enable Metrics/AbcSize
 

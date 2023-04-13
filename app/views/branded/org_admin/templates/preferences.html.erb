@@ -1,6 +1,9 @@
 <div class="row">
   <div class="col-md-12">
-    <h1>Template Preferences</h1>
+    <h1><%= _('Template Preferences') %></h1>
+    <%= link_to _('View all templates'),
+        org_admin_templates_path,
+        class: 'btn btn-default pull-right' %>
   </div>
 </div>
 
@@ -13,9 +16,9 @@
 </div>
 
 <%= form_for(template, url: {action: :save_preferences}, html: { 'data-method': :patch }) do |f| %>
-<h2>Research Outputs</h2>
+<h2><%= _('Research Outputs') %></h2>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="form-group">
       <%= f.check_box :enable_research_outputs, style: 'width: auto' %>
       <%= f.label :enable_research_outputs, _('Enable research outputs tab?'), class: 'control-label' %>
@@ -23,10 +26,10 @@
   </div>
 </div>
 
-<h2 class="prefs_option">Output Types</h2>
+<h2 class="prefs_option"><%= _('Output Types') %></h2>
 <div class="row prefs_option">
   <div class="col-md-3">
-    <label for="customize_output_types_sel">Define output types:</label>
+    <label for="customize_output_types_sel"><%= _('Define output types:') %></label>
     <div>
      <%= select_tag 'customize_output_types_sel', options_for_select(select_override_options, template.customize_output_types ? '1' : '0') %>
     </div>
@@ -34,7 +37,7 @@
   <div class="col-md-6">
     <div class="selectable_items" id="default-output-types">
     <fieldset class="selectable_items">
-      <legend>Default Output Types</legend>
+      <legend><%= _('Default Output Types') %></legend>
       <ul>
         <% output_types.keys.each do |ot|%>
           <li class="output_type selectable_item">
@@ -46,20 +49,20 @@
     </div>
     <div class="selectable_items" id="my-output-types" >
     <fieldset class="selectable_items">
-      <legend>My Output Types</legend>
+      <legend><%= _('My Output Types') %></legend>
         <ul>
         <% template.template_output_types.each do |ot| %>
         <input class="output_type_init" type="hidden" data="<%= ot.id %>" value="<%= ot.research_output_type %>"/>
         <% end %>
         </ul>
-      <div><input id="new_output_type" type="text"/> <button id="add_output_type">Add an output type</button></div>
+      <div><input id="new_output_type" type="text"/> <button id="add_output_type"><%= _('Add an output type') %></button></div>
     </fieldset>
     </div>
   </div>
 </div>
 
 <div class="row prefs_option">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="form-group">
         <%= f.label(:user_guidance_output_types, _('Tooltip for Output Types')) %>
         <%= f.text_area(:user_guidance_output_types,
@@ -70,7 +73,7 @@
 </div>
 
 <div class="row prefs_option">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="form-group">
         <%= f.label(:user_guidance_output_types, _('Tooltip for Output Types Title')) %>
         <%= f.text_area(:user_guidance_output_types_title,
@@ -81,7 +84,7 @@
 </div>
 
 <div class="row prefs_option">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="form-group">
         <%= f.label(:user_guidance_output_types, _('Tooltip for Output Types Description')) %>
         <%= f.text_area(:user_guidance_output_types_description,
@@ -91,14 +94,14 @@
   </div>
 </div>
 
-<h2 class="prefs_option">Preferred repositories</h2>
+<h2 class="prefs_option"><%= _('Preferred repositories') %></h2>
 <div class="row prefs_option">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <%= f.check_box :customize_repositories, style: 'width: auto' %>
     <%= f.label :customize_repositories, _('Require reserachers to select from a specific list?'), class: 'control-label' %>
   </div>
   <div id="prefs-repositories">
-    <div class="col-md-12">
+    <div class="col-md-9">
       <div>
         <%= render partial: "layouts/modal_search/selections",
                 locals: {
@@ -118,7 +121,7 @@
   </div>
 </div>
 
-<h2 class="prefs_option">Customized repositories</h2>
+<h2 class="prefs_option"><%= _('Customized repositories') %></h2>
 <div class="row prefs_option">
   <div>
     <% template.customized_repositories.each do |r| %>
@@ -130,7 +133,7 @@
       </div>
     <% end %>
   </div>
-  <div class="customized_repositories col-md-12">
+  <div class="customized_repositories col-md-9">
   </div>
   <div class="col-md-12">
         <%= button_tag _("Define a Custom Repository"), type: "button", class: "btn btn-default",
@@ -140,7 +143,7 @@
 
 
 <div class="row prefs_option">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="form-group">
         <%= f.label(:user_guidance_repositories, _('Tooltip for Repositories')) %>
         <%= f.text_area(:user_guidance_repositories,
@@ -150,9 +153,9 @@
   </div>
 </div>
 
-<h2 class="prefs_option">Preferred metadata standards</h2>
+<h2 class="prefs_option"><%= _('Preferred metadata standards') %></h2>
 <div class="row prefs_option">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <%= f.check_box :customize_metadata_standards, style: 'width: auto' %>
     <%= f.label :customize_metadata_standards, _('Require reserachers to select from a specific list?'), class: 'control-label' %>
     <div id="prefs-metadata_standards">
@@ -174,7 +177,7 @@
 </div>
 
 <div class="row prefs_option">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="form-group">
         <%= f.label(:user_guidance_metadata_standards, _('Tooltip for Metadata Standards')) %>
         <%= f.text_area(:user_guidance_metadata_standards,
@@ -185,9 +188,9 @@
 </div>
 
 
-<h2 class="prefs_option">Preferred licenses</h2>
+<h2 class="prefs_option"><%= _('Preferred licenses') %></h2>
 <div class="row prefs_option">
-  <div class="col-md-12">
+  <div class="col-md-3">
     <div>
       <%
         opts = [
@@ -202,7 +205,7 @@
   <div class="col-md-6">
     <div class="selectable_items" id="default-licenses">
     <fieldset class="selectable_items">
-      <legend>Default Licenses</legend>
+      <legend><%= _('Default Licenses') %></legend>
       <ul>
         <% preferred_licenses.each do |lic|%>
           <li class="license selectable_item">
@@ -215,7 +218,7 @@
     </div>
     <div class="selectable_items" id="my-licenses" >
     <fieldset class="selectable_items">
-      <legend>My Licenses</legend>
+      <legend><%= _('My Licenses') %></legend>
         <ul>
         <% template.licenses.each do |lic| %>
           <input class="license_init" type="hidden" data="<%= lic[:identifier] %>" value="<%= lic[:id] %>"/>
@@ -227,7 +230,7 @@
            aria: { label: _('Initial license') } }
         %>
         <%= select_tag "new_license", options_for_select(licenses), args %>
-        <button id="add_license">Add a license</button>
+        <button id="add_license"><%= _('Add a license') %></button>
       </div>
     </fieldset>
     </div>
@@ -235,7 +238,7 @@
 </div>
 
 <div class="row prefs_option">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="form-group">
         <%= f.label(:user_guidance_licenses, _('Tooltip for Licences')) %>
         <%= f.text_area(:user_guidance_licenses,
@@ -246,7 +249,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="form-group">
       <%= f.submit _('Save Preferences'), class: "btn btn-primary", id: "save_preferences" %>
     </div>

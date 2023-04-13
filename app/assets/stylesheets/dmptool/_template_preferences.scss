@@ -1,31 +1,37 @@
+@use '../variables/colours' as *;
+
 li.selectable_item {
-    display: inline-block;
+  display: inline-block;
 }
 
 span.selectable_item_label {
-    padding: 4px; 
-    border: thin solid gray; 
-    border-radius: 5px; margin: 3px;
-    display: inline-block;
+  padding: 4px;
+  border: thin solid $color-grey-darker;
+  border-radius: 5px; margin: 3px;
+  display: inline-block;
 }
 
 span.selectable_item_label.custom {
-    color: $color-white;
-    background-color: $color-dark-blue;
+  color: $color-white;
+  background-color: $color-dark-blue;
 }
 
 fieldset.selectable_items {
-    border: thin solid gray; 
-    padding: 10px; 
-    border-radius: 5px;
+  border: thin solid $color-grey-darker;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 div.selectable_items {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+div.selectable_items input {
+  border-color: $color-grey-darker
 }
 
 fieldset.user-guidance {
-    padding: 4px; 
-    border: thin solid gray; 
-    border-radius: 5px; margin: 3px;
+  padding: 4px;
+  border: thin solid $color-grey-darker;
+  border-radius: 5px; margin: 3px;
 }

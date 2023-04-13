@@ -1,11 +1,10 @@
-import { Tinymce } from '../../../utils/tinymce';
 import getConstant from '../../../utils/constants';
 
 $(() => {
   if ($('#template_user_guidance_repositories:enabled').length > 0) {
     Tinymce.init({ selector: '#template_user_guidance_repositories' });
   }
-  if ($('#template_user_guidance_metadata_standards:endabled').length > 0) {
+  if ($('#template_user_guidance_metadata_standards:enabled').length > 0) {
     Tinymce.init({ selector: '#template_user_guidance_metadata_standards' });
   }
 });
