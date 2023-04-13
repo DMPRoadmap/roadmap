@@ -52,8 +52,6 @@ import './src/answers/rdaMetadata';
 // DMPTool Customization. We have rewritten the org selection widget and the Devise forms so no need for
 // those JS files anymore, so commenting out below
 // ----------------------------------------------------------
-// import './src/contributors/form';
-// import './src/devise/invitations/edit';
 import './src/devise/passwords/edit';
 import './src/devise/registrations/edit';
 // import './src/devise/registrations/new';
@@ -67,6 +65,7 @@ import './src/plans/editDetails';
 import './src/plans/new';
 import './src/plans/share';
 import './src/publicTemplates/show';
+import './src/relatedIdentifiers/edit';
 import './src/researchOutputs/form';
 import './src/roles/edit';
 import './src/shared/createAccountForm';
@@ -74,6 +73,7 @@ import './src/shared/signInForm';
 import './src/usage/index';
 import './src/users/adminGrantPermissions';
 import './src/users/notificationPreferences';
+import './src/users/profile';
 
 // OrgAdmin view specific JS
 import './src/orgAdmin/conditions/updateConditions';
@@ -99,6 +99,7 @@ import './src/superAdmin/users/edit';
 import './src/dmptool/recaptcha_aria';
 import './src/dmptool/public_pages/plans_index';
 import './src/dmptool/orgAdmin/plans/index';
+import './src/dmptool/orgAdmin/templates/preferences';
 import './src/dmptool/users/passwords/edit';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
