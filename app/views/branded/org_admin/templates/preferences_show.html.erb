@@ -153,7 +153,7 @@
 <h2 class="prefs_option">Preferred metadata standards</h2>
 <div class="row prefs_option">
   <div class="col-md-12">
-    <%= f.check_box :customize_metadata_standards, style: 'width: auto' %>
+    <%= f.check_box :customize_metadata_standards, style: 'width: auto', disabled: true  %>
     <%= f.label :customize_metadata_standards, _('Require reserachers to select from a specific list?'), class: 'control-label' %>
     <div id="prefs-metadata_standards">
       <%= render partial: "layouts/modal_search/selections",
