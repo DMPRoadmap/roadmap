@@ -14,9 +14,7 @@
       <%= link_to(_('Add new phase'), new_org_admin_template_phase_path(template.id), { 'aria-controls': 'add_phase', role: 'tab' }) %>
     </li>
   <% end %>
-  <% if template_preference_customizable?(template) %>
-    <li role="presentation" <%= active_page?(preferences_org_admin_template_path(template.id)) ? ' class=active' : '' %>>
-      <%= link_to(_('Preferences'), preferences_org_admin_template_path(template.id), { 'aria-controls': 'preferences', role: 'tab' }) %>
-    </li>
-  <% end %>
+  <li role="presentation" <%= active_page?(preferences_org_admin_template_path(template.id)) ? ' class=active' : '' %>>
+    <%= link_to(_('Preferences'), preferences_org_admin_template_path(template.id), { 'aria-controls': 'preferences', role: 'tab' }) %>
+  </li>
 </ul>

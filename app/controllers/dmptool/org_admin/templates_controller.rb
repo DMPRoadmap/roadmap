@@ -29,11 +29,15 @@ module Dmptool
       end
       # rubocop:enable Metrics/AbcSize
 
+      # rubocop:disable Metrics/AbcSize
       def preferences
         template = Template.find(params[:id])
         authorize Template
 
-        render 'preferences', locals: {
+        editable = template.latest? && template.id.present? && template.org_id = current_user.org.id
+        page = editable ? 'preferences' : 'preferences_show'
+
+        render page, locals: {
           partial_path: 'edit',
           template: template,
           output_types: ResearchOutput.output_types,
@@ -41,6 +45,7 @@ module Dmptool
           licenses: License.selectable.map { |license| [license.identifier, license.id] }
         }
       end
+      # rubocop:enable Metrics/AbcSize
 
       # GET /org_admin/templates/[:id] # ,
       # rubocop:disable Metrics/AbcSize

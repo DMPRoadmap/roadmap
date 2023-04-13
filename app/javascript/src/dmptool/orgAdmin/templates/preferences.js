@@ -2,10 +2,10 @@ import { Tinymce } from '../../../utils/tinymce';
 import getConstant from '../../../utils/constants';
 
 $(() => {
-  if ($('#template_user_guidance_repositories').length > 0) {
+  if ($('#template_user_guidance_repositories:enabled').length > 0) {
     Tinymce.init({ selector: '#template_user_guidance_repositories' });
   }
-  if ($('#template_user_guidance_metadata_standards').length > 0) {
+  if ($('#template_user_guidance_metadata_standards:endabled').length > 0) {
     Tinymce.init({ selector: '#template_user_guidance_metadata_standards' });
   }
 });
@@ -340,4 +340,13 @@ $(() => {
     $('.custrepo').val('');
     $('button.close').trigger('click');
   });
+});
+
+$(() => {
+  if ($('h1.disabled').is('*')) {
+    $('button[data-toggle="modal"]').hide();
+    $('a.output_type_remove, a.license_remove').off();
+    $('a.output_type_remove i, a.license_remove i').hide();
+    $('a.modal-search-result-unselector').hide();
+  }
 });

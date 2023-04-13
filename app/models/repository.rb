@@ -95,7 +95,6 @@ class Repository < ApplicationRecord
   has_and_belongs_to_many :templates, join_table: :template_repositories
   attribute :custom_repository_owner_template_id
 
-
   # ==========
   # = Scopes =
   # ==========

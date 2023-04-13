@@ -119,7 +119,8 @@ class Template < ApplicationRecord
   has_many :repositories, through: :template_repositories
 
   # customized repository relationship - customized repositories belong to a single template
-  has_many :customized_repositories, foreign_key: 'custom_repository_owner_template_id', class_name: 'Repository', dependent: :destroy
+  has_many :customized_repositories, foreign_key: 'custom_repository_owner_template_id', class_name: 'Repository',
+                                     dependent: :destroy
 
   has_many :template_metadata_standards, dependent: :destroy
 
@@ -376,7 +377,8 @@ class Template < ApplicationRecord
       copy.template_repositories << TemplateRepository.new(template: copy, repository: t.repository)
     end
     template_metadata_standards.each do |t|
-      copy.template_metadata_standards << TemplateMetadataStandard.new(template: copy, metadata_standard: t.metadata_standard)
+      copy.template_metadata_standards << TemplateMetadataStandard.new(template: copy,
+                                                                       metadata_standard: t.metadata_standard)
     end
     template_licenses.each do |t|
       copy.template_licenses << TemplateLicense.new(template: copy, license: t.license)
@@ -573,6 +575,7 @@ class Template < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def customized_repositories_attributes=(params)
     params.each do |_i, repository_params|
       repo = nil
@@ -580,20 +583,21 @@ class Template < ApplicationRecord
         repo = Repository.find_by(id: repository_params[:id])
         customized_repositories << repo unless repo.nil?
       end
-      if repo.nil? && repository_params[:name]
-        customized_repositories << Repository.new(
-          name: repository_params[:name],
-          description: repository_params[:description],
-          uri: repository_params[:uri],
-          info: {
-            types: [''],
-            subjects: [''],
-            upload_types: []
-          }.to_json
-        )
-      end
+      next unless repo.nil? && repository_params[:name]
+
+      customized_repositories << Repository.new(
+        name: repository_params[:name],
+        description: repository_params[:description],
+        uri: repository_params[:uri],
+        info: {
+          types: [''],
+          subjects: [''],
+          upload_types: []
+        }.to_json
+      )
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def metadata_standards_attributes=(params)
     params.each do |_i, metadata_standard_params|
