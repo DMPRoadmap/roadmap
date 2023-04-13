@@ -1,5 +1,18 @@
 @use '../variables/colours' as *;
 
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:active:hover,
+.btn-primary.active:hover {
+  background-color: $color-primary-background;
+  border-color: $color-primary-background;
+  color: $color-primary-text;
+  margin: 15px 0;
+}
+
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus,

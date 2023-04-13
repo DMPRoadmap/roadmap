@@ -6,3 +6,15 @@
 .question-body .question-section .toggle-guidance-section {
   background-color: $color-primary-background;
 }
+
+.nav-pills > li.active > a {
+  background-color: $color-secondary-background;
+  border-color: $color-primary-background;
+  color: $color-secondary-text;
+}
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  background-color: $color-primary-background;
+  border-color: $color-primary-background;
+  color: $color-primary-text;
+}
