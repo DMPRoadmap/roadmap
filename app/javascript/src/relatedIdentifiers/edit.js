@@ -69,9 +69,6 @@ $(() => {
         $(e.target).closest('.related-work-row').remove();
       }
 
-      console.log(`Rows ${relatedIdentifierBlock.find('.related-work-row').length}`);
-      console.log(`Citations ${relatedIdentifierBlock.find('.citation').length}`);
-
       if (relatedIdentifierBlock.find('.related-work-row').length <= 1 &&
           relatedIdentifierBlock.find('.citation').length <= 0) {
         // saveButton.addClass('hidden');
