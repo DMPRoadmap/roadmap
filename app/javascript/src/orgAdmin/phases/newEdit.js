@@ -81,7 +81,7 @@ $(() => {
         },
       });
 
-      const questionForm = $(selector).find('.question_form');
+      const questionForm = $(`#${selector}`).find('.question_form');
       if (questionForm.length > 0) {
         initQuestion(selector);
       }
