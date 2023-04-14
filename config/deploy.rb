@@ -11,7 +11,7 @@ set :branch,           ENV.fetch('BRANCH', nil)          || 'master'
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`
 # Default environments to skip
-set :bundle_without, %w[pgsql thin rollbar test].join(' ')
+set :bundle_without, %w[pgsql thin rollbar test development].join(' ')
 # We only need to keep 3 releases
 set :keep_releases, 3
 
