@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 export const Select2 = {
   init(questionId = null, inModal = false) {
     $(`${questionId} .select-field select, ${questionId} .schema-picker-zone select`).select2({
@@ -10,8 +12,12 @@ export const projectSelectorHandler = (selectField, value, text) => {
   const overlay = $('#plan_project .overlay');
   const errorZone = $('#plan_project .error-zone');
   // eslint-disable-next-line
-  if (confirm(`Souhaitez vous charger les données du projet "${text}" dans votre plan ?`)) {
-    $.ajax({
+  Swal.fire({
+    text: `Souhaitez vous charger les données du projet "${text}" dans votre plan ?`,
+    showDenyButton: true,
+    width: 500,
+  }).then((result) => {
+    if (result.isConfirmed) {$.ajax({
       url: '/codebase/anr_search',
       method: 'get',
       data: {
@@ -33,7 +39,8 @@ export const projectSelectorHandler = (selectField, value, text) => {
       errorZone.show();
       overlay.hide();
     });
-  }
+    }
+  });
 };
 
 export const createFromRegistryHandler = (selectField, value, selected) => {

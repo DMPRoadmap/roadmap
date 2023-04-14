@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 import {
   projectSelectorHandler,
   createFromRegistryHandler,
@@ -31,17 +33,21 @@ $(() => {
   // request to the server
   $(document).on('click', '.linked-fragments-list .actions .delete', (e) => {
     const target = $(e.target);
-    // TODO : replace confirm()
-    // eslint-disable-next-line
-    const confirmed = confirm(target.data('confirm-message'));
-    if (confirmed) {
-      $.ajax({
-        url: target.data('url'),
-        method: 'delete',
-      }).done((data) => {
-        $(`table.list-${data.query_id} tbody`).html(data.html);
-      });
-    }
+    const confirmMessage = target.data('confirm-message');
+    Swal.fire({
+      text: confirmMessage,
+      showDenyButton: true,
+      width: 500,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: target.data('url'),
+          method: 'delete',
+        }).done((data) => {
+          $(`table.list-${data.query_id} tbody`).html(data.html);
+        });
+      }
+    });
   });
 
   $(document).on('select2:select', (e) => {

@@ -744,7 +744,7 @@ RSpec.describe Template, type: :model do
       end
 
       it "doesn't set template_id on phases" do
-        expect(subject.phases.map(&:template_id).compact).to be_empty
+        expect(subject.phases.filter_map(&:template_id)).to be_empty
       end
     end
   end

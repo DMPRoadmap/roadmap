@@ -214,6 +214,13 @@ body {
   }
 
   /* 
+    LEGEND
+  */
+  legend.legend-label {
+    font-size: 14px;
+    border-bottom: none;
+  }
+  /* 
         PLAN EDIT
     */
   // Progress bar 
@@ -499,4 +506,21 @@ body {
 
 .rda-message {
   display: none;
+}
+
+/*
+* SweetAlert2
+*/
+.swal2-popup {
+  .swal2-html-container {
+    font-size: 14px;
+  }
+  .swal2-actions {
+    .swal2-confirm {
+      background-color: $blue;
+    }
+    .swal2-deny {
+      background-color: $rust;
+    }
+  }
 }

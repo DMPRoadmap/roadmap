@@ -66,7 +66,7 @@ module OrgAdmin
       raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
 
       org = current_user.org
-      file_name = org.name.gsub(/ /, '_')
+      file_name = org.name.tr(' ', '_')
                      .gsub(/[.;,]/, '')
       header_cols = [
         _('Project title').to_s,

@@ -108,9 +108,8 @@ gem 'jwt'
 # OO authorization for Rails (https://github.com/elabs/pundit)
 gem 'pundit'
 
-# Protect your Rails and Rack apps from bad clients. Rack::Attack lets you easily decide when
-# to allow, block and throttle based on properties of the request.
-gem 'rack-attack'
+# Gem for throttling malicious attacks
+gem 'rack-attack', '~> 6.6', '>= 6.6.1'
 
 # ========== #
 # UI / VIEWS #
@@ -290,6 +289,9 @@ group :ci, :development do
   # RuboCop rules for detecting and autocorrecting undecorated strings for i18n
   # (gettext and rails-i18n)
   gem 'rubocop-i18n'
+
+  # Performance checks by Rubocop
+  gem 'rubocop-performance', require: false
 end
 
 group :development do

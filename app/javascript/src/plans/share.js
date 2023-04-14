@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 import * as notifier from '../utils/notificationHelper';
 // import { isObject, isString } from '../utils/isType';
 import { isObject, isString } from '../utils/isType';
@@ -36,5 +38,21 @@ $(() => {
     $(e.currentTarget)
       .find('i.fa-chevron-right, i.fa-chevron-down')
       .toggleClass('fa-chevron-right fa-chevron-down');
+  });
+
+  // Addec confirm message for visibility change if set visibility is Public
+  $('#set_visibility').on('click', '.set-plan-public', (e) => {
+    e.preventDefault();
+    const target = $(e.target);
+    const confirmMessage = target.data('confirm-message');
+    Swal.fire({
+      text: confirmMessage,
+      showDenyButton: true,
+      width: 500,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        target.prop('checked', true);
+      }
+    });
   });
 });

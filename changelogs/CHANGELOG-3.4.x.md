@@ -1,5 +1,12 @@
 # Liste des changements versions 3.4.0->
 
+
+## 16/02/2023
+- DMPRoadmap V4.0.2 : https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.2
+- Correction du problème d'affichage des valeurs par défaut dans les champs "number" (issue gitbucket 467)
+- La liste des formulaires personnalisés n'est plus proposée lorsqu'un seul formulaire est disponible (issue gitbucket 468) => Sera déployé dans une version corrective prochainement
+- Amélioration de l'affichage des groupes de recommandations lorsque le groupe a le même nom que l'organisme associé (issue gitbucket 469)
+
 ## 02/02/2023
 - Retrait des modèles structurés de la liste des modèles personnalisables (issue gitbucket 463)
 - Amélioration du message de confirmation d'envoi d'une notification depuis l'onglet Runs, lors de la rédaction du plan.

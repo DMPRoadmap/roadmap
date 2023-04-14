@@ -17,20 +17,6 @@ DMP Roadmap is a Data Management Planning tool. Management and development of DM
 
 Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/releases/).
 
-#### Pre-requisites
-Roadmap is a Ruby on Rails application and you will need to have:
-* Ruby = 2.7.6
-* Rails = 6.1
-* MySQL >= 5.0 OR PostgreSQL
-
-Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org.
-
-L'application se lance par défaut en mode développement.
-
-## Développement
-
-### Structure du dépôt Git
-
 #### Installation
 See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installation) on the Wiki.
 

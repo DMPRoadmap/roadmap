@@ -16,7 +16,7 @@ $(() => {
       $('#pdf-formatting').hide();
     }
 
-    if ($(e.currentTarget).val() === 'json') {
+    if (frmt === 'json') {
       $('#research-output-export-mode, #export-options').hide();
       $('#json-formatting').show();
       $('#download-settings').hide();
@@ -25,7 +25,17 @@ $(() => {
       $('#json-formatting').hide();
       $('#download-settings').show();
     }
-  });
+
+    if (frmt === 'csv') {
+      $('#phase_id').find('option[value="All"').hide();
+      $('#phase_id option:eq(1)').attr('selected', 'selected');
+      $('#phase_id').val($('#phase_id option:eq(1)').val());
+    } else if (frmt === 'pdf' || frmt === 'html' || frmt === 'docx' || frmt === 'text') {
+      $('#phase_id').find('option[value="All"').show();
+      $('#phase_id').val($('#phase_id option:first').val());
+      $('#phase_id option:first').attr('selected', 'selected');
+    }
+  }).trigger('change');
 
   $('#select-all-phases').on('click', (e) => {
     if (e.target.checked) {

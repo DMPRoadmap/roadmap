@@ -1,4 +1,4 @@
-import { Tinymce } from './tinymce.js.erb';
+import { Tinymce } from './tinymce';
 import { Select2 } from './select2';
 import { AutoNumericHelper } from './autoNumericHelper';
 
