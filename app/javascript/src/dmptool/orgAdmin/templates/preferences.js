@@ -1,3 +1,4 @@
+import { Tinymce } from '../../../utils/tinymce';
 import getConstant from '../../../utils/constants';
 
 $(() => {
@@ -342,7 +343,7 @@ $(() => {
 });
 
 $(() => {
-  if ($('h1.disabled').is('*')) {
+  if ($('h1.treat-page-as-read-only').is('*')) {
     $('button[data-toggle="modal"]').hide();
     $('a.output_type_remove, a.license_remove').off();
     $('a.output_type_remove i, a.license_remove i').hide();

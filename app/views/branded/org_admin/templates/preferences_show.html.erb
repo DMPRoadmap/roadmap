@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <h1><%= _('Template Preferences (VIEW)') %></h1>
+    <h1 class='treat-page-as-read-only'><%= _('Template Preferences (VIEW)') %></h1>
     <%= link_to _('View all templates'),
         org_admin_templates_path,
         class: 'btn btn-default pull-right' %>
@@ -55,7 +55,7 @@
         <input class="output_type_init" type="hidden" data="<%= ot.id %>" value="<%= ot.research_output_type %>"/>
         <% end %>
         </ul>
-      <div><input id="new_output_type" type="text"/> <button id="add_output_type" disabled><%= _('Add an output type') %></button></div>
+      <div><input id="new_output_type" type="text"/> <button class="btn btn-default" id="add_output_type" disabled><%= _('Add an output type') %></button></div>
     </fieldset>
     </div>
   </div>
@@ -230,7 +230,7 @@
            aria: { label: _('Initial license') }, disabled: true }
         %>
         <%= select_tag "new_license", options_for_select(licenses), args %>
-        <button id="add_license" disabled><%= _('Add a license') %></button>
+        <button class="btn btn-default" id="add_license" disabled><%= _('Add a license') %></button>
       </div>
     </fieldset>
     </div>
