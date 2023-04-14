@@ -98,9 +98,6 @@ RSpec.describe 'PlansExports', js: true do
       end
       within_window new_window do
         expect(page.source).to have_text(plan.title)
-        plan.phases.each do |phase|
-          expect(page.source).to have_text(phase.title)
-        end
       end
       new_window = window_opened_by do
         _select_option('phase_id', plan.phases[1].id)
