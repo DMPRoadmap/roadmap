@@ -16,7 +16,7 @@ end
 
 # Throttle attempts to a particular path. 2 POSTs to /users/password every 30 seconds
 Rack::Attack.throttle "password_resets/ip", limit: 2, period: 30.seconds do |req|
-  req.post? && req.path == "/users/password" && req.ip
+  req.post? && req.path == "/users/password/new" && req.ip
 end
 
 # Throttle attempts to a particular path. 4 POSTs to /users/sign_in every 30 seconds

@@ -182,7 +182,7 @@ RSpec.describe RegistryOrgsController do
 
     describe ':weigh(term:, org:)' do
       before do
-        @term = Faker::Music::PearlJam.song.gsub(' ', '-').upcase
+        @term = Faker::Music::PearlJam.song.tr(' ', '-').upcase
         # Make sure the names do not include the search term so we can control scenarios
         @org.name = Faker::Lorem.sentence.gsub(@term, '')
         @registry_org.name = Faker::Lorem.sentence.gsub(@term, '')

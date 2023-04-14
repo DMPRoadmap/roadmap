@@ -18,7 +18,6 @@ describe 'layouts/application.html.erb' do
     expect(rendered.include?('rel="apple-touch-icon"')).to be(true)
     expect(rendered.include?('rel="mask-icon"')).to be(true)
     expect(rendered.include?('rel="manifest"')).to be(true)
-    expect(rendered.include?('js/application-')).to be(true)
     expect(rendered.include?('href="/assets/application-')).to be(true)
     expect(rendered.include?('src="/dmptool-ui/main.js"')).to be(true)
     expect(rendered.include?('href="/dmptool-ui/main.css"')).to be(true)

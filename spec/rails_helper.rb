@@ -51,10 +51,10 @@ WebMock.disable_net_connect!(
 
 # Configure RSpec
 RSpec.configure do |config|
-  config.include(AutoCompleteHelper, type: :feature)
-  config.include(CapybaraHelper, type: :feature)
-  config.include(SessionsHelper, type: :feature)
-  config.include(TinyMceHelper,  type: :feature)
+  config.include(Helpers::AutocompleteHelper, type: :feature)
+  config.include(Helpers::CapybaraHelper, type: :feature)
+  config.include(Helpers::SessionsHelper, type: :feature)
+  config.include(Helpers::TinyMceHelper,  type: :feature)
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

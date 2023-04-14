@@ -47,12 +47,12 @@ module Mocks
     end
 
     def stub_update_success!
-      stub_request(:put, %r{#{BASE_API_URL}data_management_plans/.*})
+      stub_request(:put, %r{#{BASE_API_URL}data_management_plans/.*}o)
         .to_return(status: 200, body: SUCCESS_RESPONSE, headers: {})
     end
 
     def stub_update_error!
-      stub_request(:put, %r{#{BASE_API_URL}data_management_plans/.*})
+      stub_request(:put, %r{#{BASE_API_URL}data_management_plans/.*}o)
         .to_return(status: 500, body: ERROR_RESPONSE, headers: {})
     end
   end

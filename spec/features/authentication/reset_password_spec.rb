@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Request password reset' do
   include Helpers::DmptoolHelper
 
+  # Combining all of the tests into two because we have a rate limit set in rack_attack for this endpoint
   before do
     @pwd = SecureRandom.uuid
     @user = create(:user)
@@ -15,6 +16,7 @@ RSpec.describe 'Request password reset' do
     click_on 'Continue'
     expect(page).to have_text('Sign in')
     click_link 'Forgot password?'
+    sleep(5)
   end
 
   it 'User enters an unknown email' do

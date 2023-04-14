@@ -590,7 +590,7 @@ RSpec.describe User do
   describe '#access_token_for(external_service_name:)' do
     before do
       @user = build(:user)
-      @svc = Faker::Music::PearlJam.song.downcase.gsub(' ', '_')
+      @svc = Faker::Music::PearlJam.song.downcase.tr(' ', '_')
       @token = build(:external_api_access_token, external_service_name: @svc)
       @user.external_api_access_tokens << @token
     end
