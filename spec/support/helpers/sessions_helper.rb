@@ -56,7 +56,7 @@ module Helpers
         # Moch the Omniauth payload for Orcid
         {
           provider: scheme,
-          uid: 4.times.map { Faker::Number.number(l_digits: 4).to_s }.join('-')
+          uid: Array.new(4).map { Faker::Number.number(l_digits: 4).to_s }.join('-')
         }
       else
         {

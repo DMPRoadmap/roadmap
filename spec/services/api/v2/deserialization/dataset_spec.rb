@@ -165,7 +165,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
                                               description: hash[:description])
         @research_output.metadata_standards << standard
         result = described_class.send(:attach_metadata, research_output: @research_output, json: @json[:metadata])
-        expect(result.metadata_standards.select { |s| s.uri == standard.uri }.length).to be(1)
+        expect(result.metadata_standards.count { |s| s.uri == standard.uri }).to be(1)
       end
 
       it 'adds the :metadata_standard' do

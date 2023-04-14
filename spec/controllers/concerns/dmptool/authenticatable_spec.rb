@@ -60,7 +60,7 @@ RSpec.describe Dmptool::Authenticatable do
       expect(result.include?(:password)).to be(true)
       expect(result.include?(:surname)).to be(true)
 
-      org_hash = result.select { |i| !i.is_a?(Symbol) && i.keys.include?(:org_attributes) }.first
+      org_hash = result.find { |i| !i.is_a?(Symbol) && i.key?(:org_attributes) }
       expect(org_hash[:org_attributes].include?(:abbreviation)).to be(true)
       expect(org_hash[:org_attributes].include?(:contact_email)).to be(true)
       expect(org_hash[:org_attributes].include?(:contact_name)).to be(true)
