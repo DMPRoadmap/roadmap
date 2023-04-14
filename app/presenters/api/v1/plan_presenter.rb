@@ -27,7 +27,7 @@ module Api
       # Extract the ARK or DOI for the DMP OR use its URL if none exists
       def identifier
         doi = @plan.identifiers.select do |id|
-          %w[ark doi].include?(id.identifier_format)
+          ::Plan::DMP_ID_TYPES.include?(id.identifier_format)
         end
         return doi.first if doi.first.present?
 

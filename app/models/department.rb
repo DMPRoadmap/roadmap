@@ -30,7 +30,7 @@ class Department < ApplicationRecord
 
   validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE,
-                                 scope: :org_id }
+                                 scope: :org_id, case_sensitive: false }
 
   validates :name, uniqueness: { message: UNIQUENESS_MESSAGE,
                                  scope: :org_id }

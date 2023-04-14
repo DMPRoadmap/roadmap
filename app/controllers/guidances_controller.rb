@@ -14,10 +14,11 @@ class GuidancesController < ApplicationController
   # GET /org/admin/guidance/:id/admin_index
   def admin_index
     authorize Guidance
-    @guidances = Guidance.by_org(current_user.org)
-                         .includes(:guidance_group, :themes).page(1)
+    @guidances = Guidance.includes(:guidance_group, :themes)
+                         .by_org(current_user.org).page(1)
     ensure_default_group(current_user.org)
-    @guidance_groups = GuidanceGroup.by_org(current_user.org).page(1)
+    @guidance_groups = GuidanceGroup.includes(:org)
+                                    .by_org(current_user.org).page(1)
   end
 
   # GET /org/admin/guidance/:id/admin_new
@@ -63,7 +64,7 @@ class GuidancesController < ApplicationController
     @guidance = Guidance.find(params[:id])
     authorize @guidance
 
-    if @guidance.update_attributes(guidance_params)
+    if @guidance.update(guidance_params)
       if @guidance.published?
         guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
         if !guidance_group.published? || guidance_group.published.nil?
@@ -103,7 +104,7 @@ class GuidancesController < ApplicationController
   def admin_publish
     @guidance = Guidance.find(params[:id])
     authorize @guidance
-    if @guidance.update_attributes(published: true)
+    if @guidance.update(published: true)
       guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
       guidance_group.update(published: true) if !guidance_group.published? || guidance_group.published.nil?
       flash[:notice] = _('Your guidance has been published and is now available to users.')
@@ -120,7 +121,7 @@ class GuidancesController < ApplicationController
   def admin_unpublish
     @guidance = Guidance.find(params[:id])
     authorize @guidance
-    if @guidance.update_attributes(published: false)
+    if @guidance.update(published: false)
       guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
       guidance_group.update(published: false) unless guidance_group.guidances.where(published: true).exists?
       flash[:notice] = _('Your guidance is no longer published and will not be available to users.')

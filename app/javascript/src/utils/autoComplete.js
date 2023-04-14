@@ -1,4 +1,4 @@
-import 'jquery-ui/autocomplete';
+import 'jquery-ui/ui/widgets/autocomplete';
 import getConstant from './constants';
 import { isObject, isString, isArray } from './isType';
 
@@ -218,3 +218,4 @@ export const initAutocomplete = (selector) => {
     }
   }
 };
+export default initAutocomplete;

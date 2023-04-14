@@ -11,9 +11,9 @@ module Cleanup
     class GetDeprecator
       ##
       # Default message to display to developer when deprecated method called.
-      MESSAGE = '%{deprecated_method} is deprecated. '\
-                'Instead, you should use: %{new_method}. '\
-                "Read #{__FILE__} for more information."
+      MESSAGE = '%{deprecated_method} is deprecated. ' \
+                'Instead, you should use: %{new_method}. ' \
+                "Read #{__FILE__} for more information.".freeze
 
       # Message printed to STDOUT when a deprecated method is called.
       def deprecation_warning(deprecated_method, _message, _backtrace = nil)

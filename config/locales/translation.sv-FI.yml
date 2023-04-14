@@ -116,6 +116,16 @@ sv-FI:
         other: "%{count} fel hindrade detta %{resource} från att sparas:"
       model_invalid: 'Validering misslyckades: %{errors}'
       required: måste finnas
+    unavailable_session: |-
+      Session %{id} är inte längre tillgänglig i minnet.
+
+      Om du råkar köra på en multi-process-server (som Unicorn eller Puma) processen
+      den här förfrågan träffar inte %{id} i minnet. Överväg att vrida antalet
+      processer / arbetare till en (1) eller använder en annan server i utveckling.
+    unacceptable_request: En stödd version förväntas i Accept header.
+    connection_refused: |-
+      hoppsan! Misslyckades att ansluta till middleware-konsolen.
+      Se till att en railsutvecklingsserver körs.
     template:
       body: 'Det var problem med följande fält:'
       header:

@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   postgresql:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     services:
       # Postgres installation
@@ -30,18 +30,23 @@ jobs:
 
     steps:
     # Checkout the repo
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6.3
+        ruby-version: '3.0'
         bundler-cache: true
-
+        
+    ## - run: echo 'NODE_OPTIONS="--openssl-legacy-provider"' >> $GITHUB_ENV 
+    ## /home/runner/runners/2.301.1/externals/node12/bin/node: --openssl-legacy-provider is not allowed in NODE_OPTIONS
+ 
     # Install Node
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v3
       with:
+        node-version: '16.6.0'
         cache: 'yarn'
+        node-version: 16
 
     # Install the Postgres developer packages
     - name: 'Install Postgresql Packages'
@@ -55,12 +60,13 @@ jobs:
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+        cp .env.postgresql .env
 
     # Stub out the Rails credentials file so that we can start the Rails app
     - name: 'Setup Credentials'
       run: |
         # generate a default credential file and key
-        EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
+        EDITOR='echo "$(cat config/credentials.yml.postgresql)" >' bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
@@ -74,26 +80,20 @@ jobs:
     # Initialize the DB
     - name: 'Setup Test DB'
       run: |
-        bin/rails db:setup RAILS_ENV=test
-        bin/rails db:migrate RAILS_ENV=test
+        bundle exec rails db:setup RAILS_ENV=test
+        bundle exec rails db:migrate RAILS_ENV=test
 
     # Prebuild the CSS, JS and image assets
     - name: 'Compile Assets'
-      run: bin/rails assets:precompile
-
-    # briley - comment out Karma tests due to issues with dependencies. We should
-    #          replace these with RSpec feature tests
-    # Run the JS tests
-    # - name: 'Run Karma Tests'
-    #   run: yarn test
+      run: bundle exec rails assets:precompile
 
     # Run  the unit and functional tests
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
-        bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
-        bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
-        bin/rspec spec/mixins/
+        bundle exec rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
+        bundle exec rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
+        bundle exec rspec spec/mixins/
 
     # Run the time consuming integration tests (using Chrome headless browser)
     - name: 'Run Integration Tests'
-      run: bin/rspec spec/features/
+      run: bundle exec rspec spec/features/

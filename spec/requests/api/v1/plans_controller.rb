@@ -10,7 +10,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
       mock_authorization_for_api_client
 
       # Org model requires a language so make sure the default is set
-      create(:language, default_language: true) unless Language.default.present?
+      create(:language, abbreviation: 'v1-plans', default_language: true) unless Language.default.present?
     end
 
     describe 'GET /api/v1/plan/:id - show' do
@@ -126,7 +126,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
           end
           it 'set the Template id' do
             app = ApplicationService.application_name.split('-').first
-            tmplt = @original[:extension].select { |i| i[app].present? }.first
+            tmplt = @original[:extension].find { |i| i[app].present? }
             expected = tmplt[app][:template][:id]
             expect(@plan.template_id).to eql(expected)
           end
@@ -325,7 +325,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
 
           it 'set the Template id' do
             app = ApplicationService.application_name.split('-').first
-            tmplt = @original[:extension].select { |i| i[app].present? }.first
+            tmplt = @original[:extension].find { |i| i[app].present? }
             expected = tmplt[app][:template][:id]
             expect(@plan.template_id).to eql(expected)
           end

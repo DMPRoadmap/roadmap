@@ -36,12 +36,25 @@ class PlanExportsController < ApplicationController
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-    @selected_phase = if params.key?(:phase_id)
-                        @plan.phases.find(params[:phase_id])
-                      else
-                        @plan.phases.order('phases.updated_at DESC')
+    if params.key?(:phase_id) && params[:phase_id].length.positive?
+      # order phases by phase number asc
+      @hash[:phases] = @hash[:phases].sort_by { |phase| phase[:number] }
+      if params[:phase_id] == 'All'
+        @hash[:all_phases] = true
+      else
+        @selected_phase = @plan.phases.find(params[:phase_id])
+      end
+    else
+      @selected_phase = @plan.phases.order('phases.updated_at DESC')
                              .detect { |p| p.visibility_allowed?(@plan) }
-                      end
+    end
+
+    # Added contributors to coverage of plans.
+    # Users will see both roles and contributor names if the role is filled
+    @hash[:data_curation] = Contributor.where(plan_id: @plan.id).data_curation
+    @hash[:investigation] = Contributor.where(plan_id: @plan.id).investigation
+    @hash[:pa] = Contributor.where(plan_id: @plan.id).project_administration
+    @hash[:other] = Contributor.where(plan_id: @plan.id).other
 
     respond_to do |format|
       format.html { show_html }
@@ -66,7 +79,8 @@ class PlanExportsController < ApplicationController
                            @show_unanswered,
                            @selected_phase,
                            @show_custom_sections,
-                           @show_coversheet),
+                           @show_coversheet,
+                           @show_research_outputs),
               filename: "#{file_name}.csv"
   end
 
@@ -78,8 +92,8 @@ class PlanExportsController < ApplicationController
   def show_docx
     # Using and optional locals_assign export_format
     render docx: "#{file_name}.docx",
-           content: render_to_string(partial: 'shared/export/plan',
-                                     locals: { export_format: 'docx' })
+           content: clean_html_for_docx_creation(render_to_string(partial: 'shared/export/plan',
+                                                                  locals: { export_format: 'docx' }))
   end
 
   def show_pdf
@@ -94,7 +108,7 @@ class PlanExportsController < ApplicationController
                             date: l(@plan.updated_at.to_date, format: :readable)),
              font_size: 8,
              spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right: '[page] of [topage]',
+             right: _('[page] of [topage]'),
              encoding: 'utf8'
            }
   end
@@ -107,9 +121,9 @@ class PlanExportsController < ApplicationController
   def file_name
     # Sanitize bad characters and replace spaces with underscores
     ret = @plan.title
-    Zaru.sanitize! ret
     ret = ret.strip.gsub(/\s+/, '_')
-    ret = ret.gsub(/"/, '')
+    ret = ret.delete('"')
+    ret = ActiveStorage::Filename.new(ret).sanitized
     # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
     # of 255 characters, so this should provide enough of the title to allow the user
     # to understand which DMP it is and still allow for the file to be saved to a deeply
@@ -135,5 +149,12 @@ class PlanExportsController < ApplicationController
           .permit(:form, :project_details, :question_headings, :unanswered_questions,
                   :custom_sections, :research_outputs,
                   formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
+  end
+
+  # A method to deal with problematic text combinations
+  # in html that break docx creation by htmltoword gem.
+  def clean_html_for_docx_creation(html)
+    # Replaces single backslash \ with \\ with gsub.
+    html.gsub(/\\/, '\&\&')
   end
 end

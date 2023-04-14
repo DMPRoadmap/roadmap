@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   eslint:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     # Checkout the repo
@@ -15,14 +15,11 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         cache: 'yarn'
+        node-version: 16
 
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'
       run: yarn install
 
-    # Run the ES Lint checks on javascript files
-    #   https://github.com/marketplace/actions/run-eslint
-    - name: 'ES Lint checks'
-      uses: stefanoeb/eslint-action@1.0.0
-      with:
-        args: './app/javascript/**/*.js'
+    - name: 'Run ESLint'
+      run: yarn run eslint app/javascript/**/*.js --ext .js

@@ -155,7 +155,7 @@ class ContributorsController < ApplicationController
   # = Callbacks =
   # =============
   def fetch_plan
-    @plan = Plan.includes(:contributors).find_by(id: params[:plan_id])
+    @plan = Plan.find_by(id: params[:plan_id])
     return true if @plan.present?
 
     redirect_to root_path, alert: _('plan not found')

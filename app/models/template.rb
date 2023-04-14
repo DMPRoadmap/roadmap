@@ -52,6 +52,7 @@ class Template < ApplicationRecord
   #
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
+  attribute :links, :text, default: { funder: [], sample_plan: [] }
   serialize :links, JSON
 
   attribute :published, :boolean, default: false
@@ -60,10 +61,7 @@ class Template < ApplicationRecord
   attribute :version, :integer, default: 0
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
-  attribute :links, :text, default: { funder: [], sample_plan: [] }
-  # TODO: re-add visibility setting? (this is handled in org_admin/create and
-  # relies on the org_id in the current callback-form)
-  attribute :visibility, :integer, default: 0
+  attribute :visibility, default: Template.visibilities[:organisationally_visible]
 
   # ================
   # = Associations =
@@ -205,12 +203,16 @@ class Template < ApplicationRecord
   }
 
   # Retrieves unarchived templates whose title or org.name includes the term
-  # passed
+  # passed(We use search_term_orgs as alias for orgs to avoid issues with
+  # any orgs table join already present in loaded unarchived.)
   scope :search, lambda { |term|
-    unarchived.joins(:org)
-              .where('lower(templates.title) LIKE lower(:term) OR ' \
-                     'lower(orgs.name) LIKE lower(:term)',
-                     term: "%#{term}%")
+    unarchived
+      .joins(<<~SQL)
+        JOIN orgs AS search_term_orgs ON search_term_orgs.id = templates.org_id
+      SQL
+      .where('lower(templates.title) LIKE lower(:term)' \
+             'OR lower(search_term_orgs.name) LIKE lower(:term)',
+             term: "%#{term}%")
   }
 
   # defines the export setting for a template object
@@ -287,7 +289,7 @@ class Template < ApplicationRecord
     end
     copy.save! if options.fetch(:save, false)
     options[:template_id] = copy.id
-    phases.each { |phase| copy.phases << phase.deep_copy(options) }
+    phases.each { |phase| copy.phases << phase.deep_copy(**options) }
     # transfer the conditions to the new template
     #  done here as the new questions are not accessible when the conditions deep copy
     copy.conditions.each do |cond|
@@ -372,7 +374,7 @@ class Template < ApplicationRecord
     # Assume customizing_org is persisted
     raise _('generate_copy! requires an organisation target') unless org.is_a?(Org)
 
-    deep_copy(
+    args = {
       attributes: {
         version: 0,
         published: false,
@@ -381,20 +383,22 @@ class Template < ApplicationRecord
         is_default: false,
         title: format(_('Copy of %{template}'), template: title)
       }, modifiable: true, save: true
-    )
+    }
+    deep_copy(**args)
   end
 
   # Generates a new copy of self with an incremented version number
   def generate_version!
     raise _('generate_version! requires a published template') unless published
 
-    deep_copy(
+    args = {
       attributes: {
         version: version + 1,
         published: false,
         org: org
       }, save: true
-    )
+    }
+    deep_copy(**args)
   end
 
   # Generates a new copy of self for the specified customizing_org
@@ -405,7 +409,7 @@ class Template < ApplicationRecord
     # Assume self has org associated
     raise ArgumentError, _('customize! requires a template from a funder') if !org.funder_only? && !is_default
 
-    deep_copy(
+    args = {
       attributes: {
         version: 0,
         published: false,
@@ -415,7 +419,8 @@ class Template < ApplicationRecord
         visibility: Template.visibilities[:organisationally_visible],
         is_default: false
       }, modifiable: false, save: true
-    )
+    }
+    deep_copy(**args)
   end
 
   # Generates a new copy of self including latest changes from the funder this

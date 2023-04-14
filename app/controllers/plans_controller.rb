@@ -15,7 +15,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def index
     authorize Plan
-    @plans = Plan.includes(:roles, :org).active(current_user).page(1)
+    @plans = Plan.includes(:roles).active(current_user).page(1)
     @organisationally_or_publicly_visible = if current_user.org.is_other?
                                               []
                                             else
@@ -162,8 +162,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(
-      template: { phases: { sections: { questions: :answers } } },
-      plans_guidance_groups: { guidance_group: :guidances }
+      :guidance_groups, template: [:phases]
     ).find(params[:id])
     authorize @plan
 
@@ -174,7 +173,6 @@ class PlansController < ApplicationController
                   end
     # Get all of the available funders
     @funders = Org.funder
-                  .includes(identifiers: :identifier_scheme)
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
@@ -192,8 +190,9 @@ class PlansController < ApplicationController
     if @all_ggs_grouped_by_org.include?(current_user.org)
       @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
     end
+    @default_orgs = Org.default_orgs
     @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
+      @important_ggs << [org, ggs] if @default_orgs.include?(org)
 
       # If this is one of the already selected guidance groups its important!
       @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
@@ -229,7 +228,7 @@ class PlansController < ApplicationController
       { template: {
         phases: {
           sections: {
-            questions: %i[question_format question_options annotations themes]
+            questions: %i[question_format annotations]
           }
         }
       } },
@@ -238,7 +237,7 @@ class PlansController < ApplicationController
                .find(params[:id])
     authorize plan
     phase_id = params[:phase_id].to_i
-    phase = plan.template.phases.select { |p| p.id == phase_id }.first
+    phase = plan.template.phases.find { |p| p.id == phase_id }
     raise ActiveRecord::RecordNotFound if phase.nil?
 
     guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
@@ -377,6 +376,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+    @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
     @export_settings = @plan.settings(:export)
     render 'download'
   end
@@ -525,7 +525,7 @@ class PlansController < ApplicationController
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a; }
+    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a }
     render('/phases/edit', locals: {
              base_template_org: phase.template.base_org,
              plan: plan,
