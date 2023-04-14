@@ -11,9 +11,9 @@ set :branch,           ENV.fetch('BRANCH', nil)          || 'master'
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`
 # Default environments to skip
-set :bundle_without, %w[pgsql thin rollbar test].join(' ')
+set :bundle_without, %w[pgsql thin rollbar test development].join(' ')
 # We only need to keep 3 releases
-set :keep_releases, 3
+set :keep_releases, 2
 
 # Default value for linked_dirs is []
 append :linked_dirs,
@@ -26,8 +26,18 @@ append :linked_dirs,
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
+namespace :bundler do
+  before :install, 'add_x86'
+
+  desc 'Add x86_64-linux to Gemfile platforms'
+  task :add_x86 do
+    on roles(:app), wait: 1 do
+      execute "cd #{release_path} bundle lock --add-platform x86_64-linux"
+    end
+  end
+end
+
 namespace :deploy do
-  after :updating, 'deploy:add_platform'
   before :compile_assets, 'deploy:retrieve_credentials'
 
   after :deploy, 'dmptool_assets:copy_ui_assets'
@@ -42,13 +52,6 @@ namespace :deploy do
       ssm = Uc3Ssm::ConfigResolver.new
       credentials_yml_enc = ssm.parameter_for_key('credentials_yml_enc')
       File.write("#{release_path}/config/credentials.yml.enc", credentials_yml_enc.chomp)
-    end
-  end
-
-  desc 'Add the linux platform to Bundler'
-  task :add_platform do
-    on roles(:app), wait: 1 do
-      execute "cd #{release_path} bundle lock --add-platform x86_64-linux"
     end
   end
 end

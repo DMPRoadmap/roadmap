@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require 'active_support/core_ext/integer/time'
+require "active_support/core_ext/integer/time"
 
-# rubocop:disable Metrics/BlockLength
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
+  # In the development environment your application's code is reloaded any time
+  # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
@@ -23,7 +22,6 @@ Rails.application.configure do
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
-    # config.cache_store = :file_store, "#{root}/tmp/cache/"
     config.cache_store = :memory_store
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
@@ -34,7 +32,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  # Store uploaded files on the local file system (see config/storage.yml for options)
+  # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
@@ -42,16 +40,8 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  # settings for mailcatcher
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { address: 'mailcatcher', port: 1025 }
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
-
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', nil)&.to_sym || :debug
 
   # Raise exceptions for disallowed deprecations.
   config.active_support.disallowed_deprecation = :raise
@@ -85,16 +75,4 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-
-  # Rails 6+ adds middleware to prevent DNS rebinding attacks:
-  #    https://guides.rubyonrails.org/configuring.html#actiondispatch-hostauthorization
-  #
-  # This allows us to define the hostname and add it to the whitelist. If you attempt
-  # to access the site and receive a 'Blocked host' error then you will need to
-  # set this environment variable
-  config.hosts << Rails.configuration.x.dmproadmap.server_host
 end
-# rubocop:enable Metrics/BlockLength
-
-# Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = Rails.configuration.x.dmproadmap.server_host

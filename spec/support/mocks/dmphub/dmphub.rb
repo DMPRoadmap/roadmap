@@ -16,7 +16,7 @@ module Mocks
     }.freeze
 
     TOKEN_FAILURE_RESPONSE = {
-      application: Faker::Lorem.word,
+      application: Faker::Music::GratefulDead.song,
       status: 'Unauthorized',
       code: 401,
       time: Time.zone.now.to_formatted_s(:iso8601),

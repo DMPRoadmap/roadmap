@@ -49,6 +49,10 @@ WebMock.disable_net_connect!(
   allow: %w[chromedriver.storage.googleapis.com]
 )
 
+ActiveRecord::Base.logger.level = Logger::INFO
+ActionController::Base.logger.level = Logger::ERROR
+Rails.logger.level = Logger::ERROR
+
 # Configure RSpec
 RSpec.configure do |config|
   config.include(Helpers::AutocompleteHelper, type: :feature)
