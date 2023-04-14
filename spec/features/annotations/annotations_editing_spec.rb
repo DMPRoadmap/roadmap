@@ -20,7 +20,7 @@ RSpec.describe 'Annotations::Editing' do
                         text: 'Foo bar', type: 'example_answer')
   end
 
-  let!(:user) { create(:user, org: org) }
+  let!(:user) { create(:user, :org_admin, org: org) }
 
   before do
     create(:template, :default, :published)
@@ -57,7 +57,7 @@ RSpec.describe 'Annotations::Editing' do
     end
     sleep(4)
     expect(annotation.text).to eql('Foo bar')
-    expect(Annotation.order('created_at').last.text).to eql('Noo bar')
+    expect(Annotation.order('created_at').last.text).to eql('<p>Noo bar</p>')
     expect(page).not_to have_errors
   end
 
@@ -69,6 +69,7 @@ RSpec.describe 'Annotations::Editing' do
     expect do
       click_link _('Customise')
     end.to change(Template, :count).by(1)
+
     template = Template.last
     click_link _('Customise phase')
     click_link section.title

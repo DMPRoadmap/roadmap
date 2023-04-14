@@ -16,7 +16,6 @@ RSpec.describe 'Request password reset' do
     click_on 'Continue'
     expect(page).to have_text('Sign in')
     click_link 'Forgot password?'
-    sleep(5)
   end
 
   it 'User enters an unknown email' do
