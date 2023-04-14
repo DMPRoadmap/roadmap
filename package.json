@@ -8,7 +8,8 @@
     "test": "karma start spec/karma/unit.js",
     "pa11y-sitemap": "pa11y-ci --sitemap http://localhost:3000/sitemap.xml --sitemap-exclude \"/*.pdf\"",
     "build": "webpack --config ./config/webpack/webpack.config.js",
-    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "watch:js": "webpack --config ./config/webpack/webpack.config.js --watch"
   },
   "babel": {
     "presets": [

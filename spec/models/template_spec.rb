@@ -694,6 +694,8 @@ RSpec.describe Template do
   end
 
   describe '#deep_copy' do
+    let!(:template) { create(:template, :published, phases: 2, sections: 2, questions: 2) }
+
     context 'when attributes is provided' do
       subject do
         args = { attributes: { title: 'foo', description: 'bar' } }

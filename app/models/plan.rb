@@ -54,8 +54,6 @@ class Plan < ApplicationRecord
   # ----------------------------------------
   include Dmptool::Plan
 
-  DMP_ID_TYPES = %w[doi ark].freeze
-
   # DMPTool customization to support faceting the public plans by language
   # ----------------------------------------------------------------------
   belongs_to :language, default: -> { Language.default }

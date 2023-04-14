@@ -10,7 +10,9 @@ module Api
           return nil unless role.present?
           return 'other' if role.to_s.casecmp('other').zero?
 
-          "#{Contributor::ONTOLOGY_BASE_URL}/#{role.to_s.downcase.tr('_', '-')}"
+          base = Contributor::ONTOLOGY_BASE_URL
+          base = "#{base}/" unless base.end_with?('/')
+          "#{base}#{role.to_s.downcase.tr('_', '-')}"
         end
 
         def contributor_id(identifiers:)
