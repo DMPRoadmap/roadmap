@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-I18n.reload!
-
-
 module Mocks
   module DmphubMocks
     BASE_API_URL = 'https://api.test.dmphub.org/'
@@ -18,10 +15,8 @@ module Mocks
       created_at: Time.zone.now.to_formatted_s(:iso8601)
     }.freeze
 
-puts "LOADED DMPHUB MOCKS using: #{Faker::Config.locale}"
-
     TOKEN_FAILURE_RESPONSE = {
-      application: Faker::Lorem.words.first,
+      application: Faker::Music::GratefulDead.song,
       status: 'Unauthorized',
       code: 401,
       time: Time.zone.now.to_formatted_s(:iso8601),

@@ -2,7 +2,7 @@
 
 require 'shoulda/matchers'
 
-AVAILABLE_TEST_LOCALES = %w[en].freeze
+AVAILABLE_TEST_LOCALES = %w[en-US en].freeze
 
 RSpec.configure do |config|
   config.before(:suite) do
@@ -21,9 +21,5 @@ RSpec.configure do |config|
   config.before(:each, type: :feature) do
     default_locale = AVAILABLE_TEST_LOCALES.first
     I18n.config.locale = default_locale
-
-puts "AVAILABLE LOCALES: #{AVAILABLE_TEST_LOCALES}"
-
-
   end
 end
