@@ -31,7 +31,7 @@
   <div class="col-md-3">
     <label for="customize_output_types_sel"><%= _('Define output types:') %></label>
     <div>
-     <%= select_tag 'customize_output_types_sel', options_for_select(select_override_options, template.customize_output_types ? '1' : '0') %>
+     <%= select_tag 'customize_output_types_sel', options_for_select(select_override_options, template.customize_output_types ? '1' : '0'), disabled:true %>
     </div>
   </div>
   <div class="col-md-6">
@@ -199,7 +199,7 @@
         ]
         opt = template.customize_licenses ? '1' : '0'
       %>
-      <%= select_tag 'customize_licenses_sel', options_for_select(opts, opt) %>
+      <%= select_tag 'customize_licenses_sel', options_for_select(opts, opt), disabled: true %>
     </div>
   </div>
   <div class="col-md-6">
