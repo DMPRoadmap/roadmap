@@ -468,7 +468,7 @@ GEM
     rswag-ui (2.8.0)
       actionpack (>= 3.1, < 7.1)
       railties (>= 3.1, < 7.1)
-    rubocop (1.50.0)
+    rubocop (1.50.1)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
@@ -482,6 +482,9 @@ GEM
       parser (>= 3.2.1.0)
     rubocop-i18n (3.0.0)
       rubocop (~> 1.0)
+    rubocop-performance (1.17.1)
+      rubocop (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     ruby_dig (0.0.2)
@@ -560,7 +563,7 @@ GEM
     wkhtmltopdf-binary (0.12.6.6)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.9.33)
+    yard (0.9.34)
     yard-tomdoc (0.7.1)
       tomparse (>= 0.4.0)
       yard
@@ -623,7 +626,7 @@ DEPENDENCIES
   puma
   pundit
   pundit-matchers
-  rack-attack
+  rack-attack (~> 6.6, >= 6.6.1)
   rack-mini-profiler
   rails (~> 6.1)
   rails-controller-testing
@@ -634,6 +637,7 @@ DEPENDENCIES
   rswag
   rubocop
   rubocop-i18n
+  rubocop-performance
   shoulda
   spring
   spring-commands-rspec
@@ -650,7 +654,7 @@ DEPENDENCIES
   yard-tomdoc
 
 RUBY VERSION
-   ruby 3.0.5p211
+   ruby 3.0.4p208
 
 BUNDLED WITH
    2.4.8

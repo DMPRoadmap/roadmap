@@ -1,9 +1,9 @@
-import { Tinymce } from '../../utils/tinymce.js.erb';
+import { Tinymce } from '../../utils/tinymce.js';
 import { eachLinks } from '../../utils/links';
 
 $(() => {
   Tinymce.init({
-    selector: '.template',
+    selector: '#template_description',
     init_instance_callback(editor) {
       // When the text editor changes to blank, set the corresponding destroy
       // field to true (if present).

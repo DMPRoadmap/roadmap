@@ -43,12 +43,18 @@ class PlanExportsController < ApplicationController
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-    @selected_phase = if params.key?(:phase_id)
-                        @plan.phases.find(params[:phase_id])
-                      else
-                        @plan.phases.order('phases.updated_at DESC')
+    if params.key?(:phase_id) && params[:phase_id].length.positive?
+      # order phases by phase number asc
+      @hash[:phases] = @hash[:phases].sort_by { |phase| phase[:number] }
+      if params[:phase_id] == 'All'
+        @hash[:all_phases] = true
+      else
+        @selected_phase = @plan.phases.find(params[:phase_id])
+      end
+    else
+      @selected_phase = @plan.phases.order('phases.updated_at DESC')
                              .detect { |p| p.visibility_allowed?(@plan) }
-                      end
+    end
 
     # Added contributors to coverage of plans.
     # Users will see both roles and contributor names if the role is filled
@@ -116,7 +122,7 @@ class PlanExportsController < ApplicationController
                             date: l(@plan.updated_at.to_date, format: :readable)),
              font_size: 8,
              spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right: '[page] of [topage]',
+             right: _('[page] of [topage]'),
              encoding: 'utf8'
            }
   end
@@ -140,7 +146,7 @@ class PlanExportsController < ApplicationController
     # Sanitize bad characters and replace spaces with underscores
     ret = @plan.title
     ret = ret.strip.gsub(/\s+/, '_')
-    ret = ret.gsub(/"/, '')
+    ret = ret.delete('"')
     ret = ActiveStorage::Filename.new(ret).sanitized
     # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
     # of 255 characters, so this should provide enough of the title to allow the user
