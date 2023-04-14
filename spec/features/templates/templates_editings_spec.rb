@@ -25,11 +25,14 @@ RSpec.describe 'Templates::Editing' do
   end
 
   it "Admin edits a Template's existing question", :js do
-    click_link 'Customisable Templates'
+    click_link _('Customisable Templates')
     within("#template_#{template.id}") do
       click_button 'Actions'
     end
-    click_link _('Customise')
+    expect do
+      click_link _('Customise')
+    end.to change(Template, :count).by(1)
+
     # New template created
     template = Template.last
     within("#phase_#{template.phase_ids.first}") do

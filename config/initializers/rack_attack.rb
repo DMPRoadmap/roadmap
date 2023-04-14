@@ -2,8 +2,10 @@
 
 # NB: `req` is a Rack::Request object (basically an env hash with friendly accessor methods)
 
+puts "Setting up RackAttack Middleware: #{!Rails.env.test?}"
+
 # Enable/disable Rack::Attack
-Rack::Attack.enabled = true
+Rack::Attack.enabled = !Rails.env.test?
 
 # Cache store required to work.
 Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new # defaults to Rails.cache
