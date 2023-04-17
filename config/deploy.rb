@@ -28,11 +28,19 @@ set :keep_releases, 5
 
 namespace :bundler do
   before :install, 'add_x86'
+  before :install, 'clobber'
 
   desc 'Add x86_64-linux to Gemfile platforms'
   task :add_x86 do
     on roles(:app), wait: 1 do
       execute "cd #{release_path} bundle lock --add-platform x86_64-linux"
+    end
+  end
+
+  desc 'Delete all the old assets prior to precompilation for JS and CSS Bundling'
+  task :clobber do
+    on roles(:app), wait: 1 do
+      execute "cd #{release_path} bin/rails assets:clobber"
     end
   end
 end
