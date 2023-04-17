@@ -50,12 +50,15 @@
     <div class="selectable_items" id="my-output-types" >
     <fieldset class="selectable_items">
       <legend><%= _('My Output Types') %></legend>
+      <div><input id="new_output_type" type="text"/> <button class="btn btn-default" id="add_output_type" disabled><%= _('Add an output type') %></button></div>
+      <div>
+        <br/>
         <ul>
         <% template.template_output_types.each do |ot| %>
         <input class="output_type_init" type="hidden" data="<%= ot.id %>" value="<%= ot.research_output_type %>"/>
         <% end %>
         </ul>
-      <div><input id="new_output_type" type="text"/> <button class="btn btn-default" id="add_output_type" disabled><%= _('Add an output type') %></button></div>
+      </div>
     </fieldset>
     </div>
   </div>
@@ -199,7 +202,10 @@
         ]
         opt = template.customize_licenses ? '1' : '0'
       %>
+      <label for="customize_licenses_sel"><%= _('Define Preferred Licenses:') %></label>
+      <div>
       <%= select_tag 'customize_licenses_sel', options_for_select(opts, opt), disabled: true %>
+      </div>
     </div>
   </div>
   <div class="col-md-6">
@@ -219,11 +225,6 @@
     <div class="selectable_items" id="my-licenses" >
     <fieldset class="selectable_items">
       <legend><%= _('My Licenses') %></legend>
-        <ul>
-        <% template.licenses.each do |lic| %>
-          <input class="license_init" type="hidden" data="<%= lic[:identifier] %>" value="<%= lic[:id] %>"/>
-        <% end %>
-        </ul>
       <div>
         <%
           args = { include_blank: _("- Please select one -"), class: "form-control",
@@ -231,6 +232,13 @@
         %>
         <%= select_tag "new_license", options_for_select(licenses), args %>
         <button class="btn btn-default" id="add_license" disabled><%= _('Add a license') %></button>
+      </div>
+      <div>
+        <ul>
+        <% template.licenses.each do |lic| %>
+          <input class="license_init" type="hidden" data="<%= lic[:identifier] %>" value="<%= lic[:id] %>"/>
+        <% end %>
+        </ul>
       </div>
     </fieldset>
     </div>

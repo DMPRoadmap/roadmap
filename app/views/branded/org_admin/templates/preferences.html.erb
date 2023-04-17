@@ -50,12 +50,15 @@
     <div class="selectable_items" id="my-output-types" >
     <fieldset class="selectable_items">
       <legend><%= _('My Output Types') %></legend>
+      <div><input id="new_output_type" type="text" aria-label="<%= _('Output Type') %>"/> <button id="add_output_type"><%= _('Add an output type') %></button></div>
+      <div>
+        <br/>
         <ul>
         <% template.template_output_types.each do |ot| %>
         <input class="output_type_init" type="hidden" data="<%= ot.id %>" value="<%= ot.research_output_type %>"/>
         <% end %>
         </ul>
-      <div><input id="new_output_type" type="text"/> <button id="add_output_type"><%= _('Add an output type') %></button></div>
+      </div>
     </fieldset>
     </div>
   </div>
@@ -75,7 +78,7 @@
 <div class="row prefs_option">
   <div class="col-md-9">
     <div class="form-group">
-        <%= f.label(:user_guidance_output_types, _('Tooltip for Output Types Title')) %>
+        <%= f.label(:user_guidance_output_types_title, _('Tooltip for Output Types Title')) %>
         <%= f.text_area(:user_guidance_output_types_title,
             class: "form-control tinymce",
             rows: 2) %>
@@ -86,7 +89,7 @@
 <div class="row prefs_option">
   <div class="col-md-9">
     <div class="form-group">
-        <%= f.label(:user_guidance_output_types, _('Tooltip for Output Types Description')) %>
+        <%= f.label(:user_guidance_output_types_description, _('Tooltip for Output Types Description')) %>
         <%= f.text_area(:user_guidance_output_types_description,
             class: "form-control tinymce",
             rows: 2) %>
@@ -199,7 +202,10 @@
         ]
         opt = template.customize_licenses ? '1' : '0'
       %>
+      <label for="customize_licenses_sel"><%= _('Define Preferred Licenses:') %></label>
+      <div>
       <%= select_tag 'customize_licenses_sel', options_for_select(opts, opt) %>
+      </div>
     </div>
   </div>
   <div class="col-md-6">
@@ -219,11 +225,6 @@
     <div class="selectable_items" id="my-licenses" >
     <fieldset class="selectable_items">
       <legend><%= _('My Licenses') %></legend>
-        <ul>
-        <% template.licenses.each do |lic| %>
-          <input class="license_init" type="hidden" data="<%= lic[:identifier] %>" value="<%= lic[:id] %>"/>
-        <% end %>
-        </ul>
       <div>
         <%
           args = { include_blank: _("- Please select one -"), class: "form-control",
@@ -231,6 +232,14 @@
         %>
         <%= select_tag "new_license", options_for_select(licenses), args %>
         <button id="add_license"><%= _('Add a license') %></button>
+      </div>
+      <div>
+      <br/>
+      <ul>
+        <% template.licenses.each do |lic| %>
+          <input class="license_init" type="hidden" data="<%= lic[:identifier] %>" value="<%= lic[:id] %>"/>
+        <% end %>
+      </ul>
       </div>
     </fieldset>
     </div>
