@@ -151,7 +151,7 @@ $(() => {
       .appendTo('#my-licenses ul');
     const a = $('<a/>')
       .attr('tabindex', 0)
-      .attr('aria-label', getConstant('PREFS_REMOVE_LICENSE')).addClass('license_remove')
+      .attr('aria-label', `${getConstant('PREFS_REMOVE_LICENSE')} ${v}`).addClass('license_remove')
       .appendTo(li);
     a.on('click', (e) => {
       e.stopPropagation();
