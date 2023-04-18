@@ -56,12 +56,11 @@ RSpec.describe 'Templates' do
     expect(last_section.description).to match('This is the description of my new section')
     expect(last_section.description).to match('<p>')
   end
-
 end
 
 RSpec.describe 'Org admin template preferences' do
   before do
-    @PREF_SELECTORS = [
+    @pref_selectors = [
       '#customize_output_types_sel',
       '#template_customize_repositories',
       '#template_customize_metadata_standards',
@@ -69,13 +68,13 @@ RSpec.describe 'Org admin template preferences' do
       '#template_user_guidance_output_types',
       '#template_user_guidance_output_types_title',
       '#template_user_guidance_output_types_description',
-      '#template_user_guidance_licenses',
+      '#template_user_guidance_licenses'
     ]
-    @PREF_MCE_SELECTORS = [
+    @pref_mce_selectors = [
       '#template_user_guidance_repositories',
-      '#template_user_guidance_metadata_standards',
+      '#template_user_guidance_metadata_standards'
     ]
- 
+
     @org      = create(:org)
     @template = create(:template, published: true, org: @org, phases: 2)
     @phase    = @template.phases.first
@@ -131,7 +130,7 @@ RSpec.describe 'Org admin template preferences' do
       click_link 'Templates'
       click_button 'Actions'
       click_link 'History'
-  
+
       within('table.table tbody') do
         click_link 'View'
       end
@@ -140,21 +139,21 @@ RSpec.describe 'Org admin template preferences' do
       expect(find('h1')).to have_content(_('Template Preferences (VIEW)'))
       expect(find('form.edit_template')).not_to have_selector('button:enabled')
       expect(find('form.edit_template')).not_to have_selector('input:enabled')
-      @PREF_SELECTORS.each do |s|
+      @pref_selectors.each do |s|
         expect(page).to have_selector("#{s}:disabled")
-      end        
-      @PREF_MCE_SELECTORS.each do |s|
+      end
+      @pref_mce_selectors.each do |s|
         expect(page).to have_selector("#{s}:disabled")
-      end        
+      end
     end
-  
+
     it 'Edit Current Template Version', :js do
       visit('/')
       click_button 'Admin'
       click_link 'Templates'
       click_button 'Actions'
       click_link 'History'
-  
+
       within('table.table tbody') do
         click_link 'Edit'
       end
@@ -163,13 +162,13 @@ RSpec.describe 'Org admin template preferences' do
       expect(find('h1')).to have_content(_('Template Preferences'))
       expect(find('form.edit_template')).to have_selector('button:enabled')
       expect(find('form.edit_template')).to have_selector('input:enabled')
-      @PREF_SELECTORS.each do |s|
+      @pref_selectors.each do |s|
         expect(page).to have_selector("#{s}:enabled")
-      end        
+      end
       # tinymce hides the original selector
-      @PREF_MCE_SELECTORS.each do |s|
+      @pref_mce_selectors.each do |s|
         find(s, visible: false)
-      end        
+      end
     end
   end
 
@@ -183,30 +182,30 @@ RSpec.describe 'Org admin template preferences' do
 
     click_link 'Preferences'
 
-    @PREF_SELECTORS.each do |s|
+    @pref_selectors.each do |s|
       expect(page).to have_selector(s)
     end
     # tinymce hides the original selector
-    @PREF_MCE_SELECTORS.each do |s|
+    @pref_mce_selectors.each do |s|
       find(s, visible: false)
-    end        
-    
+    end
+
     uncheck 'Enable research outputs tab?'
-    @PREF_SELECTORS.each do |s|
+    @pref_selectors.each do |s|
       expect(page).not_to have_selector(s)
     end
-    @PREF_MCE_SELECTORS.each do |s|
+    @pref_mce_selectors.each do |s|
       expect(page).not_to have_selector(s)
-    end        
+    end
 
     check 'Enable research outputs tab?'
-    @PREF_SELECTORS.each do |s|
+    @pref_selectors.each do |s|
       expect(page).to have_selector(s)
     end
     # tinymce hides the original selector
-    @PREF_MCE_SELECTORS.each do |s|
+    @pref_mce_selectors.each do |s|
       find(s, visible: false)
-    end        
+    end
   end
 
   it 'Output Types Selection', :js do
@@ -235,9 +234,9 @@ RSpec.describe 'Org admin template preferences' do
     expect(page).not_to have_selector('#default-output-types')
     expect(page).to have_selector('#my-output-types')
 
-    OT = ResearchOutput.output_types.length
+    ot_len = ResearchOutput.output_types.length
     find('#customize_output_types_sel').find('option[value="0"]').select_option
-    expect(page).to have_selector('#default-output-types li', count: OT)
+    expect(page).to have_selector('#default-output-types li', count: ot_len)
 
     find('#customize_output_types_sel').find('option[value="1"]').select_option
     expect(page).to have_selector('#my-output-types li', count: 0)
@@ -256,11 +255,11 @@ RSpec.describe 'Org admin template preferences' do
     expect(page).to have_selector('#my-output-types li', count: 2)
 
     find('#customize_output_types_sel').find('option[value="2"]').select_option
-    expect(page).to have_selector('#my-output-types li', count: OT + 2)
+    expect(page).to have_selector('#my-output-types li', count: ot_len + 2)
 
     # delete one standard selection
     find('#my-output-types li.standard a.output_type_remove', match: :first).click
-    expect(page).to have_selector('#my-output-types li', count: OT + 2 - 1)
+    expect(page).to have_selector('#my-output-types li', count: ot_len + 2 - 1)
 
     find('#customize_output_types_sel').find('option[value="1"]').select_option
     expect(page).to have_selector('#my-output-types li', count: 2)
@@ -315,19 +314,19 @@ RSpec.describe 'Org admin template preferences' do
       expect(page).to have_selector('#modal-search-repositories-selections div.modal-search-result', count: 0)
       expect(page).to have_selector('#prefs-repositories div.modal-search-result', count: 0)
 
-      click_button "Add a repository"
+      click_button 'Add a repository'
       expect(page).not_to have_selector('#modal-search-repositories-results')
-      click_button "Apply filter(s)"
+      click_button 'Apply filter(s)'
       find('#modal-search-repositories-results')
 
       # find nav at top and bottom
       expect(page).to have_selector('#modal-search-repositories-results nav', count: 2)
       expect(page).to have_selector('#modal-search-repositories-results div.modal-search-result', count: 3)
 
-      within(all("div.modal-search-result")[0]) do
+      within(all('div.modal-search-result')[0]) do
         click_link 'Select'
-      end 
-      within(all("div.modal-search-result")[2]) do
+      end
+      within(all('div.modal-search-result')[2]) do
         click_link 'Select'
       end
 
@@ -352,7 +351,7 @@ RSpec.describe 'Org admin template preferences' do
 
       expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 0)
 
-      click_button "Define a Custom Repository"
+      click_button 'Define a Custom Repository'
       expect(page).to have_selector('#save_custom_repository:disabled')
 
       find('#template_custom_repo_name').set('Name 1')
@@ -360,16 +359,16 @@ RSpec.describe 'Org admin template preferences' do
       expect(page).to have_selector('#save_custom_repository:disabled')
       find('#template_custom_repo_uri').set('Url 1')
       expect(page).to have_selector('#save_custom_repository:enabled')
-      click_button "Save Repository for Template"
+      click_button 'Save Repository for Template'
 
       expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 1)
 
-      click_button "Define a Custom Repository"
+      click_button 'Define a Custom Repository'
 
       find('#template_custom_repo_name').set('Name 2')
       find('#template_custom_repo_description').set('Description 2')
       find('#template_custom_repo_uri').set('Url 2')
-      click_button "Save Repository for Template"
+      click_button 'Save Repository for Template'
 
       expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 2)
 
@@ -420,19 +419,19 @@ RSpec.describe 'Org admin template preferences' do
       expect(page).to have_selector('#modal-search-metadata_standards-selections div.modal-search-result', count: 0)
       expect(page).to have_selector('#prefs-metadata_standards div.modal-search-result', count: 0)
 
-      click_button "Add a metadata standard"
+      click_button 'Add a metadata standard'
       expect(page).not_to have_selector('#modal-search-metadat_-standards-results')
-      click_button "Apply filter(s)"
+      click_button 'Apply filter(s)'
       find('#modal-search-metadata_standards-results')
 
       # find nav at top and bottom
       expect(page).to have_selector('#modal-search-metadata_standards-results nav', count: 2)
       expect(page).to have_selector('#modal-search-metadata_standards-results div.modal-search-result', count: 3)
 
-      within(all("div.modal-search-result")[0]) do
+      within(all('div.modal-search-result')[0]) do
         click_link 'Select'
-      end 
-      within(all("div.modal-search-result")[2]) do
+      end
+      within(all('div.modal-search-result')[2]) do
         click_link 'Select'
       end
 
@@ -484,49 +483,49 @@ RSpec.describe 'Org admin template preferences' do
       # Action
       click_button 'Admin'
       click_link 'Templates'
-  
+
       click_button 'Actions'
       click_link 'Edit'
-  
+
       click_link 'Preferences'
-  
+
       find('#customize_licenses_sel').find('option[value="1"]').select_option
       expect(page).not_to have_selector('#default-licenses')
       expect(page).to have_selector('#my-licenses')
 
       find('#customize_licenses_sel').find('option[value="0"]').select_option
       expect(page).to have_selector('#default-licenses')
-      expect(page).not_to have_selector('#my-licenses')  
-  
+      expect(page).not_to have_selector('#my-licenses')
+
       find('#customize_licenses_sel').find('option[value="0"]').select_option
       expect(page).to have_selector('#default-licenses')
       expect(page).not_to have_selector('#my-licenses')
-  
-      PL = License.preferred.length
+
+      pl_len = License.preferred.length
       find('#customize_licenses_sel').find('option[value="0"]').select_option
-      expect(page).to have_selector('#default-licenses li', count: PL)
-  
+      expect(page).to have_selector('#default-licenses li', count: pl_len)
+
       # Retain default values when switching to "my" values
       find('#customize_licenses_sel').find('option[value="1"]').select_option
-      expect(page).to have_selector('#my-licenses li', count: PL)
-  
+      expect(page).to have_selector('#my-licenses li', count: pl_len)
+
       find('#new_license').find('option[value="1"]').select_option
       click_button _('Add a license')
-      expect(page).to have_selector('#my-licenses li', count: PL + 1)
-  
+      expect(page).to have_selector('#my-licenses li', count: pl_len + 1)
+
       find('#new_license').find('option[value="2"]').select_option
       click_button _('Add a license')
-      expect(page).to have_selector('#my-licenses li', count: PL + 2)
-  
+      expect(page).to have_selector('#my-licenses li', count: pl_len + 2)
+
       # disallow duplicate value
       find('#new_license').find('option[value="2"]').select_option
       click_button _('Add a license')
-      expect(page).to have_selector('#my-licenses li', count: PL + 2)
-  
+      expect(page).to have_selector('#my-licenses li', count: pl_len + 2)
+
       # delete one standard selection
       find('#my-licenses li.standard a.license_remove', match: :first).click
-      expect(page).to have_selector('#my-licenses li', count: PL + 2 - 1)
-  
+      expect(page).to have_selector('#my-licenses li', count: pl_len + 2 - 1)
+
       find('#customize_licenses_sel').find('option[value="0"]').select_option
       expect(page).to have_selector('#my-licenses li', count: 0)
     end
