@@ -265,4 +265,270 @@ RSpec.describe 'Org admin template preferences' do
     find('#customize_output_types_sel').find('option[value="1"]').select_option
     expect(page).to have_selector('#my-output-types li', count: 2)
   end
+
+  describe 'Repositories Selection' do
+    before do
+      info_json = {
+        types: [''],
+        subjects: [''],
+        upload_types: []
+      }.to_json
+
+      Repository.new(
+        name: 'Repo 1',
+        description: 'Desc 1',
+        uri: 'http://repo1.com',
+        info: info_json
+      ).save!
+
+      Repository.new(
+        name: 'Repo 2',
+        description: 'Desc 2',
+        uri: 'http://repo2.com',
+        info: info_json
+      ).save!
+
+      Repository.new(
+        name: 'Repo 3',
+        description: 'Desc 3',
+        uri: 'http://repo3.com',
+        info: info_json
+      ).save!
+    end
+
+    it 'Select 2 repositories and remove one', :js do
+      # Action
+      click_button 'Admin'
+      click_link 'Templates'
+
+      click_button 'Actions'
+      click_link 'Edit'
+
+      click_link 'Preferences'
+
+      expect(page).not_to have_selector('button[data-target="#modal-search-repositories"]')
+      expect(page).not_to have_selector('#modal-search-repositories-selections')
+
+      find('#template_customize_repositories').check
+      expect(page).to have_selector('button[data-target="#modal-search-repositories"]')
+      expect(page).to have_selector('#modal-search-repositories-selections')
+      expect(page).to have_selector('#modal-search-repositories-selections div.modal-search-result', count: 0)
+      expect(page).to have_selector('#prefs-repositories div.modal-search-result', count: 0)
+
+      click_button "Add a repository"
+      expect(page).not_to have_selector('#modal-search-repositories-results')
+      click_button "Apply filter(s)"
+      find('#modal-search-repositories-results')
+
+      # find nav at top and bottom
+      expect(page).to have_selector('#modal-search-repositories-results nav', count: 2)
+      expect(page).to have_selector('#modal-search-repositories-results div.modal-search-result', count: 3)
+
+      within(all("div.modal-search-result")[0]) do
+        click_link 'Select'
+      end 
+      within(all("div.modal-search-result")[2]) do
+        click_link 'Select'
+      end
+
+      click_button 'Close'
+      expect(page).to have_selector('#prefs-repositories div.modal-search-result', count: 2)
+
+      within(all('#prefs-repositories div.modal-search-result')[0]) do
+        click_link 'Remove'
+      end
+      expect(page).to have_selector('#prefs-repositories div.modal-search-result', count: 1)
+    end
+
+    it 'Add 2 custom repositories and remove one', :js do
+      # Action
+      click_button 'Admin'
+      click_link 'Templates'
+
+      click_button 'Actions'
+      click_link 'Edit'
+
+      click_link 'Preferences'
+
+      expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 0)
+
+      click_button "Define a Custom Repository"
+      expect(page).to have_selector('#save_custom_repository:disabled')
+
+      find('#template_custom_repo_name').set('Name 1')
+      find('#template_custom_repo_description').set('Description 1')
+      expect(page).to have_selector('#save_custom_repository:disabled')
+      find('#template_custom_repo_uri').set('Url 1')
+      expect(page).to have_selector('#save_custom_repository:enabled')
+      click_button "Save Repository for Template"
+
+      expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 1)
+
+      click_button "Define a Custom Repository"
+
+      find('#template_custom_repo_name').set('Name 2')
+      find('#template_custom_repo_description').set('Description 2')
+      find('#template_custom_repo_uri').set('Url 2')
+      click_button "Save Repository for Template"
+
+      expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 2)
+
+      within(all('div.customized_repositories div.modal-search-result')[0]) do
+        click_link 'Remove'
+      end
+      expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 1)
+    end
+  end
+
+  describe 'Repositories Selection' do
+    before do
+      MetadataStandard.new(
+        title: 'Metadata 1',
+        description: 'Desc 1',
+        uri: 'http://repo1.com'
+      ).save!
+
+      MetadataStandard.new(
+        title: 'Metadata 2',
+        description: 'Desc 2',
+        uri: 'http://repo2.com'
+      ).save!
+
+      MetadataStandard.new(
+        title: 'Metadata 3',
+        description: 'Desc 3',
+        uri: 'http://repo3.com'
+      ).save!
+    end
+
+    it 'Select 2 metadata standards and remove one', :js do
+      # Action
+      click_button 'Admin'
+      click_link 'Templates'
+
+      click_button 'Actions'
+      click_link 'Edit'
+
+      click_link 'Preferences'
+
+      expect(page).not_to have_selector('button[data-target="#modal-search-metadata-standards"]')
+      expect(page).not_to have_selector('#modal-search-metadata-standards-selections')
+
+      find('#template_customize_metadata_standards').check
+      expect(page).to have_selector('button[data-target="#modal-search-metadata_standards"]')
+      expect(page).to have_selector('#modal-search-metadata_standards-selections')
+      expect(page).to have_selector('#modal-search-metadata_standards-selections div.modal-search-result', count: 0)
+      expect(page).to have_selector('#prefs-metadata_standards div.modal-search-result', count: 0)
+
+      click_button "Add a metadata standard"
+      expect(page).not_to have_selector('#modal-search-metadat_-standards-results')
+      click_button "Apply filter(s)"
+      find('#modal-search-metadata_standards-results')
+
+      # find nav at top and bottom
+      expect(page).to have_selector('#modal-search-metadata_standards-results nav', count: 2)
+      expect(page).to have_selector('#modal-search-metadata_standards-results div.modal-search-result', count: 3)
+
+      within(all("div.modal-search-result")[0]) do
+        click_link 'Select'
+      end 
+      within(all("div.modal-search-result")[2]) do
+        click_link 'Select'
+      end
+
+      click_button 'Close'
+      expect(page).to have_selector('#prefs-metadata_standards div.modal-search-result', count: 2)
+
+      within(all('#prefs-metadata_standards div.modal-search-result')[0]) do
+        click_link 'Remove'
+      end
+      expect(page).to have_selector('#prefs-metadata_standards div.modal-search-result', count: 1)
+    end
+  end
+
+  describe 'Licenses Selection' do
+    before do
+      License.new(
+        name: 'License 1',
+        identifier: '1.0',
+        uri: 'http://repo1.com'
+      ).save!
+
+      License.new(
+        name: 'License 2',
+        identifier: '2.0',
+        uri: 'http://repo2.com'
+      ).save!
+
+      License.new(
+        name: 'License 3',
+        identifier: '3.0',
+        uri: 'http://repo3.com'
+      ).save!
+
+      # Add values that will match preferred list
+      License.new(
+        name: 'CC-BY-1.0',
+        identifier: 'CC-BY-1.0',
+        uri: 'http://repo3.com'
+      ).save!
+
+      License.new(
+        name: 'CC-BY-SA-1.0',
+        identifier: 'CC-BY-SA-1.0',
+        uri: 'http://repo3.com'
+      ).save!
+    end
+
+    it 'Licenses Selection', :js do
+      # Action
+      click_button 'Admin'
+      click_link 'Templates'
+  
+      click_button 'Actions'
+      click_link 'Edit'
+  
+      click_link 'Preferences'
+  
+      find('#customize_licenses_sel').find('option[value="1"]').select_option
+      expect(page).not_to have_selector('#default-licenses')
+      expect(page).to have_selector('#my-licenses')
+
+      find('#customize_licenses_sel').find('option[value="0"]').select_option
+      expect(page).to have_selector('#default-licenses')
+      expect(page).not_to have_selector('#my-licenses')  
+  
+      find('#customize_licenses_sel').find('option[value="0"]').select_option
+      expect(page).to have_selector('#default-licenses')
+      expect(page).not_to have_selector('#my-licenses')
+  
+      PL = License.preferred.length
+      find('#customize_licenses_sel').find('option[value="0"]').select_option
+      expect(page).to have_selector('#default-licenses li', count: PL)
+  
+      # Retain default values when switching to "my" values
+      find('#customize_licenses_sel').find('option[value="1"]').select_option
+      expect(page).to have_selector('#my-licenses li', count: PL)
+  
+      find('#new_license').find('option[value="1"]').select_option
+      click_button _('Add a license')
+      expect(page).to have_selector('#my-licenses li', count: PL + 1)
+  
+      find('#new_license').find('option[value="2"]').select_option
+      click_button _('Add a license')
+      expect(page).to have_selector('#my-licenses li', count: PL + 2)
+  
+      # disallow duplicate value
+      find('#new_license').find('option[value="2"]').select_option
+      click_button _('Add a license')
+      expect(page).to have_selector('#my-licenses li', count: PL + 2)
+  
+      # delete one standard selection
+      find('#my-licenses li.standard a.license_remove', match: :first).click
+      expect(page).to have_selector('#my-licenses li', count: PL + 2 - 1)
+  
+      find('#customize_licenses_sel').find('option[value="0"]').select_option
+      expect(page).to have_selector('#my-licenses li', count: 0)
+    end
+  end
 end
