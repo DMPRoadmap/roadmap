@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { getCheckPatern } from '../../utils/GeneratorUtils';
-import { GlobalContext } from '../context/Global';
+import { getCheckPattern } from '../../utils/GeneratorUtils';
+import { GlobalContext } from '../context/Global.jsx';
+import styles from "../assets/css/form.module.css";
 
 /**
  * It's a function that takes in a bunch of props and returns
@@ -8,22 +9,22 @@ import { GlobalContext } from '../context/Global';
  * @returns A React Component
  */
 function InputText({
-  label, type, placeholder, name, changeValue, tooltip, hidden, isConst,
+  label, type, placeholder, propName, changeValue, tooltip, hidden, isConst, fragmentId
 }) {
-  const { formData, setFormData, temp } = useContext(GlobalContext);
+  const { formData, setFormData, subData } = useContext(GlobalContext);
   const [text, settext] = useState(null);
   const [isRequired, setisRequired] = useState(false);
 
   /* It's setting the state of the form to the value of the isConst variable. */
   useEffect(() => {
     if (isConst !== false) {
-      setFormData({ [name]: isConst });
+      setFormData({ [propName]: isConst });
     }
   }, []);
 
   useEffect(() => {
-    settext(formData[name]);
-  }, [formData[name]]);
+    settext(formData?.[fragmentId]?.[propName]);
+  }, [propName[propName]]);
 
   /**
    * It takes a number, formats it to a string, and then sets the
@@ -31,33 +32,32 @@ function InputText({
    * @param e - The event object
    */
   const handleChangeInput = (e) => {
+    const { value } = e.target;
+    const isPattern = getCheckPattern(type, value);
     changeValue(e);
-    // const formatedNumber = formatNumberWithSpaces(e.target.value);
-    const isPattern = getCheckPatern(type, e.target.value);
-    if (isPattern) {
-      setisRequired(false);
-    } else {
-      setisRequired(true);
-    }
-    settext(e.target.value);
+    setisRequired(!isPattern);
+    settext(value);
   };
   return (
     <div className="form-group">
-      <label className='control-label'>{label}</label>
-      {tooltip && (
-        <span className="" data-toggle="tooltip" data-placement="top" title={tooltip}>
-          ?
-        </span>
-      )}
+      <div className={styles.label_form}>
+        <strong className={styles.dot_label}></strong>
+        <label>{label}</label>
+        {tooltip && (
+          <span className="" data-toggle="tooltip" data-placement="top" title={tooltip}>
+            ?
+          </span>
+        )}
+      </div>
       <input
         type={type}
-        value={isConst === false ? (temp ? temp[name] : text == null ? '' : text) : isConst}
-        className={isRequired ? 'form-control outline-red' : 'form-control'}
+        value={isConst === false ? (subData ? subData[propName] : text == null ? "" : text) : isConst}
+        className={isRequired ? `form-control ${styles.input_text} ${styles.outline_red}` : `form-control ${styles.input_text}`}
         hidden={hidden}
         placeholder={placeholder}
         onChange={handleChangeInput}
-        name={name}
-        disabled={isConst !== false}
+        name={propName}
+        disabled={isConst === false ? false : true}
       />
     </div>
   );

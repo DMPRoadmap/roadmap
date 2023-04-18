@@ -1,0 +1,71 @@
+@import url("./variable.css");
+
+.outline_red {
+  outline: 1px solid #dc3545;
+}
+
+.border {
+  border: solid;
+  border-color: var(--primary);
+  border-width: 1px;
+  padding: 10px 17px 3px 17px;
+  margin-bottom: 10px;
+  color: var(--primary);
+  border-radius: 8px;
+}
+
+.form_margin {
+  padding: 10px 17px 3px 17px;
+  margin: 0px 0px 20px 0px;
+}
+
+.funder {
+  border: solid;
+  border-color: grey;
+  border-width: 1px;
+  margin: 1px 1px 10px 1px;
+  padding: 10px;
+}
+
+.legend {
+  color: #2c7dad;
+  text-transform: none;
+}
+a {
+  color: inherit;
+}
+
+.label_form {
+  font-size: 18px;
+  color: var(--secondary);
+  font-weight: bold;
+  font-family: customHelveticaBold;
+}
+.dot_label {
+  height: 10px;
+  width: 10px;
+  background-color: var(--secondary);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.select_wrapper {
+  position: relative;
+  z-index: 9;
+}
+.input_text {
+  font-size: 16px;
+  font-family: customHelveticaLight;
+  color: var(--primary);
+}
+.input_label {
+  margin: 10px 0px 10px 0px;
+  color: gray;
+}
+
+.preview {
+  color: var(--primary);
+  font-size: 16px;
+  font-family: customHelveticaLight;
+}

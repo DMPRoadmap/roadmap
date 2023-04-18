@@ -1,18 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  useContext, useEffect, useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
 
-// si type = string et inputtype = dropdown
 import BuilderForm from './Builder/BuilderForm.jsx';
 import { GlobalContext } from './context/Global.jsx';
-import { checkRequiredForm, getLabelName } from '../utils/GeneratorUtils';
+import { checkRequiredForm, getLabelName, updateFormState } from '../utils/GeneratorUtils';
 import { getFragment, saveForm } from '../services/DmpServiceApi';
 import CustomSpinner from './Shared/CustomSpinner.jsx';
+import CustomButton from './Styled/CustomButton.jsx';
 
-function DynamicForm({ fragmentId, dmpId, locale = 'en_GB' }) {
-  const { formData, setFormData, setlocale, setdmpId } = useContext(GlobalContext);
+function DynamicForm({
+  fragmentId, dmpId, locale = 'en_GB',
+}) {
+  const {
+    formData, setFormData, setlocale, setdmpId,
+  } = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
   // eslint-disable-next-line global-require
   const [standardTemplate, setStandardTemplate] = useState(null);
   useEffect(() => {
@@ -21,7 +27,7 @@ function DynamicForm({ fragmentId, dmpId, locale = 'en_GB' }) {
     setdmpId(dmpId);
     getFragment(fragmentId).then((res) => {
       setStandardTemplate(res.data.schema);
-      setFormData(res.data.fragment);
+      setFormData({ [fragmentId]: res.data.fragment });
     }).catch(console.error)
       .finally(() => setLoading(false));
   }, [fragmentId]);
@@ -32,15 +38,15 @@ function DynamicForm({ fragmentId, dmpId, locale = 'en_GB' }) {
    */
   const handleSaveForm = (e) => {
     e.preventDefault();
-    setLoading(true);
-    const checkForm = checkRequiredForm(standardTemplate, formData);
+    const checkForm = checkRequiredForm(standardTemplate, formData[fragmentId]);
     if (checkForm) {
       toast.error(`Veuiller remplir le champ ${getLabelName(checkForm, standardTemplate, locale)}`);
     } else {
-      saveForm(fragmentId, formData).then((res) => {
+      setLoading(true);
+      saveForm(fragmentId, formData[fragmentId]).then((res) => {
         toast.success(res.data.message);
-      }).catch((error) => {
-        toast.success(error.data.message);
+      }).catch((res) => {
+        toast.error(res.data.message);
       })
         .finally(() => setLoading(false));
     }
@@ -55,11 +61,16 @@ function DynamicForm({ fragmentId, dmpId, locale = 'en_GB' }) {
       )}
       {!loading && error && <p>error</p>}
       {!loading && !error && standardTemplate && (
-        <div className="m-4">
-          <BuilderForm shemaObject={standardTemplate} level={1}></BuilderForm>
-          <button onClick={handleSaveForm} className="btn btn-primary m-4">
-            Enregistrer
-          </button>
+        <div style={{ margin: '15px' }}>
+          <div className="row"></div>
+          <div className="m-4">
+            <BuilderForm
+              shemaObject={standardTemplate}
+              level={1}
+              fragmentId={fragmentId}
+            ></BuilderForm>
+          </div>
+          <CustomButton handleNextStep={handleSaveForm} title="Enregistrer" position="center"></CustomButton>
         </div>
       )}
     </>
@@ -69,7 +80,6 @@ function DynamicForm({ fragmentId, dmpId, locale = 'en_GB' }) {
 DynamicForm.propTypes = {
   fragmentId: PropTypes.number,
   dmpId: PropTypes.number,
-  schemaId: PropTypes.number,
   locale: PropTypes.string,
 };
 

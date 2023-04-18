@@ -1,0 +1,30 @@
+:root {
+  --primary: #1c5170;
+  --secondary: #2c7dad;
+  --orange: #c6503d;
+  --yellow: #ffcc00;
+  --white: #fff;
+  --black: #000;
+}
+
+@font-face {
+  font-family: customHelveticaBold;
+  src: url("../font/HelveticaNeueLTProBd.otf");
+}
+@font-face {
+  font-family: customHelveticaLight;
+  src: url("../font/HelveticaNeueLTProLt.otf");
+}
+@font-face {
+  font-family: customHelveticaMedium;
+  src: url("../font/HelveticaNeueLTProMd.otf");
+}
+@font-face {
+  font-family: customHelveticaRoman;
+  src: url("../font/HelveticaNeueLTProRoman.otf");
+}
+
+@font-face {
+  font-family: tomarikDisplay;
+  src: url("../font/Tomarik-Display.ttf");
+}

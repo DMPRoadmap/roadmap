@@ -1,12 +1,19 @@
 import React, { useContext, useState } from 'react';
-import { GlobalContext } from '../context/Global';
+import { GlobalContext } from '../context/Global.jsx';
+import { updateFormState } from '../../utils/GeneratorUtils';
+import styles from '../assets/css/form.module.css';
 
 /* A React component that renders a form with a text input and a button.
 When the button is clicked, a new text input is added to the form. When the text
 input is changed, the form is updated. */
-function InputTextDynamicaly({ label, name, tooltip }) {
+function InputTextDynamicaly({ label, propName, tooltip, fragmentId }) {
   const [formFields, setFormFields] = useState(['']);
   const { formData, setFormData } = useContext(GlobalContext);
+  
+  /* A React hook that is called when the component is mounted and when the name variable changes. */
+  useEffect(() => {
+    setFormFields(form?.[fragmentId]?.[propName] || [""]);
+  }, [propName]);
 
   /**
    * When the form changes, update the form fields and set the form to the new data.
@@ -15,7 +22,7 @@ function InputTextDynamicaly({ label, name, tooltip }) {
     const data = [...formFields];
     data[index] = event.target.value;
     setFormFields(data);
-    setFormData({ ...formData, [name]: data });
+    setFormData(updateFormState(formData, fragmentId, propName, data));
   };
 
   /**
@@ -35,36 +42,45 @@ function InputTextDynamicaly({ label, name, tooltip }) {
       const data = [...formFields];
       data.splice(index, 1);
       setFormFields(data);
-      setFormData({ ...formData, [name]: data });
+      setform(updateFormState(formData, fragmentId, propName, data));
     }
   };
 
   return (
     <div className="App">
-      <label>{label}</label>
-      {tooltip && (
-        <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
-          ?
-        </span>
-      )}
-
-      {formFields.map((form, index) => (
-        <div key={index}>
-          <div className="row">
-            <div className="col-9 mt-2">
-              <input className="form-control" name={name} onChange={(event) => handleFormChange(event, index)} value={form.name} />
-            </div>
-            <div className="col-3">
-              <button type="button" className="btn btn-primary px-3 m-2" onClick={addFields}>
-                <i className="fa fa-plus" aria-hidden="true" />
-              </button>
-              <button type="button" className="btn btn-danger px-3 m-2" onClick={() => removeFields(index)}>
-                <i className="fa fa-trash" aria-hidden="true" />
-              </button>
+      <div className={styles.label_form}>
+        <strong className={styles.dot_label}></strong>
+        <label>{label}</label>
+        {tooltip && (
+          <span className="" data-toggle="tooltip" data-placement="top" title={tooltip}>
+            ?
+          </span>
+        )}
+      </div>
+      {formFields.map((form, index) => {
+        return (
+          <div key={index} style={{ margin: "10px" }}>
+            <div className="row">
+              <div className="col-md-9">
+                <input
+                  className={`form-control ${styles.input_text}`}
+                  value={form}
+                  name={propName}
+                  onChange={(event) => handleFormChange(event, index)}
+                />
+              </div>
+              <div className="col-md-3">
+                <button style={{ marginRight: "4px" }} type="button" className="btn btn-primary px-3 m-2" onClick={addFields}>
+                  <i className="fa fa-plus" aria-hidden="true" />
+                </button>
+                <button type="button" className="btn btn-danger px-3 m-2" onClick={() => removeFields(index)}>
+                  <i className="fa fa-trash" aria-hidden="true" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

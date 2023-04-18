@@ -1,22 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Select from 'react-select';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
-import BuilderForm from '../Builder/BuilderForm';
-import { deleteByIndex, parsePattern } from '../../utils/GeneratorUtils';
-import { GlobalContext } from '../context/Global';
+import BuilderForm from '../Builder/BuilderForm.jsx';
+import { deleteByIndex, parsePattern, updateFormState } from '../../utils/GeneratorUtils';
+import { GlobalContext } from '../context/Global.jsx';
 import { getContributors, getSchema } from '../../services/DmpServiceApi';
+import styles from '../assets/css/form.module.css';
 
 function SelectContributor({
   label,
-  name,
+  propName,
   changeValue,
   templateId,
-  keyValue,
   level,
   tooltip,
   header,
+  fragmentId,
 }) {
   const [list, setlist] = useState([]);
 
@@ -46,13 +47,13 @@ function SelectContributor({
   useEffect(() => {
     getSchema(templateId).then((res) => {
       setrole(res.properties.role[`const@${locale}`]);
-      settemplate(res.properties.person.schema_id);
       const personTemplateId = res.properties.person.schema_id;
+      settemplate(personTemplateId);
       getSchema(personTemplateId).then((resSchema) => {
         settemplate(resSchema.data);
       });
 
-      if (!formData[keyValue]) {
+      if (!formData?.[fragmentId]?.[propName]) {
         return;
       }
       const pattern = res.to_string;
@@ -60,9 +61,9 @@ function SelectContributor({
         return;
       }
 
-      setlist(formData[keyValue].map((el) => parsePattern(el, pattern)));
+      setlist(formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete').map((el) => parsePattern(el, patern)));
     });
-  }, [formData[keyValue], templateId]);
+  }, [formData[propName], templateId]);
 
   /**
    * It closes the modal and resets the state of the modal.
@@ -93,40 +94,13 @@ function SelectContributor({
       setselectObject([...selectObject, object]);
       const parsedPatern = parsePattern(object, template.to_string);
       setlist([...list, parsedPatern]);
-      changeValue({ target: { name, value: [...selectObject, object] } });
-
-      const newObject = { person: object, role };
-      const arr3 = formData[keyValue]
-        ? [...formData[keyValue], newObject]
-        : [newObject];
-      setFormData({ ...formData, [keyValue]: arr3 });
+      const newObject = { person: object, role: role };
+      const mergedList = formData?.[fragmentId]?.[propName] ? [...formData[fragmentId][propName], newObject] : [newObject];
+      setFormData(updateFormState(formData, fragmentId, propName, mergedList));
     } else {
-      changeValue({ target: { name, value } });
+      changeValue({ target: { propName, value } });
       setlist([...list, value]);
     }
-  };
-
-  /**
-   * I want to delete an item from a list and then update the state of the list.
-   */
-  const handleDeleteListe = (idx) => {
-    swal({
-      title: 'Ëtes-vous sûr ?',
-      text: 'Voulez-vous vraiment supprimer cet élément ?',
-      icon: 'info',
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        const newList = [...list];
-        setlist(deleteByIndex(newList, idx));
-        const deleteIndex = deleteByIndex(formData[keyValue], idx);
-        setFormData({ ...formData, [keyValue]: deleteIndex });
-        swal('Opération effectuée avec succès!', {
-          icon: 'success',
-        });
-      }
-    });
   };
 
   /**
@@ -137,13 +111,13 @@ function SelectContributor({
    */
   const handleAddToList = () => {
     if (index !== null) {
-      const objectPerson = { person: subData, role };
-      setFormData({
-        ...formData,
-        [keyValue]: [...deleteByIndex(formData[keyValue], index), objectPerson],
-      });
-      const parsedPatern = parsePattern(subData, template.to_string);
-      setlist([...deleteByIndex([...list], index), parsedPatern]);
+      const objectPerson = { person: temp, role: role, updateType: 'update' };
+      const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+      const deleteIndex = deleteByIndex(filterDeleted, index);
+      const concatedObject = [...deleteIndex, objectPerson];
+      setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
+      const parsedPattern = parsePattern(subData, template.to_string);
+      setlist([...deleteByIndex([...list], index), parsedPattern]);
     } else {
       handleSave();
     }
@@ -160,19 +134,49 @@ function SelectContributor({
    */
   const handleSave = () => {
     const objectPerson = { person: subData, role };
-    setFormData({ ...formData, [keyValue]: [...(formData[keyValue] || []), objectPerson] });
-    const parsedPatern = parsePattern(subData, template.to_string);
-    setlist([...list, parsedPatern]);
+    setform(updateFormState(formData, fragmentId, propName, [...(formData[fragmentId][propName] || []), objectPerson]));
+    const parsedPattern = parsePattern(subData, template.to_string);
+    setlist([...list, parsedPattern]);
     handleClose();
     setSubData(null);
   };
 
   /**
-   * It sets the state of the subData variable to the value of the form[keyValue][idx] variable.
+   * I want to delete an item from a list and then update the state of the list.
+   */
+  const handleDeleteList = (e, idx) => {
+    e.preventDefault();
+    e.stopPropagation();
+    Swal.fire({
+      title: 'Ëtes-vous sûr ?',
+      text: 'Voulez-vous vraiment supprimer cet élément ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui, supprimer !',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const newList = [...list];
+        setlist(deleteByIndex(newList, idx));
+        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+        filterDeleted[idx]['updateType'] = 'delete';
+        setFormData(updateFormState(formData, fragmentId, propName, filterDeleted));
+        Swal.fire('Supprimé!', 'Opération effectuée avec succès!.', 'success');
+      }
+    });
+  };
+
+  /**
+   * It sets the state of the subData variable to the value of the form[propName][idx] variable.
    * @param idx - the index of the item in the array
    */
-  const handleEdit = (idx) => {
-    setSubData(formData[keyValue][idx].person);
+  const handleEdit = (e, idx) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+    setSubData(filterDeleted[idx]['person']);
     setShow(true);
     setindex(idx);
   };
@@ -180,51 +184,42 @@ function SelectContributor({
   return (
     <>
       <div className="form-group">
-        <label>{label}</label>
-        {tooltip && (
-          <span
-            className="m-4"
-            data-toggle="tooltip"
-            data-placement="top"
-            title={tooltip}
-          >
-            ?
-          </span>
-        )}
+        <div className={styles.label_form}>
+          <strong className={styles.dot_label}></strong>
+          <label>{label}</label>
+          {tooltip && (
+            <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
+              ?
+            </span>
+          )}
+        </div>
+        <div className={styles.input_label}>Sélectionnez une valeur de la liste.</div>
         <div className="row">
-          <div className="col-md-10">
+          <div className={`col-md-11 ${styles.select_wrapper}`}>
             <Select
+              menuPortalTarget={document.body}
+              styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
               onChange={handleChangeList}
               options={options}
-              name={name}
+              name={propName}
               defaultValue={{
-                label: subData
-                  ? subData[name]
-                  : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
-                value: subData
-                  ? subData[name]
-                  : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
+                label: subData ? subData[propName] : '',
+                value: subData ? subData[propName] : '',
               }}
             />
           </div>
           <div className="col-md-2" style={{ marginTop: '8px' }}>
             <span>
-              <a
-                className="text-primary"
-                href="#"
-                aria-hidden="true"
-                onClick={handleShow}
-              >
+              <a className="text-primary" href="#" aria-hidden="true" onClick={(e) => handleShow(e)}>
                 <i className="fas fa-plus-square" />
               </a>
             </span>
           </div>
         </div>
-
-        {formData[keyValue] && list && (
+        {formData?.[fragmentId]?.[propName] && list && (
           <table style={{ marginTop: '20px' }} className="table table-bordered">
             <thead>
-              {formData[keyValue].length > 0 && header && (
+              {formData?.[fragmentId]?.[propName].length > 0 && header && formData?.[fragmentId]?.[propName].some((el) => el.updateType !== "delete") && (
                 <tr>
                   <th scope="col">{header}</th>
                   <th scope="col"></th>
@@ -232,21 +227,16 @@ function SelectContributor({
               )}
             </thead>
             <tbody>
-              {formData[keyValue].map((el, idx) => (
+              {list.map((el, idx) => (
                 <tr key={idx}>
                   <td scope="row">
-                    <p className="border m-2"> {list[idx]} </p>
+                    <p className={`m2 ${styles.border}`}> {el} </p>
                   </td>
-                  <td style={{ width: '10%' }}>
+                  <td style={{ width: "10%" }}>
                     <div className="col-md-1">
                       {level === 1 && (
                         <span>
-                          <a
-                            className="text-primary"
-                            href="#"
-                            aria-hidden="true"
-                            onClick={() => handleEdit(idx)}
-                          >
+                          <a className="text-primary" href="#" aria-hidden="true" onClick={(e) => handleEdit(e, idx)}>
                             <i className="fa fa-edit" />
                           </a>
                         </span>
@@ -254,12 +244,7 @@ function SelectContributor({
                     </div>
                     <div className="col-md-1">
                       <span>
-                        <a
-                          className="text-danger"
-                          href="#"
-                          aria-hidden="true"
-                          onClick={() => handleDeleteListe(idx)}
-                        >
+                        <a className="text-primary" href="#" aria-hidden="true" onClick={(e) => handleDeleteList(e, idx)}>
                           <i className="fa fa-times" />
                         </a>
                       </span>
@@ -278,6 +263,7 @@ function SelectContributor({
               <BuilderForm
                 shemaObject={template}
                 level={level + 1}
+                fragmentId={fragmentId}
               ></BuilderForm>
             </Modal.Body>
             <Modal.Footer>

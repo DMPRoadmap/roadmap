@@ -6,6 +6,7 @@ const mode = process.env.NODE_ENV === 'development' ? 'development' : 'productio
 
 module.exports = {
   mode,
+  devtool: mode === 'development' ? 'eval-cheap-module-source-map' : 'source-map',
   module: {
     rules: [
       {
@@ -22,6 +23,10 @@ module.exports = {
             ],
           },
         }],
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
       erbLoader,
     ],
@@ -50,5 +55,6 @@ module.exports = {
   ],
   resolve: {
     extensions: ['*', '.js', '.jsx'],
+    symlinks: true,
   },
 };

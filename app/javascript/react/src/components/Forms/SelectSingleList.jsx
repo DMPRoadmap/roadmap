@@ -1,21 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Select from 'react-select';
 import { getRegistry } from '../../services/DmpServiceApi';
-import { createOptions } from '../../utils/GeneratorUtils';
-import { GlobalContext } from '../context/Global';
+import { createOptions, getDefaultLabel } from '../../utils/GeneratorUtils';
+import { GlobalContext } from '../context/Global.jsx';
+import styles from '../assets/css/form.module.css';
 
+/* This is a functional component in JavaScript React that renders a select list with options fetched from a registry. It takes in several props such as
+label, name, changeValue, tooltip, registry, and schemaId. It uses the useState and useEffect hooks to manage the state of the options and to fetch
+the options from the registry when the component mounts. It also defines a handleChangeList function that is called when an option is selected from
+the list, and it updates the value of the input field accordingly. Finally, it returns the JSX code that renders the select list with the options. */
 function SelectSingleList({
-  label, propName, changeValue, tooltip, registryId,
+  label, propName, changeValue, tooltip, registryId, fragmentId
 }) {
   const [options, setoptions] = useState(null);
   const { formData, subData, locale } = useContext(GlobalContext);
   const [error, setError] = useState(null);
 
   let value;
-  if (subData && typeof subData[propName] !== 'object') {
-    value = subData[propName];
-  } else if (formData && typeof formData[propName] !== 'object') {
-    value = formData[propName];
+  if (subData && typeof subData?.[fragmentId]?.[propName] !== 'object') {
+    value = subData?.[fragmentId]?.[propName];
+  } else if (formData && typeof formData?.[fragmentId]?.[propName] !== 'object') {
+    value = formData?.[fragmentId]?.[propName];
   } else {
     value = '';
   }
@@ -57,12 +62,15 @@ function SelectSingleList({
   return (
     <>
       <div className="form-group">
-        <label>{label}</label>
-        {tooltip && (
-          <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
-            ?
-          </span>
-        )}
+        <div className={styles.label_form}>
+          <strong className={styles.dot_label}></strong>
+          <label>{label}</label>
+          {tooltip && (
+            <span className="m-4" data-toggle="tooltip" data-placement="top" title={tooltip}>
+              ?
+            </span>
+          )}
+        </div>
         <div className="row">
           <div className="col-md-10">
             <Select
@@ -70,6 +78,10 @@ function SelectSingleList({
               options={options}
               name={propName}
               inputValue={value}
+              defaultValue={{
+                label: getDefaultLabel(subData, formData?.[fragmentId], propName, locale),
+                value: getDefaultLabel(subData, formData?.[fragmentId], propName, locale),
+              }}
             />
           </div>
         </div>

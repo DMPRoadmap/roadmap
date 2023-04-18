@@ -1,17 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import swal from "sweetalert";
-import toast from "react-hot-toast";
-import BuilderForm from "../Builder/BuilderForm";
-import { GlobalContext } from "../context/Global";
+import React, { useContext, useEffect, useState } from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
+
+import BuilderForm from '../Builder/BuilderForm.jsx';
+import { GlobalContext } from '../context/Global.jsx';
 import {
   checkRequiredForm,
   createMarkup,
   deleteByIndex,
   getLabelName,
+  updateFormState,
   parsePattern,
-} from "../../utils/GeneratorUtils";
-import { getSchema } from "../../services/DmpServiceApi";
+} from '../../utils/GeneratorUtils';
+import { getSchema } from '../../services/DmpServiceApi';
+import CustomButton from '../Styled/CustomButton.jsx';
+import styles from '../assets/css/form.module.css';
 
 /**
  * It takes a template name as an argument, loads the template file, and then
@@ -20,12 +24,13 @@ import { getSchema } from "../../services/DmpServiceApi";
  * @returns A React component.
  */
 function ModalTemplate({
+  propName,
   value,
   templateId,
-  keyValue,
   level,
   tooltip,
   header,
+  fragmentId,
 }) {
   const [show, setShow] = useState(false);
   const { formData, setFormData, subData, setSubData, locale } = useContext(GlobalContext);
@@ -60,12 +65,14 @@ function ModalTemplate({
       );
 
     if (index !== null) {
-      const deleteIndex = deleteByIndex(formData[keyValue], index);
-      setFormData({ ...formData, [keyValue]: [...deleteIndex, subData] });
+      const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+      const deleteIndex = deleteByIndex(filterDeleted, index);
+      const concatedObject = [...deleteIndex, { ...subData, updateType: 'update' }];
+      setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
       setSubData(null);
     } else {
       handleSave();
-      toast.success("Enregistrement a été effectué avec succès !");
+      toast.success('Enregistrement a été effectué avec succès !');
     }
     handleClose();
   };
@@ -75,9 +82,8 @@ function ModalTemplate({
    * the subData is set to null, and the modal is closed.
    */
   const handleSave = () => {
-    let newObject = formData[keyValue] || [];
-    newObject = [...newObject, subData];
-    setFormData({ ...formData, [keyValue]: newObject });
+    const newObject = [...(formData[fragmentId][propName] || []), subData];
+    setFormData(updateFormState(formData, fragmentId, propName, newObject));
     setSubData(null);
     handleClose();
   };
@@ -92,39 +98,42 @@ function ModalTemplate({
   };
 
   /**
-   * When the user clicks the edit button, the form is populated with
-   * the data from the row that was clicked.
-   * @param idx - the index of the item in the array
-   */
-  const handleEdit = (idx) => {
-    console.log(formData[keyValue][idx]);
-    setSubData(formData[keyValue][idx]);
-    setShow(true);
-    setindex(idx);
-  };
-
-  /**
    * It creates a new array, then removes the item at the index specified
    * by the parameter, then sets the state to the new array.
    * @param idx - the index of the item in the array
    */
-  const handleDeleteListe = (idx) => {
-    swal({
-      title: "Ëtes-vous sûr ?",
-      text: "Voulez-vous vraiment supprimer cet élément ?",
-      icon: "info",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        const deleteIndex = deleteByIndex(formData[keyValue], idx);
-        setFormData({ ...formData, [keyValue]: deleteIndex });
-        // toast.success("Congé accepté");
-        swal("Opération effectuée avec succès!", {
-          icon: "success",
-        });
+  const handleDeleteList = (e, idx) => {
+    e.preventDefault();
+    e.stopPropagation();
+    Swal.fire({
+      title: 'Ëtes-vous sûr ?',
+      text: 'Voulez-vous vraiment supprimer cet élément ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui, supprimer !',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+        filterDeleted[idx]['updateType'] = 'delete';
+        setFormData(updateFormState(formData, fragmentId, propName, filterDeleted));
+        Swal.fire('Supprimé!', 'Opération effectuée avec succès!.', 'success');
       }
     });
+  };
+
+  /**
+   * This function handles the edit functionality for a form element in a React component.
+   */
+  const handleEdit = (e, idx) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+    setSubData(filterDeleted[idx]);
+    setShow(true);
+    setindex(idx);
   };
 
   return (
@@ -133,128 +142,66 @@ function ModalTemplate({
         <legend className="sub-fragment" data-toggle="tooltip" data-original-title={tooltip}>
           {value[`form_label@${locale}`]}
         </legend>
-        {formData[keyValue] && template && (
-          <table style={{ marginTop: "20px" }} className="table table-bordered linked-fragments-list">
+        {formData?.[fragmentId]?.[propName] && template && (
+          <table style={{ marginTop: '20px' }} className="table table-bordered">
             <thead>
-              {formData[keyValue].length > 0 && template && header && (
-                <tr>
-                  <th scope="col">{header}</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              )}
+              {formData?.[fragmentId]?.[propName].length > 0 &&
+                template &&
+                header &&
+                formData?.[fragmentId]?.[propName].some((el) => el.updateType !== 'delete') && (
+                  <tr>
+                    <th scope="col">{header}</th>
+                    <th scope="col"></th>
+                  </tr>
+                )}
             </thead>
             <tbody>
-              {formData[keyValue].map((el, idx) => (
-                <tr key={idx}>
-                  <td scope="row">
-                    <div
-                      className="preview"
-                      dangerouslySetInnerHTML={createMarkup(
-                        parsePattern(el, template.to_string)
-                      )}
-                    ></div>
-                  </td>
-
-                  <td style={{ width: "10%" }}>
-                    <div className="col-md-1">
-                      {level === 1 && (
+              {formData?.[fragmentId]?.[propName]
+                .filter((el) => el.updateType !== 'delete')
+                .map((el, idx) => (
+                  <tr key={idx}>
+                    <td scope="row">
+                      <div className={styles.border} dangerouslySetInnerHTML={createMarkup(parsePattern(el, template.to_string))}></div>
+                    </td>
+                    <td style={{ width: "10%" }}>
+                      <div className="col-md-1">
+                        {level === 1 && (
+                          <span>
+                            <a className="text-primary" href="#" aria-hidden="true" onClick={(e) => handleEdit(e, idx)}>
+                              <i className="fa fa-edit" />
+                            </a>
+                          </span>
+                        )}
+                      </div>
+                      <div className="col-md-1">
                         <span>
-                          <a
-                            className="text-primary"
-                            href="#"
-                            aria-hidden="true"
-                            onClick={() => handleEdit(idx)}
-                          >
-                            <i className="fa fa-edit" />
+                          <a className="text-primary" href="#" aria-hidden="true" onClick={(e) => handleDeleteList(e, idx)}>
+                            <i className="fa fa-times" />
                           </a>
                         </span>
-                      )}
-                    </div>
-                    <div className="col-md-1">
-                      <span>
-                        <a
-                          className="text-danger"
-                          href="#"
-                          aria-hidden="true"
-                          onClick={() => handleDeleteListe(idx)}
-                        >
-                          <i className="fa fa-times" />
-                        </a>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         )}
-
-        <button
-          className="btn btn-primary button-margin"
-          onClick={() => handleShow(true)}
-        >
-          Créé
-        </button>
+        <CustomButton
+          handleNextStep={() => {
+            handleShow(true);
+          }}
+          title="Ajouter un élément"
+          type="primary"
+          position="start"
+        ></CustomButton>
       </fieldset>
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
-          {keyValue === "funding" && index !== null && subData && (
-            <div className="col-md-12 funder">
-              <fieldset className="sub-fragment registry">
-                <legend className="sub-fragment registry legend">
-                  Financeurs
-                  <a href="#">
-                    <span className="registry-info fas fa-info-circle" />
-                  </a>
-                </legend>
-                <div className="col-md-12 fragment-display">
-                  <div className="fragment-property">
-                    <span className="property-label">Nom du financeur : </span>
-                    <span className="property-value">{subData?.funder?.name}</span>
-                  </div>
-                  <div className="fragment-property">
-                    <span className="property-label">Identifiant : </span>
-                    <span className="property-value">
-                      {subData?.funder?.funderId}
-                    </span>
-                  </div>
-                  <div className="fragment-property">
-                    <span className="property-label">
-                      Type d'identifiant :{" "}
-                    </span>
-                    <span className="property-value">
-                      {subData?.funder?.idType}
-                    </span>
-                  </div>
-                  <fieldset className="fragment-display sub-fragment">
-                    <legend className="legend">Politique de données</legend>
-                    <div className="fragment-property">
-                      <span className="property-label">Titre : </span>
-                      <span className="property-value">
-                        {subData?.funder?.dataPolicy?.title}
-                      </span>
-                    </div>
-                    <div className="fragment-property">
-                      <span className="property-label">Identifiant : </span>
-                      <span className="property-value">
-                        {subData?.funder?.dataPolicy?.docIdentifier}
-                      </span>
-                    </div>
-                    <div className="fragment-property">
-                      <span className="property-label">
-                        Type d'identifiant :{" "}
-                      </span>
-                      <span className="property-value">
-                        {subData?.funder?.dataPolicy?.idType}
-                      </span>
-                    </div>
-                  </fieldset>
-                </div>
-              </fieldset>
-            </div>
-          )}
-
-          <BuilderForm shemaObject={template} level={level + 1}></BuilderForm>
+          <BuilderForm
+            shemaObject={template}
+            level={level + 1}
+            fragmentId={fragmentId}
+          ></BuilderForm>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

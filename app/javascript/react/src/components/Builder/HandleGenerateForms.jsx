@@ -1,6 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 import React, { useContext } from 'react';
-import { GlobalContext } from '../context/Global';
+import PropTypes from 'prop-types';
+
+import { GlobalContext } from '../context/Global.jsx';
 import InputText from '../Forms/InputText';
 import InputTextDynamicaly from '../Forms/InputTextDynamicaly';
 import ModalTemplate from '../Forms/ModalTemplate';
@@ -12,7 +14,7 @@ import TinyArea from '../Forms/TinyArea';
 import SelectInvestigator from '../Forms/SelectInvestigator';
 
 function HandleGenerateForms({
-  shemaObject, level, changeValue,
+  shemaObject, level, changeValue, fragmentId,
 }) {
   const { locale, dmpId } = useContext(GlobalContext);
   if (!shemaObject) return false;
@@ -33,12 +35,13 @@ function HandleGenerateForms({
         if (value.inputType === 'textarea') {
           data.push(
             <TinyArea
-              level={level}
               key={key}
+              level={level}
               label={label}
-              name={key}
+              propName={key}
               changeValue={changeValue}
               tooltip={tooltip}
+              fragmentId={fragmentId}
             ></TinyArea>,
           );
           // sethtmlGenerator(data);
@@ -51,13 +54,14 @@ function HandleGenerateForms({
         ) {
           data.push(
             <SelectSingleList
+              key={key}
               label={label}
               propName={key}
-              key={key}
               registryId={value.registry_id}
               changeValue={changeValue}
               tooltip={tooltip}
               level={level}
+              fragmentId={fragmentId}
             ></SelectSingleList>,
           );
         }
@@ -73,11 +77,12 @@ function HandleGenerateForms({
               placeholder={''}
               isSmall={false}
               smallText={''}
-              name={key}
+              propName={key}
               changeValue={changeValue}
-              hidden={!!value.hidden}
+              hidden={value.hidden ? true : false}
               tooltip={tooltip}
               isConst={isConst}
+              fragmentId={fragmentId}
             ></InputText>,
           );
         }
@@ -93,27 +98,28 @@ function HandleGenerateForms({
           if (value.items.schema_id) {
             data.push(
               <SelectWithCreate
-                label={label}
-                name={key}
                 key={key}
+                label={label}
+                propName={key}
                 registryId={value.registry_id}
                 changeValue={changeValue}
                 templateId={value.items.schema_id}
                 level={level}
-                keyValue={key}
                 header={value[`table_header@${locale}`]}
+                fragmentId={fragmentId}
               ></SelectWithCreate>,
             );
           } else {
             data.push(
               <SelectMultipleList
-                label={label}
-                name={key}
                 key={key}
+                label={label}
+                propName={key}
                 registryId={value.registry_id}
                 changeValue={changeValue}
                 tooltip={tooltip}
                 level={level}
+                fragmentId={fragmentId}
               ></SelectMultipleList>,
             );
           }
@@ -123,27 +129,28 @@ function HandleGenerateForms({
             if (key === 'contributor' && value.items.class === 'Contributor') {
               data.push(
                 <SelectContributor
-                  label={label}
-                  name={key}
                   key={key}
+                  label={label}
+                  propName={key}
                   changeValue={changeValue}
                   templateId={value.items.schema_id}
-                  keyValue={key}
                   level={level}
                   tooltip={tooltip}
                   header={value[`table_header@${locale}`]}
+                  fragmentId={fragmentId}
                 ></SelectContributor>,
               );
             } else {
               data.push(
                 <ModalTemplate
                   key={key}
+                  propName={key}
                   tooltip={tooltip}
                   value={value}
                   templateId={value.items.schema_id}
-                  keyValue={key}
                   level={level}
                   header={value[`table_header@${locale}`]}
+                  fragmentId={fragmentId}
                 ></ModalTemplate>,
               );
             }
@@ -153,8 +160,9 @@ function HandleGenerateForms({
               <InputTextDynamicaly
                 key={key}
                 label={label}
-                name={key}
+                propName={key}
                 tooltip={tooltip}
+                fragmentId={fragmentId}
               ></InputTextDynamicaly>,
             );
           }
@@ -170,12 +178,12 @@ function HandleGenerateForms({
             data.push(
               <ModalTemplate
                 key={key}
+                propName={key}
                 tooltip={tooltip}
                 value={value}
                 templateId={value.schema_id}
-                keyValue={key}
                 level={level}
-                header={value[`table_header@${locale}`]}
+                fragmentId={fragmentId}
               ></ModalTemplate>,
             );
           }
@@ -184,15 +192,15 @@ function HandleGenerateForms({
             // console.log("TODO : condition funder à voir");
             data.push(
               <SelectInvestigator
-                label={label}
-                name={key}
                 key={key}
+                label={label}
+                propName={key}
                 changeValue={changeValue}
                 dmpId={dmpId}
                 templateId={value.schema_id}
-                keyValue={key}
                 level={level}
                 tooltip={tooltip}
+                fragmentId={fragmentId}
               ></SelectInvestigator>,
             );
           }
@@ -202,12 +210,14 @@ function HandleGenerateForms({
           if (Object.prototype.hasOwnProperty.call(value, 'registry_id')) {
             data.push(
               <SelectSingleList
+                key={key}
                 registryId={value.registry_id}
                 label={label}
                 propName={key}
                 changeValue={changeValue}
                 tooltip={tooltip}
                 level={level}
+                fragmentId={fragmentId}
               ></SelectSingleList>,
             );
           }
@@ -217,5 +227,12 @@ function HandleGenerateForms({
   }
   return data;
 }
+
+HandleGenerateForms.propTypes = {
+  level: PropTypes.number,
+  shemaObject: PropTypes.object,
+  changeValue: PropTypes.func,
+  fragmentId: PropTypes.number,
+};
 
 export default HandleGenerateForms;

@@ -9,7 +9,8 @@ class FormRoot extends React.Component {
   render() {
     return (
       <Global>
-        <DynamicForm schemaId={this.props.schemaId}
+        <DynamicForm
+          // schemaId={this.props.schemaId}
           dmpId={this.props.dmpId}
           fragmentId={this.props.fragmentId}
           locale={this.props.locale} />

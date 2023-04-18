@@ -1,29 +1,30 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Select from 'react-select';
 import { Modal, Button } from 'react-bootstrap';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
-import { GlobalContext } from '../context/Global';
+import { GlobalContext } from '../context/Global.jsx';
 import {
   checkRequiredForm,
   createOptions,
   deleteByIndex,
   getLabelName,
   parsePattern,
+  updateFormState,
 } from '../../utils/GeneratorUtils';
-import BuilderForm from '../Builder/BuilderForm';
+import BuilderForm from '../Builder/BuilderForm.jsx';
 import { getRegistry, getSchema } from '../../services/DmpServiceApi';
+import styles from '../assets/css/form.module.css';
 
 function SelectWithCreate({
   label,
   registryId,
-  name,
-  changeValue,
+  propName,
   templateId,
-  keyValue,
   level,
   tooltip,
   header,
+  fragmentId,
 }) {
   const [list, setlist] = useState([]);
 
@@ -42,18 +43,20 @@ function SelectWithCreate({
   useEffect(() => {
     getSchema(templateId).then((res) => {
       setTemplate(res.data);
-      if (formData[keyValue]) {
-        const patern = res.data.to_string;
-        if (patern.length > 0) {
+      if (formData[propName]) {
+        const pattern = res.data.to_string;
+        if (pattern.length > 0) {
           Promise.all(
-            formData[keyValue].map((el) => parsePattern(el, patern)),
-          ).then((listParsed) => {
-            setlist(listParsed);
-          });
+            formData?.[fragmentId]?.[propName].filter(
+              (el) => el.updateType !== 'delete').map((el) => parsePattern(el, pattern))
+            ).then((listParsed) => {
+              setlist(listParsed);
+            }
+          );
         }
       }
     });
-  }, [templateId, formData[keyValue]]);
+  }, [templateId, formData]);
 
   /* A hook that is called when the component is mounted.
   It is used to set the options of the select list. */
@@ -85,12 +88,13 @@ function SelectWithCreate({
     setindex(null);
   };
   /**
-   * The function takes a boolean value as an argument and sets the state of the
-   * show variable to the value of the argument.
+   * The function takes a boolean value as an argument and sets the state of the show variable to the value of the argument.
    * @param isOpen - boolean
    */
-  const handleShow = (isOpen) => {
-    setShow(isOpen);
+  const handleShow = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setShow(true);
   };
 
   /**
@@ -99,24 +103,13 @@ function SelectWithCreate({
    */
   const handleChangeList = (e) => {
     const pattern = template.to_string;
-    const parsedPatern = pattern.length > 0 ? parsePattern(e.object, pattern) : null;
-    const updatedList = pattern.length > 0 ? [...list, parsedPatern] : [...list, e.value];
+    const parsedPattern = pattern.length > 0 ? parsePattern(e.object, pattern) : null;
+    const updatedList = pattern.length > 0 ? [...list, parsedPattern] : [...list, e.value];
     setlist(updatedList);
     setselectObject(
       pattern.length > 0 ? [...selectObject, e.object] : selectObject,
     );
-    changeValue({
-      target: {
-        name,
-        value: pattern.length > 0 ? [...selectObject, e.object] : e.value,
-      },
-    });
-    setFormData({
-      ...formData,
-      [keyValue]: formData[keyValue]
-        ? [...formData[keyValue], ...[e.object]]
-        : [e.object],
-    });
+    setFormData(updateFormState(formData, fragmentId, propName, [...(formData[fragmentId]?.[propName] || []), e.object]));
   };
 
   /**
@@ -124,22 +117,27 @@ function SelectWithCreate({
    * then sets the state to the new array.
    * @param idx - the index of the item in the array
    */
-  const handleDeleteListe = (idx) => {
-    swal({
+  const handleDeleteList = (e, idx) => {
+    e.preventDefault();
+    e.stopPropagation();
+    Swal.fire({
       title: 'Ëtes-vous sûr ?',
       text: 'Voulez-vous vraiment supprimer cet élément ?',
-      icon: 'info',
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui, supprimer !',
+    }).then((result) => {
+      if (result.isConfirmed) {
         const newList = [...list];
         setlist(deleteByIndex(newList, idx));
-        const deleteIndex = deleteByIndex(formData[keyValue], idx);
-        setFormData({ ...formData, [keyValue]: deleteIndex });
-        swal('Opération effectuée avec succès!', {
-          icon: 'success',
-        });
+        const concatedObject = [...formData[fragmentId][propName]];
+        concatedObject[idx]['updateType'] = 'delete';
+        setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
+        Swal.fire('Supprimé!', 'Opération effectuée avec succès!.', 'success');
       }
     });
   };
@@ -163,12 +161,15 @@ function SelectWithCreate({
       );
     } else {
       if (index !== null) {
-        const deleteIndex = deleteByIndex(formData[keyValue], index);
-        const concatedObject = [...deleteIndex, subData];
-        setFormData({ ...formData, [keyValue]: concatedObject });
+        //add in update
+        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+        const deleteIndex = deleteByIndex(filterDeleted, index);
+        const concatedObject = [...deleteIndex, { ...subData, updateType: 'update' }];
+        setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
+
         const newList = deleteByIndex([...list], index);
-        const parsedPatern = parsePattern(subData, template.to_string);
-        const copieList = [...newList, parsedPatern];
+        const parsedPattern = parsePattern(subData, template.to_string);
+        const copieList = [...newList, parsedPattern];
         setlist(copieList);
         setSubData(null);
         handleClose();
@@ -183,19 +184,22 @@ function SelectWithCreate({
    * I'm trying to add a new object to an array of objects, and then add that array to a new object.
    */
   const handleSave = () => {
-    const newObject = formData[keyValue] ? [...formData[keyValue], subData] : [subData];
-    setFormData({ ...formData, [keyValue]: newObject });
+    let newObject = formData[fragmentId][propName] ? [...formData[fragmentId][propName], subData] : [subData];
+    setFormData(updateFormState(formData, fragmentId, propName, newObject));
     setlist([...list, parsePattern(subData, template.to_string)]);
     handleClose();
     setSubData(null);
   };
 
   /**
-   * It sets the state of the subData variable to the value of the formData[keyValue][idx] variable.
+   * It sets the state of the subData variable to the value of the formData[propName][idx] variable.
    * @param idx - the index of the item in the array
    */
   const handleEdit = (idx) => {
-    setSubData(formData[keyValue][idx]);
+    e.preventDefault();
+    e.stopPropagation();
+    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+    setSubData(filterDeleted[idx]);
     setShow(true);
     setindex(idx);
   };
@@ -204,34 +208,36 @@ function SelectWithCreate({
     <>
       <fieldset className="sub-fragment registry">
         <legend className="sub-fragment" data-toggle="tooltip" data-original-title={tooltip}>
+          <strong className={styles.dot_label}></strong>
           {label}
         </legend>
-        <div className="col-md-12 dynamic-field">
-          <Select
-            className='form-control'
-            onChange={handleChangeList}
-            options={options}
-            name={name}
-            defaultValue={{
-              label: subData
-                ? subData[name]
-                : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
-              value: subData
-                ? subData[name]
-                : 'Sélectionnez une valeur de la liste ou saisissez une nouvelle.',
-            }}
-          />
-          <span>
-            <a className="text-primary" href="#" onClick={handleShow}>
-              <i className="fas fa-plus-square" />
-            </a>
-          </span>
+        <div className={styles.input_label}>Sélectionnez une valeur de la liste.</div>
+        <div className="row">
+          <div className={`col-md-11 ${styles.select_wrapper}`}>
+            <Select
+              menuPortalTarget={document.body}
+              styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+              onChange={handleChangeList}
+              options={options}
+              name={propName}
+              defaultValue={{
+                label: subData ? subData[propName] : '',
+                value: subData ? subData[propName] : '',
+              }}
+            />
+          </div>
+          <div className="col-md-1" style={{ marginTop: "8px" }}>
+            <span>
+              <a className="text-primary" href="#" onClick={(e) => handleShow(e)}>
+                <i className="fas fa-plus-square" />
+              </a>
+            </span>
+          </div>
         </div>
-
-        {formData[keyValue] && list && (
-          <table style={{ marginTop: '20px' }} className="table table-bordered">
+        {list && (
+          <table style={{ marginTop: "20px" }} className="table table-bordered">
             <thead>
-              {formData[keyValue].length > 0 && header && (
+              {formData?.[fragmentId]?.[propName]?.length > 0 && header && (
                 <tr>
                   <th scope="col">{header}</th>
                   <th scope="col"></th>
@@ -239,34 +245,24 @@ function SelectWithCreate({
               )}
             </thead>
             <tbody>
-              {formData[keyValue].map((el, idx) => (
+              {list.map((el, idx) => (
                 <tr key={idx}>
                   <td scope="row">
-                    <p className="border m-2"> {list[idx]} </p>
+                    <p className={`m-2 ${styles.border}`}> {el} </p>
                   </td>
-                  <td style={{ width: '10%' }}>
-                    <div className="col-md-1">
+                  <td style={{ width: "10%" }}>
+                    <div className="col-md-1" style={{ marginTop: "8px" }}>
                       {level === 1 && (
                         <span>
-                          <a
-                            className="text-primary"
-                            href="#"
-                            aria-hidden="true"
-                            onClick={() => handleEdit(idx)}
-                          >
+                          <a className="text-primary" href="#" aria-hidden="true" onClick={(e) => handleEdit(e, idx)}>
                             <i className="fa fa-edit" />
                           </a>
                         </span>
                       )}
                     </div>
-                    <div className="col-md-1">
+                    <div className="col-md-1" style={{ marginTop: "8px" }}>
                       <span>
-                        <a
-                          className="text-danger"
-                          href="#"
-                          aria-hidden="true"
-                          onClick={() => handleDeleteListe(idx)}
-                        >
+                        <a className="text-primary" href="#" aria-hidden="true" onClick={(e) => handleDeleteList(e, idx)}>
                           <i className="fa fa-times" />
                         </a>
                       </span>
@@ -281,7 +277,11 @@ function SelectWithCreate({
       <>
         <Modal show={show} onHide={handleClose}>
           <Modal.Body>
-            <BuilderForm shemaObject={template} level={level + 1}></BuilderForm>
+            <BuilderForm
+              shemaObject={template}
+              level={level + 1}
+              fragmentId={fragmentId}
+            ></BuilderForm>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
