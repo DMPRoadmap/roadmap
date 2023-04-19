@@ -62,9 +62,13 @@ $(() => {
       return;
     }
     const vclass = checkOutputType('#default-output-types', vnormDisp) ? 'standard' : 'custom';
-    const li = $('<li/>').addClass('selectable_item').addClass('output_type').addClass(vclass)
+    const li = $('<li/>').addClass('selectable_item').addClass('output_type')
+      .addClass(vclass)
       .appendTo('#my-output-types ul');
-    const a = $('<a/>').attr('aria-label', getConstant('PREFS_REMOVE_OUTPUT_TYPE')).addClass('output_type_remove').appendTo(li);
+    const a = $('<a/>').attr('aria-label', `${getConstant('PREFS_REMOVE_OUTPUT_TYPE')} ${vnormDisp}`)
+      .attr('tabindex', 0)
+      .addClass('output_type_remove')
+      .appendTo(li);
     a.on('click', (e) => {
       e.stopPropagation();
       $(e.currentTarget).parents('li.output_type').remove();
@@ -145,7 +149,10 @@ $(() => {
     const vclass = checkLicense('#default-licenses', id) ? 'standard' : 'custom';
     const li = $('<li/>').addClass('selectable_item').addClass('license').addClass(vclass)
       .appendTo('#my-licenses ul');
-    const a = $('<a/>').attr('aria-label', getConstant('PREFS_REMOVE_LICENSE')).addClass('license_remove').appendTo(li);
+    const a = $('<a/>')
+      .attr('tabindex', 0)
+      .attr('aria-label', `${getConstant('PREFS_REMOVE_LICENSE')} ${v}`).addClass('license_remove')
+      .appendTo(li);
     a.on('click', (e) => {
       e.stopPropagation();
       $(e.currentTarget).parents('li.license').remove();
