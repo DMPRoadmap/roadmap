@@ -49,7 +49,7 @@ namespace :deploy do
   before :compile_assets, 'deploy:retrieve_credentials'
 
   after :deploy, 'dmptool_assets:copy_ui_assets'
-  after :deploy, 'dmptool_assets:copy_tinymce_skins'
+  after :deploy, 'dmptool_assets:copy_robots'
 
   after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
@@ -102,14 +102,9 @@ namespace :dmptool_assets do
     end
   end
 
-  # Webpacker and TinyMCE do not play nicely with one another. Webpacker/Rails stores its copiled CSS and JS
-  # in minified application.[ext] files that are fingerprinted but TinyMCE expects them elsewhere
-  desc 'Move TinyMCE skin files to public dir'
-  task :copy_tinymce_skins do
+  desc 'Copy over the robots.txt file'
+  task :copy_robots do
     on roles(:app), wait: 1 do
-      execute "mkdir -p #{release_path}/public/tinymce/skins/"
-      execute "cp -r #{release_path}/node_modules/tinymce/skins/ui/oxide/ #{release_path}/public/tinymce/skins/"
-      execute "cp #{release_path}/app/assets/stylesheets/tinymce.css #{release_path}/public/tinymce/tinymce.css"
-    end
+      execute "cp -r #{release_path}/config/robots.txt #{release_path}/public/robots.txt"
   end
 end
