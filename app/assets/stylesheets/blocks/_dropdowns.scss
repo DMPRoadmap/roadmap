@@ -3,23 +3,23 @@
 //Bootstap 5 introduces nav-bas instead of nav-tabs
 
 /* nav-tabs and nav-pills styling */
-.nav-bar, .nav-pills {
+.nav-tabs, .nav-pills {
   background-color: $color-primary-background;
   color: $color-primary-text;
   border-bottom: 0px;
 }
-.nav-bar > li > a, .nav-pills > li > a {
+.nav-tabs > li > a, .nav-pills > li > a {
   color: $color-primary-text;
 }
-.nav-bar > li > a:hover,
-.nav-bar > li > a:focus,
-.nav-bar > li.active > a,
-.nav-bar > li.active > a:focus,
-.nav-bar > li.active > a:hover {
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
   background-color: $color-secondary-background;
   color: $color-secondary-text;
   border: 1px solid $color-border-default;
-  border-bottom-color: transparent; /* Only nav-bar have a transparent border-bottom */
+  border-bottom-color: transparent; /* Only nav-tabs have a transparent border-bottom */
 }
 .nav-pills > li > a:hover,
 .nav-pills > li > a:focus,
@@ -37,7 +37,7 @@
 .nav-pills > li.active:last-child > a:hover {
   border-right: 0px;
 }
-.nav-bar > li > a,
+.nav-tabs > li > a,
 .nav-pills > li > a {
   border-radius: 0px;
 }
