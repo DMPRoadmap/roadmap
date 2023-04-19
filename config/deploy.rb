@@ -11,12 +11,13 @@ set :branch,           ENV.fetch('BRANCH', nil)          || 'master'
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`
 # Default environments to skip
-set :bundle_without, %w[pgsql thin rollbar test development].join(' ')
+set :bundle_without, %w[pgsql thin rollbar development test].join(':')
 # We only need to keep 3 releases
 set :keep_releases, 2
 
 # Default value for linked_dirs is []
 append :linked_dirs,
+       '.bundle',
        'log',
        'tmp/pids',
        'tmp/cache',
@@ -27,19 +28,18 @@ append :linked_dirs,
 set :keep_releases, 5
 
 namespace :bundler do
-  before :install, 'bundle_config'
-  before :install, 'bundle_clobber'
+  before :install, 'lock_x86_64'
+  after :install, 'clobber_assets'
 
-  desc 'Add x86_64-linux to Gemfile platforms and exclude non-prod gem groups'
-  task :bundle_config do
+  desc 'Add x86_64-linux to Gemfile platforms'
+  task :lock_x86_64 do
     on roles(:app), wait: 1 do
-      execute "cd #{release_path} bundle config without pgsql thin rollbar test development"
       execute "cd #{release_path} bundle lock --add-platform x86_64-linux"
     end
   end
 
   desc 'Delete all the old assets prior to precompilation for JS and CSS Bundling'
-  task :bundle_clobber do
+  task :clobber_assets do
     on roles(:app), wait: 1 do
       execute "cd #{release_path} bin/rails assets:clobber"
     end
