@@ -28,11 +28,11 @@ append :linked_dirs,
 set :keep_releases, 5
 
 namespace :bundler do
-  before :install, 'lock_x86_64'
+  before :install, 'lock_x86'
   after :install, 'clobber_assets'
 
   desc 'Add x86_64-linux to Gemfile platforms'
-  task :lock_x86_64 do
+  task :lock_x86 do
     on roles(:app), wait: 1 do
       execute "cd #{release_path} bundle lock --add-platform x86_64-linux"
     end
