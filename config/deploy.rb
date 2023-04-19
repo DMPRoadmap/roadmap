@@ -11,12 +11,13 @@ set :branch,           ENV.fetch('BRANCH', nil)          || 'master'
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`
 # Default environments to skip
-set :bundle_without, %w[pgsql thin rollbar test development].join(' ')
+set :bundle_without, %w[pgsql thin rollbar development test].join(':')
 # We only need to keep 3 releases
 set :keep_releases, 2
 
 # Default value for linked_dirs is []
 append :linked_dirs,
+       '.bundle',
        'log',
        'tmp/pids',
        'tmp/cache',
@@ -27,18 +28,18 @@ append :linked_dirs,
 set :keep_releases, 5
 
 namespace :bundler do
-  before :install, 'add_x86'
-  before :install, 'clobber'
+  before :install, 'lock_x86'
+  after :install, 'clobber_assets'
 
   desc 'Add x86_64-linux to Gemfile platforms'
-  task :add_x86 do
+  task :lock_x86 do
     on roles(:app), wait: 1 do
       execute "cd #{release_path} bundle lock --add-platform x86_64-linux"
     end
   end
 
   desc 'Delete all the old assets prior to precompilation for JS and CSS Bundling'
-  task :clobber do
+  task :clobber_assets do
     on roles(:app), wait: 1 do
       execute "cd #{release_path} bin/rails assets:clobber"
     end
@@ -49,7 +50,7 @@ namespace :deploy do
   before :compile_assets, 'deploy:retrieve_credentials'
 
   after :deploy, 'dmptool_assets:copy_ui_assets'
-  after :deploy, 'dmptool_assets:copy_tinymce_skins'
+  after :deploy, 'dmptool_assets:copy_robots'
 
   after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
@@ -102,14 +103,10 @@ namespace :dmptool_assets do
     end
   end
 
-  # Webpacker and TinyMCE do not play nicely with one another. Webpacker/Rails stores its copiled CSS and JS
-  # in minified application.[ext] files that are fingerprinted but TinyMCE expects them elsewhere
-  desc 'Move TinyMCE skin files to public dir'
-  task :copy_tinymce_skins do
+  desc 'Copy over the robots.txt file'
+  task :copy_robots do
     on roles(:app), wait: 1 do
-      execute "mkdir -p #{release_path}/public/tinymce/skins/"
-      execute "cp -r #{release_path}/node_modules/tinymce/skins/ui/oxide/ #{release_path}/public/tinymce/skins/"
-      execute "cp #{release_path}/app/assets/stylesheets/tinymce.css #{release_path}/public/tinymce/tinymce.css"
+      execute "cp -r #{release_path}/config/robots.txt #{release_path}/public/robots.txt"
     end
   end
 end
