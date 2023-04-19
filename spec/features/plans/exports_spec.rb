@@ -84,15 +84,32 @@ RSpec.describe 'PlansExports', js: true do
     expect(page).not_to have_text(new_plan.title)
   end
 
-  it 'User downloads their plan as HTML' do
+  # Separate code to test all-phase-download for html since it requires operation in new window
+  scenario 'User downloads their plan as HTML' do
     within("#plan_#{plan.id}") do
       click_button('Actions')
       click_link 'Download'
     end
     select('html')
-    new_window = window_opened_by { click_button 'Download Plan' }
-    within_window new_window do
-      expect(page.source).to have_text(plan.title)
+    if plan.phases.present?
+      new_window = window_opened_by do
+        _select_option('phase_id', 'All')
+        click_button 'Download Plan'
+      end
+      within_window new_window do
+        expect(page.source).to have_text(plan.title)
+      end
+      new_window = window_opened_by do
+        _select_option('phase_id', plan.phases[1].id)
+        click_button 'Download Plan'
+      end
+      within_window new_window do
+        expect(page.source).to have_text(plan.title)
+        expect(page.source).to have_text(plan.phases[1].title)
+        expect(page.source).not_to have_text(plan.phases[2].title) if plan.phases.length > 2
+      end
+    else
+      _regular_download('html')
     end
   end
 
@@ -102,8 +119,12 @@ RSpec.describe 'PlansExports', js: true do
       click_link 'Download'
     end
     select('pdf')
-    click_button 'Download Plan'
-    expect(page.source).to have_text(plan.title)
+    if plan.phases.present?
+      _all_phase_download
+      _single_phase_download
+    else
+      _regular_download('pdf')
+    end
   end
 
   it 'User downloads their plan as CSV' do
@@ -112,8 +133,7 @@ RSpec.describe 'PlansExports', js: true do
       click_link 'Download'
     end
     select('csv')
-    click_button 'Download Plan'
-    expect(page.source).to have_text(plan.title)
+    _regular_download('csv')
   end
 
   it 'User downloads their plan as text' do
@@ -122,8 +142,12 @@ RSpec.describe 'PlansExports', js: true do
       click_link 'Download'
     end
     select('text')
-    click_button 'Download Plan'
-    expect(page.source).to have_text(plan.title)
+    if plan.phases.present?
+      _all_phase_download
+      _single_phase_download
+    else
+      _regular_download('text')
+    end
   end
 
   it 'User downloads their plan as docx' do
@@ -132,7 +156,53 @@ RSpec.describe 'PlansExports', js: true do
       click_link 'Download'
     end
     select('docx')
+    if plan.phases.present?
+      _all_phase_download
+      _single_phase_download
+    else
+      _regular_download('docx')
+    end
+  end
+
+  # ===========================
+  # = Helper methods =
+  # ===========================
+
+  # rubocop:disable Metrics/AbcSize
+  # disable Rubocup metrics check to confirm both plan title and phase title on downloaded file
+  def _regular_download(format)
+    if format == 'html'
+      new_window = window_opened_by do
+        click_button 'Download Plan'
+      end
+      within_window new_window do
+        expect(page.source).to have_text(plan.title)
+      end
+    else
+      click_button 'Download Plan'
+      expect(page.source).to have_text(plan.title)
+    end
+  end
+
+  def _all_phase_download
+    _select_option('phase_id', 'All')
     click_button 'Download Plan'
     expect(page.source).to have_text(plan.title)
+    plan.phases.each do |phase| # All phase titles should be included in output
+      expect(page.source).to have_text(phase.title)
+    end
+  end
+
+  def _single_phase_download
+    _select_option('phase_id', plan.phases[1].id)
+    click_button 'Download Plan'
+    expect(page.source).to have_text(plan.title)
+    expect(page.source).to have_text(plan.phases[1].title)
+    expect(page.source).not_to have_text(plan.phases[2].title) if plan.phases.length > 2
+  end
+
+  # rubocop:enable Metrics/AbcSize
+  def _select_option(select_id, option_value)
+    find(:id, select_id).find("option[value='#{option_value}']").select_option
   end
 end

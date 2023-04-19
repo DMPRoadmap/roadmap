@@ -187,7 +187,7 @@ class UsageController < ApplicationController
   end
 
   def total_dmp_ids
-    @total_org_dmp_ids = current_user.org.plans.select { |plan| plan.dmp_id.present? }.length
+    @total_org_dmp_ids = current_user.org.plans.count { |plan| plan.dmp_id.present? }
   end
 
   def first_plan_date

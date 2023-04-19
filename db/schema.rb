@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_15_104737) do
+ActiveRecord::Schema.define(version: 2023_03_13_145848) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -397,6 +397,8 @@ ActiveRecord::Schema.define(version: 2022_03_15_104737) do
     t.bigint "research_domain_id"
     t.boolean "featured", default: false
     t.bigint "language_id"
+    t.datetime "feedback_start_at"
+    t.datetime "feedback_end_at"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["language_id"], name: "index_plans_on_language_id"

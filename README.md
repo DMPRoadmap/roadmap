@@ -10,18 +10,18 @@ The DMPTool is a free, open-source, online application that helps researchers cr
 
 The DMPTool is based on the [DMPRoadmap](https://github.com/DMPRoadmap/roadmap) open source project. DMPRoadmap is being collaboratively developed by members of the University of California Curation Center (UC3), the Digital Curation Centre (DCC) and contributions from the community.
 
-Click here for the latest [releases].(https://github.com/CDLUC3/dmptool/releases/)
+Click here for the latest [releases](https://github.com/CDLUC3/dmptool/releases/).
 
 ## Support
 
-Issues should be reported on [Github Issues](https://github.com/CDLUC3/dmptool/issues)
+Issues should be reported on [Github Issues](https://github.com/CDLUC3/dmptool/issues).
 Please be advised though that we can only provide support for the [DMPTool](https://dmptool.org). This code is offered as open source and we can only provide limited support for your local installation.
 
 Issues will be triaged by our team and if applicable will be moved/opened in the DMPRoadmap repository.
 
 ## Translations
 
-See the [Translations Guide](https://github.com/DMPRoadmap/roadmap/wiki/Translations)
+See the [Translations Guide](https://github.com/DMPRoadmap/roadmap/wiki/Translations).
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
@@ -38,39 +38,39 @@ If the basic DMPRoadmap system does not provide the functionality you require pl
 
 If DMPTool meets your organization's needs, you should install it following the [installation instructions on our wiki](https://github.com/CDLUC3/dmptool/wiki/installation) then perform the folowing tasks:
 
-- **Homepage images:** While you are free to use the images provided along with this repository, it is advisable to replace them with ones more relevant to your user base. The system randomly serves up one of five images that are located in `app/assets/images/homepage/`. Follow the image sizes in the provided examples for your images. You must also retain the file names as the `app/assets/stylesheets/dmptool/blocks/_home_welcome.scss` references them by name
+- **Homepage images:** While you are free to use the images provided along with this repository, it is advisable to replace them with ones more relevant to your user base. The system randomly serves up one of five images that are located in `app/assets/images/homepage/`. Follow the image sizes in the provided examples for your images. You must also retain the file names as the `app/assets/stylesheets/dmptool/blocks/_home_welcome.scss` references them by name.
 - **Rotating news on the homepage:** Update the blog url value in `config/dmproadmap.yml` with the address of your blog's RSS feed.
 - **Styles:** The system loads the base DMPRoadmap stylesheet first then the DMPTool stylesheet. We recommend that you add your own additional stylesheet if your changes are extensive or update `app/assets/stylesheets/dmptool/**/*.scss` directly. Do not make changes to the other stylesheets as they are managed as part of the DMPRoadmap project.
 - **Static Content:** Update the files in `app/views/branded/static_pages/` so that they are appropriate for your installation.
-- **Shibboleth:** Setting up your own Shibboleth service provider (SP) is beyond the scope of this application. If you have an SP available and want to use it, make sure that you enable the shibboleth settings in `config/dmproadmap.yml` and then add your organization's entity id (found in your Shib SP's list of registered IdPs) within the UI. Then log out and log back in via your institution's credentials to test that things are working properly. Note that the DMPTool only allows users to authenticate via Shibboleth if the organization is regsitered within the system (meaning that it appears in the application's `orgs` table)
+- **Shibboleth:** Setting up your own Shibboleth service provider (SP) is beyond the scope of this application. If you have an SP available and want to use it, make sure that you enable the shibboleth settings in `config/dmproadmap.yml` and then add your organization's entity id (found in your Shib SP's list of registered IdPs) within the UI. Then log out and log back in via your institution's credentials to test that things are working properly. Note that the DMPTool only allows users to authenticate via Shibboleth if the organization is regsitered within the system (meaning that it appears in the application's `orgs` table).
 
 ## Variations between DMPRoadmap and DMPTool
 
 The following is a list of customizations that we have made to the base DMPRoadmap codebase:
 
-- **Homepage:** A complete redesign of the homepage
+- **Homepage:** A complete redesign of the homepage.
 - **Navigation:** A complete redesign of the header and footer navigation. All of the custom menus have been placed in `app/views/branded/layouts/`.
-- **Static Content:** Added a gem to allow the `app/views/branded/static_pages` to be managed via Markdown instead of HTML. Changed the content of existing pages and added new pages
+- **Static Content:** Added a gem to allow the `app/views/branded/static_pages` to be managed via Markdown instead of HTML. Changed the content of existing pages and added new pages.
 - **Sigin in/Create account:** The sign in and create account workflows has been overhauled to place more emphasis on logging in via institutional credentials (Shibboleth). All of the DMPTool code for these items have been separated into its own `app/views/branded/shared/` subdirectory. The corresponding JS file can be found at `app/javascript/dmptool/`.
 - **Public participating institutions page:** A new Participating Institutions page has been added and is accessible to the public.
 - **Public plans:** The DMPTool provides advanced filtering and search for the public plans page. It also allows institutional administrators to 'feature' exemplar plans that their users have made.
-- **Styling:** We have added `app/assets/stylesheets/dmptool/**/*.scss` files that gets loaded after the base DMPRoadmap stylesheets
+- **Styling:** We have added `app/assets/stylesheets/dmptool/**/*.scss` files that gets loaded after the base DMPRoadmap stylesheets.
 - **Text/Labels:** Various text and labels have been updated.
 - **Related Works:** Admins are able to enter the identifiers for related project outputs (e.g. journal articles, dataset DOIs, etc.) to a DMP's project details page.
-- **DMP ID Registration:** The system allows users to register DMP IDs for their plans. This can be done through either the DMPHub or DataCite services
+- **DMP ID Registration:** The system allows users to register DMP IDs for their plans. This can be done through either the DMPHub or DataCite services.
 - **OAuth2 compliant API:** The API v2 is OAuth2 compliant and allows partner systems to fetch and download a user's DMPs after the user authorizes the interaction.
 
 ## Troubleshooting
-See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the DMPRoadmap Wiki
+See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the DMPRoadmap Wiki.
 
 ## Support
-Issues should be reported here on [Github Issues](https://github.com/DMPRoadmap/roadmap/issues)
+Issues should be reported here on [Github Issues](https://github.com/DMPRoadmap/roadmap/issues).
 Please be advised though that we can only provide limited support for your local installations.
 Any security patches and bugfixes will be applied to the most recent version, and we will endeavour to support migrations to the current release.
 
 ## Contributing
 
-See the [Contributing Guide](https://github.com/DMPRoadmap/roadmap/wiki/Get-involved)
+See the [Contributing Guide](https://github.com/DMPRoadmap/roadmap/wiki/Get-involved).
 
 ## License
 The DMPTool project uses the <a href="./LICENSE.md">MIT License</a>.

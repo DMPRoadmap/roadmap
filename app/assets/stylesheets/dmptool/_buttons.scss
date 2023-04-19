@@ -1,3 +1,18 @@
+@use '../variables/colours' as *;
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:active:hover,
+.btn-primary.active:hover {
+  background-color: $color-primary-background;
+  border-color: $color-primary-background;
+  color: $color-primary-text;
+  margin: 15px 0;
+}
+
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus,
@@ -5,8 +20,21 @@
 .btn-secondary:visited,
 .btn-secondary:active:hover,
 .btn-secondary.active:hover {
-  background-color: $color-seccondary-background;
+  background-color: $color-secondary-background;
   border-color: $color-primary-background;
-  color: $color-primary-background;
+  color: $color-secondary-text;
+  margin: 15px 0;
+}
+
+.btn-default,
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default:visited,
+.btn-default:active:hover,
+.btn-default.active:hover {
+  background-color: $color-primary-background;
+  border-color: $color-primary-background;
+  color: $color-primary-text;
   margin: 15px 0;
 }

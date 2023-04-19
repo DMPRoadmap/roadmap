@@ -24,6 +24,8 @@
 #  ethical_issues                    :boolean
 #  ethical_issues_description        :text
 #  ethical_issues_report             :string
+#  feedback_start_at                 :datetime
+#  feedback_end_at                  :datetime
 #
 # Indexes
 #
@@ -52,8 +54,6 @@ class Plan < ApplicationRecord
   # ----------------------------------------
   include Dmptool::Plan
 
-  DMP_ID_TYPES = %w[doi ark].freeze
-
   # DMPTool customization to support faceting the public plans by language
   # ----------------------------------------------------------------------
   belongs_to :language, default: -> { Language.default }
@@ -62,6 +62,8 @@ class Plan < ApplicationRecord
   # = Constants =
   # =============
 
+  DMP_ID_TYPES = %w[ark doi].freeze
+
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
@@ -69,6 +71,12 @@ class Plan < ApplicationRecord
     publicly_visible: _('public'),
     is_test: _('test'),
     privately_visible: _('private')
+  }.freeze
+
+  FUNDING_STATUS = {
+    planned: _('Planned'),
+    funded: _('Funded'),
+    denied: _('Denied')
   }.freeze
 
   # ==============
@@ -267,6 +275,8 @@ class Plan < ApplicationRecord
     plan_copy = plan.dup
     plan_copy.title = "Copy of #{plan.title}"
     plan_copy.feedback_requested = false
+    plan_copy.feedback_start_at = nil
+    plan_copy.feedback_end_at = nil
     plan_copy.save!
     plan.answers.each do |answer|
       answer_copy = Answer.deep_copy(answer)
@@ -311,7 +321,7 @@ class Plan < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
   def answer(qid, create_if_missing = true)
     answer = answers.select { |a| a.question_id == qid }
-                    .max { |a, b| a.created_at <=> b.created_at }
+                    .max_by(&:created_at)
     if answer.nil? && create_if_missing
       question = Question.find(qid)
       answer = Answer.new
@@ -338,9 +348,12 @@ class Plan < ApplicationRecord
   #  emails confirmation messages to owners
   #  emails org admins and org contact
   #  adds org admins to plan with the 'reviewer' Role
+  # rubocop:disable Metrics/AbcSize
   def request_feedback(user)
     Plan.transaction do
       self.feedback_requested = true
+      self.feedback_start_at = Time.now
+      self.feedback_end_at = nil
       return false unless save!
 
       # Send an email to the org-admin contact
@@ -355,6 +368,7 @@ class Plan < ApplicationRecord
       false
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   ##
   # Finalizes the feedback for the plan: Emails confirmation messages to owners
@@ -363,6 +377,7 @@ class Plan < ApplicationRecord
   def complete_feedback(org_admin)
     Plan.transaction do
       self.feedback_requested = false
+      self.feedback_end_at = Time.now
       return false unless save!
 
       # Send an email confirmation to the owners and co-owners
@@ -460,7 +475,9 @@ class Plan < ApplicationRecord
   # Returns User
   # Returns nil
   def owner
-    roles.administrator.where(active: true).order(:created_at).first&.user
+    r = roles.select { |rr| rr.active && rr.administrator }
+             .min_by(&:created_at)
+    r&.user
   end
 
   # Creates a role for the specified user (will update the user's
@@ -529,7 +546,7 @@ class Plan < ApplicationRecord
   #
   # Returns Integer
   def num_answered_questions(phase = nil)
-    return answers.select(&:answered?).length if phase.blank?
+    return answers.count(&:answered?) unless phase.present?
 
     answered = answers.select do |answer|
       answer.answered? && phase.questions.include?(answer.question)

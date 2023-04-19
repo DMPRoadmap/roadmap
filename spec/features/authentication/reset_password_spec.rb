@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Request password reset' do
   include Helpers::DmptoolHelper
 
+  # Combining all of the tests into two because we have a rate limit set in rack_attack for this endpoint
   before do
     @pwd = SecureRandom.uuid
     @user = create(:user)

@@ -6,6 +6,7 @@ RSpec.describe Api::V2::PlansController do
   include Helpers::ApiHelper
   include Mocks::ApiV2JsonSamples
   include Helpers::Webmocks
+  include Helpers::IdentifierHelper
 
   context 'Non-Oauth (client_credentials grant type)' do
     before do
@@ -263,6 +264,7 @@ RSpec.describe Api::V2::PlansController do
 
     describe 'POST /api/v1/plans - create' do
       before do
+        orcid_scheme
         @json = JSON.parse(complete_create_json(client: @client)).with_indifferent_access
         @scheme = create(:identifier_scheme, name: @client.name.downcase)
         stub_ror_service

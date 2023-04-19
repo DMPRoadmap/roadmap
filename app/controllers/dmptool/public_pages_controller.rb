@@ -27,7 +27,8 @@ module Dmptool
                        .search(search_term)
                        .faceted_search(facets: selected_facets, sort_by: sort_by)
                        .distinct
-                       .pluck('plans.id, plans.funder_id, plans.org_id, plans.language_id, plans.research_domain_id')
+                       .pluck(%w[plans.id plans.funder_id plans.org_id plans.featured plans.created_at
+                                 plans.language_id plans.research_domain_id].join(', '))
 
       # If the user clicked 'View All', set the per_page to match the record count
       per_page = plan_ids.length if public_plans_params[:all]

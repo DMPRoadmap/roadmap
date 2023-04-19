@@ -16,7 +16,7 @@ module Mocks
     }.freeze
 
     TOKEN_FAILURE_RESPONSE = {
-      application: Faker::Lorem.word,
+      application: Faker::Music::GratefulDead.song,
       status: 'Unauthorized',
       code: 401,
       time: Time.zone.now.to_formatted_s(:iso8601),
@@ -47,12 +47,12 @@ module Mocks
     end
 
     def stub_update_success!
-      stub_request(:put, %r{#{BASE_API_URL}data_management_plans/.*})
+      stub_request(:put, %r{#{BASE_API_URL}data_management_plans/.*}o)
         .to_return(status: 200, body: SUCCESS_RESPONSE, headers: {})
     end
 
     def stub_update_error!
-      stub_request(:put, %r{#{BASE_API_URL}data_management_plans/.*})
+      stub_request(:put, %r{#{BASE_API_URL}data_management_plans/.*}o)
         .to_return(status: 500, body: ERROR_RESPONSE, headers: {})
     end
   end
