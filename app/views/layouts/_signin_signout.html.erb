@@ -12,9 +12,9 @@
       <% languages.each do |l| %>
         <li>
           <% if I18n.locale == l.abbreviation %>
-            <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: 'nav-link active dropdown-menu-item' %>
+            <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: 'nav-link active dropdown-item px-2' %>
           <% else %>
-            <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: 'nav-link dropdown-menu-item' %>
+            <%= link_to l.name, locale_path(l.abbreviation), method: :patch, class: 'nav-link dropdown-item px-2' %>
           <% end %>
         </li>
       <% end %>
