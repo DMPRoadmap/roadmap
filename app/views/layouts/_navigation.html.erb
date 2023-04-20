@@ -9,7 +9,9 @@
                   root_path) %>
     </div>
    
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-navbar-menu" aria-controls="app-navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#app-navbar-menu" aria-controls="app-navbar-menu" 
+            aria-expanded="false" aria-label="Toggle navigation">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,10 +37,10 @@
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" 
                 data-bs-popper="static" aria-labelledby="reference-menu">
               <li class="nav-item <%= ' active' if active_page?(public_plans_path) %>">
-                <%= link_to _('Public DMPs'), public_plans_path, class: 'nav-link dropdown-item' %>
+                <%= link_to _('Public DMPs'), public_plans_path, class: 'nav-link dropdown-item px-2' %>
               </li>
               <li class="nav-item <%= ' active' if active_page?(public_templates_path) %>">
-                <%= link_to _('DMP Templates'), public_templates_path, class: 'nav-link dropdown-item' %>
+                <%= link_to _('DMP Templates'), public_templates_path, class: 'nav-link dropdown-item px-2' %>
               </li>
             </ul>
           </li>
