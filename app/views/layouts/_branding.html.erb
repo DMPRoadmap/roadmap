@@ -59,13 +59,14 @@
         <!-- if org admin -->
         <% if current_user.can_org_admin? %>
           <li class="dropdown" id="admin-dropdown">
-            <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" role="button" aria-haspopup="true" 
-               aria-expanded="false" id="admin-menu" href="#">
+            <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" data-bs-display="static" 
+               role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu" href="#">
               <i class="fas fa-lock" aria-hidden="true">&nbsp;</i>
               <%= _('Admin') %>
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="admin-menu">
+            <ul class="dropdown-menu dropdown-menu-end" 
+                data-bs-popper="static" aria-labelledby="admin-menu">
               <% if current_user.can_org_admin? %>
                 <li class="nav-item <%= 'class=active' if active_page?(org_admin_plans_path) %>">
                   <%= link_to _('Plans'), org_admin_plans_path, class: 'nav-link dropdown-item' %>
