@@ -27,12 +27,13 @@
             <%= link_to _('Create plans'), new_plan_path, class: 'nav-link' %>
           </li>
           <li class="dropdown <%= ' active' if active_page?(public_plans_path, true) || active_page?(public_templates_path, true) %>" id="reference-dropdown">
-            <a href="#" class="dropdown-toggle nav-link" role="button" id="reference-menu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a href="#" class="dropdown-toggle nav-link" role="button" id="reference-menu" data-bs-toggle="dropdown" data-bs-display="static" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-book" aria-hidden="true">&nbsp;</i>
               <%= _("Reference") %>
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="reference-menu">
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" 
+                data-bs-popper="static" aria-labelledby="reference-menu">
               <li class="nav-item <%= ' active' if active_page?(public_plans_path) %>">
                 <%= link_to _('Public DMPs'), public_plans_path, class: 'nav-link dropdown-item' %>
               </li>
