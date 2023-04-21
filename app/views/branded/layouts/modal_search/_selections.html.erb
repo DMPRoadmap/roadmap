@@ -25,25 +25,13 @@ locals:
                result_partial: result_partial,
                search_path: search_path,
                search_method: search_method,
-               guidance: guidance,
-               preload: preload
+               guidance: guidance
              } %>
 </div>
 
-<script type="text/javascript">
-
-// TODO: Brian please help with linting this stuff
-function checkPreloadModalResults() {
-  if ($('#preload-modal-list').val() === '1') {
-    $("div.modal-body button[type='submit']").click();
-  }
-}
-</script>
-
 <div class="col-md-12">
   <div class="col-md-12">
-    <%= button_tag button_label, type: "button", class: "btn btn-default",
-                   data: { toggle: "modal", target: "#modal-search-#{namespace}" },
-                   onclick: 'checkPreloadModalResults();' %>
+    <%= button_tag button_label, type: "button", class: "btn btn-default modal-opener",
+                   data: { toggle: "modal", target: "#modal-search-#{namespace}" } %>
   </div>
 </div>
