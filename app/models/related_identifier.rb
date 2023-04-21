@@ -121,8 +121,8 @@ class RelatedIdentifier < ApplicationRecord
        citation.nil?
       wrk_type = work_type == 'supplemental_information' ? '' : work_type
       # Use the UC3Citation service to fetch the citation for the DOI
-      self.citation = fetch_citation(doi: value, work_type: wrk_type) #, debug: true)
-      self.save
+      self.citation = fetch_citation(doi: value, work_type: wrk_type) # , debug: true)
+      save
     end
   end
 end
