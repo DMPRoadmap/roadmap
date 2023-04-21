@@ -19,6 +19,7 @@ import 'tinymce/plugins/advlist';
 
 // Other dependencies
 import { isObject, isString, isUndefined } from './isType';
+import getConstant from './constants';
 
 // // Configuration extracted from
 // // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
@@ -73,6 +74,9 @@ const isTinymceEditor = (editor) => {
   label when the tinymce iframe receives focus.
  */
 const attachLabelToIframe = (editor) => {
+
+console.log('Attaching label');
+
   if (isTinymceEditor(editor)) {
     const iframe = editor.getContainer().querySelector('iframe');
     const lbl = document.querySelector(`label[for="${editor.id}"]`);
@@ -81,6 +85,14 @@ const attachLabelToIframe = (editor) => {
     if (isObject(iframe) && isObject(lbl)) {
       lbl.setAttribute('for', iframe.getAttribute('id'));
     }
+  }
+};
+
+const attachNavigationText = (editor) => {
+  if (isTinymceEditor(editor)) {
+    const tinymceBlock = $(`#${editor.id}`).closest('.form-group');
+    const navText = getConstant('TINYMCE_HELP');
+    tinymceBlock.append(`<p>${navText}</p>`);
   }
 };
 
@@ -102,7 +114,8 @@ export const Tinymce = {
         for (const editor of editors) {
           // auto-resize the editor and connect the form label to the TinyMCE iframe
           editor.execCommand('mceAutoResize');
-          attachLabelToIframe(editor, editor.id);
+          attachLabelToIframe(editor);
+          attachNavigationText(editor);
         }
       }
     });
