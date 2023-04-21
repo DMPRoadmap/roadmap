@@ -34,6 +34,21 @@ module Dmptool
       authorize @plan
 
       attrs = plan_params
+
+      # Save the related_identifiers first. For some reason Rails is auto deleting them and then re-adding
+      # if you just pass in the params as is :/
+      #
+      # So delete removed ones, add new ones, and leave the others alone
+      ids = attrs[:related_identifiers_attributes].to_h.values.map { |item| item['id'] }.compact
+      @plan.related_identifiers.reject { |identifier| ids.include?(identifier.id.to_s) }.each(&:destroy)
+
+      attrs[:related_identifiers_attributes].each do |idx, related_identifier|
+        next if related_identifier[:id].present? || related_identifier[:value].blank?
+
+        RelatedIdentifier.create(related_identifier.merge({ identifiable: @plan }))
+      end
+      attrs.delete(:related_identifiers_attributes)
+
       @plan.grant = plan_params[:grant]
       attrs.delete(:grant)
 
