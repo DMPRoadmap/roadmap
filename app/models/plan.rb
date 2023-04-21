@@ -153,8 +153,6 @@ class Plan < ApplicationRecord
 
   accepts_nested_attributes_for :research_outputs
 
-  accepts_nested_attributes_for :related_identifiers
-
   # ===============
   # = Validations =
   # ===============

@@ -485,7 +485,7 @@ class PlansController < ApplicationController
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk],
-                  related_identifiers_attributes: %i[id work_type value])
+                  related_identifiers_attributes: %i[id work_type value citation identifier_type relation_type])
   end
 
   # different versions of the same template have the same family_id
