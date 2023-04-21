@@ -51,8 +51,8 @@
     <fieldset class="selectable_items">
       <legend><%= _('My Output Types') %></legend>
       <div>
-        <input id="new_output_type" type="text" aria-label="<%= _('Output Type') %>"/>
-        <button id="add_output_type" type="button"><%= _('Add an output type') %></button>
+        <input id="new_output_type" type="text" aria-label="<%= _('Enter an output type') %>"/>
+        <button id="add_output_type" type="button"><%= _('Add output type') %></button>
       </div>
       <div>
         <br/>
@@ -231,10 +231,10 @@
       <div>
         <%
           args = { include_blank: _("- Please select one -"), class: "form-control",
-           aria: { label: _('Initial license') } }
+           aria: { label: _('Select a license') } }
         %>
         <%= select_tag "new_license", options_for_select(licenses), args %>
-        <button id="add_license"><%= _('Add a license') %></button>
+        <button id="add_license"><%= _('Add license') %></button>
       </div>
       <div>
       <br/>
@@ -264,9 +264,9 @@
   <div class="col-md-9">
     <div class="form-group">
       <%= f.submit _('Save Preferences'), class: "btn btn-primary", id: "save_preferences" %>
-    </div>
-    <div id="#preference-errors red">
-      <ul></ul>
+    </div
+    <div class="col-md-9">
+      <ul id="preference-errors"></ul>
     </div>
   </div>
 </div>

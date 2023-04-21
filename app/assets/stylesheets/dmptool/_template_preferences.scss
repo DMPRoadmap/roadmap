@@ -51,3 +51,16 @@ fieldset.user-guidance {
   border: thin solid $color-grey-darker;
   border-radius: 5px; margin: 3px;
 }
+
+#new_license {
+  display: inline-block;
+  width: 60%;
+}
+
+.customized_repositories button.modal-search-result-unselector {
+  margin-left: 4px;
+}
+
+ul#preference-errors {
+  list-style: none;
+}

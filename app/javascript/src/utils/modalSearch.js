@@ -1,9 +1,6 @@
 $(() => {
   // Add the selected item to the selections section
   $('body').on('click', 'button.modal-search-result-selector', (e) => {
-
-console.log('selecting');
-
     e.preventDefault();
     const link = $(e.target);
 
@@ -32,9 +29,6 @@ console.log('selecting');
 
   // Remove the selected item
   $('body').on('click', 'button.modal-search-result-unselector', (e) => {
-
-console.log('unselecting');
-
     e.preventDefault();
     const selection = $(e.target).closest('.modal-search-result');
 
