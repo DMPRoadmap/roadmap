@@ -85,6 +85,8 @@
     "regenerator-runtime": "^0.13.5",
     "remount": "^1.0.0",
     "sass": "^1.57.1",
+    "select2": "^4.0.13",
+    "select2-bootstrap-theme": "^0.1.0-beta.10",
     "sweetalert2": "^11.7.3",
     "timeago.js": "^4.0.2",
     "tinymce": "^6.4.1",

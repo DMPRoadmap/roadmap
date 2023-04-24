@@ -15,6 +15,9 @@ import 'bootstrap';
 import 'bootstrap-3-typeahead';
 import 'bootstrap-select';
 
+// Select2
+import 'select2';
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -34,6 +37,7 @@ import './src/utils/requiredField';
 import './src/utils/tabHelper';
 import './src/utils/tooltipHelper';
 // import './src/utils/cookiebanner';
+import './src/utils/dynamicFormHelper';
 import './src/utils/autoNumericHelper';
 
 // Specific functions from the Utilities files that will be made available to
@@ -56,16 +60,17 @@ import './src/notes/index';
 import './src/orgs/adminEdit';
 import './src/orgs/shibbolethDs';
 import './src/plans/download';
-// import './src/plans/editDetails';
+import './src/plans/editDetails';
 import './src/plans/index.js.erb';
 import './src/plans/new';
 import './src/plans/import';
-// import './src/plans/researchOutputs';
+import './src/plans/researchOutputs';
 import './src/plans/share';
 import './src/publicTemplates/show';
 import './src/researchOutputs/form';
 import './src/roles/edit';
 import './src/shared/createAccountForm';
+import './src/shared/dynamicForm';
 import './src/shared/signInForm';
 import './src/usage/index';
 import './src/users/adminGrantPermissions';
