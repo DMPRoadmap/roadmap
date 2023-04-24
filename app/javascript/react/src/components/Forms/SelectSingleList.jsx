@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Select from 'react-select';
 import { getRegistry } from '../../services/DmpServiceApi';
-import { createOptions, getDefaultLabel } from '../../utils/GeneratorUtils';
+import { createOptions } from '../../utils/GeneratorUtils';
 import { GlobalContext } from '../context/Global.jsx';
 import styles from '../assets/css/form.module.css';
 
@@ -12,7 +12,7 @@ the list, and it updates the value of the input field accordingly. Finally, it r
 function SelectSingleList({
   label, propName, changeValue, tooltip, registryId, fragmentId
 }) {
-  const [options, setoptions] = useState(null);
+  const [options, setOptions] = useState([{value:'', label:''}]);
   const { formData, subData, locale } = useContext(GlobalContext);
   const [error, setError] = useState(null);
 
@@ -24,27 +24,26 @@ function SelectSingleList({
   } else {
     value = '';
   }
+  const selectedOption = options.find((opt) => opt.value == value);
   /*
   A hook that is called when the component is mounted.
   It is used to set the options of the select list.
   */
   useEffect(() => {
     let isMounted = true;
-    const setOptions = (data) => {
-      if (isMounted) {
-        setoptions(data);
-      }
-    };
-    getRegistry(registryId)
-      .then((res) => {
-        setOptions(createOptions(res.data, locale));
-      })
-      .catch((err) => {
-        setError(err);
-      });
-    return () => {
-      isMounted = false;
-    };
+    if (isMounted) {
+      getRegistry(registryId)
+        .then((res) => {
+          setOptions(createOptions(res.data, locale));
+          console.log(value, createOptions(res.data, locale))
+        })
+        .catch((err) => {
+          setError(err);
+        });
+      return () => {
+        isMounted = false;
+      };
+    }
   }, [registryId, locale]);
 
   /**
@@ -52,6 +51,8 @@ function SelectSingleList({
    * @param e - the event object
    */
   const handleChangeList = (e) => {
+    if (!e) return { target: { name: propName, value: '' } }
+
     if (propName === 'funder') {
       changeValue({ target: { name: propName, value: e.object } });
     } else {
@@ -77,11 +78,7 @@ function SelectSingleList({
               onChange={handleChangeList}
               options={options}
               name={propName}
-              inputValue={value}
-              defaultValue={{
-                label: getDefaultLabel(subData, formData?.[fragmentId], propName, locale),
-                value: getDefaultLabel(subData, formData?.[fragmentId], propName, locale),
-              }}
+              value={selectedOption}
             />
           </div>
         </div>

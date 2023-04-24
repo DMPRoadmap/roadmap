@@ -16,28 +16,25 @@ function SelectMultipleList({
   fragmentId,
 }) {
   const [list, setlist] = useState([]);
-  const [options, setoptions] = useState(null);
+  const [options, setOptions] = useState(null);
   const { formData, subData, setSubData, locale } = useContext(GlobalContext);
 
   /* A hook that is called when the component is mounted.
   It is used to set the options of the select list. */
   useEffect(() => {
     let isMounted = true;
-    const setOptions = (data) => {
-      if (isMounted) {
-        setoptions(data);
-      }
-    };
-    getRegistry(registryId)
-      .then((res) => {
-        setOptions(createOptions(res.data, locale));
-      })
-      .catch((error) => {
-        // handle errors
-      });
-    return () => {
-      isMounted = false;
-    };
+    if (isMounted) {
+      getRegistry(registryId)
+        .then((res) => {
+          setOptions(createOptions(res.data, locale));
+        })
+        .catch((error) => {
+          // handle errors
+        });
+      return () => {
+        isMounted = false;
+      };
+    }
   }, [registryId, locale]);
 
   /**

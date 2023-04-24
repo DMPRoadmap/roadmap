@@ -16,7 +16,7 @@ class MadmpFragmentsController < ApplicationController
     @fragment = MadmpFragment.find(params[:id])
     authorize @fragment
     render json: {
-      'fragment' => @fragment.get_full_fragment,
+      'fragment' => @fragment.get_full_fragment(with_ids: true),
       'schema' => @fragment.madmp_schema.schema
     }
   end
@@ -29,7 +29,7 @@ class MadmpFragmentsController < ApplicationController
     authorize @fragment
 
     MadmpFragment.transaction do
-      @fragment.raw_import(
+      @fragment.import_with_instructions(
         form_data,
         @fragment.madmp_schema
       )

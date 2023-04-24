@@ -126,26 +126,6 @@ export function formatNumberWithSpaces(num) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
-/**
- * If the temp object has a property with the same name as the name parameter, and that property is an object, return the label property of that object.
- * Otherwise, if the temp object has a property with the same name as the name parameter, and that property is a string, return that string. Otherwise,
- * return the form object's property with the same name as the name parameter.
- * @param subData - the object that contains the label
- * @param formData - the form object
- * @param name - the name of the field
- * @returns The label of the form field.
- */
-export function getDefaultLabel(subData, formData, propName, locale) {
-  if (subData) {
-    if (typeof subData[propName] === 'object') {
-      return subData[propName]?.label[locale];
-    } else if (typeof subData[propName] === 'string') {
-      return subData[propName];
-    }
-  } else {
-    return formData?.[name];
-  }
-}
 
 /**
  * It takes a form object, a schemaId, a propName, and a newObject, and returns a new form object with the newObject nested under the schemaId and
@@ -168,9 +148,13 @@ export function updateFormState(formData, fragmentId, propName, newObject) {
 
 
 export function createOptions(registryValues, locale) {
-  return registryValues.map((option) => ({
-    value: option.label ? option.label[locale] : option[locale],
-    label: option.label ? option.label[locale] : option[locale],
-    object: option,
-  }));
+  let options = registryValues.map((option) => {
+    const {label, ...optionValue} = option;
+    return {
+      value: label ? label[locale] : optionValue[locale],
+      label: label ? label[locale] : optionValue[locale],
+      object: optionValue,
+    }
+  });
+  return [ {value:'', label:''}, ...options ]
 }

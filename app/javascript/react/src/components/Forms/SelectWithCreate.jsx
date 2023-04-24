@@ -29,7 +29,7 @@ function SelectWithCreate({
   const [list, setlist] = useState([]);
 
   const [show, setShow] = useState(false);
-  const [options, setoptions] = useState(null);
+  const [options, setOptions] = useState(null);
   const [selectObject, setselectObject] = useState([]);
   const {
     formData, setFormData, subData, setSubData, locale,
@@ -48,7 +48,7 @@ function SelectWithCreate({
         if (pattern.length > 0) {
           Promise.all(
             formData?.[fragmentId]?.[propName].filter(
-              (el) => el.updateType !== 'delete').map((el) => parsePattern(el, pattern))
+              (el) => el.action !== 'delete').map((el) => parsePattern(el, pattern))
             ).then((listParsed) => {
               setlist(listParsed);
             }
@@ -62,21 +62,18 @@ function SelectWithCreate({
   It is used to set the options of the select list. */
   useEffect(() => {
     let isMounted = true;
-    const setOptions = (data) => {
-      if (isMounted) {
-        setoptions(data);
-      }
-    };
-    getRegistry(registryId)
-      .then((res) => {
-        setOptions(createOptions(res.data, locale));
-      })
-      .catch((error) => {
-        // handle errors
-      });
-    return () => {
-      isMounted = false;
-    };
+    if (isMounted) {
+      getRegistry(registryId)
+        .then((res) => {
+          setOptions(createOptions(res.data, locale));
+        })
+        .catch((error) => {
+          // handle errors
+        });
+      return () => {
+        isMounted = false;
+      };
+    }
   }, [registryId, locale]);
 
   /**
@@ -135,7 +132,7 @@ function SelectWithCreate({
         const newList = [...list];
         setlist(deleteByIndex(newList, idx));
         const concatedObject = [...formData[fragmentId][propName]];
-        concatedObject[idx]['updateType'] = 'delete';
+        concatedObject[idx]['action'] = 'delete';
         setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
         Swal.fire('Supprimé!', 'Opération effectuée avec succès!.', 'success');
       }
@@ -162,9 +159,9 @@ function SelectWithCreate({
     } else {
       if (index !== null) {
         //add in update
-        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
         const deleteIndex = deleteByIndex(filterDeleted, index);
-        const concatedObject = [...deleteIndex, { ...subData, updateType: 'update' }];
+        const concatedObject = [...deleteIndex, { ...subData, action: 'update' }];
         setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
 
         const newList = deleteByIndex([...list], index);
@@ -198,7 +195,7 @@ function SelectWithCreate({
   const handleEdit = (idx) => {
     e.preventDefault();
     e.stopPropagation();
-    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
     setSubData(filterDeleted[idx]);
     setShow(true);
     setindex(idx);
@@ -212,7 +209,7 @@ function SelectWithCreate({
           {label}
         </legend>
         <div className={styles.input_label}>Sélectionnez une valeur de la liste.</div>
-        <div className="row">
+        <div className="row col-md-12">
           <div className={`col-md-11 ${styles.select_wrapper}`}>
             <Select
               menuPortalTarget={document.body}

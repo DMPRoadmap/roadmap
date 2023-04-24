@@ -61,7 +61,7 @@ function SelectContributor({
         return;
       }
 
-      setlist(formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete').map((el) => parsePattern(el, patern)));
+      setlist(formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete').map((el) => parsePattern(el, patern)));
     });
   }, [formData[propName], templateId]);
 
@@ -111,8 +111,8 @@ function SelectContributor({
    */
   const handleAddToList = () => {
     if (index !== null) {
-      const objectPerson = { person: temp, role: role, updateType: 'update' };
-      const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+      const objectPerson = { person: temp, role: role, action: 'update' };
+      const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
       const deleteIndex = deleteByIndex(filterDeleted, index);
       const concatedObject = [...deleteIndex, objectPerson];
       setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
@@ -160,8 +160,8 @@ function SelectContributor({
       if (result.isConfirmed) {
         const newList = [...list];
         setlist(deleteByIndex(newList, idx));
-        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
-        filterDeleted[idx]['updateType'] = 'delete';
+        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
+        filterDeleted[idx]['action'] = 'delete';
         setFormData(updateFormState(formData, fragmentId, propName, filterDeleted));
         Swal.fire('Supprimé!', 'Opération effectuée avec succès!.', 'success');
       }
@@ -175,7 +175,7 @@ function SelectContributor({
   const handleEdit = (e, idx) => {
     e.preventDefault();
     e.stopPropagation();
-    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
     setSubData(filterDeleted[idx]['person']);
     setShow(true);
     setindex(idx);
@@ -219,7 +219,7 @@ function SelectContributor({
         {formData?.[fragmentId]?.[propName] && list && (
           <table style={{ marginTop: '20px' }} className="table table-bordered">
             <thead>
-              {formData?.[fragmentId]?.[propName].length > 0 && header && formData?.[fragmentId]?.[propName].some((el) => el.updateType !== "delete") && (
+              {formData?.[fragmentId]?.[propName].length > 0 && header && formData?.[fragmentId]?.[propName].some((el) => el.action !== "delete") && (
                 <tr>
                   <th scope="col">{header}</th>
                   <th scope="col"></th>

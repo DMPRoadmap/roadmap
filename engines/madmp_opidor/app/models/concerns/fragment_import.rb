@@ -197,26 +197,27 @@ module FragmentImport
         ####################################
         next if sub_data['action'].nil?
 
+        sub_fragment_id = sub_data['dbid'] || sub_data['id']
         sub_schema = MadmpSchema.find(schema_prop['schema_id'])
 
         if sub_data['action'].eql?('create')
           next if MadmpFragment.fragment_exists?(sub_data['data'], sub_schema, dmp.id, id)
 
-          cb_fragment = MadmpFragment.new(
+          sub_fragment = MadmpFragment.new(
             dmp_id: dmp.id,
             parent_id: id,
             madmp_schema_id: sub_schema.id,
             additional_info: { property_name: prop }
           )
-          cb_fragment.classname = sub_schema.classname
-          cb_fragment.instantiate
-          created_frag = cb_fragment.import_with_instructions(sub_data['data'], sub_schema)
+          sub_fragment.classname = sub_schema.classname
+          sub_fragment.instantiate
+          created_frag = sub_fragment.import_with_instructions(sub_data['data'], sub_schema)
           # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
           # and update_references function is not triggered
           fragmented_data[prop] = { 'dbid' => created_frag.id } if sub_schema.classname.eql?('person')
-        elsif sub_data['action'].eql?('update') && sub_data['dbid']
-          cb_fragment = MadmpFragment.find(sub_data['dbid'])
-          cb_fragment.import_with_instructions(sub_data['data'], sub_schema)
+        elsif sub_fragment_id.present? || sub_data['action'].eql?('update')
+          sub_fragment = MadmpFragment.find(sub_fragment_id)
+          sub_fragment.import_with_instructions(sub_data['data'], sub_schema)
         end
       elsif schema_prop['type'].eql?('array') &&
             schema_prop['items']['schema_id'].present?
@@ -227,23 +228,30 @@ module FragmentImport
         data_list.each do |cb_data|
           next if cb_data['action'].nil?
 
+          sub_fragment_id = cb_data['dbid'] || cb_data['id']
+          sub_data = cb_data['data'] || cb_data
           sub_schema = MadmpSchema.find(schema_prop['items']['schema_id'])
-
           if cb_data['action'].eql?('create')
-            next if MadmpFragment.fragment_exists?(cb_data['data'], sub_schema, dmp.id, id)
+            next if MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, id)
 
-            cb_fragment = MadmpFragment.new(
+            sub_fragment = MadmpFragment.new(
               dmp_id: dmp.id,
               parent_id: id,
               madmp_schema_id: sub_schema.id,
               additional_info: { property_name: prop }
             )
-            cb_fragment.classname = sub_schema.classname
-            cb_fragment.instantiate
-            created_frag = cb_fragment.import_with_instructions(cb_data['data'], sub_schema)
-          elsif cb_data['action'].eql?('update') && cb_data['dbid']
-            cb_fragment = MadmpFragment.find(cb_data['dbid'])
-            cb_fragment.import_with_instructions(cb_data['data'], sub_schema)
+            sub_fragment.classname = sub_schema.classname
+            sub_fragment.instantiate
+            created_frag = sub_fragment.import_with_instructions(sub_data, sub_schema)
+          elsif cb_data['action'].eql?('update') && sub_fragment_id
+            p "############"
+            p sub_data
+            p "############"
+            sub_fragment = MadmpFragment.find(sub_fragment_id)
+            sub_fragment.import_with_instructions(sub_data, sub_schema)
+          elsif cb_data['action'].eql?('delete') && sub_fragment_id
+            sub_fragment = MadmpFragment.find(sub_fragment_id)
+            sub_fragment.destroy!
           end
         end
       else

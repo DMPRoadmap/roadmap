@@ -10,7 +10,7 @@ function TinyArea({
   label, propName, changeValue, tooltip, level, fragmentId
 }) {
   const { formData, subData } = useContext(GlobalContext);
-  const [text, settext] = useState('<p></p>');
+  const [text, setText] = useState('<p></p>');
 
   /* This is a useEffect hook that runs when the component mounts and whenever the `level` or `name` props change. It sets the initial value of the `text`
 state based on the `temp` or `form` context values for the given `name` and `fragmentId`, or sets it to `<p></p>` if no value is found. If the `level`
@@ -19,12 +19,12 @@ prop is 1, it uses the `defaultValue` as the `updatedText`, otherwise it uses th
   useEffect(() => {
     const defaultValue = subData ? subData[propName] : formData?.[fragmentId]?.[propName] ? formData?.[fragmentId]?.[propName] : "<p></p>";
     const updatedText = level === 1 ? defaultValue : subData ? subData[propName] : '<p></p>';
-    settext(updatedText);
+    setText(updatedText);
   }, [level, propName]);
 
   const handleChange = (e) => {
     changeValue({ target: { name: propName, value: e } });
-    settext(e);
+    setText(e);
   };
   return (
     <div className={`form-group ticket-summernote mr-4 ml-4 ${styles.form_margin}`}>

@@ -65,9 +65,9 @@ function ModalTemplate({
       );
 
     if (index !== null) {
-      const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+      const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
       const deleteIndex = deleteByIndex(filterDeleted, index);
-      const concatedObject = [...deleteIndex, { ...subData, updateType: 'update' }];
+      const concatedObject = [...deleteIndex, { ...subData, action: 'update' }];
       setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
       setSubData(null);
     } else {
@@ -82,7 +82,7 @@ function ModalTemplate({
    * the subData is set to null, and the modal is closed.
    */
   const handleSave = () => {
-    const newObject = [...(formData[fragmentId][propName] || []), subData];
+    const newObject = [...(formData[fragmentId][propName] || []), { ...subData, action: 'create' }];
     setFormData(updateFormState(formData, fragmentId, propName, newObject));
     setSubData(null);
     handleClose();
@@ -116,8 +116,8 @@ function ModalTemplate({
       confirmButtonText: 'Oui, supprimer !',
     }).then((result) => {
       if (result.isConfirmed) {
-        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
-        filterDeleted[idx]['updateType'] = 'delete';
+        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
+        filterDeleted[idx]['action'] = 'delete';
         setFormData(updateFormState(formData, fragmentId, propName, filterDeleted));
         Swal.fire('Supprimé!', 'Opération effectuée avec succès!.', 'success');
       }
@@ -130,7 +130,7 @@ function ModalTemplate({
   const handleEdit = (e, idx) => {
     e.preventDefault();
     e.stopPropagation();
-    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.updateType !== 'delete');
+    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
     setSubData(filterDeleted[idx]);
     setShow(true);
     setindex(idx);
@@ -148,7 +148,7 @@ function ModalTemplate({
               {formData?.[fragmentId]?.[propName].length > 0 &&
                 template &&
                 header &&
-                formData?.[fragmentId]?.[propName].some((el) => el.updateType !== 'delete') && (
+                formData?.[fragmentId]?.[propName].some((el) => el.action !== 'delete') && (
                   <tr>
                     <th scope="col">{header}</th>
                     <th scope="col"></th>
@@ -157,7 +157,7 @@ function ModalTemplate({
             </thead>
             <tbody>
               {formData?.[fragmentId]?.[propName]
-                .filter((el) => el.updateType !== 'delete')
+                .filter((el) => el.action !== 'delete')
                 .map((el, idx) => (
                   <tr key={idx}>
                     <td scope="row">
