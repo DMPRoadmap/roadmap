@@ -39,6 +39,7 @@ nav ul {
   color: $color-secondary-text;
   border: 1px solid $color-border-default;
   border-bottom-color: transparent; /* Only nav-tabs have a transparent border-bottom */
+  border-radius: 0px;
 }
 .nav-pills > li > a:hover,
 .nav-pills > li > a:focus,
