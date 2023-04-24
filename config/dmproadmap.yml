@@ -54,7 +54,7 @@ default: &default
   port: "3000"
   web_concurrency: 2
   cookie_key: "_my_application_session"
-  rails_log_to_stdout: true
+  rails_log_to_stdout: false
   rails_max_threads: 5
   rails_serve_static_files: true
 

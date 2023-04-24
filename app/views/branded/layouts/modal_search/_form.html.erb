@@ -21,7 +21,7 @@ Locals:
 search_examples = search_examples || ""
 results = results || []
 
-search_placeholder = _("- Enter a search term %{examples} -") % { examples: search_examples}
+search_placeholder = _("Enter a search term")
 no_results_msg = _("No results matched your filter criteria.")
 %>
 
@@ -46,12 +46,13 @@ no_results_msg = _("No results matched your filter criteria.")
       </div>
 
       <!-- Non Dmptool invocations may not define a guidance field -->
-      <% if defined? guidance %>
+      <% unless guidance.nil? %>
         <% unless guidance&.strip&.empty? %>
         <div class="modal-header">
           <fieldset class="user-guidance">
             <label>Tooltip</label>
             <div>
+            <%= guidance.inspect %>
             <%= sanitize(guidance) %>
             </div>
           </fieldset>
@@ -60,7 +61,7 @@ no_results_msg = _("No results matched your filter criteria.")
       <% end %>
 
       <input type="hidden" id="preload-modal-list" value="<% if defined? preload %><%= preload ? 1 : 0 %>"<% end %>/>
-      
+
       <div class="modal-body">
         <%# Search filters %>
         <%= form_with model: model_instance, url: search_path, method: search_method, local: false,
@@ -74,10 +75,10 @@ no_results_msg = _("No results matched your filter criteria.")
           <div class="form-group row">
             <div class="col-md-10">
               <span class="col-md-10">
+                <%= f.label :search_term, search_placeholder %>
                 <%= f.text_field :search_term,
                                  class: "form-control autocomplete col-md-6",
-                                 placeholder: search_placeholder,
-                                 aria: { label: search_placeholder } %>
+                                 placeholder: search_examples %>
               </span>
               <div class="col-md-3">
                 <%= f.button _("Apply filter(s)"),

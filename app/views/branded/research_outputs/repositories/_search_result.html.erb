@@ -16,13 +16,9 @@
           <% end %>
           <% line_breaker += tag.length %>
           <div class="tag">
-            <%= link_to tag, search_path, class: "facet",
-                        title: _("Click to view repositories related to %{subject}") % { subject: tag },
-                        data: {
-                          remote: true,
-                          params: { research_output: { search_term: tag } }.to_param,
-                          method: search_method
-                        } %>
+            <%= button_to tag, search_path, params: { research_output: { search_term: tag } },
+                               remote: true, method: search_method, class: 'facet',
+                               title: _("Click to view repositories related to the term: '%{subject}'") % { subject: tag } %>
           </div>
         <% end %>
     </div>

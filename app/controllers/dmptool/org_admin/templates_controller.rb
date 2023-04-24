@@ -67,7 +67,9 @@ module Dmptool
           @template.update(metadata_standards: []) if preference_params[:customize_metadata_standards] == '0'
         rescue StandardError => e
           Rails.logger.error "Unable to save the Template preferences for #{template.id} - #{e.message}"
+          # rubocop:disable Layout/LineLength
           redirect_to preferences_org_admin_template_path(template), alert: failure_message(@template, _('save')) and return
+          # rubocop:enable Layout/LineLength
         end
 
         redirect_to preferences_org_admin_template_path(@template), notice: success_message(@template, _('saved'))

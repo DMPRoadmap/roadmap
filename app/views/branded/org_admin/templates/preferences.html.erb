@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<%= form_for(template, url: {action: :save_preferences}, html: { 'data-method': :patch }) do |f| %>
+<%= form_for(template, url: {action: :save_preferences}, html: { 'data-method': :patch, class: 'edit-template-preferences' }) do |f| %>
 <h2><%= _('Research Outputs') %></h2>
 <div class="row">
   <div class="col-md-9">
@@ -35,7 +35,7 @@
     </div>
   </div>
   <div class="col-md-6">
-    <div class="selectable_items" id="default-output-types">
+    <div class="selectable_items" id="default-output_types">
     <fieldset class="selectable_items">
       <legend><%= _('Default Output Types') %></legend>
       <ul>
@@ -47,10 +47,13 @@
       </ul>
     </fieldset>
     </div>
-    <div class="selectable_items" id="my-output-types" >
+    <div class="selectable_items" id="my-output_types" >
     <fieldset class="selectable_items">
       <legend><%= _('My Output Types') %></legend>
-      <div><input id="new_output_type" type="text" aria-label="<%= _('Output Type') %>"/> <button id="add_output_type"><%= _('Add an output type') %></button></div>
+      <div>
+        <input id="new_output_type" type="text" aria-label="<%= _('Enter an output type') %>"/>
+        <button id="add_output_type" type="button"><%= _('Add output type') %></button>
+      </div>
       <div>
         <br/>
         <ul>
@@ -228,10 +231,10 @@
       <div>
         <%
           args = { include_blank: _("- Please select one -"), class: "form-control",
-           aria: { label: _('Initial license') } }
+           aria: { label: _('Select a license') } }
         %>
         <%= select_tag "new_license", options_for_select(licenses), args %>
-        <button id="add_license"><%= _('Add a license') %></button>
+        <button id="add_license"><%= _('Add license') %></button>
       </div>
       <div>
       <br/>
@@ -261,6 +264,9 @@
   <div class="col-md-9">
     <div class="form-group">
       <%= f.submit _('Save Preferences'), class: "btn btn-primary", id: "save_preferences" %>
+    </div
+    <div class="col-md-9">
+      <ul id="preference-errors"></ul>
     </div>
   </div>
 </div>

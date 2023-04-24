@@ -8,6 +8,11 @@ $(() => {
     Tinymce.init({ selector: '#research_output_description' });
   }
 
+  // Preload the search results when then user opens a modal dialog
+  $('button.modal-opener').on('click', () => {
+    $("div.modal-body button[type='submit']").click();
+  });
+
   // Expands/Collapses the search results 'More info'/'Less info' section
   $('body').on('click', '.modal-search-result .more-info a.more-info-link', (e) => {
     e.preventDefault();
