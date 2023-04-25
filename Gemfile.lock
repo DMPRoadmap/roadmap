@@ -249,6 +249,9 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    inline_svg (1.9.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -604,6 +607,7 @@ DEPENDENCIES
   guard
   htmltoword
   httparty
+  inline_svg
   jbuilder
   jsbundling-rails
   json_schemer

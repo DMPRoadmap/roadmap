@@ -27,3 +27,22 @@ source_dir = Dir.glob(Rails.root.join('node_modules', 'tinymce', 'skins', 'ui', 
 destination_dir = Rails.root.join('public', 'tinymce', 'skins')
 FileUtils.mkdir_p(destination_dir)
 FileUtils.cp_r(source_dir, destination_dir)
+class AssetUrlProcessor
+  def self.call(input)
+    # don't know why, copy from other processor
+    context = input[:environment].context_class.new(input)
+    data = input[:data].gsub(/url\(["']?(.+?)["']?\)/i) do |match|
+      asset = $1
+      if asset && asset !~ /(data:|http)/i
+        path = context.asset_path(asset)
+        "url(#{path})"
+      else
+        match
+      end
+    end
+
+    { data: data }
+  end
+end
+
+Sprockets.register_postprocessor 'text/css', AssetUrlProcessor

@@ -131,6 +131,11 @@ gem 'recaptcha'
 # (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
 
+# Styling a SVG document with CSS for use on the web is most reliably achieved by
+# adding classes to the document and embedding it inline in the HTML.
+# (https://github.com/jamesmartin/inline_svg)
+gem 'inline_svg'
+
 group :aws do
   # Amazon AWS S3 data store for use with the Dragonfly gem.
   gem 'dragonfly-s3_data_store'

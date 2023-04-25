@@ -28,6 +28,10 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(png|jpe?g|gif|eot|woff2|woff|ttf|svg)$/i,
+        use: 'file-loader',
+      },
       erbLoader,
     ],
   },
@@ -55,6 +59,5 @@ module.exports = {
   ],
   resolve: {
     extensions: ['*', '.js', '.jsx'],
-    symlinks: true,
   },
 };

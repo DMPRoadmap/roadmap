@@ -2,7 +2,7 @@
 <ul id="plan-navigation" class="nav nav-tabs plan-navigation" role="tablist">
   <li role="presentation" class="<%= (active_page?(plan_path(plan), true) ? 'active' : '') %>">
     <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content">
-      <span class="icon icon-general-infos"></span>
+        <%= inline_svg_tag "plan_navigation/general_infos.svg", class: 'icon' %>
       <%= _("General information") %>
     </a>
     <span class="active-line"></span>
@@ -10,7 +10,7 @@
   </li>
   <li role="presentation" class="<%= (active_page?(plan_research_outputs_path(plan), true) ? 'active' : '') %>">
     <a href="<%= plan_research_outputs_path(plan) %>" role="tab" aria-controls="content">
-      <span class="icon icon-research-outputs"></span>
+        <%= inline_svg_tag "plan_navigation/research_outputs.svg", class: 'icon' %>
       <%= _("Research outputs") %>
     </a>
     <span class="active-line"></span>
@@ -19,7 +19,7 @@
   <% phases.each do |phase| %>
     <li role="presentation" class="phase-tab <%= (active_page?(edit_plan_path(plan.id, phase_id: phase.id)) ? 'active' : '') %>">
       <a href="<%= edit_plan_path(plan.id, phase_id: phase.id) %>" role="tab" aria-controls="content">
-        <span class="icon icon-write-plan"></span>
+        <%= inline_svg_tag "plan_navigation/write_plan.svg", class: 'icon' %>
         <%= (phases.size > 1 ? phase.title : _('Write Plan')) %>
       </a>
       <span class="active-line"></span>
@@ -28,7 +28,7 @@
   <% end %>
   <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
     <a href="<%= plan_contributors_path(plan) %>" role="tab" aria-controls="content">
-      <span class="icon icon-contributors"></span>
+        <%= inline_svg_tag "plan_navigation/contributors.svg", class: 'icon' %>
       <%= _("Contributors") %>
     </a>
     <span class="active-line"></span>
@@ -37,7 +37,7 @@
   <% if plan.template.structured? %>
     <li role="budget" class="<%= (active_page?(budget_plan_path(plan)) ? "active" : "") %>">
       <a href="<%= budget_plan_path(plan) %>" role="tab" aria-controls="content">
-        <span class="icon icon-budget"></span>
+        <%= inline_svg_tag "plan_navigation/budget.svg", class: 'icon' %>
         <%= _("Budget") %>
       </a>
       <span class="active-line"></span>
@@ -47,7 +47,7 @@
   <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan))  %>
     <li role="presentation" class="<%= (active_page?(share_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content">
-        <span class="icon icon-share"></span>
+        <%= inline_svg_tag "plan_navigation/share.svg", class: 'icon' %>
         <%= _('Share') %>
       </a>
       <span class="active-line"></span>
@@ -57,7 +57,7 @@
   <% if (plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan))) && plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
     <li role="presentation" class="<%= (active_page?(request_feedback_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= request_feedback_plan_path(plan) %>" role="tab" aria-controls="content">
-        <span class="icon icon-request-feedback"></span>
+        <%= inline_svg_tag "plan_navigation/request_feedback.svg", class: 'icon' %>
         <%= _('Request feedback') %>
       </a>
       <span class="active-line"></span>
@@ -67,7 +67,7 @@
   <% if plan.readable_by?(current_user.id) %>
     <li role="presentation" class="<%= (active_page?(download_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content">
-        <span class="icon icon-download"></span>
+        <%= inline_svg_tag "plan_navigation/download.svg", class: 'icon' %>
         <%= _('Download') %>
       </a>
       <span class="active-line"></span>
