@@ -53,6 +53,10 @@ header.dmpopidor-branding {
         font-size: 20px;
         text-transform: uppercase;
         @include dmpopidor-dropdown;
+
+        a {
+          text-decoration: none;
+        }
       }
 
       .header-language-account {
@@ -93,7 +97,7 @@ header.dmpopidor-branding {
 
     width: 100%;
     max-width: 1440px;
-    min-height: 800px;
+    min-height: 500px;
     padding: 150px 50px 100px 50px;
     z-index: 1;
     opacity: 0.9;
