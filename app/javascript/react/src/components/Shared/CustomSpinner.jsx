@@ -5,10 +5,7 @@ function CustomSpinner() {
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
+        position: 'absolute',
       }}
     >
       <RotatingTriangles
