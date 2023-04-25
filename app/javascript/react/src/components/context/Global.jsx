@@ -19,7 +19,7 @@ const reducer = (formData, incomingFormData) => {
 };
 
 /* It's getting the form from localStorage. */
-const formLocalState  = JSON.parse(localStorage.getItem('formData'));
+const formLocalState = JSON.parse(localStorage.getItem('formData'));
 export const GlobalContext = createContext();
 
 /**
@@ -29,8 +29,8 @@ export const GlobalContext = createContext();
  * @returns The GlobalContext.Provider is being returned.
  */
 function Global({ children }) {
-  const [formData, setFormData] = useReducer(reducer, formLocalState  || {});
-  const [subData, setSubData] = useState(null);
+  const [formData, setFormData] = useReducer(reducer, formLocalState || {});
+  const [subData, setSubData] = useState({});
   const [locale, setlocale] = useState(null);
   const [dmpId, setdmpId] = useState(null);
 

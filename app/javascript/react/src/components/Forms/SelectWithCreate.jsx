@@ -81,7 +81,7 @@ function SelectWithCreate({
    */
   const handleClose = () => {
     setShow(false);
-    setSubData(null);
+    setSubData({});
     setindex(null);
   };
   /**
@@ -168,7 +168,7 @@ function SelectWithCreate({
         const parsedPattern = parsePattern(subData, template.to_string);
         const copieList = [...newList, parsedPattern];
         setlist(copieList);
-        setSubData(null);
+        setSubData({});
         handleClose();
       } else {
         handleSave();
@@ -185,7 +185,7 @@ function SelectWithCreate({
     setFormData(updateFormState(formData, fragmentId, propName, newObject));
     setlist([...list, parsePattern(subData, template.to_string)]);
     handleClose();
-    setSubData(null);
+    setSubData({});
   };
 
   /**

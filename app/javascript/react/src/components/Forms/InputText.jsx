@@ -12,7 +12,7 @@ function InputText({
   label, type, placeholder, propName, changeValue, tooltip, hidden, isConst, fragmentId
 }) {
   const { formData, setFormData, subData } = useContext(GlobalContext);
-  const [text, settext] = useState(null);
+  const [text, setText] = useState(null);
   const [isRequired, setisRequired] = useState(false);
 
   /* It's setting the state of the form to the value of the isConst variable. */
@@ -23,7 +23,7 @@ function InputText({
   }, []);
 
   useEffect(() => {
-    settext(formData?.[fragmentId]?.[propName]);
+    setText(formData?.[fragmentId]?.[propName]);
   }, [propName[propName]]);
 
   /**
@@ -36,7 +36,7 @@ function InputText({
     const isPattern = getCheckPattern(type, value);
     changeValue(e);
     setisRequired(!isPattern);
-    settext(value);
+    setText(value);
   };
   return (
     <div className="form-group">

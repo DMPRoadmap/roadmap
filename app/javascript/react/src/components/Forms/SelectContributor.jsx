@@ -70,7 +70,7 @@ function SelectContributor({
    */
   const handleClose = () => {
     setShow(false);
-    setSubData(null);
+    setSubData({});
     setindex(null);
   };
   /**
@@ -122,7 +122,7 @@ function SelectContributor({
       handleSave();
     }
     toast.success('Enregistrement a été effectué avec succès !');
-    setSubData(null);
+    setSubData({});
     handleClose();
   };
 
@@ -138,7 +138,7 @@ function SelectContributor({
     const parsedPattern = parsePattern(subData, template.to_string);
     setlist([...list, parsedPattern]);
     handleClose();
-    setSubData(null);
+    setSubData({});
   };
 
   /**

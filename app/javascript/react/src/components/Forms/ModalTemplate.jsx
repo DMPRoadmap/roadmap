@@ -47,7 +47,7 @@ function ModalTemplate({
    */
   const handleClose = () => {
     setShow(false);
-    setSubData(null);
+    setSubData({});
     setindex(null);
   };
 
@@ -69,7 +69,7 @@ function ModalTemplate({
       const deleteIndex = deleteByIndex(filterDeleted, index);
       const concatedObject = [...deleteIndex, { ...subData, action: 'update' }];
       setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
-      setSubData(null);
+      setSubData({});
     } else {
       handleSave();
       toast.success('Enregistrement a été effectué avec succès !');
@@ -84,7 +84,7 @@ function ModalTemplate({
   const handleSave = () => {
     const newObject = [...(formData[fragmentId][propName] || []), { ...subData, action: 'create' }];
     setFormData(updateFormState(formData, fragmentId, propName, newObject));
-    setSubData(null);
+    setSubData({});
     handleClose();
   };
 
@@ -108,7 +108,6 @@ function ModalTemplate({
     Swal.fire({
       title: 'Ëtes-vous sûr ?',
       text: 'Voulez-vous vraiment supprimer cet élément ?',
-      icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -119,7 +118,6 @@ function ModalTemplate({
         const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
         filterDeleted[idx]['action'] = 'delete';
         setFormData(updateFormState(formData, fragmentId, propName, filterDeleted));
-        Swal.fire('Supprimé!', 'Opération effectuée avec succès!.', 'success');
       }
     });
   };

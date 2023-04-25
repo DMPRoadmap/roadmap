@@ -10,19 +10,17 @@ label, name, changeValue, tooltip, registry, and schemaId. It uses the useState 
 the options from the registry when the component mounts. It also defines a handleChangeList function that is called when an option is selected from
 the list, and it updates the value of the input field accordingly. Finally, it returns the JSX code that renders the select list with the options. */
 function SelectSingleList({
-  label, propName, changeValue, tooltip, registryId, fragmentId
+  label, propName, changeValue, tooltip, registryId, fragmentId, registryType
 }) {
   const [options, setOptions] = useState([{value:'', label:''}]);
   const { formData, subData, locale } = useContext(GlobalContext);
   const [error, setError] = useState(null);
 
-  let value;
-  if (subData && typeof subData?.[fragmentId]?.[propName] !== 'object') {
-    value = subData?.[fragmentId]?.[propName];
-  } else if (formData && typeof formData?.[fragmentId]?.[propName] !== 'object') {
-    value = formData?.[fragmentId]?.[propName];
-  } else {
-    value = '';
+  let value = registryType === 'complex' ? {} : '';
+  if (subData) {
+    value = subData?.[propName] || value;
+  } else if (formData) {
+    value = formData?.[fragmentId]?.[propName] || value;
   }
   const selectedOption = options.find((opt) => opt.value == value);
   /*
@@ -35,7 +33,6 @@ function SelectSingleList({
       getRegistry(registryId)
         .then((res) => {
           setOptions(createOptions(res.data, locale));
-          console.log(value, createOptions(res.data, locale))
         })
         .catch((err) => {
           setError(err);
@@ -53,8 +50,9 @@ function SelectSingleList({
   const handleChangeList = (e) => {
     if (!e) return { target: { name: propName, value: '' } }
 
-    if (propName === 'funder') {
-      changeValue({ target: { name: propName, value: e.object } });
+    if (registryType === 'complex') {
+      value = value.id ? {...value, action: "update"} : {...value, action: "create"};
+      changeValue({ target: { name: propName, value: { ...value,  ...e.object } } });
     } else {
       changeValue({ target: { name: propName, value: e.value } });
     }

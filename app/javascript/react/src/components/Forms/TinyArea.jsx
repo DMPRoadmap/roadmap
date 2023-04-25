@@ -17,14 +17,17 @@ state based on the `temp` or `form` context values for the given `name` and `fra
 prop is 1, it uses the `defaultValue` as the `updatedText`, otherwise it uses the `temp` value or `<p></p>`. Finally, it sets the `text` state to the
 `updatedText` value. */
   useEffect(() => {
-    const defaultValue = subData ? subData[propName] : formData?.[fragmentId]?.[propName] ? formData?.[fragmentId]?.[propName] : "<p></p>";
-    const updatedText = level === 1 ? defaultValue : subData ? subData[propName] : '<p></p>';
-    setText(updatedText);
+    if (level === 1) {
+      setText(formData?.[fragmentId]?.[propName] ? formData?.[fragmentId]?.[propName] : "<p></p>")
+    } else {
+      setText(subData ? subData[propName] : "<p></p>")
+    }
   }, [level, propName]);
 
-  const handleChange = (e) => {
-    changeValue({ target: { name: propName, value: e } });
-    setText(e);
+  const handleChange = (newText) => {
+    console.log('handleChange');
+    changeValue({ target: { name: propName, value: newText } });
+    setText(newText);
   };
   return (
     <div className={`form-group ticket-summernote mr-4 ml-4 ${styles.form_margin}`}>

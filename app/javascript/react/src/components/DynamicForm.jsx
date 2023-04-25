@@ -44,6 +44,7 @@ function DynamicForm({
     } else {
       setLoading(true);
       saveForm(fragmentId, formData[fragmentId]).then((res) => {
+        setFormData({ [fragmentId]: res.data.fragment });
         toast.success(res.data.message);
       }).catch((res) => {
         toast.error(res.data.message);

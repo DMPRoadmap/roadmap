@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { GlobalContext } from '../context/Global.jsx';
 import HandleGenerateForms from './HandleGenerateForms.jsx';
-import { updateFormState } from '../../utils/GeneratorUtils.js';
 
 function BuilderForm({ shemaObject, level, fragmentId }) {
   const {
@@ -25,7 +24,7 @@ function BuilderForm({ shemaObject, level, fragmentId }) {
       updatedFormData[fragmentId][name] = value;
       setFormData(updatedFormData);
     } else {
-      setSubData({ ...subData, [name]: { ...subData[name], ...value } });
+      setSubData({ ...subData, [name]: value });
     }
   };
 

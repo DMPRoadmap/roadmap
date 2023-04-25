@@ -65,7 +65,7 @@ function SelectInvestigator({
    */
   const handleClose = () => {
     setShow(false);
-    setSubData(null);
+    setSubData({});
     setindex(null);
   };
 
@@ -104,7 +104,7 @@ function SelectInvestigator({
       handleSave();
     }
     toast.success('Enregistrement a été effectué avec succès !');
-    setSubData(null);
+    setSubData({});
     handleClose();
   };
 
@@ -117,7 +117,7 @@ function SelectInvestigator({
   const handleSave = () => {
     setFormData(updateFormState(formData, fragmentId, propName, { person: temp, role: role }));
     handleClose();
-    setSubData(null);
+    setSubData({});
     setselectedValue(parsePattern(subData, template.to_string));
   };
   /**

@@ -62,6 +62,7 @@ function HandleGenerateForms({
               tooltip={tooltip}
               level={level}
               fragmentId={fragmentId}
+              registryType="simple"
             ></SelectSingleList>,
           );
         }
@@ -218,6 +219,7 @@ function HandleGenerateForms({
                 tooltip={tooltip}
                 level={level}
                 fragmentId={fragmentId}
+                registryType="complex"
               ></SelectSingleList>,
             );
           }
