@@ -1,4 +1,4 @@
-<div class="sign-in">
+<div class="sign-in border border-1">
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item" role="presentation">
       <a class="nav-link active" href="#sign-in-form" role="tab" aria-controls="sign-in-form" data-bs-toggle="tab">
@@ -14,8 +14,8 @@
     <% end %>
   </ul>
 
-  <div class="tab-content">
-    <div id="sign-in-form" role="tabpanel" class="tab-pane fade show active">
+  <div class="tab-content border border-1 p-3">
+    <div id="sign-in-form" role="tabpanel" class="tab-pane show active">
       <div class="panel">
         <div class="panel-body">
           <%= render :partial => 'shared/sign_in_form' %>
@@ -23,7 +23,7 @@
       </div>
     </div>
     <% unless active_page?(new_user_registration_path, true) %>
-      <div id="create-account-form" role="tabpanel" class="tab-pane fade">
+      <div id="create-account-form" role="tabpanel" class="tab-pane">
         <div class="panel">
           <div class="panel-body">
             <%= render :partial => 'shared/create_account_form', locals: {orgs: orgs, org_partial: org_partial} %>
