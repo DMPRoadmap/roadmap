@@ -17,14 +17,14 @@ function SelectInvestigator({
   fragmentId,
 }) {
   const [show, setShow] = useState(false);
-  const [options, setoptions] = useState(null);
+  const [options, setOptions] = useState(null);
   const {
     formData, setFormData, subData, setSubData, locale, dmpId,
   } = useContext(GlobalContext);
-  const [index, setindex] = useState(null);
+  const [index, setIndex] = useState(null);
   const [template, setTemplate] = useState(null);
-  const [role, setrole] = useState(null);
-  const [selectedValue, setselectedValue] = useState(null);
+  const [role, setRole] = useState(null);
+  const [selectedValue, setSelectedValue] = useState(null);
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
@@ -34,7 +34,7 @@ function SelectInvestigator({
         label: option.text,
         object: option,
       }));
-      setoptions(builtOptions);
+      setOptions(builtOptions);
     });
   }, []);
 
@@ -42,10 +42,10 @@ function SelectInvestigator({
   useEffect(() => {
     getSchema(templateId).then((res) => {
       const resTemplate = res.data;
-      setrole(resTemplate.properties.role[`const@${locale}`]);
+      setRole(resTemplate.properties.role[`const@${locale}`]);
       setTemplate(resTemplate);
       const subTemplateId = resTemplate.properties.person.schema_id;
-      setrole(resTemplate.properties.role[`const@${locale}`]);
+      setRole(resTemplate.properties.role[`const@${locale}`]);
       getSchema(subTemplateId).then((resSubTemplate) => {
         setTemplate(resSubTemplate.data);
         if (!formData?.[fragmentId]?.[propName]) {
@@ -55,7 +55,7 @@ function SelectInvestigator({
         if (!pattern.length) {
           return;
         }
-        setselectedValue(parsePattern(formData?.[fragmentId]?.[propName].person, pattern));
+        setSelectedValue(parsePattern(formData?.[fragmentId]?.[propName].person, pattern));
       });
     });
   }, [templateId]);
@@ -66,7 +66,7 @@ function SelectInvestigator({
   const handleClose = () => {
     setShow(false);
     setSubData({});
-    setindex(null);
+    setIndex(null);
   };
 
   /**
@@ -81,7 +81,7 @@ function SelectInvestigator({
   const handleChangeList = (e) => {
     const pattern = template.to_string;
     const { object, value } = options[e.target.value];
-    setselectedValue(options[e.target.value].value);
+    setSelectedValue(options[e.target.value].value);
     if (pattern.length > 0) {
       setFormData(updateFormState(formData, fragmentId, propName, { person: object, role: role }));
     } else {
@@ -98,7 +98,7 @@ function SelectInvestigator({
   const handleAddToList = () => {
     if (index !== null) {
       setFormData(updateFormState(formData, fragmentId, propName, { person: temp, role: role }));
-      setselectedValue(parsePattern(subData, template.to_string));
+      setSelectedValue(parsePattern(subData, template.to_string));
     } else {
       // save new
       handleSave();
@@ -118,7 +118,7 @@ function SelectInvestigator({
     setFormData(updateFormState(formData, fragmentId, propName, { person: temp, role: role }));
     handleClose();
     setSubData({});
-    setselectedValue(parsePattern(subData, template.to_string));
+    setSelectedValue(parsePattern(subData, template.to_string));
   };
   /**
    * It sets the state of the subData variable to the value of the form[propName][idx] variable.
@@ -129,7 +129,7 @@ function SelectInvestigator({
     e.preventDefault();
     setSubData(formData?.[fragmentId]?.[propName]["person"]);
     setShow(true);
-    setindex(idx);
+    setIndex(idx);
   };
 
   return (

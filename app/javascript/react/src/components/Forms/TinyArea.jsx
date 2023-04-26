@@ -25,7 +25,6 @@ prop is 1, it uses the `defaultValue` as the `updatedText`, otherwise it uses th
   }, [level, propName]);
 
   const handleChange = (newText) => {
-    console.log('handleChange');
     changeValue({ target: { name: propName, value: newText } });
     setText(newText);
   };

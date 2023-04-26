@@ -26,36 +26,38 @@ function SelectWithCreate({
   header,
   fragmentId,
 }) {
-  const [list, setlist] = useState([]);
+  const [list, setList] = useState([]);
 
   const [show, setShow] = useState(false);
   const [options, setOptions] = useState(null);
-  const [selectObject, setselectObject] = useState([]);
+  const [selectObject, setSelectObject] = useState([]);
   const {
     formData, setFormData, subData, setSubData, locale,
   } = useContext(GlobalContext);
-  const [index, setindex] = useState(null);
+  const [index, setIndex] = useState(null);
 
   const [template, setTemplate] = useState(null);
 
   /* A hook that is called when the component is mounted.
   It is used to set the options of the select list. */
   useEffect(() => {
-    getSchema(templateId).then((res) => {
-      setTemplate(res.data);
-      if (formData[propName]) {
-        const pattern = res.data.to_string;
-        if (pattern.length > 0) {
-          Promise.all(
-            formData?.[fragmentId]?.[propName].filter(
-              (el) => el.action !== 'delete').map((el) => parsePattern(el, pattern))
-            ).then((listParsed) => {
-              setlist(listParsed);
-            }
-          );
+    if(!template) {
+      getSchema(templateId).then((res) => {
+        setTemplate(res.data);
+        if (formData[propName]) {
+          const pattern = res.data.to_string;
+          if (pattern.length > 0) {
+            Promise.all(
+              formData?.[fragmentId]?.[propName].filter(
+                (el) => el.action !== 'delete').map((el) => parsePattern(el, pattern))
+              ).then((listParsed) => {
+                setList(listParsed);
+              }
+            );
+          }
         }
-      }
-    });
+      });
+    }
   }, [templateId, formData]);
 
   /* A hook that is called when the component is mounted.
@@ -82,7 +84,7 @@ function SelectWithCreate({
   const handleClose = () => {
     setShow(false);
     setSubData({});
-    setindex(null);
+    setIndex(null);
   };
   /**
    * The function takes a boolean value as an argument and sets the state of the show variable to the value of the argument.
@@ -102,8 +104,8 @@ function SelectWithCreate({
     const pattern = template.to_string;
     const parsedPattern = pattern.length > 0 ? parsePattern(e.object, pattern) : null;
     const updatedList = pattern.length > 0 ? [...list, parsedPattern] : [...list, e.value];
-    setlist(updatedList);
-    setselectObject(
+    setList(updatedList);
+    setSelectObject(
       pattern.length > 0 ? [...selectObject, e.object] : selectObject,
     );
     setFormData(updateFormState(formData, fragmentId, propName, [...(formData[fragmentId]?.[propName] || []), e.object]));
@@ -130,7 +132,7 @@ function SelectWithCreate({
     }).then((result) => {
       if (result.isConfirmed) {
         const newList = [...list];
-        setlist(deleteByIndex(newList, idx));
+        setList(deleteByIndex(newList, idx));
         const concatedObject = [...formData[fragmentId][propName]];
         concatedObject[idx]['action'] = 'delete';
         setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
@@ -167,7 +169,7 @@ function SelectWithCreate({
         const newList = deleteByIndex([...list], index);
         const parsedPattern = parsePattern(subData, template.to_string);
         const copieList = [...newList, parsedPattern];
-        setlist(copieList);
+        setList(copieList);
         setSubData({});
         handleClose();
       } else {
@@ -183,7 +185,7 @@ function SelectWithCreate({
   const handleSave = () => {
     let newObject = formData[fragmentId][propName] ? [...formData[fragmentId][propName], subData] : [subData];
     setFormData(updateFormState(formData, fragmentId, propName, newObject));
-    setlist([...list, parsePattern(subData, template.to_string)]);
+    setList([...list, parsePattern(subData, template.to_string)]);
     handleClose();
     setSubData({});
   };
@@ -198,7 +200,7 @@ function SelectWithCreate({
     const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
     setSubData(filterDeleted[idx]);
     setShow(true);
-    setindex(idx);
+    setIndex(idx);
   };
 
   return (

@@ -28,8 +28,8 @@ function SelectContributor({
     formData, setFormData, subData, setSubData, locale, dmpId,
   } = useContext(GlobalContext);
   const [index, setindex] = useState(null);
-  const [template, settemplate] = useState(null);
-  const [role, setrole] = useState(null);
+  const [template, setTemplate] = useState(null);
+  const [role, setRole] = useState(null);
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
@@ -46,11 +46,11 @@ function SelectContributor({
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
     getSchema(templateId).then((res) => {
-      setrole(res.properties.role[`const@${locale}`]);
+      setRole(res.properties.role[`const@${locale}`]);
       const personTemplateId = res.properties.person.schema_id;
-      settemplate(personTemplateId);
+      setTemplate(personTemplateId);
       getSchema(personTemplateId).then((resSchema) => {
-        settemplate(resSchema.data);
+        setTemplate(resSchema.data);
       });
 
       if (!formData?.[fragmentId]?.[propName]) {

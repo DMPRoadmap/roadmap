@@ -149,7 +149,7 @@ function ModalTemplate({
                 formData?.[fragmentId]?.[propName].some((el) => el.action !== 'delete') && (
                   <tr>
                     <th scope="col">{header}</th>
-                    <th scope="col"></th>
+                    <th scope="col">Actions</th>
                   </tr>
                 )}
             </thead>
@@ -159,7 +159,7 @@ function ModalTemplate({
                 .map((el, idx) => (
                   <tr key={idx}>
                     <td scope="row">
-                      <div className={styles.border} dangerouslySetInnerHTML={createMarkup(parsePattern(el, template.to_string))}></div>
+                      <div dangerouslySetInnerHTML={createMarkup(parsePattern(el, template.to_string))}></div>
                     </td>
                     <td style={{ width: "10%" }}>
                       <div className="col-md-1">
