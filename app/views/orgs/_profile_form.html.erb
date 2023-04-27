@@ -9,27 +9,19 @@
 <%= form_for(org, url: url, html: { multipart: true, method: method,
                                     id: "edit_org_profile_form" } ) do |f| %>
 
-  <% if org.new_record? %>
-    <%= render partial: "orgs/external_identifiers",
-               locals: {
-                 form: f,
-                 org: org,
-                 editable: current_user.can_super_admin?
-               } %>
-  <% else %>
-    <div class="row">
-      <div class="form-group col-xs-8">
-        <%= f.label :name, _('Organisation full name'), class: "control-label" %>
-        <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
-      </div>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <%= f.label :name, _('Organisation full name'), class: "control-label" %>
+      <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
     </div>
-    <div class="row">
-      <div class="form-group col-xs-8">
-        <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "control-label" %>
-        <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control" %>
-      </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "control-label" %>
+      <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control" %>
     </div>
-  <% end %>
+  </div>
+
 
   <% if current_user.can_super_admin? %>
     <div class="row">
