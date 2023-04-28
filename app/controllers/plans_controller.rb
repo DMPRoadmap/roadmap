@@ -165,7 +165,16 @@ class PlansController < ApplicationController
           # rubocop:enable Layout/LineLength
         else
           # We used the specified org's or funder's template
-          msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
+          # --------------------------------
+          # Start DMP OPIDoR Customization
+          # CHANGES : Change message
+          # --------------------------------
+          msg += _('This plan is based on the "%{template_title}" template provided by %{org_name}.') % { 
+            template_title: @plan.template.title, org_name: @plan.template.org.name
+          }
+          # --------------------------------
+          # End DMP OPIDoR Customization
+          # --------------------------------
         end
 
         @plan.add_user!(current_user.id, :creator)

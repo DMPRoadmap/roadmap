@@ -10,27 +10,16 @@
       </p>
     </div>
     <div class="col-md-12 madmp-fragment">
-      <table class="table table-hover list-contributor linked-fragments-list">
-        <thead>
-          <tr>
-            <th scope="col"><%= _("Name") %></th>
-            <th scope="col" class="sorter-false"><%= _("Affiliation") %></th>
-            <th scope="col" class="sorter-false"><%= _("Attributed roles (Associated research outputs)") %></th>
-            <th scope="col" class="sorter-false">
-              <span aria-hidden="false" class="sr-only"><%= _("Actions") %></span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <%= paginable_renderise partial: "/paginable/contributors/index",
-                                  controller: "paginable/contributors",
-                                  action: "index",
-                                  scope: @contributors,
-                                  locals: { plan: @plan } %>
-
-        </tbody>
-      </table>
-
+      <% if @contributors.any? %>
+        <%= paginable_renderise partial: "/paginable/contributors/index",
+                                controller: "paginable/contributors",
+                                action: "index",
+                                remote: true,
+                                scope: @contributors,
+                                locals: { plan: @plan } %>
+      <% else %>
+        <p><%= _("No contributors have been defined.") %></p>
+      <% end %>
     </div>
     <div class="col-md-12">
       <% if @plan.editable_by?(current_user.id) && @plan.template.structured? %>
