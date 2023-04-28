@@ -44,7 +44,7 @@ function SelectWithCreate({
     if(!template) {
       getSchema(templateId).then((res) => {
         setTemplate(res.data);
-        if (formData[propName]) {
+        if (formData?.[fragmentId]?.[propName]) {
           const pattern = res.data.to_string;
           if (pattern.length > 0) {
             Promise.all(
@@ -102,13 +102,14 @@ function SelectWithCreate({
    */
   const handleChangeList = (e) => {
     const pattern = template.to_string;
-    const parsedPattern = pattern.length > 0 ? parsePattern(e.object, pattern) : null;
+    const newItem = {...e.object, action: 'create'};
+    const parsedPattern = pattern.length > 0 ? parsePattern(newItem, pattern) : null;
     const updatedList = pattern.length > 0 ? [...list, parsedPattern] : [...list, e.value];
     setList(updatedList);
     setSelectObject(
-      pattern.length > 0 ? [...selectObject, e.object] : selectObject,
+      pattern.length > 0 ? [...selectObject, newItem] : selectObject,
     );
-    setFormData(updateFormState(formData, fragmentId, propName, [...(formData[fragmentId]?.[propName] || []), e.object]));
+    setFormData(updateFormState(formData, fragmentId, propName, [...(formData[fragmentId]?.[propName] || []), newItem]));
   };
 
   /**
@@ -136,7 +137,6 @@ function SelectWithCreate({
         const concatedObject = [...formData[fragmentId][propName]];
         concatedObject[idx]['action'] = 'delete';
         setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
-        Swal.fire('Supprimé!', 'Opération effectuée avec succès!.', 'success');
       }
     });
   };
@@ -148,15 +148,12 @@ function SelectWithCreate({
    * If the index is null, then just save the item.
    */
   const handleAddToList = () => {
-    if (!subData) {
-      handleClose();
-      return;
-    }
+    if (!subData) return handleClose();
 
     const checkForm = checkRequiredForm(template, subData);
     if (checkForm) {
       toast.error(
-        `Veuiller remplire le champs ${getLabelName(checkForm, template)}`,
+        `Veuiller remplir le champs ${getLabelName(checkForm, template)}`,
       );
     } else {
       if (index !== null) {
@@ -183,7 +180,7 @@ function SelectWithCreate({
    * I'm trying to add a new object to an array of objects, and then add that array to a new object.
    */
   const handleSave = () => {
-    let newObject = formData[fragmentId][propName] ? [...formData[fragmentId][propName], subData] : [subData];
+    const newObject = [...(formData[fragmentId][propName] || []), { ...subData, action: 'create' }];
     setFormData(updateFormState(formData, fragmentId, propName, newObject));
     setList([...list, parsePattern(subData, template.to_string)]);
     handleClose();
