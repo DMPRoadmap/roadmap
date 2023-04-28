@@ -18,11 +18,11 @@ prop is 1, it uses the `defaultValue` as the `updatedText`, otherwise it uses th
 `updatedText` value. */
   useEffect(() => {
     if (level === 1) {
-      setText(formData?.[fragmentId]?.[propName] ? formData?.[fragmentId]?.[propName] : "<p></p>")
+      setText(formData?.[fragmentId]?.[propName] || "<p></p>")
     } else {
       setText(subData ? subData[propName] : "<p></p>")
     }
-  }, [level, propName]);
+  }, [fragmentId, propName]);
 
   const handleChange = (newText) => {
     changeValue({ target: { name: propName, value: newText } });

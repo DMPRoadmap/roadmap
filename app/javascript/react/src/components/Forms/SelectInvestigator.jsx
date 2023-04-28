@@ -22,9 +22,21 @@ function SelectInvestigator({
     formData, setFormData, subData, setSubData, locale, dmpId,
   } = useContext(GlobalContext);
   const [index, setIndex] = useState(null);
-  const [template, setTemplate] = useState(null);
+  const [template, setTemplate] = useState({});
   const [role, setRole] = useState(null);
   const [selectedValue, setSelectedValue] = useState(null);
+  const [investigator, setInvestigator] = useState({})
+
+  useEffect(() => {
+    setInvestigator(formData?.[fragmentId]?.[propName])
+  });
+
+  useEffect(() => {
+    const pattern = template.to_string;
+    if (pattern && pattern.length > 0) {
+      setSelectedValue(parsePattern(investigator.person, pattern));
+    }
+  }, [investigator, template]);
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
@@ -48,14 +60,14 @@ function SelectInvestigator({
       setRole(resTemplate.properties.role[`const@${locale}`]);
       getSchema(subTemplateId).then((resSubTemplate) => {
         setTemplate(resSubTemplate.data);
-        if (!formData?.[fragmentId]?.[propName]) {
+        if (!investigator) {
           return;
         }
         const pattern = resSubTemplate.data.to_string;
         if (!pattern.length) {
           return;
         }
-        setSelectedValue(parsePattern(formData?.[fragmentId]?.[propName].person, pattern));
+        setSelectedValue(parsePattern(investigator.person, pattern));
       });
     });
   }, [templateId]);
@@ -97,7 +109,7 @@ function SelectInvestigator({
    */
   const handleAddToList = () => {
     if (index !== null) {
-      setFormData(updateFormState(formData, fragmentId, propName, { person: temp, role: role }));
+      setFormData(updateFormState(formData, fragmentId, propName, { person: subData, role: role }));
       setSelectedValue(parsePattern(subData, template.to_string));
     } else {
       // save new
@@ -115,7 +127,10 @@ function SelectInvestigator({
    * the modal and set the temporary person object to null.
    */
   const handleSave = () => {
-    setFormData(updateFormState(formData, fragmentId, propName, { person: temp, role: role }));
+    setFormData(updateFormState(
+      formData, fragmentId, propName,
+      { ...investigator, person: { ...subData, action: 'create' }, role: role, action: 'update' }
+    ));
     handleClose();
     setSubData({});
     setSelectedValue(parsePattern(subData, template.to_string));
@@ -124,10 +139,10 @@ function SelectInvestigator({
    * It sets the state of the subData variable to the value of the form[propName][idx] variable.
    * @param idx - the index of the item in the array
    */
-  const handleEdit = (idx) => {
+  const handleEdit = (e, idx) => {
     e.stopPropagation();
     e.preventDefault();
-    setSubData(formData?.[fragmentId]?.[propName]["person"]);
+    setSubData(investigator.person);
     setShow(true);
     setIndex(idx);
   };
@@ -173,7 +188,7 @@ function SelectInvestigator({
             <span className={styles.input_label}>Valeur sélectionnée :</span>
             <span className={styles.input_text}>{selectedValue}</span>
             <a href="#" onClick={(e) => handleEdit(e, 0)}>
-              <i className="fas fa-plus-square" />
+              <i className="fas fa-edit" />
             </a>
           </div>
         )}

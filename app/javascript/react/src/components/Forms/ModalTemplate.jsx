@@ -34,7 +34,8 @@ function ModalTemplate({
 }) {
   const [show, setShow] = useState(false);
   const { formData, setFormData, subData, setSubData, locale } = useContext(GlobalContext);
-  const [index, setindex] = useState(null);
+  const [index, setIndex] = useState(null);
+  const [fragmentsList, setFragmentsList] = useState([])
 
   const [template, setTemplate] = useState(null);
   useEffect(() => {
@@ -42,13 +43,18 @@ function ModalTemplate({
       setTemplate(res.data);
     });
   }, [templateId]);
+
+  useEffect(() => {
+    setFragmentsList(formData?.[fragmentId]?.[propName] || [])
+  }, [fragmentId, propName])
+
   /**
    * The function sets the show state to false
    */
   const handleClose = () => {
     setShow(false);
     setSubData({});
-    setindex(null);
+    setIndex(null);
   };
 
   /**
@@ -65,7 +71,7 @@ function ModalTemplate({
       );
 
     if (index !== null) {
-      const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
+      const filterDeleted = fragmentsList.filter((el) => el.action !== 'delete');
       const deleteIndex = deleteByIndex(filterDeleted, index);
       const concatedObject = [...deleteIndex, { ...subData, action: 'update' }];
       setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
@@ -82,7 +88,7 @@ function ModalTemplate({
    * the subData is set to null, and the modal is closed.
    */
   const handleSave = () => {
-    const newObject = [...(formData[fragmentId][propName] || []), { ...subData, action: 'create' }];
+    const newObject = [...fragmentsList, { ...subData, action: 'create' }];
     setFormData(updateFormState(formData, fragmentId, propName, newObject));
     setSubData({});
     handleClose();
@@ -115,7 +121,7 @@ function ModalTemplate({
       confirmButtonText: 'Oui, supprimer !',
     }).then((result) => {
       if (result.isConfirmed) {
-        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
+        const filterDeleted = fragmentsList.filter((el) => el.action !== 'delete');
         filterDeleted[idx]['action'] = 'delete';
         setFormData(updateFormState(formData, fragmentId, propName, filterDeleted));
       }
@@ -128,10 +134,10 @@ function ModalTemplate({
   const handleEdit = (e, idx) => {
     e.preventDefault();
     e.stopPropagation();
-    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
+    const filterDeleted = fragmentsList.filter((el) => el.action !== 'delete');
     setSubData(filterDeleted[idx]);
     setShow(true);
-    setindex(idx);
+    setIndex(idx);
   };
 
   return (
@@ -140,13 +146,13 @@ function ModalTemplate({
         <legend className="sub-fragment" data-toggle="tooltip" data-original-title={tooltip}>
           {value[`form_label@${locale}`]}
         </legend>
-        {formData?.[fragmentId]?.[propName] && template && (
+        {fragmentsList && template && (
           <table style={{ marginTop: '20px' }} className="table table-bordered">
             <thead>
-              {formData?.[fragmentId]?.[propName].length > 0 &&
+              {fragmentsList.length > 0 &&
                 template &&
                 header &&
-                formData?.[fragmentId]?.[propName].some((el) => el.action !== 'delete') && (
+                fragmentsList.some((el) => el.action !== 'delete') && (
                   <tr>
                     <th scope="col">{header}</th>
                     <th scope="col">Actions</th>
@@ -154,7 +160,7 @@ function ModalTemplate({
                 )}
             </thead>
             <tbody>
-              {formData?.[fragmentId]?.[propName]
+              {fragmentsList
                 .filter((el) => el.action !== 'delete')
                 .map((el, idx) => (
                   <tr key={idx}>

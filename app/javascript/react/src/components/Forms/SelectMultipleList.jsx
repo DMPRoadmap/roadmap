@@ -15,7 +15,7 @@ function SelectMultipleList({
   header,
   fragmentId,
 }) {
-  const [list, setlist] = useState([]);
+  const [list, setList] = useState([]);
   const [options, setOptions] = useState(null);
   const { formData, subData, setSubData, locale } = useContext(GlobalContext);
 
@@ -44,18 +44,18 @@ function SelectMultipleList({
   const handleChangeList = (e) => {
     const copyList = [...(list || []), e.value];
     changeValue({ target: { propName, value: [...copyList] } });
-    setlist(copyList);
+    setList(copyList);
   };
 
   /* A hook that is called when the component is mounted.
   It is used to set the options of the select list. */
   useEffect(() => {
     if (subData) {
-      setlist(subData[propName]);
+      setList(subData[propName]);
     } else {
-      setlist(formData?.[fragmentId]?.[propName]);
+      setList(formData?.[fragmentId]?.[propName]);
     }
-  }, [subData]);
+  }, [fragmentId, propName]);
 
   /**
    * This function handles the deletion of an element from a list and displays a confirmation message using the Swal library.
@@ -79,7 +79,7 @@ function SelectMultipleList({
         if (idx > -1) {
           newList.splice(idx, 1); // 2nd parameter means remove one item only
         }
-        setlist(newList);
+        setList(newList);
         setSubData({ ...subData, [propName]: newList });
         Swal.fire('Supprimé!', 'Opération effectuée avec succès!.', 'success');
       }

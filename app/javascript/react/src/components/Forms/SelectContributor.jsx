@@ -19,17 +19,22 @@ function SelectContributor({
   header,
   fragmentId,
 }) {
-  const [list, setlist] = useState([]);
+  const [list, setList] = useState([]);
 
   const [show, setShow] = useState(false);
-  const [options, setoptions] = useState(null);
-  const [selectObject, setselectObject] = useState([]);
+  const [options, setOptions] = useState(null);
+  const [selectObject, setSelectObject] = useState([]);
   const {
     formData, setFormData, subData, setSubData, locale, dmpId,
   } = useContext(GlobalContext);
-  const [index, setindex] = useState(null);
+  const [index, setIndex] = useState(null);
   const [template, setTemplate] = useState(null);
   const [role, setRole] = useState(null);
+  const [contributorList, setContributorList] = useState([])
+
+  useEffect(() => {
+    setContributorList(formData?.[fragmentId]?.[propName] || {})
+  }, [fragmentId, propName]);
 
   /* A hook that is called when the component is mounted. */
   useEffect(() => {
@@ -39,7 +44,7 @@ function SelectContributor({
         label: option.text,
         object: option,
       }));
-      setoptions(builtOptions);
+      setOptions(builtOptions);
     });
   }, []);
 
@@ -53,7 +58,7 @@ function SelectContributor({
         setTemplate(resSchema.data);
       });
 
-      if (!formData?.[fragmentId]?.[propName]) {
+      if (!contributorList) {
         return;
       }
       const pattern = res.to_string;
@@ -61,7 +66,7 @@ function SelectContributor({
         return;
       }
 
-      setlist(formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete').map((el) => parsePattern(el, patern)));
+      setList(contributorList.filter((el) => el.action !== 'delete').map((el) => parsePattern(el, patern)));
     });
   }, [formData[propName], templateId]);
 
@@ -71,7 +76,7 @@ function SelectContributor({
   const handleClose = () => {
     setShow(false);
     setSubData({});
-    setindex(null);
+    setIndex(null);
   };
   /**
    * The function takes a boolean value as an argument and sets the state of
@@ -91,15 +96,15 @@ function SelectContributor({
     const { object, value } = e;
 
     if (pattern.length > 0) {
-      setselectObject([...selectObject, object]);
+      setSelectObject([...selectObject, object]);
       const parsedPatern = parsePattern(object, template.to_string);
-      setlist([...list, parsedPatern]);
+      setList([...list, parsedPatern]);
       const newObject = { person: object, role: role };
-      const mergedList = formData?.[fragmentId]?.[propName] ? [...formData[fragmentId][propName], newObject] : [newObject];
+      const mergedList = contributorList ? [...contributorList, newObject] : [newObject];
       setFormData(updateFormState(formData, fragmentId, propName, mergedList));
     } else {
       changeValue({ target: { propName, value } });
-      setlist([...list, value]);
+      setList([...list, value]);
     }
   };
 
@@ -111,13 +116,13 @@ function SelectContributor({
    */
   const handleAddToList = () => {
     if (index !== null) {
-      const objectPerson = { person: temp, role: role, action: 'update' };
-      const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
+      const objectPerson = { person: subData, role: role, action: 'update' };
+      const filterDeleted = contributorList.filter((el) => el.action !== 'delete');
       const deleteIndex = deleteByIndex(filterDeleted, index);
       const concatedObject = [...deleteIndex, objectPerson];
       setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
       const parsedPattern = parsePattern(subData, template.to_string);
-      setlist([...deleteByIndex([...list], index), parsedPattern]);
+      setList([...deleteByIndex([...list], index), parsedPattern]);
     } else {
       handleSave();
     }
@@ -134,9 +139,9 @@ function SelectContributor({
    */
   const handleSave = () => {
     const objectPerson = { person: subData, role };
-    setform(updateFormState(formData, fragmentId, propName, [...(formData[fragmentId][propName] || []), objectPerson]));
+    setFormData(updateFormState(formData, fragmentId, propName, [...(contributorList || []), objectPerson]));
     const parsedPattern = parsePattern(subData, template.to_string);
-    setlist([...list, parsedPattern]);
+    setList([...list, parsedPattern]);
     handleClose();
     setSubData({});
   };
@@ -159,11 +164,10 @@ function SelectContributor({
     }).then((result) => {
       if (result.isConfirmed) {
         const newList = [...list];
-        setlist(deleteByIndex(newList, idx));
-        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
+        setList(deleteByIndex(newList, idx));
+        const filterDeleted = contributorList.filter((el) => el.action !== 'delete');
         filterDeleted[idx]['action'] = 'delete';
         setFormData(updateFormState(formData, fragmentId, propName, filterDeleted));
-        Swal.fire('Supprimé!', 'Opération effectuée avec succès!.', 'success');
       }
     });
   };
@@ -175,10 +179,10 @@ function SelectContributor({
   const handleEdit = (e, idx) => {
     e.preventDefault();
     e.stopPropagation();
-    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
+    const filterDeleted = contributorList.filter((el) => el.action !== 'delete');
     setSubData(filterDeleted[idx]['person']);
     setShow(true);
-    setindex(idx);
+    setIndex(idx);
   };
 
   return (
@@ -216,10 +220,10 @@ function SelectContributor({
             </span>
           </div>
         </div>
-        {formData?.[fragmentId]?.[propName] && list && (
+        {contributorList && list && (
           <table style={{ marginTop: '20px' }} className="table table-bordered">
             <thead>
-              {formData?.[fragmentId]?.[propName].length > 0 && header && formData?.[fragmentId]?.[propName].some((el) => el.action !== "delete") && (
+              {contributorList.length > 0 && header && contributorList.some((el) => el.action !== "delete") && (
                 <tr>
                   <th scope="col">{header}</th>
                   <th scope="col"></th>

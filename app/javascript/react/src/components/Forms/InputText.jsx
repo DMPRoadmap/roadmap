@@ -12,8 +12,13 @@ function InputText({
   label, type, placeholder, propName, changeValue, tooltip, hidden, isConst, fragmentId
 }) {
   const { formData, setFormData, subData } = useContext(GlobalContext);
-  const [text, setText] = useState(null);
-  const [isRequired, setisRequired] = useState(false);
+  const [inputValue, setInputValue] = useState(null);
+  const [isRequired, setIsRequired] = useState(false);
+
+
+  useEffect(() => {
+    setInputValue(formData?.[fragmentId]?.[propName]);
+  }, [fragmentId, propName]);
 
   /* It's setting the state of the form to the value of the isConst variable. */
   useEffect(() => {
@@ -21,10 +26,6 @@ function InputText({
       setFormData({ [propName]: isConst });
     }
   }, []);
-
-  useEffect(() => {
-    setText(formData?.[fragmentId]?.[propName]);
-  }, [propName[propName]]);
 
   /**
    * It takes a number, formats it to a string, and then sets the
@@ -35,8 +36,8 @@ function InputText({
     const { value } = e.target;
     const isPattern = getCheckPattern(type, value);
     changeValue(e);
-    setisRequired(!isPattern);
-    setText(value);
+    setIsRequired(!isPattern);
+    setInputValue(value);
   };
   return (
     <div className="form-group">
@@ -51,7 +52,7 @@ function InputText({
       </div>
       <input
         type={type}
-        value={isConst === false ? (subData ? subData[propName] : text == null ? "" : text) : isConst}
+        value={isConst === false ? (subData ? subData[propName] : inputValue == null ? "" : inputValue) : isConst}
         className={isRequired ? `form-control ${styles.input_text} ${styles.outline_red}` : `form-control ${styles.input_text}`}
         hidden={hidden}
         placeholder={placeholder}

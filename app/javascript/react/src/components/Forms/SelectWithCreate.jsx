@@ -26,38 +26,22 @@ function SelectWithCreate({
   header,
   fragmentId,
 }) {
-  const [list, setList] = useState([]);
 
   const [show, setShow] = useState(false);
   const [options, setOptions] = useState(null);
-  const [selectObject, setSelectObject] = useState([]);
+  const [fragmentsList, setFragmentsList] = useState([])
+  const [filteredList, setFilteredList] = useState([]);
   const {
     formData, setFormData, subData, setSubData, locale,
   } = useContext(GlobalContext);
   const [index, setIndex] = useState(null);
-
-  const [template, setTemplate] = useState(null);
-
+  const [template, setTemplate] = useState({});
   /* A hook that is called when the component is mounted.
   It is used to set the options of the select list. */
   useEffect(() => {
-    if(!template) {
-      getSchema(templateId).then((res) => {
-        setTemplate(res.data);
-        if (formData?.[fragmentId]?.[propName]) {
-          const pattern = res.data.to_string;
-          if (pattern.length > 0) {
-            Promise.all(
-              formData?.[fragmentId]?.[propName].filter(
-                (el) => el.action !== 'delete').map((el) => parsePattern(el, pattern))
-              ).then((listParsed) => {
-                setList(listParsed);
-              }
-            );
-          }
-        }
-      });
-    }
+    getSchema(templateId).then((res) => {
+      setTemplate(res.data);
+    });
   }, [templateId, formData]);
 
   /* A hook that is called when the component is mounted.
@@ -77,6 +61,18 @@ function SelectWithCreate({
       };
     }
   }, [registryId, locale]);
+
+  useEffect(() => {
+    setFragmentsList(formData?.[fragmentId]?.[propName] || []);
+  });
+  useEffect(() => {
+    const pattern = template.to_string;
+    if (pattern && pattern.length > 0) {
+      setFilteredList(
+        fragmentsList.filter((el) => el.action !== 'delete').map((el) => parsePattern(el, pattern)) || []
+      )
+    }
+  }, [fragmentsList, template])
 
   /**
    * It closes the modal and resets the state of the modal.
@@ -102,14 +98,14 @@ function SelectWithCreate({
    */
   const handleChangeList = (e) => {
     const pattern = template.to_string;
-    const newItem = {...e.object, action: 'create'};
+    const newItem = { ...e.object, action: 'create' };
     const parsedPattern = pattern.length > 0 ? parsePattern(newItem, pattern) : null;
-    const updatedList = pattern.length > 0 ? [...list, parsedPattern] : [...list, e.value];
-    setList(updatedList);
-    setSelectObject(
-      pattern.length > 0 ? [...selectObject, newItem] : selectObject,
+    const updatedList = pattern.length > 0 ? [...filteredList, parsedPattern] : [...filteredList, e.value];
+    setFilteredList(updatedList);
+    setFragmentsList(
+      pattern.length > 0 ? [...fragmentsList, newItem] : fragmentsList,
     );
-    setFormData(updateFormState(formData, fragmentId, propName, [...(formData[fragmentId]?.[propName] || []), newItem]));
+    setFormData(updateFormState(formData, fragmentId, propName, [...(fragmentsList || []), newItem]));
   };
 
   /**
@@ -132,8 +128,8 @@ function SelectWithCreate({
       confirmButtonText: 'Oui, supprimer !',
     }).then((result) => {
       if (result.isConfirmed) {
-        const newList = [...list];
-        setList(deleteByIndex(newList, idx));
+        const newList = [...filteredList];
+        setFilteredList(deleteByIndex(newList, idx));
         const concatedObject = [...formData[fragmentId][propName]];
         concatedObject[idx]['action'] = 'delete';
         setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
@@ -158,15 +154,15 @@ function SelectWithCreate({
     } else {
       if (index !== null) {
         //add in update
-        const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
+        const filterDeleted = fragmentsList.filter((el) => el.action !== 'delete');
         const deleteIndex = deleteByIndex(filterDeleted, index);
         const concatedObject = [...deleteIndex, { ...subData, action: 'update' }];
         setFormData(updateFormState(formData, fragmentId, propName, concatedObject));
 
-        const newList = deleteByIndex([...list], index);
+        const newList = deleteByIndex([...filteredList], index);
         const parsedPattern = parsePattern(subData, template.to_string);
         const copieList = [...newList, parsedPattern];
-        setList(copieList);
+        setFilteredList(copieList);
         setSubData({});
         handleClose();
       } else {
@@ -182,7 +178,7 @@ function SelectWithCreate({
   const handleSave = () => {
     const newObject = [...(formData[fragmentId][propName] || []), { ...subData, action: 'create' }];
     setFormData(updateFormState(formData, fragmentId, propName, newObject));
-    setList([...list, parsePattern(subData, template.to_string)]);
+    setFilteredList([...filteredList, parsePattern(subData, template.to_string)]);
     handleClose();
     setSubData({});
   };
@@ -194,7 +190,7 @@ function SelectWithCreate({
   const handleEdit = (idx) => {
     e.preventDefault();
     e.stopPropagation();
-    const filterDeleted = formData?.[fragmentId]?.[propName].filter((el) => el.action !== 'delete');
+    const filterDeleted = fragmentsList.filter((el) => el.action !== 'delete');
     setSubData(filterDeleted[idx]);
     setShow(true);
     setIndex(idx);
@@ -230,10 +226,10 @@ function SelectWithCreate({
             </span>
           </div>
         </div>
-        {list && (
+        {filteredList && (
           <table style={{ marginTop: "20px" }} className="table table-bordered">
             <thead>
-              {formData?.[fragmentId]?.[propName]?.length > 0 && header && (
+              {fragmentsList?.length > 0 && header && (
                 <tr>
                   <th scope="col">{header}</th>
                   <th scope="col"></th>
@@ -241,7 +237,7 @@ function SelectWithCreate({
               )}
             </thead>
             <tbody>
-              {list.map((el, idx) => (
+              {filteredList.map((el, idx) => (
                 <tr key={idx}>
                   <td scope="row">
                     <p className={`m-2 ${styles.border}`}> {el} </p>
