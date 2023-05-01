@@ -42,7 +42,7 @@ namespace :deploy do
   before :compile_assets, 'deploy:retrieve_credentials'
   # before :compile_assets, 'deploy:clobber_assets'
 
-  after :deploy, 'dmptool_assets:recompile'
+  # after :deploy, 'dmptool_assets:recompile'
   after :deploy, 'dmptool_assets:copy_ui_assets'
   after :deploy, 'dmptool_assets:copy_robots'
 
