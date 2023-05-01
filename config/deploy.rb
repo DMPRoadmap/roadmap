@@ -40,24 +40,12 @@ end
 
 namespace :deploy do
   before :compile_assets, 'deploy:retrieve_credentials'
-  before :compile_assets, 'deploy:clobber_assets'
 
   after :deploy, 'dmptool_assets:copy_ui_assets'
   after :deploy, 'dmptool_assets:copy_robots'
 
   after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
-
-  desc 'Delete all the old assets prior to precompilation for JS and CSS Bundling'
-  task :clobber_assets do
-    on release_roles(fetch(:assets_roles)) do
-      within release_path do
-        with rails_env: fetch(:rails_env) do
-          execute :rake, 'assets:clobber'
-        end
-      end
-    end
-  end
 
   desc 'Retrieve encrypted crendtials file from SSM ParameterStore'
   task :retrieve_credentials do
