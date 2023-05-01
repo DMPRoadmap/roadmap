@@ -6,16 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <%= stylesheet_link_tag(stylesheet_manifest_file) %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag "doorkeeper/application" %>
 
-  <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  <script src="/dmptool-ui/main.js" data-turbo-track="reload"></script>
+
   <%= csrf_meta_tags %>
 
   <%# DMPTool Customization to pull in our CSS and JS %>
   <link rel="stylesheet" media="screen" href="/dmptool-ui/main.css" />
   <script src="/dmptool-ui/main.js" data-turbolinks-track="reload"></script>
-
 </head>
 <body class="t-oauth">
   <main id="maincontent">
