@@ -46,7 +46,7 @@ services:
     volumes:
       - ./app_log:/app/app_log
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -q -U ${POSTGRES_USER:-postgres} -h localhost -p 5432"]
+      test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
       interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-10s}
       timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-5}
@@ -59,9 +59,9 @@ services:
     ports:
       - ${NGINX_PORT:-8080}:80
     profiles: ["prod", "dev"]
-    # depends_on:
-    #   dmpopidor:
-    #     condition: service_healthy
+    depends_on:
+      dmpopidor:
+        condition: service_healthy
     environment:
     - NGINX_HOST=0.0.0.0
     - NGINX_PORT=80
@@ -73,8 +73,6 @@ services:
 
   postgres:
     image: postgres:15.1-alpine3.17
-    ports:
-      - 5432:5432
     profiles: ["prod", "dev"]
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}

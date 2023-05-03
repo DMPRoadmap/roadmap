@@ -1,5 +1,6 @@
 FROM ruby:3.1.3 as dev
 WORKDIR /app
+COPY . .
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt install -y nodejs && \
   apt install -y \
     postgresql-client \
@@ -7,7 +8,13 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt install -y 
     imagemagick \
     tzdata && \
   ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
-  ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
+  ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
+  echo 'gem "tzinfo-data"' >> ./Gemfile && \
+  echo 'gem "net-smtp"' >> ./Gemfile && \
+  gem install pg puma net-smtp && \
+  gem install bundler -v 2.4.8 && \
+  bundle install && \
+  npm i -g yarn
 
 FROM dev as production
 COPY . .

@@ -21,7 +21,6 @@ services:
       - /bin/sh
       - -c
       - |
-        npm i -g yarn
         ruby bin/docker ${DB_ADAPTER:-postgres}
         rm -f /app/tmp/pids/server.pid
         bin/dev
