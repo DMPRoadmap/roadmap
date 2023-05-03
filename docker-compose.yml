@@ -1,0 +1,99 @@
+version: '3.9'
+
+services:
+  dmpopidor:
+    build:
+      context: .
+      args:
+        - BUILD_ENV=production
+        - DB_ADAPTER=${DB_ADAPTER:-postgres}
+        - DB_USERNAME=${DB_USERNAME:-postgres}
+        - DB_PASSWORD=${DB_PASSWORD:-changeme}
+    profiles: ["prod", "dev"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - RAILS_ENV=development
+      - RAKE_ENV=development
+      - PORT=${APP_PORT:-3000}
+      - DB_ADAPTER=${DB_ADAPTER:-postgresql}
+      - DB_POOL_SIZE=${DB_POOL_SIZE:-16}
+      - DB_HOST=${DB_HOST:-postgres}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_NAME=${DB_NAME:-roadmap}
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-changeme}
+      - DMPROADMAP_HOST=${DMPROADMAP_HOST:-dmpopidor}
+      - RAILS_SERVE_STATIC_FILES$={RAILS_SERVE_STATIC_FILES:-false}
+      - RAILS_LOG_LEVEL=${RAILS_LOG_LEVEL:-debug}
+      - RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
+      - DOMAIN=${DOMAIN:-app}
+      - WEB_CONCURRENCY=${WEB_CONCURRENCY:-2}
+      - RAILS_MAX_THREADS=${RAILS_MAX_THREADS:-5}
+      - WICKED_PDF_PATH=${WICKED_PDF_PATH:-/usr/local/bin/wkhtmltopdf}
+      - DRAGONFLY_AWS=${DRAGONFLY_AWS:-false}
+      - AWS_REGION
+      - AWS_BUCKET_NAME
+      - BUNDLE_GEMFILE
+      - ROLLBAR_ENV
+      - ROLLBAR_ACCESS_TOKEN
+      - PATTERN
+      - RAILS_RELATIVE_URL_ROOT
+      - TRANSLATION_API_ROADMAP
+      - TRANSLATION_API_CLIENT
+    working_dir: /app
+    volumes:
+      - ./app_log:/app/app_log
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -q -U ${POSTGRES_USER:-postgres} -h localhost -p 5432"]
+      interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-10s}
+      timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-5}
+      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-30s}
+    networks:
+      - dmpopidor_network
+
+  nginx:
+    image: nginx:1.23.3-alpine-slim
+    ports:
+      - ${NGINX_PORT:-8080}:80
+    profiles: ["prod", "dev"]
+    # depends_on:
+    #   dmpopidor:
+    #     condition: service_healthy
+    environment:
+    - NGINX_HOST=0.0.0.0
+    - NGINX_PORT=80
+    volumes:
+      - ./nginx/default.template:/etc/nginx/templates/default.conf.template:ro
+      - ./app/public/:/var/www/public
+    networks:
+      - dmpopidor_network
+
+  postgres:
+    image: postgres:15.1-alpine3.17
+    ports:
+      - 5432:5432
+    profiles: ["prod", "dev"]
+    environment:
+      - POSTGRES_USER=${DB_USERNAME:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
+      - POSTGRES_DB=${DB_NAME:-postgres}
+      - LC_COLLATE=fr_FR.utf8
+      - LC_CTYPE=fr_FR.utf8
+      - LANG=fr_FR.utf8
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -q -U ${POSTGRES_USER:-postgres} -h localhost -p 5432"]
+      interval: ${POSTGRES_HEALTHCHECK_INTERVAL:-10s}
+      timeout: ${POSTGRES_HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${POSTGRES_HEALTHCHECK_RETRIES:-5}
+      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-30s}
+    networks:
+      - dmpopidor_network
+
+networks:
+  dmpopidor_network:
+    driver: "bridge"

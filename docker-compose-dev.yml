@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  dmpopidor:
+    build:
+      context: .
+      target: dev
+    profiles: ["dev"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    working_dir: /app
+    environment:
+      - RAILS_ENV=development
+      - RAKE_ENV=development
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-changeme}
+    volumes:
+      - ./:/app
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npm i -g yarn
+        ruby bin/docker ${DB_ADAPTER:-postgres}
+        rm -f /app/tmp/pids/server.pid
+        bin/dev
+    networks:
+      - dmpopidor_network
+
+networks:
+  dmpopidor_network:
+    driver: "bridge"

@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+# path to your application root.
+APP_ROOT = File.expand_path('..', __dir__)
+
+def system!(*args)
+  system(*args) || abort("== Command #{args} failed ==")
+end
+
+params = ARGV[0].to_s.downcase.strip
+
+if params == 'db:setup'
+  puts '== Preparing database =='
+  system! 'bin/rails db:setup'
+
+  puts '== Populating License table =='
+  system! 'bin/rails external_api:load_spdx_licenses'
+
+  puts '== Populating Metadata Standards table =='
+  system! 'bin/rails external_api:load_rdamsc_standards'
+
+  puts '== Populating Research Domains table =='
+  system! 'bin/rails external_api:add_field_of_science_to_research_domains'
+
+  puts '== Removing old logs and tempfiles =='
+  system! 'bin/rails log:clear tmp:clear'
+
+  puts '== Restarting application server =='
+  system! 'bin/rails restart'
+
+  puts '== !!We highly recommend that you populate the Repositories table, but this can take'
+  puts 'in excess of 10 minutes so we do not run it as part of this setup!!'
+  puts '    To run it on your own: `bin/rails external_api:load_re3data_repos`'
+  exit!
+end
+
+valid_db = ARGV.length > 0 && %w[mysql postgres].include?(params)
+
+unless valid_db
+  puts "\n== You MUST specify the type of DB you would like to use. Either mysql or postgres =="
+  puts "== For example: `ruby bin/docker postgres` =="
+  exit!
+end
+
+require 'fileutils'
+include FileUtils
+
+chdir APP_ROOT do
+  puts '== Installing dependencies =='
+  system! 'gem install bundler --conservative'
+  system('bundle check') || system!('bundle install')
+  system! 'yarn install'
+
+  puts '== Copying sample files =='
+  cp 'config/database.yml.sample', 'config/database.yml'
+  cp 'config/initializers/contact_us.rb.example', 'config/initializers/contact_us.rb'
+  cp 'config/initializers/wicked_pdf.rb.example', 'config/initializers/wicked_pdf.rb'
+
+  puts '== Generate master.key file =='
+  require 'rails/generators/app_base'
+  require 'rails/generators/rails/credentials/credentials_generator'
+  master_key_generator = Rails::Generators::MasterKeyGenerator.new([], quiet: true)
+  master_key_generator.add_master_key_file_silently
+  master_key_generator.ignore_master_key_file_silently
+
+  puts '== Generate credentials file =='
+  db_username = params == 'postgres' ? 'postgres' : 'root'
+  credentials_data = `sed -E "s/^db_username:(.*)$/\db_username: #{ENV["DB_USERNAME"] || db_username}/; s/^db_password:(.*)$/\db_password: #{ENV["DB_PASSWORD"] || ''}/" config/credentials.yml.sample`
+  system! "EDITOR='echo \"#{credentials_data}\" >' bundle exec rails credentials:edit"
+end

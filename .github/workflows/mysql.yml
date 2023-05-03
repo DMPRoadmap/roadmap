@@ -33,11 +33,13 @@ jobs:
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
-        cp .env.mysql2 .env
+        sed -e 's;DB_ADAPTER=postgresql;DB_ADAPTER=mysql2;g' .env.sample > .env
 
     # Stub out the Rails credentials file so that we can start the Rails app
     - name: 'Setup Credentials'
-      run: EDITOR='echo "$(cat config/credentials.yml.mysql2)" >' bundle exec rails credentials:edit
+      run: |
+        sed -e 's;db_username: postgres;db_username: root;g' config/credentials.yml.sample > config/credentials.yml
+        EDITOR='echo "$(cat config/credentials.yml)" >' bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
