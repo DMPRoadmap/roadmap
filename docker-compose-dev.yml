@@ -22,6 +22,7 @@ services:
       - -c
       - |
         ruby bin/docker ${DB_ADAPTER:-postgres}
+        ruby bin/docker db:setup
         rm -f /app/tmp/pids/server.pid
         bin/dev
     networks:

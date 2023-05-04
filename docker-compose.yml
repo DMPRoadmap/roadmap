@@ -29,6 +29,7 @@ services:
       - RAILS_LOG_LEVEL=${RAILS_LOG_LEVEL:-debug}
       - RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
       - DOMAIN=${DOMAIN:-app}
+      - ENABLE_SHIBBOLETH=${ENABLE_SHIBBOLETH:-false}
       - WEB_CONCURRENCY=${WEB_CONCURRENCY:-2}
       - RAILS_MAX_THREADS=${RAILS_MAX_THREADS:-5}
       - WICKED_PDF_PATH=${WICKED_PDF_PATH:-/usr/local/bin/wkhtmltopdf}
@@ -47,10 +48,10 @@ services:
       - ./app_log:/app/app_log
     healthcheck:
       test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
-      interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-10s}
+      interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
-      retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-5}
-      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-30s}
+      retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
+      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
     networks:
       - dmpopidor_network
 
@@ -68,6 +69,12 @@ services:
     volumes:
       - ./nginx/default.template:/etc/nginx/templates/default.conf.template:ro
       - ./app/public/:/var/www/public
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -S -O - http://localhost:80 2>&1 | grep 'HTTP/1.1 200 OK'"]
+      interval: ${NGINX_HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${NGINX_HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${NGINX_HEALTHCHECK_RETRIES:-3}
+      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
     networks:
       - dmpopidor_network
 
@@ -85,10 +92,10 @@ services:
       - ./data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -q -U ${POSTGRES_USER:-postgres} -h localhost -p 5432"]
-      interval: ${POSTGRES_HEALTHCHECK_INTERVAL:-10s}
+      interval: ${POSTGRES_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${POSTGRES_HEALTHCHECK_TIMEOUT:-30s}
-      retries: ${POSTGRES_HEALTHCHECK_RETRIES:-5}
-      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-30s}
+      retries: ${POSTGRES_HEALTHCHECK_RETRIES:-3}
+      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
     networks:
       - dmpopidor_network
 
