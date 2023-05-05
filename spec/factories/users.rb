@@ -60,7 +60,7 @@ FactoryBot.define do
     language     { Language.default }
     firstname    { Faker::Movies::StarWars.unique.character.split.first.tr('-', ' ') }
     surname      { Faker::Movies::StarWars.unique.character.split.last.tr('-', ' ') }
-    email        { Faker::Internet.unique.safe_email }
+    email        { Faker::Internet.unique.email }
     password     { 'password' }
     accept_terms { true }
 

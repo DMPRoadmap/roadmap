@@ -177,11 +177,11 @@ class ResearchOutputsController < ApplicationController
   end
 
   def repo_search_params
-    params.require(:research_output).permit(%i[search_term subject_filter type_filter, preferred_repos])
+    params.require(:research_output).permit(%i[search_term subject_filter type_filter preferred_repos])
   end
 
   def metadata_standard_search_params
-    params.require(:research_output).permit(%i[search_term, preferred_standards])
+    params.require(:research_output).permit(%i[search_term preferred_standards])
   end
 
   # rubocop:disable Metrics/AbcSize
