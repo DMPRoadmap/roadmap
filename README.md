@@ -8,7 +8,7 @@
 
 DMP Roadmap is a Data Management Planning tool. Management and development of DMP Roadmap is jointly provided by the Digital Curation Centre (DCC), http://www.dcc.ac.uk/, and the University of California Curation Center (UC3), http://www.cdlib.org/services/uc3/.
 
-### Requis
+### Requirements
 
 - Ruby 2.4.x
 - Rails 4.2.x
@@ -19,20 +19,48 @@ Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/relea
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
-* Ruby = 2.7.6
-* Rails = 6.1
-* MySQL >= 5.0 OR PostgreSQL
+- Ruby = 2.7.6
+- Rails = 6.1
+- MySQL >= 5.0 OR PostgreSQL
 
 Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org.
 
 L'application se lance par défaut en mode développement.
 
-## Développement
-
-### Structure du dépôt Git
+## Developpment
 
 #### Installation
 See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installation) on the Wiki.
+
+#### Docker
+
+#### Requirements
+- [Docker](https://www.docker.com/)
+- [Docker compose](https://docs.docker.com/compose/install/)
+
+#### Installation
+```bash
+# build image
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev build dmpopidor
+
+# Configure database connexion for postgres (change postgres by mysql)
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker postgres'
+
+# Setup database
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
+
+# Load re3data data in database
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/rails external_api:load_re3data_repos'
+
+# Add DMP OPIDoR migrations
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_0_0'
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_4_0'
+
+# Run all services
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev up -d
+```
+
+The rails server is launched via puma behind a niginx, it is accessible at the url ``http://localhost:8080``
 
 #### Troubleshooting
 See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the Wiki.
