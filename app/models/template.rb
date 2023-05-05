@@ -78,8 +78,6 @@ class Template < ApplicationRecord
   attribute :customize_metadata_standards, :boolean, default: false
   attribute :customize_licenses, :boolean, default: false
   attribute :user_guidance_output_types, :text, default: nil
-  attribute :user_guidance_output_types_title, :text, default: nil
-  attribute :user_guidance_output_types_description, :text, default: nil
   attribute :user_guidance_repositories, :text, default: nil
   attribute :user_guidance_metadata_standards, :text, default: nil
   attribute :user_guidance_licenses, :text, default: nil

@@ -59,7 +59,7 @@ $(() => {
   };
 
   const togglePreferences = () => {
-    toggleItem(researchOutputsEnabled(), 'h2.prefs_option, div.prefs_option');
+    toggleItem(researchOutputsEnabled(), 'h2.prefs_option, div.prefs_option, p.prefs_option');
   }
   const toggleOutputTypes = () => {
     const enabled = outputTypesEnabled();
@@ -378,4 +378,6 @@ $(() => {
     $('a.output_type_remove i, a.license_remove i').hide();
     $('a.modal-search-result-unselector').hide();
   }
+
+  $('#template_enable_research_outputs').trigger('focus');
 });

@@ -45,7 +45,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
       </span>
     </div>
     <div class="col-md-12">
-      <span class="col-md-6" aria-hidden="true" data-toggle="tooltip" title="<%= @plan.template.user_guidance_output_types_title %>">
+      <span class="col-md-6" aria-hidden="true">
         <%= f.text_field :title, class: "form-control", aria: { required: true } %>
       </span>
       <span class="col-md-2">
@@ -59,7 +59,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
       <span class="col-md-12"><%= f.label(:description, _("Description"), class: "control-label", id: 'research-output-description') %></span>
     </div>
     <div class="col-md-12">
-      <span class="col-md-8" aria-hidden="true" data-toggle="tooltip" title="<%= @plan.template.user_guidance_output_types_description %>">
+      <span class="col-md-8 wysiwyg-block" aria-hidden="true">
         <%= f.text_area :description, rows: 4, class: 'form-control tinymce', data: { toggle: "tooltip" }, aria: { labelledby: 'research-output-description' } %>
       </span>
     </div>

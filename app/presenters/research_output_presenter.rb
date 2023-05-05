@@ -43,17 +43,22 @@ class ResearchOutputPresenter
   def complete_licenses
     License.selectable
            .sort_by(&:identifier)
-           .map { |license| [license.identifier, license.id] }
+           .map { |license| ["#{license.identifier} (#{license.name})", license.id] }
   end
 
   # Returns the available licenses for a select tag
   def preferred_licenses
-    License.preferred.map { |license| [license.identifier, license.id] }
+    License.preferred.map { |license| ["#{license.identifier} (#{license.name})", license.id] }
   end
 
   # Returns the customized set of licenses for a template
   def customized_licenses
-    @research_output.plan.template.licenses.map { |license| [license.identifier, license.id] }
+    @research_output.plan.template.licenses.map { |license| ["#{license.identifier} (#{license.name})", license.id] }
+  end
+
+  def other_license
+    license = License.where(identifier: 'OTHER').first
+    license.present? ? ["#{license.identifier} (#{license.name})", license.id] : nil
   end
 
   # Returns whether or not we should capture the byte_size based on the output_type

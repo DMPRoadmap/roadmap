@@ -108,7 +108,7 @@ class Repository < ApplicationRecord
         and tr.repository_id=repositories.id
       )
     },
-          template_id: template_id)
+          template_id: template_id).order(:name)
   }
 
   scope :custom_by_template, lambda { |template_id|
@@ -125,7 +125,7 @@ class Repository < ApplicationRecord
           and tr.repository_id=repositories.id
         )
       )
-    }, template_id: template_id).order('custom_repository_owner_template_id desc, name desc')
+    }, template_id: template_id).order('custom_repository_owner_template_id desc, name asc')
   }
 
   scope :standard_or_custom_by_template, lambda { |template_id|

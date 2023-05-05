@@ -10,6 +10,7 @@ module ActiveRecord
     #  https://github.com/rails/rails/blob/5-2-stable/activerecord/lib/active_record/schema_dumper.rb
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+=begin
     def table(table, stream)
       columns = @connection.columns(table)
       begin
@@ -66,6 +67,7 @@ module ActiveRecord
         stream.puts
       end
     end
+=end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   end

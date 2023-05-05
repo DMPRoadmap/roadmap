@@ -46,4 +46,21 @@ $(() => {
       }
     }
   });
+
+  // Auto select the 'OTHER' license from the license select list if the checkbox is checked
+  $('#use_custom_license').on('click', (e) => {
+    const checkbox = $(e.currentTarget);
+    const selectbox = $('#research_output_license_id');
+    const hiddenOption = $('#other_license_option');
+    const otherOption = $('#research_output_license_id option[text="OTHER"]');
+
+    if (checkbox.is(':checked')) {
+      if (otherOption.length <= 0) {
+        selectbox.append(hiddenOption);
+      }
+      otherOption.prop('selected', true);
+    } else {
+      otherOption.prop('selected', false);
+    }
+  });
 });

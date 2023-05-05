@@ -17,12 +17,17 @@ namespace :v4 do
       rec.update(research_output_type: rec.output_type.to_s)
     end
 
+    # Add a generic license type to cover non-standard licenses
+    puts "Adding a new 'OTHER' license to allow for scenarios where the user has a custom user agreement"
+    License.find_or_create_by(
+      name: 'Custom Data Use Agreements/Terms of Use',
+      identifier: 'OTHER',
+      osi_approved: false,
+      deprecated: false
+    )
     puts 'DONE'
   end
-end
-# Upgrade tasks for 34.x versions.
 
-namespace :v4 do
   desc 'Upgrade from v4.0.7 to v4.0.8'
   task upgrade_4_0_8: :environment do
     # Seed any existing plans that have requested feedback so that their feedback_start_at date

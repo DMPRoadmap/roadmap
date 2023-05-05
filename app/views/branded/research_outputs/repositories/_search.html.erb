@@ -6,6 +6,15 @@
   by_subject_tooltip = _("Select a subject area to refine your search.")
   %>
 
+  <% if @has_preferred_repos %>
+    <span class="col-md-12">
+      <input type="checkbox" id="research_output_preferred_repos" name="research_output[preferred_repos]" checked/>
+      <label for="research_output_preferred_repos"><%= _('Only include repositories recommended by the funder or my institution') %></label>
+      <p>&nbsp;</p>
+    </span>
+  <% end %>
+</div>
+<div class="col-md-10">
   <span class="col-md-5">
     <label for="research_output_subject_filter"><%= _('Select a subject area') %></label>
     <%= select_tag :"research_output[subject_filter]",

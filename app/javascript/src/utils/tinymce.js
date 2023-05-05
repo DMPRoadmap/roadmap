@@ -74,9 +74,6 @@ const isTinymceEditor = (editor) => {
   label when the tinymce iframe receives focus.
  */
 const attachLabelToIframe = (editor) => {
-
-console.log('Attaching label');
-
   if (isTinymceEditor(editor)) {
     const iframe = editor.getContainer().querySelector('iframe');
     const lbl = document.querySelector(`label[for="${editor.id}"]`);
@@ -90,9 +87,9 @@ console.log('Attaching label');
 
 const attachNavigationText = (editor) => {
   if (isTinymceEditor(editor)) {
-    const tinymceBlock = $(`#${editor.id}`).closest('.form-group');
+    const tinymceBlock = $(`#${editor.id}`).closest('.wysiwyg-block');
     const navText = getConstant('TINYMCE_HELP');
-    tinymceBlock.append(`<p>${navText}</p>`);
+    tinymceBlock.append(`<div class="tinymce-help">${navText}</div>`);
   }
 };
 

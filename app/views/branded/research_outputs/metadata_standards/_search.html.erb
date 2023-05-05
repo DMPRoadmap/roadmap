@@ -1,7 +1,15 @@
 <%# locals: research_output %>
 
 <% content_for :"filters-metadata_standards" do %>
-
+  <% if @has_preferred_standards %>
+    <span class="col-md-12">
+      <input type="checkbox" id="research_output_preferred_standards" name="research_output[preferred_standards]" checked/>
+      <label for="research_output_preferred_standards"><%= _('Only include standards recommended by the funder or my institution') %></label>
+      <p>&nbsp;</p>
+    </span>
+  <% end %>
+</div>
+<div class="col-md-10">
 <% end %>
 
 <%= render partial: "layouts/modal_search/form",

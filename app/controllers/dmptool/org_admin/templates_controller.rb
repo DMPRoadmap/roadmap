@@ -31,15 +31,15 @@ module Dmptool
 
       # rubocop:disable Metrics/AbcSize
       def preferences
-        template = Template.find(params[:id])
+        @template = Template.find(params[:id])
         authorize Template
 
-        editable = template.latest? && template.id.present? && template.org_id = current_user.org.id
+        editable = @template.latest? && @template.id.present? && @template.org_id = current_user.org.id
         page = editable ? 'preferences' : 'preferences_show'
 
         render page, locals: {
           partial_path: 'edit',
-          template: template,
+          template: @template,
           output_types: ResearchOutput.output_types,
           preferred_licenses: License.preferred.map { |license| [license.identifier, license.id] },
           licenses: License.selectable.map { |license| [license.identifier, license.id] }
@@ -72,7 +72,8 @@ module Dmptool
           # rubocop:enable Layout/LineLength
         end
 
-        redirect_to preferences_org_admin_template_path(@template), notice: success_message(@template, _('saved'))
+        msg = "#{success_message(@template, _('saved'))} Don't forget to publish your changes."
+        redirect_to preferences_org_admin_template_path(@template), notice: msg
       end
       # rubocop:enable Metrics/AbcSize
 
@@ -119,7 +120,6 @@ module Dmptool
         params.require(:template).permit(
           :enable_research_outputs,
           :user_guidance_output_types, :user_guidance_repositories,
-          :user_guidance_output_types_title, :user_guidance_output_types_description,
           :user_guidance_metadata_standards, :user_guidance_licenses,
           :customize_output_types, :customize_repositories,
           :customize_metadata_standards, :customize_licenses,

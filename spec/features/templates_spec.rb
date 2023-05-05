@@ -66,8 +66,6 @@ RSpec.describe 'Org admin template preferences' do
       '#template_customize_metadata_standards',
       '#customize_licenses_sel',
       '#template_user_guidance_output_types',
-      '#template_user_guidance_output_types_title',
-      '#template_user_guidance_output_types_description',
       '#template_user_guidance_licenses'
     ]
     @pref_mce_selectors = [

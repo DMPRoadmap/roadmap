@@ -49,13 +49,7 @@ no_results_msg = _("No results matched your filter criteria.")
       <% unless guidance.nil? %>
         <% unless guidance&.strip&.empty? %>
         <div class="modal-header">
-          <fieldset class="user-guidance">
-            <label>Tooltip</label>
-            <div>
-            <%= guidance.inspect %>
-            <%= sanitize(guidance) %>
-            </div>
-          </fieldset>
+          <%= sanitize(guidance) %>
         </div>
         <% end %>
       <% end %>

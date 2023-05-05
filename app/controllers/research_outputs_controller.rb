@@ -20,12 +20,16 @@ class ResearchOutputsController < ApplicationController
   # GET /plans/:plan_id/research_outputs/new
   def new
     @research_output = ResearchOutput.new(plan_id: @plan.id, research_output_type: '')
+    @has_preferred_repos = TemplateRepository.where(template: @plan.template).any?
+    @has_preferred_standards = MetadataStandard.by_template(@plan.template.id).any?
     authorize @research_output
   end
 
   # GET /plans/:plan_id/research_outputs/:id/edit
   def edit
     authorize @research_output
+    @has_preferred_repos = TemplateRepository.where(template: @plan.template).any?
+    @has_preferred_standards = MetadataStandard.by_template(@plan.template.id).any?
   end
 
   # POST /plans/:plan_id/research_outputs
@@ -109,7 +113,9 @@ class ResearchOutputsController < ApplicationController
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
-    @search_results = if @plan.template.template_repositories.any?
+    @has_recommendations = @plan.template.template_repositories.any?
+    @recommended = repo_search_params[:preferred_repos]
+    @search_results = if @has_recommendations && @recommended
                         Repository.preferred_or_custom_by_template(@plan.template.id)
                       else
                         Repository.standard_or_custom_by_template(@plan.template.id)
@@ -146,7 +152,8 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
 
     @search_results = MetadataStandard.by_template(@plan.template.id)
-    @search_results = if @search_results.any?
+    @recommended = metadata_standard_search_params[:preferred_standards]
+    @search_results = if @search_results.any? && @recommended
                         @search_results.search(metadata_standard_search_params[:search_term])
                                        .order(:title)
                                        .page(params[:page])
@@ -170,11 +177,11 @@ class ResearchOutputsController < ApplicationController
   end
 
   def repo_search_params
-    params.require(:research_output).permit(%i[search_term subject_filter type_filter])
+    params.require(:research_output).permit(%i[search_term subject_filter type_filter, preferred_repos])
   end
 
   def metadata_standard_search_params
-    params.require(:research_output).permit(%i[search_term])
+    params.require(:research_output).permit(%i[search_term, preferred_standards])
   end
 
   # rubocop:disable Metrics/AbcSize

@@ -70,7 +70,7 @@ class MetadataStandard < ApplicationRecord
   }
 
   scope :search, lambda { |term|
-    term = term.downcase
+    term = term&.downcase
     where('LOWER(title) LIKE ?', "%#{term}%").or(where('LOWER(description) LIKE ?', "%#{term}%"))
   }
 
