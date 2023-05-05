@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <h1><%= _('Template Preferences (VIEW)') %></h1>
+    <h1 class='treat-page-as-read-only'><%= _('Template Preferences (VIEW)') %></h1>
     <%= link_to _('View all templates'),
         org_admin_templates_path,
         class: 'btn btn-default pull-right' %>
@@ -17,8 +17,7 @@
       <div role="tabpanel" class="tab-pane active">
         <div class="panel panel-default">
           <div class="panel-body">
-
-            <%= form_for(template, url: {action: :save_preferences}, html: { 'data-method': :patch }) do |f| %>
+            <%= form_for(template, url: {action: :save_preferences}, html: { 'data-method': :patch, class: 'edit-template-preferences' }) do |f| %>
               <h2><%= _('Research Outputs') %></h2>
               <div class="row">
                 <div class="col-md-9">
@@ -30,7 +29,7 @@
               </div>
 
               <h2 class="prefs_option"><%= _('Output Types') %></h2>
-              <p><%= _('Use the following settings to customize the Research Outputs tab')</p>
+              <p><%= _('Use the following settings to customize the Research Outputs tab') %></p>
 
               <div class="row prefs_option">
                 <div class="col-md-3">
@@ -40,7 +39,7 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="selectable_items" id="default-output-types">
+                  <div class="selectable_items" id="default-output_types">
                   <fieldset class="selectable_items">
                     <legend><%= _('Default Output Types') %></legend>
                     <ul>
@@ -52,15 +51,16 @@
                     </ul>
                   </fieldset>
                   </div>
-                  <div class="selectable_items" id="my-output-types" >
+                  <div class="selectable_items" id="my-output_types" >
                   <fieldset class="selectable_items">
                     <legend><%= _('My Output Types') %></legend>
                     <div><input id="new_output_type" type="text"/> <button class="btn btn-default" id="add_output_type" disabled><%= _('Add an output type') %></button></div>
                     <div>
                       <br/>
                       <ul>
-                      <% template.template_output_types.each do |ot| %>
-                      <input class="output_type_init" type="hidden" data="<%= ot.id %>" value="<%= ot.research_output_type %>"/>
+                      <% template.template_output_types.sort { |a, b| a.research_output_type <=> b.research_output_type }
+                                                       .each do |ot| %>
+                        <input class="output_type_init" type="hidden" data="<%= ot.id %>" value="<%= ot.research_output_type %>"/>
                       <% end %>
                       </ul>
                     </div>

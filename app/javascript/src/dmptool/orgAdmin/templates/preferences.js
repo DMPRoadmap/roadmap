@@ -22,9 +22,6 @@ $(() => {
   const repositoriesEnabled = () => {
     return $('#template_customize_repositories').is(':checked');
   };
-  const customRepositoriesEnabled = () => {
-
-  };
   const metadataStandardsEnabled = () => {
     return $('#template_customize_metadata_standards').is(':checked');
   };
