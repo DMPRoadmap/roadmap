@@ -37,7 +37,7 @@ if output.is_a?(ResearchOutput)
       end
     end
 
-    if output.license.present?
+    if output.license.present? && output.license.uri.present?
       json.license [output.license] do |license|
         json.license_ref license.uri
         json.start_date presenter.license_start_date

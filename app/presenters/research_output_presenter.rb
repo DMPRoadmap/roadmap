@@ -21,17 +21,7 @@ class ResearchOutputPresenter
 
   # Returns the access options for a select tag
   def selectable_access_types
-    lvls = ResearchOutput.accesses.map do |k, _v|
-      case k
-      when 'open'
-        ['Unrestricted Access', k]
-      when 'restricted'
-        ['Controlled Access', k]
-      when 'closed'
-        ['Other', k]
-      end
-    end
-    lvls.compact.sort { |a, b| a[0] <=> b[0] }
+    [['Unrestricted Access', 'open'], ['Controlled Access', 'restricted'], ['Other', 'closed']]
   end
 
   # Returns the options for file size units
