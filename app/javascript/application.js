@@ -96,7 +96,7 @@ import './src/superAdmin/staticPages/edit';
 import './src/superAdmin/themes/newEdit';
 import './src/superAdmin/users/edit';
 
-import './react/src/index';
+import './remount';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbo. ActiveStorage and ActionCable would also need to be in here
