@@ -5,6 +5,8 @@
 ### v4.1.0
 **Note: This version includes a change to the research_outputs table!** We have added a new `research_outputs.research_output_type` field that stores a string value. It is a replacement for the old `research_outputs.output_type` integer field. You will need to run: `bin/rails db:migrate && bin/rails v4:upgrade_4_1_0` to make the change to your data model and migrate your existing data to the new field.
 
+Updated the Admin Template edit page with a new 'Preferences' tab. This new tab allows admins to specify whether or not the Research Outputs tab will be available to the researcher when filling out their plan. If enabled, the admin can specify preferred/recommended output types, licenses, metadata standards and repositories. They can also provide guidance to the research to help them with their selections of those items.
+
 - Added the following columns to the `templates` table
   - `enable_research_outputs`
   - `user_guidance_output_types`
@@ -17,8 +19,10 @@
   - `customize_licenses`
 - Updated the Templates model (and RSpec factory and tests) to use new field
 - Created the Template Preferences View
+- Removed 'Embargoed' from the list of Research Output Type's initial access level and changed the names of the other options. (Left the enum intact on the model for now so that data can be migrated)
+- Added a new 'OTHER' license type (does not appear in JSON output because it has no valid URI)
 - Added column `research_output_type` to the `research_outputs` table
-- Added `v4:upgrade_4_1_0` rake task to migrate data from `output_type` and `output_type_description` to the new `research_output_type` field
+- Added `v4:upgrade_4_1_0` rake task to migrate data from `output_type` and `output_type_description` to the new `research_output_type` field. The task also adds a default 'OTHER' license and migrates `resource_output.access` from embargoed to closed
 - Updated the ResearchOutput model (and RSpec factory and tests) to use new field
 - Replaced the old `output_types` enum on the ResearchOutput model with `DEFAULT_OUTPUT_TYPES` array
 - Updated presenters (and RSpec tests) and controller to work with the new field
