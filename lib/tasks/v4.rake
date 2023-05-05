@@ -25,6 +25,10 @@ namespace :v4 do
       osi_approved: false,
       deprecated: false
     )
+
+    puts "Converting research outputs whose access level was set to 'embargoed: 1' to 'other: 3' "
+    ResearchOutput.where(access: 1).update_all(access: 3)
+
     puts 'DONE'
   end
 
