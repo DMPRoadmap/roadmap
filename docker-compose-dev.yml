@@ -13,6 +13,7 @@ services:
     environment:
       - RAILS_ENV=development
       - RAKE_ENV=development
+      - NODE_ENV=development
       - DB_USERNAME=${DB_USERNAME:-postgres}
       - DB_PASSWORD=${DB_PASSWORD:-changeme}
     volumes:
