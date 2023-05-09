@@ -37,8 +37,8 @@ end
 valid_db = ARGV.length > 0 && %w[mysql postgres].include?(params)
 
 unless valid_db
-  puts "\n== You MUST specify the type of DB you would like to use. Either mysql or postgres =="
-  puts "== For example: `ruby bin/docker postgres` =="
+  puts '== You MUST specify the type of DB you would like to use. Either mysql or postgres =='
+  puts '== For example: `ruby bin/docker postgres` =='
   exit!
 end
 
