@@ -92,5 +92,3 @@ yarn-debug.log*
 cloud9-start.sh
 
 data
-
-config/credentials.yml.enc
