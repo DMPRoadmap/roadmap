@@ -1,16 +1,6 @@
 <% title "#{@plan.title}" %>
-<div class="row">
-  <div class="col-md-12">
-    <!-- render the project title -->
-    <h1 id="plan-title"><%= @plan.title %></h1>
-  </div>
-</div>
-
 <% partial = @plan.editable_by?(current_user.id) ? "edit_details" : "show_details" %>
 
-<div class="row">
-  <div class="col-md-12">
-    <%= render partial: partial, layout: 'navigation',
-               locals: { plan: @plan, visibility: @visibility } %>
-  </div>
-</div>
+
+<%= render partial: partial, layout: 'navigation',
+           locals: { plan: @plan, visibility: @visibility } %>

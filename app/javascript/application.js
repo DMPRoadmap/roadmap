@@ -56,7 +56,6 @@ import './src/devise/registrations/edit';
 import './src/devise/registrations/new';
 import './src/guidances/newEdit';
 import './src/madmpFragments/edit';
-import './src/madmpFragments/run';
 import './src/notes/index';
 import './src/orgs/adminEdit';
 import './src/orgs/shibbolethDs';
@@ -96,6 +95,8 @@ import './src/superAdmin/registries/show';
 import './src/superAdmin/staticPages/edit';
 import './src/superAdmin/themes/newEdit';
 import './src/superAdmin/users/edit';
+
+import './remount';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbo. ActiveStorage and ActionCable would also need to be in here

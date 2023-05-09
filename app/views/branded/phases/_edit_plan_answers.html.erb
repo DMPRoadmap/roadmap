@@ -1,8 +1,16 @@
 <% template = plan.template %>
 <% template_title = template.title %>
 <% template_title += " - #{_('Customized')}" if template.customization_of.present? %>
-<div class="tab-panels" role="tabpanel">
+<% sections = phase.sections %>
+<% research_outputs = plan.research_outputs %>
+<% multiple_ro_class = research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
+
+
+  <%= render partial: 'phases/research_outputs_tabs', locals: { research_outputs: research_outputs } %>
+
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active answering-phase" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
+    <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
+    </div>
     <div class="section-description">
       <div class="display-readonly-textarea-content">
         <%= sanitize phase.description %>
@@ -18,191 +26,178 @@
         </span>
       </div>
     </div>
-
-    <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
-    </div>
-    
-    <div class="panel-group" id="sections">
-      <% phase.sections.order(:number).each do |section| %>
-      <div class="panel panel-default section-panel">
-        <div class="panel-heading section-title" role="tab" id="heading-<%= section.id %>">
-          <div class="panel-title pull-left">
-            <h2><%= section.title %></h2>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-        <div class="panel-body section-content">
-          <div class="section-description">
-            <div class="display-readonly-textarea-content">
-              <%= sanitize section.description %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-8">
-              <div id="accordion-controls">
-                <div class="accordion-controls" data-parent="questions-accordion-<%= section.id %>">
-                  <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
-                  <span>|</span>
-                  <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+    <div id="questions-accordion" class="tab-content panel-body research-output-content <%= multiple_ro_class %>">
+      <% research_outputs.each_with_index do |research_output, i| %>
+        <div id="research_output_<%= research_output.id %>" 
+                    class="panel research-output-panel tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
+          
+          <% sections.order(:number).each do |section| %>
+            <div class="panel-group sections">
+              <div class="panel panel-default section-panel">
+                <div class="panel-heading section-title" role="tab" id="heading-<%= section.id %>">
+                  <div class="panel-title pull-left">
+                    <h2><%= section.title %></h2>
+                  </div>
+                  <div class="clearfix"></div>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          <ul class="nav nav-tabs research-outputs-tabs">
-            <% section_has_common_answers = plan.research_outputs.first.common_answers?(section.id) %>
-            <% plan.research_outputs.each_with_index do |research_output, i| %>
-              <% research_output_fragment = research_output.json_fragment.research_output_description %>
-              <li class="research_outputs_tabs <%= 'active' if research_output.main? %> <%= 'disabled' if section_has_common_answers %>">
-                <a href="#section-panel-<%= section.id %>" data-toggle="tab" 
-                                  data-research-output="<%= research_output.id %>" 
-                                  data-target="#research_output_<%= research_output.id %>_section_<%= section.id %>"
-                >
-                  <%= research_output.abbreviation %>
-                </a>
-              </li>
-            <% end if plan.research_outputs.count > 1 %>
-          </ul>
-          <% multiple_ro_class = plan.research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
-          <div id="questions-accordion-<%= section.id %>" class="tab-content panel-body research-output-content <%= multiple_ro_class %>">
-            <% plan.research_outputs.each_with_index do |research_output, i| %>
-              <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" 
-                   class="panel research-output-panel tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
-                <% if research_output.main? && plan.research_outputs.count > 1 && !template.structured?%>
-                  <p>
-                    <input type="checkbox" class="is_common_cb" 
-                          data-target-url="<%= set_answers_as_common_answers_path %>"
-                          title="<%= _("Please click to indicate that this section\'s answers are common to all research outputs" ) %>"
-                          <%= 'checked=""' if section_has_common_answers %>> <%= _('This section\'s answers are common to all research outputs') %>
-                  </p>
-                  <span class="common_changed label label-info" style="display:none"><%= _('Changes saved.')%></span>
-                <% end %>
-                <!-- the section body -->
-                <% section.questions.each_with_index do |question, i| %>
-                  <% # Load the answer or create a new one
-                    answer = answers["#{question.id}_#{research_output.id}"] if plan.present?
-                    if answer.blank?
-                      answer = Answer.new({ plan: plan, question: question, research_output: research_output })
-                    end
-                    consolidated_id = "#{question.id}-research-output-#{research_output.id}"
-                    collapse_class = question.question_format.structured? ? "fragment-content" : "question-content"
-                  %>
-                  <div class="row question">
-                    <div class="heading-button" role="button" data-toggle="collapse"
-                        id="question-panel-<%= consolidated_id %>"
-                        data-parent="question" 
-                        href="#collapse-<%= consolidated_id %>"
-                        aria-expanded="false" 
-                        aria-controls="collapse-<%= consolidated_id %>">
-                      <div class="panel-heading question-text" role="tab" id="heading-<%= consolidated_id %>">
-                        <div class="panel-title pull-left">
-                          <%= sanitize(question.text) %> 
+                <div class="panel-body section-content">
+                  <div class="section-description">
+                    <div class="display-readonly-textarea-content">
+                      <%= sanitize section.description %>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div id="accordion-controls">
+                        <div class="accordion-controls" data-parent="questions-accordion-<%= section.id %>">
+                          <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+                          <span>|</span>
+                          <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
                         </div>
-                        <i class="fas fa-chevron-right pull-right" aria-hidden="true"></i>
-                        <div class="clearfix"></div>
                       </div>
                     </div>
-                    <div id="collapse-<%= consolidated_id %>" 
-                          class="panel-collapse collapse <%= collapse_class %>" 
-                          role="tabpanel" 
-                          aria-labelledby="heading-<%= consolidated_id %>">
-                      <div class="panel-body question-body"><!-- accordion body -->
-                        <div class="answer-section">
-                          <!-- Answer Section -->
-                          <% 
-                            guidance_comments_opened_by_default = Rails.configuration.x.application.guidance_comments_opened_by_default
-                          %>
-                          <% if Rails.configuration.x.application.guidance_comments_toggleable %>
-                            <div class="toggle-guidance-section">
-                              <span class="fas fa-chevron-<%= guidance_comments_opened_by_default ? 'right': 'left' %>"></span> 
-                              <span><%= _('Comments & Guidance') %></span>
-                            </div>
-                          <% end %>
-                          <div class="question-form">
-                            <div id="<%= "answer-locking-#{consolidated_id}" %>" 
-                                class="answer-locking"></div>
-                            <div id="<%= "answer-form-#{consolidated_id}" %>" class="answer-form"> 
-                              <% if question.question_format.structured? %>
-                                <% fragment = answer.madmp_fragment unless answer.nil? %>
-                                <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
-                                <% dmp_id = plan.json_fragment.id %>
-                                <% parent_id = research_output.json_fragment.id %>
-                                <% if fragment.nil? %>
-                                  <%= render(partial: '/madmp_fragments/new',
+                  </div>
+
+                  <!-- the section body -->
+                  <% section.questions.each_with_index do |question, i| %>
+                    <% # Load the answer or create a new one
+                      answer = answers["#{question.id}_#{research_output.id}"] if plan.present?
+                      if answer.blank?
+                        answer = Answer.new({ plan: plan, question: question, research_output: research_output })
+                      end
+                      consolidated_id = "#{question.id}-research-output-#{research_output.id}"
+                      collapse_class = template.structured? ? "fragment-content" : "question-content"
+                    %>
+                    <div class="row question">
+                      <div class="heading-button" role="button" data-toggle="collapse"
+                          id="question-panel-<%= consolidated_id %>"
+                          data-parent="question" 
+                          href="#collapse-<%= consolidated_id %>"
+                          aria-expanded="false" 
+                          aria-controls="collapse-<%= consolidated_id %>">
+                        <div class="panel-heading question-text dmpopidor-accordion" role="tab" id="heading-<%= consolidated_id %>">
+                          <div class="panel-title pull-left">
+                            <%= sanitize(question.text) %> 
+                          </div>
+                          <div class="panel-title pull-right">
+                            <i class="fas fa-bell comment-toggle" aria-hidden="true"></i>
+                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                      <div id="collapse-<%= consolidated_id %>" 
+                            class="panel-collapse collapse <%= collapse_class %>" 
+                            role="tabpanel" 
+                            aria-labelledby="heading-<%= consolidated_id %>">
+                        <div class="panel-body question-body"><!-- accordion body -->
+                          <div class="answer-section">
+                            <!-- Answer Section -->
+                            <% 
+                              guidance_comments_opened_by_default = Rails.configuration.x.application.guidance_comments_opened_by_default
+                            %>
+                            <% if Rails.configuration.x.application.guidance_comments_toggleable %>
+                              <div class="toggle-guidance-section">
+                                <span class="fas fa-chevron-<%= guidance_comments_opened_by_default ? 'right': 'left' %>"></span> 
+                                <span><%= _('Comments & Guidance') %></span>
+                              </div>
+                            <% end %>
+                            <div class="question-form">
+                              <div class="col-md-12">
+                                <span class="dialog-toggle"  data-toggle="notes-<%= question.id %>-research-output-<%= research_output.id %>">
+                                  Comments 
+                                  <i class="fas fa-bell" aria-hidden="true"></i>
+                                </span>
+                              </div>
+                              <div id="<%= "answer-locking-#{consolidated_id}" %>" 
+                                  class="answer-locking"></div>
+                              <div id="<%= "answer-form-#{consolidated_id}" %>" class="answer-form"> 
+                                <% if template.structured? %>
+                                  <% fragment = answer.madmp_fragment unless answer.nil? %>
+                                  <% if fragment.nil? %>
+                                    <% parent_fragment = research_output.json_fragment %>
+                                    <%= render(partial: '/madmp_fragments/new',
+                                            locals: { template: template,
+                                                      question: question,
+                                                      answer: answer,
+                                                      madmp_schema: question.madmp_schema,
+                                                      research_output: research_output,
+                                                      dmp_id: parent_fragment.dmp_id,
+                                                      parent_id: parent_fragment.id,
+                                                      readonly: readonly,
+                                                      locking: false }) %>
+                                  <% else %>
+                                    <%= hidden_field_tag 'fragment-id', fragment.id, class: "fragment-id" %>
+                                    <div class="overlay" style="display:none;">
+                                      <div class="spinner"></div>
+                                      <br/>
+                                      <%= _('Loading...') %>
+                                    </div>
+                                  <% end %>
+                                <% else %>
+                                  <%= render(partial: '/answers/new_edit',
                                           locals: { template: template,
                                                     question: question,
                                                     answer: answer,
-                                                    madmp_schema: madmp_schema,
                                                     research_output: research_output,
-                                                    dmp_id: dmp_id,
-                                                    parent_id: parent_id,
                                                     readonly: readonly,
-                                                    locking: false }) %>
-                                <% else %>
-                                  <%= hidden_field_tag 'fragment-id', fragment.id, class: "fragment-id" %>
-                                  <div class="overlay" style="display:none;">
-                                    <div class="spinner"></div>
-                                    <br/>
-                                    <%= _('Loading...') %>
-                                  </div>
+                                                    locking: false,
+                                                    base_template_org: base_template_org }) %>
                                 <% end %>
-                              <% else %>
-                                <%= render(partial: '/answers/new_edit',
-                                        locals: { template: template,
-                                                  question: question,
-                                                  answer: answer,
-                                                  research_output: research_output,
-                                                  readonly: readonly,
-                                                  locking: false,
-                                                  base_template_org: base_template_org }) %>
-                              <% end %>
-                            </div>
-                            <div id="<%= "answer-status-#{consolidated_id}" %>" class="mt-10">
-                              <%= render(partial: '/answers/status',
-                                        locals: { answer: answer }) %>
+                              </div>
+                              <div id="<%= "answer-status-#{consolidated_id}" %>" class="mt-10">
+                                <%= render(partial: '/answers/status',
+                                          locals: { answer: answer }) %>
+                              </div>
                             </div>
                           </div>
+
+  <% if plan.present? %>
+    <dialog id="notes-<%= question.id %>-research-output-<%= research_output.id %>" class="notes">
+      <i class="fas fa-times close-comments pull-right" data-close="notes-<%= question.id %>-research-output-<%= research_output.id %>"></i>
+      <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer, research_output: research_output } %>
+    </dialog>
+  <% end %>
+                          <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
+                          <div class="guidance-section" style="<%= style %>">
+                            <!-- Guidances and notes partial view -->
+                            <% if template.structured? %>
+                              <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
+                              <%= render partial: '/phases/guidances_notes_runs', locals: {
+                                plan: plan,
+                                template: template,
+                                question: question,
+                                answer: answer,
+                                madmp_schema: madmp_schema,
+                                research_output: research_output,
+                                guidance_presenter: guidance_presenter } %>
+                            <% else %>
+                              <%= render partial: '/phases/guidances_notes', locals: {
+                                plan: plan,
+                                template: template,
+                                question: question,
+                                answer: answer,
+                                research_output: research_output,
+                                guidance_presenter: guidance_presenter } %>
+                            <% end %>
+                          </div>
                         </div>
-                        <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
-                        <div class="guidance-section" style="<%= style %>">
-                          <!-- Guidances and notes partial view -->
-                          <% if template.structured? %>
-                            <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
-                            <%= render partial: '/phases/guidances_notes_runs', locals: {
-                              plan: plan,
-                              template: template,
-                              question: question,
-                              answer: answer,
-                              madmp_schema: madmp_schema,
-                              research_output: research_output,
-                              guidance_presenter: guidance_presenter } %>
-                          <% else %>
-                            <%= render partial: '/phases/guidances_notes', locals: {
-                              plan: plan,
-                              template: template,
-                              question: question,
-                              answer: answer,
-                              research_output: research_output,
-                              guidance_presenter: guidance_presenter } %>
-                          <% end %>
-                        </div>
-                      </div>
-                    </div> <!-- panel-collapse collapse question-content -->
-                  </div> <!-- row question -->
-                  <% if i != section.questions.length - 1 %>
-                    <hr>
-                  <% end %>
-                  <div class="clearfix"></div>
-                <% end %> <!-- section.questions.each do -->
-              </div> <!-- research-output-content -->
-            <% end %>
-          </div> <!-- tab-content panel-body research-output-content -->
-        </div> <!-- panel-body section-content -->
-      </div> <!-- panel panel-default -->
+                      </div> <!-- panel-collapse collapse question-content -->
+                    </div> <!-- row question -->
+                    <% if i != section.questions.length - 1 %>
+                      <hr>
+                    <% end %>
+                    <div class="clearfix"></div>
+                  <% end %> <!-- section.questions.each do -->
+                </div> <!-- section-content -->
+              </div> <!-- section-panel -->
+            </div> <!-- sections -->
+          <% end %>
+        </div> <!-- research-output-panel -->
       <% end %>
-    </div> <!-- panel-group -->
-  </div> <!-- tab panel -->
-</div> <!-- tab panels -->
+    </div> <!-- research-output-content -->
+  </div> <!-- answering-phase -->
 
 <div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-labelledby="linkedInformationsModal" aria-hidden="true"></div>

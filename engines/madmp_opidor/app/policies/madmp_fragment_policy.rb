@@ -2,6 +2,14 @@
 
 # Security rules for madmpfragments
 class MadmpFragmentPolicy < ApplicationPolicy
+  def show?
+    @record.plan.readable_by?(@user.id) || @user == @record.plan.owner
+  end
+
+  def update_json?
+    @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
+  end
+
   def create?
     @record.plan.readable_by?(@user.id) || @user == @record.plan.owner
   end

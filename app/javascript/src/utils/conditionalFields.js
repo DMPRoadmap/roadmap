@@ -6,7 +6,7 @@
 // For example see: app/views/plans/_edit_details.html.erb
 //                  app/javascript/src/plans/editDetails.js
 //
-import { Tinymce } from './tinymce.js.erb';
+import { Tinymce } from './tinymce.js';
 
 // Expecting `context` to be the field that triggers the hide/show of the corresponding fields
 export default function toggleConditionalFields(context, showThem) {

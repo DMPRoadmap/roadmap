@@ -7,12 +7,14 @@ module Dmpopidor
       # GET /paginable/plans/:plan_id/contributors
       # GET /paginable/plans/:plan_id/contributors/index/:page
       def index
-        @plan = Plan.find_by(id: params[:plan_id])
+        @plan = ::Plan.find_by(id: params[:plan_id])
         dmp_fragment = @plan.json_fragment
-        authorize @plan
+        authorize @plan, :show?
         paginable_renderise(
           partial: 'index',
-          scope: dmp_fragment.persons,
+          scope: dmp_fragment.persons.order(
+            Arel.sql("data->>'lastName', data->>'firstName'")
+          ),
           format: :json
         )
       end

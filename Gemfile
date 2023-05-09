@@ -108,9 +108,8 @@ gem 'jwt'
 # OO authorization for Rails (https://github.com/elabs/pundit)
 gem 'pundit'
 
-# Protect your Rails and Rack apps from bad clients. Rack::Attack lets you easily decide when
-# to allow, block and throttle based on properties of the request.
-gem 'rack-attack'
+# Gem for throttling malicious attacks
+gem 'rack-attack', '~> 6.6', '>= 6.6.1'
 
 # ========== #
 # UI / VIEWS #
@@ -131,6 +130,11 @@ gem 'recaptcha'
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications.
 # (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
+
+# Styling a SVG document with CSS for use on the web is most reliably achieved by
+# adding classes to the document and embedding it inline in the HTML.
+# (https://github.com/jamesmartin/inline_svg)
+gem 'inline_svg'
 
 group :aws do
   # Amazon AWS S3 data store for use with the Dragonfly gem.
@@ -290,6 +294,9 @@ group :ci, :development do
   # RuboCop rules for detecting and autocorrecting undecorated strings for i18n
   # (gettext and rails-i18n)
   gem 'rubocop-i18n'
+
+  # Performance checks by Rubocop
+  gem 'rubocop-performance', require: false
 end
 
 group :development do

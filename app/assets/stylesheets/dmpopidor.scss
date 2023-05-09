@@ -1,36 +1,31 @@
 /* 
  DMPOPIDoR Stylesheet
 */
+
 @use './variables/colours' as *;
+@use './dmpopidor/colours' as *;
+@use './dmpopidor/icons' as *;
 
+@use './dmpopidor/accessibility' as *;
+@use './dmpopidor/accordions' as *;
+@use './dmpopidor/buttons' as *;
+@use './dmpopidor/checkbox' as *;
+@use './dmpopidor/dropdowns' as *;
+@use './dmpopidor/html' as *;
+@use './dmpopidor/navs' as *;
+@use './dmpopidor/new_window_popup' as *;
+@use './dmpopidor/overlay' as *;
+@use './dmpopidor/select2' as *;
+@use './dmpopidor/tables' as *;
 
-$blue: #2c7dad;
-$dark-blue: #1c5170;
-$very-light-blue: #dcecf6;
-$very-very-light-blue: #edf5fa;
-$white: #fff;
-$black: #000;
-$rust: #c6503d;
-$light-rust: #faefed;
-$yellow: #FFCC00;
-$light-yellow: #fff9e5;
-$green: #2CAD5D;
-$light-grey: #e5e4e7;
-
-@mixin overlay {
-  background: #ffffff;
-  color: #666666;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  z-index: 50;
-  top: 0;
-  left: 0;
-  float: left;
-  text-align: center;
-  padding-top: 10%;
-  opacity: 0.8;
-}
+@use './dmpopidor/footer' as *;
+@use './dmpopidor/header' as *;
+@use './dmpopidor/homepage' as *;
+@use './dmpopidor/madmp_fragment' as *;
+@use './dmpopidor/news' as *;
+@use './dmpopidor/notes' as *;
+@use './dmpopidor/plan' as *;
+@use './dmpopidor/user_profile' as *;
 
 body {
   display: flex;
@@ -46,240 +41,31 @@ body {
   z-index: 7;
 }
 
-/*
-    MENU & FOOTER
-*/
-
-/*
-    MENU
-*/
-
-header .main-nav {
-  display: flex;
-  justify-content: center;
-}
-
-#app-navbar {
-  position: fixed;
-  top: 0;
-  z-index: 5;
-  width: 100%;
-
-  &.navbar-dmpopidor {
-    background-color: $white;
-    color: $blue;
-  }
-
-  border-bottom: 2px solid $rust;
-
-  .navbar-content {
-    max-width: 1264px;
-  }
-
-  .navbar-nav {
-    li {
-
-      a,
-      a:active,
-      a:focus,
-      a:visited {
-        color: $blue;
-      }
-
-      a:hover {
-        color: $white;
-        background-color: $blue;
-      }
-    }
-
-    li.active {
-
-      a,
-      a:active,
-      a:focus,
-      a:visited {
-        color: $white;
-        background-color: $blue;
-      }
-    }
-  }
-}
-
-.navbar-toggle .icon-bar {
-  background-color: $blue;
-}
-
-
-/*
-    ORG BRANDING
-*/
-.org-branding {
-  padding-top: 75px;
-
-  .container-fluid {
-    max-width: 1264px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-
-  .org-banner-text {
-    max-width: 1264px;
-    color: #1a1a1a;
-    text-align: center;
-    border-top: 1px solid #e7e7e7;
-    margin: auto;
-    padding-top: 5px;
-  }
-
-}
-
-#org-navbar {
-  .navbar-nav {
-    li {
-      a {
-        color: #727272;
-      }
-    }
-  }
-}
-
 
 /*
     MAIN CONTENT
 */
 
-/*
-    FOOTER
- */
-.navbar-fixed-bottom {
-  z-index: 50;
-}
-
-#dmpopidor-footer {
+#maincontent {
+  padding: 0 50px 50px 50px;
+  background-color: $white;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
 
-  bottom: 0;
-  font-size: 15px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px $light-grey;
+  width: 100%;
+  max-width: 1440px;
 
-  .footer-content {
-    width: 100%;
-    padding: 0px 100px;
-    color: $white;
-    background-color: $blue;
-    border-top: 3px solid $yellow;
-
-    .footer-links-logos {
-      display: flex;
-
-      .footer-links {
-        flex: 9;
-      }
-
-      .footer-logos {
-        flex: 1;
-        padding: 5px;
-        display: flex;
-        align-items: center;
-
-        img {
-          max-height: 50px;
-        }
-      }
-    }
-
-    .footer-infos-sn {
-      display: flex;
-      border-top: 1px solid $white;
-
-      .footer-infos {
-        flex: 9;
-      }
-
-      .footer-sn {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-      }
-
-    }
-
-    span {
-      line-height: 50px;
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-
-
-    a {
-
-      &:focus,
-      &:active {
-        outline-style: dotted !important;
-        outline-color: white !important;
-        outline-width: 1px !important;
-      }
-
-      &:hover {
-        outline-style: none !important;
-      }
-    }
-  }
-
-
-  a,
-  a:active,
-  a:focus,
-  a:visited {
-    color: $white;
+  &> :first-child:not(#plan-navigation) {
+    padding-top: 50px;
   }
 }
-
-@media (max-width: 1023px) {
-  .footer-links-logos {
-    flex-direction: column;
-    align-items: center;
-
-    .break-point {
-      display: none;
-    }
-
-    .footer-links {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-    }
-  }
-
-  .footer-infos-sn {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .org-branding {
-    padding-top: 175px;
-  }
-
-}
-
-@media (max-width: 767px) {
-  .org-branding {
-    padding-top: 75px;
-  }
-
-}
-
-
-
 
 /*
     DROPDOWNS
 */
-#change-language,
-#signin-signout,
-#app-navbar-menu,
 #admin-dropdown,
 .plan-actions {
 
@@ -340,27 +126,38 @@ header .main-nav {
 /*
     MAIN CONTENT
 */
-
 .dmpopidor-branding {
-  .alert-warning {
-    color: #5D4A27;
 
-    a {
-      color: #5D4A27;
-      text-decoration: underline;
-    }
-  }
+  .contact-icons {
+    position: fixed;
+    top: 66%;
+    right: 0;
+    z-index: 5;
 
-  .org-deactivated {
-    max-width: 1264px;
-    color: $rust;
-    text-align: center;
-    margin: auto;
-    padding-top: 5px;
-    font-weight: 600;
+    .contact-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
 
-    a {
-      color: black;
+      background-color: $rust;
+      color: white;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-size: small;
+      min-height: 75px;
+      width: 90px;
+      border-radius: 10px 0 0 10px;
+      margin-bottom: 10px;
+
+      i {
+        font-size: xx-large;
+      }
+
+      &:hover {
+        background-color: $dark-blue;
+      }
     }
   }
 
@@ -399,40 +196,8 @@ header .main-nav {
   }
 
   a {
-
-    &:focus,
-    &:active {
-      outline-style: dotted !important;
-      outline-color: $blue !important;
-      outline-width: 1px !important;
-    }
-
-    &:hover:not(.accessible) {
-      outline-style: none !important;
-    }
-  }
-
-  /*
-        PUBLIC AREA
-    */
-  h1 {
-    color: $blue;
-  }
-
-  h2,
-  .fontsize-h2 {
-    color: $rust;
-    font-size: 20px;
-  }
-
-  h3,
-  .fontsize-h3 {
-    color: $blue;
-    font-size: 17px;
-  }
-
-  a {
-    color: $blue;
+    color: $dark-blue;
+    text-decoration: underline;
   }
 
   /*
@@ -442,94 +207,9 @@ header .main-nav {
     padding-top: 25px;
   }
 
-  /*
-        TABLES
-    */
-  .table {
-    border: 1px solid $blue;
-
-    // Cells borders
-    thead>tr>th,
-    tbody>tr>th,
-    tfoot>tr>th,
-    thead>tr>td,
-    tbody>tr>td,
-    tfoot>tr>td {
-      border: 1px solid $blue;
-    }
-
-    // Cells hovering
-    &.table-hover tbody tr:hover td,
-    &.table-hover tbody tr:hover th {
-      background-color: $very-light-blue;
-    }
-
-    // Header cells background
-    thead>tr>th {
-      background-color: $blue;
-    }
-
-    thead>tr>th:not(:last-child) {
-      border-right: 1px solid $white;
-    }
-
-    .navbar-nav {
-      a {
-        color: $white;
-      }
-    }
-  }
-
-  /* 
-        BUTTONS
-    */
-  .btn-primary,
-  .btn-primary:hover,
-  .btn-primary:focus,
-  .btn-primary:active,
-  .btn-primary:visited,
-  .btn-primary:active:hover,
-  .btn-primary.active:hover {
-    border-color: $rust;
-    background-color: $rust;
-    color: $white;
-  }
-
-  .btn-default,
-  .btn-default:hover,
-  .btn-default:focus,
-  .btn-default:active,
-  .btn-default:visited,
-  .btn-default:active:hover,
-  .btn-default.active:hover {
-    border-color: $rust;
-    background-color: $rust;
-    color: $white;
-  }
-
-  .btn-secondary,
-  .btn-secondary:hover,
-  .btn-secondary:focus,
-  .btn-secondary:active,
-  .btn-secondary:visited,
-  .btn-secondary:active:hover,
-  .btn-secondary.active:hover {
-    border-color: $light-grey;
-    background-color: $light-grey;
-    color: $black;
-    outline: none;
-    margin-top: 5px;
-    margin-bottom: 10px;
-  }
-
-  .combobox-clear-button,
-  .combobox-clear-button:hover,
-  .combobox-clear-button:focus {
-    color: $blue;
-  }
-
-  .btn-link {
-    color: $blue;
+  .news_page h2 {
+    font-size: xx-large;
+    color: $dark-blue;
   }
 
   /* 
@@ -542,97 +222,9 @@ header .main-nav {
   /* 
         PLAN EDIT
     */
-  .write-plan {
-    &.panel-body {
-      padding: 15px 5px;
-    }
-
-    &.panel-body,
-    .section-content {
-      background-color: $very-very-light-blue;
-    }
-
-    .research-output-content {
-      background-color: $white;
-      border: 1px solid $blue;
-
-      &.multiple-research-output {
-        border-top-color: transparent;
-      }
-    }
-
-    .question {
-      margin-left: 0px;
-      margin-right: 0px;
-    }
-
-    .research-outputs-tabs {
-      display: flex;
-      flex-wrap: wrap;
-
-      li {
-        flex: 1 1 15%;
-        text-align: center;
-      }
-    }
-  }
-
   // Progress bar 
   .progress-bar {
     background-color: $blue;
-  }
-
-  // Tabs
-  .nav-tabs, .nav-pills {
-    background-color: $blue;
-
-    li>a {
-      color: $white
-    }
-
-    li>a:hover,
-    li>a:focus,
-    li.active>a,
-    li.active>a:focus,
-    li.active>a:hover {
-      color: $blue;
-      border: 1px solid $blue;
-      border-bottom-color: transparent;
-      background-color: $white;
-    }
-
-    li.phase-tab>a {
-      background-color: $dark-blue;
-    }
-
-    li.phase-tab>a:hover,
-    li.phase-tab>a:focus,
-    li.active.phase-tab>a,
-    li.active.phase-tab>a:focus,
-    li.active.phase-tab>a:hover {
-      color: $dark-blue;
-      background-color: white;
-      border: 1px solid $dark-blue;
-      border-bottom-color: transparent;
-    }
-  }
-
-  .nav-pills {
-    background-color: $blue;
-
-    li>a {
-      color: $white;
-
-    }
-
-    li>a:hover,
-    li>a:focus,
-    li.active>a,
-    li.active>a:focus,
-    li.active>a:hover {
-      color: $blue;
-      border: 1px solid $blue;
-    }
   }
 
   // example answer
@@ -648,147 +240,9 @@ header .main-nav {
 
   // main border
   .panel-default {
-    border-color: $blue;
+    border: none;
   }
 
-  // Sections
-  #sections {
-    .section-panel {
-      border: none;
-    }
-
-    .section-title {
-      background-color: $very-very-light-blue;
-
-      h2 {
-        font-weight: 700;
-      }
-    }
-
-    .section-content {
-      border-bottom: 2px solid $blue;
-      padding: 5px;
-    }
-  }
-
-  // Questions
-  .question-text {
-    background-color: $white;
-    color: $dark-blue;
-    border-bottom: 2px solid $dark-blue;
-    border-right: 2px solid $dark-blue;
-
-    .panel-title {
-      color: $dark-blue;
-      font-weight: bold;
-
-      a {
-        display: inline;
-        padding: 0;
-        margin: 0;
-        background-color: $white;
-      }
-    }
-  }
-
-  .question-body {
-    padding: 15px 0;
-    display: flex;
-
-    .answer-section {
-      flex: 8;
-      position: relative;
-      min-height: 300px;
-
-      .toggle-guidance-section {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: $blue;
-        color: $white;
-        padding: 10px 5px;
-        cursor: pointer;
-
-        text-orientation: mixed;
-        writing-mode: vertical-rl;
-
-        &.disabled {
-          background-color: $light-grey;
-          cursor: not-allowed;
-        }
-      }
-
-      .question-form {
-        padding-top: 10px;
-        padding-right: 50px;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .answer-locking p {
-        color: $rust;
-        font-weight: bold;
-      }
-    }
-
-    .overlay {
-      @include overlay();
-    }
-
-    .guidance-section {
-      flex: 4;
-      display: none;
-      border-left: 5px solid $blue;
-      padding-left: 5px;
-    }
-  }
-
-  // Guidances 
-  .panel-title {
-    color: $white;
-  }
-
-  .plan-guidance-tab {
-    word-wrap: break-word;
-
-    .run-zone {
-      display: flex;
-      flex-direction: column;
-
-      .message-zone {
-        text-align: center;
-        font-weight: bold;
-        color: $rust;
-        display: none;
-
-        &.valid {
-          color: $green;
-        }
-
-        &.invalid {
-          color: $rust;
-        }
-      }
-
-      .btn {
-        font-size: 20px;
-        font-weight: 700;
-
-        &.answer-save-button {
-          background-color: $rust;
-          border-color: $rust;
-        }
-      }
-
-      .reload-button {
-        background-color: $green;
-        color: $white;
-        display: none;
-      }
-    }
-
-
-  }
 
   // .schema-picker{
   //     display: flex;
@@ -808,112 +262,6 @@ header .main-nav {
   //         }
   //     }
   // }
-
-  // Project Details 
-
-  .plan-details {
-
-    .registry-info {
-      font-size: 15px;
-    }
-
-    .project-selector {
-      display: none;
-
-      .error-zone {
-        font-weight: bold;
-        color: $rust;
-        display: none;
-      }
-    }
-
-    .project-selector-link {
-      cursor: pointer;
-      color: $blue;
-      font-weight: bold;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    .project-form {
-      padding-top: 0;
-
-      .checkbox {
-        padding-left: 15px;
-        ;
-      }
-    }
-
-    .question-text {
-      border-color: $rust;
-      color: $rust;
-
-      .panel-title {
-        color: $rust;
-      }
-    }
-
-    .madmp-fragment {
-      position: relative;
-
-      .answer-save-zone {
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
-
-        .answer-save-button {
-          color: $white;
-          background-color: $rust !important;
-        }
-
-      }
-    }
-
-    .run-zone {
-      display: flex;
-      flex-direction: column;
-
-      .message-zone {
-        text-align: center;
-        font-weight: bold;
-        color: $rust;
-        display: none;
-
-        &.valid {
-          color: $green;
-        }
-
-        &.invalid {
-          color: $rust;
-        }
-      }
-
-      .btn {
-        font-size: 20px;
-        font-weight: 700;
-
-        &.answer-save-button {
-          background-color: $rust;
-          border-color: $rust;
-        }
-      }
-
-      .reload-button {
-        background-color: $green;
-        color: $white;
-        display: none;
-      }
-    }
-
-    .guidance-configuration {
-      border-left: 2px solid $rust;
-      border-bottom: 2px solid $very-very-light-blue;
-      border-top: 2px solid $very-very-light-blue;
-    }
-
-  }
 
   // Plan Download
 
@@ -942,103 +290,6 @@ header .main-nav {
       color: $rust;
     }
 
-    /*
-        TABLES
-        */
-    .table {
-      border: 1px solid $rust;
-
-      // Cells borders
-      thead>tr>th,
-      tbody>tr>th,
-      tfoot>tr>th,
-      thead>tr>td,
-      tbody>tr>td,
-      tfoot>tr>td {
-        border: 1px solid $rust;
-      }
-
-      // Cells hovering
-      &.table-hover tbody tr:hover td,
-      &.table-hover tbody tr:hover th {
-        background-color: $light-rust;
-      }
-
-      // Header cells background
-      thead>tr>th {
-        background-color: $rust;
-      }
-
-      .navbar-nav {
-
-        a:hover,
-        a:focus {
-          color: $rust;
-          background-color: $white;
-        }
-      }
-    }
-
-    /* 
-            BUTTONS
-        */
-    .btn-primary,
-    .btn-primary:hover,
-    .btn-primary:focus,
-    .btn-primary:active,
-    .btn-primary:visited,
-    .btn-primary:active:hover,
-    .btn-primary.active:hover {
-      border-color: $blue;
-      background-color: $blue;
-      color: $white;
-    }
-
-    .btn-default,
-    .btn-default:hover,
-    .btn-default:focus,
-    .btn-default:active,
-    .btn-default:visited,
-    .btn-default:active:hover,
-    .btn-default.active:hover {
-      border-color: $blue;
-      background-color: $blue;
-      color: $white;
-    }
-
-    .combobox-clear-button,
-    .combobox-clear-button:hover,
-    .combobox-clear-button:focus {
-      color: $rust;
-    }
-
-    // Tabs
-    .nav-tabs, .nav-pills {
-      background-color: $rust;
-
-      li>a:hover,
-      li>a:focus,
-      li.active>a,
-      li.active>a:focus,
-      li.active>a:hover {
-        color: $rust;
-        border: 1px solid $rust;
-        border-bottom-color: transparent;
-      }
-    }
-
-    .nav-pills {
-      background-color: $rust;
-
-      li>a:hover,
-      li>a:focus,
-      li.active>a,
-      li.active>a:focus,
-      li.active>a:hover {
-        color: $rust;
-        border: 1px solid $rust;
-      }
-    }
 
     // main border
     .panel-default {
@@ -1055,72 +306,16 @@ header .main-nav {
 
   }
 
-
-
-
-
-
   /*
-        SUPER ADMIN
-    */
+    SUPER ADMIN
+  */
   &.super-admin {
-
-    h1,
-    h2 {
-      color: $black;
-    }
-
+  
     a {
       color: $black;
       text-decoration: underline;
     }
-
-    /*
-        TABLES
-        */
-    .table {
-      border: 1px solid $yellow;
-
-      // Cells borders
-      thead>tr>th,
-      tbody>tr>th,
-      tfoot>tr>th,
-      thead>tr>td,
-      tbody>tr>td,
-      tfoot>tr>td {
-        border: 1px solid $yellow;
-      }
-
-      // Cells hovering
-      &.table-hover tbody tr:hover td,
-      &.table-hover tbody tr:hover th {
-        background-color: $light-yellow;
-      }
-
-      // Header cells background
-      thead>tr>th {
-        background-color: $yellow;
-        color: $black;
-      }
-
-    }
-
-    /* 
-            BUTTONS
-        */
-    .btn-primary,
-    .btn-primary:hover,
-    .btn-primary:focus,
-    .btn-primary:active,
-    .btn-primary:visited,
-    .btn-primary:active:hover,
-    .btn-primary.active:hover {
-      border-color: $yellow;
-      background-color: $yellow;
-      color: $black;
-      text-decoration: none;
-    }
-
+  
     .btn-default,
     .btn-default:hover,
     .btn-default:focus,
@@ -1132,27 +327,28 @@ header .main-nav {
       background-color: $yellow;
       color: $black;
       text-decoration: none;
+      margin-bottom: 10px;
     }
-
+    
     .combobox-clear-button,
     .combobox-clear-button:hover,
     .combobox-clear-button:focus {
       color: $yellow;
     }
-
-
+    
+    
     .btn-link {
       color: $black;
       text-decoration: underline;
     }
-
+    
     .registry-value-actions a {
       text-decoration: none;
     }
-
   }
 
 }
+
 
 /*
     CIL MESSAGE
@@ -1199,46 +395,6 @@ header .main-nav {
     outline-width: 2px !important;
   }
 }
-
-/*
-    FRONT PAGE
-*/
-.dmpopidor-front-page {
-  .main-title {
-    padding-bottom: 10px;
-  }
-
-  .join-div {
-    margin-top: 20px;
-    padding-bottom: 10px;
-    border-left: 4px solid $rust;
-    border-bottom: 2px solid $very-very-light-blue;
-    border-top: 2px solid $very-very-light-blue;
-    border-right: 2px solid $very-very-light-blue;
-  }
-
-  .discover-div {
-    float: right;
-  }
-
-  .front-page-list-item {
-    font-size: 1.1em;
-  }
-
-  .front-page-text {
-    font-size: 1.1em;
-  }
-
-  .icon {
-    padding: 20px 0;
-    font-size: 2em;
-  }
-
-  .text {
-    padding: 20px 0;
-  }
-}
-
 
 /*
     PLAN CREATION
@@ -1346,484 +502,11 @@ header .main-nav {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
   }
-
-  &.red {
-    background: $rust;
-  }
-
-}
-
-/*
-  Research Outputs
-*/
-.nav-tabs {
-  li.disabled {
-    cursor: not-allowed;
-
-    a {
-      pointer-events: none;
-    }
-  }
-}
-
-#research-outputs-list {
-  width: 100%;
-  padding: 0 5px;
-  margin-top: 5px;
-
-  .form-group {
-    margin: 0;
-    margin-right: 5px;
-  }
-
-  .research-output-element {
-    display: flex;
-    margin: 5px 0;
-
-    .research-output-fields {
-      flex: 9;
-      border: 0.5px groove $color-border-light;
-      box-shadow: 0px 0px 0px 0px $color-shadow-dark;
-      padding: 5px;
-
-      .research-output-field {
-        padding-top: 7px;
-        display: flex;
-
-        label {
-          flex: 1;
-        }
-
-        .edit,
-        .readonly {
-          flex: 3;
-        }
-
-        strong {
-          padding-right: 5px;
-        }
-
-        .linked-fragments-select {
-          padding-right: 0px;
-          padding-left: 0px;
-        }
-
-        .action {
-          color: $blue;
-          cursor: pointer;
-        }
-      }
-
-      .edit,
-      button {
-        display: none;
-      }
-    }
-
-    .research-output-actions {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      color: $blue;
-
-      .handle,
-      .edit,
-      .cancel {
-        cursor: pointer;
-      }
-
-      a {
-        color: $blue;
-      }
-    }
-  }
-
-  fieldset {
-    width: 100%;
-  }
-}
-
-
-#show-research-outputs {
-  display: flex;
-  flex-direction: column;
-
-  .research-output-element {
-    margin: 5px 0;
-    padding: 5px;
-
-    border: 0.5px groove $color-border-light;
-    box-shadow: 0px 0px 0px 0px $color-shadow-dark;
-
-    .research-output-value {
-      display: flex;
-
-      strong {
-        flex: 2;
-        text-align: right;
-      }
-
-      span {
-        padding-left: 20px;
-        flex: 8;
-      }
-    }
-  }
-}
-
-/* 
- * maDMP FRAGMENTS
- */
-.madmp-fragment {
-  .dynamic-field {
-    display: flex;
-    align-items: center;
-    padding-bottom: 5px;
-    justify-content: space-between;
-
-    input {
-      flex: 9;
-    }
-
-    span {
-      text-align: center;
-
-      &.invalid {
-        color: $rust;
-      }
-
-      &.valid {
-        color: $green;
-      }
-
-      &.explanation {
-        color: $blue;
-        cursor: pointer;
-      }
-    }
-
-    &.select-field,
-    &.linked-fragments-select,
-    &.contributor-field {
-
-      .add-indicator,
-      .selected-values-label {
-        color: $blue;
-        font-weight: bold;
-      }
-
-      select {
-        width: 100% !important;
-      }
-
-      .overridable-link {
-        float: left;
-        width: 100%;
-      }
-
-      .custom-value {
-        display: flex;
-        padding: 5px 0 0 0;
-
-        label {
-          color: $blue;
-          margin-right: 5px;
-          padding: 0;
-        }
-      }
-
-      .field-button-combo {
-        display: flex;
-        align-items: center;
-        width: 100%;
-
-        .remove-button {
-          margin-left: 5px;
-          color: $blue;
-          cursor: pointer;
-        }
-      }
-
-      .message-area {
-        display: none;
-        font-weight: bold;
-        color: $rust;
-      }
-    }
-
-    &.select-field,
-    &.contributor-field {
-      flex-direction: column;
-
-      ul.selected-values {
-        display: flex;
-        flex-direction: column;
-
-        .selected-value {
-          flex: 1 1 25%;
-        }
-
-        .remove-button {
-          color: $blue;
-          padding-left: 5px;
-        }
-      }
-    }
-
-    &.linked-fragments-select {
-      flex-direction: column;
-
-      .add-fragment {
-        padding-left: 5px;
-      }
-    }
-
-    .linked-fragments-list {
-      margin-top: 10px;
-    }
-  }
-
-  .const-field {
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 3px;
-
-    .field-label {
-      font-weight: bold;
-      color: $black;
-    }
-  }
-
-  .min-max {
-    font-size: 12px;
-    color: $dark-blue;
-  }
-
-  fieldset {
-    .intermediate-label {
-      color: $dark-blue
-    }
-
-    .registry-info {
-      font-size: 15px;
-    }
-
-    &.sub-fragment {
-      width: 100%;
-      border-radius: 5px;
-      margin: 15px 0;
-      padding-bottom: 15px;
-
-      legend {
-        color: $rust;
-        text-transform: none;
-      }
-
-      &.registry {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-
-    &.fragment-fieldset {
-      display: flex;
-      flex-direction: column;
-
-      .answer-bottom-zone {
-        position: sticky;
-        bottom: 0;
-        background-color: $very-very-light-blue;
-        z-index: 2;
-        border: 1px solid $blue;
-        color: $dark-blue;
-        padding: 0 5px;
-
-        display: flex;
-        align-items: center;
-        -webkit-transition: all .3s linear 0s;
-        transition: all .3s linear 0s;
-
-        .schema-picker-zone {
-          flex: 2;
-        }
-
-        .answer-save-zone {
-          flex: 1;
-        }
-
-        .answer-save-zone,
-        .schema-picker-zone {
-          display: flex;
-          flex-direction: column;
-          padding: 5px;
-
-          .message-zone {
-            text-align: center;
-            font-weight: bold;
-            color: $rust;
-            display: none;
-
-            &.valid {
-              color: $green;
-            }
-
-            &.invalid {
-              color: $rust;
-            }
-          }
-
-          .btn {
-            font-size: 20px;
-            font-weight: 700;
-
-            &.answer-save-button {
-              background-color: $rust;
-              border-color: $rust;
-            }
-          }
-        }
-      }
-    }
-
-    &.registry {
-      legend {
-        color: $blue;
-        text-transform: none;
-      }
-    }
-  }
-
-
-  .actions {
-    flex: 1;
-    text-align: right;
-    color: $blue;
-
-    &:not(.contributors) {
-      width: 20%;
-    }
-
-    .delete {
-      cursor: pointer;
-      color: $blue;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .overlay {
-    @include overlay();
-  }
-
-  .list-contributor .roles {
-    background-color: $light-grey;
-  }
-
-}
-
-.spinner {
-  margin: 0 auto;
-  height: 64px;
-  width: 64px;
-  animation: rotate 0.8s infinite linear;
-  border: 5px solid $rust;
-  border-right-color: transparent;
-  border-radius: 50%;
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.fragment-display {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 5px 20px;
-
-  .fragment-property {
-    display: flex;
-
-    .property-label {
-      flex: 1;
-      font-weight: bold;
-      color: $dark-blue;
-    }
-
-    .property-value {
-      flex: 3;
-    }
-  }
-
-  &.sub-fragment {
-    border: none;
-    border-left: 2px solid $dark-blue;
-  }
-}
-
-#modal-window {
-  .modal-dialog {
-    width: 50%;
-  }
-
-  .modal-footer .message-area {
-    font-weight: bold;
-  }
-}
-
-.select2-results__option--highlighted {
-  color: white;
-  background-color: $dark-blue !important;
-}
-
-.select2 {
-  width: 100% !important;
-
-  .select2-selection__choice {
-    color: white !important;
-    background-color: $blue;
-  }
-  // .select2-selection {
-  //   border: 1px solid #ced4da;
-  // }
 }
 
 .rda-message {
   display: none;
 }
-
-/*
- * ACCESSIBILITY
- */
-
-a.has-new-window-popup-info,
-button.has-new-window-popup-info {
-  z-index: 4;
-
-  &:hover,
-  &:focus,
-  &:active {
-    &>span.new-window-popup-info {
-      width: 15em;
-      border: 1px solid $blue;
-      background-color: white;
-      color: $blue;
-    }
-
-  }
-
-}
-
 
 /*
 * SweetAlert2

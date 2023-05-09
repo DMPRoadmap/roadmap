@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
 
   root to: 'home#index'
+  get 'login', to: 'home#login'
   get 'about_us', to: 'static/static_pages#show', name: 'about_us'
   get 'help', to: 'static/static_pages#show', name: 'help'
   get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :madmp_schemas, only: %i[index new create edit update destroy]
   end
 
-  resources :madmp_fragments, only: %i[create update destroy] do
+  resources :madmp_fragments, only: %i[show create update destroy] do
     get 'load_new_form', action: :load_form, on: :collection
     get 'load_form/:id', action: :load_form, on: :collection
     get 'change_form/:id', action: :change_form, on: :collection
@@ -21,12 +21,15 @@ Rails.application.routes.draw do
     get 'create_contributor', action: :create_contributor, on: :collection
     delete 'destroy_contributor', action: :destroy_contributor, on: :collection
     get 'load_fragments', action: :load_fragments, on: :collection
+    post 'update_json/:id', action: :update_json, on: :collection, constraints: { format: [:json] }
   end
+
+  resources :madmp_schemas, only: %i[show]
 
   get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
   get '/codebase/anr_search', to: 'madmp_codebase#anr_search', constraints: { format: [:json] }
 
-  resources :registries, only: [] do
+  resources :registries, only: %i[show] do
     get 'load_values', action: :load_values, on: :collection
   end
 

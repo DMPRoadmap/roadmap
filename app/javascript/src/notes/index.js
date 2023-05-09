@@ -1,9 +1,9 @@
-import { Tinymce } from '../utils/tinymce.js.erb';
+import { Tinymce } from '../utils/tinymce.js';
 import { isObject, isString } from '../utils/isType';
 import TimeagoFactory from '../utils/timeagoFactory.js.erb';
 
 $(() => {
-  const defaultViewSelector = (questionId, researchOutputId) => `#note_new${questionId}research-output${researchOutputId}`;
+  const defaultViewSelector = (questionId) => `#note_new${questionId}`;
   const currentViewSelector = {};
   /*
     currentViewSelector represents a map where each key is the question id and
@@ -21,8 +21,7 @@ $(() => {
   const initialiseCurrentViewSelector = () => {
     $('.note_new').each((i, e) => {
       const questionId = $(e).attr('data-question-id');
-      const researchOutputId = $(e).attr('data-research-output-id');
-      putCurrentViewSelector(questionId, defaultViewSelector(questionId, researchOutputId));
+      putCurrentViewSelector(questionId, defaultViewSelector(questionId));
     });
   };
   const success = (data) => {
@@ -33,11 +32,11 @@ $(() => {
       && isObject(data.title)
       && isString(data.title.id)
       && isString(data.title.html)) {
-      $(`#notes-${data.notes.id}-research-output-${data.research_output.id}`).html(data.notes.html);
-      $(`#notes-title-${data.title.id}-research-output-${data.research_output.id}`).html(data.title.html);
+      $(`#notes-${data.notes.id}`).html(data.notes.html);
+      $(`#notes-title-${data.title.id}`).html(data.title.html);
     }
-    clean(`#research_output_${data.research_output.id}_section_${data.section.id}`); // eslint-disable-line no-use-before-define
-    initOrReload(`#research_output_${data.research_output.id}_section_${data.section.id}`); // eslint-disable-line no-use-before-define
+    clean(); // eslint-disable-line no-use-before-define
+    initOrReload(); // eslint-disable-line no-use-before-define
   };
   const error = () => {
     // TODO adequate error handling for network error
@@ -162,7 +161,9 @@ $(() => {
   };
   const initOrReload = (researchOutputId = null) => {
     if (researchOutputId) {
-      Tinymce.init({ selector: '.note' });
+      $('.note').each((_idx, el) => {
+        Tinymce.init({ selector: `#${$(el).attr('id')}` });
+      });
     }
     eventHandlers({ attachment: 'on' });
     TimeagoFactory.render($('time.timeago'));

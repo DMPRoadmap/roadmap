@@ -91,11 +91,6 @@
         <%= render partial: "layouts/header" %>
       </header>
 
-      <%
-      has_alert = (alert || flash[:alert] || flash[:error])
-      has_notice = (notice || flash[:notice])
-      %>
-
       <!-- main page content rendering -->
       <% 
         user_access_class = if request.path.starts_with?('/super_admin')
@@ -108,16 +103,6 @@
                             end 
       %>
       <main class="container dmpopidor-branding <%= user_access_class %>" id="maincontent">
-        <div id="notification-area"
-             class="notification-area alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
-                    <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
-             role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
-          <i class="fas <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
-          <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
-          <span><%= sanitize (has_alert ? alert : notice) %></span>
-          <%= yield :errors %>
-        </div>
-        <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
         <%= yield %>
 
 
@@ -128,6 +113,7 @@
           <%= image_tag("spinner.gif", alt: spinner_msg) %>
         </div>
 
+        <%= render "layouts/contact_icons" %>
       </main>
 
       <!-- footer rendering -->

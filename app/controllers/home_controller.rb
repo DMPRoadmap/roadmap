@@ -2,6 +2,7 @@
 
 # Controller for the home page that users see when not logged in
 class HomeController < ApplicationController
+  prepend Dmpopidor::HomeController
   include OrgSelectable
 
   respond_to :html

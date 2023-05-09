@@ -1,7 +1,9 @@
 <% title _('Contact Us') %>
 <div class="row dmpopidor-contact-us">
   <div class="col-md-12">
-    <h1><%= _("Contact Us") %></h1>
+    <h1>
+      <%= _("Contact technical support") %> &#x25cf;
+    </h1>
     <p>
       <%= sanitize _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" title="%{open_in_new_window_text}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {
         organisation_name: Rails.configuration.x.organisation.name,

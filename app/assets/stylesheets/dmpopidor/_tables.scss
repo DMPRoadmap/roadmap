@@ -1,0 +1,187 @@
+@use './colours' as *;
+@use './dropdowns' as *;
+
+.dmpopidor-branding {
+
+  /*
+    TABLES
+  */
+  .table {
+    border: none;
+
+    // Header cells
+
+    thead>tr>th {
+      &:first-child {
+        border-radius: 20px 0 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 20px 0 0;
+      }
+    }
+
+    // Cells borders
+    tbody>tr>td {
+      border: none;
+
+      &:not(:last-child) {
+        border-right: 1px solid $dark-blue;
+      }
+
+      a,
+      span,
+      i {
+        // links & fontawesome icons
+        color: $dark-blue;
+      }
+    }
+
+    tbody>tr:nth-child(odd) {
+      background: $light-grey
+    }
+
+    tbody>tr:nth-child(even) {
+      background: #FFF
+    }
+
+    // Cells hovering
+    &.table-hover tbody tr:hover td,
+    &.table-hover tbody tr:hover th {
+      color: white;
+      background-color: $dark-blue;
+
+      a,
+      span,
+      i {
+        // links & fontawesome icons
+        color: white;
+      }
+    }
+
+    // Header cells background
+    thead>tr>th {
+      background-color: $blue;
+      padding: 15px;
+      border: none;
+      border-left: 1px solid $white;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    &#my-plans {
+
+      // Every table header cell except the first two
+      thead>tr>th:not(:nth-child(-n + 2)) {
+        background-color: $dark-blue;
+      }
+
+      .plan-actions {
+        @include dmpopidor-dropdown;
+
+        button {
+          color: $dark-blue;
+          padding: 0;
+
+          span {
+            font-size: x-large;
+          }
+        }
+      }
+    }
+  }
+
+  .paginable {
+    .paginable-pagination a{
+      color: $blue;
+    }
+  }
+
+
+  /*
+    ADMIN AREA
+  */
+  &.org-admin {
+    .table {
+
+      // Cells borders
+      tbody>tr>td {
+        border: none;
+
+        &:not(:last-child) {
+          border-right: 1px solid $rust;
+        }
+      }
+
+      // Cells hovering
+      &.table-hover tbody tr:hover td,
+      &.table-hover tbody tr:hover th {
+        background-color: $rust;
+      }
+
+      // Header cells background
+      thead>tr>th {
+        background-color: $rust;
+        padding: 15px;
+        border: none;
+        color: white;
+        border-left: 1px solid $white;
+      }
+    }
+
+    .paginable {
+      .paginable-pagination a{
+        color: $rust;
+      }
+    }
+  }
+
+
+  /*
+      SUPER ADMIN
+    */
+  &.super-admin {
+
+    /*
+      TABLES
+      */
+    .table {
+
+      // Cells borders
+      tbody>tr>td {
+        border: none;
+        color: black;
+
+        &:not(:last-child) {
+          border-right: 1px solid $yellow;
+        }
+      }
+
+      // Cells hovering
+      &.table-hover tbody tr:hover td,
+      &.table-hover tbody tr:hover th {
+        background-color: $yellow;
+        color: black;
+
+        a,
+        span,
+        i {
+          // links & fontawesome icons
+          color: black;
+        }
+      }
+
+      // Header cells background
+      thead>tr>th {
+        background-color: $yellow;
+        padding: 15px;
+        border: none;
+        color: black;
+        border-left: 1px solid $white;
+      }
+
+    }
+  }
+}

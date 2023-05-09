@@ -6,10 +6,10 @@ module Api
     class OrgPresenter
       class << self
         def affiliation_id(identifiers:)
-          ident = identifiers.select { |id| id.identifier_scheme&.name == 'ror' }.first
+          ident = identifiers.find { |id| id.identifier_scheme&.name == 'ror' }
           return ident if ident.present?
 
-          identifiers.select { |id| id.identifier_scheme&.name == 'fundref' }.first
+          identifiers.find { |id| id.identifier_scheme&.name == 'fundref' }
         end
       end
     end

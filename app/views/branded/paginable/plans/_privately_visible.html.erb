@@ -10,9 +10,7 @@
         <th scope="col" class="text-center sorter-false"><%= _('Test') %></th>
         <th scope="col" ><%= _('Visibility') %></th>
         <th scope="col" ><%= _('Shared') %></th>
-        <th scope="col" class="sorter-false">
-          <span aria-hidden="false" class="sr-only"><%= _('Actions') %></span>
-        </th>
+        <th scope="col" class="sorter-false"><%= _('Actions') %></th>
       </tr>
     </thead>
     <tbody>
@@ -27,15 +25,19 @@
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td><%= display_role(my_plan_roles.first) %></td>
           <td><%= display_owner(plan.owner) %></td>
-          <td class="text-center">
+          <td class="text-center set-test-td">
             <% if plan.administerable_by?(current_user.id) then %>
-              <%= check_box_tag :is_test, "1", (plan.visibility === "is_test"),
+              <%= check_box_tag "is_test", "1", (plan.visibility === "is_test"),
+                                          id: "is_test_#{plan.id}",
                                           class: "set_test_plan",
                                           aria: {
                                             label: "#{plan.title} - test plan flag"
                                           },
                                           data: { remote: true, method: :post,
                                                   url: set_test_plan_path(plan) } %>
+              <label for="is_test_<%= plan.id %>">
+                <span class="visually-hidden"><%= _('Test plan ?') %></span>
+              </label>
             <% else %>
               <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
             <% end %>
@@ -50,12 +52,13 @@
               <%= _('No') %>
             <% end  %>
           </td>
-          <td>
+          <td class="text-center">
             <div class="dropdown plan-actions">
-              <button class="btn btn-link dropdown-toggle" type="button"
+              <button href="#" class="btn btn-link dropdown-toggle" type="button"
                       id="plan-<%= plan.id %>-actions" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="true">
-                <%= _('Actions') %><span class="caret"></span>
+                <span class="fas fa-cog"></span>
+                <span class="visually-hidden"><%= _('Actions') %></span>
               </button>
 
               <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="plan-<%= plan.id %>-actions">

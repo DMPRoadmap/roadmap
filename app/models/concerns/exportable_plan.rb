@@ -244,7 +244,7 @@ module ExportablePlan
 
     csv << [_('Research Outputs: ')]
     # Convert the hash keys to column headers
-    csv << hash[:research_outputs].first.keys.map { |key| key.to_s.capitalize.gsub('_', ' ') }
+    csv << hash[:research_outputs].first.keys.map { |key| key.to_s.capitalize.tr('_', ' ') }
     hash[:research_outputs].each do |research_output|
       csv << research_output.values
     end

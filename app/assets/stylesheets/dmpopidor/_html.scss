@@ -1,0 +1,27 @@
+@use './colours' as *;
+
+body{
+  color: $dark-blue;
+  font-size: 16px;
+}
+
+h1 {
+  color: $dark-blue;
+  font-weight: bold;
+}
+
+h2,
+.fontsize-h2 {
+  color: $rust;
+  font-size: 20px;
+}
+
+h3,
+.fontsize-h3 {
+  color: $dark-blue;
+  font-size: 17px;
+}
+
+a {
+  color: $dark-blue;
+}

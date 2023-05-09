@@ -1,0 +1,16 @@
+<%# locals: { note } %>
+<% if !note.nil? %>
+  <% user = note.user %>
+  <ul class="list-unstyled">
+    <li>
+      <div class="display-readonly-textarea-content">
+        <%= sanitize note.text %>
+      </div>
+    </li>
+    <li>
+      <span class="label label-info">
+        <%= "#{user.name} " %> <time class="timeago" datetime="<%= note.updated_at.iso8601 %>"></time>
+      </span>
+    </li>
+  </ul>
+<% end %>

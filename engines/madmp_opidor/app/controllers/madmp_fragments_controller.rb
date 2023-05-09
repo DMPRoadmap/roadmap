@@ -6,6 +6,63 @@ class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
   include DynamicFormHelper
 
+  # KEEP IN V4
+
+  def new
+    # method for new fragment, takes madmp_schema_id as param
+  end
+
+  def show
+    @fragment = MadmpFragment.find(params[:id])
+    authorize @fragment
+    render json: {
+      'fragment' => @fragment.get_full_fragment(with_ids: true),
+      'schema' => @fragment.madmp_schema.schema
+    }
+  end
+
+  # TODO: will become update
+  # Needs some rework
+  def update_json
+    @fragment = MadmpFragment.find(params[:id])
+    form_data = JSON.parse(request.body.string)
+    authorize @fragment
+
+    MadmpFragment.transaction do
+      @fragment.import_with_instructions(
+        form_data,
+        @fragment.madmp_schema
+      )
+      render json: {
+        fragment: @fragment.get_full_fragment(with_ids: true),
+        message: _('Form saved successfully.')
+      }, status: :ok
+    rescue ActiveRecord::StaleObjectError
+      render json: {
+        message: _('Error when saving form.')
+      }, status: :internal_server_error
+    end
+  end
+
+  # rubocop:disable Metrics/AbcSize
+  def load_fragments
+    @dmp_fragment = MadmpFragment.find(params[:dmp_id])
+    search_term = params[:term] || ''
+    fragment_list = MadmpFragment.where(
+      dmp_id: @dmp_fragment.id,
+      madmp_schema_id: params[:schema_id]
+    )
+    formatted_list = fragment_list.select { |f| f.to_s.downcase.include?(search_term) }
+                                  .map    { |f| { 'id' => f.id, 'text' => f.to_s } }
+    authorize @dmp_fragment
+    render json: {
+      'results' => formatted_list
+    }
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  # REMOVE IN V4 (?)
+
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
   # Method is only called when saving the form in the modal
@@ -435,23 +492,6 @@ class MadmpFragmentsController < ApplicationController
         dmp_id, parent_id, @fragment.madmp_schema_id,
         property_name, params[:template_locale], query_id: query_id, readonly: readonly
       )
-    }
-  end
-  # rubocop:enable Metrics/AbcSize
-
-  # rubocop:disable Metrics/AbcSize
-  def load_fragments
-    @dmp_fragment = MadmpFragment.find(params[:dmp_id])
-    search_term = params[:term] || ''
-    fragment_list = MadmpFragment.where(
-      dmp_id: @dmp_fragment.id,
-      madmp_schema_id: params[:schema_id]
-    )
-    formatted_list = fragment_list.select { |f| f.to_s.downcase.include?(search_term) }
-                                  .map    { |f| { 'id' => f.id, 'text' => f.to_s } }
-    authorize @dmp_fragment
-    render json: {
-      'results' => formatted_list
     }
   end
   # rubocop:enable Metrics/AbcSize

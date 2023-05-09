@@ -1,4 +1,4 @@
-<%# locals: { template, question, madmp_schema, research_output, readonly, locking } %>
+<%# locals: { question, answer, madmp_schema, research_output, readonly, locking } %>
 <% unless readonly %>
   <%= form_for :madmp_fragment, url: load_new_form_madmp_fragments_path, 
                 html: {

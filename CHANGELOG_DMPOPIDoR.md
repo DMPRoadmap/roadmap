@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 28/04/2023
+- Correction du problème de pagination de la liste des contributeurs dans l'onglet Contributeurs (issue gitbucket 482) & retrait du champ de recherche
+- Correction du problème d'affichage des boutons
+- Correction du problème d'affichage du message indiquant qu'un élément est déjà présent dans le plan, lors de la sauvegarde dans une popup.
+
 ## 05/04/2023
 - Amélioration des fenetres de confirmation pour le partage d'un plan public, l'import ANR, l'envoi d'une notification et la suppression d'un sous fragment dans une liste de sous fragment. (Installation de la librarie Sweetalert2)
 - Correction d'un problème d'affichage des logos Twitter et Github dans le pied de page

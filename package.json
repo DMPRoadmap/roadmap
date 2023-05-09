@@ -11,7 +11,16 @@
   },
   "babel": {
     "presets": [
-      "@babel/preset-env"
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "regenerator": true
+        }
+      ]
     ]
   },
   "repository": {
@@ -33,42 +42,64 @@
     "@babel/core": "^7.20.12",
     "@babel/plugin-transform-runtime": "^7.19.6",
     "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@hotwired/turbo-rails": "^7.1.3",
     "@rails/actioncable": "^6.0.3-1",
     "@rails/activestorage": "^6.0.3-1",
     "@rails/ujs": "^6.0.3-1",
+    "@tinymce/tinymce-react": "^4.3.0",
     "autonumeric": "^4.6.0",
+    "axios": "^1.3.3",
     "babel-loader": "^9.1.2",
     "babel-plugin-macros": "^3.1.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^3.4.1",
     "bootstrap-3-typeahead": "^4.0.2",
     "bootstrap-sass": "3.4.1",
     "bootstrap-select": "^1.13.18",
-    "chart.js": "^3.8.0",
+    "chart.js": "^4.2.1",
     "core-js": "^3.6.5",
+    "dompurify": "^3.0.0",
     "eslint": "^8.18.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-webpack-plugin": "^2.6.0",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-webpack-plugin": "^4.0.0",
+    "file-loader": "^6.2.0",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "jquery-ui-sass": "^0.0.1",
     "js-cookie": "^3.0.1",
+    "lodash": "^4.17.21",
     "number-to-text": "^0.3.8",
     "popper.js": "^1.16.1",
+    "prop-types": "^15.8.1",
     "rails-erb-loader": "^5.5.2",
+    "react": "^18.2.0",
+    "react-bootstrap": "^0.33.1",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "react-loader-spinner": "^5.3.4",
+    "react-proptypes": "^1.0.0",
+    "react-select": "^5.7.0",
     "regenerator-runtime": "^0.13.5",
+    "remount": "^1.0.0",
     "sass": "^1.57.1",
     "select2": "^4.0.13",
     "select2-bootstrap-theme": "^0.1.0-beta.10",
     "sweetalert2": "^11.7.3",
     "timeago.js": "^4.0.2",
-    "tinymce": "^5.10.0",
+    "tinymce": "^6.4.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
   },
   "devDependencies": {
+    "@cfaester/enzyme-adapter-react-18": "^0.6.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "css-loader": "^6.7.3",
+    "enzyme": "^3.11.0",
     "eslint": "^8.18.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
@@ -83,7 +114,9 @@
     "karma-jasmine": "^5.1.0",
     "karma-jquery": "^0.2.4",
     "karma-json-fixtures-preprocessor": "^0.0.6",
-    "karma-webpack": "^5.0.0"
+    "karma-webpack": "^5.0.0",
+    "react-test-renderer": "^18.2.0",
+    "style-loader": "^3.3.2"
   },
   "resolutions": {
     "webpack": "^5.75.0"

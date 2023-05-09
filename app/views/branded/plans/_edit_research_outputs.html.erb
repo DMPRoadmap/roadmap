@@ -1,7 +1,8 @@
 <%# locals: { plan, research_outputs, research_output_types } %>
-<div id="research-outputs">
+<div id="research-outputs" class="madmp-fragment fragment-<%= plan.json_fragment.id%>">
   <%= hidden_field_tag 'plan_id', plan.id %>
-  <h2 class="project-details"><%= _('Research output: dataset, software, workflow, sample, protocol...') %></h2>
+  <h2><%= _('Research outputs') %></h2>
+  <h3><%= _('Dataset, software, workflow, sample, protocol...') %></h3>
   <div class="display-readonly-textarea-content">
     <p><%= _('Please fill in separately for research outputs requireing a management specific to their nature or discipline.') %></p>
   </div>
@@ -12,7 +13,7 @@
     %>
   </div>
   <div class='links'>
-    <%= link_to _('Create'), create_remote_research_outputs_url(plan_id: plan.id),
+    <%= link_to _('Add a research output'), create_remote_research_outputs_url(plan_id: plan.id),
       {
         :remote => true, 
         :class => "add-research-output btn btn-primary",

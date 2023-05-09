@@ -1,4 +1,4 @@
-import { Tinymce } from '../utils/tinymce.js.erb';
+import { Tinymce } from '../utils/tinymce';
 import { Select2 } from '../utils/select2';
 import getConstant from '../utils/constants';
 import * as notifier from '../utils/notificationHelper';
@@ -22,13 +22,9 @@ $(() => {
     $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : 'privately_visible');
   });
 
-  const showHideDataContact = (el) => {
-    if ((el).is(':checked')) {
-      $('div.data-contact').fadeOut();
-    } else {
-      $('div.data-contact').fadeIn();
-    }
-  };
+  if (form.length > 0) {
+    Tinymce.init({ selector: 'textarea#plan_description' });
+    Tinymce.init({ selector: 'textarea#plan_ethical_issues_description' });
 
   $('#show_data_contact').click((e) => {
     showHideDataContact($(e.currentTarget));
@@ -140,8 +136,8 @@ $(() => {
 
   $('body').on('click', '.plan-details .heading-button', (e) => {
     $(e.currentTarget)
-      .find('i.fa-chevron-right, i.fa-chevron-down')
-      .toggleClass('fa-chevron-right fa-chevron-down');
+      .find('i.fa-chevron-up, i.fa-chevron-down')
+      .toggleClass('fa-chevron-up fa-chevron-down');
   });
 
   Select2.init('.plan-details');

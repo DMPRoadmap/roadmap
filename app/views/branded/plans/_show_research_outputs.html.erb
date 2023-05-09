@@ -1,6 +1,7 @@
 <%# locals: { plan, research_outputs, research_output_types } %>
-<div id="research-outputs">
-  <h2 class="project-details"><%= _('Research output: dataset, software, workflow, sample, protocol...') %></h2>
+<div id="research-outputs" class="madmp-fragment fragment-<%= plan.json_fragment.id%>">
+  <h2><%= _('Research outputs') %></h2>
+  <h3><%= _('Dataset, software, workflow, sample, protocol...') %></h3>
   <div class="display-readonly-textarea-content">
   </div>
   <div id='research-outputs-list'>

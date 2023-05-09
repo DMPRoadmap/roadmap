@@ -1,0 +1,45 @@
+@use './colours' as *;
+
+@mixin dmpopidor-dropdown {
+  .dmpopidor-dropdown {
+    li {
+      text-align: right;
+      &.delimiter {
+        padding: 0 10px;
+        font-size: xx-large;
+      }
+  
+      a {
+        padding: 5px 20px;
+        color: $dark-blue;
+      }
+  
+      a:hover {
+        font-weight: 900;
+        background-color: white;
+      }
+    }
+  
+    &>li>a {
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+  
+    li.active {
+  
+      a,
+      a:active,
+      a:focus,
+      a:visited {
+        font-weight: bold;
+        background-color: $dark-blue;
+        color: white;
+      }
+    }
+    .dropdown-header {
+      color: $dark-blue;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+}

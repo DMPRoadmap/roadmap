@@ -1,48 +1,92 @@
-<!-- language dropdown -->
-<% if Language.many? %>
-  <li class="dropdown" id="change-language">
-    <% languages.each do |l| %>
-        <% if I18n.locale.to_s == l.abbreviation %>
-          <a href="#" class="dropdown-toggle" role="button" id="language-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-language" aria-hidden="true">&nbsp;</i>
-            <%= l.name %>
-            <span class="caret"></span>
-          </a>
-        <% else %>
-          <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="language-menu">
-            <li>
-              <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
-            </li>
-          </ul>
-        <% end %>
-    <% end %>
-  </li>
-<% end %>
-
 <!-- Sign in / out -->
-<% if user_signed_in? %>
-  <li class="dropdown" id="signin-signout">
+<li class="dropdown" id="signin-signout">
+  <% if user_signed_in? %>
     <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <i class="fas fa-user" aria-hidden="true">&nbsp;</i>
       <%= current_user.name(false) %>
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="user-menu">
       <li>
-        <%= link_to '<i class="fas fa-pen-square" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path %>
+        <%= link_to _('Edit profile'), edit_user_registration_path %>
       </li>
       <li>
-        <%= link_to '<i class="fas fa-sign-in-alt" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete %>
+        <%= link_to _('Logout'), destroy_user_session_path, method: :delete %>
       </li>
+      <h5 class="dropdown-header"><%= _('Admin') %></h5>
+      <% if current_user.can_org_admin? %>
+        <li <%= 'class=active' if active_page?(org_admin_plans_path) %>>
+          <%= link_to _('Plans'), org_admin_plans_path %>
+        </li>
+      <% end %>
+      <% if current_user.can_modify_templates? %>
+        <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
+        <li <%= 'class=active' if active_page?(template_path) %>>
+          <%= link_to _('Templates'), template_path %>
+        </li>
+      <% end %>
+      <% if current_user.can_modify_guidance? %>
+        <li <%= 'class=active' if active_page?(admin_index_guidance_path(current_user.org_id)) %>>
+          <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
+        </li>
+      <% end %>
+      <% if current_user.can_super_admin? %>
+        <li <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>>
+          <%= link_to _('Organisations'), super_admin_orgs_path %>
+        </li>
+      <% else %>
+        <% if current_user.can_modify_org_details? %>
+          <li <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>>
+            <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %>
+          </li>
+        <% end %>
+      <% end %>
+      <% if current_user.can_grant_permissions? %>
+        <li <%= 'class=active' if active_page?(admin_index_users_path) %>>
+          <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
+        </li>
+      <% end %>
+      <% if current_user.can_org_admin? || current_user.can_super_admin? %>
+        <li <%= 'class=active' if active_page?(usage_index_path) %>>
+          <%= link_to(_('Usage'), usage_index_path) %>
+        </li>
+      <% end %> 
+      <% if current_user.can_super_admin? %>
+        <h5 class="dropdown-header"><%= _('Super Admin') %></h5>
+        <li <%= 'class=active' if active_page?(super_admin_themes_path) %>>
+          <%= link_to(_('Themes'), super_admin_themes_path) %>
+        </li>
+        <li <%= 'class=active' if active_page?(super_admin_static_pages_path) %>>
+          <%= link_to _('Static pages'), super_admin_static_pages_path %>
+        </li>
+        <li <%= 'class=active' if active_page?(super_admin_api_clients_path) %>>
+          <%= link_to(_('Api Clients'), super_admin_api_clients_path) %>
+        </li>
+        <li <%= 'class=active' if active_page?(super_admin_notifications_path) %>>
+          <%= link_to _('Notifications'), super_admin_notifications_path %>
+        </li>
+        <h5 class="dropdown-header"><%= _('maDMP Features') %></h5>
+        <li <%= 'class=active' if active_page?(super_admin_madmp_schemas_path) %>>
+          <%= link_to _('Schemas'), super_admin_madmp_schemas_path %>
+        </li>
+        <li <%= 'class=active' if active_page?(super_admin_registries_path) %>>
+          <%= link_to _('Registries'), super_admin_registries_path %>
+        </li>
+      <% end %>
     </ul>
-  </li>
-<% else %>
-  <% if !active_page?(root_path, true) %>
-    <li>
-      <a href="<%= root_path %>">
-        <i class="fas fa-sign-in-alt" aria-hidden="true">&nbsp;</i>
-        <%= _('Sign in') %>
-      </a>
-    </li>
+  <% else %>
+    <a href="<%= login_path %>">
+      <%= _('My Account') %>
+    </a>
   <% end %>
+</li>
+
+<!-- language dropdown -->
+<% if Language.many? %>
+  <li <%= 'class=active' if I18n.locale.to_s == 'fr-FR' %>>
+    <%= link_to 'FR', locale_path('fr-FR'), method: :patch %>
+  </li>
+  /
+  <li <%= 'class=active' if I18n.locale.to_s == 'en-GB' %>>
+    <%= link_to 'ENG', locale_path('en-GB'), method: :patch %>
+  </li>
 <% end %>

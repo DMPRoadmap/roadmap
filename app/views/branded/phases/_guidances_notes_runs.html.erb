@@ -14,16 +14,6 @@
           </a>
       </li>
     <% end %>
-    <% if plan.present? %>
-      <li role="presentation" class="<%= 'active' if !guidances_active %>">
-          <a href="#notes-<%= question.id %>-research-output-<%= research_output.id %>" 
-              aria-controls="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
-              <span id="notes-title-<%= question.id %>-research-output-<%= research_output.id %>">
-                  <%= render partial: '/notes/title', locals: { answer: answer } %>
-              </span>
-          </a>
-      </li>
-    <% end %>
     <li class="runs-tab"
         style="<%= run_parameters.present? ? '' : 'display: none;' %>"
         role="presentation">
@@ -81,12 +71,6 @@
               </div>
           <% end %>
         </div>
-      </div>
-    <% end %>
-
-    <% if plan.present? %>
-      <div id="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane <%= 'active' if !guidances_active %> notes">
-        <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer, research_output: research_output } %>
       </div>
     <% end %>
     <div id="runs-<%= question.id %>-research-output-<%= research_output.id %>" 

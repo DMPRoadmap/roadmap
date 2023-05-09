@@ -1,0 +1,87 @@
+@use './colours' as *;
+
+.dmpopidor-branding {
+  .nav-tabs {
+    background-color: $blue;
+
+    li>a {
+      color: $white
+    }
+
+    li>a:hover,
+    li>a:focus,
+    li.active>a,
+    li.active>a:focus,
+    li.active>a:hover {
+      color: $blue;
+      border: 1px solid $blue;
+      border-bottom-color: transparent;
+      background-color: $white;
+    }
+
+    li.phase-tab>a {
+      background-color: $dark-blue;
+    }
+
+    li.phase-tab>a:hover,
+    li.phase-tab>a:focus,
+    li.active.phase-tab>a,
+    li.active.phase-tab>a:focus,
+    li.active.phase-tab>a:hover {
+      color: $dark-blue;
+      background-color: white;
+      border: 1px solid $dark-blue;
+      border-bottom-color: transparent;
+    }
+  }
+
+  .nav-pills {
+    background-color: $blue;
+
+    li>a {
+      color: $white;
+
+    }
+
+    li>a:hover,
+    li>a:focus,
+    li.active>a,
+    li.active>a:focus,
+    li.active>a:hover {
+      color: $blue;
+      border: 1px solid $blue;
+    }
+  }
+
+
+  &.org-admin {
+    .nav-tabs {
+      background-color: $rust;
+
+      li>a:hover,
+      li>a:focus,
+      li.active>a,
+      li.active>a:focus,
+      li.active>a:hover {
+        color: $rust;
+        border: 1px solid $rust;
+        border-bottom-color: transparent;
+      }
+    }
+
+    .nav-pills {
+      background-color: $rust;
+
+      li>a:hover,
+      li>a:focus,
+      li.active>a,
+      li.active>a:focus,
+      li.active>a:hover {
+        color: $rust;
+        border: 1px solid $rust;
+      }
+    }
+  }
+
+  // &.super-admin {}
+}

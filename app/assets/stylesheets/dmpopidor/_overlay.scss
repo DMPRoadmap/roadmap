@@ -1,0 +1,17 @@
+@mixin overlay {
+  display: flex;
+  align-items: center;
+  place-content: center;
+
+  background: #ffffff;
+  color: #666666;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  float: left;
+  text-align: center;
+  opacity: 0.8;
+}

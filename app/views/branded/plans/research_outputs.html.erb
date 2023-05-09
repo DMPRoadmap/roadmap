@@ -1,18 +1,9 @@
 <%# locals: { plan, research_outputs, research_output_types } %>
 <% title "#{plan.title}" %>
-<div class="row">
-  <div class="col-md-12">
-    <h1><%= plan.title %></h1> 
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-12 madmp-fragment fragment-<%= @plan.json_fragment.id%>" >
-    <% if @plan.editable_by?(current_user.id) %>
-      <%= render partial: 'plans/edit_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
-      <% else %>
-        <%= render partial: 'plans/show_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
-      <% end %>
-  </div>
-</div>
+<% if @plan.editable_by?(current_user.id) %>
+  <%= render partial: 'plans/edit_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
+<% else %>
+  <%= render partial: 'plans/show_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
+<% end %>
 <div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-labelledby="linkedInformationsModal" aria-hidden="true"></div>

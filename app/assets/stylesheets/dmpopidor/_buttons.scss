@@ -1,0 +1,146 @@
+@use './colours' as *;
+
+.dmpopidor-branding {
+
+  .btn {
+    border-radius: 10px;
+    font-size: large;
+  }
+
+  .btn-primary,
+  .btn-primary:hover,
+  .btn-primary:focus,
+  .btn-primary:active,
+  .btn-primary:visited,
+  .btn-primary:active:hover,
+  .btn-primary.active:hover {
+    border-color: $blue;
+    background-color: $blue;
+    color: $white;
+    margin-bottom: 10px;
+  }
+
+  .btn-default,
+  .btn-default:hover,
+  .btn-default:focus,
+  .btn-default:active,
+  .btn-default:visited,
+  .btn-default:active:hover,
+  .btn-default.active:hover {
+    border-color: $blue;
+    background-color: $blue;
+    color: $white;
+    margin-bottom: 10px;
+  }
+
+  .btn-secondary,
+  .btn-secondary:hover,
+  .btn-secondary:focus,
+  .btn-secondary:active,
+  .btn-secondary:visited,
+  .btn-secondary:active:hover,
+  .btn-secondary.active:hover {
+    border-color: $light-grey;
+    background-color: $light-grey;
+    color: $black;
+    outline: none;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+  .combobox-clear-button,
+  .combobox-clear-button:hover,
+  .combobox-clear-button:focus {
+    color: $blue;
+  }
+
+  .btn-link {
+    color: $blue;
+  }
+
+  &.org-admin {
+
+    .btn-primary,
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active,
+    .btn-primary:visited,
+    .btn-primary:active:hover,
+    .btn-primary.active:hover {
+      border-color: $rust;
+      background-color: $rust;
+      color: $white;
+      margin-bottom: 10px;
+    }
+
+    .btn-default,
+    .btn-default:hover,
+    .btn-default:focus,
+    .btn-default:active,
+    .btn-default:visited,
+    .btn-default:active:hover,
+    .btn-default.active:hover {
+      border-color: $rust;
+      background-color: $rust;
+      color: $white;
+      margin-bottom: 10px;
+    }
+
+    .combobox-clear-button,
+    .combobox-clear-button:hover,
+    .combobox-clear-button:focus {
+      color: $rust;
+    }
+
+  }
+
+  &.super-admin {
+
+    /* 
+            BUTTONS
+        */
+    .btn-primary,
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active,
+    .btn-primary:visited,
+    .btn-primary:active:hover,
+    .btn-primary.active:hover {
+      border-color: $yellow;
+      background-color: $yellow;
+      color: $black;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+
+    .btn-default,
+    .btn-default:hover,
+    .btn-default:focus,
+    .btn-default:active,
+    .btn-default:visited,
+    .btn-default:active:hover,
+    .btn-default.active:hover {
+      border-color: $yellow;
+      background-color: $yellow;
+      color: $black;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+
+    .combobox-clear-button,
+    .combobox-clear-button:hover,
+    .combobox-clear-button:focus {
+      color: $yellow;
+    }
+
+
+    .btn-link {
+      color: $black;
+      text-decoration: underline;
+    }
+
+    .registry-value-actions a {
+      text-decoration: none;
+    }
+  }
+}

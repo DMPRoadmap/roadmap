@@ -1,0 +1,30 @@
+<!-- header information (bootstrap 3 column layout) -->
+<%
+  has_alert = (alert || flash[:alert] || flash[:error])
+  has_notice = (notice || flash[:notice])
+%>
+<div class="main-nav">
+  <%= render partial: "layouts/navigation" %>
+</div>
+<%= image_tag("header_banner.png", alt: "header banner", class: "header-banner-img") %>
+<div class="header-banner">
+  <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
+  <div class="org-branding">
+    <% if user_signed_in? && !current_user.org.nil? && (!current_user.org.is_other || current_user.can_super_admin?) %>
+      <%= render partial: "layouts/branding" , locals: {max_number_links: Rails.configuration.x.max_number_links_funder} %>
+    <% else %>
+      <span class="homepage-h1"><%= _('Research data management') %></span>
+      <span class="homepage-h2"><%= _('A key element in keeping good management practices and making your data FAIR.') %></span>
+    <% end %>
+  </div>
+
+  <div id="notification-area"
+        class="plan-notification notification alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
+              <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
+        role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
+    <i class="fas <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
+    <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
+    <span><%= sanitize (has_alert ? alert : notice) %></span>
+    <%= yield :errors %>
+  </div>
+</div>

@@ -6,68 +6,79 @@
 
 <!-- footer content -->
 <div class="footer-content">
-  <div class="footer-links-logos">
-    <div class="footer-links">
-      <span><a href="<%= about_us_path %>"><%= _('About') %></a></span>
-      <span><a href="<%= terms_path %>"><%= _('Terms of use') %></a></a></span>
-      <span><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></span>
-      <span class="break-point">•</span>
-      <span>
-        <a href="https://opidor.fr/category/dmp-faq/" title="DMPOPIDoR FAQ - <%= _("Opens in new window") %>" target="_blank">
-          <%= _('FAQ') %>
-        </a>
-      </span>
-      <span><a href="<%= news_feed_path %>"><%= _('News') %></a></span>
-      <span><a href="<%= tutorials_path %>"><%= _('Tutorials') %></a></span>
-      <!-- api docs -->
-      <% if current_user.present? && current_user.can_use_api? %>
-        <span><%= link_to _('API Docs'), rswag_ui_path, target: '_blank' %></span>
+  <div class="footer-col">
+      <%= image_tag("logo_white.png",
+                    alt: "#{ApplicationService.application_name} #{_('logo')}",
+                    title: ApplicationService.application_name) %>
+    <span>
+      <%= _('%{tool_name} guides you through the drafting and implementation into practice of data or software management plans.')  % { tool_name: ApplicationService.application_name } %>
+    </span>
+  </div>
+  <div class="footer-col">
+    <span class="footer-col-title"><%= _('Navigation') %></span>
+    <span><a href="<%= help_path %>"><%= _('Help') %></a></span>
+    <span><a href="<%= public_templates_path %>"><%= _('DMP Templates') %></a></span>
+    <span><a href="#"><%= _('Learn more') %></a></span>
+    <span><a href="<%= news_feed_path %>"><%= _('News') %></a></span>
+    <span>
+      <a href="https://opidor.fr/category/dmp-faq/" title="DMPOPIDoR FAQ - <%= _("Opens in new window") %>" target="_blank">
+        <%= _('FAQ') %>
+      </a>
+    </span>
+    <span><a href="<%= contact_us %>"><%= _('Contact Us') %></a></span>
+  </div>
+  <div class="footer-col">
+    <span class="footer-col-title"><%= _('About') %></span>
+    <span><a href="<%= about_us_path %>"><%= _('About') %></a></span>
+    <span><a href="<%= terms_path %>"><%= _('Terms of use') %></a></span>
+    <span><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></span>
+    <span>
+      <a title="DMPOPIDoR Github - <%= _("Opens in new window") %>" target="_blank" href="<%= Rails.configuration.x.application.url %>" target="_blank">
+        Github <i class="fab fa-github"></i>
+      </a>
+    </span>
+  </div>
+  <div class="footer-col">
+    <span class="footer-col-title"><%= _('Ecosystem') %></span>
+    <span><a href="<%= about_us_path %>"><%= _('About') %></a></span>
+    <span>
+      <%= link_to("http://www.opidor.fr/", title: _("OPIDoR website") + " - " + _("Opens in new window"), target: '_blank')  do %>
+        <%= image_tag("opidor-logo-white.png", alt: 'OPIDoR logo (opens in a new window)') %>
       <% end %>
-      <span><a href="<%= contact_us %>"><%= _('Contact Us') %></a></a></span>
-    </div>
-    <div class="footer-logos">
-      <span>
-        <%= link_to("http://www.cnrs.fr/", title: _("CNRS website") + " - " + _("Opens in new window"), target: '_blank')  do %>
-          <%= image_tag("cnrs.gif", alt: 'CNRS logo (opens in a new window)') %>
-        <% end %>
-      </span>
-      <span>
-        <%= link_to("https://github.com/DMPRoadmap/roadmap", title: "DMPRoadmap Github - " + _("Opens in new window"), target: '_blank')  do %>
-          <%= image_tag("roadmap_logo_orange_white.png", alt: 'DMPRoadmap Github (opens in a new window)') %>
-        <% end %>
-      </span>
-    </div>
+    </span>
   </div>
-
-  <!-- footer application version, credits & socials networks links -->
-  <div class="footer-infos-sn">
-    <div class="footer-infos">
-      <span>
-        <%= link_to("#{Rails.configuration.x.organisation.url}", 
-                    title: _("INIST website") + " - " + _("Opens in new window"), target: '_blank' ) do %>
-          <%= sanitize("&copy; 2016 - #{Time.now.year} #{Rails.configuration.x.organisation.abbreviation}") %>
-          <% end %>
-      </span>
-      <span class="break-point">•</span>
-      <span><%= Rails.configuration.x.application.version %></span>
-    </div>
-    <div class="footer-sn">
-      <span>
-        <a title="DMPOPIDoR Github - <%= _("Opens in new window") %>" target="_blank" href="<%= Rails.configuration.x.application.url %>" target="_blank">
-          <i class="fab fa-github-alt"></i>
-        </a>
-      </span>
-      <span>
-        <a title="OPIDoR Twitter - <%= _("Opens in new window") %>" target="_blank" href="<%= Rails.configuration.x.application.twitter_url %>">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </span>
-      <span>
-        <a title="<%= _('Mailing list') %> - <%= _("Opens in new window") %>"  target="_blank" href="<%= Rails.configuration.x.application.user_group_subscription_url %>">
-          <i class="fas fa-comments"></i>
-        </a>
-        </span>
-    </div>
+</div>
+<div class="footer-cc">
+  <div class="footer-infos">
+    <span>
+      <%= link_to("#{Rails.configuration.x.organisation.url}", 
+                  title: _("INIST website") + " - " + _("Opens in new window"), target: '_blank' ) do %>
+        <%= sanitize("&copy; 2016 - #{Time.now.year} #{Rails.configuration.x.organisation.abbreviation}") %>
+        <% end %>
+    </span>
+    <span class="delimiter">&#x25cf;</span>
+    <span><%= Rails.configuration.x.application.version %></span>
   </div>
-  
+  <div class="footer-sn">
+    <span>
+      <a title="OPIDoR Twitter - <%= _("Opens in new window") %>" target="_blank" href="<%= Rails.configuration.x.application.twitter_url %>">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </span>
+    <span>
+      <a title="<%= _('Mailing list') %> - <%= _("Opens in new window") %>"  target="_blank" href="<%= Rails.configuration.x.application.user_group_subscription_url %>">
+        <i class="far fa-comments"></i>
+      </a>
+    </span>
+    <span>
+      <%= link_to("http://www.cnrs.fr/", title: _("CNRS website") + " - " + _("Opens in new window"), target: '_blank')  do %>
+        <%= image_tag("cnrs.gif", alt: 'CNRS logo (opens in a new window)') %>
+      <% end %>
+    </span>
+    <span>
+      <%= link_to("https://github.com/DMPRoadmap/roadmap", title: "DMPRoadmap Github - " + _("Opens in new window"), target: '_blank')  do %>
+        <%= image_tag("roadmap_logo_orange_white.png", alt: 'DMPRoadmap Github (opens in a new window)') %>
+      <% end %>
+    </span>
+  </div>
 </div>

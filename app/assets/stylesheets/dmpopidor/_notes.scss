@@ -1,0 +1,17 @@
+@use './colours' as *;
+
+dialog.notes {
+  scrollbar-width: auto;
+  scrollbar-color: $blue white;
+  border-color: $blue;
+
+  .close-comments {
+    color: $dark-blue;
+    cursor: pointer;
+  }
+}
+.dialog-toggle {
+  background-color: $dark-blue;
+  color: white;
+  cursor: pointer;
+}

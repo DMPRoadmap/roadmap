@@ -1,0 +1,38 @@
+@use './colours' as *;
+
+.set-test-td {
+  input[type=checkbox] {
+    opacity:0;
+    width: 0;
+
+    &+label {
+      cursor: pointer;
+    }
+  }
+
+  label::before {
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+  }
+
+  label:focus,
+  label:hover,
+  label:active {
+    outline-style: solid !important;
+    outline-color: $blue !important;
+    outline-width: 3px !important;
+  }
+
+  input[type=checkbox]+label::before {
+    content: "\f111"; // fa-circle
+    font-weight: 400;
+    font-size: large;
+  }
+
+  /* space between checkbox and label */
+  input[type=checkbox]:checked+label::before {
+    content: "\f058"; // fa-check-circle
+    font-weight: 900;
+    font-size: large;
+  }
+}

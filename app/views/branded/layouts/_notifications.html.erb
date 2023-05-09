@@ -1,6 +1,6 @@
 <% notifications.each do |a| %>
   <% unless a.acknowledged?(current_user) %>
-    <div class="alert alert-<%= a.level %>">
+    <div class="notification alert alert-<%= a.level %>">
       <span class="fas <%= fa_classes(a) %>"></span>
       <span><%= sanitize a.body %></span>
       <% if a.dismissable? %>

@@ -57,7 +57,7 @@ json.array! @plans.each do |plan|
         json.themes question.themes.each do |theme|
           json.theme theme.title
         end
-        answer = plan.answers.select { |a| a.question_id == question.id }.first
+        answer = plan.answers.find { |a| a.question_id == question.id }
         if answer.present?
           json.answered true
           json.answer do

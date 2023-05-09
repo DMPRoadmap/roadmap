@@ -1,0 +1,444 @@
+@use './accordions' as *;
+@use './colours' as *;
+@use './overlay' as *;
+
+#plan-navigation {
+  display: flex;
+  justify-content: space-around;
+
+  background-color: transparent;
+  margin-top: -100px;
+  z-index: 5;
+
+  &>li {
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+    text-align: center;
+
+    &>a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      text-decoration: none;
+
+
+      width: 150px;
+      height: 150px;
+      color: $dark-blue;
+      background-color: white;
+      font-size: large;
+
+      border-radius: 20px;
+      box-shadow: 5px 5px 5px $light-grey;
+    }
+
+    &>.active-line {
+      border-left: 1px solid $dark-blue;
+      border-right: 1px solid $dark-blue;
+      height: 30px;
+      width: 0;
+      align-self: center;
+
+      display: none;
+    }
+
+    &>.active-bullet {
+      color: $dark-blue;
+      font-size: xx-large;
+      line-height: 0;
+
+      display: none;
+    }
+
+    &.active,
+    &:hover {
+
+      .active-line,
+      .active-bullet {
+        display: block;
+      }
+    }
+  }
+
+  &>li.active>a,
+  &>li>a:hover {
+    color: white;
+    background-color: $dark-blue;
+    border-color: $dark-blue;
+    box-shadow: none;
+  }
+
+}
+
+
+
+// ##################################
+// GENERAL INFOS 
+// ##################################
+.plan-details {
+
+  .anr-import {
+    border-radius: 20px;
+    background-color: $dark-blue;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    .anr-import-heading {
+      background-color: $dark-blue;
+    }
+
+    .anr-import-content {
+      background-color: $dark-blue;
+      color: white;
+
+      .registry-info {
+        font-size: 15px;
+        color: white;
+      }
+
+      .error-zone {
+        font-weight: bold;
+        color: $rust;
+        display: none;
+      }
+    }
+  }
+
+  .project-meta {
+    @include dmpopidor-accordion-large;
+  }
+
+  .madmp-fragment {
+    position: relative;
+
+    .answer-save-zone {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+
+      .answer-save-button {
+        color: $white;
+        background-color: $rust !important;
+      }
+
+    }
+  }
+
+  .guidance-configuration {
+    border-left: 2px solid $rust;
+    border-bottom: 2px solid $very-very-light-blue;
+    border-top: 2px solid $very-very-light-blue;
+  }
+
+}
+
+// ##################################
+// RESEARCH OUTPUTS 
+// ##################################
+#research-outputs {
+  border-radius: 20px;
+
+  h2 {
+    font-size: xx-large;
+    color: $rust;
+  }
+
+  h3 {
+    font-size: x-large;
+    color: $rust;
+    margin-top: 10px;
+  }
+
+  .nav-tabs {
+    li.disabled {
+      cursor: not-allowed;
+
+      a {
+        pointer-events: none;
+      }
+    }
+  }
+
+  #research-outputs-list {
+    width: 100%;
+    padding: 20px;
+
+    .form-group {
+      margin: 0;
+    }
+
+    .research-output-element {
+      display: flex;
+      margin-top: 10px;
+      padding: 20px;
+      border: 1px groove $dark-blue;
+      border-radius: 20px;
+
+      .research-output-fields {
+        flex: 9;
+
+        .research-output-field {
+          padding-top: 7px;
+          display: flex;
+
+          label {
+            flex: 1;
+          }
+
+          .edit,
+          .readonly {
+            flex: 3;
+          }
+
+          .action {
+            color: $dark-blue;
+            cursor: pointer;
+          }
+        }
+
+        .edit,
+        button {
+          display: none;
+        }
+      }
+
+      .research-output-actions {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        color: $blue;
+
+        .handle,
+        .edit,
+        .cancel {
+          cursor: pointer;
+        }
+
+        a {
+          color: $blue;
+        }
+      }
+    }
+
+    fieldset {
+      width: 100%;
+    }
+  }
+
+  #show-research-outputs {
+    display: flex;
+    flex-direction: column;
+
+    .research-output-element {
+      margin-top: 10px;
+      padding: 20px;
+      border: 1px groove $dark-blue;
+      border-radius: 20px;
+
+      .research-output-value {
+        display: flex;
+
+        strong {
+          flex: 2;
+          text-align: right;
+        }
+
+        span {
+          padding-left: 20px;
+          flex: 8;
+        }
+      }
+    }
+  }
+}
+
+
+// ##################################
+// WRITE PLAN
+// ##################################
+
+.write-plan {
+  display: flex;
+
+  .answering-phase {
+    padding: 20px;
+    border: 1px solid $dark-blue;
+    border-radius: 0 20px 20px 20px;
+    margin-left: -155px;
+  }
+
+
+  .research-outputs-accordion {
+    display: flex;
+    flex-direction: column;
+
+    align-self: flex-start;
+    overflow: hidden;
+    border-radius: 20px 0 0 20px;
+    position: relative;
+    left: -175px;
+    min-width: 175px;
+
+    background-color: white;
+    .research-outputs-tabs {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      max-width: 160px;
+      float: right;
+
+      li.research-outputs-tab {
+        flex: 1 1 15%;
+        text-align: center;
+        border: none;
+        margin: 0;
+  
+        &:not(:last-child) {
+          margin-bottom: 3px;
+        }
+  
+        &.active > a,
+        & > a:hover {
+          background-color: $dark-blue;
+          color: white;
+          font-size: 16px;
+        }
+  
+        a {
+          padding: 20px;
+          font-weight: bold;
+          background-color: $blue;
+        }
+      }
+    }
+    .panel-body {
+      padding: 0;
+    }
+    .panel-heading {
+      background-color: $dark-blue;
+      .accordion-toggle {
+        padding: 20px;
+        background-color: $dark-blue;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .sections {
+    .section-title {
+      background-color: white;
+
+      h2 {
+        font-weight: bold;
+        font-size: 30px;
+      }
+    }
+  }
+
+  .question {
+    @include dmpopidor-accordion;
+
+    .question-body {
+      padding: 15px 0;
+      display: flex;
+
+      .answer-section {
+        flex: 8;
+        position: relative;
+        min-height: 300px;
+      }
+
+      .toggle-guidance-section {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: $blue;
+        color: $white;
+        padding: 10px 5px;
+        cursor: pointer;
+
+        text-orientation: mixed;
+        writing-mode: vertical-rl;
+
+        &.disabled {
+          background-color: $light-grey;
+          cursor: not-allowed;
+        }
+      }
+
+      .question-form {
+        padding-top: 10px;
+        padding-right: 50px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .answer-locking p {
+        color: $rust;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .overlay {
+    @include overlay();
+  }
+
+  .guidance-section {
+    flex: 4;
+    display: none;
+    border-left: 5px solid $blue;
+    padding-left: 5px;
+
+    // Guidances 
+    .panel-title {
+      color: $white;
+    }
+
+    .plan-guidance-tab {
+      word-wrap: break-word;
+
+      .run-zone {
+        display: flex;
+        flex-direction: column;
+
+        .message-zone {
+          text-align: center;
+          font-weight: bold;
+          color: $rust;
+          display: none;
+
+          &.valid {
+            color: $green;
+          }
+
+          &.invalid {
+            color: $rust;
+          }
+        }
+
+        .btn {
+          font-size: 20px;
+          font-weight: 700;
+
+          &.answer-save-button {
+            background-color: $rust;
+            border-color: $rust;
+          }
+        }
+
+        .reload-button {
+          background-color: $green;
+          color: $white;
+          display: none;
+        }
+      }
+
+
+    }
+  }
+}
