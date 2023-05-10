@@ -146,42 +146,44 @@ $(() => {
   };
 
   const toggleCustomRepositoryData = (id, name, description, uri) => {
-    const dispdiv = $('<div/>').addClass('col-md-12').appendTo('div.customized_repositories');
-    if (id !== '') {
-      dispdiv.attr('id', id);
-    }
-    const divsr = $('<div/>').addClass('col-md-12 modal-search-result').appendTo(dispdiv);
-    const divlabel = $('<div/>').addClass('modal-search-result-label').text(name).appendTo(divsr);
-    if (id === '') {
-      const sid = $('input.custom_repository_seq').length + 1000000;
-      $('<input/>').attr('type', 'hidden')
-        .attr('name', `template[customized_repositories_attributes[${sid}][name]]`)
-        .addClass('custom_repository_seq')
-        .val(name)
-        .appendTo(divsr);
-      $('<input/>').attr('type', 'hidden')
-        .attr('name', `template[customized_repositories_attributes[${sid}][description]]`)
-        .val(description)
-        .appendTo(divsr);
-      $('<input/>').attr('type', 'hidden')
-        .attr('name', `template[customized_repositories_attributes[${sid}][uri]]`)
-        .val(uri)
-        .appendTo(divsr);
-    } else {
-      $(`#customized_repositories_id_${id}`).appendTo(divsr);
-      $(`#customized_repositories_name_${id}`).appendTo(divsr);
-      $(`#customized_repositories_description_${id}`).appendTo(divsr);
-      $(`#customized_repositories_uri_${id}`).appendTo(divsr);
-    }
+    if (name.length > 0 && description.length > 0 && uri.length > 0) {
+      const dispdiv = $('<div/>').addClass('col-md-12').appendTo('div.customized_repositories');
+      if (id !== '') {
+        dispdiv.attr('id', id);
+      }
+      const divsr = $('<div/>').addClass('col-md-12 modal-search-result').appendTo(dispdiv);
+      const divlabel = $('<div/>').addClass('modal-search-result-label').text(name).appendTo(divsr);
+      if (id === '') {
+        const sid = $('input.custom_repository_seq').length + 1000000;
+        $('<input/>').attr('type', 'hidden')
+          .attr('name', `template[customized_repositories_attributes[${sid}][name]]`)
+          .addClass('custom_repository_seq')
+          .val(name)
+          .appendTo(divsr);
+        $('<input/>').attr('type', 'hidden')
+          .attr('name', `template[customized_repositories_attributes[${sid}][description]]`)
+          .val(description)
+          .appendTo(divsr);
+        $('<input/>').attr('type', 'hidden')
+          .attr('name', `template[customized_repositories_attributes[${sid}][uri]]`)
+          .val(uri)
+          .appendTo(divsr);
+      } else {
+        $(`#customized_repositories_id_${id}`).appendTo(divsr);
+        $(`#customized_repositories_name_${id}`).appendTo(divsr);
+        $(`#customized_repositories_description_${id}`).appendTo(divsr);
+        $(`#customized_repositories_uri_${id}`).appendTo(divsr);
+      }
 
-    $('<button type="button"/>').addClass('modal-search-result-unselector')
-      .attr('title', `Click to remove ${name}`)
-      .text(getConstant('PREFS_REMOVE'))
-      .appendTo(divlabel);
-    $('<p/>').text(description).appendTo(divsr);
-    const p = $('<p/>').appendTo(divsr);
-    $('<a/>').attr('href', uri).text(uri).appendTo(p);
-    return divsr;
+      $('<button type="button"/>').addClass('modal-search-result-unselector')
+        .attr('title', `Click to remove ${name}`)
+        .text(getConstant('PREFS_REMOVE'))
+        .appendTo(divlabel);
+      $('<p/>').text(description).appendTo(divsr);
+      const p = $('<p/>').appendTo(divsr);
+      $('<a/>').attr('href', uri).text(uri).appendTo(p);
+      return divsr;
+    }
   }
 
   // -----------------------------------------------------------------
