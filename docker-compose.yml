@@ -68,7 +68,7 @@ services:
     - NGINX_PORT=80
     volumes:
       - ./nginx/default.template:/etc/nginx/templates/default.conf.template:ro
-      - ./app/public/:/var/www/public
+      - ./public/:/var/www/public
     healthcheck:
       test: ["CMD-SHELL", "wget -q -S -O - http://localhost:80 2>&1 | grep 'HTTP/1.1 200 OK'"]
       interval: ${NGINX_HEALTHCHECK_INTERVAL:-30s}
