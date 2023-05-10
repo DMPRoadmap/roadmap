@@ -26,6 +26,8 @@ class License < ApplicationRecord
 
   has_many :research_outputs
 
+  belongs_to :org, optional: true
+
   # ==========
   # = Scopes =
   # ==========
@@ -57,11 +59,6 @@ class License < ApplicationRecord
 
   # varchar(255) NOT NULL
   validates :identifier,
-            presence: { message: PRESENCE_MESSAGE },
-            length: { in: 0..255, allow_nil: false }
-
-  # varchar(255) NOT NULL
-  validates :uri,
             presence: { message: PRESENCE_MESSAGE },
             length: { in: 0..255, allow_nil: false }
 end

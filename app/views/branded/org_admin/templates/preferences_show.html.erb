@@ -1,0 +1,252 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1 class='treat-page-as-read-only'><%= _('Template Preferences (VIEW)') %></h1>
+    <%= link_to _('View all templates'),
+        org_admin_templates_path,
+        class: 'btn btn-default pull-right' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- render navigation tabs for the template-->
+    <%= render partial: "org_admin/templates/navigation",
+               locals: { template: @template } %>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= form_for(template, url: {action: :save_preferences}, html: { 'data-method': :patch, class: 'edit-template-preferences' }) do |f| %>
+              <h2><%= _('Research Outputs') %></h2>
+              <div class="row">
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <%= f.check_box :enable_research_outputs, style: 'width: auto', disabled: true %>
+                    <%= f.label :enable_research_outputs, _('Enable research outputs tab?'), class: 'control-label' %>
+                  </div>
+                </div>
+              </div>
+
+              <h2 class="prefs_option"><%= _('Output Types') %></h2>
+              <p><%= _('Use the following settings to customize the Research Outputs tab') %></p>
+
+              <div class="row prefs_option">
+                <div class="col-md-3">
+                  <label for="customize_output_types_sel"><%= _('Define output types:') %></label>
+                  <div>
+                  <%= select_tag 'customize_output_types_sel', options_for_select(select_override_options, template.customize_output_types ? '1' : '0'), disabled:true %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="selectable_items" id="default-output_types">
+                  <fieldset class="selectable_items">
+                    <legend><%= _('Default Output Types') %></legend>
+                    <ul>
+                      <% output_types.keys.each do |ot|%>
+                        <li class="output_type selectable_item">
+                          <span class="selectable_item_label"><%= ot.humanize %></span>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </fieldset>
+                  </div>
+                  <div class="selectable_items" id="my-output_types" >
+                  <fieldset class="selectable_items">
+                    <legend><%= _('My Output Types') %></legend>
+                    <div><input id="new_output_type" type="text"/> <button class="btn btn-default" id="add_output_type" disabled><%= _('Add an output type') %></button></div>
+                    <div>
+                      <br/>
+                      <ul>
+                      <% template.template_output_types.sort { |a, b| a.research_output_type <=> b.research_output_type }
+                                                       .each do |ot| %>
+                        <input class="output_type_init" type="hidden" data="<%= ot.id %>" value="<%= ot.research_output_type %>"/>
+                      <% end %>
+                      </ul>
+                    </div>
+                  </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row prefs_option">
+                <div class="col-md-9">
+                  <div class="form-group">
+                      <%= f.label(:user_guidance_output_types, _('Tooltip for Output Types')) %>
+                      <%= f.text_area(:user_guidance_output_types,
+                          class: "form-control",
+                          rows: 2, disabled: true) %>
+                      <p><%= _('Tooltip text will appear when a user mouses over the output type field') %></p>
+                  </div>
+                </div>
+              </div>
+
+              <h2 class="prefs_option"><%= _('Preferred repositories') %></h2>
+              <div class="row prefs_option">
+                <div class="col-md-9">
+                  <%= f.check_box :customize_repositories, style: 'width: auto', disabled: true %>
+                  <%= f.label :customize_repositories, _('Require researchers to select from a specific list?'), class: 'control-label' %>
+                </div>
+                <div id="prefs-repositories">
+                  <div class="col-md-9">
+                    <div>
+                      <%= render partial: "layouts/modal_search/selections",
+                              locals: {
+                                namespace: "repositories",
+                                button_label: _("Add a repository"),
+                                item_name_attr: :name,
+                                results: template.repositories,
+                                selected: true,
+                                result_partial: "org_admin/templates/repositories/search_result",
+                                search_path: repository_search_org_admin_template_path(template),
+                                search_method: :get,
+                                guidance: '',
+                                preload: false
+                              } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h2 class="prefs_option"><%= _('Customized repositories') %></h2>
+              <div class="row prefs_option">
+                <div>
+                  <% template.customized_repositories.each do |r| %>
+                    <div>
+                    <%= f.hidden_field "customized_repositories_attributes[#{r.id}][id]", id: "customized_repositories_id_#{r.id}", value: r.id, class: 'customized_repositories' %>
+                    <%= f.hidden_field "customized_repositories_attributes[#{r.id}][name]", id: "customized_repositories_name_#{r.id}", value: r.name %>
+                    <%= f.hidden_field "customized_repositories_attributes[#{r.id}][description]", id: "customized_repositories_description_#{r.id}", value: r.description %>
+                    <%= f.hidden_field "customized_repositories_attributes[#{r.id}][uri]", id: "customized_repositories_uri_#{r.id}", value: r.uri %>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="customized_repositories col-md-9">
+                </div>
+                <div class="col-md-12">
+                      <%= button_tag _("Define a Custom Repository"), type: "button", class: "btn btn-default",
+                                data: { toggle: "modal", target: "#modal-define-custom-repository" } %>
+                </div>
+              </div>
+
+
+              <div class="row prefs_option">
+                <div class="col-md-9">
+                  <div class="form-group">
+                      <%= f.label(:user_guidance_repositories, _('Description for Repositories')) %>
+                      <%= f.text_area(:user_guidance_repositories,
+                          class: "form-control",
+                          rows: 3, disabled: true) %>
+                      <p><%= _('This can be used to provide custom guidance and/or instructions for researchers.') %></p>
+                  </div>
+                </div>
+              </div>
+
+              <h2 class="prefs_option"><%= _('Preferred metadata standards') %></h2>
+              <div class="row prefs_option">
+                <div class="col-md-9">
+                  <%= f.check_box :customize_metadata_standards, style: 'width: auto', disabled: true  %>
+                  <%= f.label :customize_metadata_standards, _('Require researchers to select from a specific list?'), class: 'control-label' %>
+                  <div id="prefs-metadata_standards">
+                    <%= render partial: "layouts/modal_search/selections",
+                              locals: {
+                                namespace: "metadata_standards",
+                                button_label: _("Add a metadata standard"),
+                                item_name_attr: :title,
+                                results: template.metadata_standards,
+                                selected: true,
+                                result_partial: "org_admin/templates/metadata_standards/search_result",
+                                search_path: metadata_standard_search_org_admin_template_path(template),
+                                search_method: :get,
+                                guidance: '',
+                                preload: false
+                              } %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row prefs_option">
+                <div class="col-md-9">
+                  <div class="form-group">
+                      <%= f.label(:user_guidance_metadata_standards, _('Description for Metadata Standards')) %>
+                      <%= f.text_area(:user_guidance_metadata_standards,
+                          class: "form-control",
+                          rows: 3, disabled: true) %>
+                      <p><%= _('This can be used to provide custom guidance and/or instructions for researchers.') %></p>
+                  </div>
+                </div>
+              </div>
+
+
+              <h2 class="prefs_option"><%= _('Preferred licenses') %></h2>
+              <div class="row prefs_option">
+                <div class="col-md-3">
+                  <div>
+                    <%
+                      opts = [
+                        ['Use defaults', '0'],
+                        ['Use mine', '1'],
+                      ]
+                      opt = template.customize_licenses ? '1' : '0'
+                    %>
+                    <label for="customize_licenses_sel"><%= _('Define Preferred Licenses:') %></label>
+                    <div>
+                    <%= select_tag 'customize_licenses_sel', options_for_select(opts, opt), disabled: true %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="selectable_items" id="default-licenses">
+                  <fieldset class="selectable_items">
+                    <legend><%= _('Default Licenses') %></legend>
+                    <ul>
+                      <% preferred_licenses.each do |lic|%>
+                        <li class="license selectable_item">
+                          <span class="selectable_item_label"><%= lic[0] %></span>
+                          <input class="license" type="hidden" data="<%= lic[0] %>" value="<%= lic[1] %>"/>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </fieldset>
+                  </div>
+                  <div class="selectable_items" id="my-licenses" >
+                  <fieldset class="selectable_items">
+                    <legend><%= _('My Licenses') %></legend>
+                    <div>
+                      <%
+                        args = { include_blank: _("- Please select one -"), class: "form-control",
+                        aria: { label: _('Initial license') }, disabled: true }
+                      %>
+                      <%= select_tag "new_license", options_for_select(licenses), args %>
+                      <button class="btn btn-default" id="add_license" disabled><%= _('Add a license') %></button>
+                    </div>
+                    <div>
+                      <ul>
+                      <% template.licenses.each do |lic| %>
+                        <input class="license_init" type="hidden" data="<%= lic[:identifier] %>" value="<%= lic[:id] %>"/>
+                      <% end %>
+                      </ul>
+                    </div>
+                  </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row prefs_option">
+                <div class="col-md-9">
+                  <div class="form-group">
+                      <%= f.label(:user_guidance_licenses, _('Tooltip for Licenses')) %>
+                      <%= f.text_area(:user_guidance_licenses,
+                          class: "form-control",
+                          rows: 2, disabled: true) %>
+                      <p><%= _('Tooltip text will appear when a user mouses over the license field') %></p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+ </div>

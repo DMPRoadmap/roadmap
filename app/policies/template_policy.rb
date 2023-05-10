@@ -9,6 +9,22 @@ class TemplatePolicy < ApplicationPolicy
     @user.can_super_admin?
   end
 
+  def preferences?
+    @user.can_modify_templates?
+  end
+
+  def repository_search?
+    @user.can_modify_templates?
+  end
+
+  def metadata_standard_search?
+    @user.can_modify_templates?
+  end
+
+  def define_custom_repository?
+    @user.can_modify_templates?
+  end
+
   def organisational?
     @user.can_modify_templates?
   end
@@ -54,7 +70,11 @@ class TemplatePolicy < ApplicationPolicy
   end
 
   def template_export?
-    @user.can_super_admin? || (@user.can_modify_templates?  &&  (@record.org_id == @user.org_id))
+    @user.can_super_admin? || (@user.can_modify_templates? && (@record.org_id == @user.org_id))
+  end
+
+  def save_preferences?
+    @user.can_modify_templates?
   end
 
   # AJAX Calls

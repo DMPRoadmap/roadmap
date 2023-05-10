@@ -8,6 +8,11 @@ $(() => {
     Tinymce.init({ selector: '#research_output_description' });
   }
 
+  // Preload the search results when then user opens a modal dialog
+  $('button.modal-opener').on('click', () => {
+    $("div.modal-body button[type='submit']").click();
+  });
+
   // Expands/Collapses the search results 'More info'/'Less info' section
   $('body').on('click', '.modal-search-result .more-info a.more-info-link', (e) => {
     e.preventDefault();
@@ -39,6 +44,23 @@ $(() => {
       if (textField.length > 0) {
         textField.val(link.text());
       }
+    }
+  });
+
+  // Auto select the 'OTHER' license from the license select list if the checkbox is checked
+  $('#use_custom_license').on('click', (e) => {
+    const checkbox = $(e.currentTarget);
+    const selectbox = $('#research_output_license_id');
+    const hiddenOption = $('#other_license_option');
+    const otherOption = $('#research_output_license_id option[text="OTHER"]');
+
+    if (checkbox.is(':checked')) {
+      if (otherOption.length <= 0) {
+        selectbox.append(hiddenOption);
+      }
+      otherOption.prop('selected', true);
+    } else {
+      otherOption.prop('selected', false);
     }
   });
 });

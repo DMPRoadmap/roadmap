@@ -58,7 +58,7 @@ module ExternalApis
         metadata = fetch_zenodo_metadata
 
         if metadata.present?
-          Dir.mkdir(file_dir)
+          FileUtils.mkdir_p(file_dir)
 
           checksum = File.open(checksum_file, 'w+') unless File.exist?(checksum_file) && !force
           checksum = File.open(checksum_file, 'r+') if checksum.blank?

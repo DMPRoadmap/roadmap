@@ -1,0 +1,101 @@
+<%#
+This partial is the entry point for adding the modal search dialog to a page.
+See the README.md within this directory for more info:
+
+Locals:
+  :namespace        - a unique name to identify the modal. This value can be used
+                      to match a selected result to a section of the parent page.
+  :label            - the text to display on the modal window. This will be swapped
+                      in so that it reads: '[label] search'
+  :search_examples  - Helpful text that will appear in the search term box as a
+                      placeholder to givethe user some suggestions.
+  :model_instance   - An instance of the parent object that the search results
+                      will be associated to. (e.g. an instance of ResearchOutput
+                      if the user will be searching for a license or repository).
+                      This is used to help define the `form_with` on the modal search form.
+  :search_path      - the path to controller endpoint that will perform the search
+  :search_method    - the http method used to perform the search
+%>
+
+<%
+search_examples = search_examples || ""
+results = results || []
+
+search_placeholder = _("Enter a search term")
+no_results_msg = _("No results matched your filter criteria.")
+%>
+
+<div id="modal-search-<%= namespace %>"
+     class="modal fade modal-search"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-search-label"
+     aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <%= button_tag "X", type: "button", class: "close",
+                       data: { dismiss: "modal" },
+                       aria: { label: _("Close") } %>
+
+        <h3 id="modal-search-label" class="modal-title">
+          <%= _("%{topic} search") % { topic: label } %>
+        </h3>
+      </div>
+
+      <!-- Non Dmptool invocations may not define a guidance field -->
+      <% unless guidance.nil? %>
+        <% unless guidance&.strip&.empty? %>
+        <div class="modal-header">
+          <%= sanitize(guidance) %>
+        </div>
+        <% end %>
+      <% end %>
+
+      <input type="hidden" id="preload-modal-list" value="<% if defined? preload %><%= preload ? 1 : 0 %>"<% end %>/>
+
+      <div class="modal-body">
+        <%# Search filters %>
+        <%= form_with model: model_instance, url: search_path, method: search_method, local: false,
+                      id: "modal-search-#{namespace}-filters" do |f| %>
+          <div class="form-group row">
+            <div class="col-md-10">
+              <%= yield :"filters-#{namespace}" %>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-md-10">
+              <span class="col-md-10">
+                <%= f.label :search_term, search_placeholder %>
+                <%= f.text_field :search_term,
+                                 class: "form-control autocomplete col-md-6",
+                                 placeholder: search_examples %>
+              </span>
+              <div class="col-md-3">
+                <%= f.button _("Apply filter(s)"),
+                             class: "btn btn-default",
+                             type: "submit" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <%# Search Results %>
+        <div id="modal-search-<%= namespace %>-results" class="form-group row modal-search-results">
+          <div class="col-md-12">
+            <div class="col-md-12"><%= no_results_msg %></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <%= button_tag _("Close"), type: "button", class: "close",
+                       data: { dismiss: "modal" } %>
+      </div>
+
+    </div>
+  </div>
+</div>

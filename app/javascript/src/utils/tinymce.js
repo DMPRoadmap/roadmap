@@ -19,6 +19,7 @@ import 'tinymce/plugins/advlist';
 
 // Other dependencies
 import { isObject, isString, isUndefined } from './isType';
+import getConstant from './constants';
 
 // // Configuration extracted from
 // // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
@@ -84,6 +85,14 @@ const attachLabelToIframe = (editor) => {
   }
 };
 
+const attachNavigationText = (editor) => {
+  if (isTinymceEditor(editor)) {
+    const tinymceBlock = $(`#${editor.id}`).closest('.wysiwyg-block');
+    const navText = getConstant('TINYMCE_HELP');
+    tinymceBlock.append(`<div class="tinymce-help">${navText}</div>`);
+  }
+};
+
 export const Tinymce = {
   /*
     Initialises a tinymce editor given the object passed. If a non-valid object is passed,
@@ -102,7 +111,8 @@ export const Tinymce = {
         for (const editor of editors) {
           // auto-resize the editor and connect the form label to the TinyMCE iframe
           editor.execCommand('mceAutoResize');
-          attachLabelToIframe(editor, editor.id);
+          attachLabelToIframe(editor);
+          attachNavigationText(editor);
         }
       }
     });

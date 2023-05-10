@@ -3,7 +3,7 @@
     <%# The user does not have an account! %>
     <p class="red"><%= _('Invalid email or password.') %></p>
     <p><%= sanitize(_('If you do not have a DMPTool account, you will need to create one before authorizing %<application>s. To create an account, please visit the %<link_to_home_page>s. Once your account has been created, you may return to this page to finish the authotization.') % {
-      application: client&.name&.humanize,
+      application: client.is_a?(String) ? client : client&.name&.humanize,
       link_to_home_page: link_to(root_url, _('DMPTool home page'), target: '_blank')
     }, { attributes: %w[href target] }) %></p>
   <% end %>

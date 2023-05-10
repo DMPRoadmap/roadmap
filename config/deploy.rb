@@ -41,6 +41,7 @@ end
 namespace :deploy do
   before :compile_assets, 'deploy:retrieve_credentials'
 
+  # after :deploy, 'dmptool_assets:recompile'
   after :deploy, 'dmptool_assets:copy_ui_assets'
   after :deploy, 'dmptool_assets:copy_robots'
 
@@ -79,6 +80,13 @@ end
 namespace :dmptool_assets do
   # POST ASSET COMPILATION
   # ----------------------
+  desc "Clobber and then recompile assets. For some reason the Cap one can't build application.css for CssBundling"
+  task :recompile do
+    on roles(:app), wait: 1 do
+      execute "cd #{release_path} && bin/rails assets:clobber && bin/rails assets:precompile"
+    end
+  end
+
   desc "Copy over DMPTool-UI repo's images to the public/dmptool-ui-raw-images dir"
   task :copy_ui_assets do
     on roles(:app), wait: 1 do

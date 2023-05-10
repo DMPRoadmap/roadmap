@@ -10,14 +10,18 @@ class ResearchOutputPresenter
 
   # Returns the output_type list for a select_tag
   def selectable_output_types
-    ResearchOutput.output_types
-                  .map { |k, _v| [k.humanize, k] }
+    if research_output.plan.template.customize_output_types?
+      research_output.plan.template.template_output_types.map do |ot|
+        [ot.research_output_type.humanize, ot.research_output_type]
+      end
+    else
+      ResearchOutput::DEFAULT_OUTPUT_TYPES.map { |k| [k.humanize, k] }
+    end
   end
 
   # Returns the access options for a select tag
   def selectable_access_types
-    ResearchOutput.accesses
-                  .map { |k, _v| [k.humanize, k] }
+    [['Unrestricted Access', 'open'], ['Controlled Access', 'restricted'], ['Other', 'closed']]
   end
 
   # Returns the options for file size units
@@ -38,12 +42,22 @@ class ResearchOutputPresenter
   def complete_licenses
     License.selectable
            .sort_by(&:identifier)
-           .map { |license| [license.identifier, license.id] }
+           .map { |license| ["#{license.identifier} (#{license.name})", license.id] }
   end
 
   # Returns the available licenses for a select tag
   def preferred_licenses
-    License.preferred.map { |license| [license.identifier, license.id] }
+    License.preferred.map { |license| ["#{license.identifier} (#{license.name})", license.id] }
+  end
+
+  # Returns the customized set of licenses for a template
+  def customized_licenses
+    @research_output.plan.template.licenses.map { |license| ["#{license.identifier} (#{license.name})", license.id] }
+  end
+
+  def other_license
+    license = License.where(identifier: 'OTHER').first
+    license.present? ? ["#{license.identifier} (#{license.name})", license.id] : nil
   end
 
   # Returns whether or not we should capture the byte_size based on the output_type
@@ -108,10 +122,8 @@ class ResearchOutputPresenter
   # Returns the humanized version of the output_type enum variable
   def display_type
     return '' unless @research_output.is_a?(ResearchOutput)
-    # Return the user entered text for the type if they selected 'other'
-    return @research_output.output_type_description if @research_output.other?
 
-    @research_output.output_type.tr('_', ' ').capitalize
+    @research_output.research_output_type.humanize.capitalize
   end
 
   # Returns the display name(s) of the repository(ies)

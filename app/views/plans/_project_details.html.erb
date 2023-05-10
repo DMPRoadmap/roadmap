@@ -34,7 +34,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   <div class="col-md-12">
     <%= form.label(:description, _('Project abstract'), class: 'control-label', id: 'project-description-label') %>
   </div>
-  <div class="col-md-8" data-toggle="tooltip" title="<%= project_abstract_tooltip %>">
+  <div class="col-md-8 wysiwyg-block" data-toggle="tooltip" title="<%= project_abstract_tooltip %>">
     <em class="sr-only"><%= project_abstract_tooltip %></em>
     <%= form.text_area :description, rows: 6, class: 'form-control tinymce',
                        spellcheck: true, aria: { required: false, labelledby: 'project-description-label' } %>
@@ -120,7 +120,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
       <div class="col-md-12">
         <%= form.label(:ethical_issues_description, _('Describe any ethical concerns'), class: 'control-label', id: 'plan-ethical-description') %>
       </div>
-      <div class="col-md-8" data-toggle="tooltip" title="<%= ethics_description_tooltip %>">
+      <div class="col-md-8 wysiwyg-block" data-toggle="tooltip" title="<%= ethics_description_tooltip %>">
         <em class="sr-only"><%= ethics_description_tooltip %></em>
         <%= form.text_area :ethical_issues_description,
                            rows: 6,

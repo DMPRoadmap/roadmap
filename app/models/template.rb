@@ -19,6 +19,16 @@
 #  updated_at       :datetime
 #  family_id        :integer
 #  org_id           :integer
+#  enable_research_outputs           :boolean
+#  user_guidance_output_types        :string(255)
+#  user_guidance_repositories        :string(255)
+#  user_guidance_metadata_standards  :string(255)
+#  user_guidance_licenses            :string(255)
+#  customize_output_types            :boolean
+#  customize_repositories            :boolean
+#  customize_metadata_standards      :boolean
+#  customize_licenses                :boolean
+
 #
 # Indexes
 #
@@ -62,6 +72,15 @@ class Template < ApplicationRecord
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
   attribute :visibility, default: Template.visibilities[:organisationally_visible]
+  attribute :enable_research_outputs, :boolean, default: true
+  attribute :customize_output_types, :boolean, default: false
+  attribute :customize_repositories, :boolean, default: false
+  attribute :customize_metadata_standards, :boolean, default: false
+  attribute :customize_licenses, :boolean, default: false
+  attribute :user_guidance_output_types, :text, default: nil
+  attribute :user_guidance_repositories, :text, default: nil
+  attribute :user_guidance_metadata_standards, :text, default: nil
+  attribute :user_guidance_licenses, :text, default: nil
 
   # ================
   # = Associations =
@@ -82,6 +101,28 @@ class Template < ApplicationRecord
   has_many :question_options, through: :questions
 
   has_many :conditions, through: :questions
+
+  has_many :template_output_types, dependent: :destroy
+
+  accepts_nested_attributes_for :template_output_types
+
+  has_many :template_licenses, dependent: :destroy
+
+  has_many :licenses, through: :template_licenses
+
+  # preferred repository relationship - repositories can be used by many templates
+  has_many :template_repositories, dependent: :destroy
+
+  # preferred repository relationship - repositories can be used by many templates
+  has_many :repositories, through: :template_repositories
+
+  # customized repository relationship - customized repositories belong to a single template
+  has_many :customized_repositories, foreign_key: 'custom_repository_owner_template_id', class_name: 'Repository',
+                                     dependent: :destroy
+
+  has_many :template_metadata_standards, dependent: :destroy
+
+  has_many :metadata_standards, through: :template_metadata_standards
 
   # ----------------------------------------
   # Start DMPTool Customization
@@ -261,6 +302,14 @@ class Template < ApplicationRecord
     end
   end
 
+  def preload_repositories?
+    true
+  end
+
+  def preload_metadata_standards?
+    true
+  end
+
   # Retrieves the latest templates, i.e. those with maximum version associated.
   # It can be filtered down if family_id is passed. NOTE, the template objects
   # instantiated only contain version and family attributes populated. See
@@ -317,6 +366,25 @@ class Template < ApplicationRecord
       end
 
       cond.save if cond.changed?
+    end
+
+    template_output_types.each do |t|
+      copy.template_output_types << TemplateOutputType.new(template: copy, research_output_type: t.research_output_type)
+    end
+    template_repositories.each do |t|
+      copy.template_repositories << TemplateRepository.new(template: copy, repository: t.repository)
+    end
+    template_metadata_standards.each do |t|
+      copy.template_metadata_standards << TemplateMetadataStandard.new(template: copy,
+                                                                       metadata_standard: t.metadata_standard)
+    end
+    template_licenses.each do |t|
+      copy.template_licenses << TemplateLicense.new(template: copy, license: t.license)
+    end
+    customized_repositories.each do |t|
+      tt = t.dup
+      tt.save!
+      copy.customized_repositories << tt
     end
 
     copy
@@ -490,6 +558,48 @@ class Template < ApplicationRecord
     loop do
       random = rand 2_147_483_647
       break random unless Template.exists?(family_id: random)
+    end
+  end
+
+  def licenses_attributes=(params)
+    params.each do |_i, license_params|
+      licenses << License.find_by(id: license_params[:id])
+    end
+  end
+
+  def repositories_attributes=(params)
+    params.each do |_i, repository_params|
+      repositories << Repository.find_by(id: repository_params[:id])
+    end
+  end
+
+  # rubocop:disable Metrics/AbcSize
+  def customized_repositories_attributes=(params)
+    params.each do |_i, repository_params|
+      repo = nil
+      if repository_params[:id]
+        repo = Repository.find_by(id: repository_params[:id])
+        customized_repositories << repo unless repo.nil?
+      end
+      next unless repo.nil? && repository_params[:name]
+
+      customized_repositories << Repository.new(
+        name: repository_params[:name],
+        description: repository_params[:description],
+        uri: repository_params[:uri],
+        info: {
+          types: [''],
+          subjects: [''],
+          upload_types: []
+        }.to_json
+      )
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def metadata_standards_attributes=(params)
+    params.each do |_i, metadata_standard_params|
+      metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
     end
   end
 

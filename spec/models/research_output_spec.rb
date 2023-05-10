@@ -13,9 +13,8 @@ RSpec.describe ResearchOutput do
     end
 
     it { is_expected.to define_enum_for(:access).with_values(described_class.accesses.keys) }
-    it { is_expected.to define_enum_for(:output_type).with_values(described_class.output_types.keys) }
 
-    it { is_expected.to validate_presence_of(:output_type) }
+    it { is_expected.to validate_presence_of(:research_output_type) }
     it { is_expected.to validate_presence_of(:access) }
     it { is_expected.to validate_presence_of(:title) }
 
@@ -30,16 +29,6 @@ RSpec.describe ResearchOutput do
                                                                .scoped_to(:plan_id)
                                                                .with_message('must be unique')
     }
-
-    it "requires :output_type_description if :output_type is 'other'" do
-      @subject.other!
-      expect(@subject).to validate_presence_of(:output_type_description)
-    end
-
-    it "does not require :output_type_description if :output_type is 'dataset'" do
-      @subject.dataset!
-      expect(@subject).not_to validate_presence_of(:output_type_description)
-    end
   end
 
   it 'factory builds a valid model' do

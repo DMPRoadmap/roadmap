@@ -152,7 +152,8 @@ class ApplicationController < ActionController::Base
       Perm: _('permission'),
       Pref: _('preferences'),
       User: obj == current_user ? _('profile') : _('user'),
-      QuestionOption: _('question option')
+      QuestionOption: _('question option'),
+      ResearchOutput: _('Research Output')
     }
     if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
       display_name[:Template] = 'customization'

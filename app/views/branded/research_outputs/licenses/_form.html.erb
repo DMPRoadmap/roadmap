@@ -2,31 +2,44 @@
 <%
 default_guidance = "https://choosealicense.com/"
 
+selected = research_output.license_id
+
+customized_licenses = presenter.customized_licenses
 preferred_licenses = presenter.preferred_licenses
-preferred_licenses << ["- Other Licenses - will load a complete list -", "0"]
+complete_list = presenter.complete_licenses
+complete_list = (complete_list + customized_licenses).uniq.sort { |a, b| a[0] <=> b[0] } if customized_licenses.any?
+
+show_all = selected == 0 || (preferred_licenses.empty? && customized_licenses.empty?)
+
+puts "selected: #{selected}, show_all: #{show_all}"
+
+options = complete_list.sort { |a, b| a[0] <=> b[0] }.uniq if show_all
+options = customized_licenses.any? ? customized_licenses : preferred_licenses unless show_all
+
+full_list_link = ["- Other Licenses - will load a complete list -", "0"]
+other = presenter.other_license
+options << other unless show_all || other.nil?
+options << full_list_link unless show_all
 
 preferred_guidance = Rails.configuration.x.madmp.preferred_licenses_guidance_url
 preferred_guidance = default_guidance if preferred_guidance.nil? || preferred_guidance.empty?
 
-selected = research_output.license_id
-
-# If the user has selected 'Other Licenses' or they have a selection that is not in the preferred list
-show_preferred = selected.nil? || (selected != 0 && preferred_licenses.map { |array| array[1] }.include?(selected))
-
-options = show_preferred ? preferred_licenses : presenter.complete_licenses
-guidance = show_preferred ? preferred_guidance : default_guidance
+guidance = show_all ? default_guidance : preferred_guidance
 
 args = { include_blank: _("- Please select one -"), selected: selected, class: "form-control",
          aria: { label: _('Initial license') } }
-args[:data] = { remote: true, url: plan_license_selection_path(research_output.plan), method: :get } if show_preferred
+args[:data] = { remote: true, url: plan_license_selection_path(research_output.plan), method: :get } unless show_all
 %>
 <div class="col-md-12">
-  <span class="col-md-4">
+  <span class="col-md-12">
     <%= label_tag _("Initial license"), _("Initial license"), class: "control-label" %>
+  </span>
+</div>
+<div class="col-md-12">
+  <span class="col-md-4" data-toggle="tooltip" title="<%= @plan.template.user_guidance_licenses %>">
     <%= select_tag "research_output[license_id]", options_for_select(options, selected), args %>
   </span>
-  <span class="col-md-4">
-    <div>&nbsp;</div>
+  <span class="col-md-8">
     <p>
       <%= _("For guidance on selecting a license:") %><br>
       <a href="<%= guidance %>" target="_blank"><%= guidance %></a>

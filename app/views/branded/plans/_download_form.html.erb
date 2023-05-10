@@ -55,7 +55,7 @@
       <% if @plan.research_outputs.any? %>
         <div class="checkbox">
           <%= label_tag 'export[research_outputs]' do %>
-            <%= check_box_tag 'export[research_outputs]', true, false %>
+            <%= check_box_tag 'export[research_outputs]', true, true %>
             <%= _('include a table of your research outputs') %>
           <% end %>
         </div>

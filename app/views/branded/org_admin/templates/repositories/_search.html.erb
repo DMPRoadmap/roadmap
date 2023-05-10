@@ -1,0 +1,40 @@
+<%# locals: research_output %>
+
+<% content_for :"filters-repositories" do %>
+  <%
+  by_type_tooltip = _("Refine your search to discipline specific, institutional or generalist repositories. When the use of domain-specific repositories is not available, generalist repositories are a good option and accept all types of data regardless of type, format, content, or discipline.")
+  by_subject_tooltip = _("Select a subject area to refine your search.")
+  %>
+
+  <span class="col-md-5">
+    <%= select_tag :"template[subject_filter]",
+                   options_for_select(ResearchOutputPresenter.selectable_subjects),
+                   include_blank: _("- Select a subject area -"),
+                   class: "form-control",
+                   aria: { label: _('Select a subject area') },
+                   title: by_subject_tooltip,
+                   data: { toggle: "tooltip", placement: "bottom" } %>
+  </span>
+
+  <span class="col-md-5">
+    <%= select_tag :"template[type_filter]",
+                   options_for_select(ResearchOutputPresenter.selectable_repository_types),
+                   include_blank: _("- Select a repository type -"),
+                   class: "form-control",
+                   aria: { label: _('Select a repository type') },
+                   title: by_type_tooltip,
+                   data: { toggle: "tooltip", placement: "bottom" } %>
+  </span>
+<% end %>
+
+<%= render partial: "layouts/modal_search/form",
+           locals: {
+             namespace: "repositories",
+             label: "Repository",
+             search_examples: "(e.g. DNA, titanium, FAIR, etc.)",
+             model_instance: template,
+             search_path: repository_search_org_admin_template_path(template),
+             search_method: :get,
+             guidance: '',
+             preload: false
+           } %>
