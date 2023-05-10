@@ -30,10 +30,10 @@ RSpec.describe ResearchOutputPresenter do
 
     it "packages the output types for a selectbox - [['Unrestricted Access', 'open']]" do
       levels = @presenter.selectable_access_types
-      expect(levels.select { |lvl| lvl[1] == 'open' }[0]).to eql('Unrestricted Access')
-      expect(levels.select { |lvl| lvl[1] == 'restricted' }[0]).to eql('Controlled Access')
-      expect(levels.select { |lvl| lvl[1] == 'closed' }[0]).to eql('Other')
-      expect(levels.select { |lvl| lvl[1] == 'embargoed' }).to be(nil)
+      expect(levels.find { |lvl| lvl[1] == 'open' }).to eql('Unrestricted Access')
+      expect(levels.find { |lvl| lvl[1] == 'restricted' }).to eql('Controlled Access')
+      expect(levels.find { |lvl| lvl[1] == 'closed' }).to eql('Other')
+      expect(levels.find { |lvl| lvl[1] == 'embargoed' }).to be(nil)
     end
   end
 
