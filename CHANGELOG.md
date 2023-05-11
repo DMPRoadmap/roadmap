@@ -6,6 +6,10 @@
 
  - Resolved problem when creating organisations [portagenetwork/roadmap#336](https://github.com/portagenetwork/roadmap/issues/336)
 
+### Changed
+
+ - Help-desk email now has correct address [portagenetwork/roadmap#338](https://github.com/portagenetwork/roadmap/issues/338)
+
 ## [3.1.0+portage-3.1.2] - 2023-03-28
 
 ### Fixed 
