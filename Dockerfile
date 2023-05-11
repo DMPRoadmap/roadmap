@@ -1,8 +1,9 @@
 FROM ruby:3.1.3 as dev
 WORKDIR /app
 COPY . .
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt install -y nodejs && \
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
   apt install -y \
+    nodejs \
     postgresql-client \
     wkhtmltopdf \
     imagemagick \
@@ -16,15 +17,14 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt install -y 
   bundle install && \
   npm i -g yarn
 
-FROM dev as production
-COPY . .
+FROM dev as build
 RUN DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider yarn build && \
-    NODE_OPTIONS=--openssl-legacy-provider yarn build:css && \
-    rm -rf node_module
+  NODE_OPTIONS=--openssl-legacy-provider yarn build:css && \
+  rm -rf node_module
 
-FROM ruby:3.1.3-alpine3.17
+FROM ruby:3.1.3-alpine3.17 as production
 WORKDIR /app
-COPY --from=production /app .
+COPY --from=build /app .
 RUN apk add --no-cache --update --virtual \
   build-dependencies \
   build-base \

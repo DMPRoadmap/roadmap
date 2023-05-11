@@ -43,7 +43,7 @@ See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installa
 # build image
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev build dmpopidor
 
-# Configure database connexion for postgres (change postgres by mysql)
+# Configure database connection for postgres (change postgres by mysql)
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker postgres'
 
 # Setup database
