@@ -213,13 +213,13 @@ module FragmentImport
           sub_fragment.classname = sub_schema.classname
           sub_fragment.save!
           created_frag = sub_fragment.import_with_instructions(sub_fragment_data, sub_schema)
-          # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
-          # and update_references function is not triggered
-          fragmented_data[prop] = { 'dbid' => created_frag.id } if sub_schema.classname.eql?('person')
         elsif sub_fragment_id.present? || sub_data['action'].eql?('update')
           sub_fragment = MadmpFragment.find(sub_fragment_id)
           sub_fragment.import_with_instructions(sub_fragment_data, sub_schema)
         end
+        # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
+        # and update_references function is not triggered
+        fragmented_data[prop] = { 'dbid' => sub_fragment.id } if sub_schema.classname.eql?('person')
       elsif schema_prop['type'].eql?('array') &&
             schema_prop['items']['schema_id'].present?
         ####################################

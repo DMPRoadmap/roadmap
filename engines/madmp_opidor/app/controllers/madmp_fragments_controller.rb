@@ -55,7 +55,13 @@ class MadmpFragmentsController < ApplicationController
                    end
     fragment_list = MadmpFragment.where(dmp_id: @dmp_fragment.id, **where_params)
     formatted_list = fragment_list.select { |f| f.to_s.downcase.include?(search_term) }
-                                  .map    { |f| { 'id' => f.id, 'text' => f.to_s, 'object' => f.data } }
+                                  .map do |f|
+                                    {
+                                      'id' => f.id,
+                                      'text' => f.to_s,
+                                      'object' => f.get_full_fragment(with_ids: true)
+                                    }
+                                  end
     authorize @dmp_fragment
     render json: {
       'results' => formatted_list
