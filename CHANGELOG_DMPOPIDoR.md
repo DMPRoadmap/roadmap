@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 12/05/2023
+- Mise à jour du CAPTCHA vers Recaptcha V3 : 
+  - La validation est transparente basée sur un score calculé par Google
+  - Si la validation échoue, le site propose le test "Je ne suis pas un robot"
+
 ## 28/04/2023
 - Correction du problème de pagination de la liste des contributeurs dans l'onglet Contributeurs (issue gitbucket 482) & retrait du champ de recherche
 - Correction du problème d'affichage des boutons
