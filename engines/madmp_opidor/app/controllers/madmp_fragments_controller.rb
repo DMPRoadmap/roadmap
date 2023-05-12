@@ -48,12 +48,14 @@ class MadmpFragmentsController < ApplicationController
   def load_fragments
     @dmp_fragment = MadmpFragment.find(params[:dmp_id])
     search_term = params[:term] || ''
-    fragment_list = MadmpFragment.where(
-      dmp_id: @dmp_fragment.id,
-      madmp_schema_id: params[:schema_id]
-    )
+    where_params = if params[:classname].present?
+                     { classname: params[:classname] }
+                   else
+                     { madmp_schema_id: params[:schema_id] }
+                   end
+    fragment_list = MadmpFragment.where(dmp_id: @dmp_fragment.id, **where_params)
     formatted_list = fragment_list.select { |f| f.to_s.downcase.include?(search_term) }
-                                  .map    { |f| { 'id' => f.id, 'text' => f.to_s } }
+                                  .map    { |f| { 'id' => f.id, 'text' => f.to_s, 'object' => f.data } }
     authorize @dmp_fragment
     render json: {
       'results' => formatted_list
