@@ -1,8 +1,8 @@
 <%# locals: { search_term } %>
 
 <%= form_tag(paginable_base_url(1), method: :get, remote: remote, class: 'form-inline paginable-action') do %>
-  <div class="form-group">
-    <div class="input-group">
+  <div class="d-inline-flex flex-row">
+    <div class="d-inline-flex input-group">
       <span class="input-group-addon" id="search-addon">
         <span class="fas fa-search" aria-hidden="true"></span>
       </span>
@@ -17,5 +17,5 @@
       &nbsp
     <% end %>
   </div>
-  <%= submit_tag(_('Search'), class: 'btn btn-default', style: 'margin-top: 8px;') %>
+  <%= submit_tag(_('Search'), class: 'btn-default', style: 'margin-top: 8px;') %>
 <% end %>

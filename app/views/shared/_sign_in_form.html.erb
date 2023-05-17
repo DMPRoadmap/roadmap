@@ -16,15 +16,15 @@
       <%= _('Remember email') %>
     <% end %>
   </div>
-  <%= f.button(_('Sign in'), class: "btn btn-secondary", type: "submit") %>
+  <%= f.button(_('Sign in'), class: "btn-default", type: "submit") %>
 
   <% if Rails.configuration.x.shibboleth.enabled %>
     <% if session['devise.shibboleth_data'].nil? %>
       <p class="text-center fontsize-h4">- <%= _('or') %> -</p>
       <div class="form-group">
-        <span class="center-block btn-group-justified">
+        <span class="d-grid">
           <% target = (Rails.configuration.x.shibboleth.use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-          <%= link_to _('Sign in with your institutional credentials'), target, method: :post, class: 'btn btn-secondary' %>
+          <%= link_to _('Sign in with your institutional credentials'), target, method: :post, class: 'btn-default' %>
         </span>
       </div>
     <% else %>
