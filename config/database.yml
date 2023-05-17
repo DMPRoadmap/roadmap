@@ -15,8 +15,8 @@ local:
 development:
   <<: *defaults
 
-  username: {!SSM: dev/RdsDbaUsername}
-  password: {!SSM: dev/RdsDbaPassword}
+  # username: {!SSM: dev/RdsDbaUsername}
+  # password: {!SSM: dev/RdsDbaPassword}
 
 # Local test environment (also used for GitHub actions)
 test:
