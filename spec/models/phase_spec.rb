@@ -68,6 +68,8 @@ RSpec.describe Phase do
 
     let!(:options) { {} }
 
+    subject { phase.deep_copy(**options) }
+
     context 'when no options are provided' do
       before do
         create_list(:section, 2, phase: phase)

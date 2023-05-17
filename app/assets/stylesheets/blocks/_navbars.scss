@@ -1,3 +1,5 @@
+@use '../variables/bootstrap' as *;
+@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
 /* For org navbar custom height */
 #org-navbar {
   border-radius: 0px;

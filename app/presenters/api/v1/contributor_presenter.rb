@@ -7,14 +7,16 @@ module Api
       class << self
         # Convert the specified role into a CRediT Taxonomy URL
         def role_as_uri(role:)
-          return nil if role.blank?
-          return 'other' if role.to_s.downcase == 'other'
+          return nil unless role.present?
+          return 'other' if role.to_s.casecmp('other').zero?
 
-          "#{Contributor::ONTOLOGY_BASE_URL}#{role.to_s.downcase.gsub('_', '-')}"
+          base = Contributor::ONTOLOGY_BASE_URL
+          base = "#{base}/" unless base.end_with?('/')
+          "#{base}#{role.to_s.downcase.tr('_', '-')}"
         end
 
         def contributor_id(identifiers:)
-          identifiers.select { |id| id.identifier_scheme&.name == 'orcid' }.first
+          identifiers.find { |id| id.identifier_scheme.name == 'orcid' }
         end
       end
     end

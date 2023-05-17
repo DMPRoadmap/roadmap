@@ -5,7 +5,7 @@
 if output.is_a?(ResearchOutput)
   presenter = Api::V1::ResearchOutputPresenter.new(output: output)
 
-  json.type output.output_type
+  json.type presenter.research_output_type
   json.title output.title
   json.description output.description
   json.personal_data Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: output.personal_data)
@@ -43,7 +43,7 @@ if output.is_a?(ResearchOutput)
       end
     end
 
-    if output.license.present?
+    if output.license.present? && output.license.uri.present?
       json.license [output.license] do |license|
         json.license_ref license.uri
         json.start_date presenter.license_start_date

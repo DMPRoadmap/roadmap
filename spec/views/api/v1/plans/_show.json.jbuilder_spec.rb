@@ -92,8 +92,8 @@ describe 'api/v1/plans/_show.json.jbuilder' do
     end
 
     it 'includes the :template in :extension' do
-      @section = @json[:extension].select { |hash| hash.keys.first == 'dmproadmap' }.first
-      expect(@section[:dmproadmap].present?).to be(true)
+      @section = @json[:extension].find { |hash| hash.keys.first == 'dmproadmap' }
+      expect(@section[:dmproadmap].present?).to eql(true)
       tmplt = @plan.template
       expect(@section[:dmproadmap][:template][:id]).to eql(tmplt.id)
       expect(@section[:dmproadmap][:template][:title]).to eql(tmplt.title)

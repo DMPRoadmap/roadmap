@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
-
-require 'csv'
-require 'uc3-ssm'
+require "rails/all"
 
 # Question: is there a nicer way to do this require_relative?
 require_relative '../lib/ssm_config_loader'
@@ -22,19 +19,22 @@ if ENV.key?('SSM_ROOT_PATH')
 end
 
 module DMPRoadmap
-  # DMPRoadmap application
+  # The DMPRoadmap Rails application
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
 
-    # --------------------------------- #
+    # --------------------------------#
     # OVERRIDES TO DEFAULT RAILS CONFIG #
-    # --------------------------------- #
+    # --------------------------------#
     # Ensure that Zeitwerk knows to load our classes in the lib directory
     config.eager_load_paths << config.root.join('lib')
 

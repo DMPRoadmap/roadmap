@@ -28,7 +28,7 @@ end
       </a>
     </li>
   <% end %>
-  <% if Rails.configuration.x.enable_research_outputs %>
+  <% if Rails.configuration.x.enable_research_outputs && (plan.template.enable_research_outputs? || plan.research_outputs.any?) %>
     <li role="presentation" class="<%= (active_page?(plan_research_outputs_path(plan)) ? 'active' : '') %>">
       <%= link_to(_('Research outputs'), plan_research_outputs_path(plan), role: 'tab', 'aria-controls': 'content') %>
     </li>

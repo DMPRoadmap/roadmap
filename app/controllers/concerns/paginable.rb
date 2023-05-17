@@ -176,7 +176,7 @@ module Paginable
     dir = 'down' if sort_direction.to_s == 'DESC'
     class_name = "fas fa-sort-#{dir}" if @args[:sort_field] == sort_field
     <<~HTML.html_safe
-      <i class="fas #{class_name}"
+      <i class="#{class_name}"
          aria-hidden="true"
          style="float: right; font-size: 1.2em;">
 

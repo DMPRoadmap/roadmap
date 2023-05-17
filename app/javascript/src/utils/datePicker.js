@@ -1,4 +1,4 @@
-import 'jquery-ui/datepicker';
+import 'jquery-ui/ui/widgets/datepicker';
 
 /*
  * Date picker polyfill:

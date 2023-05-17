@@ -1,3 +1,4 @@
+@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
 // TODO: Refactor this. Instead of writing specific CSS rules for particular objects,
 // we should provide utility classes which can provide the desired style to this object
 #new_plan {

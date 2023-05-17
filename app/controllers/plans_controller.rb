@@ -352,6 +352,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+    @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
     @export_settings = @plan.settings(:export)
     render 'download'
   end
@@ -484,7 +485,7 @@ class PlansController < ApplicationController
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk],
-                  related_identifiers_attributes: %i[id work_type value])
+                  related_identifiers_attributes: %i[id work_type value citation identifier_type relation_type])
   end
 
   # different versions of the same template have the same family_id

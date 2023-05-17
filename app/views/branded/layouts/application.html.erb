@@ -41,10 +41,10 @@
         </script>
     <![endif]-->
 
-    <%= stylesheet_link_tag(stylesheet_manifest_file) %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link rel="stylesheet" media="screen" href="/dmptool-ui/main.css" />
 
-    <%= javascript_pack_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <script src="/dmptool-ui/main.js" data-turbo-track="reload"></script>
 
     <%= csrf_meta_tags %>

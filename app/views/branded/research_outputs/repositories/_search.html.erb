@@ -6,10 +6,20 @@
   by_subject_tooltip = _("Select a subject area to refine your search.")
   %>
 
+  <% if @has_preferred_repos %>
+    <span class="col-md-12">
+      <input type="checkbox" id="research_output_preferred_repos" name="research_output[preferred_repos]" checked/>
+      <label for="research_output_preferred_repos"><%= _('Only include repositories recommended by the funder or my institution') %></label>
+      <p>&nbsp;</p>
+    </span>
+  <% end %>
+</div>
+<div class="col-md-10">
   <span class="col-md-5">
+    <label for="research_output_subject_filter"><%= _('Select a subject area') %></label>
     <%= select_tag :"research_output[subject_filter]",
                    options_for_select(ResearchOutputPresenter.selectable_subjects),
-                   include_blank: _("- Select a subject area -"),
+                   include_blank: true,
                    class: "form-control",
                    aria: { label: _('Select a subject area') },
                    title: by_subject_tooltip,
@@ -17,9 +27,10 @@
   </span>
 
   <span class="col-md-5">
+    <label for="research_output_type_filter"><%= _('Select a repository type') %></label>
     <%= select_tag :"research_output[type_filter]",
                    options_for_select(ResearchOutputPresenter.selectable_repository_types),
-                   include_blank: _("- Select a repository type -"),
+                   include_blank: true,
                    class: "form-control",
                    aria: { label: _('Select a repository type') },
                    title: by_type_tooltip,
@@ -34,5 +45,7 @@
              search_examples: "(e.g. DNA, titanium, FAIR, etc.)",
              model_instance: research_output,
              search_path: plan_repository_search_path(research_output.plan),
-             search_method: :get
+             search_method: :get,
+             guidance: research_output.plan.template.user_guidance_repositories,
+             preload: research_output.plan.template.preload_repositories?
            } %>

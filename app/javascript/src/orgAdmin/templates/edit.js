@@ -1,4 +1,3 @@
-import { Tinymce } from '../../utils/tinymce';
 import { eachLinks } from '../../utils/links';
 import { isObject, isString } from '../../utils/isType';
 import { renderNotice, renderAlert } from '../../utils/notificationHelper';
@@ -6,7 +5,7 @@ import { scrollTo } from '../../utils/scrollTo';
 
 $(() => {
   Tinymce.init({
-    selector: '.template',
+    selector: '#template_description',
     init_instance_callback(editor) {
       // When the text editor changes to blank, set the corresponding destroy
       // field to true (if present).

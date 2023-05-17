@@ -1,0 +1,66 @@
+@use '../variables/colours' as *;
+
+.selectable_items ul {
+  padding-left: 0px;
+}
+
+li.selectable_item {
+  display: inline-block;
+}
+
+span.selectable_item_label {
+  padding: 4px;
+  border: thin solid $color-grey-darker;
+  border-radius: 5px; margin: 3px;
+  display: inline-block;
+}
+
+button.selectable_item_button {
+  color: $color-secondary-text;
+  background-color: $color-secondary-background;
+  padding-right: 4px;
+  border: none;
+}
+
+li.selectable_item .standard {
+  color: $color-secondary-text;
+  background-color: $color-secondary-background;
+}
+
+li.selectable_item .custom {
+  color: $color-primary-text;
+  background-color: $color-primary-background;
+}
+
+fieldset.selectable_items {
+  border: thin solid $color-grey-darker;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+div.selectable_items {
+  margin-bottom: 30px;
+}
+
+div.selectable_items input {
+  border-color: $color-grey-darker
+}
+
+fieldset.user-guidance {
+  padding: 4px;
+  border: thin solid $color-grey-darker;
+  border-radius: 5px; margin: 3px;
+}
+
+#new_license {
+  display: inline-block;
+  width: 60%;
+}
+
+.customized_repositories button.modal-search-result-unselector {
+  margin-left: 4px;
+}
+
+ul#preference-errors {
+  list-style: none;
+}

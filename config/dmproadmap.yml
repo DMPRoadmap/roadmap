@@ -54,7 +54,7 @@ default: &default
   port: "3000"
   web_concurrency: 2
   cookie_key: "_my_application_session"
-  rails_log_to_stdout: true
+  rails_log_to_stdout: false
   rails_max_threads: 5
   rails_serve_static_files: true
 
@@ -358,7 +358,7 @@ default: &default
   require_contributor_name: true
 
   # Enable/disable functionality on the Project Details tab
-  enable_ethical_issues: true
+  enable_ethical_issues: false
   enable_research_domain: true
 
   # This flag will enable/disable the entire Research Outputs tab. The others below will

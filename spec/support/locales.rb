@@ -2,7 +2,7 @@
 
 require 'shoulda/matchers'
 
-AVAILABLE_TEST_LOCALES = %w[en-GB en fr de].freeze
+AVAILABLE_TEST_LOCALES = %w[en-US en].freeze
 
 RSpec.configure do |config|
   config.before(:suite) do

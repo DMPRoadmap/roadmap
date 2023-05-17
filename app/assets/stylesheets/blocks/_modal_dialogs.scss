@@ -1,7 +1,8 @@
+@use '../variables/colours' as *;
 // Overrides Bootstrap 3.0's Modals
 
 .modal-dialog {
-  background-color: $color-seccondary-background;
+  background-color: $color-secondary-background;
 }
 
 

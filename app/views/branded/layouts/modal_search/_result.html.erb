@@ -1,0 +1,37 @@
+<%#
+This is calledd by the layouts/modal_search/_results.html.erb partial.
+
+Locals:
+:item_name_attr - The attribute that contains the title/name of the item.
+:result         - an instance of a result (can be either a Model or a Hash)
+:selected       - indicates whether this item is within the 'selections' (true)
+                  partial or the 'results' (false) partial
+:result_partial - The partial you have defined to display the item's info
+:search_path    - the path to controller endpoint that will perform the search
+:search_method  - the http method used to perform the search
+%>
+
+<% title = result[item_name_attr] %>
+
+<div class="modal-search-result col-md-12">
+  <div class="modal-search-result-label">
+    <%= result[item_name_attr] %>
+
+    <%= button_tag _("Select"), type: 'button',
+                   class: "modal-search-result-selector #{selected ? 'hidden' : ''}",
+                   title: _("Click to select %{item_name}") % { item_name: title } %>
+    <%= button_tag _("Remove"), type: 'button',
+                   class: "modal-search-result-unselector #{selected ? '' : 'hidden'}",
+                   title: _("Click to remove %{item_name}") % { item_name: title } %>
+  </div>
+
+  <% if result_partial.present? %>
+    <%= render partial: result_partial,
+              locals: {
+                result: result,
+                selected: selected,
+                search_path: search_path,
+                search_method: search_method
+              }%>
+  <% end %>
+</div>

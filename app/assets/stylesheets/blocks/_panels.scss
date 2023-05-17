@@ -1,3 +1,5 @@
+@use '../variables/colours' as *;
+@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
 // Override Bootstrap 3.0's Panels
 
 .panel-default {
@@ -23,6 +25,6 @@
   color: $color-primary-text;
 }
 .panel-title > a.reverse {
-  background-color: $color-seccondary-background;
-  color: $color-seccondary-text;
+  background-color: $color-secondary-background;
+  color: $color-secondary-text;
 }

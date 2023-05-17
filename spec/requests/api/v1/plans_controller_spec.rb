@@ -142,7 +142,7 @@ RSpec.describe Api::V1::PlansController do
 
           it 'set the Template id' do
             app = ApplicationService.application_name.split('-').first
-            tmplt = @original[:extension].select { |i| i[app].present? }.first
+            tmplt = @original[:extension].find { |i| i[app].present? }
             expected = tmplt[app][:template][:id]
             expect(@plan.template_id).to eql(expected)
           end
@@ -291,7 +291,7 @@ RSpec.describe Api::V1::PlansController do
 
             xit 'set the Contributor roles' do
               expected = @original[:role].map do |role|
-                role.gsub(Contributor::ONTOLOGY_BASE_URL.to_s, '').gsub('-', '_')
+                role.gsub(Contributor::ONTOLOGY_BASE_URL.to_s, '').tr('-', '_')
               end
               expect(@subject.send(:"#{expected.first.downcase}?")).to be(true)
             end
@@ -362,7 +362,7 @@ RSpec.describe Api::V1::PlansController do
 
           it 'set the Template id' do
             app = ApplicationService.application_name.split('-').first
-            tmplt = @original[:extension].select { |i| i[app].present? }.first
+            tmplt = @original[:extension].find { |i| i[app].present? }
             expected = tmplt[app][:template][:id]
             expect(@plan.template_id).to eql(expected)
           end

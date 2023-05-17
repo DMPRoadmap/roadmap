@@ -1,14 +1,19 @@
 # frozen_string_literal: true
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
+# Do not change the order of these require statements, they are dependent on one another!
 require 'spec_helper'
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
+
+require 'rspec/rails'
+
+# This file is copied to spec/ when you run 'rails generate rspec:install'
+require 'capybara/rails'
+require 'webmock/rspec'
+
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
-require 'rspec/rails'
-# require "capybara-screenshot/rspec"
-require 'webmock/rspec'
 
 # Clear all of the screenshots from old tests
 Dir[Rails.root.join('tmp/capybara/*')].each { |f| File.delete(f) }
@@ -37,7 +42,24 @@ Dir[Rails.root.join('spec/mixins/*.rb')].each { |f| require f }
 # No need to run this during CI because we build the DB from the schema
 # ActiveRecord::Migration.maintain_test_schema!
 
+# Block all external HTTP requests except to the Google APIs URL so that WebDrivers can fetch
+# the latest Chromedrivers.
+WebMock.disable_net_connect!(
+  allow_localhost: true,
+  allow: %w[chromedriver.storage.googleapis.com]
+)
+
+ActiveRecord::Base.logger.level = Logger::INFO
+ActionController::Base.logger.level = Logger::ERROR
+Rails.logger.level = Logger::ERROR
+
+# Configure RSpec
 RSpec.configure do |config|
+  config.include(Helpers::AutocompleteHelper, type: :feature)
+  config.include(Helpers::CapybaraHelper, type: :feature)
+  config.include(Helpers::SessionsHelper, type: :feature)
+  config.include(Helpers::TinyMceHelper,  type: :feature)
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.

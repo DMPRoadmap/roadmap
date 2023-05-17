@@ -5,7 +5,7 @@
 if output.is_a?(ResearchOutput)
   presenter = Api::V1::ResearchOutputPresenter.new(output: output)
 
-  json.type output.output_type
+  json.type presenter.research_output_type
   json.title output.title
   json.description output.description
   json.personal_data Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: output.personal_data)
@@ -46,8 +46,8 @@ if output.is_a?(ResearchOutput)
   end
 
   json.metadata output.metadata_standards do |metadata_standard|
-    website = metadata_standard.locations.select { |loc| loc['type'] == 'website' }.first
-    website = { url: '' } if website.blank?
+    website = metadata_standard.locations.find { |loc| loc["type"] == "website" }
+    website = { url: '' } unless website.present?
 
     descr_array = [metadata_standard.title, metadata_standard.description, website['url']]
     json.description descr_array.join(' - ')

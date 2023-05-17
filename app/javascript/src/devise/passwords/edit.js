@@ -1,4 +1,4 @@
-import { addMatchingPasswordValidator, togglisePasswords } from '../../../utils/passwordHelper';
+import { addMatchingPasswordValidator, togglisePasswords } from '../../utils/passwordHelper';
 
 $(() => {
   addMatchingPasswordValidator({ selector: '#user_reset_password_form' });

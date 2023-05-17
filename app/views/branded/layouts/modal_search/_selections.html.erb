@@ -1,0 +1,37 @@
+<%#
+This partial is the entry point for displaying the selected results section of
+a modal search window. See the README.md within this directory for more info:
+
+locals:
+  :namespace      - a unique name to identify the modal. This value can be used
+                    to match a selected result to a section of the parent page.
+  :button_label   - the text for the button that opens the modal search window
+  :item_name_attr - The attribute that contains the title/name of the item.
+  :results        - any currently selected items
+  :selected       - this should be 'true' here. This will ensure that the 'Remove'
+                    link gets displayed for the selected items contained in the results.
+  :result_partial - The partial you have defined to display the item's info
+  :search_path    - the path to controller endpoint that will perform the search
+  :search_method  - the http method used to perform the search
+%>
+
+<div id="modal-search-<%= namespace %>-selections" class="col-md-12">
+  <%= render partial: "layouts/modal_search/results",
+             locals: {
+               namespace: namespace,
+               results: results,
+               selected: true,
+               item_name_attr: item_name_attr,
+               result_partial: result_partial,
+               search_path: search_path,
+               search_method: search_method,
+               guidance: guidance
+             } %>
+</div>
+
+<div class="col-md-12">
+  <div class="col-md-12">
+    <%= button_tag button_label, type: "button", class: "btn btn-default modal-opener",
+                   data: { toggle: "modal", target: "#modal-search-#{namespace}" } %>
+  </div>
+</div>

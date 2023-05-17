@@ -49,13 +49,28 @@ class MetadataStandard < ApplicationRecord
   # ================
 
   has_and_belongs_to_many :research_outputs
+  has_and_belongs_to_many :templates, join_table: :template_metadata_standards
 
   # ==========
   # = Scopes =
   # ==========
 
+  scope :by_template, lambda { |template_id|
+    # When I attempted to do this with .joins, there was a column name collison between
+    #   templates.title and metadata_standards.title
+    where(%{
+      exists (
+        select 1
+        from template_metadata_standards tm
+        where tm.template_id=:template_id
+        and tm.metadata_standard_id=metadata_standards.id
+      )
+    },
+          template_id: template_id)
+  }
+
   scope :search, lambda { |term|
-    term = term.downcase
+    term = term&.downcase
     where('LOWER(title) LIKE ?', "%#{term}%").or(where('LOWER(description) LIKE ?', "%#{term}%"))
   }
 

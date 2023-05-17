@@ -1,6 +1,5 @@
-import { Tinymce } from '../utils/tinymce';
 import { isObject, isString } from '../utils/isType';
-import TimeagoFactory from '../utils/timeagoFactory';
+import TimeagoFactory from '../utils/timeagoFactory.js.erb';
 
 $(() => {
   const defaultViewSelector = (questionId) => `#note_new${questionId}`;
@@ -160,7 +159,9 @@ $(() => {
     $('.archive_note button[type="button"]')[attachment]('click', noteCancelHandler);
   };
   const initOrReload = () => {
-    Tinymce.init({ selector: '.note' });
+    $('.note').each((_idx, el) => {
+      Tinymce.init({ selector: `#${$(el).attr('id')}` });
+    });
     eventHandlers({ attachment: 'on' });
     TimeagoFactory.render($('time.timeago'));
   };

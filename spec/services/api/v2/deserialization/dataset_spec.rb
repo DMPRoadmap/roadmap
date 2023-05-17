@@ -98,10 +98,12 @@ RSpec.describe Api::V2::Deserialization::Dataset do
 
       it 'does not change the :output_type of an existing ResearchOutput' do
         Api::V2::DeserializationService.stubs(:dmp_id?).returns(false)
-        @json[:type] = ResearchOutput.output_types.keys.reject { |key| key == @research_output.output_type }.sample
+        @json[:type] = ResearchOutput.output_types.keys.reject do |key|
+          key == @research_output.research_output_type
+        end.sample
         result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
         expect(result.new_record?).to be(false)
-        expect(result.output_type).to eql(@research_output.output_type)
+        expect(result.research_output_type).to eql(@research_output.research_output_type)
       end
 
       it 'does not initialize a new ResearchOutput' do
@@ -121,10 +123,12 @@ RSpec.describe Api::V2::Deserialization::Dataset do
       end
 
       it 'does not change the :output_type of an existing ResearchOutput' do
-        @json[:type] = ResearchOutput.output_types.keys.reject { |key| key == @research_output.output_type }.sample
+        @json[:type] = ResearchOutput.output_types.keys.reject do |key|
+          key == @research_output.research_output_type
+        end.sample
         result = described_class.send(:find_or_initialize, plan: @plan, json: @json)
         expect(result.new_record?).to be(false)
-        expect(result.output_type).to eql(@research_output.output_type)
+        expect(result.research_output_type).to eql(@research_output.research_output_type)
       end
 
       it 'initializes a new ResearchOutput' do
@@ -133,7 +137,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         expect(result.new_record?).to be(true)
         expect(result.title).to eql(@json[:title])
         expect(result.plan).to eql(@plan)
-        expect(result.output_type).to eql(@json[:type])
+        expect(result.research_output_type).to eql(@json[:type])
       end
     end
 
@@ -165,7 +169,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
                                               description: hash[:description])
         @research_output.metadata_standards << standard
         result = described_class.send(:attach_metadata, research_output: @research_output, json: @json[:metadata])
-        expect(result.metadata_standards.select { |s| s.uri == standard.uri }.length).to be(1)
+        expect(result.metadata_standards.count { |s| s.uri == standard.uri }).to be(1)
       end
 
       it 'adds the :metadata_standard' do

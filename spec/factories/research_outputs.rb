@@ -21,6 +21,7 @@
 #  updated_at              :datetime         not null
 #  license_id              :bigint(8)
 #  plan_id                 :integer
+#  research_outputs        :string
 #
 # Indexes
 #
@@ -37,12 +38,11 @@ FactoryBot.define do
     description             { Faker::Lorem.paragraph }
     is_default              { [nil, true, false].sample }
     display_order           { Faker::Number.between(from: 1, to: 20) }
-    output_type             { ResearchOutput.output_types.keys.sample }
-    output_type_description { Faker::Lorem.sentence }
     personal_data           { [nil, true, false].sample }
     release_date            { 1.month.from_now }
     sensitive_data          { [nil, true, false].sample }
     title                   { Faker::Music::PearlJam.unique.song }
+    research_output_type    { ResearchOutput::DEFAULT_OUTPUT_TYPES.sample }
 
     transient do
       repositories_count { 1 }

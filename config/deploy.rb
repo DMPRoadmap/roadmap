@@ -11,12 +11,13 @@ set :branch,           ENV.fetch('BRANCH', nil)          || 'master'
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`
 # Default environments to skip
-set :bundle_without, %w[pgsql thin rollbar test].join(' ')
+set :bundle_without, %w[pgsql thin rollbar development test].join(':')
 # We only need to keep 3 releases
-set :keep_releases, 3
+set :keep_releases, 2
 
 # Default value for linked_dirs is []
 append :linked_dirs,
+       '.bundle',
        'log',
        'tmp/pids',
        'tmp/cache',
@@ -26,12 +27,23 @@ append :linked_dirs,
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
+namespace :bundler do
+  before :install, 'lock_x86'
+
+  desc 'Add x86_64-linux to Gemfile platforms'
+  task :lock_x86 do
+    on roles(:app), wait: 1 do
+      execute "cd #{release_path} bundle lock --add-platform x86_64-linux"
+    end
+  end
+end
+
 namespace :deploy do
-  after :updating, 'deploy:add_platform'
   before :compile_assets, 'deploy:retrieve_credentials'
 
+  # after :deploy, 'dmptool_assets:recompile'
   after :deploy, 'dmptool_assets:copy_ui_assets'
-  after :deploy, 'dmptool_assets:copy_tinymce_skins'
+  after :deploy, 'dmptool_assets:copy_robots'
 
   after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
@@ -42,13 +54,6 @@ namespace :deploy do
       ssm = Uc3Ssm::ConfigResolver.new
       credentials_yml_enc = ssm.parameter_for_key('credentials_yml_enc')
       File.write("#{release_path}/config/credentials.yml.enc", credentials_yml_enc.chomp)
-    end
-  end
-
-  desc 'Add the linux platform to Bundler'
-  task :add_platform do
-    on roles(:app), wait: 1 do
-      execute "cd #{release_path} bundle lock --add-platform x86_64-linux"
     end
   end
 end
@@ -75,6 +80,13 @@ end
 namespace :dmptool_assets do
   # POST ASSET COMPILATION
   # ----------------------
+  desc "Clobber and then recompile assets. For some reason the Cap one can't build application.css for CssBundling"
+  task :recompile do
+    on roles(:app), wait: 1 do
+      execute "cd #{release_path} && bin/rails assets:clobber && bin/rails assets:precompile"
+    end
+  end
+
   desc "Copy over DMPTool-UI repo's images to the public/dmptool-ui-raw-images dir"
   task :copy_ui_assets do
     on roles(:app), wait: 1 do
@@ -91,14 +103,10 @@ namespace :dmptool_assets do
     end
   end
 
-  # Webpacker and TinyMCE do not play nicely with one another. Webpacker/Rails stores its copiled CSS and JS
-  # in minified application.[ext] files that are fingerprinted but TinyMCE expects them elsewhere
-  desc 'Move TinyMCE skin files to public dir'
-  task :copy_tinymce_skins do
+  desc 'Copy over the robots.txt file'
+  task :copy_robots do
     on roles(:app), wait: 1 do
-      execute "mkdir -p #{release_path}/public/tinymce/skins/"
-      execute "cp -r #{release_path}/node_modules/tinymce/skins/ui/oxide/ #{release_path}/public/tinymce/skins/"
-      execute "cp #{release_path}/app/assets/stylesheets/tinymce.css #{release_path}/public/tinymce/tinymce.css"
+      execute "cp -r #{release_path}/config/robots.txt #{release_path}/public/robots.txt"
     end
   end
 end

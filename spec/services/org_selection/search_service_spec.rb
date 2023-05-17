@@ -202,7 +202,7 @@ RSpec.describe OrgSelection::SearchService do
       it 'handles non-Org models' do
         rslts = described_class.send(:prepare, search_term: 'Foo',
                                                records: @records)
-        rec = rslts.select { |item| item[:name].include?('Ireland') }.first
+        rec = rslts.find { |item| item[:name].include?('Ireland') }
         expect(rec[:name]).to eql('Foo University (Ireland)')
       end
     end

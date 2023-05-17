@@ -1,7 +1,15 @@
 <%# locals: research_output %>
 
 <% content_for :"filters-metadata_standards" do %>
-
+  <% if @has_preferred_standards %>
+    <span class="col-md-12">
+      <input type="checkbox" id="research_output_preferred_standards" name="research_output[preferred_standards]" checked/>
+      <label for="research_output_preferred_standards"><%= _('Only include standards recommended by the funder or my institution') %></label>
+      <p>&nbsp;</p>
+    </span>
+  <% end %>
+</div>
+<div class="col-md-10">
 <% end %>
 
 <%= render partial: "layouts/modal_search/form",
@@ -11,5 +19,7 @@
              search_examples: "(e.g. DataCite, Dublin, Biological, etc.)",
              model_instance: research_output,
              search_path: plan_metadata_standard_search_path(research_output.plan),
-             search_method: :get
+             search_method: :get,
+             guidance: research_output.plan.template.user_guidance_metadata_standards,
+             preload: research_output.plan.template.preload_metadata_standards?
            } %>

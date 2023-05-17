@@ -20,7 +20,7 @@ RSpec.describe 'Annotations::Editing' do
                         text: 'Foo bar', type: 'example_answer')
   end
 
-  let!(:user) { create(:user, org: org) }
+  let!(:user) { create(:user, :org_admin, org: org) }
 
   before do
     create(:template, :default, :published)
@@ -31,17 +31,17 @@ RSpec.describe 'Annotations::Editing' do
   end
 
   it 'Admin changes an Annotation of a draft Template', :js do
-    click_link _('Customisable Templates')
+    click_link 'Customisable Templates'
     within("#template_#{template.id}") do
       click_button 'Actions'
     end
     expect do
-      click_link _('Customise')
+      click_link 'Customise'
     end.to change(Template, :count).by(1)
 
     # New Template created
     template = Template.last
-    click_link _('Customise phase')
+    click_link 'Customise phase'
 
     click_link section.title
 
@@ -57,20 +57,21 @@ RSpec.describe 'Annotations::Editing' do
     end
     sleep(4)
     expect(annotation.text).to eql('Foo bar')
-    expect(Annotation.order('created_at').last.text).to eql('Noo bar')
+    expect(Annotation.order('created_at').last.text).to eql('<p>Noo bar</p>')
     expect(page).not_to have_errors
   end
 
   it "Admin sets a Template's question annotation to blank string", :js do
-    click_link _('Customisable Templates')
+    click_link 'Customisable Templates'
     within("#template_#{template.id}") do
       click_button 'Actions'
     end
     expect do
-      click_link _('Customise')
+      click_link 'Customise'
     end.to change(Template, :count).by(1)
+
     template = Template.last
-    click_link _('Customise phase')
+    click_link 'Customise phase'
     click_link section.title
     # NOTE: This is annotation 2, since Annotation was copied upon clicking "Customise"
     within("fieldset#fields_annotation_#{template.annotation_ids.last}") do

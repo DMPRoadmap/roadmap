@@ -1,24 +1,24 @@
 // Import locally defined variables. Load this before 'bootstrap'
 
-@import "variables/*";
+@use "variables";
+
+@use "blocks";
+@use "utils";
 
 // Pull in the webpacker managed copy of Bootstrap Stylesheets
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../../../node_modules/bootstrap-select/sass/bootstrap-select.scss";
-
-// Pull in the webpacker managed copy of TinyMCE Stylesheets
-@import "../../../node_modules/tinymce/skins/ui/oxide/*";
-
-@import "blocks/*";
-@import "utils/*";
 
 // Pull in the webapcker managed copy of JQuery-UI Stylesheets
 // we are using the Datepicker and Sortable at the very least
 @import "../../../node_modules/jquery-ui-sass/assets/sass/jquery-ui.scss";
 
-@import "font-awesome-sprockets";
-
-@import "font-awesome";
+$fa-font-path: '.';
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+// Uncomment this line if you plan on using brand icons (Twitter, Github ...)
+// @import '@fortawesome/fontawesome-free/scss/brands';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/solid';
 
 // DMPTool additional styling that is not part of the dmptool-ui repo
-@import "dmptool/*";
+@import "dmptool";

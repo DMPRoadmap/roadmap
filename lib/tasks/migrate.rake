@@ -301,7 +301,7 @@ namespace :migrate do
 
       unless scheme.nil?
         users.each do |u|
-          next unless u.orcid_id.gsub('orcid.org/', '').match(/^[\d-]+/)
+          next unless u.orcid_id.gsub('orcid.org/', '').match?(/^[\d-]+/)
 
           schemes = u.user_identifiers.collect(&:identifier_scheme_id)
 

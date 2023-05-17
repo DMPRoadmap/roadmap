@@ -39,6 +39,8 @@ RSpec.describe Section do
 
     let!(:section) { create(:section) }
 
+    subject { section.deep_copy(**options) }
+
     context 'when no options provided' do
       before do
         create_list(:question, 3, section: section)

@@ -36,7 +36,7 @@
           include_blank: question.question_format.dropdown?,
           class: 'form-control' }) %>
 <% end %>
-<div class="form-group">
+<div class="form-group wysiwyg-block">
 <% if question.option_comment_display %><!-- Comment text area for option_based questions -->
     <% text = question.question_format.rda_metadata? ? answer.answer_hash['text'] : answer.text %>
     <%= label_tag('answer[text]', _('Additional Information'), class: 'control-label') %>

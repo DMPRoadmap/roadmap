@@ -33,6 +33,13 @@ RSpec.describe Template do
 
     # This is currently being set in the defaults before validation
     # it { is_expected.not_to allow_value(nil).for(:archived) }
+
+    it { is_expected.to allow_values(true, false).for(:enable_research_outputs) }
+
+    it { is_expected.to allow_values(true, false).for(:customize_output_types) }
+    it { is_expected.to allow_values(true, false).for(:customize_repositories) }
+    it { is_expected.to allow_values(true, false).for(:customize_metadata_standards) }
+    it { is_expected.to allow_values(true, false).for(:customize_licenses) }
   end
 
   context 'associations' do
@@ -84,6 +91,120 @@ RSpec.describe Template do
       let!(:template) { create(:template, archived: false) }
 
       it { is_expected.to include(template) }
+    end
+  end
+
+  describe '.enable_research_outputs' do
+    context 'when template has research outputs unspecified' do
+      let!(:template) { create(:template) }
+
+      it { expect(template.enable_research_outputs).to be true }
+    end
+
+    context 'when template has research outputs enabled' do
+      let!(:template) { create(:template, enable_research_outputs: true) }
+
+      it { expect(template.enable_research_outputs).to be true }
+    end
+
+    context 'when template does not have research outputs enabled' do
+      let!(:template) { create(:template, enable_research_outputs: false) }
+
+      it { expect(template.enable_research_outputs).to be false }
+    end
+  end
+
+  describe '.customize_output_types' do
+    context 'when template has :customize_output_types unspecified' do
+      let!(:template) { create(:template) }
+
+      it { expect(template.customize_output_types).to be false }
+    end
+
+    context 'when template has :customize_output_types' do
+      let!(:template) { create(:template, customize_output_types: true) }
+
+      it { expect(template.customize_output_types).to be true }
+    end
+
+    context 'when template does not have :customize_output_types enabled' do
+      let!(:template) { create(:template, customize_output_types: false) }
+
+      it { expect(template.customize_output_types).to be false }
+    end
+  end
+
+  describe '.user_guidance' do
+    context 'when template has user_guidance' do
+      let!(:template) do
+        create(:template, user_guidance_output_types: 'a', user_guidance_repositories: 'b',
+                          user_guidance_metadata_standards: 'c', user_guidance_licenses: 'd')
+      end
+
+      it { expect(template.user_guidance_output_types).to eq 'a' }
+      it { expect(template.user_guidance_repositories).to eq 'b' }
+      it { expect(template.user_guidance_metadata_standards).to eq 'c' }
+      it { expect(template.user_guidance_licenses).to eq 'd' }
+    end
+  end
+
+  describe '.customize_repositories' do
+    context 'when template has :customize_repositories unspecified' do
+      let!(:template) { create(:template) }
+
+      it { expect(template.customize_repositories).to be false }
+    end
+
+    context 'when template has :customize_repositories' do
+      let!(:template) { create(:template, customize_repositories: true) }
+
+      it { expect(template.customize_repositories).to be true }
+    end
+
+    context 'when template does not have :customize_repositories enabled' do
+      let!(:template) { create(:template, customize_repositories: false) }
+
+      it { expect(template.customize_repositories).to be false }
+    end
+  end
+
+  describe '.customize_metadata_standards' do
+    context 'when template has :customize_metadata_standards unspecified' do
+      let!(:template) { create(:template) }
+
+      it { expect(template.customize_metadata_standards).to be false }
+    end
+
+    context 'when template has :customize_metadata_standards' do
+      let!(:template) { create(:template, customize_metadata_standards: true) }
+
+      it { expect(template.customize_metadata_standards).to be true }
+    end
+
+    context 'when template does not have :customize_output_types enabled' do
+      let!(:template) { create(:template, customize_output_types: false) }
+
+      it { expect(template.customize_output_types).to be false }
+    end
+  end
+
+  describe '.customize_licenses' do
+    context 'when template has :customize_licenses unspecified' do
+      let!(:template) { create(:template) }
+
+      it { expect(template.customize_licenses).to be false }
+    end
+
+    context 'when template has :customize_licenses' do
+      let!(:template) { create(:template, customize_licenses: true) }
+
+      it { expect(template.customize_licenses).to be true }
+    end
+
+    context 'when template does not have :customize_licenses enabled' do
+      let!(:template) { create(:template, customize_licenses: false) }
+
+      it { expect(template.customize_licenses).to be false }
     end
   end
 
@@ -694,6 +815,8 @@ RSpec.describe Template do
   end
 
   describe '#deep_copy' do
+    let!(:template) { create(:template, :published, phases: 2, sections: 2, questions: 2) }
+
     context 'when attributes is provided' do
       subject do
         args = { attributes: { title: 'foo', description: 'bar' } }
@@ -717,7 +840,8 @@ RSpec.describe Template do
         template.deep_copy(**args)
       end
 
-      let!(:template) { create(:template, :published, phases: 2) }
+      args = { attributes: { family_id: 123 }, save: true }
+      subject { template.deep_copy(**args) }
 
       it 'returns a persisted record' do
         expect(subject).to be_persisted
@@ -739,7 +863,8 @@ RSpec.describe Template do
         template.deep_copy(**args)
       end
 
-      let!(:template) { create(:template, :published, phases: 2) }
+      args = { attributes: { family_id: 123 }, save: false }
+      subject { template.deep_copy(**args) }
 
       it 'returns a new record' do
         expect(subject).to be_new_record
@@ -750,7 +875,7 @@ RSpec.describe Template do
       end
 
       it "doesn't set template_id on phases" do
-        expect(subject.phases.map(&:template_id).compact).to be_empty
+        expect(subject.phases.filter_map(&:template_id)).to be_empty
       end
     end
   end

@@ -1,0 +1,26 @@
+@use '../variables/colours' as *;
+
+.form-inline .input-group .input-group-addon,
+.form-inline .input-group .input-group-btn {
+  background-color: $color-primary-background;
+  color: $color-primary-text;
+  border-color: $color-primary-background;
+}
+
+.form-inline .input-group .form-control {
+  background-color: $color-secondary-background;
+  color: $color-black;
+  border-color: $color-primary-background;
+}
+
+#search-addon .fa-search {
+  background-color: $color-primary-background;
+  color: $color-primary-text;
+  border-color: $color-primary-background;
+}
+
+.form-inline .btn-default,
+.form-inline .btn-default:hover,
+.form-inline .btn-default:focus {
+  margin-bottom: 5px;
+}

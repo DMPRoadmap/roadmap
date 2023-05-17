@@ -174,6 +174,7 @@ RSpec.describe GuidanceGroup do
       end
     end
 
+    # rubocop:disable Performance/RedundantMerge
     context ':merge!(to_be_merged:)' do
       before do
         org = create(:org)
@@ -216,5 +217,6 @@ RSpec.describe GuidanceGroup do
         expect(described_class.find_by(id: original_id).present?).to be(false)
       end
     end
+    # rubocop:enable Performance/RedundantMerge
   end
 end

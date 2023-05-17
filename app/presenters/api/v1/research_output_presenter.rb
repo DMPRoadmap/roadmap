@@ -5,7 +5,8 @@ module Api
     # Helper methods for research outputs
     class ResearchOutputPresenter
       attr_reader :dataset_id, :preservation_statement, :security_and_privacy, :license_start_date,
-                  :data_quality_assurance, :distributions, :metadata, :technical_resources
+                  :data_quality_assurance, :distributions, :metadata, :technical_resources,
+                  :research_output_type
 
       def initialize(output:)
         @research_output = output
@@ -13,6 +14,11 @@ module Api
 
         @plan = output.plan
         @dataset_id = identifier
+
+        # The DMPHub only recognizes the DEFAULT research_output_types, so use 'other' if these
+        # are custom types added by an admin
+        use_other = !ResearchOutput::DEFAULT_OUTPUT_TYPES.include?(output.research_output_type)
+        @research_output_type = use_other ? 'other' : output.research_output_type
 
         load_narrative_content
 
@@ -74,8 +80,8 @@ module Api
         ret = themes.map do |theme|
           qs = @plan.questions.select { |q| q.themes.collect(&:title).include?(theme) }
           descr = qs.map do |q|
-            a = @plan.answers.select { |ans| ans.question_id = q.id }.first
-            next unless a.present?
+            a = @plan.answers.find { |ans| ans.question_id = q.id }
+            next unless a.present? && !a.blank?
 
             "<strong>Question:</strong> #{q.text}<br><strong>Answer:</strong> #{a.text}"
           end

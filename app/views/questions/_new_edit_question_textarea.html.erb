@@ -7,9 +7,9 @@
   rather cumbersome. As such, this workaround, simplifies the logic when a stale answer is found by rendering the html of the answer directly
   within a paragraph.
 %>
-<div class="form-group allow-break-words">
+<div class="form-group allow-break-words wysiwyg-block">
     <div class="display-readonly-textarea-content" id="question-text-<%= question.id %>">
-      <%= f.label(:text, sanitize(question.text), class: 'control-label') %>
+      <label for="answer-text-<%= question.id %>"><%= sanitize(question.text) %></label>
     </div>
     <% if locking || readonly %>
       <div class="display-readonly-textarea-content">

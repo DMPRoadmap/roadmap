@@ -89,11 +89,9 @@ module ConditionsHelper
 
       phase = plan.template
                   .phases
-                  .select { |ph| ph.number == phase[:number] }
-                  .first
+                  .find { |ph| ph.number == phase[:number] }
       section = phase.sections
-                     .select { |s| s.phase_id == phase.id && s.title == section[:title] }
-                     .first
+                     .find { |s| s.phase_id == phase.id && s.title == section[:title] }
     end
     count = 0
     plan_remove_list = remove_list(plan)

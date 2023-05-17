@@ -21,6 +21,7 @@
 #  updated_at              :datetime         not null
 #  license_id              :bigint
 #  plan_id                 :integer
+#  research_outputs        :string
 #
 # Indexes
 #
@@ -37,6 +38,9 @@
 class ResearchOutput < ApplicationRecord
   include Identifiable
   include ValidationMessages
+
+  DEFAULT_OUTPUT_TYPES = %w[audiovisual collection data_paper dataset event image interactive_resource
+                            model_representation physical_object service software sound text workflow].freeze
 
   enum output_type: { audiovisual: 0, collection: 1, data_paper: 2, dataset: 3, event: 4, image: 5,
                       interactive_resource: 6, model_representation: 7, physical_object: 8,
@@ -58,7 +62,7 @@ class ResearchOutput < ApplicationRecord
   # = Validations =
   # ===============
 
-  validates :output_type, :access, :title, presence: { message: PRESENCE_MESSAGE }
+  validates :research_output_type, :access, :title, presence: { message: PRESENCE_MESSAGE }
   validates :title, uniqueness: { case_sensitive: false, scope: :plan_id,
                                   message: UNIQUENESS_MESSAGE }
   validates :abbreviation, uniqueness: { case_sensitive: false, scope: :plan_id,
@@ -68,8 +72,6 @@ class ResearchOutput < ApplicationRecord
   validates_numericality_of :byte_size, greater_than: 0, less_than_or_equal_to: 2**63,
                                         allow_blank: true,
                                         message: '(Anticipated file size) is too large. Please enter a smaller value.'
-  # Ensure presence of the :output_type_description if the user selected 'other'
-  validates :output_type_description, presence: { if: -> { other? }, message: PRESENCE_MESSAGE }
 
   # ====================
   # = Instance methods =

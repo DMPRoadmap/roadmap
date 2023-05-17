@@ -10,8 +10,8 @@ RSpec.describe 'Plans' do
     @default_template = create(:template, :default, :published)
     @org = create(:org)
     @research_org = create(:org, :organisation, :research_institute,
-                           templates: 1)
-    @funding_org  = create(:org, :funder, templates: 1)
+                           name: 'Test Research Org', templates: 1)
+    @funding_org  = create(:org, :funder, name: 'Test Funder Org', templates: 1)
     @template     = create(:template, org: @org)
     @user         = create(:user, org: @org)
     sign_in @user

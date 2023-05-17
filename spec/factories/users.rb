@@ -58,9 +58,9 @@ FactoryBot.define do
   factory :user do
     org
     language     { Language.default }
-    firstname    { Faker::Movies::StarWars.unique.character.split.first.gsub('-', ' ') }
-    surname      { Faker::Movies::StarWars.unique.character.split.last.gsub('-', ' ') }
-    email        { Faker::Internet.unique.safe_email }
+    firstname    { Faker::Movies::StarWars.unique.character.split.first.tr('-', ' ') }
+    surname      { Faker::Movies::StarWars.unique.character.split.last.tr('-', ' ') }
+    email        { Faker::Internet.unique.email }
     password     { 'password' }
     accept_terms { true }
 

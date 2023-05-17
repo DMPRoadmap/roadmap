@@ -43,7 +43,7 @@ FactoryBot.define do
     region { Region.first || create(:region) }
     language { Language.default }
     is_other { false }
-    contact_email { Faker::Internet.safe_email }
+    contact_email { Faker::Internet.email }
     contact_name { Faker::Name.name }
     managed { true }
     api_create_plan_email_subject { Faker::Lorem.sentence }

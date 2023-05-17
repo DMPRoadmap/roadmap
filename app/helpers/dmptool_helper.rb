@@ -82,4 +82,13 @@ module DmptoolHelper
   rescue StandardError => e
     logger.error("Unable to add #{type} to the Rails cache: #{e}.")
   end
+
+  def select_override_options(add_to_mine: true)
+    opts = [
+      ['Use defaults', '0'],
+      ['Use mine', '1']
+    ]
+    opts.append(['Add mine to defaults', '2']) if add_to_mine
+    opts
+  end
 end

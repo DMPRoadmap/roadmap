@@ -18,7 +18,7 @@ tooltip = _('Add another research output to this plan.')
         <div class="col-md-12 citation">
           <span class="col-md-10">
             <%# We need to add each identifiers fields here so that they are submitted and retained! %>
-            <% %w[citation identifier_type relation_type value work_type].each do |attr| %>
+            <% %w[id citation identifier_type relation_type value work_type].each do |attr| %>
               <%= hidden_field_tag "plan[related_identifiers_attributes[#{idx + 1}][#{attr}]]",
                                  related_identifier.send(attr.to_sym) %>
             <% end %>

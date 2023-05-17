@@ -19,7 +19,7 @@ class IdentifierPresenter
   end
 
   def scheme_by_name(name:)
-    schemes.select { |scheme| scheme.name.downcase == name.downcase }
+    schemes.select { |scheme| scheme.name.casecmp(name).zero? }
   end
 
   private
@@ -39,7 +39,7 @@ class IdentifierPresenter
     # a curated list of Orgs that can use institutional login
     if @identifiable.is_a?(Org) &&
        !Rails.configuration.x.shibboleth.use_filtered_discovery_service
-      schemes = schemes.reject { |scheme| scheme.name.downcase == 'shibboleth' }
+      schemes = schemes.reject { |scheme| scheme.name.casecmp('shibboleth').zero? }
     end
     schemes
   end

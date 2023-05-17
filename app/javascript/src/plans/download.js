@@ -21,5 +21,15 @@ $(() => {
     } else {
       $('#download-settings').show();
     }
-  });
+
+    if (frmt === 'csv') {
+      $('#phase_id').find('option[value="All"').hide();
+      $('#phase_id option:eq(1)').attr('selected', 'selected');
+      $('#phase_id').val($('#phase_id option:eq(1)').val());
+    } else if (frmt === 'pdf' || frmt === 'html' || frmt === 'docx' || frmt === 'text') {
+      $('#phase_id').find('option[value="All"').show();
+      $('#phase_id').val($('#phase_id option:first').val());
+      $('#phase_id option:first').attr('selected', 'selected');
+    }
+  }).trigger('change');
 });
