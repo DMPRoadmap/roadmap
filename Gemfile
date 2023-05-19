@@ -313,6 +313,8 @@ group :test do
 end
 
 group :ci, :development do
+  gem 'sassc'
+
   # Security vulnerability scanner for Ruby on Rails.
   # (http://brakemanscanner.org)
   gem 'brakeman'
