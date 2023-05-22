@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_05_164937) do
+ActiveRecord::Schema.define(version: 2023_05_22_211526) do
 
   create_table "annotations", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.integer "question_id"
@@ -494,6 +494,10 @@ ActiveRecord::Schema.define(version: 2023_05_05_164937) do
     t.datetime "file_timestamp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "api_target"
+    t.string "api_label"
+    t.text "api_guidance"
+    t.string "api_auth_target"
     t.index ["file_timestamp"], name: "index_registry_orgs_on_file_timestamp"
     t.index ["fundref_id"], name: "index_registry_orgs_on_fundref_id"
     t.index ["name"], name: "index_registry_orgs_on_name"
@@ -774,6 +778,15 @@ ActiveRecord::Schema.define(version: 2023_05_05_164937) do
     t.integer "perm_id"
     t.index ["perm_id"], name: "fk_rails_457217c31c"
     t.index ["user_id"], name: "index_users_perms_on_user_id"
+  end
+
+  create_table "wips", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "identifier"
+    t.json "metadata", null: false
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["identifier"], name: "index_wips_on_identifier"
   end
 
   add_foreign_key "annotations", "orgs"

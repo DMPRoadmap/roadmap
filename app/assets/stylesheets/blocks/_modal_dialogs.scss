@@ -5,6 +5,15 @@
   background-color: $color-secondary-background;
 }
 
+#add-custom-items {
+  margin-left: 15px;
+}
+
+#item-selected-alert {
+  color: $color-green;
+  font-weight: bold;
+  text-align: center;
+}
 
 // Footer (for actions)
 .modal-footer {

@@ -1,5 +1,13 @@
 var resultsDiv = $('#modal-search-repositories-results');
 
+<%
+msgs = [_("No results matched your filter criteria.")]
+msgs << _("Try unchecking the 'recommended repositories' box above and try again.") if @has_preferred_repos
+
+
+puts msgs.join(' ')
+%>
+
 resultsDiv.html('<%=
   escape_javascript(
     render(
@@ -11,7 +19,8 @@ resultsDiv.html('<%=
         item_name_attr: :name,
         result_partial: "research_outputs/repositories/search_result",
         search_path: plan_repository_search_path(@plan),
-        search_method: :get
+        search_method: :get,
+        no_results_msg: msgs.join(' ')
       }
     )
   ) %>');

@@ -60,8 +60,8 @@
 
         <dt><%= _("Data upload") %></dt>
         <dd>
-          <% result.info.fetch("upload_types", [{ type: _("Unknown") }]).each do |upload_type| %>
-            <%= upload_type.fetch("type", _("Unknown")).humanize %>: <%= upload_type["restriction"].gsub("registration", "").underscore.humanize %>
+          <% result.info.fetch("upload_types", [JSON.parse({ type: _("Unknown"),  }.to_json)]).each do |upload_type| %>
+            <%= upload_type.fetch("type", _("Unknown")).humanize %>: <%= upload_type.fetch("restriction", '').gsub("registration", "").underscore.humanize %>
           <% end %>
         </dd>
 

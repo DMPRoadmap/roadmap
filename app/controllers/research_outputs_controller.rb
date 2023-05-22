@@ -37,6 +37,13 @@ class ResearchOutputsController < ApplicationController
   def create
     args = process_byte_size.merge({ plan_id: @plan.id })
     args = process_nillable_values(args: args)
+    # Create custom repositories and metadata standards if applicable
+    args[:repositories_attributes] = create_custom_repositories(
+      existing: args[:repositories_attributes], custom: custom_repo_params
+    )
+    args[:metadata_standards_attributes] = create_custom_standards(
+      existing: args[:metadata_standards_attributes], custom: custom_standard_params
+    )
     @research_output = ResearchOutput.new(args)
     authorize @research_output
 
@@ -61,6 +68,13 @@ class ResearchOutputsController < ApplicationController
     @research_output.repositories.clear
     @research_output.metadata_standards.clear
 
+    # Create custom repositories and metadata standards if applicable
+    args[:repositories_attributes] = create_custom_repositories(
+      existing: args[:repositories_attributes], custom: custom_repo_params
+    )
+    args[:metadata_standards_attributes] = create_custom_standards(
+      existing: args[:metadata_standards_attributes], custom: custom_standard_params
+    )
     if @research_output.update(args)
       redirect_to plan_research_outputs_path(@plan),
                   notice: success_message(@research_output, _('saved'))
@@ -109,21 +123,20 @@ class ResearchOutputsController < ApplicationController
   # GET /plans/:id/repository_search
   # rubocop:disable Metrics/AbcSize
   def repository_search
-    @plan = Plan.find_by(id: params[:plan_id])
+    @plan = Plan.includes(template: :repositories).find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
-    @has_recommendations = @plan.template.template_repositories.any?
+    @has_preferred_repos = @plan.template.repositories.any?
     @recommended = repo_search_params[:preferred_repos]
-    @search_results = if @has_recommendations && @recommended
-                        Repository.preferred_or_custom_by_template(@plan.template.id)
+    @search_results = if @has_preferred_repos && @recommended
+                        Template.find_by(id: @plan.template.id).repositories
                       else
-                        Repository.standard_or_custom_by_template(@plan.template.id)
+                        Repository.order(:name)
                       end
     @search_results = @search_results.by_type(repo_search_params[:type_filter])
     @search_results = @search_results.by_subject(repo_search_params[:subject_filter])
     @search_results = @search_results.search(repo_search_params[:search_term])
-
     @search_results = @search_results.order(:name).page(params[:page])
   end
   # rubocop:enable Metrics/AbcSize
@@ -147,10 +160,11 @@ class ResearchOutputsController < ApplicationController
   # GET /plans/:id/metadata_standard_search
   # rubocop:disable Metrics/AbcSize
   def metadata_standard_search
-    @plan = Plan.find_by(id: params[:plan_id])
+    @plan = Plan.includes(template: :metadata_standards).find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
+    @has_preferred_standards = @plan.template.metadata_standards.any?
     @search_results = MetadataStandard.by_template(@plan.template.id)
     @recommended = metadata_standard_search_params[:preferred_standards]
     @search_results = if @search_results.any? && @recommended
@@ -173,7 +187,16 @@ class ResearchOutputsController < ApplicationController
                      sensitive_data personal_data file_size file_size_unit mime_type_id
                      release_date access coverage_start coverage_end coverage_region
                      mandatory_attribution license_id],
-                  repositories_attributes: %i[id], metadata_standards_attributes: %i[id])
+                  repositories_attributes: %i[id name description uri],
+                  metadata_standards_attributes: %i[id name description uri])
+  end
+
+  def custom_repo_params
+    params.permit(repositories_attributes: %i[id name description uri])
+  end
+
+  def custom_standard_params
+    params.permit(metadata_standards_attributes: %i[id name description uri])
   end
 
   def repo_search_params
@@ -210,6 +233,44 @@ class ResearchOutputsController < ApplicationController
     args
   end
   # rubocop:enable Metrics/AbcSize
+
+  # Create any custom repositories
+  def create_custom_repositories(existing:, custom:)
+    return existing if custom.nil? || custom[:repositories_attributes].nil?
+
+    existing = existing.to_h
+    custom[:repositories_attributes].each do |id, hash|
+      next if hash[:uri].nil? || hash[:name].nil?
+
+      repo = Repository.find_by(uri: hash[:uri])
+      hash[:info] = '{"types": [],"subjects": []}' if repo.nil?
+      repo = Repository.create(hash) if repo.nil?
+      existing[repo.id.to_s] = { id: repo.id } unless repo.nil?
+    end
+    existing
+  end
+
+  # Create any custom metadata standards
+  def create_custom_standards(existing:, custom:)
+
+pp existing
+p '-----------------'
+pp custom
+
+    return existing if custom.nil? || custom[:metadata_standards_attributes].nil?
+
+    existing = existing.to_h
+    custom[:metadata_standards_attributes].each do |id, hash|
+      next if hash[:uri].nil? || hash[:name].nil?
+
+      hash[:title] = hash[:name]
+      hash.delete(:name)
+      standard = MetadataStandard.find_by(uri: hash[:uri])
+      standard = MetadataStandard.create(hash) if standard.nil?
+      existing[standard.id.to_s] = { id: standard.id } unless standard.nil?
+    end
+    existing
+  end
 
   # There are certain fields on the form that are visible based on the selected research_output_type. If the
   # ResearchOutput previously had a value for any of these and the research_output_type then changed making
