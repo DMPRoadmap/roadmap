@@ -4,7 +4,7 @@
   "description": "DMPRoadmap javascript dependencies",
   "main": "null",
   "scripts": {
-    "lint": "yarn run eslint --ext .js app/javascript/**/*.js",
+    "lint": "yarn run eslint --ext .js app/javascript/**/*.js --ext .js app/javascript/dmp_opidor_react/**/*.jsx",
     "test": "karma start spec/karma/unit.js",
     "build": "webpack --config ./config/webpack/webpack.config.js",
     "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
@@ -61,11 +61,6 @@
     "chart.js": "^4.2.1",
     "core-js": "^3.6.5",
     "dompurify": "^3.0.0",
-    "eslint": "^8.18.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-react": "^7.31.11",
-    "eslint-webpack-plugin": "^4.0.0",
     "file-loader": "^6.2.0",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
@@ -80,6 +75,7 @@
     "react-bootstrap": "^0.33.1",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
+    "react-i18next": "^12.2.2",
     "react-loader-spinner": "^5.3.4",
     "react-proptypes": "^1.0.0",
     "react-select": "^5.7.0",
@@ -95,7 +91,7 @@
     "webpack-cli": "^5.0.1"
   },
   "devDependencies": {
-    "@cfaester/enzyme-adapter-react-18": "^0.6.0",
+    "@cfaester/enzyme-adapter-react-18": "^0.7.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "css-loader": "^6.7.3",
@@ -103,7 +99,9 @@
     "eslint": "^8.18.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-webpack-plugin": "^2.6.0",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-webpack-plugin": "^4.0.0",
     "jasmine": "^4.2.1",
     "jasmine-core": "^4.2.0",
     "karma": "^6.3.14",
