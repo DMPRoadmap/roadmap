@@ -13,9 +13,11 @@ public/apidocs/*
 public/assets/*
 public/fonts/*
 public/images/*
+public/locales/*
 public/javascripts/*
 public/stylesheets/*
 public/system/*
+public/tinymce/*
 public/videos/*
 
 # Ignore PO/POT backups

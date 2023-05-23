@@ -27,6 +27,12 @@ source_dir = Dir.glob(Rails.root.join('node_modules', 'tinymce', 'skins', 'ui', 
 destination_dir = Rails.root.join('public', 'tinymce', 'skins')
 FileUtils.mkdir_p(destination_dir)
 FileUtils.cp_r(source_dir, destination_dir)
+
+puts "Copying React translations to the public directory ..."
+source_dir = Dir.glob(Rails.root.join('app', 'javascript', 'dmp_opidor_react', 'public', 'locales'))
+destination_dir = Rails.root.join('public')
+FileUtils.mkdir_p(destination_dir)
+FileUtils.cp_r(source_dir, destination_dir)
 class AssetUrlProcessor
   def self.call(input)
     # don't know why, copy from other processor
