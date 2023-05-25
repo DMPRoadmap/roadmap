@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-02-03 09:02+0100\n"
-"PO-Revision-Date: 2023-02-03 09:02+0100\n"
+"POT-Creation-Date: 2023-04-12 10:30-0700\n"
+"PO-Revision-Date: 2023-04-12 19:30+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -49,21 +49,21 @@ msgstr "Parâmetros Inválidos"
 #: ../../app/controllers/api/v0/statistics_controller.rb:41
 #: ../../app/controllers/api/v0/statistics_controller.rb:89
 #: ../../app/controllers/api/v0/statistics_controller.rb:136
-#: ../../app/controllers/usage_controller.rb:66
-#: ../../app/controllers/usage_controller.rb:87
+#: ../../app/controllers/usage_controller.rb:67
+#: ../../app/controllers/usage_controller.rb:88
 msgid "Month"
 msgstr "Mês"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:41
-#: ../../app/controllers/usage_controller.rb:66
+#: ../../app/controllers/usage_controller.rb:67
 msgid "No. Users joined"
 msgstr "Núm. usuários ingressados"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:47
 #: ../../app/controllers/api/v0/statistics_controller.rb:95
 #: ../../app/controllers/api/v0/statistics_controller.rb:142
-#: ../../app/controllers/usage_controller.rb:72
-#: ../../app/controllers/usage_controller.rb:93
+#: ../../app/controllers/usage_controller.rb:73
+#: ../../app/controllers/usage_controller.rb:94
 msgid "Total"
 msgstr "Total"
 
@@ -450,7 +450,7 @@ msgstr "Não foi possível criar uma nova versão deste modelo.<br>"
 #: ../../app/controllers/org_admin/phases_controller.rb:147
 #: ../../app/controllers/org_admin/questions_controller.rb:166
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:415
+#: ../../app/controllers/plans_controller.rb:416
 #: ../../app/controllers/super_admin/api_clients_controller.rb:68
 #: ../../app/controllers/super_admin/notifications_controller.rb:52
 #: ../../app/controllers/super_admin/themes_controller.rb:39
@@ -462,7 +462,7 @@ msgstr "Atualizado"
 #: ../../app/controllers/org_admin/phases_controller.rb:149
 #: ../../app/controllers/org_admin/questions_controller.rb:169
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:418
+#: ../../app/controllers/plans_controller.rb:419
 #: ../../app/controllers/super_admin/api_clients_controller.rb:70
 #: ../../app/controllers/super_admin/notifications_controller.rb:55
 #: ../../app/controllers/super_admin/themes_controller.rb:41
@@ -552,7 +552,7 @@ msgid "Unable to delete this version of the template."
 msgstr "Não foi possível excluir esta versão do modelo."
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:20
-#: ../../app/controllers/plans_controller.rb:394
+#: ../../app/controllers/plans_controller.rb:395
 msgid "copy"
 msgstr "cópia"
 
@@ -614,9 +614,13 @@ msgstr "Por favor, escolha uma organização."
 msgid "Your organisation does not seem to be properly configured."
 msgstr "Parece que sua organização não está configurada corretamente."
 
-#: ../../app/controllers/plan_exports_controller.rb:100
+#: ../../app/controllers/plan_exports_controller.rb:106
 msgid "Created using %{application_name}. Last modified %{date}"
 msgstr "Criado usando %{application_name}. Última modificação %{date}"
+
+#: ../../app/controllers/plan_exports_controller.rb:111
+msgid "[page] of [topage]"
+msgstr "[página] de [topage]"
 
 #: ../../app/controllers/plans_controller.rb:52
 msgid "This is a"
@@ -651,11 +655,11 @@ msgstr "Este plano é baseado no"
 msgid "template with customisations by the"
 msgstr "modelo com personalizações pelo"
 
-#: ../../app/controllers/plans_controller.rb:392
+#: ../../app/controllers/plans_controller.rb:393
 msgid "copied"
 msgstr "copieado"
 
-#: ../../app/controllers/plans_controller.rb:423
+#: ../../app/controllers/plans_controller.rb:424
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -663,23 +667,23 @@ msgstr ""
 "Não conseguimos mudar o status do plano. É preciso pelo menos %{percentage} de"
 " respostas."
 
-#: ../../app/controllers/plans_controller.rb:429
+#: ../../app/controllers/plans_controller.rb:430
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Não conseguimos encontrar o plano com id %{plan_id}"
 
-#: ../../app/controllers/plans_controller.rb:444
+#: ../../app/controllers/plans_controller.rb:445
 msgid "Your project is now a test."
 msgstr "Seu projeto agora é um teste."
 
-#: ../../app/controllers/plans_controller.rb:444
+#: ../../app/controllers/plans_controller.rb:445
 msgid "Your project is no longer a test."
 msgstr "Seu projeto não é mais um teste."
 
-#: ../../app/controllers/plans_controller.rb:448
+#: ../../app/controllers/plans_controller.rb:449
 msgid "Unable to change the plan's test status"
 msgstr "Não conseguimos mudar o status de teste do plano"
 
-#: ../../app/controllers/plans_controller.rb:461
+#: ../../app/controllers/plans_controller.rb:462
 msgid "There is no plan associated with id %{<id}>s"
 msgstr "Não há plano associado ao id %{<id}> s"
 
@@ -928,9 +932,9 @@ msgstr "mesclado"
 msgid "merge"
 msgstr "mesclar"
 
-#: ../../app/controllers/usage_controller.rb:87
+#: ../../app/controllers/usage_controller.rb:88
 msgid "No. Created Plans"
-msgstr ""
+msgstr "Núm. Planos"
 
 #: ../../app/controllers/users/invitations_controller.rb:33
 msgid ""
@@ -995,19 +999,19 @@ msgstr ""
 "m instruções por tema, elas serão incluídas com base na sua seleção abaixo; po"
 "r isso, é melhor não duplicar muito texto."
 
-#: ../../app/helpers/conditions_helper.rb:193
+#: ../../app/helpers/conditions_helper.rb:191
 msgid "Answering"
 msgstr "Respondendo"
 
-#: ../../app/helpers/conditions_helper.rb:197
+#: ../../app/helpers/conditions_helper.rb:195
 msgid " will <b>send an email</b> with subject %{subject_name}"
 msgstr "<b>enviará um e-mail</b> com o assunto %{subject_name}"
 
-#: ../../app/helpers/conditions_helper.rb:203
+#: ../../app/helpers/conditions_helper.rb:201
 msgid " will <b>remove</b> question "
 msgstr "irá <b>remover a</b> pergunta"
 
-#: ../../app/helpers/conditions_helper.rb:204
+#: ../../app/helpers/conditions_helper.rb:202
 msgid " will <b>remove</b> questions "
 msgstr "irá <b>remover</b> perguntas"
 
@@ -1129,7 +1133,7 @@ msgstr "Autorizar API para organizações"
 
 #: ../../app/helpers/perms_helper.rb:17
 msgid "Review organisational plans"
-msgstr ""
+msgstr "Revise os planos organizacionais"
 
 #: ../../app/helpers/plans_helper.rb:8
 #: ../../app/views/paginable/plans/_index.html.erb:8
@@ -1159,7 +1163,7 @@ msgid "Public"
 msgstr "Público"
 
 #: ../../app/helpers/plans_helper.rb:26 ../../app/helpers/plans_helper.rb:28
-#: ../../app/views/layouts/application.html.erb:128
+#: ../../app/views/layouts/application.html.erb:129
 msgid "Private"
 msgstr "Privado"
 
@@ -1172,7 +1176,7 @@ msgid "Public: anyone can view."
 msgstr "Público: qualquer pessoa pode ver."
 
 #: ../../app/helpers/plans_helper.rb:39
-#: ../../app/views/layouts/application.html.erb:129
+#: ../../app/views/layouts/application.html.erb:130
 msgid "Private: restricted to me and people I invite."
 msgstr "Privado: restrito a mim e a meus convidados."
 
@@ -1479,7 +1483,7 @@ msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:221
 msgid "Research Outputs: "
-msgstr ""
+msgstr "Resultados da pesquisa:"
 
 #: ../../app/models/concerns/exportable_plan.rb:244
 msgid "Not Answered"
@@ -1560,23 +1564,35 @@ msgstr "deve ser um dos seguintes formatos: jpeg, jpg, png, gif, bmp"
 msgid "can't be larger than 500KB"
 msgstr "não pode ser maior que 500KB"
 
-#: ../../app/models/plan.rb:60
+#: ../../app/models/plan.rb:62
 msgid "organisational"
 msgstr "organizacional"
 
-#: ../../app/models/plan.rb:61
+#: ../../app/models/plan.rb:63
 msgid "public"
 msgstr "público"
 
-#: ../../app/models/plan.rb:62
+#: ../../app/models/plan.rb:64
 msgid "test"
 msgstr "teste"
 
-#: ../../app/models/plan.rb:63
+#: ../../app/models/plan.rb:65
 msgid "private"
 msgstr "privado"
 
-#: ../../app/models/plan.rb:615
+#: ../../app/models/plan.rb:69
+msgid "Planned"
+msgstr "Planejado"
+
+#: ../../app/models/plan.rb:70
+msgid "Funded"
+msgstr "Financiado"
+
+#: ../../app/models/plan.rb:71
+msgid "Denied"
+msgstr "Negado"
+
+#: ../../app/models/plan.rb:623
 msgid "must be after the start date"
 msgstr "deve ser posterior à data de início"
 
@@ -1634,39 +1650,39 @@ msgstr "generate_copy! requer uma meta de organização"
 msgid "Copy of %{template}"
 msgstr "Cópia do %{template}"
 
-#: ../../app/models/template.rb:391
+#: ../../app/models/template.rb:392
 msgid "generate_version! requires a published template"
 msgstr "generate_version! requer um modelo publicado"
 
-#: ../../app/models/template.rb:405
+#: ../../app/models/template.rb:407
 msgid "customize! requires an organisation target"
 msgstr "customizar! requer uma meta de organização"
 
-#: ../../app/models/template.rb:408
+#: ../../app/models/template.rb:410
 msgid "customize! requires a template from a funder"
 msgstr "customizar! requer um modelo de um financiador"
 
-#: ../../app/models/template.rb:444
+#: ../../app/models/template.rb:447
 msgid "You can not publish a published template.  "
 msgstr "Você não pode publicar um modelo publicado."
 
-#: ../../app/models/template.rb:448
+#: ../../app/models/template.rb:451
 msgid "You can not publish a historical version of this template.  "
 msgstr "Você não pode publicar uma versão histórica deste modelo."
 
-#: ../../app/models/template.rb:453
+#: ../../app/models/template.rb:456
 msgid "You can not publish a template without phases.  "
 msgstr "Você não pode publicar um modelo sem fases."
 
-#: ../../app/models/template.rb:458
+#: ../../app/models/template.rb:461
 msgid "You can not publish a template without sections in a phase.  "
 msgstr "Você não pode publicar um modelo sem seções em uma fase."
 
-#: ../../app/models/template.rb:463
+#: ../../app/models/template.rb:466
 msgid "You can not publish a template without questions in a section.  "
 msgstr "Você não pode publicar um modelo sem perguntas em uma seção."
 
-#: ../../app/models/template.rb:467
+#: ../../app/models/template.rb:470
 msgid "Conditions in the template refer backwards"
 msgstr "As condições no modelo se referem ao contrário"
 
@@ -1862,11 +1878,11 @@ msgstr ": o título é necessário para cada: conjunto de dados"
 msgid "invalid JSON"
 msgstr "JSON inválido"
 
-#: ../../app/services/template/upgrade_customization_service.rb:67
+#: ../../app/services/template/upgrade_customization_service.rb:66
 msgid "upgrade_customization! requires a customised template"
 msgstr "upgrade_customization! requer um modelo customizado"
 
-#: ../../app/services/template/upgrade_customization_service.rb:71
+#: ../../app/services/template/upgrade_customization_service.rb:70
 msgid ""
 "upgrade cannot be carried out since there is no published template of its curr"
 "ent funder"
@@ -1946,7 +1962,7 @@ msgstr "Por favor, espere enquanto os Padrões são carregados."
 #: ../../app/views/org_admin/questions/_form.html.erb:99
 #: ../../app/views/org_admin/questions/_show.html.erb:209
 #: ../../app/views/org_admin/sections/_form.html.erb:17
-#: ../../app/views/org_admin/templates/_form.html.erb:82
+#: ../../app/views/org_admin/templates/_form.html.erb:88
 #: ../../app/views/org_admin/users/edit.html.erb:54
 #: ../../app/views/orgs/_feedback_form.html.erb:38
 #: ../../app/views/orgs/_profile_form.html.erb:197
@@ -1983,12 +1999,12 @@ msgid " by %{user_name}"
 msgstr " por %{user_name}"
 
 #: ../../app/views/answers/_status.html.erb:15
-msgid "This answer removes "
-msgstr "Esta resposta remove"
-
-#: ../../app/views/answers/_status.html.erb:15
 msgid " questions from your plan."
 msgstr " perguntas do seu plano."
+
+#: ../../app/views/answers/_status.html.erb:15
+msgid "This answer removes "
+msgstr "Esta resposta remove"
 
 #: ../../app/views/answers/_status.html.erb:21
 msgid "This answer triggers email(s) to "
@@ -2647,7 +2663,7 @@ msgstr ""
 "o as questões no wizard 'criar plano'."
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:15
-#: ../../app/views/org_admin/templates/_form.html.erb:35
+#: ../../app/views/org_admin/templates/_form.html.erb:41
 #: ../../app/views/org_admin/templates/_row.html.erb:10
 #: ../../app/views/org_admin/templates/_row.html.erb:13
 #: ../../app/views/org_admin/templates/_show.html.erb:19
@@ -2984,50 +3000,50 @@ msgstr "Sair"
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-#: ../../app/views/layouts/application.html.erb:91
-msgid "Error:"
-msgstr "Erro"
-
-#: ../../app/views/layouts/application.html.erb:91
+#: ../../app/views/layouts/application.html.erb:92
 msgid "Notice:"
 msgstr "Nota:"
 
-#: ../../app/views/layouts/application.html.erb:102
+#: ../../app/views/layouts/application.html.erb:92
+msgid "Error:"
+msgstr "Erro"
+
+#: ../../app/views/layouts/application.html.erb:103
 msgid "Loading..."
 msgstr "Carregando..."
 
-#: ../../app/views/layouts/application.html.erb:121
+#: ../../app/views/layouts/application.html.erb:122
 #: ../../app/views/plans/new.html.erb:2
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
-#: ../../app/views/layouts/application.html.erb:123
+#: ../../app/views/layouts/application.html.erb:124
 #: ../../app/views/shared/_create_account_form.html.erb:31
 msgid "Show password"
 msgstr "Mostrar senha"
 
-#: ../../app/views/layouts/application.html.erb:124
+#: ../../app/views/layouts/application.html.erb:125
 msgid "Select an organisation from the list."
 msgstr "Selecione uma organização da lista."
 
-#: ../../app/views/layouts/application.html.erb:125
+#: ../../app/views/layouts/application.html.erb:126
 msgid "My organisation isn't listed"
 msgstr "Minha organização não está listada"
 
-#: ../../app/views/layouts/application.html.erb:127
+#: ../../app/views/layouts/application.html.erb:128
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:42
 msgid "N/A"
 msgstr "N/A"
 
-#: ../../app/views/layouts/application.html.erb:131
+#: ../../app/views/layouts/application.html.erb:132
 msgid "Hide list."
 msgstr "Esconder lista."
 
-#: ../../app/views/layouts/application.html.erb:132
+#: ../../app/views/layouts/application.html.erb:133
 msgid "See the full list of partner institutions."
 msgstr "Veja a lista completa de instituições parceiras"
 
-#: ../../app/views/layouts/application.html.erb:134
+#: ../../app/views/layouts/application.html.erb:135
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
@@ -3035,29 +3051,29 @@ msgstr ""
 "Não conseguimos encontrar um modelo adequado para a instituição de pesquisa e "
 "o órgão financiador que você selecionou."
 
-#: ../../app/views/layouts/application.html.erb:135
+#: ../../app/views/layouts/application.html.erb:136
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
 "Por favor, selecione uma instituição de pesquisa e um órgão financiador para c"
 "ontinuar."
 
-#: ../../app/views/layouts/application.html.erb:137
+#: ../../app/views/layouts/application.html.erb:138
 msgid "Loading ..."
 msgstr "Carregando ..."
 
-#: ../../app/views/layouts/application.html.erb:138
+#: ../../app/views/layouts/application.html.erb:139
 msgid "Unable to load the section's content at this time."
 msgstr "Não carregar o conteúdo da seção neste momento."
 
-#: ../../app/views/layouts/application.html.erb:139
+#: ../../app/views/layouts/application.html.erb:140
 msgid "Unable to load the question's content at this time."
 msgstr "Não foi carregar o conteúdo da pergunta no momento."
 
-#: ../../app/views/layouts/application.html.erb:140
+#: ../../app/views/layouts/application.html.erb:141
 msgid "Opens in a new window"
 msgstr "Abre em uma nova janela"
 
-#: ../../app/views/layouts/application.html.erb:142
+#: ../../app/views/layouts/application.html.erb:143
 msgid ""
 "%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
@@ -3067,11 +3083,11 @@ msgstr ""
 " navegar pelas sugestões. Use a tecla Enter para selecionar uma sugestão ou a "
 "tecla Escape para fechar as sugestões."
 
-#: ../../app/views/layouts/application.html.erb:143
+#: ../../app/views/layouts/application.html.erb:144
 msgid "No results are available for your entry."
 msgstr "Nenhum resultado está disponível para sua entrada."
 
-#: ../../app/views/layouts/application.html.erb:144
+#: ../../app/views/layouts/application.html.erb:145
 msgid "Searching ..."
 msgstr "Procurando ..."
 
@@ -3419,12 +3435,12 @@ msgid "Feedback requested"
 msgstr "Feedback solicitado"
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Complete"
-msgstr "Completar"
-
-#: ../../app/views/org_admin/plans/index.html.erb:29
 msgid "Notify the plan owner that I have finished providing feedback"
 msgstr "Notificar o proprietário do plano de que eu acabei de dar feedback"
+
+#: ../../app/views/org_admin/plans/index.html.erb:29
+msgid "Complete"
+msgstr "Completar"
 
 #: ../../app/views/org_admin/plans/index.html.erb:39
 msgid ""
@@ -3464,12 +3480,12 @@ msgstr ""
 "qui."
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %{number}:"
-msgstr "Pergunta %{number}:"
-
-#: ../../app/views/org_admin/questions/_form.html.erb:4
 msgid "New question:"
 msgstr "Novo perguntas"
+
+#: ../../app/views/org_admin/questions/_form.html.erb:4
+msgid "Question %{number}:"
+msgstr "Pergunta %{number}:"
 
 #: ../../app/views/org_admin/questions/_form.html.erb:15
 msgid "Question Number"
@@ -3673,7 +3689,7 @@ msgstr "Selecionar esta caixa impede que o modelo apareça na lista pública de 
 msgid "for internal %{org_name} use only"
 msgstr "para %{org_name} interno use somente"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:32
+#: ../../app/views/org_admin/templates/_form.html.erb:38
 #: ../../app/views/org_admin/templates/_show.html.erb:13
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:7
 #: ../../app/views/paginable/guidances/_index.html.erb:9
@@ -3683,7 +3699,7 @@ msgstr "para %{org_name} interno use somente"
 msgid "Status"
 msgstr "Status"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:37
+#: ../../app/views/org_admin/templates/_form.html.erb:43
 #: ../../app/views/org_admin/templates/_row.html.erb:16
 #: ../../app/views/org_admin/templates/_show.html.erb:26
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:24
@@ -3693,17 +3709,17 @@ msgstr "Status"
 msgid "Unpublished"
 msgstr "Não publicado"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:39
+#: ../../app/views/org_admin/templates/_form.html.erb:45
 #: ../../app/views/paginable/templates/_history.html.erb:19
 msgid "Draft"
 msgstr "Rascunho"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:46
+#: ../../app/views/org_admin/templates/_form.html.erb:52
 #: ../../app/views/org_admin/templates/_show.html.erb:41
 msgid "Created at"
 msgstr "Criado em"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:52
+#: ../../app/views/org_admin/templates/_form.html.erb:58
 #: ../../app/views/org_admin/templates/_show.html.erb:43
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:9
 #: ../../app/views/paginable/guidances/_index.html.erb:10
@@ -3711,12 +3727,12 @@ msgstr "Criado em"
 msgid "Last updated"
 msgstr "Última Atualização"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:64
+#: ../../app/views/org_admin/templates/_form.html.erb:70
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:10
 msgid "Funder Links"
 msgstr "Links para Órgão Financiador"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:67
+#: ../../app/views/org_admin/templates/_form.html.erb:73
 msgid ""
 "Add links to funder websites that provide additional information about the req"
 "uirements for this template"
@@ -3724,11 +3740,11 @@ msgstr ""
 "Acrescente links para páginas do órgão financiador com informações sobre os re"
 "quisitos para este modelo."
 
-#: ../../app/views/org_admin/templates/_form.html.erb:73
+#: ../../app/views/org_admin/templates/_form.html.erb:79
 msgid "Sample Plan Links"
 msgstr "Links para Amostras de Planos"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:76
+#: ../../app/views/org_admin/templates/_form.html.erb:82
 msgid "Add links to sample plans if provided by the funder."
 msgstr ""
 "Acrescente links para os exemplos de planos, caso o órgão financiador os forne"
@@ -3959,6 +3975,8 @@ msgid ""
 "This information can only be changed by a system administrator. Contact %{supp"
 "ort_email} if you have questions or to request changes."
 msgstr ""
+"Essas informações só podem ser alteradas por um administrador do sistema. Entr"
+"e em contato com %{support_email} se tiver dúvidas ou solicitar alterações."
 
 #: ../../app/views/orgs/_profile_form.html.erb:24
 msgid "Organisation full name"
@@ -4466,12 +4484,12 @@ msgid "Create a new plan"
 msgstr "Criar um novo plano"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "Sample Plans"
-msgstr "Amostras de Planos"
-
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
 msgid "(if available)"
 msgstr "(se disponível)"
+
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
+msgid "Sample Plans"
+msgstr "Amostras de Planos"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:47
 msgid "Copy link to create a new plan"
@@ -4799,15 +4817,15 @@ msgstr "Protocolos éticos"
 msgid "Funding status"
 msgstr "Status de financiamento"
 
-#: ../../app/views/plans/_project_details.html.erb:181
+#: ../../app/views/plans/_project_details.html.erb:180
 msgid "Grant number/url"
 msgstr "Número / URL da concessão"
 
-#: ../../app/views/plans/_project_details.html.erb:195
+#: ../../app/views/plans/_project_details.html.erb:194
 msgid "Grant number:"
 msgstr "Número da concessão:"
 
-#: ../../app/views/plans/_project_details.html.erb:199
+#: ../../app/views/plans/_project_details.html.erb:198
 msgid ""
 "Provide a URL to the award's landing page if possible, if not please provide t"
 "he award/grant number."
@@ -4879,7 +4897,7 @@ msgstr "Organização: qualquer pessoa em minha organização pode ver"
 
 #: ../../app/views/plans/_share_form.html.erb:37
 msgid "Public: anyone can view or download from the Public DMPs page"
-msgstr ""
+msgstr "Público: qualquer pessoa pode visualizar seu plano na lista Public PGDs."
 
 #: ../../app/views/plans/_share_form.html.erb:44
 msgid "Manage collaborators"
@@ -6022,12 +6040,12 @@ msgid "New API Client"
 msgstr "Novo cliente da API"
 
 #: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
-msgid "Successfully regenerated the client credentials."
-msgstr "As credenciais do cliente foram regeneradas com êxito."
-
-#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
 msgid "Unable to regenerate the client credentials."
 msgstr "Não foi possível regenerar as credenciais do cliente."
+
+#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
+msgid "Successfully regenerated the client credentials."
+msgstr "As credenciais do cliente foram regeneradas com êxito."
 
 #: ../../app/views/super_admin/notifications/_form.html.erb:20
 msgid ""
@@ -6503,20 +6521,20 @@ msgid "Hello %{recipient_name},"
 msgstr "Olá %{recipient_name},"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " is creating a Data Management Plan and has answered "
-msgstr " está criando um plano de gerenciamento de dados e respondeu"
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " to "
 msgstr " para"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " in a plan called "
-msgstr " em um plano chamado"
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " based on the template "
 msgstr " com base no modelo"
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " is creating a Data Management Plan and has answered "
+msgstr " está criando um plano de gerenciamento de dados e respondeu"
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " in a plan called "
+msgstr " em um plano chamado"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
@@ -6671,12 +6689,12 @@ msgid "Download users"
 msgstr "Download de usuários"
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Successfully regenerate your API token."
-msgstr "Gere novamente seu token de API com sucesso."
-
-#: ../../app/views/users/refresh_token.js.erb:1
 msgid "Unable to regenerate your API token."
 msgstr "Não foi possível regenerar seu token de API."
+
+#: ../../app/views/users/refresh_token.js.erb:1
+msgid "Successfully regenerate your API token."
+msgstr "Gere novamente seu token de API com sucesso."
 
 #: i18n_placeholders.rb:4
 msgid "activerecord.errors.messages.record_invalid"

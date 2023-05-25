@@ -3,7 +3,7 @@ import {
   isNumber,
   isString,
 } from '../utils/isType';
-import { Tinymce } from '../utils/tinymce.js.erb';
+import { Tinymce } from '../utils/tinymce';
 import { formLoadingCallback } from '../utils/dynamicFormHelper';
 // import debounce from '../utils/debounce';
 import { updateSectionProgress, getQuestionDiv } from '../utils/sectionUpdate';

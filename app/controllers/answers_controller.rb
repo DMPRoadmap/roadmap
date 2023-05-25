@@ -200,8 +200,8 @@ class AnswersController < ApplicationController
   # --------------------------------
 
   def check_answered(section, q_array, all_answers)
-    n_qs = section.questions.select { |question| q_array.include?(question.id) }.length
-    n_ans = all_answers.select { |ans| q_array.include?(ans.question.id) and ans.answered? }.length
+    n_qs = section.questions.count { |question| q_array.include?(question.id) }
+    n_ans = all_answers.count { |ans| q_array.include?(ans.question.id) and ans.answered? }
     [n_qs, n_ans]
   end
 end

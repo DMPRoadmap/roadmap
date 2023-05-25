@@ -165,7 +165,16 @@ class PlansController < ApplicationController
           # rubocop:enable Layout/LineLength
         else
           # We used the specified org's or funder's template
-          msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
+          # --------------------------------
+          # Start DMP OPIDoR Customization
+          # CHANGES : Change message
+          # --------------------------------
+          msg += _('This plan is based on the "%{template_title}" template provided by %{org_name}.') % { 
+            template_title: @plan.template.title, org_name: @plan.template.org.name
+          }
+          # --------------------------------
+          # End DMP OPIDoR Customization
+          # --------------------------------
         end
 
         @plan.add_user!(current_user.id, :creator)
@@ -319,7 +328,7 @@ class PlansController < ApplicationController
                .find(params[:id])
     authorize plan
     phase_id = params[:phase_id].to_i
-    phase = plan.template.phases.select { |p| p.id == phase_id }.first
+    phase = plan.template.phases.find { |p| p.id == phase_id }
     raise ActiveRecord::RecordNotFound if phase.nil?
 
     guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
@@ -484,6 +493,7 @@ class PlansController < ApplicationController
     # --------------------------------
 
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+    @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
     @export_settings = @plan.settings(:export)
     render 'download'
   end

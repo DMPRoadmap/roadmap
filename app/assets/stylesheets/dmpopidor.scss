@@ -493,6 +493,7 @@ header .main-nav {
     border-color: $rust;
     background-color: $rust;
     color: $white;
+    margin-bottom: 10px;
   }
 
   .btn-default,
@@ -505,6 +506,7 @@ header .main-nav {
     border-color: $rust;
     background-color: $rust;
     color: $white;
+    margin-bottom: 10px;
   }
 
   .btn-secondary,
@@ -992,6 +994,7 @@ header .main-nav {
       border-color: $blue;
       background-color: $blue;
       color: $white;
+      margin-bottom: 10px;
     }
 
     .btn-default,
@@ -1004,6 +1007,7 @@ header .main-nav {
       border-color: $blue;
       background-color: $blue;
       color: $white;
+      margin-bottom: 10px;
     }
 
     .combobox-clear-button,
@@ -1119,6 +1123,7 @@ header .main-nav {
       background-color: $yellow;
       color: $black;
       text-decoration: none;
+      margin-bottom: 10px;
     }
 
     .btn-default,
@@ -1132,6 +1137,7 @@ header .main-nav {
       background-color: $yellow;
       color: $black;
       text-decoration: none;
+      margin-bottom: 10px;
     }
 
     .combobox-clear-button,
@@ -1721,6 +1727,10 @@ header .main-nav {
 
   .list-contributor .roles {
     background-color: $light-grey;
+  }
+
+  .paginable-search {
+    display: none;
   }
 
 }

@@ -1,4 +1,4 @@
-import { Tinymce } from '../utils/tinymce.js.erb';
+import { Tinymce } from '../utils/tinymce.js';
 import { isObject, isString } from '../utils/isType';
 import TimeagoFactory from '../utils/timeagoFactory.js.erb';
 
@@ -162,7 +162,9 @@ $(() => {
   };
   const initOrReload = (researchOutputId = null) => {
     if (researchOutputId) {
-      Tinymce.init({ selector: '.note' });
+      $('.note').each((_idx, el) => {
+        Tinymce.init({ selector: `#${$(el).attr('id')}` });
+      });
     }
     eventHandlers({ attachment: 'on' });
     TimeagoFactory.render($('time.timeago'));

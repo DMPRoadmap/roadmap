@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-02-03 09:02+0100\n"
-"PO-Revision-Date: 2023-02-03 09:02+0100\n"
+"POT-Creation-Date: 2023-04-12 10:30-0700\n"
+"PO-Revision-Date: 2023-04-12 19:30+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -47,21 +47,21 @@ msgstr ""
 #: ../../app/controllers/api/v0/statistics_controller.rb:41
 #: ../../app/controllers/api/v0/statistics_controller.rb:89
 #: ../../app/controllers/api/v0/statistics_controller.rb:136
-#: ../../app/controllers/usage_controller.rb:66
-#: ../../app/controllers/usage_controller.rb:87
+#: ../../app/controllers/usage_controller.rb:67
+#: ../../app/controllers/usage_controller.rb:88
 msgid "Month"
 msgstr "Month"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:41
-#: ../../app/controllers/usage_controller.rb:66
+#: ../../app/controllers/usage_controller.rb:67
 msgid "No. Users joined"
 msgstr ""
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:47
 #: ../../app/controllers/api/v0/statistics_controller.rb:95
 #: ../../app/controllers/api/v0/statistics_controller.rb:142
-#: ../../app/controllers/usage_controller.rb:72
-#: ../../app/controllers/usage_controller.rb:93
+#: ../../app/controllers/usage_controller.rb:73
+#: ../../app/controllers/usage_controller.rb:94
 msgid "Total"
 msgstr ""
 
@@ -438,7 +438,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/phases_controller.rb:147
 #: ../../app/controllers/org_admin/questions_controller.rb:166
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:415
+#: ../../app/controllers/plans_controller.rb:416
 #: ../../app/controllers/super_admin/api_clients_controller.rb:68
 #: ../../app/controllers/super_admin/notifications_controller.rb:52
 #: ../../app/controllers/super_admin/themes_controller.rb:39
@@ -450,7 +450,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/phases_controller.rb:149
 #: ../../app/controllers/org_admin/questions_controller.rb:169
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:418
+#: ../../app/controllers/plans_controller.rb:419
 #: ../../app/controllers/super_admin/api_clients_controller.rb:70
 #: ../../app/controllers/super_admin/notifications_controller.rb:55
 #: ../../app/controllers/super_admin/themes_controller.rb:41
@@ -540,7 +540,7 @@ msgid "Unable to delete this version of the template."
 msgstr ""
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:20
-#: ../../app/controllers/plans_controller.rb:394
+#: ../../app/controllers/plans_controller.rb:395
 msgid "copy"
 msgstr ""
 
@@ -602,8 +602,12 @@ msgstr ""
 msgid "Your organisation does not seem to be properly configured."
 msgstr ""
 
-#: ../../app/controllers/plan_exports_controller.rb:100
+#: ../../app/controllers/plan_exports_controller.rb:106
 msgid "Created using %{application_name}. Last modified %{date}"
+msgstr ""
+
+#: ../../app/controllers/plan_exports_controller.rb:111
+msgid "[page] of [topage]"
 msgstr ""
 
 #: ../../app/controllers/plans_controller.rb:52
@@ -639,33 +643,33 @@ msgstr ""
 msgid "template with customisations by the"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:392
+#: ../../app/controllers/plans_controller.rb:393
 msgid "copied"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:423
+#: ../../app/controllers/plans_controller.rb:424
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:429
+#: ../../app/controllers/plans_controller.rb:430
 msgid "Unable to find plan id %{plan_id}"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:444
+#: ../../app/controllers/plans_controller.rb:445
 msgid "Your project is now a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:444
+#: ../../app/controllers/plans_controller.rb:445
 msgid "Your project is no longer a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:448
+#: ../../app/controllers/plans_controller.rb:449
 msgid "Unable to change the plan's test status"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:461
+#: ../../app/controllers/plans_controller.rb:462
 msgid "There is no plan associated with id %{<id}>s"
 msgstr ""
 
@@ -891,7 +895,7 @@ msgstr ""
 msgid "merge"
 msgstr ""
 
-#: ../../app/controllers/usage_controller.rb:87
+#: ../../app/controllers/usage_controller.rb:88
 msgid "No. Created Plans"
 msgstr ""
 
@@ -950,19 +954,19 @@ msgid ""
 "ot to duplicate too much text."
 msgstr ""
 
-#: ../../app/helpers/conditions_helper.rb:193
+#: ../../app/helpers/conditions_helper.rb:191
 msgid "Answering"
 msgstr ""
 
-#: ../../app/helpers/conditions_helper.rb:197
+#: ../../app/helpers/conditions_helper.rb:195
 msgid " will <b>send an email</b> with subject %{subject_name}"
 msgstr ""
 
-#: ../../app/helpers/conditions_helper.rb:203
+#: ../../app/helpers/conditions_helper.rb:201
 msgid " will <b>remove</b> question "
 msgstr ""
 
-#: ../../app/helpers/conditions_helper.rb:204
+#: ../../app/helpers/conditions_helper.rb:202
 msgid " will <b>remove</b> questions "
 msgstr ""
 
@@ -1108,7 +1112,7 @@ msgid "Public"
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:26 ../../app/helpers/plans_helper.rb:28
-#: ../../app/views/layouts/application.html.erb:128
+#: ../../app/views/layouts/application.html.erb:129
 msgid "Private"
 msgstr ""
 
@@ -1121,7 +1125,7 @@ msgid "Public: anyone can view."
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:39
-#: ../../app/views/layouts/application.html.erb:129
+#: ../../app/views/layouts/application.html.erb:130
 msgid "Private: restricted to me and people I invite."
 msgstr ""
 
@@ -1499,23 +1503,35 @@ msgstr ""
 msgid "can't be larger than 500KB"
 msgstr ""
 
-#: ../../app/models/plan.rb:60
+#: ../../app/models/plan.rb:62
 msgid "organisational"
 msgstr ""
 
-#: ../../app/models/plan.rb:61
+#: ../../app/models/plan.rb:63
 msgid "public"
 msgstr ""
 
-#: ../../app/models/plan.rb:62
+#: ../../app/models/plan.rb:64
 msgid "test"
 msgstr ""
 
-#: ../../app/models/plan.rb:63
+#: ../../app/models/plan.rb:65
 msgid "private"
 msgstr ""
 
-#: ../../app/models/plan.rb:615
+#: ../../app/models/plan.rb:69
+msgid "Planned"
+msgstr ""
+
+#: ../../app/models/plan.rb:70
+msgid "Funded"
+msgstr ""
+
+#: ../../app/models/plan.rb:71
+msgid "Denied"
+msgstr ""
+
+#: ../../app/models/plan.rb:623
 msgid "must be after the start date"
 msgstr ""
 
@@ -1571,39 +1587,39 @@ msgstr ""
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:391
+#: ../../app/models/template.rb:392
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:405
+#: ../../app/models/template.rb:407
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:408
+#: ../../app/models/template.rb:410
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:444
+#: ../../app/models/template.rb:447
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:448
+#: ../../app/models/template.rb:451
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:453
+#: ../../app/models/template.rb:456
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:458
+#: ../../app/models/template.rb:461
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:463
+#: ../../app/models/template.rb:466
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 
-#: ../../app/models/template.rb:467
+#: ../../app/models/template.rb:470
 msgid "Conditions in the template refer backwards"
 msgstr ""
 
@@ -1792,11 +1808,11 @@ msgstr ""
 msgid "invalid JSON"
 msgstr ""
 
-#: ../../app/services/template/upgrade_customization_service.rb:67
+#: ../../app/services/template/upgrade_customization_service.rb:66
 msgid "upgrade_customization! requires a customised template"
 msgstr ""
 
-#: ../../app/services/template/upgrade_customization_service.rb:71
+#: ../../app/services/template/upgrade_customization_service.rb:70
 msgid ""
 "upgrade cannot be carried out since there is no published template of its curr"
 "ent funder"
@@ -1872,7 +1888,7 @@ msgstr ""
 #: ../../app/views/org_admin/questions/_form.html.erb:99
 #: ../../app/views/org_admin/questions/_show.html.erb:209
 #: ../../app/views/org_admin/sections/_form.html.erb:17
-#: ../../app/views/org_admin/templates/_form.html.erb:82
+#: ../../app/views/org_admin/templates/_form.html.erb:88
 #: ../../app/views/org_admin/users/edit.html.erb:54
 #: ../../app/views/orgs/_feedback_form.html.erb:38
 #: ../../app/views/orgs/_profile_form.html.erb:197
@@ -1909,11 +1925,11 @@ msgid " by %{user_name}"
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:15
-msgid "This answer removes "
+msgid " questions from your plan."
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:15
-msgid " questions from your plan."
+msgid "This answer removes "
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:21
@@ -2518,7 +2534,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:15
-#: ../../app/views/org_admin/templates/_form.html.erb:35
+#: ../../app/views/org_admin/templates/_form.html.erb:41
 #: ../../app/views/org_admin/templates/_row.html.erb:10
 #: ../../app/views/org_admin/templates/_row.html.erb:13
 #: ../../app/views/org_admin/templates/_show.html.erb:19
@@ -2835,87 +2851,87 @@ msgstr ""
 msgid "%{application_name}"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:91
-msgid "Error:"
-msgstr ""
-
-#: ../../app/views/layouts/application.html.erb:91
+#: ../../app/views/layouts/application.html.erb:92
 msgid "Notice:"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:102
+#: ../../app/views/layouts/application.html.erb:92
+msgid "Error:"
+msgstr ""
+
+#: ../../app/views/layouts/application.html.erb:103
 msgid "Loading..."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:121
+#: ../../app/views/layouts/application.html.erb:122
 #: ../../app/views/plans/new.html.erb:2
 msgid "This field is required."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:123
+#: ../../app/views/layouts/application.html.erb:124
 #: ../../app/views/shared/_create_account_form.html.erb:31
 msgid "Show password"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:124
+#: ../../app/views/layouts/application.html.erb:125
 msgid "Select an organisation from the list."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:125
+#: ../../app/views/layouts/application.html.erb:126
 msgid "My organisation isn't listed"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:127
+#: ../../app/views/layouts/application.html.erb:128
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:42
 msgid "N/A"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:131
+#: ../../app/views/layouts/application.html.erb:132
 msgid "Hide list."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:132
+#: ../../app/views/layouts/application.html.erb:133
 msgid "See the full list of partner institutions."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:134
+#: ../../app/views/layouts/application.html.erb:135
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:135
+#: ../../app/views/layouts/application.html.erb:136
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:137
+#: ../../app/views/layouts/application.html.erb:138
 msgid "Loading ..."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:138
+#: ../../app/views/layouts/application.html.erb:139
 msgid "Unable to load the section's content at this time."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:139
+#: ../../app/views/layouts/application.html.erb:140
 msgid "Unable to load the question's content at this time."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:140
+#: ../../app/views/layouts/application.html.erb:141
 msgid "Opens in a new window"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:142
+#: ../../app/views/layouts/application.html.erb:143
 msgid ""
 "%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
 "ons."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:143
+#: ../../app/views/layouts/application.html.erb:144
 msgid "No results are available for your entry."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:144
+#: ../../app/views/layouts/application.html.erb:145
 msgid "Searching ..."
 msgstr ""
 
@@ -3252,11 +3268,11 @@ msgid "Feedback requested"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Complete"
+msgid "Notify the plan owner that I have finished providing feedback"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Notify the plan owner that I have finished providing feedback"
+msgid "Complete"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:39
@@ -3292,11 +3308,11 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %{number}:"
+msgid "New question:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "New question:"
+msgid "Question %{number}:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:15
@@ -3476,7 +3492,7 @@ msgstr ""
 msgid "for internal %{org_name} use only"
 msgstr ""
 
-#: ../../app/views/org_admin/templates/_form.html.erb:32
+#: ../../app/views/org_admin/templates/_form.html.erb:38
 #: ../../app/views/org_admin/templates/_show.html.erb:13
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:7
 #: ../../app/views/paginable/guidances/_index.html.erb:9
@@ -3486,7 +3502,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: ../../app/views/org_admin/templates/_form.html.erb:37
+#: ../../app/views/org_admin/templates/_form.html.erb:43
 #: ../../app/views/org_admin/templates/_row.html.erb:16
 #: ../../app/views/org_admin/templates/_show.html.erb:26
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:24
@@ -3496,17 +3512,17 @@ msgstr ""
 msgid "Unpublished"
 msgstr ""
 
-#: ../../app/views/org_admin/templates/_form.html.erb:39
+#: ../../app/views/org_admin/templates/_form.html.erb:45
 #: ../../app/views/paginable/templates/_history.html.erb:19
 msgid "Draft"
 msgstr ""
 
-#: ../../app/views/org_admin/templates/_form.html.erb:46
+#: ../../app/views/org_admin/templates/_form.html.erb:52
 #: ../../app/views/org_admin/templates/_show.html.erb:41
 msgid "Created at"
 msgstr ""
 
-#: ../../app/views/org_admin/templates/_form.html.erb:52
+#: ../../app/views/org_admin/templates/_form.html.erb:58
 #: ../../app/views/org_admin/templates/_show.html.erb:43
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:9
 #: ../../app/views/paginable/guidances/_index.html.erb:10
@@ -3514,22 +3530,22 @@ msgstr ""
 msgid "Last updated"
 msgstr ""
 
-#: ../../app/views/org_admin/templates/_form.html.erb:64
+#: ../../app/views/org_admin/templates/_form.html.erb:70
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:10
 msgid "Funder Links"
 msgstr ""
 
-#: ../../app/views/org_admin/templates/_form.html.erb:67
+#: ../../app/views/org_admin/templates/_form.html.erb:73
 msgid ""
 "Add links to funder websites that provide additional information about the req"
 "uirements for this template"
 msgstr ""
 
-#: ../../app/views/org_admin/templates/_form.html.erb:73
+#: ../../app/views/org_admin/templates/_form.html.erb:79
 msgid "Sample Plan Links"
 msgstr ""
 
-#: ../../app/views/org_admin/templates/_form.html.erb:76
+#: ../../app/views/org_admin/templates/_form.html.erb:82
 msgid "Add links to sample plans if provided by the funder."
 msgstr ""
 
@@ -4210,11 +4226,11 @@ msgid "Create a new plan"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "Sample Plans"
+msgid "(if available)"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "(if available)"
+msgid "Sample Plans"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:47
@@ -4518,15 +4534,15 @@ msgstr ""
 msgid "Funding status"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:181
+#: ../../app/views/plans/_project_details.html.erb:180
 msgid "Grant number/url"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:195
+#: ../../app/views/plans/_project_details.html.erb:194
 msgid "Grant number:"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:199
+#: ../../app/views/plans/_project_details.html.erb:198
 msgid ""
 "Provide a URL to the award's landing page if possible, if not please provide t"
 "he award/grant number."
@@ -5533,11 +5549,11 @@ msgid "New API Client"
 msgstr ""
 
 #: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
-msgid "Successfully regenerated the client credentials."
+msgid "Unable to regenerate the client credentials."
 msgstr ""
 
 #: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
-msgid "Unable to regenerate the client credentials."
+msgid "Successfully regenerated the client credentials."
 msgstr ""
 
 #: ../../app/views/super_admin/notifications/_form.html.erb:20
@@ -5960,19 +5976,19 @@ msgid "Hello %{recipient_name},"
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " is creating a Data Management Plan and has answered "
-msgstr ""
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " to "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " in a plan called "
+msgid " based on the template "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " based on the template "
+msgid " is creating a Data Management Plan and has answered "
+msgstr ""
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " in a plan called "
 msgstr ""
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
@@ -6112,11 +6128,11 @@ msgid "Download users"
 msgstr ""
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Successfully regenerate your API token."
+msgid "Unable to regenerate your API token."
 msgstr ""
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Unable to regenerate your API token."
+msgid "Successfully regenerate your API token."
 msgstr ""
 
 #: i18n_placeholders.rb:4

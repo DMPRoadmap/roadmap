@@ -64,7 +64,7 @@ class PublicPagesController < ApplicationController
     @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
     begin
-      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, '_')
+      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, '').tr(' ', '_')
       file_name = "#{file_name}_v#{@template.version}"
       respond_to do |format|
         format.docx do

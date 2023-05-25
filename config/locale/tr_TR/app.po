@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-02-03 09:02+0100\n"
-"PO-Revision-Date: 2023-02-03 09:02+0100\n"
+"POT-Creation-Date: 2023-04-12 10:30-0700\n"
+"PO-Revision-Date: 2023-04-12 19:30+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -49,21 +49,21 @@ msgstr "Hatalı Parametreler"
 #: ../../app/controllers/api/v0/statistics_controller.rb:41
 #: ../../app/controllers/api/v0/statistics_controller.rb:89
 #: ../../app/controllers/api/v0/statistics_controller.rb:136
-#: ../../app/controllers/usage_controller.rb:66
-#: ../../app/controllers/usage_controller.rb:87
+#: ../../app/controllers/usage_controller.rb:67
+#: ../../app/controllers/usage_controller.rb:88
 msgid "Month"
 msgstr "Ay"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:41
-#: ../../app/controllers/usage_controller.rb:66
+#: ../../app/controllers/usage_controller.rb:67
 msgid "No. Users joined"
 msgstr "Katılan kullanıcı sayısı"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:47
 #: ../../app/controllers/api/v0/statistics_controller.rb:95
 #: ../../app/controllers/api/v0/statistics_controller.rb:142
-#: ../../app/controllers/usage_controller.rb:72
-#: ../../app/controllers/usage_controller.rb:93
+#: ../../app/controllers/usage_controller.rb:73
+#: ../../app/controllers/usage_controller.rb:94
 msgid "Total"
 msgstr "Toplam"
 
@@ -442,7 +442,7 @@ msgstr "Bu şablonun yeni bir sürümü oluşturulamıyor.<br>"
 #: ../../app/controllers/org_admin/phases_controller.rb:147
 #: ../../app/controllers/org_admin/questions_controller.rb:166
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:415
+#: ../../app/controllers/plans_controller.rb:416
 #: ../../app/controllers/super_admin/api_clients_controller.rb:68
 #: ../../app/controllers/super_admin/notifications_controller.rb:52
 #: ../../app/controllers/super_admin/themes_controller.rb:39
@@ -454,7 +454,7 @@ msgstr "güncellendi"
 #: ../../app/controllers/org_admin/phases_controller.rb:149
 #: ../../app/controllers/org_admin/questions_controller.rb:169
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:418
+#: ../../app/controllers/plans_controller.rb:419
 #: ../../app/controllers/super_admin/api_clients_controller.rb:70
 #: ../../app/controllers/super_admin/notifications_controller.rb:55
 #: ../../app/controllers/super_admin/themes_controller.rb:41
@@ -544,7 +544,7 @@ msgid "Unable to delete this version of the template."
 msgstr "Şablonun bu sürümü silinemiyor."
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:20
-#: ../../app/controllers/plans_controller.rb:394
+#: ../../app/controllers/plans_controller.rb:395
 msgid "copy"
 msgstr "kopyala"
 
@@ -608,9 +608,13 @@ msgstr "Lütfen bir kuruluş seçin"
 msgid "Your organisation does not seem to be properly configured."
 msgstr "Kuruluşunuz düzgün yapılandırılmamış gibi görünüyor."
 
-#: ../../app/controllers/plan_exports_controller.rb:100
+#: ../../app/controllers/plan_exports_controller.rb:106
 msgid "Created using %{application_name}. Last modified %{date}"
 msgstr "%{application_name} kullanılarak oluşturuldu. Son değiştirildiği tarih %{date}"
+
+#: ../../app/controllers/plan_exports_controller.rb:111
+msgid "[page] of [topage]"
+msgstr "[sayfa] / [topage]"
 
 #: ../../app/controllers/plans_controller.rb:52
 msgid "This is a"
@@ -645,11 +649,11 @@ msgstr "Bu plan şunlara dayanmaktadır:"
 msgid "template with customisations by the"
 msgstr "şu kişi tarafından özelleştirmeler içeren şablon:"
 
-#: ../../app/controllers/plans_controller.rb:392
+#: ../../app/controllers/plans_controller.rb:393
 msgid "copied"
 msgstr "kopyalandı"
 
-#: ../../app/controllers/plans_controller.rb:423
+#: ../../app/controllers/plans_controller.rb:424
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -657,23 +661,23 @@ msgstr ""
 "En az yüzde %{percentage} yanıt verilmesi gerektiğinden planın durumu değiştir"
 "ilemiyor"
 
-#: ../../app/controllers/plans_controller.rb:429
+#: ../../app/controllers/plans_controller.rb:430
 msgid "Unable to find plan id %{plan_id}"
 msgstr "%{plan_id} no.'lu plan bulunamadı"
 
-#: ../../app/controllers/plans_controller.rb:444
+#: ../../app/controllers/plans_controller.rb:445
 msgid "Your project is now a test."
 msgstr "Projeniz şu an bir test."
 
-#: ../../app/controllers/plans_controller.rb:444
+#: ../../app/controllers/plans_controller.rb:445
 msgid "Your project is no longer a test."
 msgstr "Projeniz artık bir test değil."
 
-#: ../../app/controllers/plans_controller.rb:448
+#: ../../app/controllers/plans_controller.rb:449
 msgid "Unable to change the plan's test status"
 msgstr "Planın test durumu değiştirilemiyor"
 
-#: ../../app/controllers/plans_controller.rb:461
+#: ../../app/controllers/plans_controller.rb:462
 msgid "There is no plan associated with id %{<id}>s"
 msgstr "%{ kimliğiyle ilişkilendirilmiş bir plan yok<id}> s"
 
@@ -915,7 +919,7 @@ msgstr "birleştirildi"
 msgid "merge"
 msgstr "birleştir"
 
-#: ../../app/controllers/usage_controller.rb:87
+#: ../../app/controllers/usage_controller.rb:88
 msgid "No. Created Plans"
 msgstr ""
 
@@ -982,19 +986,19 @@ msgstr ""
 "sa, bu, aşağıdaki seçimlerinize göre çekilecektir, bu nedenle çok fazla metin "
 "kopyalanarak çoğaltılmamalıdır."
 
-#: ../../app/helpers/conditions_helper.rb:193
+#: ../../app/helpers/conditions_helper.rb:191
 msgid "Answering"
 msgstr "Cevaplıyor"
 
-#: ../../app/helpers/conditions_helper.rb:197
+#: ../../app/helpers/conditions_helper.rb:195
 msgid " will <b>send an email</b> with subject %{subject_name}"
 msgstr "%{subject_name} konulu <b>bir e-posta gönderecek</b>"
 
-#: ../../app/helpers/conditions_helper.rb:203
+#: ../../app/helpers/conditions_helper.rb:201
 msgid " will <b>remove</b> question "
 msgstr "soruyu <b>kaldıracak</b>"
 
-#: ../../app/helpers/conditions_helper.rb:204
+#: ../../app/helpers/conditions_helper.rb:202
 msgid " will <b>remove</b> questions "
 msgstr "soruları <b>kaldıracak</b>"
 
@@ -1146,7 +1150,7 @@ msgid "Public"
 msgstr "Herkese Açık"
 
 #: ../../app/helpers/plans_helper.rb:26 ../../app/helpers/plans_helper.rb:28
-#: ../../app/views/layouts/application.html.erb:128
+#: ../../app/views/layouts/application.html.erb:129
 msgid "Private"
 msgstr "Özel"
 
@@ -1159,7 +1163,7 @@ msgid "Public: anyone can view."
 msgstr "Herkese açık: herkes görüntüleyebilir."
 
 #: ../../app/helpers/plans_helper.rb:39
-#: ../../app/views/layouts/application.html.erb:129
+#: ../../app/views/layouts/application.html.erb:130
 msgid "Private: restricted to me and people I invite."
 msgstr "Özel: benimle ve davet ettiğim kişilerle sınırlı."
 
@@ -1543,23 +1547,35 @@ msgstr "şu biçimlerden biri olmalıdır: jpeg, jpg, png, gif, bmp"
 msgid "can't be larger than 500KB"
 msgstr "500KB'den büyük olamaz"
 
-#: ../../app/models/plan.rb:60
+#: ../../app/models/plan.rb:62
 msgid "organisational"
 msgstr "kuruluşla ilgili"
 
-#: ../../app/models/plan.rb:61
+#: ../../app/models/plan.rb:63
 msgid "public"
 msgstr "herkese açık"
 
-#: ../../app/models/plan.rb:62
+#: ../../app/models/plan.rb:64
 msgid "test"
 msgstr "test"
 
-#: ../../app/models/plan.rb:63
+#: ../../app/models/plan.rb:65
 msgid "private"
 msgstr "özel"
 
-#: ../../app/models/plan.rb:615
+#: ../../app/models/plan.rb:69
+msgid "Planned"
+msgstr ""
+
+#: ../../app/models/plan.rb:70
+msgid "Funded"
+msgstr ""
+
+#: ../../app/models/plan.rb:71
+msgid "Denied"
+msgstr ""
+
+#: ../../app/models/plan.rb:623
 msgid "must be after the start date"
 msgstr "başlangıç tarihinden sonra olmalıdır"
 
@@ -1615,39 +1631,39 @@ msgstr "generate_copy! bir kuruluş hedefi gerektirir"
 msgid "Copy of %{template}"
 msgstr "%{template} şablonunun kopyası"
 
-#: ../../app/models/template.rb:391
+#: ../../app/models/template.rb:392
 msgid "generate_version! requires a published template"
 msgstr "generate_version! yayınlanmış bir şablon gerektirir"
 
-#: ../../app/models/template.rb:405
+#: ../../app/models/template.rb:407
 msgid "customize! requires an organisation target"
 msgstr "customize! bir kuruluş hedefi gerektirir"
 
-#: ../../app/models/template.rb:408
+#: ../../app/models/template.rb:410
 msgid "customize! requires a template from a funder"
 msgstr "customize! bir fon sağlayıcıdan bir şablon gerektirir"
 
-#: ../../app/models/template.rb:444
+#: ../../app/models/template.rb:447
 msgid "You can not publish a published template.  "
 msgstr "Yayınlanmış bir şablonu yayınlayamazsınız."
 
-#: ../../app/models/template.rb:448
+#: ../../app/models/template.rb:451
 msgid "You can not publish a historical version of this template.  "
 msgstr "Bu şablonun geçmiş bir sürümünü yayınlayamazsınız."
 
-#: ../../app/models/template.rb:453
+#: ../../app/models/template.rb:456
 msgid "You can not publish a template without phases.  "
 msgstr "Aşamaları olmayan bir şablonu yayınlayamazsınız."
 
-#: ../../app/models/template.rb:458
+#: ../../app/models/template.rb:461
 msgid "You can not publish a template without sections in a phase.  "
 msgstr "Bir aşamasında bölüm yer almayan bir şablonu yayınlayamazsınız."
 
-#: ../../app/models/template.rb:463
+#: ../../app/models/template.rb:466
 msgid "You can not publish a template without questions in a section.  "
 msgstr "Bir bölümünde soru bulunmayan bir şablonu yayınlayamazsınız."
 
-#: ../../app/models/template.rb:467
+#: ../../app/models/template.rb:470
 msgid "Conditions in the template refer backwards"
 msgstr "Şablondaki koşullar geriye dönük"
 
@@ -1844,11 +1860,11 @@ msgstr "Her :dataset için :title zorunludur"
 msgid "invalid JSON"
 msgstr "Geçersiz JSON"
 
-#: ../../app/services/template/upgrade_customization_service.rb:67
+#: ../../app/services/template/upgrade_customization_service.rb:66
 msgid "upgrade_customization! requires a customised template"
 msgstr "upgrade_customization! özelleştirilmiş bir şablon gerektirir"
 
-#: ../../app/services/template/upgrade_customization_service.rb:71
+#: ../../app/services/template/upgrade_customization_service.rb:70
 msgid ""
 "upgrade cannot be carried out since there is no published template of its curr"
 "ent funder"
@@ -1928,7 +1944,7 @@ msgstr "Lütfen bekleyin, Standartlar yükleniyor"
 #: ../../app/views/org_admin/questions/_form.html.erb:99
 #: ../../app/views/org_admin/questions/_show.html.erb:209
 #: ../../app/views/org_admin/sections/_form.html.erb:17
-#: ../../app/views/org_admin/templates/_form.html.erb:82
+#: ../../app/views/org_admin/templates/_form.html.erb:88
 #: ../../app/views/org_admin/users/edit.html.erb:54
 #: ../../app/views/orgs/_feedback_form.html.erb:38
 #: ../../app/views/orgs/_profile_form.html.erb:197
@@ -1965,12 +1981,12 @@ msgid " by %{user_name}"
 msgstr " %{user_name} tarafından"
 
 #: ../../app/views/answers/_status.html.erb:15
-msgid "This answer removes "
-msgstr "Bu cevap şunu kaldırır:"
-
-#: ../../app/views/answers/_status.html.erb:15
 msgid " questions from your plan."
 msgstr " planınızdan sorular."
+
+#: ../../app/views/answers/_status.html.erb:15
+msgid "This answer removes "
+msgstr "Bu cevap şunu kaldırır:"
 
 #: ../../app/views/answers/_status.html.erb:21
 msgid "This answer triggers email(s) to "
@@ -2633,7 +2649,7 @@ msgstr ""
 " seçebileceklerdir."
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:15
-#: ../../app/views/org_admin/templates/_form.html.erb:35
+#: ../../app/views/org_admin/templates/_form.html.erb:41
 #: ../../app/views/org_admin/templates/_row.html.erb:10
 #: ../../app/views/org_admin/templates/_row.html.erb:13
 #: ../../app/views/org_admin/templates/_show.html.erb:19
@@ -2969,50 +2985,50 @@ msgstr "Çıkış Yap"
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-#: ../../app/views/layouts/application.html.erb:91
-msgid "Error:"
-msgstr "Hata:"
-
-#: ../../app/views/layouts/application.html.erb:91
+#: ../../app/views/layouts/application.html.erb:92
 msgid "Notice:"
 msgstr "Bildiri:"
 
-#: ../../app/views/layouts/application.html.erb:102
+#: ../../app/views/layouts/application.html.erb:92
+msgid "Error:"
+msgstr "Hata:"
+
+#: ../../app/views/layouts/application.html.erb:103
 msgid "Loading..."
 msgstr "Yükleniyor..."
 
-#: ../../app/views/layouts/application.html.erb:121
+#: ../../app/views/layouts/application.html.erb:122
 #: ../../app/views/plans/new.html.erb:2
 msgid "This field is required."
 msgstr "Bu alan zorunludur."
 
-#: ../../app/views/layouts/application.html.erb:123
+#: ../../app/views/layouts/application.html.erb:124
 #: ../../app/views/shared/_create_account_form.html.erb:31
 msgid "Show password"
 msgstr "Şifreyi göster"
 
-#: ../../app/views/layouts/application.html.erb:124
+#: ../../app/views/layouts/application.html.erb:125
 msgid "Select an organisation from the list."
 msgstr "Listeden bir kuruluş seçin."
 
-#: ../../app/views/layouts/application.html.erb:125
+#: ../../app/views/layouts/application.html.erb:126
 msgid "My organisation isn't listed"
 msgstr "Kuruluşum listelenmedi"
 
-#: ../../app/views/layouts/application.html.erb:127
+#: ../../app/views/layouts/application.html.erb:128
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:42
 msgid "N/A"
 msgstr "Erişilebilir değil"
 
-#: ../../app/views/layouts/application.html.erb:131
+#: ../../app/views/layouts/application.html.erb:132
 msgid "Hide list."
 msgstr "Listeyi gizle."
 
-#: ../../app/views/layouts/application.html.erb:132
+#: ../../app/views/layouts/application.html.erb:133
 msgid "See the full list of partner institutions."
 msgstr "Ortak kurumların tam listesine bakın."
 
-#: ../../app/views/layouts/application.html.erb:134
+#: ../../app/views/layouts/application.html.erb:135
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
@@ -3020,27 +3036,27 @@ msgstr ""
 "Seçtiğiniz araştırma kuruluşu ve fon sağlayıcı için uygun bir şablon bulunamad"
 "ı."
 
-#: ../../app/views/layouts/application.html.erb:135
+#: ../../app/views/layouts/application.html.erb:136
 msgid "Please select a research organisation and funder to continue."
 msgstr "Devam etmek için lütfen bir araştırma kuruluşu ve fon sağlayıcı seçin."
 
-#: ../../app/views/layouts/application.html.erb:137
+#: ../../app/views/layouts/application.html.erb:138
 msgid "Loading ..."
 msgstr "Yükleniyor ..."
 
-#: ../../app/views/layouts/application.html.erb:138
+#: ../../app/views/layouts/application.html.erb:139
 msgid "Unable to load the section's content at this time."
 msgstr "Bölümün içeriği şu anda yüklenemiyor"
 
-#: ../../app/views/layouts/application.html.erb:139
+#: ../../app/views/layouts/application.html.erb:140
 msgid "Unable to load the question's content at this time."
 msgstr "Sorunun içeriği şu anda yüklenemiyor."
 
-#: ../../app/views/layouts/application.html.erb:140
+#: ../../app/views/layouts/application.html.erb:141
 msgid "Opens in a new window"
 msgstr "Yeni bir pencerede açılır"
 
-#: ../../app/views/layouts/application.html.erb:142
+#: ../../app/views/layouts/application.html.erb:143
 msgid ""
 "%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
@@ -3050,11 +3066,11 @@ msgstr ""
 " Bir öneri seçmek için Enter tuşunu veya önerileri kapatmak için Çıkış tuşunu "
 "kullanın."
 
-#: ../../app/views/layouts/application.html.erb:143
+#: ../../app/views/layouts/application.html.erb:144
 msgid "No results are available for your entry."
 msgstr "Girişiniz için sonuç bulunamadı."
 
-#: ../../app/views/layouts/application.html.erb:144
+#: ../../app/views/layouts/application.html.erb:145
 msgid "Searching ..."
 msgstr "Aranıyor ..."
 
@@ -3402,12 +3418,12 @@ msgid "Feedback requested"
 msgstr "Geri bildirim istendi."
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Complete"
-msgstr "Tamamlanmış"
-
-#: ../../app/views/org_admin/plans/index.html.erb:29
 msgid "Notify the plan owner that I have finished providing feedback"
 msgstr "Plan sahibine, geri bildirim sağlamayı tamamladığımı bildir"
+
+#: ../../app/views/org_admin/plans/index.html.erb:29
+msgid "Complete"
+msgstr "Tamamlanmış"
 
 #: ../../app/views/org_admin/plans/index.html.erb:39
 msgid ""
@@ -3447,12 +3463,12 @@ msgstr ""
 "lirsiniz."
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %{number}:"
-msgstr "Soru %{number}:"
-
-#: ../../app/views/org_admin/questions/_form.html.erb:4
 msgid "New question:"
 msgstr "Yeni soru:"
+
+#: ../../app/views/org_admin/questions/_form.html.erb:4
+msgid "Question %{number}:"
+msgstr "Soru %{number}:"
 
 #: ../../app/views/org_admin/questions/_form.html.erb:15
 msgid "Question Number"
@@ -3655,7 +3671,7 @@ msgstr ""
 msgid "for internal %{org_name} use only"
 msgstr "yalnızca dahili %{org_name} kullanımı için"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:32
+#: ../../app/views/org_admin/templates/_form.html.erb:38
 #: ../../app/views/org_admin/templates/_show.html.erb:13
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:7
 #: ../../app/views/paginable/guidances/_index.html.erb:9
@@ -3665,7 +3681,7 @@ msgstr "yalnızca dahili %{org_name} kullanımı için"
 msgid "Status"
 msgstr "Durum"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:37
+#: ../../app/views/org_admin/templates/_form.html.erb:43
 #: ../../app/views/org_admin/templates/_row.html.erb:16
 #: ../../app/views/org_admin/templates/_show.html.erb:26
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:24
@@ -3675,17 +3691,17 @@ msgstr "Durum"
 msgid "Unpublished"
 msgstr "Yayınlanmamış"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:39
+#: ../../app/views/org_admin/templates/_form.html.erb:45
 #: ../../app/views/paginable/templates/_history.html.erb:19
 msgid "Draft"
 msgstr "Taslak"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:46
+#: ../../app/views/org_admin/templates/_form.html.erb:52
 #: ../../app/views/org_admin/templates/_show.html.erb:41
 msgid "Created at"
 msgstr "Oluşturulma zamanı:"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:52
+#: ../../app/views/org_admin/templates/_form.html.erb:58
 #: ../../app/views/org_admin/templates/_show.html.erb:43
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:9
 #: ../../app/views/paginable/guidances/_index.html.erb:10
@@ -3693,12 +3709,12 @@ msgstr "Oluşturulma zamanı:"
 msgid "Last updated"
 msgstr "Son güncelleme"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:64
+#: ../../app/views/org_admin/templates/_form.html.erb:70
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:10
 msgid "Funder Links"
 msgstr "Fon Sağlayıcı Bağlantıları"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:67
+#: ../../app/views/org_admin/templates/_form.html.erb:73
 msgid ""
 "Add links to funder websites that provide additional information about the req"
 "uirements for this template"
@@ -3706,11 +3722,11 @@ msgstr ""
 "Bu şablon için gereksinimler hakkında ek bilgi sunan fon sağlayıcı web siteler"
 "ine bağlantı ekleyin"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:73
+#: ../../app/views/org_admin/templates/_form.html.erb:79
 msgid "Sample Plan Links"
 msgstr "Örnek Plan Bağlantıları"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:76
+#: ../../app/views/org_admin/templates/_form.html.erb:82
 msgid "Add links to sample plans if provided by the funder."
 msgstr "Fon sağlayıcı tarafından sunuluyorsa, örnek planlara bağlantı ekleyin."
 
@@ -4443,12 +4459,12 @@ msgid "Create a new plan"
 msgstr "Yeni bir plan oluşturun"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "Sample Plans"
-msgstr "Örnek Planlar"
-
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
 msgid "(if available)"
 msgstr "(mümkün ise)"
+
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
+msgid "Sample Plans"
+msgstr "Örnek Planlar"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:47
 msgid "Copy link to create a new plan"
@@ -4773,15 +4789,15 @@ msgstr "etik protokoller"
 msgid "Funding status"
 msgstr "Finansman durumu"
 
-#: ../../app/views/plans/_project_details.html.erb:181
+#: ../../app/views/plans/_project_details.html.erb:180
 msgid "Grant number/url"
 msgstr "Fon/hibe numarası (grant number) / url"
 
-#: ../../app/views/plans/_project_details.html.erb:195
+#: ../../app/views/plans/_project_details.html.erb:194
 msgid "Grant number:"
 msgstr "Hibe numarası:"
 
-#: ../../app/views/plans/_project_details.html.erb:199
+#: ../../app/views/plans/_project_details.html.erb:198
 msgid ""
 "Provide a URL to the award's landing page if possible, if not please provide t"
 "he award/grant number."
@@ -5999,12 +6015,12 @@ msgid "New API Client"
 msgstr "Yeni API İstemcisi"
 
 #: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
-msgid "Successfully regenerated the client credentials."
-msgstr "İstemci kimlik bilgileri başarıyla yeniden oluşturuldu."
-
-#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
 msgid "Unable to regenerate the client credentials."
 msgstr "İstemci kimlik bilgileri yeniden oluşturulamıyor."
+
+#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
+msgid "Successfully regenerated the client credentials."
+msgstr "İstemci kimlik bilgileri başarıyla yeniden oluşturuldu."
 
 #: ../../app/views/super_admin/notifications/_form.html.erb:20
 msgid ""
@@ -6474,20 +6490,20 @@ msgid "Hello %{recipient_name},"
 msgstr "Merhaba %{recipient_name},"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " is creating a Data Management Plan and has answered "
-msgstr " bir Veri Yönetim Planı oluşturuyor ve şunları yanıtladı:"
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " to "
 msgstr "ile"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " in a plan called "
-msgstr "şu plan içinde:"
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " based on the template "
 msgstr "Şu şablona dayanarak:"
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " is creating a Data Management Plan and has answered "
+msgstr " bir Veri Yönetim Planı oluşturuyor ve şunları yanıtladı:"
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " in a plan called "
+msgstr "şu plan içinde:"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
@@ -6642,12 +6658,12 @@ msgid "Download users"
 msgstr "Kullanıcıları indir"
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Successfully regenerate your API token."
-msgstr "API tokenınızı başarıyla yeniden oluşturun."
-
-#: ../../app/views/users/refresh_token.js.erb:1
 msgid "Unable to regenerate your API token."
 msgstr "API Tokenınız yeniden oluşturulamıyor."
+
+#: ../../app/views/users/refresh_token.js.erb:1
+msgid "Successfully regenerate your API token."
+msgstr "API tokenınızı başarıyla yeniden oluşturun."
 
 #: i18n_placeholders.rb:4
 msgid "activerecord.errors.messages.record_invalid"

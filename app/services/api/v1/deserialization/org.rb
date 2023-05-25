@@ -64,7 +64,8 @@ module Api
 
             # Grab the closest match - only caring about results that 'contain'
             # the name with preference to those that start with the name
-            result = results.select { |r| %i[0 1].include?(r[:weight]) }.first
+            match_weights = %i[0 1]
+            result = results.find { |r| match_weights.include?(r[:weight]) }
 
             # If no good result was found just use the specified name
             result ||= { name: name }

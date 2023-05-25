@@ -12,14 +12,14 @@ module ConditionalUserMailer
   #
   # Returns Boolean
   def deliver_if(key:, recipients: [], &block)
-    return false unless block_given?
+    return false unless block
 
     Array(recipients).each do |recipient|
       email_hash = recipient.get_preferences('email').with_indifferent_access
       # Violation of rubocop's DoubleNegation check
       # preference_value = !!email_hash.dig(*key.to_s.split("."))
       preference_value = email_hash.dig(*key.to_s.split('.'))
-      block.call(recipient) if preference_value
+      yield(recipient) if preference_value
     end
 
     true

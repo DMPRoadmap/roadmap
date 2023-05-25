@@ -230,8 +230,9 @@ namespace :data_cleanup do
   def check_length(klass, filter)
     ids = []
     shoulda = ''
+    skippable = %i[password logo]
     filter.attributes.each do |attr|
-      next if %i[password logo].include?(attr)
+      next if skippable.include?(attr)
 
       qry = ''
       if filter.options[:minimum].present?

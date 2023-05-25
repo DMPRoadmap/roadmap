@@ -1,5 +1,5 @@
 // import 'bootstrap-sass/assets/javascripts/bootstrap/collapse';
-import { Tinymce } from '../../utils/tinymce.js.erb';
+import { Tinymce } from '../../utils/tinymce.js';
 import { isObject, isString } from '../../utils/isType';
 import getConstant from '../../utils/constants';
 import { addAsterisks } from '../../utils/requiredField';
@@ -9,7 +9,7 @@ import initQuestionOption from '../questionOptions/index';
 import updateConditions from '../conditions/updateConditions';
 
 $(() => {
-  Tinymce.init({ selector: '.phase' });
+  Tinymce.init({ selector: '#phase_description' });
   const parentSelector = '.section-group';
 
   const initQuestion = (context) => {
@@ -64,36 +64,29 @@ $(() => {
       // For some reason the toolbar options are retained after the call to Tinymce.init() on
       // the views/notifications/edit.js file. Tried 'Object.assign' instead of '$.extend' but it
       // made no difference
+      const prefix = 'collapseSection'
+      let sectionId = selector;
+      if (sectionId.startsWith(prefix)) {
+        sectionId = `sc_${sectionId.replace(prefix, '')}_section_description`
+      }
+
       Tinymce.init({
-        selector: `${selector} .section`,
-        init_instance_callback(editor) {
+        selector: `#${sectionId}`,
+        init_instance_callback: (editor) => {
           // When the text editor changes to blank, set the corresponding destroy
           // field to true (if present).
-          editor.on('Change', () => {
-            const $texteditor = $(editor.targetElm);
+          editor.on('Change', (ed) => {
+            const $texteditor = $(ed.getContentAreaContainer());
             const $fieldset = $texteditor.parents('fieldset');
             const $hiddenField = $fieldset.find('input[type=hidden][id$="_destroy"]');
-            $hiddenField.val(editor.getContent() === '');
+            $hiddenField.val(ed.getContent() === '');
           });
         },
       });
-      const questionForm = $(selector).find('.question_form');
+
+      const questionForm = $(`#${selector}`).find('.question_form');
       if (questionForm.length > 0) {
-        // Load Tinymce when the 'show' form has a question form.
-        // ONLY applicable for template customizations
-        Tinymce.init({
-          selector: `${selector} .question_form .question`,
-          init_instance_callback(editor) {
-            // When the text editor changes to blank, set the corresponding destroy
-            // field to true (if present).
-            editor.on('Change', () => {
-              const $texteditor = $(editor.targetElm);
-              const $fieldset = $texteditor.parents('fieldset');
-              const $hiddenField = $fieldset.find('input[type=hidden][id$="_destroy"]');
-              $hiddenField.val(editor.getContent() === '');
-            });
-          },
-        });
+        initQuestion(selector);
       }
     }
   };
@@ -111,8 +104,9 @@ $(() => {
       // Display the section's html
       panelBody.attr('data-loaded', 'true');
       panelBody.html(e.detail[0].html);
+
       // Wire up the section
-      initSection(`#${panel.attr('id')}`);
+      initSection(`${panel.attr('id')}`);
     }
   });
 
@@ -160,8 +154,9 @@ $(() => {
   // Handle the section that has focus on initial page load
   const currentSection = $('.section-group .in');
   if (currentSection.length > 0) {
-    initSection(`#${currentSection.attr('id')}`);
+    initSection(`${currentSection.attr('id')}`);
   }
   // Handle the new section
-  initSection('#new_section_new_section');
+  // initSection('#new_section_section_description');
+  Tinymce.init({ selector: '#new_section_section_description' });
 });
