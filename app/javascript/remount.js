@@ -3,9 +3,11 @@ import HomepageNews from './dmp_opidor_react/src/components/news/HomepageNews.js
 import NewsPage from './dmp_opidor_react/src/components/news/NewsPage.jsx';
 
 import FormRoot from './dmp_opidor_react/src/components/FormRoot.jsx';
+import PlanCreationLayout from './dmp_opidor_react/src/components/PlanCreation/PlanCreationLayout.jsx';
 
 define({
   'dmp-homepage-news-page': HomepageNews,
   'dmp-news-page': NewsPage,
   'dmp-form-root': FormRoot,
+  'dmp-plan-creation': PlanCreationLayout,
 });

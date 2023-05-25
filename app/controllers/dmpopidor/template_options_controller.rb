@@ -63,5 +63,15 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    def default
+      default_template = ::Template.default
+      authorize ::Template.new, :template_options?
+
+      render json: {
+        id: default_template.id,
+        title: default_template.title
+      }
+    end
   end
 end

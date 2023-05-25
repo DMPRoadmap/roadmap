@@ -27,10 +27,7 @@
             </li>
             <li role="separator" class="divider"></li>
             <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
-              <%= link_to _('Create plan for a Research Project'), new_plan_path(context: 'research_project') %>
-            </li>
-            <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
-              <%= link_to _('Create plan for a Research Structure'), new_plan_path(context: 'research_structure') %>
+              <%= link_to _('Create plan'), new_plan_path %>
             </li>
             <li role="separator" class="divider"></li>
             <li <%= 'class=active' if active_page?(import_plans_path, true)%>>

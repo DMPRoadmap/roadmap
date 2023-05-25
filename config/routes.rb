@@ -326,7 +326,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :template_options, only: [:index], constraints: { format: /json/ }
+  resources :template_options, only: [:index], constraints: { format: /json/ } do
+    get 'default', action: :default, on: :collection, as: :default
+  end
 
   # ORG ADMIN specific pages
   namespace :org_admin do
