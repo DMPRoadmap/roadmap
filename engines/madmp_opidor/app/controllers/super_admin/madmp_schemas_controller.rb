@@ -57,7 +57,7 @@ module SuperAdmin
         redirect_to super_admin_madmp_schemas_path, notice: msg
       else
         flash.now[:alert] = failure_message(@schema, _('delete'))
-        redner :edit
+        render :edit
       end
     end
 

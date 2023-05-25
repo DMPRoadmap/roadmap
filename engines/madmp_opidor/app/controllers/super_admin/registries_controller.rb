@@ -65,7 +65,7 @@ module SuperAdmin
         redirect_to super_admin_registries_path, notice: msg
       else
         flash.now[:alert] = failure_message(@registry, _('delete'))
-        redner :edit
+        render :edit
       end
     end
 
