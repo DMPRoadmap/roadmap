@@ -42,7 +42,8 @@ module Dmptool
           template: @template,
           output_types: ResearchOutput.output_types,
           preferred_licenses: License.preferred.map { |license| [license.identifier, license.id] },
-          licenses: License.selectable.map { |license| [license.identifier, license.id] }
+          licenses: License.selectable.map { |license| [license.identifier, license.id] },
+          referrer: referrer
         }
       end
       # rubocop:enable Metrics/AbcSize
@@ -57,23 +58,39 @@ module Dmptool
         args[:customize_output_types] = params[:customize_output_types_sel] != '0'
         args[:customize_licenses] = params[:customize_licenses_sel] != '0'
 
-        Template.transaction do
-          # Get the current template or a new version if applicable
-          @template = get_modifiable(template)
-          @template.update(template_output_types: [], licenses: [], repositories: [], customized_repositories: [],
-                           metadata_standards: [])
-          @template.update(args)
-          @template.update(repositories: []) if preference_params[:customize_repositories] == '0'
-          @template.update(metadata_standards: []) if preference_params[:customize_metadata_standards] == '0'
-        rescue StandardError => e
-          Rails.logger.error "Unable to save the Template preferences for #{template.id} - #{e.message}"
-          # rubocop:disable Layout/LineLength
-          redirect_to preferences_org_admin_template_path(template), alert: failure_message(@template, _('save')) and return
-          # rubocop:enable Layout/LineLength
+        # Template.transaction do
+        # Get the current template or a new version if applicable
+        @template = get_modifiable(template)
+        @template.update(template_output_types: [], licenses: [], repositories: [], customized_repositories: [],
+                         metadata_standards: [])
+
+        if preference_params[:customize_repositories] != '0'
+          # Create custom repositories if applicable and add them to selected repos
+          args[:repositories_attributes] = create_custom_repositories(
+            existing: args[:repositories_attributes], custom: custom_repo_params
+          )
+        end
+        if preference_params[:customize_metadata_standards] != '0'
+          # Create custom metadata standards if applicable and add them to selected standards
+          args[:metadata_standards_attributes] = create_custom_standards(
+            existing: args[:metadata_standards_attributes], custom: custom_standard_params
+          )
         end
 
-        msg = "#{success_message(@template, _('saved'))} Don't forget to publish your changes."
-        redirect_to preferences_org_admin_template_path(@template), notice: msg
+        if @template.update(args)
+          flash.now[:notice] = "#{success_message(@template, _('saved'))} Don't forget to publish your changes."
+        else
+          flash.now[:alert] = failure_message(@template, _('save'))
+        end
+
+        render 'preferences', locals: {
+          partial_path: 'edit',
+          template: @template,
+          output_types: ResearchOutput.output_types,
+          preferred_licenses: License.preferred.map { |license| [license.identifier, license.id] },
+          licenses: License.selectable.map { |license| [license.identifier, license.id] },
+          referrer: referrer
+        }
       end
       # rubocop:enable Metrics/AbcSize
 
@@ -108,6 +125,14 @@ module Dmptool
 
       private
 
+      def custom_repo_params
+        params.permit(repositories_attributes: %i[id name description uri])
+      end
+
+      def custom_standard_params
+        params.permit(metadata_standards_attributes: %i[id name description uri])
+      end
+
       def repo_search_params
         params.require(:template).permit(%i[search_term subject_filter type_filter])
       end
@@ -125,10 +150,47 @@ module Dmptool
           :customize_metadata_standards, :customize_licenses,
           template_output_types_attributes: %i[id research_output_type],
           licenses_attributes: %i[id],
-          repositories_attributes: %i[id],
-          customized_repositories_attributes: %i[id name description uri],
-          metadata_standards_attributes: %i[id]
-        )
+          repositories_attributes: %i[id name description uri],
+          metadata_standards_attributes: %i[id name description uri])
+      end
+
+      # Create any custom repositories
+      def create_custom_repositories(existing:, custom:)
+        return existing if custom.nil? || custom[:repositories_attributes].nil?
+
+        existing = existing.to_h
+        custom[:repositories_attributes].each do |id, hash|
+          next if hash[:uri].nil? || hash[:name].nil?
+
+          repo = Repository.find_by(uri: hash[:uri])
+          hash[:info] = '{"types": [],"subjects": []}' if repo.nil?
+          repo = Repository.create(hash) if repo.nil?
+          existing[repo.id.to_s] = { id: repo.id } unless repo.nil?
+        end
+        existing
+      end
+
+      # Create any custom metadata standards
+      def create_custom_standards(existing:, custom:)
+        return existing if custom.nil? || custom[:metadata_standards_attributes].nil?
+
+        existing = existing.to_h
+        custom[:metadata_standards_attributes].each do |id, hash|
+          next if hash[:uri].nil? || hash[:name].nil?
+
+          hash[:title] = hash[:name]
+          hash.delete(:name)
+          standard = MetadataStandard.find_by(uri: hash[:uri])
+          standard = MetadataStandard.create(hash) if standard.nil?
+          existing[standard.id.to_s] = { id: standard.id } unless standard.nil?
+        end
+        existing
+      end
+
+      def referrer
+        return customisable_org_admin_templates_path if @template&.customization_of&.present?
+
+        organisational_org_admin_templates_path
       end
     end
   end

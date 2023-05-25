@@ -15,8 +15,12 @@ $(() => {
       const titleField = $(`<input type="hidden" id="${fieldId}_name" name="${fieldName}[name]" value="${title}"/>`);
       const descField = $(`<input type="hidden" id="${fieldId}_description" name="${fieldName}[description]" value="${description}"/>`);
       const uriField = $(`<input type="hidden" id="${fieldId}_uri" name="${fieldName}[uri]" value="${uri}"/>`);
+      const removeButton = `
+        <button class="modal-search-result-unselector" name="button" type="button"
+                title="Click to remove ${title}">Remove</button>
+      `;
 
-      customItemBlock.append(`<div class="modal-search-result-label">${title}</div>`)
+      customItemBlock.append(`<div class="modal-search-result-label">${title} ${removeButton}</div>`)
                      .append(`<p>${description}</p>`)
                      .append(`<p><strong>Repository URL:</strong> ${link}</p>`)
                      .append(titleField)

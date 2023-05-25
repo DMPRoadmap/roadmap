@@ -252,11 +252,6 @@ class ResearchOutputsController < ApplicationController
 
   # Create any custom metadata standards
   def create_custom_standards(existing:, custom:)
-
-pp existing
-p '-----------------'
-pp custom
-
     return existing if custom.nil? || custom[:metadata_standards_attributes].nil?
 
     existing = existing.to_h
