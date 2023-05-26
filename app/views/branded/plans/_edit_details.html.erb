@@ -95,13 +95,49 @@
                   <% end %>
                 <% end %>
               </div>
+              <%= form_for :madmp_fragment, url: madmp_fragment_path(id: project_fragment.id), 
+                          html: {
+                            method: :put,
+                            'data-autosave': project_fragment.id,
+                            class: "form-answer madmp-fragment", 
+                            id: nil  
+                          } do |f| %>
+              <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
+                <%= f.hidden_field :schema_id, :value => project_schema.id, id: nil, class: "schema_id" %>
+                <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
+                <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
+                <%= f.hidden_field :template_locale, :value => locale, id: nil %>
+                <%= f.hidden_field "source", :value => "form" %>
+                <div class="form-group fragment-<%= project_fragment.id %>" data-fragment-id="<%= project_fragment.id %>" >
+                  <%= render(partial: 'dynamic_form/form', locals: { 
+                        f: f,
+                        current_fragment: project_fragment, 
+                        schema: project_schema,
+                        question_id: nil,
+                        readonly: false,
+                        classname: "project",
+                        template_locale: locale,
+                        form_prefix: nil,
+                        source: "form"
+                      }) %>
+                </div>
+                <div class="overlay" style="display:none;">
+                  <div class="spinner"></div>
+                  <br/>
+                  <%= _('Loading...') %>
+                </div>
+                <div class="answer-bottom-zone" >
+                  <div class="schema-picker-zone run-zone">
+                    <span class="message-zone"><%= _('You have pending changes, please save')%></span>
+                  </div>
+                  <div class="answer-save-zone">
+                    <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+                  </div>
+                </div>
+              </fieldset>
+
+              <% end %>
             <% end %>
-            <dmp-form-root props-json='{
-              "fragmentId":<%= project_fragment.id %>,
-              "dmpId": <%= dmp_fragment.id %>,
-              "schemaId": <%= project_schema.id %>,
-              "locale": "<%= locale %>"
-            }'/>
           </div>
         </div>
       </div>
@@ -126,12 +162,49 @@
         <div id="plan_metadata" class="panel-collapse collapse in plan-details-content" role="tabpanel" aria-labelledby="heading-plan-metadata">
           <%= hidden_field_tag 'fragment-id', meta_fragment.id, class: "fragment-id" %>
           <div class="panel-body madmp-fragment"><!-- accordion body -->
-            <dmp-form-root props-json='{
-              "fragmentId":<%= meta_fragment.id %>,
-              "dmpId": <%= dmp_fragment.id %>,
-              "schemaId": <%= meta_schema.id %>,
-              "locale": "<%= locale %>"
-            }'/>
+            <% I18n.with_locale @plan.template.locale  do %>
+              <%= form_for :madmp_fragment, url: madmp_fragment_path(id: meta_fragment.id), 
+                            html: {
+                              method: :put,
+                              'data-autosave': meta_fragment.id,
+                              class: "form-answer madmp-fragment", 
+                              id: nil  
+                            } do |f| %>
+                <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
+                  <%= f.hidden_field :schema_id, :value => meta_schema.id, id: nil, class: "schema_id" %>
+                  <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
+                  <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
+                  <%= f.hidden_field :template_locale, :value => locale, id: nil %>
+                  <%= f.hidden_field "source", :value => "form" %>
+                  <div class="meta-form form-group fragment-<%= meta_fragment.id %>" data-fragment-id="<%= meta_fragment.id %>" >
+                    <%= render(partial: 'dynamic_form/form', locals: { 
+                          f: f,
+                          current_fragment: meta_fragment, 
+                          schema: meta_schema,
+                          question_id: nil,
+                          readonly: false,
+                          classname: "meta",
+                          template_locale: locale,
+                          form_prefix: nil,
+                          source: "form"
+                        }) %>
+                  </div>
+                  <div class="overlay" style="display:none;">
+                    <div class="spinner"></div>
+                    <br/>
+                    <%= _('Loading...') %>
+                  </div>
+                  <div class="answer-bottom-zone" >
+                    <div class="schema-picker-zone run-zone">
+                      <span class="message-zone"><%= _('You have pending changes, please save')%></span>
+                    </div>
+                    <div class="answer-save-zone">
+                      <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+                    </div>
+                  </div>
+                </fieldset>
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>
