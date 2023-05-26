@@ -60,6 +60,7 @@ module Dmpopidor
       end
 
       @templates = @templates.sort_by(&:title)
+      render json: @templates.as_json(only: %i[id title])
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

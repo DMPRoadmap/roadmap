@@ -5,6 +5,10 @@
 class OrgPolicy < ApplicationPolicy
   # NOTE: @user is the signed_in_user and @record is an instance of Org
 
+  def list?
+    @user.present?
+  end
+
   def admin_show?
     @user.can_modify_org_details? && (@user.org_id == @record.id)
   end

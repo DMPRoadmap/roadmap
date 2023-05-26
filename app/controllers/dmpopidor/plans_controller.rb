@@ -5,39 +5,95 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   module PlansController
     # CHANGES:
-    # - Added Active Flag on Org
-    # - Added Template Context support for filtering orgs
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # - Emptied method as logic is now handled by ReactJS
     def new
-      @plan = ::Plan.new
-      @template_context = Template.contexts[params[:context]] || 'research_project'
-      authorize @plan
-
-      # Get all of the available funders and non-funder orgs
-      @funders = ::Org.funder
-                      .includes(identifiers: :identifier_scheme)
-                      .joins(:templates)
-                      .where(templates: { published: true }).uniq.sort_by(&:name)
-      orgs_with_context = ::Org.includes(identifiers: :identifier_scheme).joins(:templates)
-                               .managed.where(templates: { context: @template_context })
-      @orgs = (orgs_with_context.organisation + orgs_with_context.institution + orgs_with_context.default_orgs)
-      @orgs = @orgs.flatten
-                   .select { |org| org.active == true }
-                   .uniq.sort_by(&:name)
-
-      @plan.org_id = current_user.org&.id
-
-      # Get the default template
-      @default_template = ::Template.default
-
-      # TODO: is this still used? We cannot switch this to use the :plan_params
-      #       strong params because any calls that do not include `plan` in the
-      #       query string will fail
-      flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params.key?(:test)
-      @is_test = params[:test] ||= false
+      authorize ::Plan.new
       respond_to :html
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+
+    # POST /plans
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def create
+      @plan = ::Plan.new
+      authorize @plan
+      # If the template_id is blank then we need to look up the available templates and
+      # return JSON
+      if plan_params[:template_id].blank?
+        render json: {
+          message: _('Unable to identify a suitable template for your plan.')
+        }, status: 400
+      else
+        @plan.visibility = Rails.configuration.x.plans.default_visibility
+
+        @plan.template = ::Template.find(plan_params[:template_id])
+
+        @plan.title = if current_user.firstname.blank?
+                        format(_('My Plan (%{title})'), title: @plan.template.title)
+                      else
+                        format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
+                      end
+        if @plan.save
+          # pre-select org's guidance and the default org's guidance
+          ids = (::Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq
+          ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
+
+          @plan.guidance_groups << ggs unless ggs.empty?
+
+          default = ::Template.default
+
+          msg = "#{success_message(@plan, _('created'))}<br />"
+
+          if !default.nil? && default == @plan.template
+            # We used the generic/default template
+            msg += " #{_('This plan is based on the default template.')}"
+
+          elsif !@plan.template.customization_of.nil?
+            # We used a customized version of the the funder template
+            # rubocop:disable Layout/LineLength
+            msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
+            # rubocop:enable Layout/LineLength
+          else
+            # We used the specified org's or funder's template
+            # --------------------------------
+            # Start DMP OPIDoR Customization
+            # CHANGES : Change message
+            # --------------------------------
+            msg += _('This plan is based on the "%{template_title}" template provided by %{org_name}.') % { 
+              template_title: @plan.template.title, org_name: @plan.template.org.name
+            }
+            # --------------------------------
+            # End DMP OPIDoR Customization
+            # --------------------------------
+          end
+
+          @plan.add_user!(current_user.id, :creator)
+          @plan.save
+          # Initialize Meta & Project
+          @plan.create_plan_fragments
+
+          # Add default research output if possible
+          @plan.research_outputs.create!(
+            abbreviation: 'Default',
+            title: 'Default research output',
+            is_default: true,
+            display_order: 1
+          )
+
+          render json: {
+            id: @plan.id
+          }, status: 200
+
+        else
+          # Something went wrong so report the issue to the user
+          render json: {
+            message: failure_message(@plan, _('create'))
+          }, status: 400
+        end
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # PUT /plans/1
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
