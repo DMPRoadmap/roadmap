@@ -9,6 +9,7 @@
 ### Changed
 
  - Help-desk email now has correct address [portagenetwork/roadmap#338](https://github.com/portagenetwork/roadmap/issues/338)
+ - Password reset mail no longer instructs the user against replying to email. [portagenetwork/roadmap#338](https://github.com/portagenetwork/roadmap/issues/338)
 
 ## [3.1.0+portage-3.1.2] - 2023-03-28
 
