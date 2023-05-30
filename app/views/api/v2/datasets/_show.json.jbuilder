@@ -46,8 +46,8 @@ if output.is_a?(ResearchOutput)
   end
 
   json.metadata output.metadata_standards do |metadata_standard|
-    website = metadata_standard.locations.find { |loc| loc['type'] == 'website' }
-    website = { url: '' } if website.blank?
+    website = metadata_standard.locations&.find { |loc| loc['type'] == 'website' }
+    website = { url: metadata_standard.uri } if website.blank?
 
     descr_array = [metadata_standard.title, metadata_standard.description, website['url']]
     json.description descr_array.join(' - ')
