@@ -371,7 +371,10 @@ group :development do
 
   # Better error page for Rails and other Rack apps
   # (https://github.com/charliesome/better_errors)
-  gem 'better_errors'
+
+  # TODO: Unlock this version once the Rails load error is fixed:
+  #       https://github.com/BetterErrors/better_errors/issues/523
+  gem 'better_errors', '2.9.1'
 
   # Retrieve the binding of a method's caller. Can also retrieve bindings
   # even further up the stack. (http://github.com/banister/binding_of_caller)

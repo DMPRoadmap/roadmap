@@ -1,0 +1,56 @@
+<%#
+This is the entry point for the results that are rendered by a `js.erb` file.
+See the README.md within this directory for more info:
+
+Locals:
+:namespace      - a unique name to identify the modal. This value can be used
+                  to match a selected result to a section of the parent page.
+:results        - the paginated results of the search
+:selected       - this should be 'false' here to ensure that the 'Select' link and
+                  pagination controls are displayed.
+:item_name_attr - The attribute that contains the title/name of the item.
+:result_partial - The partial you have defined to display the item's info
+:search_path    - the path to controller endpoint that will perform the search
+:search_method  - the http method used to perform the search
+:no_results_msg - a custom message to display when the search/filters returned no results
+%>
+
+<%
+results = results || []
+selected = selected || false
+no_results_msg = no_results_msg || _("No results matched your filter criteria.")
+%>
+
+<% unless selected %>
+  <% if results.any? %>
+    <nav class="c-pagination" aria-label="pagination">
+      <p><%= page_entries_info results %></p>
+
+      <%= paginate results, remote: true, method: :post %>
+    </nav>
+  <% else %>
+    <div class="col-md-12"><%= no_results_msg %></div>
+  <% end %>
+<% end %>
+
+<% results.each do |result| %>
+  <%= render partial: "layouts/modal_search/result",
+             locals: {
+               item_name_attr: item_name_attr,
+               result: result,
+               selected: selected,
+               result_partial: result_partial,
+               search_path: search_path,
+               search_method: search_method
+             }%>
+  <hr>
+<% end %>
+
+<% if results.any? && !selected %>
+  &nbsp;
+  <nav class="c-pagination" aria-label="pagination">
+    <p><%= page_entries_info results %></p>
+
+    <%= paginate results, remote: true, method: :post %>
+  </nav>
+<% end %>

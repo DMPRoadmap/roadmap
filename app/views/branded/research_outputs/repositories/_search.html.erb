@@ -38,6 +38,10 @@
   </span>
 <% end %>
 
+<% content_for :"custom-repositories" do %>
+  <%= render partial: "research_outputs/repositories/custom", locals: { label: _('Plan') } %>
+<% end %>
+
 <%= render partial: "layouts/modal_search/form",
            locals: {
              namespace: "repositories",
@@ -47,5 +51,6 @@
              search_path: plan_repository_search_path(research_output.plan),
              search_method: :get,
              guidance: research_output.plan.template.user_guidance_repositories,
-             preload: research_output.plan.template.preload_repositories?
+             preload: research_output.plan.template.preload_repositories?,
+             allow_custom_entries: true
            } %>

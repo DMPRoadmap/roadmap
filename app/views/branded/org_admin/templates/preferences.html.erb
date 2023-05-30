@@ -1,9 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Template Preferences') %></h1>
-    <%= link_to _('View all templates'),
-        org_admin_templates_path,
-        class: 'btn btn-default pull-right' %>
+    <%= link_to _('View all templates'), referrer, class: 'btn btn-default pull-right' %>
   </div>
 </div>
 
@@ -112,27 +110,6 @@
                   </div>
                 </div>
               </div>
-
-              <h2 class="prefs_option"><%= _('Customized repositories') %></h2>
-              <div class="row prefs_option">
-                <div>
-                  <% template.customized_repositories.each do |r| %>
-                    <div>
-                    <%= f.hidden_field "customized_repositories_attributes[#{r.id}][id]", id: "customized_repositories_id_#{r.id}", value: r.id, class: 'customized_repositories' %>
-                    <%= f.hidden_field "customized_repositories_attributes[#{r.id}][name]", id: "customized_repositories_name_#{r.id}", value: r.name %>
-                    <%= f.hidden_field "customized_repositories_attributes[#{r.id}][description]", id: "customized_repositories_description_#{r.id}", value: r.description %>
-                    <%= f.hidden_field "customized_repositories_attributes[#{r.id}][uri]", id: "customized_repositories_uri_#{r.id}", value: r.uri %>
-                    </div>
-                  <% end %>
-                </div>
-                <div class="customized_repositories col-md-9">
-                </div>
-                <div class="col-md-12">
-                      <%= button_tag _("Define a Custom Repository"), type: "button", class: "btn btn-default",
-                                data: { toggle: "modal", target: "#modal-define-custom-repository" } %>
-                </div>
-              </div>
-
 
               <div class="row prefs_option">
                 <div class="col-md-9">
@@ -270,7 +247,5 @@
 </div>
 
 <%= render partial: "org_admin/templates/repositories/search", locals: { template: template } %>
-
-<%= render partial: "org_admin/templates/repositories/define_custom", locals: { template: template } %>
 
 <%= render partial: "org_admin/templates/metadata_standards/search", locals: { template: template } %>

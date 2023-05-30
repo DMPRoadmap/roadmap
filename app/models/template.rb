@@ -112,16 +112,14 @@ class Template < ApplicationRecord
 
   # preferred repository relationship - repositories can be used by many templates
   has_many :template_repositories, dependent: :destroy
-
-  # preferred repository relationship - repositories can be used by many templates
   has_many :repositories, through: :template_repositories
 
-  # customized repository relationship - customized repositories belong to a single template
+  # TODO: Remove this association in the next release because custom repos are now stored in the main
+  #       repositories table
   has_many :customized_repositories, foreign_key: 'custom_repository_owner_template_id', class_name: 'Repository',
                                      dependent: :destroy
 
   has_many :template_metadata_standards, dependent: :destroy
-
   has_many :metadata_standards, through: :template_metadata_standards
 
   # ----------------------------------------

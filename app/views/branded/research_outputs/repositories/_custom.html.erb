@@ -1,0 +1,36 @@
+<%# locals: label  - The display name to help provide context to what you are adding the repo to (e.g. Plan) %>
+<% label = label || _('Plan') %>
+
+<h4><%= _('Add a new repository for your %{label}') % { label: label } %></h4>
+<%= form_for(Repository.new, url: '#', remote: true) do |f| %>
+  <div class="form-group row">
+    <div class="col-md-8">
+      <label for="repo-name"><%= _('Name') %></label>
+      <input type="text" id="repo-name" class="form-control custom-item-title" aria-required="true"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-8">
+      <label for="repo-uri"><%= _('URL') %></label>
+      <input type="url" id="repo-uri" class="form-control custom-item-uri" aria-required="true"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-8">
+      <label for="repo-description"><%= _('Description') %></label>
+      <input type="text" id="repo-description" class="form-control custom-item-description" aria-required="true"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-8">
+      <button type="button" class="btn btn-default custom-item-button" id="repo-submit">
+        <%= _("Add repository to your %{label}") % { label: label } %>
+      </button>
+      <%= link_to _("Cancel"), '#', class: "btn btn-default toggle-custom-items",
+                  aria: { label: _('Cancel adding a new repository') } %>
+      <span id="custom-repo-errors" class="hidden red custom-item-errors">
+        <%= _('You must provide a name, description and URL.') %>
+      </span>
+    </div>
+  </div>
+<% end %>
