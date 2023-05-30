@@ -39,10 +39,10 @@ class ResearchOutputsController < ApplicationController
     args = process_nillable_values(args: args)
     # Create custom repositories and metadata standards if applicable
     args[:repositories_attributes] = create_custom_repositories(
-      existing: args[:repositories_attributes], custom: custom_repo_params
+      existing: args.fetch(:repositories_attributes, []), custom: custom_repo_params
     )
     args[:metadata_standards_attributes] = create_custom_standards(
-      existing: args[:metadata_standards_attributes], custom: custom_standard_params
+      existing: args.fetch(:metadata_standards_attributes, []), custom: custom_standard_params
     )
     @research_output = ResearchOutput.new(args)
     authorize @research_output
@@ -70,10 +70,10 @@ class ResearchOutputsController < ApplicationController
 
     # Create custom repositories and metadata standards if applicable
     args[:repositories_attributes] = create_custom_repositories(
-      existing: args[:repositories_attributes], custom: custom_repo_params
+      existing: args.fetch(:repositories_attributes, []), custom: custom_repo_params
     )
     args[:metadata_standards_attributes] = create_custom_standards(
-      existing: args[:metadata_standards_attributes], custom: custom_standard_params
+      existing: args.fetch(:metadata_standards_attributes, []), custom: custom_standard_params
     )
     if @research_output.update(args)
       redirect_to plan_research_outputs_path(@plan),
