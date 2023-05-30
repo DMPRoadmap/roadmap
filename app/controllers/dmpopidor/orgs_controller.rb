@@ -5,6 +5,7 @@ module Dmpopidor
   module OrgsController
     # Returns a list of active orgs in json
     # Removes current user's org from the list
+    # rubocop:disable Metrics/AbcSize
     def list
       orgs_with_context = ::Org.joins(:templates).managed
                                .where(
@@ -20,6 +21,7 @@ module Dmpopidor
       authorize ::Org.new, :list?
       render json: @orgs.as_json(only: %i[id name])
     end
+    # rubocop:enable Metrics/AbcSize
 
     # CHANGE: ADDED BANNER TEXT and ACTIVE
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

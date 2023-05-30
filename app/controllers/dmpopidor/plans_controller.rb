@@ -55,16 +55,8 @@ module Dmpopidor
             # rubocop:enable Layout/LineLength
           else
             # We used the specified org's or funder's template
-            # --------------------------------
-            # Start DMP OPIDoR Customization
-            # CHANGES : Change message
-            # --------------------------------
-            msg += _('This plan is based on the "%{template_title}" template provided by %{org_name}.') % { 
-              template_title: @plan.template.title, org_name: @plan.template.org.name
-            }
-            # --------------------------------
-            # End DMP OPIDoR Customization
-            # --------------------------------
+            msg += format(_('This plan is based on the "%{template_title}" template provided by %{org_name}.'),
+                          template_title: @plan.template.title, org_name: @plan.template.org.name)
           end
 
           @plan.add_user!(current_user.id, :creator)
@@ -80,6 +72,7 @@ module Dmpopidor
             display_order: 1
           )
 
+          flash[:notice] = msg
           render json: {
             id: @plan.id
           }, status: 200

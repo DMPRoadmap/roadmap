@@ -101,7 +101,7 @@ module Export
           return nil if val.nil?
 
           if is_metadata_standard # MetadataStandard only support 'URL' as a PIDSysteù value
-            val.downcase.eql?('url') ? 'url' : 'other'
+            val.casecmp('url').zero? ? 'url' : 'other'
           else
             case val.downcase
             when 'handle', 'doi', 'url', 'ark', 'igsn'

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Security rules for registry
-class RegistryPolicy < ::ApplicationPolicy
+class RegistryPolicy < ApplicationPolicy
   def index?
     @user.can_super_admin?
   end

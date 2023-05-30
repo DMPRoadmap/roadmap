@@ -8,6 +8,7 @@ module Api
         before_action :authenticate
         include MadmpExportHelper
 
+        # rubocop:disable Metrics/AbcSize
         def show
           plan = Plan.find(params[:id])
           plan_fragment = plan.json_fragment
@@ -29,6 +30,7 @@ module Api
             return
           end
         end
+        # rubocop:enable Metrics/AbcSize
 
         private
 

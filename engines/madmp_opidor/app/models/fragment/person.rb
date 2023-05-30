@@ -21,6 +21,7 @@
 module Fragment
   # Budget STI model
   class Person < MadmpFragment
+    NON_RO_CLASSES = %w[meta project].freeze
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def roles(selected_research_outputs = nil)
@@ -38,7 +39,7 @@ module Fragment
       # if so, the role will be displayed once as a concatenation of the research output abbreviation
       # Ex: Data contact (RO1, RO2)
       contributors_list.each do |c|
-        if %w[meta project].include?(c.parent&.classname)
+        if NON_RO_CLASSES.include?(c.parent&.classname)
           roles_list.push(c.data['role'])
           next
         end
