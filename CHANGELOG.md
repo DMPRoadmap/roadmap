@@ -6,6 +6,11 @@
 
  - Resolved problem when creating organisations [portagenetwork/roadmap#336](https://github.com/portagenetwork/roadmap/issues/336)
 
+### Changed
+
+ - Help-desk email now has correct address [portagenetwork/roadmap#338](https://github.com/portagenetwork/roadmap/issues/338)
+ - Password reset mail no longer instructs the user against replying to email. [portagenetwork/roadmap#338](https://github.com/portagenetwork/roadmap/issues/338)
+
 ### Added
 
  - Translation entries for research ouput [portagenetwork/roadmap#332](https://github.com/portagenetwork/roadmap/issues/332)

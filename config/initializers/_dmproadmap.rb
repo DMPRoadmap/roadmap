@@ -34,7 +34,7 @@ module DMPRoadmap
     # This email is used as the 'from' address for the feedback_complete email to users
     config.x.organisation.do_not_reply_email 'do-not-reply@portagenetwork.ca'
     # This email is used in email communications
-    config.x.organisation.helpdesk_email = 'support@portage.org'
+    config.x.organisation.helpdesk_email = 'support@portagenetwork.ca'
     # Your organisation's telephone number - used on the contact us page
     config.x.organisation.telephone = '+1-123-123-1234'
     # Your organisation's address - used on the contact us page
