@@ -154,12 +154,12 @@
                             </div>
                           </div>
 
-  <% if plan.present? %>
-    <dialog id="notes-<%= question.id %>-research-output-<%= research_output.id %>" class="notes">
-      <i class="fas fa-times close-comments pull-right" data-close="notes-<%= question.id %>-research-output-<%= research_output.id %>"></i>
-      <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer, research_output: research_output } %>
-    </dialog>
-  <% end %>
+                          <% if plan.present? %>
+                            <dialog id="notes-<%= question.id %>-research-output-<%= research_output.id %>" class="notes">
+                              <i class="fas fa-times close-comments pull-right" data-close="notes-<%= question.id %>-research-output-<%= research_output.id %>"></i>
+                              <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer, research_output: research_output } %>
+                            </dialog>
+                          <% end %>
                           <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
                           <div class="guidance-section" style="<%= style %>">
                             <!-- Guidances and notes partial view -->

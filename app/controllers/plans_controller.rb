@@ -189,15 +189,6 @@ class PlansController < ApplicationController
     ).find(params[:id])
     authorize @plan
 
-    # --------------------------------
-    # Start DMP OPIDoR Customization
-    # --------------------------------
-    @schemas = MadmpSchema.all
-    @research_outputs = @plan.research_outputs.order(:display_order)
-    # --------------------------------
-    # End DMP OPIDoR Customization
-    # --------------------------------
-
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
                   else

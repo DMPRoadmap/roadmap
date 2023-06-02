@@ -88,6 +88,23 @@ module Dmpopidor
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+    # CHANGES:
+    # - Kept only necessary code as logic is now handled by ReactJS
+    def show
+      @plan = ::Plan.includes(
+        template: [:phases]
+      ).find(params[:id])
+      authorize @plan
+
+      @visibility = if @plan.visibility.present?
+                      @plan.visibility.to_s
+                    else
+                      Rails.configuration.x.plans.default_visibility
+                    end
+
+      respond_to :html
+    end
+
     # PUT /plans/1
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def update
