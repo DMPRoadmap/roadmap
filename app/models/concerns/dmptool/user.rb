@@ -149,6 +149,8 @@ module Dmptool
     end
 
     included do
+      after_create :generate_ui_token!
+
       # ===============
       # = Invitations =
       # ===============
