@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_22_211526) do
+ActiveRecord::Schema.define(version: 2023_06_05_175309) do
 
   create_table "annotations", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.integer "question_id"
@@ -767,6 +767,7 @@ ActiveRecord::Schema.define(version: 2023_05_22_211526) do
     t.integer "department_id"
     t.datetime "last_api_access"
     t.integer "invitation_plan_id"
+    t.string "ui_token"
     t.index ["department_id"], name: "fk_rails_f29bf9cdf2"
     t.index ["email"], name: "index_users_on_email"
     t.index ["language_id"], name: "fk_rails_45f4f12508"

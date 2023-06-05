@@ -18,12 +18,12 @@ module Api
       skip_before_action :verify_authenticity_token
 
       # Parse the Doorkeeper token to get the APIClient and User
-      before_action :authorize_request, except: %i[heartbeat]
+      before_action :authorize_request, except: %i[heartbeat me]
       before_action :parse_doorkeeper_token
 
       # Prep default instance variables for views
       before_action :base_response_content
-      before_action :pagination_params, except: %i[heartbeat]
+      before_action :pagination_params, except: %i[heartbeat me]
 
       # Parse the incoming JSON
       before_action :parse_request, only: %i[create update]
@@ -38,6 +38,11 @@ module Api
       # Used as a status check for external systems to determine if we are online (does not require auth)
       def heartbeat
         render '/api/v2/heartbeat', status: :ok
+      end
+
+      # Used to retrieve the currently logged in user
+      def me
+        render '/api/v2/me', status: :ok
       end
 
       protected

@@ -200,6 +200,23 @@ module Dmptool
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
+      # =========================
+      # = REACT UI PAGE SUPPORT =
+      # =========================
+
+      # Removes the ui_token from the user (triggered on sign out)
+      def remove_ui_token!
+        return if new_record? || ui_token.nil?
+
+        update_column(:ui_token, nil)
+      end
+
+      # Generates a new ui_token (triggered on sign in)
+      def generate_ui_token!
+        new_token = SecureRandom.hex(16)
+        update_column(:ui_token, new_token)
+      end
+
       # ==================
       # = API V2 HELPERS =
       # ==================
