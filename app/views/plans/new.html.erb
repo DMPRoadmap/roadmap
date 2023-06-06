@@ -22,7 +22,7 @@
       <!-- Plan name section -->
       <h2 id="project-title"><span class="red" title="<%= required_project_title_tooltip %>">*<em class="sr-only"><%= required_project_title_tooltip %></em> </span><%= _('What research project are you planning?') %></h2>
       <div class="row">
-        <div class="form-group col-xs-6">
+        <div class="form-group col-md-6">
           <em class="sr-only"><%= project_title_tooltip %></em>
           <%= f.text_field(:title, class: 'form-control', 'aria-labelledby': 'project-title', 'aria-required': 'true', 'aria-label': 'project-title',
                 'data-toggle': 'tooltip',
@@ -30,9 +30,8 @@
                 spellcheck: true,
                 title: project_title_tooltip ) %>
         </div>
-        <div class="col-md-1">&nbsp;</div>
-        <div class="form-group col-xs-5">
-          <div class="checkbox create-plan-mock">
+        <div class="form-group col-md-6">
+          <div class="checkbox">
             <%= label_tag(:is_test) do %>
               <%= check_box_tag(:is_test, "1", false) %>
               <%= _('mock project for testing, practice, or educational purposes') %>
@@ -61,8 +60,8 @@
                         } %>
           <% end %>
         </div>
-        <div class="col-md-1 pad-top-10 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
-        <div class="form-group col-md-5 create-plan-checkbox">
+        <div class="col-md-1 text-center"><strong>- <%= _('or') %> -</strong></div>
+        <div class="form-group col-md-5">
           <div class="checkbox">
             <% primary_research_org_message = _('No research organisation associated with this plan or my research organisation is not listed') %>
             <%= label_tag(:plan_no_org) do %>
@@ -76,7 +75,7 @@
       <!-- Funder selection -->
       <h2 id="funder-org"><span class="red" title="<%= required_primary_funding_tooltip %>">* <em class="sr-only"><%= required_primary_funding_tooltip %></em> </span><%= _('Select the primary funding organisation') %></h2>
       <div id="funder-org-controls" class="row">
-        <div class="form-group col-xs-6">
+        <div class="form-group col-md-6">
           <em class="sr-only"><%= primary_funding_tooltip %></em>
           <%= f.fields_for :funder, @plan.funder = Org.new do |funder_fields| %>
             <%= render partial: "shared/org_selectors/local_only",
@@ -90,8 +89,8 @@
                         } %>
           <% end %>
         </div>
-        <div class="col-md-1 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
-        <div class="form-group col-xs-5 create-plan-checkbox">
+        <div class="col-md-1"><strong>- <%= _('or') %> -</strong></div>
+        <div class="form-group col-md-5">
           <div class="checkbox">
             <% primary_funding_message = _('No funder associated with this plan or my funder is not listed') %>
             <%= label_tag(:plan_no_funder) do %>
@@ -107,11 +106,11 @@
         <%= hidden_field_tag 'template-option-target', template_options_path %>
         <h2 id="template-selection"><%= _('Which DMP template would you like to use?') %></h2>
         <div class="form-group row">
-          <div class="col-xs-6">
+          <div class="col-md-6">
             <%= select_tag(:plan_template_id, "<option value=\"\">#{_('Please select a template')}</option>", name: 'plan[template_id]',
                            class: 'form-control', 'aria-labelledby': 'template-selection') %>
           </div>
-          <div class="col-xs-6">
+          <div class="col-md-6">
             <span id="multiple-templates">
               <%= _('We found multiple DMP templates corresponding to your funder.') %>
             </span>
