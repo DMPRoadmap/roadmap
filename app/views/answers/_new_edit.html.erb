@@ -71,11 +71,11 @@
   <% if template.present? && template.org.present? %>
     <% question.example_answers([base_template_org.id, template.org.id]).each do |annotation| %>
       <% if annotation.present? && annotation.org.present? && annotation.text.present? %>
-        <div class="panel panel-default">
+        <div class="card card-default">
           <span class="label label-default">
             <%="#{annotation.org.abbreviation} "%><%=_('example answer')%>
           </span>
-          <div class="panel-body">
+          <div class="card-body">
             <div class="display-readonly-textarea-content"><%= sanitize annotation.text %></div>
           </div>
         </div>

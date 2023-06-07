@@ -12,8 +12,8 @@
     <%= render partial: "org_admin/templates/navigation", locals: local_assigns.merge({ modifiable: modifiable }) %>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card card-default">
+          <div class="card-body">
             <%= render partial: partial_path, locals: local_assigns.merge({ referrer: referrer, modifiable: modifiable }) %>
           </div>
         </div>

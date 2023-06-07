@@ -44,8 +44,8 @@
         <div class="tab-content">
           <% tablist.each_with_index do |tab, i| %>
             <div id="<%= "guidance_per_question_#{question.id}_#{i}" %>" role="tabpanel" class="tab-pane <%= active_nav == tab[:name] ? 'active' : '' %>">
-                <div class="panel panel-default">
-                  <div class="panel-body">
+                <div class="card card-default">
+                  <div class="card-body">
                     <% if tab[:annotations].present? %>
                       <% tab[:annotations].each do |annotation| %>
                         <%=

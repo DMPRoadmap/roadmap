@@ -49,15 +49,15 @@
     </div>
 
     <% if template.latest? && (modifiable || template.customization_of.present?) %>
-      <div class="panel panel-default">
+      <div class="card card-default">
         <a href="#new_section" class="heading-button"
            data-toggle="collapse" data-parent="sections-accordion"
            data-target="#collapseSectionNew"
            aria-expanded="false"
            aria-controls="#collapseSectionNew">
 
-          <div class="panel-heading" role="tab" id="headingSectionNew">
-            <div class="panel-title pull-left">
+          <div class="card-heading" role="tab" id="headingSectionNew">
+            <div class="card-title pull-left">
               <%= _('Add a new section') %>
             </div>
             <div class="pull-right">
@@ -67,9 +67,9 @@
           </div>
         </a>
         <div
-          id="collapseSectionNew" class="panel-collapse collapse" role="tabpanel"
+          id="collapseSectionNew" class="card-collapse collapse" role="tabpanel"
           aria-labelledby="<%= "headingSectionNew" %>">
-           <div class="panel-body">
+           <div class="card-body">
              <%= render partial: 'org_admin/sections/new',
                         locals: {
                           template: template,
