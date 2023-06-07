@@ -16,16 +16,16 @@
 
   <div class="tab-content border border-1 p-3">
     <div id="sign-in-form" role="tabpanel" class="tab-pane show active">
-      <div class="panel">
-        <div class="panel-body">
+      <div class="card">
+        <div class="card-body">
           <%= render :partial => 'shared/sign_in_form' %>
         </div>
       </div>
     </div>
     <% unless active_page?(new_user_registration_path, true) %>
       <div id="create-account-form" role="tabpanel" class="tab-pane">
-        <div class="panel">
-          <div class="panel-body">
+        <div class="card">
+          <div class="card-body">
             <%= render :partial => 'shared/create_account_form', locals: {orgs: orgs, org_partial: org_partial} %>
           </div>
         </div>

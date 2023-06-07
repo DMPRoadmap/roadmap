@@ -95,7 +95,7 @@
         <% has_org_themed_guidance = false %>
         <% themes_q = question.themes %>
         <% if !themes_q.nil? %>
-          <div class="panel-group" id="<%= question.id %>-guidance">
+          <div class="card-group" id="<%= question.id %>-guidance">
             <% ggs = GuidanceGroup.where(org_id: current_user.org.id) %>
             <h4><%= _("Themed Guidance") %></h4>
 
@@ -124,7 +124,7 @@
                       ) %>
                     <% if theme_guidances.length > 0 %>
                       <% theme_guidances.each do |guidance| %>
-                        <div class="panel panel-default">
+                        <div class="card card-default">
                           <div class="heading-button"
                                role="button"
                                data-toggle="collapse"
@@ -132,10 +132,10 @@
                                aria-expanded="false"
                                aria-controls="#collapseGuidance-<%= guidance.id%>-<%= question.id %>">
 
-                            <div class="panel-heading"
+                            <div class="card-heading"
                                         role="tab"
                                         id="#headingGuidance-<%= guidance.id%>-<%= question.id %>">
-                              <div class="panel-title">
+                              <div class="card-title">
                                   <i class="fas fa-plus pull-left" aria-hidden="true"></i>
                                 &nbsp;<%= theme.title %>
                                 <% if ggs.length > 1 %>
@@ -146,10 +146,10 @@
                             </div>
                           </div>
                           <div id="collapseGuidance-<%= guidance.id%>-<%= question.id %>"
-                               class="panel-collapse collapse"
+                               class="card-collapse collapse"
                                role="tabpanel"
                                aria-labelledby="headingGuidance-<%= guidance.id%>-<%= question.id %>">
-                            <div class="panel-body allow-break-words">
+                            <div class="card-body allow-break-words">
                               <div class="display-readonly-textarea-content">
                                 <%= sanitize guidance.text %>
                               </div>

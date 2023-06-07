@@ -1,13 +1,13 @@
 <%# locals: expanded %>
 
-<div class="panel panel-default">
+<div class="card card-default">
   <a href="#user_statistics" class="heading-button"
      data-toggle="collapse" data-parent="usage-accordion"
      data-target="#collapseUserStatistics"
      aria-expanded="true" aria-controls="#collapseUserStatistics">
 
-    <div class="panel-heading" role="tab" id="headingUserStatistics">
-      <div class="panel-title pull-left">
+    <div class="card-heading" role="tab" id="headingUserStatistics">
+      <div class="card-title pull-left">
         <%= _('Statistics on your Users') %>
       </div>
       <div class="pull-right">
@@ -17,9 +17,9 @@
     </div>
   </a>
   <div id="collapseUserStatistics"
-       class="panel-collapse collapse <%='in' if expanded %>"
+       class="card-collapse collapse <%='in' if expanded %>"
        role="tabpanel" aria-labled-by="headingUserStatistics">
-    <div class="panel-body">
+    <div class="card-body">
 
       <%= render partial: 'usage/user_statistics' %>
 

@@ -1,13 +1,13 @@
 <%# locals: expanded %>
 
-<div class="panel panel-default">
+<div class="card card-default">
   <a href="#template_statistics" class="heading-button"
      data-toggle="collapse" data-parent="usage-accordion"
      data-target="#collapseTemplateStatistics"
      aria-expanded="true" aria-controls="#collapseTemplateStatistics">
 
-    <div class="panel-heading" role="tab" id="headingTemplateStatistics">
-      <div class="panel-title pull-left">
+    <div class="card-heading" role="tab" id="headingTemplateStatistics">
+      <div class="card-title pull-left">
         <%= _('Statistics on your Templates') %>
       </div>
       <div class="pull-right">
@@ -17,9 +17,9 @@
     </div>
   </a>
   <div id="collapseTemplateStatistics"
-       class="panel-collapse collapse <%='in' if expanded %>"
+       class="card-collapse collapse <%='in' if expanded %>"
        role="tabpanel" aria-labled-by="headingTemplateStatistics">
-    <div class="panel-body">
+    <div class="card-body">
 
       <%= render partial: 'usage/template_statistics' %>
 
