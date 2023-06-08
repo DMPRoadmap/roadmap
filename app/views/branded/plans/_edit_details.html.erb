@@ -7,7 +7,7 @@
 <% locale = LocaleService.to_gettext(locale: @plan.template.locale)%>
 
 <dmp-general-info props-json='{
-  "locale": "<%= I18n.locale.to_s %>",
+  "locale": "<%= locale %>",
   "planId": <%= @plan.id %>,
   "dmpId": <%= dmp_fragment.id %>,
   "projectFragmentId": <%= project_fragment.id %>,
