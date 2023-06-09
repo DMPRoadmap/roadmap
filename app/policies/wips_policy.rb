@@ -21,9 +21,6 @@ class WipsPolicy < ApplicationPolicy
     end
 
     def resolve
-
-puts "ID: #{@user.id}"
-
       Wip.where(user_id: @user.id)
     end
   end
