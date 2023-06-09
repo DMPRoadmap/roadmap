@@ -57,6 +57,17 @@ module Users
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+    # DELETE /resource/sign_out
+    def destroy
+      # Delete the API token (used for React pages) a new token is generated each time the user logs in
+      current_user.remove_ui_token!
+
+      signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+      set_flash_message! :notice, :signed_out if signed_out
+      yield if block_given?
+      respond_to_on_destroy
+    end
+
     protected
 
     # If you have extra params to permit, append them to the sanitizer.
@@ -77,7 +88,8 @@ module Users
       elsif resource.language_id.present?
         session[:locale] = resource.language.abbreviation
       end
-      # Change the locale if the user has a prefered language
+      # Refresh the User API token (used by React pages)
+      resource.generate_ui_token! if resource.present?
 
       (oauth_path.presence || plans_path)
     end

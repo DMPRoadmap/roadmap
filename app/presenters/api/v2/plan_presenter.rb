@@ -10,7 +10,11 @@ module Api
         @contributors = []
         return if plan.blank?
 
-        @helpers = Rails.application.routes.url_helpers
+        host = Rails.env.development? ? 'http://localhost:3000' : ENV['DMPROADMAP_HOST']
+        host = Rails.configuration.x.dmproadmap&.server_host if host.nil?
+        host = "https://#{host}" unless host&.start_with?('http')
+        @callback_base_url = "#{host}/api/v2/"
+
         @plan = plan
         @client = client
 
@@ -31,7 +35,7 @@ module Api
         return dmp_id if dmp_id.present?
 
         # if no DOI then use the URL for the API's 'show' method
-        Identifier.new(value: @helpers.api_v2_plan_url(@plan))
+        Identifier.new(value: "#{@callback_base_url}/plans/#{@plan.id}")
       end
 
       # Extract the calling system's identifier for the Plan if available

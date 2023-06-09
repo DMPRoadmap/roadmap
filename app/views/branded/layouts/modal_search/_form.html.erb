@@ -15,11 +15,19 @@ Locals:
                       This is used to help define the `form_with` on the modal search form.
   :search_path      - the path to controller endpoint that will perform the search
   :search_method    - the http method used to perform the search
+  :guidance         - Guidance to display at the top of the search area
+  :preload          - Whether or not the results should be preloaded when the dialog opens
+  :allow_custom_entries - whether or not to display a button to allow users to add custom
+                          entries that are not in the search results. This requires a
+                          :custom_entries content block!
 %>
 
 <%
 search_examples = search_examples || ""
 results = results || []
+guidance = guidance || nil
+preload = preload || true
+allow_custom_entries = allow_custom_entries || false
 
 search_placeholder = _("Enter a search term")
 no_results_msg = _("No results matched your filter criteria.")
@@ -45,13 +53,10 @@ no_results_msg = _("No results matched your filter criteria.")
         </h3>
       </div>
 
-      <!-- Non Dmptool invocations may not define a guidance field -->
-      <% unless guidance.nil? %>
-        <% unless guidance&.strip&.empty? %>
+      <% if guidance.present? && !guidance.to_s.strip.empty? %>
         <div class="modal-header">
           <%= sanitize(guidance) %>
         </div>
-        <% end %>
       <% end %>
 
       <input type="hidden" id="preload-modal-list" value="<% if defined? preload %><%= preload ? 1 : 0 %>"<% end %>/>
@@ -59,7 +64,7 @@ no_results_msg = _("No results matched your filter criteria.")
       <div class="modal-body">
         <%# Search filters %>
         <%= form_with model: model_instance, url: search_path, method: search_method, local: false,
-                      id: "modal-search-#{namespace}-filters" do |f| %>
+                      id: "modal-search-#{namespace}-filters", class: "modal-search-filters" do |f| %>
           <div class="form-group row">
             <div class="col-md-10">
               <%= yield :"filters-#{namespace}" %>
@@ -79,9 +84,26 @@ no_results_msg = _("No results matched your filter criteria.")
                              class: "btn btn-default",
                              type: "submit" %>
               </div>
+
+              <% if allow_custom_entries %>
+                <div class="col-md-7">
+                  <span class="col-md pull-right">
+                    <button class="btn btn-default toggle-custom-items">
+                      <%= _('My %{label} is not listed') % { label: label } %>
+                    </button>
+                  </span>
+                </div>
+              <% end %>
             </div>
           </div>
+          <div class="form-group row">
+            <div id="item-selected-alert" role="alert" class="col-md-8" style="display: none;">&nbsp;</div>
+          </div>
         <% end %>
+
+        <div id="add-custom-items" class="row hidden">
+          <%= yield :"custom-#{namespace}" %>
+        </div>
 
         <%# Search Results %>
         <div id="modal-search-<%= namespace %>-results" class="form-group row modal-search-results">

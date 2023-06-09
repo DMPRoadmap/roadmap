@@ -2,6 +2,16 @@
 
 ## DMPTool Releases
 
+### v4.1.2
+- Update modal search for repositories to allow researchers to define custom repositories that are not a part of the re3data registry
+- Update modal search for metadata standards to allow researchers and template admins to define custom standards that are not a part of the rda registry
+- Refactor custom repository creation for template administrators. Moved functionality into existing modal search window accessed via new 'My repository is not listed' button
+- Updated gem and JS dependencies
+
+### v4.1.1
+- Patch for scenarios where empty custom repositories were being included on form submission in the Preferences tab which was causing the Template.update to fail
+- Updated gem and JS dependencies
+
 ### v4.1.0
 **Note: This version includes a change to the research_outputs table!** We have added a new `research_outputs.research_output_type` field that stores a string value. It is a replacement for the old `research_outputs.output_type` integer field. You will need to run: `bin/rails db:migrate && bin/rails v4:upgrade_4_1_0` to make the change to your data model and migrate your existing data to the new field.
 

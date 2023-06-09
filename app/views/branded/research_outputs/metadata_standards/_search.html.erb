@@ -12,6 +12,10 @@
 <div class="col-md-10">
 <% end %>
 
+<% content_for :"custom-metadata_standards" do %>
+  <%= render partial: "research_outputs/metadata_standards/custom", locals: { label: _('Plan') } %>
+<% end %>
+
 <%= render partial: "layouts/modal_search/form",
            locals: {
              namespace: "metadata_standards",
@@ -21,5 +25,6 @@
              search_path: plan_metadata_standard_search_path(research_output.plan),
              search_method: :get,
              guidance: research_output.plan.template.user_guidance_metadata_standards,
-             preload: research_output.plan.template.preload_metadata_standards?
+             preload: research_output.plan.template.preload_metadata_standards?,
+             allow_custom_entries: true
            } %>

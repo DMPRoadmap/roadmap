@@ -5,6 +5,65 @@
 
 # rubocop:disable Naming/VariableNumber
 namespace :v4 do
+  # TODO: In the next release drop column repositories.custom_repository_owner_template_id
+  # TODO: In the next release drop columns output_type & output_type_description from research_outputs
+
+  desc 'Upgrade from v4.1.1 to v4.1.2'
+  task upgrade_4_1_2: :environment do
+    puts 'Migrating custom repository connections (to templates) to new custom_repositories polymorphic table'
+    puts 'to support custom repositories being owned by users or templates and to alleviate duplicate repos'
+
+    custom_repos = {}
+    duplicates = {}
+    # Gather all the custom repos and detect duplicates
+    Repository.where.not(custom_repository_owner_template_id: nil).order(created_at: :desc).each do |repo|
+      custom_repos[repo.name] = repo if custom_repos[repo.name].nil?
+      duplicates[repo.name] = [] if duplicates[repo.name].nil?
+      duplicates[repo.name] << repo if custom_repos[repo.name].id != repo.id
+    end
+
+    # Delete the duplicate repositories and update any references to them
+    duplicates.each do |name, repos|
+      next unless repos.any?
+
+      new_repo = custom_repos[name]
+      repos.each do |repo|
+        refs = ResearchOutput.joins(:repositories).includes(:repositories).where('repositories.id = ?', repo.id)
+        puts "Updating references to duplicate '#{name}' - from #{repo.id} to #{new_repo.id}" if refs.any?
+
+        refs.each do |ref|
+          puts "  - Updated reference for ResearchOutput #{ref.id}"
+          puts "    - related repositories BEFORE: #{ref.repositories.map(&:id)}"
+          ref.repositories.delete(repo)
+          ref.repositories << new_repo
+          puts "    - related repositories AFTER: #{ref.repositories.map(&:id)}"
+          ref.save
+        end
+
+        puts "Deleting repository #{repo.id}"
+        Repository.find_by(id: repo.id).destroy
+      end
+    end
+
+    # Add the references to the new custom_repositories table and delete the old reference in the repositories table
+    custom_repos.each do |name, repo|
+      tmplt = Template.joins(:customized_repositories).includes(:customized_repositories)
+                      .where('repositories.id = ?', repo.id).first
+      next if tmplt.nil?
+
+      puts "Updating refernces to custom repository #{repo.id} for template #{tmplt.id}"
+      puts "  - Dropping old reference to custom repo"
+      sql = "UPDATE repositories SET custom_repository_owner_template_id = NULL WHERE id = #{repo.id}"
+      # Need to do a raw SQL query here because the foreign key field isn't accessible
+      ActiveRecord::Base.connection.execute(sql)
+      unless tmplt.repositories.include?(repo)
+        puts "  - Adding custom repo reference to repositories association"
+        tmplt.repositories << repo
+      end
+      tmplt.save
+    end
+  end
+
   desc 'Upgrade from v4.0.x to v4.1.0'
   task upgrade_4_1_0: :environment do
     puts 'Converting the old research_outputs.output_type Integer field (an enum in the model) to a string '
