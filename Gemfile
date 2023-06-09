@@ -66,7 +66,7 @@ gem 'bootsnap', require: false
 gem 'anyway_config'
 
 # Our homegrown artisinal SSM gem
-gem 'uc3-ssm', git: 'https://github.com/CDLUC3/uc3-ssm', branch: 'ruby3.0'
+gem 'uc3-ssm', git: 'https://github.com/CDLUC3/uc3-ssm' #, branch: 'ruby3.0'
 
 # ============== #
 # ERROR HANDLING #
@@ -258,6 +258,12 @@ group :ci, :development do
   # Helper gem to require bundler-audit
   # (http://github.com/stewartmckee/bundle-audit)
   gem 'bundle-audit'
+
+  gem 'capistrano'
+
+  gem 'capistrano-git-with-submodules'
+
+  gem 'capistrano-rails'
 
   # RuboCop is a Ruby code style checking and code formatting tool. It aims to enforce
   # the community-driven Ruby Style Guide.
