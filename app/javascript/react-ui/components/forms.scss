@@ -1,0 +1,88 @@
+/* Form components, and buttons */
+button, input[type="button"], input[type="submit"] {
+  background-color: var(--btn-basic-bg-color);
+  color: var(--btn-basic-fg-color);
+  border: none;
+  border-radius: var(--btn-border-radius);
+  font-weight: bold;
+  padding: 0.5em 1em;
+
+  &.primary {
+    background-color: var(--btn-primary-bg-color);
+    color: var(--btn-primary-fg-color);
+  }
+}
+
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid var(--form-field-border-color);
+  padding: 1rem;
+  text-align: left;
+
+  .form-field-label {
+    padding: 0.5em 0;
+    label {
+      font-weight: bold;
+    }
+  }
+
+  .form-field-input {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0;
+
+    & > * { margin-bottom: 0.5rem; }
+
+    input[type="text"] { width: 100%; }
+
+    input[type="text"], textarea {
+      box-sizing: border-box;
+      border: 2px solid var(--form-field-border-color);
+      border-radius: 3px;
+      color: var(--form-field-fg-color);
+      background-color: var(--form-field-bg-color);
+      padding: 0.5em 1em;
+    }
+
+    input[type="radio"] {
+      vertical-align: text-bottom;
+      width: auto;
+    }
+  }
+
+  &.required {
+    label::after {
+      content: " *";
+      color: var(--input-required-color);
+    }
+  }
+
+  @include device(laptop) {
+    flex-direction: row;
+    justify-content: space-between;
+
+    .form-field-label {
+
+    }
+
+    & > div {
+      flex: 1 1 auto;
+      max-width: calc(50% - 1rem);
+    }
+
+  }
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: end;
+  padding: 0.5rem;
+
+  & > * {
+    margin: 0.5rem;
+  }
+}

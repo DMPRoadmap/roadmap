@@ -1,0 +1,93 @@
+@import "../components/responsive";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+:root {
+  // TODO:: Use proper colour names here and replace the values for our
+  // components with those.
+
+  /* Root level css variables go here */
+  --btn-basic-bg-color: white;
+  --btn-basic-fg-color: #333;
+  --btn-border-radius: 5px;
+
+  --btn-primary-bg-color: blue;
+  --btn-primary-fg-color: white;
+
+  /* Form components */
+  --form-field-bg-color: white;
+  --form-field-fg-color: #333;
+  --form-field-border-color: #aaa;
+
+  --input-required-color: red;
+
+  /* Data Grid */
+  --grid-gap: 1rem;
+}
+
+
+.todo {
+  --_color-todo: var(--color-todo, #700);
+
+  position: relative;
+  border: 1px dashed var(--_color-todo);
+}
+
+.todo:after {
+  content: "todo";
+  position: absolute;
+  background-color: var(--_color-todo);
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 0.25em;
+  top: 0;
+  right: 0;
+}
+
+body {
+  /* TODO:: */
+}
+
+header {
+  /* TODO:: */
+  padding: 1rem;
+}
+
+footer {
+  /* TODO:: */
+  padding: 1rem;;
+}
+
+main {
+  /* TODO:: Responsive Flex/Grid Layout */
+  padding: 2rem;
+}
+
+@import '../components/forms';
+
+/* Tables */
+// TODO::FIXME:: This data grid component is just temporary. Chances are we'll
+// be using a third party grid. We use the following just wile setting up the
+// basic layout
+.data-grid {
+  display: grid;
+  grid-gap: var(--grid-gap);
+}
+
+.data-heading {
+  font-weight: bold;
+}

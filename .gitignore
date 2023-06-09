@@ -141,3 +141,6 @@ cloud9-start.sh
 # Ignore Docker credential files
 docker/master.key
 docker/credentials.yml.enc
+
+# Ignore React test tmp.js
+app/javascript/react-ui/tmp.js

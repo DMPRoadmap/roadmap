@@ -9,9 +9,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules|bower_components/,
+        loader: 'babel-loader',
+        options: { presets: ['@babel/env','@babel/preset-react'] },
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: ["style-loader", "css-loader", "sass-loader"]
       },
       erbLoader,
     ],

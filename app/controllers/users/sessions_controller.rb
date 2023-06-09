@@ -91,7 +91,11 @@ module Users
       # Refresh the User API token (used by React pages)
       resource.generate_ui_token! if resource.present?
 
-      (oauth_path.presence || plans_path)
+      # Direct the user to the appropriate dashboard based on their permission level
+      landing_page_path = resource.can_org_admin? ? dashboards_path : plans_path
+
+      # If we're in OAuth2 workkflow, stick with that, otherwise go to the dashboard
+      (oauth_path.presence || landing_page_path)
     end
     # rubocop:enable Metrics/AbcSize
   end

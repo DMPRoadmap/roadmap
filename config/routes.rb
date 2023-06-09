@@ -104,6 +104,8 @@ Rails.application.routes.draw do
   get 'org_logos/:id' => 'orgs#logos', as: :org_logo
 
   post 'public_plans' => 'public_pages#plan_index'
+
+  get 'dashboard' => 'dashboards#show'
   # ------------------------------------------
   # End DMPTool customizations
   # ------------------------------------------
