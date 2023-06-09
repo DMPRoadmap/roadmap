@@ -7,9 +7,7 @@ module Api
       respond_to :json
 
       # GET /me
-      def me
-        puts current_user
-      end
+      def me; end
     end
   end
 end

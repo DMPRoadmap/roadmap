@@ -106,6 +106,8 @@ Rails.application.routes.draw do
   post 'public_plans' => 'public_pages#plan_index'
 
   get 'dashboard' => 'dashboards#show'
+
+  resources :wips
   # ------------------------------------------
   # End DMPTool customizations
   # ------------------------------------------
@@ -276,7 +278,6 @@ Rails.application.routes.draw do
           resources :datasets, only: %i[create update]
         end
       end
-
       resources :related_identifiers, only: %i[create]
 
       resources :templates, only: [:index]

@@ -2,11 +2,11 @@
 
 json.partial! 'api/v2/standard_response'
 
-puts "CURRENT USER: #{current_user&.id}"
-
 if current_user.present?
   json.items [current_user] do |user|
     json.name [user.surname, user.firstname].join(', ')
+    json.givenname user.firstname
+    json.surname user.surname
     json.mbox user.email
     json.token user.ui_token
 

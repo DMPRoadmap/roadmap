@@ -92,7 +92,9 @@ module Users
       resource.generate_ui_token! if resource.present?
 
       # Direct the user to the appropriate dashboard based on their permission level
-      landing_page_path = resource.can_org_admin? ? dashboards_path : plans_path
+      # TODO: Allow the dashboard to be the target once we're further along with development of the React pages
+      landing_page_path = plans_path
+      # landing_page_path = resource.can_org_admin? ? dashboard_path : plans_path
 
       # If we're in OAuth2 workkflow, stick with that, otherwise go to the dashboard
       (oauth_path.presence || landing_page_path)
