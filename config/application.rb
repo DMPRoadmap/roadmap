@@ -68,5 +68,8 @@ module DMPRoadmap
 
     # Set the default host for mailer URLs
     config.action_mailer.default_url_options = { host: config.x.dmproadmap.server_host }
+
+    # Precompile the React UI JS as a separate pack
+    config.assets.precompile << 'react-application.js'
   end
 end

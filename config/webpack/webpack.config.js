@@ -23,6 +23,7 @@ module.exports = {
   },
   entry: {
     application: './app/javascript/application.js',
+    reactApplication: './app/javascript/react-application.js',
   },
   optimization: {
     moduleIds: 'deterministic',

@@ -143,4 +143,4 @@ docker/master.key
 docker/credentials.yml.enc
 
 # Ignore React test tmp.js
-app/javascript/react-ui/tmp.js
+app/javascript/dmp-hub-ui/src/tmp.js
