@@ -105,9 +105,15 @@ Rails.application.routes.draw do
 
   post 'public_plans' => 'public_pages#plan_index'
 
+  # React UI
   get 'dashboard' => 'dashboards#show'
+  resources :wips, path: :dmps, only: %i[index create new] do
+    member do
+      get :funders
+      get :overview
+    end
+  end
 
-  resources :wips
   # ------------------------------------------
   # End DMPTool customizations
   # ------------------------------------------
