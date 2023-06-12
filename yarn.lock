@@ -4988,16 +4988,6 @@ schema-utils@^4.0.0:
     ajv-formats "^2.1.1"
     ajv-keywords "^5.1.0"
 
-select2-bootstrap-theme@^0.1.0-beta.10:
-  version "0.1.0-beta.10"
-  resolved "https://registry.yarnpkg.com/select2-bootstrap-theme/-/select2-bootstrap-theme-0.1.0-beta.10.tgz#b9426ecfc03bf4a235e76a132377574310469ac0"
-  integrity sha512-gc9Y9yNjkGRqeFmI/pAKyL4maMKH9VKAn62E+uF/hxz8FTmfuKH0sDEGhFhk3f8Jp+emtsDdK1c1nb6S51BV0Q==
-
-select2@^4.0.13:
-  version "4.0.13"
-  resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.13.tgz#0dbe377df3f96167c4c1626033e924372d8ef44d"
-  integrity sha512-1JeB87s6oN/TDxQQYCvS5EFoQyvV6eYMZZ0AeA4tdFDYWN3BAGZ8npr17UBFddU0lgAt3H0yjX3X6/ekOj1yjw==
-
 semver@^6.0.0, semver@^6.1.1, semver@^6.1.2, semver@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"

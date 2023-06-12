@@ -1,5 +1,5 @@
 <% helpers = ActionController::Base.helpers %>
-
+// DELETE THIS
 $(() => {
   $('#modal-window').html('<%= escape_javascript(render "dynamic_form/fragment_modal") %>');
 
@@ -16,7 +16,6 @@ $(() => {
       const queryId = $(e.target).find('.query_id').val();
       const $select = $(`.select-${queryId} select`);
       $select.html(data.html);
-      $select.val(data.fragment_id).trigger('select2:select');
       $select.val(data.fragment_id).trigger('change');
     }
     $('#modal-window').modal('hide');
