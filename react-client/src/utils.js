@@ -1,11 +1,20 @@
 export const API_BASE_URL = 'http://localhost:3000/api/v2/'
 
+// Function to remove any entries from the Object that have an undefined value
+function cleanse_keys(obj) {
+  if (obj) {
+    return Object.entries(obj)
+                 .reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
+  }
+};
+
 export function api_path(endpoint, queryParams) {
-  if (queryParams) {
+  let params = cleanse_keys(queryParams);
+  if (params) {
     const esc = encodeURIComponent;
     endpoint += (endpoint.indexOf('?') === -1 ? '?' : '&') + Object
-      .keys(queryParams)
-      .map(k => esc(k) + '=' + esc(queryParams[k]))
+      .keys(params)
+      .map(k => esc(k) + '=' + esc(params[k]))
       .join('&');
   }
   return new URL(endpoint, API_BASE_URL);

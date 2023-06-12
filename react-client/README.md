@@ -13,6 +13,17 @@ The `package.json` in the root of the project serves 2 purposes. It manages the 
 
 If you need to add or remove a JS dependency for this React application, please run `yarn [add|remove] [dependency]` from the root of the project. Use `yarn upgrade` (from the root of the project) to update dependencies.
 
+## How Rails serves the React application
+
+When the browser asks for `/dashboard` or a `/dmps/*` path, the Rails router looks up the path in the [config/routes.rb file](https://github.com/CDLUC3/dmptool/blob/6f9a7eca9297d9c00bddc8109fc0ec72fcae9b86/config/routes.rb#L91) to determine which controller and action should handle the request.
+
+The corresponding controller then renders it's corresponding ERB template and a ERB layout that references the React application's JS. The ERB template contains a single `<div>` that is connected to the React application.
+```
+<%= content_tag(:div, "", id: "root", data: { controller: "react" }) %>
+```
+
+The JS and SASS for the React application are made available through the Rails application's `app/javascript/react-application.js` file which imports the `react-client/src/index.js` file.
+
 ## Running the application in development mode
 
 To run the application in development mode run `bin/dev`. This will start the Rails application on `http://localhost:3000`.
@@ -95,15 +106,6 @@ The build process has 2 phases.
 **1st:** It will build the older Rails assets which live in `app/assets/` and `app/javascript`. The JS code becomes `public/assets/application-[fingerprint].js` and all of the SASS stylesheets become `public/application-[fingerprint].css`. All of the images and fonts are also fingerprinted and placed in `app/assets/`.
 
 **2nd:** The React application is then built. The transpiled and minified code becomes a file called `public/assets/react-application-[fingerprint].js`.
-
-## How Rails serves the React application
-
-When the browser asks for `/dashboard` or a `/dmps/*` path, the Rails router looks up the path in the [config/routes.rb file](https://github.com/CDLUC3/dmptool/blob/6f9a7eca9297d9c00bddc8109fc0ec72fcae9b86/config/routes.rb#L91) to determine which controller and action should handle the request.
-
-The corresponding controller then renders it's corresponding ERB template and a ERB layout that references the React application's JS. The ERb template contains a single `<div>` that is connected to the React application.
-```
-<%= content_tag(:div, "", id: "root", data: { controller: "react" }) %>
-```
 
 ## Data Sources
 

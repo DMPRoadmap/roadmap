@@ -13,6 +13,4 @@ import React from 'react';
 window.React = React;
 
 // Import the React App code
-import '../../react-client/src/utils';
-import '../../react-client/src/App';
 import '../../react-client/src/index';
