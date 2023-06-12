@@ -1,7 +1,7 @@
 export const API_BASE_URL = 'http://localhost:3000/api/v2/'
 
 // Function to remove any entries from the Object that have an undefined value
-function cleanse_keys(obj) {
+function cleanseParams(obj) {
   if (obj) {
     return Object.entries(obj)
                  .reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
@@ -9,7 +9,7 @@ function cleanse_keys(obj) {
 };
 
 export function api_path(endpoint, queryParams) {
-  let params = cleanse_keys(queryParams);
+  let params = cleanseParams(queryParams);
   if (params) {
     const esc = encodeURIComponent;
     endpoint += (endpoint.indexOf('?') === -1 ? '?' : '&') + Object
