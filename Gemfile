@@ -137,6 +137,11 @@ gem 'pundit'
 # Gem for throttling malicious attacks
 gem 'rack-attack', '~> 6.6', '>= 6.6.1'
 
+# Support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications.
+# https://github.com/cyu/rack-cors
+# We are using to support development of React UI from a local developer machine.
+gem 'rack-cors'
+
 # ========== #
 # UI / VIEWS #
 # ========== #
