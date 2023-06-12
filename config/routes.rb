@@ -105,12 +105,24 @@ Rails.application.routes.draw do
 
   post 'public_plans' => 'public_pages#plan_index'
 
-  # React UI
+  # React UI. These routes mimic the React router definitions in `react-client/src/App.js`. They are here so
+  # that the Rails app will render and serve the React app to the client in the event that they navigate to one of
+  # the React pages via a link, button, bookmark, refresh the browser page, etc.
   get 'dashboard' => 'dashboards#show'
-  resources :wips, path: :dmps, only: %i[index create new] do
+  resources :wips, path: :dmps, only: %i[index] do
     member do
       get :funders
       get :overview
+    end
+  end
+
+  # API v3 - support for the React UI. The React app calls these endpoints for typeahead functionality, fetching
+  # content, saving content, etc.
+  namespace :api, defaults: { format: :json } do
+    namespace :v3 do
+      get :me, controller: :base_api
+
+      resources :wips, path: :dmps, only: %i[index create update destroy]
     end
   end
 
@@ -275,7 +287,6 @@ Rails.application.routes.draw do
     # For more info see: https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
     namespace :v2 do
       get :heartbeat, controller: :base_api
-      get :me, controller: :base_api
 
       resources :plans, only: %i[create show index] do
         member do

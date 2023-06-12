@@ -18,7 +18,7 @@ function Dashboard() {
     //   Unexpected Application Error!
     //     arguments[key].clone is not a function. (In 'arguments[key].clone()', 'arguments[key].clone' is undefined)
 
-    let meUrl = 'http://localhost:3000/api/v2/me'
+    let meUrl = 'http://localhost:3000/api/v3/me'
     let meOptions = {};
 
     // Call the local DMPTool Rails app's API to get the currently logged in user's info
@@ -43,14 +43,7 @@ function Dashboard() {
     // Hardcoding this because utils.js is throwing an error and I don't know why
     //   Unexpected Application Error!
     //     arguments[key].clone is not a function. (In 'arguments[key].clone()', 'arguments[key].clone' is undefined)
-    let url = api_path('/dmps', {
-      owner: user.email,
-      foo: 'bar'
-    });
-    //let options = api_options({
-    //  headers: api_headers(),
-    //});
-    // let url = 'http://localhost:3000/dmps/'
+    let url = 'http://localhost:3000/api/v3/dmps/'
     let headers = new Headers();
     headers.append('Accept', "application/json");
     headers.append('Authorization', `Bearer ${user.token}`);
