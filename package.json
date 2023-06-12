@@ -84,6 +84,7 @@
     "react-loader-spinner": "^5.3.4",
     "react-proptypes": "^1.0.0",
     "react-select": "^5.7.0",
+    "react-window": "^1.8.9",
     "regenerator-runtime": "^0.13.5",
     "remount": "^1.0.0",
     "sass": "^1.57.1",
