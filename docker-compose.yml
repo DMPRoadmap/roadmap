@@ -45,7 +45,7 @@ services:
       - TRANSLATION_API_CLIENT
     working_dir: /app
     volumes:
-      - ./app_log:/app/log
+      - ./log:/app/log
     healthcheck:
       test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
       interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
