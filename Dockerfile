@@ -18,7 +18,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
   npm i -g yarn
 
 FROM dev as build
-RUN DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider yarn build && \
+ARG DB_ADAPTER \
+  DB_USERNAME \
+  DB_PASSWORD
+RUN bin/docker postgres && \
+  RAILS_ENV=build DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider yarn build && \
   NODE_OPTIONS=--openssl-legacy-provider yarn build:css && \
   rm -rf node_module
 
@@ -41,7 +45,7 @@ RUN apk add --no-cache --update --virtual \
   echo 'gem "net-smtp"' >> ./Gemfile && \
   gem install pg puma net-smtp && \
   gem install bundler -v 2.4.8 && \
-  bundle config set --local without 'mysql thin test ci aws development' && \
+  bundle config set --local without 'mysql thin test ci aws development build' && \
   bundle install
 EXPOSE 3000
 CMD [ "bundle", "exec", "puma", "-C", "/app/config/puma.rb", "-e", "production" ]
