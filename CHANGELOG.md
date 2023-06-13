@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+### [3.1.0+portage-3.1.3] - 2023-06-13 
+
 ### Fixed
 
  - Resolved problem when creating organisations [portagenetwork/roadmap#336](https://github.com/portagenetwork/roadmap/issues/336)
