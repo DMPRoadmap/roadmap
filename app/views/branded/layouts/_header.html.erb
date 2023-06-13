@@ -6,7 +6,9 @@
 <div class="main-nav">
   <%= render partial: "layouts/navigation" %>
 </div>
-<%= image_tag("header_banner.png", alt: "header banner", class: "header-banner-img") %>
+
+<!-- <%= image_tag("header_banner.png", alt: "header banner", class: "header-banner-img") %> -->
+
 <div class="header-banner">
   <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
   <div class="org-branding">
@@ -17,6 +19,14 @@
       <span class="homepage-h2"><%= _('A key element in keeping good management practices and making your data FAIR.') %></span>
     <% end %>
   </div>
+  
+  <a id="log-in"></a>
+  <a id="register"></a>
+  <a id="dashboard"></a>
+  <a id="new_plan"></a>
+  <a id="import_plan"></a>
+  <a id="plans"></a>
+  <a id="templates"></a>
 
   <div id="notification-area"
         class="plan-notification notification alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
