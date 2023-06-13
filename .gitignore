@@ -60,29 +60,23 @@ config/locale/*/app.po.time_stamp
 lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
 .rspec
 
-yarn-error.log
-yarn-debug.log*
-
 .env
 .env.sample
 package-lock.json
 node_modules
 /public/packs
 /public/packs-test
+/public/tinymce
 
 spec/examples.txt
 .postcssrc.yml
-/node_modules
-yarn-debug.log*
-.yarn-integrity
 reset.sh
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
-/config/credentials.yml.enc
+config/master.key
+config/credentials.yml.enc
 
-/node_modules
-/yarn-error.log
+yarn-error.log
 yarn-debug.log*
 .yarn-integrity
 /app/assets/builds/*
