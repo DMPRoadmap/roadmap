@@ -22,7 +22,7 @@ ARG DB_ADAPTER \
   DB_USERNAME \
   DB_PASSWORD
 RUN bin/docker postgres && \
-  RAILS_ENV=build DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider yarn build && \
+  RAILS_ENV=build DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider rails assets:precompile && \
   NODE_OPTIONS=--openssl-legacy-provider yarn build:css && \
   rm -rf node_module
 
