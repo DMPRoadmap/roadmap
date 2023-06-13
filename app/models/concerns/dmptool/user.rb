@@ -151,6 +151,9 @@ module Dmptool
     included do
       after_create :generate_ui_token!
 
+      # User may have many work in profress (WIP) DMPs created via the new React UI pages
+      has_many :wips, dependent: :destroy
+
       # ===============
       # = Invitations =
       # ===============

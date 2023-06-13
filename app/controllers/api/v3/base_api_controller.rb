@@ -13,9 +13,6 @@ module Api
       before_action :base_response_content
       before_action :pagination_params, except: %i[heartbeat me]
 
-      # Parse the incoming JSON
-      before_action :parse_request, only: %i[create update]
-
       # Record the API access
       after_action :log_access, except: %i[heartbeat]
 
@@ -70,7 +67,8 @@ module Api
         return false unless request.present? && request.body.present?
 
         body = request.body.read
-        @json = JSON.parse(body).with_indifferent_access
+        @json = JSON.parse(body)
+        @json.is_a?(Hash) ? @json.with_indifferent_access : @json
       rescue JSON::ParserError => e
         Rails.logger.error "API V3 - JSON Parser: #{e.message}"
         Rails.logger.error request.body

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.partial! 'api/v2/standard_response'
+json.partial! 'api/v3/standard_response'
 
 if current_user.present?
   json.items [current_user] do |user|
