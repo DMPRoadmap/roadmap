@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_05_175309) do
+ActiveRecord::Schema.define(version: 2023_06_13_202402) do
 
   create_table "annotations", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.integer "question_id"
@@ -787,6 +787,8 @@ ActiveRecord::Schema.define(version: 2023_06_05_175309) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.binary "narrative_content"
+    t.string "narrative_file_name"
     t.index ["identifier"], name: "index_wips_on_identifier"
   end
 

@@ -25,7 +25,7 @@ module Api
         render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG}", status: :bad_request)
       end
 
-      # GET /dmps
+      # GET /dmps/{:id}
       def show
         wip = Wip.find_by(identifier: params[:id])
         render_error(errors: MSG_WIP_NOT_FOUND, status: :not_found) and return if wip.nil?
@@ -35,7 +35,7 @@ module Api
         render json: render_to_string(template: '/api/v3/wips/index'), status: :ok
       end
 
-      # PUT /dmps
+      # PUT /dmps/{:id}
       def update
         wip = Wip.find_by(identifier: params[:id])
         render_error(errors: MSG_WIP_NOT_FOUND, status: :not_found) and return if wip.nil?
@@ -51,7 +51,7 @@ module Api
         render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG}", status: :bad_request)
       end
 
-      # DELETE /dmps
+      # DELETE /dmps/{:id}
       def destroy
         wip = Wip.find_by(identifier: params[:id])
         render_error(errors: MSG_WIP_NOT_FOUND, status: :not_found) and return if wip.nil?
@@ -65,10 +65,20 @@ module Api
         end
       end
 
+      # GET /dmps/{:id}/narrative
+      def narrative
+        wip = Wip.find_by(identifier: params[:id])
+        render_error(errors: MSG_WIP_NOT_FOUND, status: :not_found) and return if wip.nil?
+        render_error(errors: MSG_WIP_UNAUTHORIZED, status: :unauthorized) and return unless wip.user == current_user
+
+        file_name = wip.narrative_file_name.end_with?('.pdf') ? wip.narrative_file_name : "#{wip.narrative_file_name}.pdf"
+        send_data(wip.narrative_content, type: 'application/pdf', filename: file_name, disposition: 'inline')
+      end
+
       private
 
       def wip_params
-        params.require(:dmp).permit(dmp_permitted_params).to_h
+        params.require(:dmp).permit(:narrative, dmp_permitted_params).to_h
       end
     end
   end

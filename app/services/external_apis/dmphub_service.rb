@@ -53,6 +53,10 @@ module ExternalApis
         Rails.configuration.x.dmphub&.delete_path
       end
 
+      def narrative_path
+        Rails.configuration.x.dmphub&.narrative_path
+      end
+
       def caller_name
         ApplicationService.application_name.split('-').first.to_sym
       end
@@ -177,6 +181,18 @@ module ExternalApis
       rescue StandardError => e
         puts "FATAL: #{e.message}"
         log_error(method: 'DmphubService.delete_dmp_id', error: e)
+      end
+
+      # Submit the narrative PDF document to the DMPHub
+      def post_narrative(wip:)
+        return false unless wip.is_a?(Wip)
+
+        hdrs = {
+          'Authorization': @token,
+          'Content-Type': 'multipart/form-data',
+          'Server-Agent': "#{caller_name} (#{client_id})"
+        }
+        target = "#{api_base_url}#{narrative_path}"
       end
 
       # Register the ApiClient behind the minter service as a Subscriber to the Plan

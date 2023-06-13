@@ -16,20 +16,41 @@ require 'securerandom'
 
 # Object that represents a question/guidance theme
 class Wip < ApplicationRecord
-  INVALID_JSON_MSG = "must contain a top level :dmp and at least a :title. For example: `{ dmp: { title: 'Test' } }`"
+  INVALID_JSON_MSG = 'must contain a top level :dmp and at least a :title. For example: `{ dmp: { title: \'Test\' } }`'
+  INVALID_NARRATIVE_FORMAT = 'must be a PDF document.'
 
   belongs_to :user
 
   before_validation :generate_identifier
-  after_validation :remove_wip_id_from_metadata
+  after_validation :remove_wip_id_and_narrative_from_metadata
 
   validates :user, presence: { message: PRESENCE_MESSAGE }
   validate :validate_metadata
 
-  # Attach the wip_id to the metadata
+  # Handle
+  def narrative=(file)
+    if file.nil?
+      self.narrative_content = nil
+      self.narrative_file_name = nil
+      true
+    elsif file.respond_to?(:read) && ['pdf', 'application/pdf'].include?(file.content_type)
+      self.narrative_content = file.read
+      self.narrative_file_name = file.original_filename || "#{identifier}.pdf"
+      true
+    else
+      errors.add(:narrative, INVALID_NARRATIVE_FORMAT)
+      false
+    end
+  end
+
+  # Attach the wip_id and narrative to the metadata
   def to_json
     data = metadata
     data['dmp']['wip_id'] = { type: 'other', identifier: identifier } if data['dmp'].present? && identifier.present?
+    return JSON.parse(data.to_json).to_json unless narrative_content.present?
+
+    data['dmp']['dmproadmap_related_identifiers'] = [] unless data['dmp']['dmproadmap_related_identifiers']
+    data['dmp']['dmproadmap_related_identifiers'] << narrative_to_related_identifier
     JSON.parse(data.to_json).to_json
   end
 
@@ -43,8 +64,11 @@ class Wip < ApplicationRecord
   end
 
   # Strip out the wip_id if it was included
-  def remove_wip_id_from_metadata
-    metadata[:dmp].delete(:wip_id) if metadata.is_a?(Hash) && metadata[:dmp].present? && metadata[:dmp][:wip_id].present?
+  def remove_wip_id_and_narrative_from_metadata
+    if metadata.present? && metadata['dmp'].present?
+      metadata['dmp'].delete('wip_id') if metadata.is_a?(Hash) && metadata['dmp'].present? && metadata['dmp']['wip_id'].present?
+      metadata['dmp'].fetch('dmproadmap_related_identifiers', []).delete_if { |id| id['descriptor'] == 'is_metadata_for' }
+    end
   end
 
   private
@@ -55,5 +79,17 @@ class Wip < ApplicationRecord
            metadata.with_indifferent_access.fetch(:dmp, {})[:title].present?
       errors.add(:metadata, INVALID_JSON_MSG)
     end
+  end
+
+  # Convert the narrative info into a retrieval URL
+  def narrative_to_related_identifier
+    return nil unless narrative_content.present?
+
+    JSON.parse({
+      type: 'url',
+      descriptor: 'is_metadata_for',
+      work_type: 'output_management_plan',
+      identifier: Rails.application.routes.url_helpers.narrative_api_v3_wip_url(self)
+    }.to_json)
   end
 end
