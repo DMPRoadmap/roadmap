@@ -3,10 +3,11 @@
 @mixin dmpopidor-dropdown {
   .dmpopidor-dropdown {
     li {
-      text-align: right;
+      text-align: left;
       &.delimiter {
         padding: 0 10px;
         font-size: xx-large;
+        margin: 0 10px 0 10px;
       }
   
       a {
@@ -15,7 +16,7 @@
       }
   
       a:hover {
-        font-weight: 900;
+        font-weight: bold;
         background-color: white;
       }
     }
@@ -32,7 +33,6 @@
       a:focus,
       a:visited {
         font-weight: bold;
-        background-color: $dark-blue;
         color: white;
       }
     }
