@@ -1,4 +1,5 @@
 @use '../variables/colours' as *;
+@use './../dmpopidor/colours' as *;
 // This file sets styles for main HTML elements.
 // If it starts to get too large, it would be a good idea to break it into component
 // blocks.
@@ -6,20 +7,27 @@
 html {
   position: relative;
   min-height: 100%;
+  scrollbar-color: $dark-blue $white;
+  scrollbar-width: thin;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* For sticky footer */
 main {
+  margin-top: 200px;
   margin-bottom: 100px;
-  @media (max-width: 768px) {
-    margin-bottom: 420px;
-  }
+
   @media (min-width: 768px) and (max-width: 1000px) {
     margin-bottom: 200px;
   }
 }
 
-body{
+body {
   padding-bottom: 50px;
 }
 
@@ -38,8 +46,8 @@ fieldset {
 
   input[type="radio"],
   input[type="checkbox"] {
-      margin: 0px;
-      vertical-align: middle;
+    margin: 0px;
+    vertical-align: middle;
   }
 
   .checkbox,
@@ -61,7 +69,12 @@ a {
   color: $color-link-text;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   /* font-family: "GillSansLight"; */
   color: $color-heading-text;
 }
