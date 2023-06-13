@@ -1,6 +1,15 @@
 .dmpopidor-front-page {
   .main-title {
-      padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
   }
 }
 
+@media (min-width: 576px) {
+  .dmpopidor-front-page {
+    .main-title {
+      margin-bottom: -100px !important;
+    }
+  }
+}

@@ -56,8 +56,31 @@
 
     &:first-child {
       grid-column: 1/span 2; // start at index 1, spans on 2 cols 
-      grid-row: 1/ span 2;// start at index 1, spans on 2 rows
+      grid-row: 1/ span 2; // start at index 1, spans on 2 rows
     }
   }
 
+}
+
+article.news-item {
+  &:hover {
+    img {
+      filter: grayscale(50%);
+    }
+
+    transform: scale(1.02);
+  }
+
+  img {
+    transition: all .5s ease-in-out;
+  }
+
+  transition: all .5s ease-in-out;
+}
+
+@media (max-width: 1260px) {
+  #homepage-news {
+    display: flex;
+    flex-direction: column;
+  }
 }
