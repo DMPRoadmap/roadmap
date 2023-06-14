@@ -1,80 +1,102 @@
-<nav id="app-navbar" class="navbar navbar-dmpopidor">
+<nav id="app-navbar" class="navbar navbar-default navbar-dmpopidor" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="header-logo">
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-menu" aria-expanded="false">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
       <span class="sr-only">Toggle navigation</span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
+    <div class="header-logo">
     <%= link_to(image_tag("logo.png",
-                          alt: "#{ApplicationService.application_name} #{_('logo')}",
-                          class: "app-logo",
-                          title: ApplicationService.application_name),
-                root_path) %>
+    alt: "#{ApplicationService.application_name} #{_('logo')}",
+    class: "app-logo navbar-brand",
+    title: ApplicationService.application_name),
+root_path) %>
+</div>
   </div>
 
-  <div class="navbar-content">
-    <ul class="nav navbar-nav header-links">
-      <% if user_signed_in? %>
-        <li>
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav delimiter-off">
+    <% if user_signed_in? %>
+      <li class="dropdown">
           <a href="#" class="dropdown-toggle" role="button" id="plans-options-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= _('My plans') %> <i class="fas fa-caret-down"></i>
+            <%= _('My plans') %> <i class="fa fa-chevron-down" aria-hidden="true"></i>
           </a>
           <ul class="dropdown-menu dmpopidor-dropdown">
             <li <%= 'class=active' if active_page?(plans_path, true) %>>
-              <%= link_to _('My Dashboard'), plans_path %>
+              <%= link_to _('My Dashboard'), plans_path+"#dashboard" %>
             </li>
             <li role="separator" class="divider"></li>
-            <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
-              <%= link_to _('Create plan for a Research Project'), new_plan_path(context: 'research_project') %>
-            </li>
-            <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
-              <%= link_to _('Create plan for a Research Structure'), new_plan_path(context: 'research_structure') %>
+            <li <%= 'class=active' if active_page?(new_plan_path(context: 'research_project'), true) %>>
+              <%= link_to _('Create plan for a Research Project'), new_plan_path(context: 'research_project')+"#new_plan" %>
             </li>
             <li role="separator" class="divider"></li>
-            <li <%= 'class=active' if active_page?(import_plans_path, true)%>>
-              <%= link_to _('Import DMP'), import_plans_path %>
+            <li <%= 'class=active' if active_page?(new_plan_path(context: 'research_structure'), true) %>>
+              <%= link_to _('Create plan for a Research Structure'), new_plan_path(context: 'research_structure')+"#new_plan" %>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li <%= 'class=active' if active_page?(import_plans_path, true) %>>
+              <%= link_to _('Import DMP'), import_plans_path+"#import_plan" %>
             </li>
           </ul>
-        </li>
-        <li class="delimiter">&#x25cf;</li>
-      <% end %>
-      <li <%= 'class=active' if active_page?(help_path, true) %>>
-        <%= link_to _('Help'), help_path %>
       </li>
       <li class="delimiter">&#x25cf;</li>
-      <li>
+      <% end %>
+    </ul>
+    <li <%= 'class=active' if active_page?(help_path, true) %>>
+    <%= link_to _('Help'), help_path %>
+    </li>
+
+    <li class="delimiter">&#x25cf;</li>
+
+    <ul class="nav navbar-nav">
+     <li class="dropdown">
+     
         <a href="#" class="dropdown-toggle" role="button" id="public-plans-templates" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= _('Plans & Templates') %> <i class="fas fa-caret-down"></i>
+          <%= _('Plans & Templates') %> <i class="fa fa-chevron-down" aria-hidden="true"></i>
         </a>
+
         <ul class="dropdown-menu dmpopidor-dropdown">
           <li <%= 'class=active' if active_page?(public_plans_path) %>>
-            <%= link_to _('Public DMPs'), public_plans_path %>
+            <%= link_to _('Public DMPs'), public_plans_path+"#plans" %>
           </li>
+
+          <li role="separator" class="divider"></li>
+
           <li <%= 'class=active' if active_page?(public_templates_path) %>>
-            <%= link_to _('DMP Templates'), public_templates_path %>
+            <%= link_to _('DMP Templates'), public_templates_path+"#templates" %>
           </li>
-        </ul>
-      </li>
-      <li class="delimiter">&#x25cf;</li>
-      <% unless @nav_static_pages.empty? %>
-      <li>
-        <a href="#" class="dropdown-toggle" role="button" id="static-pages-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= _('Learn more') %> <i class="fas fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="static-pages-menu">
+       </ul>
+     </li>
+   </ul>
+
+   <% unless @nav_static_pages.empty? %>
+   <li class="delimiter">&#x25cf;</li>
+
+  <ul class="nav navbar-nav">
+   
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" role="button" id="static-pages-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= _('Learn more') %> <i class="fa fa-chevron-down" aria-hidden="true"></i>
+      </a>
+
+      <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="static-pages-menu">
           <% @nav_static_pages.each do |sp| %>
           <li <%= 'class=active' if active_page?(static_path(sp.url)) %>>
             <%= link_to _("#{sp.localized_name(session[:locale])}"), static_path(sp.url) %>
           </li>
+          <li role="separator" class="divider"></li>
           <% end %>
         </ul>
-      </li>
-      <% end %>
-    </ul>
-    <ul class="nav navbar-nav header-language-account">
-      <%= render "layouts/signin_signout" %>
-    </ul>
-  </div>
+    </li>
+  </ul>
+  <% end %>
+  
+  
+  <ul class="nav navbar-nav header-language-account">
+    <%= render "layouts/signin_signout" %>
+  </ul>
+  </div><!-- /.navbar-collapse -->
 </nav>
