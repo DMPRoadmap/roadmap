@@ -532,7 +532,7 @@ DEPENDENCIES
   annotate_gem
   api-pagination
   autoprefixer-rails
-  better_errors
+  better_errors (= 2.9.1)
   binding_of_caller
   bootsnap
   brakeman
@@ -606,4 +606,4 @@ RUBY VERSION
    ruby 3.0.4p208
 
 BUNDLED WITH
-   2.4.8
+   2.4.13
