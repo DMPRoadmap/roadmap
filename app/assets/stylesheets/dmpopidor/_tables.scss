@@ -21,16 +21,19 @@
       }
     }
 
-    // Cells borders
+    // Cells and Cells borders
     tbody>tr>td {
       border: none;
 
+      input.set_test_plan {
+        display: none;
+      }
+
       &:not(:last-child) {
-        border-right: 1px solid $dark-blue;
+        border-right: 1px solid white;
       }
 
       a,
-      span,
       i {
         // links & fontawesome icons
         color: $dark-blue;
@@ -38,11 +41,17 @@
     }
 
     tbody>tr:nth-child(odd) {
-      background: $light-grey
+      background: $blue;
+      color: $white;
+
+      a,
+      .fas {
+        color: $white;
+      }
     }
 
     tbody>tr:nth-child(even) {
-      background: #FFF
+      background: #FFF;
     }
 
     // Cells hovering
@@ -61,7 +70,7 @@
 
     // Header cells background
     thead>tr>th {
-      background-color: $blue;
+      background-color: $dark-blue;
       padding: 15px;
       border: none;
       border-left: 1px solid $white;
@@ -94,7 +103,7 @@
   }
 
   .paginable {
-    .paginable-pagination a{
+    .paginable-pagination a {
       color: $blue;
     }
   }
@@ -132,7 +141,7 @@
     }
 
     .paginable {
-      .paginable-pagination a{
+      .paginable-pagination a {
         color: $rust;
       }
     }
