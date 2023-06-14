@@ -7,7 +7,7 @@ RSpec.describe 'Templates::Editing' do
 
   let!(:funder) { create(:org, :funder) }
 
-  let!(:org) { create(:org, :school, :organisation) }
+  let!(:org) { create(:org, :institution) }
 
   let!(:template) { create(:template, :published, :publicly_visible, org: funder) }
 
