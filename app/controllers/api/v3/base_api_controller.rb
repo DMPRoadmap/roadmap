@@ -23,12 +23,6 @@ module Api
 
       protected
 
-      # Generic handler for sending an error back to the caller
-      def render_error(errors:, status: :bad_request)
-        @payload = { errors: [errors] }
-        render '/api/v3/error', status: status
-      end
-
       # Paginate the response
       def paginate_response(results:)
         results = Kaminari.paginate_array(results) if results.is_a?(Array)

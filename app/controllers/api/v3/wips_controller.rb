@@ -14,15 +14,34 @@ module Api
 
       # POST /dmps
       def create
+
+puts '========================'
+puts params
+puts '------------------------'
+puts wip_params
+puts '------------------------'
+puts narrative_params
+puts '========================'
+
         wip = Wip.new(user: current_user, metadata: { dmp: wip_params })
+        # Attach the narrative PDF if applicable
+        wip.narrative = narrative_params if narrative_params.present?
+
         if wip.save
           @wips = [wip]
           render json: render_to_string(template: '/api/v3/wips/index'), status: :created
         else
-          render_error(errors: wip.errors.full_messages, status: :bad_request)
+puts "FAIL #{wip.errors.full_messages}"
+
+          @payload = { errors: [wip.errors.full_messages] }
+          render json: render_to_string(template: '/api/v3/error'), status: :bad_request
         end
       rescue ActionController::ParameterMissing => e
-        render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG}", status: :bad_request)
+
+puts "NO PARAM: #{e.message}"
+
+        @payload = { errors: ["Invalid request #{::Wip::INVALID_JSON_MSG}"] }
+        render json: render_to_string(template: '/api/v3/error'), status: :bad_request
       end
 
       # GET /dmps/{:id}
@@ -45,10 +64,12 @@ module Api
           @wips = [wip]
           render json: render_to_string(template: '/api/v3/wips/index'), status: :ok
         else
-          render_error(errors: wip.errors.full_messages, status: :bad_request)
+          @payload = { errors: [wip.errors.full_messages] }
+          render json: render_to_string(template: '/api/v3/error'), status: :bad_request
         end
       rescue ActionController::ParameterMissing => e
-        render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG}", status: :bad_request)
+        @payload = { errors: ["Invalid request #{::Wip::INVALID_JSON_MSG}"] }
+        render json: render_to_string(template: '/api/v3/error'), status: :bad_request
       end
 
       # DELETE /dmps/{:id}
@@ -61,7 +82,8 @@ module Api
           @wips = []
           render json: render_to_string(template: '/api/v3/wips/index'), status: :ok
         else
-          render_error(errors: wip.errors.full_messages, status: :bad_request)
+          @payload = { errors: [wip.errors.full_messages] }
+          render json: render_to_string(template: '/api/v3/error'), status: :bad_request
         end
       end
 
@@ -78,7 +100,11 @@ module Api
       private
 
       def wip_params
-        params.require(:dmp).permit(:narrative, dmp_permitted_params).to_h
+        params.require(:dmp).permit(dmp_permitted_params).to_h
+      end
+
+      def narrative_params
+        params.permit(narrative: [data: [:content_type, :original_filename, :tempfile]])
       end
     end
   end

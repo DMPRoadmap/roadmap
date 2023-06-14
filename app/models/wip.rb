@@ -29,6 +29,10 @@ class Wip < ApplicationRecord
 
   # Handle
   def narrative=(file)
+
+puts file.inspect
+puts "Respond? #{file.respond_to?(:read)} && Pdf? #{['pdf', 'application/pdf'].include?(file.content_type)}"
+
     if file.nil?
       self.narrative_content = nil
       self.narrative_file_name = nil

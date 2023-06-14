@@ -89,6 +89,34 @@ RSpec.describe Api::V3::WipsController do
       expect(json.first['dmp']['wip_id']['type']).to eql('other')
       expect(json.first['dmp']['wip_id']['identifier'].present?).to be(true)
     end
+
+    it 'uploads the narrative PDF' do
+      wip = build(:wip, metadata: { dmp: { title: Faker::Music::GratefulDead.song } })
+
+      #test_file = fixture_file_upload('narrative_test.pdf', 'application/pdf')
+      file_location = Rails.root.join('spec', 'support', 'mocks', 'narrative_test.pdf')
+      test_file = Rack::Test::UploadedFile.new(file_location, "application/pdf")
+
+      params = JSON.parse(wip.to_json)
+      params[:narrative] = { data: test_file }
+      post(api_v3_wips_path, headers: headers, params: JSON.parse(params.to_json))
+
+      expect(response.code).to eql('201')
+      expect(response).to render_template('api/v3/_standard_response')
+      expect(response).to render_template('api/v3/wips/index')
+
+      json = JSON.parse(response.body).with_indifferent_access.fetch(:items, [])
+      expect(json.length).to eql(1)
+      expect(json.first['dmp']['title']).to eql(wip.metadata['dmp']['title'])
+      pdf_metadata = json.first['dmp']['dmproadmap_related_identifiers']&.select { |id| id['descriptor'] == 'is_metadata_for' }
+      expect(pdf_metadata.present?).to be(true)
+      expect(pdf_metadata.first['work_type']).to eql('output_management_plan')
+      expect(pdf_metadata.first['descriptor']).to eql('is_metadata_for')
+      expect(pdf_metadata.first['type']).to eql('url')
+      expect(pdf_metadata.first['identifier'].end_with?('narrative_upload.pdf')).to be(true)
+
+      # test_file.delete
+    end
   end
 
   describe 'GET /dmps/{:identifier}' do
@@ -204,7 +232,6 @@ RSpec.describe Api::V3::WipsController do
       expect(json.first['dmp']['foo'].present?).to be(false)
       expect(json.first['dmp']['wip_id']['type']).to eql('other')
       expect(json.first['dmp']['wip_id']['identifier']).to eql(wip.identifier)
-
     end
 
     it 'succeeds and returns the wip with it\'s new identifier' do
@@ -222,6 +249,10 @@ RSpec.describe Api::V3::WipsController do
       expect(json.first['dmp']['project'].first['funding'].first['name']).to eql(expected)
       expect(json.first['dmp']['wip_id']['type']).to eql('other')
       expect(json.first['dmp']['wip_id']['identifier']).to eql(wip.identifier)
+    end
+
+    it 'replaces the narrative PDF' do
+
     end
   end
 
