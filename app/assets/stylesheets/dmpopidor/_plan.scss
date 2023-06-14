@@ -138,25 +138,25 @@
 @media (min-width: 990px) and (max-width: 1450px) {
 
   main#maincontent div.tab-content {
+    div {
       div {
-          div {
-              div.plan-details {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
+        div.plan-details {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
 
-                  &>form {
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
+          &>form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-                      &>div {
-                          width: 100%;
-                      }
-                  }
-              }
+            &>div {
+              width: 100%;
+            }
           }
+        }
       }
+    }
   }
 }
 
@@ -221,6 +221,10 @@
           .action {
             color: $dark-blue;
             cursor: pointer;
+          }
+
+          &.form-group {
+            flex-direction: column;
           }
         }
 
@@ -309,6 +313,7 @@
     min-width: 175px;
 
     background-color: white;
+
     .research-outputs-tabs {
       display: flex;
       flex-direction: column;
@@ -321,18 +326,18 @@
         text-align: center;
         border: none;
         margin: 0;
-  
+
         &:not(:last-child) {
           margin-bottom: 3px;
         }
-  
-        &.active > a,
-        & > a:hover {
+
+        &.active>a,
+        &>a:hover {
           background-color: $dark-blue;
           color: white;
           font-size: 16px;
         }
-  
+
         a {
           padding: 20px;
           font-weight: bold;
@@ -340,11 +345,14 @@
         }
       }
     }
+
     .panel-body {
       padding: 0;
     }
+
     .panel-heading {
       background-color: $dark-blue;
+
       .accordion-toggle {
         padding: 20px;
         background-color: $dark-blue;
