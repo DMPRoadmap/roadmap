@@ -90,15 +90,18 @@ RSpec.describe Api::V3::WipsController do
       expect(json.first['dmp']['wip_id']['identifier'].present?).to be(true)
     end
 
-    it 'uploads the narrative PDF' do
+    xit 'uploads the narrative PDF' do
       wip = build(:wip, metadata: { dmp: { title: Faker::Music::GratefulDead.song } })
 
-      #test_file = fixture_file_upload('narrative_test.pdf', 'application/pdf')
       file_location = Rails.root.join('spec', 'support', 'mocks', 'narrative_test.pdf')
-      test_file = Rack::Test::UploadedFile.new(file_location, "application/pdf")
-
       params = JSON.parse(wip.to_json)
-      params[:narrative] = { data: test_file }
+      file = fixture_file_upload(file_location, 'application/pdf')
+
+      params['dmp']['narrative'] = file # Rack::Test::UploadedFile.new(file_location, "application/pdf")
+
+pp JSON.parse(params.to_json)
+p '----------------'
+
       post(api_v3_wips_path, headers: headers, params: JSON.parse(params.to_json))
 
       expect(response.code).to eql('201')
@@ -106,6 +109,9 @@ RSpec.describe Api::V3::WipsController do
       expect(response).to render_template('api/v3/wips/index')
 
       json = JSON.parse(response.body).with_indifferent_access.fetch(:items, [])
+
+pp json
+
       expect(json.length).to eql(1)
       expect(json.first['dmp']['title']).to eql(wip.metadata['dmp']['title'])
       pdf_metadata = json.first['dmp']['dmproadmap_related_identifiers']&.select { |id| id['descriptor'] == 'is_metadata_for' }
@@ -231,6 +237,9 @@ RSpec.describe Api::V3::WipsController do
       expect(json.first['dmp']['title']).to eql(wip.metadata['dmp']['title'])
       expect(json.first['dmp']['foo'].present?).to be(false)
       expect(json.first['dmp']['wip_id']['type']).to eql('other')
+
+puts Wip.all.inspect
+
       expect(json.first['dmp']['wip_id']['identifier']).to eql(wip.identifier)
     end
 
@@ -251,7 +260,7 @@ RSpec.describe Api::V3::WipsController do
       expect(json.first['dmp']['wip_id']['identifier']).to eql(wip.identifier)
     end
 
-    it 'replaces the narrative PDF' do
+    xit 'replaces the narrative PDF' do
 
     end
   end

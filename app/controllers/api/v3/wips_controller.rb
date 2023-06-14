@@ -14,34 +14,21 @@ module Api
 
       # POST /dmps
       def create
+        # Extract the narrative PDF so we can add it to ActiveStorage
+        args = wip_params
+        args.delete(:narrative)
 
-puts '========================'
-puts params
-puts '------------------------'
-puts wip_params
-puts '------------------------'
-puts narrative_params
-puts '========================'
-
-        wip = Wip.new(user: current_user, metadata: { dmp: wip_params })
+        wip = Wip.new(user: current_user, metadata: { dmp: args })
         # Attach the narrative PDF if applicable
-        wip.narrative = narrative_params if narrative_params.present?
-
+        wip.narrative.attach(wip_params[:narrative]) if wip_params[:narrative].present?
         if wip.save
           @wips = [wip]
           render json: render_to_string(template: '/api/v3/wips/index'), status: :created
         else
-puts "FAIL #{wip.errors.full_messages}"
-
-          @payload = { errors: [wip.errors.full_messages] }
-          render json: render_to_string(template: '/api/v3/error'), status: :bad_request
+          render_error(errors: wip.errors.full_messages, status: :bad_request)
         end
       rescue ActionController::ParameterMissing => e
-
-puts "NO PARAM: #{e.message}"
-
-        @payload = { errors: ["Invalid request #{::Wip::INVALID_JSON_MSG}"] }
-        render json: render_to_string(template: '/api/v3/error'), status: :bad_request
+        render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG}", status: :bad_request)
       end
 
       # GET /dmps/{:id}
@@ -60,16 +47,24 @@ puts "NO PARAM: #{e.message}"
         render_error(errors: MSG_WIP_NOT_FOUND, status: :not_found) and return if wip.nil?
         render_error(errors: MSG_WIP_UNAUTHORIZED, status: :unauthorized) and return unless wip.user == current_user
 
-        if wip.update(metadata: { dmp: wip_params })
+        # Extract the narrative PDF so we can add it to ActiveStorage
+        args = wip_params
+        args.delete(:narrative)
+
+        # Remove the old narrative if applicable
+        wip.narrative.purge if (wip_params[:narrative].present? || wip_params[:remove_narrative].present?) &&
+                               wip.narrative.attached?
+        # Attach the narrative PDF if applicable
+        wip.narrative.attach(wip_params[:narrative]) if wip_params[:narrative].present?
+
+        if wip.update(metadata: { dmp: args })
           @wips = [wip]
           render json: render_to_string(template: '/api/v3/wips/index'), status: :ok
         else
-          @payload = { errors: [wip.errors.full_messages] }
-          render json: render_to_string(template: '/api/v3/error'), status: :bad_request
+          render_error(errors: wip.errors.full_messages, status: :bad_request)
         end
       rescue ActionController::ParameterMissing => e
-        @payload = { errors: ["Invalid request #{::Wip::INVALID_JSON_MSG}"] }
-        render json: render_to_string(template: '/api/v3/error'), status: :bad_request
+        render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG}", status: :bad_request)
       end
 
       # DELETE /dmps/{:id}
@@ -78,33 +73,19 @@ puts "NO PARAM: #{e.message}"
         render_error(errors: MSG_WIP_NOT_FOUND, status: :not_found) and return if wip.nil?
         render_error(errors: MSG_WIP_UNAUTHORIZED, status: :unauthorized) and return unless wip.user == current_user
 
+        # Narrative PDF will be automatically removed
         if wip.destroy
           @wips = []
           render json: render_to_string(template: '/api/v3/wips/index'), status: :ok
         else
-          @payload = { errors: [wip.errors.full_messages] }
-          render json: render_to_string(template: '/api/v3/error'), status: :bad_request
+          render_error(errors: wip.errors.full_messages, status: :bad_request)
         end
-      end
-
-      # GET /dmps/{:id}/narrative
-      def narrative
-        wip = Wip.find_by(identifier: params[:id])
-        render_error(errors: MSG_WIP_NOT_FOUND, status: :not_found) and return if wip.nil?
-        render_error(errors: MSG_WIP_UNAUTHORIZED, status: :unauthorized) and return unless wip.user == current_user
-
-        file_name = wip.narrative_file_name.end_with?('.pdf') ? wip.narrative_file_name : "#{wip.narrative_file_name}.pdf"
-        send_data(wip.narrative_content, type: 'application/pdf', filename: file_name, disposition: 'inline')
       end
 
       private
 
       def wip_params
-        params.require(:dmp).permit(dmp_permitted_params).to_h
-      end
-
-      def narrative_params
-        params.permit(narrative: [data: [:content_type, :original_filename, :tempfile]])
+        params.require(:dmp).permit(:narrative, :remove_narrative, dmp_permitted_params)# .to_h
       end
     end
   end

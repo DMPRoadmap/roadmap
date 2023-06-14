@@ -144,3 +144,6 @@ docker/credentials.yml.enc
 
 # Ignore React test tmp.js
 app/javascript/dmp-hub-ui/src/tmp.js
+
+# Ignore ActiveStorage content
+storage/

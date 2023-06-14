@@ -21,37 +21,27 @@ class Wip < ApplicationRecord
 
   belongs_to :user
 
+  # ActiveStorage for Narrative PDF document
+  has_one_attached :narrative
+
+  # Ensure that the :identifier has been generated on new records
   before_validation :generate_identifier
+
+  # Ensure the :wip_id and :dmproadmap_related_identifier for the narrative are not in the :metadata
+  # they are attached on the fly during the call to :to_json
   after_validation :remove_wip_id_and_narrative_from_metadata
+
+  # Ensure that the narrative PDF is removed from ActiveStorage before deleting the WIP
+  before_destroy :remove_narrative
 
   validates :user, presence: { message: PRESENCE_MESSAGE }
   validate :validate_metadata
-
-  # Handle
-  def narrative=(file)
-
-puts file.inspect
-puts "Respond? #{file.respond_to?(:read)} && Pdf? #{['pdf', 'application/pdf'].include?(file.content_type)}"
-
-    if file.nil?
-      self.narrative_content = nil
-      self.narrative_file_name = nil
-      true
-    elsif file.respond_to?(:read) && ['pdf', 'application/pdf'].include?(file.content_type)
-      self.narrative_content = file.read
-      self.narrative_file_name = file.original_filename || "#{identifier}.pdf"
-      true
-    else
-      errors.add(:narrative, INVALID_NARRATIVE_FORMAT)
-      false
-    end
-  end
 
   # Attach the wip_id and narrative to the metadata
   def to_json
     data = metadata
     data['dmp']['wip_id'] = { type: 'other', identifier: identifier } if data['dmp'].present? && identifier.present?
-    return JSON.parse(data.to_json).to_json unless narrative_content.present?
+    return JSON.parse(data.to_json).to_json unless narrative.attached?
 
     data['dmp']['dmproadmap_related_identifiers'] = [] unless data['dmp']['dmproadmap_related_identifiers']
     data['dmp']['dmproadmap_related_identifiers'] << narrative_to_related_identifier
@@ -75,6 +65,11 @@ puts "Respond? #{file.respond_to?(:read)} && Pdf? #{['pdf', 'application/pdf'].i
     end
   end
 
+  def remove_narrative
+    # Let ActiveJob delete from ActiveStorage when it has bandwidth
+    narrative.purge_later if narrative.attached?
+  end
+
   private
 
   # Ensure that the metadata JSON is valid
@@ -87,13 +82,13 @@ puts "Respond? #{file.respond_to?(:read)} && Pdf? #{['pdf', 'application/pdf'].i
 
   # Convert the narrative info into a retrieval URL
   def narrative_to_related_identifier
-    return nil unless narrative_content.present?
+    return nil unless narrative.attached?
 
     JSON.parse({
       type: 'url',
       descriptor: 'is_metadata_for',
       work_type: 'output_management_plan',
-      identifier: Rails.application.routes.url_helpers.narrative_api_v3_wip_url(self)
+      identifier: Rails.application.routes.url_helpers.rails_blob_url(narrative, disposition: 'attachment')
     }.to_json)
   end
 end

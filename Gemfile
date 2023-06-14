@@ -170,6 +170,8 @@ gem 'rss'
 group :aws do
   # Amazon AWS S3 data store for use with the Dragonfly gem.
   gem 'dragonfly-s3_data_store'
+
+  gem "aws-sdk-s3"
 end
 
 # A collection of text algorithms (http://github.com/threedaymonk/text)

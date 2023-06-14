@@ -113,16 +113,68 @@ The React application uses the DMPTool's API.
 
 ### Work in progress DMPs
 Work in progress DMPs are ones that a user has started the Upload DMP workflow but has not yet finished/registered the DMP.
-```
+
+At minimum, a valid work in progress DMP must have a title: `{ "dmp": { "title": "Test DMP" } }`
+
+The work in progress API endpoints consist of:
+- `GET api/v3/dmps` This will return all of the current user's work in progress DMPs
+- `POST api/v3/dmps` Called to create the work in progress DMP and receive back a `wip_id` that should be used for subsequent updates.
+- `GET api/v3/dmps/{wip_id}` This will retrieve the specific work in progress DMP (assuming the current user owns it)
+- `PUT api/v3/dmps/{wip_id}` This will update the work in progress DMP (assuming the current user owns it)
+- `DELETE api/v3/dmps/{wip_id}` This will delete the work in progress DMP (assuming the current user owns it)
+
+The `POST` and `PUT` endpoints are expecting `application/x-www-form-urlencoded`.
+
+#### PDF uploads
+You can upload a PDF file by included by sending: `dmp['narrative'] = uploadedFile`
+
+You only need to include this once. If you include it in subsequent `PUT` calls, it will replace the old file.
+
+To completely remove the PDF, you can send `dmp['remove_narrative'] = true`
+
+Once the PDF has been uploaded, the work in progress will contain a new `is_metadata_for` entry in the `dmproadmap_related_identifiers`. See example work in progress DMP below.
+
+#### Example Work in Progress
+The following represents a typical response from one of the `api/v3/dmps` or `api/v3/dmps/{wip_id}` endpoints.
+Note:
+- The `wip_id` is assigned after calling `POST api/v3/dmps`
+- The `dmproadmap_related_identifiers` may contain an `is_metadata_for` entry that is the retrieval URL for the uploaded PDF associated with the work in progress.
 
 ```
-
-### PDFs
-```
+{
+  "application": "DMPTool - local",
+  "api_version": 2,
+  "source": "POST /api/v3/dmps",
+  "time": "2023-06-14T20:22:04Z",
+  "caller": "::1",
+  "code": 200,
+  "message": "OK",
+  "total_items": 0,
+  "items": [
+    {
+      "dmp": {
+        "title": "Test DMP",
+        "wip_id": {
+          "type": "other",
+          "identifier": "20230614-f6447505e2c2"
+        },
+        "dmproadmap_related_identifiers": [
+          {
+            "type": "url",
+            "descriptor": "is_metadata_for",
+            "work_type": "output_management_plan",
+            "identifier": "http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--222345119a6de4db76c295210c9b1eed50e386e6/Effects_of_Placental_Dysfunction_on_Brain_Growth_in_Congenital_Heart_Disease.pdf?disposition=attachment"
+          }
+        ]
+      }
+    }
+  ]
+}
 ```
 
 ### Finalized/registered DMPs
 Finalized DMPs have been assigned a DMP ID (aka persistent identifier). Once a DMP ID has been registered it is versioned and its metadata is shared externally with other systems.
+
 ```
 
 ```
