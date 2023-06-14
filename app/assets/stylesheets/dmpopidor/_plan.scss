@@ -135,6 +135,31 @@
 
 }
 
+@media (min-width: 990px) and (max-width: 1450px) {
+
+  main#maincontent div.tab-content {
+      div {
+          div {
+              div.plan-details {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+
+                  &>form {
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+
+                      &>div {
+                          width: 100%;
+                      }
+                  }
+              }
+          }
+      }
+  }
+}
+
 // ##################################
 // RESEARCH OUTPUTS 
 // ##################################
