@@ -122,6 +122,10 @@ Rails.application.routes.draw do
     namespace :v3 do
       get :me, controller: :base_api
 
+      get :funders, controller: :typeaheads
+      get :orgs, controller: :typeaheads
+      get :repositories, controller: :typeaheads
+
       resources :wips, path: :dmps, only: %i[index create destroy show update] do
         member do
           get :narrative
