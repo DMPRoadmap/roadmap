@@ -26,11 +26,16 @@
 @use './dmpopidor/notes' as *;
 @use './dmpopidor/plan' as *;
 @use './dmpopidor/user_profile' as *;
+@use './dmpopidor/_test_asserting' as *;
 
 body {
   display: flex;
   flex-direction: column;
   padding-bottom: 0;
+}
+
+body div a.btn {
+  text-decoration: none;
 }
 
 .modal-backdrop {
@@ -54,8 +59,8 @@ body {
   justify-content: center;
 
   border-radius: 20px;
-  box-shadow: 5px 5px 5px $light-grey;
-  width: 100%;
+  box-shadow: 0 0 15px $light-grey;
+  width: 84%;
   max-width: 1440px;
 
   &> :first-child:not(#plan-navigation) {
@@ -122,6 +127,52 @@ body {
   }
 }
 
+ul.nav li ul.dropdown-menu {
+  border-radius: 5px !important;
+
+  li {
+    a {
+      text-align: left;
+    }
+
+    a.dropdown-toggle {
+
+      &:focus,
+      &:active,
+      &:visited {
+        background-color: none;
+      }
+    }
+
+    &:first-child {
+      border-radius: 5px 5px 0 0;
+
+      a {
+        border-radius: inherit;
+
+        &:hover {
+          border-radius: inherit;
+        }
+      }
+    }
+
+    &:last-child {
+      border-radius: 0 0 5px 5px;
+
+      a {
+        border-radius: inherit;
+
+        &:hover {
+          border-radius: inherit;
+        }
+      }
+    }
+  }
+}
+
+.delimiter {
+  padding: 0 10px;
+}
 
 /*
     MAIN CONTENT
@@ -130,7 +181,7 @@ body {
 
   .contact-icons {
     position: fixed;
-    top: 66%;
+    top: 45%;
     right: 0;
     z-index: 5;
 
@@ -197,7 +248,7 @@ body {
 
   a {
     color: $dark-blue;
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   /*
@@ -219,6 +270,7 @@ body {
     font-size: 14px;
     border-bottom: none;
   }
+
   /* 
         PLAN EDIT
     */
@@ -310,12 +362,12 @@ body {
     SUPER ADMIN
   */
   &.super-admin {
-  
+
     a {
       color: $black;
       text-decoration: underline;
     }
-  
+
     .btn-default,
     .btn-default:hover,
     .btn-default:focus,
@@ -329,19 +381,19 @@ body {
       text-decoration: none;
       margin-bottom: 10px;
     }
-    
+
     .combobox-clear-button,
     .combobox-clear-button:hover,
     .combobox-clear-button:focus {
       color: $yellow;
     }
-    
-    
+
+
     .btn-link {
       color: $black;
       text-decoration: underline;
     }
-    
+
     .registry-value-actions a {
       text-decoration: none;
     }
@@ -385,13 +437,28 @@ body {
     COOKIE BANNER
 */
 
+.cookiebanner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: left !important;
+}
+
 .cookiebanner-close {
+  width: 50%;
+  text-align: center;
+  background: green;
+  padding: 5px;
+  color: $white !important;
+  font-weight: bold;
+  margin-left: 10px;
 
   &:focus,
   &:hover,
   &:active {
     outline-style: solid !important;
-    outline-color: $blue !important;
+    outline-color: $white !important;
     outline-width: 2px !important;
   }
 }
@@ -515,12 +582,76 @@ body {
   .swal2-html-container {
     font-size: 14px;
   }
+
   .swal2-actions {
     .swal2-confirm {
       background-color: $blue;
     }
+
     .swal2-deny {
       background-color: $rust;
     }
+  }
+}
+
+/* 
+    CONNEXION FORM
+*/
+
+#sign-in-form,
+#create-account-form {
+  width: 45%;
+  transition: visibility 0s 2s, opacity 2s linear;
+}
+
+#create-account-form {
+  display: none;
+}
+
+div.tab-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+div.sign-in {
+  div.tab-content {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 1260px) {
+
+  main#maincontent {
+    div.sign-in {
+      div.tab-content {
+        display: flex;
+        flex-direction: column;
+
+        div#sign-in-form,
+        div#create-account-form {
+          width: 85%;
+        }
+      }
+    }
+  }
+}
+
+/* 
+    LANGUAGE DROPDOWN
+*/
+
+li a[rel="nofollow"][data-method="patch"] {
+
+  &:first-of-type,
+  &:last-of-type {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  &:hover {
+    background-color: $dark-blue;
+    color: $white;
   }
 }
