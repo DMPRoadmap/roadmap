@@ -177,7 +177,16 @@ ul.nav li ul.dropdown-menu {
 /*
     MAIN CONTENT
 */
+
 .dmpopidor-branding {
+
+  div {
+    h1 {
+      &+p {
+        margin: 20px 0 20px 0;
+      }
+    }
+  }
 
   .contact-icons {
     position: fixed;
