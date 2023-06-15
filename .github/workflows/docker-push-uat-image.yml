@@ -8,7 +8,7 @@ name: Publish Docker UAT image
 on:
   push:
     tags: 
-    - '*-uat-*'
+      - '*-uat-*'
 
 jobs:
   push_to_registry:
