@@ -72,7 +72,7 @@ header.dmpopidor-branding {
         a {
           text-decoration: none;
 
-          &:not([data-method="patch"]) {
+          &:not([data-method="patch"]):not(.btn) {
             &:hover {
               background-color: transparent !important;
             }
@@ -81,7 +81,9 @@ header.dmpopidor-branding {
       }
 
       ul.header-language-account {
+
         li#signin-signout {
+
           border-radius: 5px;
 
           &>a {
@@ -159,15 +161,23 @@ header.dmpopidor-branding {
           div.dropdown-menu {
             right: 10px;
             left: unset !important;
-            top: 50px;
             border-radius: 5px;
             z-index: 1;
 
-            &:hover {
+            @media (min-width: 768px) {
+              top: 50px;
+            }
+
+            &:hover,
+            &:focus {
               &+a {
                 &>i.fa.fa-chevron-down {
                   transform: rotate(180deg);
                 }
+              }
+
+              ul {
+                display: block;
               }
             }
           }
@@ -177,7 +187,6 @@ header.dmpopidor-branding {
               display: grid;
               justify-content: center;
               align-items: center;
-              left: -132%;
               width: max-content;
               grid-template-rows: repeat(2, 1fr);
               grid-auto-flow: column;
@@ -192,6 +201,58 @@ header.dmpopidor-branding {
 
                 ul {
                   display: block;
+                }
+              }
+            }
+          }
+
+          &.open {
+            div.dropdown-menu {
+              display: grid;
+              justify-content: center;
+              align-items: center;
+              width: max-content;
+              grid-template-rows: repeat(2, 1fr);
+              grid-auto-flow: column;
+              padding: 0;
+
+              div {
+                padding: 10px 0;
+                margin: 0;
+                place-self: flex-start;
+                justify-self: center;
+                width: 100%;
+
+                ul {
+                  display: block;
+                }
+              }
+            }
+          }
+
+          a {
+
+            &:hover,
+            &:focus {
+              &+div.dropdown-menu {
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                width: max-content;
+                grid-template-rows: repeat(2, 1fr);
+                grid-auto-flow: column;
+                padding: 0;
+
+                div {
+                  padding: 10px 0;
+                  margin: 0;
+                  place-self: flex-start;
+                  justify-self: center;
+                  width: 100%;
+
+                  ul {
+                    display: block;
+                  }
                 }
               }
             }

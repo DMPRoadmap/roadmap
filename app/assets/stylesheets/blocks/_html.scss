@@ -19,8 +19,9 @@ html {
 
 /* For sticky footer */
 main {
-  margin-top: 200px;
+  margin-top: -60px;
   margin-bottom: 100px;
+  z-index: 1;
 
   @media (min-width: 768px) and (max-width: 1000px) {
     margin-bottom: 200px;
