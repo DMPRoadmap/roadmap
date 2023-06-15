@@ -10,6 +10,9 @@ module Api
       # GET /dmps
       def index
         @wips = WipsPolicy::Scope.new(current_user, Wip.new).resolve
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::WipsController.index #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       # POST /dmps
@@ -29,6 +32,9 @@ module Api
         end
       rescue ActionController::ParameterMissing => e
         render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG}", status: :bad_request)
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::WipsController.create #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       # GET /dmps/{:id}
@@ -39,6 +45,9 @@ module Api
 
         @wips = [wip]
         render json: render_to_string(template: '/api/v3/wips/index'), status: :ok
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::WipsController.show #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       # PUT /dmps/{:id}
@@ -65,6 +74,9 @@ module Api
         end
       rescue ActionController::ParameterMissing => e
         render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG}", status: :bad_request)
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::WipsController.update #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       # DELETE /dmps/{:id}
@@ -80,6 +92,9 @@ module Api
         else
           render_error(errors: wip.errors.full_messages, status: :bad_request)
         end
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::WipsController.destroy #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       private

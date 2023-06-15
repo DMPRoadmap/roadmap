@@ -2,11 +2,10 @@
 
 # locals: response, request, total_items
 
-total_items ||= 0
 path = @scope.present? ? "#{request.path}?scope=#{@scope}" : request.path
 paginator = Api::V1::PaginationPresenter.new(current_url: path,
                                              per_page: @per_page,
-                                             total_items: total_items,
+                                             total_items: @total_items,
                                              current_page: @page)
 
 json.prettify!
@@ -21,10 +20,10 @@ json.code response.status
 json.message Rack::Utils::HTTP_STATUS_CODES[response.status]
 
 # Pagination Links
-if total_items.positive?
+if @total_items.positive?
   json.page @page
   json.per_page @per_page
-  json.total_items total_items
+  json.total_items @total_items
 
   # Prepare the base URL by removing the old pagination params
   json.prev paginator.prev_page_link if paginator.prev_page?

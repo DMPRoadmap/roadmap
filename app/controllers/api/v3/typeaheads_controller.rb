@@ -9,7 +9,7 @@ module Api
       # GET /api/v3/funders?search={term}
       def funders
         term = typeahead_params[:search]
-        render_error(errors: MSG_INVALID_SEARCH, status: :bad_request) if term.blank? || term.length < 3
+        render_error(errors: MSG_INVALID_SEARCH, status: :bad_request) and return if term.blank? || term.length < 3
 
         # Search the RegistryOrg table first because it has the most extensive search (e.g. acronyms,
         # alternate names, URLs, etc.)
@@ -23,16 +23,38 @@ module Api
         @items = process_results(term: term, matches: matches)
         @use_funder_context = true
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::TypeaheadsController.funders #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       # GET /api/v3/orgs?search={term}
       def orgs
+        term = typeahead_params[:search]
+        render_error(errors: MSG_INVALID_SEARCH, status: :bad_request) and return if term.blank? || term.length < 3
 
+        # Search the RegistryOrg table first because it has the most extensive search (e.g. acronyms,
+        # alternate names, URLs, etc.)
+        ror_matches = registry_orgs_search(term: term)
+
+        # Search the Orgs table next for Orgs that are not connected to ROR yet
+        local_matches = orgs_search(term: term)
+
+        # Prepare the results
+        matches = (ror_matches + local_matches).flatten.compact.uniq
+        @items = process_results(term: term, matches: matches)
+        render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::TypeaheadsController.orgs #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       # GET /api/v3/repositories?search={term}
       def repositories
 
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::TypeaheadsController.repositories #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       private
@@ -48,7 +70,6 @@ module Api
 
         # If we're filtering by funder status
         return matches.where.not(fundref_id: nil) if funder_only
-        return matches.where(fundref_id: nil) unless funder_only
 
         matches
       end
@@ -61,7 +82,6 @@ module Api
 
         # If we're filtering by funder status
         return matches.select(&:funder?) if funder_only
-        return matches.reject(&:funder?) unless funder_only
 
         matches
       end

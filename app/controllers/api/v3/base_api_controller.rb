@@ -4,6 +4,8 @@ module Api
   module V3
     # Generic helper methods for all API V2 controllers
     class BaseApiController < ApplicationController
+      MSG_SERVER_ERROR = 'Server Error'
+
       respond_to :json
 
       # Skipping the standard Rails authenticity tokens passed in UI
