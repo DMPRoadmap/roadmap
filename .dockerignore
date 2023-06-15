@@ -25,3 +25,5 @@ config/credentials.yml.enc
 config/credentials.yml.mysql2
 config/credentials.yml.postgresql
 config/master.key
+
+share/
