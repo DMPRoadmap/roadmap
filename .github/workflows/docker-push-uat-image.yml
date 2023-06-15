@@ -31,7 +31,7 @@ jobs:
           images: ualbertalib/dmp_roadmap
           tags: |
             type=match,pattern=.+portage-(\d+\.\d+\.\d+-uat-\d+),group=1
-            type=raw,value=uat-latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
+            type=raw,value=uat
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
