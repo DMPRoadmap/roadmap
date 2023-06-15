@@ -147,11 +147,13 @@ ul.nav li ul.dropdown-menu {
     &:first-child {
       border-radius: 5px 5px 0 0;
 
-      a {
-        border-radius: inherit;
-
-        &:hover {
+      @media (min-width: 768px) {
+        a {
           border-radius: inherit;
+
+          &:hover {
+            border-radius: inherit;
+          }
         }
       }
     }
@@ -252,6 +254,16 @@ ul.nav li ul.dropdown-menu {
       outline-style: solid !important;
       outline-color: $blue !important;
       outline-width: 2px !important;
+    }
+  }
+
+
+  input.btn[type="button"] {
+
+    &:focus,
+    &:hover,
+    &:active {
+      outline-width: 0 !important;
     }
   }
 
@@ -452,6 +464,7 @@ ul.nav li ul.dropdown-menu {
   justify-content: center;
   align-items: center;
   text-align: left !important;
+  z-index: 2550 !important;
 }
 
 .cookiebanner-close {
