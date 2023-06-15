@@ -8,8 +8,11 @@ module Api
 
       respond_to :json
 
+      # TODO: Clean this up after we've tested the initial `POST /dmps` endpoint from the React code.
+      #       We may not need to
       # Skipping the standard Rails authenticity tokens passed in UI
       # skip_before_action :verify_authenticity_token
+      before_action :authenticate
 
       # Prep default instance variables for views
       before_action :base_response_content
@@ -46,6 +49,13 @@ module Api
       # =============
       # = Callbacks =
       # =============
+      # Determine if there is a `current_user` if not verify the API token
+      def authenticate
+        @client = current_user
+        return true if @client.present?
+
+        render_error(errors: 'user session has expired', status: :unauthorized)
+      end
 
       # Set the generic application and caller variables used in all responses
       def base_response_content

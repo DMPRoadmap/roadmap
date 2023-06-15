@@ -17,7 +17,7 @@ module Api
         end
 
         def resolve
-          Wip.where(user_id: @user.id)
+          Wip.includes(narrative_attachment: [:blob]).where(user_id: @user.id)
         end
       end
     end

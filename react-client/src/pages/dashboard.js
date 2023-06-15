@@ -116,12 +116,12 @@ function Dashboard() {
         </div>
 
         {projects.map(item => (
-          <Fragment key={item.dmp.dmphub_wip_id.identifier}>
+          <Fragment key={item.dmp.wip_id.identifier}>
             <div data-colname="title">{item.dmp?.title}</div>
             <div data-colname="funder">{item?.funder}</div>
             <div data-colname="grantId">tbd…</div>
             <div data-colname="dmpId">
-              {item.dmp.dmphub_wip_id.identifier}
+              {item.dmp.wip_id.identifier}
             </div>
             <div data-colname="status">
               Incomplete <br />

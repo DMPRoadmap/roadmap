@@ -2,6 +2,7 @@
 
 # locals: response, request, total_items
 
+@total_items = 0 if @total_items.nil?
 path = @scope.present? ? "#{request.path}?scope=#{@scope}" : request.path
 paginator = Api::V1::PaginationPresenter.new(current_url: path,
                                              per_page: @per_page,
