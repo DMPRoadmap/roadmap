@@ -111,6 +111,7 @@ nav ul {
   .navbar-default .navbar-nav .open .dropdown-menu>li>a {
     color: $dark-blue !important;
     text-align: center;
+    padding: 5px 25px;
 
     &:hover {
       font-weight: bold;

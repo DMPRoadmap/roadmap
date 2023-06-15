@@ -71,6 +71,12 @@ header.dmpopidor-branding {
 
         a {
           text-decoration: none;
+
+          &:not([data-method="patch"]) {
+            &:hover {
+              background-color: transparent !important;
+            }
+          }
         }
       }
 
@@ -120,8 +126,10 @@ header.dmpopidor-branding {
           }
 
           &:hover {
-            div:not(.dropdown-menu) {
-              display: block;
+            @media (min-width: 768px) {
+              div:not(.dropdown-menu) {
+                display: block;
+              }
             }
           }
 
@@ -349,12 +357,21 @@ header.dmpopidor-branding {
         color: white;
         font-size: 60px;
         font-weight: bold;
+
+        @media (max-width: 767px) {
+          font-size: 28pt;
+        }
       }
 
       .homepage-h2 {
         color: white;
         width: 75%;
         font-size: 35px;
+
+        @media (max-width: 767px) {
+          font-size: 18pt;
+          width: 100%;
+        }
       }
     }
 
