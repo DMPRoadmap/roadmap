@@ -85,7 +85,7 @@ root_path) %>
       <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="static-pages-menu">
           <% @nav_static_pages.each do |sp| %>
           <li <%= 'class=active' if active_page?(static_path(sp.url)) %>>
-            <%= link_to _("#{sp.localized_name(session[:locale])}"), static_path(sp.url) %>
+            <%= link_to _("#{sp.localized_name(session[:locale])}"), static_path(sp.url)+"#content" %>
           </li>
           <li role="separator" class="divider"></li>
           <% end %>
