@@ -13,31 +13,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
-    const button = document.getElementById('create-account-over');
-    const formRegister = document.getElementById('create-account-form');
-    const formLogin = document.getElementById('sign-in-form');
-    let div = document.querySelector('div.col-md-12 div.sign-in div.tab-content');
+    try {
+        const button = document.getElementById('create-account-over');
+        const formRegister = document.getElementById('create-account-form');
+        const div = document.querySelector('div.col-md-12 div.sign-in div.tab-content');
 
-    button.addEventListener('click', () => {
 
-        button.style.display = "none";
-        div.style.alignItems = "flex-start";
-        formRegister.style.opacity = "0";
-        formRegister.style.transition = "visibility 0s 2s, opacity 2s linear;";
-        formRegister.style.display = "block";
-        
-        
-        console.log(div);
+        button.addEventListener('click', () => {
 
-        setTimeout(() => {
-            formRegister.style.opacity = "1";
-            formLogin.style.transition = "visibility 0s 2s, opacity 2s linear;";
-            formLogin.style.opacity = "0";
-        }, 100)
+            button.style.display = "none";
+            div.style.alignItems = "flex-start";
+            formRegister.style.opacity = "0";
+            formRegister.style.transition = "visibility 0s 2s, opacity 2s linear;";
+            formRegister.style.display = "block";
 
-        setTimeout(() => {
-            formLogin.style.display = "none";
-        }, 2000)
-    });
+            setTimeout(() => {
+                formRegister.style.opacity = "1";
 
+            }, 100)
+        });
+    } catch (e) {
+
+    }
 });
