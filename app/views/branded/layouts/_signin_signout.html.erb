@@ -31,7 +31,7 @@
     <h5 class="dropdown-header">Utilisateur</h5>
       <ul>
         <li>
-          <%= link_to _('Edit profile'), edit_user_registration_path %>
+          <%= link_to _('Edit profile'), edit_user_registration_path+"#content" %>
         </li>
         <li>
           <%= link_to _('Logout'), destroy_user_session_path, method: :delete %>
@@ -43,39 +43,39 @@
     <ul>
     <% if current_user.can_org_admin? %>
     <li <%= 'class=active' if active_page?(org_admin_plans_path) %>>
-      <%= link_to _('Plans'), org_admin_plans_path %>
+      <%= link_to _('Plans'), org_admin_plans_path+"#content" %>
     </li>
   <% end %>
   <% if current_user.can_modify_templates? %>
     <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
     <li <%= 'class=active' if active_page?(template_path) %>>
-      <%= link_to _('Templates'), template_path %>
+      <%= link_to _('Templates'), template_path+"#content" %>
     </li>
   <% end %>
   <% if current_user.can_modify_guidance? %>
     <li <%= 'class=active' if active_page?(admin_index_guidance_path(current_user.org_id)) %>>
-      <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
+      <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id)+"#content" %>
     </li>
   <% end %>
   <% if current_user.can_super_admin? %>
     <li <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>>
-      <%= link_to _('Organisations'), super_admin_orgs_path %>
+      <%= link_to _('Organisations'), super_admin_orgs_path+"#content" %>
     </li>
   <% else %>
     <% if current_user.can_modify_org_details? %>
       <li <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>>
-        <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %>
+        <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id)+"#content" %>
       </li>
     <% end %>
   <% end %>
   <% if current_user.can_grant_permissions? %>
     <li <%= 'class=active' if active_page?(admin_index_users_path) %>>
-      <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
+      <%= link_to _('Users'), admin_index_users_path+"#content", class: 'main_nav_last_li' %>
     </li>
   <% end %>
   <% if current_user.can_org_admin? || current_user.can_super_admin? %>
     <li <%= 'class=active' if active_page?(usage_index_path) %>>
-      <%= link_to(_('Usage'), usage_index_path) %>
+      <%= link_to(_('Usage'), usage_index_path+"#content") %>
     </li>
   <% end %> 
   </ul>
@@ -86,16 +86,16 @@
         <h5 class="dropdown-header"><%= _('Super Admin') %></h5>
         <ul>
         <li <%= 'class=active' if active_page?(super_admin_themes_path) %>>
-          <%= link_to(_('Themes'), super_admin_themes_path) %>
+          <%= link_to(_('Themes'), super_admin_themes_path+"#content") %>
         </li>
         <li <%= 'class=active' if active_page?(super_admin_static_pages_path) %>>
-          <%= link_to _('Static pages'), super_admin_static_pages_path %>
+          <%= link_to _('Static pages'), super_admin_static_pages_path+"#content" %>
         </li>
         <li <%= 'class=active' if active_page?(super_admin_api_clients_path) %>>
-          <%= link_to(_('Api Clients'), super_admin_api_clients_path) %>
+          <%= link_to(_('Api Clients'), super_admin_api_clients_path+"#content") %>
         </li>
         <li <%= 'class=active' if active_page?(super_admin_notifications_path) %>>
-          <%= link_to _('Notifications'), super_admin_notifications_path %>
+          <%= link_to _('Notifications'), super_admin_notifications_path+"#content" %>
         </li>
         </ul>
         </div>
@@ -103,29 +103,29 @@
         <h5 class="dropdown-header"><%= _('maDMP Features') %></h5>
         <ul>
         <li <%= 'class=active' if active_page?(super_admin_madmp_schemas_path) %>>
-          <%= link_to _('Schemas'), super_admin_madmp_schemas_path %>
+          <%= link_to _('Schemas'), super_admin_madmp_schemas_path+"#content" %>
         </li>
         <li <%= 'class=active' if active_page?(super_admin_registries_path) %>>
-          <%= link_to _('Registries'), super_admin_registries_path %>
+          <%= link_to _('Registries'), super_admin_registries_path+"#content" %>
         </li>
         </ul>
         </div>
       <% end %>
     </div>
   <% else %>
+    <a href="<%= login_path %>#content">
+      <%= _('My Account') %>
+    </a>
     <div class="sign-in">
       <div class="tab-content">
         <div id="sign-in-form-menu" role="tabpanel" class="tab-pane active">
           <div class="panel panel-default">
             <div class="panel-body">
-              <%= render :partial => 'shared/sign_in_form' %>
+              <%= render :partial => 'shared/sign_in_form_header' %>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <a href="<%= login_path %>#log-in">
-      <%= _('My Account') %>
-    </a>
   <% end %>
 </li>

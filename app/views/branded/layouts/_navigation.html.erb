@@ -26,19 +26,19 @@ root_path) %>
           </a>
           <ul class="dropdown-menu dmpopidor-dropdown">
             <li <%= 'class=active' if active_page?(plans_path, true) %>>
-              <%= link_to _('My Dashboard'), plans_path+"#dashboard" %>
+              <%= link_to _('My Dashboard'), plans_path+"#content" %>
             </li>
             <li role="separator" class="divider"></li>
             <li <%= 'class=active' if active_page?(new_plan_path(context: 'research_project'), true) %>>
-              <%= link_to _('Create plan for a Research Project'), new_plan_path(context: 'research_project')+"#new_plan" %>
+              <%= link_to _('Create plan for a Research Project'), new_plan_path(context: 'research_project')+"#content" %>
             </li>
             <li role="separator" class="divider"></li>
             <li <%= 'class=active' if active_page?(new_plan_path(context: 'research_structure'), true) %>>
-              <%= link_to _('Create plan for a Research Structure'), new_plan_path(context: 'research_structure')+"#new_plan" %>
+              <%= link_to _('Create plan for a Research Structure'), new_plan_path(context: 'research_structure')+"#content" %>
             </li>
             <li role="separator" class="divider"></li>
             <li <%= 'class=active' if active_page?(import_plans_path, true) %>>
-              <%= link_to _('Import DMP'), import_plans_path+"#import_plan" %>
+              <%= link_to _('Import DMP'), import_plans_path+"#content" %>
             </li>
           </ul>
       </li>
@@ -46,7 +46,7 @@ root_path) %>
       <% end %>
     </ul>
     <li <%= 'class=active' if active_page?(help_path, true) %>>
-    <%= link_to _('Help'), help_path %>
+    <%= link_to _('Help'), help_path+"#content" %>
     </li>
 
     <li class="delimiter">&#x25cf;</li>
@@ -60,13 +60,13 @@ root_path) %>
 
         <ul class="dropdown-menu dmpopidor-dropdown">
           <li <%= 'class=active' if active_page?(public_plans_path) %>>
-            <%= link_to _('Public DMPs'), public_plans_path+"#plans" %>
+            <%= link_to _('Public DMPs'), public_plans_path+"#content" %>
           </li>
 
           <li role="separator" class="divider"></li>
 
           <li <%= 'class=active' if active_page?(public_templates_path) %>>
-            <%= link_to _('DMP Templates'), public_templates_path+"#templates" %>
+            <%= link_to _('DMP Templates'), public_templates_path+"#content" %>
           </li>
        </ul>
      </li>
