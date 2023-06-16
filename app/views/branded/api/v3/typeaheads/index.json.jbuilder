@@ -8,6 +8,10 @@ json.items @items do |item|
   end
 
   if item.is_a?(Repository)
+    json.partial! 'api/v3/repositories/show', locals: { repo: item }
+  end
+
+  if item.is_a?(Hash)
 
   end
 end

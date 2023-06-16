@@ -2,7 +2,7 @@
 
 module Api
   module V3
-    # Endpoints for Work in Progress (WIP) DMPs
+    # Endpoints that act as the backend to Typeahead fields in the React UI
     class TypeaheadsController < BaseApiController
       MSG_INVALID_SEARCH = 'Search must be at least 3 characters.'
 
@@ -35,13 +35,9 @@ module Api
 
         # Search the RegistryOrg table first because it has the most extensive search (e.g. acronyms,
         # alternate names, URLs, etc.)
-        ror_matches = registry_orgs_search(term: term)
-
-        # Search the Orgs table next for Orgs that are not connected to ROR yet
-        local_matches = orgs_search(term: term)
-
+        # Then search the Orgs table for Orgs that are not connected to a ROR yet
+        matches = (registry_orgs_search(term: term) + orgs_search(term: term)).flatten.compact.uniq
         # Prepare the results
-        matches = (ror_matches + local_matches).flatten.compact.uniq
         @items = process_results(term: term, matches: matches)
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
       rescue StandardError => e
@@ -51,7 +47,13 @@ module Api
 
       # GET /api/v3/repositories?search={term}
       def repositories
+        term = typeahead_params[:search]
+        render_error(errors: MSG_INVALID_SEARCH, status: :bad_request) and return if term.blank? || term.length < 3
 
+        # Search the Repositories by type,
+        matches = Repository.search(term)
+        @items = process_results(term: term, matches: matches)
+        render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::TypeaheadsController.repositories #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)

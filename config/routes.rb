@@ -120,17 +120,27 @@ Rails.application.routes.draw do
   # content, saving content, etc.
   namespace :api, defaults: { format: :json } do
     namespace :v3 do
+      # Retrieves the current user's info
       get :me, controller: :base_api
 
+      # React UI typeahead searches
       get :funders, controller: :typeaheads
       get :orgs, controller: :typeaheads
       get :repositories, controller: :typeaheads
 
-      resources :wips, path: :dmps, only: %i[index create destroy show update] do
-        member do
-          get :narrative
-        end
-      end
+      # React UI radio button and select box options
+      get :contributor_roles, controller: :options
+
+      # Work in progress DMPs
+      resources :wips, path: :dmps, only: %i[index create destroy show update]
+
+      # Proxies that call out to the DMPHub for award/grant searches
+      get 'awards/crossref/:fundref_id', controller: :proxies, action: :crossref_awards
+      get 'awards/nih', controller: :proxies, action: :nih_awards
+      get 'awards/nsf', controller: :proxies, action: :nsf_awards
+
+      # Proxies that call out to the DMPHub for DMP ID management
+      resources :dmp_ids, only: %i[index create destroy show update]
     end
   end
 

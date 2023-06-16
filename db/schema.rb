@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_14_181119) do
+ActiveRecord::Schema.define(version: 2023_06_15_174631) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -523,9 +523,9 @@ ActiveRecord::Schema.define(version: 2023_06_14_181119) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "api_target"
-    t.string "api_label"
     t.text "api_guidance"
     t.string "api_auth_target"
+    t.json "api_query_fields"
     t.index ["file_timestamp"], name: "index_registry_orgs_on_file_timestamp"
     t.index ["fundref_id"], name: "index_registry_orgs_on_fundref_id"
     t.index ["name"], name: "index_registry_orgs_on_name"
@@ -559,7 +559,6 @@ ActiveRecord::Schema.define(version: 2023_06_14_181119) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uri", null: false
-    t.integer "custom_repository_owner_template_id"
     t.index ["homepage"], name: "index_repositories_on_homepage"
     t.index ["name"], name: "index_repositories_on_name"
   end
@@ -582,8 +581,6 @@ ActiveRecord::Schema.define(version: 2023_06_14_181119) do
 
   create_table "research_outputs", charset: "utf8mb3", force: :cascade do |t|
     t.integer "plan_id"
-    t.integer "output_type", default: 3, null: false
-    t.string "output_type_description"
     t.string "title", null: false
     t.string "abbreviation"
     t.integer "display_order"
@@ -599,7 +596,6 @@ ActiveRecord::Schema.define(version: 2023_06_14_181119) do
     t.bigint "license_id"
     t.string "research_output_type", default: "dataset", null: false
     t.index ["license_id"], name: "index_research_outputs_on_license_id"
-    t.index ["output_type"], name: "index_research_outputs_on_output_type"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
   end
 
@@ -820,8 +816,6 @@ ActiveRecord::Schema.define(version: 2023_06_14_181119) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"

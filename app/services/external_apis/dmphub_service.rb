@@ -73,6 +73,41 @@ module ExternalApis
         Rails.configuration.x.dmphub&.callback_method&.downcase&.to_sym || super
       end
 
+      # Proxy a call to one of the funder API searches that resides in the DMPHub AWS based API Gateway
+      def proxied_award_search(api_target:, args: {})
+        authorized = auth
+        notify_administrators(obj: api_target, response: 'Unable to authenticate with DMPHub!') unless authorized
+        return [] unless api_target.is_a?(String) && args.is_a?(Hash) && args.values.any? && authorized
+
+        query_string = args.keys.map { |key| "#{key}=#{args[key].to_s}" }.join('&')
+        uri = URI("#{api_base_url}#{api_target}?#{query_string}")
+
+        opts = {
+          follow_redirects: true,
+          limit: 3,
+          headers: {
+            'Authorization': @token,
+            'Server-Agent': "#{caller_name} (#{client_id})",
+            'Accept': 'application/json'
+          }
+        }
+        # opts[:debug_output] = $stdout
+
+        resp = HTTParty.get(uri, opts)
+        unless resp.code == 200
+          puts "DMPHub unable to search the API at #{uri.to_s} :: received a #{resp.code}"
+          puts resp.body.inspect
+          handle_http_failure(method: 'DMPHub proxied_award_search', http_response: resp)
+          notify_administrators(obj: args, response: resp)
+          return nil
+        end
+
+        JSON.parse(resp.body)['items']
+      rescue StandardError => e
+        puts "FATAL: #{e.message}"
+        log_error(method: 'DmphubService.proxied_award_search', error: e)
+      end
+
       # Create a new DMP ID
       # rubocop:disable Metrics/AbcSize
       def mint_dmp_id(plan:)
@@ -272,14 +307,17 @@ module ExternalApis
             'Content-Type': 'application/x-www-form-urlencoded',
             'Accept': 'application/json'
           },
-          body: "grant_type=client_credentials&scope=#{scopes}"
+          body: "grant_type=client_credentials&scope=#{scopes}",
+          debug: true
         }
         # opts[:debug_output] = $stdout
+
         resp = HTTParty.post("#{auth_url}#{token_path}", opts)
         unless resp.present? && resp.code == 200
           handle_http_failure(method: 'DMPHub mint_dmp_id', http_response: resp)
           return nil
         end
+
         @token = process_token(json: resp.body)
         @token.present?
       end

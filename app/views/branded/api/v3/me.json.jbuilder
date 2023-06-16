@@ -8,7 +8,6 @@ if current_user.present?
     json.givenname user.firstname
     json.surname user.surname
     json.mbox user.email
-    json.token user.ui_token
 
     if user.org.present? && ['No funder', 'Non Partner Institution'].exclude?(user.org.name)
       json.affiliation do
