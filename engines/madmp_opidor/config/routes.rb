@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   resources :registries, only: %i[show] do
     get 'load_values', action: :load_values, on: :collection
+    get 'by_name/:name', action: :by_name, on: :collection
   end
 
   resources :api_client_roles, only: %i[create update destroy]
