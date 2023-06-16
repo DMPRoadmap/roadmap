@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.partial! 'api/v2/standard_response'
+json.partial! 'api/v3/standard_response'
 
 if current_user.present?
   json.items [current_user] do |user|
@@ -8,7 +8,6 @@ if current_user.present?
     json.givenname user.firstname
     json.surname user.surname
     json.mbox user.email
-    json.token user.ui_token
 
     if user.org.present? && ['No funder', 'Non Partner Institution'].exclude?(user.org.name)
       json.affiliation do

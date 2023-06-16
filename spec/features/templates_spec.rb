@@ -218,59 +218,59 @@ RSpec.describe 'Org admin template preferences' do
 
     # Enable default Output Types
     find('#customize_output_types_sel').find('option[value="0"]').select_option
-    expect(page).to have_selector('#default-output-types')
-    expect(page).not_to have_selector('#my-output-types')
+    expect(page).to have_selector('#default-output_types')
+    expect(page).not_to have_selector('#my-output_types')
 
     # Enable My Output Types
     find('#customize_output_types_sel').find('option[value="1"]').select_option
-    expect(page).not_to have_selector('#default-output-types')
-    expect(page).to have_selector('#my-output-types')
+    expect(page).not_to have_selector('#default-output_types')
+    expect(page).to have_selector('#my-output_types')
 
     # Enable default Output Types
     find('#customize_output_types_sel').find('option[value="0"]').select_option
-    expect(page).to have_selector('#default-output-types')
-    expect(page).not_to have_selector('#my-output-types')
+    expect(page).to have_selector('#default-output_types')
+    expect(page).not_to have_selector('#my-output_types')
 
     # Enable My Output Types + Standard Types
     find('#customize_output_types_sel').find('option[value="2"]').select_option
-    expect(page).not_to have_selector('#default-output-types')
-    expect(page).to have_selector('#my-output-types')
+    expect(page).not_to have_selector('#default-output_types')
+    expect(page).to have_selector('#my-output_types')
 
     # Verify that standard output types are in the My Output Types list
     ot_len = ResearchOutput.output_types.length
     find('#customize_output_types_sel').find('option[value="0"]').select_option
-    expect(page).to have_selector('#default-output-types li', count: ot_len)
+    expect(page).to have_selector('#default-output_types li', count: ot_len)
 
     # Return to "My Output Types", verify that the standard Output Types have been removed
     find('#customize_output_types_sel').find('option[value="1"]').select_option
-    expect(page).to have_selector('#my-output-types li', count: 0)
+    expect(page).to have_selector('#my-output_types li', count: 0)
 
     # Add a custom output type and count results
     find('#new_output_type').set('aaa')
-    click_button _('Add an output type')
-    expect(page).to have_selector('#my-output-types li', count: 1)
+    click_button _('Add output type')
+    expect(page).to have_selector('#my-output_types li', count: 1)
 
     # Add a custom output type and count results
     find('#new_output_type').set('bbb')
-    click_button _('Add an output type')
-    expect(page).to have_selector('#my-output-types li', count: 2)
+    click_button _('Add output type')
+    expect(page).to have_selector('#my-output_types li', count: 2)
 
     # disallow duplicate value addition
     find('#new_output_type').set('aaa')
-    click_button _('Add an output type')
-    expect(page).to have_selector('#my-output-types li', count: 2)
+    click_button _('Add output type')
+    expect(page).to have_selector('#my-output_types li', count: 2)
 
     # Enable My Output Types + Standard Types
     find('#customize_output_types_sel').find('option[value="2"]').select_option
-    expect(page).to have_selector('#my-output-types li', count: ot_len + 2)
+    expect(page).to have_selector('#my-output_types li', count: ot_len + 2)
 
     # delete one standard selection and count results
-    find('#my-output-types li.standard a.output_type_remove', match: :first).click
-    expect(page).to have_selector('#my-output-types li', count: ot_len + 2 - 1)
+    find('#my-output_types li.standard a.output_type_remove', match: :first).click
+    expect(page).to have_selector('#my-output_types li', count: ot_len + 2 - 1)
 
     # enable My Output Types and verify that only standard items were remvoed
     find('#customize_output_types_sel').find('option[value="1"]').select_option
-    expect(page).to have_selector('#my-output-types li', count: 2)
+    expect(page).to have_selector('#my-output_types li', count: 2)
     click_button 'Save Preferences'
   end
 
@@ -285,17 +285,15 @@ RSpec.describe 'Org admin template preferences' do
     click_link 'Preferences'
 
     find('#customize_output_types_sel').find('option[value="0"]').select_option
-    expect(page).to have_selector('#default-output-types')
-    expect(page).not_to have_selector('#my-output-types')
+    expect(page).to have_selector('#default-output_types')
+    expect(page).not_to have_selector('#my-output_types')
 
     find('#customize_output_types_sel').find('option[value="1"]').select_option
-    expect(page).not_to have_selector('#default-output-types')
-    expect(page).to have_selector('#my-output-types')
+    expect(page).not_to have_selector('#default-output_types')
+    expect(page).to have_selector('#my-output_types')
 
     click_button 'Save Preferences'
-    text = page.driver.browser.switch_to.alert.text
-    expect(text).to eq 'At least one preferred OUTPUT TYPE must be selected if you are enabling a preferred list.'
-    page.driver.browser.switch_to.alert.dismiss
+    expect(page).to have_text('At least one preferred OUTPUT TYPE must be selected if you are enabling a preferred list.')
   end
 
   describe 'Repositories Selection' do
@@ -359,6 +357,8 @@ RSpec.describe 'Org admin template preferences' do
       expect(page).to have_selector('#modal-search-repositories-results nav', count: 2)
       expect(page).to have_selector('#modal-search-repositories-results div.modal-search-result', count: 3)
 
+      sleep(2) # wait for results to load
+
       # select the first item
       within(all('div.modal-search-result')[0]) do
         click_link 'Select'
@@ -400,55 +400,6 @@ RSpec.describe 'Org admin template preferences' do
       text = page.driver.browser.switch_to.alert.text
       expect(text).to eq 'At least one preferred REPOSITORY must be selected if you are enabling a preferred list.'
       page.driver.browser.switch_to.alert.dismiss
-    end
-
-    it 'Add Custom Repositories for Template', :js do
-      # Action
-      click_button 'Admin'
-      click_link 'Templates'
-
-      click_button 'Actions'
-      click_link 'Edit'
-
-      click_link 'Preferences'
-
-      # Verify no custom repositories have been defined
-      expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 0)
-
-      # Open the Define Custom Repository Dialog and save a new item
-      click_button 'Define a Custom Repository'
-      expect(page).to have_selector('#save_custom_repository:disabled')
-
-      find('#template_custom_repo_name').set('Name 1')
-      find('#template_custom_repo_description').set('Description 1')
-      # check modal validation rules
-      expect(page).to have_selector('#save_custom_repository:disabled')
-      find('#template_custom_repo_uri').set('Url 1')
-      expect(page).to have_selector('#save_custom_repository:enabled')
-      click_button 'Save Repository for Template'
-
-      # Count custom repositories
-      expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 1)
-
-      # Open the Define Custom Repository Dialog and save a new item
-      click_button 'Define a Custom Repository'
-
-      find('#template_custom_repo_name').set('Name 2')
-      find('#template_custom_repo_description').set('Description 2')
-      find('#template_custom_repo_uri').set('Url 2')
-      click_button 'Save Repository for Template'
-
-      # Count custom repositories
-      expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 2)
-
-      # Remove a custom repository
-      within(all('div.customized_repositories div.modal-search-result')[0]) do
-        click_link 'Remove'
-      end
-
-      # Count custom repositories
-      expect(page).to have_selector('div.customized_repositories div.modal-search-result', count: 1)
-      click_button 'Save Preferences'
     end
   end
 
@@ -618,17 +569,17 @@ RSpec.describe 'Org admin template preferences' do
 
       # Add a non-standard license (value 1)
       find('#new_license').find('option[value="1"]').select_option
-      click_button _('Add a license')
+      click_button _('Add license')
       expect(page).to have_selector('#my-licenses li', count: pl_len + 1)
 
       # Add a non-standard license (value 2)
       find('#new_license').find('option[value="2"]').select_option
-      click_button _('Add a license')
+      click_button _('Add license')
       expect(page).to have_selector('#my-licenses li', count: pl_len + 2)
 
       # Attempt to re-add non-standard license (value 2)
       find('#new_license').find('option[value="2"]').select_option
-      click_button _('Add a license')
+      click_button _('Add license')
       expect(page).to have_selector('#my-licenses li', count: pl_len + 2)
 
       # delete one standard selection
@@ -660,9 +611,7 @@ RSpec.describe 'Org admin template preferences' do
       find('#my-licenses li a.license_remove', match: :first).click until all('#my-licenses li a.license_remove').empty?
 
       click_button 'Save Preferences'
-      text = page.driver.browser.switch_to.alert.text
-      expect(text).to eq 'At least one preferred LICENSE must be selected if you are enabling a preferred list.'
-      page.driver.browser.switch_to.alert.dismiss
+      expect(page).to have_text('At least one preferred LICENSE must be selected if you are enabling a preferred list.')
     end
   end
 end

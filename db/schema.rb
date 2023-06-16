@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_05_175309) do
+ActiveRecord::Schema.define(version: 2023_06_15_174631) do
+
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "annotations", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
     t.integer "question_id"
@@ -495,9 +523,9 @@ ActiveRecord::Schema.define(version: 2023_06_05_175309) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "api_target"
-    t.string "api_label"
     t.text "api_guidance"
     t.string "api_auth_target"
+    t.json "api_query_fields"
     t.index ["file_timestamp"], name: "index_registry_orgs_on_file_timestamp"
     t.index ["fundref_id"], name: "index_registry_orgs_on_fundref_id"
     t.index ["name"], name: "index_registry_orgs_on_name"
@@ -531,7 +559,6 @@ ActiveRecord::Schema.define(version: 2023_06_05_175309) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uri", null: false
-    t.integer "custom_repository_owner_template_id"
     t.index ["homepage"], name: "index_repositories_on_homepage"
     t.index ["name"], name: "index_repositories_on_name"
   end
@@ -554,8 +581,6 @@ ActiveRecord::Schema.define(version: 2023_06_05_175309) do
 
   create_table "research_outputs", charset: "utf8mb3", force: :cascade do |t|
     t.integer "plan_id"
-    t.integer "output_type", default: 3, null: false
-    t.string "output_type_description"
     t.string "title", null: false
     t.string "abbreviation"
     t.integer "display_order"
@@ -571,7 +596,6 @@ ActiveRecord::Schema.define(version: 2023_06_05_175309) do
     t.bigint "license_id"
     t.string "research_output_type", default: "dataset", null: false
     t.index ["license_id"], name: "index_research_outputs_on_license_id"
-    t.index ["output_type"], name: "index_research_outputs_on_output_type"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
   end
 
@@ -790,8 +814,8 @@ ActiveRecord::Schema.define(version: 2023_06_05_175309) do
     t.index ["identifier"], name: "index_wips_on_identifier"
   end
 
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"

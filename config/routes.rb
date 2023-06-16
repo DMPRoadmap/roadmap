@@ -105,12 +105,42 @@ Rails.application.routes.draw do
 
   post 'public_plans' => 'public_pages#plan_index'
 
-  # React UI
+  # React UI. These routes mimic the React router definitions in `react-client/src/App.js`. They are here so
+  # that the Rails app will render and serve the React app to the client in the event that they navigate to one of
+  # the React pages via a link, button, bookmark, refresh the browser page, etc.
   get 'dashboard' => 'dashboards#show'
-  resources :wips, path: :dmps, only: %i[index create new] do
+  resources :wips, path: :dmps, only: %i[index] do
     member do
       get :funders
       get :overview
+    end
+  end
+
+  # API v3 - support for the React UI. The React app calls these endpoints for typeahead functionality, fetching
+  # content, saving content, etc.
+  namespace :api, defaults: { format: :json } do
+    namespace :v3 do
+      # Retrieves the current user's info
+      get :me, controller: :base_api
+
+      # React UI typeahead searches
+      get :funders, controller: :typeaheads
+      get :orgs, controller: :typeaheads
+      get :repositories, controller: :typeaheads
+
+      # React UI radio button and select box options
+      get :contributor_roles, controller: :options
+
+      # Work in progress DMPs
+      resources :wips, path: :dmps, only: %i[index create destroy show update]
+
+      # Proxies that call out to the DMPHub for award/grant searches
+      get 'awards/crossref/:fundref_id', controller: :proxies, action: :crossref_awards
+      get 'awards/nih', controller: :proxies, action: :nih_awards
+      get 'awards/nsf', controller: :proxies, action: :nsf_awards
+
+      # Proxies that call out to the DMPHub for DMP ID management
+      resources :dmp_ids, only: %i[index create destroy show update]
     end
   end
 
@@ -275,7 +305,6 @@ Rails.application.routes.draw do
     # For more info see: https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
     namespace :v2 do
       get :heartbeat, controller: :base_api
-      get :me, controller: :base_api
 
       resources :plans, only: %i[create show index] do
         member do
