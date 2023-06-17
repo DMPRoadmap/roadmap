@@ -1,28 +1,28 @@
-import {useEffect, useState, Fragment} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {
-  api_path,
-  api_headers,
-  api_options
-} from '../utils.js';
+  useEffect,
+  useState,
+  Fragment,
+} from 'react';
+
+import {useNavigate} from 'react-router-dom';
+import {DmpApi} from '../api.js';
 
 import './dashboard.scss';
 
 function Dashboard() {
   const [projects, setProjects] = useState([]);
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({
+    givenname: '',
+    surname: '',
+  });
+
   let navigate = useNavigate();
 
   useEffect(() => {
-    // Hardcoding this because utils.js is throwing an error and I don't know why
-    //   Unexpected Application Error!
-    //     arguments[key].clone is not a function. (In 'arguments[key].clone()', 'arguments[key].clone' is undefined)
+    let api = new DmpApi();
 
-    let meUrl = 'http://localhost:3000/api/v3/me'
-    let meOptions = {};
-
-    // Call the local DMPTool Rails app's API to get the currently logged in user's info
-    fetch(meUrl, meOptions).then((resp) => {
+    let meUrl = api.getPath('/me');
+    fetch(api.getPath('/me'), api.getOptions()).then((resp) => {
       switch (resp.status) {
         case 200:
           return resp.json();
@@ -36,25 +36,11 @@ function Dashboard() {
           console.log(resp);
       }
     }).then((data) => {
-      console.log(data.items[0]);
       setUser(data.items[0]);
     });
 
-    // Hardcoding this because utils.js is throwing an error and I don't know why
-    //   Unexpected Application Error!
-    //     arguments[key].clone is not a function. (In 'arguments[key].clone()', 'arguments[key].clone' is undefined)
-    let url = 'http://localhost:3000/api/v3/dmps/'
-    let headers = new Headers();
-    headers.append('Accept', "application/json");
-    headers.append('Authorization', `Bearer ${user.token}`);
-    let options = Object.assign({
-      method: 'get',
-      mode: 'cors',
-      cache: 'no-cache',
-    }, headers);
-
     // Fetch the work in progress DMPs for the currently logged in user
-    fetch(url, options).then((resp) => {
+    fetch(api.getPath('/wips'), api.getOptions()).then((resp) => {
       console.log(resp);
 
       switch (resp.status) {
@@ -74,10 +60,14 @@ function Dashboard() {
           console.log(resp);
       }
     }).then((data) => {
+      // console.log(data.items);
+      // setProjects(data.items);
       console.log(data.items);
-      setProjects(data.items);
+      // console.log(data.items.map(i => JSON.parse(i)));
+      // setProjects(data.items.map(i => JSON.parse(i)));
     });
   }, []);
+
 
   function dmp_id_for(dmp) {
     return dmp.dmphub_wip_id.identifier;

@@ -1,18 +1,17 @@
+import useContext from 'react';
 import {useNavigate} from 'react-router-dom';
-import {
-  api_path,
-  api_headers,
-  api_options,
-} from '../../utils.js';
+import {DmpApi} from '../../api';
 
-import './setup.scss';
+import './new.scss';
 
 
-function PlanSetup() {
+function PlanNew() {
   let navigate = useNavigate();
   let dmpData = {};
 
   function handleSubmit(ev) {
+    let api = new DmpApi();
+
     ev.preventDefault();
     console.log('Submit Form');
 
@@ -23,20 +22,19 @@ function PlanSetup() {
     formData.forEach((value, key) => stepData[key] = value);
 
     // Make the save request
-    let url = api_path('/wips');
-    let options = api_options({
+    let options = api.getOptions({
       method: "post",
-      headers: api_headers(),
       body: JSON.stringify({
         "dmp": {
           "title": stepData['project_name'],
           "dmphub_owner": {
-            "mbox": "jane.doe@example.com"
+            "mbox": api.me.mbox,
           },
         },
       }),
     });
-    fetch(url, options).then((resp) => {
+
+    fetch(api.getPath('/wips'), options).then((resp) => {
       switch (resp.status) {
         case 200:
           return resp.json();
@@ -59,8 +57,8 @@ function PlanSetup() {
   // onClick={() => navigate("/dmps/funders")}
 
   return (
-    <div id="planSetup">
-      <h2>Plan Setup</h2>
+    <div id="planNew">
+      <h2>New Plan</h2>
 
       <form method="post" onSubmit={handleSubmit}>
         <div className="form-field required">
@@ -102,4 +100,4 @@ function PlanSetup() {
   )
 }
 
-export default PlanSetup
+export default PlanNew;

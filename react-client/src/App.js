@@ -1,14 +1,16 @@
 import React from 'react';
+
 import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
 
-import './App.css';
 import Dashboard from './pages/dashboard';
-import PlanSetup from './pages/plan/setup';
+import PlanNew from './pages/plan/new';
 import PlanOverview from './pages/plan/overview';
 import PlanFunders from './pages/plan/funder';
+
+import './App.css';
 
 
 const router = createBrowserRouter([
@@ -19,7 +21,7 @@ const router = createBrowserRouter([
 
   {
     path: "/dmps/new",
-    element: <PlanSetup />
+    element: <PlanNew />
   },
 
   {
@@ -34,6 +36,7 @@ const router = createBrowserRouter([
     element: <PlanOverview />
   },
 ]);
+
 
 function App() {
   return (
