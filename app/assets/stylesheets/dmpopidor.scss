@@ -76,6 +76,7 @@ body div a.btn {
 
   .dmpopidor-dropdown {
     background-color: $white;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
 
     li {
 
@@ -488,6 +489,52 @@ ul.nav li ul.dropdown-menu {
 /*
     PLAN CREATION
 */
+#maincontent {
+  div.tab-content {
+    display: flex;
+    flex-direction: column;
+
+    &>div {
+
+      &:not(#sign-in-form):not(#create-account-form) {
+
+        div {
+          h1 {
+            margin: 30px;
+          }
+
+          div.plan-details {
+            &>div {
+
+              &:first-of-type {
+                display: grid;
+                grid-template-rows: .1fr 2fr;
+                grid-gap: 20px;
+              }
+
+              .anr-import {
+                grid-column-start: 1;
+                grid-column-end: 3;
+              }
+
+              .project-meta {
+                height: max-content;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  div.sign-in {
+    div.tab-content {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}
+
 
 .plan-form {
   .tab-content {
@@ -675,5 +722,51 @@ li a[rel="nofollow"][data-method="patch"] {
   &:hover {
     background-color: $dark-blue;
     color: $white;
+  }
+}
+
+
+/* 
+    BACK TO TOP BUTTON
+*/
+
+.back-to-top-wrapper {
+  position: absolute;
+  top: 100vh;
+  right: 0.25rem;
+  bottom: 0;
+  width: 3em;
+  pointer-events: none;
+  margin-top: 10em;
+  z-index: 5;
+}
+
+.back-to-top-link {
+  position: fixed;
+  position: sticky;
+  pointer-events: all;
+  top: calc(100vh - 15rem);
+
+  // basic styling
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none !important;
+  font-size: 4rem;
+  line-height: 3rem;
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  background-color: $white;
+  border-radius: 50%;
+  transition: transform 80ms ease-in;
+
+  i {
+    color: $dark-blue;
+  }
+
+  &:hover,
+  &:focus {
+    transform: scale(1.2);
   }
 }
