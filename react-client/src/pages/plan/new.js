@@ -27,14 +27,15 @@ function PlanNew() {
       body: JSON.stringify({
         "dmp": {
           "title": stepData['project_name'],
-          "dmphub_owner": {
-            "mbox": api.me.mbox,
-          },
+          //
+          // "dmphub_owner": {
+          //   "mbox": api.me.mbox,
+          // },
         },
       }),
     });
 
-    fetch(api.getPath('/wips'), options).then((resp) => {
+    fetch(api.getPath('/dmps'), options).then((resp) => {
       switch (resp.status) {
         case 200:
           return resp.json();
@@ -49,12 +50,11 @@ function PlanNew() {
       }
     }).then((data) => {
       console.log('Handle Response');
-      console.log(data.items.map(i => JSON.parse(i)));
+      console.log(data);
+      // console.log(data.items.map(i => JSON.parse(i)));
       // navigate("/dmps/overview");
     });
   }
-
-  // onClick={() => navigate("/dmps/funders")}
 
   return (
     <div id="planNew">

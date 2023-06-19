@@ -40,7 +40,7 @@ function Dashboard() {
     });
 
     // Fetch the work in progress DMPs for the currently logged in user
-    fetch(api.getPath('/wips'), api.getOptions()).then((resp) => {
+    fetch(api.getPath('/dmps'), api.getOptions()).then((resp) => {
       console.log(resp);
 
       switch (resp.status) {
@@ -60,9 +60,8 @@ function Dashboard() {
           console.log(resp);
       }
     }).then((data) => {
-      // console.log(data.items);
-      // setProjects(data.items);
       console.log(data.items);
+      setProjects(data.items);
       // console.log(data.items.map(i => JSON.parse(i)));
       // setProjects(data.items.map(i => JSON.parse(i)));
     });
