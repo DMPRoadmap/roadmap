@@ -182,25 +182,27 @@ header.dmpopidor-branding {
             }
           }
 
-          &:hover {
-            div.dropdown-menu {
-              display: grid;
-              justify-content: center;
-              align-items: center;
-              width: max-content;
-              grid-template-rows: repeat(2, 1fr);
-              grid-auto-flow: column;
-              padding: 0;
+          @media (min-width: 768px) {
+            &:hover {
+              div.dropdown-menu {
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                width: max-content;
+                grid-template-rows: repeat(2, 1fr);
+                grid-auto-flow: column;
+                padding: 0;
 
-              div {
-                padding: 10px 0;
-                margin: 0;
-                place-self: flex-start;
-                justify-self: center;
-                width: 100%;
+                div {
+                  padding: 10px 0;
+                  margin: 0;
+                  place-self: flex-start;
+                  justify-self: center;
+                  width: 100%;
 
-                ul {
-                  display: block;
+                  ul {
+                    display: block;
+                  }
                 }
               }
             }
@@ -232,32 +234,34 @@ header.dmpopidor-branding {
 
           a {
 
-            &:hover,
-            &:focus {
-              &+div.dropdown-menu {
-                display: grid;
-                justify-content: center;
-                align-items: center;
-                width: max-content;
-                grid-template-rows: repeat(2, 1fr);
-                grid-auto-flow: column;
-                padding: 0;
+            @media (min-width: 768px) {
 
-                div {
-                  padding: 10px 0;
-                  margin: 0;
-                  place-self: flex-start;
-                  justify-self: center;
-                  width: 100%;
+              &:hover,
+              &:focus {
+                &+div.dropdown-menu {
+                  display: grid;
+                  justify-content: center;
+                  align-items: center;
+                  width: max-content;
+                  grid-template-rows: repeat(2, 1fr);
+                  grid-auto-flow: column;
+                  padding: 0;
 
-                  ul {
-                    display: block;
+                  div {
+                    padding: 10px 0;
+                    margin: 0;
+                    place-self: flex-start;
+                    justify-self: center;
+                    width: 100%;
+
+                    ul {
+                      display: block;
+                    }
                   }
                 }
               }
             }
           }
-
 
           ul.dropdown-menu {
             width: 100%;
