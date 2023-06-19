@@ -94,6 +94,12 @@
   }
 
   .footer-cc {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #193155;
+    padding: 10px 0 10px 0;
+
     .footer-infos {
       align-items: center;
       display: flex;
