@@ -68,7 +68,9 @@ class MadmpCodebaseController < ApplicationController
     # file_path = Rails.root.join("config/madmp/schemas/anr_example_data.json")
     # response = JSON.load(File.open(file_path))
     # dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
+
     # render json: {
+    #   'fragment' => dmp_fragment.get_full_fragment,
     #   "message" => _('New data have been added to your plan, please click on the "Reload" button.')
     # }, status: 200
     # return
@@ -78,7 +80,7 @@ class MadmpCodebaseController < ApplicationController
       if response['return_code'].eql?(0)
         dmp_fragment.raw_import(response['data'], dmp_fragment.madmp_schema)
         render json: {
-          'fragment' => fragment.get_full_fragment,
+          'fragment' => dmp_fragment.get_full_fragment,
           'message' => _('New data have been added to your plan, please click on the "Reload" button.'),
           'needs_reload' => true
         }, status: 200
