@@ -1,5 +1,4 @@
 @use '../variables/colours' as *;
-@use '../dmpopidor/colours' as *;
 // Native HTML5 nav support
 
 /* Hide sub-menus by default */
@@ -71,78 +70,4 @@ nav ul {
 .nav-tabs>li>a,
 .nav-pills>li>a {
   border-radius: 0px;
-}
-
-.dropdown-menu {
-  position: relative;
-  top: unset;
-  left: unset;
-  z-index: unset;
-  float: unset;
-  min-width: unset;
-  padding: 5px 0;
-  margin: unset;
-  text-align: unset;
-  background-clip: unset;
-  box-shadow: unset;
-}
-
-@media (min-width: 768px) {
-
-  .navbar-default .navbar-nav>.open>a,
-  .navbar-default .navbar-nav>.open>a:hover,
-  .navbar-default .navbar-nav>.open>a:focus {
-    color: $dark-blue !important;
-    background-color: $white !important;
-  }
-}
-
-@media (max-width: 767px) {
-  nav {
-    ul li:hover>ul {
-      display: none;
-    }
-
-    li.delimiter {
-      display: none;
-    }
-  }
-
-  .navbar-default .navbar-nav .open .dropdown-menu>li>a {
-    color: $dark-blue !important;
-    text-align: center;
-    padding: 5px 25px;
-
-    &:hover {
-      font-weight: bold;
-    }
-  }
-
-  .navbar-default .navbar-nav>.open>a,
-  .navbar-default .navbar-nav>.open>a:hover,
-  .navbar-default .navbar-nav>.open>a:focus {
-    color: $dark-blue !important;
-    background-color: $white !important;
-  }
-
-  .navbar-default .navbar-nav .open .dropdown-menu>.active>a,
-  .navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu>.active>a:focus {
-    color: $white !important;
-    background-color: $dark-blue !important;
-  }
-
-  .navbar-default .navbar-nav>li>a:hover,
-  .navbar-default .navbar-nav>li>a:focus {
-    color: $dark-blue !important;
-  }
-
-  .navbar-default .navbar-nav>li>a {
-    color: $dark-blue !important;
-    text-decoration: none;
-  }
-
-  .navbar-collapse li {
-    text-align: center;
-  }
 }
