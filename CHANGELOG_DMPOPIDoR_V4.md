@@ -1,6 +1,15 @@
 # Liste des changements
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
+## 19/06/2023
+- Intégration de l'onglet Informations Générales
+  - L'import financeur est pour le moment limité aux données ANR. La liste des financeurs n'est affichée que lorsque qu'il existe plusieurs financeurs disponibles.
+  - Absence du choix de recommandations, déplacé dans l'onglet Rédiger (intégration en cours).
+Problèmes connus : 
+- Présence de texte fictif pour décrire le choix d'un modèle Structure ou Projet
+- Présente d'un problème de police d'écriture. Les polices utilisées dans l'onglet refondu ne sont pas correctement chargées.
+- L'import ANR pointant sur la VI, il est possible que certains projets soient manquants dans la liste proposée.
+
 
 ## 30/05/2023
 La charte graphique est encore en cours de travail, cette version intègre le nouveau formulaire de création de plan. Le menu principal a été changé pour ne proposer que l'option "Créer un plan".
