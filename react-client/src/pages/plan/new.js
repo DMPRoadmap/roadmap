@@ -1,6 +1,6 @@
 import useContext from 'react';
-import {useNavigate} from 'react-router-dom';
-import {DmpApi} from '../../api';
+import { useNavigate } from 'react-router-dom';
+import { DmpApi } from '../../api';
 
 import './new.scss';
 

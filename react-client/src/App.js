@@ -5,6 +5,8 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
+import TextInput from './components/text-input/textInput';
+
 import Dashboard from './pages/dashboard';
 import PlanNew from './pages/plan/new';
 import PlanOverview from './pages/plan/overview';
@@ -47,6 +49,22 @@ function App() {
       </header>
       */}
       <main>
+
+
+        <p>
+          This is the main content
+        </p>
+
+        <TextInput
+          label="Project Name"
+          type="text"
+          name="project_name"
+          id="project_name"
+          placeholder="Enter the name of your project"
+          help="This is the name of your project"
+          error="Please complete this field"
+        />
+
         <RouterProvider router={router} />
       </main>
       {/*
@@ -55,8 +73,9 @@ function App() {
           Footer content
         </p>
       </footer>
-      */}
-    </div>
+    */}
+
+    </div >
   );
 }
 

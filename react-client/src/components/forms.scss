@@ -1,5 +1,7 @@
 /* Form components, and buttons */
-button, input[type="button"], input[type="submit"] {
+button,
+input[type="button"],
+input[type="submit"] {
   background-color: var(--btn-basic-bg-color);
   color: var(--btn-basic-fg-color);
   border: none;
@@ -23,6 +25,7 @@ button, input[type="button"], input[type="submit"] {
 
   .form-field-label {
     padding: 0.5em 0;
+
     label {
       font-weight: bold;
     }
@@ -33,11 +36,16 @@ button, input[type="button"], input[type="submit"] {
     flex-direction: column;
     padding: 0.5em 0;
 
-    & > * { margin-bottom: 0.5rem; }
+    &>* {
+      margin-bottom: 0.5rem;
+    }
 
-    input[type="text"] { width: 100%; }
+    input[type="text"] {
+      width: 100%;
+    }
 
-    input[type="text"], textarea {
+    input[type="text"],
+    textarea {
       box-sizing: border-box;
       border: 2px solid var(--form-field-border-color);
       border-radius: 3px;
@@ -63,11 +71,9 @@ button, input[type="button"], input[type="submit"] {
     flex-direction: row;
     justify-content: space-between;
 
-    .form-field-label {
+    .form-field-label {}
 
-    }
-
-    & > div {
+    &>div {
       flex: 1 1 auto;
       max-width: calc(50% - 1rem);
     }
@@ -82,7 +88,65 @@ button, input[type="button"], input[type="submit"] {
   justify-content: end;
   padding: 0.5rem;
 
-  & > * {
+  &>* {
     margin: 0.5rem;
   }
+}
+
+
+
+
+.dmpui-field-group {
+  margin-bottom: 1rem;
+  text-align: left;
+  max-width: 500px;
+
+  .dmpui-field-label {
+    font-weight: bold;
+    color: var(--form-field-label-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .dmpui-field-help {
+    font-size: 0.8em;
+    margin-bottom: 0.25rem;
+    color: #555;
+  }
+
+  .dmpui-field-error {
+    font-size: 0.8em;
+    margin-bottom: 0.25rem;
+    color: red;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    box-sizing: border-box;
+    border: 2px solid var(--form-field-border-color);
+    border-radius: 8px;
+    color: var(--form-field-fg-color);
+    background-color: var(--form-field-bg-color);
+    padding: 0.5rem 1rem;
+    width: 100%;
+
+
+    &:hover {
+      outline: none !important;
+      border: 2px solid var(--form-field-border-color);
+    }
+
+    &:focus {
+      outline: none !important;
+      border: 2px solid #000 !important;
+      box-shadow: inset 0 0 0 0dvi !important;
+    }
+
+    &:focus:invalid {
+      border-color: red;
+    }
+  }
+
+
 }

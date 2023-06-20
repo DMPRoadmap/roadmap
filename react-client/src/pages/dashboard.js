@@ -4,8 +4,8 @@ import {
   Fragment,
 } from 'react';
 
-import {useNavigate} from 'react-router-dom';
-import {DmpApi} from '../api.js';
+import { useNavigate } from 'react-router-dom';
+import { DmpApi } from '../api.js';
 
 import './dashboard.scss';
 
@@ -74,9 +74,10 @@ function Dashboard() {
 
   return (
     <div id="Dashboard">
-      <p>Welcome back {user.givenname } {user.surname}</p>
+      <p>Welcome back {user.givenname} {user.surname}</p>
       <p><a href="/plans" className="exit-prototype">Back to standard Dashboard</a></p>
 
+      
       <h2>
         Dashboard
         <button className="primary" onClick={() => navigate("/dmps/new")}>
@@ -98,10 +99,10 @@ function Dashboard() {
         <div data-colname="dmpId"></div>
         <div data-colname="status">
           Incomplete <br />
-          <progress max="10" value="7"/>
+          <progress max="10" value="7" />
         </div>
         <div data-colname="actions">
-          <a href="#">Complete</a>
+          <a href="/dmps/overview">Complete</a>
         </div>
 
         {projects.map(item => (
@@ -114,7 +115,7 @@ function Dashboard() {
             </div>
             <div data-colname="status">
               Incomplete <br />
-              <progress max="10" value="3"/>
+              <progress max="10" value="3" />
             </div>
             <div data-colname="actions">
               <a href="#">tbd…</a>

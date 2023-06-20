@@ -28,9 +28,10 @@ code {
   --btn-primary-fg-color: white;
 
   /* Form components */
+  --form-field-label-color: #050a69;
   --form-field-bg-color: white;
   --form-field-fg-color: #333;
-  --form-field-border-color: #aaa;
+  --form-field-border-color: #e1e1e1;
 
   --input-required-color: red;
 
@@ -69,7 +70,8 @@ header {
 
 footer {
   /* TODO:: */
-  padding: 1rem;;
+  padding: 1rem;
+  ;
 }
 
 main {
