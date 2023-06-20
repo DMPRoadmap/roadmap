@@ -16,6 +16,9 @@ module Api
       before_action :base_response_content
       before_action :pagination_params, except: %i[heartbeat me]
 
+      # Parse the incoming JSON
+      before_action :parse_request, only: %i[create update]
+
       # Record the API access
       after_action :log_access, except: %i[heartbeat]
 
