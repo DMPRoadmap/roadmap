@@ -17,7 +17,7 @@ function TextInput(props) {
     let errorClass = "";
     if (errorMsg) {
         errorClass = "has-error";
-        errorMsg = '<p className="dmpui-field-error">' + errorMsg + '</p>';
+        errorMsg = errorMsg;
     }
 
 
@@ -27,8 +27,8 @@ function TextInput(props) {
 
     return (
         <>
-            <div className={'dmpui-field-group ' + errorClass}
-
+            <div
+                className={'dmpui-field-group ' + errorClass}
             >
                 <label className="dmpui-field-label">
                     {props?.label ? props.label : ""}
@@ -37,8 +37,8 @@ function TextInput(props) {
                     {props?.help ? props.help : ""}
                 </p>
 
-                {errorMsg}
-
+                {errorMsg &&
+                    <p className="dmpui-field-error"> {errorMsg} </p>}
 
 
                 <div className="dmpui-field-input-group">
