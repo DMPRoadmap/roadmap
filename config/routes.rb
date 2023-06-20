@@ -109,7 +109,7 @@ Rails.application.routes.draw do
   # that the Rails app will render and serve the React app to the client in the event that they navigate to one of
   # the React pages via a link, button, bookmark, refresh the browser page, etc.
   get 'dashboard' => 'dashboards#show'
-  resources :wips, path: :dmps, only: %i[index] do
+  resources :wips, path: :dmps, only: %i[index new] do
     member do
       get :funders
       get :overview

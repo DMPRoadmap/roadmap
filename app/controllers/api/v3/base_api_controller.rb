@@ -8,10 +8,8 @@ module Api
 
       respond_to :json
 
-      # TODO: Clean this up after we've tested the initial `POST /dmps` endpoint from the React code.
-      #       We may not need to
-      # Skipping the standard Rails authenticity tokens passed in UI
-      # skip_before_action :verify_authenticity_token
+      skip_before_action :verify_authenticity_token
+
       before_action :authenticate
 
       # Prep default instance variables for views
@@ -31,6 +29,7 @@ module Api
       # Generic handler for sending an error back to the caller
       def render_error(errors:, status: :bad_request)
         @payload = { errors: [errors] }
+        Rails.logger.error "API V3 ERROR: status: #{status}, errors: #{errors.inspect}"
         render json: render_to_string(template: '/api/v3/error'), status: status
       end
 

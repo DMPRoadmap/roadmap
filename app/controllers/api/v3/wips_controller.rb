@@ -31,7 +31,7 @@ module Api
           render_error(errors: wip.errors.full_messages, status: :bad_request)
         end
       rescue ActionController::ParameterMissing => e
-        render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG}", status: :bad_request)
+        render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG} - #{e.message}", status: :bad_request)
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::WipsController.create #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
