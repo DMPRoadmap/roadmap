@@ -56,6 +56,9 @@ module Users
         # Add/update the omniauth credentials if necessary
         user.attach_omniauth_credentials(scheme_name: scheme_name, omniauth_hash: omniauth_hash)
 
+        # Refresh the User API token (used by React pages)
+        user.generate_ui_token!
+
         sign_in_and_redirect user, event: :authentication
       else
         handle_new_user_sign_in(
