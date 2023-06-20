@@ -6,11 +6,12 @@ module Api
     class PlanPresenter
       attr_reader :data_contact, :contributors, :costs, :client
 
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def initialize(plan:, client:)
         @contributors = []
         return if plan.blank?
 
-        host = Rails.env.development? ? 'http://localhost:3000' : ENV['DMPROADMAP_HOST']
+        host = Rails.env.development? ? 'http://localhost:3000' : ENV.fetch('DMPROADMAP_HOST', nil)
         host = Rails.configuration.x.dmproadmap&.server_host if host.nil?
         host = "https://#{host}" unless host&.start_with?('http')
         @callback_base_url = "#{host}/api/v2/"
@@ -28,6 +29,7 @@ module Api
 
         @costs = plan_costs(plan: @plan)
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Extract the ARK or DOI for the DMP OR use its URL if none exists
       def identifier

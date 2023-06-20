@@ -46,18 +46,18 @@ namespace :v4 do
     end
 
     # Add the references to the new custom_repositories table and delete the old reference in the repositories table
-    custom_repos.each do |name, repo|
+    custom_repos.each do |_name, repo|
       tmplt = Template.joins(:customized_repositories).includes(:customized_repositories)
                       .where('repositories.id = ?', repo.id).first
       next if tmplt.nil?
 
       puts "Updating refernces to custom repository #{repo.id} for template #{tmplt.id}"
-      puts "  - Dropping old reference to custom repo"
+      puts '  - Dropping old reference to custom repo'
       sql = "UPDATE repositories SET custom_repository_owner_template_id = NULL WHERE id = #{repo.id}"
       # Need to do a raw SQL query here because the foreign key field isn't accessible
       ActiveRecord::Base.connection.execute(sql)
       unless tmplt.repositories.include?(repo)
-        puts "  - Adding custom repo reference to repositories association"
+        puts '  - Adding custom repo reference to repositories association'
         tmplt.repositories << repo
       end
       tmplt.save
