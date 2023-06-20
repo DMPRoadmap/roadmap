@@ -41,19 +41,21 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div id="App">
+      {/*
       <header className="todo">
         <h1>DMPTool v5</h1>
       </header>
-
+      */}
       <main>
         <RouterProvider router={router} />
       </main>
-
+      {/*
       <footer className="todo">
         <p>
           Footer content
         </p>
       </footer>
+      */}
     </div>
   );
 }
