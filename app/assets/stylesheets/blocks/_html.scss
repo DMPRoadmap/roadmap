@@ -11,6 +11,15 @@ html {
   scrollbar-width: thin;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: $white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $dark-blue;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
