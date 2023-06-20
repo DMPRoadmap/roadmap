@@ -12,7 +12,7 @@
     <legend>
       <p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.configuration.x.plans.default_percentage_answered } %></p>
     </legend>
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <div class="radio">
         <%= label_tag :visibility_privately_visible do %>
           <%= f.radio_button :visibility, :privately_visible,
@@ -63,7 +63,7 @@
                 <span><%= display_role(role) %></span>
             <% else %>
                 <% if administerable && role.user != current_user %>
-                  <div class="form-group col-xs-8">
+                  <div class="form-group mb-3 col-xs-8">
                     <%= fields_for role do |f| %>
                       <% options = [
                         ["#{display_role(administrator)}", administrator.access],
@@ -103,7 +103,7 @@
   <% new_role = Role.new %>
   <% new_role.plan = @plan %>
   <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
-    <div class="form-group col-xs-6">
+    <div class="form-group mb-3 col-xs-6">
       <%= f.hidden_field :plan_id %>
       <%= f.fields_for :user, new_role.user do |user| %>
         <%= user.label :email, _('Email'), class: 'control-label'%>
@@ -122,7 +122,7 @@
                     title: permissions_tooltip,
                     'data-placement':'right' do %>
       <%= content_tag :legend , _('Permissions') %>
-      <div class="form-group">
+      <div class="form-group mb-3">
         <div class="radio">
           <%= f.label :administrator_access do %>
             <%= f.radio_button :access, administrator.access, id: "role_administrator_access", "aria-required": true, required: true %>
@@ -144,7 +144,7 @@
       </div>
     <% end %>
     <div class="clearfix"></div>
-    <div class="form-group col-xs-2">
+    <div class="form-group mb-3 col-xs-2">
     <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
     </div>
   <% end %>

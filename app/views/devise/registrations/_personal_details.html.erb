@@ -6,24 +6,24 @@
   <p class="form-control-static"><%= _('You can edit any of the details below.') %></p>
   <%= hidden_field_tag :unlink_flag, "false", id: 'unlink_flag' %>
 
-  <div class="form-group col-xs-8">
+  <div class="form-group mb-3 col-xs-8">
     <%= f.label(:email, _('Email'), class: 'control-label') %>
     <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email) %>
     <%= hidden_field_tag :original_email, @user.email %>
   </div>
 
-  <div class="form-group col-xs-8">
+  <div class="form-group mb-3 col-xs-8">
     <%= f.label(:firstname, _('First name'), class: 'control-label') %>
     <%= f.text_field(:firstname, class: "form-control", "aria-required": true, value: @user.firstname) %>
   </div>
 
-  <div class="form-group col-xs-8">
+  <div class="form-group mb-3 col-xs-8">
     <%= f.label(:surname, _('Last name'), class: 'control-label') %>
     <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
   </div>
 
   <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
-  <div class="form-group col-xs-8" id="profile-org-controls" <%= "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
+  <div class="form-group mb-3 col-xs-8" id="profile-org-controls" <%= "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
     <%= render partial: org_partial,
                locals: {
                  form: f,
@@ -38,7 +38,7 @@
 
     <% departments = current_user.org.departments.order(:name) %>
     <% if departments.count > 0 %>
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <% dept_id = current_user.department.nil? ? -1 : current_user.department.id  %>
       <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
       <%= select_tag("user[department_id]",
@@ -50,7 +50,7 @@
     <% end %>
 
   <% if Language.many? %>
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <% lang_id = current_user.language.nil? ? Language.default.id : current_user.language.id %>
       <%= f.label(:language_id, _('Language'), class: 'control-label') %>
       <%= select_tag("user[language_id]",
@@ -60,14 +60,14 @@
   <% end %>
 
   <% if current_user.can_org_admin? %>
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <label><%= _('My privileges') %></label>
       <p><%= (current_user.can_super_admin? ? _('Super Admin') : _('Organisational Admin')) %></p>
     </div>
   <% end %>
 
   <% @identifier_schemes.each do |scheme| %>
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <% if scheme.name.downcase == 'shibboleth' %>
         <label class='control-label'>
           <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials') %></span>
@@ -86,7 +86,7 @@
     </div>
   <% end %>
 
-  <div class="form-group col-xs-8">
+  <div class="form-group mb-3 col-xs-8">
     <%= f.button(_('Save'), class: 'btn btn-default', type: "submit", id: "personal_details_registration_form_submit") %>
   </div>
 

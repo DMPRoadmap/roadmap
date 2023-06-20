@@ -9,7 +9,7 @@ ethics_description_tooltip = _("Description of the ethical issues")
 ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics commitee")
 %>
 
-<div class="form-group"><!-- title -->
+<div class="form-group mb-3"><!-- title -->
   <div class="col-lg-12">
     <%= form.label(:title, _('Project title'), class: 'control-label') %>
   </div>
@@ -30,7 +30,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   </div>
 </div>
 
-<div class="form-group"><!-- description -->
+<div class="form-group mb-3"><!-- description -->
   <div class="col-lg-12">
     <%= form.label(:description, _('Project abstract'), class: 'control-label', id: 'project-description-label') %>
   </div>
@@ -42,7 +42,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 </div>
 
 <% if Rails.configuration.x.madmp.enable_research_domain %>
-  <div class="form-group">
+  <div class="form-group mb-3">
     <div class="col-lg-8">
       <%= form.label(:research_domain_id, _("Research domain"), class: "control-label") %>
 
@@ -57,7 +57,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   </div>
 <% end %>
 
-<div class="form-group"><!-- start / end dates -->
+<div class="form-group mb-3"><!-- start / end dates -->
   <div class="col-lg-4">
     <%= form.label(:start_date, _("Project Start"), class: "control-label") %>
     <%= form.date_field :start_date, class: "form-control",
@@ -75,7 +75,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 <%# if DOI minting is enabled %>
 <% landing_page = plan.landing_page %>
 <% if Rails.configuration.x.doi&.active && landing_page.present? %>
-  <div class="form-group"><!-- identifier -->
+  <div class="form-group mb-3"><!-- identifier -->
     <div class="col-lg-12">
       <%= form.label(:identifier, _('Landing page'), class: 'control-label') %>
     </div>
@@ -88,7 +88,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     </div>
   </div>
 <% else %>
-  <div class="form-group">
+  <div class="form-group mb-3">
     <div class="col-lg-12">
       <%= form.label :id, _("ID"), class: "control-label" %>
     </div>
@@ -106,7 +106,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 
 <% if Rails.configuration.x.madmp.enable_ethical_issues %>
   <conditional>
-    <div class="form-group">
+    <div class="form-group mb-3">
       <div class="col-lg-8">
         <div class="checkbox">
           <%= form.label(:ethical_issues, class: 'control-label', title: ethics_tooltip) do %>
@@ -116,7 +116,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
         </div>
       </div>
     </div>
-    <div class="form-group toggleable-field">
+    <div class="form-group mb-3 toggleable-field">
       <div class="col-lg-12">
         <%= form.label(:ethical_issues_description, _('Describe any ethical concerns'), class: 'control-label', id: 'plan-ethical-description') %>
       </div>
@@ -129,7 +129,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
                            aria: { required: false, labelledby: 'plan-ethical-description' } %>
       </div>
     </div>
-    <div class="form-group toggleable-field">
+    <div class="form-group mb-3 toggleable-field">
       <div class="col-lg-12">
         <%= form.label(:ethical_issues_report, _('Ethical protocols'), class: 'control-label') %>
       </div>
@@ -146,7 +146,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 <% end %>
 
 <conditional>
-  <div id="funder-org-controls" class="form-group">
+  <div id="funder-org-controls" class="form-group mb-3">
     <div class="col-lg-8">
       <%= form.fields_for :funder, Org.new do |funder_fields| %>
         <%= render partial: "shared/org_selectors/local_only",
@@ -162,7 +162,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     </div>
   </div>
 
-  <div class="form-group toggleable-field">
+  <div class="form-group mb-3 toggleable-field">
     <div class="col-lg-12">
       <%= form.label(:funding_status, _("Funding status"), class: "control-label") %>
     </div>

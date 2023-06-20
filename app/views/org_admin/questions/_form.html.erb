@@ -11,20 +11,20 @@
   <% current_format = question.question_format.present? ? question.question_format : QuestionFormat.find_by(formattype: QuestionFormat.formattypes[:textarea]) %>
   <div class="row">
     <!--Question number -->
-    <div class="form-group col-md-4">
+    <div class="form-group mb-3 col-md-4">
       <%= f.label(:number, _('Question Number'), class: "control-label") %>
       <%= f.number_field(:number, in: 1..50, class: "form-control",
                                   "aria-required": true) %>
     </div>
 
     <!--Question text -->
-    <div class="form-group col-md-10">
+    <div class="form-group mb-3 col-md-10">
       <%= f.label(:text, _('Question text'), class: "control-label") %>
       <%= f.text_area(:text, class: "question", spellcheck: true, "aria-required": true) %>
     </div>
 
     <!-- Question format -->
-    <div class="form-group col-md-4">
+    <div class="form-group mb-3 col-md-4">
       <%= f.label(:question_format_id, _('Answer format'), class: "control-label") %>
         <%= f.select :question_format_id,
           options_from_collection_for_select(question_formats,
@@ -40,7 +40,7 @@
     </div>
 
     <!--display form to enter option for option_based questions -->
-    <div class="form-group col-md-10" data-attribute="question_options" style="<%= current_format.option_based? ? '' : 'display:none;' %>">
+    <div class="form-group mb-3 col-md-10" data-attribute="question_options" style="<%= current_format.option_based? ? '' : 'display:none;' %>">
       <div class="col-md-offset-2">
         <%= render "/org_admin/question_options/option_fields", f: f, q: question %>
         <!--display for selecting comment box when multiple choice is being used-->
@@ -53,14 +53,14 @@
           </p>
         </div>
       <% else %>
-        <div class="form-group" data-toggle="tooltip", title="<%= _('Save this question before adding conditions.') %>" >
+        <div class="form-group mb-3" data-toggle="tooltip", title="<%= _('Save this question before adding conditions.') %>" >
           <%= link_to _('Add Conditions'), '#', class: "add-logic btn btn-default disabled" %>
         </div>
       <% end %>
     </div>
 
     <% comment_disp = current_format.option_based? || current_format.rda_metadata? %>
-    <div class="form-group col-md-10" data-attribute="option_comment"
+    <div class="form-group mb-3 col-md-10" data-attribute="option_comment"
          style="<%=comment_disp ? '' : 'display:none;'%>">
       <label>
         <%= f.check_box :option_comment_display, as: :check_boxes %><%= _('Display additional comment area.') %>
@@ -68,7 +68,7 @@
     </div>
 
   <!--Question default_value -->
-    <div class="form-group col-md-10" data-attribute="default_value" style="<%= current_format.textfield? || current_format.textarea? ? '' : 'display: none;' %>">
+    <div class="form-group mb-3 col-md-10" data-attribute="default_value" style="<%= current_format.textfield? || current_format.textarea? ? '' : 'display: none;' %>">
       <%= f.label(:default_value, _('Default answer'), class: "control-label") %>
       <div class="" data-toggle="tooltip" title="<%= question_default_value_tooltip %>">
         <em class="sr-only"><%= question_default_value_tooltip %></em>
@@ -89,12 +89,12 @@
       <% end %>
     <% end %>
     <!-- Themes -->
-    <div class="form-group col-md-10">
+    <div class="form-group mb-3 col-md-10">
       <%= render partial: 'org_admin/shared/theme_selector',
                  locals: { f: f, all_themes: Theme.all.order("title"), as_radio: false,
                            popover_message: _('Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question.') } %>
     </div>
-    <div class="form-group col-md-10">
+    <div class="form-group mb-3 col-md-10">
       <div class="pull-right">
         <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
         <% if question.id.present? %>

@@ -7,17 +7,17 @@ orgs = Org.where(is_other: false)
 <%= form_for @api_client, url: url, method: method,
                           html: { class: 'api_client' } do |f| %>
   <div class="row">
-    <div class="form-group col-xs-4">
+    <div class="form-group mb-3 col-xs-4">
       <%= f.label :name, _('Name'), class: 'control-label' %>
       <%= f.text_field :name, class: 'form-control', aria: { required: true } %>
     </div>
-    <div class="form-group col-xs-4">
+    <div class="form-group mb-3 col-xs-4">
       <%= f.label :homepage, _('Homepage'), class: 'control-label' %>
       <%= f.url_field :homepage, class: 'form-control' %>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <%= f.label :description, _('Description'), class: 'control-label' %>
       <%= f.text_area :description,
                       class: 'form-control api-client-text',
@@ -25,17 +25,17 @@ orgs = Org.where(is_other: false)
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-4">
+    <div class="form-group mb-3 col-xs-4">
       <%= f.label :contact_email, _('Contact Name'), class: 'control-label' %>
       <%= f.text_field :contact_name, class: 'form-control' %>
     </div>
-    <div class="form-group col-xs-4">
+    <div class="form-group mb-3 col-xs-4">
       <%= f.label :contact_email, _('Contact Email'), class: 'control-label' %>
       <%= f.email_field :contact_email, class: 'form-control', aria: { required: true } %>
     </div>
   </div>
   <div class="row">
-    <div id="api-client-org-controls" class="form-group col-xs-8">
+    <div id="api-client-org-controls" class="form-group mb-3 col-xs-8">
       <%= render partial: "shared/org_selectors/local_only",
                  locals: { form: f, default_org: @api_client.org, orgs: orgs, required: false } %>
     </div>
@@ -43,18 +43,18 @@ orgs = Org.where(is_other: false)
 
   <% unless @api_client.new_record? %>
     <div class="row" id="api-client-credentials">
-      <div class="form-group col-xs-4">
+      <div class="form-group mb-3 col-xs-4">
         <%= f.label :client_id, _('Client ID'), class: 'control-label' %>
         <%= f.email_field :client_id, class: 'form-control', disabled: true %>
       </div>
-      <div class="form-group col-xs-4">
+      <div class="form-group mb-3 col-xs-4">
         <%= f.label :client_secret, _('Client Secret'), class: 'control-label' %>
         <%= f.email_field :client_secret, class: 'form-control', disabled: true %>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-group col-xs-3">
+      <div class="form-group mb-3 col-xs-3">
         <%= f.label :client_id, _('Last accessed on'), class: 'control-label' %>
         <% date = @api_client.last_access.present? ? @api_client.last_access.utc.to_s  : _("Never") %>
         <%= f.text_field :last_access, class: 'form-control', disabled: true,

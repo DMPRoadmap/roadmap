@@ -63,7 +63,7 @@
           <ul class="list-inline">
             <li>
               <%= form_for :usage, url: usage_plans_by_template_path, remote: true do |f| %>
-                <div class="form-group">
+                <div class="form-group mb-3">
                   <%= f.label :template_plans_range, _('Time period') %>
                   <ul class="list-inline">
                     <li>
@@ -80,7 +80,7 @@
               <% end %>
             </li>
             <li>
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <%= link_to usage_all_plans_by_template_path(sep: ",", filtered: @filtered), class: 'btn btn-default stat', role: 'button', target: '_blank' do %>
                   <%= _('Download all') %> <i class="fas fa-download" aria-hidden="true"></i>
                 <% end %>

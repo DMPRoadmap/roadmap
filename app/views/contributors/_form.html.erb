@@ -5,7 +5,7 @@ phone_tooltip = _("Phone numbers should only include numbers and dashes ('-').")
 roles_tooltip = _("Select each role that applies to the contributor.")
 %>
 
-<div class="form-group row"><!-- name -->
+<div class="form-group mb-3 row"><!-- name -->
   <div class="col-md-12">
     <%= form.label(:name, _("Name"), class: "control-label") %>
   </div>
@@ -14,7 +14,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
   </div>
 </div>
 
-<div class="form-group row"><!-- email -->
+<div class="form-group mb-3 row"><!-- email -->
   <div class="col-md-12">
     <%= form.label(:email, _("Email"), class: "control-label") %>
   </div>
@@ -23,7 +23,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
   </div>
 </div>
 
-<div class="form-group row"><!-- orcid -->
+<div class="form-group mb-3 row"><!-- orcid -->
   <% orcid = ContributorPresenter.orcid(contributor: contributor) %>
   <%= form.fields_for :identifiers, orcid do |orcid_fields| %>
     <%= orcid_fields.hidden_field :id %>
@@ -39,7 +39,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
 </div>
 
 <% if Rails.configuration.x.application.display_contributor_phone_number %><!-- phone: only show if property set true -->
-  <div class="form-group row">
+  <div class="form-group mb-3 row">
     <div class="col-md-12">
       <%= form.label(:phone, _("Phone number"), class: "control-label") %>
     </div>
@@ -54,7 +54,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
   </div>
 <% end %>
 
-<div class="form-group row" id="contributor-org-controls"><!-- org -->
+<div class="form-group mb-3 row" id="contributor-org-controls"><!-- org -->
   <div class="col-md-8">
     <%= render partial: org_partial,
                locals: { form: form,
@@ -65,7 +65,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
   </div>
 </div>
 
-<div class="form-group row">
+<div class="form-group mb-3 row">
   <div class="col-md-12">
     <fieldset>
       <legend>
@@ -90,7 +90,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
   </div>
 </div>
 
-<div class="form-group row">
+<div class="form-group mb-3 row">
   <div class="col-md-6">
     <%= form.button(_("Save"), class: "btn btn-default", type: "submit") %>
     <% unless contributor.new_record? %>

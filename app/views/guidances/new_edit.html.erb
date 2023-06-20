@@ -20,7 +20,7 @@ end
 <div class="row">
   <div class="col-xs-12">
     <%= form_for(@guidance, url: url, html: { method: method , id: 'new_edit_guidance'}) do |f| %>
-      <div class="form-group" data-toggle="tooltip" title="<%= guidance_text_tooltip %>">
+      <div class="form-group mb-3" data-toggle="tooltip" title="<%= guidance_text_tooltip %>">
         <em class="sr-only"><%= guidance_text_tooltip %></em>
         <%= f.label :text, class: 'control-label' %>
         <%= f.text_area :text, rows: 10, class: "form-control", spellcheck: true,
@@ -30,7 +30,7 @@ end
                  locals: { f: f, all_themes: Theme.all.order("title"), as_radio: false, required: true,
                            in_error: @guidance.errors[:themes].present?,
                            popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags.') } %>
-      <div class="form-group">
+      <div class="form-group mb-3">
         <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'control-label' %>
         <%= f.collection_select(:guidance_group_id,
                 GuidanceGroup.where(org_id: current_user.org_id).order("name ASC"),
@@ -45,7 +45,7 @@ end
           <%= _('Published?') %>
         <% end %>
       </div>
-      <div class="form-group clear-fix">
+      <div class="form-group mb-3 clear-fix">
         <%= f.submit _('Save'), name: "edit_guidance_submit", class: "btn btn-primary" %>
         <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>
       </div>

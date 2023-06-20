@@ -5,7 +5,7 @@
 
   <h2><%= _('Format') %></h2>
   <div class="row">
-    <div class="form-group col-xs-2">
+    <div class="form-group mb-3 col-xs-2">
       <%= select_tag :format, options_for_select(Settings::Template::VALID_FORMATS, :pdf),
                      class: 'form-control', "aria-labelledby": "format" %>
     </div>
@@ -15,7 +15,7 @@
     <h2><%= _("Download settings") %></h2>
     <%= hidden_field_tag 'export[form]', true %>
     <% if @phase_options.length > 1 %>
-      <div class="form-group">
+      <div class="form-group mb-3">
         <%= label_tag(:phase_id, _("Select phase to download")) %>
         <%= select_tag(:phase_id, options_for_select(@phase_options, @phase_options[0])) %>
       </div>
@@ -72,7 +72,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-4">
+      <div class="form-group mb-3 col-xs-4">
         <%= label_tag "export[formatting][font_face]", _('Face'), class: 'control-label' %>
         <%= select_tag "export[formatting][font_face]",
             options_for_select(Settings::Template::VALID_FONT_FACES,
@@ -80,7 +80,7 @@
             class: 'form-control',
             "data-default": @plan.template.settings(:export).formatting[:font_face] %>
       </div>
-      <div class="form-group col-xs-2">
+      <div class="form-group mb-3 col-xs-2">
         <%= label_tag "export[formatting][font_size]", _('Size') + " (pt)", class: 'control-label' %>
         <%= select_tag "export[formatting][font_size]",
             options_for_select(Settings::Template::VALID_FONT_SIZE_RANGE.to_a, @export_settings.formatting[:font_size]),
@@ -88,7 +88,7 @@
             "data-default": @plan.template.settings(:export).formatting[:font_size] %>
       </div>
 
-      <div class="form-group col-xs-1">
+      <div class="form-group mb-3 col-xs-1">
         <%= label_tag "export[formatting][margin][top]", _('Top'),
                       class: 'control-label' %>
         <%= select_tag "export[formatting][margin][top]",
@@ -97,7 +97,7 @@
             class: 'form-control',
             "data-default": @plan.template.settings(:export).formatting[:margin][:top] %>
       </div>
-      <div class="form-group col-xs-1">
+      <div class="form-group mb-3 col-xs-1">
         <%= label_tag "export[formatting][margin][bottom]", _('Bottom'),
                       class: 'control-label' %>
         <%= select_tag "export[formatting][margin][bottom]",
@@ -106,7 +106,7 @@
             class: 'form-control',
             "data-default": @plan.template.settings(:export).formatting[:margin][:bottom] %>
       </div>
-      <div class="form-group col-xs-1">
+      <div class="form-group mb-3 col-xs-1">
         <%= label_tag "export[formatting][margin][left]", _('Left'),
                       class: 'control-label' %>
         <%= select_tag "export[formatting][margin][left]",
@@ -115,7 +115,7 @@
             class: 'form-control',
             "data-default": @plan.template.settings(:export).formatting[:margin][:left] %>
       </div>
-      <div class="form-group col-xs-1">
+      <div class="form-group mb-3 col-xs-1">
         <%= label_tag "export[formatting][margin][right]", _('Right'),
                       class: 'control-label' %>
         <%= select_tag "export[formatting][margin][right]",

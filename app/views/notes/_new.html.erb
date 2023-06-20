@@ -4,7 +4,7 @@
   <%= f.hidden_field :question_id, value: question.id %>
   <%= f.hidden_field :answer_id, value: answer.id %>
   <%= f.hidden_field :plan_id, value: plan.id %>
-  <div class="form-group">
+  <div class="form-group mb-3">
     <%= f.label(:text, _('Add comments to share with collaborators')) %>
     <%= f.text_area(:text, class: 'form-control note', id: "note-#{question.id}",
                     spellcheck: true) %>

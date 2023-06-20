@@ -20,13 +20,13 @@
                } %>
   <% else %>
     <div class="row">
-      <div class="form-group col-xs-8">
+      <div class="form-group mb-3 col-xs-8">
         <%= f.label :name, _('Organisation full name'), class: "control-label" %>
         <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-8">
+      <div class="form-group mb-3 col-xs-8">
         <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "control-label" %>
         <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control" %>
       </div>
@@ -35,7 +35,7 @@
 
   <% if current_user.can_super_admin? %>
     <div class="row">
-      <div class="form-group col-xs-8">
+      <div class="form-group mb-3 col-xs-8">
         <%= f.label :managed do %>
           <%= f.check_box :managed, id: "org_managed", "aria-required": true,
                 title: _("A managed Org is one that can have its own Guidance and/or Templates. An unmanaged Org is one that was automatically created by the system when a user entered/selected it.") %>
@@ -50,7 +50,7 @@
      end %>
 
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <%= f.label :logo, _('Organization logo'), class: "control-label"  %>
 
       <% if org.logo.present? %>
@@ -90,12 +90,12 @@
   <hr>
 
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <h3><%= _("Help Desk email") %></h3>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-4">
+    <div class="form-group mb-3 col-xs-4">
       <%= f.label :helpdesk_email, _('Help Desk email'), class: "control-label" %>
       <%= f.email_field :helpdesk_email, class: "form-control" %>
     </div>
@@ -104,16 +104,16 @@
   <hr>
 
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <h3><%= _("Administrator contact") %></h3>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-4">
+    <div class="form-group mb-3 col-xs-4">
       <%= f.label :contact_email, _('Contact email'), class: "control-label" %>
       <%= f.email_field :contact_email, class: "form-control", aria: { required: true } %>
     </div>
-    <div class="form-group col-xs-4">
+    <div class="form-group mb-3 col-xs-4">
       <%= f.label :contact_name, _('Link text'), class: "control-label" %>
       <%= f.text_field :contact_name, class: "form-control", aria: { required: true } %>
     </div>
@@ -121,12 +121,12 @@
 
   <hr>
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <h3><%= _("Google Analytics Tracker") %></h3>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-4">
+    <div class="form-group mb-3 col-xs-4">
       <%= f.fields_for :tracker do |t| %>
         <%= t.label :code, _('Tracker Code'), class: "control-label" %>
         <%= t.text_field :code, class: "form-control", aria: { required: false } %>
@@ -193,7 +193,7 @@
   <% end %>
 
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-group mb-3 col-xs-8">
       <%= f.button(_('Save'), id:"save_org_details_submit", class: "btn btn-primary", type: "submit") %>
     </div>
   </div>
