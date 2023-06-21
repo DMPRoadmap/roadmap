@@ -451,7 +451,7 @@ RSpec.describe 'OrgAutocomplete' do
         super_admin = create(:user, :super_admin)
         sign_in super_admin
         visit edit_super_admin_user_path(@user)
-        expect(page).to have_text("#{'Editing profile for'} #{@user.name(false)}")
+        expect(page).to have_text("Editing profile for #{@user.name(false)}")
 
         within('#super-admin-user-org-controls') do
           # Make sure the Autocomplete controls are correct

@@ -293,7 +293,8 @@ RSpec.describe 'Org admin template preferences' do
     expect(page).to have_selector('#my-output_types')
 
     click_button 'Save Preferences'
-    expect(page).to have_text('At least one preferred OUTPUT TYPE must be selected if you are enabling a preferred list.')
+    txt = 'At least one preferred OUTPUT TYPE must be selected if you are enabling a preferred list.'
+    expect(page).to have_text(txt)
   end
 
   describe 'Repositories Selection' do
@@ -397,7 +398,8 @@ RSpec.describe 'Org admin template preferences' do
       find('#template_customize_repositories').check
 
       click_button 'Save Preferences'
-      expect(page).to have_text('At least one preferred REPOSITORY must be selected if you are enabling a preferred list.')
+      txt = 'At least one preferred REPOSITORY must be selected if you are enabling a preferred list.'
+      expect(page).to have_text(txt)
     end
   end
 
