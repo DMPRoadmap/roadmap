@@ -284,7 +284,7 @@ RSpec.describe 'OrgAutocomplete' do
         #   Funder:       only allow funder Orgs and funder RegistryOrgs. Also allow
         #                 the user to create new funders
         visit new_plan_path
-        expect(page).to have_text(_('Create a new plan'))
+        expect(page).to have_text('Create a new plan')
 
         within('#research-org-controls') do
           # Make sure the Autocomplete controls are correct
@@ -298,8 +298,8 @@ RSpec.describe 'OrgAutocomplete' do
           expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
-          fill_in _('Research organisation'), with: ''
-          fill_in _('Research organisation'), with: @word
+          fill_in 'Research organisation', with: ''
+          fill_in 'Research organisation', with: @word
           sleep(1)
 
           # Make sure the correct Orgs are suggested
@@ -332,8 +332,8 @@ RSpec.describe 'OrgAutocomplete' do
           expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
-          fill_in _('Funder'), with: ''
-          fill_in _('Funder'), with: @word
+          fill_in 'Funder', with: ''
+          fill_in 'Funder', with: @word
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@funder_managed.name)).to be(true)
@@ -358,7 +358,7 @@ RSpec.describe 'OrgAutocomplete' do
         # The Autocomplete on this page should only allow the selection of funder
         # Org or RegistryOrg records and also allow the user to create funders
         visit plan_path(@plan)
-        expect(page).to have_text(_('Project Start'))
+        expect(page).to have_text('Project Start')
 
         within('#funder-org-controls') do
           # Make sure the Autocomplete controls are correct
@@ -374,8 +374,8 @@ RSpec.describe 'OrgAutocomplete' do
           expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
-          fill_in _('Funder'), with: ''
-          fill_in _('Funder'), with: @word
+          fill_in 'Funder', with: ''
+          fill_in 'Funder', with: @word
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@funder_managed.name)).to be(true)
@@ -403,7 +403,7 @@ RSpec.describe 'OrgAutocomplete' do
         super_admin = create(:user, :super_admin)
         sign_in super_admin
         visit org_admin_templates_path
-        expect(page).to have_text(_('Templates'))
+        expect(page).to have_text('Templates')
 
         within('#super-admin-switch-org') do
           # Make sure the Autocomplete controls are correct
@@ -421,8 +421,8 @@ RSpec.describe 'OrgAutocomplete' do
           expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
-          fill_in _('Affiliation'), with: ''
-          fill_in _('Affiliation'), with: @word
+          fill_in 'Affiliation', with: ''
+          fill_in 'Affiliation', with: @word
           sleep(1)
 
           # Make sure the correct Orgs are suggested
@@ -451,7 +451,7 @@ RSpec.describe 'OrgAutocomplete' do
         super_admin = create(:user, :super_admin)
         sign_in super_admin
         visit edit_super_admin_user_path(@user)
-        expect(page).to have_text("#{_('Editing profile for')} #{@user.name(false)}")
+        expect(page).to have_text("#{'Editing profile for'} #{@user.name(false)}")
 
         within('#super-admin-user-org-controls') do
           # Make sure the Autocomplete controls are correct
@@ -467,8 +467,8 @@ RSpec.describe 'OrgAutocomplete' do
           expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
-          fill_in _('Institution'), with: ''
-          fill_in _('Institution'), with: @word
+          fill_in 'Institution', with: ''
+          fill_in 'Institution', with: @word
           sleep(1)
 
           # Make sure the correct Orgs are suggested
@@ -495,7 +495,7 @@ RSpec.describe 'OrgAutocomplete' do
         super_admin = create(:user, :super_admin)
         sign_in super_admin
         visit new_super_admin_org_path
-        expect(page).to have_text(_('New organisation'))
+        expect(page).to have_text('New organisation')
 
         within('#edit_org_profile_form') do
           # Make sure the Autocomplete controls are correct
@@ -511,8 +511,8 @@ RSpec.describe 'OrgAutocomplete' do
           expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
-          fill_in _('Organisation lookup'), with: ''
-          fill_in _('Organisation lookup'), with: @word
+          fill_in 'Organisation lookup', with: ''
+          fill_in 'Organisation lookup', with: @word
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@registry_org.name)).to be(true)

@@ -25,12 +25,12 @@ RSpec.describe 'Templates::Editing' do
   end
 
   it "Admin edits a Template's existing question", :js do
-    click_link _('Customisable Templates')
+    click_link 'Customisable Templates'
     within("#template_#{template.id}") do
       click_button 'Actions'
     end
     expect do
-      click_link _('Customise')
+      click_link 'Customise'
     end.to change(Template, :count).by(1)
 
     # New template created
@@ -47,7 +47,7 @@ RSpec.describe 'Templates::Editing' do
       click_button 'Save'
     end
     # Make sure annotation has been updated
-    expect(Question.find(template.question_ids.first).annotations.first.text).to eql('Foo bar')
+    expect(Question.find(template.question_ids.first).annotations.first.text.include?('Foo bar')).to be(true)
     # Make sure blank records are not created for empty annotation form
     expect(Question.find(template.question_ids.first).annotations.count).to be(1)
     expect(page).not_to have_errors

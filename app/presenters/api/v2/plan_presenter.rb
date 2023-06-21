@@ -37,7 +37,7 @@ module Api
         return dmp_id if dmp_id.present?
 
         # if no DOI then use the URL for the API's 'show' method
-        Identifier.new(value: "#{@callback_base_url}/plans/#{@plan.id}")
+        Identifier.new(value: "#{@callback_base_url}plans/#{@plan.id}")
       end
 
       # Extract the calling system's identifier for the Plan if available
@@ -54,14 +54,14 @@ module Api
       # Related identifiers for the Plan
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def links
-        ret = { get: "#{@callback_base_url}/plans/#{@plan.id}" }
+        ret = { get: "#{@callback_base_url}plans/#{@plan.id}" }
 
         # If the plan is publicly visible or the request has permissions then include the PDF download URL
         if @plan.publicly_visible? ||
            (@client.is_a?(User) && @plan.owner_and_coowners.include?(@client)) ||
            (@client.is_a?(User) && @plan.org_id == @plan.owner&.org_id) ||
            (@client.is_a?(ApiClient) && @client.access_tokens.select { |t| t.resource_owner_id == @plan.owner })
-          ret[:download] = "#{@callback_base_url}/plans/#{@plan.id}.pdf"
+          ret[:download] = "#{@callback_base_url}plans/#{@plan.id}.pdf"
         end
         ret
       end

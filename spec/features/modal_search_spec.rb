@@ -42,7 +42,7 @@ RSpec.describe 'ModalSearchDialog' do
       expect(page).to have_text(@model.description)
 
       # Select the repository and make sure it no longer appears in the search results
-      click_link 'Select'
+      click_button 'Select'
       expect(page).not_to have_text(@model.description)
 
       # Close the modal
@@ -53,7 +53,7 @@ RSpec.describe 'ModalSearchDialog' do
     expect(page).not_to have_text('Repository search')
     expect(page).to have_text(@model.description)
     # Verify that we can remove the selection
-    click_link 'Remove'
+    click_button 'Remove'
     expect(page).not_to have_text(@model.description)
   end
 end
