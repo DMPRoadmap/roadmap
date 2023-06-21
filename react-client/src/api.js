@@ -43,4 +43,18 @@ export class DmpApi {
 
     return _options;
   }
+
+  /* Takes a file and returns a promise for the resulting DataURL
+   * for the file
+   */
+  getFileDataURL(fileData) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(fileData);
+    });
+  }
 }

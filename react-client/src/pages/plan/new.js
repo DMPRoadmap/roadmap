@@ -9,28 +9,31 @@ function PlanNew() {
   let navigate = useNavigate();
   let dmpData = {};
 
-  function handleSubmit(ev) {
-    let api = new DmpApi();
-
+  async function handleSubmit(ev) {
     ev.preventDefault();
-    console.log('Submit Form');
+    let api = new DmpApi();
 
     // Collect the form data
     var stepData = {};
     const form = ev.target;
     const formData = new FormData(form);
+
     formData.forEach((value, key) => stepData[key] = value);
 
-    // Make the save request
+    const fileResult = await api.getFileDataURL(stepData['project_pdf'])
+
+    // NOTE: We must remove the content type headers for the PDF boundary to
+    // work correctly
+    //let headers = api.getHeaders();
+    //headers.delete('Content-Type');
+
     let options = api.getOptions({
       method: "post",
+      // headers: headers,
       body: JSON.stringify({
         "dmp": {
           "title": stepData['project_name'],
-          //
-          // "dmphub_owner": {
-          //   "mbox": api.me.mbox,
-          // },
+          "narrative": await fileResult,
         },
       }),
     });
@@ -60,7 +63,7 @@ function PlanNew() {
     <div id="planNew">
       <h2>New Plan</h2>
 
-      <form method="post" onSubmit={handleSubmit}>
+      <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
         <div className="form-field required">
           <div className="form-field-label">
             <label>Project Name</label>
