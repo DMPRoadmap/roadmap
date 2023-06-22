@@ -20,7 +20,7 @@ code {
   // components with those.
 
   /* Root level css variables go here */
-  --btn-basic-bg-color: white;
+  --btn-basic-bg-color: #ddd;
   --btn-basic-fg-color: #333;
   --btn-border-radius: 5px;
 
@@ -161,7 +161,7 @@ main {
     background-color: #ffc845;
   }
 
-  &.status-reccommended {
+  &.status-recommended {
     background-color: #54d8ff;
   }
 }

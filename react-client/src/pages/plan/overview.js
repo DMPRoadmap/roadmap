@@ -33,7 +33,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step">
             <p>Research Outputs</p>
-            <div className="step-status status-completed">Recommended</div>
+            <div className="step-status status-recommended">Recommended</div>
           </div>
         </div>
 
@@ -50,8 +50,9 @@ function PlanOverview() {
         </div>
 
         <div className="page-actions">
-          <button>Register &amp; Return to Dashboard</button>
-          <button>Register &amp; Add Another Plan</button>
+          <button type="button" onClick={() => navigate("/dashboard")}>Return to Dashboard</button>
+          <button className="primary">Register &amp; Return to Dashboard</button>
+          <button className="secondary">Register &amp; Add Another Plan</button>
         </div>
       </div>
     </>
