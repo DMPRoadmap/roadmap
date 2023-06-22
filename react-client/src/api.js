@@ -49,6 +49,8 @@ export class DmpApi {
    */
   getFileDataURL(fileData) {
     return new Promise((resolve, reject) => {
+      if (fileData.size == 0) { resolve(""); }
+
       const reader = new FileReader();
       reader.onload = () => {
         resolve(reader.result);
@@ -56,5 +58,22 @@ export class DmpApi {
       reader.onerror = reject;
       reader.readAsDataURL(fileData);
     });
+  }
+
+  /* Use this method to deal with the API response. We'll mostly
+   * use this to handle any required error logging, but we can add some
+   * other common code here if needed.
+   */
+  handleResponse(resp) {
+    switch (resp.status) {
+      case 400:
+      case 404:
+        // TODO:: Error handling
+        // TODO:: Log and report errors to a logging services
+        // TODO:: Message to display to the user?
+        console.log('Error fetching from API');
+        console.log(resp);
+        break;
+    }
   }
 }

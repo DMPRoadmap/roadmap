@@ -4,8 +4,12 @@ import {
   Fragment,
 } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-import { DmpApi } from '../api.js';
+import {
+  useNavigate,
+  Link
+} from 'react-router-dom';
+
+import {DmpApi} from '../api.js';
 
 import './dashboard.scss';
 
@@ -80,7 +84,7 @@ function Dashboard() {
 
       <h2>
         Dashboard
-        <button className="primary" onClick={() => navigate("/dmps/new")}>
+        <button className="primary" onClick={() => navigate("/dmp/new")}>
           Add Plan
         </button>
       </h2>
@@ -106,24 +110,25 @@ function Dashboard() {
             <a href="#" onClick={() => navigate("/dmps/overview")}>Complete</a>
           </div>
 
-          {projects.map(item => (
-            <Fragment key={item.dmp.wip_id.identifier}>
-              <div data-colname="title">{item.dmp?.title}</div>
-              <div data-colname="funder">{item?.funder}</div>
-              <div data-colname="grantId">tbd…</div>
-              <div data-colname="dmpId">
-                {item.dmp.wip_id.identifier}
-              </div>
-              <div data-colname="status">
-                Incomplete <br />
-                <progress max="10" value="3" />
-              </div>
-              <div data-colname="actions">
-                <a href="#" onClick={() => navigate("/dmps/overview")}>tbd…</a>
-              </div>
-            </Fragment>
-          ))}
-        </div>
+        {projects.map(item => (
+          <Fragment key={item.dmp.wip_id.identifier}>
+            <div data-colname="title">{item.dmp?.title}</div>
+            <div data-colname="funder">{item?.funder}</div>
+            <div data-colname="grantId">tbd…</div>
+            <div data-colname="dmpId">
+              {item.dmp.wip_id.identifier}
+            </div>
+            <div data-colname="status">
+              Incomplete <br />
+              <progress max="10" value="3"/>
+            </div>
+            <div data-colname="actions">
+              <Link to={`/dmp/${item.dmp.wip_id.identifier}`} >
+                Complete
+              </Link>
+            </div>
+          </Fragment>
+        ))}
       </div>
 
     </div>
