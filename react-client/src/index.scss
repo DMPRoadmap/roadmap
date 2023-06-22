@@ -93,3 +93,54 @@ main {
 .data-heading {
   font-weight: bold;
 }
+
+
+.plan-steps {
+  text-align: left;
+  padding: 20px;
+  border: 1px solid #eee;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+}
+
+.page-actions {
+
+  button {
+    background-color: #05042e;
+    color: #fff;
+  }
+}
+
+.plan-steps-step {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
+  justify-content: space-between;
+
+  p,
+  a {
+    color: #004eaa;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+}
+
+.step-status {
+  padding: 0.3rem 1rem;
+  background: #eee;
+  border-radius: 20px;
+  font-size: 1rem;
+  color: #05042e;
+
+  &.status-completed {
+    background-color: #ffc845;
+  }
+
+  &.status-reccommended {
+    background-color: #54d8ff;
+  }
+}

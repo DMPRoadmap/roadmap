@@ -51,19 +51,6 @@ function App() {
       <main>
 
 
-        <p>
-          This is the main content
-        </p>
-
-        <TextInput
-          label="Project Name"
-          type="text"
-          name="project_name"
-          id="project_name"
-          placeholder="Enter the name of your project"
-          help="This is the name of your project"
-          error="Please complete this field"
-        />
 
         <RouterProvider router={router} />
       </main>

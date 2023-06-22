@@ -77,7 +77,7 @@ function Dashboard() {
       <p>Welcome back {user.givenname} {user.surname}</p>
       <p><a href="/plans" className="exit-prototype">Back to standard Dashboard</a></p>
 
-      
+
       <h2>
         Dashboard
         <button className="primary" onClick={() => navigate("/dmps/new")}>
@@ -102,7 +102,7 @@ function Dashboard() {
           <progress max="10" value="7" />
         </div>
         <div data-colname="actions">
-          <a href="/dmps/overview">Complete</a>
+          <a href="#" onClick={() => navigate("/dmps/overview")}>Complete</a>
         </div>
 
         {projects.map(item => (
@@ -118,7 +118,7 @@ function Dashboard() {
               <progress max="10" value="3" />
             </div>
             <div data-colname="actions">
-              <a href="#">tbd…</a>
+              <a href="#" onClick={() => navigate("/dmps/overview")}>tbd…</a>
             </div>
           </Fragment>
         ))}
