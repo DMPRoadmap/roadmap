@@ -2,6 +2,16 @@
 
 ## DMPTool Releases
 
+### v4.1.4
+
+- Fixes an issue where a failure from the uc3-citation gem was forcing the RelatedIdentifier model into an endless loop. Limit on number of Research Outputs? Issue #479.
+- Added users.ui_token in preparation for v5 work. Added the api/v2/me endpoint to fetch the currently logged in user's info which will be used by future React pages. UI token is generated/regenerated when the user logs in and deleted when they log out.
+- Updated JS and gem dependencies
+
+### v4.1.3
+
+- Patch bug when updating a research output that has no selected repos or standards
+
 ### v4.1.2
 - Update modal search for repositories to allow researchers to define custom repositories that are not a part of the re3data registry
 - Update modal search for metadata standards to allow researchers and template admins to define custom standards that are not a part of the rda registry

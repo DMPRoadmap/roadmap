@@ -55,7 +55,7 @@ function Dashboard() {
 
       <h2>
         Dashboard
-        <button className="primary" onClick={() => navigate("/dmp/new")}>
+        <button className="primary" onClick={() => navigate("/dashboard/dmp/new")}>
           Add Plan
         </button>
       </h2>
@@ -93,7 +93,7 @@ function Dashboard() {
               <progress max="10" value="3"/>
             </div>
             <div data-colname="actions">
-              <Link to={`/dmp/${item.dmp.wip_id.identifier}`} >
+              <Link to={`/dashboard/dmp/${item.dmp.wip_id.identifier}`} >
                 Complete
               </Link>
             </div>
