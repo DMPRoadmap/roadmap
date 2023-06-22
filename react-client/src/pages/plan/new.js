@@ -61,32 +61,38 @@ function PlanNew() {
 
   return (
     <div id="planNew">
-      <h2>New Plan</h2>
+
+      <div className="dmpui-heading">
+        <h2>New Plan</h2>
+      </div>
+
 
       <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
-        <div className="form-field required">
-          <div className="form-field-label">
-            <label>Project Name</label>
-            <p className="help-text">
-              All or part of the project name/title, e.g. 'Particle Physics'
-            </p>
-          </div>
-          <div className="form-field-input">
-            <input name="project_name" type="text" />
-          </div>
-        </div>
-
-        <div className="form-field required">
-          <div className="form-field-label">
-            <label>Upload DMP</label>
-            <p className="help-text">
-              Only PDFs may be uploaded, and files should be no more than
-              250kb.
-            </p>
+        <div className="form-wrapper">
+          <div className="form-field required">
+            <div className="form-field-label">
+              <label>Project Name</label>
+              <p className="help-text">
+                All or part of the project name/title, e.g. 'Particle Physics'
+              </p>
+            </div>
+            <div className="form-field-input">
+              <input name="project_name" type="text" />
+            </div>
           </div>
 
-          <div className="form-field-input todo">
-            <input name="project_pdf" type="file" />
+          <div className="form-field required">
+            <div className="form-field-label">
+              <label>Upload DMP</label>
+              <p className="help-text">
+                Only PDFs may be uploaded, and files should be no more than
+                250kb.
+              </p>
+            </div>
+
+            <div className="form-field-input todo">
+              <input name="project_pdf" type="file" />
+            </div>
           </div>
         </div>
 
@@ -96,7 +102,6 @@ function PlanNew() {
             Save &amp; Continue
           </button>
         </div>
-
       </form>
 
     </div>

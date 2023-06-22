@@ -24,7 +24,7 @@ code {
   --btn-basic-fg-color: #333;
   --btn-border-radius: 5px;
 
-  --btn-primary-bg-color: blue;
+  --btn-primary-bg-color: #05042e;
   --btn-primary-fg-color: white;
 
   /* Form components */
@@ -95,6 +95,24 @@ main {
 }
 
 
+
+.dmpui-heading {
+  text-align: left;
+
+  h2,
+  .h2 {
+    margin-bottom: 1.25rem;
+  }
+}
+
+.form-wrapper {
+  text-align: left;
+  padding: 20px;
+  border: 1px solid #eee;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+}
+
 .plan-steps {
   text-align: left;
   padding: 20px;
@@ -106,8 +124,11 @@ main {
 .page-actions {
 
   button {
-    background-color: #05042e;
     color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+
   }
 }
 
