@@ -27,47 +27,19 @@ function Dashboard() {
 
     let meUrl = api.getPath('/me');
     fetch(api.getPath('/me'), api.getOptions()).then((resp) => {
-      switch (resp.status) {
-        case 200:
-          return resp.json();
-          break;
-
-        default:
-          // TODO:: Error handling
-          // TODO:: Log and report errors to a logging services
-          // TODO:: Message to display to the user?
-          console.log('Error fetching from API');
-          console.log(resp);
-      }
+      api.handleResponse(resp)
+      return resp.json();
     }).then((data) => {
       setUser(data.items[0]);
     });
 
     // Fetch the work in progress DMPs for the currently logged in user
     fetch(api.getPath('/dmps'), api.getOptions()).then((resp) => {
-      console.log(resp);
-
-      switch (resp.status) {
-        case 200:
-          return resp.json();
-          break;
-
-        case 204:
-          return { items: [] }
-          break;
-
-        default:
-          // TODO:: Error handling
-          // TODO:: Log and report errors to a logging services
-          // TODO:: Message to display to the user?
-          console.log('Error fetching from API');
-          console.log(resp);
-      }
+      api.handleResponse(resp);
+      return resp.json();
     }).then((data) => {
       console.log(data.items);
       setProjects(data.items);
-      // console.log(data.items.map(i => JSON.parse(i)));
-      // setProjects(data.items.map(i => JSON.parse(i)));
     });
   }, []);
 
