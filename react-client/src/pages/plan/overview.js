@@ -1,5 +1,12 @@
+import useContext from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 function PlanOverview() {
+  let navigate = useNavigate();
+
+
   return (
     <>
       <div id="addPlan">
@@ -50,9 +57,11 @@ function PlanOverview() {
         </div>
 
         <div className="page-actions">
+
+
           <button type="button" onClick={() => navigate("/dashboard")}>Return to Dashboard</button>
-          <button className="primary">Register &amp; Return to Dashboard</button>
-          <button className="secondary">Register &amp; Add Another Plan</button>
+          <button className="primary" onClick={() => navigate("/dashboard")} >Register &amp; Return to Dashboard</button>
+          <button className="secondary" onClick={() => navigate("/dashboard")}>Register &amp; Add Another Plan</button>
         </div>
       </div>
     </>
