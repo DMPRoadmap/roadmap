@@ -9,27 +9,96 @@
  *      <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
  *    </div>
  *
- * Your accordion should follow the Boostrap 3.x layout:
+ * Your accordion should follow the Boostrap 5.x layout:
  * ------------------------------------------------------------
- *    <div id="accordion" class="panel-group" role="tablist" aria-multiselectable="true">
- *      <div class="panel panel-default">
- *        <div class="panel-heading" role="tab" id="headingA">
- *          <h2 class="panel-title">
- *            <a role="button" data-toggle="collapse" data-parent="accordion"
- *                   href="#collapseA" aria-controls="collapseA" aria-expanded="false">
- *              Section A
- *            </a>
- *          </h2>
- *        </div>
- *        <div id="collapseA" class="panel-collapse collapse" role="tabpanel"
- *          aria-labelledby="headingA">
- *          <div class="panel-body">
- *            This is test section A.
- *          </div>
+n*
+ *  <div class="accordion" id="accordionDefault">
+ *
+ *    <div class="accordion-item">
+ *      <h2 class="accordion-header" id="headingDefaultOne">
+ *        <button
+ *          class="accordion-button"
+ *          type="button"
+ *          data-bs-toggle="collapse"
+ *          data-bs-target="#collapseDefaultOne"
+ *          aria-expanded="false"
+ *          aria-controls="collapseDefaultOne"
+ *        >
+ *          Accordion Item #1
+ *        </button>
+ *      </h2>
+ *
+ *      <div
+ *        id="collapseDefaultOne"
+ *        class="accordion-collapse collapse show"
+ *        aria-labelledby="headingDefaultOne"
+ *        data-bs-parent="#accordionDefault"
+ *      >
+ *        <div class="accordion-body">
+ *          Accordion Body #1
  *        </div>
  *      </div>
+ *
  *    </div>
+ *
+ *    <div class="accordion-item">
+ *      <h2 class="accordion-header" id="headingDefaultTwo">
+ *        <button
+ *          class="accordion-button collapsed"
+ *          type="button"
+ *          data-bs-toggle="collapse"
+ *          data-bs-target="#collapseDefaultTwo"
+ *          aria-expanded="false"
+ *          aria-controls="collapseDefaultTwo"
+ *        >
+ *          Accordion Item #2
+ *        </button>
+ *      </h2>
+ *
+ *      <div
+ *        id="collapseDefaultTwo"
+ *        class="accordion-collapse collapse"
+ *        aria-labelledby="headingDefaultTwo"
+ *        data-bs-parent="#accordionDefault"
+ *      >
+ *        <div class="accordion-body">
+ *          Accordion Body #2
+ *        </div>
+ *      </div>
+ *
+ *    </div>
+ *
+ *    <div class="accordion-item">
+ *      <h2 class="accordion-header" id="headingDefaultThree">
+ *        <button
+ *          class="accordion-button collapsed"
+ *          type="button"
+ *          data-bs-toggle="collapse"
+ *          data-bs-target="#collapseDefaultThree"
+ *          aria-expanded="false"
+ *          aria-controls="collapseDefaultThree"
+ *        >
+ *          Accordion Item #3
+ *        </button>
+ *      </h2>
+ *
+ *      <div
+ *        id="collapseDefaultThree"
+ *        class="accordion-collapse collapse"
+ *        aria-labelledby="headingDefaultThree"
+ *        data-bs-parent="#accordionDefault"
+ *      >
+ *        <div class="accordion-body">
+ *          Accordion Body #3
+ *        </div>
+ *      </div>
+ *
+ *    </div>
+ *
+ *  </div>
+ *
  */
+
 $(() => {
   $('body').on('click', '.accordion-controls a', (e) => {
     e.preventDefault();
@@ -38,23 +107,22 @@ $(() => {
     const direction = target.attr('data-toggle-direction');
     const parentTargetName = currentTarget.parent().attr('data-parent');
     if (direction) {
-      // Selects all .panel elements where the parent is currentTarget.attr('data-parent') and
-      // after gets the immediately children whose class selector is panel-collapse
+      // Selects all .accordion-item elements where the parent is
+      // currentTarget.attr('data-parent') and
+      // after gets the immediately children whose class selector is accordion-item
       const parentTarget = $(`#${parentTargetName}`).length ? $(`#${parentTargetName}`) : $(`.${parentTargetName}`);
-      $(parentTarget).find('.panel').find('.panel-collapse').each((i, el) => {
-        const panelCollapse = $(el);
-        // Expands or collapses the panel according to the
+      parentTarget.find('.accordion-item').each((i, el) => {
+        const accordionItem = $(el);
+        accordionItem.find('.accordion-button').trigger('click');
+        // Expands or collapses according to the
         // direction passed (e.g. show --> expands, hide --> collapses)
         if (direction === 'show') {
-          if (!panelCollapse.find('.panel-body').attr('data-loaded') || !panelCollapse.hasClass('in')) {
-            panelCollapse.prev()[0].click();
-          }
+          accordionItem.find('.accordion-button').removeClass('collapsed');
+          accordionItem.find('.accordion-collapse').addClass('show');
         } else {
-          panelCollapse.collapse(direction);
+          accordionItem.find('.accordion-button').addClass('collapsed');
+          accordionItem.find('.accordion-collapse').removeClass('show');
         }
-        // Sets icon at panel-title accordingly
-        panelCollapse.prev().find('i.fa')
-          .removeClass('fa-plus fa-minus').addClass(direction === 'show' ? 'fa-minus' : 'fa-plus');
       });
     }
   });

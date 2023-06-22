@@ -1,0 +1,57 @@
+@use '../variables/colours' as *;
+@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;
+
+// Remove box-shadow and highlight from Accordion header
+.accordion-header a {
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+.accordion-header a:hover,
+.accordion-header a:active, 
+.accordion-header a:focus,
+.accordion-header a:focus-visible {
+  text-decoration: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+
+// move fa-arrows-alt to right
+h2.accordion-header {
+  display: flex !important;
+  align-items: center !important;
+  color: $color-accordion-button !important;
+  background-color: $color-accordion-button-bg !important;
+}
+
+h2.accordion-header > a.i {
+  margin-left: auto !important; 
+}
+// The Accordion color variables used are set in _colors.scss
+.accordion-button {
+  font-size: inherit;
+  color: $color-accordion-button !important;
+  background-color: $color-accordion-button-bg !important;
+}
+
+// An explanation of how we change the Bootstrap arrow icon for the accordion to use the footawesome icons.
+// First we get the fontawesome plus.svg and minus.svg for use in background image from:
+// node_modules/@fortawesome/fontawesome-free/svgs/solid/plus.svg (in .accordion-button.collapsed::after)
+// node_modules/@fortawesome/fontawesome-free/svgs/solid/minus.svg
+// We then encode the svg.
+// Next the svg fill attribute is added with color set by a variable $color-accordion-button-icon in the _colours.scss.
+// This allows us to change color of symbols.
+// "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}'
+// SVG we are using are encoded with fill added as fill='#{$color-accordion-button-icon}': 
+// After encoding # symbols in svg with the unicode %23. Hence the use of the replace function.
+// We could have done this without str-replace by adding encoded fill='%23{$color-accordion-button-icon}'.
+// We now use svg as the background-image for the .accordion-button class as follows.
+.accordion-button::after, .accordion-button.collapsed::after {
+  background-image: str-replace(url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}' %3E%3C!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --%3E%3Cpath d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'/%3E%3C/svg%3E"), '#', '%23') !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: str-replace(url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}' %3E%3C!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --%3E%3Cpath d='M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'/%3E%3C/svg%3E"), '#', '%23') !important;
+  transition: all 0.5s;
+}
