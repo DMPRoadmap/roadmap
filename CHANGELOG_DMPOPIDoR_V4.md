@@ -1,6 +1,13 @@
 # Liste des changements
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
+
+## 22/06/2023
+- Correction d'un problème d'affichage des libellés lorsque form_label est absent et ajout d'une valeur par défaut lorsque qu'aucun libellé n'est déclaré.
+- Ajout du support des plans pour les structures de recherche
+  - Suppression de l'import ANR
+  - Ajout d'un libellé différencié pour les formulaires Projet/Structure
+
 ## 19/06/2023
 - Intégration de l'onglet Informations Générales
   - L'import financeur est pour le moment limité aux données ANR. La liste des financeurs n'est affichée que lorsque qu'il existe plusieurs financeurs disponibles.
