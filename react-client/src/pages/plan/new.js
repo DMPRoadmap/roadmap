@@ -1,6 +1,7 @@
 import useContext from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DmpApi } from '../../api';
+import TextInput from '../../components/text-input/textInput';
 
 import './new.scss';
 
@@ -77,7 +78,15 @@ function PlanNew() {
               </p>
             </div>
             <div className="form-field-input">
-              <input name="project_name" type="text" />
+              <TextInput
+                label="Project Name"
+                type="text"
+                name="project_name"
+                id="project_name"
+                placeholder="Project Name"
+                help=""
+                error=""
+              />
             </div>
           </div>
 

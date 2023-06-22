@@ -85,44 +85,47 @@ function Dashboard() {
         </button>
       </h2>
 
-      <div className="project-list todo">
-        <div className="data-heading" data-colname="title">Project Name</div>
-        <div className="data-heading" data-colname="funder">Funder</div>
-        <div className="data-heading" data-colname="grantId">Grant ID</div>
-        <div className="data-heading" data-colname="dmpId">DMP ID</div>
-        <div className="data-heading" data-colname="status">Status</div>
-        <div className="data-heading" data-colname="actions"></div>
+      <div className="plan-steps">
+        <div className="project-list todo">
+          <div className="data-heading" data-colname="title">Project Name</div>
+          <div className="data-heading" data-colname="funder">Funder</div>
+          <div className="data-heading" data-colname="grantId">Grant ID</div>
+          <div className="data-heading" data-colname="dmpId">DMP ID</div>
+          <div className="data-heading" data-colname="status">Status</div>
+          <div className="data-heading" data-colname="actions"></div>
 
-        <div data-colname="title">Static test Project</div>
-        <div data-colname="funder">NIH</div>
-        <div data-colname="grantId">12345-A</div>
-        <div data-colname="dmpId"></div>
-        <div data-colname="status">
-          Incomplete <br />
-          <progress max="10" value="7" />
-        </div>
-        <div data-colname="actions">
-          <a href="#" onClick={() => navigate("/dmps/overview")}>Complete</a>
-        </div>
+          <div data-colname="title">Static test Project</div>
+          <div data-colname="funder">NIH</div>
+          <div data-colname="grantId">12345-A</div>
+          <div data-colname="dmpId"></div>
+          <div data-colname="status">
+            Incomplete <br />
+            <progress max="10" value="7" />
+          </div>
+          <div data-colname="actions">
+            <a href="#" onClick={() => navigate("/dmps/overview")}>Complete</a>
+          </div>
 
-        {projects.map(item => (
-          <Fragment key={item.dmp.wip_id.identifier}>
-            <div data-colname="title">{item.dmp?.title}</div>
-            <div data-colname="funder">{item?.funder}</div>
-            <div data-colname="grantId">tbd…</div>
-            <div data-colname="dmpId">
-              {item.dmp.wip_id.identifier}
-            </div>
-            <div data-colname="status">
-              Incomplete <br />
-              <progress max="10" value="3" />
-            </div>
-            <div data-colname="actions">
-              <a href="#" onClick={() => navigate("/dmps/overview")}>tbd…</a>
-            </div>
-          </Fragment>
-        ))}
+          {projects.map(item => (
+            <Fragment key={item.dmp.wip_id.identifier}>
+              <div data-colname="title">{item.dmp?.title}</div>
+              <div data-colname="funder">{item?.funder}</div>
+              <div data-colname="grantId">tbd…</div>
+              <div data-colname="dmpId">
+                {item.dmp.wip_id.identifier}
+              </div>
+              <div data-colname="status">
+                Incomplete <br />
+                <progress max="10" value="3" />
+              </div>
+              <div data-colname="actions">
+                <a href="#" onClick={() => navigate("/dmps/overview")}>tbd…</a>
+              </div>
+            </Fragment>
+          ))}
+        </div>
       </div>
+
     </div>
   )
 }
