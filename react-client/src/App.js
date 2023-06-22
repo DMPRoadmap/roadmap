@@ -20,20 +20,18 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/dmps/new",
+    path: "/dmp/new",
     element: <PlanNew />
   },
 
   {
-    // TODO::FIXME:: We need to have a plan ID here
-    path: "/dmps/funders",
-    element: <PlanFunders />
+    path: "/dmp/:dmpId",
+    element: <PlanOverview />
   },
 
   {
-    // TODO::FIXME:: We need to have a plan ID here
-    path: "/dmps/overview",
-    element: <PlanOverview />
+    path: "/dmp/:dmpId/funders",
+    element: <PlanFunders />
   },
 ]);
 

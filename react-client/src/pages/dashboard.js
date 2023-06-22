@@ -4,7 +4,11 @@ import {
   Fragment,
 } from 'react';
 
-import {useNavigate} from 'react-router-dom';
+import {
+  useNavigate,
+  Link
+} from 'react-router-dom';
+
 import {DmpApi} from '../api.js';
 
 import './dashboard.scss';
@@ -79,7 +83,7 @@ function Dashboard() {
 
       <h2>
         Dashboard
-        <button className="primary" onClick={() => navigate("/dmps/new")}>
+        <button className="primary" onClick={() => navigate("/dmp/new")}>
           Add Plan
         </button>
       </h2>
@@ -117,7 +121,9 @@ function Dashboard() {
               <progress max="10" value="3"/>
             </div>
             <div data-colname="actions">
-              <a href="#">tbd…</a>
+              <Link to={`/dmp/${item.dmp.wip_id.identifier}`} >
+                Complete
+              </Link>
             </div>
           </Fragment>
         ))}

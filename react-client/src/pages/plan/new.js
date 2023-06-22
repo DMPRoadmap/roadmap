@@ -24,38 +24,26 @@ function PlanNew() {
 
     // NOTE: We must remove the content type headers for the PDF boundary to
     // work correctly
-    //let headers = api.getHeaders();
-    //headers.delete('Content-Type');
+    let headers = api.getHeaders();
+    headers.delete('Content-Type');
 
     let options = api.getOptions({
       method: "post",
-      // headers: headers,
+      headers: headers,
       body: JSON.stringify({
         "dmp": {
           "title": stepData['project_name'],
-          "narrative": await fileResult,
-        },
+          "narrative": fileResult,
+        }
       }),
     });
 
     fetch(api.getPath('/dmps'), options).then((resp) => {
-      switch (resp.status) {
-        case 200:
-          return resp.json();
-          break;
-
-        default:
-          // TODO:: Error handling
-          // TODO:: Log and report errors to a logging services
-          // TODO:: Message to display to the user?
-          console.log('Error fetching from API');
-          console.log(resp);
-      }
+      api.handleResponse(resp.status);
+      return resp.json();
     }).then((data) => {
-      console.log('Handle Response');
-      console.log(data);
-      // console.log(data.items.map(i => JSON.parse(i)));
-      // navigate("/dmps/overview");
+      let dmp = data.items[0].dmp;
+      navigate(`/dmp/${dmp.wip_id.identifier}`);
     });
   }
 
