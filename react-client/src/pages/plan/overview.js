@@ -1,5 +1,45 @@
+import {
+  Link,
+  useParams,
+} from 'react-router-dom';
+
+import {
+  useEffect,
+  useState,
+} from 'react';
+
+import {DmpApi} from '../../api.js';
+
+// import './overview.scss';
+
 
 function PlanOverview() {
+  const [dmp, setDmp] = useState({});
+  const { dmpId } = useParams();
+
+  useEffect(() => {
+    let api = new DmpApi();
+
+    // TODO::FIXME::
+    //
+    // We need to fetch the DMP in progress so that we can display the steps
+    // and progress on this page.
+    //
+    // However; The dmpId we have in the url, is the `wips_id` identifier.
+    // the DMPS seem to have another id called `dmpId`, which is a different
+    // format to the wips_id.
+    //
+    // Q: Why are the ID's different?
+    // Q: What is the correct ID to use in the url path?
+    //
+    // fetch(api.getPath(`/dmps/${dmpId}`)).then((resp) => {
+    //   api.handleResponse(resp);
+    //   return resp.json();
+    // }).then((data) => {
+    //   setDmp(data.items[0]);
+    // });
+  });
+
   return (
     <>
       <div id="addPlan">
@@ -17,8 +57,10 @@ function PlanOverview() {
           <h3>Project</h3>
 
           <div className="plan-steps-step">
-            <p>Funder</p>
-            <div className="step-status status-completed">Completed</div>
+            <Link to={`/dashboard/dmp/${dmpId}/funders`}>
+              Funders
+            </Link>
+            <div className="step-status status-completed"></div>
           </div>
 
           <div className="plan-steps-step">

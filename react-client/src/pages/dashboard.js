@@ -25,7 +25,6 @@ function Dashboard() {
   useEffect(() => {
     let api = new DmpApi();
 
-    let meUrl = api.getPath('/me');
     fetch(api.getPath('/me'), api.getOptions()).then((resp) => {
       api.handleResponse(resp)
       return resp.json();
