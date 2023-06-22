@@ -81,7 +81,7 @@ class RelatedIdentifier < ApplicationRecord
 
   # If we've enabled citation lookups, then try to fetch the citation after its created
   # or the value has changed
-  after_save :load_citation
+  before_save :load_citation
 
   # Returns the value sans the identifier scheme's prefix.
   # For example:
@@ -117,12 +117,10 @@ class RelatedIdentifier < ApplicationRecord
   def load_citation
     # Only attempt to load the citation if that functionality has been enabled in the
     # config, this is a DOI and its either a new record or the value has changed
-    if Rails.configuration.x.madmp.enable_citation_lookup && identifier_type == 'doi' &&
-       citation.nil?
-      wrk_type = work_type == 'supplemental_information' ? '' : work_type
-      # Use the UC3Citation service to fetch the citation for the DOI
-      self.citation = fetch_citation(doi: value, work_type: wrk_type) # , debug: true)
-      save
-    end
+    return unless Rails.configuration.x.madmp.enable_citation_lookup && identifier_type == 'doi' && citation.nil?
+
+    wrk_type = work_type == 'supplemental_information' ? '' : work_type
+    # Use the UC3Citation service to fetch the citation for the DOI
+    self.citation = fetch_citation(doi: value, work_type: wrk_type) # , debug: true)
   end
 end

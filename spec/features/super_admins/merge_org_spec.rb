@@ -31,7 +31,7 @@ RSpec.describe 'SuperAdmins Merge Orgs' do
   it 'Super admin merges an Org into another Org', :js do
     org_name = @from_org.name
     click_button 'Admin'
-    click_link _('Organisations')
+    click_link 'Organisations'
 
     fill_in(:search, with: @from_org.name)
     click_button 'Search'

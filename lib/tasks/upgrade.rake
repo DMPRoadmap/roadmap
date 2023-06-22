@@ -924,7 +924,7 @@ namespace :upgrade do
 
         orgs.each do |org|
           # If the Org already has a ROR identifier skip it
-          next if org.identifiers.select { |id| id.identifier_scheme_id == ror.id }.any?
+          next if org.identifiers.any? { |id| id.identifier_scheme_id == ror.id }
 
           # The abbreviation sometimes causes weird results so strip it off
           # in this instance

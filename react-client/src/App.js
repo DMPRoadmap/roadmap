@@ -20,17 +20,17 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/dmp/new",
+    path: "/dashboard/dmp/new",
     element: <PlanNew />
   },
 
   {
-    path: "/dmp/:dmpId",
+    path: "/dashboard/dmp/:dmpId",
     element: <PlanOverview />
   },
 
   {
-    path: "/dmp/:dmpId/funders",
+    path: "/dashboard/dmp/:dmpId/funders",
     element: <PlanFunders />
   },
 ]);

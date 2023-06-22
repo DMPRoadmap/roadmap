@@ -122,7 +122,7 @@ namespace :org_cleanup do
 
     # Only keep RegistryOrgs where one of the possible Org matches is managed
     results = results.select do |registry_org|
-      registry_org[:possible_matches].select { |org| org[:managed] }.any?
+      registry_org[:possible_matches].any? { |org| org[:managed] }
     end
 
     # Go through the remaining Orgs and indicate how they should be handled

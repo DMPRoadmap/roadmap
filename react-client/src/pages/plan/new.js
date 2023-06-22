@@ -43,7 +43,7 @@ function PlanNew() {
       return resp.json();
     }).then((data) => {
       let dmp = data.items[0].dmp;
-      navigate(`/dmp/${dmp.wip_id.identifier}`);
+      navigate(`/dashboard/dmp/${dmp.wip_id.identifier}`);
     });
   }
 
