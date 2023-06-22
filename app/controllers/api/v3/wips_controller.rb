@@ -17,13 +17,16 @@ module Api
 
       # POST /dmps
       def create
+        args = @json.with_indifferent_access.fetch(:dmp, {})
+        render_error(errors: wip.errors.full_messages, status: :bad_request) and return unless args[:title].present?
+
         # Extract the narrative PDF so we can add it to ActiveStorage
-        args = wip_params
-        args.delete(:narrative)
+        narrative = args[:narrative] if args[:narrative].present?
+        args.delete(:narrative) if args[:narrative].present?
 
         wip = Wip.new(user: current_user, metadata: { dmp: args })
         # Attach the narrative PDF if applicable
-        wip.narrative.attach(wip_params[:narrative]) if wip_params[:narrative].present?
+        wip.narrative.attach(narrative) if narrative.present? && narrative == ActionDispatch::Http::UploadedFile
         if wip.save
           @wips = [wip]
           render json: render_to_string(template: '/api/v3/wips/index'), status: :created
@@ -31,9 +34,10 @@ module Api
           render_error(errors: wip.errors.full_messages, status: :bad_request)
         end
       rescue ActionController::ParameterMissing => e
-        render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG}", status: :bad_request)
+        render_error(errors: "Invalid request #{::Wip::INVALID_JSON_MSG} - #{e.message}", status: :bad_request)
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::WipsController.create #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -100,7 +104,7 @@ module Api
       private
 
       def wip_params
-        params.require(:dmp).permit(:narrative, :remove_narrative, dmp_permitted_params)# .to_h
+        params.require(:dmp).permit(:narrative, :remove_narrative, dmp_permitted_params).to_h
       end
     end
   end
