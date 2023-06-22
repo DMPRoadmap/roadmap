@@ -14,7 +14,7 @@ RSpec.describe 'SuperAdmins Orgs', js: true do
 
   it 'Super admin adds links' do
     click_button 'Admin'
-    click_link _('Organisations')
+    click_link 'Organisations'
     first('td .dropdown button').click
     first('.dropdown-menu > li > a').click
     nbr_links = all('.link').length

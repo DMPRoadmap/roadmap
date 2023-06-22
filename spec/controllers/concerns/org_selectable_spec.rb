@@ -72,6 +72,7 @@ RSpec.describe OrgSelectable do
     context 'Non-namespaced autocomplete' do
       context 'user selected an Org from the list' do
         before do
+          Rails.configuration.x.application.restrict_orgs = false
           @controller.stubs(:org_selectable_params).returns(@org_selection_params)
         end
 
@@ -190,6 +191,7 @@ RSpec.describe OrgSelectable do
 
     context 'Namespaced autocomplete - user selected an Org from the list' do
       before do
+        Rails.configuration.x.application.restrict_orgs = false
         @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
         @namespace = { namespace: 'funder_' }
       end
@@ -232,7 +234,8 @@ RSpec.describe OrgSelectable do
     end
 
     context 'Namespaced autocomplete - user provided a custom Org name' do
-      before do
+      before(:each) do
+        Rails.configuration.x.application.restrict_orgs = false
         @controller.stubs(:org_selectable_params).returns(@funder_custom_params)
         @custom_name = @funder_custom_params[:org_autocomplete][:funder_user_entered_name]
         @namespace = { namespace: 'funder_' }

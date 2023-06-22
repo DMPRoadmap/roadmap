@@ -235,11 +235,12 @@ class ResearchOutputsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # Create any custom repositories
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create_custom_repositories(existing:, custom:)
     return existing if custom.nil? || custom[:repositories_attributes].nil?
 
     existing = existing.to_h
-    custom[:repositories_attributes].each do |id, hash|
+    custom[:repositories_attributes].each do |_id, hash|
       next if hash[:uri].nil? || hash[:name].nil?
 
       repo = Repository.find_by(uri: hash[:uri])
@@ -249,13 +250,15 @@ class ResearchOutputsController < ApplicationController
     end
     existing
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # Create any custom metadata standards
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def create_custom_standards(existing:, custom:)
     return existing if custom.nil? || custom[:metadata_standards_attributes].nil?
 
     existing = existing.to_h
-    custom[:metadata_standards_attributes].each do |id, hash|
+    custom[:metadata_standards_attributes].each do |_id, hash|
       next if hash[:uri].nil? || hash[:name].nil?
 
       hash[:title] = hash[:name]
@@ -266,6 +269,7 @@ class ResearchOutputsController < ApplicationController
     end
     existing
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # There are certain fields on the form that are visible based on the selected research_output_type. If the
   # ResearchOutput previously had a value for any of these and the research_output_type then changed making

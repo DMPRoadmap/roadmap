@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module Dmptool
   module OrgAdmin
     # Helper method that loads the selected Template's email subject/body when the
@@ -49,7 +50,7 @@ module Dmptool
       # rubocop:enable Metrics/AbcSize
 
       # GET /org_admin/templates/[:id] # ,
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def save_preferences
         template = Template.find(params[:id])
         authorize Template
@@ -92,7 +93,7 @@ module Dmptool
           referrer: referrer
         }
       end
-      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       def define_custom_repository
         @template = Template.find(params[:id])
@@ -151,15 +152,17 @@ module Dmptool
           template_output_types_attributes: %i[id research_output_type],
           licenses_attributes: %i[id],
           repositories_attributes: %i[id name description uri],
-          metadata_standards_attributes: %i[id name description uri])
+          metadata_standards_attributes: %i[id name description uri]
+        )
       end
 
       # Create any custom repositories
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def create_custom_repositories(existing:, custom:)
         return existing if custom.nil? || custom[:repositories_attributes].nil?
 
         existing = existing.to_h
-        custom[:repositories_attributes].each do |id, hash|
+        custom[:repositories_attributes].each do |_id, hash|
           next if hash[:uri].nil? || hash[:name].nil?
 
           repo = Repository.find_by(uri: hash[:uri])
@@ -169,13 +172,15 @@ module Dmptool
         end
         existing
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Create any custom metadata standards
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       def create_custom_standards(existing:, custom:)
         return existing if custom.nil? || custom[:metadata_standards_attributes].nil?
 
         existing = existing.to_h
-        custom[:metadata_standards_attributes].each do |id, hash|
+        custom[:metadata_standards_attributes].each do |_id, hash|
           next if hash[:uri].nil? || hash[:name].nil?
 
           hash[:title] = hash[:name]
@@ -186,6 +191,7 @@ module Dmptool
         end
         existing
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
       def referrer
         return customisable_org_admin_templates_path if @template&.customization_of&.present?
@@ -195,3 +201,4 @@ module Dmptool
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength
