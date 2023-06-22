@@ -52,11 +52,11 @@ function PlanSetup() {
     }).then((data) => {
       console.log('Handle Response');
       console.log(data.items.map(i => JSON.parse(i)));
-      // navigate("/dmps/overview");
+      // navigate("/dashboard/dmps/overview");
     });
   }
 
-  // onClick={() => navigate("/dmps/funders")}
+  // onClick={() => navigate("/dashboard/dmps/funders")}
 
   return (
     <div id="planSetup">

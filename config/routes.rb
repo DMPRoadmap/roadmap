@@ -109,12 +109,7 @@ Rails.application.routes.draw do
   # that the Rails app will render and serve the React app to the client in the event that they navigate to one of
   # the React pages via a link, button, bookmark, refresh the browser page, etc.
   get 'dashboard' => 'dashboards#show'
-  resources :wips, path: :dmps, only: %i[index] do
-    member do
-      get :funders
-      get :overview
-    end
-  end
+  get 'dashboard/*all' => 'dashboards#show'
 
   # API v3 - support for the React UI. The React app calls these endpoints for typeahead functionality, fetching
   # content, saving content, etc.

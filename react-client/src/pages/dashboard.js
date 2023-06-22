@@ -90,7 +90,7 @@ function Dashboard() {
 
       <h2>
         Dashboard
-        <button className="primary" onClick={() => navigate("/dmps/new")}>
+        <button className="primary" onClick={() => navigate("/dashboard/dmps/new")}>
           Add Plan
         </button>
       </h2>
