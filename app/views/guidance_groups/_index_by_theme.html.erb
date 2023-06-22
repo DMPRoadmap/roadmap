@@ -17,27 +17,26 @@
       <% question_guidance_id = "#{question.object_id}-#{guidances.object_id}" %>
       <%# if guidances with this theme have not been output %>
       <% if (guidances.map(&:id) - guidances_output).any? %>
-        <div class="card card-default">
+        <div class="accordion-item card card-default">
           <div
-            class="heading-button"
+            class="accordion-button"
             role="button"
             data-toggle="collapse"
             href="<%= "##{question_guidance_id}" %>"
             aria-expanded="false"
             aria-controls="<%= "##{question_guidance_id}" %>">
             <div class="card-heading" role="tab" id="<%= "card-heading-#{question_guidance_id}" %>">
-              <h2 class="card-title">
+              <h2 class="accordion-header">
                 <%= theme.title %>
-                <i class="fas fa-plus pull-right" aria-hidden="true"></i>
               </h2>
             </div>
           </div>
           <div
             id="<%= "#{question_guidance_id}" %>"
-            class="card-collapse collapse"
+            class="accordion-collapse collapse"
             role="tabpanel"
             aria-labelledby="<%= "card-heading-#{question_guidance_id}" %>">
-            <div class="card-body">
+            <div class="accordion-body">
               <% multiple = false %>
               <% guidances.each do |guidance| %>
                 <% if multiple %>

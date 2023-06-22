@@ -26,33 +26,29 @@
     <% if plan.template.phases.size == 1 %>
       <%= render(partial: '/phases/overview', locals: { plan_id: plan.id, phase: plan.template.phases.first }) %>
     <% else %>
-      <div class="card-group" id="plan-overview-accordion" role="tablist" aria-multiselectable="true">
+      <div class="accordion" id="plan-overview-accordion" role="tablist" aria-multiselectable="true">
         <% plan.template.phases.each do |p| %>
           <% questions_size = p.sections.map{|s| s.questions.size }.reduce(0){|sum,x| sum + x } %>
-          <div class="card card-default">
-            <div class="heading-button" role="button" data-toggle="collapse"
-                 data-parent="plan-overview-accordion"
+          <div class="accordion-item card card-default">
+            <div class="accordion-button" role="button" data-bs-toggle="collapse"
+                 data-bs-parent="plan-overview-accordion"
                  href="#plan-overview-collapse-<%= p.id %>"
                  aria-expanded="false"
                  aria-controls="#plan-overview-collapse-<%= p.id %>">
 
               <div class="card-heading" role="tab" id="plan-overview-heading-<%= p.id %>">
-                <div class="card-title">
+                <h2 class="accordion-header">
                   <div class="pull-left">
                     <%= _("%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})") % {
                       :phase_title => p.title, :sections_size => p.sections.size, :sections => n_('section', 'sections', p.sections.size),
                       :questions_size => questions_size,
                       :questions => n_('question', 'questions', questions_size) } %>
                   </div>
-                  <div class="pull-right">
-                    <i class="fas fa-plus pull-right" aria-hidden="true"></i>
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
+                </h2>
               </div>
             </div>
-            <div id="plan-overview-collapse-<%= p.id %>" class="card-collapse collapse" role="tabpanel" aria-labelledby="plan-overview-heading-<%= p.id %>">
-              <div class="card-body">
+            <div id="plan-overview-collapse-<%= p.id %>" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="plan-overview-heading-<%= p.id %>">
+              <div class="accordion-body">
                 <%= render(partial: '/phases/overview', locals: { plan_id: plan.id, phase: p }) %>
               </div>
             </div>

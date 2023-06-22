@@ -124,38 +124,35 @@
                       ) %>
                     <% if theme_guidances.length > 0 %>
                       <% theme_guidances.each do |guidance| %>
-                        <div class="card card-default">
-                          <div class="heading-button"
-                               role="button"
-                               data-toggle="collapse"
-                               href="#collapseGuidance-<%= guidance.id%>-<%= question.id %>"
-                               aria-expanded="false"
-                               aria-controls="#collapseGuidance-<%= guidance.id%>-<%= question.id %>">
-
-                            <div class="card-heading"
-                                        role="tab"
-                                        id="#headingGuidance-<%= guidance.id%>-<%= question.id %>">
-                              <div class="card-title">
-                                  <i class="fas fa-plus pull-left" aria-hidden="true"></i>
-                                &nbsp;<%= theme.title %>
-                                <% if ggs.length > 1 %>
-                                  &nbsp;(<%= guidance_group.name %>)
-                                <% end %>
-                              </div>
-                              <div class="clearfix"></div>
+                        <div class="accordion my-3 card card-default">
+                          <div class="accordion-item w-100">
+                              <h2 class="accordion-header" 
+                                  id="#headingGuidance-<%= guidance.id%>-<%= question.id %>">
+                                <div class="accordion-button"
+                                     role="button"
+                                     data-bs-toggle="collapse"
+                                     href="#collapseGuidance-<%= guidance.id%>-<%= question.id %>"
+                                     aria-expanded="false"
+                                     aria-controls="#collapseGuidance-<%= guidance.id%>-<%= question.id %>">
+                                     <%= theme.title %>
+                                     <% if ggs.length > 1 %>
+                                        &nbsp;(<%= guidance_group.name %>)
+                                    <% end %>
+                                </div>
+                              </h2>
+                            </div>
+                            <div id="collapseGuidance-<%= guidance.id%>-<%= question.id %>"
+                                 class="accordion-collapse collapse"
+                                 role="tabpanel"
+                                 aria-labelledby="headingGuidance-<%= guidance.id%>-<%= question.id %>">
+                                <div class="accordion-body allow-break-words">
+                                   <div class="display-readonly-textarea-content">
+                                      <%= sanitize guidance.text %>
+                                   </div>
+                                </div>
                             </div>
                           </div>
-                          <div id="collapseGuidance-<%= guidance.id%>-<%= question.id %>"
-                               class="card-collapse collapse"
-                               role="tabpanel"
-                               aria-labelledby="headingGuidance-<%= guidance.id%>-<%= question.id %>">
-                            <div class="card-body allow-break-words">
-                              <div class="display-readonly-textarea-content">
-                                <%= sanitize guidance.text %>
-                              </div>
-                            </div>
                         </div>
-                      </div>
                     <% end %>
                    <% end %>
                   <% end %>

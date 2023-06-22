@@ -1,5 +1,5 @@
 // import 'bootstrap-sass/assets/javascripts/bootstrap/collapse';
-import { Tinymce } from '../../utils/tinymce.js';
+import { Tinymce } from '../../utils/tinymce';
 import { isObject, isString } from '../../utils/isType';
 import getConstant from '../../utils/constants';
 import { addAsterisks } from '../../utils/requiredField';
@@ -61,7 +61,7 @@ $(() => {
       // For some reason the toolbar options are retained after the call to Tinymce.init() on
       // the views/notifications/edit.js file. Tried 'Object.assign' instead of '$.extend' but it
       // made no difference
-      const prefix = 'collapseSection'
+      const prefix = 'collapseSection';
       let sectionId = selector;
       if (sectionId.startsWith(prefix)) {
         sectionId = `sc_${sectionId.replace(prefix, '')}_section_description`
@@ -90,20 +90,20 @@ $(() => {
 
   // Attach handlers for the Section expansion
   $(parentSelector).on('ajax:before', 'a.ajaxified-section[data-remote="true"]', (e) => {
-    const panelBody = $(e.target).parent().find('.panel-body');
-    return panelBody.attr('data-loaded') === 'false';
+    const accordionBody = $(e.target).parents('.accordion-item').find('.accordion-collapse').find('.accordion-body');
+    return accordionBody.attr('data-loaded') === 'false';
   });
 
   $(parentSelector).on('ajax:success', 'a.ajaxified-section[data-remote="true"]', (e) => {
-    const panelBody = $(e.target).parent().find('.panel-body');
-    const panel = panelBody.parent();
-    if (isObject(panelBody)) {
+    const accordionBody = $(e.target).parents('.accordion-item').find('.accordion-collapse').find('.accordion-body');
+    const accordionCollapse = accordionBody.parents('.accordion-collapse');
+    if (isObject(accordionBody)) {
       // Display the section's html
-      panelBody.attr('data-loaded', 'true');
-      panelBody.html(e.detail[0].html);
+      accordionBody.attr('data-loaded', 'true');
+      accordionBody.html(e.detail[0].html);
 
       // Wire up the section
-      initSection(`${panel.attr('id')}`);
+      initSection(`${accordionCollapse.attr('id')}`);
     }
   });
 

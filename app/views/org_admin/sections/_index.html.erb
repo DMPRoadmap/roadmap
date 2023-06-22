@@ -47,29 +47,25 @@
       <% end %>
 
     </div>
-
     <% if template.latest? && (modifiable || template.customization_of.present?) %>
-      <div class="card card-default">
-        <a href="#new_section" class="heading-button"
-           data-toggle="collapse" data-parent="sections-accordion"
-           data-target="#collapseSectionNew"
+    <div class="accordion section-group sections_accordion"
+     data-modifiable="<%= modifiable %>"
+     role="tablist">
+      <div class="accordion-item w-100 my-3 section">
+        <h2 class="accordion-header" role="tab" id="headingSectionNew">
+        <div href="#new_section" class="accordion-button" role="button"
+           data-bs-toggle="collapse" data-bs-parent="sections-accordion"
+           data-bs-target="#collapseSectionNew"
            aria-expanded="false"
            aria-controls="#collapseSectionNew">
 
-          <div class="card-heading" role="tab" id="headingSectionNew">
-            <div class="card-title pull-left">
-              <%= _('Add a new section') %>
-            </div>
-            <div class="pull-right">
-              <i class="fas fa-plus pull-right" aria-hidden="true"></i>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </a>
+          <%= _('Add a new section') %>
+        </div>
+        </h2>
         <div
-          id="collapseSectionNew" class="card-collapse collapse" role="tabpanel"
+          id="collapseSectionNew" class="accordion-collapse collapse" role="tabpanel"
           aria-labelledby="<%= "headingSectionNew" %>">
-           <div class="card-body">
+           <div class="accordion-body">
              <%= render partial: 'org_admin/sections/new',
                         locals: {
                           template: template,
@@ -77,6 +73,8 @@
            </div>
         </div>
       </div>
+     </div>
+    </div>
     <% end %>
   </div>
 

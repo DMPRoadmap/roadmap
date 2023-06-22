@@ -12,9 +12,9 @@
               </div>
             </div>
           </div>
+          <div class="col-md-4">
           <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
           </div>
-          <div class="col-md-4">
             <% if plan.present? && phase.present? %>
               <div class="progress">
                 <%= render partial: "/plans/progress",
@@ -25,19 +25,17 @@
         </div>
       </div>
     </div>
-    <div class="card-group" id="sections-accordion" role="tablist"
+    <div class="accordion" id="sections-accordion" role="tablist"
          aria-multiselectable="true">
     <% phase.sections.sort {|a,b| a.number <=> b.number }.each do |section| %>
-      <div class="card card-default">
-        <div class="heading-button" role="button" data-toggle="collapse"
+      <div class="accordion-item w-100 my-3">
+        <h2 class="accordion-header" role="tab" id="heading-<%= section.id %>">
+          <div class="accordion-button" role="button" data-bs-toggle="collapse"
              id="section-panel-<%= section.id %>"
-             data-parent="sections-accordion"
+             data-bs-parent="sections-accordion"
              href="#collapse-<%= section.id %>"
              aria-expanded="false"
              aria-controls="collapse-<%= section.id %>">
-
-          <div class="card-heading" role="tab" id="heading-<%= section.id %>">
-            <div class="card-title pull-left">
               <%= section.title %>
               <% if plan.present? %>
                   <span class="section-progress-<%= section.id %>">
@@ -46,12 +44,11 @@
                   </span>
               <% end %>
             </div>
-            <i class="fas fa-plus pull-right" aria-hidden="true"></i>
-            <div class="clearfix"></div>
           </div>
-        </div>
-        <div id="collapse-<%= section.id %>" class="card-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= section.id %>">
-          <div class="card-body"><!-- accordion body -->
+        </h2>
+
+        <div id="collapse-<%= section.id %>" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= section.id %>">
+          <div class="accordion-body"><!-- accordion body -->
             <div class="section-description">
               <div class="display-readonly-textarea-content">
                 <%= sanitize section.description %>
@@ -114,10 +111,10 @@
                   <hr />
                 <% end %>
               <% end %> <!-- section.questions.each do -->
-            </div> <!-- card-body -->
-          </div> <!-- card-collapse -->
-        </div> <!-- card card-default -->
+          </div> <!-- accordion-body -->
+        </div> <!-- accordion-collapse -->
       <% end %>   <!-- phase.sections.sort {|a,b| a.number <=> b.number }.each do -->
-    </div>   <!-- card-group -->
+    </div>   <!-- accordion -->
+    </div>
   </div> <!-- tab card -->
 </div> <!-- tab panels -->

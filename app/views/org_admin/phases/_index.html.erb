@@ -13,16 +13,17 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="card-group" id="phases_accordion" role="tablist">
+    <div class="accordion" id="phases_accordion" role="tablist">
       <!-- If template has phases-->
       <% if template_hash[:template][:phases].present? %>
         <% i = 0 %>
         <% template_hash[:template][:phases].each do |phase_no, phase_hash| %>
           <% phase = phase_hash[:data] %>
             <div class="card card-default">
-              <div class="heading-button" role="button" data-toggle="collapse"
-                   data-parent="phases_accordion"
+              <div class="heading-button" role="button" data-bs-toggle="collapse"
+                   data-bs-parent="#phases_accordion"
                    href="#collapsePhase<%= phase.id %>"
+                   role="button"
                    aria-expanded="<%= i == 0 ? 'true' : 'false' %>"
                    aria-controls="#collapsePhase<%= phase.id %>">
 
@@ -30,13 +31,9 @@
                   <div class="card-title pull-left">
                     <%= phase.title %>
                   </div>
-                  <div class="pull-right">
-                    <i class="fas fa-plus pull-right" aria-hidden="true"></i>
-                  </div>
-                  <div class="clearfix"></div>
                 </div>
               </div>
-              <div id="<%= "collapsePhase#{phase.id}" %>" class="card-collapse collapse<%= i == 0 ? 'in' : '' %>" role="tabcard" aria-labelledby="<%= "headingPhase#{phase.id}" %>"<%= i == 0 ? 'aria-expanded="true"' : '' %>>
+              <div id="<%= "collapsePhase#{phase.id}" %>" class="accordion-collapse collapse<%= i == 0 ? 'show' : 'hide' %>" role="tabcard" aria-labelledby="<%= "headingPhase#{phase.id}" %>"<%= i == 0 ? 'aria-expanded="false"' : '' %>>
                 <div class="card-body">
                   <%= render partial: 'org_admin/templates/show_phases_sections', locals: { phase: phase, phase_hash: phase_hash, template: template, current: current } %>
                 </div>

@@ -10,23 +10,22 @@
     </div>
   <% end %>
   <% group.keys.each_with_index do |theme, i| %>
-    <div class="card card-default">
-      <div class="heading-button" role="button" data-toggle="collapse"
-           data-parent="<%= question.id %>-guidance"
+    <div class="accordion-item card card-default">
+      <div class="accordion-button" role="button" data-bs-toggle="collapse"
+           data-bs-parent="#<%= question.id %>-guidance"
            href="#collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>"
            aria-expanded="false"
            aria-controls="#collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>">
 
         <div class="card-heading" role="tab" id="heading-<%= i %>">
-          <h2 class="card-title">
+          <h2 class="accordion-header">
             <%= theme %>
-            <i class="fas fa-plus pull-right" aria-hidden="true"></i>
           </h2>
         </div>
       </div>
-      <div id="collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>" class="card-collapse collapse" role="tabpanel"
+      <div id="collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>" class="accordion-collapse collapse" role="tabpanel"
          aria-labelledby="heading-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>">
-        <div class="card-body">
+        <div class="accordion-body">
           <% group[theme].each do |guidance| %>
             <%= sanitize guidance %>
           <% end %>
