@@ -22,11 +22,11 @@ module DmptoolHelper
 
     case attribute.to_sym
     when :org, :org_id
-      errs.select { |err| err.start_with?('Institution') }.any?
+      errs.any? { |err| err.start_with?('Institution') }
     when :accept_terms
-      errs.select { |err| err.include?('the terms') }.any?
+      errs.any? { |err| err.include?('the terms') }
     else
-      errs.select { |err| err.start_with?(attribute.to_s.humanize) }.any?
+      errs.any? { |err| err.start_with?(attribute.to_s.humanize) }
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

@@ -1,10 +1,38 @@
-import useContext from 'react';
-import { useNavigate } from 'react-router-dom';
+import {
+  Link,
+useNavigate,
+  useParams,
+} from 'react-router-dom';
 
+import {
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+
+import {DmpApi} from '../../api.js';
+
+// import './overview.scss';
 
 
 function PlanOverview() {
-  let navigate = useNavigate();
+    let navigate = useNavigate();
+  const {dmpId} = useParams();
+  const [dmp, setDmp] = useState({});
+
+  useEffect(() => {
+    let api = new DmpApi();
+
+    fetch(api.getPath(`/dmps/${dmpId}`)).then((resp) => {
+      api.handleResponse(resp);
+      return resp.json();
+    }).then((data) => {
+      console.log(data.items[0]);
+      setDmp(data.items[0].dmp);
+    });
+  }, [dmpId]);
+
+
 
 
   return (
@@ -15,7 +43,7 @@ function PlanOverview() {
           <h3>Plan Setup</h3>
 
           <div className="plan-steps-step">
-            <p>Project Name &amp; PDF Upload</p>
+            <p>{`${dmp.title}`}</p>
             <div className="step-status status-completed">Completed</div>
           </div>
         </div>
@@ -24,8 +52,10 @@ function PlanOverview() {
           <h3>Project</h3>
 
           <div className="plan-steps-step">
-            <p>Funder</p>
-            <div className="step-status status-completed">Completed</div>
+            <Link to={`/dashboard/dmp/${dmpId}/funders`}>
+              Funders
+            </Link>
+            <div className="step-status status-completed"></div>
           </div>
 
           <div className="plan-steps-step">

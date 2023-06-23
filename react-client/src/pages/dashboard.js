@@ -25,49 +25,20 @@ function Dashboard() {
   useEffect(() => {
     let api = new DmpApi();
 
-    let meUrl = api.getPath('/me');
     fetch(api.getPath('/me'), api.getOptions()).then((resp) => {
-      switch (resp.status) {
-        case 200:
-          return resp.json();
-          break;
-
-        default:
-          // TODO:: Error handling
-          // TODO:: Log and report errors to a logging services
-          // TODO:: Message to display to the user?
-          console.log('Error fetching from API');
-          console.log(resp);
-      }
+      api.handleResponse(resp)
+      return resp.json();
     }).then((data) => {
       setUser(data.items[0]);
     });
 
     // Fetch the work in progress DMPs for the currently logged in user
     fetch(api.getPath('/dmps'), api.getOptions()).then((resp) => {
-      console.log(resp);
-
-      switch (resp.status) {
-        case 200:
-          return resp.json();
-          break;
-
-        case 204:
-          return { items: [] }
-          break;
-
-        default:
-          // TODO:: Error handling
-          // TODO:: Log and report errors to a logging services
-          // TODO:: Message to display to the user?
-          console.log('Error fetching from API');
-          console.log(resp);
-      }
+      api.handleResponse(resp);
+      return resp.json();
     }).then((data) => {
       console.log(data.items);
       setProjects(data.items);
-      // console.log(data.items.map(i => JSON.parse(i)));
-      // setProjects(data.items.map(i => JSON.parse(i)));
     });
   }, []);
 
@@ -84,7 +55,7 @@ function Dashboard() {
 
       <h2>
         Dashboard
-        <button className="primary" onClick={() => navigate("/dmp/new")}>
+        <button className="primary" onClick={() => navigate("/dashboard/dmp/new")}>
           Add Plan
         </button>
       </h2>
@@ -98,18 +69,6 @@ function Dashboard() {
           <div className="data-heading" data-colname="status">Status</div>
           <div className="data-heading" data-colname="actions"></div>
 
-          <div data-colname="title">Static test Project</div>
-          <div data-colname="funder">NIH</div>
-          <div data-colname="grantId">12345-A</div>
-          <div data-colname="dmpId"></div>
-          <div data-colname="status">
-            Incomplete <br />
-            <progress max="10" value="7" />
-          </div>
-          <div data-colname="actions">
-            <a href="#" onClick={() => navigate("/dmps/overview")}>Complete</a>
-          </div>
-
           {projects.map(item => (
             <Fragment key={item.dmp.wip_id.identifier}>
               <div data-colname="title">{item.dmp?.title}</div>
@@ -120,10 +79,10 @@ function Dashboard() {
               </div>
               <div data-colname="status">
                 Incomplete <br />
-                <progress max="10" value="3" />
+                <progress max="10" value="3"/>
               </div>
               <div data-colname="actions">
-                <Link to={`/dmp/${item.dmp.wip_id.identifier}`} >
+                <Link to={`/dashboard/dmp/${item.dmp.wip_id.identifier}`} >
                   Complete
                 </Link>
               </div>
