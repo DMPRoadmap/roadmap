@@ -7,7 +7,7 @@ module Dmpopidor
     # GET - List of all users for an organisation
     # Displays number of roles[was project_group], name, email, and last sign in
     # Added Total users count
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def admin_index
       authorize ::User
 
@@ -34,6 +34,6 @@ module Dmpopidor
         end
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   end
 end

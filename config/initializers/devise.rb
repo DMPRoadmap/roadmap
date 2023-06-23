@@ -324,7 +324,7 @@ module OmniAuth
           when :env, 'env'
             request.env[key]
           when :header, 'header'
-            v = request.env["HTTP_#{key.upcase.gsub('-', '_')}"]
+            v = request.env["HTTP_#{key.upcase.tr('-', '_')}"]
             v = v.force_encoding('UTF-8') unless v.nil?
             v
           when :params, 'params'

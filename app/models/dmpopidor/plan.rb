@@ -11,7 +11,7 @@ module Dmpopidor
     # rubocop:disable Metrics/CyclomaticComplexity
     def answer(qid, create_if_missing = true, roid = nil)
       answer = answers.select { |a| a.question_id == qid && a.research_output_id == roid }
-                      .max { |a, b| a.created_at <=> b.created_at }
+                      .max_by(&:created_at)
       if answer.nil? && create_if_missing
         question           = ::Question.find(qid)
         answer             = Answer.new
@@ -39,7 +39,7 @@ module Dmpopidor
 
     # Defines if an api client has a read access to the plan
     def readable_by_client?(client_id)
-      api_client_roles.select { |r| r.api_client_id == client_id && r.read }.any?
+      api_client_roles.any? { |r| r.api_client_id == client_id && r.read }
     end
 
     # The number of research outputs for a plan.

@@ -38,7 +38,8 @@ module Fragment
       # if so, the role will be displayed once as a concatenation of the research output abbreviation
       # Ex: Data contact (RO1, RO2)
       contributors_list.each do |c|
-        if %w[meta project].include?(c.parent&.classname)
+        meta_project = %w[meta project]
+        if meta_project.include?(c.parent&.classname)
           roles_list.push(c.data['role'])
           next
         end

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 # rubocop:disable Naming/VariableNumber
 namespace :dmpopidor_upgrade do
   desc 'Upgrade to 2.1.0'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Be sure to restart your server when you modify this file.
 #
 # This file eases your Rails 7.0 framework defaults upgrade.
@@ -97,7 +98,6 @@
 #   "Referrer-Policy" => "strict-origin-when-cross-origin"
 # }
 
-
 # ** Please read carefully, this must be configured in config/application.rb **
 # Change the format of the cache entry.
 # Changing this default means that all new cache entries added to the cache
@@ -106,7 +106,6 @@
 # and you have no plans to rollback.
 # When you're ready to change format, add this to `config/application.rb` (NOT this file):
 #  config.active_support.cache_format_version = 7.0
-
 
 # Cookie serializer: 2 options
 #
@@ -137,12 +136,16 @@
 # Change the return value of `ActionDispatch::Request#content_type` to the Content-Type header without modification.
 # Rails.application.config.action_dispatch.return_only_request_media_type_on_content_type = false
 
-# Active Storage `has_many_attached` relationships will default to replacing the current collection instead of appending to it.
-# Thus, to support submitting an empty collection, the `file_field` helper will render an hidden field `include_hidden` by default when `multiple_file_field_include_hidden` is set to `true`.
-# See https://guides.rubyonrails.org/configuring.html#config-active-storage-multiple-file-field-include-hidden for more information.
+# Active Storage `has_many_attached` relationships will default to replacing the
+# current collection instead of appending to it.
+# Thus, to support submitting an empty collection, the `file_field` helper will render an hidden field `include_hidden`
+# by default when `multiple_file_field_include_hidden` is set to `true`.
+# See https://guides.rubyonrails.org/configuring.html#config-active-storage-multiple-file-field-include-hidden
+# for more information.
 # Rails.application.config.active_storage.multiple_file_field_include_hidden = true
 
 # ** Please read carefully, this must be configured in config/application.rb (NOT this file) **
 # Disables the deprecated #to_s override in some Ruby core classes
-# See https://guides.rubyonrails.org/configuring.html#config-active-support-disable-to-s-conversion for more information.
+# See https://guides.rubyonrails.org/configuring.html#config-active-support-disable-to-s-conversion
+# for more information.
 # config.active_support.disable_to_s_conversion = true

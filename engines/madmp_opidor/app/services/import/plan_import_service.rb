@@ -63,7 +63,7 @@ module Import
             next if associated_question.nil?
 
             fragment = MadmpFragment.new(
-              dmp_id: dmp_id,
+              dmp_id:,
               parent_id: research_output_fragment.id,
               madmp_schema: associated_question.madmp_schema,
               additional_info: { 'property_name' => prop }

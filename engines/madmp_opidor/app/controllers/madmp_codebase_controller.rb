@@ -9,7 +9,7 @@ class MadmpCodebaseController < ApplicationController
   def run
     fragment = MadmpFragment.find(params[:fragment_id])
     script_id = params[:script_id]
-    schema_run = fragment.madmp_schema.extract_run_parameters(script_id: script_id)
+    schema_run = fragment.madmp_schema.extract_run_parameters(script_id:)
     script_name = schema_run['name'] || ''
     script_params = schema_run['params'] || {}
 

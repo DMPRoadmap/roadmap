@@ -30,7 +30,7 @@ module FragmentImport
             sub_fragment = MadmpFragment.new(
               data: sub_data,
               dmp_id: dmp.id,
-              parent_id: parent_id,
+              parent_id:,
               madmp_schema_id: sub_schema.id,
               additional_info: { property_name: prop }
             )
@@ -48,7 +48,7 @@ module FragmentImport
         if data[prop].nil?
           sub_fragment = MadmpFragment.new(
             dmp_id: dmp.id,
-            parent_id: parent_id,
+            parent_id:,
             madmp_schema_id: sub_schema.id,
             additional_info: { property_name: prop }
           )
@@ -75,7 +75,7 @@ module FragmentImport
           if sub_fragment.eql?(false)
             sub_fragment = MadmpFragment.new(
               dmp_id: dmp.id,
-              parent_id: parent_id,
+              parent_id:,
               madmp_schema_id: sub_schema.id,
               additional_info: { property_name: prop }
             )
