@@ -189,7 +189,7 @@ header.dmpopidor-branding {
                 justify-content: center;
                 align-items: center;
                 width: max-content;
-                grid-template-rows: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 0fr);
                 grid-auto-flow: column;
                 padding: 0;
 
@@ -214,7 +214,7 @@ header.dmpopidor-branding {
               justify-content: center;
               align-items: center;
               width: max-content;
-              grid-template-rows: repeat(2, 1fr);
+              grid-template-rows: repeat(2, 0fr);
               grid-auto-flow: column;
               padding: 0;
 
@@ -243,7 +243,7 @@ header.dmpopidor-branding {
                   justify-content: center;
                   align-items: center;
                   width: max-content;
-                  grid-template-rows: repeat(2, 1fr);
+                  grid-template-rows: repeat(2, 0fr);
                   grid-auto-flow: column;
                   padding: 0;
 
@@ -373,9 +373,21 @@ header.dmpopidor-branding {
           height: inherit;
           padding: 20px;
 
+          @media (max-width: 767px) {
+            justify-content: center;
+          }
+
           .org-logo {
-            flex: 1;
+            padding-right: 0;
+            padding-left: 5%;
             height: inherit;
+
+            @media (max-width: 767px) {
+              padding-right: 0;
+              padding-left: 0;
+              width: 85%;
+              height: auto;
+            }
 
             &.no-logo {
               font-size: xx-large;
@@ -389,9 +401,38 @@ header.dmpopidor-branding {
             flex: 2;
             font-size: large;
             height: inherit;
+            justify-content: left;
+
+            li.org-links {
+              padding-top: 0;
+              width: max-content;
+
+              &:hover {
+                text-decoration: underline;
+                transform: scale(1.05);
+              }
+            }
+
+            ul.navbar-nav {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              grid-auto-flow: column;
+              grid-template-rows: 1fr 1fr 1fr;
+
+              &::before,
+              &::after {
+                display: none;
+              }
+            }
 
             .org-a {
               padding: 0 15px;
+              width: max-content;
+
+              &:hover {
+                text-decoration: underline;
+                transform: scale(1.05);
+              }
             }
 
             a {
@@ -402,7 +443,8 @@ header.dmpopidor-branding {
 
         .org-banner-text {
           font-size: large;
-          padding-top: 5px;
+          padding: 0 30px;
+          text-align: justify;
 
           a {
             color: black;
