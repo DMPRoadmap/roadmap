@@ -193,4 +193,31 @@
 
     }
   }
+
+  /*
+     All Users
+  */
+
+  .btn.dropdown-toggle {
+    color: black;
+  }
+
+  table {
+
+    ul.dropdown-menu {
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
+      z-index: 20;
+
+      li {
+
+        a,
+        a:hover,
+        a:visited,
+        a:focus {
+          color: $dark-blue !important;
+          background-color: $white !important;
+        }
+      }
+    }
+  }
 }
