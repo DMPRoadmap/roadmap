@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-04-27 16:37+0200\n"
-"PO-Revision-Date: 2023-04-27 16:37+0200\n"
+"POT-Creation-Date: 2023-06-23 08:35+0200\n"
+"PO-Revision-Date: 2023-06-23 08:35+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -125,12 +125,12 @@ msgstr "ajouté"
 #: ../../app/controllers/guidances_controller.rb:75
 #: ../../app/controllers/notes_controller.rb:103
 #: ../../app/controllers/orgs_controller.rb:99
-#: ../../app/controllers/plans_controller.rb:362
-#: ../../app/controllers/plans_controller.rb:365
-#: ../../app/controllers/registrations_controller.rb:260
-#: ../../app/controllers/registrations_controller.rb:264
-#: ../../app/controllers/registrations_controller.rb:291
-#: ../../app/controllers/registrations_controller.rb:295
+#: ../../app/controllers/plans_controller.rb:371
+#: ../../app/controllers/plans_controller.rb:374
+#: ../../app/controllers/registrations_controller.rb:261
+#: ../../app/controllers/registrations_controller.rb:265
+#: ../../app/controllers/registrations_controller.rb:292
+#: ../../app/controllers/registrations_controller.rb:296
 #: ../../app/controllers/research_outputs_controller.rb:69
 #: ../../app/controllers/users_controller.rb:118
 #: ../../app/controllers/users_controller.rb:146
@@ -148,12 +148,12 @@ msgstr "enregistré"
 #: ../../app/controllers/guidances_controller.rb:77
 #: ../../app/controllers/notes_controller.rb:121
 #: ../../app/controllers/orgs_controller.rb:101
-#: ../../app/controllers/plans_controller.rb:371
-#: ../../app/controllers/plans_controller.rb:374
-#: ../../app/controllers/plans_controller.rb:378
-#: ../../app/controllers/plans_controller.rb:381
-#: ../../app/controllers/registrations_controller.rb:267
-#: ../../app/controllers/registrations_controller.rb:298
+#: ../../app/controllers/plans_controller.rb:380
+#: ../../app/controllers/plans_controller.rb:383
+#: ../../app/controllers/plans_controller.rb:387
+#: ../../app/controllers/plans_controller.rb:390
+#: ../../app/controllers/registrations_controller.rb:268
+#: ../../app/controllers/registrations_controller.rb:299
 #: ../../app/controllers/research_outputs_controller.rb:72
 msgid "save"
 msgstr "enregistrer"
@@ -216,7 +216,7 @@ msgstr "créé"
 #: ../../app/controllers/guidance_groups_controller.rb:34
 #: ../../app/controllers/guidances_controller.rb:55
 #: ../../app/controllers/notes_controller.rb:73
-#: ../../app/controllers/plans_controller.rb:210
+#: ../../app/controllers/plans_controller.rb:219
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:29
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:33
 msgid "create"
@@ -271,7 +271,7 @@ msgid "Invalid JSON: "
 msgstr "JSON non valide :"
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:13
-#: ../../app/controllers/plans_controller.rb:570
+#: ../../app/controllers/plans_controller.rb:579
 msgid "There is no plan associated with id %{id}"
 msgstr "Il n'existe aucun plan associé à l'identifiant %{id}"
 
@@ -281,7 +281,7 @@ msgid "Data contact"
 msgstr "Personne contact pour les données"
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:45
-#: ../../app/controllers/plans_controller.rb:527
+#: ../../app/controllers/plans_controller.rb:536
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:21
@@ -291,7 +291,7 @@ msgstr "mettre à jour"
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:59
 #: ../../app/controllers/guidance_groups_controller.rb:95
 #: ../../app/controllers/guidances_controller.rb:94
-#: ../../app/controllers/plans_controller.rb:441
+#: ../../app/controllers/plans_controller.rb:450
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:56
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:64
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:32
@@ -301,7 +301,7 @@ msgstr "supprimé"
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:61
 #: ../../app/controllers/guidance_groups_controller.rb:97
 #: ../../app/controllers/guidances_controller.rb:96
-#: ../../app/controllers/plans_controller.rb:446
+#: ../../app/controllers/plans_controller.rb:455
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:59
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:67
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:35
@@ -398,7 +398,6 @@ msgid "This plan is based on the default template."
 msgstr "Ce plan est basé sur le modèle par défaut."
 
 #: ../../app/controllers/plans_controller.rb:164
-#: ../../app/controllers/plans_controller.rb:168
 msgid "This plan is based on the"
 msgstr "Ce plan est basé sur le"
 
@@ -406,15 +405,22 @@ msgstr "Ce plan est basé sur le"
 msgid "template with customisations by the"
 msgstr "modèle personnalisé par"
 
-#: ../../app/controllers/plans_controller.rb:501
+#: ../../app/controllers/plans_controller.rb:172
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:9
+msgid ""
+"This plan is based on the \"%{template_title}\" template provided by %{org_name}"
+"."
+msgstr "Ce plan est basé sur le modèle  \"%{template_title}\" fourni par %{org_name}."
+
+#: ../../app/controllers/plans_controller.rb:510
 msgid "copied"
 msgstr "copié"
 
-#: ../../app/controllers/plans_controller.rb:503
+#: ../../app/controllers/plans_controller.rb:512
 msgid "copy"
 msgstr "copier"
 
-#: ../../app/controllers/plans_controller.rb:524
+#: ../../app/controllers/plans_controller.rb:533
 #: ../../app/controllers/users_controller.rb:123
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:45
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:50
@@ -422,7 +428,7 @@ msgstr "copier"
 msgid "updated"
 msgstr "mis à jour"
 
-#: ../../app/controllers/plans_controller.rb:532
+#: ../../app/controllers/plans_controller.rb:541
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -430,19 +436,19 @@ msgstr ""
 "Impossible de changer le statut du plan, au moins %{percentage} % de questions"
 " répondues sont nécessaires"
 
-#: ../../app/controllers/plans_controller.rb:538
+#: ../../app/controllers/plans_controller.rb:547
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Impossible de trouver le plan avec l'identifiant %{plan_id}"
 
-#: ../../app/controllers/plans_controller.rb:553
+#: ../../app/controllers/plans_controller.rb:562
 msgid "Your project is now a test."
 msgstr "Votre projet est maintenant un test."
 
-#: ../../app/controllers/plans_controller.rb:553
+#: ../../app/controllers/plans_controller.rb:562
 msgid "Your project is no longer a test."
 msgstr "Votre projet n'est plus un test."
 
-#: ../../app/controllers/plans_controller.rb:557
+#: ../../app/controllers/plans_controller.rb:566
 msgid "Unable to change the plan's test status"
 msgstr "Impossible de changer le statut du plan"
 
@@ -490,23 +496,23 @@ msgstr ""
 "Bienvenue ! Vous êtes connecté avec vous identifiants institutionnels. Vous po"
 "uvez à présent accéder à votre compte en les utilisant."
 
-#: ../../app/controllers/registrations_controller.rb:184
+#: ../../app/controllers/registrations_controller.rb:185
 msgid "Save Unsuccessful. "
 msgstr "Échec de l'enregistrement."
 
-#: ../../app/controllers/registrations_controller.rb:188
+#: ../../app/controllers/registrations_controller.rb:189
 msgid "Please enter an email address. "
 msgstr "Veuillez entrer une adresse courriel."
 
-#: ../../app/controllers/registrations_controller.rb:192
+#: ../../app/controllers/registrations_controller.rb:193
 msgid "Please enter a First name. "
 msgstr "S'il vous plaît entrer un prénom."
 
-#: ../../app/controllers/registrations_controller.rb:196
+#: ../../app/controllers/registrations_controller.rb:197
 msgid "Please enter a Last name. "
 msgstr "S'il vous plaît entrer un nom de famille."
 
-#: ../../app/controllers/registrations_controller.rb:200
+#: ../../app/controllers/registrations_controller.rb:201
 msgid ""
 "Please select an organisation from the list, or enter your organisation's name"
 "."
@@ -514,11 +520,11 @@ msgstr ""
 "Merci de sélectionner un organisme de la liste, ou de saisir le nom de votre o"
 "rganisme."
 
-#: ../../app/controllers/registrations_controller.rb:223
+#: ../../app/controllers/registrations_controller.rb:224
 msgid "Please enter your password to change email address."
 msgstr "Veuillez saisir votre mot de passe pour changer le courriel."
 
-#: ../../app/controllers/registrations_controller.rb:229
+#: ../../app/controllers/registrations_controller.rb:230
 msgid ""
 "Save unsuccessful. \\\n"
 "                That email address is already registered. \\\n"
@@ -528,19 +534,19 @@ msgstr ""
 "                Cette adresse électronique est déjà enregistrée. \\\n"
 "                Vous devez renseigner une adresse unique."
 
-#: ../../app/controllers/registrations_controller.rb:235
+#: ../../app/controllers/registrations_controller.rb:236
 msgid "Invalid password"
 msgstr "Mot de passe incorrect"
 
-#: ../../app/controllers/registrations_controller.rb:279
+#: ../../app/controllers/registrations_controller.rb:280
 msgid "Please enter your current password"
 msgstr "Veuillez entrer votre mot de passe actuel"
 
-#: ../../app/controllers/registrations_controller.rb:281
+#: ../../app/controllers/registrations_controller.rb:282
 msgid "Please enter a password confirmation"
 msgstr "Veuillez confirmer votre mot de passe"
 
-#: ../../app/controllers/registrations_controller.rb:283
+#: ../../app/controllers/registrations_controller.rb:284
 msgid "Password and comfirmation must match"
 msgstr "Le mot de passe et sa confirmation doivent correspondre"
 
@@ -1354,12 +1360,12 @@ msgstr "Sujet"
 msgid "Message"
 msgstr "Message"
 
-#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:39
-#: ../../app/views/branded/shared/_create_account_form.html.erb:46
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:40
+#: ../../app/views/branded/shared/_create_account_form.html.erb:47
 msgid "Security check"
 msgstr "Vérification de sécurité"
 
-#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:43
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:47
 msgid "Send"
 msgstr "Envoyer"
 
@@ -1486,7 +1492,7 @@ msgstr ""
 "e profil."
 
 #: ../../app/views/branded/devise/invitations/edit.html.erb:43
-#: ../../app/views/branded/shared/_create_account_form.html.erb:56
+#: ../../app/views/branded/shared/_create_account_form.html.erb:60
 msgid "Create account"
 msgstr "Créer un compte"
 
@@ -1765,12 +1771,12 @@ msgid "About"
 msgstr "A propos"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:12
-msgid "Terms of use"
-msgstr "Conditions d'utilisation"
+msgid "Legal notice"
+msgstr "Mentions légales"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:13
-msgid "Privacy statement"
-msgstr "Déclaration de confidentialité"
+msgid "Privacy policy"
+msgstr "Politique de confidentialité"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:17
 msgid "FAQ"
@@ -2929,12 +2935,6 @@ msgstr "Identifiants"
 msgid "Edit Profile"
 msgstr "Editer le profil"
 
-#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:9
-msgid ""
-"This plan is based on the \"%{template_title}\" template provided by %{org_name}"
-"."
-msgstr "Ce plan est basé sur le modèle  \"%{template_title}\" fourni par %{org_name}."
-
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:14
 msgid "(version: %{template_version}, published: %{published_date})"
 msgstr "(version: %{template_version}, publiée: %{published_date})"
@@ -3703,7 +3703,7 @@ msgstr "J'accepte le"
 msgid "terms and conditions"
 msgstr "conditions générales d'utilisation"
 
-#: ../../app/views/branded/shared/_create_account_form.html.erb:52
+#: ../../app/views/branded/shared/_create_account_form.html.erb:56
 msgid ""
 "The information collected that concerns you will be processed and is destined "
 "for the Inist-CNRS (UAR76) and the correspondent for Computing and Liberties ("
@@ -3717,7 +3717,7 @@ msgstr ""
 "taires de ces données sont les administrateurs DMP OPIDoR de l’Inist-CNRS. La "
 "durée de conservation des données est de 5 ans suite à la dernière connexion."
 
-#: ../../app/views/branded/shared/_create_account_form.html.erb:53
+#: ../../app/views/branded/shared/_create_account_form.html.erb:57
 msgid ""
 "You have the right of access, of correction, of portability, or of removal of "
 "this data, or of a limitation of their processing. You can oppose the processi"
