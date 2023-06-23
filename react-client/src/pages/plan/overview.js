@@ -14,8 +14,8 @@ import {DmpApi} from '../../api.js';
 
 
 function PlanOverview() {
+  const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
-  const { dmpId } = useParams();
 
   useEffect(() => {
     let api = new DmpApi();

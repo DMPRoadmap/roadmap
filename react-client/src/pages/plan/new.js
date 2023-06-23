@@ -22,14 +22,8 @@ function PlanNew() {
 
     const fileResult = await api.getFileDataURL(stepData['project_pdf'])
 
-    // NOTE: We must remove the content type headers for the PDF boundary to
-    // work correctly
-    let headers = api.getHeaders();
-    headers.delete('Content-Type');
-
     let options = api.getOptions({
       method: "post",
-      headers: headers,
       body: JSON.stringify({
         "dmp": {
           "title": stepData['project_name'],
