@@ -20,25 +20,14 @@ function PlanOverview() {
   useEffect(() => {
     let api = new DmpApi();
 
-    // TODO::FIXME::
-    //
-    // We need to fetch the DMP in progress so that we can display the steps
-    // and progress on this page.
-    //
-    // However; The dmpId we have in the url, is the `wips_id` identifier.
-    // the DMPS seem to have another id called `dmpId`, which is a different
-    // format to the wips_id.
-    //
-    // Q: Why are the ID's different?
-    // Q: What is the correct ID to use in the url path?
-    //
-    // fetch(api.getPath(`/dmps/${dmpId}`)).then((resp) => {
-    //   api.handleResponse(resp);
-    //   return resp.json();
-    // }).then((data) => {
-    //   setDmp(data.items[0]);
-    // });
-  });
+    fetch(api.getPath(`/dmps/${dmpId}`)).then((resp) => {
+      api.handleResponse(resp);
+      return resp.json();
+    }).then((data) => {
+      console.log(data.items[0]);
+      setDmp(data.items[0].dmp);
+    });
+  }, [dmpId]);
 
   return (
     <>
@@ -48,7 +37,7 @@ function PlanOverview() {
           <h3>Plan Setup</h3>
 
           <div className="plan-steps-step">
-            <p>Project Name &amp; PDF Upload</p>
+            <p>{`${dmp.title}`}</p>
             <div className="step-status status-completed">Completed</div>
           </div>
         </div>

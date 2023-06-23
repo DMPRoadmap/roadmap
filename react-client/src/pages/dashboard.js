@@ -67,18 +67,6 @@ function Dashboard() {
         <div className="data-heading" data-colname="status">Status</div>
         <div className="data-heading" data-colname="actions"></div>
 
-        <div data-colname="title">Static test Project</div>
-        <div data-colname="funder">NIH</div>
-        <div data-colname="grantId">12345-A</div>
-        <div data-colname="dmpId"></div>
-        <div data-colname="status">
-          Incomplete <br />
-          <progress max="10" value="7"/>
-        </div>
-        <div data-colname="actions">
-          <a href="#">Complete</a>
-        </div>
-
         {projects.map(item => (
           <Fragment key={item.dmp.wip_id.identifier}>
             <div data-colname="title">{item.dmp?.title}</div>
