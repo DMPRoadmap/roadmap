@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap');
 @import "components/responsive";
 
 body {
@@ -19,6 +20,29 @@ code {
   // TODO:: Use proper colour names here and replace the values for our
   // components with those.
 
+  --dmpui-brand-gray-100: #F2F2F2;
+
+
+  --dmpui-brand-blue-100: #F0FBFF;
+  //--dmpui-brand-blue-200: #000;
+  //--dmpui-brand-blue-300: #000;
+  --dmpui-brand-blue-400: #54D8FF;
+  --dmpui-brand-blue-500: #004eaa;
+  //--dmpui-brand-blue-600: #000;
+  //--dmpui-brand-blue-700: #000;
+  //--dmpui-brand-blue-800: #000;
+  --dmpui-brand-blue-900: #05042E;
+
+
+
+  --dmpui-brand-red-500: #D3273E;
+
+
+  --dmpui-brand-yellow-500: #FFC845;
+  --dmpui-brand-green-500: #006C6C;
+
+
+
   /* Root level css variables go here */
   --btn-basic-bg-color: #ddd;
   --btn-basic-fg-color: #333;
@@ -38,6 +62,54 @@ code {
   /* Data Grid */
   --grid-gap: 1rem;
 }
+
+#App {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--dmpui-brand-blue-900);
+  }
+
+  h1,
+  .h1 {
+    font-size: 1.875rem;
+  }
+
+  h2,
+  .h2 {
+    font-size: 1.5625rem;
+  }
+
+  h3,
+  .h3 {
+    font-size: 1.125rem;
+  }
+
+  p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--dmpui-brand-blue-900);
+  }
+
+  a {
+    color: var(--dmpui-brand-blue-500);
+
+    &:hover {
+      text-decoration: underline;
+      color: var(--dmpui-brand-blue-900);
+
+    }
+  }
+}
+
+
 
 
 .todo {
@@ -63,21 +135,7 @@ body {
   /* TODO:: */
 }
 
-header {
-  /* TODO:: */
-  padding: 1rem;
-}
 
-footer {
-  /* TODO:: */
-  padding: 1rem;
-  ;
-}
-
-main {
-  /* TODO:: Responsive Flex/Grid Layout */
-  padding: 2rem;
-}
 
 @import 'components/forms';
 
@@ -98,10 +156,22 @@ main {
 
 .dmpui-heading {
   text-align: left;
+  margin-top: 1rem;
+
+  h1,
+  .h1 {
+    margin-bottom: 1.25rem;
+  }
 
   h2,
   .h2 {
     margin-bottom: 1.25rem;
+  }
+
+  &.with-action-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
