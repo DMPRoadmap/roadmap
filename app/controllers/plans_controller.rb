@@ -244,6 +244,10 @@ class PlansController < ApplicationController
   # End DMP OPIDoR Customization
   # --------------------------------
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # --------------------------------
   # TODO: This feels like it belongs on a phases controller, perhaps introducing
   #       a non-namespaces phases_controller woulld make sense here. Consider
   #       doing this when we refactor the Plan editing UI
@@ -251,13 +255,6 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def edit
     plan = Plan.includes(
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # --------------------------------
-      :research_outputs,
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
       { template: {
         phases: {
           sections: {
@@ -277,6 +274,9 @@ class PlansController < ApplicationController
     render_phases_edit(plan, phase, guidance_groups)
   end
   # rubcocop:enable Metrics/AbcSize
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # PUT /plans/1
   # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity

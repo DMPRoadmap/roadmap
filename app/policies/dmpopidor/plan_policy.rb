@@ -30,5 +30,9 @@ module Dmpopidor
     def import_plan?
       @user.present?
     end
+
+    def answers_data?
+      @record.readable_by?(@user.id)
+    end
   end
 end

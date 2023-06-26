@@ -154,6 +154,21 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+    def edit
+      plan = ::Plan.includes(
+        { template: :phases }
+      )
+                   .find(params[:id])
+      authorize plan
+      template = plan.template
+      render('/phases/edit', locals:
+        {
+          plan:,
+          template:,
+          locale: template.locale
+        })
+    end
+
     def budget
       @plan = ::Plan.find(params[:id])
       dmp_fragment = @plan.json_fragment
@@ -224,6 +239,34 @@ module Dmpopidor
       # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    def answers_data
+      plan = ::Plan.includes(
+        :research_outputs,
+        { answers: %i[notes madmp_fragment] }
+      ).find(params[:id])
+      authorize plan
+      render json: {
+        id: plan.id,
+        dmp_id: plan.json_fragment.id,
+        research_outputs: plan.research_outputs.map do |ro|
+          {
+            id: ro.id,
+            abbreviation: ro.abbreviation,
+            answers: ro.answers.map do |a|
+              {
+                answer_id: a.id,
+                question_id: a.question_id,
+                fragment_id: a.madmp_fragment.id
+              }
+            end
+          }
+        end
+
+      }
+    end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     private
