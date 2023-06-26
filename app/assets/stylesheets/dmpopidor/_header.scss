@@ -81,6 +81,15 @@ header.dmpopidor-branding {
       }
 
       ul.header-language-account {
+        @media (max-width: 767px) {
+          flex-direction: column;
+
+          li.dropdown {
+            &:first-of-type {
+              width: 100%;
+            }
+          }
+        }
 
         li#signin-signout {
 
@@ -309,6 +318,27 @@ header.dmpopidor-branding {
       }
 
       div.navbar-header {
+        @media (max-width: 767px) {
+          display: grid;
+          grid-template-columns: 1fr 0fr;
+          align-items: center;
+
+          button.navbar-toggle {
+            grid-row-start: 1;
+          }
+
+          div.header-logo {
+            grid-column-start: 1;
+            grid-row-start: 1;
+
+            a img.app-logo.navbar-brand {
+              width: 130px;
+              height: auto;
+              margin-left: 44px;
+            }
+          }
+        }
+
         a img {
           width: 70px;
         }
@@ -341,17 +371,16 @@ header.dmpopidor-branding {
 
   .header-banner {
     align-self: center;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     width: 100%;
     max-width: 1440px;
     min-height: 500px;
     padding: 0 50px 0 50px;
     z-index: 1;
     opacity: 0.9;
+    margin-top: 25px;
 
     // #####################################################
     // ORG BRANDING
@@ -446,6 +475,10 @@ header.dmpopidor-branding {
           padding: 0 30px;
           text-align: justify;
 
+          @media (max-width: 575px) {
+            text-align: center;
+          }
+
           a {
             color: black;
             text-decoration: underline;
@@ -524,6 +557,7 @@ header.dmpopidor-branding {
 
     #notification-area {
       margin-top: 20px;
+      margin-bottom: 90px;
     }
   }
 

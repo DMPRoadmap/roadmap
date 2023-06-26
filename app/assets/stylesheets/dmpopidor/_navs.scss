@@ -296,6 +296,22 @@ ul.dropdown-menu.dmpopidor-dropdown {
       display: none;
     }
 
+    ul.nav li ul {
+
+      &.dropdown-menu {
+
+        li:first-child,
+        li:first-child a:hover,
+        li:last-child {
+          border-radius: unset;
+        }
+      }
+
+      &[aria-labelledby="static-pages-menu"] li:last-child {
+        display: none;
+      }
+    }
+
     li.delimiter {
       display: none;
     }
@@ -344,5 +360,95 @@ ul.dropdown-menu.dmpopidor-dropdown {
 
   .navbar-collapse li {
     text-align: center;
+  }
+
+  .navbar-collapse {
+    list-style: none;
+    padding: 10px 0 0 0;
+
+    li.delimiter {
+      display: none;
+    }
+
+    #signin-signout {
+      width: 100%;
+
+      &:hover {
+        div.dropdown-menu {
+          display: none;
+        }
+
+        &.open {
+          div.dropdown-menu {
+            display: grid;
+
+            div {
+              padding: 10px 0;
+              margin: 0;
+              place-self: flex-start;
+              justify-self: center;
+              width: 100%;
+
+              ul {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+
+      &.open {
+        div.dropdown-menu {
+          position: relative;
+          top: 0;
+          left: unset;
+          right: unset;
+          margin: auto;
+          display: grid;
+          justify-content: center;
+          align-items: center;
+          width: max-content;
+          grid-template-rows: repeat(2, 0fr);
+          grid-auto-flow: column;
+          padding: 0;
+          border: none;
+
+          div {
+            padding: 10px 0;
+            margin: 0;
+            place-self: flex-start;
+            justify-self: center;
+            width: 100%;
+
+            ul {
+              display: block;
+            }
+          }
+        }
+      }
+
+    }
+
+    ul {
+      width: 100%;
+      margin: auto;
+    }
+
+    &>li {
+      padding: 10px 0;
+    }
+
+    li {
+      text-transform: uppercase;
+
+      &.active {
+        background-color: $dark-blue;
+
+        a {
+          color: $white;
+          font-weight: bold;
+        }
+      }
+    }
   }
 }
