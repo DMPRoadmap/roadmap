@@ -135,6 +135,10 @@
 
 }
 
+// ##################################
+// PLAN DETAILS 
+// ##################################
+
 @media (min-width: 990px) and (max-width: 1450px) {
 
   main#maincontent div.tab-content {
@@ -153,6 +157,42 @@
             &>div {
               width: 100%;
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+
+  main#maincontent div.tab-content {
+    div {
+      div {
+        div.plan-details {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          &>div {
+
+            &:first-of-type {
+              grid-template-rows: none;
+              grid-gap: 0;
+            }
+
+            .project-meta {
+              &:last-of-type {
+                grid-row-start: 3;
+                grid-row-end: 4;
+              }
+            }
+          }
+
+          &>form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
         }
       }
@@ -190,6 +230,14 @@
   #research-outputs-list {
     width: 100%;
     padding: 20px;
+
+    &+div.links {
+      a.add-research-output {
+        display: block;
+        margin: auto;
+        width: 80%;
+      }
+    }
 
     .form-group {
       margin: 0;
