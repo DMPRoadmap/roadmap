@@ -1,0 +1,20 @@
+//similar font size as an h2 tag
+.fontsize-h2 {
+    font-size: 24px;
+
+}
+
+//similar font size as an h3 tag
+.fontsize-h3 {
+    font-size: 18.72px;
+
+}
+
+//similar font size as an h4 tag
+.fontsize-h4 {
+    font-size: 16px;
+
+    @media (max-width: 767px) {
+        font-size: 18pt;
+    }
+}
