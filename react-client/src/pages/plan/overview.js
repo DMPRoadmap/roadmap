@@ -1,6 +1,6 @@
 import {
   Link,
-useNavigate,
+  useNavigate,
   useParams,
 } from 'react-router-dom';
 
@@ -10,14 +10,14 @@ import {
   useState,
 } from 'react';
 
-import {DmpApi} from '../../api.js';
+import { DmpApi } from '../../api.js';
 
 // import './overview.scss';
 
 
 function PlanOverview() {
-    let navigate = useNavigate();
-  const {dmpId} = useParams();
+  let navigate = useNavigate();
+  const { dmpId } = useParams();
   const [dmp, setDmp] = useState({});
 
   useEffect(() => {
@@ -38,9 +38,14 @@ function PlanOverview() {
   return (
     <>
       <div id="addPlan">
-        <h2>Add a Plan</h2>
+        <div className="dmpui-heading">
+          <h1>Add a Plan</h1>
+        </div>
+
+
+
         <div className="plan-steps">
-          <h3>Plan Setup</h3>
+          <h2>Plan Setup</h2>
 
           <div className="plan-steps-step">
             <p>{`${dmp.title}`}</p>
@@ -49,33 +54,53 @@ function PlanOverview() {
         </div>
 
         <div className="plan-steps">
-          <h3>Project</h3>
+          <h2>Project</h2>
 
           <div className="plan-steps-step">
-            <Link to={`/dashboard/dmp/${dmpId}/funders`}>
-              Funders
-            </Link>
-            <div className="step-status status-completed"></div>
+            <p>
+              <Link to={`/dashboard/dmp/${dmpId}/funders`}>
+                Funders
+              </Link>
+            </p>
+            <div className="step-status status-notstart">Not Started</div>
           </div>
 
           <div className="plan-steps-step">
-            <p>Project Details</p>
+
+            <p>
+              <Link to={`/dashboard/dmp/${dmpId}/project-details`}>
+                Project Details
+              </Link>
+            </p>
+
             <div className="step-status status-completed">Completed</div>
           </div>
 
           <div className="plan-steps-step">
-            <p>Contributors</p>
+
+
+            <p>
+              <Link to={`/dashboard/dmp/${dmpId}/contributors`}>
+                Contributors
+              </Link>
+            </p>
+
             <div className="step-status status-completed">Completed</div>
           </div>
 
           <div className="plan-steps-step">
-            <p>Research Outputs</p>
+
+            <p>
+              <Link to={`/dashboard/dmp/${dmpId}/research-outputs`}>
+                Research Outputs
+              </Link>
+            </p>
             <div className="step-status status-recommended">Recommended</div>
           </div>
         </div>
 
         <div className="plan-steps">
-          <h3>Register</h3>
+          <h2>Register</h2>
 
           <div className="plan-steps-step step-visibility">
             <p>Set visibility and register your plan</p>

@@ -49,16 +49,24 @@ function Dashboard() {
 
   return (
     <div id="Dashboard">
+
       <p>Welcome back {user.givenname} {user.surname}</p>
       <p><a href="/plans" className="exit-prototype">Back to standard Dashboard</a></p>
 
 
-      <h2>
-        Dashboard
-        <button className="primary" onClick={() => navigate("/dashboard/dmp/new")}>
-          Add Plan
-        </button>
-      </h2>
+
+      <div className="dmpui-heading with-action-button">
+        <div>
+          <h1>Dashboard</h1>
+        </div>
+        <div>
+          <button className="primary" onClick={() => navigate("/dashboard/dmp/new")}>
+            Add Plan
+          </button>
+        </div>
+      </div>
+
+
 
       <div className="plan-steps">
         <div className="project-list todo">
@@ -79,7 +87,7 @@ function Dashboard() {
               </div>
               <div data-colname="status">
                 Incomplete <br />
-                <progress max="10" value="3"/>
+                <progress max="10" value="3" />
               </div>
               <div data-colname="actions">
                 <Link to={`/dashboard/dmp/${item.dmp.wip_id.identifier}`} >

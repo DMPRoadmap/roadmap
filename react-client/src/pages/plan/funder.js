@@ -9,13 +9,13 @@ import {
   useState,
 } from 'react';
 
-import {DmpApi} from '../../api.js';
+import { DmpApi } from '../../api.js';
 import './funder.scss';
 
 
 function PlanFunders() {
   let navigate = useNavigate();
-  const {dmpId} = useParams();
+  const { dmpId } = useParams();
   const [dmp, setDmp] = useState({});
 
   useEffect(() => {
@@ -73,7 +73,7 @@ function PlanFunders() {
 
     let options = api.getOptions({
       method: "put",
-      body: JSON.stringify({"dmp": dmp}),
+      body: JSON.stringify({ "dmp": dmp }),
     });
 
     // fetch(api.getPath('/dmps'), options).then((resp) => {
@@ -88,7 +88,11 @@ function PlanFunders() {
   return (
     <>
       <div id="funderPage">
-        <h2>Project: Funder</h2>
+
+        <div className="dmpui-heading">
+          <h1>Project: Funder</h1>
+        </div>
+
 
         <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
           <div className="form-field required">
@@ -128,7 +132,7 @@ function PlanFunders() {
             </div>
           </div>
 
-          <div className="form-actions todo">
+          <div className="form-actions ">
             <button type="button" onClick={() => navigate("/dashboard")}>Cancel</button>
             <button type="submit" className="primary">Save &amp; Continue</button>
           </div>

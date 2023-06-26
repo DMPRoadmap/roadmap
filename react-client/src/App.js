@@ -35,6 +35,23 @@ const router = createBrowserRouter([
     path: "/dashboard/dmp/:dmpId/funders",
     element: <PlanFunders />,
   },
+
+  {
+    path: "/dashboard/dmp/:dmpId/project-details",
+    element: <PlanFunders />,
+  },
+
+  {
+    path: "/dashboard/dmp/:dmpId/contributors",
+    element: <PlanFunders />,
+  },
+
+  {
+    path: "/dashboard/dmp/:dmpId/research-outputs",
+    element: <PlanFunders />,
+  },
+
+
 ]);
 
 

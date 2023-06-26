@@ -46,7 +46,7 @@ function PlanNew() {
     <div id="planNew">
 
       <div className="dmpui-heading">
-        <h2>New Plan</h2>
+        <h1>New Plan</h1>
       </div>
 
 
@@ -87,7 +87,7 @@ function PlanNew() {
           </div>
         </div>
 
-        <div className="form-actions todo">
+        <div className="form-actions ">
           <button type="button" onClick={() => navigate("/dashboard")}>Cancel</button>
           <button type="submit" className="primary">
             Save &amp; Continue
