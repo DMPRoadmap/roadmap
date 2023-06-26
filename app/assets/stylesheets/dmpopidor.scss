@@ -26,7 +26,10 @@
 @use './dmpopidor/notes' as *;
 @use './dmpopidor/plan' as *;
 @use './dmpopidor/user_profile' as *;
-@use './dmpopidor/_test_asserting' as *;
+
+@use './dmpopidor/font_size' as *;
+@use './dmpopidor/signin_form' as *;
+@use './dmpopidor/back_to_top' as *;
 
 body {
   display: flex;
@@ -44,28 +47,6 @@ body div a.btn {
 
 #header-signin {
   z-index: 7;
-}
-
-
-/*
-    MAIN CONTENT
-*/
-
-#maincontent {
-  padding: 0 50px 50px 50px;
-  background-color: $white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  width: 84%;
-  max-width: 1440px;
-
-  &> :first-child:not(#plan-navigation) {
-    padding-top: 50px;
-  }
 }
 
 /*
@@ -664,50 +645,6 @@ ul.nav li ul.dropdown-menu {
 }
 
 /* 
-    CONNEXION FORM
-*/
-
-#sign-in-form,
-#create-account-form {
-  width: 45%;
-  transition: visibility 0s 2s, opacity 2s linear;
-}
-
-#create-account-form {
-  display: none;
-}
-
-div.tab-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-div.sign-in {
-  div.tab-content {
-    justify-content: space-around;
-  }
-}
-
-@media (max-width: 1260px) {
-
-  main#maincontent {
-    div.sign-in {
-      div.tab-content {
-        display: flex;
-        flex-direction: column;
-
-        div#sign-in-form,
-        div#create-account-form {
-          width: 85%;
-        }
-      }
-    }
-  }
-}
-
-/* 
     LANGUAGE DROPDOWN
 */
 
@@ -722,51 +659,5 @@ li a[rel="nofollow"][data-method="patch"] {
   &:hover {
     background-color: $dark-blue;
     color: $white;
-  }
-}
-
-
-/* 
-    BACK TO TOP BUTTON
-*/
-
-.back-to-top-wrapper {
-  position: absolute;
-  top: 100vh;
-  right: 0.25rem;
-  bottom: 0;
-  width: 3em;
-  pointer-events: none;
-  margin-top: 10em;
-  z-index: 5;
-}
-
-.back-to-top-link {
-  position: fixed;
-  position: sticky;
-  pointer-events: all;
-  top: calc(100vh - 15rem);
-
-  // basic styling
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none !important;
-  font-size: 4rem;
-  line-height: 3rem;
-  text-align: center;
-  width: 3rem;
-  height: 3rem;
-  background-color: $white;
-  border-radius: 50%;
-  transition: transform 80ms ease-in;
-
-  i {
-    color: $dark-blue;
-  }
-
-  &:hover,
-  &:focus {
-    transform: scale(1.2);
   }
 }
