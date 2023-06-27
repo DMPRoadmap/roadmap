@@ -8,8 +8,40 @@ class MadmpFragmentsController < ApplicationController
 
   # KEEP IN V4
 
-  def new
-    # method for new fragment, takes madmp_schema_id as param
+  def create_json
+    p_params = permitted_params
+    schema = MadmpSchema.find(p_params[:schema_id])
+    research_output = ::ResearchOutput.find(p_params[:answer][:research_output_id])
+    defaults = schema.defaults(p_params[:template_locale])
+    classname = schema.classname
+    parent_id = research_output.json_fragment.id unless classname.eql?('person')
+    @fragment = MadmpFragment.new(
+      dmp_id: p_params[:dmp_id],
+      parent_id: parent_id,
+      madmp_schema: schema,
+      additional_info: {
+        'property_name' => p_params[:property_name]
+      }
+    )
+    @fragment.classname = classname
+    authorize @fragment
+
+    @fragment.answer = Answer.create!(
+      research_output_id: p_params[:answer][:research_output_id],
+      plan_id: p_params[:answer][:plan_id],
+      question_id: p_params[:answer][:question_id],
+      lock_version: p_params[:answer][:lock_version],
+      is_common: p_params[:answer][:is_common],
+      user_id: current_user.id
+    )
+    @fragment.instantiate
+    @fragment.handle_defaults(defaults)
+
+    render json: {
+      'fragment' => @fragment.get_full_fragment(with_ids: true),
+      'answer_id' => @fragment.answer_id,
+      'schema' => @fragment.madmp_schema.schema
+    }
   end
 
   def show
@@ -144,7 +176,6 @@ class MadmpFragmentsController < ApplicationController
   # If the fragment_id exists, load the fragment
   # else the form is opened for the first time then fragment is created
   def load_form
-    @schemas = MadmpSchema.all
     if params[:id].present?
       @fragment = MadmpFragment.find(params[:id])
       authorize @fragment
@@ -162,7 +193,7 @@ class MadmpFragmentsController < ApplicationController
         @fragment = answer.madmp_fragment
         authorize @fragment
       else
-        schema = @schemas.find(p_params[:schema_id])
+        schema = MadmpSchema.find(p_params[:schema_id])
         defaults = schema.defaults(p_params[:template_locale])
         classname = schema.classname
         parent_id = p_params[:parent_id] unless classname.eql?('person')

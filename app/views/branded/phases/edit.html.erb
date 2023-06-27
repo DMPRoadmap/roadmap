@@ -1,11 +1,14 @@
 <% title "#{plan.title} - Write plan" %>
-<%= render partial: 'phases/edit_plan_answers',
-          layout: 'plans/navigation',
-          locals: {
-            plan: plan,
-            phase: phase,
-            answers: answers,
-            readonly: readonly,
-            base_template_org: base_template_org,
-            guidance_presenter: guidance_presenter,
-          } %>
+
+
+<% locale = LocaleService.to_gettext(locale: locale)%>
+
+<% content_for :plan_tab_body do %>
+  <dmp-write-plan props-json='{
+    "locale": "<%= locale %>",
+    "planId": <%= plan.id %>,
+    "templateId": <%= template.id %>
+  }'/>
+<% end %>
+
+<%= render partial: "plans/navigation", locals: { plan: plan } %>
