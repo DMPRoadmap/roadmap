@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react';
 
-import { DmpApi } from '../../api.js';
+import { DmpApi } from '../../../api.js';
 
 // import './overview.scss';
 
@@ -47,7 +47,7 @@ function PlanOverview() {
         <div className="plan-steps">
           <h2>Plan Setup</h2>
 
-          <div className="plan-steps-step">
+          <div className="plan-steps-step last">
             <p>{`${dmp.title}`}</p>
             <div className="step-status status-completed">Completed</div>
           </div>
@@ -62,7 +62,7 @@ function PlanOverview() {
                 Funders
               </Link>
             </p>
-            <div className="step-status status-notstart">Not Started</div>
+            <div className="step-status status-completed">Completed</div>
           </div>
 
           <div className="plan-steps-step">
@@ -85,10 +85,10 @@ function PlanOverview() {
               </Link>
             </p>
 
-            <div className="step-status status-completed">Completed</div>
+            <div className="step-status status-notstart">Not Started</div>
           </div>
 
-          <div className="plan-steps-step">
+          <div className="plan-steps-step last">
 
             <p>
               <Link to={`/dashboard/dmp/${dmpId}/research-outputs`}>
@@ -102,7 +102,7 @@ function PlanOverview() {
         <div className="plan-steps">
           <h2>Register</h2>
 
-          <div className="plan-steps-step step-visibility">
+          <div className="plan-steps-step last step-visibility">
             <p>Set visibility and register your plan</p>
             <div className="input">
               <input name="plan_private" type="checkbox" /> Keep plan private <br />

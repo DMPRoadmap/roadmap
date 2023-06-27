@@ -9,7 +9,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import { DmpApi } from '../api.js';
+import { DmpApi } from '../../api.js';
 
 import './dashboard.scss';
 

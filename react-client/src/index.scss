@@ -196,18 +196,34 @@ body {
   border-radius: 12px;
 }
 
-.page-actions {}
+.page-actions {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    margin-left: 10px;
+  }
+}
 
 .plan-steps-step {
   display: flex;
   border-bottom: 1px solid #eee;
-  padding: 1rem 0;
+  padding: 1.20rem 0;
   justify-content: space-between;
+  align-items: center;
+
+  &.last {
+    border-bottom: 1px solid transparent;
+  }
 
   p,
   a {
-    color: #004eaa;
+    line-height: normal;
+    color: var(--dmpui-brand-blue-500);
     text-decoration: none;
+    margin: 0;
+    padding: 0;
 
     &:hover {
       text-decoration: underline;

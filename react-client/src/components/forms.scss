@@ -2,14 +2,14 @@
 button,
 input[type="button"],
 input[type="submit"] {
-  background-color: var(--dmpui-brand-gray-100);
+  background-color: transparent;
   color: var(--btn-basic-fg-color);
   border: none;
   border-radius: var(--btn-border-radius);
   font-weight: bold;
   padding: 0.5rem 1rem;
   line-height: normal;
-
+  border: 1px solid var(--dmpui-brand-blue-900);
   display: inline-block;
   font-family: var(--btn-font-family);
   font-size: inherit;
@@ -20,7 +20,6 @@ input[type="submit"] {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  border: none;
 
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
@@ -28,6 +27,7 @@ input[type="submit"] {
   &.primary {
     background-color: var(--dmpui-brand-blue-900);
     color: var(--btn-primary-fg-color);
+    border: none;
 
     &:hover {
       background-color: var(--dmpui-brand-blue-800);
@@ -37,11 +37,12 @@ input[type="submit"] {
 
 
   &.secondary {
-    background-color: var(--dmpui-brand-gray-100);
+    background-color: var(--dmpui-brand-blue-400);
     color: var(--dmpui-brand-blue-900);
+    border: none;
 
     &:hover {
-      background-color: var(--dmpui-brand-blue-800);
+      background-color: var(--dmpui-brand-blue-500);
       color: var(--btn-primary-fg-color);
     }
   }
@@ -64,7 +65,12 @@ input[type="submit"] {
 .form-field {
   display: flex;
   flex-direction: column;
-  border-bottom: 2px solid var(--form-field-border-color);
+  border-bottom: 1px solid var(--form-field-border-color);
+
+  &.last {
+    border-bottom: 1px solid transparent;
+  }
+
   padding: 1rem;
   text-align: left;
 

@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 
-import { DmpApi } from '../../api.js';
+import { DmpApi } from '../../../api.js';
 import './funder.scss';
 
 
@@ -94,49 +94,59 @@ function PlanFunders() {
         </div>
 
 
-        <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
-          <div className="form-field required">
-            <div className="form-field-label">
-              <label>Do you have a funder?</label>
-              <p className="help-text">
-                Is there a funder associated with this project?
-              </p>
-            </div>
-            <div className="form-field-input">
-              <span>Funder</span>
-              <label>
-                <input name="has_funder" type="radio" />
-                yes
-              </label>
-              <label>
-                <input name="has_funder" type="radio" />
-                no
-              </label>
-            </div>
-          </div>
 
-          <div className="form-field required">
-            <div className="form-field-label">
-              <label>Funder</label>
-              <p className="help-text">
-                Begin typing to select your funder from a list.
-              </p>
+
+        <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
+
+          <div className="form-wrapper">
+
+            <div className="form-field required">
+              <div className="form-field-label">
+                <label>Do you have a funder?</label>
+                <p className="help-text">
+                  Is there a funder associated with this project?
+                </p>
+              </div>
+              <div className="form-field-input">
+                <span>Funder</span>
+                <label>
+                  <input name="has_funder" type="radio" />
+                  yes
+                </label>
+                <label>
+                  <input name="has_funder" type="radio" />
+                  no
+                </label>
+              </div>
             </div>
-            <div className="form-field-input">
-              <label>Funder Name</label>
-              <input name="tmp" type="text" defaultValue="" />
-              <label>
-                <input id="id_funder_not_listed" name="funder_not_listed" type="checkbox" />
-                My funder isn't listed
-              </label>
+
+            <div className="form-field last required">
+              <div className="form-field-label">
+                <label>Funder</label>
+                <p className="help-text">
+                  Begin typing to select your funder from a list.
+                </p>
+              </div>
+              <div className="form-field-input">
+                <label>Funder Name</label>
+                <input name="tmp" type="text" defaultValue="" />
+                <label>
+                  <input id="id_funder_not_listed" name="funder_not_listed" type="checkbox" />
+                  My funder isn't listed
+                </label>
+              </div>
             </div>
+
           </div>
 
           <div className="form-actions ">
-            <button type="button" onClick={() => navigate("/dashboard")}>Cancel</button>
+            <button type="button" onClick={() => navigate(-1)}>Cancel</button>
             <button type="submit" className="primary">Save &amp; Continue</button>
           </div>
         </form>
+
+
+
       </div>
     </>
   )

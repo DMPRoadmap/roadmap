@@ -7,10 +7,10 @@ import {
 
 
 
-import Dashboard from './pages/dashboard';
-import PlanNew from './pages/plan/new';
-import PlanOverview from './pages/plan/overview';
-import PlanFunders from './pages/plan/funder';
+import Dashboard from './pages/dashboard/dashboard';
+import PlanNew from './pages/plan/new-plan/new';
+import PlanOverview from './pages/plan/overview/overview';
+import PlanFunders from './pages/plan/funder/funder';
 
 import './App.css';
 

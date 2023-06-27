@@ -1,7 +1,7 @@
 import useContext from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DmpApi } from '../../api';
-import TextInput from '../../components/text-input/textInput';
+import { DmpApi } from '../../../api';
+import TextInput from '../../../components/text-input/textInput';
 
 import './new.scss';
 
@@ -50,8 +50,12 @@ function PlanNew() {
       </div>
 
 
+
+
       <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
         <div className="form-wrapper">
+
+
           <div className="form-field required">
             <div className="form-field-label">
               <label>Project Name</label>
@@ -72,7 +76,7 @@ function PlanNew() {
             </div>
           </div>
 
-          <div className="form-field required">
+          <div className="form-field last required">
             <div className="form-field-label">
               <label>Upload DMP</label>
               <p className="help-text">
@@ -88,12 +92,13 @@ function PlanNew() {
         </div>
 
         <div className="form-actions ">
-          <button type="button" onClick={() => navigate("/dashboard")}>Cancel</button>
+          <button type="button" onClick={() => navigate(-1)}>Cancel</button>
           <button type="submit" className="primary">
             Save &amp; Continue
           </button>
         </div>
       </form>
+
 
     </div>
   )
