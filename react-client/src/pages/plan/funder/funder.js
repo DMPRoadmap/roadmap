@@ -10,7 +10,7 @@ import {
 } from 'react';
 
 import { DmpApi } from '../../../api.js';
-import './funder.scss';
+
 
 
 function PlanFunders() {

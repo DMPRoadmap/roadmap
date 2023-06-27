@@ -11,8 +11,6 @@ import {
 
 import { DmpApi } from '../../api.js';
 
-import './dashboard.scss';
-
 function Dashboard() {
   const [projects, setProjects] = useState([]);
   const [user, setUser] = useState({

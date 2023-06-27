@@ -145,6 +145,8 @@ body {
 @import 'components/forms';
 
 /* Tables */
+
+
 // TODO::FIXME:: This data grid component is just temporary. Chances are we'll
 // be using a third party grid. We use the following just wile setting up the
 // basic layout
@@ -238,6 +240,7 @@ body {
       text-decoration: underline;
     }
 
+    &:active,
     &:focus {
       color: #0b0c0c;
       background-color: #fd0;
@@ -276,4 +279,59 @@ body {
     background-color: var(--dmpui-brand-blue-900);
     color: var(--dmpui-brand-blue-400);
   }
+}
+
+
+
+
+
+
+
+
+@import './components/responsive';
+
+#Dashboard {}
+
+#Dashboard h2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#Dashboard .project-list {
+  display: grid;
+  grid-gap: var(--grid-gap);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+
+  [data-colname="funder"],
+  [data-colname="grantId"],
+  [data-colname="dmpId"],
+  [data-colname="actions"] {
+    display: none;
+  }
+
+  @include device(tablet) {
+    grid-template-columns: repeat(3, 1fr);
+
+    [data-colname="funder"] {
+      display: block;
+    }
+  }
+
+  @include device(laptop) {
+    grid-template-columns: repeat(6, 1fr);
+
+    [data-colname="grantId"],
+    [data-colname="dmpId"],
+    [data-colname="actions"] {
+      display: block;
+    }
+  }
+
+  @include device(laptop-large) {}
+}
+
+#Dashboard .exit-prototype {
+  font-size: 9pt;
 }
