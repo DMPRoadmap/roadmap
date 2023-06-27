@@ -2,22 +2,64 @@
 button,
 input[type="button"],
 input[type="submit"] {
-  background-color: var(--btn-basic-bg-color);
+  background-color: var(--dmpui-brand-gray-100);
   color: var(--btn-basic-fg-color);
   border: none;
   border-radius: var(--btn-border-radius);
   font-weight: bold;
-  padding: 0.5em 1em;
+  padding: 0.5rem 1rem;
+  line-height: normal;
+
+  display: inline-block;
+  font-family: var(--btn-font-family);
+  font-size: inherit;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: none;
+
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
 
   &.primary {
-    background-color: var(--btn-primary-bg-color);
+    background-color: var(--dmpui-brand-blue-900);
     color: var(--btn-primary-fg-color);
+
+    &:hover {
+      background-color: var(--dmpui-brand-blue-800);
+      color: var(--btn-primary-fg-color);
+    }
   }
+
+
+  &.secondary {
+    background-color: var(--dmpui-brand-gray-100);
+    color: var(--dmpui-brand-blue-900);
+
+    &:hover {
+      background-color: var(--dmpui-brand-blue-800);
+      color: var(--btn-primary-fg-color);
+    }
+  }
+
+
+  &:focus,
+  &:hover,
+  &:active {
+    outline: none !important;
+    outline-color: #000 !important;
+    outline-width: 0px !important;
+    box-shadow: none !important;
+  }
+
+
 }
 
-.form-wrapper{
-  
-}
+.form-wrapper {}
 
 .form-field {
   display: flex;

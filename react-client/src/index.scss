@@ -22,7 +22,6 @@ code {
 
   --dmpui-brand-gray-100: #F2F2F2;
 
-
   --dmpui-brand-blue-100: #F0FBFF;
   //--dmpui-brand-blue-200: #000;
   //--dmpui-brand-blue-300: #000;
@@ -30,7 +29,7 @@ code {
   --dmpui-brand-blue-500: #004eaa;
   //--dmpui-brand-blue-600: #000;
   //--dmpui-brand-blue-700: #000;
-  //--dmpui-brand-blue-800: #000;
+  --dmpui-brand-blue-800: #0c0b57;
   --dmpui-brand-blue-900: #05042E;
 
 
@@ -44,9 +43,10 @@ code {
 
 
   /* Root level css variables go here */
+  --btn-font-family: 'Poppins', sans-serif;
   --btn-basic-bg-color: #ddd;
   --btn-basic-fg-color: #333;
-  --btn-border-radius: 5px;
+  --btn-border-radius: 20px;
 
   --btn-primary-bg-color: #05042e;
   --btn-primary-fg-color: white;
@@ -196,16 +196,7 @@ body {
   border-radius: 12px;
 }
 
-.page-actions {
-
-  button {
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: bold;
-
-  }
-}
+.page-actions {}
 
 .plan-steps-step {
   display: flex;
