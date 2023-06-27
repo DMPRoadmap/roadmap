@@ -217,7 +217,14 @@ body {
     border-bottom: 1px solid transparent;
   }
 
-  p,
+  p {
+    line-height: normal;
+    color: var(--dmpui-brand-blue-500);
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+  }
+
   a {
     line-height: normal;
     color: var(--dmpui-brand-blue-500);
@@ -225,7 +232,20 @@ body {
     margin: 0;
     padding: 0;
 
+
     &:hover {
+      outline: none !important;
+      text-decoration: underline;
+    }
+
+    &:focus {
+      color: #0b0c0c;
+      background-color: #fd0;
+      box-shadow: 0 -2px 0px 0px rgba(255, 221, 0, 0.281), 0 4px rgba(255, 221, 0, 0.281);
+      text-decoration: none;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      outline: none !important;
       text-decoration: underline;
     }
   }
