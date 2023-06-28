@@ -56,12 +56,6 @@ function PlanNew() {
 
 
           <div className="form-field required">
-            <div className="form-field-label">
-              <label>Project Name</label>
-              <p className="help-text">
-                All or part of the project name/title, e.g. 'Particle Physics'
-              </p>
-            </div>
             <div className="form-field-input">
               <TextInput
                 label="Project Name"
@@ -69,7 +63,7 @@ function PlanNew() {
                 name="project_name"
                 id="project_name"
                 placeholder="Project Name"
-                help=""
+                help="   All or part of the project name/title, e.g. 'Particle Physics'"
                 error=""
               />
             </div>

@@ -62,75 +62,7 @@ input[type="submit"] {
 
 .form-wrapper {}
 
-.form-field {
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid var(--form-field-border-color);
 
-  &.last {
-    border-bottom: 1px solid transparent;
-  }
-
-  padding: 1rem;
-  text-align: left;
-
-  .form-field-label {
-    padding: 0.5em 0;
-
-    label {
-      font-weight: bold;
-    }
-  }
-
-  .form-field-input {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5em 0;
-
-    &>* {
-      margin-bottom: 0.5rem;
-    }
-
-    input[type="text"] {
-      width: 100%;
-    }
-
-    input[type="text"],
-    textarea {
-      box-sizing: border-box;
-      border: 2px solid var(--form-field-border-color);
-      border-radius: 3px;
-      color: var(--form-field-fg-color);
-      background-color: var(--form-field-bg-color);
-      padding: 0.5em 1em;
-    }
-
-    input[type="radio"] {
-      vertical-align: text-bottom;
-      width: auto;
-    }
-  }
-
-  &.required {
-    label::after {
-      content: " *";
-      color: var(--input-required-color);
-    }
-  }
-
-  @include device(laptop) {
-    flex-direction: row;
-    justify-content: space-between;
-
-    .form-field-label {}
-
-    &>div {
-      flex: 1 1 auto;
-      max-width: calc(50% - 1rem);
-    }
-
-  }
-}
 
 .form-actions {
   display: flex;
@@ -145,18 +77,45 @@ input[type="submit"] {
 }
 
 
+.dmpui-form-cols {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  text-align: left;
+
+
+  justify-content: space-between;
+
+
+  @include device(tablet) {
+    flex-direction: row;
+  }
+
+
+  .dmpui-form-col {
+    width: 100%;
+  }
+}
 
 
 .dmpui-field-group {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+
+  @include device(tablet) {
+
+    margin-bottom: 1rem;
+  }
+
+
+  padding-right: 1rem;
   text-align: left;
-  max-width: 500px;
+  max-width: none;
 
   .dmpui-field-label {
     font-weight: bold;
-    color: var(--form-field-label-color);
+    color: var(--dmpui-brand-blue-900);
     margin-bottom: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .dmpui-field-help {
@@ -197,6 +156,11 @@ input[type="submit"] {
     &:focus:invalid {
       border-color: red;
     }
+  }
+
+  textarea {
+    min-height: 10rem;
+    line-height: normal;
   }
 
 

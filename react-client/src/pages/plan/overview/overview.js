@@ -14,11 +14,17 @@ import { DmpApi } from '../../../api.js';
 
 
 
+import TextInput from '../../../components/text-input/textInput';
+
 
 function PlanOverview() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState({});
+
+
+  let page_title = "Upload a Plan";
+
 
   useEffect(() => {
     let api = new DmpApi();
@@ -34,12 +40,20 @@ function PlanOverview() {
 
 
 
+  if (dmp.title) {
+    page_title = `Plan: ${dmp.title}`;
+  }
+
+
 
   return (
     <>
       <div id="addPlan">
         <div className="dmpui-heading">
-          <h1>Add a Plan</h1>
+
+          <h1>
+            {`${page_title}`}
+          </h1>
         </div>
 
 
@@ -48,7 +62,12 @@ function PlanOverview() {
           <h2>Plan Setup</h2>
 
           <div className="plan-steps-step last">
-            <p>{`${dmp.title}`}</p>
+
+            <p>
+              <Link to={`/dashboard/dmp/${dmpId}/project-details`}>
+                Project name & PDF upload
+              </Link>
+            </p>
             <div className="step-status status-completed">Completed</div>
           </div>
         </div>

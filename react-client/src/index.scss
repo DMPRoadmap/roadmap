@@ -79,6 +79,8 @@ code {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     color: var(--dmpui-brand-blue-900);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
   }
 
   h1,
@@ -192,7 +194,7 @@ body {
 
 .plan-steps {
   text-align: left;
-  padding: 20px;
+  padding: 2.5rem 2.5rem 2.5rem 2.5rem;
   border: 1px solid #eee;
   margin-bottom: 2rem;
   border-radius: 12px;
@@ -200,6 +202,17 @@ body {
 
 .page-actions {
   margin: 2rem 0;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    margin-left: 10px;
+  }
+}
+
+
+.dmpdui-top-actions {
+  margin: 2rem 0 1rem 0;
   display: flex;
   justify-content: flex-end;
 
@@ -259,11 +272,10 @@ body {
   padding: 0.3rem 1rem;
   background: var(--dmpui-brand-gray-100);
   border-radius: 20px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   line-height: normal;
   color: var(--dmpui-brand-blue-900);
-  text-transform: uppercase;
 
   &.status-completed {
     background-color: var(--dmpui-brand-yellow-500);
@@ -281,6 +293,11 @@ body {
   }
 }
 
+
+.dmpui-search-form-container {
+  padding: 2rem;
+  background-color: var(--dmpui-brand-blue-100);
+}
 
 
 
@@ -334,4 +351,41 @@ body {
 
 #Dashboard .exit-prototype {
   font-size: 9pt;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.dmpdui-list {
+  padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+  border: 1px solid #eee;
+  margin: 2rem 0;
+  display: grid;
+  grid-gap: var(--grid-gap);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+
+  align-items: center;
+
+
+  @include device(tablet) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include device(laptop) {}
+
+  @include device(laptop-large) {}
+
+
+  &.dmpdui-list-research {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }

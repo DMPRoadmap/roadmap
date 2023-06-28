@@ -1,8 +1,9 @@
+
 import { useState } from "react";
 
 
 
-function TextInput(props) {
+function TextArea(props) {
     const [inputType] = useState(props.type);
     const [inputValue, setInputValue] = useState('');
 
@@ -42,15 +43,14 @@ function TextInput(props) {
 
 
                 <div className="dmpui-field-input-group">
-                    <input
+                    <textarea
                         type={inputType}
-                        value={inputValue}
                         name={props?.name ? props.name : ""}
                         id={props?.id ? props.id : ""}
                         onChange={handleChange}
                         placeholder={props?.placeholder}
                         autoComplete={props?.autocomplete ? props.autocomplete : "off"}
-                        className="dmpui-field-input-text" />
+                        className="dmpui-field-input-textarea" >{inputValue}</textarea>
                 </div>
 
             </div>
@@ -58,4 +58,4 @@ function TextInput(props) {
     );
 };
 
-export default TextInput;
+export default TextArea;

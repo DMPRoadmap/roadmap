@@ -12,6 +12,8 @@ import {
 import { DmpApi } from '../../../api.js';
 
 
+import TextInput from '../../../components/text-input/textInput';
+
 
 function PlanFunders() {
   let navigate = useNavigate();
@@ -90,7 +92,7 @@ function PlanFunders() {
       <div id="funderPage">
 
         <div className="dmpui-heading">
-          <h1>Project: Funder</h1>
+          <h1>Funder</h1>
         </div>
 
 
@@ -99,6 +101,62 @@ function PlanFunders() {
         <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
 
           <div className="form-wrapper">
+
+
+
+
+            <div className="dmpui-form-cols">
+
+              <div className="dmpui-form-col">
+
+
+                <TextInput
+                  label="Project Name"
+                  type="text"
+                  required="required"
+                  name="project_name"
+                  id="project_name"
+                  placeholder="Project Name"
+                  help="All or part of the project name/title, e.g. 'Particle Physics'"
+                  error=""
+                />
+
+              </div>
+            </div>
+
+
+
+
+            <div className="dmpui-form-cols">
+
+              <div className="dmpui-form-col">
+
+                <TextInput
+                  label="Funder Name"
+                  type="text"
+                  name="funder_not_listed"
+                  id="funder_not_listed"
+                  placeholder=""
+                  help=""
+                  error=""
+                />
+
+                <div className="notListed">
+                  <label>
+                    <input id="id_funder_not_listed" name="funder_not_listed" type="checkbox" />
+                    My funder isn't listed
+                  </label>
+                </div>
+
+
+
+              </div>
+
+            </div>
+
+
+
+
 
             <div className="form-field required">
               <div className="form-field-label">
@@ -120,6 +178,9 @@ function PlanFunders() {
               </div>
             </div>
 
+
+
+
             <div className="form-field last required">
               <div className="form-field-label">
                 <label>Funder</label>
@@ -128,14 +189,26 @@ function PlanFunders() {
                 </p>
               </div>
               <div className="form-field-input">
-                <label>Funder Name</label>
-                <input name="tmp" type="text" defaultValue="" />
-                <label>
-                  <input id="id_funder_not_listed" name="funder_not_listed" type="checkbox" />
-                  My funder isn't listed
-                </label>
+                <TextInput
+                  label="Funder Name"
+                  type="text"
+                  name="funder_not_listed"
+                  id="funder_not_listed"
+                  placeholder=""
+                  help=""
+                  error=""
+                />
+
+                <div className="notListed">
+                  <label>
+                    <input id="id_funder_not_listed" name="funder_not_listed" type="checkbox" />
+                    My funder isn't listed
+                  </label>
+                </div>
+
               </div>
             </div>
+
 
           </div>
 
