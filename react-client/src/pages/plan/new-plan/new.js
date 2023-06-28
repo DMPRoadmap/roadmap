@@ -55,33 +55,45 @@ function PlanNew() {
         <div className="form-wrapper">
 
 
-          <div className="form-field required">
-            <div className="form-field-input">
+          <div className="dmpui-form-cols">
+            <div className="dmpui-form-col">
               <TextInput
                 label="Project Name"
                 type="text"
+                required="required"
                 name="project_name"
                 id="project_name"
                 placeholder="Project Name"
-                help="   All or part of the project name/title, e.g. 'Particle Physics'"
+                help="All or part of the project name/title, e.g. 'Particle Physics'"
                 error=""
               />
             </div>
           </div>
 
-          <div className="form-field last required">
-            <div className="form-field-label">
-              <label>Upload DMP</label>
-              <p className="help-text">
-                Only PDFs may be uploaded, and files should be no more than
-                250kb.
-              </p>
-            </div>
+          <div className="dmpui-form-cols">
+            <div className="dmpui-form-col">
+              <div
+                className={'dmpui-field-group'}
+              >
+                <label className="dmpui-field-label">
+                  Upload DMP
+                </label>
+                <p className="dmpui-field-help">
+                  Only PDFs may be uploaded, and files should be no more than
+                  250kb.
+                </p>
 
-            <div className="form-field-input todo">
-              <input name="project_pdf" type="file" />
+
+                <div className="dmpui-field-fileinput-group  ">
+                  <div className="">
+                    <input name="project_pdf" type="file" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
+
         </div>
 
         <div className="form-actions ">

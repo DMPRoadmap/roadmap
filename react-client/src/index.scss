@@ -224,7 +224,7 @@ body {
 .plan-steps-step {
   display: flex;
   border-bottom: 1px solid #eee;
-  padding: 1.20rem 0;
+  padding: 1.125rem 0;
   justify-content: space-between;
   align-items: center;
 
@@ -238,6 +238,7 @@ body {
     text-decoration: none;
     margin: 0;
     padding: 0;
+    font-size: 1.125rem;
   }
 
   a {

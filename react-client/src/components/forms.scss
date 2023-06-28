@@ -119,9 +119,9 @@ input[type="submit"] {
   }
 
   .dmpui-field-help {
-    font-size: 0.8em;
-    margin-bottom: 0.25rem;
-    color: #555;
+    font-size: 0.9rem !important;
+    margin-bottom: 0.4rem;
+    color: #555 !important;
   }
 
   .dmpui-field-error {
@@ -138,7 +138,7 @@ input[type="submit"] {
     border-radius: 8px;
     color: var(--form-field-fg-color);
     background-color: var(--form-field-bg-color);
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     width: 100%;
 
 
@@ -164,4 +164,14 @@ input[type="submit"] {
   }
 
 
+}
+
+.dmpui-field-fileinput-group {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  border: 2px dashed var(--dmpui-brand-gray-100);
 }

@@ -41,7 +41,7 @@ function PlanOverview() {
 
 
   if (dmp.title) {
-    page_title = `Plan: ${dmp.title}`;
+    page_title = `${dmp.title}`;
   }
 
 
