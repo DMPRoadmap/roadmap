@@ -13,12 +13,28 @@ import { DmpApi } from '../../../api.js';
 
 
 import TextInput from '../../../components/text-input/textInput';
+import RadioButton from '../../../components/radio/radio';
 
 
 function PlanFunders() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState({});
+
+
+
+
+
+  const [hasFunder, sethasFunder] = React.useState("true") // 0: no show, 1: show yes, 2: show no.
+
+  console.log('ddd');
+  const handleOptionChange = (e) => {
+
+  };
+
+
+
+
 
   useEffect(() => {
     let api = new DmpApi();
@@ -29,6 +45,9 @@ function PlanFunders() {
       setDmp(data.items[0].dmp);
     });
   }, [dmpId]);
+
+
+
 
   async function handleSave(ev) {
     ev.preventDefault();
@@ -46,6 +65,16 @@ function PlanFunders() {
 
     console.log('Step Data');
     console.log(stepData);
+
+    console.log(`/dashboard/dmp/${dmpId}/project-search`);
+
+    navigate(`/dashboard/dmp/${dmpId}/project-search`);
+
+
+
+
+
+
 
     // TODO:: Add the funder to the DMP data
     // This is the expected structure to add to the DMP
@@ -107,30 +136,54 @@ function PlanFunders() {
 
             <div className="dmpui-form-cols">
 
+
               <div className="dmpui-form-col">
+                <div
+                  className={'dmpui-field-group'}
+                >
+                  <label className="dmpui-field-label">
+                    Do you have a funder?
+                  </label>
+                  <p className="dmpui-field-help">
+                    Is there a funder associated with this project?
+                  </p>
 
 
-                <TextInput
-                  label="Project Name"
-                  type="text"
-                  required="required"
-                  name="project_name"
-                  id="project_name"
-                  placeholder="Project Name"
-                  help="All or part of the project name/title, e.g. 'Particle Physics'"
-                  error=""
-                />
 
+                  <RadioButton
+                    label="No"
+                    name="have_funder"
+                    id="have_funder_no"
+                    value="false"
+                    inputValue="false"
+
+                    onClick={(e) => handleOptionChange("false")}
+                  />
+
+                  <RadioButton
+                    label="Yes, I have a funder"
+                    name="have_funder"
+                    id="have_funder_yes"
+                    inputValue="true"
+                    value="true"
+                    checked="checked"
+
+                    onClick={(e) => handleOptionChange("true")}
+
+                  />
+
+
+
+                </div>
               </div>
             </div>
+
 
 
 
 
             <div className="dmpui-form-cols">
-
               <div className="dmpui-form-col">
-
                 <TextInput
                   label="Funder Name"
                   type="text"
@@ -138,76 +191,24 @@ function PlanFunders() {
                   id="funder_not_listed"
                   placeholder=""
                   help=""
+                  inputValue="test"
                   error=""
                 />
+                <div className="dmpui-field-checkbox-group not-listed">
 
-                <div className="notListed">
-                  <label>
-                    <input id="id_funder_not_listed" name="funder_not_listed" type="checkbox" />
+                  <input id="id_funder_not_listed"
+                    className="dmpui-field-input-checkbox"
+                    name="funder_not_listed"
+                    value="true"
+                    type="checkbox" />
+                  <label htmlFor="id_funder_not_listed" className="checkbox-label">
                     My funder isn't listed
                   </label>
                 </div>
-
-
-
-              </div>
-
-            </div>
-
-
-
-
-
-            <div className="form-field required">
-              <div className="form-field-label">
-                <label>Do you have a funder?</label>
-                <p className="help-text">
-                  Is there a funder associated with this project?
-                </p>
-              </div>
-              <div className="form-field-input">
-                <span>Funder</span>
-                <label>
-                  <input name="has_funder" type="radio" />
-                  yes
-                </label>
-                <label>
-                  <input name="has_funder" type="radio" />
-                  no
-                </label>
               </div>
             </div>
 
 
-
-
-            <div className="form-field last required">
-              <div className="form-field-label">
-                <label>Funder</label>
-                <p className="help-text">
-                  Begin typing to select your funder from a list.
-                </p>
-              </div>
-              <div className="form-field-input">
-                <TextInput
-                  label="Funder Name"
-                  type="text"
-                  name="funder_not_listed"
-                  id="funder_not_listed"
-                  placeholder=""
-                  help=""
-                  error=""
-                />
-
-                <div className="notListed">
-                  <label>
-                    <input id="id_funder_not_listed" name="funder_not_listed" type="checkbox" />
-                    My funder isn't listed
-                  </label>
-                </div>
-
-              </div>
-            </div>
 
 
           </div>

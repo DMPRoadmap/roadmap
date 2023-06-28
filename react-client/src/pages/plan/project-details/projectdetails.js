@@ -1,5 +1,14 @@
-import useContext from 'react';
-import { useNavigate } from 'react-router-dom';
+import {
+  Link,
+  useParams,
+  useNavigate,
+} from 'react-router-dom';
+
+import {
+  useEffect,
+  useState,
+} from 'react';
+
 import { DmpApi } from '../../../api';
 
 // forms
@@ -11,38 +20,39 @@ import TextArea from '../../../components/textarea/textArea';
 
 function ProjectDetails() {
   let navigate = useNavigate();
-  let dmpData = {};
+  const { dmpId } = useParams();
+  const [dmp, setDmp] = useState({});
+
 
   async function handleSubmit(ev) {
     ev.preventDefault();
     let api = new DmpApi();
 
-    // Collect the form data
-    var stepData = {};
-    const form = ev.target;
-    const formData = new FormData(form);
 
-    formData.forEach((value, key) => stepData[key] = value);
 
-    const fileResult = await api.getFileDataURL(stepData['project_pdf'])
+    navigate(`/dashboard/dmp/${dmpId}/`);
 
-    let options = api.getOptions({
-      method: "post",
-      body: JSON.stringify({
-        "dmp": {
-          "title": stepData['project_name'],
-          "narrative": fileResult,
-        }
-      }),
-    });
+    /*
+        let options = api.getOptions({
+          method: "post",
+          body: JSON.stringify({
+            "dmp": {
+              "title": stepData['project_name'],
+              "narrative": fileResult,
+            }
+          }),
+        });
+    
+        fetch(api.getPath('/dmps'), options).then((resp) => {
+          api.handleResponse(resp.status);
+          return resp.json();
+        }).then((data) => {
+          let dmp = data.items[0].dmp;
+          navigate(`/dashboard/dmp/${dmp.wip_id.identifier}`);
+        });
+    */
 
-    fetch(api.getPath('/dmps'), options).then((resp) => {
-      api.handleResponse(resp.status);
-      return resp.json();
-    }).then((data) => {
-      let dmp = data.items[0].dmp;
-      navigate(`/dashboard/dmp/${dmp.wip_id.identifier}`);
-    });
+
   }
 
   return (

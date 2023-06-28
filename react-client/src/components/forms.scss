@@ -175,3 +175,39 @@ input[type="submit"] {
   border-radius: 20px;
   border: 2px dashed var(--dmpui-brand-gray-100);
 }
+
+.checkbox-label,
+.radio-label {
+  padding-left: 10px;
+  font-weight: normal;
+}
+
+.dmpui-field-checkbox-group,
+.dmpui-field-radio-group {
+
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+
+  .checkbox-label,
+  .radio-label {
+
+    margin: 0;
+  }
+
+  input[type=radio],
+  input[type=checkbox] {
+    accent-color: var(--dmpui-brand-blue-500);
+    margin: 0 !important;
+    line-height: normal;
+    width: 1.5rem;
+    font-size: 1.5rem;
+    height: 1.5rem;
+
+    &:hover,
+    &:focus {
+      outline: none !important;
+    }
+  }
+
+}

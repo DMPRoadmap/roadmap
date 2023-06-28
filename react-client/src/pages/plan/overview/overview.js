@@ -12,9 +12,10 @@ import {
 
 import { DmpApi } from '../../../api.js';
 
-
-
 import TextInput from '../../../components/text-input/textInput';
+import RadioButton from '../../../components/radio/radio';
+
+
 
 
 function PlanOverview() {
@@ -122,11 +123,46 @@ function PlanOverview() {
           <h2>Register</h2>
 
           <div className="plan-steps-step last step-visibility">
-            <p>Set visibility and register your plan</p>
-            <div className="input">
-              <input name="plan_private" type="checkbox" /> Keep plan private <br />
-              <input name="plan_visible" type="checkbox" /> Keep plan visible
+
+            <div className="dmpui-form-cols">
+
+
+              <div className="dmpui-form-col">
+                <div
+                  className={'dmpui-field-group'}
+                >
+                  <label className="dmpui-field-label">
+                    Set visibility and register your plan
+                  </label>
+
+
+                  <RadioButton
+                    label="Keep plan private"
+                    name="plan_private"
+                    id="plan_private"
+                    value="false"
+                    inputValue="false"
+
+                    onClick={(e) => handleOptionChange("false")}
+                  />
+
+                  <RadioButton
+                    label="Keep plan visible"
+                    name="plan_visible"
+                    id="plan_visible"
+                    inputValue="true"
+                    value="true"
+
+                    onClick={(e) => handleOptionChange("true")}
+
+                  />
+
+
+
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
 
