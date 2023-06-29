@@ -523,3 +523,102 @@
     }
   }
 }
+
+/*
+    PLAN CREATION
+*/
+
+#maincontent {
+  div.tab-content {
+    display: flex;
+    flex-direction: column;
+
+    &>div {
+
+      &:not(#sign-in-form):not(#create-account-form) {
+
+        div {
+          h1 {
+            margin: 30px;
+          }
+
+          div.plan-details {
+            &>div {
+
+              &:first-of-type {
+                display: grid;
+                grid-gap: 20px;
+              }
+
+              .anr-import {
+                grid-column-start: 1;
+                grid-column-end: 3;
+              }
+
+              .project-meta {
+                height: max-content;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  div.sign-in {
+    div.tab-content {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}
+
+
+.plan-form {
+  .tab-content {
+    padding: 25px 25px 50px 25px;
+    border: 1px solid $blue;
+  }
+
+  .form-tabs {
+    display: flex;
+    flex: 1;
+
+    li>span {
+      display: block;
+      padding: 10px 15px;
+      cursor: pointer;
+
+      i {
+        display: none;
+      }
+    }
+
+    li>span:hover,
+    li>span:focus,
+    li.active>span,
+    li.active>span:focus,
+    li.active>span:hover {
+      color: $white;
+      border-bottom-color: transparent;
+      background-color: $white;
+      color: $blue;
+      border: 1px solid $blue;
+      border-bottom-color: transparent;
+
+      i {
+        display: inline;
+      }
+    }
+  }
+
+  #no_org h3 {
+    color: $rust;
+  }
+}
+
+#available-templates {
+  .message-block {
+    color: $blue;
+  }
+}
