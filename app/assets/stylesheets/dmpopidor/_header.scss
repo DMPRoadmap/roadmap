@@ -110,7 +110,7 @@ header.dmpopidor-branding {
           a#user-menu.dropdown-toggle {
             &:hover {
               border-radius: 5px 5px 0 0;
-              z-index: 9999;
+              z-index: 10;
               position: relative;
             }
           }
@@ -396,6 +396,7 @@ header.dmpopidor-branding {
         width: 100%;
         border-radius: 15px;
         height: inherit;
+        margin-bottom: 60px;
 
         .org-infos {
           display: flex;
@@ -404,6 +405,8 @@ header.dmpopidor-branding {
 
           @media (max-width: 767px) {
             justify-content: center;
+            flex-direction: column;
+            align-items: center;
           }
 
           .org-logo {
@@ -431,14 +434,24 @@ header.dmpopidor-branding {
             font-size: large;
             height: inherit;
             justify-content: left;
+            border: 0;
+
+            @media (max-width: 767px) {
+              padding: 20px 0;
+              width: 100%;
+            }
 
             li.org-links {
               padding-top: 0;
               width: max-content;
 
+              @media (max-width: 767px) {
+                text-align: left;
+                width: 100%;
+              }
+
               &:hover {
                 text-decoration: underline;
-                transform: scale(1.05);
               }
             }
 
@@ -447,6 +460,12 @@ header.dmpopidor-branding {
               grid-template-columns: 1fr 1fr;
               grid-auto-flow: column;
               grid-template-rows: 1fr 1fr 1fr;
+
+              @media (max-width: 767px) {
+                grid-template-columns: 1fr;
+                grid-auto-flow: row;
+                grid-gap: 20px;
+              }
 
               &::before,
               &::after {
@@ -458,9 +477,19 @@ header.dmpopidor-branding {
               padding: 0 15px;
               width: max-content;
 
+              @media (max-width: 767px) {
+                width: 100%;
+              }
+
+              @media (max-width: 575px) {
+                font-size: 12pt;
+                text-align: left;
+                align-items: center;
+                display: flex;
+              }
+
               &:hover {
                 text-decoration: underline;
-                transform: scale(1.05);
               }
             }
 
