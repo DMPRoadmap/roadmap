@@ -39,6 +39,9 @@ See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installa
 - [Docker compose](https://docs.docker.com/compose/install/)
 
 #### Installation
+
+##### Development mode
+
 ```bash
 # build image
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev build dmpopidor
@@ -59,6 +62,30 @@ docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run
 # Run all services
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev up -d
 ```
+
+#### Production mode
+
+```bash
+# build image
+docker compose ---profile prod build dmpopidor
+
+# Configure database connection for postgres (change postgres by mysql)
+docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/docker postgres'
+
+# Setup database
+docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
+
+# Load re3data data in database
+docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/rails external_api:load_re3data_repos'
+
+# Add DMP OPIDoR migrations
+docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_0_0'
+docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_4_0'
+
+# Run all services
+docker compose ---profile prod up -d
+```
+
 
 The rails server is launched via puma behind a niginx, it is accessible at the url ``http://localhost:8080``
 
