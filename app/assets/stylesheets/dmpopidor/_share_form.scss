@@ -1,0 +1,27 @@
+@use './colours' as *;
+@use '../variables/colours' as *;
+
+/*
+    Share Form
+*/
+
+.share-form {
+    display: flex;
+    flex-direction: column;
+
+    .panel-heading {
+        background-color: $white;
+        color: $rust;
+        border-bottom: 2px solid $rust;
+        border-right: 2px solid $rust;
+
+        .panel-title {
+            color: $rust;
+            font-weight: bold;
+        }
+    }
+
+    #new_role {
+        border-bottom: 0.5px groove $color-border-light;
+    }
+}

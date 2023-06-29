@@ -1,0 +1,21 @@
+@use './colours' as *;
+
+/*
+* SweetAlert2
+*/
+
+.swal2-popup {
+    .swal2-html-container {
+        font-size: 14px;
+    }
+
+    .swal2-actions {
+        .swal2-confirm {
+            background-color: $blue;
+        }
+
+        .swal2-deny {
+            background-color: $rust;
+        }
+    }
+}

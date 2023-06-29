@@ -1,0 +1,11 @@
+@use './colours' as *;
+
+/* 
+    CONTACT US
+*/
+
+.dmpopidor-contact-us {
+    .column-right {
+      border-left: 2px solid $rust;
+    }
+  }

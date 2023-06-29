@@ -1,0 +1,32 @@
+@use './colours' as *;
+
+/* 
+    COOKIE BANNER
+*/
+
+.cookiebanner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: left !important;
+    z-index: 2550 !important;
+  }
+  
+  .cookiebanner-close {
+    width: 50%;
+    text-align: center;
+    background: green;
+    padding: 5px;
+    color: $white !important;
+    font-weight: bold;
+    margin-left: 10px;
+  
+    &:focus,
+    &:hover,
+    &:active {
+      outline-style: solid !important;
+      outline-color: $white !important;
+      outline-width: 2px !important;
+    }
+  }
