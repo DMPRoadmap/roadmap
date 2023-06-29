@@ -12,7 +12,7 @@
     <% end %>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse org-links-area">
+    <div class="navbar-collapse org-links-area">
       <!-- Organisational links -->
       <%
       links = current_user.org.links.present? ? current_user.org.links.fetch('org', []) : []
