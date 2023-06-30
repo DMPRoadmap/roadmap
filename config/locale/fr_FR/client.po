@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-06-29 14:48+0200\n"
-"PO-Revision-Date: 2023-06-29 14:48+0200\n"
+"POT-Creation-Date: 2023-06-30 14:14+0200\n"
+"PO-Revision-Date: 2023-06-30 14:14+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -826,7 +826,7 @@ msgstr "Examiner les plans organisationnels"
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:9
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:16
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:9
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:8
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:9
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -850,7 +850,7 @@ msgstr "Créateur"
 #: ../../app/helpers/settings_template_helper.rb:16
 #: ../../app/views/branded/orgs/_profile_form.html.erb:141
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:5
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:7
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:8
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:12
 #: ../../app/views/branded/paginable/users/_index.html.erb:23
 msgid "Organisation"
@@ -865,7 +865,7 @@ msgid "Administrator"
 msgstr "Administrateur"
 
 #: ../../app/helpers/plans_helper.rb:46 ../../app/helpers/plans_helper.rb:48
-#: ../../app/views/branded/layouts/application.html.erb:156
+#: ../../app/views/branded/layouts/application.html.erb:152
 msgid "Private"
 msgstr "Privé"
 
@@ -886,7 +886,7 @@ msgstr ""
 "ganisme et moi"
 
 #: ../../app/helpers/plans_helper.rb:68
-#: ../../app/views/branded/layouts/application.html.erb:157
+#: ../../app/views/branded/layouts/application.html.erb:153
 msgid "Private: restricted to me and people I invite."
 msgstr "Privé : accès restreint aux personnes que j'invite."
 
@@ -1143,7 +1143,7 @@ msgstr "Financé"
 msgid "Denied"
 msgstr "Refusé"
 
-#: ../../app/models/plan.rb:805
+#: ../../app/models/plan.rb:813
 msgid "must be after the start date"
 msgstr "doit être postérieur à la date de début"
 
@@ -1260,8 +1260,8 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:117
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
-#: ../../app/views/branded/plans/_edit_details.html.erb:121
-#: ../../app/views/branded/plans/_edit_details.html.erb:191
+#: ../../app/views/branded/plans/_edit_details.html.erb:120
+#: ../../app/views/branded/plans/_edit_details.html.erb:190
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:23
 #: ../../app/views/branded/plans/_share_form.html.erb:112
 #: ../../app/views/branded/plans/_share_third_party.html.erb:93
@@ -1284,10 +1284,10 @@ msgid "example answer"
 msgstr "exemple de réponse"
 
 #: ../../app/views/branded/answers/_new_edit.html.erb:96
-#: ../../app/views/branded/layouts/application.html.erb:127
+#: ../../app/views/branded/layouts/application.html.erb:123
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:147
-#: ../../app/views/branded/plans/_edit_details.html.erb:114
-#: ../../app/views/branded/plans/_edit_details.html.erb:184
+#: ../../app/views/branded/plans/_edit_details.html.erb:113
+#: ../../app/views/branded/plans/_edit_details.html.erb:183
 #: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:43
 msgid "Loading..."
 msgstr "Chargement ..."
@@ -1402,7 +1402,7 @@ msgstr ""
 #: ../../app/views/branded/layouts/_footer.html.erb:61
 #: ../../app/views/branded/layouts/_footer.html.erb:66
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:29
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:33
 #: ../../app/views/branded/paginable/templates/_history.html.erb:25
 #: ../../app/views/branded/paginable/templates/_history.html.erb:31
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:89
@@ -1620,7 +1620,7 @@ msgstr "Publié ?"
 #: ../../app/views/branded/org_admin/departments/new.html.erb:24
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:134
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:136
-#: ../../app/views/branded/plans/_edit_details.html.erb:64
+#: ../../app/views/branded/plans/_edit_details.html.erb:63
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:35
 #: ../../app/views/branded/research_outputs/_list.html.erb:104
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
@@ -1875,7 +1875,7 @@ msgstr "Se connecter"
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-#: ../../app/views/branded/layouts/application.html.erb:68
+#: ../../app/views/branded/layouts/application.html.erb:66
 msgid ""
 "By continuing to browse, without changing your settings, you accept the use of"
 " cookies to measure the traffic of the website with the software Matomo. For m"
@@ -1888,54 +1888,54 @@ msgstr ""
 "s paramètres, vous pouvez vous rendre sur notre page de politique de confident"
 "ialité."
 
-#: ../../app/views/branded/layouts/application.html.erb:70
+#: ../../app/views/branded/layouts/application.html.erb:68
 msgid "Accept"
 msgstr "J'accepte"
 
-#: ../../app/views/branded/layouts/application.html.erb:73
+#: ../../app/views/branded/layouts/application.html.erb:71
 msgid "Learn more"
 msgstr "En savoir plus"
 
-#: ../../app/views/branded/layouts/application.html.erb:116
+#: ../../app/views/branded/layouts/application.html.erb:112
 msgid "Error:"
 msgstr "Erreur:"
 
-#: ../../app/views/branded/layouts/application.html.erb:116
+#: ../../app/views/branded/layouts/application.html.erb:112
 msgid "Notice:"
 msgstr "Avis:"
 
-#: ../../app/views/branded/layouts/application.html.erb:149
+#: ../../app/views/branded/layouts/application.html.erb:145
 msgid "This field is required."
 msgstr "Ce champ est requis."
 
-#: ../../app/views/branded/layouts/application.html.erb:151
+#: ../../app/views/branded/layouts/application.html.erb:147
 #: ../../app/views/branded/shared/_create_account_form.html.erb:31
 msgid "Show password"
 msgstr "Afficher le mot de passe"
 
-#: ../../app/views/branded/layouts/application.html.erb:152
+#: ../../app/views/branded/layouts/application.html.erb:148
 msgid "Select an organisation from the list."
 msgstr "Sélectionnez une organisme dans la liste."
 
-#: ../../app/views/branded/layouts/application.html.erb:153
+#: ../../app/views/branded/layouts/application.html.erb:149
 msgid "My organisation isn't listed"
 msgstr "Mon organisme n'est pas dans la liste"
 
-#: ../../app/views/branded/layouts/application.html.erb:155
+#: ../../app/views/branded/layouts/application.html.erb:151
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:40
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:44
 msgid "N/A"
 msgstr "N/A"
 
-#: ../../app/views/branded/layouts/application.html.erb:159
+#: ../../app/views/branded/layouts/application.html.erb:155
 msgid "Hide list."
 msgstr "Masquer la liste."
 
-#: ../../app/views/branded/layouts/application.html.erb:160
+#: ../../app/views/branded/layouts/application.html.erb:156
 msgid "See the full list of partner institutions."
 msgstr "Voir la liste des institutions partenaires."
 
-#: ../../app/views/branded/layouts/application.html.erb:162
+#: ../../app/views/branded/layouts/application.html.erb:158
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
@@ -1943,30 +1943,30 @@ msgstr ""
 "Impossible de trouver un modèle approprié à l'organisme de recherche et au fin"
 "anceur que vous avez sélectionnés."
 
-#: ../../app/views/branded/layouts/application.html.erb:163
+#: ../../app/views/branded/layouts/application.html.erb:159
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
 "Veuillez sélectionner un organisme de recherche et un financeur pour continuer"
 "."
 
-#: ../../app/views/branded/layouts/application.html.erb:165
+#: ../../app/views/branded/layouts/application.html.erb:161
 #: ../../engines/madmp_opidor/app/views/madmp_fragments/_new.html.erb:29
 msgid "Loading ..."
 msgstr "Chargement ..."
 
-#: ../../app/views/branded/layouts/application.html.erb:166
+#: ../../app/views/branded/layouts/application.html.erb:162
 msgid "Unable to load the section's content at this time."
 msgstr "Impossible de charger le contenu de la section pour le moment."
 
-#: ../../app/views/branded/layouts/application.html.erb:167
+#: ../../app/views/branded/layouts/application.html.erb:163
 msgid "Unable to load the question's content at this time."
 msgstr "Impossible de charger le contenu de la question pour le moment."
 
-#: ../../app/views/branded/layouts/application.html.erb:168
+#: ../../app/views/branded/layouts/application.html.erb:164
 msgid "Opens in a new window"
 msgstr "Ouvre dans une nouvelle fenêtre"
 
-#: ../../app/views/branded/layouts/application.html.erb:170
+#: ../../app/views/branded/layouts/application.html.erb:166
 msgid ""
 "%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
@@ -1976,11 +1976,11 @@ msgstr ""
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
 "ons."
 
-#: ../../app/views/branded/layouts/application.html.erb:171
+#: ../../app/views/branded/layouts/application.html.erb:167
 msgid "No results are available for your entry."
 msgstr "Aucun résultat n'est disponible pour votre entrée."
 
-#: ../../app/views/branded/layouts/application.html.erb:172
+#: ../../app/views/branded/layouts/application.html.erb:168
 msgid "Searching ..."
 msgstr "Recherche..."
 
@@ -2672,7 +2672,6 @@ msgstr "Vous êtes sur le point de supprimer '%{org_name}'. En êtes-vous sûr ?
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:5
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:9
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:5
 msgid "Project Title"
 msgstr "Titre du projet"
 
@@ -2712,7 +2711,7 @@ msgstr "Partager"
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:21
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:69
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:75
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:13
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:14
 #: ../../app/views/branded/paginable/templates/_history.html.erb:6
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:2
 #: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:10
@@ -2751,7 +2750,7 @@ msgstr "Mis à jour"
 
 #:
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:31
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:22
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:26
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:47
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:52
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:55
@@ -2765,7 +2764,7 @@ msgstr "Inconnu"
 
 #:
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:38
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:28
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:32
 #: ../../app/views/branded/paginable/templates/_history.html.erb:27
 #: ../../app/views/branded/paginable/templates/_history.html.erb:33
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:88
@@ -2775,15 +2774,20 @@ msgid "(new window)"
 msgstr "(nouvelle fenêtre)"
 
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:5
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:5
 msgid "Plan Title"
 msgstr "Titre du plan"
 
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:10
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:7
+msgid "Research Domains"
+msgstr "Domaines de recherche"
+
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:11
 #: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:9
 msgid "Last Updated"
 msgstr "Dernière mise à jour"
 
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:21
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:25
 msgid "Not Applicable"
 msgstr "Non applicable"
 
@@ -3089,41 +3093,41 @@ msgstr "Renseignements sur le projet"
 msgid "Research Entity Details"
 msgstr "Renseignements sur l'entité de recherche"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:41
+#: ../../app/views/branded/plans/_edit_details.html.erb:40
 msgid "Click here if you have a project funded by ANR."
 msgstr "Cliquer ici si vous avez un projet financé par l’ANR"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:46
+#: ../../app/views/branded/plans/_edit_details.html.erb:45
 msgid "Please enter the acronym, title or identifier of the project"
 msgstr "Veuillez saisir l’acronyme, le titre ou l’identifiant du projet"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:48
+#: ../../app/views/branded/plans/_edit_details.html.erb:47
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_multiple_complex.html.erb:12
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_single_complex.html.erb:13
 msgid "Find out more."
 msgstr "Pour en savoir plus."
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:77
+#: ../../app/views/branded/plans/_edit_details.html.erb:76
 msgid "Is it a test plan ?"
 msgstr "Est-ce un plan test ?"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:81
+#: ../../app/views/branded/plans/_edit_details.html.erb:80
 msgid "mock project for testing, practice, or educational purposes"
 msgstr "projet de test, d'entrainement ou à des fins de formation"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:118
-#: ../../app/views/branded/plans/_edit_details.html.erb:188
+#: ../../app/views/branded/plans/_edit_details.html.erb:117
+#: ../../app/views/branded/plans/_edit_details.html.erb:187
 #: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:57
 msgid "You have pending changes, please save"
 msgstr "Vous avez des changements en attente, veuillez sauvegarder"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:143
+#: ../../app/views/branded/plans/_edit_details.html.erb:142
 #: ../../app/views/branded/plans/_show_details.html.erb:70
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:24
 msgid "Plan Details"
 msgstr "Renseignements sur le plan"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:205
+#: ../../app/views/branded/plans/_edit_details.html.erb:204
 msgid "Plan Guidance Configuration"
 msgstr "Sélection des recommandations du plan"
 
