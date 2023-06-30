@@ -59,7 +59,7 @@ module Api
                           (@client.is_a?(ApiClient) && @client.access_tokens.select { |t| t.resource_owner_id == @plan.owner }))
 
         # If the plan is public then use the public download link
-        url = @helpers.api_v2_plan_url(@plan, format: :pdf)
+        url = Rails.application.routes.url_helpers.api_v2_plan_url(@plan, format: :pdf)
         # TODO: remove this once we've moved dev
         url = url.gsub('http://localhost:3000', 'https://dmptool-stg.cdlib.org')
         url
@@ -68,7 +68,7 @@ module Api
 
       # Related identifiers for the Plan
       def links
-        ret = { get: @helpers.api_v2_plan_url(@plan) }
+        ret = { get: Rails.application.routes.url_helpers.api_v2_plan_url(@plan) }
 
         # If the plan is publicly visible or the request has permissions then include the PDF download URL
         ret[:download] = download_pdf_link unless download_pdf_link.nil?

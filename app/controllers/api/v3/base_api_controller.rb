@@ -18,9 +18,6 @@ module Api
       before_action :base_response_content
       before_action :pagination_params, except: %i[heartbeat me]
 
-      # Record the API access
-      after_action :log_access, except: %i[heartbeat]
-
       # Used to retrieve the currently logged in user
       def me
         render '/api/v3/me', status: :ok
@@ -112,15 +109,6 @@ module Api
                       activity: activity)
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-      # Record the timestamp
-      def log_access
-        return false if @client.blank?
-
-        @client.update(last_access: Time.zone.now) if @client.is_a?(ApiClient)
-        @client.update(last_api_access: Time.zone.now) if @client.is_a?(User)
-        true
-      end
 
       # =========================
       # PERMIITTED PARAMS HEPERS

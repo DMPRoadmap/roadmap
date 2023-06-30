@@ -4,6 +4,7 @@ module Api
   module V3
     # Endpoints that proxy calls to other external systems
     class ProxiesController < BaseApiController
+      MSG_DMP_ID_REGISTRATION_FAILED = 'Unable to register a DMP ID at this time.'
 
       # GET /api/v3/awards/crossref/{:fundref_id}?{query_string_args}
       #        Allows the following query string arguments:
@@ -44,6 +45,36 @@ module Api
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::ProxiesController.nsf_awards #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
+      end
+
+      # POST /api/v3/dmps/{:id}/register
+      #        Register the DMP ID for the specified Work in Progress (WIP) DMP
+      def register_dmp_id
+        dmp = Dmp.find_by(id: params[:id])
+        render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
+        render_error(errors: DmpsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
+
+        dmp.narrative.attach(params[:dmp][:narrative]) if params.fetch(:dmp, {})[:narrative].present?
+        dmp.save
+
+        # Call the DMPHub to register the DMP ID and upload the narrative PDF (performed async by ActiveJob)
+        dmp_id = DmpIdService.mint_dmp_id(plan: dmp)
+        render_error(errors: MSG_DMP_ID_REGISTRATION_FAILED, status: :bad_request) and return unless dmp_id.is_a?(Identifier)
+
+        # Add the DMP ID to the Dmp record
+        dmp.update(dmp_id: dmp_id.value)
+        # Send the Narrative PDF
+        PdfPublisherJob.perform_now(plan: dmp)
+
+        # Fetch the DMP ID record
+        result = DmpIdService.fetch_dmp_id(dmp_id: dmp_id.value)
+        render_error(errors: MSG_DMP_ID_REGISTRATION_FAILED, status: :server_error) and return unless result.is_a?(Hash)
+
+        @items = paginate_response(results: [result])
+        render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::ProxiesController.register_dmp_id #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 

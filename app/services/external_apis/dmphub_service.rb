@@ -41,6 +41,10 @@ module ExternalApis
         Rails.configuration.x.dmphub&.token_path
       end
 
+      def fetch_path
+        Rails.configuration.x.dmphub&.fetch_path
+      end
+
       def mint_path
         Rails.configuration.x.dmphub&.mint_path
       end
@@ -108,10 +112,41 @@ module ExternalApis
         log_error(method: 'DmphubService.proxied_award_search', error: e)
       end
 
+      # Retrieve the latest version of the DMP ID
+      def fetch_dmp_id(dmp_id:)
+        return nil unless active? && dmp_id.present?
+
+        opts = {
+          follow_redirects: true,
+          limit: 6,
+          headers: {
+            'Server-Agent': "#{caller_name} (#{client_id})",
+            'Accept': 'application/json'
+          }
+        }
+        opts[:debug_output] = $stdout
+        resp = HTTParty.get("#{api_base_url}#{fetch_path % { dmp_id: dmp_id.gsub(/https?:\/\//, '')}}", opts)
+
+        # DMPHub returns a 201 (created) when a new DMP ID has been minted or
+        #                a 405 (method_not_allowed) when a DMP ID already exists
+        unless resp.present? && resp.code == 200
+          puts "DMPHub unable to fetch DMP ID: received a #{resp.code}"
+          puts resp.body.inspect
+          handle_http_failure(method: 'DMPHub fetch_dmp_id', http_response: resp)
+          notify_administrators(obj: plan, response: resp)
+          return nil
+        end
+        json = JSON.parse(resp.body)
+        json.fetch('items', []).first
+      rescue StandardError => e
+        puts "FATAL error in DmpHubService.fetch_dmp_id: #{e.message}"
+        puts e.backtrace
+        log_error(method: 'DmphubService.fetch_dmp_id', error: e)
+      end
+
       # Create a new DMP ID
       # rubocop:disable Metrics/AbcSize
       def mint_dmp_id(plan:)
-        # TODO: Add the auth check and header back in once Cognito is working!
         return nil unless active? && plan.present? && auth
 
         opts = {
@@ -123,12 +158,10 @@ module ExternalApis
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: json_from_template(plan: plan)
+          body: plan.is_a?(Dmp) ? plan.to_json_for_registration : json_from_template(plan: plan)
         }
-        # opts[:debug_output] = $stdout
+        opts[:debug_output] = $stdout
         resp = HTTParty.post("#{api_base_url}#{mint_path}", opts)
-        # puts "CALLED DMPHUB AND GOT:"
-        # pp resp.body
 
         # DMPHub returns a 201 (created) when a new DMP ID has been minted or
         #                a 405 (method_not_allowed) when a DMP ID already exists
@@ -139,19 +172,21 @@ module ExternalApis
           notify_administrators(obj: plan, response: resp)
           return nil
         end
-
         dmp_id = process_response(response: resp)
-        add_subscription(plan: plan, dmp_id: dmp_id) if dmp_id.present?
+
+        # Add a subscription for the DMPHub so that we send it updates in the future (N/A for a DMP!)
+        add_subscription(plan: plan, dmp_id: dmp_id) if plan.is_a?(Plan) && dmp_id.present?
         dmp_id
       rescue StandardError => e
         puts "FATAL: #{e.message}"
+        puts e.backtrace
         log_error(method: 'DmphubService.mint_dmp_id', error: e)
       end
       # rubocop:enable Metrics/AbcSize
 
       # Update the DMP ID
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-      def update_dmp_id(plan:)
+      def update_dmp_id(dmp_id:)
         # TODO: Add the auth check and header back in once Cognito is working!
         return nil unless active? && plan.present? && auth
 
@@ -167,7 +202,8 @@ module ExternalApis
           body: json_from_template(plan: plan)
         }
         # opts[:debug_output] = $stdout
-        target = format("#{api_base_url}#{callback_path}", dmp_id: plan.dmp_id&.value_without_scheme_prefix)
+        # target = format("#{api_base_url}#{callback_path}", dmp_id: plan.dmp_id&.value_without_scheme_prefix)
+        target = "#{api_base_url}#{update_path % { dmp_id: dmp_id}}"
         resp = HTTParty.put(target, opts)
         # puts "CALLED DMPHUB AND GOT:"
         # pp resp.body
@@ -180,8 +216,9 @@ module ExternalApis
         end
 
         dmp_id = process_response(response: resp)
-        plan.update()
-        update_subscription(plan: plan) if dmp_id.present?
+
+        # Update the DMP ID in the DMPHub (N/A if this is a DMP!)
+        update_subscription(plan: plan) if plan.is_a?(Plan) && dmp_id.present?
         dmp_id
       rescue StandardError => e
         puts "FATAL: #{e.message}"
@@ -195,11 +232,12 @@ module ExternalApis
          return nil unless active? && plan.present? && auth
 
          hdrs = {
-           #Authorization: @token,
+           Authorization: @token,
            'Server-Agent': "#{caller_name} (#{client_id})"
          }
 
-         target = format("#{api_base_url}#{callback_path}", dmp_id: plan.dmp_id&.value_without_scheme_prefix)
+         # target = format("#{api_base_url}#{callback_path}", dmp_id: plan.dmp_id&.value_without_scheme_prefix)
+         target = "#{api_base_url}#{fetch_path % { dmp_id: dmp_id}}"
          payload = json_from_template(plan: plan)
          resp = http_delete(uri: target, additional_headers: hdrs, debug: false, data: payload)
 
@@ -211,7 +249,8 @@ module ExternalApis
          end
 
          dmp_id = process_response(response: resp)
-         delete_subscription(plan: plan) if dmp_id.present?
+         # Tombstone the DMP ID in the DMPHub (N/A if this is a DMP!)
+         delete_subscription(plan: plan) if plan.is_a?(Plan) && dmp_id.present?
          dmp_id
       rescue StandardError => e
         puts "FATAL: #{e.message}"
@@ -219,15 +258,43 @@ module ExternalApis
       end
 
       # Submit the narrative PDF document to the DMPHub
-      def post_narrative(wip:)
-        return false unless wip.is_a?(Wip)
+      def publish_pdf(plan:, pdf_file_name:)
+        return false unless (plan.is_a?(Plan) || plan.is_a?(Dmp)) && pdf_file_name.present? && auth
 
-        hdrs = {
-          'Authorization': @token,
-          'Content-Type': 'multipart/form-data',
-          'Server-Agent': "#{caller_name} (#{client_id})"
+        pdf_file = File.open(pdf_file_name, 'r')
+        opts = {
+          follow_redirects: true,
+          limit: 6,
+          headers: {
+            'Authorization': @token,
+            'Accepts': 'application/json',
+            'Server-Agent': "#{caller_name} (#{client_id})",
+            'Content-Length': "#{pdf_file.size}",
+            'Content-Type': 'multipart/form-data'
+          },
+          body_stream: pdf_file
         }
-        target = "#{api_base_url}#{narrative_path}"
+        #opts[:debug_output] = $stdout
+        dmp_id = plan.is_a?(Plan) ? plan.dmp_id&.value : plan.dmp_id
+        target = URI("#{api_base_url}#{narrative_path}" % { dmp_id: dmp_id&.gsub(/https?:\/\//, '') })
+        resp = HTTParty.post(target, opts)
+        pdf_file.close
+
+        unless resp.present? && resp.code == 201
+          handle_http_failure(method: 'DmphubService.publish_pdf', http_response: resp)
+          notify_administrators(obj: plan, response: resp)
+          return nil
+        end
+
+        true
+      rescue StandardError => e
+        # Close and then destroy the PDF
+        pdf_file.close if pdf_file.is_a?(File)
+        File.delete(pdf_file_name) if pdf_file_name.present?
+
+        Rails.logger.error "DmphubService.publish_pdf Plan: #{plan&.id} - #{e.message}"
+        Rails.logger.error e.backtrace
+        false
       end
 
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
@@ -341,7 +408,26 @@ module ExternalApis
           partial: '/api/v2/plans/show', locals: { plan: plan, client: api_client }
         )
 
-        { dmp: JSON.parse(payload) }.to_json
+        json = JSON.parse(payload)
+        # Sometimes in dev/stage, after replacing the DB with a copy of production, the owner of the plan
+        # can not be found OR has been set to a generic 'dmptool.researcher@gmail.com' account because it
+        # is out of sync with the DMPHub.
+        # In these scenarios, replace the :contact with the first PI in :contributor
+        if json['contact'].nil? || json.fetch('contact', {})['mbox'] == 'dmptool.researcher@gmail.com'
+          pis = json['contributor'].select do |contrib|
+            contrib['role'].include?('http://credit.niso.org/contributor-roles/Investigation')
+          end
+          pi = pis.any? ? pis.first : json['contributor'].first
+
+          json['contact'] = JSON.parse({
+            name: pi['name'],
+            mbox: pi['mbox'],
+            dmproadmap_affiliation: pi['dmproadmap_affiliation'],
+            contact_id: pi['contributor_id']
+          }.to_json)
+        end
+
+        { dmp: json }.to_json
       end
 
       # Extract the DMP ID from the response from the DMPHub

@@ -127,7 +127,12 @@ Rails.application.routes.draw do
       get :contributor_roles, controller: :options
 
       # Work in progress DMPs
-      resources :wips, path: :dmps, only: %i[index create destroy show update]
+      resources :dmps, only: %i[index create destroy show update] do
+        member do
+          # Proxy to the DMPHub for registration
+          post :register, controller: :proxies, action: :register_dmp_id
+        end
+      end
 
       # Proxies that call out to the DMPHub for award/grant searches
       get 'awards/crossref/:fundref_id', controller: :proxies, action: :crossref_awards
@@ -135,7 +140,7 @@ Rails.application.routes.draw do
       get 'awards/nsf', controller: :proxies, action: :nsf_awards
 
       # Proxies that call out to the DMPHub for DMP ID management
-      resources :dmp_ids, only: %i[index create destroy show update]
+      # resources :dmp_ids, only: %i[index create destroy show update]
     end
   end
 

@@ -52,7 +52,7 @@ namespace :housekeeping do
                 # 77012, 70251, 69178, 67898, 66250 no contact
                 # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
                 .distinct
-                # .limit(2)
+                .limit(100)
                 .order(created_at: :desc)
                 .each do |identifier|
         next unless identifier.value.present? && identifier.identifiable.present?
@@ -68,8 +68,18 @@ namespace :housekeeping do
                     .find_by(id: identifier.identifiable.id)
 
 
-        next unless managed_orgs.include?(plan.org_id)
+        next unless managed_orgs.include?(plan.org_id) && !plan.is_test?
 
+        puts "Processing Plan: #{identifier.identifiable_id}, DMP ID: #{identifier.value}"
+        identifier = DmpIdService.mint_dmp_id(plan: plan, seeding: true)
+
+        if identifier.is_a?(Identifier)
+          puts "    registered #{identifier.value}"
+          identifier.save
+          puts "    uploading narrative PDF"
+          PdfPublisherJob.perform_now(plan: plan) if identifier.is_a?(Identifier)
+        end
+=begin
         begin
           # See if it exists
           puts "Processing Plan: #{identifier.identifiable_id}, DMP ID: #{identifier.value}"
@@ -94,6 +104,7 @@ namespace :housekeeping do
         rescue StandardError => e
           puts "    ERROR: DMP ID: #{identifier.value} - #{e.message}"
         end
+=end
       end
     else
       p 'No DMP ID minting authority defined so nothing to sync.'
