@@ -200,7 +200,7 @@ module DMPRoadmap
 
     # Whether or not Super adminis can read all of the user's plans regardless of
     # the plans visibility and whether or not the plan has been shared
-    config.x.plans.org_admins_read_all = false
+    config.x.plans.org_admins_read_all = true
     # Whether or not Organisational administrators can read all of the user's plans
     # regardless of the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = true

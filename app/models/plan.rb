@@ -570,6 +570,14 @@ class Plan < ApplicationRecord
       true
     # If the user is an org admin and the config allows for org admins to view plans
     elsif current_user.can_org_admin? && Rails.configuration.x.plans.org_admins_read_all
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : All plan except private one are visible by admins.
+      # --------------------------------
+      false if privately_visible?
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       owner_and_coowners.map(&:org_id).include?(current_user.org_id)
     else
       false
