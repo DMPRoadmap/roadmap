@@ -36,7 +36,6 @@ import './src/utils/popoverHelper';
 import './src/utils/requiredField';
 import './src/utils/tabHelper';
 import './src/utils/tooltipHelper';
-// import './src/utils/cookiebanner';
 import './src/utils/dynamicFormHelper';
 import './src/utils/autoNumericHelper';
 
