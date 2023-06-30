@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-06-23 08:35+0200\n"
-"PO-Revision-Date: 2023-06-23 08:35+0200\n"
+"POT-Creation-Date: 2023-06-29 14:48+0200\n"
+"PO-Revision-Date: 2023-06-29 14:48+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -213,7 +213,7 @@ msgstr "created"
 #: ../../app/controllers/guidance_groups_controller.rb:34
 #: ../../app/controllers/guidances_controller.rb:55
 #: ../../app/controllers/notes_controller.rb:73
-#: ../../app/controllers/plans_controller.rb:219
+#: ../../app/controllers/plans_controller.rb:218
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:29
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:33
 msgid "create"
@@ -1251,8 +1251,8 @@ msgstr "Please wait, Standards are loading"
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:117
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
-#: ../../app/views/branded/plans/_edit_details.html.erb:120
-#: ../../app/views/branded/plans/_edit_details.html.erb:190
+#: ../../app/views/branded/plans/_edit_details.html.erb:121
+#: ../../app/views/branded/plans/_edit_details.html.erb:191
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:23
 #: ../../app/views/branded/plans/_share_form.html.erb:112
 #: ../../app/views/branded/plans/_share_third_party.html.erb:93
@@ -1277,8 +1277,8 @@ msgstr "example answer"
 #: ../../app/views/branded/answers/_new_edit.html.erb:96
 #: ../../app/views/branded/layouts/application.html.erb:127
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:147
-#: ../../app/views/branded/plans/_edit_details.html.erb:113
-#: ../../app/views/branded/plans/_edit_details.html.erb:183
+#: ../../app/views/branded/plans/_edit_details.html.erb:114
+#: ../../app/views/branded/plans/_edit_details.html.erb:184
 #: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:43
 msgid "Loading..."
 msgstr "Loading..."
@@ -1604,7 +1604,7 @@ msgstr "Published?"
 #: ../../app/views/branded/org_admin/departments/new.html.erb:24
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:134
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:136
-#: ../../app/views/branded/plans/_edit_details.html.erb:63
+#: ../../app/views/branded/plans/_edit_details.html.erb:64
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:35
 #: ../../app/views/branded/research_outputs/_list.html.erb:104
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:93
@@ -1804,8 +1804,8 @@ msgid "Create plan for a Research Project"
 msgstr "Create plan for a Research Project"
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:36
-msgid "Create plan for a Research Structure"
-msgstr "Create plan for a Research Structure"
+msgid "Create plan for a Research Entity"
+msgstr "Create plan for a Research Entity"
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:41
 #: ../../app/views/branded/plans/_form.html.erb:147
@@ -3038,45 +3038,45 @@ msgid "Project Details"
 msgstr "Project Details"
 
 #: ../../app/views/branded/plans/_edit_details.html.erb:21
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:37
-msgid "Structure Details"
-msgstr "Structure Details"
+#: ../../app/views/branded/plans/_show_details.html.erb:18
+msgid "Research Entity Details"
+msgstr "Research Entity Details"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:40
+#: ../../app/views/branded/plans/_edit_details.html.erb:41
 msgid "Click here if you have a project funded by ANR."
 msgstr "Click here if you have a project funded by ANR."
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:45
+#: ../../app/views/branded/plans/_edit_details.html.erb:46
 msgid "Please enter the acronym, title or identifier of the project"
 msgstr "Please enter the acronym, title or identifier of the project"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:47
+#: ../../app/views/branded/plans/_edit_details.html.erb:48
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_multiple_complex.html.erb:12
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_single_complex.html.erb:13
 msgid "Find out more."
 msgstr "Find out more."
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:76
+#: ../../app/views/branded/plans/_edit_details.html.erb:77
 msgid "Is it a test plan ?"
 msgstr "Is it a test plan ?"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:80
+#: ../../app/views/branded/plans/_edit_details.html.erb:81
 msgid "mock project for testing, practice, or educational purposes"
 msgstr "mock project for testing, practice, or educational purposes"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:117
-#: ../../app/views/branded/plans/_edit_details.html.erb:187
+#: ../../app/views/branded/plans/_edit_details.html.erb:118
+#: ../../app/views/branded/plans/_edit_details.html.erb:188
 #: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:57
 msgid "You have pending changes, please save"
 msgstr "You have pending changes, please save"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:142
+#: ../../app/views/branded/plans/_edit_details.html.erb:143
 #: ../../app/views/branded/plans/_show_details.html.erb:70
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:24
 msgid "Plan Details"
 msgstr "Plan Details"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:204
+#: ../../app/views/branded/plans/_edit_details.html.erb:205
 msgid "Plan Guidance Configuration"
 msgstr "Plan Guidance Configuration"
 
@@ -3103,8 +3103,8 @@ msgid "Click here to add a new research output"
 msgstr "Click here to add a new research output"
 
 #: ../../app/views/branded/plans/_form.html.erb:8
-msgid "Creating a research structure DMP: "
-msgstr "Creating a research structure DMP: "
+msgid "Creating a research entity DMP: "
+msgstr "Creating a research entity DMP: "
 
 #: ../../app/views/branded/plans/_form.html.erb:8
 msgid "Creating a research project DMP: "
@@ -3695,6 +3695,10 @@ msgid ""
 msgstr ""
 "A Data Management Plan created using %{application_name}, based on the \"%{temp"
 "late_title}\" template provided by %{org_name}."
+
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:37
+msgid "Structure Details"
+msgstr "Structure Details"
 
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:70
 msgid "Roles"
