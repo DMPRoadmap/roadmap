@@ -72,14 +72,6 @@ unless @minimal
 
   # Any related identifiers known by the DMPTool
   related_identifiers = plan.related_identifiers.map { |r_id| r_id.clone }
-
-  # Add the PDF download link as a related identifier for the DMP ID if the plan is public
-  if plan.visibility == 'publicly_visible'
-    related_identifiers << RelatedIdentifier.new(identifier_type: :url,
-                                                 relation_type: :is_metadata_for,
-                                                 value: presenter.download_pdf_link)
-  end
-
   if related_identifiers.any?
     json.dmproadmap_related_identifiers related_identifiers do |related|
       next unless related.value.present? && related.relation_type.present?

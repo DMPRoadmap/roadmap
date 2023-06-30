@@ -124,7 +124,7 @@ module ExternalApis
             'Accept': 'application/json'
           }
         }
-        opts[:debug_output] = $stdout
+        # opts[:debug_output] = $stdout
         resp = HTTParty.get("#{api_base_url}#{fetch_path % { dmp_id: dmp_id.gsub(/https?:\/\//, '')}}", opts)
 
         # DMPHub returns a 201 (created) when a new DMP ID has been minted or
@@ -160,7 +160,7 @@ module ExternalApis
           },
           body: plan.is_a?(Dmp) ? plan.to_json_for_registration : json_from_template(plan: plan)
         }
-        opts[:debug_output] = $stdout
+        # opts[:debug_output] = $stdout
         resp = HTTParty.post("#{api_base_url}#{mint_path}", opts)
 
         # DMPHub returns a 201 (created) when a new DMP ID has been minted or
@@ -414,7 +414,7 @@ module ExternalApis
         # is out of sync with the DMPHub.
         # In these scenarios, replace the :contact with the first PI in :contributor
         if json['contact'].nil? || json.fetch('contact', {})['mbox'] == 'dmptool.researcher@gmail.com'
-          pis = json['contributor'].select do |contrib|
+          pis = json.fetch('contributor', []).select do |contrib|
             contrib['role'].include?('http://credit.niso.org/contributor-roles/Investigation')
           end
           pi = pis.any? ? pis.first : json['contributor'].first

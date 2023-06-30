@@ -45,12 +45,13 @@ namespace :housekeeping do
       Identifier.includes(:identifiable)
                 .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
                 .where('identifiers.value LIKE ?', 'https://doi.org/%')
-                # .where('plans.id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
-                # .where('plans.id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
-                # .where('plans.id IN ?', [83085])                      # preregistration
-                # .where('plans.id IN ?', [78147])                      # bad grant_id type
+                # .where('identifiable_id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
+                # .where('identifiable_id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
+                # .where('identifiable_id IN ?', [83085])                      # preregistration
+                # .where('identifiable_id IN ?', [78147])                      # bad grant_id type
                 # 77012, 70251, 69178, 67898, 66250 no contact
                 # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
+                # .where('identifiable_id IN (?)', %i[71800 71809]) # test with Hakai DMPs
                 .distinct
                 .limit(100)
                 .order(created_at: :desc)
