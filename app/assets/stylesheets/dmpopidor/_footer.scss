@@ -7,7 +7,6 @@
 
   bottom: 0;
   width: 100%;
-  padding: 20px 40px;
   color: $white;
   background-color: $dark-blue;
 
@@ -16,6 +15,10 @@
   a:focus,
   a:visited {
     color: $white;
+  }
+
+  img[|alt="DMP OPIDoR logo"] {
+    margin: 15px auto;
   }
 
   img {
@@ -29,18 +32,29 @@
     display: flex;
     font-size: large;
     padding-bottom: 10px;
-    max-width: 1440px;
+
+    @media (max-width: 767px) {
+      font-size: 12pt;
+    }
   }
 
   .footer-content {
     display: flex;
+    max-width: 1440px;
+    padding: 20px 40px;
+
+    @media (max-width: 767px) {
+      padding: 20px;
+    }
 
     .footer-col {
       flex: 1;
-      align-items: center;
+      align-items: left;
       display: flex;
       flex-direction: column;
       margin-bottom: 10px;
+      padding-right: 5%;
+      padding-left: 5%;
 
       .footer-col-title {
         font-weight: bold;
@@ -54,9 +68,28 @@
           display: block;
         }
       }
+
+      &:first-of-type {
+
+        img {
+          margin-bottom: 20px;
+        }
+
+        span {
+          text-align: justify;
+        }
+      }
+
+      &:not(:first-of-type) {
+        span {
+          text-align: left;
+          margin: auto;
+          width: 100%;
+        }
+      }
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1260px) {
       flex-wrap: wrap;
 
       .footer-col {
@@ -70,15 +103,67 @@
   }
 
   .footer-cc {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #193155;
+    padding: 10px 0 10px 0;
+
+    @media (max-width: 575px) {
+      flex-direction: column;
+    }
+
     .footer-infos {
-      flex: 2;
       align-items: center;
       display: flex;
+      width: max-content;
     }
 
     .footer-sn {
-      flex: 1;
       font-size: 30px;
+
+      span {
+        a {
+          text-decoration: none;
+        }
+
+        img,
+        i {
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+
+      img {
+        &:nth-of-type(1) {
+          height: 50px;
+
+          @media (max-width: 767px) {
+            height: 30px;
+          }
+        }
+      }
+
+      width: max-content;
+    }
+  }
+
+  div span a {
+    width: max-content;
+  }
+}
+
+@media (max-width: 1260px) {
+  #dmpopidor-footer {
+    .footer-content {
+      .footer-col {
+        span {
+          &:first-of-type {
+            text-align: center;
+          }
+        }
+      }
     }
   }
 }

@@ -67,6 +67,7 @@ import './src/shared/signInForm';
 import './src/usage/index';
 import './src/users/adminGrantPermissions';
 import './src/users/notificationPreferences';
+import './src/dmpopidor/shared/navigation';
 
 // OrgAdmin view specific JS
 import './src/orgAdmin/conditions/updateConditions';

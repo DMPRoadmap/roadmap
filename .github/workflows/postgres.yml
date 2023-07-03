@@ -60,13 +60,13 @@ jobs:
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
-        cp .env.postgresql .env
+        cp .env.sample .env
 
     # Stub out the Rails credentials file so that we can start the Rails app
     - name: 'Setup Credentials'
       run: |
         # generate a default credential file and key
-        EDITOR='echo "$(cat config/credentials.yml.postgresql)" >' bundle exec rails credentials:edit
+        EDITOR='echo "$(cat config/credentials.yml.sample)" >' bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'

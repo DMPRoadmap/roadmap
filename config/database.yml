@@ -1,0 +1,15 @@
+defaults: &defaults
+  adapter: <%= ENV.fetch('DB_ADAPTER', 'postgresql') %>
+  encoding: <%= ENV.fetch('DB_ADAPTER', 'postgresql') == 'mysql2' ? 'utf8mb4' : '' %>
+  pool: <%= ENV.fetch('DB_POOL_SIZE', 16) %>
+  host: <%= ENV.fetch('DB_HOST', 'localhost') %>
+  port: <%= ENV.fetch('DB_PORT', '5432') %>
+  database: <%= ENV.fetch('DB_NAME', 'roadmap') %>
+  username: <%= ENV.fetch('DB_USERNAME', Rails.application.credentials.db_username) %>
+  password: <%= ENV.fetch('DB_PASSWORD', Rails.application.credentials.db_password) %>
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults

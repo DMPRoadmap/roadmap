@@ -26,10 +26,24 @@
 @use './dmpopidor/plan' as *;
 @use './dmpopidor/user_profile' as *;
 
+@use './dmpopidor/font_size' as *;
+@use './dmpopidor/signin_form' as *;
+@use './dmpopidor/back_to_top' as *;
+@use './dmpopidor/contact_us' as *;
+@use './dmpopidor/cookiebanner' as *;
+@use './dmpopidor/share_form' as *;
+@use './dmpopidor/beta_ribbons' as *;
+@use './dmpopidor/import_plan' as *;
+@use './dmpopidor/sweet_alert' as *;
+
 body {
   display: flex;
   flex-direction: column;
   padding-bottom: 0;
+}
+
+body div a.btn {
+  text-decoration: none;
 }
 
 .modal-backdrop {
@@ -40,96 +54,23 @@ body {
   z-index: 7;
 }
 
-
 /*
     MAIN CONTENT
 */
 
-#maincontent {
-  padding: 0 50px 50px 50px;
-  background-color: $white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  border-radius: 20px;
-  box-shadow: 5px 5px 5px $light-grey;
-  width: 100%;
-  max-width: 1440px;
-
-  &> :first-child:not(#plan-navigation) {
-    padding-top: 50px;
-  }
-}
-
-/*
-    DROPDOWNS
-*/
-#admin-dropdown,
-.plan-actions {
-
-  .dmpopidor-dropdown {
-    background-color: $white;
-
-    li {
-
-      a,
-      a:active,
-      a:focus,
-      a:visited {
-        color: $blue;
-
-      }
-
-      a:hover {
-        color: $white;
-        background-color: $blue;
-      }
-    }
-
-    li.active {
-
-      a,
-      a:active,
-      a:focus,
-      a:visited {
-        background-color: $blue;
-        color: $white;
-      }
-    }
-  }
-
-  .open {
-    a {
-      background-color: $white;
-    }
-  }
-}
-
-#admin-dropdown {
-  .dmpopidor-dropdown {
-    li.active {
-
-      a,
-      a:active,
-      a:focus,
-      a:visited {
-        background-color: $rust;
-        color: $white;
-      }
-    }
-  }
-}
-
-
-/*
-    MAIN CONTENT
-*/
 .dmpopidor-branding {
+
+  div {
+    h1 {
+      &+p {
+        margin: 20px 0 20px 0;
+      }
+    }
+  }
 
   .contact-icons {
     position: fixed;
-    top: 66%;
+    top: 45%;
     right: 0;
     z-index: 5;
 
@@ -194,9 +135,19 @@ body {
     }
   }
 
+
+  input.btn[type="button"] {
+
+    &:focus,
+    &:hover,
+    &:active {
+      outline-width: 0 !important;
+    }
+  }
+
   a {
     color: $dark-blue;
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   /*
@@ -218,6 +169,7 @@ body {
     font-size: 14px;
     border-bottom: none;
   }
+
   /* 
         PLAN EDIT
     */
@@ -309,12 +261,12 @@ body {
     SUPER ADMIN
   */
   &.super-admin {
-  
+
     a {
       color: $black;
       text-decoration: underline;
     }
-  
+
     .btn-default,
     .btn-default:hover,
     .btn-default:focus,
@@ -328,198 +280,21 @@ body {
       text-decoration: none;
       margin-bottom: 10px;
     }
-    
+
     .combobox-clear-button,
     .combobox-clear-button:hover,
     .combobox-clear-button:focus {
       color: $yellow;
     }
-    
-    
+
+
     .btn-link {
       color: $black;
       text-decoration: underline;
     }
-    
+
     .registry-value-actions a {
       text-decoration: none;
-    }
-  }
-
-}
-
-
-/*
-    CIL MESSAGE
-*/
-
-.cil_message>p {
-  font-size: x-small;
-  font-style: italic;
-  line-height: 1.5em;
-  padding-bottom: 4px;
-}
-
-.institution-login i {
-  display: inline-block;
-  padding-left: 5px;
-  transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -moz-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-}
-
-/* 
-    CONTACT US
-*/
-.dmpopidor-contact-us {
-  .column-right {
-    border-left: 2px solid $rust;
-  }
-
-}
-
-
-/* 
-    COOKIE BANNER
-*/
-
-.cookiebanner-close {
-
-  &:focus,
-  &:hover,
-  &:active {
-    outline-style: solid !important;
-    outline-color: $blue !important;
-    outline-width: 2px !important;
-  }
-}
-
-/*
-    PLAN CREATION
-*/
-
-.plan-form {
-  .tab-content {
-    padding: 25px 25px 50px 25px;
-    border: 1px solid $blue;
-  }
-
-  .form-tabs {
-    display: flex;
-    flex: 1;
-
-    li>span {
-      display: block;
-      padding: 10px 15px;
-      cursor: pointer;
-
-      i {
-        display: none;
-      }
-    }
-
-    li>span:hover,
-    li>span:focus,
-    li.active>span,
-    li.active>span:focus,
-    li.active>span:hover {
-      color: $white;
-      border-bottom-color: transparent;
-      background-color: $white;
-      color: $blue;
-      border: 1px solid $blue;
-      border-bottom-color: transparent;
-
-      i {
-        display: inline;
-      }
-    }
-  }
-
-  #no_org h3 {
-    color: $rust;
-  }
-}
-
-#available-templates {
-  .message-block {
-    color: $blue;
-  }
-}
-
-/*
-    Share Form
-*/
-.share-form {
-  display: flex;
-  flex-direction: column;
-
-  .panel-heading {
-    background-color: $white;
-    color: $rust;
-    border-bottom: 2px solid $rust;
-    border-right: 2px solid $rust;
-
-    .panel-title {
-      color: $rust;
-      font-weight: bold;
-    }
-  }
-
-  #new_role {
-    border-bottom: 0.5px groove $color-border-light;
-  }
-}
-
-/* Beta ribbons */
-
-.corner-ribbon {
-  width: 200px;
-  background: $rust;
-  position: absolute;
-  top: 25px;
-  left: -50px;
-  text-align: center;
-  line-height: 50px;
-  letter-spacing: 1px;
-  color: #f0f0f0;
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-
-  &.sticky {
-    position: fixed;
-  }
-
-  &.shadow {
-    box-shadow: 0 0 3px rgba(0, 0, 0, .3);
-  }
-
-  &.top-left {
-    top: 25px;
-    left: -50px;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-  }
-}
-
-.rda-message {
-  display: none;
-}
-
-/*
-* SweetAlert2
-*/
-.swal2-popup {
-  .swal2-html-container {
-    font-size: 14px;
-  }
-  .swal2-actions {
-    .swal2-confirm {
-      background-color: $blue;
-    }
-    .swal2-deny {
-      background-color: $rust;
     }
   }
 }

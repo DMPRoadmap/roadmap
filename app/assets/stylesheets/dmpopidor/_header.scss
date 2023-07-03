@@ -4,6 +4,10 @@
 header.dmpopidor-branding {
   display: flex;
   flex-direction: column;
+  padding: 70px 0;
+  background: url(/assets/header_banner-9adcc3e6271ece03fbd7a4733e275e6c4006e4abba41283ca2fbdac252ac9939.png) no-repeat top fixed;
+  background-size: cover;
+  position: relative;
 
   // #####################################################
   // NAVIGATION
@@ -13,36 +17,47 @@ header.dmpopidor-branding {
   .main-nav {
     display: flex;
     justify-content: center;
-    background-color: $white;
-    min-height: 100px;
+    background: transparent;
+    height: 80px;
+    align-items: center;
+    align-self: center;
     width: 100%;
-
+    transition: all .1s ease-in;
     position: fixed;
     top: 0;
     z-index: 10;
 
     #app-navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       width: 100%;
-      max-width: 1440px;
-
+      margin: 0 auto;
       color: $dark-blue;
-
+      background: white;
+      position: absolute;
+      top: 0;
+      border-radius: 0;
 
       .header-logo {
 
-        // margin-right: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto 0;
+
+
+        img {
+          margin: auto;
+        }
+
         .app-logo {
-          height: 75px;
+          height: 48px;
         }
       }
 
       .navbar-content {
         display: flex;
         flex-grow: 1;
-        justify-content: space-between;
+        height: 100%;
+        justify-content: space-around;
       }
 
       .header-links,
@@ -50,29 +65,295 @@ header.dmpopidor-branding {
         min-height: 75px;
         display: flex;
         align-items: center;
-        font-size: 20px;
+        font-size: 1em;
         text-transform: uppercase;
         @include dmpopidor-dropdown;
 
         a {
           text-decoration: none;
+
+          &:not([data-method="patch"]):not(.btn) {
+            &:hover {
+              background-color: transparent !important;
+            }
+          }
         }
       }
 
-      .header-language-account {
-        #signin-signout {
-          &>a {
-            border-radius: 15px;
-            color: $white;
-            background-color: $dark-blue;
+      ul.header-language-account {
+        @media (max-width: 767px) {
+          flex-direction: column;
+
+          li.dropdown {
+            &:first-of-type {
+              width: 100%;
+            }
           }
         }
+
+        li#signin-signout {
+
+          border-radius: 5px;
+
+          &>a {
+            border-radius: 5px;
+            color: $dark-blue;
+            background-color: none;
+
+            &:hover,
+            &:focus {
+              color: $dark-blue;
+              background-color: none;
+            }
+          }
+
+          a#user-menu.dropdown-toggle {
+            &:hover {
+              border-radius: 5px 5px 0 0;
+              z-index: 10;
+              position: relative;
+            }
+          }
+
+          div.sign-in {
+            display: none;
+            position: absolute;
+            height: 100%;
+            min-width: max-content;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
+            text-transform: none;
+            top: 50px;
+            right: -5px;
+            z-index: 1;
+
+            &:hover,
+            &:focus-within {
+              display: block;
+            }
+
+            div div div.panel {
+              box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
+            }
+          }
+
+          &:hover {
+            @media (min-width: 768px) {
+              div:not(.dropdown-menu) {
+                display: block;
+              }
+            }
+          }
+
+          div {
+            &:hover {
+              +a {
+                border-radius: 5px 5px 0 0;
+              }
+            }
+          }
+
+          a:not(.institution-login):not([href="/users/password/new"]) {
+            &:hover {
+              border-radius: 5px 5px 0 0;
+            }
+          }
+
+          ul.dropdown-menu {
+            &:hover {
+              +a#user-menu {
+                border-radius: 5px 5px 0 0;
+              }
+            }
+          }
+
+
+          div.dropdown-menu {
+            right: 10px;
+            left: unset !important;
+            border-radius: 5px;
+            z-index: 1;
+
+            @media (min-width: 768px) {
+              top: 50px;
+            }
+
+            &:hover,
+            &:focus {
+              &+a {
+                &>i.fa.fa-chevron-down {
+                  transform: rotate(180deg);
+                }
+              }
+
+              ul {
+                display: block;
+              }
+            }
+          }
+
+          @media (min-width: 768px) {
+            &:hover {
+              div.dropdown-menu {
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                width: max-content;
+                grid-template-rows: repeat(2, 0fr);
+                grid-auto-flow: column;
+                padding: 0;
+
+                div {
+                  padding: 10px 0;
+                  margin: 0;
+                  place-self: flex-start;
+                  justify-self: center;
+                  width: 100%;
+
+                  ul {
+                    display: block;
+                  }
+                }
+              }
+            }
+          }
+
+          &.open {
+            div.dropdown-menu {
+              display: grid;
+              justify-content: center;
+              align-items: center;
+              width: max-content;
+              grid-template-rows: repeat(2, 0fr);
+              grid-auto-flow: column;
+              padding: 0;
+
+              div {
+                padding: 10px 0;
+                margin: 0;
+                place-self: flex-start;
+                justify-self: center;
+                width: 100%;
+
+                ul {
+                  display: block;
+                }
+              }
+            }
+          }
+
+          a {
+
+            @media (min-width: 768px) {
+
+              &:hover,
+              &:focus {
+                &+div.dropdown-menu {
+                  display: grid;
+                  justify-content: center;
+                  align-items: center;
+                  width: max-content;
+                  grid-template-rows: repeat(2, 0fr);
+                  grid-auto-flow: column;
+                  padding: 0;
+
+                  div {
+                    padding: 10px 0;
+                    margin: 0;
+                    place-self: flex-start;
+                    justify-self: center;
+                    width: 100%;
+
+                    ul {
+                      display: block;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          ul.dropdown-menu {
+            width: 100%;
+          }
+        }
+
         &>li.active {
           font-weight: bold;
         }
+
+        li {
+          &:first-of-type {
+            ul {
+              top: 50px;
+            }
+          }
+
+          a:not(.institution-login):not([href="/users/password/new"]) {
+            color: $dark-blue;
+          }
+
+          ul {
+            padding: 0;
+
+            &:hover,
+            &:focus {
+              +a {
+                .fa.fa-chevron-down {
+                  transform: rotate(180deg);
+                }
+              }
+            }
+
+            li {
+              a {
+                margin: 0 !important;
+              }
+
+              &.divider {
+                margin: 0;
+              }
+            }
+          }
+        }
       }
 
+      div.navbar-header {
+        @media (max-width: 767px) {
+          display: grid;
+          grid-template-columns: 1fr 0fr;
+          align-items: center;
 
+          button.navbar-toggle {
+            grid-row-start: 1;
+          }
+
+          div.header-logo {
+            grid-column-start: 1;
+            grid-row-start: 1;
+
+            a img.app-logo.navbar-brand {
+              width: 130px;
+              height: auto;
+              margin-left: 44px;
+            }
+          }
+        }
+
+        a img {
+          width: 70px;
+        }
+      }
+
+      @media (min-width: 768px) {
+        display: flex;
+        align-items: center;
+        height: inherit;
+
+        div.navbar-header a img {
+          width: 170px;
+          height: auto !important;
+        }
+      }
     }
   }
 
@@ -90,17 +371,16 @@ header.dmpopidor-branding {
 
   .header-banner {
     align-self: center;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     width: 100%;
     max-width: 1440px;
     min-height: 500px;
-    padding: 150px 50px 100px 50px;
+    padding: 0 50px 0 50px;
     z-index: 1;
     opacity: 0.9;
+    margin-top: 25px;
 
     // #####################################################
     // ORG BRANDING
@@ -109,63 +389,158 @@ header.dmpopidor-branding {
     .org-branding {
       display: flex;
       flex-direction: column;
+      height: min-content;
 
       #org-navbar {
         margin-top: auto;
-        padding: 30px;
         width: 100%;
         border-radius: 15px;
-  
+        height: inherit;
+        margin-bottom: 60px;
+
         .org-infos {
           display: flex;
+          height: inherit;
+          padding: 20px;
+
+          @media (max-width: 767px) {
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+          }
+
           .org-logo {
-            flex: 1;
+            padding-right: 0;
+            padding-left: 5%;
+            height: inherit;
+
+            @media (max-width: 767px) {
+              padding-right: 0;
+              padding-left: 0;
+              width: 85%;
+              height: auto;
+            }
+
             &.no-logo {
               font-size: xx-large;
               color: $dark-blue;
               text-align: center;
-              padding: 15px;
-              font-family: "Times New Roman";
+              font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             }
           }
-  
+
           .org-links-area {
             flex: 2;
             font-size: large;
+            height: inherit;
+            justify-content: left;
+            border: 0;
+
+            @media (max-width: 767px) {
+              padding: 20px 0;
+              width: 100%;
+            }
+
+            li.org-links {
+              padding-top: 0;
+              width: max-content;
+
+              @media (max-width: 767px) {
+                text-align: left;
+                width: 100%;
+              }
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+
+            ul.navbar-nav {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              grid-auto-flow: column;
+              grid-template-rows: 1fr 1fr 1fr;
+
+              @media (max-width: 767px) {
+                grid-template-columns: 1fr;
+                grid-auto-flow: row;
+                grid-gap: 20px;
+              }
+
+              &::before,
+              &::after {
+                display: none;
+              }
+            }
+
             .org-a {
               padding: 0 15px;
+              width: max-content;
+
+              @media (max-width: 767px) {
+                width: 100%;
+              }
+
+              @media (max-width: 575px) {
+                font-size: 12pt;
+                text-align: left;
+                align-items: center;
+                display: flex;
+              }
+
+              &:hover {
+                text-decoration: underline;
+              }
             }
+
             a {
               color: $dark-blue;
             }
           }
         }
-  
+
         .org-banner-text {
           font-size: large;
-          padding-top: 5px;
+          padding: 0 30px;
+          text-align: justify;
+
+          @media (max-width: 575px) {
+            text-align: center;
+          }
+
           a {
             color: black;
             text-decoration: underline;
           }
-  
+
           &.org-deactivated {
             color: $rust;
             margin: auto;
             font-weight: 600;
           }
-  
+
         }
       }
+
       .homepage-h1 {
         color: white;
         font-size: 60px;
         font-weight: bold;
+
+        @media (max-width: 767px) {
+          font-size: 28pt;
+        }
       }
+
       .homepage-h2 {
         color: white;
         width: 75%;
         font-size: 35px;
+
+        @media (max-width: 767px) {
+          font-size: 18pt;
+          width: 100%;
+        }
       }
     }
 
@@ -197,6 +572,7 @@ header.dmpopidor-branding {
           text-decoration: underline;
         }
       }
+
       &.alert-danger {
         background-color: $rust;
         color: white;
@@ -209,8 +585,17 @@ header.dmpopidor-branding {
     }
 
     #notification-area {
-      margin-top: auto;
+      margin-top: 20px;
+      margin-bottom: 90px;
     }
   }
 
+}
+
+.is-scrolled {
+  header.dmpopidor-branding {
+    div.main-nav {
+      height: 60px;
+    }
+  }
 }

@@ -1,0 +1,39 @@
+<%= form_for resource, as: 'user', namespace: 'signin', url: user_session_path, html: {id: "sign_in_form"} do |f| %>
+  <% if Rails.configuration.x.shibboleth.enabled %>
+  <p class="fontsize-h3"><%= _('Institutional Access')%></p>
+    <% if session['devise.shibboleth_data'].nil? %>
+      <div class="form-group">
+        <span class="center-block btn-group-justified">
+          <% target = (Rails.configuration.x.shibboleth.use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
+          <%= link_to _('Sign in'), target, method: :post, class: 'btn btn-default institution-login accessible' %>
+        </span>
+      </div>
+    <% else %>
+      <%= f.hidden_field :shibboleth_id, :value => session['devise.shibboleth_data']['uid'] %>
+    <% end %>
+    <hr/>
+  <% end %>
+
+  <p class="fontsize-h3"><%= _('Individual Access')%></p>
+  <div class="form-group">
+    <%= f.label(:email, _('Email'), class: 'control-label') %>
+    <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:password, _('Password'), class: 'control-label') %>
+    <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
+  </div>
+  <div>
+    <%= link_to _('Forgot password?'), new_password_path('user') %>
+  </div>
+  <div class="checkbox">
+    <%= label_tag 'remember_email' do %>
+      <%= check_box_tag 'remember_email' %>
+      <%= _('Remember email') %>
+    <% end %>
+  </div>
+  <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
+  <input type="button" class="btn btn-default" onclick="location.href='<%= login_path %>#content'" value="Créer un compte ?" />
+ 
+
+<% end %>

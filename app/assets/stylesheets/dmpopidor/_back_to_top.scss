@@ -1,0 +1,46 @@
+@use './colours' as *;
+
+/* 
+    BACK TO TOP BUTTON
+*/
+
+.back-to-top-wrapper {
+    position: absolute;
+    top: 100vh;
+    right: 0.25rem;
+    bottom: 0;
+    width: 3em;
+    pointer-events: none;
+    margin-top: 10em;
+    z-index: 5;
+}
+
+.back-to-top-link {
+    position: fixed;
+    position: sticky;
+    pointer-events: all;
+    top: calc(100vh - 15rem);
+
+    // basic styling
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none !important;
+    font-size: 4rem;
+    line-height: 3rem;
+    text-align: center;
+    width: 3rem;
+    height: 3rem;
+    background-color: $white;
+    border-radius: 50%;
+    transition: transform 80ms ease-in;
+
+    i {
+        color: $dark-blue;
+    }
+
+    &:hover,
+    &:focus {
+        transform: scale(1.2);
+    }
+}

@@ -136,6 +136,71 @@
 }
 
 // ##################################
+// PLAN DETAILS 
+// ##################################
+
+@media (min-width: 990px) and (max-width: 1450px) {
+
+  main#maincontent div.tab-content {
+    div {
+      div {
+        div.plan-details {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          &>form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &>div {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+
+  main#maincontent div.tab-content {
+    div {
+      div {
+        div.plan-details {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          &>div {
+
+            &:first-of-type {
+              grid-template-rows: none;
+              grid-gap: 0;
+            }
+
+            .project-meta {
+              &:last-of-type {
+                grid-row-start: 3;
+                grid-row-end: 4;
+              }
+            }
+          }
+
+          &>form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ##################################
 // RESEARCH OUTPUTS 
 // ##################################
 #research-outputs {
@@ -165,6 +230,14 @@
   #research-outputs-list {
     width: 100%;
     padding: 20px;
+
+    &+div.links {
+      a.add-research-output {
+        display: block;
+        margin: auto;
+        width: 80%;
+      }
+    }
 
     .form-group {
       margin: 0;
@@ -196,6 +269,10 @@
           .action {
             color: $dark-blue;
             cursor: pointer;
+          }
+
+          &.form-group {
+            flex-direction: column;
           }
         }
 
@@ -284,6 +361,7 @@
     min-width: 175px;
 
     background-color: white;
+
     .research-outputs-tabs {
       display: flex;
       flex-direction: column;
@@ -296,18 +374,18 @@
         text-align: center;
         border: none;
         margin: 0;
-  
+
         &:not(:last-child) {
           margin-bottom: 3px;
         }
-  
-        &.active > a,
-        & > a:hover {
+
+        &.active>a,
+        &>a:hover {
           background-color: $dark-blue;
           color: white;
           font-size: 16px;
         }
-  
+
         a {
           padding: 20px;
           font-weight: bold;
@@ -315,11 +393,14 @@
         }
       }
     }
+
     .panel-body {
       padding: 0;
     }
+
     .panel-heading {
       background-color: $dark-blue;
+
       .accordion-toggle {
         padding: 20px;
         background-color: $dark-blue;
@@ -440,5 +521,104 @@
 
 
     }
+  }
+}
+
+/*
+    PLAN CREATION
+*/
+
+#maincontent {
+  div.tab-content {
+    display: flex;
+    flex-direction: column;
+
+    &>div {
+
+      &:not(#sign-in-form):not(#create-account-form) {
+
+        div {
+          h1 {
+            margin: 30px;
+          }
+
+          div.plan-details {
+            &>div {
+
+              &:first-of-type {
+                display: grid;
+                grid-gap: 20px;
+              }
+
+              .anr-import {
+                grid-column-start: 1;
+                grid-column-end: 3;
+              }
+
+              .project-meta {
+                height: max-content;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  div.sign-in {
+    div.tab-content {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}
+
+
+.plan-form {
+  .tab-content {
+    padding: 25px 25px 50px 25px;
+    border: 1px solid $blue;
+  }
+
+  .form-tabs {
+    display: flex;
+    flex: 1;
+
+    li>span {
+      display: block;
+      padding: 10px 15px;
+      cursor: pointer;
+
+      i {
+        display: none;
+      }
+    }
+
+    li>span:hover,
+    li>span:focus,
+    li.active>span,
+    li.active>span:focus,
+    li.active>span:hover {
+      color: $white;
+      border-bottom-color: transparent;
+      background-color: $white;
+      color: $blue;
+      border: 1px solid $blue;
+      border-bottom-color: transparent;
+
+      i {
+        display: inline;
+      }
+    }
+  }
+
+  #no_org h3 {
+    color: $rust;
+  }
+}
+
+#available-templates {
+  .message-block {
+    color: $blue;
   }
 }

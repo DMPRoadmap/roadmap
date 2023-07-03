@@ -1,0 +1,64 @@
+/* 
+    SIGN IN FORM
+*/
+
+#sign-in-form,
+#create-account-form {
+    width: 45%;
+    transition: visibility 0s 2s, opacity 2s linear;
+}
+
+#create-account-form {
+    display: none;
+}
+
+div.tab-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+div.sign-in {
+    div.tab-content {
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 1260px) {
+
+    main#maincontent {
+        div.sign-in {
+            div.tab-content {
+                display: flex;
+                flex-direction: column;
+
+                div#sign-in-form,
+                div#create-account-form {
+                    width: 85%;
+                }
+            }
+        }
+    }
+}
+
+
+/*
+    CIL MESSAGE
+*/
+
+.cil_message>p {
+    font-size: x-small;
+    font-style: italic;
+    line-height: 1.5em;
+    padding-bottom: 4px;
+  }
+  
+  .institution-login i {
+    display: inline-block;
+    padding-left: 5px;
+    transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+  }

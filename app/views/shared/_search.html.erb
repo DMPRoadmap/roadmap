@@ -6,9 +6,7 @@
       <span class="input-group-addon" id="search-addon">
         <span class="fas fa-search" aria-hidden="true"></span>
       </span>
-      <%= text_field_tag(:search, search_term, class: 'form-control', 'aria-labelledby': 'search',
-                        spellcheck: true, 'aria-labelledby': 'search-addon', 'aria-required': true) %>
-
+      <%= text_field_tag(:search, search_term, class: 'form-control', 'placeholder': _('Search'),'aria-labelledby': 'search', spellcheck: true, 'aria-required': true) %>
     </div>
     <%# @filter_admin is only defined on the users_index page %>
     <% unless @filter_admin.nil?  %>

@@ -1,72 +1,46 @@
-FROM phusion/passenger-ruby24:1.0.19
-
-LABEL maintainer="Benjamin FAURE benjamin.faure@inist.fr"
-
-# Setting some env vars
-ENV HOME=/root \
-    PASSENGER_DOWNLOAD_NATIVE_SUPPORT_BINARY=0 \
-    LANGUAGE=fr_FR.UTF-8 \
-    LANG=fr_FR.UTF-8 \
-    LC_ALL=fr_FR.UTF-8 \
-    RUBY_VERSION=2.4.10
-
-
-# Addin Yarn repo
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-# Installing package dependencies
-RUN apt-get -qqy update \
-    && apt-get install vim \
-    build-essential \
-    git \
-    curl \
-    locales \
-    libreadline-dev \
-    libssl-dev \
-    libsqlite3-dev \
-    wget \
+FROM ruby:3.1.3 as dev
+WORKDIR /app
+COPY . .
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt install -y nodejs && \
+  apt install -y \
+    postgresql-client \
+    wkhtmltopdf \
     imagemagick \
-    xz-utils \
-    libcurl4-gnutls-dev \
-    libxrender1 \
-    libfontconfig1 \
-    apt-transport-https \
-    tzdata \
-    xfonts-base \
-    xfonts-75dpi \
-    yarn \
-    python \
-    ca-certificates -qqy \
-    && rm -rf /var/lib/apt/lists/*
+    tzdata && \
+  ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
+  ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
+  echo 'gem "tzinfo-data"' >> ./Gemfile && \
+  echo 'gem "net-smtp"' >> ./Gemfile && \
+  gem install pg puma net-smtp && \
+  gem install bundler -v 2.4.8 && \
+  bundle install
 
-# Installing Node 10.x
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
-RUN apt install -y nodejs
+FROM dev as production
+COPY . .
+RUN DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider yarn build && \
+    NODE_OPTIONS=--openssl-legacy-provider yarn build:css && \
+    rm -rf node_module
 
-# Set locale to UTF8
-RUN locale-gen --no-purge fr_FR.UTF-8 \
-    && update-locale LANG=fr_FR.UTF-8 \
-    && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
-
-# Copying project files
-COPY . /dmponline
-
-WORKDIR /dmponline
-
-# Installing Ruby and Node dependencies
-RUN echo $RUBY_VERSION > .ruby-version \
-    && gem install bundler -v 1.17.3 \
-    && echo 'gem "tzinfo-data"' >> Gemfile \
-    # && bundle install --without mysql puma thin
-    && bundle install --without mysql
-RUN yarn
-
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb \
-    && apt install ./wkhtmltox_0.12.6-1.focal_amd64.deb
-
-# Run the app using the rails.sh script
-COPY ./rails.sh /usr/local/bin/
-RUN chmod a+x /usr/local/bin/rails.sh
-# RUN mkdir -p /dmponline/public/system/dragonfly && chmod a+rw  -R /dmponline/public/system/dragonfly
-CMD ["rails.sh"]
+FROM ruby:3.1.3-alpine3.17
+WORKDIR /app
+COPY --from=production /app .
+RUN apk add --no-cache --update --virtual \
+  build-dependencies \
+  build-base \
+  tzdata \
+  postgresql-dev \
+  imagemagick && \
+  echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/community' >> /etc/apk/repositories && \
+  echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/main' >> /etc/apk/repositories && \
+  apk add --no-cache wkhtmltopdf && \
+  ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
+  ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
+  chmod +x /usr/local/bin/wkhtmltopdf && \
+  echo 'gem "tzinfo-data"' >> ./Gemfile && \
+  echo 'gem "net-smtp"' >> ./Gemfile && \
+  gem install pg puma net-smtp && \
+  gem install bundler -v 2.4.8 && \
+  bundle config set --local without 'mysql thin test ci aws development' && \
+  bundle install
+EXPOSE 3000
+CMD [ "bundle", "exec", "puma", "-C", "/app/config/puma.rb", "-e", "production" ]

@@ -62,18 +62,14 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <script type="text/javascript" id="cookiebanner"
-            src="https://cdnjs.cloudflare.com/ajax/libs/cookie-banner/1.2.2/cookiebanner.min.js"></script>
-    <%= javascript_tag do %>
-      var options = { 
-        message: '<%= _("By continuing to browse, without changing your settings, you accept the use of cookies to measure the traffic of the website with the software Matomo. For more information, to change or manage your settings, please visit our Privacy Statement page.")%>',
-        moreinfo: '<%= privacy_path %>',
-        'close-text': '<%= _("Accept") %>',
-        'close-precedes': false,
-        'close-style': 'padding-left:5px; color: rgb(170, 170, 170);',
-        linkmsg: '<%= _("Learn more") %>'
-      };
-      var cb = new Cookiebanner(options); cb.run();
-    <% end %>
+      src="https://cdnjs.cloudflare.com/ajax/libs/cookie-banner/1.2.2/cookiebanner.min.js"
+      data-message="<%= _('By continuing to browse, without changing your settings, you accept the use of cookies to measure the traffic of the website with the software Matomo. For more information, to change or manage your settings, please visit our Privacy Statement page.')%>"        
+      data-moreinfo="<%= privacy_path%>"
+      data-close-text="<%= _('Accept') %>"
+      data-close-precedes="false"
+      data-close-style=padding-left:5px; color: rgb(170, 170, 170);""
+      data-likmsg="<%=_('Learn more') %>"
+      ></script>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -105,7 +101,6 @@
       <main class="container dmpopidor-branding <%= user_access_class %>" id="maincontent">
         <%= yield %>
 
-
         <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class, so update when
             we upgrade to remove the img tag %>
         <div class="spinner-border hidden" role="status">
@@ -120,6 +115,10 @@
       <footer id="dmpopidor-footer">
         <%= render "layouts/footer" %>
       </footer>
+
+      <div class="back-to-top-wrapper">
+        <a href="#" class="back-to-top-link" aria-label="Scroll to Top"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
+      </div>
 
       <!-- piwik -->
       <%= render "layouts/piwik" %>

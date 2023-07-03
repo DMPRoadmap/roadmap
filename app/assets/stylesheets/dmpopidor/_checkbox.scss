@@ -15,13 +15,13 @@
     display: inline-block;
   }
 
-  label:focus,
-  label:hover,
-  label:active {
-    outline-style: solid !important;
-    outline-color: $blue !important;
-    outline-width: 3px !important;
-  }
+  // label:focus,
+  // label:hover,
+  // label:active {
+  //   outline-style: solid !important;
+  //   outline-color: $blue !important;
+  //   outline-width: 3px !important;
+  // }
 
   input[type=checkbox]+label::before {
     content: "\f111"; // fa-circle
