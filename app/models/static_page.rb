@@ -38,7 +38,7 @@ class StaticPage < ApplicationRecord
     p locale
     spc = contents.find_by(language: Language.find_by(abbreviation: locale))
 
-    spc ? spc.content : nil
+    spc&.content
   end
 
   # Get Static Page title for specified locale

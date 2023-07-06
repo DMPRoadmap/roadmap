@@ -24,7 +24,7 @@ class MadmpFragmentsController < ApplicationController
 
     @fragment = MadmpFragment.new(
       dmp_id: p_params[:dmp_id],
-      parent_id: parent_id,
+      parent_id:,
       madmp_schema: schema,
       additional_info: {
         'property_name' => p_params[:property_name]
@@ -44,7 +44,7 @@ class MadmpFragmentsController < ApplicationController
       'validations' => MadmpFragment.validate_data(data, schema.schema)
     )
     @fragment.assign_attributes(
-      additional_info: additional_info
+      additional_info:
     )
     @fragment.instantiate
     @fragment.save_form_fragment(data, schema)
@@ -103,7 +103,7 @@ class MadmpFragmentsController < ApplicationController
         parent_id = p_params[:parent_id] unless classname.eql?('person')
         @fragment = MadmpFragment.new(
           dmp_id: p_params[:dmp_id],
-          parent_id: parent_id,
+          parent_id:,
           madmp_schema: schema,
           additional_info: {
             'property_name' => p_params[:property_name]
@@ -163,7 +163,7 @@ class MadmpFragmentsController < ApplicationController
         'validations' => MadmpFragment.validate_data(data, schema.schema)
       )
       @fragment.assign_attributes(
-        additional_info: additional_info,
+        additional_info:,
         madmp_schema_id: schema.id
       )
       if @fragment.answer.present?
@@ -250,9 +250,9 @@ class MadmpFragmentsController < ApplicationController
     else
       parent_id = @parent_fragment.id unless @classname.eql?('person')
       @fragment = MadmpFragment.new(
-        dmp_id: dmp_id,
+        dmp_id:,
         data: @schema.const_data(@template_locale),
-        parent_id: parent_id,
+        parent_id:,
         additional_info: {
           'property_name' => params[:property_name]
         }
@@ -332,8 +332,8 @@ class MadmpFragmentsController < ApplicationController
         @fragment.madmp_schema_id,
         params[:property_name],
         template_locale,
-        query_id: query_id,
-        readonly: readonly
+        query_id:,
+        readonly:
       )
     }
   end
@@ -376,7 +376,7 @@ class MadmpFragmentsController < ApplicationController
         @contributor.person.madmp_schema_id,
         params[:property_name],
         template_locale,
-        query_id: query_id
+        query_id:
       )
     }
   end
@@ -409,7 +409,7 @@ class MadmpFragmentsController < ApplicationController
       'query_id' => query_id,
       'html' => render_fragment_list(
         dmp_id, nil, @person.madmp_schema_id,
-        property_name, params[:template_locale], query_id: query_id
+        property_name, params[:template_locale], query_id:
       )
     }
   end
@@ -433,7 +433,7 @@ class MadmpFragmentsController < ApplicationController
       'query_id' => query_id,
       'html' => render_fragment_list(
         dmp_id, parent_id, @fragment.madmp_schema_id,
-        property_name, params[:template_locale], query_id: query_id, readonly: readonly
+        property_name, params[:template_locale], query_id:, readonly:
       )
     }
   end
@@ -478,38 +478,38 @@ class MadmpFragmentsController < ApplicationController
       )
     elsif schema.classname.eql?('person')
       contributors = Fragment::Contributor.where(
-        dmp_id: dmp_id,
-        parent_id: parent_id
+        dmp_id:,
+        parent_id:
       ).where("additional_info->>'property_name' = ?", property_name)
       # if the fragment is a Person, we consider that it's been edited from a Contributor list
       # we need to indicate that we want the contributor list to be displayed
       render_to_string(
         partial: 'dynamic_form/fields/contributor/contributor_list',
         locals: {
-          contributors: contributors,
-          parent_id: parent_id,
-          schema_id: schema_id,
-          readonly: readonly,
+          contributors:,
+          parent_id:,
+          schema_id:,
+          readonly:,
           deletable: true,
-          template_locale: template_locale,
-          query_id: query_id
+          template_locale:,
+          query_id:
         }
       )
     else
       obj_list = MadmpFragment.where(
-        dmp_id: dmp_id,
-        parent_id: parent_id
+        dmp_id:,
+        parent_id:
       ).where("additional_info->>'property_name' = ?", property_name)
       render_to_string(
         partial: 'dynamic_form/linked_fragment/list',
         locals: {
-          parent_id: parent_id,
-          obj_list: obj_list,
-          schema_id: schema_id,
-          readonly: readonly,
+          parent_id:,
+          obj_list:,
+          schema_id:,
+          readonly:,
           deletable: true,
-          template_locale: template_locale,
-          query_id: query_id
+          template_locale:,
+          query_id:
         }
       )
     end
@@ -525,7 +525,7 @@ class MadmpFragmentsController < ApplicationController
       partial: 'dynamic_form/linked_fragment/select_options',
       locals: {
         selected_value: fragment.id,
-        select_values: select_values
+        select_values:
       }
     )
   end
@@ -563,12 +563,12 @@ class MadmpFragmentsController < ApplicationController
                      end,
         'form' => render_to_string(partial: 'madmp_fragments/edit', locals:
         {
-          template: template,
-          question: question,
-          answer: answer,
-          fragment: fragment,
-          madmp_schema: madmp_schema,
-          research_output: research_output,
+          template:,
+          question:,
+          answer:,
+          fragment:,
+          madmp_schema:,
+          research_output:,
           dmp_id: fragment.dmp_id,
           parent_id: fragment.parent_id,
           pickable_schemas: MadmpSchema.where(classname: fragment.classname).order(:label),
@@ -578,7 +578,7 @@ class MadmpFragmentsController < ApplicationController
         'form_run' => if madmp_schema.run_parameters?
                         render_to_string(partial: 'dynamic_form/codebase/show', locals:
                         {
-                          fragment: fragment,
+                          fragment:,
                           api_client: madmp_schema.api_client,
                           parameters: run_parameters,
                           template_locale: LocaleService.to_gettext(locale: template.locale)
@@ -587,7 +587,7 @@ class MadmpFragmentsController < ApplicationController
         'answer_status' => if answer.present?
                              render_to_string(partial: 'answers/status', locals:
                              {
-                               answer: answer
+                               answer:
                              }, formats: [:html])
                            end
       },
@@ -600,7 +600,7 @@ class MadmpFragmentsController < ApplicationController
         'progress' => if section.present?
                         render_to_string(partial: 'plans/progress', locals:
                         {
-                          plan: plan,
+                          plan:,
                           current_phase: section.phase
                         }, formats: [:html])
                       end
@@ -637,7 +637,7 @@ class MadmpFragmentsController < ApplicationController
 
   # Get the parameters conresponding to the schema
   def schema_params(schema, flat: false)
-    s_params = schema.generate_strong_params(flat: flat)
+    s_params = schema.generate_strong_params(flat:)
     params.require(:madmp_fragment).permit(s_params)
   end
 

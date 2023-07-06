@@ -32,5 +32,5 @@ module OrgDateRangeable
 
       enumerable
     end
-end
+  end
 end

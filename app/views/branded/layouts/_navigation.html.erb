@@ -33,7 +33,7 @@
               </li>
               <% if Rails.configuration.x.dmpopidor.enable_research_structure_template %>
                 <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
-                  <%= link_to _('Create plan for a Research Structure'), new_plan_path(context: 'research_structure') %>
+                  <%= link_to _('Create plan for a Research Entity'), new_plan_path(context: 'research_structure') %>
                 </li>
                 <li role="separator" class="divider"></li>
               <% end %>

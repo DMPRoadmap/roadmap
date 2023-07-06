@@ -74,7 +74,7 @@ module Import
         # FROM
         # {
         #   "name": "DMP Administrator",
-        #   "mbox": "info-opidor@inist.fr",
+        #   "mbox": "dmp.opidor@inist.fr",
         #   "role": [
         #     "Coordinateur de projet",
         #     "Personne contact pour les données (Research Output 1, Research Output 2, Research Output 3)"
@@ -88,7 +88,7 @@ module Import
         #
         # {
         #   "lastName": "DMP Administrator",
-        #   "mbox": "info-opidor@inist.fr",
+        #   "mbox": "dmp.opidor@inist.fr",
         #   "personId": 1234,
         #   "idType": "DOI"
         # }

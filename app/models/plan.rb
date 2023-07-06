@@ -549,7 +549,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def editable_by?(user_id)
-    roles.select { |r| r.user_id == user_id && r.active && r.editor }.any?
+    roles.any? { |r| r.user_id == user_id && r.active && r.editor }
   end
 
   ##
@@ -570,6 +570,14 @@ class Plan < ApplicationRecord
       true
     # If the user is an org admin and the config allows for org admins to view plans
     elsif current_user.can_org_admin? && Rails.configuration.x.plans.org_admins_read_all
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : All plan except private one are visible by admins.
+      # --------------------------------
+      false if privately_visible?
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       owner_and_coowners.map(&:org_id).include?(current_user.org_id)
     else
       false
@@ -583,7 +591,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    roles.select { |r| r.user_id == user_id && r.active && r.commenter }.any? ||
+    roles.any? { |r| r.user_id == user_id && r.active && r.commenter } ||
       reviewable_by?(user_id)
   end
 
@@ -593,7 +601,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def administerable_by?(user_id)
-    roles.select { |r| r.user_id == user_id && r.active && r.administrator }.any?
+    roles.any? { |r| r.user_id == user_id && r.active && r.administrator }
   end
 
   # --------------------------------
@@ -720,7 +728,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def visibility_allowed?
-    !is_test? && phases.select { |phase| phase.visibility_allowed?(self) }.any?
+    !is_test? && phases.any? { |phase| phase.visibility_allowed?(self) }
   end
 
   # Determines whether or not a question (given its id) exists for the self plan

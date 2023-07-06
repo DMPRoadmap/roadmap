@@ -167,6 +167,8 @@ Style/HashConversion: # new in 1.10
   Enabled: true
 Style/HashExcept: # new in 1.7
   Enabled: true
+Style/HashSyntax: # new in 1.7
+  Enabled: false
 Style/IfWithBooleanLiteralBranches: # new in 1.9
   Enabled: true
 Style/InPatternThen: # new in 1.16

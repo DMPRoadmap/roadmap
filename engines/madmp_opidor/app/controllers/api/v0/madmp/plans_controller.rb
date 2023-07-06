@@ -8,6 +8,7 @@ module Api
         before_action :authenticate
         include MadmpExportHelper
 
+        # rubocop:disable Metrics/AbcSize
         def show
           plan = Plan.find(params[:id])
           plan_fragment = plan.json_fragment
@@ -19,16 +20,17 @@ module Api
             format.json
             if export_format.eql?('rda')
               render 'shared/export/madmp_export_templates/rda/plan', locals: {
-                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+                dmp: plan_fragment, selected_research_outputs:
               }
             else
               render 'shared/export/madmp_export_templates/default/plan', locals: {
-                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+                dmp: plan_fragment, selected_research_outputs:
               }
             end
             return
           end
         end
+        # rubocop:enable Metrics/AbcSize
 
         private
 

@@ -25,7 +25,7 @@ module Import
 
         def validation_errors(json:)
           errs = []
-          errs << BAD_PLAN_MSG unless plan_valid?(json: json)
+          errs << BAD_PLAN_MSG unless plan_valid?(json:)
           errs << BAD_CONTACT_MSG unless contact_valid?(json: json.dig('meta', 'contact'))
           errs << BAD_RESEARCH_OUTPUT_MSG unless research_output_valid?(json: json['researchOutput'])
           errs.flatten.compact.uniq

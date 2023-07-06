@@ -74,7 +74,7 @@ module Fragment
     end
 
     def technical_resources
-      Fragment::TechnicalResource.where(dmp_id: dmp_id).select do |t|
+      Fragment::TechnicalResource.where(dmp_id:).select do |t|
         t.research_output_fragment.id == id
       end
     end

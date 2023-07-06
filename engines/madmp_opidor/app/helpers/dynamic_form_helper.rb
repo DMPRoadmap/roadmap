@@ -22,19 +22,19 @@ module DynamicFormHelper
            locals: {
              f: form,
              multiple: is_multiple,
-             index: index,
+             index:,
              field_value: value,
              field_name: name,
              field_label: label,
              field_class: html_class,
-             field_id: field_id,
+             field_id:,
              input_type: nil,
-             readonly: readonly,
-             required: required,
-             validation: validation,
-             ttip: ttip,
-             example: example,
-             default_value: default_value
+             readonly:,
+             required:,
+             validation:,
+             ttip:,
+             example:,
+             default_value:
            }
   end
   # rubocop:enable  Metrics/ParameterLists
@@ -56,19 +56,19 @@ module DynamicFormHelper
     render partial: 'dynamic_form/fields/textarea_field',
            locals: {
              f: form,
-             index: index,
+             index:,
              field_value: value,
              field_name: name,
              field_label: label,
              field_class: html_class,
-             field_id: field_id,
+             field_id:,
              input_type: nil,
-             readonly: readonly,
-             required: required,
-             validation: validation,
-             ttip: ttip,
-             example: example,
-             default_value: default_value
+             readonly:,
+             required:,
+             validation:,
+             ttip:,
+             example:,
+             default_value:
            }
   end
   # rubocop:enable  Metrics/ParameterLists
@@ -92,19 +92,19 @@ module DynamicFormHelper
            locals: {
              f: form,
              multiple: is_multiple,
-             index: index,
+             index:,
              field_value: value,
              field_name: name,
              field_label: label,
              field_class: html_class,
-             field_id: field_id,
+             field_id:,
              input_type: 'url',
-             readonly: readonly,
-             required: required,
-             validation: validation,
-             ttip: ttip,
-             example: example,
-             default_value: default_value
+             readonly:,
+             required:,
+             validation:,
+             ttip:,
+             example:,
+             default_value:
            }
   end
   # rubocop:enable  Metrics/ParameterLists
@@ -128,19 +128,19 @@ module DynamicFormHelper
            locals: {
              f: form,
              multiple: is_multiple,
-             index: index,
+             index:,
              field_value: value,
              field_name: name,
              field_label: label,
              field_class: html_class,
-             field_id: field_id,
+             field_id:,
              input_type: 'email',
-             readonly: readonly,
-             required: required,
-             validation: validation,
-             ttip: ttip,
-             example: example,
-             default_value: default_value
+             readonly:,
+             required:,
+             validation:,
+             ttip:,
+             example:,
+             default_value:
            }
   end
   # rubocop:enable  Metrics/ParameterLists
@@ -164,19 +164,19 @@ module DynamicFormHelper
            locals: {
              f: form,
              multiple: is_multiple,
-             index: index,
+             index:,
              field_value: value,
              field_name: name,
              field_label: label,
              field_class: html_class,
-             field_id: field_id,
+             field_id:,
              input_type: 'date',
-             readonly: readonly,
-             required: required,
-             validation: validation,
-             ttip: ttip,
-             example: example,
-             default_value: default_value
+             readonly:,
+             required:,
+             validation:,
+             ttip:,
+             example:,
+             default_value:
            }
   end
   # rubocop:enable  Metrics/ParameterLists
@@ -200,18 +200,18 @@ module DynamicFormHelper
            locals: {
              f: form,
              multiple: is_multiple,
-             index: index,
+             index:,
              field_value: value,
              field_name: name,
              field_label: label,
              field_class: html_class,
-             field_id: field_id,
-             minimum: minimum,
-             maximum: maximum,
-             readonly: readonly,
-             required: required,
-             validation: validation,
-             ttip: ttip
+             field_id:,
+             minimum:,
+             maximum:,
+             readonly:,
+             required:,
+             validation:,
+             ttip:
            }
   end
   # rubocop:enable  Metrics/ParameterLists
@@ -224,9 +224,9 @@ module DynamicFormHelper
              field_value: value,
              field_name: name,
              field_label: label,
-             field_id: field_id,
-             readonly: readonly,
-             validation: validation
+             field_id:,
+             readonly:,
+             validation:
            }
   end
   # rubocop:enable  Metrics/ParameterLists
@@ -257,19 +257,19 @@ module DynamicFormHelper
            locals: {
              f: form,
              selected_value: value,
-             form_prefix: form_prefix,
-             property_name: property_name,
+             form_prefix:,
+             property_name:,
              field_label: label,
-             select_values: select_values,
-             locale: locale,
+             select_values:,
+             locale:,
              field_class: html_class,
-             field_id: field_id,
-             readonly: readonly,
-             required: required,
-             validation: validation,
-             ttip: ttip,
-             default_value: default_value,
-             overridable: overridable
+             field_id:,
+             readonly:,
+             required:,
+             validation:,
+             ttip:,
+             default_value:,
+             overridable:
            }
   end
   # rubocop:enable  Metrics/ParameterLists, Metrics/MethodLength
@@ -295,22 +295,22 @@ module DynamicFormHelper
     render partial: 'dynamic_form/fields/registry/single_complex',
            locals: {
              f: form,
-             value: value,
-             form_prefix: form_prefix,
-             property_name: property_name,
+             value:,
+             form_prefix:,
+             property_name:,
              field_label: label,
-             select_values: select_values,
-             locale: locale,
-             parent_id: parent_id,
-             schema_id: schema_id,
+             select_values:,
+             locale:,
+             parent_id:,
+             schema_id:,
              field_class: html_class,
-             field_id: field_id,
-             readonly: readonly,
-             required: required,
-             validation: validation,
-             ttip: ttip,
-             default_value: default_value,
-             overridable: overridable
+             field_id:,
+             readonly:,
+             required:,
+             validation:,
+             ttip:,
+             default_value:,
+             overridable:
            }
   end
   # rubocop:enable  Metrics/ParameterLists
@@ -336,22 +336,22 @@ module DynamicFormHelper
     render partial: 'dynamic_form/fields/registry/multiple_complex',
            locals: {
              f: form,
-             value: value,
-             form_prefix: form_prefix,
-             property_name: property_name,
+             value:,
+             form_prefix:,
+             property_name:,
              field_label: label,
-             select_values: select_values,
-             locale: locale,
-             parent_id: parent_id,
-             schema_id: schema_id,
+             select_values:,
+             locale:,
+             parent_id:,
+             schema_id:,
              field_class: html_class,
-             field_id: field_id,
-             readonly: readonly,
-             required: required,
-             validation: validation,
-             ttip: ttip,
-             default_value: default_value,
-             overridable: overridable
+             field_id:,
+             readonly:,
+             required:,
+             validation:,
+             ttip:,
+             default_value:,
+             overridable:
            }
   end
   # rubocop:enable  Metrics/ParameterLists
@@ -387,7 +387,7 @@ module DynamicFormHelper
                  when 'pattern'
                    _('This property has an invalid format.')
                  else
-                   format(_('This property has an unknown problem : %{validation}'), validation: validation)
+                   format(_('This property has an unknown problem : %{validation}'), validation:)
                  end
     end
     message

@@ -27,11 +27,11 @@ module Api
             format.json
             if export_format.eql?('rda')
               render 'shared/export/madmp_export_templates/rda/plan', locals: {
-                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+                dmp: plan_fragment, selected_research_outputs:
               }
             else
               render 'shared/export/madmp_export_templates/default/plan', locals: {
-                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+                dmp: plan_fragment, selected_research_outputs:
               }
             end
             return
@@ -58,7 +58,7 @@ module Api
             end
 
             # Try to determine the Plan's owner
-            owner = determine_owner(client: client, dmp: json_data)
+            owner = determine_owner(client:, dmp: json_data)
             if owner.nil?
               render_error(
                 errors: [_('Unable to determine owner of the DMP, please specify an existing user as the contact')],
@@ -106,7 +106,7 @@ module Api
             User.invite!({ email: contact['mbox'],
                            firstname: contact['firstName'],
                            surname: contact['lastName'],
-                           org: org }, User.first) # invite! needs a User, put the SuperAdmin as the inviter
+                           org: }, User.first) # invite! needs a User, put the SuperAdmin as the inviter
           end
         end
 
