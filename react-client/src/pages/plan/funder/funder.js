@@ -14,6 +14,7 @@ import { DmpApi } from '../../../api.js';
 
 import TextInput from '../../../components/text-input/textInput';
 import RadioButton from '../../../components/radio/radio';
+import FunderLookup from '../../../components/funder-lookup/FunderLookup.js';
 
 
 function PlanFunders() {
@@ -27,12 +28,10 @@ function PlanFunders() {
 
   const [hasFunder, sethasFunder] = React.useState("true") // 0: no show, 1: show yes, 2: show no.
 
-  console.log('ddd');
+
   const handleOptionChange = (e) => {
 
   };
-
-
 
 
 
@@ -184,16 +183,19 @@ function PlanFunders() {
 
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
-                <TextInput
+
+                <FunderLookup
                   label="Funder Name"
-                  type="text"
+
                   name="funder_not_listed"
                   id="funder_not_listed"
                   placeholder=""
                   help=""
-                  inputValue="test"
+
                   error=""
                 />
+
+
                 <div className="dmpui-field-checkbox-group not-listed">
 
                   <input id="id_funder_not_listed"

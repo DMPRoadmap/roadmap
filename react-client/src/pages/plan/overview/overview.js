@@ -124,7 +124,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step last step-visibility">
 
-            <div className="dmpui-form-cols">
+            <div className="">
 
 
               <div className="dmpui-form-col">
@@ -136,26 +136,32 @@ function PlanOverview() {
                   </label>
 
 
-                  <RadioButton
-                    label="Keep plan private"
-                    name="plan_private"
-                    id="plan_private"
-                    value="false"
-                    inputValue="false"
+                  <div className="dmpui-field-radio-group">
+                    <input type="radio"
+                      className="dmpui-field-input-radio"
+                      name="plan_visible"
+                      id="plan_visible_false"
 
-                    onClick={(e) => handleOptionChange("false")}
-                  />
+                      value="private"
+                    />
+                    <label htmlFor="plan_visible_false" className="radio-label" >
+                      Private -  Keep plan private and only visible to me
+                    </label>
+                  </div>
 
-                  <RadioButton
-                    label="Keep plan visible"
-                    name="plan_visible"
-                    id="plan_visible"
-                    inputValue="true"
-                    value="true"
+                  <div className="dmpui-field-radio-group">
+                    <input type="radio"
+                      className="dmpui-field-input-radio"
+                      name="plan_visible"
+                      id="plan_visible"
+                      checked="checked"
+                      value="public"
+                    />
+                    <label htmlFor="plan_visible" className="radio-label" >
+                      Public - Keep plan visible to the public
+                    </label>
+                  </div>
 
-                    onClick={(e) => handleOptionChange("true")}
-
-                  />
 
 
 
