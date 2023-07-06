@@ -39,11 +39,20 @@ See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installa
 - [Docker compose](https://docs.docker.com/compose/install/)
 
 #### Installation
+
+```bash
+# init submodule
+git submodule init && git submodule update
+
+```
+
+##### Development mode
+
 ```bash
 # build image
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev build dmpopidor
 
-# Configure database connexion for postgres (change postgres by mysql)
+# Configure database connection for postgres (change postgres by mysql)
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker postgres'
 
 # Setup database
@@ -60,7 +69,42 @@ docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev up -d
 ```
 
+#### Production mode
+
+```bash
+# build image
+docker compose ---profile prod build dmpopidor
+
+# Configure database connection for postgres (change postgres by mysql)
+docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/docker postgres'
+
+# Setup database
+docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
+
+# Load re3data data in database
+docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/rails external_api:load_re3data_repos'
+
+# Add DMP OPIDoR migrations
+docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_0_0'
+docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_4_0'
+
+# Run all services
+docker compose ---profile prod up -d
+```
+
+
 The rails server is launched via puma behind a niginx, it is accessible at the url ``http://localhost:8080``
+
+#### Tests & Swagger/OpenAPI
+The tests are run by [rswag](https://github.com/rswag/rswag), which generates OpenAPI documentation based on these tests.
+
+An **rswag** command is defined in the ``Procfile.dev`` file to generate the OpenAPI file.
+
+You can generate the OpenAPI file and run the tests with the following command:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev exec dmpopidor sh -c "RAILS_ENV=test rails rswag"
+```
 
 #### Troubleshooting
 See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the Wiki.

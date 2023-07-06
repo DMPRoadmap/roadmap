@@ -351,9 +351,16 @@ group :development do
 
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem 'yard-tomdoc'
+
+  # Watch files (https://github.com/filewatcher/filewatcher-cli)
+  gem 'filewatcher-cli'
 end
 
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
 gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OPIDoR/madmp_opidor.git'
+
+group :build do
+  gem 'activerecord-nulldb-adapter', '~> 0.4.0'
+end

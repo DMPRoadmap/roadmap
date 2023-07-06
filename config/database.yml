@@ -13,3 +13,6 @@ development:
 
 test:
   <<: *defaults
+
+build:
+  adapter: nulldb

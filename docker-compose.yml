@@ -14,8 +14,8 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      - RAILS_ENV=development
-      - RAKE_ENV=development
+      - RAILS_ENV=production
+      - RAKE_ENV=production
       - PORT=${APP_PORT:-3000}
       - DB_ADAPTER=${DB_ADAPTER:-postgresql}
       - DB_POOL_SIZE=${DB_POOL_SIZE:-16}
@@ -25,7 +25,7 @@ services:
       - DB_USERNAME=${DB_USERNAME:-postgres}
       - DB_PASSWORD=${DB_PASSWORD:-changeme}
       - DMPROADMAP_HOST=${DMPROADMAP_HOST:-dmpopidor}
-      - RAILS_SERVE_STATIC_FILES$={RAILS_SERVE_STATIC_FILES:-false}
+      - RAILS_SERVE_STATIC_FILES$={RAILS_SERVE_STATIC_FILES:-true}
       - RAILS_LOG_LEVEL=${RAILS_LOG_LEVEL:-debug}
       - RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
       - DOMAIN=${DOMAIN:-app}
@@ -45,7 +45,7 @@ services:
       - TRANSLATION_API_CLIENT
     working_dir: /app
     volumes:
-      - ./app_log:/app/app_log
+      - ./log:/app/log
     healthcheck:
       test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
       interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
@@ -68,7 +68,7 @@ services:
     - NGINX_PORT=80
     volumes:
       - ./nginx/default.template:/etc/nginx/templates/default.conf.template:ro
-      - ./app/public/:/var/www/public
+      - ./public/:/var/www/html/public
     healthcheck:
       test: ["CMD-SHELL", "wget -q -S -O - http://localhost:80 2>&1 | grep 'HTTP/1.1 200 OK'"]
       interval: ${NGINX_HEALTHCHECK_INTERVAL:-30s}
@@ -84,7 +84,7 @@ services:
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
-      - POSTGRES_DB=${DB_NAME:-postgres}
+      - POSTGRES_DB=${DB_NAME:-roadmap}
       - LC_COLLATE=fr_FR.utf8
       - LC_CTYPE=fr_FR.utf8
       - LANG=fr_FR.utf8

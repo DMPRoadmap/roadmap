@@ -1,8 +1,9 @@
-FROM ruby:3.1.3 as dev
+FROM ruby:3.1.4 as dev
 WORKDIR /app
 COPY . .
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt install -y nodejs && \
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
   apt install -y \
+    nodejs \
     postgresql-client \
     wkhtmltopdf \
     imagemagick \
@@ -12,18 +13,22 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt install -y 
   echo 'gem "tzinfo-data"' >> ./Gemfile && \
   echo 'gem "net-smtp"' >> ./Gemfile && \
   gem install pg puma net-smtp && \
-  gem install bundler -v 2.4.8 && \
-  bundle install
+  gem install bundler -v 2.4.15 && \
+  bundle install && \
+  npm i -g yarn
 
-FROM dev as production
-COPY . .
-RUN DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider yarn build && \
-    NODE_OPTIONS=--openssl-legacy-provider yarn build:css && \
-    rm -rf node_module
+FROM dev as build
+ARG DB_ADAPTER \
+  DB_USERNAME \
+  DB_PASSWORD
+RUN bin/docker postgres && \
+  RAILS_ENV=build DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider rails assets:precompile && \
+  NODE_OPTIONS=--openssl-legacy-provider yarn build:css && \
+  rm -rf node_module
 
-FROM ruby:3.1.3-alpine3.17
+FROM ruby:3.1.4-alpine3.18 as production
 WORKDIR /app
-COPY --from=production /app .
+COPY --from=build /app .
 RUN apk add --no-cache --update --virtual \
   build-dependencies \
   build-base \
@@ -39,8 +44,8 @@ RUN apk add --no-cache --update --virtual \
   echo 'gem "tzinfo-data"' >> ./Gemfile && \
   echo 'gem "net-smtp"' >> ./Gemfile && \
   gem install pg puma net-smtp && \
-  gem install bundler -v 2.4.8 && \
-  bundle config set --local without 'mysql thin test ci aws development' && \
+  gem install bundler -v 2.4.15 && \
+  bundle config set --local without 'mysql thin test ci aws development build' && \
   bundle install
 EXPOSE 3000
 CMD [ "bundle", "exec", "puma", "-C", "/app/config/puma.rb", "-e", "production" ]
