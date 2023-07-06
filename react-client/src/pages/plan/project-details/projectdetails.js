@@ -115,15 +115,37 @@ function ProjectDetails() {
 
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
-              Project Start & End Dates
-              <p>
-                The start & end dates of your project
-              </p>
 
-              ...
+              <TextInput
+                label="Project Start Date"
+                type="date"
+                required="required"
+                name="start_date"
+                id="start_date"
+                placeholder=""
+                help=""
+                error=""
+              />
+            </div>
+            <div className="dmpui-form-col">
+              <TextInput
+                label="Project End Date"
+                type="date"
+                required="required"
+                name="end_date"
+                id="end_date"
+                placeholder=""
+                help=""
+                error=""
+              />
+
             </div>
 
+          </div>
+
+          <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
+
               <TextInput
                 label="Opportunity / Federal award number"
                 type="text"
@@ -134,7 +156,6 @@ function ProjectDetails() {
                 help="The Federal ID number if you have one, or the opportunity number."
                 error=""
               />
-
             </div>
           </div>
 

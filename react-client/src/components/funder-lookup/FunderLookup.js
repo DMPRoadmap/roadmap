@@ -116,8 +116,7 @@ function FunderLookup(props) {
 
                 {errorMsg &&
                     <p className="dmpui-field-error"> {errorMsg} </p>}
-                {query}
-                {suggestion}
+
                 <div className="dmpui-field-input-group">
                     <input
                         type="text"
