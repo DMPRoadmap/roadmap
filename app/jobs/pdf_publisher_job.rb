@@ -45,6 +45,9 @@ class PdfPublisherJob < ApplicationJob
     pdf_file_name = Rails.root.join('tmp', "#{file_name}.pdf")
     pdf_file = File.open(pdf_file_name, 'wb') { |tmp| tmp << file }
     pdf_file.close
+
+puts "        Publishing #{pdf_file_name}"
+
     DmpIdService.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
     # Delete the tmp file
     File.delete(pdf_file_name)

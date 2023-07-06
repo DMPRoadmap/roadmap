@@ -4,8 +4,9 @@ module Api
   module V3
     # Endpoints for Work in Progress (WIP) DMPs
     class DmpsController < BaseApiController
-      MSG_DMP_NOT_FOUND = 'DMP not found'
-      MSG_DMP_UNAUTHORIZED = 'Not authorized to modify the DMP'
+      MSG_DMP_NOT_FOUND = 'DMP not found.'
+      MSG_DMP_UNAUTHORIZED = 'Not authorized to modify the DMP.'
+      MSG_DMP_ID_REGISTRATION_FAILED = 'Unable to register a DMP ID at this time.'
 
       # GET /dmps
       def index

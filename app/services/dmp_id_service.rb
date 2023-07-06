@@ -54,7 +54,7 @@ class DmpIdService
       dmp_id = svc.update_dmp_id(plan: plan)
       return nil if dmp_id.blank?
     rescue StandardError => e
-      Rails.logger.error "DmpIdService.update_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
+      Rails.logger.error "DmpIdService.update_dmp_id for #{plan&.class&.name} #{plan&.id} resulted in: #{e.message}"
       Rails.logger.error e.backtrace
       nil
     end

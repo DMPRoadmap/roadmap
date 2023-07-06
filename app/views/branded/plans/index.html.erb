@@ -8,15 +8,6 @@
       <% end %>
     </h1>
 
-    <% dmp = Dmp.find_by(id: 14) %>
-
-    <%= DmpIdService.fetch_dmp_id(dmp_id: dmp.dmp_id) %>
-
-    <%= form_for dmp, url: register_api_v3_dmp_path(dmp), method: :post do |f| %>
-      <%= f.file_field :narrative %>
-      <%= f.button(_('Test DMP registration'), class: "btn btn-primary", type: "submit") %>
-    <% end %>
-
     <!-- if the user has projects -->
     <p>
       <% if @plans.count > 0 %>

@@ -17,6 +17,8 @@ require 'securerandom'
 
 # Object that represents a question/guidance theme
 class Dmp < ApplicationRecord
+  include Dmptool::Registerable
+
   INVALID_JSON_MSG = 'must contain a top level :dmp and at least a :title. For example: `{ dmp: { title: \'Test\' } }`'
   INVALID_NARRATIVE_FORMAT = 'must be a PDF document.'
 
@@ -42,9 +44,14 @@ class Dmp < ApplicationRecord
   # in progress (WIP) has not been registered (aka it is not complete)
   validates_uniqueness_of :dmp_id, allow_blank: true
 
-  # Check if the WIP has been registered with a DMP ID
-  def registered?
-    !dmp_id.blank?
+  # Method required by the DMPTool::Registerable concern that checks to see if the Plan has all of the
+  # content required to register a DMP ID
+  def registerable?
+    return true if dmp_id.present?
+    return false if identifier.nil? || user.nil?
+
+    hash = JSON.parse(metadata).fetch('dmp', {})
+    !hash['title'].blank? && hash.fetch('contact', {}).fetch('contact_id', {})['identifier'].present?
   end
 
   # Attach the wip_id and narrative to the metadata

@@ -186,7 +186,7 @@ module ExternalApis
 
       # Update the DMP ID
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-      def update_dmp_id(dmp_id:)
+      def update_dmp_id(plan:)
         # TODO: Add the auth check and header back in once Cognito is working!
         return nil unless active? && plan.present? && auth
 
@@ -201,12 +201,12 @@ module ExternalApis
           },
           body: json_from_template(plan: plan)
         }
-        # opts[:debug_output] = $stdout
-        # target = format("#{api_base_url}#{callback_path}", dmp_id: plan.dmp_id&.value_without_scheme_prefix)
-        target = "#{api_base_url}#{update_path % { dmp_id: dmp_id}}"
+        opts[:debug_output] = $stdout
+        target = "#{api_base_url}#{update_path % { dmp_id: plan.dmp_id.gsub(%r{https?://}, '') }}"
         resp = HTTParty.put(target, opts)
-        # puts "CALLED DMPHUB AND GOT:"
-        # pp resp.body
+
+        puts "CALLED DMPHUB AND GOT:"
+        pp resp.body
 
         # DMPHub returns a 200 when successful
         unless resp.present? && resp.code == 200
@@ -274,9 +274,8 @@ module ExternalApis
           },
           body_stream: pdf_file
         }
-        #opts[:debug_output] = $stdout
-        dmp_id = plan.is_a?(Plan) ? plan.dmp_id&.value : plan.dmp_id
-        target = URI("#{api_base_url}#{narrative_path}" % { dmp_id: dmp_id&.gsub(/https?:\/\//, '') })
+        # opts[:debug_output] = $stdout
+        target = URI("#{api_base_url}#{narrative_path}" % { dmp_id: plan.dmp_id&.gsub(/https?:\/\//, '') })
         resp = HTTParty.post(target, opts)
         pdf_file.close
 
@@ -409,24 +408,6 @@ module ExternalApis
         )
 
         json = JSON.parse(payload)
-        # Sometimes in dev/stage, after replacing the DB with a copy of production, the owner of the plan
-        # can not be found OR has been set to a generic 'dmptool.researcher@gmail.com' account because it
-        # is out of sync with the DMPHub.
-        # In these scenarios, replace the :contact with the first PI in :contributor
-        if json['contact'].nil? || json.fetch('contact', {})['mbox'] == 'dmptool.researcher@gmail.com'
-          pis = json.fetch('contributor', []).select do |contrib|
-            contrib['role'].include?('http://credit.niso.org/contributor-roles/Investigation')
-          end
-          pi = pis.any? ? pis.first : json['contributor'].first
-
-          json['contact'] = JSON.parse({
-            name: pi['name'],
-            mbox: pi['mbox'],
-            dmproadmap_affiliation: pi['dmproadmap_affiliation'],
-            contact_id: pi['contributor_id']
-          }.to_json)
-        end
-
         { dmp: json }.to_json
       end
 

@@ -42,6 +42,8 @@ module Api
 
       # Extract the calling system's identifier for the Plan if available
       def external_system_identifier
+        return @plan.dmp_id if @plan.dmp_id.present?
+
         scheme = IdentifierScheme.find_by(name: @client.name.downcase)
 
         ids = @plan.identifiers.select do |id|
