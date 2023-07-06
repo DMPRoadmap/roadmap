@@ -1,0 +1,100 @@
+<% has_dmp_id = scope.select { |plan| plan.dmp_id.present? }.any? %>
+
+<div class="table-responsive">
+  <table class="table table-hover" id="my-plans">
+    <thead>
+      <tr>
+        <th scope="col"><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
+        <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <th scope="col" class="date-column"><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
+        <th scope="col"><%= _('Role') %></th>
+        <th scope="col" class="text-center sorter-false"><%= _('Test') %></th>
+        <th scope="col" ><%= _('Visibility') %></th>
+        <th scope="col" ><%= _('Shared') %></th>
+        <% if has_dmp_id %>
+          <th scope="col"><%= _('DMP ID') %></th>
+        <% end %>
+        <th scope="col" class="sorter-false">
+          <span aria-hidden="false" class="sr-only"><%= _('Actions') %></span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |plan| %>
+        <% my_plan_roles = plan.roles.select(&:active).select { |r| r.user_id == current_user.id } %>
+        <tr id="<%= dom_id(plan) %>">
+          <td>
+            <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}",
+                plan_path(plan) %>
+          </td>
+          <td><%= plan.template.title %></td>
+          <td><%= l(plan.updated_at.localtime.to_date, formats: :short) %></td>
+          <td><%= display_role(my_plan_roles.first) %></td>
+          <td class="text-center">
+            <% if plan.administerable_by?(current_user.id) then %>
+              <%= check_box_tag :is_test, "1", (plan.visibility === "is_test"),
+                                          class: "set_test_plan",
+                                          aria: {
+                                            label: "#{plan.title} - test plan flag"
+                                          },
+                                          data: { remote: true, method: :post,
+                                                  url: set_test_plan_path(plan) } %>
+            <% else %>
+              <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
+            <% end %>
+          </td>
+          <td class="plan-visibility">
+            <%= plan.visibility === 'is_test' ? _('N/A') : sanitize(display_visibility(plan.visibility)) %>
+          </td>
+          <td>
+            <% if plan.shared? %>
+              <%= _("Yes") %>
+            <% else %>
+              <%= _('No') %>
+            <% end  %>
+          </td>
+          <% if has_dmp_id %>
+            <td>
+              <% if plan.dmp_id.present? %>
+                <%= dmp_id_for_display(dmp_id: plan.dmp_id).html_safe %>
+              <% end %>
+            </td>
+          <% end %>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-link dropdown-toggle" type="button"
+                      id="plan-<%= plan.id %>-actions" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="true">
+                <%= _('Actions') %><span class="caret"></span>
+              </button>
+
+              <ul class="dropdown-menu" aria-labelledby="plan-<%= plan.id %>-actions">
+              <% if plan.editable_by?(current_user.id) then %>
+                <% if plan.administerable_by?(current_user.id) %>
+                  <% if Rails.configuration.x.show_collaborators_on_share_tab %>
+                    <li><%= link_to _('Share'), plan_contributors_path(plan), aria: { label: "Share #{plan.title}"} %></li>
+                  <% else %>
+                    <li><%= link_to _('Publish'), publish_plan_path(plan), aria: { label: "Publish #{plan.title}"} %></li>
+                  <% end %>
+                <% end %>
+
+                <li><%= link_to _('Download'), download_plan_path(plan), aria: { label: "Download #{plan.title}"} %></li>
+                <li><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { method: :post }, aria: { label: "Copy #{plan.title}"}) %></li>
+              <% else %>
+                <li><%= link_to _('View'), plan_path(plan), aria: { label: "View #{plan.title}"} %></li>
+
+                <% if !plan.reviewable_by?(current_user.id) %>
+                  <li><%= link_to _('Download'), download_plan_path(plan), aria: { label: "Download #{plan.title}"} %></li>
+                <% end %>
+              <% end %>
+              <% role = my_plan_roles.first %>
+              <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
+              <li><%= link_to _('Remove'), deactivate_role_path(role), 'data-method': 'put', rel: 'nofollow', 'data-confirm': conf, aria: { label: "Remove #{plan.title}"} %></li>
+            </ul>
+          </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

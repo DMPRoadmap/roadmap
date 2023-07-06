@@ -22,10 +22,10 @@ json.ethical_issues_exist Api::V2::ConversionService.boolean_to_yes_no_unknown(p
 json.ethical_issues_description plan.ethical_issues_description
 json.ethical_issues_report plan.ethical_issues_report
 
-id = presenter.identifier
-if id.present?
+if plan.dmp_id.present?
   json.dmp_id do
-    json.partial! 'api/v2/identifiers/show', identifier: id
+    json.type 'doi'
+    json.identifier plan.dmp_id
   end
 end
 
@@ -68,18 +68,11 @@ unless @minimal
 
   # If the plan was created via the API and the external system provided an identifier,
   # return that value
-  json.dmproadmap_external_system_identifier presenter.external_system_identifier&.value
+  external_id = presenter.external_system_identifier
+  json.dmproadmap_external_system_identifier external_id.is_a?(Identifier) ? external_id.value : external_id
 
   # Any related identifiers known by the DMPTool
   related_identifiers = plan.related_identifiers.map { |r_id| r_id.clone }
-
-  # Add the PDF download link as a related identifier for the DMP ID if the plan is public
-  if plan.visibility == 'publicly_visible'
-    related_identifiers << RelatedIdentifier.new(identifier_type: :url,
-                                                 relation_type: :is_metadata_for,
-                                                 value: presenter.download_pdf_link)
-  end
-
   if related_identifiers.any?
     json.dmproadmap_related_identifiers related_identifiers do |related|
       next unless related.value.present? && related.relation_type.present?

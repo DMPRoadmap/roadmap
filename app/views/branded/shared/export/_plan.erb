@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title><%= @plan.title %></title>
 
-    <%= render partial: 'shared/export/plan_styling',
+    <%= render partial: 'branded/shared/export/plan_styling',
                locals: {
                  font_face: font_face,
                  font_size: "#{font_size}pt",
@@ -13,7 +13,7 @@
   </head>
   <body>
     <% if @show_coversheet %>
-      <%= render partial: 'shared/export/plan_coversheet' %>
+      <%= render partial: 'branded/shared/export/plan_coversheet' %>
     <% end %>
 
     <% @hash[:phases].each do |phase| %>
@@ -90,11 +90,11 @@
     <% end %>
 
     <% if @show_research_outputs %>
-      <%= render partial: 'shared/export/plan_outputs',
+      <%= render partial: 'branded/shared/export/plan_outputs',
                  locals: { outputs: @plan.research_outputs } %>
     <% end %>
     <% if @show_related_identifiers %>
-      <%= render partial: 'shared/export/plan_related_identifiers',
+      <%= render partial: 'branded/shared/export/plan_related_identifiers',
                  locals: { plan: @plan } %>
     <% end %>
   </body>

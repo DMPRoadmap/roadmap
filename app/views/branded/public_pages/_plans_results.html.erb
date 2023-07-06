@@ -40,7 +40,7 @@
     <dl class="c-plan-metadata">
       <% if plan.dmp_id.present? %>
         <dt><%= _('DMP ID') %>:</dt>
-        <dd><%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %></dd>
+        <dd><%= dmp_id_for_display(dmp_id: plan.dmp_id, without_prefix: true) %></dd>
       <% end %>
       <dt><%= _('Creation date') %>:</dt><dd><%= l(plan.created_at.localtime.to_date, formats: :short) %></dd>
       <% if plan.language.present? %>

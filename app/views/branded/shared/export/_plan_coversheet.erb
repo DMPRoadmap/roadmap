@@ -5,10 +5,10 @@
 
   <% if @plan.dmp_id.present? %>
     <p><b><%= _("DMP ID: ") %></b>
-      <% if @plan.dmp_id.value&.starts_with?("http") %>
-        <%= link_to @plan.dmp_id.value, @plan.dmp_id.value %>
+      <% if @plan.dmp_id&.starts_with?("http") %>
+        <%= link_to @plan.dmp_id, @plan.dmp_id %>
       <% else %>
-        <%= @plan.dmp_id.value %>
+        <%= @plan.dmp_id %>
       <% end %>
     </p>
   <% end %>

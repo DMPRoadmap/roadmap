@@ -51,7 +51,7 @@
           <% if has_dmp_id %>
             <td>
               <% if plan.dmp_id.present? %>
-                <%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %>
+                <%= dmp_id_for_display(dmp_id: plan.dmp_id, without_prefix: true) %>
               <% end %>
             </td>
           <% end %>

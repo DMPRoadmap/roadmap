@@ -48,5 +48,78 @@ namespace :v5 do
       puts "      ID: #{ror_org.id}   |   NAME: #{ror_org.name}   |   API_TARGET: #{ror_org.api_target}"
     end
   end
+
+  # This should only ever be run if you have been using the Rails based DMPHub system (https://github.com/CDLUC3/dmphub)
+  # to register DMP IDs and would like to transition those identifiers to the new DMPHub system base in the AWS
+  # API Gateway, Lambdas, S3 and DynamoDB (https://github.com/CDLUC3/dmp-hub-cfn).
+  #
+  # Note that you may need to update the DOI records from your minting authority (e.g. DataCite, Crossref, etc.)
+  # if the URL to the new DMPHub will use a different domain name!
+  #
+  # If you want to retain the existing DMP IDs, you will need to make sure that your 'dmptool' Provenance record in
+  # the new DMPHub system's DynamoDB table has `"seedingWithLiveDmpIds": true,`!
+  #
+  # A successful run will add the DMP ID metadata to the DynamoDB and eithger use the existing DMP ID (if you have
+  # set the `seedingWithLiveDmpIds` correctly) or will mint a new ID. It will also render the current narative PDF
+  # document for the record, upload it to the DMPHub's S3 bucket, and add an `is_metadata_for` related_identifier
+  # that includes the download URL for the narrative PDF. It will add the DMP ID (new or reused) to the `plans.dmp_id`
+  # field and remove the associated Identifier that holds the current DMP ID reference
+  #
+  desc 'Transfer existing DMP IDs from the old DMPHub Rails based system to the new one in AWS API Gateway'
+  task seed_dmphub: :environment do
+    scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
+    if scheme.present?
+      pauser = 0
+
+      managed_orgs = Org.where(managed: true).pluck(:id)
+
+      # Modify this query if you want to test a subset of DMP IDs first
+      Identifier.includes(:identifiable)
+                .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
+                .where('identifiers.value LIKE ?', 'https://doi.org/%')
+                # .where('identifiable_id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
+                # .where('identifiable_id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
+                # .where('identifiable_id IN ?', [83085])                      # preregistration
+                # .where('identifiable_id IN ?', [78147])                      # bad grant_id type
+                # 77012, 70251, 69178, 67898, 66250 no contact
+                # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
+                # .where('identifiable_id IN (?)', %i[71800 71809]) # test with Hakai DMPs
+                .distinct
+                # .limit(200)
+                .order(created_at: :desc)
+                .each do |identifier|
+        next unless identifier.value.present? && identifier.identifiable.present?
+
+        # Pause after every 10 so that we do not get rate limited
+        sleep(3) if pauser >= 20
+        pauser = pauser >= 20 ? 0 : pauser + 1
+
+        # Refetch the Plan and all of it's child objects
+        plan = Plan.includes(:org, :research_outputs, :related_identifiers, roles: [:user],
+                              contributors: [:org, { identifiers: [:identifier_scheme] }],
+                              identifiers: [:identifier_scheme])
+                    .find_by(id: identifier.identifiable.id)
+
+
+        next unless plan.dmp_id.nil? && plan.complete? && managed_orgs.include?(plan.org_id) && !plan.is_test?
+
+        if plan.registerable?
+          puts "Processing Plan: #{identifier.identifiable_id}, DMP ID: #{identifier.value}"
+          result = plan.register_dmp_id!
+          if result.nil?
+            puts '    *** FAILED!'
+          else
+            dmp_id = result.fetch('dmp', {}).fetch('dmp_id', {})['identifier']
+            puts "    registered #{dmp_id} and narrative uploaded."
+            identifier.destroy
+          end
+        else
+          puts "SKIPPING Plan: #{identifier.identifiable_id} because it is not 'Complete'."
+        end
+      end
+    else
+      p 'No DMP ID minting authority defined so nothing to sync.'
+    end
+  end
 end
 # rubocop:enable Naming/VariableNumber
