@@ -21,16 +21,40 @@ function PlanFunders() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState({});
-
-
-
-
-
+  const [Funder, setFunder] = React.useState("");
   const [hasFunder, sethasFunder] = React.useState("no");
+  const [FunderNotListed, setFunderNotListed] = React.useState("false");
+  const [FunderNotListedName, setFunderNotListedName] = React.useState("");
+
+
+
+  const handleFunderChange = (e) => {
+    setFunder(e.target.value);
+  };
+
   const handleOptionChange = (e) => {
     sethasFunder(e.target.value);
-    console.log("on change");
-    console.log(e.target.value);
+
+    if (hasFunder === "no") {
+      setFunderNotListed("false");
+    }
+
+  };
+
+
+  const handleFunderNotListedChange = (e) => {
+
+    setFunderNotListed(e.target.checked ? "true" : "false");
+    if (FunderNotListed == "true") {
+
+      /*
+      if (Funder && FunderNotListedName == "") {
+        console.log("set funder not listed name to funder value")
+        setFunderNotListedName("test");
+      }
+*/
+    }
+
   };
 
 
@@ -179,24 +203,28 @@ function PlanFunders() {
               <div className="dmpui-form-cols">
                 <div className="dmpui-form-col">
                   <FunderLookup
-                    label="Funder Name"
-
-                    name="funder_not_listed"
-                    id="funder_not_listed"
+                    label="Find funder"
+                    inputValue={Funder}
+                    name="funder"
+                    id="funder"
                     placeholder=""
                     help="Search for your funder by name."
-
+                    onChange={handleFunderChange}
                     error=""
                   />
 
 
                   <div className="dmpui-field-checkbox-group not-listed">
 
-                    <input id="id_funder_not_listed"
+                    <input
+                      id="id_funder_not_listed"
                       className="dmpui-field-input-checkbox"
                       name="funder_not_listed"
                       value="true"
-                      type="checkbox" />
+                      checked={FunderNotListed === "true"}
+                      onChange={handleFunderNotListedChange}
+                      type="checkbox"
+                    />
                     <label htmlFor="id_funder_not_listed" className="checkbox-label">
                       My funder isn't listed
                     </label>
@@ -205,6 +233,25 @@ function PlanFunders() {
               </div>
             )}
 
+            {(FunderNotListed && FunderNotListed === "true" && hasFunder && hasFunder === "yes") && (
+              <div className="dmpui-form-cols">
+                <div className="dmpui-form-col">
+                  <TextInput
+                    label="Enter Funders Name"
+                    type="text"
+                    required="required"
+                    name="not_listed_funder_name"
+                    id="not_listed_funder_name"
+                    value={FunderNotListedName}
+                    inputValue={FunderNotListedName}
+                    onChange={e => setFunderNotListedName(e.target.value)}
+                    placeholder=""
+                    help="If your funder isn't listed, enter their name here."
+                    error=""
+                  />
+                </div>
+              </div>
+            )}
 
           </div>
 
