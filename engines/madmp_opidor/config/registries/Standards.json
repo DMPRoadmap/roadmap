@@ -1,0 +1,1024 @@
+{
+  "Standards": [
+    {
+      "label": {
+        "en_GB": "ABCD (Access to Biological Collection Data)",
+        "fr_FR": "ABCD (Access to Biological Collection Data)"
+      },
+      "name": "ABCD (Access to Biological Collection Data)",
+      "description": "<p>The <a href=\"http://www.tdwg.org/standards/115/\">Access to Biological Collections Data (ABCD) Schema</a> is an evolving comprehensive standard for the access to and exchange of data about specimens and observations (a.k.a. primary biodiversity data). The ABCD Schema attempts to be comprehensive and highly structured, supporting data from a wide variety of databases. It is compatible with several existing data standards. Parallel structures exist so that either (or both) atomised data and free-text can be accommodated.</p><p>Sponsored by Biodiversity Information Standards TDWG - the Taxonomic Databases Working Group, the current specification was last modified in 2007.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m1",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "AgMES (Agricultural Metadata Element Set)",
+        "fr_FR": "AgMES (Agricultural Metadata Element Set)"
+      },
+      "name": "AgMES (Agricultural Metadata Element Set)",
+      "description": "<p>A semantic standard developed by the Food and Agriculture Organization (FAO) of the United Nations, AgMES enables description, resource discovery, interoperability and data exchange of different types of information resources in all areas relevant to food production, nutrition and rural development.</p><p>The standard is maintained by AIMS (Agricultural Information Management Standards), and while it has been used in various application profiles, it is now deprecated for new uses and will no longer be updated.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m2",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "AVM (Astronomy Visualization Metadata)",
+        "fr_FR": "AVM (Astronomy Visualization Metadata)"
+      },
+      "name": "AVM (Astronomy Visualization Metadata)",
+      "description": "<p>The <a href=\"http://www.virtualastronomy.org/avm_metadata.php\">AVM</a> scheme supports the cross-searching of collections of print-ready and screen-ready astronomical imagery rendered from telescopic observations (also known as &#8216;pretty pictures&#8217;). The scheme is compatible with the <a href=\"http://www.adobe.com/products/xmp/\">Adobe XMP</a> specification, so the metadata can be embedded within common image formats such as JPEG, TIFF and PNG.</p><p>Such images can combine data acquired at different wavebands and from different observatories. While the primary intent is to cover data-derived astronomical images, there are broader uses as well. Specifically, the most general subset of this schema is also appropriate for describing artwork and illustrations of astronomical subject matter.</p><p>AVM is a proposed recommendation of the International Virtual Observatory Alliance and was last updated in 2011.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m3",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "CERIF (Common European Research Information Format)",
+        "fr_FR": "CERIF (Common European Research Information Format)"
+      },
+      "name": "CERIF (Common European Research Information Format)",
+      "description": "<p>The Common European Research Information Format is the standard that the EU recommends to its member states for recording information about research activity. Since version 1.6 it has included specific support for recording metadata for datasets.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m4",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "CF (Climate and Forecast) Metadata Conventions",
+        "fr_FR": "CF (Climate and Forecast) Metadata Conventions"
+      },
+      "name": "CF (Climate and Forecast) Metadata Conventions",
+      "description": "<p>The CF standard was originally framed as a standard for data written in netCDF format, with model-generated climate forecast data particularly in mind. However, it is equally applicable to observational datasets, and can be used to describe other formats. It is a standard for &#8220;use metadata&#8221; that aims both to distinguish quantities (such as physical description, units, and prior processing) and to locate the data in space&#8211;time.</p><p>Sponsored by the NetCDF Climate and Forecast Metadata Convention, the current version dates from December 2011.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m5",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "CIF (Crystallographic Information Framework)",
+        "fr_FR": "CIF (Crystallographic Information Framework)"
+      },
+      "name": "CIF (Crystallographic Information Framework)",
+      "description": "<p>A well-established standard file structure for the archiving and distribution of crystallographic information, CIF is in regular use for reporting crystal structure determinations to Acta Crystallographica and other journals.</p><p>Sponsored by the International Union of Crystallography, the current standard dates from 1997. As of July 2011, a new version of the CIF standard is under consideration.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m6",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "CIM (Common Information Model)",
+        "fr_FR": "CIM (Common Information Model)"
+      },
+      "name": "CIM (Common Information Model)",
+      "description": "<p>The Common Information Model (<a href=\"https://earthsystemcog.org/projects/es-doc-models/cim\">CIM</a>) describes climate data, the models and software from which they derive, the geographic grids used to calculate and project them, and the experimental processes (typically simulations) that produced them.</p><p>The CIM was originally developed by the EU-funded Metafor Project. It is now maintained and developed by Earth Science Documentation (ES-DOC). The latest release dates from 2014.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m7",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "CSMD (Core Scientific Metadata Model)",
+        "fr_FR": "CSMD (Core Scientific Metadata Model)"
+      },
+      "name": "CSMD (Core Scientific Metadata Model)",
+      "description": "<p>A study-data oriented model, primarily in support of the ICAT data managment infrastructure software. The CSMD is designed to support data collected within a large-scale facility&#8217;s scientific workflow; however the model is also designed to be generic across scientific disciplines.</p><p>Sponsored by the Science and Technologies Facilities Council, the latest full specification available is v 4.0, from 2013.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m8",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Darwin Core",
+        "fr_FR": "Darwin Core"
+      },
+      "name": "Darwin Core",
+      "description": "<p>A body of standards, including a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing reference definitions, examples, and commentaries.</p><p>Sponsored by Biodiversity Information Standards (TWDG), the current standard was last modified in October 2009.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m9",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Data Package",
+        "fr_FR": "Data Package"
+      },
+      "name": "Data Package",
+      "description": "<p>The Data Package specification is a generic wrapper format for exchanging data. Although it supports arbitrary metadata, the format defines required, recommended, and optional fields for both the package as a whole and the resources contained within it.</p><p>A separate but linked specification provides a way to describe the columns of a data table; descriptions of this form can be included directly in the Data Package metadata.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m10",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "DataCite Metadata Schema",
+        "fr_FR": "DataCite Metadata Schema"
+      },
+      "name": "DataCite Metadata Schema",
+      "description": "<p>A set of mandatory metadata that must be registered with the DataCite Metadata Store when minting a DOI persistent identifier for a dataset. The domain-agnostic properties were chosen for their ability to aid in accurate and consistent identification of data for citation and retrieval purposes.</p><p>The scheme is maintained by the DataCite Metadata Working Group in consultation with DataCite members and under the guidance of the DataCite Board.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m11",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "DCAT (Data Catalog Vocabulary)",
+        "fr_FR": "DCAT (Data Catalog Vocabulary)"
+      },
+      "name": "DCAT (Data Catalog Vocabulary)",
+      "description": "<p>By using DCAT to describe datasets in data catalogs, publishers are using a standard model and vocabulary that facilitates the consumption and aggregation of metadata from multiple catalogs, and in doing so can increase the discoverability of datasets. It also makes it possible to have a decentralized approach to publishing data catalogs and makes federated search for datasets across catalogs in multiple sites possible using the same query mechanism and structure. Aggregated DCAT metadata can serve as a manifest file as part of the digital preservation process.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m12",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "DDI (Data Documentation Initiative)",
+        "fr_FR": "DDI (Data Documentation Initiative)"
+      },
+      "name": "DDI (Data Documentation Initiative)",
+      "description": "<p>A widely used, international standard for describing data from the social, behavioral, and economic sciences. Two versions of the standard are currently maintained in parallel:</p><ul><li>DDI Codebook (or DDI version 2) is the simpler of the two, and intended for documenting simple survey data for exchange or archiving. Version 2.5 was released in January 2012.</li><li>DDI Lifecycle (or DDI version 3) is richer and may be used to document datasets at each stage of their lifecycle from conceptualization through to publication and reuse. It is modular and extensible. Version 3.2 was published in March 2014.</li></ul><p>Both versions are XML-based and defined using XML Schemas. They were developed and are maintained by the DDI Alliance.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m13",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "DIF (Directory Interchange Format)",
+        "fr_FR": "DIF (Directory Interchange Format)"
+      },
+      "name": "DIF (Directory Interchange Format)",
+      "description": "<p>An early metadata initiative from the Earth sciences community, intended for the description of scientific data sets. It includes elements focusing on instruments that capture data, temporal and spatial characteristics of the data, and projects with which the dataset is associated. It is defined as a W3C XML Schema.</p><p>Sponsored by the Global Change Master Directory, the DIF Writer's Guide Version 6 is from November 2010.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m14",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Dublin Core",
+        "fr_FR": "Dublin Core"
+      },
+      "name": "Dublin Core",
+      "description": "<p>A basic, domain-agnostic standard which can be easily understood and implemented, and as such is one of the best known and most widely used metadata standards.</p><p>Sponsored by the Dublin Core Metadata Initiative, Dublin Core was published as ISO Standard 15836 in February 2009.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m15",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "EML (Ecological Metadata Language)",
+        "fr_FR": "EML (Ecological Metadata Language)"
+      },
+      "name": "EML (Ecological Metadata Language)",
+      "description": "<p>Ecological Metadata Language (EML) is a metadata specification particularly developed for the ecology discipline. It is based on prior work done by the Ecological Society of America and associated efforts (Michener et al., 1997, Ecological Applications).</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m16",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "FGDC/CSDGM (Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata)",
+        "fr_FR": "FGDC/CSDGM (Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata)"
+      },
+      "name": "FGDC/CSDGM (Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata)",
+      "description": "<p>A widely-used, but no longer current standard defining the information content for a set of digital geospatial data required by the US Federal Government.</p><p>CSDGM was sponsored by the US Federal Geographic Data Committee. &#160;However, in September 2010 the FGDC endorsed ISO 19115 and began encouraging federal agencies to transition to ISO metadata.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m17",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "FITS (Flexible Image Transport System)",
+        "fr_FR": "FITS (Flexible Image Transport System)"
+      },
+      "name": "FITS (Flexible Image Transport System)",
+      "description": "<p><a href=\"http://fits.gsfc.nasa.gov/fits_home.html\">FITS</a> is an image data file format for encoding astronomical data. The WCS (World Coordinate System) conventions map elements in data arrays to standard physical coordinates in the sky. FITS has provisions for image metadata encoded in an ASCII header at the beginning of files.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m18",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Genome Metadata",
+        "fr_FR": "Genome Metadata"
+      },
+      "name": "Genome Metadata",
+      "description": "<p>Genome metadata on PATRIC consists of 61 different metadata fields, called attributes, which are organized into the following seven broad categories: Organism Info, Isolate Info, Host Info, Sequence Info, Phenotype Info, Project Info, and Others.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m19",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "International Virtual Observatory Alliance Technical Specifications",
+        "fr_FR": "International Virtual Observatory Alliance Technical Specifications"
+      },
+      "name": "International Virtual Observatory Alliance Technical Specifications",
+      "description": "<p>The technical specifications defined by the IVOA (International Virtual Observatory Alliance) enable interoperability between and the integration of astronomical archives across the world into an international virtual observatory. They include several data models that act as metadata schemas for particular data types: for example, photometry data, simulation data, space-time coordinates, spectral lines data, spectral data, observational data, and the physical parameter space of astronomical datasets.</p><p>These data models are under active development by the IVOA Data Modelling Working Group.</p><p>Additional recommendations have been made for metadata concepts and terms necessary for the discovery and the use of astronomical data collections and services.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m20",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "ISA-Tab",
+        "fr_FR": "ISA-Tab"
+      },
+      "name": "ISA-Tab",
+      "description": "<p>The Investigation/Study/Assay (ISA) tab-delimited (TAB) format is a general purpose framework with which to collect and communicate complex metadata (i.e. sample characteristics, technologies used, type of measurements made) from 'omics-based' experiments employing a combination of technologies.</p><p>Created by core developers from the University of Oxford, ISA-TAB v1.0 was released in November 2008.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m21",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "ISO 19115",
+        "fr_FR": "ISO 19115"
+      },
+      "name": "ISO 19115",
+      "description": "<p>An internationally-adopted schema for describing geographic information and services. It provides information about the identification, the extent, the quality, the spatial and temporal schema, spatial reference, and distribution of digital geographic data.</p><p>Sponsored by the International Standards Organisation, the first edition of ISO 19115 was published in 2003. It has since been split into parts: ISO 19115-1:2014 contains the fundamentals of the standard; ISO 19115-2:2009 contains extensions for imagery and gridded data; and ISO/TS 19115-3:2016 provides an XML schema implementation for the fundamental concepts compatible with ISO/TS 19138:2007 (Geographic Metadata XML, or GMD).</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m22",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "MIBBI (Minimum Information for Biological and Biomedical Investigations)",
+        "fr_FR": "MIBBI (Minimum Information for Biological and Biomedical Investigations)"
+      },
+      "name": "MIBBI (Minimum Information for Biological and Biomedical Investigations)",
+      "description": "<p>A common portal to a group of nearly 40 checklists of Minimum Information for various biological disciplines. The MIBBI Foundry is developing a cross-analysis of these guidelines to create an intercompatible, extensible community of standards.</p><p>The concept was realized initially through the joint efforts of the Proteomics Standards Initiative, the Genomic Standards Consortium and the MGED RSBI Working Groups. The latest project to register with MIBBI is the MIABie guidelines for reporting biofilm research, as of January 2012.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m23",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "MIDAS-Heritage",
+        "fr_FR": "MIDAS-Heritage"
+      },
+      "name": "MIDAS-Heritage",
+      "description": "<p>A British cultural heritage standard for recording information on buildings, archaeological sites, shipwrecks, parks and gardens, battlefields, areas of interest and artefacts.</p><p>Sponsored by the Forum on Information Standards in Heritage, MIDAS Version 1.1 was released in October 2012.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m24",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "NeXus",
+        "fr_FR": "NeXus"
+      },
+      "name": "NeXus",
+      "description": "<p>NeXus is an international standard for the storage and exchange of neutron, x-ray, and muon experiment data. The structure of NeXus files is extremely flexible, allowing the storage of both simple data sets, such as a single data array and its axes, and highly complex data and their associated metadata, such as measurements on a multi-component instrument or numerical simulations. NeXus is built on top of the container format HDF5, and adds domain-specific rules for organizing data within HDF5 files in addition to a dictionary of well-defined domain-specific field names.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m25",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "OAI-ORE (Open Archives Initiative Object Reuse and Exchange)",
+        "fr_FR": "OAI-ORE (Open Archives Initiative Object Reuse and Exchange)"
+      },
+      "name": "OAI-ORE (Open Archives Initiative Object Reuse and Exchange)",
+      "description": "<p>The goal of these standards is to expose the rich content in aggregations of Web resources to applications that support authoring, deposit, exchange, visualization, reuse, and preservation. The standards support the changing nature of scholarship and scholarly communication, and the need for cyberinfrastructure to support that scholarship, with the intent to develop standards that generalize across all web-based information including the increasing popular social networks of &#8220;Web 2.0&#8221;.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m26",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Observ-OM",
+        "fr_FR": "Observ-OM"
+      },
+      "name": "Observ-OM",
+      "description": "<p>Observ-OM is founded on four basic concepts to represent any kind of observation: Targets, Features, Protocols (and their Applications), and Values. It is intended to lower the barrier for future data sharing and facilitate integrated search across panels and species. All models, formats, documentation, and software are available for free and open source (LGPLv3) at <a href=\"http://www.observ-om.org\" title=\"http://www.observ-om.org\">http://www.observ-om.org</a>.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m27",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Observations and Measurements",
+        "fr_FR": "Observations and Measurements"
+      },
+      "name": "Observations and Measurements",
+      "description": "<p>This encoding is an essential dependency for the OGC Sensor Observation Service (SOS) Interface Standard. More specifically, this standard defines XML schemas for observations, and for features involved in sampling when making observations. These provide document models for the exchange of information describing observation acts and their results, both within and between different scientific and technical communities.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m28",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "OME-XML (Open Microscopy Environment XML)",
+        "fr_FR": "OME-XML (Open Microscopy Environment XML)"
+      },
+      "name": "OME-XML (Open Microscopy Environment XML)",
+      "description": "<p><a href=\"http://www.openmicroscopy.org/Schemas/\">OME-XML</a> is a vendor-neutral file format for biological image data, with an emphasis on metadata supporting light microscopy. It can be used as a data file format in its own right, or as a way of encoding metadata within a TIFF or BigTIFF file (for which purpose there is the <a href=\"http://www.openmicroscopy.org/site/support/file-formats/ome-tiff/ome-tiff-specification\">OME-TIFF</a> specification).</p><p>The standard is maintained by the Open Microscopy Environment Consortium, and was last updated in June 2012.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m29",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "PDBx/mmCIF (Protein Data Bank Exchange Dictionary and the Macromolecular Crystallographic Information Framework)",
+        "fr_FR": "PDBx/mmCIF (Protein Data Bank Exchange Dictionary and the Macromolecular Crystallographic Information Framework)"
+      },
+      "name": "PDBx/mmCIF (Protein Data Bank Exchange Dictionary and the Macromolecular Crystallographic Information Framework)",
+      "description": "<p>Protein Data Bank archive (PDB) is the single worldwide archival repository of information about the 3D structures of proteins, nucleic acids, and complex assemblies, managed by the Worldwide PDB (wwPDB). The PDB Exchange Dictionary (PDBx) is used by the wwPDB to define data content for deposition, annotation and archiving of PDB entries. PDBx incorporates the community standard metadata representation, the Macromolecular Crystallographic Information Framework (mmCIF), orginally developed under the auspices of the International Union of Crystallography (IUCr). PDBx has been extended by the wwPDB to include descriptions of other experimental methods that produce 3D macromolecular structure models such as Nuclear Magnetic Resonance Spectroscopy, 3D Electron Microscopy and Tomography.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m30",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "PREMIS",
+        "fr_FR": "PREMIS"
+      },
+      "name": "PREMIS",
+      "description": "<p>The PREMIS (Preservation Metadata: Implementation Strategies) Data Dictionary defines a set of metadata that most repositories of digital objects would need to record and use in order to preserve those objects over the long term. It has its roots in the Open Archival Information System Reference Model but has been strongly influenced by the practical experience of such repositories. While the Data Dictionary can be used with other standards to influence the creation of local application profiles, an XML Schema is provided to allow the metadata to be serialized independently.</p> <p>PREMIS was initially developed by the Preservation Metadata: Implementation Strategies Working Group, convened by OCLC and RLG, and is currently maintained by the PREMIS Maintenance Activity, lead by the Library of Congress.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m31",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Protocol Data Element Definitions",
+        "fr_FR": "Protocol Data Element Definitions"
+      },
+      "name": "Protocol Data Element Definitions",
+      "description": "A draft set of data elements required by the National Institues of Health (U.S.) for the submission of trial information to the <a href=\"http://clinicaltrials.gov/ct2/home\">CLincalTrials.gov</a> registry and results database.",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m32",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "PROV",
+        "fr_FR": "PROV"
+      },
+      "name": "PROV",
+      "description": "<p>Provenance is information about entities, activities, and people involved in producing a piece of data or thing, which can be used to form assessments about its quality, reliability or trustworthiness. The PROV Family of Documents defines a model, corresponding serializations and other supporting definitions to enable the inter-operable interchange of provenance information in heterogeneous environments such as the Web.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m33",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "QuDEx (Qualitative Data Exchange Format)",
+        "fr_FR": "QuDEx (Qualitative Data Exchange Format)"
+      },
+      "name": "QuDEx (Qualitative Data Exchange Format)",
+      "description": "<p>The QuDEx standard/schema is a software-neutral format for qualitative data that preserves annotations of, and relationships between, data and other related objects. It can be viewed as the optimal baseline data exchange model for the archiving and interchange of data and metadata.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m34",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "RDF Data Cube Vocabulary",
+        "fr_FR": "RDF Data Cube Vocabulary"
+      },
+      "name": "RDF Data Cube Vocabulary",
+      "description": "<p>The standard provides a means to publish multi-dimensional data, such as statistics, on the web in such a way that it can be linked to related data sets and concepts using the W3C RDF (Resource Description Framework) standard. The model underpinning the Data Cube vocabulary is compatible with the cube model that underlies SDMX (Statistical Data and Metadata eXchange), an ISO standard for exchanging and sharing statistical data and metadata among organizations.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m35",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Repository-Developed Metadata Schemas",
+        "fr_FR": "Repository-Developed Metadata Schemas"
+      },
+      "name": "Repository-Developed Metadata Schemas",
+      "description": "<p>Some repositories have decided that current standards do not fit their metadata needs, and so have created their own requirements.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m36",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "SDAC (Standard for Documentation of Astronomical Catalogues)",
+        "fr_FR": "SDAC (Standard for Documentation of Astronomical Catalogues)"
+      },
+      "name": "SDAC (Standard for Documentation of Astronomical Catalogues)",
+      "description": "<p>The Standard for Documentation of Astronomical Catalogues is a set of conventions for archiving astronomical data. As well as path, filename and data format conventions, it also specifies how to construct a plain text description file for documenting the data files. It was developed as an alternative to FITS that would be more suited to archives, permit human inspection, and allow manipulation via standard Unix command-line tools.</p> <p>SDAC was developed by CDS (Centre de Données astronomiques de Strasbourg). Version 2.0 is the most recent; it was released in February 2000.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m37",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "SDMX (Statistical Data and Metadata Exchange)",
+        "fr_FR": "SDMX (Statistical Data and Metadata Exchange)"
+      },
+      "name": "SDMX (Statistical Data and Metadata Exchange)",
+      "description": "<p>A set of common technical and statistical standards and guidelines to be used for the efficient exchange and sharing of statistical data and metadata.</p><p>Sponsoring institutions include BIS, ECB, EUROSTAT, IMF, OECD, UN, and the World Bank. Technical Specification 2.1 was amended in May 2012.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m38",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "SPASE Data Model",
+        "fr_FR": "SPASE Data Model"
+      },
+      "name": "SPASE Data Model",
+      "description": "<p>An information model for describing the elements of the heliophysics data environment, and a set of resource types which can be used to describe data along with its scientific context, source, provenance, content and location. It is designed to support a federated data system where data may reside at different locations and may be seperated from the metadata which describes it. The preferred expression form is XML.</p><p>The Space Physics Archive Search and Extract (SPASE) effort is implemented by the SPASE Consortium which is composed of representatives of the international Heliophysics data community. The Current Release of the data model (2.2.9) was updated in January 2018.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m39",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "UKEOF",
+        "fr_FR": "UKEOF"
+      },
+      "name": "UKEOF",
+      "description": "<p>A metadata standard for describing environmental monitoring activities, programmes, networks and facilities published by the UK Environmental Observation Framework (UKEOF).</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m40",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "ABCDDNA",
+        "fr_FR": "ABCDDNA"
+      },
+      "name": "ABCDDNA",
+      "description": "<p>An extension of the ABCD standard for DNA data.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m42",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "ABCDEFG (Access to Biological Collection Databases Extended for Geosciences)",
+        "fr_FR": "ABCDEFG (Access to Biological Collection Databases Extended for Geosciences)"
+      },
+      "name": "ABCDEFG (Access to Biological Collection Databases Extended for Geosciences)",
+      "description": "<p>An extension of the ABCD standard for Geosciences data.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m43",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "AGLS Metadata Profile",
+        "fr_FR": "AGLS Metadata Profile"
+      },
+      "name": "AGLS Metadata Profile",
+      "description": "<p>An application of Dublin Core designed to improve visibility and availability of online resources, originally adapted from the Australian Government Locator Service metadata standard for use in government agencies.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m44",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "AGRIS Application Profile",
+        "fr_FR": "AGRIS Application Profile"
+      },
+      "name": "AGRIS Application Profile",
+      "description": "<p>A metadata standard drawing on Dublin Core&#160;and&#160;AgMES&#160;created specifically to enhance the description, exchange and subsequent retrieval of agricultural Document-Like Information Objects.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m45",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "ANZLIC Metadata Profile",
+        "fr_FR": "ANZLIC Metadata Profile"
+      },
+      "name": "ANZLIC Metadata Profile",
+      "description": "<p>A profile of ISO 19115, also mapping to the AGLS profile of Dublin Core, designed to facilitate efficient access to descriptions of information resources, particularly geographic or spatial data.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m46",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Apple Core",
+        "fr_FR": "Apple Core"
+      },
+      "name": "Apple Core",
+      "description": "<p>Darwin Core documentation and recommendations for herbaria.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m47",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Asset Description Metadata Schema (ADMS)",
+        "fr_FR": "Asset Description Metadata Schema (ADMS)"
+      },
+      "name": "Asset Description Metadata Schema (ADMS)",
+      "description": "<p>Used to describe semantic assets, defined as highly reusable metadata (for example: XML schemata, generic data models) and reference data (for example: code lists, taxonomies, dictionaries, vocabularies) that are used for eGovernment system development.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m48",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "CARARE metadata schema",
+        "fr_FR": "CARARE metadata schema"
+      },
+      "name": "CARARE metadata schema",
+      "description": "<p>An application profile of the MIDAS Heritage standard intended for delivering metadata to the CARARE service environment about an organisation&#8217;s online collections, monument inventory database and digital objects.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m49",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "CESSDA MLI - Council of European Social Science Data Archives Minimum Level of Information",
+        "fr_FR": "CESSDA MLI - Council of European Social Science Data Archives Minimum Level of Information"
+      },
+      "name": "CESSDA MLI - Council of European Social Science Data Archives Minimum Level of Information",
+      "description": "<p>A common base profile of DDI for use by the member archives of CESSDA.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m50",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "COARDS Conventions",
+        "fr_FR": "COARDS Conventions"
+      },
+      "name": "COARDS Conventions",
+      "description": "<p>Developed by the Cooperative Ocean-Atmosphere Research Data Service (COARDS), these conventions constitute a standard set of metadata to include in netCDF files, allowing them to be shared and interchanged.</p><p>The COARDS Conventions are generalized and extended by the CF (Climate and Forecast) Metadata Conventions.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m51",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Cruise Summary Reports",
+        "fr_FR": "Cruise Summary Reports"
+      },
+      "name": "Cruise Summary Reports",
+      "description": "<p>The National Oceanographic Data Centre's required format for reporting on cruises or field experiments at sea, formulated using tags from the ISO19115 metadata standard.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m52",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "CSDGM Extensions for Remote Sensing Metadata",
+        "fr_FR": "CSDGM Extensions for Remote Sensing Metadata"
+      },
+      "name": "CSDGM Extensions for Remote Sensing Metadata",
+      "description": "<p>An extension to the FGDC/CSDGM metadata standard providing a common terminology and set of definitions for documenting geospatial data obtained by remote sensing.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m53",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Darwin Core Geospatial Extension",
+        "fr_FR": "Darwin Core Geospatial Extension"
+      },
+      "name": "Darwin Core Geospatial Extension",
+      "description": "<p>A protocol-independent XML schema for a geospatial extension to the Darwin Core.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m54",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Dryad Metadata Application Profile",
+        "fr_FR": "Dryad Metadata Application Profile"
+      },
+      "name": "Dryad Metadata Application Profile",
+      "description": "<p>An application profile based on the Dublin Core Metadata Initiative Abstract Model, used to describe multi-disciplinary data underlying peer-reviewed scientific and medical literature.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m55",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "DwC Germplasm",
+        "fr_FR": "DwC Germplasm"
+      },
+      "name": "DwC Germplasm",
+      "description": "<p>An extension to the Darwin Core standard, it includes additional terms required to describe plant genetic resources and in particular germplasm seed samples.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m56",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "eBank UK Metadata Application Profile",
+        "fr_FR": "eBank UK Metadata Application Profile"
+      },
+      "name": "eBank UK Metadata Application Profile",
+      "description": "<p>A Dublin Core Metadata Application Profile created for the eBank UK project, which provides access to the detailed results of scientific experiments in crystallography.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m57",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "EDMED Metadata Profile",
+        "fr_FR": "EDMED Metadata Profile"
+      },
+      "name": "EDMED Metadata Profile",
+      "description": "<p>The European Directory of Marine Environmental Datasets metadata scheme, which is a profile of ISO 19115.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m58",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "FGDC/CSDGM Biological Data Profile",
+        "fr_FR": "FGDC/CSDGM Biological Data Profile"
+      },
+      "name": "FGDC/CSDGM Biological Data Profile",
+      "description": "<p>A profile of the FGDC/CSDGM metadata standard, intended to support the collection and processing of biological data.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m59",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "FITS World Coordinate System (WCS)",
+        "fr_FR": "FITS World Coordinate System (WCS)"
+      },
+      "name": "FITS World Coordinate System (WCS)",
+      "description": "<p>An extension of FITS that enables data to be defined to specify physical, or world coordinates within each pixel in an image. The conventions were orignally proposed in 2002 then incorporated into the 3.0 release of the FITS standard.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m60",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "GBIF Metadata Profile",
+        "fr_FR": "GBIF Metadata Profile"
+      },
+      "name": "GBIF Metadata Profile",
+      "description": "<p>Established by a global network of countries and organizations, GBIF is a web portal promoting and facilitating the mobilization, access, discovery and use of biodiversity data. The portal uses a profile of EML; a <a href=\"https://web.archive.org/web/20170221051836/http://www.gbif.org:80/resource/80641\">How-to Guide</a> and <a href=\"https://web.archive.org/web/20170725085834/http://www.gbif.org:80/resource/80640\">Reference Guide</a> for using the profile are available.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m61",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "GESMES/TS (Generic Statistical Message for Time Series)",
+        "fr_FR": "GESMES/TS (Generic Statistical Message for Time Series)"
+      },
+      "name": "GESMES/TS (Generic Statistical Message for Time Series)",
+      "description": "<p>An extension of SDMX used to exchange statistical data and metadata.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m62",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "GSIM (Generic Statistical Information Model)",
+        "fr_FR": "GSIM (Generic Statistical Information Model)"
+      },
+      "name": "GSIM (Generic Statistical Information Model)",
+      "description": "<p>A reference framework that provides a common terminology acroos and between statistical organisations; aligns with DDI and SDMX.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m63",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "HISPID (Herbarium Information Standards and Protocols for Interchange of Data)",
+        "fr_FR": "HISPID (Herbarium Information Standards and Protocols for Interchange of Data)"
+      },
+      "name": "HISPID (Herbarium Information Standards and Protocols for Interchange of Data)",
+      "description": "<p>An extension to ABCD 2.06, it is designed to allow the storage and transmission of herbarium plant specimen data.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m64",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "IMPEx Data Model",
+        "fr_FR": "IMPEx Data Model"
+      },
+      "name": "IMPEx Data Model",
+      "description": "<p>A simulation extention to the SPASE data model.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m65",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "INSPIRE Metadata Regulation",
+        "fr_FR": "INSPIRE Metadata Regulation"
+      },
+      "name": "INSPIRE Metadata Regulation",
+      "description": "<p>A profile of ISO 19115:2003, adopted in 2007 as the common metadata standard for the Infrastructure for Spatial Information in the European Community (INSPIRE). The other profiles of ISO 19115 in use in European Member States have been made compliant with INSPIRE.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m66",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "ISA-TAB Nano",
+        "fr_FR": "ISA-TAB Nano"
+      },
+      "name": "ISA-TAB Nano",
+      "description": "<p>An extension of ISA-TAB specifying the format for representing and sharing information about nanomaterials, small molecules and biological specimens along with their assay characterization data.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m67",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "isaconfig-diXa",
+        "fr_FR": "isaconfig-diXa"
+      },
+      "name": "isaconfig-diXa",
+      "description": null,
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m68",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "ISO 19115-2 - Imagery and gridded data",
+        "fr_FR": "ISO 19115-2 - Imagery and gridded data"
+      },
+      "name": "ISO 19115-2 - Imagery and gridded data",
+      "description": "<p>An extension of ISO 19115 defining the schema required for describing imagery and gridded data.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m69",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "ISO 19115 North American Profile",
+        "fr_FR": "ISO 19115 North American Profile"
+      },
+      "name": "ISO 19115 North American Profile",
+      "description": "<p>A common profile of ISO19115:2003 between the United States and Canada, designed to enhance interoperability of geographic information metadata in North America.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m70",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Marine Community Profile",
+        "fr_FR": "Marine Community Profile"
+      },
+      "name": "Marine Community Profile",
+      "description": "<p>A profile developed in accordance with ISO 19115 rules by the Australian Ocean Data Centre that supports the documentation and discovery of marine spatial datasets.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m71",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "MIBBI Portal",
+        "fr_FR": "MIBBI Portal"
+      },
+      "name": "MIBBI Portal",
+      "description": "<p>A list of nearly 40 Minimum Information standards projects registered with the MIBBI initiative.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m72",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "OME-TIFF (Open Microscopy Environment TIFF)",
+        "fr_FR": "OME-TIFF (Open Microscopy Environment TIFF)"
+      },
+      "name": "OME-TIFF (Open Microscopy Environment TIFF)",
+      "description": "<p>A specification of how to embed OME-XML metadata within a <a href=\"http://partners.adobe.com/public/developer/tiff/\">TIFF</a> or <a href=\"http://bigtiff.org/\">BigTIFF</a> image file.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m73",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Resource Metadata for the Virtual Observatory",
+        "fr_FR": "Resource Metadata for the Virtual Observatory"
+      },
+      "name": "Resource Metadata for the Virtual Observatory",
+      "description": "<p>Defines metadata terms and concepts necessary for discovery and use of astronomical data collections and services.</p><p>The extension is based on Dublin Core, but with astronomy-specific extensions.  Resource Metadata are collected in resource \"registries\" that are populated and synchronized using the OAI-PMH (Protocol for Metadata Handling). Version 1.12, March 2007. Developed and maintained by IVOA Resource Registry Working Group and NVO Metadata Working Group</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m74",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Shoreline Metadata Profile",
+        "fr_FR": "Shoreline Metadata Profile"
+      },
+      "name": "Shoreline Metadata Profile",
+      "description": "<p>Providing the format and content for describing data sets related to shoreline and other coastal data sets, this profile complies with the FGDC/CSDGM standard.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m75",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "SNRNASM ISA-Tab",
+        "fr_FR": "SNRNASM ISA-Tab"
+      },
+      "name": "SNRNASM ISA-Tab",
+      "description": "<p>An ISA-Tab-based standard for reporting the results of single nucleotide resolution nucleic acid structure mapping experiments.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m76",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "Tabular Data Package",
+        "fr_FR": "Tabular Data Package"
+      },
+      "name": "Tabular Data Package",
+      "description": "<p>A profile of the Data Package specification, intended for exchanging tabular data in CSV (comma-separated values) format.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m77",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "TIDCC (Towards an International Data Commons for Crystallography)",
+        "fr_FR": "TIDCC (Towards an International Data Commons for Crystallography)"
+      },
+      "name": "TIDCC (Towards an International Data Commons for Crystallography)",
+      "description": "<p>A profile of the CSMD model for Australian crystallographic data.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m78",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "UK AGMAP (Academic Geospatial Metadata Application Profile)",
+        "fr_FR": "UK AGMAP (Academic Geospatial Metadata Application Profile)"
+      },
+      "name": "UK AGMAP (Academic Geospatial Metadata Application Profile)",
+      "description": "<p>A profile of ISO 19115 designed to support the documentation and discovery of spatial datasets, dataset series and geo services within Higher and Further Education.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m79",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "UK Gemini",
+        "fr_FR": "UK Gemini"
+      },
+      "name": "UK Gemini",
+      "description": "<p>A specification for a set of metadata elements describing geospatial data resources for discovery purposes, based on ISO 19115.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m80",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "USGIN (US Geoscience Information Network) Metadata Profile",
+        "fr_FR": "USGIN (US Geoscience Information Network) Metadata Profile"
+      },
+      "name": "USGIN (US Geoscience Information Network) Metadata Profile",
+      "description": "This metadata scheme is a profile of ISO 19115 and ISO 19119 intended for use by the US Geoscience Information Network to describe a broad range of geoscience information resources. It provides guidance for the population of metadata documents to enable interoperability of catalog service clients with multiple servers conforming to this profile. It specifically targets serialization in XML compliant with ISO 19139.",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m81",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "VarioML",
+        "fr_FR": "VarioML"
+      },
+      "name": "VarioML",
+      "description": null,
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m82",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "WaterML",
+        "fr_FR": "WaterML"
+      },
+      "name": "WaterML",
+      "description": null,
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m83",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "WMO Core Metadata Profile",
+        "fr_FR": "WMO Core Metadata Profile"
+      },
+      "name": "WMO Core Metadata Profile",
+      "description": "<p>The World Meteorological Organisation, WMO, has defined a restrictive subset of ISO19115 appropriate for global meteorogical use.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m84",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "EURISCO Descriptors",
+        "fr_FR": "EURISCO Descriptors"
+      },
+      "name": "EURISCO Descriptors",
+      "description": "This descriptor list is used for uploading information from EPGRIS National Inventories of Plant Genetic Resources to EURISCO, the European Search Catalogue for Plant Genetic Resources. It is intended for use only in data exchange.",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m85",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "IDF (International DOI Foundation) Metadata Kernel",
+        "fr_FR": "IDF (International DOI Foundation) Metadata Kernel"
+      },
+      "name": "IDF (International DOI Foundation) Metadata Kernel",
+      "description": null,
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m86",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "IGSN, International GeoSample Number",
+        "fr_FR": "IGSN, International GeoSample Number"
+      },
+      "name": "International GeoSample Number",
+      "description": "IGSN is a globally unique and persistent identifier for material samples. The IGSN registration service will facilitate the discovery, access, and sharing of samples, ensure preservation and access of sample data, aid identification of samples in the literature, and advance the exchange of digital sample data among interoperable data systems.",
+      "metadataStandardId": "https://fairsharing.org/FAIRsharing.Yvc76F",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "MAGE-TAB",
+        "fr_FR": "MAGE-TAB"
+      },
+      "name": "MAGE-TAB",
+      "description": null,
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m87",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "MARC (Machine-Readable Cataloging)",
+        "fr_FR": "MARC (Machine-Readable Cataloging)"
+      },
+      "name": "MARC (Machine-Readable Cataloging)",
+      "description": "MARC is a standard and serialization format for representing bibliographic metadata, originally designed as a way of exchanging bibliographic records between library catalogs. Various different versions have been defined, mostly with national or regional scope, of which MARC 21 is probably the most widely used. There also exists an XML serialization of MARC 21, known as MARCXML.",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m88",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "NetCDF Attribute Convention for Dataset Discovery",
+        "fr_FR": "NetCDF Attribute Convention for Dataset Discovery"
+      },
+      "name": "NetCDF Attribute Convention for Dataset Discovery",
+      "description": null,
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m89",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "ODAM Structural Metadata, Open Data for Access and Mining Structural Metadata",
+        "fr_FR": "ODAM Structural Metadata, Open Data for Access and Mining Structural Metadata"
+      },
+      "name": "Open Data for Access and Mining Structural Metadata",
+      "description": "<p>Open Data for Access and Mining (ODAM) Structural Metadata is a format describing how the metadata should be formatted and what should be included to ensure ODAM compliance for a data set. To comply with this format, two metadata files in TSV format are required in addition to the data file(s). These two files describe the metadata of the dataset, which includes descriptions of measures and structural metadata like references between tables. It is this latter format that is described in this record. The metadata lets non-expert users explore and visualize your data. By making data interoperable and reusable by both humans and machines, it also encourages data dissemination according to FAIR principles. The structural metadata is specified in section three of the listed homepage.</p>",
+      "metadataStandardId": "https://fairsharing.org/bsg-s001505/",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "OECD Dataset Metadata",
+        "fr_FR": "OECD Dataset Metadata"
+      },
+      "name": "OECD Dataset Metadata",
+      "description": null,
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m90",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "OECD Minimum Data Set",
+        "fr_FR": "OECD Minimum Data Set"
+      },
+      "name": "OECD Minimum Data Set",
+      "description": null,
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m91",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "OpenAIRE Guidelines",
+        "fr_FR": "OpenAIRE Guidelines"
+      },
+      "name": "OpenAIRE Guidelines",
+      "description": "<p>The OpenAIRE Guidelines are a suite of application profiles designed to allow research institutions to make their scholarly outputs visible through the OpenAIRE infrastructure. The profiles are based on established standards and designed to be used in conjunction with the OAI-PMH metadata harvesting protocol:</p><ul><li>The OpenAIRE Guidelines for Literature Repositories are based on Dublin Core;</li><li>The OpenAIRE Guidelines for Data Archives are based on the DataCite Metadata Schema;</li><li>The OpenAIRE Guidelines for CRIS Managers is based on CERIF.</li></ul><p>While the focus of each profile is different, they allow for interlinking and the contextualization of research artefacts.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m92",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "CEDAR Template Model",
+        "fr_FR": "CEDAR Template Model"
+      },
+      "name": "CEDAR Template Model",
+      "description": "Describes the format of the generic metadata artifacts—the templates, elements, and instances—that make up the CEDAR metadata framework and allow for exchange of the metadata artifacts with external systems.",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m94",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "JSON-LD (JavaScript Object Notation for Linked Data)",
+        "fr_FR": "JSON-LD (JavaScript Object Notation for Linked Data)"
+      },
+      "name": "JSON-LD (JavaScript Object Notation for Linked Data)",
+      "description": "Refers to a concept for the use of linked data. It is based on the JSON format and extends this. With JSON-LD, data can be annotated for automatic exchange between web applications and web services, and properly used, data in JSON-LD can be expressed as Linked Data triples.",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m95",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "EAD (Encoded Archival Description)",
+        "fr_FR": "EAD (Encoded Archival Description)"
+      },
+      "name": "EAD (Encoded Archival Description)",
+      "description": "A standard for encoding archival finding aids using XML in archival and manuscript repositories, implementing the recommendations of the International Council on Archives <a href=\"https://www.ica.org/en/isadg-general-international-standard-archival-description-second-edition\">ISAD(G): General International Standard Archival Description</a>.",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m96",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "MODS (Metadata Object Description Schema)",
+        "fr_FR": "MODS (Metadata Object Description Schema)"
+      },
+      "name": "MODS (Metadata Object Description Schema)",
+      "description": "The Metadata Object Description Schema (MODS) is a bibliographic metadata standard implemented in XML. It reimplements a subset of the elements of MARC (Machine Readable Cataloging) using language-based tags instead of numeric ones, and groups them somewhat differently. It is intended both as a simplified version of MARC 21 and as a richer alternative to Dublin Core for applications such as metadata syndication/harvesting and the documentation of digital information packages.\r\n\r\nIt was developed in 2002 by the Library of Congress Network Development and MARC Standards Office along with a group of interested experts.",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m97",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "RIF-CS (Registry Interchange Format – Collections and Services)",
+        "fr_FR": "RIF-CS (Registry Interchange Format – Collections and Services)"
+      },
+      "name": "RIF-CS (Registry Interchange Format – Collections and Services)",
+      "description": "<p>The Registry Interchange Format – Collections and Services (RIF-CS) schema was developed as a data interchange format for supporting the electronic exchange of collection and service descriptions. It is a profile of ISO 2146, an information model for registry services for libraries and related organisations, adapting it for use in the research data context.</p><p>It was originally developed by the Australian National Data Service for use with Research Data Australia and the Research Data Australia Registry.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m98",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "TEI (Text Encoding Initiative) Guidelines",
+        "fr_FR": "TEI (Text Encoding Initiative) Guidelines"
+      },
+      "name": "TEI (Text Encoding Initiative) Guidelines",
+      "description": "<p>The Text Encoding Initiative (TEI) Guidelines make recommendations about suitable ways of representing those features of textual resources which need to be identified explicitly in order to facilitate processing by computer programs. They specify a set of XML tags in order to mark the textual metadata, text structure, relationship between images and transcriptions and other features of interest. They therefore primarily define a data format, but the TEI Header in particular includes a native set of metadata and may include metadata from other schemas.</p><p>In their decades of community driven development they have developed into a de-facto standard in the production of textual data in the humanities. Since the release of version P5, 2 to 4 new revisions have been released each year.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m99",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "EngMeta",
+        "fr_FR": "EngMeta"
+      },
+      "name": "EngMeta",
+      "description": "<p>EngMeta is an XML-based formal definition of information necessary to find, understand, reproduce and reuse data from engineering disciplines. The schema was defined together with engineers from aerodynamics and thermodynamics and lies a focus on computational engineering, but is general enough to cover other engineering disciplines.</p><p>EngMeta defines metadata-fields for the description of the components of the observed system (object of research), the observed variables, the spatial and temporal resolution of the observation and the steps taken in the research process to generate, process, analyse and visualize the data. It is based on existing standards like DataCite, PREMIS, CodeMeta and ExptML and is implemented as two metadata blocks for repositories based on the open-source repository platform Dataverse.</p>",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m100",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "schema.org",
+        "fr_FR": "schema.org"
+      },
+      "name": "schema.org",
+      "description": " Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond.\r\n\r\nSchema.org vocabulary can be used with many different encodings, including RDFa, Microdata and JSON-LD. These vocabularies cover entities, relationships between entities and actions, and can easily be extended through a well-documented extension model. Over 10 million sites use Schema.org to markup their web pages and email messages. Many applications from Google, Microsoft, Pinterest, Yandex and others already use these vocabularies to power rich, extensible experiences. ",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m101",
+      "idType": "URL"
+    },
+    {
+      "label": {
+        "en_GB": "RO-Crate",
+        "fr_FR": "RO-Crate"
+      },
+      "name": "RO-Crate",
+      "description": "RO-Crate is a community effort to establish a lightweight approach to packaging research data with their metadata. It is based on schema.org annotations in JSON-LD, and aims to make best-practice in formal metadata description accessible and practical for use in a wider variety of situations, from an individual researcher working with a folder of data, to large data-intensive computational research environments.",
+      "metadataStandardId": "https://rdamsc.bath.ac.uk/msc/m102",
+      "idType": "URL"
+    }
+  ]
+}

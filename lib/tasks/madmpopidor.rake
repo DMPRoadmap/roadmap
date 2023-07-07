@@ -181,13 +181,13 @@ namespace :madmpopidor do
   task load_templates: :environment do
     p 'Loading maDMP Templates...'
     # Read and parse index.json file
-    index_path = Rails.root.join('config/madmp/schemas/main/index.json')
+    index_path = Rails.root.join('engines/madmp_opidor/config/templates/index.json')
     schemas_index = JSON.parse(File.read(index_path))
 
     # Iterate over the schemas of the index.json file
     schemas_index.each do |schema_desc|
       # Read, parse and extract useful data from the JSON schema
-      schema_path = Rails.root.join("config/madmp/schemas/main/#{schema_desc['path']}")
+      schema_path = Rails.root.join("engines/madmp_opidor/config/templates/#{schema_desc['path']}")
       json_schema = JSON.parse(File.read(schema_path))
       title = json_schema['title']
       classname = schema_desc['classname']
@@ -223,7 +223,7 @@ namespace :madmpopidor do
   desc 'Load JSON registries'
   task load_registries: :environment do
     p 'Loading maDMP registries...'
-    registries_path = Rails.root.join('config/madmp/registries/index.json')
+    registries_path = Rails.root.join('engines/madmp_opidor/config/registries/index.json')
     registries = JSON.parse(File.read(registries_path))
 
     # Remove all registry values to avoid duplicates
@@ -238,7 +238,7 @@ namespace :madmpopidor do
       if values.is_a?(Array)
         registry_values = values
       elsif values['path'].present?
-        values_path = Rails.root.join("config/madmp/registries/#{values['path']}")
+        values_path = Rails.root.join("engines/madmp_opidor/config/registries/#{values['path']}")
         registry_values = JSON.parse(File.read(values_path))
       end
       registry_values.each_with_index do |reg_val, idx|

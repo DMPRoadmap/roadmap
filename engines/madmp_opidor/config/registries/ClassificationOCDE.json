@@ -1,0 +1,263 @@
+{
+  "ClassificationOCDE": [
+    {
+      "label": {
+        "fr_FR": "Agriculture, sylviculture et pêche",
+        "en_GB": "Agriculture, forestry, and fisheries"
+      },
+      "value": "Agriculture, forestry, and fisheries"
+    },
+    {
+      "label": {
+        "fr_FR": "Arts (arts, histoire de l'art, arts du spectacle, musique)",
+        "en_GB": "Arts (arts, history of arts, performing arts, music)"
+      },
+      "value": "Art (arts, history of arts, performing arts, music)"
+    },
+    {
+      "label": {
+        "fr_FR": "Biotechnologie agricole",
+        "en_GB": "Agricultural biotechnology"
+      },
+      "value": "Agricultural biotechnology"
+    },
+    {
+      "label": {
+        "fr_FR": "Biotechnologie de la santé",
+        "en_GB": "Health biotechnology"
+      },
+      "value": "Health biotechnology"
+    },
+    {
+      "label": {
+        "fr_FR": "Biotechnologie environnementale",
+        "en_GB": "Environmental biotechnology"
+      },
+      "value": "Environmental biotechnology"
+    },
+    {
+      "label": {
+        "fr_FR": "Biotechnologie industrielle",
+        "en_GB": "Industrial biotechnology"
+      },
+      "value": "Industrial biotechnology"
+    },
+    {
+      "label": {
+        "fr_FR": "Droit",
+        "en_GB": "Law"
+      },
+      "value": "Law"
+    },
+    {
+      "label": {
+        "fr_FR": "Géographie sociale et économique",
+        "en_GB": "Social and economic geography"
+      },
+      "value": "Social and economic geography"
+    },
+    {
+      "label": {
+        "fr_FR": "Histoire et archéologie",
+        "en_GB": "History and archaeology"
+      },
+      "value": "History and archaeology"
+    },
+    {
+      "label": {
+        "fr_FR": "Informatique et sciences de l'information",
+        "en_GB": "Computer and information sciences"
+      },
+      "value": "Computer and information sciences"
+    },
+    {
+      "label": {
+        "fr_FR": "Ingénierie chimique",
+        "en_GB": "Chemical engineering"
+      },
+      "value": "Chemical engineering"
+    },
+    {
+      "label": {
+        "fr_FR": "Ingénierie civile",
+        "en_GB": "Civil engineering"
+      },
+      "value": "Civil engineering"
+    },
+    {
+      "label": {
+        "fr_FR": "Ingénierie électrique, ingénierie électronique et ingénierie de l'information",
+        "en_GB": "Electrical engineering, electronic engineering, information engineering"
+      },
+      "value": "Electrical engineering, electronic engineering, information engineering"
+    },
+    {
+      "label": {
+        "fr_FR": "Ingénierie des matériaux",
+        "en_GB": "Materials engineering"
+      },
+      "value": "Materials engineering"
+    },
+    {
+      "label": {
+        "fr_FR": "Ingénierie des systèmes",
+        "en_GB": "Systems engineering"
+      },
+      "value": "Systems engineering"
+    },
+    {
+      "label": {
+        "fr_FR": "Ingénierie environnementale",
+        "en_GB": "Environmental engineering"
+      },
+      "value": "Environmental engineering"
+    },
+    {
+      "label": {
+        "fr_FR": "Ingénierie mécanique",
+        "en_GB": "Mechanical engineering"
+      },
+      "value": "Mechanical engineering"
+    },
+    {
+      "label": {
+        "fr_FR": "Ingénierie médicale",
+        "en_GB": "Medical engineering"
+      },
+      "value": "Medical engineering"
+    },
+    {
+      "label": {
+        "fr_FR": "Langues et littérature",
+        "en_GB": "Languages and literature"
+      },
+      "value": "Languages and literature"
+    },
+    {
+      "label": {
+        "fr_FR": "Mathématiques",
+        "en_GB": "Mathematics"
+      },
+      "value": "Mathematics"
+    },
+    {
+      "label": {
+        "fr_FR": "Médecine clinique",
+        "en_GB": "Clinical medicine"
+      },
+      "value": "Clinical medicine"
+    },
+    {
+      "label": {
+        "fr_FR": "Médecine fondamentale (anatomie, génétique, immunologie, pharmacologie...) ",
+        "en_GB": "Basic medicine"
+      },
+      "value": "Basic medicine"
+    },
+    {
+      "label": {
+        "fr_FR": "Média et communication",
+        "en_GB": "Media and communications"
+      },
+      "value": "Media and communications"
+    },
+    {
+      "label": {
+        "fr_FR": "Nanotechnologie",
+        "en_GB": "Nano technology"
+      },
+      "value": "Nano technology"
+    },
+    {
+      "label": {
+        "fr_FR": "Philosophie, éthique et religion",
+        "en_GB": "Philosophy, ethics and religion"
+      },
+      "value": "Philosophy, ethics and religion"
+    },
+    {
+      "label": {
+        "fr_FR": "Psychologie",
+        "en_GB": "Psychology"
+      },
+      "value": "Psychology"
+    },
+    {
+      "label": {
+        "fr_FR": "Science politique",
+        "en_GB": "Political science"
+      },
+      "value": "Political science"
+    },
+    {
+      "label": {
+        "fr_FR": "Sciences animales et laitières",
+        "en_GB": "Animal and dairy science"
+      },
+      "value": "Animal and dairy science"
+    },
+    {
+      "label": {
+        "fr_FR": "Sciences biologiques",
+        "en_GB": "Biological sciences"
+      },
+      "value": "Biological sciences (Natural sciences)"
+    },
+    {
+      "label": {
+        "fr_FR": "Sciences chimiques",
+        "en_GB": "Chemical sciences"
+      },
+      "value": "Chemical sciences"
+    },
+    {
+      "label": {
+        "fr_FR": "Sciences de la terre et de l'environnement",
+        "en_GB": "Earth and related environmental sciences"
+      },
+      "value": "Earth and related environmental sciences"
+    },
+    {
+      "label": {
+        "fr_FR": "Sciences de la santé",
+        "en_GB": "Health sciences"
+      },
+      "value": "Health sciences"
+    },
+    {
+      "label": {
+        "fr_FR": "Sciences de l'éducation",
+        "en_GB": "Educational sciences"
+      },
+      "value": "Educational sciences"
+    },
+    {
+      "label": {
+        "fr_FR": "Sciences économiques et commerce",
+        "en_GB": "Economics and business"
+      },
+      "value": "Economics and business"
+    },
+    {
+      "label": {
+        "fr_FR": "Sciences physiques",
+        "en_GB": "Physical sciences"
+      },
+      "value": "Physical sciences"
+    },
+    {
+      "label": {
+        "fr_FR": "Sciences vétérinaires",
+        "en_GB": "Veterinary science"
+      },
+      "value": "Veterinary science"
+    },
+    {
+      "label": {
+        "fr_FR": "Sociologie",
+        "en_GB": "Sociology"
+      },
+      "value": "Sociology"
+    }
+  ]
+}

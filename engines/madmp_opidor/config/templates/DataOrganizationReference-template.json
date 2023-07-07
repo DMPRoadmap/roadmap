@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataOrganizationReference",
+    "description": "DataOrganizationReference template",
+    "type": "object",
+    "class": "DataOrganizationReference",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Intitulé de l'aspect organisationnel",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "form_label@fr_FR": "Titre",
+            "form_label@en_GB": "Title"
+        },
+        "documentIdentifier": {
+            "type": "string",
+            "description": "Identification du document associé à cet aspect organisationnel",
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier",
+            "form_label@fr_FR": "Identifiant du document",
+            "form_label@en_GB": "Document identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant ressource",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "registry_name": "PIDSystem",
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant de la ressource",
+            "form_label@en_GB": "Identifier type"
+        }
+    },
+    "required": [
+        "title",
+        "documentIdentifier",
+        "idType"
+    ],
+    "to_string": [
+        "$.title",
+        " : ",
+        "$.documentIdentifier"
+    ]
+}

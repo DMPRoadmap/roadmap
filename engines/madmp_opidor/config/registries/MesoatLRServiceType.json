@@ -1,0 +1,19 @@
+{
+  "MesoatLRServiceType": [
+    {
+      "fr_FR": "Stockage inférieur à 100 To",
+      "en_GB": "Storage less than 100 TB",
+      "cost": 55
+    },
+    {
+      "fr_FR": "Stockage supérieur ou égal à 100 To",
+      "en_GB": "Stockage greater than or equal to 100 TB",
+      "cost": 50
+    },
+    {
+      "fr_FR": "Stockage associé au calcul Meso",
+      "en_GB": "Storage associated with Meso compute",
+      "cost": 45
+    }
+  ]
+}

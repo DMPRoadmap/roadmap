@@ -1,0 +1,157 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "StructureStandard",
+    "description": "StructureStandard template",
+    "type": "object",
+    "class": "StructureStandard",
+    "properties": {
+        "structureIdentification": {
+            "type": "object",
+            "class": "Partner",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "PartnerStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Identification de l'entité (ou structure) de recherche",
+            "label@fr_FR": "Nom de l'entité",
+            "label@en_GB": "Entity's name",
+            "inputType": "dropdown",
+            "registry_name": "Partners",
+            "overridable": true,
+            "form_label@fr_FR": "Nom de l'entité",
+            "form_label@en_GB": "Entity's name"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description globale des activités de l'entité (ou structure) de recherche",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        },
+        "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Année de création de l'entité (ou structure) de recherche",
+            "label@fr_FR": "Date de création",
+            "label@en_GB": "Creation date",
+            "form_label@fr_FR": "Date de création",
+            "form_label@en_GB": "Creation date"
+        },
+        "members": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "Partner",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "PartnerStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Etablissements tutelles de la structure",
+            "label@fr_FR": "Tutelle(s) de l'entité",
+            "label@en_GB": "Entity's regulatory authority",
+            "inputType": "dropdown",
+            "registry_name": "Partners",
+            "overridable": true,
+            "form_label@fr_FR": "Tutelle(s) de l'entité",
+            "form_label@en_GB": "Entity's regulatory authority"
+        },
+        "funding": {
+            "type": "array",
+            "table_header@fr_FR": "Financeur : identifiant du financement",
+            "table_header@en_GB": "Funder: funding identifier",
+            "items": {
+                "type": "object",
+                "class": "Funding",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "FundingStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Source(s) de financement",
+            "label@fr_FR": "Source(s) de financement",
+            "label@en_GB": "Funding(s)",
+            "form_label@fr_FR": "Source(s) de financement",
+            "form_label@en_GB": "Funding(s)"
+        },
+        "structureManager": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "ContributorStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "StructureManager",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Responsable de l'entité (ou structure) de recherche",
+            "label@fr_FR": "Responsable(s) de l'entité",
+            "label@en_GB": "Entity's manager(s)",
+            "form_label@fr_FR": "Responsable(s) de la structure",
+            "form_label@en_GB": "Structure's manager(s)"
+        },
+        "dataSteward": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "ContributorStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataSteward",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Responsable de la gestion et de l'ouverture des données",
+            "label@fr_FR": "Responsable(s) de la gestion et de l'ouverture des données",
+            "label@en_GB": "DataSteward(s)",
+            "form_label@fr_FR": "Responsable(s) de la gestion et de l'ouverture des données",
+            "form_label@en_GB": "DataSteward(s)"
+        }
+    },
+    "required": [
+        "structureIdentification",
+        "description",
+        "startDate",
+        "members",
+        "funding",
+        "structureManager",
+        "dataSteward"
+    ],
+    "to_string": []
+}

@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "MesoatLRServiceRequest",
+    "description": "MesoatLRServiceRequest template",
+    "type": "object",
+    "class": "MesoatLRServiceRequest",
+    "properties": {
+        "serviceType": {
+            "type": "string",
+            "description": "Le type de service",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type de service",
+            "label@en_GB": "Service type",
+            "registry_name": "MesoatLRServiceType",
+            "form_label@fr_FR": "Type de service",
+            "form_label@en_GB": "Service type"
+        },
+        "justification": {
+            "type": "string",
+            "description": "Justification du besoin",
+            "inputType": "textarea",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "justification",
+            "form_label@fr_FR": "Justification de la demande de ressource",
+            "form_label@en_GB": "Justification for resource request"
+        },
+        "dataSize": {
+            "type": "number",
+            "description": "Volume des données concernées en téraoctets",
+            "label@fr_FR": "Taille des données",
+            "label@en_GB": "Data size",
+            "form_label@fr_FR": "Volumétrie demandée",
+            "form_label@en_GB": "Volum request"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "const@fr_FR": "To",
+            "const@en_GB": "TB",
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        },
+        "storageTime": {
+            "type": "string",
+            "description": "Durée de stockage (en mois)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Durée de stockage en mois",
+            "label@en_GB": "Storage time (in months)",
+            "registry_name": "MesoatLRStorageTime",
+            "form_label@fr_FR": "Durée de stockage (en mois)",
+            "form_label@en_GB": "Storage time (in months)"
+        },
+        "timeUnit": {
+            "type": "string",
+            "description": "Unité de temps",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "const@fr_FR": "mois",
+            "const@en_GB": "months",
+            "hidden": true,
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        }
+    },
+    "required": [
+        "serviceType",
+        "justification",
+        "dataSize",
+        "volumeUnit",
+        "storageTime",
+        "timeUnit"
+    ],
+    "to_string": [
+        "$.serviceType",
+        " ",
+        "(",
+        "$.dataSize",
+        ")"
+    ]
+}

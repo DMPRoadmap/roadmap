@@ -1,0 +1,60 @@
+{
+  "Subjects": [
+    {
+      "fr_FR": "Agricultural Sciences",
+      "en_GB": "Agricultural Sciences"
+    },
+    {
+      "fr_FR": "Arts and Humanities",
+      "en_GB": "Arts and Humanities"
+    },
+    {
+      "fr_FR": "Astronomy and Astrophysics",
+      "en_GB": "Astronomy and Astrophysics"
+    },
+    {
+      "fr_FR": "Business and Management",
+      "en_GB": "Business and Management"
+    },
+    {
+      "fr_FR": "Chemistry",
+      "en_GB": "Chemistry"
+    },
+    {
+      "fr_FR": "Computer and Information Science",
+      "en_GB": "Computer and Information Science"
+    },
+    {
+      "fr_FR": "Earth and Environmental Sciences",
+      "en_GB": "Earth and Environmental Sciences"
+    },
+    {
+      "fr_FR": "Engineering",
+      "en_GB": "Engineering"
+    },
+    {
+      "fr_FR": "Law",
+      "en_GB": "Law"
+    },
+    {
+      "fr_FR": "Mathematical Sciences",
+      "en_GB": "Mathematical Sciences"
+    },
+    {
+      "fr_FR": "Medicine, Health and Life Sciences",
+      "en_GB": "Medicine, Health and Life Sciences"
+    },
+    {
+      "fr_FR": "Physics",
+      "en_GB": "Physics"
+    },
+    {
+      "fr_FR": "Social Sciences",
+      "en_GB": "Social Sciences"
+    },
+    {
+      "fr_FR": "Other",
+      "en_GB": "Other"
+    }
+  ]
+}

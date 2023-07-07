@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ControlledKeywordStandard",
+    "description": "ControlledKeywordStandard template",
+    "type": "object",
+    "class": "ControlledKeywordStandard",
+    "properties": {
+        "keyword": {
+            "type": "string",
+            "description": "Libellé du mot-clé",
+            "label@fr_FR": "Mot-clé",
+            "label@en_GB": "Keyword",
+            "example@fr_FR": "Protection de la forêt",
+            "example@en_GB": "Forest protection",
+            "form_label@fr_FR": "Mot-clé",
+            "form_label@en_GB": "Keyword"
+        },
+        "keywordSchema": {
+            "type": "string",
+            "description": "Nom du vocabulaire, liste d'autorité, …",
+            "label@fr_FR": "Vocabulaire",
+            "label@en_GB": "Vocabulary",
+            "example@fr_FR": "AGROVOC Multilingual Thesaurus",
+            "example@en_GB": "AGROVOC Multilingual Thesaurus",
+            "form_label@fr_FR": "Nom du vocabulaire (ou thésaurus, lexique…)",
+            "form_label@en_GB": "Vocabulary name (or thesaurus, lexique..."
+        },
+        "keywordUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Identifiant du concept",
+            "label@fr_FR": "URL",
+            "label@en_GB": "URL",
+            "example@fr_FR": "http://aims.fao.org/aos/agrovoc/c_28075",
+            "example@en_GB": "http://aims.fao.org/aos/agrovoc/c_28075",
+            "form_label@fr_FR": "URL du mot clé",
+            "form_label@en_GB": "Keyword URL"
+        }
+    },
+    "required": [
+        "keyword",
+        "keywordUrl"
+    ],
+    "to_string": [
+        "$.keyword",
+        " (",
+        "$.keywordSchema",
+        ")"
+    ]
+}

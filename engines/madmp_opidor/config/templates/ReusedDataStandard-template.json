@@ -1,0 +1,87 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ReusedDataStandard",
+    "description": "ReusedDataStandard template",
+    "type": "object",
+    "class": "ReusedDataStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre du produit de recherche réutilisé",
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name",
+            "form_label@fr_FR": "Nom complet",
+            "form_label@en_GB": "Full name"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description de la provenance des données (ou absence de données réutilisables)",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Indiquer l'origine des données réutilisées et les éventuelles contraintes d'accès et/ou réutilisation",
+            "tooltip@en_GB": "Indicate the origin of the reused data and any constraints on access and/or reuse",
+            "form_label@fr_FR": "Décrire succinctement le produit de recherche",
+            "form_label@en_GB": "Briefly describe the research product"
+        },
+        "datasetId": {
+            "type": "string",
+            "description": "Identifiant du produit réutilisé",
+            "label@fr_FR": "Identifiant pérenne",
+            "label@en_GB": "Persistent identifier",
+            "form_label@fr_FR": "Identifiant pérenne du produit de recherche",
+            "form_label@en_GB": " Reseach product persistent identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": " Identifier type",
+            "registry_name": "PIDSystem",
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant du produit de recherche",
+            "form_label@en_GB": " Reseach product identifier type"
+        },
+        "versionNumber": {
+            "type": "string",
+            "description": "Numéro de version des données réutilisées",
+            "label@fr_FR": "Numéro de version",
+            "label@en_GB": "Version number",
+            "form_label@fr_FR": "Numéro de version",
+            "form_label@en_GB": "Version number"
+        },
+        "license": {
+            "type": "object",
+            "class": "License",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "LicenseStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Licence ou contrat déterminant les conditions de réutilisation",
+            "label@fr_FR": "Licence",
+            "label@en_GB": "License",
+            "inputType": "dropdown",
+            "registry_name": "DataLicenses",
+            "overridable": true,
+            "form_label@fr_FR": "Licence",
+            "form_label@en_GB": "License"
+        }
+    },
+    "required": [
+        "title",
+        "datasetId",
+        "idType"
+    ],
+    "to_string": [
+        "$.title",
+        " : ",
+        "$.datasetId"
+    ]
+}

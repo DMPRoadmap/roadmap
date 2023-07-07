@@ -1,0 +1,128 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataStorageMesoatLR",
+    "description": "DataStorageMesoatLR template",
+    "type": "object",
+    "class": "DataStorageMesoatLR",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des besoins de stockage",
+            "inputType": "textarea",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
+            "form_label@fr_FR": "Identification de MESO@LR",
+            "form_label@en_GB": "MESO@LR identification"
+        },
+        "mesoatLRServiceRequest": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "MesoatLRServiceRequest",
+            "required": [
+                "dbid"
+            ],
+            "description": "Informations requises pour une demande de ressources de stockage et calcul auprès du MESO@LR",
+            "form_label@fr_FR": "Demande de ressources de stockage et calcul à MESO@LR (en To)",
+            "form_label@en_GB": "Request for storage and compute resources from MESO@LR (in TB)"
+        },
+        "backupPolicy": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "BackupPolicy",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "BackupPolicyStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Informations relatives à la politique de sauvegarde",
+            "form_label@fr_FR": "Politique de sauvegarde de MESO@LR",
+            "form_label@en_GB": "MESO@LR backup policy"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "const@fr_FR": "L’offre de service propose la réplication des données, cette copie conforme se situe dans une salle distance du stockage primaire. Complémentaire à cette réplication, la possibilité d’avoir des snapshots selon la politique choisie offre une excellente protection contre les ransomwares. La connexion se fait selon votre solution d’authentification souhaitée : Active Directory ou LDAP, sinon par le LDAP de Meso. Le Mésocentre n'est pas encore habilité à recevoir des données de santé.",
+            "const@en_GB": "The service offers data replication, this exact copy is located in a room remote from the primary storage. Complementary to this replication, the possibility of having snapshots according to the chosen policy offers excellent protection against ransomware. The connection is made according to your desired authentication solution: Active Directory or LDAP, otherwise by Meso's LDAP. The Mesocentre is not yet authorized to receive health data.",
+            "form_label@fr_FR": "Mesures de sécurité",
+            "form_label@en_GB": "Security measures"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "CostStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostMesoatLR",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coût total des données stockées à MESO@LR",
+            "form_label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
+            "form_label@en_GB": "Total cost of storage (Automatic calculation)"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "ContributorStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataStorageManager",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "form_label@fr_FR": "Personne en charge de la gestion du stockage des données",
+            "form_label@en_GB": "Person in charge of  data storage management"
+        }
+    },
+    "required": [
+        "description",
+        "mesoatLRServiceRequest"
+    ],
+    "to_string": []
+}

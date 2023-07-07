@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "PartnerStandard",
+    "description": "PartnerStandard template",
+    "type": "object",
+    "class": "PartnerStandard",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Nom de l'organisation ou structure de recherche",
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name",
+            "form_label@fr_FR": "Nom",
+            "form_label@en_GB": "Name"
+        },
+        "acronym": {
+            "type": "string",
+            "description": "Acronyme de l'organisation ou structure de recherche",
+            "label@fr_FR": "Acronyme",
+            "label@en_GB": "Acronym",
+            "form_label@fr_FR": "Acronyme",
+            "form_label@en_GB": "Acronym"
+        },
+        "orgId": {
+            "type": "string",
+            "description": "Identifiant de l'organisation ou structure partenaire",
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier",
+            "form_label@fr_FR": "Identifiant",
+            "form_label@en_GB": "Identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant (ROR) e l'organisation ou structure partenaire",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "registry_name": "AgentIdSystem",
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant",
+            "form_label@en_GB": "Identifier type"
+        },
+        "rnsr": {
+            "type": "string",
+            "description": "Idenfiant RNSR e l'organisation ou structure partenaire",
+            "label@fr_FR": "Identifiant RNSR",
+            "label@en_GB": "RNSR identifier",
+            "form_label@fr_FR": "Identifiant RNSR",
+            "form_label@en_GB": "RNSR identifier"
+        }
+    },
+    "required": [
+        "name"
+    ],
+    "to_string": [
+        "$.name",
+        " (",
+        "$.rnsr",
+        ") "
+    ],
+    "unicity": [
+        "rnsr"
+    ]
+}

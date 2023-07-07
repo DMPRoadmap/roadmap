@@ -1,0 +1,63 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "GenOuestServiceRequest",
+    "description": "GenOuestServiceRequest template",
+    "type": "object",
+    "class": "GenOuestServiceRequest",
+    "properties": {
+        "serviceType": {
+            "type": "string",
+            "description": "Le type de service",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type de service",
+            "label@en_GB": "Service type",
+            "registry_name": "GenOuestServiceType",
+            "form_label@fr_FR": "Type de service",
+            "form_label@en_GB": "Service type"
+        },
+        "initialRequest": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GenOuestRequest",
+            "required": [
+                "dbid"
+            ],
+            "description": "La demande initiale",
+            "label@fr_FR": "Demande initiale",
+            "label@en_GB": "Initial request",
+            "form_label@fr_FR": "Demande initiale",
+            "form_label@en_GB": "Initial request"
+        },
+        "extensionRequest": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GenOuestRequest",
+            "required": [
+                "dbid"
+            ],
+            "description": "Demande complémentaire",
+            "label@fr_FR": "Demande complémentaire (si besoin d'espace de stockage supplémentaire, indiquer la volumétrie totale)",
+            "label@en_GB": "Additional request (If additional storage space is required, indicate the total volumetry)",
+            "form_label@fr_FR": "Demande complémentaire (si besoin d'espace de stockage supplémentaire, indiquer la volumétrie totale)",
+            "form_label@en_GB": "Additional request (If additional storage space is required, indicate the total volumetry)"
+        }
+    },
+    "required": [
+        "serviceType",
+        "initialRequest"
+    ],
+    "to_string": [
+        "$.serviceType"
+    ]
+}

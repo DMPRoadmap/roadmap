@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "MetadataStandardStandard",
+    "description": "MetadataStandardStandard template",
+    "type": "object",
+    "class": "MetadataStandardStandard",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Nom du standard",
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name",
+            "tooltip@fr_FR": "Enoncer le standard ou une liste de champs/attributs utilisé pour décrire les données, les représenter ou les annoter (Vocabulaires ",
+            "tooltip@en_GB": "Standard (or list of fields/attributes) used to describe data, to represent or annotate data (FAIR compliant vocabularies): eg. EML, DICOM, EDAM",
+            "example@fr_FR": "DataCite, ISA Tab, DDI, EML, DarwinCore, EDAM, OBI",
+            "example@en_GB": "DataCite, ISA Tab, DDI, EML, DarwinCore, EDAM, OBI",
+            "form_label@fr_FR": "Nom",
+            "form_label@en_GB": "Name"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description du modèle ou vocabulaire choisi pour représenter les métadonnées ou données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        },
+        "metadataStandardId": {
+            "type": "string",
+            "description": "Identifiant du standard",
+            "label@fr_FR": "Identifiant du standard utilisé",
+            "label@en_GB": "Standard Identifier",
+            "tooltip@fr_FR": "Identifiant d'un standard signalé dans un catalogue",
+            "tooltip@en_GB": "Identifier of a standard from a catalogue",
+            "example@fr_FR": "Identifiant dans FAIRSharing ou le RDA Metadata Standard Catalog (https://rdamsc.bath.ac.uk/)",
+            "example@en_EN": "Identifier in FAIRSharing or RDA Metadata Standard Catalog (https://rdamsc.bath.ac.uk/)",
+            "form_label@fr_FR": "Identifiant du standard utilisé",
+            "form_label@en_GB": "Standard Identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "registry_name": "PIDSystem",
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant",
+            "form_label@en_GB": "Identifier type"
+        }
+    },
+    "required": [
+        "name",
+        "metadataStandardId",
+        "idType"
+    ],
+    "to_string": [
+        "$.name",
+        " : ",
+        "$.metadataStandardId"
+    ]
+}

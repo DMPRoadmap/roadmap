@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "MethodReference",
+    "description": "MethodReference template",
+    "type": "object",
+    "class": "MethodReference",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre de la méthode",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "form_label@fr_FR": "Titre de la méthode",
+            "form_label@en_GB": "Method title"
+        },
+        "methodIdentifier": {
+            "type": "string",
+            "description": "Identifiant de la méthode",
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier",
+            "form_label@fr_FR": "Identifiant de la méthode",
+            "form_label@en_GB": "Method identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "registry_name": "PIDSystem",
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant",
+            "form_label@en_GB": "Identifier"
+        }
+    },
+    "required": [
+        "title",
+        "methodIdentifier",
+        "idType"
+    ],
+    "to_string": [
+        "$.title",
+        " : ",
+        "$.methodIdentifier"
+    ]
+}

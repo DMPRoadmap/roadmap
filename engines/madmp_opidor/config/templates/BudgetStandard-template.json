@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "BudgetStandard",
+    "description": "BudgetStandard template",
+    "type": "object",
+    "class": "BudgetStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description générale des coûts et des ressources (rôles, responsabilités, …) utilisés pour la gestion des données de la recherche",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Elément de description des coûts",
+            "label@fr_FR": "Liste des coûts, s'ils n'ont pas été détaillés dans les questions précédentes",
+            "label@en_GB": "List of costs, if they have not been detailed in the previous questions",
+            "form_label@fr_FR": "Liste détaillée des coûts",
+            "form_label@en_GB": "Details of cost description"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

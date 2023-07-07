@@ -1,0 +1,172 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DistributionStandard",
+    "description": "DistributionStandard template",
+    "type": "object",
+    "class": "DistributionStandard",
+    "properties": {
+        "fileName": {
+            "type": "string",
+            "description": "Nom du fichier",
+            "label@fr_FR": "Nom du fichier",
+            "label@en_GB": "Filename",
+            "form_label@fr_FR": "Nom du fichier",
+            "form_label@en_GB": "Filename"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description succinte des données contenues dans le fichier",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Description du contenu de la distribution",
+            "tooltip@en_GB": "Description of the distribution content",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        },
+        "releaseDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date à laquelle les donnés sont publiées",
+            "label@fr_FR": "Date de diffusion",
+            "label@en_GB": "Release date",
+            "form_label@fr_FR": "Date de diffusion",
+            "form_label@en_GB": "Release date"
+        },
+        "dataAccess": {
+            "type": "string",
+            "description": "Condition d'accès aux données (ouvert, restreint, fermé)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Mode d'accès",
+            "label@en_GB": "DataAccess",
+            "registry_name": "DataAccess",
+            "form_label@fr_FR": "Mode d'accès",
+            "form_label@en_GB": "DataAccess"
+        },
+        "fileFormat": {
+            "type": "string",
+            "description": "Format du fichier : MIME type recommandé",
+            "inputType": "dropdown",
+            "label@fr_FR": "Format du fichier",
+            "label@en_GB": "File format",
+            "registry_name": "MediaType",
+            "overridable": true,
+            "tooltip@fr_FR": "Format sous forme MIME type",
+            "tooltip@en_GB": "Format expressed as MIME type",
+            "example@fr_FR": "text/csv, text/markdown, video/JPEG, application/json,... ",
+            "example@en_GB": "text/csv, text/markdown, video/JPEG, application/json,... ",
+            "form_label@fr_FR": "Format du fichier",
+            "form_label@en_GB": "File format"
+        },
+        "application": {
+            "type": "string",
+            "description": "Nom du logiciel permettant la lecture, la réutilisation des données",
+            "label@fr_FR": "Application",
+            "label@en_GB": "Application",
+            "tooltip@fr_FR": "Application permettant de lire le fichier",
+            "tooltip@en_GB": "Application to read the data",
+            "form_label@fr_FR": "Application",
+            "form_label@en_GB": "Application"
+        },
+        "fileVolume": {
+            "type": "number",
+            "description": "Nombre d'octets",
+            "label@fr_FR": "Volume du fichier",
+            "label@en_GB": "File volume",
+            "form_label@fr_FR": "Volume du fichier",
+            "form_label@en_GB": "File volume"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "inputType": "dropdown",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "registry_name": "VolumeUnit",
+            "overridable": true,
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        },
+        "availableUntil": {
+            "type": "string",
+            "format": "date",
+            "description": "Date jusqu'à laquelle les données sont disponibles chez cet hébergeur (entrepôt ou centre de calcul, …)",
+            "label@fr_FR": "Disponible jusqu'à",
+            "label@en_GB": "Available until",
+            "form_label@fr_FR": "Disponible jusqu'à",
+            "form_label@en_GB": "Available until"
+        },
+        "accessUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL d'une ressource qui donne accès au fichier de données (landing page, SPARQL endpoint, feed)",
+            "label@fr_FR": "URL d'accès",
+            "label@en_GB": "Access URL",
+            "tooltip@fr_FR": "URL d'un service ou d'un lieu qui peut donner accès à cette distribution, généralement par le biais d'un formulaire Web, d'une requête ou d'un appel API.",
+            "tooltip@en_GB": "URL of a service or location that can provide access to this distribution, typically through a Web form, query or API cal",
+            "form_label@fr_FR": "URL d'accès",
+            "form_label@en_GB": "Access URL"
+        },
+        "downloadUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL du fichier à télécharger dans un format donné",
+            "label@fr_FR": "URL de téléchargement",
+            "label@en_GB": "Download URL",
+            "tooltip@fr_FR": "URL d'un fichier téléchargeable dans un format donné",
+            "tooltip@en_GB": "URL of the downloadable file in a given format",
+            "form_label@fr_FR": "URL de téléchargement",
+            "form_label@en_GB": "Download URL"
+        },
+        "license": {
+            "type": "object",
+            "class": "License",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "LicenseStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Licence apposée aux données",
+            "label@fr_FR": "Licence",
+            "label@en_GB": "License",
+            "inputType": "dropdown",
+            "registry_name": "DataLicenses",
+            "overridable": true,
+            "form_label@fr_FR": "Licence",
+            "form_label@en_GB": "License"
+        },
+        "licenseStartDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de début de la licence correspond à la date de publication/mise à disposition des données (dct:issued dans Dcat). Si la date est dans le futur, cela indique qu'il y a un embargo.",
+            "label@fr_FR": "Date de début de la licence",
+            "label@en_GB": "License start date",
+            "tooltip@fr_FR": "Date à laquelle la license s'applique. Si fixée dans le futur, elle indique un embargo",
+            "tooltip@en_GB": "Date when license is applied. If date set in the future, it indicates embargo period",
+            "form_label@fr_FR": "Date de début de la licence",
+            "form_label@en_GB": "License start date"
+        }
+    },
+    "required": [
+        "fileName",
+        "releaseDate",
+        "dataAccess",
+        "fileFormat",
+        "fileVolume",
+        "availableUntil",
+        "accessUrl",
+        "license",
+        "licenseStartDate"
+    ],
+    "to_string": [
+        "$.fileName",
+        " (",
+        "$.fileFormat",
+        ")"
+    ]
+}
