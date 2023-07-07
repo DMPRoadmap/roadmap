@@ -16,7 +16,7 @@ if org.is_a?(RegistryOrg)
     if org.api_target.present?
       json.funder_api org.api_target
       json.funder_api_guidance org.api_guidance
-      json.funder_api_query_fields org.api_query_fields.present? ? JSON.parse(org.api_query_fields) : nil
+      json.funder_api_query_fields org.api_query_fields.present? ? (org.api_query_fields) : nil
     end
   else
     json.affiliation_id do
