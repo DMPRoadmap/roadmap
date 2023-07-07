@@ -71,7 +71,7 @@ module Api
         matches = RegistryOrg.includes(org: :users).search(term)
 
         # If we're filtering by funder status
-        return matches.where.not(fundref_id: nil) if funder_only
+        return matches.where.not(fundref_id: [nil, '']) if funder_only
 
         matches
       end

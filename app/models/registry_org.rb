@@ -15,6 +15,10 @@
 #  acronyms               :json
 #  aliases                :json
 #  country                :json
+#  api_target             :string
+#  api_auth_target        :string
+#  api_guidance           :text
+#  api_query_fields       :json
 #  file_timestamp         :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
