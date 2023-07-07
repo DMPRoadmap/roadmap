@@ -72,11 +72,11 @@ chdir APP_ROOT do
     "s/^secret_key_base:(.*)$/\secret_key_base:\s#{ENV["SECRET_KEY_BASE"] || 'my_secret_key'}/",
     "s/^db_username:(.*)$/\db_username:\s#{ENV["DB_USERNAME"] || db_username[params] || db_username['postgres']}/",
     "s/^db_password:(.*)$/\db_password:\s#{ENV["DB_PASSWORD"] || ''}/",
-    "s/^secret_key:(.*)$/\secret_key:\s#{ENV["SECRET_KEY"] || 'my_secret_key'}/",
+    "s/^secret_key:(.*)$/\\secret_key:\s#{ENV["SECRET_KEY"] || 'my_secret_key'}/",
     "s/^devise_pepper:(.*)$/\devise_pepper:\s#{ENV["DEVISE_PEPPER"] || 'my_secret_key'}/",
     "s/^dragonfly_secret:(.*)$/\dragonfly_secret:\s#{ENV["DRAGON_FLY_SECRET"] || 'my_secret_key'}/",
-    "s/[\s]+site_key:(.*)/\\\s\\ssite_key:\s#{ENV["RECAPTCHA_SITE_KEY"] || '11111'}/",
-    "s/[\s]+secret_key:(.*)$/\\\s\\ssecret_key:\s#{ENV["RECAPTCHA_SECRET_KEY"] || '22222'}/",
+    "s/^[\s]+site_key:(.*)$/\  site_key:\s#{ENV["RECAPTCHA_SITE_KEY"] || '11111'}/",
+    "s/^[\s]+secret_key:(.*)$/\  secret_key:\s#{ENV["RECAPTCHA_SECRET_KEY"] || '22222'}/",
   ].join(';')
   credentials_data = `sed -E \"#{regex}\" config/credentials.yml.sample`
   system! "EDITOR='echo \"#{credentials_data}\" >' bundle exec rails credentials:edit"
