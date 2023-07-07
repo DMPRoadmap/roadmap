@@ -43,18 +43,7 @@ function PlanFunders() {
 
 
   const handleFunderNotListedChange = (e) => {
-
     setFunderNotListed(e.target.checked ? "true" : "false");
-    if (FunderNotListed == "true") {
-
-      /*
-      if (Funder && FunderNotListedName == "") {
-        console.log("set funder not listed name to funder value")
-        setFunderNotListedName("test");
-      }
-*/
-    }
-
   };
 
 
@@ -242,7 +231,6 @@ function PlanFunders() {
                     required="required"
                     name="not_listed_funder_name"
                     id="not_listed_funder_name"
-                    value={FunderNotListedName}
                     inputValue={FunderNotListedName}
                     onChange={e => setFunderNotListedName(e.target.value)}
                     placeholder=""

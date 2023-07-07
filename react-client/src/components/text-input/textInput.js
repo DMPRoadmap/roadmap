@@ -6,11 +6,6 @@ function TextInput(props) {
     const [inputType] = useState(props.type);
     const [inputValue, setInputValue] = useState('');
 
-    function handleChange(event) {
-        const newValue = event.target.value
-        setInputValue(newValue);
-        if (props.onChange) props.onChange(newValue);
-    };
 
 
     let errorMsg = props?.error ? props.error : "";
@@ -47,7 +42,7 @@ function TextInput(props) {
                         value={inputValue}
                         name={props?.name ? props.name : ""}
                         id={props?.id ? props.id : ""}
-                        onChange={handleChange}
+                        onChange={e => setInputValue(e.target.value)}
                         placeholder={props?.placeholder}
                         autoComplete={props?.autocomplete ? props.autocomplete : "off"}
                         className="dmpui-field-input-text" />
