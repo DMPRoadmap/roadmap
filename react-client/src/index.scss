@@ -22,9 +22,10 @@ code {
 
   --dmpui-brand-gray-100: #F2F2F2;
 
-  --dmpui-brand-blue-100: #F0FBFF;
-  //--dmpui-brand-blue-200: #000;
-  //--dmpui-brand-blue-300: #000;
+  --dmpui-brand-blue-100: #f0fbff;
+  --dmpui-brand-blue-200: #eff6ff;
+
+
   --dmpui-brand-blue-400: #54D8FF;
   --dmpui-brand-blue-500: #004eaa;
   //--dmpui-brand-blue-600: #000;
@@ -36,8 +37,11 @@ code {
 
   --dmpui-brand-red-500: #D3273E;
 
-
+  --dmpui-brand-yellow-100: #fefce8;
   --dmpui-brand-yellow-500: #FFC845;
+
+
+  --dmpui-brand-green-100: #f0fdf4;
   --dmpui-brand-green-500: #006C6C;
 
 
@@ -270,27 +274,27 @@ body {
 }
 
 .step-status {
-  padding: 0.3rem 1rem;
+  padding: 0.3rem 0.8rem;
   background: var(--dmpui-brand-gray-100);
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 700;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 300;
   line-height: normal;
   color: var(--dmpui-brand-blue-900);
 
   &.status-completed {
-    background-color: var(--dmpui-brand-yellow-500);
+    background-color: var(--dmpui-brand-green-100);
     color: var(--dmpui-brand-blue-900);
   }
 
   &.status-recommended {
-    background-color: var(--dmpui-brand-blue-400);
+    background-color: var(--dmpui-brand-blue-100);
     color: var(--dmpui-brand-blue-900);
   }
 
   &.status-notstart {
-    background-color: var(--dmpui-brand-blue-900);
-    color: var(--dmpui-brand-blue-400);
+    background-color: var(--dmpui-brand-blue-200);
+    color: var(--dmpui-brand-blue-900);
   }
 }
 
