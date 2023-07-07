@@ -4,14 +4,6 @@ import { useState } from "react";
 
 function RadioButton(props) {
 
-    const [inputValue, setInputValue] = useState(false);
-
-    const handleChange = () => {
-
-
-        setInputValue(!value);
-
-    };
 
 
     let errorMsg = props?.error ? props.error : "";
@@ -22,17 +14,15 @@ function RadioButton(props) {
     }
 
 
-
     return (
         <>
             <div className="dmpui-field-radio-group">
-
                 <input type="radio"
                     className="dmpui-field-input-radio"
                     name={props?.name ? props.name : ""}
                     id={props?.id ? props.id : ""}
                     checked={props?.checked ? props.checked : ""}
-                    value={props?.value ? props.value : "false"}
+                    value={props?.inputValue ? props.inputValue : "x"}
                 />
                 <label htmlFor={props?.id ? props.id : ""} className="radio-label" >
                     {props?.label ? props.label : ""}

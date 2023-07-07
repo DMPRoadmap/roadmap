@@ -141,7 +141,6 @@ function PlanOverview() {
                       className="dmpui-field-input-radio"
                       name="plan_visible"
                       id="plan_visible_false"
-
                       value="private"
                     />
                     <label htmlFor="plan_visible_false" className="radio-label" >

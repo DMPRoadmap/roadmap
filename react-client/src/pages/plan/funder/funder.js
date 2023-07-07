@@ -26,11 +26,11 @@ function PlanFunders() {
 
 
 
-  const [hasFunder, sethasFunder] = React.useState("true") // 0: no show, 1: show yes, 2: show no.
-
-
+  const [hasFunder, sethasFunder] = React.useState("no");
   const handleOptionChange = (e) => {
-
+    sethasFunder(e.target.value);
+    console.log("on change");
+    console.log(e.target.value);
   };
 
 
@@ -149,28 +149,23 @@ function PlanFunders() {
 
 
 
-                  <RadioButton
-                    label="No"
-                    name="have_funder"
-                    id="have_funder_no"
-                    value="false"
-                    inputValue="false"
+                  <div onChange={handleOptionChange}>
+                    <RadioButton
+                      label="No"
+                      name="have_funder"
+                      id="have_funder_no"
+                      inputValue="no"
+                      checked={hasFunder === "no"}
+                    />
 
-                    onClick={(e) => handleOptionChange("false")}
-                  />
-
-                  <RadioButton
-                    label="Yes, I have a funder"
-                    name="have_funder"
-                    id="have_funder_yes"
-                    inputValue="true"
-                    value="true"
-                    checked="checked"
-
-                    onClick={(e) => handleOptionChange("true")}
-
-                  />
-
+                    <RadioButton
+                      label="Yes, I have a funder"
+                      name="have_funder"
+                      id="have_funder_yes"
+                      inputValue="yes"
+                      checked={hasFunder === "yes"}
+                    />
+                  </div>
 
 
                 </div>
@@ -179,38 +174,36 @@ function PlanFunders() {
 
 
 
+            {(hasFunder && hasFunder === "yes") && (
 
+              <div className="dmpui-form-cols">
+                <div className="dmpui-form-col">
+                  <FunderLookup
+                    label="Funder Name"
 
-            <div className="dmpui-form-cols">
-              <div className="dmpui-form-col">
-
-                <FunderLookup
-                  label="Funder Name"
-
-                  name="funder_not_listed"
-                  id="funder_not_listed"
-                  placeholder=""
-                  help=""
-
-                  error=""
-                />
-
-
-                <div className="dmpui-field-checkbox-group not-listed">
-
-                  <input id="id_funder_not_listed"
-                    className="dmpui-field-input-checkbox"
                     name="funder_not_listed"
-                    value="true"
-                    type="checkbox" />
-                  <label htmlFor="id_funder_not_listed" className="checkbox-label">
-                    My funder isn't listed
-                  </label>
+                    id="funder_not_listed"
+                    placeholder=""
+                    help="Search for your funder by name."
+
+                    error=""
+                  />
+
+
+                  <div className="dmpui-field-checkbox-group not-listed">
+
+                    <input id="id_funder_not_listed"
+                      className="dmpui-field-input-checkbox"
+                      name="funder_not_listed"
+                      value="true"
+                      type="checkbox" />
+                    <label htmlFor="id_funder_not_listed" className="checkbox-label">
+                      My funder isn't listed
+                    </label>
+                  </div>
                 </div>
               </div>
-            </div>
-
-
+            )}
 
 
           </div>
