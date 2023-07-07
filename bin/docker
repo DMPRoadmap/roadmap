@@ -69,7 +69,7 @@ chdir APP_ROOT do
     "mysql" => 'root'
   }
   regex = [
-    "s/^secret_key_base:(.*)$/\secret_key_base:\s#{ENV["SECRET_KEY_BASE"] || 'my_secret_key'}/",
+    "s/^secret_key_base:(.*)$/\\secret_key_base:\s#{ENV["SECRET_KEY_BASE"] || 'my_secret_key'}/",
     "s/^db_username:(.*)$/\db_username:\s#{ENV["DB_USERNAME"] || db_username[params] || db_username['postgres']}/",
     "s/^db_password:(.*)$/\db_password:\s#{ENV["DB_PASSWORD"] || ''}/",
     "s/^secret_key:(.*)$/\\secret_key:\s#{ENV["SECRET_KEY"] || 'my_secret_key'}/",
