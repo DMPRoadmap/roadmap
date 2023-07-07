@@ -58,13 +58,6 @@ docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run
 # Setup database
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
 
-# Load re3data data in database
-docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/rails external_api:load_re3data_repos'
-
-# Add DMP OPIDoR migrations
-docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_0_0'
-docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_4_0'
-
 # Run all services
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev up -d
 ```

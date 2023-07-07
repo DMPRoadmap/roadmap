@@ -170,8 +170,10 @@ namespace :madmpopidor do
   desc 'Seeds the database with the madmp data'
   task seed: :environment do
     p 'Seeding database...'
+    Rake::Task['madmpopidor:load_registries'].execute
     Rake::Task['madmpopidor:load_templates'].execute
     load(Rails.root.join('db', 'madmp_seeds.rb'))
+    Rake::Task['madmpopidor:initialize_plan_fragments'].execute
   end
 
   # Load templates form an index file
