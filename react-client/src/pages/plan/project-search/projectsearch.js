@@ -1,6 +1,6 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState, Fragment } from "react";
 
 import { DmpApi } from "../../../api";
 
@@ -12,6 +12,39 @@ function ProjectSearch() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState({});
+
+  let contributors = [
+    {
+      id: "3523535",
+      name: "Dinosaur Decibels: How Roaring Dinosaurs Impact Children's Education",
+      role: "8881-2424-2424-1133",
+    },
+    {
+      id: "3245678",
+      name: "Bibliophiles Unleashed: The Impact of Reading Aloud in Early Childhood Education",
+      role: "8881-2424-2424-1134",
+    },
+    {
+      id: "3879123",
+      name: "Mathematical Mountains: Scaling the Heights of Mathematics Achievement in Primary Schools",
+      role: "8881-2424-2424-1135",
+    },
+    {
+      id: "4098234",
+      name: "Educational Ecosystems: The Role of School Gardens in Holistic Learning",
+      role: "8881-2424-2424-1136",
+    },
+    {
+      id: "5123987",
+      name: "Tech Titans: The Transformative Power of Digital Tools in Modern Classrooms",
+      role: "8881-2424-2424-1137",
+    },
+    {
+      id: "6123459",
+      name: "Mindful Classrooms: Exploring the Integration of Mindfulness Practices in K-12 Education",
+      role: "8881-2424-2424-1138",
+    },
+  ];
 
   useEffect(() => {
     let api = new DmpApi();
@@ -25,18 +58,14 @@ function ProjectSearch() {
       });
   }, [dmpId]);
 
+  async function handleSearch(ev) {
+    ev.preventDefault();
+
+    //navigate(`/dashboard/dmp/${dmpId}/project-details?locked=true`);
+  }
+
   async function handleSubmit(ev) {
     ev.preventDefault();
-    let api = new DmpApi();
-
-    // Collect the form data
-    var stepData = {};
-    const form = ev.target;
-    const formData = new FormData(form);
-
-    formData.forEach((value, key) => (stepData[key] = value));
-
-    console.log("search submit..");
 
     navigate(`/dashboard/dmp/${dmpId}/project-details?locked=true`);
   }
@@ -113,6 +142,25 @@ function ProjectSearch() {
         </form>
       </div>
 
+      <div className="dmpdui-list ">
+        <div className="data-heading" data-colname="name">
+          Project Name
+        </div>
+        <div className="data-heading" data-colname="role">
+          ID
+        </div>
+        <div className="data-heading" data-colname="actions"></div>
+        {contributors.map((item) => (
+          <Fragment key={item.id}>
+            <div data-colname="name">{item.name}</div>
+            <div data-colname="role">{item.role}</div>
+            <div data-colname="actions">
+              <button onClick={handleSubmit}>Select</button>
+            </div>
+          </Fragment>
+        ))}
+      </div>
+
       <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
         <div className="form-wrapper"></div>
 
@@ -120,6 +168,7 @@ function ProjectSearch() {
           <button type="button" onClick={() => navigate(-1)}>
             Cancel
           </button>
+
           <button type="submit" className="primary">
             Save &amp; Continue
           </button>
