@@ -1,34 +1,21 @@
-import {
-  Link,
-  useParams,
-  useNavigate,
-} from 'react-router-dom';
+import { Link, useParams, useNavigate } from "react-router-dom";
 
-import {
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from "react";
 
-import { DmpApi } from '../../../api';
+import { DmpApi } from "../../../api";
 
 // forms
-import TextInput from '../../../components/text-input/textInput';
-import TextArea from '../../../components/textarea/textArea';
-
-
-
+import TextInput from "../../../components/text-input/textInput";
+import TextArea from "../../../components/textarea/textArea";
 
 function ProjectDetails() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState({});
 
-
   async function handleSubmit(ev) {
     ev.preventDefault();
     let api = new DmpApi();
-
-
 
     navigate(`/dashboard/dmp/${dmpId}/`);
 
@@ -51,24 +38,16 @@ function ProjectDetails() {
           navigate(`/dashboard/dmp/${dmp.wip_id.identifier}`);
         });
     */
-
-
   }
 
   return (
     <div id="ProjectDetails">
-
       <div className="dmpui-heading">
         <h1>Plan Details</h1>
       </div>
 
-
-
-
       <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
         <div className="form-wrapper">
-
-
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
               <TextInput
@@ -97,7 +76,6 @@ function ProjectDetails() {
             </div>
           </div>
 
-
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
               <TextArea
@@ -115,7 +93,6 @@ function ProjectDetails() {
 
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
-
               <TextInput
                 label="Project Start Date"
                 type="date"
@@ -138,14 +115,11 @@ function ProjectDetails() {
                 help=""
                 error=""
               />
-
             </div>
-
           </div>
 
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
-
               <TextInput
                 label="Opportunity / Federal award number"
                 type="text"
@@ -158,24 +132,19 @@ function ProjectDetails() {
               />
             </div>
           </div>
-
-
-
-
-
         </div>
 
         <div className="form-actions ">
-          <button type="button" onClick={() => navigate(-1)}>Cancel</button>
+          <button type="button" onClick={() => navigate(-1)}>
+            Cancel
+          </button>
           <button type="submit" className="primary">
             Save &amp; Continue
           </button>
         </div>
       </form>
-
-
     </div>
-  )
+  );
 }
 
 export default ProjectDetails;

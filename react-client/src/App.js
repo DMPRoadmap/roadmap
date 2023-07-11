@@ -1,32 +1,25 @@
-import React from 'react';
+import React from "react";
 
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
-
-
-import Dashboard from './pages/dashboard/dashboard';
-import PlanOverview from './pages/plan/overview/overview';
-import PlanNew from './pages/plan/new-plan/new';
-import PlanFunders from './pages/plan/funder/funder';
-import ProjectDetails from './pages/plan/project-details/projectdetails';
-import ProjectSearch from './pages/plan/project-search/projectsearch';
-import Contributors from './pages/plan/contributors/contributors';
-import ResearchOutputs from './pages/plan/research-outputs/researchoutputs';
-import './App.css';
+import Dashboard from "./pages/dashboard/dashboard";
+import PlanOverview from "./pages/plan/overview/overview";
+import PlanNew from "./pages/plan/new-plan/new";
+import PlanFunders from "./pages/plan/funder/funder";
+import ProjectDetails from "./pages/plan/project-details/projectdetails";
+import ProjectSearch from "./pages/plan/project-search/projectsearch";
+import Contributors from "./pages/plan/contributors/contributors";
+import ResearchOutputs from "./pages/plan/research-outputs/researchoutputs";
 
 const router = createBrowserRouter([
   {
     path: "/dashboard",
-    element: <Dashboard />
+    element: <Dashboard />,
   },
 
   {
     path: "/dashboard/dmp/new",
-    element: <PlanNew />
+    element: <PlanNew />,
   },
 
   {
@@ -56,19 +49,15 @@ const router = createBrowserRouter([
     path: "/dashboard/dmp/:dmpId/research-outputs",
     element: <ResearchOutputs />,
   },
-
 ]);
-
 
 function App() {
   return (
     <div id="App">
       <main>
-        <RouterProvider
-          router={router}
-        />
+        <RouterProvider router={router} />
       </main>
-    </div >
+    </div>
   );
 }
 
