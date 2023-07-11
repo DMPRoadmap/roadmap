@@ -164,6 +164,11 @@ input[type="submit"] {
     &:focus:invalid {
       border-color: red;
     }
+
+    &:disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
   }
 
   textarea {
@@ -218,4 +223,8 @@ input[type="submit"] {
     }
   }
 
+}
+
+.group-disabled {
+  opacity: 0.5;
 }

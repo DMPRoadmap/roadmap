@@ -38,7 +38,7 @@ function ProjectSearch() {
 
     console.log("search submit..");
 
-    navigate(`/dashboard/dmp/${dmpId}/project-details`);
+    navigate(`/dashboard/dmp/${dmpId}/project-details?locked=true`);
   }
 
   return (

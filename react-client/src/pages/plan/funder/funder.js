@@ -64,7 +64,11 @@ function PlanFunders() {
 
     console.log(`/dashboard/dmp/${dmpId}/project-search`);
 
-    navigate(`/dashboard/dmp/${dmpId}/project-search`);
+    if (FunderNotListed == "true") {
+      navigate(`/dashboard/dmp/${dmpId}/project-details`);
+    } else {
+      navigate(`/dashboard/dmp/${dmpId}/project-search?f=` + Funder);
+    }
 
     // TODO:: Add the funder to the DMP data
     // This is the expected structure to add to the DMP
@@ -150,6 +154,7 @@ function PlanFunders() {
               <div className="dmpui-form-cols">
                 <div className="dmpui-form-col">
                   <FunderLookup
+                    disabled={FunderNotListed === "true"}
                     label="Find funder"
                     inputValue={Funder}
                     name="funder"
