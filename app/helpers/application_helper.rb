@@ -71,7 +71,7 @@ module ApplicationHelper
       'https://portagenetwork.ca/fr/outils-et-ressources/assistant-pgd/conditions-dutilisation-de-lassistant-pgd/'
     else
       # Handling "en_CA" locale
-      'https://portagenetwork.ca/tools-and-resources/dmp-assistant/dmp-assistant-terms-of-use/'
+      'https://assistant.portagenetwork.ca/terms'
     end
   end
 
