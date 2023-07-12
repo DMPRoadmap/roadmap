@@ -190,13 +190,7 @@ body {
   }
 }
 
-.form-wrapper {
-  text-align: left;
-  padding: 20px;
-  border: 1px solid #eee;
-  margin-bottom: 2rem;
-  border-radius: 12px;
-}
+
 
 .plan-steps {
   text-align: left;
@@ -301,64 +295,12 @@ body {
 }
 
 
-.dmpui-search-form-container {
-  padding: 2rem;
-  background-color: var(--dmpui-brand-blue-100);
-}
-
-
-
-
 
 
 
 @import './components/responsive';
 
-#Dashboard {}
 
-#Dashboard h2 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#Dashboard .project-list {
-  display: grid;
-  grid-gap: var(--grid-gap);
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
-
-  [data-colname="funder"],
-  [data-colname="grantId"],
-  [data-colname="dmpId"],
-  [data-colname="actions"] {
-    display: none;
-  }
-
-  @include device(tablet) {
-    grid-template-columns: repeat(3, 1fr);
-
-    [data-colname="funder"] {
-      display: block;
-    }
-  }
-
-  @include device(laptop) {
-    grid-template-columns: repeat(6, 1fr);
-
-    [data-colname="grantId"],
-    [data-colname="dmpId"],
-    [data-colname="actions"] {
-      display: block;
-    }
-  }
-
-  @include device(laptop-large) {}
-}
-
-#Dashboard .exit-prototype {
-  font-size: 9pt;
-}
 
 
 

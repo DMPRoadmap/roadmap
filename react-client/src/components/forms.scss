@@ -60,7 +60,13 @@ input[type="submit"] {
 
 }
 
-.form-wrapper {}
+.form-wrapper {
+  text-align: left;
+  padding: 20px;
+  border: 1px solid #eee;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+}
 
 
 
@@ -227,4 +233,10 @@ input[type="submit"] {
 
 .group-disabled {
   opacity: 0.5;
+}
+
+
+.dmpui-search-form-container {
+  padding: 2rem;
+  background-color: var(--dmpui-brand-blue-100);
 }
