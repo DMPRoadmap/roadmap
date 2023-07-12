@@ -4,7 +4,6 @@ module Api
   module V3
     # Endpoints that proxy calls to other external systems
     class ProxiesController < BaseApiController
-
       # GET /api/v3/awards/crossref/{:fundref_id}?{query_string_args}
       #        Allows the following query string arguments:
       #          keywords={words}&project={project}&opportunity={opportunity}&pi_names={pi_names}&years={years}
@@ -44,6 +43,23 @@ module Api
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::ProxiesController.nsf_awards #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
+      end
+
+      # POST /api/v3/dmps/{:id}/register
+      #        Register the DMP ID for the specified Work in Progress (WIP) DMP
+      def register_dmp_id
+        dmp = Dmp.find_by(id: params[:id])
+        render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
+        render_error(errors: DmpsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
+
+        result = dmp.register_dmp_id!
+        render_error(errors: DmpsController::MSG_DMP_ID_REGISTRATION_FAILED, status: :bad_request) and return if result.nil?
+
+        @items = paginate_response(results: [result])
+        render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::ProxiesController.register_dmp_id #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 

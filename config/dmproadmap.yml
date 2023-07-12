@@ -121,7 +121,7 @@ default: &default
   # See https://github.com/CDLUC3/dmphub
   dmphub_active: true
   dmphub_url: "https://api.dmphub-dev.cdlib.org/"
-  dmphub_landing_page_url: "https://dmphub-dev.cdlib.org/dmps/doi:"
+  dmphub_landing_page_url: "https://dmphub-dev.cdlib.org/dmps/"
   dmphub_auth_url: 'https://auth.dmphub-dev.cdlib.org/'
   # You should also check the config/initializers/external_apis/dmphub.rb config
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_15_174631) do
+ActiveRecord::Schema.define(version: 2023_06_30_204500) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -143,6 +143,16 @@ ActiveRecord::Schema.define(version: 2023_06_15_174631) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["org_id"], name: "index_departments_on_org_id"
+  end
+
+  create_table "dmps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "identifier"
+    t.json "metadata", null: false
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "dmp_id"
+    t.index ["identifier"], name: "index_dmps_on_identifier"
   end
 
   create_table "exported_plans", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
@@ -428,6 +438,7 @@ ActiveRecord::Schema.define(version: 2023_06_15_174631) do
     t.bigint "language_id"
     t.datetime "feedback_start_at"
     t.datetime "feedback_end_at"
+    t.string "dmp_id"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["language_id"], name: "index_plans_on_language_id"
@@ -803,15 +814,6 @@ ActiveRecord::Schema.define(version: 2023_06_15_174631) do
     t.integer "perm_id"
     t.index ["perm_id"], name: "fk_rails_457217c31c"
     t.index ["user_id"], name: "index_users_perms_on_user_id"
-  end
-
-  create_table "wips", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "identifier"
-    t.json "metadata", null: false
-    t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["identifier"], name: "index_wips_on_identifier"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

@@ -3,6 +3,8 @@
 <%
 dmp_id = plan.dmp_id
 
+publish_to_orcid_tooltip = _('Check this box if you would like this DMP to be added to the works section of your ORCID record.')
+
 if current_user == plan.owner
   orcid = plan.owner.identifier_for_scheme(scheme: "orcid")
   orcid_logo = "https://orcid.org/sites/default/files/images/orcid_16x16.png"
@@ -66,17 +68,15 @@ allow_minting = orcid.present? && orcid_access_token.present? if allow_minting &
         </ul>
       </legend>
       <div class="form-group col-xs-8">
-        <%= button_to _("Register Plan"), {
-          controller: 'plans',
-          action: 'mint',
-          data: { disable_with: "registering ..." }
-        },
-        {
-          remote: false,
-          method: :get,
-          class: "btn btn-default mint-dmp-id"
-        } %>
-        <p class="dmp-id-minter-response"></p>
+        <%= form_for @plan, url: mint_plan_path(@plan), method: :get do |f| %>
+          <div class="checkbox">
+            <label for="publish_to_orcid" class="control-label" title="<%= publish_to_orcid_tooltip %>">
+              <input type="checkbox" id="publish_to_orcid" name="publish_to_orcid"/>
+              <%= _('Cite this DMP in the \'works\' section of my ORCID record') %>
+            </label>
+          </div>
+          <%= f.submit _('Register plan'), class: "btn btn-default" %>
+        <% end %>
       </div>
     </fieldset>
   <% end %>

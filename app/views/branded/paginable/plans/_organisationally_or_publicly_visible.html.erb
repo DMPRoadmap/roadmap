@@ -1,0 +1,61 @@
+<% has_dmp_id = scope.select { |plan| plan.dmp_id.present? }.any? %>
+
+<% if current_user.org_id? %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">
+                <%= _('Project Title') %>&nbsp;
+                <%= paginable_sort_link('plans.title') %>
+              </th>
+              <th scope="col">
+                <%= _('Template') %>&nbsp;
+                <%= paginable_sort_link('templates.title') %>
+              </th>
+              <th scope="col"><%= _('Owner') %></th>
+              <th scope="col" class="date-column">
+                <%= _('Updated') %>&nbsp;
+                <%= paginable_sort_link('plans.updated_at') %>
+              </th>
+              <% if has_dmp_id %>
+                <th scope="col"><%= _('DMP ID') %></th>
+              <% end %>
+              <th scope="col" class="sorter-false download-column"><%= _('Download') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% scope.each do |plan| %>
+              <tr>
+                <td>
+                  <%= truncate plan.title, length: 40 %>
+                </td>
+                <td><%= plan.template.title %></td>
+                <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>
+                <td><%= l(plan.updated_at.localtime.to_date, formats: :short) %></td>
+                <% if has_dmp_id %>
+                  <td>
+                    <% if plan.dmp_id.present? %>
+                    <%= dmp_id_for_display(dmp_id: plan.dmp_id).html_safe %>
+                    <% end %>
+                  </td>
+                <% end %>
+                <td class="text-center">
+                  <%= link_to plan_export_path(plan, format: :pdf, export: { question_headings: true }),
+                      class: 'has-new-window-popup-info',
+                      target: '_blank' do %>
+                    <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                    <em class="sr-only"><%= _('(new window)') %></em>
+                    <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>

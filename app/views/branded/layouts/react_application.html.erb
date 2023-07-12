@@ -12,15 +12,53 @@
     <%= favicon_link_tag 'safari-pinned-tab.svg', rel: 'mask-icon', color: "#0E5682" %>
     <%= favicon_link_tag 'site.webmanifest', rel: 'manifest' %>
 
-    <%= javascript_include_tag "reactApplication", "data-turbo-track": "reload", defer: true %>
 
+   
+    
+    
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" media="screen" href="/dmptool-ui/main.css" />
+
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script src="/dmptool-ui/main.js" data-turbo-track="reload"></script>
+
+     <%= javascript_include_tag "reactApplication", "data-turbo-track": "reload", defer: true %>
+
+   
+     
     <%= csrf_meta_tags %>
 
     <meta name="msapplication-TileColor" content="#0e5682">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+
+
   </head>
-  <body>
-    <%= yield %>
+  <body class="<%= page_body_template %>">
+   
+
+
+     <a href="#maincontent" class="c-skipnav">Skip to main content</a>
+
+    <!-- header rendering -->
+    <header>
+      <%= render partial: "layouts/header_reactapp" %>
+      <%= render partial: "layouts/notifications", locals: local_assigns %>
+    </header>
+
+
+    <main id="maincontent" class="<%= @main_class %>">
+
+
+ <%= yield %>
+
+
+
+    </main>
+
+    
+    <footer><%= render "layouts/footer" %></footer>
+
   </body>
 </html>

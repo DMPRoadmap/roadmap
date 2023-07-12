@@ -1,7 +1,6 @@
-@import '../components/responsive';
+@import '../../components/responsive';
 
-#Dashboard {
-}
+#Dashboard {}
 
 #Dashboard h2 {
   display: flex;
@@ -18,22 +17,29 @@
   [data-colname="funder"],
   [data-colname="grantId"],
   [data-colname="dmpId"],
-  [data-colname="actions"] { display: none; }
+  [data-colname="actions"] {
+    display: none;
+  }
 
   @include device(tablet) {
     grid-template-columns: repeat(3, 1fr);
-    [data-colname="funder"] { display: block; }
+
+    [data-colname="funder"] {
+      display: block;
+    }
   }
 
   @include device(laptop) {
     grid-template-columns: repeat(6, 1fr);
+
     [data-colname="grantId"],
     [data-colname="dmpId"],
-    [data-colname="actions"] { display: block; }
+    [data-colname="actions"] {
+      display: block;
+    }
   }
 
-  @include device(laptop-large) {
-  }
+  @include device(laptop-large) {}
 }
 
 #Dashboard .exit-prototype {

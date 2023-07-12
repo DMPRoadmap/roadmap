@@ -3,11 +3,26 @@
 # Simple proxy service that determines which DMP ID minter to use
 class DmpIdService
   class << self
+
+    def fetch_dmp_id(dmp_id:)
+      return nil unless dmp_id.present?
+
+      svc = minter
+      return nil if svc.blank? # || !minting_service_defined?
+
+      svc.fetch_dmp_id(dmp_id: dmp_id)
+    rescue StandardError => e
+      Rails.logger.debug e.message
+      Rails.logger.error "DmpIdService.fetch_dmp_id for DMP ID #{dmp_id} resulted in: #{e.message}"
+      Rails.logger.error e.backtrace
+      nil
+    end
+
     # Registers a DMP ID for the specified plan.
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def mint_dmp_id(plan:, seeding: false)
       # plan must exist and not already have a DMP ID!
-      return nil unless minting_service_defined? && plan.is_a?(Plan)
+      return nil unless minting_service_defined? && (plan.is_a?(Plan) || plan.is_a?(Dmp))
       return plan.dmp_id if plan.dmp_id.present? && !seeding
 
       svc = minter
@@ -21,6 +36,7 @@ class DmpIdService
     rescue StandardError => e
       Rails.logger.debug e.message
       Rails.logger.error "DmpIdService.mint_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
+      Rails.logger.error e.backtrace
       nil
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -29,7 +45,8 @@ class DmpIdService
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def update_dmp_id(plan:)
       # plan must exist and have a DMP ID
-      return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan) && plan.dmp_id.present?
+      return nil unless minting_service_defined? && plan.present? && (plan.is_a?(Plan) || plan.is_a?(Dmp)) &&
+                        plan.dmp_id.present?
 
       svc = minter
       return nil if svc.blank?
@@ -37,7 +54,7 @@ class DmpIdService
       dmp_id = svc.update_dmp_id(plan: plan)
       return nil if dmp_id.blank?
     rescue StandardError => e
-      Rails.logger.error "DmpIdService.update_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
+      Rails.logger.error "DmpIdService.update_dmp_id for #{plan&.class&.name} #{plan&.id} resulted in: #{e.message}"
       Rails.logger.error e.backtrace
       nil
     end
@@ -47,7 +64,8 @@ class DmpIdService
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def delete_dmp_id(plan:)
       # plan must exist and have a DMP ID
-      return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan) && plan.dmp_id.present?
+      return nil unless minting_service_defined? && plan.present? && (plan.is_a?(Plan) || plan.is_a?(Dmp)) &&
+                        plan.dmp_id.present?
 
       svc = minter
       return nil if svc.blank?
@@ -60,6 +78,20 @@ class DmpIdService
       nil
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+    # Send the Plan's PDF to the DMP ID minting service
+    def publish_pdf(plan:, pdf_file_name:)
+      return false unless (plan.is_a?(Plan) || plan.is_a?(Dmp)) && pdf_file_name.present?
+
+      svc = minter
+      return false if svc.blank?
+
+      return svc.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
+    rescue StandardError => e
+      Rails.logger.error "DmpIdService.publish_pdf for Plan #{plan&.id} resulted in: #{e.message}"
+      Rails.logger.error e.backtrace
+      false
+    end
 
     # Returns whether or not there is an active DMP ID minting service
     def minting_service_defined?

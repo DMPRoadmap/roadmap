@@ -1,0 +1,20 @@
+<%
+# This template is used by the PdfPublisherJob to generate the Plan's PDF so it can be sent to the DMPHub
+@plan = plan
+@show_coversheet = true
+@show_sections_questions = true
+@show_unanswered = true
+@show_custom_sections = true
+@show_research_outputs = plan.research_outputs.any?
+@public_plan = plan.publicly_visible?
+@hash = hash
+@formatting = formatting
+@selected_phase = selected_phase
+%>
+
+<%= render partial: 'branded/shared/export/plan',
+           locals: {
+            font_face: @formatting[:font_face], font_size: @formatting[:font_size],
+            margin_top: @formatting[:margin_top], margin_right: @formatting[:margin_right],
+            margin_bottom: @formatting[:margin_bottom], margin_left: @formatting[:margin_left]
+           } %>

@@ -3,21 +3,22 @@
 module Api
   module V3
     # Base policy for Plan endpoints
-    class WipsPolicy < ApplicationPolicy
-      attr_reader :user, :wip
+    class DmpsPolicy < ApplicationPolicy
+      attr_reader :user, :dmp
 
       class Scope
-        attr_reader :user, :wip
+        attr_reader :user, :dmp
 
-        def initialize(user, wip)
+        def initialize(user, dmp)
           raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
           @user = user
-          @wip = wip
+          @dmp = dmp
         end
 
         def resolve
-          Wip.includes(narrative_attachment: [:blob]).where(user_id: @user.id)
+          Dmp.includes(narrative_attachment: [:blob])
+             .where(user_id: @user.id, dmp_id: nil)
         end
       end
     end
