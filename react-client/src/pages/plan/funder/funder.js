@@ -7,6 +7,7 @@ import { DmpApi } from "../../../api.js";
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
 import FunderLookup from "../../../components/funder-lookup/FunderLookup.js";
+import "./funder.scss";
 
 function PlanFunders() {
   let navigate = useNavigate();

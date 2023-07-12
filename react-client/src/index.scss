@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap');
-@import "components/responsive";
+@import './components/responsive';
 
 body {
   margin: 0;
@@ -66,6 +66,7 @@ code {
   /* Data Grid */
   --grid-gap: 1rem;
 }
+
 
 #App {
 
@@ -297,8 +298,6 @@ body {
 
 
 
-
-@import './components/responsive';
 
 
 

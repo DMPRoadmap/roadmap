@@ -7,6 +7,7 @@ import { DmpApi } from "../../../api.js";
 // forms
 import TextInput from "../../../components/text-input/textInput.js";
 import TextArea from "../../../components/textarea/textArea.js";
+import "./researchoutputs.scss";
 
 function ResearchOutputs() {
   let navigate = useNavigate();

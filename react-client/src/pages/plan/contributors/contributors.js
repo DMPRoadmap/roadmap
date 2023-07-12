@@ -1,12 +1,11 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-
 import { useContext, useEffect, useState, Fragment } from "react";
-
 import { DmpApi } from "../../../api.js";
 
 // forms
 import TextInput from "../../../components/text-input/textInput";
 import TextArea from "../../../components/textarea/textArea";
+import "./contributors.scss";
 
 function Contributors() {
   let navigate = useNavigate();

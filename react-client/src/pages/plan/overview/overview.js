@@ -6,7 +6,7 @@ import { DmpApi } from "../../../api.js";
 
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
-
+import "./overview.scss";
 function PlanOverview() {
   let navigate = useNavigate();
   const { dmpId } = useParams();

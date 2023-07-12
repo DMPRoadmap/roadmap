@@ -12,7 +12,7 @@ import { DmpApi } from "../../../api";
 // forms
 import TextInput from "../../../components/text-input/textInput";
 import TextArea from "../../../components/textarea/textArea";
-
+import "./projectdetails.scss";
 function ProjectDetails() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
