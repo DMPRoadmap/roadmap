@@ -4,19 +4,20 @@ require 'securerandom'
 
 # == Schema Information
 #
-# Table name: themes
+# Table name: drafts
 #
 #  id          :integer          not null, primary key
-#  identifier  :string           not null
+#  draft_id    :string           not null
 #  user_id     :integer
 #  metadata    :json
+#  dmp_id      :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 FactoryBot.define do
-  factory :wip do
-    # user
-    # identifier
-    metadata { { dmp: { title: Faker::Lorem.unique.sentence } } }
+  factory :draft do
+    user
+    draft_id { "#{Time.now.strftime('%Y%m%d')}-#{SecureRandom.hex(6)}" }
+    metadata { { dmp: { title: Faker::Music::PearlJam.song } } }
   end
 end

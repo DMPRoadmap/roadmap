@@ -120,27 +120,26 @@ Rails.application.routes.draw do
 
       # React UI typeahead searches
       get :funders, controller: :typeaheads
-      get :orgs, controller: :typeaheads
+      get :affiliations, controller: :typeaheads
       get :repositories, controller: :typeaheads
 
       # React UI radio button and select box options
       get :contributor_roles, controller: :options
 
-      # Work in progress DMPs
-      resources :dmps, only: %i[index create destroy show update] do
-        member do
-          # Proxy to the DMPHub for registration
-          post :register, controller: :proxies, action: :register_dmp_id
-        end
-      end
+      # Draft (work in progress) DMPs
+      resources :drafts, only: %i[index create destroy show update]
+
+      # DMP IDs: Defining each individually here since we need to use route globbing to handle DMP ID DOIs
+      get 'dmps', controller: :dmps, action: :index
+      post 'dmps', controller: :dmps, action: :create
+      get 'dmps/*id', controller: :dmps, action: :show
+      put 'dmps/*id', controller: :dmps, action: :update
+      delete 'dmps/*id', controller: :dmps, action: :destroy
 
       # Proxies that call out to the DMPHub for award/grant searches
-      get 'awards/crossref/:fundref_id', controller: :proxies, action: :crossref_awards
-      get 'awards/nih', controller: :proxies, action: :nih_awards
-      get 'awards/nsf', controller: :proxies, action: :nsf_awards
-
-      # Proxies that call out to the DMPHub for DMP ID management
-      # resources :dmp_ids, only: %i[index create destroy show update]
+      get 'awards/crossref/:fundref_id', controller: :awards, action: :crossref
+      get 'awards/nih', controller: :awards, action: :nih
+      get 'awards/nsf', controller: :awards, action: :nsf
     end
   end
 
