@@ -35,6 +35,10 @@ module Fragment
       Fragment::Project.where(parent_id: id).first
     end
 
+    def research_entity
+      Fragment::ResearchEntity.where(parent_id: id).first
+    end
+
     def research_outputs
       Fragment::ResearchOutput.where(parent_id: id)
     end
