@@ -144,6 +144,41 @@ module ExternalApis
         log_error(method: 'DmphubService.fetch_dmp_id', error: e)
       end
 
+      # Retrieve the latest version of the DMP ID
+      def fetch_dmps(user:)
+        return nil unless active? && user.present? && user.org.present? && auth
+
+        ror = user.org.identifier_for_scheme(scheme: 'ror')&.value&.gsub(/https?:\/\/ror.org\//, '')
+        return nil unless ror.present?
+
+        opts = {
+          follow_redirects: true,
+          limit: 6,
+          headers: {
+            'authorization': @token,
+            'Server-Agent': "#{caller_name} (#{client_id})",
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        }
+        opts[:debug_output] = $stdout
+        resp = HTTParty.get("#{api_base_url}#{mint_path}?owner_org_ror=#{ror}", opts)
+
+        unless resp.present? && resp.code == 200
+          puts "DMPHub unable to fetch DMP IDs for ROR '#{ror}': received a #{resp.code}"
+          puts resp.body.inspect
+          handle_http_failure(method: "DMPHub fetch_dmps (User: #{user&.id})", http_response: resp)
+          notify_administrators(obj: plan, response: resp)
+          return nil
+        end
+        json = JSON.parse(resp.body)
+        json.fetch('items', []).first
+      rescue StandardError => e
+        puts "FATAL error in DmpHubService.fetch_dmps  (User: #{user&.id}): #{e.message}"
+        puts e.backtrace
+        log_error(method: 'DmphubService.fetch_dmps', error: e)
+      end
+
       # Create a new DMP ID
       # rubocop:disable Metrics/AbcSize
       def mint_dmp_id(plan:)
@@ -187,7 +222,6 @@ module ExternalApis
       # Update the DMP ID
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       def update_dmp_id(plan:)
-        # TODO: Add the auth check and header back in once Cognito is working!
         return nil unless active? && plan.present? && auth
 
         opts = {
@@ -199,14 +233,14 @@ module ExternalApis
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: json_from_template(plan: plan)
+          # If the plan coming in is a Plan then render the JSON from the templates otherwise it's already JSON
+          # coming from the React UI so just send it as-is
+          body: plan.is_a?(Plan) ? json_from_template(plan: plan) : plan.to_json
         }
-        opts[:debug_output] = $stdout
-        target = "#{api_base_url}#{update_path % { dmp_id: plan.dmp_id.gsub(%r{https?://}, '') }}"
+        # opts[:debug_output] = $stdout
+        dmp_id = plan.is_a?(Plan) ? plan.dmp_id : plan.fetch('dmp_id', {})['identifier']
+        target = "#{api_base_url}#{update_path % { dmp_id: dmp_id.gsub(%r{https?://}, '') }}"
         resp = HTTParty.put(target, opts)
-
-        puts "CALLED DMPHUB AND GOT:"
-        pp resp.body
 
         # DMPHub returns a 200 when successful
         unless resp.present? && resp.code == 200
@@ -214,7 +248,6 @@ module ExternalApis
           notify_administrators(obj: plan, response: resp)
           return nil
         end
-
         dmp_id = process_response(response: resp)
 
         # Update the DMP ID in the DMPHub (N/A if this is a DMP!)

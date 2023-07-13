@@ -1,21 +1,23 @@
 # DMPTool React client
 
-This directory contains the new React based UI for the DMPTool. It runs within the context of the Rails application but has been kept as isolated from the Rails ERB templating system as much as possible. It does however rely on the Rails asset pipeline to build the React application.
+This directory contains the new React based UI for the DMPTool. It runs within the context of the Rails application but has been kept as isolated from the Rails ERB templating system as much as possible. It does however rely on the JSBundling and CSSBundling and Rails' `assets:precompile` rake task to build the React assets.
 
 ## Project status
 See the individual issues in this repo and/or the [Trello board](https://trello.com/b/zlLicieW/dmptool)
 
 ## Dependency management
 
-Dependencies are defined in the package.json at the root of this project (note this ./react-client directory)!
+Dependencies are defined in the package.json at the root of this project (not this ./react-client directory)!
 
 The `package.json` in the root of the project serves 2 purposes. It manages the assets for the older Rails application pages (e.g. JQuery and Bootstrap, etc.) as well as this React application (e.g. React, WebVitals, etc.).
+
+Note that the Rails system is using a special `app/javascript/react-application.js` to load assets for the React application, so all of the other dependencies (e.g. JQuery) that are defined in the `package.json` will not pollute the React app.
 
 If you need to add or remove a JS dependency for this React application, please run `yarn [add|remove] [dependency]` from the root of the project. Use `yarn upgrade` (from the root of the project) to update dependencies.
 
 ## How Rails serves the React application
 
-When the browser asks for `/dashboard` or a `/dmps/*` path, the Rails router looks up the path in the [config/routes.rb file](https://github.com/CDLUC3/dmptool/blob/6f9a7eca9297d9c00bddc8109fc0ec72fcae9b86/config/routes.rb#L91) to determine which controller and action should handle the request.
+When the browser requests a React page (directly via the browser, a bookmark or clicking refresh in their browser), the Rails router looks up the path in the [config/routes.rb file](https://github.com/CDLUC3/dmptool/blob/6f9a7eca9297d9c00bddc8109fc0ec72fcae9b86/config/routes.rb#L91) to determine which controller and action should handle the request.
 
 The corresponding controller then renders it's corresponding ERB template and a ERB layout that references the React application's JS. The ERB template contains a single `<div>` that is connected to the React application.
 ```
@@ -111,37 +113,71 @@ The build process has 2 phases.
 
 The React application uses the DMPTool's API.
 
-### Work in progress DMPs
-Work in progress DMPs are ones that a user has started the Upload DMP workflow but has not yet finished/registered the DMP.
+### Current user metadata:
+The following represents a typical response from one of the `api/v3/me` endpoint.
+```
+{
+  "application": "DMPTool - development",
+  "api_version": 2,
+  "source": "GET /api/v3/me",
+  "time": "2023-06-16T16:27:59Z",
+  "caller": "Brian Riley",
+  "code": 200,
+  "message": "OK",
+  "total_items": 0,
+  "items": [
+    {
+      "name": "Riley, Brian",
+      "givenname": "Brian",
+      "surname": "Riley",
+      "mbox": "brian@example.com",
+      "affiliation": {
+        "name": "University of California, Office of the President (UCOP)",
+        "affiliation_id": {
+          "type": "ror",
+          "identifier": "https://ror.org/00pjdza24"
+        }
+      },
+      "user_id": {
+        "type": "orcid",
+        "identifier": "https://orcid.org/0000-0001-7781-6508"
+      }
+    }
+  ]
+}
+```
 
-At minimum, a valid work in progress DMP must have a title: `{ "dmp": { "title": "Test DMP" } }`
+### Draft (work in progress) DMPs
+Draft DMPs are ones that a user has started the Upload DMP workflow but has not yet finished/registered the DMP.
 
-The work in progress API endpoints consist of:
-- `GET api/v3/dmps` This will return all of the current user's work in progress DMPs
-- `POST api/v3/dmps` Called to create the work in progress DMP and receive back a `wip_id` that should be used for subsequent updates.
-- `GET api/v3/dmps/{wip_id}` This will retrieve the specific work in progress DMP (assuming the current user owns it)
-- `PUT api/v3/dmps/{wip_id}` This will update the work in progress DMP (assuming the current user owns it)
-- `DELETE api/v3/dmps/{wip_id}` This will delete the work in progress DMP (assuming the current user owns it)
+At minimum, a valid draft DMP must have a title: `{ "dmp": { "title": "Test DMP" } }`
+
+The draft API endpoints consist of:
+- `GET api/v3/drafts` This will return all of the current user's draft DMPs
+- `POST api/v3/drafts` Creates a draft DMP and returns a `draft_id` that should be used for subsequent updates.
+- `GET api/v3/drafts/{draft_id}` This will retrieve the specific draft DMP (assuming the current user owns it)
+- `PUT api/v3/drafts/{draft_id}` This will update the draft DMP (assuming the current user owns it)
+- `DELETE api/v3/drafts/{draft_id}` This will delete the draft DMP (assuming the current user owns it)
 
 The `POST` and `PUT` endpoints are expecting `application/x-www-form-urlencoded`.
 
 #### PDF uploads
-You can upload a PDF file by included by sending: `dmp['narrative'] = uploadedFile`
+You can upload a PDF file by including the upload file as: `dmp['narrative'] = uploadedFile`
 
 You only need to include this once. If you include it in subsequent `PUT` calls, it will replace the old file.
 
 To completely remove the PDF, you can send `dmp['remove_narrative'] = true`
 
-Once the PDF has been uploaded, the work in progress will contain a new `is_metadata_for` entry in the `dmproadmap_related_identifiers`. See example work in progress DMP below.
+Once the PDF has been uploaded, the work in progress will contain a new `is_metadata_for` entry in the `dmproadmap_related_identifiers` section. See example draft DMP below.
 
-#### Example Work in Progress
-The following represents a typical response from one of the `api/v3/dmps` or `api/v3/dmps/{wip_id}` endpoints. The POST and PUT body should follow the same format!
+#### Example Draft DMP
+The following represents a typical response from one of the `api/v3/drafts` or `api/v3/drafts/{draft_id}` endpoints. The POST and PUT body should follow the same format!
 
 **Note:**
-- The `wip_id` is assigned after calling `POST api/v3/dmps`
-- The `dmproadmap_related_identifiers` may contain an `is_metadata_for` entry that is the retrieval URL for the uploaded PDF associated with the work in progress.
+- The `draft_id` is unique to the Draft and is assigned after calling `POST api/v3/drafts`
+- The `dmproadmap_related_identifiers` may contain an `is_metadata_for` entry that is the retrieval URL for the uploaded PDF associated with the draft.
 - The `project: title` should be the same as the top level `dmp: title` unless a funder's award API returns a project title
-- The `funding_status` should always be 'granted' if a `grant_id` was discovered. If not, it should be 'planned'.
+- The `funding_status` should always be 'granted' if a `grant_id` was discovered. If not, it should be `planned`.
 
 ```
 {
@@ -157,7 +193,7 @@ The following represents a typical response from one of the `api/v3/dmps` or `ap
     {
       "dmp": {
         "title": "Test DMP",
-        "wip_id": {
+        "draft_id": {
           "type": "other",
           "identifier": "20230614-f6447505e2c2"
         },
@@ -261,43 +297,19 @@ The following represents a typical response from one of the `api/v3/dmps` or `ap
 }
 ```
 
-### Typeahead support
-#### Current user metadata:
-The following represents a typical response from one of the `api/v3/me` endpoint.
-```
-{
-  "application": "DMPTool - development",
-  "api_version": 2,
-  "source": "GET /api/v3/me",
-  "time": "2023-06-16T16:27:59Z",
-  "caller": "Brian Riley",
-  "code": 200,
-  "message": "OK",
-  "total_items": 0,
-  "items": [
-    {
-      "name": "Riley, Brian",
-      "givenname": "Brian",
-      "surname": "Riley",
-      "mbox": "brian@example.com",
-      "affiliation": {
-        "name": "University of California, Office of the President (UCOP)",
-        "affiliation_id": {
-          "type": "ror",
-          "identifier": "https://ror.org/00pjdza24"
-        }
-      },
-      "user_id": {
-        "type": "orcid",
-        "identifier": "https://orcid.org/0000-0001-7781-6508"
-      }
-    }
-  ]
-}
-```
+### Canned Value Lists
+The following endpoints can be called to fetch enumerated lists of possible values for various fields.
+- `GET /api/v3/contributor_roles` - The possible roles for a contributor. A contributor can have multiple roles. The default role is indicated in the response.
 
-#### Funder search:
-The following represents a typical response from one of the `api/v3/funders?search={term}` endpoint.
+### Typeahead support
+The following endpoints are available to support user typeahead fields. All of these endpoints require at least 3 characters in the search and a JS debounce should used
+- `GET /api/v3/funders?search={term}` - Searches for Funding agencies/institutions based on the criteria
+- `GET /api/v3/affiliations?search={term}` - Searches for Contributor institutions/organiztions based on the criteria
+- `GET /api/v3/repositories?search={term}`- Searches for research output repositories based on the criteria
+
+Please note that some funders and some affiliations may not have identifiers (they may only have a name).
+
+Some results from the `/api/v3/funders` endpoint may contain additional API information. This information can be used to allow the user to search that Funder's API for an award/grant. The responses from these funder APIs can help prepopulate other information (e.g. contributors, project start/end dates, etc.)
 
 Examples of Funder search terms (including ones that have an api_target):
   - Alfred P. Sloan Foundation           <-- No api_target
@@ -306,7 +318,7 @@ Examples of Funder search terms (including ones that have an api_target):
   - National Institutes of Health        <-- Has the NIH api_target
   - Arctic Sciences                      <-- Has the NSF api_target
 
-**Note that some funders may not have a Fundref id!**
+The following represents a typical response from one of the `api/v3/funders?search={term}` endpoint showing a record without API information and another with API info.
 
 ```
 {
@@ -363,8 +375,8 @@ Examples of Funder search terms (including ones that have an api_target):
 }
 ```
 
-#### Award/Grant search:
-The following represents a typical response from one of the `api/v3/awards/{type}` endpoints.
+#### Funder Award/Grant search:
+When a funder has API information, that API can be called to present the user with a selection of award/grant selections.
 
 Examples of Award/Grant search criteria to use:
 - If api_target contains '/api/v3/awards/crossref/' (e.g. 'US Department of Energy' above):
@@ -388,6 +400,7 @@ Examples of Award/Grant search criteria to use:
     - pi_names: Jones
     - years=2022
 
+The following represents a typical response from one of the `api/v3/awards/{type}` endpoints.
 ```
 {
   "application": "DMPTool - development",
@@ -485,145 +498,23 @@ Examples of Award/Grant search criteria to use:
 }
 ```
 
-#### User affiliation search:
-The following represents a typical response from one of the `api/v3/orgs?search={term}` endpoint.
-
-Example contributor affiliation search terms:
-  - University of California
-  - Harvard University
-  - London School of Economics
-
-**Note that some organizations do not have a ROR id!**
-
-```
-{
-  "application": "DMPTool - development",
-  "api_version": 2,
-  "source": "GET /api/v3/orgs",
-  "time": "2023-06-16T16:31:41Z",
-  "caller": "Brian Riley",
-  "code": 200,
-  "message": "OK",
-  "page": 1,
-  "per_page": 100,
-  "total_items": 4,
-  "items": [
-    {
-      "name": "University of California Natural Reserve System (UCNRS)"
-    },
-    {
-      "name": "University of California, Davis (ucdavis.edu)",
-      "affiliation_id": {
-        "type": "ror",
-        "identifier": "https://ror.org/https://ror.org/05rrcem69"
-      }
-    },
-    {
-      "name": "University of California System (universityofcalifornia.edu)",
-      "affiliation_id": {
-        "type": "ror",
-        "identifier": "https://ror.org/https://ror.org/00pjdza24"
-      }
-    },
-    {
-      "name": "University of California, Berkeley (berkeley.edu)",
-      "affiliation_id": {
-        "type": "ror",
-        "identifier": "https://ror.org/https://ror.org/01an7q238"
-      }
-    }
-  ]
-}
-```
-
-#### Repository search:
-The following represents a typical response from one of the `api/v3/repositories?search={term}` endpoint.
-
-Example of some repository search terms:
-  - Dryad
-  - Zenodo
-  - California
-
-```
-{
-  "application": "DMPTool - development",
-  "api_version": 2,
-  "source": "GET /api/v3/repositories",
-  "time": "2023-06-16T16:33:32Z",
-  "caller": "Brian Riley",
-  "code": 200,
-  "message": "OK",
-  "page": 1,
-  "per_page": 100,
-  "total_items": 8,
-  "items": [
-    {
-      "name": "California water cyberinfrastructure",
-      "description": "The repository is no longer available. >>>!!!<<< 2021-01-25: no more access to California Water CyberInfrastructure >>>!!!<<<",
-      "url": "http://bwc.lbl.gov/California/",
-      "dmproadmap_host_id": {
-        "type": "url",
-        "identifier": "https://www.re3data.org/api/v1/repository/r3d100000015"
-      }
-    },
-    {
-      "name": "California vectorborne disease surveillance system",
-      "description": "CalSurv is a comprehensive information on West Nile virus, plague, malaria, Lyme disease, trench fever and other vectorborne diseases in California — where they are, where they’ve been, where they may be headed and what new diseases may be emerging.The CalSurv Web site serves as a portal or a single interface to all surveillance-related Web sites in California.",
-      "url": "http://www.calsurv.org/",
-      "dmproadmap_host_id": {
-        "type": "url",
-        "identifier": "https://www.re3data.org/api/v1/repository/r3d100010196"
-      }
-    }
-  ]
-}
-```
-
-#### Contributor roles:
-The following represents a typical response from one of the `api/v3/contributor_roles` endpoint.
-
-**Note the default flag**
-```
-{
-  "application": "DMPTool - development",
-  "api_version": 2,
-  "source": "GET /api/v3/contributor_roles",
-  "time": "2023-06-16T16:18:53Z",
-  "caller": "Brian Riley",
-  "code": 200,
-  "message": "OK",
-  "page": 1,
-  "per_page": 100,
-  "total_items": 4,
-  "items": [
-    {
-      "label": "Data Manager",
-      "value": "data_curation",
-      "default": false
-    },
-    {
-      "label": "Principal Investigator",
-      "value": "investigation",
-      "default": false
-    },
-    {
-      "label": "Project Administrator",
-      "value": "project_administration",
-      "default": false
-    },
-    {
-      "label": "Other",
-      "value": "other",
-      "default": true
-    }
-  ]
-}
-```
-
 ### Finalized/registered DMPs
-Finalized DMPs have been assigned a DMP ID (aka persistent identifier). Once a DMP ID has been registered it is versioned and its metadata is shared externally with other systems.
+Finalized DMPs have been assigned a DMP ID (aka persistent identifier). Once a DMP ID has been registered it is versioned and its metadata is stored wihtin an external system called the DMPHub. The DMPHub allows both the DMPTool application and other external systems to fetch and enrich the DMP ID metadata. The DMPHub also provides versioning for the DMP ID.
 
-Example of a finalized DMP record
+DMP IDs can be interacted with via the following endpoints:
+- `GET /api/v3/dmps` - returns all of the DMP IDs associated with the administrator's affiliation
+- `POST /api/v3/dmps` - sending a draft DMP ID to this enpoint will register it. It is no longer a draft at this point
+- `GET /api/v3/dmps/10.12345/ABC123` - fetches the specified `dmp_id`
+- `UPDATE /api/v3/dmps/10.12345/ABC123` - updates the specified `dmp_id`
+- `DELETE /api/v3/dmps/10.12345/ABC123` - tombstones the specified `dmp_id`. DMP IDs cannot be deleted. Tombstoning is a very rare scenario.
+
+A finalized DMP ID record is very similar to a Draft DMP record. It can have more information though since it's metadata may be enriched by administrators, curators and external systems.
+
+Note that the `dmphub_versions` array can be used to retrieve older versions of the DMP ID.
+
+The `dmphub_assertions` array includes assertions made to enrich the DMP ID metadata by an external system. A DMPTool administrator or the primary contact of the DMP ID can determine whether or not the assertions should be accepted or rejected.
+
+Below is an example of an enriched DMP ID record:
 ```
 {
   "status": 200,
@@ -633,6 +524,21 @@ Example of a finalized DMP record
   "items": [
     {
       "dmp": {
+        "contact": {
+          "name": "Doe, Jane",
+          "dmproadmap_affiliation": {
+            "name": "Example University",
+            "affiliation_id": {
+              "type": "ror",
+              "identifier": "https://ror.org/03yrm5c26"
+            }
+          },
+          "contact_id": {
+            "type": "orcid",
+            "identifier": "https://orcid.org/0000-0000-0000-0000"
+          },
+          "mbox": "cc@example.com"
+        },
         "contributor": [
           {
             "name": "Smith, John",
@@ -653,82 +559,15 @@ Example of a finalized DMP record
             }
           }
         ],
-        "ethical_issues_report": "http://report.location",
-        "project": [
+        "cost": [
           {
-            "start": "2019-04-01",
-            "description": "Project develops novel...",
-            "end": "2020-03-31",
-            "funding": [
-              {
-                "dmproadmap_funded_affiliations": [
-                  {
-                    "name": "Our New Project",
-                    "affiliation_id": {
-                      "type": "ror",
-                      "identifier": "https://ror.org/00pjdza24"
-                    }
-                  }
-                ],
-                "dmproadmap_project_number": "prj-XYZ987-UCB",
-                "grant_id": {
-                  "type": "other",
-                  "identifier": "776242"
-                },
-                "name": "National Science Foundation",
-                "funder_id": {
-                  "type": "fundref",
-                  "identifier": "501100002428"
-                },
-                "funding_status": "granted",
-                "dmproadmap_opportunity_number": "Award-123"
-              }
-            ],
-            "title": "Our New Project"
+            "description": "Costs for maintaining...",
+            "title": "Storage and Backup",
+            "value": "0.1e4",
+            "currency_code": "EUR"
           }
         ],
-        "dmproadmap_research_facilities": [
-          {
-            "name": "Example Research Lab",
-            "type": "field_station",
-            "facility_id": {
-              "type": "ror",
-              "identifier": "https://ror.org/03yrm5c26"
-            }
-          }
-        ],
-        "language": "eng",
-        "modified": "2020-03-14T10:53:49+00:00",
-        "contact": {
-          "name": "Doe, Jane",
-          "dmproadmap_affiliation": {
-            "name": "Example University",
-            "affiliation_id": {
-              "type": "ror",
-              "identifier": "https://ror.org/03yrm5c26"
-            }
-          },
-          "contact_id": {
-            "type": "orcid",
-            "identifier": "https://orcid.org/0000-0000-0000-0000"
-          },
-          "mbox": "cc@example.com"
-        },
         "created": "2019-03-13T13:13:00+00:00",
-        "dmproadmap_related_identifiers": [
-          {
-            "work_type": "article",
-            "identifier": "https://doi.org/10.1371/journal.pcbi.1006750",
-            "descriptor": "is_cited_by",
-            "type": "handle"
-          }
-        ],
-        "dmp_id": {
-          "type": "doi",
-          "identifier": "https://doi.org/10.48321/D116CAda19"
-        },
-        "ethical_issues_exist": "yes",
-        "ethical_issues_description": "There are ethical issues, because...",
         "dataset": [
           {
             "metadata": [
@@ -816,15 +655,126 @@ Example of a finalized DMP record
             ]
           }
         ],
-        "cost": [
+        "description": "This DMP is for our new project",
+        "dmp_id": {
+          "type": "doi",
+          "identifier": "https://doi.org/10.12345/ABCD1234"
+        },
+        "dmphub_assertions": [
           {
-            "description": "Costs for maintaining...",
-            "title": "Storage and Backup",
-            "value": "0.1e4",
-            "currency_code": "EUR"
+            "id": "ABCD1234",
+            "provenance": "dmphub",
+            "timestamp": "2023-07-13T09:25:23+07:00",
+            "note": "data received from the NIH API",
+            "assertions": {
+              "contact": {
+                "name": "Donald Duck"
+              },
+              "contributor": [
+                {
+                  "name": "Mickey Mouse",
+                  "role": ["Investigation"]
+                }
+              ],
+              "project": [
+                {
+                  "start": "2024-01-01T00:00:00+07:00",
+                  "end": "2025-12-31T23:59:59+07:00"
+                }
+              ],
+              "funding": [
+                {
+                  "funder_id": {
+                    "identifier": "https://doi.org/10.13039/501100001807",
+                    "type": "fundref"
+                  },
+                  "funding_status": "granted",
+                  "grant_id": {
+                    "identifier": "2019/22702-3",
+                    "type": "other"
+                  }
+                }
+              ]
+            }
           }
         ],
-        "description": "This DMP is for our new project",
+        "dmphub_versions": [
+          {
+            "timestamp": "2020-03-14T10:53:49+00:00",
+            "url": "https://doi.org/dmps/10.12345/ABCD1234?version=2020-03-14T10:53:49+00:00"
+          },
+          {
+            "timestamp": "2019-03-13T13:13:00+00:00",
+            "url": "https://doi.org/dmps/doi.org/10.12345/ABCD1234?version=2019-03-13T13:13:00+00:00"
+          }
+        ],
+        "dmproadmap_privacy": "public",
+        "dmproadmap_related_identifiers": [
+          {
+            "work_type": "article",
+            "identifier": "https://doi.org/10.1371/journal.pcbi.1006750",
+            "descriptor": "is_cited_by",
+            "type": "handle"
+          },
+          {
+            "descriptor": "is_metadata_for",
+            "identifier": "https://api.dmphub-dev.cdlib.org/narratives/1234567890.pdf",
+            "type": "url",
+            "work_type": "output_management_plan"
+          }
+        ],
+        "dmproadmap_research_facilities": [
+          {
+            "name": "Example Research Lab",
+            "type": "field_station",
+            "facility_id": {
+              "type": "ror",
+              "identifier": "https://ror.org/03yrm5c26"
+            }
+          }
+        ],
+        "dmproadmap_template": {
+          "id": "38745623765",
+          "title": "Digital Curation Centre (português)"
+        },
+        "ethical_issues_description": "There are ethical issues, because...",
+        "ethical_issues_exist": "yes",
+        "ethical_issues_report": "http://report.location",
+        "language": "eng",
+        "modified": "2020-03-14T10:53:49+00:00",
+        "project": [
+          {
+            "start": "2019-04-01",
+            "description": "Project develops novel...",
+            "end": "2020-03-31",
+            "funding": [
+              {
+                "dmproadmap_funded_affiliations": [
+                  {
+                    "name": "Our New Project",
+                    "affiliation_id": {
+                      "type": "ror",
+                      "identifier": "https://ror.org/00pjdza24"
+                    }
+                  }
+                ],
+                "dmproadmap_project_number": "prj-XYZ987-UCB",
+                "grant_id": {
+                  "type": "other",
+                  "identifier": "776242"
+                },
+                "name": "National Science Foundation",
+                "funder_id": {
+                  "type": "fundref",
+                  "identifier": "501100002428"
+                },
+                "funding_status": "granted",
+                "dmproadmap_opportunity_number": "Award-123"
+              }
+            ],
+            "title": "Our New Project"
+          }
+        ],
         "title": "DMP for our new project"
       }
     }

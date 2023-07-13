@@ -2,106 +2,122 @@
 
 module Api
   module V3
-    # Endpoints for Work in Progress (WIP) DMPs
+    # Endpoints that proxy calls to the DMPHub for DMP ID management
     class DmpsController < BaseApiController
-      MSG_DMP_NOT_FOUND = 'DMP not found.'
-      MSG_DMP_UNAUTHORIZED = 'Not authorized to modify the DMP.'
-      MSG_DMP_ID_REGISTRATION_FAILED = 'Unable to register a DMP ID at this time.'
-
-      # GET /dmps
-      def index
-        @dmps = DmpsPolicy::Scope.new(current_user, Dmp.new).resolve
-      rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::DmpsController.index #{e.message}"
-        render_error(errors: MSG_SERVER_ERROR, status: 500)
-      end
-
-      # POST /dmps
+      # POST /api/v3/dmps/{:id}/register
+      #        Register the DMP ID for the specified draft DMP
       def create
-        # Extract the narrative PDF so we can add it to ActiveStorage
-        args = dmp_params
-        args.delete(:narrative)
+        dmp = Dmp.find_by(id: params[:id])
+        render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
+        render_error(errors: DmpsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
 
-        dmp = Dmp.new(user: current_user, metadata: { dmp: args })
-        # Attach the narrative PDF if applicable
-        dmp.narrative.attach(dmp_params[:narrative]) if dmp_params[:narrative].present?
-        if dmp.save
-          @dmps = [dmp]
-          render json: render_to_string(template: '/api/v3/dmps/index'), status: :created
-        else
-          render_error(errors: dmp.errors.full_messages, status: :bad_request)
-        end
-      rescue ActionController::ParameterMissing => e
-        render_error(errors: "Invalid request #{::Dmp::INVALID_JSON_MSG}", status: :bad_request)
+        result = dmp.register_dmp_id!
+        render_error(errors: DmpsController::MSG_DMP_ID_REGISTRATION_FAILED, status: :bad_request) and return if result.nil?
+
+        @items = paginate_response(results: [result])
+        render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::DmpsController.create #{e.message}"
+        Rails.logger.error "Failure in Api::V3::ProxiesController.create #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
-      # GET /dmps/{:id}
+      # GET /api/v3/dmps
+      def index
+        dmps = DmpIdService.fetch_dmps(user: current_user)
+        render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return unless dmps.is_a?(Array) &&
+                                                                                                      dmps.any?
+
+        @items = paginate_response(results: dmps)
+        render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::ProxiesController.index #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
+      end
+
+      # GET /api/v3/dmps/{:id}
       def show
-        dmp = Dmp.find_by(identifier: params[:id])
-        render_error(errors: MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
-        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
+        dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
+        render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
 
-        @dmps = [dmp]
-        render json: render_to_string(template: '/api/v3/dmps/index'), status: :ok
+        @items = paginate_response(results: [dmp])
+        render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::DmpsController.show #{e.message}"
+        Rails.logger.error "Failure in Api::V3::ProxiesController.show #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
-      # PUT /dmps/{:id}
+      # PUT /api/v3/dmps/{:id}
       def update
-        dmp = Dmp.find_by(identifier: params[:id])
-        render_error(errors: MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
-        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
+        dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
+        render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
 
-        # Extract the narrative PDF so we can add it to ActiveStorage
-        args = dmp_params
-        args.delete(:narrative)
+        authed = user_is_authorized(dmp: dmp)
+        render_error(errors: DmpsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless authed
 
-        # Remove the old narrative if applicable
-        dmp.narrative.purge if (dmp_params[:narrative].present? || dmp_params[:remove_narrative].present?) &&
-                               dmp.narrative.attached?
-        # Attach the narrative PDF if applicable
-        dmp.narrative.attach(dmp_params[:narrative]) if dmp_params[:narrative].present?
+puts 'PARAMS:'
+puts dmp_permitted_params.inspect
 
-        if dmp.update(metadata: { dmp: args })
-          @dmps = [dmp]
-          render json: render_to_string(template: '/api/v3/dmps/index'), status: :ok
-        else
-          render_error(errors: dmp.errors.full_messages, status: :bad_request)
-        end
-      rescue ActionController::ParameterMissing => e
-        render_error(errors: "Invalid request #{::Dmp::INVALID_JSON_MSG}", status: :bad_request)
+        json = JSON.parse(dmp_permitted_params.to_h.to_json)
+
+puts 'JSON:'
+puts json
+
+        result = DmpIdService.update_dmp_id(plan: json)
+        render_error(errors: DmpsController::MSG_DMP_ID_UPDATE_FAILED, status: :bad_request) and return if result.nil?
+
+        @items = paginate_response(results: [result])
+        render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
+      rescue JSON::ParserError => e
+        Rails.logger.error "Failure in Api::V3::ProxiesController.register_dmp_id #{e.message}"
+        render_error(errors: MSG_INVALID_DMP_ID, status: 400)
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::DmpsController.update #{e.message}"
+        Rails.logger.error "Failure in Api::V3::ProxiesController.update #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
-      # DELETE /dmps/{:id}
+      # DELETE /api/v3/dmps/{:id}
       def destroy
-        dmp = Dmp.find_by(identifier: params[:id])
-        render_error(errors: MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
-        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
+        dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
+        render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
 
-        # Narrative PDF will be automatically removed
-        if dmp.destroy
-          @dmps = []
-          render json: render_to_string(template: '/api/v3/dmps/index'), status: :ok
-        else
-          render_error(errors: dmp.errors.full_messages, status: :bad_request)
-        end
+        authed = user_is_authorized(dmp: dmp)
+        render_error(errors: DmpsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless authed
+
+        result = DmpIdService.delete_dmp_id(plan: json)
+        render_error(errors: DmpsController::MSG_DMP_ID_TOMBSTONE_FAILED, status: :bad_request) and return if result.nil?
+
+        @items = paginate_response(results: [result])
+        render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::DmpsController.destroy #{e.message}"
+        Rails.logger.error "Failure in Api::V3::ProxiesController.destroy #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       private
 
-      def dmp_params
-        params.require(:dmp).permit(:narrative, :remove_narrative, dmp_permitted_params)# .to_h
+      def awards_params
+        params.permit(:keywords, :project, :opportunity, :pi_names, :years, :page, :per_page)
+      end
+
+      def args_from_params
+        args = {}
+        awards_params.to_h.each do |key, val|
+          args[key] = val.downcase.strip.gsub(/\s/, '+')
+        end
+        args
+      end
+
+      # Check to make sure the current user is authorized to update/tombstone the DMP ID
+      def user_is_authorized(dmp:)
+        return false unless dmp.is_a?(Hash) && dmp['contact'].present? && current_user.present? && current_user.can_org_admin?
+
+        current_org = current_user.org&.identifier_for_scheme(scheme: 'ror')
+        orgs = [dmp.fetch('contact', {}).fetch('dmproadmap_affiliation', {}).fetch('affiliation_id', {})['identifier']]
+        dmp.fetch('contributor', []).each do |contrib|
+          orgs << contrib.fetch('dmproadmap_affiliation', {}).fetch('affiliation_id', {})['identifier']
+        end
+        orgs = orgs.map { |ror| ror.to_s.downcase.strip }.flatten.compact.uniq
+        orgs.include?(current_org)
       end
     end
   end

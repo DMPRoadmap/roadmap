@@ -13,11 +13,6 @@ if org.is_a?(RegistryOrg)
       json.identifier "https://api.crossref.org/funders/#{org.fundref_id}"
     end
 
-    json.acronyms org.acronyms if org.acronyms.present?
-    json.aliases org.aliases if org.aliases.present?
-    json.types org.types if org.types.present?
-    json.country org.country if org.country.present?
-
     if org.api_target.present?
       json.funder_api org.api_target
       json.funder_api_guidance org.api_guidance

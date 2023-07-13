@@ -2,7 +2,7 @@
 
 module Api
   module V3
-    # Endpoints that act as the backend to Typeahead fields in the React UI
+    # Endpoints that act as the backend to Typeahead fields in the React UI (making calls to the local MySQL DB)
     class TypeaheadsController < BaseApiController
       MSG_INVALID_SEARCH = 'Search must be at least 3 characters.'
 
@@ -28,8 +28,8 @@ module Api
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
-      # GET /api/v3/orgs?search={term}
-      def orgs
+      # GET /api/v3/affiliations?search={term}
+      def affiliations
         term = typeahead_params[:search]
         render_error(errors: MSG_INVALID_SEARCH, status: :bad_request) and return if term.blank? || term.length < 3
 

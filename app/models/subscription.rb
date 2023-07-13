@@ -41,6 +41,10 @@ class Subscription < ApplicationRecord
   # ====================
 
   def notify!
+
+puts "SUBSCRIPTION ************************ #{callback_uri}, #{last_notified}, #{plan.updated_at}"
+
+
     # Do not notify anyone if this is a new record
     return false if new_record?
     # Do not notify if there is no callback or they've already been notified

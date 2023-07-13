@@ -23,7 +23,7 @@ function PlanSetup() {
     formData.forEach((value, key) => stepData[key] = value);
 
     // Make the save request
-    let url = api_path('/wips');
+    let url = api_path('/drafts');
     let options = api_options({
       method: "post",
       headers: api_headers(),

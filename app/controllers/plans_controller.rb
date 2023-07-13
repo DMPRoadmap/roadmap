@@ -433,10 +433,7 @@ class PlansController < ApplicationController
     authorize @plan
     redirect_to(publish_plan_path(@plan), alert: 'DMP ID has already been registed!') and return if @plan.dmp_id.present?
 
-puts params
-
     send_to_orcid = %w[1 on true].include?(params[:publish_to_orcid]&.downcase&.strip)
-
     result = @plan.register_dmp_id!(publish_to_orcid: send_to_orcid)
     @plan = @plan.reload
 

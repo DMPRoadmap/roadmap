@@ -80,7 +80,7 @@ function Dashboard() {
   }, []);
 
   function dmp_id_for(dmp) {
-    return dmp.dmphub_wip_id.identifier;
+    return dmp.dmphub_draft_id.identifier;
   }
 
   return (
@@ -116,12 +116,12 @@ function Dashboard() {
         </div>
 
         {projects.map(item => (
-          <Fragment key={item.dmp.wip_id.identifier}>
+          <Fragment key={item.dmp.draft_id.identifier}>
             <div data-colname="title">{item.dmp?.title}</div>
             <div data-colname="funder">{item?.funder}</div>
             <div data-colname="grantId">tbd…</div>
             <div data-colname="dmpId">
-              {item.dmp.wip_id.identifier}
+              {item.dmp.draft_id.identifier}
             </div>
             <div data-colname="status">
               Incomplete <br />
