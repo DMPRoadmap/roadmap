@@ -16,7 +16,7 @@ $display-4k: 2560px;
 
 // A quick helper to quickly create a media query block for a named device
 @mixin device($breakpoint) {
-  @if $breakpoint ==mobile-small {
+  @if $breakpoint == mobile-small {
     @media screen and (min-width: $mobile-small) {
       @content;
     }
