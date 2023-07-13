@@ -15,7 +15,7 @@
             <% email_subject = _('DMP Assistant feedback').gsub(' ', '%20') %>
             <% contact_your_institution_url = contacts_at_your_instutution_path %>
             <% how_to_manage_your_data_url = how_to_manage_your_data_path %>
-            <%= sanitize(_('If you need assistance in developing your data management plan, the following resource may help get you started: <a href="%{how_to_manage_your_data_url}"> How to manage your data</a>. If you require more guidance, contact us at <a href="mailto:%{email_link}?Subject=%{email_subject}">support@portagenetwork.ca</a>, or see <a href="%{contact_your_institution_url}">Contacts at your institution</a>.')  % {contact_your_institution_url: contact_your_institution_url, email_link: email_link, email_subject: email_subject, how_to_manage_your_data_url: how_to_manage_your_data_url}) %>
+            <%= sanitize(_('If you need assistance in developing your data management plan, the following resource may help get you started: <a href="%{how_to_manage_your_data_url}"> How to manage your data</a>. If you require more guidance, contact us at <a href="mailto:%{email_link}?Subject=%{email_subject}">support@portagenetwork.ca</a>.')  % {contact_your_institution_url: contact_your_institution_url, email_link: email_link, email_subject: email_subject, how_to_manage_your_data_url: how_to_manage_your_data_url}) %>
           </p>
 
           <h2 class="fontsize-h3"><%= _("Create a plan") %></h2>

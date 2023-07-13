@@ -86,10 +86,12 @@ module ApplicationHelper
 
   def contacts_at_your_instutution_path
     if I18n.locale == 'fr_CA'
-      'https://portagenetwork.ca/fr/outils-et-ressources/personnes-ressources-pour-la-gdr-dans-les-etablissements/'
+      # 'https://portagenetwork.ca/fr/outils-et-ressources/personnes-ressources-pour-la-gdr-dans-les-etablissements/' #Old URL
+      'https://alliancecan.ca/fr/services/gestion-des-donnees-de-recherche/apprentissage-et-ressources/personnes-ressources-dans-les-etablissements'
     else
       # Handling "en_CA" locale
-      'https://portagenetwork.ca/tools-and-resources/institutional-rdm-contacts/'
+      # 'https://portagenetwork.ca/tools-and-resources/institutional-rdm-contacts/' #OLD URK
+      'https://alliancecan.ca/en/services/research-data-management/learning-and-training/institutional-contacts'
     end
   end
 
