@@ -27,7 +27,7 @@ function Dashboard() {
       });
 
     // Fetch the work in progress DMPs for the currently logged in user
-    fetch(api.getPath("/dmps"), api.getOptions())
+    fetch(api.getPath("/drafts"), api.getOptions())
       .then((resp) => {
         api.handleResponse(resp);
         return resp.json();
@@ -39,7 +39,7 @@ function Dashboard() {
   }, []);
 
   function dmp_id_for(dmp) {
-    return dmp.dmphub_wip_id.identifier;
+    return dmp.draft_id.identifier;
   }
 
   return (
@@ -87,17 +87,17 @@ function Dashboard() {
           <div className="data-heading" data-colname="actions"></div>
 
           {projects.map((item) => (
-            <Fragment key={item.dmp.wip_id.identifier}>
+            <Fragment key={item.dmp.draft_id.identifier}>
               <div data-colname="title">{item.dmp?.title}</div>
               <div data-colname="funder">{item?.funder}</div>
               <div data-colname="grantId">tbd…</div>
-              <div data-colname="dmpId">{item.dmp.wip_id.identifier}</div>
+              <div data-colname="dmpId">{item.dmp.draft_id.identifier}</div>
               <div data-colname="status">
                 Incomplete <br />
                 <progress max="10" value="3" />
               </div>
               <div data-colname="actions">
-                <Link to={`/dashboard/dmp/${item.dmp.wip_id.identifier}`}>
+                <Link to={`/dashboard/dmp/${item.dmp.draft_id.identifier}`}>
                   Complete
                 </Link>
               </div>

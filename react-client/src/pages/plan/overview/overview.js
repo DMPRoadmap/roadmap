@@ -17,7 +17,7 @@ function PlanOverview() {
   useEffect(() => {
     let api = new DmpApi();
 
-    fetch(api.getPath(`/dmps/${dmpId}`))
+    fetch(api.getPath(`/drafts/${dmpId}`))
       .then((resp) => {
         api.handleResponse(resp);
         return resp.json();

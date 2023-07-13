@@ -86,8 +86,8 @@ RSpec.describe Api::V3::WipsController do
       expect(json.length).to eql(1)
       expect(json.first['dmp']['title']).to eql(wip.metadata['dmp']['title'])
       expect(json.first['dmp']['description']).to eql(wip.metadata['dmp']['description'])
-      expect(json.first['dmp']['wip_id']['type']).to eql('other')
-      expect(json.first['dmp']['wip_id']['identifier'].present?).to be(true)
+      expect(json.first['dmp']['draft_id']['type']).to eql('other')
+      expect(json.first['dmp']['draft_id']['identifier'].present?).to be(true)
     end
 
     xit 'uploads the narrative PDF' do
@@ -165,8 +165,8 @@ pp json
       expect(json.length).to eql(1)
       expect(json.first['dmp']['title']).to eql(wip.metadata['dmp']['title'])
       expect(json.first['dmp']['description']).to eql(wip.metadata['dmp']['description'])
-      expect(json.first['dmp']['wip_id']['type']).to eql('other')
-      expect(json.first['dmp']['wip_id']['identifier']).to eql(wip.identifier)
+      expect(json.first['dmp']['draft_id']['type']).to eql('other')
+      expect(json.first['dmp']['draft_id']['identifier']).to eql(wip.identifier)
     end
   end
 
@@ -236,11 +236,11 @@ pp json
       expect(json.length).to eql(1)
       expect(json.first['dmp']['title']).to eql(wip.metadata['dmp']['title'])
       expect(json.first['dmp']['foo'].present?).to be(false)
-      expect(json.first['dmp']['wip_id']['type']).to eql('other')
+      expect(json.first['dmp']['draft_id']['type']).to eql('other')
 
 puts Wip.all.inspect
 
-      expect(json.first['dmp']['wip_id']['identifier']).to eql(wip.identifier)
+      expect(json.first['dmp']['draft_id']['identifier']).to eql(wip.identifier)
     end
 
     it 'succeeds and returns the wip with it\'s new identifier' do
@@ -256,8 +256,8 @@ puts Wip.all.inspect
       expect(json.first['dmp']['title']).to eql(wip.metadata['dmp']['title'])
       expected = wip.metadata['dmp']['project'].first[:funding].first[:name]
       expect(json.first['dmp']['project'].first['funding'].first['name']).to eql(expected)
-      expect(json.first['dmp']['wip_id']['type']).to eql('other')
-      expect(json.first['dmp']['wip_id']['identifier']).to eql(wip.identifier)
+      expect(json.first['dmp']['draft_id']['type']).to eql('other')
+      expect(json.first['dmp']['draft_id']['identifier']).to eql(wip.identifier)
     end
 
     xit 'replaces the narrative PDF' do

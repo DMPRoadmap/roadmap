@@ -8,8 +8,6 @@
       <% end %>
     </h1>
 
-    <%= DmpIdService.fetch_dmps(user: current_user) %>
-
     <!-- if the user has projects -->
     <p>
       <% if @plans.count > 0 %>

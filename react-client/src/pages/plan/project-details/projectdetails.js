@@ -22,7 +22,7 @@ function ProjectDetails() {
   useEffect(() => {
     let api = new DmpApi();
 
-    fetch(api.getPath(`/dmps/${dmpId}`))
+    fetch(api.getPath(`/drafts/${dmpId}`))
       .then((resp) => {
         api.handleResponse(resp);
         return resp.json();
@@ -72,13 +72,13 @@ function ProjectDetails() {
             }
           }),
         });
-    
-        fetch(api.getPath('/dmps'), options).then((resp) => {
+
+        fetch(api.getPath('/drafts'), options).then((resp) => {
           api.handleResponse(resp.status);
           return resp.json();
         }).then((data) => {
           let dmp = data.items[0].dmp;
-          navigate(`/dashboard/dmp/${dmp.wip_id.identifier}`);
+          navigate(`/dashboard/dmp/${dmp.draft_id.identifier}`);
         });
     */
   }
