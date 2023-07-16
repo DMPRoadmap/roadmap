@@ -6,33 +6,28 @@ import {
   useSearchParams,
 } from "react-router-dom";
 
-import { DmpApi } from "../../../api";
+import { DmpApi } from "../../../api.js";
+import { getValue } from "../../../utils.js";
+import TextInput from "../../../components/text-input/textInput.js";
+import TextArea from "../../../components/textarea/textArea.js";
 
-import TextInput from "../../../components/text-input/textInput";
-import TextArea from "../../../components/textarea/textArea";
 import "./projectdetails.scss";
 
-
-function getValue(obj, path) {
-  if (typeof path === 'string') path = path.split(".");
-
-  if (path.length === 0) throw "Path Length is Zero";
-  if (path.length === 1) return obj[path[0]];
-
-  if (obj[path[0]]) {
-    return getValue(obj[path[0]], path.slice(1));
-  } else {
-    console.log(obj[path[0]])
-    obj[path[0]] = {};
-    return getValue(obj[path[0]], path.slice(1));
-  }
-};
 
 function ProjectDetails() {
   let navigate = useNavigate();
 
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
+  const [formData, setFormData] = useState({
+    project_name: "",
+    project_id: "",
+    project_abstract: "",
+    start_date: "",
+    end_date: "",
+    award_number: "",
+  })
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -44,56 +39,75 @@ function ProjectDetails() {
         return resp.json();
       })
       .then((data) => {
-        setDmp(data.items[0].dmp);
+        let dmp = data.items[0].dmp
+        setDmp(dmp);
+        setFormData({
+          project_name: getValue(dmp, "title"),
+          project_id: dmpId,
+          project_abstract: getValue(dmp, "description"),
+          start_date: getValue(dmp, "project.0.start"),
+          end_date: getValue(dmp, "project.0.end"),
+          award_number: getValue(dmp, "project.0.funding.0.dmproadmap_opportunity_number"),
+        });
       });
   }, [dmpId]);
 
+  // FIXME::TODO:: Is this the correct way to do this?
+  // Is there another way to get this information rather than a URL parameter?
+  // Reason: Url Parameters state can be too easilly manipulated
   let is_locked = searchParams.get("locked");
-
-  // let testData = {
-  //   project_name: dmp.title ? dmp.title : "",
-  //   project_id: "",
-  //   project_abstract: "",
-  //   start_date: "",
-  //   end_date: "",
-  //   award_number: "",
-  // };
-
-  // if (is_locked) {
-  //   testData = {
-  //     project_name:
-  //       "Dinosaur Decibels: How Roaring Dinosaurs Impact Children's Education",
-  //     project_id: "8881-2424-2424-1133",
-  //     project_abstract:
-  //       "We explore the effects of prolonged exposure to dinosaur roars on children's eeducation. The  dilemmas faced by parents and caregivers in the age of dino-induced auditory adventures.",
-  //     start_date: "2021-01-01",
-  //     end_date: "2021-12-31",
-  //     award_number: "GA-0024-ACB-1",
-  //   };
-  // }
 
   async function handleSubmit(ev) {
     ev.preventDefault();
     let api = new DmpApi();
 
-    navigate(`/dashboard/dmp/${dmpId}/`);
+    // TODO:: QUESTION:
+    // The funding and project keys are arrays, does this mean there is a
+    // potential for multiple objects to be returned in future? And if so,
+    // should we be concerned with which one of the multiple objects to
+    // display and/or update.
+
+    // Update the DMP from the submitted formData
+    // Use spread operator to update the dmp data, but we separate nested
+    // structures so that we can be explicit about the updates.
+    let dmpProject = getValue(dmp, "project.0", {});
+    let projectFunding = getValue(dmp, "project.0.funding.0", {});
+
+    projectFunding = {
+      ...projectFunding,
+      ...{"dmproadmap_opportunity_number": formData.award_number}
+    };
+
+    dmpProject = {
+      ...dmpProject,
+      ...{
+        "title": formData.project_name,
+        "description": formData.project_abstract,
+        "start": formData.start_date,
+        "end": formData.end_date,
+      },
+      ...{"funding": [projectFunding]},
+    }
+
+    // Finally put it all together
+    let dmpData = {
+      ...dmp,
+      ...{"title": formData.project_name},
+      ...{"project": [dmpProject]},
+    }
 
     let options = api.getOptions({
-      method: "post",
-      body: JSON.stringify({
-        "dmp": {
-          "title": stepData['project_name'],
-          "narrative": fileResult,
-        }
-      }),
+      method: "put",
+      body: JSON.stringify({"dmp": dmpData}),
     });
 
-    fetch(api.getPath('/dmps'), options).then((resp) => {
+    fetch(api.getPath(`/dmps/${dmpId}`), options).then((resp) => {
       api.handleResponse(resp.status);
       return resp.json();
     }).then((data) => {
-      let dmp = data.items[0].dmp;
-      navigate(`/dashboard/dmp/${dmp.wip_id.identifier}`);
+      // FIXME:: Handle response and input errors
+      // let dmp = data.items[0].dmp;
+      navigate(`/dashboard/dmp/${dmpId}/`);
     });
   }
 
@@ -123,7 +137,7 @@ function ProjectDetails() {
               <TextInput
                 label="Project Name"
                 type="text"
-                inputValue={getValue(dmp, "title")}
+                inputValue={formData.project_name}
                 required="required"
                 name="project_name"
                 id="project_name"
@@ -137,7 +151,7 @@ function ProjectDetails() {
               <TextInput
                 label="Project Number or ID"
                 type="text"
-                inputValue={getValue(dmp, "wip_id.identifier")}
+                inputValue={formData.project_id}
                 required="required"
                 name="project_id"
                 id="project_id"
@@ -153,7 +167,7 @@ function ProjectDetails() {
               <TextArea
                 label="Project Abstract"
                 type="text"
-                inputValue={getValue(dmp, "project.description")}
+                inputValue={formData.project_abstract}
                 required="required"
                 name="project_abstract"
                 id="project_abstract"
@@ -169,7 +183,7 @@ function ProjectDetails() {
               <TextInput
                 label="Project Start Date"
                 type="date"
-                inputValue={getValue(dmp, "project.start")}
+                inputValue={formData.start_date}
                 required="required"
                 name="start_date"
                 id="start_date"
@@ -182,7 +196,7 @@ function ProjectDetails() {
               <TextInput
                 label="Project End Date"
                 type="date"
-                inputValue={getValue(dmp, "project.end")}
+                inputValue={formData.end_date}
                 required="required"
                 name="end_date"
                 id="end_date"
@@ -198,7 +212,7 @@ function ProjectDetails() {
               <TextInput
                 label="Opportunity / Federal award number"
                 type="text"
-                inputValue={getValue(dmp, "")}
+                inputValue={formData.award_number}
                 required="required"
                 name="ppportunity_number"
                 id="ppportunity_number"
