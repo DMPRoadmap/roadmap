@@ -1,8 +1,11 @@
 import useContext from "react";
 import { useNavigate } from "react-router-dom";
-import { DmpApi } from "../../../api";
-import TextInput from "../../../components/text-input/textInput";
+
+import { DmpApi } from "../../../api.js";
+import TextInput from "../../../components/text-input/textInput.js";
 import "./new.scss";
+
+
 function PlanNew() {
   let navigate = useNavigate();
   let dmpData = {};
