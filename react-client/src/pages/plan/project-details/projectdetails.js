@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Link,
   useParams,
@@ -5,17 +6,32 @@ import {
   useSearchParams,
 } from "react-router-dom";
 
-import { useEffect, useState } from "react";
-
 import { DmpApi } from "../../../api";
 
-// forms
 import TextInput from "../../../components/text-input/textInput";
 import TextArea from "../../../components/textarea/textArea";
 import "./projectdetails.scss";
+
+
+function getValue(obj, path) {
+  if (typeof path === 'string') path = path.split(".");
+
+  if (path.length === 0) throw "Path Length is Zero";
+  if (path.length === 1) return obj[path[0]];
+
+  if (obj[path[0]]) {
+    return getValue(obj[path[0]], path.slice(1));
+  } else {
+    console.log(obj[path[0]])
+    obj[path[0]] = {};
+    return getValue(obj[path[0]], path.slice(1));
+  }
+};
+
 function ProjectDetails() {
   let navigate = useNavigate();
-  const { dmpId } = useParams();
+
+  const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -28,33 +44,33 @@ function ProjectDetails() {
         return resp.json();
       })
       .then((data) => {
-        console.log(data.items[0]);
         setDmp(data.items[0].dmp);
       });
   }, [dmpId]);
 
   let is_locked = searchParams.get("locked");
 
-  let testData = {
-    project_name: dmp.title ? dmp.title : "",
-    project_id: "",
-    project_abstract: "",
-    start_date: "",
-    end_date: "",
-    award_number: "",
-  };
-  if (is_locked) {
-    testData = {
-      project_name:
-        "Dinosaur Decibels: How Roaring Dinosaurs Impact Children's Education",
-      project_id: "8881-2424-2424-1133",
-      project_abstract:
-        "We explore the effects of prolonged exposure to dinosaur roars on children's eeducation. The  dilemmas faced by parents and caregivers in the age of dino-induced auditory adventures.",
-      start_date: "2021-01-01",
-      end_date: "2021-12-31",
-      award_number: "GA-0024-ACB-1",
-    };
-  }
+  // let testData = {
+  //   project_name: dmp.title ? dmp.title : "",
+  //   project_id: "",
+  //   project_abstract: "",
+  //   start_date: "",
+  //   end_date: "",
+  //   award_number: "",
+  // };
+
+  // if (is_locked) {
+  //   testData = {
+  //     project_name:
+  //       "Dinosaur Decibels: How Roaring Dinosaurs Impact Children's Education",
+  //     project_id: "8881-2424-2424-1133",
+  //     project_abstract:
+  //       "We explore the effects of prolonged exposure to dinosaur roars on children's eeducation. The  dilemmas faced by parents and caregivers in the age of dino-induced auditory adventures.",
+  //     start_date: "2021-01-01",
+  //     end_date: "2021-12-31",
+  //     award_number: "GA-0024-ACB-1",
+  //   };
+  // }
 
   async function handleSubmit(ev) {
     ev.preventDefault();
@@ -62,25 +78,23 @@ function ProjectDetails() {
 
     navigate(`/dashboard/dmp/${dmpId}/`);
 
-    /*
-        let options = api.getOptions({
-          method: "post",
-          body: JSON.stringify({
-            "dmp": {
-              "title": stepData['project_name'],
-              "narrative": fileResult,
-            }
-          }),
-        });
-    
-        fetch(api.getPath('/dmps'), options).then((resp) => {
-          api.handleResponse(resp.status);
-          return resp.json();
-        }).then((data) => {
-          let dmp = data.items[0].dmp;
-          navigate(`/dashboard/dmp/${dmp.wip_id.identifier}`);
-        });
-    */
+    let options = api.getOptions({
+      method: "post",
+      body: JSON.stringify({
+        "dmp": {
+          "title": stepData['project_name'],
+          "narrative": fileResult,
+        }
+      }),
+    });
+
+    fetch(api.getPath('/dmps'), options).then((resp) => {
+      api.handleResponse(resp.status);
+      return resp.json();
+    }).then((data) => {
+      let dmp = data.items[0].dmp;
+      navigate(`/dashboard/dmp/${dmp.wip_id.identifier}`);
+    });
   }
 
   return (
@@ -109,7 +123,7 @@ function ProjectDetails() {
               <TextInput
                 label="Project Name"
                 type="text"
-                inputValue={testData.project_name}
+                inputValue={getValue(dmp, "title")}
                 required="required"
                 name="project_name"
                 id="project_name"
@@ -123,7 +137,7 @@ function ProjectDetails() {
               <TextInput
                 label="Project Number or ID"
                 type="text"
-                inputValue={testData.project_id}
+                inputValue={getValue(dmp, "wip_id.identifier")}
                 required="required"
                 name="project_id"
                 id="project_id"
@@ -139,7 +153,7 @@ function ProjectDetails() {
               <TextArea
                 label="Project Abstract"
                 type="text"
-                inputValue={testData.project_abstract}
+                inputValue={getValue(dmp, "project.description")}
                 required="required"
                 name="project_abstract"
                 id="project_abstract"
@@ -155,7 +169,7 @@ function ProjectDetails() {
               <TextInput
                 label="Project Start Date"
                 type="date"
-                inputValue={testData.start_date}
+                inputValue={getValue(dmp, "project.start")}
                 required="required"
                 name="start_date"
                 id="start_date"
@@ -168,7 +182,7 @@ function ProjectDetails() {
               <TextInput
                 label="Project End Date"
                 type="date"
-                inputValue={testData.end_date}
+                inputValue={getValue(dmp, "project.end")}
                 required="required"
                 name="end_date"
                 id="end_date"
@@ -184,7 +198,7 @@ function ProjectDetails() {
               <TextInput
                 label="Opportunity / Federal award number"
                 type="text"
-                inputValue={testData.award_number}
+                inputValue={getValue(dmp, "")}
                 required="required"
                 name="ppportunity_number"
                 id="ppportunity_number"
