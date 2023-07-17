@@ -33,14 +33,14 @@ function PlanNew() {
       }),
     });
 
-    fetch(api.getPath("/dmps"), options)
+    fetch(api.getPath("/drafts"), options)
       .then((resp) => {
         api.handleResponse(resp.status);
         return resp.json();
       })
       .then((data) => {
         let dmp = data.items[0].dmp;
-        navigate(`/dashboard/dmp/${dmp.wip_id.identifier}`);
+        navigate(`/dashboard/dmp/${dmp.draft_id.identifier}`);
       });
   }
 

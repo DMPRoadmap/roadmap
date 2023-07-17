@@ -33,7 +33,7 @@ function ProjectDetails() {
   useEffect(() => {
     let api = new DmpApi();
 
-    fetch(api.getPath(`/dmps/${dmpId}`))
+    fetch(api.getPath(`/drafts/${dmpId}`))
       .then((resp) => {
         api.handleResponse(resp);
         return resp.json();
@@ -101,7 +101,7 @@ function ProjectDetails() {
       body: JSON.stringify({"dmp": dmpData}),
     });
 
-    fetch(api.getPath(`/dmps/${dmpId}`), options).then((resp) => {
+    fetch(api.getPath(`/drafts/${dmpId}`), options).then((resp) => {
       api.handleResponse(resp.status);
       return resp.json();
     }).then((data) => {

@@ -16,6 +16,10 @@
 #  aliases                :json
 #  country                :json
 #  file_timestamp         :datetime
+#  api_target             :string
+#  api_auth_target        :string
+#  api_guidance           :text
+#  api_query_fields       :json
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

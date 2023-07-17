@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_30_204500) do
+ActiveRecord::Schema.define(version: 2023_07_13_150922) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -145,14 +145,14 @@ ActiveRecord::Schema.define(version: 2023_06_30_204500) do
     t.index ["org_id"], name: "index_departments_on_org_id"
   end
 
-  create_table "dmps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "identifier"
+  create_table "drafts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "draft_id"
     t.json "metadata", null: false
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "dmp_id"
-    t.index ["identifier"], name: "index_dmps_on_identifier"
+    t.index ["draft_id"], name: "index_drafts_on_draft_id"
   end
 
   create_table "exported_plans", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
@@ -818,8 +818,6 @@ ActiveRecord::Schema.define(version: 2023_06_30_204500) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"

@@ -707,10 +707,10 @@ class Plan < ApplicationRecord
     targets = subscription_types.map do |typ|
       subscriptions.select { |sub| sub.selected_subscription_types.include?(typ.to_sym) }
     end
+
+puts "NOTIFYING ************************ #{targets}"
+
     targets = targets.flatten.uniq if targets.any?
-
-puts "Notifying subscribers of changes: #{targets}"
-
     targets.each(&:notify!)
     true
   end

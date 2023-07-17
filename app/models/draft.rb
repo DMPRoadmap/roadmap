@@ -4,10 +4,10 @@ require 'securerandom'
 
 # == Schema Information
 #
-# Table name: dmps
+# Table name: drafts
 #
 #  id          :integer          not null, primary key
-#  identifier  :string           not null
+#  draft_id    :string           not null
 #  user_id     :integer
 #  metadata    :json
 #  dmp_id      :string
@@ -16,7 +16,7 @@ require 'securerandom'
 #
 
 # Object that represents a question/guidance theme
-class Dmp < ApplicationRecord
+class Draft < ApplicationRecord
   include Dmptool::Registerable
 
   INVALID_JSON_MSG = 'must contain a top level :dmp and at least a :title. For example: `{ dmp: { title: \'Test\' } }`'
@@ -27,40 +27,40 @@ class Dmp < ApplicationRecord
   # ActiveStorage for Narrative PDF document
   has_one_attached :narrative
 
-  # Ensure that the :identifier has been generated on new records
-  before_validation :generate_identifier
+  # Ensure that the :draft_id has been generated on new records
+  before_validation :generate_draft_id
 
-  # Ensure the :wip_id and :dmproadmap_related_identifier for the narrative are not in the :metadata
+  # Ensure the :draft_id and :dmproadmap_related_identifier for the narrative are not in the :metadata
   # they are attached on the fly during the call to :to_json
-  after_validation :remove_wip_id_and_narrative_from_metadata
+  after_validation :remove_draft_id_and_narrative_from_metadata
 
-  # Ensure that the narrative PDF is removed from ActiveStorage before deleting the WIP
+  # Ensure that the narrative PDF is removed from ActiveStorage before deleting the draft
   before_destroy :remove_narrative
 
   validates :user, presence: { message: PRESENCE_MESSAGE }
   validate :validate_metadata
 
-  # The DMP ID must be unique (although it can be nil or blank). A nil/blank DMP ID indicates that the work
-  # in progress (WIP) has not been registered (aka it is not complete)
+  # The DMP ID must be unique (although it can be nil or blank). A nil/blank DMP ID indicates that the draft has
+  # not been registered (aka it is not complete)
   validates_uniqueness_of :dmp_id, allow_blank: true
 
   # Method required by the DMPTool::Registerable concern that checks to see if the Plan has all of the
   # content required to register a DMP ID
   def registerable?
     return true if dmp_id.present?
-    return false if identifier.nil? || user.nil?
+    return false if draft_id.nil? || user.nil?
 
     hash = JSON.parse(metadata).fetch('dmp', {})
     !hash['title'].blank? && hash.fetch('contact', {}).fetch('contact_id', {})['identifier'].present?
   end
 
-  # Attach the wip_id and narrative to the metadata
+  # Attach the draft_id and narrative to the metadata
   def to_json
     data = metadata
     return JSON.parse(data.to_json).to_json unless data['dmp'].present?
 
     data['dmp']['dmp_id'] = { type: 'doi', identifier: dmp_id } if registered?
-    data['dmp']['wip_id'] = { type: 'other', identifier: identifier } if !registered? && identifier.present?
+    data['dmp']['draft_id'] = { type: 'other', identifier: draft_id } if !registered? && draft_id.present?
     return JSON.parse(data.to_json).to_json unless narrative.attached?
 
     data['dmp']['dmproadmap_related_identifiers'] = [] unless data['dmp']['dmproadmap_related_identifiers']
@@ -81,23 +81,24 @@ class Dmp < ApplicationRecord
     data['dmp']['modified'] = updated_at.to_formatted_s(:iso8601)
     data['dmp']['dataset'] = [] unless data['dmp']['dataset'].present?
     data['dmp']['project'] = [] unless data['dmp']['project'].present?
+    data['dmp']['dmproadmap_privacy'] = 'private' unless data['dmp']['dmproadmap_privacy'].present?
     JSON.parse(data.to_json).to_json
   end
 
   protected
 
-  # Auto assign a unique identifier for new records
-  def generate_identifier
+  # Auto assign a unique draft_id for new records
+  def generate_draft_id
     if new_record?
-      self.identifier = "#{Time.now.strftime('%Y%m%d')}-#{SecureRandom.hex(6)}"
+      self.draft_id = "#{Time.now.strftime('%Y%m%d')}-#{SecureRandom.hex(6)}"
     end
   end
 
-  # Strip out the :wip_id, :dmp_id and :narrative info if they were included
-  def remove_wip_id_and_narrative_from_metadata
+  # Strip out the :draft_id, :dmp_id and :narrative info if they were included
+  def remove_draft_id_and_narrative_from_metadata
     if metadata.present? && metadata['dmp'].present?
       metadata['dmp'].delete('dmp_id') if metadata.is_a?(Hash) && metadata['dmp'].present? && metadata['dmp']['dmp_id'].present?
-      metadata['dmp'].delete('wip_id') if metadata.is_a?(Hash) && metadata['dmp'].present? && metadata['dmp']['wip_id'].present?
+      metadata['dmp'].delete('draft_id') if metadata.is_a?(Hash) && metadata['dmp'].present? && metadata['dmp']['draft_id'].present?
       metadata['dmp'].fetch('dmproadmap_related_identifiers', []).delete_if { |id| id['descriptor'] == 'is_metadata_for' }
     end
   end

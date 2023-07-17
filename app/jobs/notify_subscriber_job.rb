@@ -43,8 +43,10 @@ class NotifySubscriberJob < ApplicationJob
       Rails.logger.info "Sending #{api_client.name} the updated DMP ID metadata \
                         for Plan #{subscription.plan.id}"
 
+      # Publish the updated meatdata to the DMP ID record
       DmpIdService.update_dmp_id(plan: subscription.plan)
-
+      # Publish the narrative PDF document
+      subscription.plan.publish_narrative!(immediate: true) if subscription.plan.respond_to?(:publish_narrative!)
     elsif !dmp_id_svc
       # As long as this isn't the DMP ID service, send the update directly to the callback
       # Maybe just use HTTParty for this

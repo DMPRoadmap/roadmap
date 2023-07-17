@@ -18,6 +18,20 @@ class DmpIdService
       nil
     end
 
+    def fetch_dmps(user:)
+      return nil unless user.present?
+
+      svc = minter
+      return nil if svc.blank? # || !minting_service_defined?
+
+      svc.fetch_dmps(user: user)
+    rescue StandardError => e
+      Rails.logger.debug e.message
+      Rails.logger.error "DmpIdService.fetch_dmps for User #{user&.id} resulted in: #{e.message}"
+      Rails.logger.error e.backtrace
+      nil
+    end
+
     # Registers a DMP ID for the specified plan.
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def mint_dmp_id(plan:, seeding: false)
