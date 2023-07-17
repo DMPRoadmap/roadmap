@@ -25,7 +25,7 @@ export class DmpApi {
     // The returned headers object can be customized further if needed by the
     // caller.
     let headers = new Headers();
-    headers.append('Content-Type', "application/x-www-form-urlencoded");
+    // headers.append('Content-Type', "application/x-www-form-urlencoded");
     headers.append('Accept', "application/json");
     return headers;
   }

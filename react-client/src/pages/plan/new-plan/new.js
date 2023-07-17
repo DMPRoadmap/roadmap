@@ -21,16 +21,18 @@ function PlanNew() {
 
     formData.forEach((value, key) => (stepData[key] = value));
 
-    const fileResult = await api.getFileDataURL(stepData["project_pdf"]);
+    // const fileResult = await api.getFileDataURL(stepData["project_pdf"]);
+
+    /* body: JSON.stringify({
+      dmp: {
+        title: stepData["project_name"],
+        narrative: fileResult,
+      },
+    }), */
 
     let options = api.getOptions({
       method: "post",
-      body: JSON.stringify({
-        dmp: {
-          title: stepData["project_name"],
-          narrative: fileResult,
-        },
-      }),
+      body: formData,
     });
 
     fetch(api.getPath("/drafts"), options)
@@ -58,8 +60,8 @@ function PlanNew() {
                 label="Project Name"
                 type="text"
                 required="required"
-                name="project_name"
-                id="project_name"
+                name="title"
+                id="title"
                 placeholder="Project Name"
                 help="All or part of the project name/title, e.g. 'Particle Physics'"
                 error=""
@@ -78,7 +80,7 @@ function PlanNew() {
 
                 <div className="dmpui-field-fileinput-group  ">
                   <div className="">
-                    <input name="project_pdf" type="file" />
+                    <input name="narrative" type="file" />
                   </div>
                 </div>
               </div>

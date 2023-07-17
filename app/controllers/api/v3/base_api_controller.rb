@@ -149,7 +149,7 @@ module Api
       end
 
       def funding_permitted_params
-        %i[name funding_status] +
+        %i[name funding_status dmproadmap_opportunity_number] +
           [funder_ids: identifier_permitted_params,
            grant_ids: identifier_permitted_params]
       end

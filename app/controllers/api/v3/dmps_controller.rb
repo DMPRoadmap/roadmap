@@ -54,14 +54,7 @@ module Api
         authed = user_is_authorized(dmp: dmp)
         render_error(errors: DmpsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless authed
 
-puts 'PARAMS:'
-puts dmp_permitted_params.inspect
-
         json = JSON.parse(dmp_permitted_params.to_h.to_json)
-
-puts 'JSON:'
-puts json
-
         result = DmpIdService.update_dmp_id(plan: json)
         render_error(errors: DmpsController::MSG_DMP_ID_UPDATE_FAILED, status: :bad_request) and return if result.nil?
 
