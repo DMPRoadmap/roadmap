@@ -1,8 +1,15 @@
-import { useState } from "react";
+import {
+  useState,
+  useEffect,
+} from "react";
 
 function TextArea(props) {
   const [inputType] = useState(props.type);
   const [inputValue, setInputValue] = useState(props.inputValue);
+
+  useEffect(() => {
+    setInputValue(props.inputValue)
+  }, [props.inputValue]);
 
   function handleChange(event) {
     const newValue = event.target.value;

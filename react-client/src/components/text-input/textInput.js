@@ -1,8 +1,15 @@
-import { useState } from "react";
+import {
+  useState,
+  useEffect,
+} from "react";
 
 function TextInput(props) {
   const [inputType] = useState(props.type);
   const [inputValue, setInputValue] = useState(props.inputValue);
+
+  useEffect(() => {
+    setInputValue(props.inputValue)
+  }, [props.inputValue]);
 
   function handleChange(event) {
     const newValue = event.target.value;
@@ -17,8 +24,6 @@ function TextInput(props) {
     errorMsg = errorMsg;
   }
 
-  console.log("inputValue");
-  console.log(inputValue);
   return (
     <>
       <div className={"dmpui-field-group " + errorClass}>
