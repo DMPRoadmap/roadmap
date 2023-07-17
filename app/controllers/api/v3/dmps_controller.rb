@@ -7,7 +7,7 @@ module Api
       # POST /api/v3/dmps/{:id}/register
       #        Register the DMP ID for the specified draft DMP
       def create
-        dmp = Dmp.find_by(id: params[:id])
+        dmp = Draft.find_by(id: params[:id])
         render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
         render_error(errors: DmpsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
 
