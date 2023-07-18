@@ -115,8 +115,9 @@ module Api
 
       def dmp_permitted_params
         %i[created title description language ethical_issues_exist
-           ethical_issues_description ethical_issues_report] +
+           ethical_issues_description ethical_issues_report draft_id] +
           [dmp_ids: identifier_permitted_params,
+           dmproadmap_related_identifiers: related_identifier_params,
            contact: contributor_permitted_params,
            contributors: contributor_permitted_params,
            costs: cost_permitted_params,
@@ -144,7 +145,7 @@ module Api
       end
 
       def project_permitted_params
-        %i[title description start_on end_on] +
+        %i[title description start end] +
           [funding: funding_permitted_params]
       end
 
@@ -170,6 +171,10 @@ module Api
 
       def security_and_privacy_statement_permitted_params
         %i[title description]
+      end
+
+      def related_identifier_params
+        %i[descriptor work_type type identifier]
       end
 
       def technical_resource_permitted_params

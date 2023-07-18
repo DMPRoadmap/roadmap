@@ -22,12 +22,12 @@ module Api
       # POST /drafts
       def create
         # Extract the narrative PDF so we can add it to ActiveStorage
-        args = dmp_params
+        args = create_params
         args.delete(:narrative)
-
         dmp = Draft.new(user: current_user, metadata: { dmp: args })
+
         # Attach the narrative PDF if applicable
-        dmp.narrative.attach(dmp_params[:narrative]) if dmp_params[:narrative].present?
+        dmp.narrative.attach(create_params[:narrative]) if create_params[:narrative].present?
         if dmp.save
           @drafts = [dmp]
           render json: render_to_string(template: '/api/v3/drafts/index'), status: :created
@@ -103,8 +103,14 @@ module Api
 
       private
 
+      # Create params come through as multipart/form-data and I'm having trouble getting the top level :dmp to work
+      # so we have specific params for the create action
+      def create_params
+        params.permit(:title, :narrative)
+      end
+
       def dmp_params
-        params.permit(:narrative, :remove_narrative, dmp_permitted_params)# .to_h
+        params.require(:dmp).permit(:narrative, :remove_narrative, dmp_permitted_params)
       end
     end
   end

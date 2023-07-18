@@ -19,20 +19,23 @@ function PlanNew() {
     const form = ev.target;
     const formData = new FormData(form);
 
-    formData.forEach((value, key) => (stepData[key] = value));
+    // formData.forEach((value, key) => (stepData[key] = value));
 
     // const fileResult = await api.getFileDataURL(stepData["project_pdf"]);
 
-    /* body: JSON.stringify({
-      dmp: {
-        title: stepData["project_name"],
-        narrative: fileResult,
-      },
-    }), */
+console.log(formData);
 
     let options = api.getOptions({
       method: "post",
       body: formData,
+      /*
+      body: JSON.stringify({
+        dmp: {
+          "title": stepData.project_name || "",
+          "narrative": fileResult
+        }
+      }),
+      */
     });
 
     fetch(api.getPath("/drafts"), options)

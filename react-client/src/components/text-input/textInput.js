@@ -11,10 +11,9 @@ function TextInput(props) {
     setInputValue(props.inputValue)
   }, [props.inputValue]);
 
-  function handleChange(event) {
-    const newValue = event.target.value;
-    setInputValue(newValue);
-    if (props.onChange) props.onChange(newValue);
+  function handleChange(ev) {
+    setInputValue(ev.target.value);
+    if (props.onChange) props.onChange(ev);
   }
 
   let errorMsg = props?.error ? props.error : "";
