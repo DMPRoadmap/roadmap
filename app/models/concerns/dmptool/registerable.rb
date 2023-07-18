@@ -22,7 +22,7 @@ module Dmptool
     end
 
     included do
-      # Check if the WIP has been registered with a DMP ID
+      # Check if the Draft DMP has been registered with a DMP ID
       def registered?
         !dmp_id.blank?
       end
@@ -94,7 +94,7 @@ module Dmptool
 
       # Send the narrative PDF document to the DMPHub
       def publish_narrative!(immediate: true)
-        PdfPublisherJob.perform_now(plan: self)
+        immediate ? PdfPublisherJob.perform_now(plan: self) : PdfPublisherJob.set(wait: 5.minutes).perform_later(plan: self)
       end
 
       # Upload the citation to the owner's ORCID record
