@@ -65,7 +65,7 @@ class Template < ApplicationRecord
   # Context describes if the DMP is for a Research Project ou a Research Structure
   # The Project Form is replaced by a Structure Form in the General information tab.
   # New features might be added in the future
-  enum context: %i[research_project research_structure]
+  enum context: %i[research_project research_entity]
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------

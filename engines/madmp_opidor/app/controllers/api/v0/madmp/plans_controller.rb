@@ -20,11 +20,11 @@ module Api
             format.json
             if export_format.eql?('rda')
               render 'shared/export/madmp_export_templates/rda/plan', locals: {
-                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+                dmp: plan_fragment, selected_research_outputs:
               }
             else
               render 'shared/export/madmp_export_templates/default/plan', locals: {
-                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+                dmp: plan_fragment, selected_research_outputs:
               }
             end
             return

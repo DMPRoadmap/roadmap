@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 # rubocop:disable Naming/VariableNumber
 namespace :madmpopidor do
   desc 'Upgrade to v3.0.0'

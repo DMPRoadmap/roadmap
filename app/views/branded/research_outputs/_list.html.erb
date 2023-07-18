@@ -33,7 +33,7 @@
               <div class='research-output-field form-group research-output-uuid'>
                 <%= f.label :uuid,  class: 'control-label' do %>
                   <%= _('UUID') %> 
-                  <i class="fas fa-question-circle action" 
+                  <i class="fas fa-circle-question action" 
                     data-toggle="tooltip" 
                     title="<%= _('Research output unique identifier')%>" ></i>
                 <% end %>
@@ -106,15 +106,15 @@
         </div>
         <% unless readonly %>
           <div class='research-output-actions'>
-              <i class="fas fa-edit edit" aria-hidden="true" data-toggle="tooltip" 
+              <i class="fas fa-pen-to-square edit" aria-hidden="true" data-toggle="tooltip" 
                       data-original-title="<%= _('Edit research output') %>"></i>
             <% if plan.research_outputs.length > 1 && index != 0 %>
-              <i class="fas fa-arrows-alt handle" aria-hidden="true" data-toggle="tooltip" 
+              <i class="fas fa-up-down-left-right handle" aria-hidden="true" data-toggle="tooltip" 
                       data-original-title="<%= _('Move research output') %>"></i>
                       
               <%= link_to plan_research_output_url(plan, research_output), 
                           target: "_self",
-                          class: "fas fa-times delete",
+                          class: "fas fa-xmark delete",
                           data: {:confirm => _('Deleting this research output will remove the associated answers. Do you confirm ?')}, 
                           :method => :delete  do %>
                 <i aria-hidden="true" data-toggle="tooltip" 

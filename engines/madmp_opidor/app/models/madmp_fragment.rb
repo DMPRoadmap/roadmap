@@ -78,6 +78,7 @@ class MadmpFragment < ApplicationRecord
   scope :research_outputs, -> { where(classname: 'research_output') }
   scope :research_output_descriptions, -> { where(classname: 'research_output_description') }
   scope :resource_references, -> { where(classname: 'resource_reference') }
+  scope :research_entities, -> { where(classname: 'research_entity') }
   scope :reused_datas, -> { where(classname: 'reused_data') }
   scope :specific_datas, -> { where(classname: 'specific_data') }
   scope :technical_resources, -> { where(classname: 'technical_resource') }
@@ -217,8 +218,8 @@ class MadmpFragment < ApplicationRecord
                        { 'custom_value' => child.additional_info['custom_value'] }
                      else
                        child.get_full_fragment(
-                         with_ids: with_ids,
-                         with_template_name: with_template_name
+                         with_ids:,
+                         with_template_name:
                        )
                      end
         editable_data = editable_data.merge(prop => child_data)
@@ -240,8 +241,8 @@ class MadmpFragment < ApplicationRecord
                          end
             fragment_tab.push(
               child_data.get_full_fragment(
-                with_ids: with_ids,
-                with_template_name: with_template_name
+                with_ids:,
+                with_template_name:
               )
             )
           else
@@ -393,7 +394,7 @@ class MadmpFragment < ApplicationRecord
                             end
           sub_fragment.update(
             data: {},
-            additional_info: additional_info
+            additional_info:
           )
         elsif data.dig(prop, 'dbid')
           sub_fragment = MadmpFragment.find(data[prop]['dbid'])
@@ -500,9 +501,9 @@ class MadmpFragment < ApplicationRecord
     parent_id = nil if classname.eql?('person')
     unicity_properties = schema.schema['unicity']
     dmp_fragments = MadmpFragment.where(
-      dmp_id: dmp_id,
-      parent_id: parent_id,
-      classname: classname
+      dmp_id:,
+      parent_id:,
+      classname:
     ).where.not(id: current_fragment_id)
 
     dmp_fragments.each do |fragment|
@@ -520,7 +521,7 @@ class MadmpFragment < ApplicationRecord
     fragment_copy = MadmpFragment.new(
       dmp_id: ro_fragment.dmp_id,
       parent_id: ro_fragment.id,
-      answer_id: answer_id,
+      answer_id:,
       madmp_schema_id: fragment.madmp_schema_id,
       additional_info: { property_name: fragment.additional_info['property_name'] }
     )

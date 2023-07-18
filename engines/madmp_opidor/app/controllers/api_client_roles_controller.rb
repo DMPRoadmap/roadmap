@@ -14,7 +14,7 @@ class ApiClientRolesController < ApplicationController
     if client_role_params[:api_client_id].present?
       api_client = ApiClient.find(client_role_params[:api_client_id])
       @client_role.api_client = api_client
-      if ApiClientRole.exists?(plan: @client_role.plan, api_client: api_client)
+      if ApiClientRole.exists?(plan: @client_role.plan, api_client:)
 
         flash[:notice] = format(_('Plan is already shared with %{api_client}.'),
                                 api_client: api_client.name)

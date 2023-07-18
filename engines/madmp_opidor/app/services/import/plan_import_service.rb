@@ -14,8 +14,9 @@ module Import
         else
           dmp = json_data
         end
+        dmp_template_name = plan.template.research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
         dmp_fragment.raw_import(
-          dmp.slice('meta', 'project', 'budget'), MadmpSchema.find_by(name: 'DMPStandard')
+          dmp.slice('meta', 'project', 'research_entity', 'budget'), MadmpSchema.find_by(name: dmp_template_name)
         )
         Import::PlanImportService.handle_research_outputs(plan, dmp['researchOutput'])
       end
@@ -63,7 +64,7 @@ module Import
             next if associated_question.nil?
 
             fragment = MadmpFragment.new(
-              dmp_id: dmp_id,
+              dmp_id:,
               parent_id: research_output_fragment.id,
               madmp_schema: associated_question.madmp_schema,
               additional_info: { 'property_name' => prop }

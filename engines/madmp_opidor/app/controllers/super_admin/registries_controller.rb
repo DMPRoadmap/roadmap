@@ -112,7 +112,7 @@ module SuperAdmin
           registry.registry_values.delete_all
           registry_values = []
           json_values[registry.name].each_with_index do |reg_val, idx|
-            registry_values << RegistryValue.new(data: reg_val, registry: registry, order: idx)
+            registry_values << RegistryValue.new(data: reg_val, registry:, order: idx)
           end
           RegistryValue.import registry_values
         else

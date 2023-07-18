@@ -2,30 +2,20 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
-## 12/05/2023
-- Mise à jour du CAPTCHA vers Recaptcha V3 : 
-  - La validation est transparente basée sur un score calculé par Google
-  - Si la validation échoue, le site propose le test "Je ne suis pas un robot"
+## 18/07/2023
+- Mise à jour de FontAwesome (librairie d'icônes) vers la version 6
+- Amélioration du support des plans pour les entités de recherche
+  - Renommage des fichiers de "research structure" vers "research entity"
+  - Utilisation d'un template DMPResearchEntity pointant sur ResearchEntityStandard à la place de ProjectStandard
 
-## 28/04/2023
-- Correction du problème de pagination de la liste des contributeurs dans l'onglet Contributeurs (issue gitbucket 482) & retrait du champ de recherche
-- Correction du problème d'affichage des boutons
-- Correction du problème d'affichage du message indiquant qu'un élément est déjà présent dans le plan, lors de la sauvegarde dans une popup.
+## 30/06/2023
+- Changement des textes référençant "Structure de recherche/Research Structure" en "Entité de Recherche/Research Entity"
+- Ajout du Domaine de Recherche dans le tableau des DMPs Publics
+- Désactivation des UUID des produits de recherche par défaut (changement visible lors de la mise en production)
+- Correction d'un problème de fermeture de la bannière contenant le message des cookies
+- Correction d'un problème d'accès des plans présents dans l'interface administrateur par les administrateurs d'organisme (issue gitbucket 489)
 
-## 05/04/2023
-- Amélioration des fenetres de confirmation pour le partage d'un plan public, l'import ANR, l'envoi d'une notification et la suppression d'un sous fragment dans une liste de sous fragment. (Installation de la librarie Sweetalert2)
-- Correction d'un problème d'affichage des logos Twitter et Github dans le pied de page
-
-## 31/03/2023
-- Correction de problèmes CSS divers (Taille de certains textes, onglets Recommendations/Commentaires)
-- Ajout d'une fenêtre de validation lorsqu'un plan est passé en public.
-
-## 14/03/2023
-- Correction d'un problème provoquant un message d'erreur lors de l'import ANR.
-- Ruby 3.0 & Migration Webpacker => fusion des derniers changements présents sur la branche development de Roadmap (en prévision de la prochaine release). En théorie les changements sont invisibles pour les utilisateurs mais l'importance des changements dans le code peut potentiellement avoir créé des bugs. 
-
-## 09/03/2023
-- Ajout de la prise en compte de l'UUID lors d'un appel à la Codebase (notification, calcul ...)
-
-
-- Refonte de la gestion des valeurs par défaut dans les formulaires dynamiques.
+## 23/06/2023
+- Mise à jour de la configuration de l'éditeur des Pages Statiques (le bouton Upgrade n'est plus affiché)
+- Mise à jour du texte des liens dans le pied de page
+- Mise à jour vers Rails 7 et Ruby 3.1 : Rien à tester, il faut seulement surveiller d'éventuels bugs inhabituels.

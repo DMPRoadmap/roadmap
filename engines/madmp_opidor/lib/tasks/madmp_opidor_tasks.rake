@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 namespace :madmp_opidor do
-  desc 'Generate swagger files from specs'
-  task :swaggerize do
-    ENV['PATTERN'] = 'engines/madmp_opidor/spec/**/*_spec.rb'
-    Rake::Task['rswag:specs:swaggerize'].invoke
-  end
-
   desc 'Seeds the database with the madmp data'
   task seed: :environment do
     p 'Seeding database...'

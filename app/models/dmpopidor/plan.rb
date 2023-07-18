@@ -39,7 +39,7 @@ module Dmpopidor
 
     # Defines if an api client has a read access to the plan
     def readable_by_client?(client_id)
-      api_client_roles.select { |r| r.api_client_id == client_id && r.read }.any?
+      api_client_roles.any? { |r| r.api_client_id == client_id && r.read }
     end
 
     # The number of research outputs for a plan.
@@ -59,13 +59,14 @@ module Dmpopidor
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_plan_fragments
       template_locale = template.locale.eql?('en-GB') ? 'eng' : 'fra'
+      dmp_template_name = template.research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale template.locale do
         dmp_fragment = Fragment::Dmp.create!(
           data: {
             'plan_id' => id
           },
-          madmp_schema: MadmpSchema.find_by(name: 'DMPStandard'),
+          madmp_schema: MadmpSchema.find_by(name: dmp_template_name),
           additional_info: {}
         )
 
@@ -100,8 +101,8 @@ module Dmpopidor
         #################################
         # META & PROJECT FRAGMENTS
         #################################
-        if template.research_structure?
-          handle_research_structure(dmp_fragment.id)
+        if template.research_entity?
+          handle_research_entity(dmp_fragment.id)
         else
           handle_research_project(dmp_fragment.id, person)
         end
@@ -159,19 +160,19 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/MethodLength
 
-    def handle_research_structure(dmp_id)
-      structure_schema = MadmpSchema.find_by(name: 'StructureStandard')
-      structure = Fragment::Project.create!(
+    def handle_research_entity(dmp_id)
+      entity_schema = MadmpSchema.find_by(name: 'ResearchEntityStandard')
+      entity = Fragment::ResearchEntity.create!(
         data: {
           'title' => title,
           'description' => description
         },
         dmp_id: dmp_id,
         parent_id: dmp_id,
-        madmp_schema: structure_schema,
-        additional_info: { property_name: 'project' }
+        madmp_schema: entity_schema,
+        additional_info: { property_name: 'researchEntity' }
       )
-      structure.instantiate
+      entity.instantiate
     end
 
     # rubocop:disable Metrics/AbcSize

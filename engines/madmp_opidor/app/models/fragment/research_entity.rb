@@ -19,30 +19,34 @@
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 module Fragment
-  # Project STI model
-  class Project < MadmpFragment
+  # ResearchEntity STI model
+  class ResearchEntity < MadmpFragment
     def fundings
       Fragment::Funding.where(parent_id: id)
     end
 
-    def partner
-      Fragment::Partner.where(parent_id: id)
+    def structure_identification
+      Fragment::Partner.where(parent_id: id, additional_info: { property_name: 'structureIdentification' }).first
     end
 
-    def experimental_plan
-      Fragment::ResourceReference.where(parent_id: id).first
+    def members
+      Fragment::Partner.where(parent_id: id, additional_info: { property_name: 'members' })
     end
 
-    def principal_investigator
-      Fragment::Contributor.where(parent_id: id).first
+    def structure_managers
+      Fragment::Contributor.where(parent_id: id, additional_info: { property_name: 'structureManager' })
+    end
+
+    def data_stewards
+      Fragment::Contributor.where(parent_id: id, additional_info: { property_name: 'dataSteward' })
     end
 
     def properties
-      'funding, partner, experimental_plan, principal_investigator'
+      'funding, structure_identification, members, structure_managers, data_stewards'
     end
 
     def self.sti_name
-      'project'
+      'research_entity'
     end
   end
 end

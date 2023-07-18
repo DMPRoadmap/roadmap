@@ -28,8 +28,8 @@ class RegistriesController < ApplicationController
     locale = plan.template.locale
     search_term = params[:term] || ''
     values_list = registry.registry_values
-    formatted_list = values_list.select { |v| v.to_s(locale: locale).downcase.include?(search_term.downcase) }
-                                .map    { |v| { 'id' => select_value(v, locale), 'text' => v.to_s(locale: locale) } }
+    formatted_list = values_list.select { |v| v.to_s(locale:).downcase.include?(search_term.downcase) }
+                                .map    { |v| { 'id' => select_value(v, locale), 'text' => v.to_s(locale:) } }
     authorize plan
     render json: {
       'results' => formatted_list
