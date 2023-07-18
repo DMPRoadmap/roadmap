@@ -58,7 +58,7 @@ services:
       - dmpopidor_network
 
   nginx:
-    image: nginx:1.23.3-alpine-slim
+    image: nginx:1.23.4-alpine-slim
     ports:
       - ${NGINX_PORT:-8080}:80
     profiles: ["prod", "dev"]
@@ -81,7 +81,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:15.1-alpine3.17
+    image: postgres:15.3-alpine3.18
     profiles: ["prod", "dev"]
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
