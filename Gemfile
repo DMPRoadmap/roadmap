@@ -2,14 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.0'
+ruby '>= 3.1'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.0'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -46,6 +46,10 @@ gem 'jbuilder'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
+
+# Provides Sprockets implementation for Rails 4.x (and beyond) Asset Pipeline.
+# https://github.com/rails/sprockets-rails
+gem 'sprockets-rails'
 
 # ============== #
 # ERROR HANDLING #
@@ -200,7 +204,7 @@ gem 'activerecord_json_validator'
 # We need to freeze the mail gem version as the recently released 2.8.0 triggers an exception
 # We will need to check if it's fixed when we migrate to Ruby 3.0/3.1
 # See : https://github.com/DMPRoadmap/roadmap/issues/3254
-gem 'mail', '2.7.1'
+gem 'mail'
 
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
