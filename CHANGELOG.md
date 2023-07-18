@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.0 
+
+- Upgraded Ruby to 3.1
+- Upgraded Rails to 7.0
 ## v4.1.0
 
 **Note this upgrade is a migration from Ruby v2.7.6 to v3.0.5.** Note that this could have an impact on any customizations you may have made to your fork of this project. Please see https://www.fastruby.io/blog/ruby/upgrades/upgrade-ruby-from-2.7-to-3.0.html for further information on what to check. In particular, please note the changes to the way [Ruby 3 handles keyword arguments](https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0/)
