@@ -19,17 +19,17 @@
     <div id="sign-in-form" role="tabpanel" class=" active">
       <div class="panel panel-default">
         <div class="panel-body">
-        <h1>Connexion</h1>
+        <h1><%= _('Sign in') %></h1>
           <%= render :partial => 'shared/sign_in_form' %>
         </div>
       </div>
     </div>
-    <button class="btn btn-default" id="create-account-over">Créer un compte ?</button>
+    <button class="btn btn-default" id="create-account-over"><%= _('Create account?') %></button>
     <% unless active_page?(new_user_registration_path, true) %>
       <div id="create-account-form" role="tabpanel">
         <div class="panel panel-default">
           <div class="panel-body">
-          <h1>Inscription</h1>
+          <h1><%= _('Create account') %></h1>
             <%= render :partial => 'shared/create_account_form', locals: {orgs: orgs, org_partial: org_partial} %>
           </div>
         </div>
