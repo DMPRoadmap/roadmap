@@ -42,12 +42,12 @@ function ProjectDetails() {
         let dmp = data.items[0].dmp
         setDmp(dmp);
         setFormData({
-          project_name: getValue(dmp, "title"),
+          project_name: getValue(dmp, "title", ""),
           project_id: dmpId,
-          project_abstract: getValue(dmp, "description"),
-          start_date: getValue(dmp, "project.0.start"),
-          end_date: getValue(dmp, "project.0.end"),
-          award_number: getValue(dmp, "project.0.funding.0.dmproadmap_opportunity_number"),
+          project_abstract: getValue(dmp, "description", ""),
+          start_date: getValue(dmp, "project.0.start", ""),
+          end_date: getValue(dmp, "project.0.end", ""),
+          award_number: getValue(dmp, "project.0.funding.0.dmproadmap_opportunity_number", ""),
         });
       });
   }, [dmpId]);
@@ -56,6 +56,14 @@ function ProjectDetails() {
   // Is there another way to get this information rather than a URL parameter?
   // Reason: Url Parameters state can be too easilly manipulated
   let is_locked = searchParams.get("locked");
+
+  function handleChange(ev) {
+    const {name, value} = ev.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  }
 
   async function handleSubmit(ev) {
     ev.preventDefault();
@@ -75,16 +83,16 @@ function ProjectDetails() {
 
     projectFunding = {
       ...projectFunding,
-      ...{"dmproadmap_opportunity_number": formData.award_number}
+      ...{"dmproadmap_opportunity_number": formData.award_number || ""},
     };
 
     dmpProject = {
       ...dmpProject,
       ...{
         "title": formData.project_name,
-        "description": formData.project_abstract,
-        "start": formData.start_date,
-        "end": formData.end_date,
+        "description": formData.project_abstract || "",
+        "start": formData.start_date || "",
+        "end": formData.end_date || "",
       },
       ...{"funding": [projectFunding]},
     }
@@ -92,21 +100,20 @@ function ProjectDetails() {
     // Finally put it all together
     let dmpData = {
       ...dmp,
-      ...{"title": formData.project_name},
+      ...{"title": formData.project_name || ""},
       ...{"project": [dmpProject]},
     }
 
     let options = api.getOptions({
       method: "put",
-      body: JSON.stringify({"dmp": dmpData}),
+      body: JSON.stringify(dmpData),
     });
 
     fetch(api.getPath(`/drafts/${dmpId}`), options).then((resp) => {
       api.handleResponse(resp.status);
       return resp.json();
     }).then((data) => {
-      // FIXME:: Handle response and input errors
-      // let dmp = data.items[0].dmp;
+      // FIXME:: Handle response errors
       navigate(`/dashboard/dmp/${dmpId}/`);
     });
   }
@@ -138,6 +145,7 @@ function ProjectDetails() {
                 label="Project Name"
                 type="text"
                 inputValue={formData.project_name}
+                onChange={handleChange}
                 required="required"
                 name="project_name"
                 id="project_name"
@@ -152,6 +160,7 @@ function ProjectDetails() {
                 label="Project Number or ID"
                 type="text"
                 inputValue={formData.project_id}
+                onChange={handleChange}
                 required="required"
                 name="project_id"
                 id="project_id"
@@ -168,6 +177,7 @@ function ProjectDetails() {
                 label="Project Abstract"
                 type="text"
                 inputValue={formData.project_abstract}
+                onChange={handleChange}
                 required="required"
                 name="project_abstract"
                 id="project_abstract"
@@ -184,6 +194,7 @@ function ProjectDetails() {
                 label="Project Start Date"
                 type="date"
                 inputValue={formData.start_date}
+                onChange={handleChange}
                 required="required"
                 name="start_date"
                 id="start_date"
@@ -197,6 +208,7 @@ function ProjectDetails() {
                 label="Project End Date"
                 type="date"
                 inputValue={formData.end_date}
+                onChange={handleChange}
                 required="required"
                 name="end_date"
                 id="end_date"
@@ -213,8 +225,9 @@ function ProjectDetails() {
                 label="Opportunity / Federal award number"
                 type="text"
                 inputValue={formData.award_number}
+                onChange={handleChange}
                 required="required"
-                name="ppportunity_number"
+                name="award_number"
                 id="ppportunity_number"
                 placeholder="Opportunity number"
                 help="The Federal ID number if you have one, or the opportunity number."
