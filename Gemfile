@@ -211,7 +211,10 @@ gem 'jsonpath'
 
 gem 'activerecord_json_validator'
 
-gem 'rswag'
+# Rswag extends rspec-rails "request specs" with a Swagger-based DSL for describing and testing API operations
+# https://github.com/rswag/rswag
+gem 'rswag-api'
+gem 'rswag-ui'
 
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
