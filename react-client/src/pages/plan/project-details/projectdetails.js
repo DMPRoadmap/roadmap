@@ -106,7 +106,8 @@ function ProjectDetails() {
 
     let options = api.getOptions({
       method: "put",
-      body: JSON.stringify(dmpData),
+      body: JSON.stringify({dmp: dmpData}),
+      // body: JSON.stringify(dmpData),
     });
 
     fetch(api.getPath(`/drafts/${dmpId}`), options).then((resp) => {
