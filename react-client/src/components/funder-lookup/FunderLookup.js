@@ -1,70 +1,42 @@
-import { useState, useMemo, useRef, useEffect } from "react";
-
+import {
+  useState,
+  useEffect
+} from "react";
 import { DmpApi } from "../../api.js";
 
-function FunderLookup(props) {
-  const [inputType] = useState(props.type);
 
+function FunderLookup(props) {
   const [query, setQuery] = useState("");
-  // state that hold API data
   const [suggestion, setSuggestion] = useState([]);
 
-  let disabledClass = props?.disabled ? "group-disabled" : "";
+  var controller;
 
+  let disabledClass = props?.disabled ? "group-disabled" : "";
   let errorMsg = props?.error ? props.error : "";
 
-  function debounce(func, wait, immediate) {
-    var timeout;
-    return function () {
-      var context = this,
-        args = arguments;
-      var later = function () {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
-  }
+  useEffect(() => {
+    if (controller) controller.abort();
 
-  const useDebounce = (callback) => {
-    const ref = useRef();
-
-    useEffect(() => {
-      ref.current = callback;
-    }, [callback]);
-
-    const debouncedCallback = useMemo(() => {
-      const func = () => {
-        ref.current?.();
-      };
-
-      return debounce(func, 200);
-    }, []);
-
-    return debouncedCallback;
-  };
-
-  const getLocations = () => {
-    console.log("query:" + query);
-
-    if (!query) {
-      console.log("query:" + empty);
+    if (query == "") {
       setSuggestion(null);
       return;
     }
 
+    // NOTE: Since the server requires a limit of 3 characters,
+    // we might as well avoid any work till we reach the minimum.
+    if (query.length < 3) return;
+
+    controller = new AbortController();
+
     let api = new DmpApi();
-    fetch(api.getPath(`/funders?search=${query}`))
+    let options = api.getOptions({signal: controller.signal});
+
+    fetch(api.getPath(`/funders?search=${query}`), options)
       .then((resp) => {
         api.handleResponse(resp);
         return resp.json();
       })
       .then((data) => {
-        console.log("data");
-        console.log(data.items);
         setSuggestion(data.items);
       })
       .catch((err) => {
@@ -73,7 +45,8 @@ function FunderLookup(props) {
         }
         errorMsg = err.response.toString();
       });
-  };
+  }, [query]);
+
 
   let errorClass = "";
   if (errorMsg) {
@@ -81,12 +54,10 @@ function FunderLookup(props) {
     errorMsg = errorMsg;
   }
 
-  const onChange = () => {
-    console.log("State value:", query);
-    getLocations();
-  };
-
-  const debouncedOnChange = useDebounce(onChange);
+  function handleChange(ev) {
+    const {name, value} = ev.target;
+    if (name == props.name) setQuery(value);
+  }
 
   return (
     <>
@@ -102,11 +73,8 @@ function FunderLookup(props) {
           <input
             type="text"
             value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              debouncedOnChange();
-            }}
-            name={props?.name ? props.name : ""}
+            onChange={handleChange}
+            name={props?.name ? props.name : "funder"}
             id={props?.id ? props.id : ""}
             placeholder={props?.placeholder}
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
@@ -115,10 +83,9 @@ function FunderLookup(props) {
           />
 
           <datalist id="funder-lookup-results">
-            {query.length > 0 && // // required to avoid the dropdown list to display the locations fetched before
-              suggestion?.map((el, index) => {
-                return <option key={index} value={el.name} />;
-              })}
+            {query.length > 0 && suggestion?.map((el, index) => {
+              return <option key={index} value={el.name} />;
+            })}
           </datalist>
         </div>
       </div>
