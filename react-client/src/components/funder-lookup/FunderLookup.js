@@ -7,18 +7,18 @@ import { DmpApi } from "../../api.js";
 
 function FunderLookup(props) {
   const [query, setQuery] = useState("");
-  const [suggestion, setSuggestion] = useState([]);
-
-  var controller;
+  const [suggestions, setSuggestions] = useState([]);
 
   let disabledClass = props?.disabled ? "group-disabled" : "";
   let errorMsg = props?.error ? props.error : "";
+
+  var controller;
 
   useEffect(() => {
     if (controller) controller.abort();
 
     if (query == "") {
-      setSuggestion(null);
+      setSuggestions(null);
       return;
     }
 
@@ -37,11 +37,11 @@ function FunderLookup(props) {
         return resp.json();
       })
       .then((data) => {
-        setSuggestion(data.items);
+        setSuggestions(data.items);
       })
       .catch((err) => {
         if (err.response && err.response.status === 404) {
-          setSuggestion(null);
+          setSuggestions(null);
         }
         errorMsg = err.response.toString();
       });
@@ -56,7 +56,24 @@ function FunderLookup(props) {
 
   function handleChange(ev) {
     const {name, value} = ev.target;
-    if (name == props.name) setQuery(value);
+    console.log(`Handle change for, ${name}: ${value}`);
+
+    if (name == props.name) {
+      // NOTE: Check if the the change happend after selecting an option
+      // in the datalist.
+      // TODO:: I'm not sure if this specific check is handled the same
+      // across browsers. We should test this one major browsers as well
+      // as mobile devices to confirm.
+      if (typeof ev.nativeEvent.inputType === "undefined") {
+        let chosenEl = ev.target
+                         .parentNode
+                         .querySelector(`option[value="${value}"]`);
+        let di = chosenEl.dataset["index"];
+        ev.data = suggestions[di];
+        props.onChange(ev);
+      }
+      setQuery(value);
+    }
   }
 
   return (
@@ -78,13 +95,13 @@ function FunderLookup(props) {
             id={props?.id ? props.id : ""}
             placeholder={props?.placeholder}
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
-            list="funder-lookup-results"
+            list="funderLookupResults"
             className="dmpui-field-input-text"
           />
 
-          <datalist id="funder-lookup-results">
-            {query.length > 0 && suggestion?.map((el, index) => {
-              return <option key={index} value={el.name} />;
+          <datalist id="funderLookupResults">
+            {query.length > 0 && suggestions?.map((el, index) => {
+              return <option data-index={index} value={el.name} />;
             })}
           </datalist>
         </div>

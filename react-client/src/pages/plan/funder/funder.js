@@ -9,30 +9,16 @@ import RadioButton from "../../../components/radio/radio";
 import FunderLookup from "../../../components/funder-lookup/FunderLookup.js";
 import "./funder.scss";
 
+
 function PlanFunders() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState({});
+
   const [Funder, setFunder] = React.useState("");
   const [hasFunder, sethasFunder] = React.useState("no");
   const [FunderNotListed, setFunderNotListed] = React.useState("false");
   const [FunderNotListedName, setFunderNotListedName] = React.useState("");
-
-  const handleFunderChange = (e) => {
-    setFunder(e.target.value);
-  };
-
-  const handleOptionChange = (e) => {
-    sethasFunder(e.target.value);
-
-    if (hasFunder === "no") {
-      setFunderNotListed("false");
-    }
-  };
-
-  const handleFunderNotListedChange = (e) => {
-    setFunderNotListed(e.target.checked ? "true" : "false");
-  };
 
   useEffect(() => {
     let api = new DmpApi();
@@ -42,9 +28,50 @@ function PlanFunders() {
         return resp.json();
       })
       .then((data) => {
-        setDmp(data.items[0].dmp);
+        let initial = data.items[0].dmp;
+        setDmp(initial);
       });
   }, [dmpId]);
+
+  function handleChange(ev) {
+    const {name, value} = ev.target;
+
+    switch (name) {
+      case "funder":
+        // "project": [{
+        //   "funding": [
+        //     {
+        //       "dmproadmap_project_number": "prj-XYZ987-UCB",
+        //       "grant_id": {
+        //         "type": "other",
+        //         "identifier": "776242"
+        //       },
+        //       "name": "National Science Foundation",
+        //       "funder_id": {
+        //         "type": "fundref",
+        //         "identifier": "501100002428"
+        //       },
+        //       "funding_status": "granted",
+        //       "dmproadmap_opportunity_number": "Award-123"
+        //     }
+        //   ]
+        // }]
+        setFunder(ev.data);
+        break;
+    }
+  }
+
+  // TODO:: Move these functions into the single handlechange above
+  const handleOptionChange = (e) => {
+    sethasFunder(e.target.value);
+    if (hasFunder === "no") {
+      setFunderNotListed("false");
+    }
+  };
+
+  const handleFunderNotListedChange = (e) => {
+    setFunderNotListed(e.target.checked ? "true" : "false");
+  };
 
   async function handleSave(ev) {
     ev.preventDefault();
@@ -56,14 +83,6 @@ function PlanFunders() {
     const formData = new FormData(form);
 
     formData.forEach((value, key) => (stepData[key] = value));
-
-    console.log("DMPS?");
-    console.log(dmp);
-
-    console.log("Step Data");
-    console.log(stepData);
-
-    console.log(`/dashboard/dmp/${dmpId}/project-search`);
 
     if (FunderNotListed == "true") {
       navigate(`/dashboard/dmp/${dmpId}/project-details`);
@@ -96,6 +115,8 @@ function PlanFunders() {
     //     ]
     //   }]
     // }
+
+    // TODO:: Update the DMP Data
 
     let options = api.getOptions({
       method: "put",
@@ -162,7 +183,7 @@ function PlanFunders() {
                     id="funder"
                     placeholder=""
                     help="Search for your funder by name."
-                    onChange={handleFunderChange}
+                    onChange={handleChange}
                     error=""
                   />
 
