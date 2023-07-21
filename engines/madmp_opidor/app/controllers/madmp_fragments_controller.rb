@@ -26,7 +26,7 @@ class MadmpFragmentsController < ApplicationController
     @fragment.classname = classname
     authorize @fragment
 
-    @fragment.answer = Answer.create!(
+    @fragment.answer = ::Answer.create!(
       research_output_id: p_params[:answer][:research_output_id],
       plan_id: p_params[:answer][:plan_id],
       question_id: p_params[:answer][:question_id],
