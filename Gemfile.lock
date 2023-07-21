@@ -128,7 +128,6 @@ GEM
       cork
       nap
       open4 (~> 1.3)
-    clamp (1.3.2)
     coderay (1.1.3)
     colored2 (3.1.2)
     concurrent-ruby (1.2.2)
@@ -205,11 +204,6 @@ GEM
       loofah (>= 2.3.1)
       sax-machine (>= 1.0)
     ffi (1.15.5)
-    filewatcher (2.1.0)
-      module_methods (~> 0.1.0)
-    filewatcher-cli (1.1.0)
-      clamp (~> 1.3)
-      filewatcher (~> 2.1)
     flag_shih_tzu (0.3.23)
     fog-aws (3.19.0)
       fog-core (~> 2.1)
@@ -327,7 +321,6 @@ GEM
     minitest (5.18.1)
     mocha (2.0.4)
       ruby2_keywords (>= 0.0.5)
-    module_methods (0.1.0)
     msgpack (1.7.1)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -622,7 +615,6 @@ DEPENDENCIES
   factory_bot_rails
   faker
   feedjira
-  filewatcher-cli
   flag_shih_tzu
   fuubar
   guard

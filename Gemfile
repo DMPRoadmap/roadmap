@@ -354,9 +354,6 @@ group :development do
 
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem 'yard-tomdoc'
-
-  # Watch files (https://github.com/filewatcher/filewatcher-cli)
-  gem 'filewatcher-cli'
 end
 
 # ======================#
