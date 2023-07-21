@@ -64,7 +64,8 @@ module Dmpopidor
           fragment_description = Fragment::ResearchOutputDescription.new(
             data: {
               'title' => title,
-              'datasetId' => pid
+              'datasetId' => pid,
+              'type' => output_type_description
             },
             madmp_schema: MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard'),
             dmp_id: dmp_fragment.id,

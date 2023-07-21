@@ -634,3 +634,13 @@
     color: $blue;
   }
 }
+
+// ##################################
+// REACT (TEMP) FIXES
+// ##################################
+
+#create-research-output-tabs {
+  .nav-tabs {
+    background-color: white;
+  }
+}

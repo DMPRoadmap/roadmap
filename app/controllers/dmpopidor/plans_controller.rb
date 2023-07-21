@@ -251,10 +251,11 @@ module Dmpopidor
       render json: {
         id: plan.id,
         dmp_id: plan.json_fragment.id,
-        research_outputs: plan.research_outputs.map do |ro|
+        research_outputs: plan.research_outputs.order(:display_order).map do |ro|
           {
             id: ro.id,
             abbreviation: ro.abbreviation,
+            order: ro.display_order,
             answers: ro.answers.map do |a|
               {
                 answer_id: a.id,

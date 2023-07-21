@@ -15,6 +15,40 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    def create
+      max_order = @plan.research_outputs.maximum('display_order') + 1
+      created_ro = @plan.research_outputs.create(
+        abbreviation: params[:abbreviation] || "Research Output #{max_order}",
+        title: params[:title] || "New research output #{max_order}",
+        output_type_description: params[:type],
+        is_default: false,
+        display_order: max_order
+      )
+      authorize @plan
+
+      render json: {
+        id: @plan.id,
+        created_ro_id: created_ro.id,
+        dmp_id: @plan.json_fragment.id,
+        research_outputs: @plan.research_outputs.order(:display_order).map do |ro|
+          {
+            id: ro.id,
+            abbreviation: ro.abbreviation,
+            order: ro.display_order,
+            answers: ro.answers.map do |a|
+              {
+                answer_id: a.id,
+                question_id: a.question_id,
+                fragment_id: a.madmp_fragment.id
+              }
+            end
+          }
+        end
+      }
+    end
+    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
+
+    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def update
       @plan = ::Plan.find(params[:plan_id])
       @research_output = ::ResearchOutput.find(params[:id])
@@ -72,6 +106,8 @@ module Dmpopidor
       end
       head :ok
     end
+
+    # DELETE AFTER V4 ?
 
     def create_remote
       @plan = ::Plan.find(params[:plan_id])
