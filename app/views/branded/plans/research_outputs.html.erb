@@ -1,9 +1,18 @@
 <%# locals: { plan, research_outputs, research_output_types } %>
 <% title "#{plan.title}" %>
 
-<% if @plan.editable_by?(current_user.id) %>
-  <%= render partial: 'plans/edit_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
+<% if @plan.template.classic? %>
+  <% if @plan.editable_by?(current_user.id) %>
+    <%= render partial: 'plans/edit_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
+  <% else %>
+    <%= render partial: 'plans/show_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
+  <% end %>
+  <div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-labelledby="linkedInformationsModal" aria-hidden="true"></div>
 <% else %>
-  <%= render partial: 'plans/show_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
+  <% content_for :plan_tab_body do %>
+    <div id="research-outputs" class="madmp-fragment fragment-<%= @plan.json_fragment.id%>">
+      <%= _('This tab is used by classic plans, if you want to manage your research output, please go to the "Write Plan" tab.') %>
+    </div>
+  <% end %>
+  <%= render partial: "plans/navigation", locals: { plan: @plan } %>
 <% end %>
-<div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-labelledby="linkedInformationsModal" aria-hidden="true"></div>

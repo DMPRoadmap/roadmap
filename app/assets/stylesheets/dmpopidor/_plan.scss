@@ -33,6 +33,13 @@
 
       border-radius: 20px;
       box-shadow: 5px 5px 5px $light-grey;
+
+      &>.active-text {
+        transition: opacity 0.5s ease-out;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+      }
     }
 
     &>.active-line {
@@ -59,6 +66,11 @@
       .active-line,
       .active-bullet {
         display: block;
+      }
+
+      .active-text {
+        opacity: 1;
+        height: auto;
       }
     }
   }
