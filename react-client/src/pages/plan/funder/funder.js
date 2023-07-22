@@ -1,24 +1,23 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-
 import { useEffect, useState } from "react";
-
 import { DmpApi } from "../../../api.js";
 
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
 import FunderLookup from "../../../components/funder-lookup/FunderLookup.js";
+import { getValue } from "../../../utils.js";
+
 import "./funder.scss";
 
 
 function PlanFunders() {
   let navigate = useNavigate();
-  const { dmpId } = useParams();
+  const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
 
-  const [Funder, setFunder] = React.useState("");
-  const [hasFunder, sethasFunder] = React.useState("no");
-  const [FunderNotListed, setFunderNotListed] = React.useState("false");
-  const [FunderNotListedName, setFunderNotListedName] = React.useState("");
+  const [funder, setFunder] = React.useState({name: ""});
+  const [hasFunder, setHasFunder] = React.useState("no");
+  const [funderNotListed, setFunderNotListed] = React.useState("false");
 
   useEffect(() => {
     let api = new DmpApi();
@@ -30,106 +29,80 @@ function PlanFunders() {
       .then((data) => {
         let initial = data.items[0].dmp;
         setDmp(initial);
+        // TODO:: Funding is correctly saved and loaded, but the correct values
+        // are not displayd in the fields below.
+        // If a funder exists, we need to correctly set up the appropriate fields
+        // below.
       });
   }, [dmpId]);
+
 
   function handleChange(ev) {
     const {name, value} = ev.target;
 
     switch (name) {
+      case "have_funder":
+        setHasFunder(value);
+        if (hasFunder === "no") setFunderNotListed("false");
+        break;
+
+      case "funder_not_listed":
+        setFunderNotListed(value);
+        break;
+
       case "funder":
-        // "project": [{
-        //   "funding": [
-        //     {
-        //       "dmproadmap_project_number": "prj-XYZ987-UCB",
-        //       "grant_id": {
-        //         "type": "other",
-        //         "identifier": "776242"
-        //       },
-        //       "name": "National Science Foundation",
-        //       "funder_id": {
-        //         "type": "fundref",
-        //         "identifier": "501100002428"
-        //       },
-        //       "funding_status": "granted",
-        //       "dmproadmap_opportunity_number": "Award-123"
-        //     }
-        //   ]
-        // }]
         setFunder(ev.data);
+        break;
+
+      case "unlisted_funder_name":
+        setFunder({"name": value});
         break;
     }
   }
 
-  // TODO:: Move these functions into the single handlechange above
-  const handleOptionChange = (e) => {
-    sethasFunder(e.target.value);
-    if (hasFunder === "no") {
-      setFunderNotListed("false");
-    }
-  };
-
-  const handleFunderNotListedChange = (e) => {
-    setFunderNotListed(e.target.checked ? "true" : "false");
-  };
 
   async function handleSave(ev) {
     ev.preventDefault();
     let api = new DmpApi();
 
-    // Collect the form data
-    var stepData = {};
-    const form = ev.target;
-    const formData = new FormData(form);
+    let dmpProject = getValue(dmp, "project.0", {});
+    let projectFunding = getValue(dmp, "project.0.funding.0", {});
 
-    formData.forEach((value, key) => (stepData[key] = value));
+    projectFunding = {
+      ...projectFunding,
 
-    if (FunderNotListed == "true") {
-      navigate(`/dashboard/dmp/${dmpId}/project-details`);
-    } else {
-      navigate(`/dashboard/dmp/${dmpId}/project-search?f=` + Funder);
-    }
+      // NOTE:: Important!!! You may be tempted to just put the "funder" object
+      // in here as-is. But the funder returned by the API does not have the
+      // same structure as expected in the DMP. This is why we manually
+      // Set only the name and funder id fields here.
+      ...{
+        name: funder.name,
+        funder_id: funder.funder_id,
+      },
+    };
 
-    // TODO:: Add the funder to the DMP data
-    // This is the expected structure to add to the DMP
-    //
-    // NOTE:: This data will come from the Funder typeahead input field.
-    //
-    // {
-    //   "project": [{
-    //     "funding": [
-    //       {
-    //         "dmproadmap_project_number": "prj-XYZ987-UCB",
-    //         "grant_id": {
-    //           "type": "other",
-    //           "identifier": "776242"
-    //         },
-    //         "name": "National Science Foundation",
-    //         "funder_id": {
-    //           "type": "fundref",
-    //           "identifier": "501100002428"
-    //         },
-    //         "funding_status": "granted",
-    //         "dmproadmap_opportunity_number": "Award-123"
-    //       }
-    //     ]
-    //   }]
-    // }
+    dmpProject = {
+      ...dmpProject,
+      ...{"funding": [projectFunding]}
+    };
 
-    // TODO:: Update the DMP Data
+    let dmpData = {
+      ...dmp,
+      ...{project: [dmpProject]},
+    };
 
     let options = api.getOptions({
       method: "put",
-      body: JSON.stringify({ dmp: dmp }),
+      body: JSON.stringify({ dmp: dmpData }),
     });
 
-    // fetch(api.getPath('/drafts'), options).then((resp) => {
-    //   api.handleResponse(resp.status);
-    //   return resp.json();
-    // }).then((data) => {
-    //   let dmp = data.items[0].dmp;
-    //   navigate(`/dashboard/dmp/${dmpId}`);
-    // });
+    fetch(api.getPath(`/drafts/${dmpId}`), options).then((resp) => {
+      api.handleResponse(resp.status);
+      return resp.json();
+    }).then((data) => {
+      // TODO:: Handle response errors
+      navigate(`/dashboard/dmp/${dmpId}`);
+    });
   }
 
   return (
@@ -151,7 +124,7 @@ function PlanFunders() {
                     Is there a funder associated with this project?
                   </p>
 
-                  <div onChange={handleOptionChange}>
+                  <div onChange={handleChange}>
                     <RadioButton
                       label="No"
                       name="have_funder"
@@ -176,29 +149,29 @@ function PlanFunders() {
               <div className="dmpui-form-cols">
                 <div className="dmpui-form-col">
                   <FunderLookup
-                    disabled={FunderNotListed === "true"}
+                    disabled={funderNotListed === "true"}
                     label="Find funder"
-                    inputValue={Funder}
                     name="funder"
                     id="funder"
                     placeholder=""
                     help="Search for your funder by name."
+                    inputValue={getValue(dmp, "project.0.funding.0.name", "")}
                     onChange={handleChange}
                     error=""
                   />
 
                   <div className="dmpui-field-checkbox-group not-listed">
                     <input
-                      id="id_funder_not_listed"
+                      id="idUnlistedFunder"
                       className="dmpui-field-input-checkbox"
                       name="funder_not_listed"
                       value="true"
-                      checked={FunderNotListed === "true"}
-                      onChange={handleFunderNotListedChange}
+                      checked={funderNotListed === "true"}
+                      onChange={handleChange}
                       type="checkbox"
                     />
                     <label
-                      htmlFor="id_funder_not_listed"
+                      htmlFor="idUnlistedFunder"
                       className="checkbox-label"
                     >
                       My funder isn't listed
@@ -208,8 +181,8 @@ function PlanFunders() {
               </div>
             )}
 
-            {FunderNotListed &&
-              FunderNotListed === "true" &&
+            {funderNotListed &&
+              funderNotListed === "true" &&
               hasFunder &&
               hasFunder === "yes" && (
                 <div className="dmpui-form-cols">
@@ -218,10 +191,10 @@ function PlanFunders() {
                       label="Enter Funders Name"
                       type="text"
                       required="required"
-                      name="not_listed_funder_name"
-                      id="not_listed_funder_name"
-                      inputValue={FunderNotListedName}
-                      onChange={(e) => setFunderNotListedName(e.target.value)}
+                      name="unlisted_funder_name"
+                      id="unListedFunderName"
+                      inputValue={getValue(dmp, "project.0.funding.0.name", "")}
+                      onChange={handleChange}
                       placeholder=""
                       help="If your funder isn't listed, enter their name here."
                       error=""

@@ -56,7 +56,6 @@ function FunderLookup(props) {
 
   function handleChange(ev) {
     const {name, value} = ev.target;
-    console.log(`Handle change for, ${name}: ${value}`);
 
     if (name == props.name) {
       // NOTE: Check if the the change happend after selecting an option

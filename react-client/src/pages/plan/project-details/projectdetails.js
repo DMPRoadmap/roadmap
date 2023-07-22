@@ -106,7 +106,7 @@ function ProjectDetails() {
       api.handleResponse(resp.status);
       return resp.json();
     }).then((data) => {
-      // FIXME:: Handle response errors
+      // TODO:: Handle response errors
       navigate(`/dashboard/dmp/${dmpId}/`);
     });
   }
