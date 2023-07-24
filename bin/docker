@@ -13,14 +13,8 @@ if params == 'db:setup'
   puts '== Preparing database =='
   system! 'bin/rails db:setup'
 
-  puts '== Populating License table =='
-  system! 'bin/rails external_api:load_spdx_licenses'
-
-  puts '== Populating Metadata Standards table =='
-  system! 'bin/rails external_api:load_rdamsc_standards'
-
-  puts '== Populating Research Domains table =='
-  system! 'bin/rails external_api:add_field_of_science_to_research_domains'
+  puts '== Seeding madmp opidor data =='
+  system! 'bin/rails madmpopidor:seed'
 
   puts '== Removing old logs and tempfiles =='
   system! 'bin/rails log:clear tmp:clear'
@@ -28,9 +22,6 @@ if params == 'db:setup'
   puts '== Restarting application server =='
   system! 'bin/rails restart'
 
-  puts '== !!We highly recommend that you populate the Repositories table, but this can take'
-  puts 'in excess of 10 minutes so we do not run it as part of this setup!!'
-  puts '    To run it on your own: `bin/rails external_api:load_re3data_repos`'
   exit!
 end
 
