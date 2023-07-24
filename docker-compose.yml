@@ -34,6 +34,10 @@ services:
       - RAILS_MAX_THREADS=${RAILS_MAX_THREADS:-5}
       - WICKED_PDF_PATH=${WICKED_PDF_PATH:-/usr/local/bin/wkhtmltopdf}
       - DRAGONFLY_AWS=${DRAGONFLY_AWS:-false}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE:-my_secret_key}
+      - SECRET_KEY=${SECRET_KEY:-my_secret_key}
+      - DEVISE_PEPPER=${DEVISE_PEPPER:-my_pepper}
+      - DRAGON_FLY_SECRET=${DRAGON_FLY_SECRET:-my_secret_key}
       - RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY:-11111}
       - RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY:-22222}
       - AWS_REGION
