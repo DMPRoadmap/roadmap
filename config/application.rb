@@ -56,8 +56,9 @@ module DMPRoadmap
 
     # HTML tags that are allowed to pass through `sanitize`.
     config.action_view.sanitized_allowed_tags = %w[
-      p br strong em a table thead tbody tr td th tfoot caption ul ol li
+      p br strong em a table thead tbody tr td th tfoot caption ul ol li span
     ]
+    config.action_view.sanitized_allowed_attributes = %w[style]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]

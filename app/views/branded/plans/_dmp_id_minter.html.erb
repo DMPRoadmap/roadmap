@@ -43,7 +43,7 @@ allow_minting = orcid.present? && orcid_access_token.present? if allow_minting &
         <ul>
           <li>
             <% if plan.owner == current_user %><span class="fa fa-check green"><span class="sr-only">Complete: </span></span><% else %><span class="fa fa-times red"><span class="sr-only">Incomplete: </span></span><% end %>
-            <%= (_('only the owner of the plan may register a DMP ID.')) %>
+            <%= (_('only the creator of the plan may register a DMP ID.')) %>
           </li>
           <li>
             <% if plan.complete? %><span class="fa fa-check green"><span class="sr-only">Complete: </span></span><% else %><span class="fa fa-times red"><span class="sr-only">Incomplete: </span></span><% end %>

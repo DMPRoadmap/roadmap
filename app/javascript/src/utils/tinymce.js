@@ -13,6 +13,7 @@ import 'tinymce/themes/silver';
 // TinyMCE Plugins
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/lists';
+import 'tinymce/plugins/image';
 import 'tinymce/plugins/autoresize';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/advlist';
@@ -27,12 +28,13 @@ export const defaultOptions = {
   selector: '.tinymce',
   statusbar: true,
   menubar: false,
-  toolbar: 'bold italic | bullist numlist | link | table',
+  toolbar: 'bold italic | fontsize forecolor | alignleft aligncenter alignright | bullist numlist | link | table ',
   plugins: 'table autoresize link advlist lists',
   browser_spellcheck: true,
   advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
   target_list: false,
   elementpath: false,
+  font_size_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt',
   resize: true,
   min_height: 230,
   autoresize_bottom_margin: 10,
