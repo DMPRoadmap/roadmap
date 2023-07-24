@@ -120,7 +120,12 @@
         "question_id": null
     },
     {
-        "path": "DMPStandard-template.json",
+        "path": "DMPResearchProject-template.json",
+        "classname": "dmp",
+        "question_id": null
+    },
+    {
+        "path": "DMPResearchEntity-template.json",
         "classname": "dmp",
         "question_id": null
     },
@@ -265,7 +270,7 @@
         "question_id": null
     },
     {
-        "path": "StructureManager-template.json",
+        "path": "ResearchEntityManager-template.json",
         "classname": "contributor",
         "question_id": null
     },
@@ -275,8 +280,8 @@
         "question_id": null
     },
     {
-        "path": "StructureStandard-template.json",
-        "classname": "structure",
+        "path": "ResearchEntityStandard-template.json",
+        "classname": "research_entity",
         "question_id": null
     },
     {

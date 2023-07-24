@@ -18,7 +18,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Personnes impliquées dans la production et gestion des données",
+            "description": "Personnes impliquées dans la production et gestion des données d'une enitité (structure) de recherche",
             "inputType": "pickOrCreate",
             "form_label@fr_FR": "Sélectionner une valeur dans la liste ou créer une nouvelle valeur en cliquant sur +",
             "form_label@en_GB": "Select a value from the drop-down list or create a new value by clicking on +"

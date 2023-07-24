@@ -23,8 +23,8 @@
             "label@en_GB": "Last name",
             "example@fr_FR": "Dupont, Service d'Ingénierie des Systèmes d’Information, Comité d'éthique",
             "example@en_GB": "Dupont, Information Systems Engineering Department, Ethics comittee",
-            "form_label@fr_FR": "* Nom",
-            "form_label@en_GB": "* Last name"
+            "form_label@fr_FR": "Nom",
+            "form_label@en_GB": "Last name"
         },
         "firstName": {
             "type": "string",
@@ -42,8 +42,8 @@
             "description": "Adresse mail de la personne",
             "label@fr_FR": "Email",
             "label@en_GB": "Email",
-            "form_label@fr_FR": "* Email",
-            "form_label@en_GB": "* Email"
+            "form_label@fr_FR": "Email",
+            "form_label@en_GB": "Email"
         },
         "personId": {
             "type": "string",
@@ -52,8 +52,8 @@
             "label@en_GB": "Identifier",
             "example@fr_FR": "https://orcid.org/0000-0002-9148-9926",
             "example@en_GB": "https://orcid.org/0000-0002-9148-9926",
-            "form_label@fr_FR": "* Identifiant",
-            "form_label@en_GB": "* Identifier"
+            "form_label@fr_FR": "Identifiant",
+            "form_label@en_GB": "Identifier"
         },
         "idType": {
             "type": "string",
@@ -63,8 +63,8 @@
             "label@en_GB": "Identifier type",
             "registry_name": "AgentIdSystem",
             "overridable": true,
-            "form_label@fr_FR": "* Type d'identifiant",
-            "form_label@en_GB": "* Identifier type"
+            "form_label@fr_FR": "Type d'identifiant",
+            "form_label@en_GB": "Identifier type"
         },
         "affiliationName": {
             "type": "string",

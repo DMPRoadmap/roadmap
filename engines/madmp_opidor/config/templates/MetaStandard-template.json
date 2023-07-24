@@ -91,7 +91,7 @@
             "label@en_GB": "DMP manager",
             "tooltip@fr_FR": "Personne qui coordonne la planification de la gestion des données, aussi appelée auteur ou responsable du DMP. Par défaut, la personne qui crée le DMP sur DMP OPIDoR",
             "tooltip@en_GB": "Person who coordinates data management planning, also called DMP author or manager. By default, the person who creates the DMP with DMP OPIDoR",
-            "form_label@fr_FR": " Responsable du plan",
+            "form_label@fr_FR": "Responsable du plan",
             "form_label@en_GB": "DMP manager"
         },
         "creationDate": {

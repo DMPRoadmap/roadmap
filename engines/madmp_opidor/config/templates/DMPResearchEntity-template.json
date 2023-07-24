@@ -1,0 +1,92 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DMPResearchEntity",
+    "description": "DMPResearchEntity template",
+    "type": "object",
+    "class": "DMPResearchEntity",
+    "properties": {
+        "identifier": {
+            "type": "number",
+            "description": "Identifiant interne à l'application DMP OPIDoR"
+        },
+        "meta": {
+            "type": "object",
+            "class": "Meta",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "MetaStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Ensemble des métadonnées concernant le plan de gestion de données",
+            "label@fr_FR": "Métadonnées du plan",
+            "label@en_GB": "Plan Metadata",
+            "form_label@fr_FR": "Métadonnées du plan",
+            "form_label@en_GB": "Plan Metadata"
+        },
+        "researchOutput": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResearchOutput",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ResearchOutputStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Ensemble des informations concernant les produits de recherche générés dans le cadre du projet ou activité de recherche"
+        },
+        "budget": {
+            "type": "object",
+            "class": "Budget",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "BudgetStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Budget lié à la gestion des données de recherche"
+        },
+        "researchEntity": {
+            "type": "object",
+            "class": "ResearchEntity",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ResearchEntityStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Aspects relatifs à une entité (ou structure) de recherche",
+            "label@fr_FR": "Renseignements sur l'entité de recherche",
+            "label@en_GB": "Research Entity Details",
+            "form_label@fr_FR": "Renseignements sur l'entité de recherche",
+            "form_label@en_GB": "Research entity Details"
+        }
+    },
+    "required": [
+        "identifier",
+        "meta",
+        "project",
+        "researchOutput",
+        "budget",
+        "researchEntity"
+    ],
+    "to_string": []
+}

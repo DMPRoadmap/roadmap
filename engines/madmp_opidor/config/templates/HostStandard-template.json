@@ -104,7 +104,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Standards de métadonnées disponibles",
             "label@en_GB": "Available metadata standards",
-            "registry_name": "Standards",
+            "registry_name": "StandardsShort",
             "overridable": true,
             "form_label@fr_FR": "Standards de métadonnées disponibles",
             "form_label@en_GB": "Available metadata standards"
