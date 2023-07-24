@@ -69,6 +69,8 @@ class OrgsController < ApplicationController
       end
     end
 
+    # DMPTool customization: Verify default values
+    attrs = ensure_api_email_content(attrs: attrs)
     if @org.update(attrs)
       # Save any identifiers that were found
       if current_user.can_super_admin? && identifiers.present?
@@ -199,4 +201,11 @@ class OrgsController < ApplicationController
     org
   end
   # rubocop:enable Metrics/AbcSize
+
+  # DMPTool cusotmization to prevent API creation email values from being NULL
+  def ensure_api_email_content(attrs:)
+    attrs[:api_create_plan_email_subject] = Org.default_create_plan_api_subject unless attrs[:api_create_plan_email_subject].present?
+    attrs[:api_create_plan_email_body] = Org.default_create_plan_api_body unless attrs[:api_create_plan_email_body].present?
+    attrs
+  end
 end

@@ -100,6 +100,8 @@ Rails.application.routes.draw do
   get 'quick_start_guide' => 'static_pages#quick_start_guide'
   get 'news_media' => 'static_pages#news_media'
   get 'public_orgs' => 'public_pages#orgs'
+  # Used to create a plan from the Funder Requirements page
+  get 'plan_from_funder_requirements' => 'plans#create_from_funder_requirements'
 
   get 'org_logos/:id' => 'orgs#logos', as: :org_logo
 

@@ -1324,13 +1324,13 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_visibility_form.html.erb:55
 msgid "<strong>Organisation visibility</strong> - anyone at my organisation can view"
-msgstr "<strong>Organization visibility</strong> - anyone at my organization can view"
+msgstr ""
 
 #: ../../app/views/branded/plans/_visibility_form.html.erb:57
 msgid ""
 "<strong>Private visibility</strong> - visible to me, specified collaborators a"
 "nd administrators at my organisation"
-msgstr "<strong>Organization visibility</strong> - anyone at my organization can view"
+msgstr ""
 
 #: ../../app/views/branded/plans/mint.js.erb:9
 msgid ""
