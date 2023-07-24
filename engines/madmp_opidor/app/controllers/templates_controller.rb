@@ -14,7 +14,8 @@ class TemplatesController < ApplicationController
     template_data = template.sections.as_json(
       include: {
         questions: {
-          only: %w[id text number default_value madmp_schema_id question_format_id]
+          only: %w[id text number default_value question_format_id],
+          include: { madmp_schema: { only: %w[id classname] } }
         }
       }
     )

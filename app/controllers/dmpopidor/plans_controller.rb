@@ -255,7 +255,9 @@ module Dmpopidor
           {
             id: ro.id,
             abbreviation: ro.abbreviation,
+            title: ro.title,
             order: ro.display_order,
+            hasPersonalData: ro.has_personal_issues,
             answers: ro.answers.map do |a|
               {
                 answer_id: a.id,

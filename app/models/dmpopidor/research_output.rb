@@ -59,13 +59,17 @@ module Dmpopidor
             madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
             dmp_id: dmp_fragment.id,
             parent_id: dmp_fragment.id,
-            additional_info: { property_name: 'researchOutput' }
+            additional_info: { 
+              property_name: 'researchOutput',
+              hasPersonalData: personal_data
+            }
           )
           fragment_description = Fragment::ResearchOutputDescription.new(
             data: {
               'title' => title,
               'datasetId' => pid,
-              'type' => output_type_description
+              'type' => output_type_description,
+              'containsPersonalData' => personal_data ? _('Yes') : _('No')
             },
             madmp_schema: MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard'),
             dmp_id: dmp_fragment.id,
@@ -106,5 +110,9 @@ module Dmpopidor
       # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    def has_personal_issues
+      %w[Oui Yes].include?(json_fragment.research_output_description.data['containsPersonalData'])
+    end
   end
 end
