@@ -48,13 +48,14 @@ module Api
 
           # If the resource_owner is present then return their specific Plans
           plans = plans_for_user(user: @resource_owner, complete: true, mine: true) if @resource_owner.present?
-          return (plans + public_plans).flatten.uniq if plans.present?
+          return (plans + public_plans).flatten.uniq if @resource_owner.present?
 
           # If the Client is an Org Admin then get all of the Org's plans
-          plans = plans_for_org_admin + plans_for_user(user: @client.user) if @client.user&.can_org_admin?
+          plans = plans_for_org_admin + plans_for_user(user: @client.user) if @client.user&.can_org_admin? &&
+                                                                              @resource_owner.nil?
           return (plans + public_plans).flatten.uniq if plans.present?
 
-          # Otherwise just return the User's plans
+          # There is no resource owner so this isn't an authorization_code flow so return the Client's plans
           plans_for_user(user: @client.user, complete: false)
         end
         # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
