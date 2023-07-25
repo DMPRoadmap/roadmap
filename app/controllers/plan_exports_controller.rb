@@ -189,6 +189,6 @@ class PlanExportsController < ApplicationController
   # in html that break docx creation by htmltoword gem.
   def clean_html_for_docx_creation(html)
     # Replaces single backslash \ with \\ with gsub.
-    html.gsub(/\\/, '\&\&')
+    html.gsub('\\', '\&\&')
   end
 end

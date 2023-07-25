@@ -104,7 +104,7 @@ module ExternalApis
         end
       end
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def xml_for(plan:, dmp_id:, user:)
         return nil unless plan.is_a?(Plan) && dmp_id.is_a?(Identifier) && user.is_a?(User)
 
@@ -160,7 +160,7 @@ module ExternalApis
           </work:work>
         XML
       end
-      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     end
   end
 end

@@ -39,20 +39,17 @@ describe 'layouts/_analytics.html.erb' do
     end
   end
 
-  context 'Google Analytics' do
+  context 'Matomo' do
     describe 'Stage environment' do
       before do
         Rails.env.stubs(:stage?).returns(true)
         Rails.env.stubs(:production?).returns(false)
-        default_org = create(:org)
-        create(:tracker, org: default_org)
-        @default_org = default_org.reload
       end
 
-      it 'does not display the Google Analytics script' do
-        Rails.configuration.x.dmproadmap.google_analytics_tracker_root = @default_org.abbreviation
+      it 'does not display the Matomo Analytics script' do
+        Rails.configuration.x.dmproadmap.enable_matomo = true
         render
-        expect(rendered.include?('GoogleAnalyticsObject')).to be(false)
+        expect(rendered.include?('MatomoAnalytics')).to be(false)
       end
     end
 
@@ -60,34 +57,18 @@ describe 'layouts/_analytics.html.erb' do
       before do
         Rails.env.stubs(:stage?).returns(false)
         Rails.env.stubs(:production?).returns(true)
-        default_org = create(:org)
-        create(:tracker, org: default_org)
-        @default_org = default_org.reload
       end
 
-      it 'does not display if no Tracker Root is NOT defined' do
-        Rails.configuration.x.dmproadmap.google_analytics_tracker_root = nil
+      it 'does not display the Matomo Analytics script when not enabled' do
+        Rails.configuration.x.dmproadmap.enable_matomo = false
         render
-        expect(rendered.include?('GoogleAnalyticsObject')).to be(false)
-        expect(rendered.include?('clientTracker')).to be(false)
+        expect(rendered.include?('MatomoAnalytics')).to be(false)
       end
 
-      it 'displays if the Tracker Root key is defined' do
-        Rails.configuration.x.dmproadmap.google_analytics_tracker_root = @default_org.abbreviation
+      it 'includes the Matomo Analytics script when enabled' do
+        Rails.configuration.x.dmproadmap.enable_matomo = true
         render
-        expect(rendered.include?('GoogleAnalyticsObject')).to be(true)
-        expect(rendered.include?('clientTracker')).to be(false)
-      end
-
-      it 'displays the Client Org key if it is defined' do
-        org = create(:org)
-        create(:tracker, org: org)
-        user = create(:user, org: org.reload)
-        Rails.configuration.x.dmproadmap.google_analytics_tracker_root = @default_org.abbreviation
-        sign_in(user)
-        render
-        expect(rendered.include?('GoogleAnalyticsObject')).to be(true)
-        expect(rendered.include?('clientTracker')).to be(true)
+        expect(rendered.include?('MatomoAnalytics')).to be(true)
       end
     end
   end

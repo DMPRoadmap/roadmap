@@ -44,6 +44,10 @@ allow_minting = orcid.present? && orcid_access_token.present? if allow_minting &
         <%= _('In order to register your plan you must have completed the following:') %>
         <ul>
           <li>
+            <% if plan.owner == current_user %><span class="fa fa-check green"><span class="sr-only">Complete: </span></span><% else %><span class="fa fa-times red"><span class="sr-only">Incomplete: </span></span><% end %>
+            <%= (_('only the creator of the plan may register a DMP ID.')) %>
+          </li>
+          <li>
             <% if plan.complete? %><span class="fa fa-check green"><span class="sr-only">Complete: </span></span><% else %><span class="fa fa-times red"><span class="sr-only">Incomplete: </span></span><% end %>
             <%= (_("answered at least %{percentage}%% of questions on the %{write_plan_link} panel") % { percentage: Rails.configuration.x.plans.default_percentage_answered, write_plan_link: link_to(_('Write Plan'), edit_plan_path(plan.id, phase: plan.phases&.first&.id)) }).html_safe %>
           </li>

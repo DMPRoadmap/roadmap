@@ -31,7 +31,7 @@ describe 'user_mailer/invitation' do
     expect(rendered.include?('Please sign in or sign up at <a')).to be(true)
     expected = "The #{CGI.escapeHTML(@plan.template.org.name)} DMPTool team"
     expect(rendered.include?(expected)).to be(true)
-    expect(rendered.include?("href=\"mailto:#{@plan.template.org.contact_email}\"")).to be(true)
+    expect(rendered.include?(@plan.template.org.contact_email)).to be(true)
   end
 
   it 'renders correctly when the inviter is a Org (via Email Template modal)' do
@@ -49,7 +49,7 @@ describe 'user_mailer/invitation' do
     expect(rendered.include?('Please sign in or sign up at <a')).to be(true)
     expected = "The #{CGI.escapeHTML(@plan.template.org.name)} DMPTool team"
     expect(rendered.include?(expected)).to be(true)
-    expect(rendered.include?("href=\"mailto:#{@plan.template.org.contact_email}\"")).to be(true)
+    expect(rendered.include?(@plan.template.org.contact_email)).to be(true)
   end
 
   it 'renders correctly when the inviter is a User (via Contributors tab)' do

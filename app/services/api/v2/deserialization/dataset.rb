@@ -96,7 +96,7 @@ module Api
                 # research_output = Api::V2::DeserializationService.object_from_identifier(
                 #   class_name: "ResearchOutput", json: json
                 # )
-                id = id.start_with?('http') ? id : "http://doi.org/#{id.gsub('doi:', '')}"
+                id = "http://doi.org/#{id.gsub('doi:', '')}" unless id.start_with?('http')
                 research_output = ::RelatedIdentifier.find_or_initialize_by(
                   identifiable: plan,
                   identifier_type: 'doi',

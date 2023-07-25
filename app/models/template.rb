@@ -379,11 +379,11 @@ class Template < ApplicationRecord
     template_licenses.each do |t|
       copy.template_licenses << TemplateLicense.new(template: copy, license: t.license)
     end
-    customized_repositories.each do |t|
-      tt = t.dup
-      tt.save!
-      copy.customized_repositories << tt
-    end
+    # customized_repositories.each do |t|
+    #   tt = t.dup
+    #   tt.save!
+    #   copy.customized_repositories << tt
+    # end
 
     copy
   end
