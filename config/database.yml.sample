@@ -8,6 +8,9 @@ defaults: &defaults
   username: <%= ENV.fetch('DB_USERNAME', Rails.application.credentials.db_username) %>
   password: <%= ENV.fetch('DB_PASSWORD', Rails.application.credentials.db_password) %>
 
+production:
+  <<: *defaults
+
 development:
   <<: *defaults
 

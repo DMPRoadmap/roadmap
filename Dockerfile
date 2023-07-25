@@ -14,9 +14,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
   echo 'gem "net-smtp"' >> ./Gemfile && \
   gem install pg puma net-smtp && \
   gem install bundler -v 2.4.15 && \
-  bundle config set --local without 'mysql ci aws' && \
   bundle install && \
-  npm i -g yarn
+  npm i -g yarn && \
+  yarn install
 
 FROM dev as build
 ARG DB_ADAPTER \
@@ -24,8 +24,7 @@ ARG DB_ADAPTER \
   DB_PASSWORD
 RUN bin/docker postgres && \
   RAILS_ENV=build DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider rails assets:precompile && \
-  NODE_OPTIONS=--openssl-legacy-provider yarn build:css && \
-  rm -rf node_module
+  rm -rf node_modules
 
 FROM ruby:3.1.4-alpine3.18 as production
 WORKDIR /app
@@ -35,17 +34,14 @@ RUN apk add --no-cache --update --virtual \
   build-base \
   tzdata \
   postgresql-dev \
-  imagemagick && \
+  imagemagick \
+  yarn && \
   echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/community' >> /etc/apk/repositories && \
   echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/main' >> /etc/apk/repositories && \
   apk add --no-cache wkhtmltopdf && \
   ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
   ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
   chmod +x /usr/local/bin/wkhtmltopdf && \
-  echo 'gem "tzinfo-data"' >> ./Gemfile && \
-  echo 'gem "net-smtp"' >> ./Gemfile && \
-  gem install pg puma net-smtp && \
-  gem install bundler -v 2.4.15 && \
   bundle config set --local without 'mysql thin test ci aws development build' && \
   bundle install
 EXPOSE 3000

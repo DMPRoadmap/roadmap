@@ -37,11 +37,6 @@ require 'fileutils'
 include FileUtils
 
 chdir APP_ROOT do
-  puts '== Installing dependencies =='
-  system! 'gem install bundler --conservative'
-  system('bundle check') || system!('bundle install')
-  system! 'yarn install'
-
   puts '== Copying sample files =='
   cp 'config/database.yml.sample', 'config/database.yml'
   cp 'config/initializers/contact_us.rb.example', 'config/initializers/contact_us.rb'
