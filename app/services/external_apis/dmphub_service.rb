@@ -193,7 +193,7 @@ module ExternalApis
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: plan.is_a?(Dmp) ? plan.to_json_for_registration : json_from_template(plan: plan)
+          body: plan.is_a?(Draft) ? plan.to_json_for_registration : json_from_template(plan: plan)
         }
         # opts[:debug_output] = $stdout
         resp = HTTParty.post("#{api_base_url}#{mint_path}", opts)
@@ -292,7 +292,7 @@ module ExternalApis
 
       # Submit the narrative PDF document to the DMPHub
       def publish_pdf(plan:, pdf_file_name:)
-        return false unless (plan.is_a?(Plan) || plan.is_a?(Dmp)) && pdf_file_name.present? && auth
+        return false unless (plan.is_a?(Plan) || plan.is_a?(Draft)) && pdf_file_name.present? && auth
 
         pdf_file = File.open(pdf_file_name, 'r')
         opts = {
