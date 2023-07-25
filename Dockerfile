@@ -14,6 +14,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
   echo 'gem "net-smtp"' >> ./Gemfile && \
   gem install pg puma net-smtp && \
   gem install bundler -v 2.4.15 && \
+  bundle config set --local without 'mysql ci aws' && \
   bundle install && \
   npm i -g yarn
 

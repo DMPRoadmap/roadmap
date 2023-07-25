@@ -19,8 +19,8 @@ Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/relea
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
-- Ruby = 2.7.6
-- Rails = 6.1
+- Ruby >= 3.1
+- Rails = 7.0
 - MySQL >= 5.0 OR PostgreSQL
 
 Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org.
@@ -66,23 +66,23 @@ docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev up 
 
 ```bash
 # build image
-docker compose ---profile prod build dmpopidor
+docker compose --profile prod build dmpopidor
 
 # Configure database connection for postgres (change postgres by mysql)
-docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/docker postgres'
+docker compose --profile prod run --rm dmpopidor sh -c 'ruby bin/docker postgres'
 
 # Setup database
-docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
+docker compose --profile prod run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
 
 # Load re3data data in database
-docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/rails external_api:load_re3data_repos'
+docker compose --profile prod run --rm dmpopidor sh -c 'ruby bin/rails external_api:load_re3data_repos'
 
 # Add DMP OPIDoR migrations
-docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_0_0'
-docker compose ---profile prod run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_4_0'
+docker compose --profile prod run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_0_0'
+docker compose --profile prod run --rm dmpopidor sh -c 'ruby bin/rails madmpopidor:v3_4_0'
 
 # Run all services
-docker compose ---profile prod up -d
+docker compose --profile prod up -d
 ```
 
 
