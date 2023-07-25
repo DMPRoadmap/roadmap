@@ -126,6 +126,8 @@ default: &default
 
   # Matomo tracking
   enable_matomo: true
+  matomo_url: 'matomo.my.org'
+  matomo_sit_id: 1
 
   # The OpenAire API is used to retrieve grant ids on the Project Details page
   openaire_active: false
