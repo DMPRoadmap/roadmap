@@ -10,7 +10,8 @@
   </script>
 <% end %>
 
-<% if Rails.env.development? && Rails.configuration.x.dmproadmap.enable_matomo %>
+<% if Rails.env.production? && Rails.configuration.x.dmproadmap.enable_matomo %>
+  <!-- MatomoAnalytics -->
   <script>
     var _paq = window._paq = window._paq || [];
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
