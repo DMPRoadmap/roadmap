@@ -54,7 +54,7 @@ module TemplateHelper
     style = hidden ? 'display: none' : ''
 
     link_to(plan_from_funder_requirements_url(params), method: :get, title: _('Create plan'),
-                               class: cls, id: id, style: style) do
+                                                       class: cls, id: id, style: style) do
       if text.nil?
         '<span class="fas fa-plus-square"></span>'.html_safe
       else

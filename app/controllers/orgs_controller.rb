@@ -204,8 +204,14 @@ class OrgsController < ApplicationController
 
   # DMPTool cusotmization to prevent API creation email values from being NULL
   def ensure_api_email_content(attrs:)
-    attrs[:api_create_plan_email_subject] = Org.default_create_plan_api_subject unless attrs[:api_create_plan_email_subject].present?
-    attrs[:api_create_plan_email_body] = Org.default_create_plan_api_body unless attrs[:api_create_plan_email_body].present?
+    unless attrs[:api_create_plan_email_subject].present?
+      attrs[:api_create_plan_email_subject] =
+        Org.default_create_plan_api_subject
+    end
+    unless attrs[:api_create_plan_email_body].present?
+      attrs[:api_create_plan_email_body] =
+        Org.default_create_plan_api_body
+    end
     attrs
   end
 end

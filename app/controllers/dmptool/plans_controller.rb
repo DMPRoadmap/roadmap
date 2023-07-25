@@ -2,6 +2,7 @@
 
 module Dmptool
   # Custom home page logic
+  # rubocop:disable Metrics/ModuleLength
   module PlansController
     # POST /plans/:id/set_featured
     def set_featured
@@ -62,6 +63,7 @@ module Dmptool
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
     def create_from_funder_requirements
       plan = ::Plan.new
       authorize plan
@@ -109,6 +111,7 @@ module Dmptool
         end
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
 
     def temporary_patch_delete_me_later
       # This is a temporary patch to fix an issue with one of the pt-BR translations
@@ -120,6 +123,7 @@ module Dmptool
 
     private
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
     def create_plan(plan:, params:)
       plan.visibility = if params['visibility'].blank?
                           Rails.configuration.x.plans.default_visibility
@@ -130,14 +134,14 @@ module Dmptool
       plan.template = ::Template.find(params[:template_id])
 
       plan.title = if params[:title].blank?
-                      if current_user.firstname.blank?
-                        format(_('My Plan (%{title})'), title: plan.template.title)
-                      else
-                        format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
-                      end
-                    else
-                      params[:title]
-                    end
+                     if current_user.firstname.blank?
+                       format(_('My Plan (%{title})'), title: plan.template.title)
+                     else
+                       format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
+                     end
+                   else
+                     params[:title]
+                   end
 
       plan.org = process_org!(user: current_user)
       # If the user said there was no research org, use their org since Plan requires one
@@ -146,29 +150,29 @@ module Dmptool
 
       plan.title = plan.title.strip
 
-      if plan.save
-        # pre-select org's guidance and the default org's guidance
-        ids = (::Org.default_orgs.pluck(:id) << plan.org_id).flatten.uniq
-        ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
+      return unless plan.save
 
-        plan.guidance_groups << ggs unless ggs.empty?
-        plan.add_user!(current_user.id, :creator)
+      # pre-select org's guidance and the default org's guidance
+      ids = (::Org.default_orgs.pluck(:id) << plan.org_id).flatten.uniq
+      ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
-        # Set new identifier to plan id by default on create.
-        # (This may be changed by user.)
-        # ================================================
-        # Start DMPTool customization
-        #    We are using this field as a Funding Opportunity Number
-        # ================================================
-        # @plan.identifier = @plan.id.to_s
-        # ================================================
-        # End DMPTool customization
-        # ================================================
-        plan.save
-        plan
-      else
-        nil
-      end
+      plan.guidance_groups << ggs unless ggs.empty?
+      plan.add_user!(current_user.id, :creator)
+
+      # Set new identifier to plan id by default on create.
+      # (This may be changed by user.)
+      # ================================================
+      # Start DMPTool customization
+      #    We are using this field as a Funding Opportunity Number
+      # ================================================
+      # @plan.identifier = @plan.id.to_s
+      # ================================================
+      # End DMPTool customization
+      # ================================================
+      plan.save
+      plan
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
   end
+  # rubocop:enable Metrics/ModuleLength
 end

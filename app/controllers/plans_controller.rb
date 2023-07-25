@@ -128,7 +128,7 @@ class PlansController < ApplicationController
   #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def create
     plan = Plan.new
     authorize plan
@@ -143,7 +143,7 @@ class PlansController < ApplicationController
       end
     else
 
-puts plan_params.inspect
+      puts plan_params.inspect
 
       @plan = create_plan(plan: plan, params: plan_params)
 
@@ -180,7 +180,7 @@ puts plan_params.inspect
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   # PUT /plans/1
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
