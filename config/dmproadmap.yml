@@ -124,9 +124,8 @@ default: &default
   dmphub_landing_page_url: "http://localhost:3001/dmps/doi:"
   # You should also check the config/initializers/external_apis/dmphub.rb config
 
-  # Google Analytics config. Tracker root is the base key for your application
-  # NOTE: This value must match the :name of the application you define below
-  google_analytics_tracker_root: "MyApp"
+  # Matomo tracking
+  enable_matomo: true
 
   # The OpenAire API is used to retrieve grant ids on the Project Details page
   openaire_active: false

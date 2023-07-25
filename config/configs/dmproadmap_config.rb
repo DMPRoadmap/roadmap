@@ -53,6 +53,7 @@ class DmproadmapConfig < Anyway::Config
               :enable_dmp_id_registration,
               :enable_ethical_issues,
               :enable_license_selection,
+              :enable_matomo,
               :enable_metadata_standard_selection,
               :enable_orcid_publication,
               :enable_related_identifiers,
