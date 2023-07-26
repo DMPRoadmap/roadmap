@@ -23,7 +23,7 @@ module Subscribable
 
     # Returns the Subscription for the specified subscriber or nil if none exists
     def subscriptions_for(plan:)
-      plan = plan.is_a?(Plan) ? plan.id : plan
+      plan = plan.id if plan.is_a?(Plan)
       subscriptions.select { |subscription| subscription.plan_id == plan }
     end
   end

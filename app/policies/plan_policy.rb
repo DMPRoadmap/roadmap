@@ -103,4 +103,8 @@ class PlanPolicy < ApplicationPolicy
   def follow_up_update?
     @record.administerable_by?(@user.id) || (@user.can_org_admin? && @user.org_id == @record.org_id)
   end
+
+  def create_from_funder_requirements?
+    @user.present?
+  end
 end

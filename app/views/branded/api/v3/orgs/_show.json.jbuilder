@@ -7,6 +7,8 @@ use_funder_context = local_assigns.fetch(:use_funder_context, false)
 json.name org.name
 
 if org.is_a?(RegistryOrg)
+  json.acronym org.acronyms.first if org.acronyms.any?
+
   if use_funder_context
     json.funder_id do
       json.type 'fundref'
