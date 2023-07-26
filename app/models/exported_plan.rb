@@ -182,7 +182,7 @@ class ExportedPlan < ApplicationRecord
         next if answer.nil? && !unanswered_questions
 
         if question_headings
-          qtext = sanitize_text(question.text.gsub(/<li>/, '  * '))
+          qtext = sanitize_text(question.text.gsub('<li>', '  * '))
           output += "\n* #{qtext}"
         end
         if answer.nil?

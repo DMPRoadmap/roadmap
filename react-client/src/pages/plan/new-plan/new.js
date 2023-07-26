@@ -8,30 +8,35 @@ import "./new.scss";
 
 function PlanNew() {
   let navigate = useNavigate();
-  let dmpData = {};
 
   async function handleSubmit(ev) {
     ev.preventDefault();
     let api = new DmpApi();
 
-    // Collect the form data
-    var stepData = {};
     const form = ev.target;
-    const formData = new FormData(form);
+    const title = form.querySelector('[name="title"]');
+    const narrative = form.querySelector('[name="narrative"]');
 
-    formData.forEach((value, key) => (stepData[key] = value));
+    let dmpData = {"title": title.value}
+    if (narrative.files.length > 0) {
+      const fileResult = await api.getFileDataURL(narrative.files[0]);
+      dmpData["narrative"] = fileResult;
+    }
 
-    const fileResult = await api.getFileDataURL(stepData["project_pdf"]);
+    // const formData = new FormData(form);
+    // formData.forEach((value, key) => (stepData[key] = value));
+    // let headers = api.getHeaders();
+    // headers.set('Content-Type', "application/x-www-form-urlencoded");
 
     let options = api.getOptions({
       method: "post",
       body: JSON.stringify({
-        dmp: {
-          title: stepData["project_name"],
-          narrative: fileResult,
-        },
+        dmp: dmpData,
       }),
     });
+
+    console.log('Fetch options');
+    console.log(options);
 
     fetch(api.getPath("/drafts"), options)
       .then((resp) => {
@@ -58,8 +63,8 @@ function PlanNew() {
                 label="Project Name"
                 type="text"
                 required="required"
-                name="project_name"
-                id="project_name"
+                name="title"
+                id="title"
                 placeholder="Project Name"
                 help="All or part of the project name/title, e.g. 'Particle Physics'"
                 error=""
@@ -78,7 +83,10 @@ function PlanNew() {
 
                 <div className="dmpui-field-fileinput-group  ">
                   <div className="">
-                    <input name="project_pdf" type="file" />
+                    <input
+                      name="narrative"
+                      type="file"
+                    />
                   </div>
                 </div>
               </div>

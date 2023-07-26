@@ -36,6 +36,7 @@ function TextArea(props) {
         <div className="dmpui-field-input-group">
           <textarea
             type={inputType}
+            value={inputValue}
             name={props?.name ? props.name : ""}
             id={props?.id ? props.id : ""}
             onChange={handleChange}
@@ -43,7 +44,6 @@ function TextArea(props) {
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
             className="dmpui-field-input-textarea"
           >
-            {inputValue}
           </textarea>
         </div>
       </div>

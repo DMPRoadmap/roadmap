@@ -2,6 +2,19 @@
 
 ## DMPTool Releases
 
+### v4.1.5
+
+- Added the ability for users to change the font size, font color, text alignment in the TinyMCE editors. See app/javascript/utils/tinymce.js.
+- Removed Google Analytics from the `app/views/branded/layouts/_analytics.html.erb` and replaced with logic to support Matomo tracking. This requires an account with Matomo and setting up some configuration settings. #490
+- Updated the template edit page so that ALL admins will now see the visibility flags. Originally this would only appear in scenarios when the org was a funder and institution/organization. The logic however seems to have been incorrectly setting the template visibility under certain scenarios so there is a need for the user to be able to change it themselves. #474
+- Updated the finalize tab so that co-owners see a red 'X' and a note letting them know that only the creator of the plan can register a DMP ID #485
+- Added new controller action for creating a plan from the links on the funder requirements page and consolidated logic shared by the new action and the old 'create' action. Fixes bug #488
+- Fixed a bug that was causing the org details page to throw a 500 error when the org is a funder and had nil values set for their 'Create plan via api' email subject and body #363
+- Fixed an issue that was causing the wrong plan visibility to be shown when the user's role for the plan was not owner or co-owner #483
+- Fixed a bug that was getting triggered when an API client had more than one redirect URIs defined #472
+- Fixed a bug that was returning the plans associated with the API client's user instead of the OAuth2 resource owner's plans when the user has no plans defined. For example if external system A received authorization to access Jane Doe's plans, but Jane has no plans, the API was returning all of system A's owner/user's plans #475
+- Updated gem and JS dependencies
+
 ### v4.1.4
 
 - Fixes an issue where a failure from the uc3-citation gem was forcing the RelatedIdentifier model into an endless loop. Limit on number of Research Outputs? Issue #479.

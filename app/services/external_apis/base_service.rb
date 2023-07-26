@@ -95,8 +95,8 @@ module ExternalApis
         message += '<br>----------------------------------------<br><br>'
 
         message += "Sent: #{Rails.logger.debug(json_from_template(plan: obj))}" if obj.is_a?(Plan)
-        message += "Sent: #{Rails.logger.debug(obj.to_json_for_registration)}" if obj.is_a?(Dmp)
-        message += '<br>----------------------------------------<br><br>' if obj.is_a?(Plan) || obj.is_a?(Dmp)
+        message += "Sent: #{Rails.logger.debug(obj.to_json_for_registration)}" if obj.is_a?(Draft)
+        message += '<br>----------------------------------------<br><br>' if obj.is_a?(Plan) || obj.is_a?(Draft)
 
         message += "#{name} received the following unexpected response:<br>"
         message += response.inspect.to_s

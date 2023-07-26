@@ -19,35 +19,27 @@ function ProjectDetails() {
 
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
-  const [formData, setFormData] = useState({
-    project_name: "",
-    project_id: "",
-    project_abstract: "",
-    start_date: "",
-    end_date: "",
-    award_number: "",
-  })
+  const [formData, setFormData] = useState({});
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     let api = new DmpApi();
-
     fetch(api.getPath(`/drafts/${dmpId}`))
       .then((resp) => {
         api.handleResponse(resp);
         return resp.json();
       })
       .then((data) => {
-        let dmp = data.items[0].dmp
-        setDmp(dmp);
+        let initial = data.items[0].dmp;
+        setDmp(initial);
         setFormData({
-          project_name: getValue(dmp, "title", ""),
+          project_name: getValue(initial, "title", ""),
           project_id: dmpId,
-          project_abstract: getValue(dmp, "description", ""),
-          start_date: getValue(dmp, "project.0.start", ""),
-          end_date: getValue(dmp, "project.0.end", ""),
-          award_number: getValue(dmp, "project.0.funding.0.dmproadmap_opportunity_number", ""),
+          project_abstract: getValue(initial, "project.0.description", ""),
+          start_date: getValue(initial, "project.0.start", ""),
+          end_date: getValue(initial, "project.0.end", ""),
+          award_number: getValue(initial, "project.0.funding.0.dmproadmap_opportunity_number", ""),
         });
       });
   }, [dmpId]);
@@ -106,14 +98,15 @@ function ProjectDetails() {
 
     let options = api.getOptions({
       method: "put",
-      body: JSON.stringify(dmpData),
+      body: JSON.stringify({dmp: dmpData}),
+      // body: JSON.stringify(dmpData),
     });
 
     fetch(api.getPath(`/drafts/${dmpId}`), options).then((resp) => {
       api.handleResponse(resp.status);
       return resp.json();
     }).then((data) => {
-      // FIXME:: Handle response errors
+      // TODO:: Handle response errors
       navigate(`/dashboard/dmp/${dmpId}/`);
     });
   }

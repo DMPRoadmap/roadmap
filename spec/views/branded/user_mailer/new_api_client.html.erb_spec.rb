@@ -10,7 +10,7 @@ describe 'user_mailer/new_api_client' do
   it 'renders correctly' do
     client = create(:api_client)
     user = create(:user)
-    assign :name,  user.name(false)
+    assign :name, user.name(false)
     assign :api_client, client
 
     render
@@ -31,7 +31,7 @@ describe 'user_mailer/new_api_client' do
   it 'renders the correct message if no redirect_uri was defined' do
     client = create(:api_client, redirect_uri: nil)
     user = create(:user)
-    assign :name,  user.name(false)
+    assign :name, user.name(false)
     assign :api_client, client
 
     render

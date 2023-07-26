@@ -36,7 +36,7 @@ class DmpIdService
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def mint_dmp_id(plan:, seeding: false)
       # plan must exist and not already have a DMP ID!
-      return nil unless minting_service_defined? && (plan.is_a?(Plan) || plan.is_a?(Dmp))
+      return nil unless minting_service_defined? && (plan.is_a?(Plan) || plan.is_a?(Draft))
       return plan.dmp_id if plan.dmp_id.present? && !seeding
 
       svc = minter
@@ -59,7 +59,7 @@ class DmpIdService
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def update_dmp_id(plan:)
       # plan must exist and have a DMP ID
-      return nil unless minting_service_defined? && plan.present? && (plan.is_a?(Plan) || plan.is_a?(Dmp)) &&
+      return nil unless minting_service_defined? && plan.present? && (plan.is_a?(Plan) || plan.is_a?(Draft)) &&
                         plan.dmp_id.present?
 
       svc = minter
@@ -78,7 +78,7 @@ class DmpIdService
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def delete_dmp_id(plan:)
       # plan must exist and have a DMP ID
-      return nil unless minting_service_defined? && plan.present? && (plan.is_a?(Plan) || plan.is_a?(Dmp)) &&
+      return nil unless minting_service_defined? && plan.present? && (plan.is_a?(Plan) || plan.is_a?(Draft)) &&
                         plan.dmp_id.present?
 
       svc = minter
@@ -95,7 +95,7 @@ class DmpIdService
 
     # Send the Plan's PDF to the DMP ID minting service
     def publish_pdf(plan:, pdf_file_name:)
-      return false unless (plan.is_a?(Plan) || plan.is_a?(Dmp)) && pdf_file_name.present?
+      return false unless (plan.is_a?(Plan) || plan.is_a?(Draft)) && pdf_file_name.present?
 
       svc = minter
       return false if svc.blank?

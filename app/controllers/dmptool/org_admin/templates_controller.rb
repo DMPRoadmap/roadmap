@@ -62,8 +62,7 @@ module Dmptool
         # Template.transaction do
         # Get the current template or a new version if applicable
         @template = get_modifiable(template)
-        @template.update(template_output_types: [], licenses: [], repositories: [], customized_repositories: [],
-                         metadata_standards: [])
+        @template.update(template_output_types: [], licenses: [], repositories: [], metadata_standards: [])
 
         if preference_params[:customize_repositories] != '0'
           # Create custom repositories if applicable and add them to selected repos

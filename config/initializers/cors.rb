@@ -14,6 +14,6 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       origins localhost
     end
 
-    resource '*', headers: :any, methods: %i[get put post delete]
+    resource '*', headers: :any, methods: %i[get options put post delete]
   end
 end
