@@ -8,35 +8,35 @@ import "./new.scss";
 
 function PlanNew() {
   let navigate = useNavigate();
-  let dmpData = {};
 
   async function handleSubmit(ev) {
     ev.preventDefault();
     let api = new DmpApi();
 
-    // Collect the form data
-    var stepData = {};
     const form = ev.target;
-    const formData = new FormData(form);
+    const title = form.querySelector('[name="title"]');
+    const narrative = form.querySelector('[name="narrative"]');
 
+    let dmpData = {"title": title.value}
+    if (narrative.files.length > 0) {
+      const fileResult = await api.getFileDataURL(narrative.files[0]);
+      dmpData["narrative"] = fileResult;
+    }
+
+    // const formData = new FormData(form);
     // formData.forEach((value, key) => (stepData[key] = value));
-
-    // const fileResult = await api.getFileDataURL(stepData["project_pdf"]);
-
-console.log(formData);
+    // let headers = api.getHeaders();
+    // headers.set('Content-Type', "application/x-www-form-urlencoded");
 
     let options = api.getOptions({
       method: "post",
-      body: formData,
-      /*
       body: JSON.stringify({
-        dmp: {
-          "title": stepData.project_name || "",
-          "narrative": fileResult
-        }
+        dmp: dmpData,
       }),
-      */
     });
+
+    console.log('Fetch options');
+    console.log(options);
 
     fetch(api.getPath("/drafts"), options)
       .then((resp) => {
@@ -83,7 +83,10 @@ console.log(formData);
 
                 <div className="dmpui-field-fileinput-group  ">
                   <div className="">
-                    <input name="narrative" type="file" />
+                    <input
+                      name="narrative"
+                      type="file"
+                    />
                   </div>
                 </div>
               </div>

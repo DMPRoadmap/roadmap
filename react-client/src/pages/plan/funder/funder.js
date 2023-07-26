@@ -29,11 +29,16 @@ function PlanFunders() {
       .then((data) => {
         let initial = data.items[0].dmp;
         setDmp(initial);
-        // TODO:: Funding is correctly saved and loaded, but the correct values
-        // are not displayd in the fields below.
-        // If a funder exists, we need to correctly set up the appropriate fields
-        // below.
+
+        console.log('Initial Data?');
+        console.log(initial);
+
+        let funderName = getValue(initial, "project.0.funding.0.name", "");
+        if (funderName !== "") setHasFunder("yes");
+
+        console.log(funderName);
       });
+
   }, [dmpId]);
 
 
