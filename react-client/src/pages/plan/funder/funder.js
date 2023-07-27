@@ -38,11 +38,6 @@ function PlanFunders() {
             setLocked(true);
           }
         }
-
-        // TODO::FIXME:: If we have a funder, then this page should not
-        // be editable, same as the project page. This is because the funder
-        // and project is deeply connected, and the funder is very unlikely to
-        // change.
       });
 
   }, [dmpId]);
