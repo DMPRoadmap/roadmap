@@ -24,7 +24,7 @@ function FunderLookup(props) {
 
     // NOTE: Since the server requires a limit of 3 characters,
     // we might as well avoid any work till we reach the minimum.
-    if (query.length < 3) return;
+    if (query.length < 3 || (query.length == 3 && query.slice(-1) == " ")) return;
 
     controller = new AbortController();
 
@@ -69,9 +69,11 @@ function FunderLookup(props) {
                          .querySelector(`option[value="${value}"]`);
         let di = chosenEl.dataset["index"];
         ev.data = suggestions[di];
-        props.onChange(ev);
+      } else {
+        ev.data = {"name": value};
       }
       setQuery(value);
+      props.onChange(ev);
     }
   }
 

@@ -13,9 +13,9 @@ import "./funder.scss";
 function PlanFunders() {
   let navigate = useNavigate();
   const {dmpId} = useParams();
+
   const [dmp, setDmp] = useState({});
   const [isLocked, setLocked] = useState(false);
-
   const [funder, setFunder] = React.useState({name: ""});
   const [hasFunder, setHasFunder] = React.useState("no");
 
@@ -54,13 +54,8 @@ function PlanFunders() {
       case "funder":
         setFunder(ev.data);
         break;
-
-      case "unlisted_funder_name":
-        setFunder({"name": value});
-        break;
     }
   }
-
 
   async function handleSave(ev) {
     ev.preventDefault();
@@ -82,11 +77,11 @@ function PlanFunders() {
       // in here as-is. But the funder returned by the API does not have the
       // same structure as expected in the DMP. This is why we manually
       // Set only the name and funder id fields here.
-      ...{
-        name: funder.name,
-        funder_id: funder.funder_id,
-      },
+      ...{name: funder.name},
     };
+    if (funder.funder_id) {
+      projectFunding["funder_id"] = funder.funder_id;
+    }
 
     dmpProject = {
       ...dmpProject,
@@ -96,6 +91,7 @@ function PlanFunders() {
     let dmpData = {
       ...dmp,
       ...{project: [dmpProject]},
+      ...{"draft_data": {funder: funder}},
     };
 
     let options = api.getOptions({

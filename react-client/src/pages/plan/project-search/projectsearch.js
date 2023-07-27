@@ -1,20 +1,24 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
-
-import { useContext, useEffect, useState, Fragment } from "react";
+import {
+  useContext,
+  useEffect,
+  useState,
+  Fragment
+} from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { DmpApi } from "../../../api";
-
-// forms
+import { getValue } from "../../../utils.js";
 import TextInput from "../../../components/text-input/textInput";
 import TextArea from "../../../components/textarea/textArea";
 import "./projectsearch.scss";
 
+
 function ProjectSearch() {
   let navigate = useNavigate();
-  const { dmpId } = useParams();
-  const [dmp, setDmp] = useState({});
 
-  let contributors = [
+  const {dmpId} = useParams();
+  const [dmp, setDmp] = useState({});
+  const [contributors, setContributors] = useState([
     {
       id: "3523535",
       name: "Dinosaur Decibels: How Roaring Dinosaurs Impact Children's Education",
@@ -45,19 +49,55 @@ function ProjectSearch() {
       name: "Mindful Classrooms: Exploring the Integration of Mindfulness Practices in K-12 Education",
       role: "8881-2424-2424-1138",
     },
-  ];
+  ]);
 
   useEffect(() => {
     let api = new DmpApi();
-    fetch(api.getPath(`/dmps/${dmpId}`))
+
+    fetch(api.getPath(`/drafts/${dmpId}`))
       .then((resp) => {
         api.handleResponse(resp);
         return resp.json();
       })
       .then((data) => {
-        setDmp(data.items[0].dmp);
+        let initial = data.items[0].dmp;
+        setDmp(initial);
+
+        console.log(initial);
+
+        let f = getValue(initial, "project.0.funding.0", null);
+        if (f) {
+          if (f.name) {
+            // TODO::
+            //
+            // Okay we have a funder. Get the list of projects for this funder
+            // that con-incide with our name.
+          }
+        }
       });
   }, [dmpId]);
+
+  function handleChange(ev) {
+    const {name, value} = ev.target;
+    console.log(`Handle Change; ${name}: ${value}`);
+
+    // NOTE:: We only start auto searching soon as there are at least 3
+    // characters in a input field. There is no need to search with less.
+
+    switch (name) {
+      case "project_id":
+        break;
+
+      case "project_name":
+        break;
+
+      case "principle_investigator":
+        break;
+
+      case "award_year":
+        break;
+    }
+  }
 
   async function handleSearch(ev) {
     ev.preventDefault();
@@ -67,6 +107,8 @@ function ProjectSearch() {
 
   async function handleSubmit(ev) {
     ev.preventDefault();
+
+    // TODO::
 
     navigate(`/dashboard/dmp/${dmpId}/project-details?locked=true`);
   }
@@ -92,6 +134,7 @@ function ProjectSearch() {
                 type="text"
                 required="required"
                 name="project_id"
+                onChange={handleChange}
                 id="project_id"
                 placeholder="Project ID"
                 help="The Project ID or number provided by your funder"
@@ -105,6 +148,7 @@ function ProjectSearch() {
                 type="text"
                 required="required"
                 name="project_name"
+                onChange={handleChange}
                 id="project_name"
                 placeholder="Project Name"
                 help="All or part of the project name/title, e.g. 'Particle Physics'"
@@ -120,6 +164,7 @@ function ProjectSearch() {
                 type="text"
                 required="required"
                 name="principle_investigator"
+                onChange={handleChange}
                 id="principle_investigator"
                 placeholder=""
                 help="PI Names or Profile IDs, semicolon ';' separated"
@@ -133,6 +178,7 @@ function ProjectSearch() {
                 type="text"
                 required="required"
                 name="award_year"
+                onChange={handleChange}
                 id="award_year"
                 placeholder="Award Year"
                 help="e.g. 2020"
