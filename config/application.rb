@@ -50,7 +50,7 @@ module DMPRoadmap
     config.action_view.sanitized_allowed_tags = %w[
       p br strong em a table thead tbody tr td th tfoot caption ul ol li span
     ]
-    config.action_view.sanitized_allowed_attributes = %w[style]
+    config.action_view.sanitized_allowed_attributes = %w[alt href style]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
