@@ -110,7 +110,7 @@ module Api
       end
 
       def dmp_params
-        params.require(:dmp).permit(:narrative, :remove_narrative, dmp_permitted_params)
+        params.require(:dmp).permit(:narrative, :remove_narrative, dmp_permitted_params, draft_data: {})
       end
     end
   end
