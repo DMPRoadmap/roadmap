@@ -82,6 +82,16 @@ module Dmptool
         org.save
         org
       end
+
+      def default_create_plan_api_subject
+        'A new data management plan (DMP) for the Non Partner Institution was started for you.'
+      end
+
+      # rubocop:disable Layout/LineLength
+      def default_create_plan_api_body
+        'A new data management plan (DMP) has been started for you by the %{external_system_name}. If you have any questions or need help, please contact the administrator for the Non Partner Institution at <a href="mailto:uc3@ucop.edu">uc3@ucop.edu</a>.'
+      end
+      # rubocop:enable Layout/LineLength
     end
 
     included do
