@@ -96,6 +96,7 @@ function FunderLookup(props) {
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
             list="funderLookupResults"
             className="dmpui-field-input-text"
+            disabled={props.disabled}
           />
 
           <datalist id="funderLookupResults">

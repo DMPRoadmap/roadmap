@@ -14,6 +14,7 @@ function PlanFunders() {
   let navigate = useNavigate();
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
+  const [isLocked, setLocked] = useState(false);
 
   const [funder, setFunder] = React.useState({name: ""});
   const [hasFunder, setHasFunder] = React.useState("no");
@@ -34,6 +35,7 @@ function PlanFunders() {
           if (f.name) {
             setFunder(f);
             setHasFunder("yes");
+            setLocked(true);
           }
         }
 
@@ -67,6 +69,12 @@ function PlanFunders() {
 
   async function handleSave(ev) {
     ev.preventDefault();
+
+    if (isLocked) {
+      navigate(`/dashboard/dmp/${dmpId}/project-search`);
+      return;
+    }
+
     let api = new DmpApi();
 
     let dmpProject = getValue(dmp, "project.0", {});
@@ -116,6 +124,19 @@ function PlanFunders() {
           <h1>Funder</h1>
         </div>
 
+        {isLocked && (
+          <div className="dmpui-search-form-container alert alert-warning">
+            <p>
+              This information is not editable because the funder have already
+              been selected.
+            </p>
+            <p>
+              <br />
+              <button className="button">Unlock & Edit</button>
+            </p>
+          </div>
+        )}
+
         <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
           <div className="form-wrapper">
             <div className="dmpui-form-cols">
@@ -134,6 +155,7 @@ function PlanFunders() {
                       name="have_funder"
                       id="have_funder_no"
                       inputValue="no"
+                      disabled={isLocked}
                       checked={hasFunder === "no"}
                     />
 
@@ -142,6 +164,7 @@ function PlanFunders() {
                       name="have_funder"
                       id="have_funder_yes"
                       inputValue="yes"
+                      disabled={isLocked}
                       checked={hasFunder === "yes"}
                     />
                   </div>
@@ -160,6 +183,7 @@ function PlanFunders() {
                     help="Search for your funder by name. If you can't find your funder in the list, just type it in."
                     inputValue={getValue(funder, "name", "")}
                     onChange={handleChange}
+                    disabled={isLocked}
                     error=""
                   />
                 </div>
