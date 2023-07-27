@@ -22,10 +22,13 @@ json.ethical_issues_exist Api::V2::ConversionService.boolean_to_yes_no_unknown(p
 json.ethical_issues_description plan.ethical_issues_description
 json.ethical_issues_report plan.ethical_issues_report
 
-if plan.dmp_id.present?
-  json.dmp_id do
+json.dmp_id do
+  if plan.dmp_id.present?
     json.type 'doi'
     json.identifier plan.dmp_id
+  else
+    json.type 'url'
+    json.identifier Rails.application.routes.url_helpers.api_v2_plan_url(plan)
   end
 end
 
