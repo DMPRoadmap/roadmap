@@ -5,7 +5,7 @@ require 'webdrivers/chromedriver'
 # Cache for one hour
 Webdrivers.cache_time = 3600
 
-Webdrivers::Chromedriver.required_version = "114.0.5735.90"
+Webdrivers::Chromedriver.required_version = '114.0.5735.90'
 
 # Use Puma as the webserver for feature tests
 Capybara.server = :puma, { Silent: true }
