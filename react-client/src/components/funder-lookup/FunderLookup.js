@@ -6,7 +6,7 @@ import { DmpApi } from "../../api.js";
 
 
 function FunderLookup(props) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(props.inputValue);
   const [suggestions, setSuggestions] = useState([]);
 
   let disabledClass = props?.disabled ? "group-disabled" : "";

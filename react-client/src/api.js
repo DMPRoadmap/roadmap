@@ -24,7 +24,7 @@ export class DmpApi {
     // NOTE: This just creates "common" headers required for the API.
     // The returned headers object can be customized further if needed by the
     // caller.
-    let headers = new Headers();
+    var headers = new Headers();
     headers.append('Content-Type', "application/json");
     headers.append('Accept', "application/json");
     return headers;

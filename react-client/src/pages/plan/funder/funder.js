@@ -17,7 +17,6 @@ function PlanFunders() {
 
   const [funder, setFunder] = React.useState({name: ""});
   const [hasFunder, setHasFunder] = React.useState("no");
-  const [funderNotListed, setFunderNotListed] = React.useState("false");
 
   useEffect(() => {
     let api = new DmpApi();
@@ -30,13 +29,18 @@ function PlanFunders() {
         let initial = data.items[0].dmp;
         setDmp(initial);
 
-        console.log('Initial Data?');
-        console.log(initial);
+        let f = getValue(initial, "project.0.funding.0", null);
+        if (f) {
+          if (f.name) {
+            setFunder(f);
+            setHasFunder("yes");
+          }
+        }
 
-        let funderName = getValue(initial, "project.0.funding.0.name", "");
-        if (funderName !== "") setHasFunder("yes");
-
-        console.log(funderName);
+        // TODO::FIXME:: If we have a funder, then this page should not
+        // be editable, same as the project page. This is because the funder
+        // and project is deeply connected, and the funder is very unlikely to
+        // change.
       });
 
   }, [dmpId]);
@@ -48,11 +52,6 @@ function PlanFunders() {
     switch (name) {
       case "have_funder":
         setHasFunder(value);
-        if (hasFunder === "no") setFunderNotListed("false");
-        break;
-
-      case "funder_not_listed":
-        setFunderNotListed(value);
         break;
 
       case "funder":
@@ -106,7 +105,7 @@ function PlanFunders() {
       return resp.json();
     }).then((data) => {
       // TODO:: Handle response errors
-      navigate(`/dashboard/dmp/${dmpId}`);
+      navigate(`/dashboard/dmp/${dmpId}/project-search`);
     });
   }
 
@@ -154,59 +153,18 @@ function PlanFunders() {
               <div className="dmpui-form-cols">
                 <div className="dmpui-form-col">
                   <FunderLookup
-                    disabled={funderNotListed === "true"}
-                    label="Find funder"
+                    label="Funder Name"
                     name="funder"
                     id="funder"
                     placeholder=""
-                    help="Search for your funder by name."
-                    inputValue={getValue(dmp, "project.0.funding.0.name", "")}
+                    help="Search for your funder by name. If you can't find your funder in the list, just type it in."
+                    inputValue={getValue(funder, "name", "")}
                     onChange={handleChange}
                     error=""
                   />
-
-                  <div className="dmpui-field-checkbox-group not-listed">
-                    <input
-                      id="idUnlistedFunder"
-                      className="dmpui-field-input-checkbox"
-                      name="funder_not_listed"
-                      value="true"
-                      checked={funderNotListed === "true"}
-                      onChange={handleChange}
-                      type="checkbox"
-                    />
-                    <label
-                      htmlFor="idUnlistedFunder"
-                      className="checkbox-label"
-                    >
-                      My funder isn't listed
-                    </label>
-                  </div>
                 </div>
               </div>
             )}
-
-            {funderNotListed &&
-              funderNotListed === "true" &&
-              hasFunder &&
-              hasFunder === "yes" && (
-                <div className="dmpui-form-cols">
-                  <div className="dmpui-form-col">
-                    <TextInput
-                      label="Enter Funders Name"
-                      type="text"
-                      required="required"
-                      name="unlisted_funder_name"
-                      id="unListedFunderName"
-                      inputValue={getValue(dmp, "project.0.funding.0.name", "")}
-                      onChange={handleChange}
-                      placeholder=""
-                      help="If your funder isn't listed, enter their name here."
-                      error=""
-                    />
-                  </div>
-                </div>
-              )}
           </div>
 
           <div className="form-actions ">
