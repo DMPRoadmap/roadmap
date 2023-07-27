@@ -6,7 +6,7 @@ import { DmpApi } from "../../api.js";
 
 
 function FunderLookup(props) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(props.inputValue);
   const [suggestions, setSuggestions] = useState([]);
 
   let disabledClass = props?.disabled ? "group-disabled" : "";
@@ -96,6 +96,7 @@ function FunderLookup(props) {
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
             list="funderLookupResults"
             className="dmpui-field-input-text"
+            disabled={props.disabled}
           />
 
           <datalist id="funderLookupResults">

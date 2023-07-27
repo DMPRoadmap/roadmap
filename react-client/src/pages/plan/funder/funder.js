@@ -14,10 +14,10 @@ function PlanFunders() {
   let navigate = useNavigate();
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
+  const [isLocked, setLocked] = useState(false);
 
   const [funder, setFunder] = React.useState({name: ""});
   const [hasFunder, setHasFunder] = React.useState("no");
-  const [funderNotListed, setFunderNotListed] = React.useState("false");
 
   useEffect(() => {
     let api = new DmpApi();
@@ -30,13 +30,14 @@ function PlanFunders() {
         let initial = data.items[0].dmp;
         setDmp(initial);
 
-        console.log('Initial Data?');
-        console.log(initial);
-
-        let funderName = getValue(initial, "project.0.funding.0.name", "");
-        if (funderName !== "") setHasFunder("yes");
-
-        console.log(funderName);
+        let f = getValue(initial, "project.0.funding.0", null);
+        if (f) {
+          if (f.name) {
+            setFunder(f);
+            setHasFunder("yes");
+            setLocked(true);
+          }
+        }
       });
 
   }, [dmpId]);
@@ -48,11 +49,6 @@ function PlanFunders() {
     switch (name) {
       case "have_funder":
         setHasFunder(value);
-        if (hasFunder === "no") setFunderNotListed("false");
-        break;
-
-      case "funder_not_listed":
-        setFunderNotListed(value);
         break;
 
       case "funder":
@@ -68,6 +64,12 @@ function PlanFunders() {
 
   async function handleSave(ev) {
     ev.preventDefault();
+
+    if (isLocked) {
+      navigate(`/dashboard/dmp/${dmpId}/project-search`);
+      return;
+    }
+
     let api = new DmpApi();
 
     let dmpProject = getValue(dmp, "project.0", {});
@@ -106,7 +108,7 @@ function PlanFunders() {
       return resp.json();
     }).then((data) => {
       // TODO:: Handle response errors
-      navigate(`/dashboard/dmp/${dmpId}`);
+      navigate(`/dashboard/dmp/${dmpId}/project-search`);
     });
   }
 
@@ -116,6 +118,19 @@ function PlanFunders() {
         <div className="dmpui-heading">
           <h1>Funder</h1>
         </div>
+
+        {isLocked && (
+          <div className="dmpui-search-form-container alert alert-warning">
+            <p>
+              This information is not editable because the funder have already
+              been selected.
+            </p>
+            <p>
+              <br />
+              <button className="button">Unlock & Edit</button>
+            </p>
+          </div>
+        )}
 
         <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
           <div className="form-wrapper">
@@ -135,6 +150,7 @@ function PlanFunders() {
                       name="have_funder"
                       id="have_funder_no"
                       inputValue="no"
+                      disabled={isLocked}
                       checked={hasFunder === "no"}
                     />
 
@@ -143,6 +159,7 @@ function PlanFunders() {
                       name="have_funder"
                       id="have_funder_yes"
                       inputValue="yes"
+                      disabled={isLocked}
                       checked={hasFunder === "yes"}
                     />
                   </div>
@@ -154,59 +171,19 @@ function PlanFunders() {
               <div className="dmpui-form-cols">
                 <div className="dmpui-form-col">
                   <FunderLookup
-                    disabled={funderNotListed === "true"}
-                    label="Find funder"
+                    label="Funder Name"
                     name="funder"
                     id="funder"
                     placeholder=""
-                    help="Search for your funder by name."
-                    inputValue={getValue(dmp, "project.0.funding.0.name", "")}
+                    help="Search for your funder by name. If you can't find your funder in the list, just type it in."
+                    inputValue={getValue(funder, "name", "")}
                     onChange={handleChange}
+                    disabled={isLocked}
                     error=""
                   />
-
-                  <div className="dmpui-field-checkbox-group not-listed">
-                    <input
-                      id="idUnlistedFunder"
-                      className="dmpui-field-input-checkbox"
-                      name="funder_not_listed"
-                      value="true"
-                      checked={funderNotListed === "true"}
-                      onChange={handleChange}
-                      type="checkbox"
-                    />
-                    <label
-                      htmlFor="idUnlistedFunder"
-                      className="checkbox-label"
-                    >
-                      My funder isn't listed
-                    </label>
-                  </div>
                 </div>
               </div>
             )}
-
-            {funderNotListed &&
-              funderNotListed === "true" &&
-              hasFunder &&
-              hasFunder === "yes" && (
-                <div className="dmpui-form-cols">
-                  <div className="dmpui-form-col">
-                    <TextInput
-                      label="Enter Funders Name"
-                      type="text"
-                      required="required"
-                      name="unlisted_funder_name"
-                      id="unListedFunderName"
-                      inputValue={getValue(dmp, "project.0.funding.0.name", "")}
-                      onChange={handleChange}
-                      placeholder=""
-                      help="If your funder isn't listed, enter their name here."
-                      error=""
-                    />
-                  </div>
-                </div>
-              )}
           </div>
 
           <div className="form-actions ">
