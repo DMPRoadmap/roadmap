@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 function Select(props) {
   const [inputType] = useState(props.type);
-  const [options] = useState(props.options);
+  const [options, setOptions] = useState(props.options);
   const [inputValue, setInputValue] = useState(props.inputValue);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function Select(props) {
             className="dmpui-field-input-text select"
           >
             <option>Select one</option>
-            {options.length > 0 &&
+            {options &&
               Object.keys(options).map((key) => {
                 return (
                   <option key={key} value={key}>
