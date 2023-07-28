@@ -6,7 +6,7 @@ import { DmpApi } from "../../../api.js";
 
 // forms
 import TextInput from "../../../components/text-input/textInput.js";
-
+import Select from "../../../components/select/select.js";
 import RadioButton from "../../../components/radio/radio";
 import Modal from "../../../components/modal/modal";
 import "./researchoutputs.scss";
@@ -16,6 +16,24 @@ function ResearchOutputs() {
   const [show, setShow] = useState(false);
   const [sensitiveData, setSensitiveData] = useState("no");
   const [personalInfo, setPersonalInfo] = useState("no");
+  const [data_type, setData_type] = useState("no");
+
+  let options = {
+    audiovisual: "Audiovisual",
+    collection: "Collection",
+    data_paper: "Data paper",
+    dataset: "Dataset",
+    event: "Event",
+    image: "Image",
+    interactive_resource: "Interactive resource",
+    model_representation: "Model representation",
+    physical_object: "Physical object",
+    service: "Service",
+    software: "Software",
+    sound: "Sound",
+    text: "Text",
+    workflow: "Workflow",
+  };
 
   let yes_no_list = [
     {
@@ -155,12 +173,13 @@ function ResearchOutputs() {
               </div>
 
               <div className="dmpui-form-col">
-                <TextInput
+                <Select
+                  options={options}
                   label="Data type"
                   type="text"
                   required="required"
-                  name="date_type"
-                  id="date_type"
+                  name="data_type"
+                  id="data_type"
                   placeholder=""
                   help=""
                   error=""
