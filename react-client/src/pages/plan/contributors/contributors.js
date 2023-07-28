@@ -6,11 +6,13 @@ import { DmpApi } from "../../../api.js";
 import TextInput from "../../../components/text-input/textInput";
 import TextArea from "../../../components/textarea/textArea";
 import Modal from "../../../components/modal/modal";
+import RadioButton from "../../../components/radio/radio";
 import "./contributors.scss";
 
 function Contributors() {
   let navigate = useNavigate();
   const [show, setShow] = useState(false);
+  const [role, setRole] = useState(false);
 
   console.log("Show Contributors Modal: ", show);
   let contributors = [
@@ -25,6 +27,27 @@ function Contributors() {
       role: "PI",
     },
   ];
+
+  // api to get the full list
+  let role_list = [
+    {
+      id: "pi",
+      label: "Primary Investigator (PI)",
+    },
+    {
+      id: "project_administrator",
+      label: "Project Administrator",
+    },
+    {
+      id: "data_curator",
+      label: "Data Curator",
+    },
+  ];
+
+  function handleRoleChange(ev) {
+    const { name, value } = ev.target;
+    setRole(value);
+  }
 
   async function handleSave(ev) {
     ev.preventDefault();
@@ -120,11 +143,11 @@ function Contributors() {
 
               <div className="dmpui-form-col">
                 <TextInput
-                  label="Affiliation"
+                  label="ORCID ID"
                   type="text"
                   required="required"
-                  name="affiliation"
-                  id="affiliation"
+                  name="orcid"
+                  id="orcid"
                   placeholder=""
                   help=""
                   error=""
@@ -133,9 +156,42 @@ function Contributors() {
             </div>
 
             <div className="dmpui-form-cols">
-              <div className="dmpui-form-col">Role</div>
+              <div className="dmpui-form-col">
+                <TextInput
+                  label="Affiliation"
+                  type="text"
+                  required="required"
+                  name="affiliation"
+                  id="affiliation"
+                  placeholder=""
+                  help="Search for your institution (API)"
+                  error=""
+                />
+              </div>
+            </div>
+            <div className="dmpui-form-cols">
+              <div className="dmpui-form-col">
+                <div className={"dmpui-field-group"}>
+                  <label className="dmpui-field-label">
+                    What is this person's role? *
+                  </label>
+                  <p className="dmpui-field-help">Only one per DMP</p>
 
-              <div className="dmpui-form-col"></div>
+                  <div onChange={handleRoleChange}>
+                    {role_list.map((item) => (
+                      <Fragment key={item.id}>
+                        <RadioButton
+                          label={item.label}
+                          name="role"
+                          id={"role_" + item.id}
+                          inputValue={item.id}
+                          checked={role === item.id}
+                        />
+                      </Fragment>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
