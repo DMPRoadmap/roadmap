@@ -6,13 +6,38 @@ import { DmpApi } from "../../../api.js";
 
 // forms
 import TextInput from "../../../components/text-input/textInput.js";
-import TextArea from "../../../components/textarea/textArea.js";
+
+import RadioButton from "../../../components/radio/radio";
 import Modal from "../../../components/modal/modal";
 import "./researchoutputs.scss";
 
 function ResearchOutputs() {
   let navigate = useNavigate();
   const [show, setShow] = useState(false);
+  const [sensitiveData, setSensitiveData] = useState("no");
+  const [personalInfo, setPersonalInfo] = useState("no");
+
+  let yes_no_list = [
+    {
+      id: "yes",
+      label: "Yes",
+    },
+    {
+      id: "no",
+      label: "No",
+    },
+  ];
+
+  function handleSensitiveDataChange(ev) {
+    const { name, value } = ev.target;
+    setSensitiveData(value);
+  }
+
+  function handlePersonalInfoChange(ev) {
+    const { name, value } = ev.target;
+    setPersonalInfo(value);
+  }
+
   let data = [
     {
       id: "1",
@@ -152,10 +177,48 @@ function ResearchOutputs() {
 
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
-                May contain personally identifiable information?
+                <div className={"dmpui-field-group"}>
+                  <label className="dmpui-field-label">
+                    May contain personally identifiable information?
+                  </label>
+
+                  <div onChange={handlePersonalInfoChange}>
+                    {yes_no_list.map((item) => (
+                      <Fragment key={item.id}>
+                        <RadioButton
+                          label={item.label}
+                          name="personal_info"
+                          id={"personal_info_" + item.id}
+                          inputValue={item.id}
+                          checked={personalInfo === item.id}
+                        />
+                      </Fragment>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              <div className="dmpui-form-col">May contain sensitive data?</div>
+              <div className="dmpui-form-col">
+                <div className={"dmpui-field-group"}>
+                  <label className="dmpui-field-label">
+                    May contain sensitive data?
+                  </label>
+
+                  <div onChange={handleSensitiveDataChange}>
+                    {yes_no_list.map((item) => (
+                      <Fragment key={item.id}>
+                        <RadioButton
+                          label={item.label}
+                          name="sensitive_data"
+                          id={"sensitive_data_" + item.id}
+                          inputValue={item.id}
+                          checked={sensitiveData === item.id}
+                        />
+                      </Fragment>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
