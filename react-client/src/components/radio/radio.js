@@ -18,7 +18,7 @@ function RadioButton(props) {
           id={props?.id ? props.id : ""}
           checked={props?.checked ? props.checked : ""}
           value={props?.inputValue ? props.inputValue : "x"}
-          disabled={props?.disabled ? props.disabled : "false"}
+          disabled={props.disabled}
         />
         <label htmlFor={props?.id ? props.id : ""} className="radio-label">
           {props?.label ? props.label : ""}
