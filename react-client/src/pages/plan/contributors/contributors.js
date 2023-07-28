@@ -49,6 +49,12 @@ function Contributors() {
     setRole(value);
   }
 
+  function handleModalOpen(id) {
+    console.log("Open Modal; Api Load data: ", id);
+
+    setShow(true);
+  }
+
   async function handleSave(ev) {
     ev.preventDefault();
 
@@ -90,7 +96,9 @@ function Contributors() {
             <div data-colname="name">{item.name}</div>
             <div data-colname="role">{item.role}</div>
             <div data-colname="actions">
-              <button onClick={() => setShow(true)}>Edit</button>
+              <button value={item.id} onClick={() => handleModalOpen(item.id)}>
+                Edit
+              </button>
             </div>
           </Fragment>
         ))}

@@ -76,9 +76,15 @@ function ResearchOutputs() {
   async function handleSave(ev) {
     ev.preventDefault();
 
-    console.log("Save Contributors");
-    alert("save contributors");
+    console.log("Save Outputs");
+    alert("save Outputs");
     setShow(false);
+  }
+
+  function handleModalOpen(id) {
+    console.log("Open Modal; Api Load data: ", id);
+
+    setShow(true);
   }
 
   return (
@@ -123,7 +129,9 @@ function ResearchOutputs() {
             <div data-colname="repo">{item.repo}</div>
             <div data-colname="datatype">{item.type}</div>
             <div data-colname="actions">
-              <button onClick={() => setShow(true)}>Edit</button>
+              <button value={item.id} onClick={() => handleModalOpen(item.id)}>
+                Edit
+              </button>
             </div>
           </Fragment>
         ))}
