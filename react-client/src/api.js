@@ -9,15 +9,14 @@ export class DmpApi {
       endpoint = '/' + endpoint;
     }
 
+    let url = new URL(this.baseUrl + endpoint, this.baseUrl);
+
     if (queryParams) {
-      const esc = encodeURIComponent;
-      endpoint += (endpoint.indexOf('?') === -1 ? '?' : '&') + Object
-        .keys(queryParams)
-        .map(k => esc(k) + '=' + esc(queryParams[k]))
-        .join('&');
+      let query = new URLSearchParams(queryParams);
+      url.search = query.toString();
     }
 
-    return new URL(this.baseUrl + endpoint, this.baseUrl);
+    return url;
   }
 
   getHeaders() {
