@@ -16,7 +16,7 @@ services:
       - NODE_ENV=development
       - DB_USERNAME=${DB_USERNAME:-postgres}
       - DB_PASSWORD=${DB_PASSWORD:-changeme}
-      - RAILS_SERVE_STATIC_FILES$={RAILS_SERVE_STATIC_FILES:-false}
+      - RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES:-false}
     volumes:
       - ./:/app
     command:
