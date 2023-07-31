@@ -137,9 +137,8 @@ Rails.application.configure do
     IPAddr.new('0.0.0.0/0'),
     IPAddr.new('::/0'),
     'localhost',
-    ENV.fetch('DMPROADMAP_HOST', dmpopidor')
+    ENV.fetch('DMPROADMAP_HOST', 'dmpopidor')
   ]
-  config.hosts << ENV['DMPROADMAP_HOST'] if ENV['DMPROADMAP_HOST'].present?
 end
 # Used by Rails' routes url_helpers (typically when including a link in an email)
 Rails.application.routes.default_url_options[:host] = ENV.fetch('DMPROADMAP_HOST', 'dmp.opidor.fr')
