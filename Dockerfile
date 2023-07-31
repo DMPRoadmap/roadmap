@@ -1,48 +1,46 @@
-FROM ruby:3.1.4 as dev
+FROM ruby:3.1.4-slim as base
 WORKDIR /app
-COPY . .
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-  apt install -y \
-    nodejs \
-    postgresql-client \
+RUN apt update -y && apt install -y \
+    build-essential \
+    wget \
+    libpq-dev \
     wkhtmltopdf \
     imagemagick \
-    tzdata && \
+    tzdata \
+    gnupg2 && \
+  wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+  apt update -y && apt install -y yarn && \
+  apt clean && \
+  rm -rf /var/lib/apt/lists/* && \
   ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
   ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
+  chmod +x /usr/local/bin/wkhtmltopdf
+
+FROM base as dev
+COPY . .
+RUN wget -qO- https://deb.nodesource.com/setup_18.x | bash - && \
+  apt update -y && apt install -y \
+    nodejs && \
   echo 'gem "tzinfo-data"' >> ./Gemfile && \
   echo 'gem "net-smtp"' >> ./Gemfile && \
   gem install pg puma net-smtp && \
   gem install bundler -v 2.4.15 && \
+  bundle config set --local without 'mysql' && \
   bundle install && \
-  npm i -g yarn && \
   yarn install
 
 FROM dev as build
 ARG DB_ADAPTER \
   DB_USERNAME \
   DB_PASSWORD
-RUN bin/docker postgres && \
+RUN bin/docker ${DB_ADAPTER:-postgres} && \
   RAILS_ENV=build DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider rails assets:precompile && \
   rm -rf node_modules
 
-FROM ruby:3.1.4-alpine3.18 as production
-WORKDIR /app
+FROM base as production
 COPY --from=build /app .
-RUN apk add --no-cache --update --virtual \
-  build-dependencies \
-  build-base \
-  tzdata \
-  postgresql-dev \
-  imagemagick \
-  yarn && \
-  echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/community' >> /etc/apk/repositories && \
-  echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/main' >> /etc/apk/repositories && \
-  apk add --no-cache wkhtmltopdf && \
-  ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
-  ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
-  chmod +x /usr/local/bin/wkhtmltopdf && \
-  bundle config set --local without 'mysql thin test ci aws development build' && \
+RUN bundle config set --local without 'mysql thin test ci aws development build' && \
   bundle install
 EXPOSE 3000
 CMD [ "bundle", "exec", "puma", "-C", "/app/config/puma.rb", "-e", "production" ]
