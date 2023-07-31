@@ -129,6 +129,16 @@ Rails.application.configure do
   # This allows us to define the hostname and add it to the whitelist. If you attempt
   # to access the site and receive a 'Blocked host' error then you will need to
   # set this environment variable
+  config.hosts = [
+    '0.0.0.0',
+    'localhost'
+  ]
+  config.hosts = [
+    IPAddr.new('0.0.0.0/0'),
+    IPAddr.new('::/0'),
+    'localhost',
+    ENV.fetch('DMPROADMAP_HOST', dmpopidor')
+  ]
   config.hosts << ENV['DMPROADMAP_HOST'] if ENV['DMPROADMAP_HOST'].present?
 end
 # Used by Rails' routes url_helpers (typically when including a link in an email)
