@@ -5,7 +5,6 @@ services:
     build:
       context: .
       args:
-        - BUILD_ENV=production
         - DB_ADAPTER=${DB_ADAPTER:-postgres}
         - DB_USERNAME=${DB_USERNAME:-postgres}
         - DB_PASSWORD=${DB_PASSWORD:-changeme}
@@ -52,12 +51,12 @@ services:
     working_dir: /app
     volumes:
       - ./log:/app/log
-    healthcheck:
-      test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
-      interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
-      timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
-      retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
-      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
+    # healthcheck:
+    #   test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
+    #   interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
+    #   timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
+    #   retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
+    #   start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
     networks:
       - dmpopidor_network
 
@@ -66,9 +65,9 @@ services:
     ports:
       - ${NGINX_PORT:-8080}:80
     profiles: ["prod", "dev"]
-    depends_on:
-      dmpopidor:
-        condition: service_healthy
+    # depends_on:
+    #   dmpopidor:
+    #     condition: service_healthy
     environment:
     - NGINX_HOST=0.0.0.0
     - NGINX_PORT=80
