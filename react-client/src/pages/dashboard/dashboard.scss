@@ -1,6 +1,7 @@
-@import '../../components/responsive';
+@import "../../components/responsive";
 
-#Dashboard {}
+#Dashboard {
+}
 
 #Dashboard h2 {
   display: flex;
@@ -8,40 +9,105 @@
   justify-content: space-between;
 }
 
-#Dashboard .project-list {
-  display: grid;
-  grid-gap: var(--grid-gap);
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
-
-  [data-colname="funder"],
-  [data-colname="grantId"],
-  [data-colname="dmpId"],
-  [data-colname="actions"] {
-    display: none;
-  }
-
-  @include device(tablet) {
-    grid-template-columns: repeat(3, 1fr);
-
-    [data-colname="funder"] {
-      display: block;
-    }
-  }
-
-  @include device(laptop) {
-    grid-template-columns: repeat(6, 1fr);
-
-    [data-colname="grantId"],
-    [data-colname="dmpId"],
-    [data-colname="actions"] {
-      display: block;
-    }
-  }
-
-  @include device(laptop-large) {}
-}
-
 #Dashboard .exit-prototype {
   font-size: 9pt;
+}
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
+  h5 {
+    font-weight: 600 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
+.filter-quicklinks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    margin-right: 0.5rem;
+  }
+}
+#Dashboard {
+  .dashboard-table {
+    a:hover,
+    a:focus,
+    a:active {
+      outline-style: none;
+      outline-width: 0;
+    }
+  }
+  table thead th {
+    background-color: transparent;
+  }
+  table tbody tr:nth-child(2n) {
+    background-color: transparent;
+  }
+  td:focus-within,
+  td:focus,
+  td:hover {
+    outline-style: none !important;
+    outline-width: 0 !important;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .dashboard-table {
+    min-width: 600px; /* adjust this to the minimum width at which you want the table to start scrolling */
+
+    min-width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: #e2e8f0;
+    thead tr {
+      border-bottom: 1px solid var(--dmpui-brand-blue-900) !important;
+    }
+    tr {
+      border-bottom: 1px solid #eee;
+    }
+  }
+
+  .table-header-name {
+    padding: 0.875rem 0.75rem 0.875rem 1rem;
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--dmpui-brand-blue-900);
+  }
+
+  .header-link {
+    color: #1a202c;
+    display: inline-flex;
+  }
+
+  .header-link:hover .chevron-icon,
+  .header-link:focus .chevron-icon {
+    visibility: visible;
+  }
+
+  .table-body {
+    border-top: 1px solid #edf2f7;
+    background-color: #fff;
+  }
+
+  .table-data-name {
+    padding: 1rem 0.75rem 1rem 1rem;
+
+    color: var(--dmpui-brand-blue-900);
+  }
+  .table-data-date {
+    padding: 1rem 0.75rem 1rem 1rem;
+
+    white-space: nowrap;
+    color: var(--dmpui-brand-blue-900);
+  }
 }

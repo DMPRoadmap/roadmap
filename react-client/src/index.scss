@@ -1,53 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap');
-@import './components/responsive';
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap");
+@import "./components/responsive";
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
 
 :root {
   // TODO:: Use proper colour names here and replace the values for our
   // components with those.
 
-  --dmpui-brand-gray-100: #F2F2F2;
+  --dmpui-brand-gray-100: #f2f2f2;
 
   --dmpui-brand-blue-100: #f0fbff;
   --dmpui-brand-blue-200: #eff6ff;
 
-
-  --dmpui-brand-blue-400: #54D8FF;
+  --dmpui-brand-blue-400: #54d8ff;
   --dmpui-brand-blue-500: #004eaa;
   //--dmpui-brand-blue-600: #000;
   //--dmpui-brand-blue-700: #000;
   --dmpui-brand-blue-800: #0c0b57;
-  --dmpui-brand-blue-900: #05042E;
+  --dmpui-brand-blue-900: #05042e;
 
-
-
-  --dmpui-brand-red-500: #D3273E;
+  --dmpui-brand-red-500: #d3273e;
 
   --dmpui-brand-yellow-100: #fefce8;
-  --dmpui-brand-yellow-500: #FFC845;
-
+  --dmpui-brand-yellow-500: #ffc845;
 
   --dmpui-brand-green-100: #f0fdf4;
-  --dmpui-brand-green-500: #006C6C;
-
-
+  --dmpui-brand-green-500: #006c6c;
 
   /* Root level css variables go here */
-  --btn-font-family: 'Poppins', sans-serif;
+  --btn-font-family: "Poppins", sans-serif;
   --btn-basic-bg-color: #ddd;
   --btn-basic-fg-color: #333;
   --btn-border-radius: 20px;
@@ -67,13 +60,10 @@ code {
   --grid-gap: 1rem;
 }
 
-
 #App {
-
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
   font-size: 1rem;
-
 
   h1,
   h2,
@@ -81,8 +71,8 @@ code {
   h4,
   h5,
   h6 {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
     color: var(--dmpui-brand-blue-900);
     margin-top: 0;
     margin-bottom: 1.5rem;
@@ -104,8 +94,8 @@ code {
   }
 
   p {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
     font-size: 1rem;
     color: var(--dmpui-brand-blue-900);
   }
@@ -116,13 +106,9 @@ code {
     &:hover {
       text-decoration: underline;
       color: var(--dmpui-brand-blue-900);
-
     }
   }
 }
-
-
-
 
 .todo {
   --_color-todo: var(--color-todo, #700);
@@ -147,14 +133,9 @@ body {
   /* TODO:: */
 }
 
-
-
-@import 'components/forms';
-
-
+@import "components/forms";
 
 /* Tables */
-
 
 // TODO::FIXME:: This data grid component is just temporary. Chances are we'll
 // be using a third party grid. We use the following just wile setting up the
@@ -165,10 +146,8 @@ body {
 }
 
 .data-heading {
-  font-weight: bold;
+  font-weight: 700;
 }
-
-
 
 .dmpui-heading {
   text-align: left;
@@ -191,8 +170,6 @@ body {
   }
 }
 
-
-
 .plan-steps {
   text-align: left;
   padding: 2.5rem 2.5rem 2.5rem 2.5rem;
@@ -210,7 +187,6 @@ body {
     margin-left: 10px;
   }
 }
-
 
 .dmpdui-top-actions {
   margin: 2rem 0 1rem 0;
@@ -249,7 +225,6 @@ body {
     margin: 0;
     padding: 0;
 
-
     &:hover {
       outline: none !important;
       text-decoration: underline;
@@ -259,7 +234,8 @@ body {
     &:focus {
       color: #0b0c0c;
       background-color: #fd0;
-      box-shadow: 0 -2px 0px 0px rgba(255, 221, 0, 0.281), 0 4px rgba(255, 221, 0, 0.281);
+      box-shadow: 0 -2px 0px 0px rgba(255, 221, 0, 0.281),
+        0 4px rgba(255, 221, 0, 0.281);
       text-decoration: none;
       -webkit-box-decoration-break: clone;
       box-decoration-break: clone;
@@ -267,7 +243,6 @@ body {
       text-decoration: underline;
     }
   }
-
 }
 
 .step-status {
@@ -322,9 +297,11 @@ body {
     }
   }
 
-  @include device(laptop) {}
+  @include device(laptop) {
+  }
 
-  @include device(laptop-large) {}
+  @include device(laptop-large) {
+  }
 
   &.dmpdui-list-research {
     grid-template-columns: repeat(6, 1fr);
