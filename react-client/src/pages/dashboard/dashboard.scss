@@ -97,6 +97,7 @@
   .table-body {
     border-top: 1px solid #edf2f7;
     background-color: #fff;
+    vertical-align: top;
   }
 
   .table-data-name {
@@ -109,5 +110,21 @@
 
     white-space: nowrap;
     color: var(--dmpui-brand-blue-900);
+  }
+  .table-data-actions a {
+    color: var(--dmpui-brand-blue-500) !important;
+    text-decoration: underline;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration-thickness: 2px;
+    text-decoration-skip-ink: auto;
+  }
+  .table-data-pi {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  .preview-button {
+    margin-left: 8px;
   }
 }

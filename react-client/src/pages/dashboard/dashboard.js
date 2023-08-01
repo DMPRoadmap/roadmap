@@ -132,6 +132,14 @@ function Dashboard() {
                     <tr key={item.dmp.draft_id.identifier}>
                       <td className="table-data-name" data-colname="title">
                         {item.dmp?.title}
+
+                        <a href="#" class="preview-button">
+                          Preview
+                        </a>
+
+                        <div className="d-block table-data-pi">
+                          PI: John Smith
+                        </div>
                       </td>
                       <td className="table-data-name" data-colname="funder">
                         {item?.dmp?.project?.[0]?.funding?.[0]?.name ?? "n/a"}
@@ -145,7 +153,10 @@ function Dashboard() {
                       <td className="table-data-name" data-colname="status">
                         {item?.dmp?.project?.[0]?.status ?? "Incomplete"}
                       </td>
-                      <td className="table-data-name" data-colname="actions">
+                      <td
+                        className="table-data-name table-data-actions"
+                        data-colname="actions"
+                      >
                         <Link
                           to={`/dashboard/dmp/${item.dmp.draft_id.identifier}`}
                         >
