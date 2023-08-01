@@ -2,50 +2,53 @@ import {
   useState,
   useEffect
 } from "react";
+
 import { DmpApi } from "../../api.js";
+import {getValue, useDebounce, isEmpty} from "../../utils.js";
 
 
 function FunderLookup(props) {
   const [query, setQuery] = useState(props.inputValue);
   const [suggestions, setSuggestions] = useState([]);
+  const debounceQuery = useDebounce(query, 500);
+
+  var controller;
 
   let disabledClass = props?.disabled ? "group-disabled" : "";
   let errorMsg = props?.error ? props.error : "";
 
-  var controller;
-
   useEffect(() => {
-    if (controller) controller.abort();
-
-    if (query == "") {
-      setSuggestions(null);
-      return;
-    }
-
     // NOTE: Since the server requires a limit of 3 characters,
     // we might as well avoid any work till we reach the minimum.
-    if (query.length < 3 || (query.length == 3 && query.slice(-1) == " ")) return;
+    if (query.length > 2 && (query.length == 3 && query.slice(-1) != " ")) {
+      if (controller) controller.abort();
 
-    controller = new AbortController();
+      controller = new AbortController();
 
-    let api = new DmpApi();
-    let options = api.getOptions({signal: controller.signal});
+      let api = new DmpApi();
+      let options = api.getOptions({signal: controller.signal});
 
-    fetch(api.getPath(`/funders?search=${query}`), options)
-      .then((resp) => {
-        api.handleResponse(resp);
-        return resp.json();
-      })
-      .then((data) => {
-        setSuggestions(data.items);
-      })
-      .catch((err) => {
-        if (err.response && err.response.status === 404) {
-          setSuggestions(null);
-        }
-        errorMsg = err.response.toString();
-      });
-  }, [query]);
+      fetch(api.getPath(`/funders?search=${query}`), options)
+        .then((resp) => {
+          api.handleResponse(resp);
+          return resp.json();
+        })
+        .then((data) => {
+          setSuggestions(data.items);
+        })
+        .catch((err) => {
+          if (err.response && err.response.status === 404) {
+            setSuggestions(null);
+          }
+          errorMsg = err.response.toString();
+        });
+    } else {
+      setSuggestions(null);
+    }
+
+    // Cleanup the controller on component unmount
+    return () => { if (controller) controller.abort(); };
+  }, [debounceQuery]);
 
 
   let errorClass = "";
