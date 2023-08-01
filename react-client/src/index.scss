@@ -295,19 +295,11 @@ body {
   }
 }
 
-
-
-
-
-
-
-
-
-
 .dmpdui-list {
-  padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+  padding: 2.5rem;
   border: 1px solid #eee;
   margin: 2rem 0;
+
   display: grid;
   grid-gap: var(--grid-gap);
   grid-template-columns: repeat(2, 1fr);
@@ -315,17 +307,30 @@ body {
 
   align-items: center;
 
+  .empty-list {
+    grid-row: 1;
+    grid-column: 1 / span 2;
+    font-weight: bold;
+    text-align: center;
+  }
 
   @include device(tablet) {
     grid-template-columns: repeat(3, 1fr);
+
+    .empty-list {
+      grid-column: 1 / span 3;
+    }
   }
 
   @include device(laptop) {}
 
   @include device(laptop-large) {}
 
-
   &.dmpdui-list-research {
     grid-template-columns: repeat(6, 1fr);
+
+    .empty-list {
+      grid-column: 1 / span 6;
+    }
   }
 }

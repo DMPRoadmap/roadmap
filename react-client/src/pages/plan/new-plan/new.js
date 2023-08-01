@@ -1,4 +1,4 @@
-import useContext from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { DmpApi } from "../../../api.js";
@@ -8,6 +8,8 @@ import "./new.scss";
 
 function PlanNew() {
   let navigate = useNavigate();
+  // let (title, setTitle) = useState("");
+  // let (narrative, setNarrative) = useState();
 
   async function handleSubmit(ev) {
     ev.preventDefault();
@@ -17,25 +19,37 @@ function PlanNew() {
     const title = form.querySelector('[name="title"]');
     const narrative = form.querySelector('[name="narrative"]');
 
-    let dmpData = {"title": title.value}
+    // let dmpData = {"title": title.value}
+    // if (narrative.files.length > 0) {
+    //   // const fileResult = await api.getFileDataURL(narrative.files[0]);
+    //   // dmpData["narrative"] = fileResult;
+    //   dmpData["narrative"] = narrative.files[0];
+    // }
+
+    let formData = new FormData();
+    formData.append("title", title.value);
     if (narrative.files.length > 0) {
-      const fileResult = await api.getFileDataURL(narrative.files[0]);
-      dmpData["narrative"] = fileResult;
+      let file = narrative.files[0];
+      formData.append("narrative", file, file.name);
     }
 
-    // const formData = new FormData(form);
-    // formData.forEach((value, key) => (stepData[key] = value));
-    // let headers = api.getHeaders();
+    console.log(formData);
+    console.log(formData.get("narrative"));
+    console.log(formData.get("title"));
+
+    var headers = api.getHeaders();
     // headers.set('Content-Type', "application/x-www-form-urlencoded");
+    headers.set('Content-Type', "multipart/form-data");
 
     let options = api.getOptions({
+      headers: headers,
       method: "post",
-      body: JSON.stringify({
-        dmp: dmpData,
-      }),
+      body: formData,
+      // body: JSON.stringify({
+      //   dmp: dmpData,
+      // }),
     });
 
-    console.log('Fetch options');
     console.log(options);
 
     fetch(api.getPath("/drafts"), options)

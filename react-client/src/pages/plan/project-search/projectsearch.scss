@@ -1,0 +1,8 @@
+@import '../../../components/responsive';
+
+.project-list {
+
+  @include device(tablet) {
+    grid-template-columns: 3fr 1fr 1fr;
+  }
+}

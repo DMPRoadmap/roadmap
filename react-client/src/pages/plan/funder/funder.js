@@ -57,6 +57,11 @@ function PlanFunders() {
     }
   }
 
+  function handleUnlock(ev) {
+    ev.preventDefault();
+    setLocked(!isLocked);
+  }
+
   async function handleSave(ev) {
     ev.preventDefault();
 
@@ -123,7 +128,11 @@ function PlanFunders() {
             </p>
             <p>
               <br />
-              <button className="button">Unlock & Edit</button>
+              <button
+                onClick={handleUnlock}
+                className="button">
+                Unlock & Edit
+              </button>
             </p>
           </div>
         )}
