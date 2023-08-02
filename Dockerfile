@@ -22,25 +22,24 @@ COPY . .
 RUN wget -qO- https://deb.nodesource.com/setup_18.x | bash - && \
   apt update -y && apt install -y \
     nodejs && \
-  echo 'gem "tzinfo-data"' >> ./Gemfile && \
-  echo 'gem "net-smtp"' >> ./Gemfile && \
-  gem install pg puma net-smtp && \
-  gem install bundler -v 2.4.15 && \
   bundle config set --local without 'mysql' && \
   bundle install && \
   yarn install
 
-FROM dev as build
+FROM dev as production-builder
 ARG DB_ADAPTER \
   DB_USERNAME \
   DB_PASSWORD
 RUN bin/docker ${DB_ADAPTER:-postgres} && \
   RAILS_ENV=build DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider rails assets:precompile && \
-  rm -rf node_modules
+  rm -rf node_modules && \
+  bundle config set --local without 'mysql thin test ci aws development build' && \
+  bundle install
 
 FROM base as production
-COPY --from=build /app .
-RUN bundle config set --local without 'mysql thin test ci aws development build' && \
-  bundle install
+COPY . .
+COPY --from=production-builder /app/public ./public
+COPY --from=production-builder /app/config ./config
+COPY --from=production-builder /usr/local/bundle /usr/local/bundle
 EXPOSE 3000
 CMD [ "bundle", "exec", "puma", "-C", "/app/config/puma.rb", "-e", "production" ]

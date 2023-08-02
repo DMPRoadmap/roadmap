@@ -356,6 +356,9 @@ group :development do
   gem 'yard-tomdoc'
 end
 
+gem 'tzinfo-data'
+gem 'net-smtp'
+
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
