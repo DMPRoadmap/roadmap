@@ -237,7 +237,7 @@ module ExternalApis
           # coming from the React UI so just send it as-is
           body: plan.is_a?(Plan) ? json_from_template(plan: plan) : plan.to_json
         }
-        # opts[:debug_output] = $stdout
+        opts[:debug_output] = $stdout
         dmp_id = plan.is_a?(Plan) ? plan.dmp_id : plan.fetch('dmp_id', {})['identifier']
         target = "#{api_base_url}#{update_path % { dmp_id: dmp_id.gsub(%r{https?://}, '') }}"
         resp = HTTParty.put(target, opts)
@@ -393,7 +393,9 @@ module ExternalApis
 
       # Authenticate with the DMPHub
       def auth
-        scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'stg' : 'dev'
+        # TODO: Switch this back to stg once the Stage domain is up
+        # scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'stg' : 'dev'
+        scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'dev' : 'dev'
         scopes = "#{auth_url}#{scope_env}.read #{auth_url}#{scope_env}.write"
         creds = Base64.strict_encode64("#{client_id}:#{client_secret}")
 

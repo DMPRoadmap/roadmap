@@ -49,6 +49,43 @@ namespace :v5 do
     end
   end
 
+  desc 'Move existing identifiers.value to plans.dmp_id'
+  task move_dmp_ids: :environment do
+    scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
+    if scheme.present?
+      pauser = 0
+
+      managed_orgs = Org.where(managed: true).pluck(:id)
+
+      # Modify this query if you want to test a subset of DMP IDs first
+      Identifier.includes(:identifiable)
+                .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
+                .where('identifiers.value LIKE ?', 'https://doi.org/%')
+                # .where('identifiable_id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
+                # .where('identifiable_id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
+                # .where('identifiable_id IN ?', [83085])                      # preregistration
+                # .where('identifiable_id IN ?', [78147])                      # bad grant_id type
+                # 77012, 70251, 69178, 67898, 66250 no contact
+                # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
+                # .where('identifiable_id IN (?)', %i[71800 71809]) # test with Hakai DMPs
+                .distinct
+                # .limit(200)
+                .order(created_at: :desc)
+                .each do |identifier|
+        next unless identifier.value.present? && identifier.identifiable.present?
+
+        # Refetch the Plan and all of it's child objects
+        plan = Plan.find_by(id: identifier.identifiable.id)
+        plan.dmp_id = identifier.value
+        if plan.save
+          puts "  moved #{plan.dmp_id} for Plan #{plan.id}"
+        else
+          puts "  FAIL #{plan.errors.full_messages}"
+        end
+      end
+    end
+  end
+
   # This should only ever be run if you have been using the Rails based DMPHub system (https://github.com/CDLUC3/dmphub)
   # to register DMP IDs and would like to transition those identifiers to the new DMPHub system base in the AWS
   # API Gateway, Lambdas, S3 and DynamoDB (https://github.com/CDLUC3/dmp-hub-cfn).

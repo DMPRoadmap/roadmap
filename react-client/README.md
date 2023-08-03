@@ -718,7 +718,7 @@ Below is an example of an enriched DMP ID record:
           },
           {
             "descriptor": "is_metadata_for",
-            "identifier": "https://api.dmphub-dev.cdlib.org/narratives/1234567890.pdf",
+            "identifier": "https://api.dmphub.uc3dev.cdlib.net/narratives/1234567890.pdf",
             "type": "url",
             "work_type": "output_management_plan"
           }

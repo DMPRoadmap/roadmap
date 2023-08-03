@@ -69,6 +69,8 @@ unless @minimal
     json.title plan.template.title
   end
 
+  json.dmproadmap_featured plan.featured? ? 1 : 0
+
   # If the plan was created via the API and the external system provided an identifier,
   # return that value
   external_id = presenter.external_system_identifier
