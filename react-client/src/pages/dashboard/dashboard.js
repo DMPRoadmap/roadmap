@@ -78,31 +78,31 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="filter-container">
-        <div className="filter-status">
-          <h5>Status</h5>
-          <div className="filter-quicklinks">
-            <a href="/?status=all">All</a>
-            <a href="/?status=registered">Registered</a>
-            <a href="/?status=incomplete">Incomplete</a>
-          </div>
-        </div>
-        <div className="filter-edited">
-          <h5>Edited</h5>
-          <div className="filter-quicklinks">
-            <a href="/?status=all">All</a>
-            <a href="/?status=lastweek">Last week</a>
-            <a href="/?status=lastmonth">Last Month</a>
-          </div>
-        </div>
-        <div className="filter-tags">
-          <h5>Filters</h5>
-          <button className="button">Filter</button>
-        </div>
-        <div className="filter-button"></div>
-      </div>
-
       <div className="plan-steps">
+        <div className="filter-container">
+          <div className="filter-status">
+            <h5>Status</h5>
+            <div className="filter-quicklinks">
+              <a href="/?status=all">All</a>
+              <a href="/?status=registered">Registered</a>
+              <a href="/?status=incomplete">Incomplete</a>
+            </div>
+          </div>
+          <div className="filter-edited">
+            <h5>Edited</h5>
+            <div className="filter-quicklinks">
+              <a href="/?status=all">All</a>
+              <a href="/?status=lastweek">Last week</a>
+              <a href="/?status=lastmonth">Last Month</a>
+            </div>
+          </div>
+          <div className="filter-tags">
+            <h5>Filter DMPs</h5>
+            <button className="button filter-button">Filter</button>
+          </div>
+          <div className="xcont"></div>
+        </div>
+
         <div class="table-container">
           <div class="table-wrapper">
             <table className="dashboard-table">
@@ -142,20 +142,29 @@ function Dashboard() {
                 {projects.map((item) => (
                   <Fragment key={item.dmp.draft_id.identifier}>
                     <tr key={item.dmp.draft_id.identifier}>
-                      <td className="table-data-name" data-colname="title">
-                        <span
+                      <td
+                        className="table-data-name table-data-title"
+                        data-colname="title"
+                      >
+                        <a
                           title={item.dmp?.title}
                           onClick={() =>
                             handleQuickViewOpen(item.dmp.draft_id.identifier)
                           }
                         >
                           {truncateText(item.dmp?.title, 50)}
-                        </span>
-                        <a href="#" class="preview-button">
+                        </a>
+                        <a
+                          href="#"
+                          class="preview-button"
+                          onClick={() =>
+                            handleQuickViewOpen(item.dmp.draft_id.identifier)
+                          }
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             height="18"
-                            style={{ top: "3px", position: relative }}
+                            style={{ top: "3px", position: "relative" }}
                             viewBox="0 -960 960 960"
                             width="18"
                           >

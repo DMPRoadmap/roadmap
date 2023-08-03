@@ -1,6 +1,9 @@
 @import "../../components/responsive";
 
 #Dashboard {
+  .plan-steps {
+    margin-top: 2rem;
+  }
 }
 
 #Dashboard h2 {
@@ -43,7 +46,7 @@
 .filter-container {
   display: flex;
   justify-content: space-between;
-  margin: 2rem 0;
+  margin: 0rem 0 2rem 0;
   h5 {
     font-weight: 600 !important;
     margin-top: 0 !important;
@@ -127,11 +130,21 @@
     background-color: #fff;
     vertical-align: top;
   }
-
+  .filter-button {
+    padding: 5px 10px;
+    font-size: 1rem;
+    background-color: #eee;
+    border-color: #ddd;
+    border-radius: 9px;
+  }
   .table-data-name {
     padding: 1rem 0.75rem 1rem 1rem;
 
     color: var(--dmpui-brand-blue-900);
+  }
+  .table-data-title a {
+    color: var(--dmpui-brand-blue-900);
+    font-weight: 400;
   }
   .table-data-date {
     padding: 1rem 0.75rem 1rem 1rem;
