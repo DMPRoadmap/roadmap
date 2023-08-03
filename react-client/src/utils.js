@@ -12,6 +12,7 @@ export function isEmpty(obj) {
 
 
 export function getValue(obj, path, defaultNone) {
+  if (!obj) return defaultNone;
   if (typeof defaultNone === 'undefined') defaultNone = "";
   if (typeof path === 'string') path = path.split(".");
 
