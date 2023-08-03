@@ -1,13 +1,13 @@
 import {
-  useContext,
   useEffect,
   useState,
+  useRef,
   Fragment
 } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { DmpApi } from "../../../api";
-import { getValue } from "../../../utils.js";
+import {getValue, useDebounce, isEmpty} from "../../../utils.js";
 import TextInput from "../../../components/text-input/textInput";
 import TextArea from "../../../components/textarea/textArea";
 import "./projectsearch.scss";
@@ -16,42 +16,13 @@ import "./projectsearch.scss";
 function ProjectSearch() {
   let navigate = useNavigate();
 
-  var controller = new AbortController();
-  var queryArgs = {};
-
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
   const [contributors, setContributors] = useState([]);
-  // {
-  //   id: "3523535",
-  //   name: "Dinosaur Decibels: How Roaring Dinosaurs Impact Children's Education",
-  //   role: "8881-2424-2424-1133",
-  // },
-  // {
-  //   id: "3245678",
-  //   name: "Bibliophiles Unleashed: The Impact of Reading Aloud in Early Childhood Education",
-  //   role: "8881-2424-2424-1134",
-  // },
-  // {
-  //   id: "3879123",
-  //   name: "Mathematical Mountains: Scaling the Heights of Mathematics Achievement in Primary Schools",
-  //   role: "8881-2424-2424-1135",
-  // },
-  // {
-  //   id: "4098234",
-  //   name: "Educational Ecosystems: The Role of School Gardens in Holistic Learning",
-  //   role: "8881-2424-2424-1136",
-  // },
-  // {
-  //   id: "5123987",
-  //   name: "Tech Titans: The Transformative Power of Digital Tools in Modern Classrooms",
-  //   role: "8881-2424-2424-1137",
-  // },
-  // {
-  //   id: "6123459",
-  //   name: "Mindful Classrooms: Exploring the Integration of Mindfulness Practices in K-12 Education",
-  //   role: "8881-2424-2424-1138",
-  // },
+  const [queryArgs, setQueryArgs] = useState(null);
+  const debounceQuery = useDebounce(queryArgs, 500);
+
+  var controller;
 
   useEffect(() => {
     let api = new DmpApi();
@@ -67,79 +38,98 @@ function ProjectSearch() {
       });
   }, [dmpId]);
 
-  function handleSearch(funderUrl) {
-    let api = new DmpApi();
 
-    if (controller) {
-      controller.abort();
-      console.log("... aborted ...");
-    }
-    controller = new AbortController();
-    let signal = controller.signal;
+  // TODO::FIXME:: Even though we Abort the request, a request was still sent,
+  // and the rails backend probably sent it off as well.
+  // We need to add a separate debounce as well.
+  useEffect(() => {
+    if (!isEmpty(debounceQuery)) {
+      let api = new DmpApi();
 
-    let headers = api.getHeaders();
-    headers.set("Content-Type", "text/plain")
-    let options = api.getOptions({
-      headers: headers,
-      signal: signal,
-    });
-    let url = new URL(funderUrl, api.baseUrl);
-    let searchParams = new URLSearchParams(queryArgs);
-    url.search = searchParams.toString();
+      if (controller) controller.abort();
+      controller = new AbortController();
 
-    console.log('Fetch options?');
-    console.log(options);
-
-    fetch(url, options)
-      .then((resp) => {
-        api.handleResponse(resp);
-        return resp.json();
-      })
-      .then((data) => {
-        console.log('Response?');
-        console.log(data);
-        setContributors(data.items);
-      })
-      .catch((err) => {
-        if (err.name === "AbortError") { console.log('Aborted'); }
-        if (err.response && err.response.status === 404) {
-          setContributors([]);
-        }
+      let headers = api.getHeaders();
+      headers.set("Content-Type", "text/plain")
+      let options = api.getOptions({
+        headers: headers,
+        signal: controller.signal,
       });
-  }
+
+      let funderUrl = getValue(dmp, "draft_data.funder.funder_api", null);
+      let url = new URL(funderUrl);
+      let searchParams = new URLSearchParams(queryArgs);
+      url.search = searchParams.toString();
+
+      fetch(url, options)
+        .then((resp) => {
+          api.handleResponse(resp);
+          return resp.json();
+        })
+        .then((data) => {
+          console.log('Response?');
+          console.log(data);
+          setContributors(data.items);
+        })
+        .catch((err) => {
+          console.log("Error?");
+          console.log(err);
+          if (err.name === "AbortError") { console.log('Aborted'); }
+          setContributors([]);
+        });
+    } else {
+      setQueryArgs({});
+    }
+
+    // Cleanup the controller on component unmount
+    return () => {
+      if (controller) controller.abort();
+    };
+  }, [debounceQuery]);
+
 
   function handleChange(ev) {
-    ev.preventDefault();
-
     const {name, value} = ev.target;
-    console.log(`Handle Change; ${name}: ${value}`);
 
     switch (name) {
       case "project_id":
-        queryArgs["project"] = value
+        setQueryArgs({
+          ...queryArgs,
+          project: value,
+        })
         break;
 
       case "project_name":
-        queryArgs["title"] = value
+        setQueryArgs({
+          ...queryArgs,
+          title: value,
+        });
         break;
 
       case "principle_investigator":
-        queryArgs["pi_names"] = value
+        setQueryArgs({
+          ...queryArgs,
+          pi_names: value,
+        });
         break;
 
       case "award_year":
-        queryArgs["years"] = value
+        setQueryArgs({
+          ...queryArgs,
+          years: value,
+        });
         break;
     }
-
-    let funderUrl = getValue(dmp, "draft_data.funder.funder_api", null);
-    if (funderUrl) handleSearch(funderUrl);
   }
 
-  async function handleSubmit(ev) {
+  function handleSubmit(ev) {
     ev.preventDefault();
+
+    console.log('Submit?');
+    console.log(ev);
+
     // TODO::
-    navigate(`/dashboard/dmp/${dmpId}/project-details?locked=true`);
+    // navigate(`/dashboard/dmp/${dmpId}/project-details?locked=true`);
   }
 
   return (

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { DmpApi } from "../../../api.js";
+import { DmpModel } from "../../../models.js";
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
 import "./overview.scss";
@@ -10,9 +11,8 @@ import "./overview.scss";
 function PlanOverview() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
-  const [dmp, setDmp] = useState({});
+  const [dmp, setDmp] = useState(new DmpModel({}));
 
-  let page_title = "Upload a Plan";
 
   useEffect(() => {
     let api = new DmpApi();
@@ -23,20 +23,16 @@ function PlanOverview() {
         return resp.json();
       })
       .then((data) => {
-        console.log(data.items[0]);
-        setDmp(data.items[0].dmp);
+        setDmp(new DmpModel(data.items[0].dmp));
       });
   }, [dmpId]);
 
-  if (dmp.title) {
-    page_title = `${dmp.title}`;
-  }
 
   return (
     <>
       <div id="addPlan">
         <div className="dmpui-heading">
-          <h1>{`${page_title}`}</h1>
+          <h1>{dmp.title}</h1>
         </div>
 
         <div className="plan-steps">
