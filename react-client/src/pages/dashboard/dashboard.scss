@@ -12,6 +12,23 @@
 #Dashboard .exit-prototype {
   font-size: 9pt;
 }
+
+.edit-button {
+  position: relative;
+}
+
+.action-required {
+  width: 5px;
+  height: 5px;
+  background: red;
+  border-radius: 99999px;
+  z-index: 999;
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: -5px;
+}
+
 .filter-container {
   display: flex;
   justify-content: space-between;

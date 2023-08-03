@@ -2,6 +2,8 @@ import { useEffect, useState, Fragment } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import { DmpApi } from "../../api.js";
+import { truncateText } from "../../utils.js";
+import { DmpModel } from "../../models.js";
 import "./dashboard.scss";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
@@ -33,6 +35,10 @@ function Dashboard() {
       .then((data) => {
         console.log(data.items);
         setProjects(data.items);
+
+        // ready to convert to dmp model
+        //   const dmpModels = data.items.map((item) => new DmpModel(item.dmp));
+        //       setProjects(dmpModels);
       });
   }, []);
 
@@ -84,10 +90,9 @@ function Dashboard() {
         </div>
         <div className="filter-tags">
           <h5>Filters</h5>
-        </div>
-        <div className="filter-button">
           <button className="button">Filter</button>
         </div>
+        <div className="filter-button"></div>
       </div>
 
       <div className="plan-steps">
@@ -131,18 +136,38 @@ function Dashboard() {
                   <Fragment key={item.dmp.draft_id.identifier}>
                     <tr key={item.dmp.draft_id.identifier}>
                       <td className="table-data-name" data-colname="title">
-                        {item.dmp?.title}
-
+                        <span title={item.dmp?.title}>
+                          {truncateText(item.dmp?.title, 50)}
+                        </span>
                         <a href="#" class="preview-button">
-                          Preview
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="18"
+                            viewBox="0 -960 960 960"
+                            width="18"
+                          >
+                            <path d="M433-344v-272L297-480l136 136ZM180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm453-60h147v-600H633v600Zm-60 0v-600H180v600h393Zm60 0h147-147Z" />
+                          </svg>
                         </a>
 
                         <div className="d-block table-data-pi">
-                          PI: John Smith
+                          PI: {truncateText("John Smith", 50)}
+                          {item.dmp.draft_id.identifier &&
+                            item.dmp.draft_id.identifier ===
+                              "20230629-570ca751fdb0"(
+                                <span>X works need verification</span>
+                              )}
                         </div>
                       </td>
                       <td className="table-data-name" data-colname="funder">
-                        {item?.dmp?.project?.[0]?.funding?.[0]?.name ?? "n/a"}
+                        <span
+                          title={item?.dmp?.project?.[0]?.funding?.[0]?.name}
+                        >
+                          {truncateText(
+                            item?.dmp?.project?.[0]?.funding?.[0]?.name,
+                            10
+                          )}
+                        </span>
                       </td>
                       <td
                         className="table-data-date"
@@ -157,11 +182,24 @@ function Dashboard() {
                         className="table-data-name table-data-actions"
                         data-colname="actions"
                       >
-                        <Link
-                          to={`/dashboard/dmp/${item.dmp.draft_id.identifier}`}
-                        >
-                          Edit
-                        </Link>
+                        {item.dmp.draft_id.identifier &&
+                        item.dmp.draft_id.identifier ===
+                          "20230629-570ca751fdb0" ? (
+                          <Link
+                            className="edit-button"
+                            to={`/dashboard/dmp/${item.dmp.draft_id.identifier}`}
+                          >
+                            Complete
+                          </Link>
+                        ) : (
+                          <Link
+                            className="edit-button"
+                            to={`/dashboard/dmp/${item.dmp.draft_id.identifier}`}
+                          >
+                            Update
+                            <span className={"action-required"}></span>
+                          </Link>
+                        )}
                       </td>
                     </tr>
                   </Fragment>

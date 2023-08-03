@@ -1,5 +1,12 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from "react";
 
+export function truncateText(text, maxLength) {
+  if (text.length > maxLength) {
+    return text.slice(0, maxLength) + "...";
+  } else {
+    return text;
+  }
+}
 
 export function isEmpty(obj) {
   for (const prop in obj) {
@@ -10,19 +17,17 @@ export function isEmpty(obj) {
   return true;
 }
 
-
 export function getValue(obj, path, defaultNone) {
   if (!obj) return defaultNone;
-  if (typeof defaultNone === 'undefined') defaultNone = "";
-  if (typeof path === 'string') path = path.split(".");
+  if (typeof defaultNone === "undefined") defaultNone = "";
+  if (typeof path === "string") path = path.split(".");
 
   if (path.length === 0) throw "Path Length is Zero";
   if (path.length === 1) return obj[path[0]];
 
   if (!obj[path[0]]) return defaultNone;
   return getValue(obj[path[0]], path.slice(1));
-};
-
+}
 
 export function useDebounce(val, delay) {
   const [debouncedValue, setDebouncedValue] = useState(val);
@@ -34,7 +39,7 @@ export function useDebounce(val, delay) {
 
     return () => {
       clearTimeout(handler);
-    }
+    };
   }, [val]);
 
   return debouncedValue;
