@@ -14,6 +14,13 @@ function Dashboard() {
 
   let navigate = useNavigate();
 
+  const [show, setShow] = useState(false);
+
+  function handleQuickViewOpen(id) {
+    console.log("Open Modal; Api Load data: ", id);
+    setShow(true);
+  }
+
   useEffect(() => {
     let api = new DmpApi();
 
@@ -136,13 +143,19 @@ function Dashboard() {
                   <Fragment key={item.dmp.draft_id.identifier}>
                     <tr key={item.dmp.draft_id.identifier}>
                       <td className="table-data-name" data-colname="title">
-                        <span title={item.dmp?.title}>
+                        <span
+                          title={item.dmp?.title}
+                          onClick={() =>
+                            handleQuickViewOpen(item.dmp.draft_id.identifier)
+                          }
+                        >
                           {truncateText(item.dmp?.title, 50)}
                         </span>
                         <a href="#" class="preview-button">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             height="18"
+                            style={{ top: "3px", position: relative }}
                             viewBox="0 -960 960 960"
                             width="18"
                           >
@@ -153,10 +166,12 @@ function Dashboard() {
                         <div className="d-block table-data-pi">
                           PI: {truncateText("John Smith", 50)}
                           {item.dmp.draft_id.identifier &&
-                            item.dmp.draft_id.identifier ===
-                              "20230629-570ca751fdb0"(
-                                <span>X works need verification</span>
-                              )}
+                            item.dmp.draft_id.identifier !==
+                              "20230629-570ca751fdb0" && (
+                              <span className={"action-required-text"}>
+                                X works need verification
+                              </span>
+                            )}
                         </div>
                       </td>
                       <td className="table-data-name" data-colname="funder">
@@ -206,6 +221,53 @@ function Dashboard() {
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="quick-view-modal"
+        className={show ? "show" : ""}
+        title="Add Contributor"
+        onClose={() => setShow(false)}
+      >
+        <div id="quick-view-backdrop">
+          <div id="quick-view-view">
+            <div className="quick-view-text-cont">
+              <h2>DMP TITLE</h2>
+              <h4>Funder</h4>
+              <p>National Institute for Health (NIH)</p>
+              <h4>GrantID</h4>
+              <p>123456-A</p>
+              <h4> DMP ID </h4>
+              <p>Not set</p>
+              <h4>Dates</h4>
+              <p>01-05-2020 - 04-04-2021</p>
+              <h4>Lead PI(s)</h4>
+              <p>John Smith, Robert Edwards, Joe Svensson</p>
+
+              <div className="action-required-validation">
+                <h4>Related Works(DOIs)</h4>
+                <p>8 related works</p>
+                <p>2 Unverified</p>
+              </div>
+
+              <h4>Repositories</h4>
+              <p>Github</p>
+              <h4>Is Public</h4>
+              <p>Yes</p>
+              <h4>Is Featured</h4>
+              <p>No</p>
+            </div>
+
+            <div className="form-actions ">
+              <button type="submit" className="primary">
+                Update
+              </button>
+              <button type="button" onClick={() => setShow(false)}>
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
