@@ -6,6 +6,7 @@ import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
 import FunderLookup from "../../../components/funder-lookup/FunderLookup.js";
 import { getValue } from "../../../utils.js";
+import { getDraftDmp } from "../../../models.js";
 
 import "./funder.scss";
 
@@ -20,28 +21,15 @@ function PlanFunders() {
   const [hasFunder, setHasFunder] = React.useState("no");
 
   useEffect(() => {
-    let api = new DmpApi();
-    fetch(api.getPath(`/drafts/${dmpId}`))
-      .then((resp) => {
-        api.handleResponse(resp);
-        return resp.json();
-      })
-      .then((data) => {
-        let initial = data.items[0].dmp;
-        setDmp(initial);
-
-        let f = getValue(initial, "project.0.funding.0", null);
-        if (f) {
-          if (f.name) {
-            setFunder(f);
-            setHasFunder("yes");
-            setLocked(true);
-          }
-        }
-      });
-
+    getDraftDmp(dmpId).then((initial) => {
+      setDmp(initial);
+      if (initial.hasFunder) {
+        setFunder(initial.funding);
+        setHasFunder("yes");
+        setLocked(true);
+      }
+    });
   }, [dmpId]);
-
 
   function handleChange(ev) {
     const {name, value} = ev.target;
@@ -62,6 +50,7 @@ function PlanFunders() {
     setLocked(!isLocked);
   }
 
+
   async function handleSave(ev) {
     ev.preventDefault();
 
@@ -70,48 +59,28 @@ function PlanFunders() {
       return;
     }
 
-    let api = new DmpApi();
-
-    let dmpProject = getValue(dmp, "project.0", {});
-    let projectFunding = getValue(dmp, "project.0.funding.0", {});
-
-    projectFunding = {
-      ...projectFunding,
-
-      // NOTE:: Important!!! You may be tempted to just put the "funder" object
-      // in here as-is. But the funder returned by the API does not have the
-      // same structure as expected in the DMP. This is why we manually
-      // Set only the name and funder id fields here.
-      ...{name: funder.name},
-    };
+    // Update and then Commit the changes to the DMP model
+    dmp.setDraftData("funder", funder);
+    dmp.funding.setData("name", funder.name);
     if (funder.funder_id) {
-      projectFunding["funder_id"] = funder.funder_id;
+      dmp.funding.setData("funder_id", funder.funder_id);
     }
+    dmp.commit();
 
-    dmpProject = {
-      ...dmpProject,
-      ...{"funding": [projectFunding]}
-    };
-
-    let dmpData = {
-      ...dmp,
-      ...{project: [dmpProject]},
-      ...{"draft_data": {funder: funder}},
-    };
-
+    let api = new DmpApi();
     let options = api.getOptions({
       method: "put",
-      body: JSON.stringify({ dmp: dmpData }),
+      body: JSON.stringify({ dmp: dmp.getData() }),
     });
 
     fetch(api.getPath(`/drafts/${dmpId}`), options).then((resp) => {
       api.handleResponse(resp.status);
       return resp.json();
     }).then((data) => {
-      // TODO:: Handle response errors
       navigate(`/dashboard/dmp/${dmpId}/project-search`);
     });
   }
+
 
   return (
     <>
@@ -181,7 +150,7 @@ function PlanFunders() {
                     id="funder"
                     placeholder=""
                     help="Search for your funder by name. If you can't find your funder in the list, just type it in."
-                    inputValue={getValue(funder, "name", "")}
+                    inputValue={dmp.funding.name}
                     onChange={handleChange}
                     disabled={isLocked}
                     error=""

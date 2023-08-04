@@ -21,7 +21,18 @@ export function getValue(obj, path, defaultNone) {
 
   if (!obj[path[0]]) return defaultNone;
   return getValue(obj[path[0]], path.slice(1));
-};
+}
+
+
+export function setProperty(obj, path, value) {
+  const [head, ...rest] = path.split('.')
+  return {
+    ...obj,
+    [head]: rest.length
+      ? setProperty(obj[head], rest.join('.'), value)
+      : value
+  }
+}
 
 
 export function useDebounce(val, delay) {
