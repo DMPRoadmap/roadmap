@@ -153,6 +153,7 @@ module Dmptool
 
       # User may have many draft DMPs created via the new React UI pages
       has_many :drafts, dependent: :destroy
+      has_many :hidden_dmps, dependent: :destroy
 
       # ===============
       # = Invitations =

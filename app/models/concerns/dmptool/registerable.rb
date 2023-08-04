@@ -64,21 +64,43 @@ module Dmptool
         return latest_version if dmp_id.present? && dmp_id_registerable?
 
         # Call the DMPHub to register the DMP ID and upload the narrative PDF (performed async by ActiveJob)
-        dmp_id = DmpIdService.mint_dmp_id(plan: self)
-        if dmp_id.is_a?(Identifier)
+        hash = DmpIdService.mint_dmp_id(plan: self)
+        if hash.is_a?(Hash) && hash[:dmp_id].is_a?(Identifier)
             # Add the DMP ID to the Dmp record
-          if update(dmp_id: dmp_id.value)
+          if update(dmp_id: hash[:dmp_id].value)
             publish_narrative!
-            publish_to_orcid! if publish_to_orcid
+            orcid = owner&.identifier_for_scheme(scheme: 'orcid')
+            publish_to_orcid!(orcid: orcid) if publish_to_orcid && orcid.present?
 
             latest_version
           else
-            Rails.logger.error "Unable to save the DMP ID, '#{dmp_id.inspect}' for #{self.class.name}: #{id}"
+            Rails.logger.error "Unable to save the DMP ID, '#{hash[:dmp_id].inspect}' for #{self.class.name}: #{id}"
             Rails.logger.error "Errors were: #{errors.full_messages}"
             nil
           end
         else
           Rails.logger.error "Unable to register a DMP ID at this time for Plan #{self.class.name}: #{id}"
+          nil
+        end
+      end
+
+      # Update the DMP ID for the object
+      def update_dmp_id!
+        return nil unless dmp_id.present?
+
+        # Only allow updates if the object is an old DMPTool Plan
+        if self.is_a?(Plan)
+          hash = DmpIdService.update_dmp_id(plan: self)
+          if hash.is_a?(Hash) && hash[:dmp_id].is_a?(Identifier)
+            publish_narrative!
+
+            latest_version
+          else
+            Rails.logger.error "Unable to update a DMP ID at this time for Plan #{self.class.name}: #{id}"
+            nil
+          end
+        else
+          Rails.logger.error "Unable to update a DMP ID from a Draft. Interact with the DMP ID directly instead!"
           nil
         end
       end
@@ -93,13 +115,17 @@ module Dmptool
       # TODO: investigate using DelayedJob or another Queing service to execute these tasks in the background
 
       # Send the narrative PDF document to the DMPHub
-      def publish_narrative!(immediate: true)
-        immediate ? PdfPublisherJob.perform_now(plan: self) : PdfPublisherJob.set(wait: 5.minutes).perform_later(plan: self)
+      def publish_narrative!
+        PdfPublisherJob.perform_now(plan: self)
+      rescue StandardError => e
+        Rails.logger.error "Unable to publish PDF Narrative - #{e.message}"
       end
 
       # Upload the citation to the owner's ORCID record
-      def publish_to_orcid!(orcid:, immediate: true)
+      def publish_to_orcid!(orcid:)
         OrcidPublisherJob.perform_now(orcid: orcid, plan: self)
+      rescue StandardError => e
+        Rails.logger.error "Unable to publish DMP ID to ORCID - #{e.message}"
       end
     end
   end

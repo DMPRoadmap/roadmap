@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_13_150922) do
+ActiveRecord::Schema.define(version: 2023_08_04_160513) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -196,6 +196,16 @@ ActiveRecord::Schema.define(version: 2023_07_13_150922) do
     t.datetime "updated_at", null: false
     t.boolean "published"
     t.index ["guidance_group_id"], name: "index_guidances_on_guidance_group_id"
+  end
+
+  create_table "hidden_dmps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "dmp_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dmp_id", "user_id"], name: "index_hidden_dmps_on_dmp_id_and_user_id", unique: true
+    t.index ["dmp_id"], name: "index_hidden_dmps_on_dmp_id"
+    t.index ["user_id"], name: "index_hidden_dmps_on_user_id"
   end
 
   create_table "identifier_schemes", id: :integer, charset: "utf8mb3", collation: "utf8mb3_unicode_ci", force: :cascade do |t|
@@ -439,6 +449,7 @@ ActiveRecord::Schema.define(version: 2023_07_13_150922) do
     t.datetime "feedback_start_at"
     t.datetime "feedback_end_at"
     t.string "dmp_id"
+    t.string "narrative_url"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["language_id"], name: "index_plans_on_language_id"
