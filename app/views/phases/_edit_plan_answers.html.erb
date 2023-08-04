@@ -30,7 +30,7 @@
     <% phase.sections.sort {|a,b| a.number <=> b.number }.each do |section| %>
       <div class="accordion-item w-100 my-3">
         <h2 class="accordion-header" role="tab" id="heading-<%= section.id %>">
-          <div class="accordion-button" role="button" data-bs-toggle="collapse"
+          <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse"
              id="section-panel-<%= section.id %>"
              data-bs-parent="sections-accordion"
              href="#collapse-<%= section.id %>"

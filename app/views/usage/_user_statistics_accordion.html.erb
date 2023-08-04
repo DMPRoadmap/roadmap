@@ -2,7 +2,7 @@
  <div class="accordion-item w-100 my-3">
  <h2 class="accordion-header" id="headingUserStatistics">
       <div href="#user_statistics" role="button"
-             class="accordion-button" data-bs-toggle="collapse" 
+             class="accordion-button collapsed" data-bs-toggle="collapse" 
              data-bs-target="#collapseUserStatistics" aria-expanded="false" aria-controls="collapseUserStatistics">
         <%= _('Statistics on your Users') %>
       </div>
@@ -10,7 +10,7 @@
 
 
   <div id="collapseUserStatistics"
-       class="card collapse <%='show' if expanded %>"
+       class="card collapse"
        role="tabpanel" 
        aria-labelledby="headingUserStatistics"
        data-bs-parent="#usage-accordion">

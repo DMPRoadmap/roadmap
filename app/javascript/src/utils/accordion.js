@@ -113,13 +113,14 @@ $(() => {
       const parentTarget = $(`#${parentTargetName}`).length ? $(`#${parentTargetName}`) : $(`.${parentTargetName}`);
       parentTarget.find('.accordion-item').each((i, el) => {
         const accordionItem = $(el);
+        accordionItem.find('.accordion-button').trigger('click');
         // Expands or collapses according to the
         // direction passed (e.g. show --> expands, hide --> collapses)
         if (direction === 'show') {
-          accordionItem.find('.accordion-button').addClass('collapsed');
+          accordionItem.find('.accordion-button').removeClass('collapsed');
           accordionItem.find('.accordion-collapse').addClass('show');
         } else {
-          accordionItem.find('.accordion-button').removeClass('collapsed');
+          accordionItem.find('.accordion-button').addClass('collapsed');
           accordionItem.find('.accordion-collapse').removeClass('show');
         }
       });

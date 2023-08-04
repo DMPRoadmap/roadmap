@@ -30,7 +30,7 @@
         <% plan.template.phases.each do |p| %>
           <% questions_size = p.sections.map{|s| s.questions.size }.reduce(0){|sum,x| sum + x } %>
           <div class="accordion-item card card-default">
-            <div class="accordion-button" role="button" data-bs-toggle="collapse"
+            <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse"
                  data-bs-parent="plan-overview-accordion"
                  href="#plan-overview-collapse-<%= p.id %>"
                  aria-expanded="false"

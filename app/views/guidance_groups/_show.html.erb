@@ -11,7 +11,7 @@
   <% end %>
   <% group.keys.each_with_index do |theme, i| %>
     <div class="accordion-item card card-default">
-      <div class="accordion-button" role="button" data-bs-toggle="collapse"
+      <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse"
            data-bs-parent="#<%= question.id %>-guidance"
            href="#collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>"
            aria-expanded="false"

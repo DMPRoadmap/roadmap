@@ -19,7 +19,7 @@
       <% if (guidances.map(&:id) - guidances_output).any? %>
         <div class="accordion-item card card-default">
           <div
-            class="accordion-button"
+            class="accordion-button collapsed"
             role="button"
             data-toggle="collapse"
             href="<%= "##{question_guidance_id}" %>"
