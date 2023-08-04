@@ -65,11 +65,11 @@ unless @minimal
 
   # DMPRoadmap extensions to the RDA common metadata standard
   json.dmproadmap_template do
-    json.id plan.template.family_id
+    json.id plan.template.family_id.to_s
     json.title plan.template.title
   end
 
-  json.dmproadmap_featured plan.featured? ? 1 : 0
+  json.dmproadmap_featured plan.featured? ? '1' : '0'
 
   # If the plan was created via the API and the external system provided an identifier,
   # return that value

@@ -65,12 +65,12 @@ module Dmptool
 
         # Call the DMPHub to register the DMP ID and upload the narrative PDF (performed async by ActiveJob)
         hash = DmpIdService.mint_dmp_id(plan: self)
-        if hash.is_a?(Hash) && hash[:dmp_id].is_a?(Identifier)
+        if hash.is_a?(Hash) && hash[:dmp_id].present?
             # Add the DMP ID to the Dmp record
-          if update(dmp_id: hash[:dmp_id].value)
+          if update(dmp_id: hash[:dmp_id])
             publish_narrative!
             orcid = owner&.identifier_for_scheme(scheme: 'orcid')
-            publish_to_orcid!(orcid: orcid) if publish_to_orcid && orcid.present?
+            publish_to_orcid! if publish_to_orcid && orcid.present?
 
             latest_version
           else
@@ -91,7 +91,7 @@ module Dmptool
         # Only allow updates if the object is an old DMPTool Plan
         if self.is_a?(Plan)
           hash = DmpIdService.update_dmp_id(plan: self)
-          if hash.is_a?(Hash) && hash[:dmp_id].is_a?(Identifier)
+          if hash.is_a?(Hash) && hash[:dmp_id].present?
             publish_narrative!
 
             latest_version
@@ -122,8 +122,8 @@ module Dmptool
       end
 
       # Upload the citation to the owner's ORCID record
-      def publish_to_orcid!(orcid:)
-        OrcidPublisherJob.perform_now(orcid: orcid, plan: self)
+      def publish_to_orcid!
+        OrcidPublisherJob.perform_now(user: owner, plan: self)
       rescue StandardError => e
         Rails.logger.error "Unable to publish DMP ID to ORCID - #{e.message}"
       end

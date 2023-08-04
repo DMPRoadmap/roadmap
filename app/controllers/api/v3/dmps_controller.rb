@@ -26,7 +26,11 @@ module Api
         dmps = DmpIdService.fetch_dmps(user: current_user)
         render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return unless dmps.is_a?(Array) &&
                                                                                                       dmps.any?
-
+        # Remove any DMPs that the user has explicitly chosen to hide
+        dmps = dmps.reject do |dmp|
+          dmp_id = dmp.fetch('dmp_id', {})['identifier']
+          dmp_id.nil? || current_user.hidden_dmps.pluck(:dmp_id).include?(dmp_id)
+        end
         @items = paginate_response(results: dmps)
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e

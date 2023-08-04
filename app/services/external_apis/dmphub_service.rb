@@ -195,7 +195,7 @@ module ExternalApis
           },
           body: plan.is_a?(Draft) ? plan.to_json_for_registration : json_from_template(plan: plan)
         }
-        # opts[:debug_output] = $stdout
+        opts[:debug_output] = $stdout
         resp = HTTParty.post("#{api_base_url}#{mint_path}", opts)
 
         # DMPHub returns a 201 (created) when a new DMP ID has been minted or
@@ -307,7 +307,7 @@ module ExternalApis
           },
           body_stream: pdf_file
         }
-        # opts[:debug_output] = $stdout
+        opts[:debug_output] = $stdout
         target = URI("#{api_base_url}#{narrative_path}" % { dmp_id: plan.dmp_id&.gsub(/https?:\/\//, '') })
         resp = HTTParty.post(target, opts)
         pdf_file.close
@@ -396,7 +396,7 @@ module ExternalApis
         # TODO: Switch this back to stg once the Stage domain is up
         # scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'stg' : 'dev'
         scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'dev' : 'dev'
-        scopes = "#{auth_url}#{scope_env}.read #{auth_url}#{scope_env}.write #{auth_url}#{scope_env}.upload"
+        scopes = "#{auth_url}#{scope_env}.read #{auth_url}#{scope_env}.write"
         creds = Base64.strict_encode64("#{client_id}:#{client_secret}")
 
         opts = {
@@ -455,7 +455,7 @@ module ExternalApis
         # Find the narrative URL
         ids = hash[:items].first[:dmp].fetch(:dmproadmap_related_identifiers, [])
         narrative = ids.select { |id| id[:work_type] == 'output_management_plan' && id[:descriptor] == 'is_metadata_for' }
-
+                       .first
         {
           dmp_id: hash[:items].first[:dmp].fetch(:dmp_id, {})[:identifier],
           narrative_url: narrative.is_a?(Hash) ? narrative[:identifier] : nil
