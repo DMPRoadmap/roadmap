@@ -16,7 +16,7 @@
 
   <% if all_guidance_groups.length > important_ggs.length %>
     <p><%= _('Find guidance from additional organisations below') %></p>
-    <%= link_to _('See the full list'), '#', data: { toggle: "modal", target: "#modal-full-guidances" }, class: 'modal-guidances-window' %>
+    <%= link_to _('See the full list'), '#', 'data-bs-toggle' => 'modal', 'data-bs-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
   <% end %>
 
   <br>
@@ -27,14 +27,37 @@
 <% end %>
 
 <% if all_guidance_groups.length > important_ggs.length %>
-  <div id="modal-full-guidances" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+       test content
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div id="modal-full-guidances"  class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content modal-dialog-scrollable">
         <div class="sign-in">
           <div class="modal-body">
-            <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
-              <span class="fas fa-times" aria-hidden="true">&nbsp;</span>
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= _('Cancel') %>"></button>
             <h2><%= _('Select Guidance') %></h2>
             <p>
               <%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan.') % { application_name: app_name } %>

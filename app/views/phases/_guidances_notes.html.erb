@@ -3,17 +3,17 @@
 <% active_nav = nil %>
 <div id="plan-guidance-tab">
   <!-- Nav tabs -->
-  <ul class="nav nav-pills nav-justified mb-10" role="tablist">
+  <ul class="nav nav-pills nav-justified mb-2" role="tablist">
       <% if guidances_active %>
-          <li role="presentation" class="active">
-              <a href="#guidances-<%= question.id %>" aria-controls="guidances-<%= question.id %>" role="tab" data-toggle="pill">
+          <li class="nav-item active" role="presentation">
+              <a class="nav-link" href="#guidances-<%= question.id %>" aria-controls="guidances-<%= question.id %>" role="tab" data-toggle="pill">
                   <%= _('Guidance') %>
               </a>
           </li>
       <% end %>
       <% if plan.present? %>
-          <li role="presentation" class="<%= 'active' if !guidances_active %>">
-              <a href="#notes-<%= question.id %>" aria-controls="notes-<%= question.id %>" role="tab" data-toggle="pill">
+          <li role="presentation" class="nav-item <%= 'active' if !guidances_active %>">
+              <a class="nav-link" href="#notes-<%= question.id %>" aria-controls="notes-<%= question.id %>" role="tab" data-toggle="pill">
                   <span id="notes-title-<%= question.id %>">
                       <%= render partial: '/notes/title', locals: { answer: answer } %>
                   </span>
@@ -28,14 +28,14 @@
         <ul class="nav nav-tabs" role="tablist">
           <% tablist.each_with_index do |tab, i| %>
             <% active_nav ||= tab[:name] %>
-            <li role="presentation" <%= active_nav == tab[:name] ? "class=active" : "" %>>
+            <li role="presentation" class="nav-item <%= active_nav == tab[:name] ? "active" : "" %>">
               <a
                 data-target="<%= "#guidance_per_question_#{question.id}_#{i}" %>"
                 aria-controls="<%= "#guidance_per_question_#{question.id}_#{i}" %>"
                 role="tab"
                 data-toggle="tab"
                 tabindex="0"
-                class="view-plan-guidance">
+                class="nav-link view-plan-guidance">
                 <%= tab[:name] %>
               </a>
             </li>

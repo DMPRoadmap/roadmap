@@ -39,13 +39,13 @@
     <ul class="nav nav-tabs" role="tablist">
 
       <% if current_user.can_super_admin? %>
-        <li role="presentation" class="<%= action_name == 'index' ? 'active' : '' %>">
+        <li role="presentation" class="<%= action_name == 'index' ? 'nav-item active' : 'nav-item' %>">
           <%= link_to(_('All Templates'), org_admin_templates_path, { class: 'nav-link' }) %>
         </li>
       <% end %>
 
       <li role="presentation"
-          class="<%= action_name == 'organisational' ? 'active' : '' %>">
+          class="<%= action_name == 'organisational' ? 'nav-item active' : 'nav-item' %>">
 
         <%= link_to(organisational_org_admin_templates_path, { class: 'nav-link' }) do %>
           <% if current_user.can_super_admin? %>
@@ -59,7 +59,7 @@
 
       <% if !current_user.org.funder_only? %>
         <li role="presentation"
-            class="<%= action_name == 'customisable' ? 'active' : '' %>">
+            class="<%= action_name == 'customisable' ? 'nav-item active' : 'nav-item' %>">
           <%= link_to(_('Customisable Templates'),
               customisable_org_admin_templates_path, { class: 'nav-link' }) %>
         </li>

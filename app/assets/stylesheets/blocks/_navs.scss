@@ -56,6 +56,8 @@ nav ul {
 .nav-pills > li:last-child > a.active:focus,
 .nav-pills > li:last-child > a.active:hover {
   border-right: 0px;
+  background-color: $color-secondary-background;
+  color: $color-secondary-text;
 }
 .nav-tabs > li > a,
 .nav-pills > li > a {
