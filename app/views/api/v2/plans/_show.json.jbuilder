@@ -78,6 +78,12 @@ unless @minimal
 
   # Any related identifiers known by the DMPTool
   related_identifiers = plan.related_identifiers.map { |r_id| r_id.clone }
+
+  if plan.narrative_url.present?
+    related_identifiers << RelatedIdentifier.new(relation_type: 'is_metadata_for', identifier_type: 'url',
+                                                 work_type: 'output_management_plan', value: plan.narrative_url)
+  end
+
   if related_identifiers.any?
     json.dmproadmap_related_identifiers related_identifiers do |related|
       next unless related.value.present? && related.relation_type.present?

@@ -70,7 +70,8 @@ module Dmptool
           if update(dmp_id: hash[:dmp_id])
             publish_narrative!
             orcid = owner&.identifier_for_scheme(scheme: 'orcid')
-            publish_to_orcid! if publish_to_orcid && orcid.present?
+            # Only publish to ORCID if it is enabled and this is NOT development
+            publish_to_orcid! if publish_to_orcid && orcid.present? && !Rails.env.development?
 
             latest_version
           else
@@ -84,27 +85,6 @@ module Dmptool
         end
       end
 
-      # Update the DMP ID for the object
-      def update_dmp_id!
-        return nil unless dmp_id.present?
-
-        # Only allow updates if the object is an old DMPTool Plan
-        if self.is_a?(Plan)
-          hash = DmpIdService.update_dmp_id(plan: self)
-          if hash.is_a?(Hash) && hash[:dmp_id].present?
-            publish_narrative!
-
-            latest_version
-          else
-            Rails.logger.error "Unable to update a DMP ID at this time for Plan #{self.class.name}: #{id}"
-            nil
-          end
-        else
-          Rails.logger.error "Unable to update a DMP ID from a Draft. Interact with the DMP ID directly instead!"
-          nil
-        end
-      end
-
       # Retrieve the latest version of the metadata from the local cache or the DMPHub
       def latest_version
         Rails.cache.fetch("dmp_ids/#{dmp_id}/latest", expires_in: 2.minutes) do
@@ -112,18 +92,20 @@ module Dmptool
         end
       end
 
-      # TODO: investigate using DelayedJob or another Queing service to execute these tasks in the background
-
       # Send the narrative PDF document to the DMPHub
       def publish_narrative!
-        PdfPublisherJob.perform_now(plan: self)
+        # Don't kick of the job if it is already enqueued!
+        return false if self.respond_to?(:publisher_job_status) && self.publisher_job_status == 'enqueued'
+
+        self.update(publisher_job_status: 'enqueued') if self.respond_to?(:publisher_job_status)
+        PdfPublisherJob.set(wait: 5.minutes).perform_later(plan: self)
       rescue StandardError => e
         Rails.logger.error "Unable to publish PDF Narrative - #{e.message}"
       end
 
       # Upload the citation to the owner's ORCID record
       def publish_to_orcid!
-        OrcidPublisherJob.perform_now(user: owner, plan: self)
+        OrcidPublisherJob.set(wait: 5.minutes).perform_later(user: owner, plan: self)
       rescue StandardError => e
         Rails.logger.error "Unable to publish DMP ID to ORCID - #{e.message}"
       end

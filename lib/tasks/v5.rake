@@ -58,26 +58,28 @@ namespace :v5 do
       managed_orgs = Org.where(managed: true).pluck(:id)
 
       # Modify this query if you want to test a subset of DMP IDs first
-      Identifier.includes(:identifiable)
-                .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
-                .where('identifiers.value LIKE ?', 'https://doi.org/%')
-                # .where('identifiable_id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
-                # .where('identifiable_id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
-                # .where('identifiable_id IN ?', [83085])                      # preregistration
-                # .where('identifiable_id IN ?', [78147])                      # bad grant_id type
-                # 77012, 70251, 69178, 67898, 66250 no contact
-                # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
-                # .where('identifiable_id IN (?)', %i[71800 71809]) # test with Hakai DMPs
-                .distinct
-                # .limit(200)
-                .order(created_at: :desc)
-                .each do |identifier|
+      identifiers = Identifier.includes(:identifiable)
+                              .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
+                              .where('identifiers.value LIKE ?', 'https://doi.org/%')
+                              # .where('identifiable_id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
+                              # .where('identifiable_id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
+                              # .where('identifiable_id IN ?', [83085])                      # preregistration
+                              # .where('identifiable_id IN ?', [78147])                      # bad grant_id type
+                              # 77012, 70251, 69178, 67898, 66250 no contact
+                              # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
+                              # .where('identifiable_id IN (?)', %i[71800 71809]) # test with Hakai DMPs
+                              .distinct
+                              # .limit(200)
+                              .order(created_at: :desc)
+
+      identifiers.each do |identifier|
         next unless identifier.value.present? && identifier.identifiable.present?
 
         # Refetch the Plan and all of it's child objects
-        plan = Plan.find_by(id: identifier.identifiable.id)
+        plan = Plan.find_by(id: identifier.identifiable.id).where(dmp_id: nil)
         plan.dmp_id = identifier.value
         if plan.save
+          identifier.destroy
           puts "  moved #{plan.dmp_id} for Plan #{plan.id}"
         else
           puts "  FAIL #{plan.errors.full_messages}"
@@ -108,50 +110,41 @@ namespace :v5 do
     if scheme.present?
       pauser = 0
 
-      managed_orgs = Org.where(managed: true).pluck(:id)
-
-      # Modify this query if you want to test a subset of DMP IDs first
-      Identifier.includes(:identifiable)
-                .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
-                .where('identifiers.value LIKE ?', 'https://doi.org/%')
-                # .where('identifiable_id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
-                # .where('identifiable_id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
-                # .where('identifiable_id IN ?', [83085])                      # preregistration
-                # .where('identifiable_id IN ?', [78147])                      # bad grant_id type
-                # 77012, 70251, 69178, 67898, 66250 no contact
-                # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
-                # .where('identifiable_id IN (?)', %i[71800 71809]) # test with Hakai DMPs
-                .distinct
-                # .limit(200)
-                .order(created_at: :desc)
-                .each do |identifier|
-        next unless identifier.value.present? && identifier.identifiable.present?
+      Plan.includes(:org, :research_outputs, :related_identifiers, roles: [:user],
+                    contributors: [:org, { identifiers: [:identifier_scheme] }],
+                    identifiers: [:identifier_scheme])
+          .where.not(dmp_id: nil)
+          .limit(1)
+          .each do |plan|
+        next unless plan.dmp_id.present? && plan.complete? && !plan.is_test?
+        next unless DmpIdService.fetch_dmp_id(dmp_id: plan.dmp_id).nil?
 
         # Pause after every 10 so that we do not get rate limited
         sleep(3) if pauser >= 20
         pauser = pauser >= 20 ? 0 : pauser + 1
 
-        # Refetch the Plan and all of it's child objects
-        plan = Plan.includes(:org, :research_outputs, :related_identifiers, roles: [:user],
-                              contributors: [:org, { identifiers: [:identifier_scheme] }],
-                              identifiers: [:identifier_scheme])
-                    .find_by(id: identifier.identifiable.id)
-
-
-        next unless plan.dmp_id.nil? && plan.complete? && managed_orgs.include?(plan.org_id) && !plan.is_test?
-
         if plan.registerable?
-          puts "Processing Plan: #{identifier.identifiable_id}, DMP ID: #{identifier.value}"
-          result = plan.register_dmp_id!
-          if result.nil?
-            puts '    *** FAILED!'
+          puts "Processing Plan: #{plan.id}, DMP ID: #{plan.dmp_id}"
+          # Call the DMPHub to register the DMP ID and upload the narrative PDF (performed async by ActiveJob)
+          hash = DmpIdService.mint_dmp_id(plan: plan, seeding: true)
+          if hash.is_a?(Hash) && hash[:dmp_id].present?
+              # Add the DMP ID to the Dmp record
+            if plan.update(dmp_id: hash[:dmp_id])
+              puts "    registered #{dmp_id}. Uploading narrative ..."
+              if PdfPublisherJob.perform_now(plan: plan)
+                plan = plan.reload
+                puts "        uploaded to #{plan.narrative_url}"
+              else
+                puts "        *** FAILED to upload narrative!"
+              end
+            else
+              puts "    *** FAILED to save DMP ID to plan record!"
+            end
           else
-            dmp_id = result.fetch('dmp', {}).fetch('dmp_id', {})['identifier']
-            puts "    registered #{dmp_id} and narrative uploaded."
-            identifier.destroy
+            puts "    *** FAILED to register DMP ID."
           end
         else
-          puts "SKIPPING Plan: #{identifier.identifiable_id} because it is not 'Complete'."
+          puts "SKIPPING Plan: #{plan.id} because it is not 'Complete'."
         end
       end
     else

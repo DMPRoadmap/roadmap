@@ -252,6 +252,15 @@ gem 'zaru'
 # See : https://github.com/DMPRoadmap/roadmap/issues/3254
 gem 'mail', '2.7.1'
 
+# Delayed::Job (or DJ) encapsulates the common pattern of asynchronously executing longer tasks in the background.
+# See: https://github.com/collectiveidea/delayed_job#active-job
+gem 'delayed_job_active_record'
+
+# Daemons provides an easy way to wrap existing ruby scripts (for example a self-written server) to be run as a
+# daemon and to be controlled by simple start/stop/restart commands.
+# See: https://rubygems.org/gems/daemons/versions/1.4.1
+gem 'daemons'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #

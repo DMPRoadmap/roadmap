@@ -25,7 +25,9 @@
 #  ethical_issues_description        :text
 #  ethical_issues_report             :string
 #  feedback_start_at                 :datetime
-#  feedback_end_at                  :datetime
+#  feedback_end_at                   :datetime
+#  subscriber_job_status             :string
+#  publisher_job_status              :string
 #
 # Indexes
 #
@@ -707,11 +709,14 @@ class Plan < ApplicationRecord
     targets = subscription_types.map do |typ|
       subscriptions.select { |sub| sub.selected_subscription_types.include?(typ.to_sym) }
     end
-
-puts "NOTIFYING ************************ #{targets}"
-
     targets = targets.flatten.uniq if targets.any?
     targets.each(&:notify!)
+
+    # Re-publish the narrative PDF document
+
+puts "FOooooooooooooooooooooooooo"
+
+    publish_narrative! if respond_to?(:publish_narrative!)
     true
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_04_160513) do
+ActiveRecord::Schema.define(version: 2023_08_05_125930) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -134,6 +134,21 @@ ActiveRecord::Schema.define(version: 2023_08_04_160513) do
     t.index ["org_id"], name: "index_contributors_on_org_id"
     t.index ["plan_id"], name: "index_contributors_on_plan_id"
     t.index ["roles"], name: "index_contributors_on_roles"
+  end
+
+  create_table "delayed_jobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "departments", id: :integer, charset: "utf8mb3", force: :cascade do |t|
@@ -450,6 +465,8 @@ ActiveRecord::Schema.define(version: 2023_08_04_160513) do
     t.datetime "feedback_end_at"
     t.string "dmp_id"
     t.string "narrative_url"
+    t.string "subscriber_job_status", default: "success"
+    t.string "publisher_job_status", default: "success"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["language_id"], name: "index_plans_on_language_id"

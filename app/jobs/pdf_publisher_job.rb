@@ -17,6 +17,7 @@ class PdfPublisherJob < ApplicationJob
       # nested directory
       file_name = Zaru.sanitize!(plan.title).strip.gsub(/\s+/, '_')[0, 100]
       _process_narrative_file(plan: plan, file_name: file_name, file: pdf)
+      plan.update(publisher_job_status: 'success')
     elsif plan.is_a?(Draft)
       return false unless plan.narrative.attached?
 
