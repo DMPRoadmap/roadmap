@@ -15,7 +15,7 @@
   <dd><%= plan.grant&.value %></dd>
 
   <%# if DOI minting is enabled %>
-  <% if Rails.configuration.x.madmp&.enable_dmp_id_registration && landing_page.present? %>
+  <% if Rails.configuration.x.madmp&.enable_dmp_id_registration && plan.dmp_id.present? %>
     <dt><%= _('Landing Page') %></dt>
     <dd><%= dmp_id_for_display(dmp_id: plan.dmp_id, without_prefix: true) %></dd>
   <% else %>
