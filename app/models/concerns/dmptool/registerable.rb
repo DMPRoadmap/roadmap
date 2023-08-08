@@ -98,7 +98,8 @@ module Dmptool
         return false if self.respond_to?(:publisher_job_status) && self.publisher_job_status == 'enqueued'
 
         self.update(publisher_job_status: 'enqueued') if self.respond_to?(:publisher_job_status)
-        PdfPublisherJob.set(wait: 5.minutes).perform_later(plan: self)
+        # PdfPublisherJob.set(wait: 5.minutes).perform_later(plan: self)
+        PdfPublisherJob.perform_now(plan: self)
       rescue StandardError => e
         Rails.logger.error "Unable to publish PDF Narrative - #{e.message}"
       end
