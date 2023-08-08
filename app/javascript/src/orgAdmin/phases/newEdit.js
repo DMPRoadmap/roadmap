@@ -100,7 +100,7 @@ $(() => {
     if (isObject(accordionBody)) {
       // Display the section's html
       accordionBody.attr('data-loaded', 'true');
-      accordionBody.html(e.detail[0].html);
+      accordionBody.append(e.detail[0].html);
 
       // Wire up the section
       initSection(`${accordionCollapse.attr('id')}`);
