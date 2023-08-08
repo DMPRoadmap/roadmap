@@ -100,12 +100,14 @@ n*
  */
 
 $(() => {
-  $('body').on('click', '.accordion-controls a', (e) => {
+  $('body').on('click', '.accordion-controls a[data-toggle-direction]', (e) => {
     e.preventDefault();
     const currentTarget = $(e.currentTarget);
     const target = $(e.target);
     const direction = target.attr('data-toggle-direction');
     const parentTargetName = currentTarget.parent().attr('data-parent');
+    // eslint-disable-next-line no-console
+    console.log('direction: ', direction);
     if (direction) {
       // Selects all .accordion-item elements where the parent is
       // currentTarget.attr('data-parent') and
@@ -115,6 +117,10 @@ $(() => {
         const accordionItem = $(el);
         const accordionButton = accordionItem.find('.accordion-button');
         const accordionCollapse = accordionItem.find('.accordion-collapse');
+        // eslint-disable-next-line no-console
+        console.log('accordionButton: ', accordionCollapse);
+        // eslint-disable-next-line no-console
+        console.log('accordionCollapse: ', accordionCollapse);
         // const accordionBody = accordionCollapse.find('.accordion-body');
         // Expands or collapses according to the
         // direction passed (e.g. show --> expands, hide --> collapses)
@@ -122,7 +128,12 @@ $(() => {
           accordionButton.trigger('click');
           accordionButton.removeClass('collapsed');
           accordionCollapse.addClass('show');
-        } else {
+          // accordionButton.trigger('click');
+          // // accordionButton.removeClass('collapsed');
+          // // accordionCollapse.addClass('show');
+        }
+        if (direction === 'hide') {
+          accordionButton.trigger('click');
           accordionButton.addClass('collapsed');
           accordionCollapse.removeClass('show');
         }

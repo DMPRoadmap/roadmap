@@ -5,7 +5,7 @@
     <% guidances_output = [] %>
     <%# Do not show expand/collapse all links if there is only one item in theme_hash %>
     <% if theme_hash.length > 1 %>
-    <div id="guidance-accordion-controls">
+  <div id="guidance-accordion-controls">
       <div class="accordion-controls" data-parent="<%= parent_id %>">
         <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
           <span>|</span>
@@ -18,10 +18,10 @@
       <%# if guidances with this theme have not been output %>
       <% if (guidances.map(&:id) - guidances_output).any? %>
         <div class="accordion-item card card-default">
-          <div
+          <button
             class="accordion-button collapsed"
-            role="button"
-            data-toggle="collapse"
+            type="button"
+            data-bs-toggle="collapse"
             href="<%= "##{question_guidance_id}" %>"
             aria-expanded="false"
             aria-controls="<%= "##{question_guidance_id}" %>">
@@ -30,7 +30,7 @@
                 <%= theme.title %>
               </h2>
             </div>
-          </div>
+          </button>
           <div
             id="<%= "#{question_guidance_id}" %>"
             class="accordion-collapse collapse"

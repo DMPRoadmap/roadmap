@@ -89,12 +89,12 @@ $(() => {
   };
 
   // Attach handlers for the Section expansion
-  $(parentSelector).on('ajax:before', 'a.ajaxified-section[data-remote="true"]', (e) => {
+  $(parentSelector).on('ajax:before', '.ajaxified-section[data-remote="true"]', (e) => {
     const accordionBody = $(e.target).parents('.accordion-item').find('.accordion-collapse').find('.accordion-body');
     return accordionBody.attr('data-loaded') === 'false';
   });
 
-  $(parentSelector).on('ajax:success', 'a.ajaxified-section[data-remote="true"]', (e) => {
+  $(parentSelector).on('ajax:success', '.ajaxified-section[data-remote="true"]', (e) => {
     const accordionBody = $(e.target).parents('.accordion-item').find('.accordion-collapse').find('.accordion-body');
     const accordionCollapse = accordionBody.parents('.accordion-collapse');
     if (isObject(accordionBody)) {
@@ -108,7 +108,7 @@ $(() => {
   });
 
   // Attach handlers for the Question show/edit/new
-  $(parentSelector).on('ajax:before', 'a.ajaxified-question[data-remote="true"]', (e) => {
+  $(parentSelector).on('ajax:before', '.ajaxified-question[data-remote="true"]', (e) => {
     const panelBody = getQuestionPanel($(e.target));
     if (isObject(panelBody)) {
       // Release any Tinymce editors that have been loaded
@@ -117,7 +117,7 @@ $(() => {
       });
     }
   });
-  $(parentSelector).on('ajax:success', 'a.ajaxified-question[data-remote="true"]', (e) => {
+  $(parentSelector).on('ajax:success', '.ajaxified-question[data-remote="true"]', (e) => {
     const target = $(e.target);
     const panelBody = getQuestionPanel(target);
     if (isObject(panelBody)) {
@@ -131,7 +131,7 @@ $(() => {
       }
     }
   });
-  $(parentSelector).on('ajax:error', 'a.ajaxified-question[data-remote="true"]', (e) => {
+  $(parentSelector).on('ajax:error', '.ajaxified-question[data-remote="true"]', (e) => {
     const panelBody = getQuestionPanel($(e.target));
     if (isObject(panelBody)) {
       panelBody.html(`<div class="pull-right alert alert-warning" role="alert">${getConstant('AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION')}</div>`);
@@ -146,7 +146,7 @@ $(() => {
       Tinymce.destroyEditorById($(el).attr('id'));
     });
     panel.html('');
-    panel.closest('.panel-body').find('.new-question-button a.ajaxified-question[data-remote="true"]').show();
+    panel.closest('.panel-body').find('.new-question-button .ajaxified-question[data-remote="true"]').show();
   });
 
   // Handle the section that has focus on initial page load

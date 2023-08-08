@@ -35,6 +35,16 @@ h2.accordion-header > a.i {
   background-color: $color-accordion-button-bg !important;
 }
 
+.accordion-button:hover,
+.accordion-button:active, 
+.accordion-button:focus,
+.accordion-button:focus-visible {
+  text-decoration: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+
 // An explanation of how we change the Bootstrap arrow icon for the accordion to use the footawesome icons.
 // First we get the fontawesome plus.svg and minus.svg for use in background image from:
 // node_modules/@fortawesome/fontawesome-free/svgs/solid/plus.svg (in .accordion-button.collapsed::after)
