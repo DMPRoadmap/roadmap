@@ -9,7 +9,7 @@ module Api
           ror_id = identifiers.find { |id| id.identifier_scheme&.name == 'ror' }
           fundref_id = identifiers.find { |id| id.identifier_scheme&.name == 'fundref' }
           # Return the ROR unless the caller is working with a funder and we don't have a ROR for them
-          !funder || funder && ror_id.nil? ? ror_id : fundref_id
+          !funder || funder && ror_id.present? ? ror_id : fundref_id
         end
       end
     end

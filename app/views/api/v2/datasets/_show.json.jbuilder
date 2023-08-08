@@ -7,7 +7,7 @@ if output.is_a?(ResearchOutput)
 
   json.type presenter.research_output_type
   json.title output.title
-  json.description output.description
+  json.description output.description&.gsub(%r{<p>(\s+)?</p>}, '')
   json.personal_data Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: output.personal_data)
   json.sensitive_data Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: output.sensitive_data)
   json.issued output.release_date&.to_formatted_s(:iso8601)

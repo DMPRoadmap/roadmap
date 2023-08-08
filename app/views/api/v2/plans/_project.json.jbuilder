@@ -3,7 +3,7 @@
 # locals: plan
 
 json.title plan.title
-json.description plan.description
+json.description plan.description&.gsub(%r{<p>(\s+)?</p>}, '')
 
 start_date = plan.start_date || Time.zone.now
 json.start start_date.to_formatted_s(:iso8601)
