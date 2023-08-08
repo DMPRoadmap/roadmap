@@ -11,6 +11,7 @@ presenter = Api::V2::PlanPresenter.new(plan: plan, client: @client)
 # A JSON representation of a Data Management Plan in the
 # RDA Common Standard format
 json.title plan.title
+# Strip out empty paragraphs from the description
 json.description plan.description&.gsub(%r{<p>(\s+)?</p>}, '')
 json.language Api::V1::LanguagePresenter.three_char_code(
   lang: LocaleService.default_locale
