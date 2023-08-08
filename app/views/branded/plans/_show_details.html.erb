@@ -1,0 +1,29 @@
+<% presenter = PlanPresenter.new(plan) %>
+
+<dl class="dl-horizontal">
+  <dt><%= _('Project Title') %></dt>
+  <dd><%= plan.title %></dd>
+  <dt><%= _('Project Abstract') %></dt>
+  <dd><%= sanitize plan.description %></dd>
+  <dt><%= _('Start and End Dates') %></dt>
+  <dd>
+    <%= presenter.project_dates_to_readonly_display %>
+  </dd>
+  <dt><%= _('Funder') %></dt>
+  <dd><%= plan.funder&.name %></dd>
+  <dt><%= _('Grant Number') %></dt>
+  <dd><%= plan.grant&.value %></dd>
+
+  <%# if DOI minting is enabled %>
+  <% if Rails.configuration.x.madmp&.enable_dmp_id_registration && landing_page.present? %>
+    <dt><%= _('Landing Page') %></dt>
+    <dd><%= dmp_id_for_display(dmp_id: plan.dmp_id, without_prefix: true) %></dd>
+  <% else %>
+    <dt><%= _('ID') %></dt>
+    <dd><%= plan.identifier %></dd>
+  <% end %>
+
+  <% if plan.related_identifiers.any? %>
+    <%= render partial: "related_identifiers/show", locals: { plan: plan } %>
+  <% end %>
+</dl>

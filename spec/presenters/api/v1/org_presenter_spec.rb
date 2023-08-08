@@ -29,7 +29,7 @@ RSpec.describe Api::V1::OrgPresenter do
       fundref = create(:identifier, identifier_scheme: @fundref_scheme,
                                     identifiable: @org)
       @org.reload
-      rslt = described_class.affiliation_id(identifiers: @org.identifiers, fundref: true)
+      rslt = described_class.affiliation_id(identifiers: @org.identifiers, funder: true)
       expect(rslt).to eql(fundref)
     end
   end

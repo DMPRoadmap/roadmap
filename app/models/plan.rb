@@ -713,9 +713,6 @@ class Plan < ApplicationRecord
     targets.each(&:notify!)
 
     # Re-publish the narrative PDF document
-
-puts "FOooooooooooooooooooooooooo"
-
     publish_narrative! if respond_to?(:publish_narrative!)
     true
   end

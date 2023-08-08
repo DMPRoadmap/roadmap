@@ -109,28 +109,38 @@ namespace :v5 do
     scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
     if scheme.present?
       pauser = 0
+      client_id = ApiClient.find_by(name: 'dmphub').id
 
-      Plan.includes(:org, :research_outputs, :related_identifiers, roles: [:user],
-                    contributors: [:org, { identifiers: [:identifier_scheme] }],
-                    identifiers: [:identifier_scheme])
+      Plan.includes(:org, :research_outputs, :related_identifiers, :subscriptions, roles: [:user],
+                    contributors: [:org, { identifiers: [:identifier_scheme] }])
           .where.not(dmp_id: nil)
-          .limit(1)
+          # .limit(600)
+          .order(created_at: :desc)
           .each do |plan|
         next unless plan.dmp_id.present? && plan.complete? && !plan.is_test?
+
+        recent_subscriptions = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
+                                           .where('last_notified > ?', (Time.now - 1.day).strftime('%Y-%m-%d %H:%M:%S'))
+        next if recent_subscriptions.any?
         next unless DmpIdService.fetch_dmp_id(dmp_id: plan.dmp_id).nil?
 
         # Pause after every 10 so that we do not get rate limited
         sleep(3) if pauser >= 20
         pauser = pauser >= 20 ? 0 : pauser + 1
 
-        if plan.registerable?
+        if plan.owner.present?
           puts "Processing Plan: #{plan.id}, DMP ID: #{plan.dmp_id}"
           # Call the DMPHub to register the DMP ID and upload the narrative PDF (performed async by ActiveJob)
           hash = DmpIdService.mint_dmp_id(plan: plan, seeding: true)
           if hash.is_a?(Hash) && hash[:dmp_id].present?
               # Add the DMP ID to the Dmp record
             if plan.update(dmp_id: hash[:dmp_id])
-              puts "    registered #{dmp_id}. Uploading narrative ..."
+              # Remove the old subscription for the item. The minting process added a new entry so we don't want the old
+              old_subscriptions = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
+                                              .where('last_notified < ?', (Time.now - 1.day).strftime('%Y-%m-%d %H:%M:%S'))
+              old_subscriptions.destroy_all
+
+              puts "    registered #{plan.dmp_id}. Uploading narrative ..."
               if PdfPublisherJob.perform_now(plan: plan)
                 plan = plan.reload
                 puts "        uploaded to #{plan.narrative_url}"

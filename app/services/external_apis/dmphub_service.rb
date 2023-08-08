@@ -161,7 +161,7 @@ module ExternalApis
             'Accept': 'application/json'
           }
         }
-        opts[:debug_output] = $stdout
+        # opts[:debug_output] = $stdout
         resp = HTTParty.get("#{api_base_url}#{mint_path}?owner_org_ror=#{ror}", opts)
 
         unless resp.present? && resp.code == 200
@@ -195,7 +195,7 @@ module ExternalApis
           },
           body: plan.is_a?(Draft) ? plan.to_json_for_registration : json_from_template(plan: plan)
         }
-        opts[:debug_output] = $stdout
+        # opts[:debug_output] = $stdout
         resp = HTTParty.post("#{api_base_url}#{mint_path}", opts)
 
         # DMPHub returns a 201 (created) when a new DMP ID has been minted or
@@ -237,7 +237,7 @@ module ExternalApis
           # coming from the React UI so just send it as-is
           body: plan.is_a?(Plan) ? json_from_template(plan: plan) : plan.to_json
         }
-        opts[:debug_output] = $stdout
+        # opts[:debug_output] = $stdout
         dmp_id = plan.is_a?(Plan) ? plan.dmp_id : plan.fetch('dmp_id', {})['identifier']
         target = "#{api_base_url}#{update_path % { dmp_id: dmp_id.gsub(%r{https?://}, '') }}"
         resp = HTTParty.put(target, opts)
@@ -307,7 +307,7 @@ module ExternalApis
           },
           body_stream: pdf_file
         }
-        opts[:debug_output] = $stdout
+        # opts[:debug_output] = $stdout
         target = URI("#{api_base_url}#{narrative_path}" % { dmp_id: plan.dmp_id&.gsub(/https?:\/\//, '') })
         resp = HTTParty.post(target, opts)
         pdf_file.close
@@ -395,7 +395,7 @@ module ExternalApis
       def auth
         # TODO: Switch this back to stg once the Stage domain is up
         # scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'stg' : 'dev'
-        scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'dev' : 'dev'
+        scope_env = Rails.env.production? ? 'prd' : (auth_url.include?('uc3stg') ? 'stg' : 'dev')
         scopes = "#{auth_url}#{scope_env}.read #{auth_url}#{scope_env}.write"
         creds = Base64.strict_encode64("#{client_id}:#{client_secret}")
 

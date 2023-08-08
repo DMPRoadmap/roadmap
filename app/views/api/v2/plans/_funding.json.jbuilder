@@ -5,7 +5,7 @@
 json.name plan.funder&.name
 
 if plan.funder.present? && ['No funder', 'Non Partner Institution'].exclude?(plan.funder.name)
-  id = Api::V1::OrgPresenter.affiliation_id(identifiers: plan.funder.identifiers, fundref: true)
+  id = Api::V1::OrgPresenter.affiliation_id(identifiers: plan.funder.identifiers, funder: true)
 
   if id.present?
     json.funder_id do
