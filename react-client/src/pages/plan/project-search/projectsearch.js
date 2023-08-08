@@ -48,24 +48,26 @@ function ProjectSearch() {
       });
 
       let funderUrl = dmp.getDraftData("funder.funder_api", null);
-      let url = new URL(funderUrl);
-      let searchParams = new URLSearchParams(queryArgs);
-      url.search = searchParams.toString();
+      if (!funderUrl) {
+        throw new Error(`Error! Invalid funder api url, ${funderUrl}.`);
+      } else {
+        let url = new URL(funderUrl);
+        let searchParams = new URLSearchParams(queryArgs);
+        url.search = searchParams.toString();
 
-      fetch(url, options)
-        .then((resp) => {
-          api.handleResponse(resp);
-          return resp.json();
-        })
-        .then((data) => {
-          console.log('Response?');
-          console.log(data);
-          setProjects(data.items);
-        })
-        .catch((err) => {
-          if (err.name === "AbortError") { console.log('Aborted'); }
-          setProjects([]);
-        });
+        fetch(url, options)
+          .then((resp) => {
+            api.handleResponse(resp);
+            return resp.json();
+          })
+          .then((data) => {
+            setProjects(data.items);
+          })
+          .catch((err) => {
+            if (err.name === "AbortError") { console.log('Aborted'); }
+            setProjects([]);
+          });
+      }
     } else {
       setQueryArgs({});
     }
@@ -113,24 +115,30 @@ function ProjectSearch() {
 
 
   function handleSelect(ev) {
-    // TODO:: Should update the list in some way to SHOW the item that is
-    // selected
-    setSelected(ev.target.dataset.index);
+    setSelected(parseInt(ev.target.dataset.index, 10));
+    console.log("Selected?");
+    console.log(projects[parseInt(ev.target.dataset.index, 10)]);
   }
 
 
   async function handleSave(ev) {
     ev.preventDefault();
 
-    if (selected) {
+    if (selected !== null) {
       const item = projects[selected];
-      console.log(item);
 
-      dmp.project.setData("title", getValue(item, "project.title", ""));
-      dmp.project.setData("description", getValue(item, "project.description", ""));
-      dmp.project.setData("start", getValue(item, "project.start", ""));
-      dmp.project.setData("end", getValue(item, "project.end", ""));
-      dmp.contact.setData("name", getValue(item, "contact.name"));
+      dmp.project.title = getValue(item, "project.title", "");
+      dmp.project.description = getValue(item, "project.description", "");
+      dmp.project.start = getValue(item, "project.start", "");
+      dmp.project.end = getValue(item, "project.end", "");
+
+      dmp.funding.grantId = getValue(item, "project.funding.0.grant_id", {});
+      dmp.funding.projectNumber = getValue(
+        item, "project.funding.0.dmproadmap_project_number");
+
+      dmp.contact.name = getValue(item, "contact");
+      dmp.contributors = getValue(item, "contributor");
+
       dmp.commit();
 
       let api = new DmpApi();
@@ -234,22 +242,29 @@ function ProjectSearch() {
           </>
         ) : (
           <>
-            <div className="data-heading" data-colname="name">Project Name</div>
-            <div className="data-heading" data-colname="role">ID</div>
-            <div className="data-heading" data-colname="actions"></div>
+            <div className="row-wrapper">
+              <div className="data-heading" data-colname="name">Project Name</div>
+              <div className="data-heading" data-colname="role">ID</div>
+              <div className="data-heading" data-colname="actions"></div>
+            </div>
 
             {projects.map((item, index) => (
               <Fragment key={index}>
-                <div data-colname="name">{getValue(item, "project.title", "")}</div>
-                <div data-colname="id">
-                  {getValue(item, "project.funding.0.dmproadmap_project_number", "")}
-                </div>
-                <div data-colname="actions">
-                  <button
-                    onClick={handleSelect}
-                    data-index={index}>
-                    Select
-                  </button>
+                <div className="row-wrapper"
+                  className={(index == selected) ? "row-wrapper selected" : "row-wrapper"}>
+                  <div data-colname="name">
+                    {getValue(item, "project.title", "")}
+                  </div>
+                  <div data-colname="id">
+                    {getValue(item, "project.funding.0.dmproadmap_project_number", "")}
+                  </div>
+                  <div data-colname="actions">
+                    <button
+                      onClick={handleSelect}
+                      data-index={index}>
+                      Select
+                    </button>
+                  </div>
                 </div>
               </Fragment>
             ))}

@@ -1,5 +1,6 @@
 import { getValue, setProperty } from './utils.js';
 import { DmpApi } from "./api.js";
+// import moment from 'moment';
 
 
 class Model {
@@ -21,31 +22,44 @@ class Model {
 
 
 export class Contact extends Model {
-  get name() { this.getData("name"); }
-  get role() { this.getData("role.0", ""); }
-  get id() { this.getData("contact_id", {}); }
+  get name() { return this.getData("name"); }
+  set name(val) { this.setData("name", val); }
+
+  get role() { return this.getData("role.0", ""); }
+  set role(val) { this.setData("name", val); }
+
+  get id() { return this.getData("contact_id", {}); }
+  set id(val) { this.setData("contact_id", val); }
 }
 
 
 export class RoadmapAffiliation extends Model {
-  get name() { this.getData("name"); }
-  get id() { this.getData("affiliation_id", {}); }
-}
+  get name() { return this.getData("name"); }
+  set name(val) { this.setData("name", val); }
 
-
-export class Contributor extends Model {
-  get name() { this.getData("name"); }
-  get role() { this.getData("role.0", ""); }
-  get id() { this.getData("contributor_id", {}); }
+  get id() { return this.getData("affiliation_id", {}); }
+  set id(val) { this.setData("affiliation_id", val); }
 }
 
 
 export class Funding extends Model {
   get name() { return this.getData("name", ""); }
-  get grantId() { return this.getData("grant_id", {}); }
+  set name(val) { this.setData("name", val); }
+
   get funderId() { return this.getData("funder_id", {}); }
+  set funderId(val) { this.setData("funder_id", val); }
+
   get status() { return this.getData("funding_status", "planned"); }
+  set status(val) { this.setData("funding_status", val); }
+
+  get grantId() { return this.getData("grant_id", {}); }
+  set grantId(val) { this.setData("grant_id", val); }
+
   get opportunityNumber() { return this.getData("dmproadmap_opportunity_number", ""); }
+  set opportunityNumber(val) { this.setData("dmproadmap_opportunity_number", val); }
+
+  get projectNumber() { return this.getData("dmproadmap_project_number", ""); }
+  set projectNumber(val) { this.setData("dmproadmap_project_number", val); }
 }
 
 
@@ -59,9 +73,24 @@ export class Project extends Model {
   }
 
   get title() { return this.getData("title"); }
+  set title(val) { this.setData("title", val); }
+
   get description() { return this.getData("description", ""); }
-  get start() { return this.getData("start"); }
-  get end() { return this.getData("end"); }
+  set description(val) { this.setData("description", val); }
+
+  // TODO::FIXME:: Work with real date objects
+  // To do this we'll use moment.js to parse the objects (and we can use it
+  // for other date/time related operatoins)
+  // Update the getters and setters for both start and end dates to work
+  // with real date types, and save the data in the string format expected
+  // by the rails backend.
+  get start() {
+    return this.getData("start", "");
+  }
+  set start(dateVal) { this.setData("start", dateVal); }
+
+  get end() { return this.getData("end", ""); }
+  set end(dateVal) { this.setData("end", dateVal); }
 
   commit() {
     this.setData("funding", [this.funding.getData()]);
@@ -72,17 +101,20 @@ export class Project extends Model {
 export class DmpModel extends Model {
   project;
   contact;
-  contributor;
 
   constructor(data) {
     super(data);
     this.project = new Project(this.getData("project.0", {}));
+    this.funding = this.project.funding;
     this.contact = new Contact(this.getData("contact.0", {}));
-    this.contributor = new Contributor(this.getData("contributor.0", {}));
   }
 
   get title() { return this.getData("title"); }
-  get funding() { return this.project.funding; }
+  set title(val) { this.setData("title", val); }
+
+  get conrtibutors() { return this.getData("contributor"); }
+  set contributors(val) { this.setData("contributor"); }
+
   get hasFunder() { return (this.project.funding !== null); }
 
   /* NOTE
@@ -107,7 +139,6 @@ export class DmpModel extends Model {
     this.project.commit();
     this.setData("project", [this.project.getData()]);
     this.setData("contact", [this.contact.getData()]);
-    this.setData("contributor", [this.contributor.getData()]);
   }
 }
 

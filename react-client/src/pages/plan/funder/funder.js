@@ -61,10 +61,8 @@ function PlanFunders() {
 
     // Update and then Commit the changes to the DMP model
     dmp.setDraftData("funder", funder);
-    dmp.funding.setData("name", funder.name);
-    if (funder.funder_id) {
-      dmp.funding.setData("funder_id", funder.funder_id);
-    }
+    dmp.funding.name = funder.name;
+    if (funder.funder_id) dmp.funding.funderId = funder.funder_id;
     dmp.commit();
 
     let api = new DmpApi();
