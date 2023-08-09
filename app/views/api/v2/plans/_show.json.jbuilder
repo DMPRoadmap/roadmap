@@ -14,7 +14,7 @@ json.title plan.title
 # Strip out empty paragraphs from the description
 
 # Remove non breaking spaces, empty paragraphs and new lines
-json.description plan.description.gsub(/\u00a0/, '').gsub(%r{<p>([\s]+)?</p>}, '').gsub(%r{[\r\n]+}, ' ')
+json.description plan.description&.gsub(/\u00a0/, '')&.gsub(%r{<p>([\s]+)?</p>}, '')&.gsub(%r{[\r\n]+}, ' ')
 
 json.language Api::V1::LanguagePresenter.three_char_code(
   lang: LocaleService.default_locale
