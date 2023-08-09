@@ -27,7 +27,7 @@
     </div>
     <div class="accordion" id="sections-accordion" role="tablist"
          aria-multiselectable="true">
-    <% phase.sections.sort {|a,b| a.number <=> b.number }.each do |section| %>
+      <% phase.sections.sort {|a,b| a.number <=> b.number }.each do |section| %>
       <div class="accordion-item w-100 my-3">
         <h2 class="accordion-header" role="tab" id="heading-<%= section.id %>">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -44,7 +44,7 @@
                   </span>
               <% end %>
             </button>
-          </div>
+  
         </h2>
 
         <div id="collapse-<%= section.id %>" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= section.id %>">
@@ -113,8 +113,8 @@
               <% end %> <!-- section.questions.each do -->
           </div> <!-- accordion-body -->
         </div> <!-- accordion-collapse -->
+      </div> <!-- accordion-item -->
       <% end %>   <!-- phase.sections.sort {|a,b| a.number <=> b.number }.each do -->
-    </div>   <!-- accordion -->
-    </div>
+    </div> <!-- accordion -->
   </div> <!-- tab card -->
 </div> <!-- tab panels -->

@@ -103,37 +103,37 @@ $(() => {
   $('body').on('click', '.accordion-controls a[data-toggle-direction]', (e) => {
     e.preventDefault();
     const currentTarget = $(e.currentTarget);
+    // eslint-disable-next-line no-console
+    console.log('currentTarget: ', currentTarget);
     const target = $(e.target);
+    // eslint-disable-next-line no-console
+    console.log('target: ', target);
     const direction = target.attr('data-toggle-direction');
-    const parentTargetName = currentTarget.parent().attr('data-parent');
     // eslint-disable-next-line no-console
     console.log('direction: ', direction);
+    const parentTargetName = currentTarget.parent().attr('data-parent');
+    // eslint-disable-next-line no-console
+    console.log('parentTargetName: ', parentTargetName);
     if (direction) {
       // Selects all .accordion-item elements where the parent is
       // currentTarget.attr('data-parent') and
-      // after gets the immediately children whose class selector is accordion-item
+      // after gets the immediate children whose class selector is accordion-item
       const parentTarget = $(`#${parentTargetName}`).length ? $(`#${parentTargetName}`) : $(`.${parentTargetName}`);
-      parentTarget.find('.accordion-item').each((i, el) => {
+      parentTarget.children('.accordion-item').each((i, el) => {
         const accordionItem = $(el);
-        const accordionButton = accordionItem.find('.accordion-button');
-        const accordionCollapse = accordionItem.find('.accordion-collapse');
-        // eslint-disable-next-line no-console
-        console.log('accordionButton: ', accordionCollapse);
-        // eslint-disable-next-line no-console
-        console.log('accordionCollapse: ', accordionCollapse);
-        // const accordionBody = accordionCollapse.find('.accordion-body');
+        const accordionHeader = $(accordionItem.children('.accordion-header')[0]);
+        const accordionButton = $(accordionHeader.children('.accordion-button')[0]);
+        const accordionCollapse = $(accordionItem.children('.accordion-collapse')[0]);
         // Expands or collapses according to the
         // direction passed (e.g. show --> expands, hide --> collapses)
         if (direction === 'show') {
-          accordionButton.trigger('click');
+          if (!accordionCollapse.hasClass('show')) {
+            accordionButton.trigger('click');
+          }
           accordionButton.removeClass('collapsed');
           accordionCollapse.addClass('show');
-          // accordionButton.trigger('click');
-          // // accordionButton.removeClass('collapsed');
-          // // accordionCollapse.addClass('show');
         }
         if (direction === 'hide') {
-          accordionButton.trigger('click');
           accordionButton.addClass('collapsed');
           accordionCollapse.removeClass('show');
         }
