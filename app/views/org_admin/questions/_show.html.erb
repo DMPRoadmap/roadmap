@@ -128,7 +128,7 @@
                           <div class="accordion-item w-100">
                               <h2 class="accordion-header" 
                                   id="#headingGuidance-<%= guidance.id%>-<%= question.id %>">
-                                <div class="accordion-button collapsed"
+                                <button class="accordion-button collapsed"
                                      type="button"
                                      data-bs-toggle="collapse"
                                      href="#collapseGuidance-<%= guidance.id%>-<%= question.id %>"
@@ -138,10 +138,10 @@
                                      <% if ggs.length > 1 %>
                                         &nbsp;(<%= guidance_group.name %>)
                                     <% end %>
-                                </div>
+                                </button>
                               </h2>
-                            </div>
-                            <div id="collapseGuidance-<%= guidance.id%>-<%= question.id %>"
+                            
+                              <div id="collapseGuidance-<%= guidance.id%>-<%= question.id %>"
                                  class="accordion-collapse collapse"
                                  role="tabpanel"
                                  aria-labelledby="headingGuidance-<%= guidance.id%>-<%= question.id %>">
@@ -150,11 +150,11 @@
                                       <%= sanitize guidance.text %>
                                    </div>
                                 </div>
-                            </div>
-                          </div>
+                              </div>
+                           </div>
                         </div>
+                      <% end %>
                     <% end %>
-                   <% end %>
                   <% end %>
                 <% end %>
               <% end %>
