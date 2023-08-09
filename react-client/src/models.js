@@ -1,6 +1,6 @@
 import { getValue, setProperty } from './utils.js';
 import { DmpApi } from "./api.js";
-// import moment from 'moment';
+import moment from 'moment';
 
 
 class Model {
@@ -65,11 +65,15 @@ export class Funding extends Model {
 
 export class Project extends Model {
   funding;
+  #startDate;
+  #endDate;
 
   constructor(data) {
     super(data);
-    // TODO:: We should "pop" the "funding" key from the original "data" map.
+
     this.funding = new Funding(this.getData("funding.0", null));
+    this.setStart(this.getData("start", null));
+    this.setEnd(this.getData("end", null));
   }
 
   get title() { return this.getData("title"); }
@@ -78,19 +82,40 @@ export class Project extends Model {
   get description() { return this.getData("description", ""); }
   set description(val) { this.setData("description", val); }
 
-  // TODO::FIXME:: Work with real date objects
-  // To do this we'll use moment.js to parse the objects (and we can use it
-  // for other date/time related operatoins)
-  // Update the getters and setters for both start and end dates to work
-  // with real date types, and save the data in the string format expected
-  // by the rails backend.
-  get start() {
-    return this.getData("start", "");
-  }
-  set start(dateVal) { this.setData("start", dateVal); }
+  get start() { return this.#startDate; }
+  get end() { return this.#endDate; }
 
-  get end() { return this.getData("end", ""); }
-  set end(dateVal) { this.setData("end", dateVal); }
+  setStart(dateStr, formatStr) {
+    if (!dateStr) dateStr = "";
+
+    if (formatStr) {
+      this.#startDate = moment(dateStr, formatStr);
+    } else {
+      this.#startDate = moment(dateStr);
+    }
+
+    if (this.#startDate.isValid()) {
+      this.setData("start", this.#startDate.format());
+    } else {
+      this.setData("start", "");
+    }
+  }
+
+  setEnd(dateStr, formatStr) {
+    if (!dateStr) dateStr = "";
+
+    if (formatStr) {
+      this.#endDate = moment(dateStr, formatStr);
+    } else {
+      this.#endDate = moment(dateStr);
+    }
+
+    if (this.#endDate.isValid()) {
+      this.setData("end", this.#endDate.format());
+    } else {
+      this.setData("end", "")
+    }
+  }
 
   commit() {
     this.setData("funding", [this.funding.getData()]);
@@ -104,6 +129,7 @@ export class DmpModel extends Model {
 
   constructor(data) {
     super(data);
+
     this.project = new Project(this.getData("project.0", {}));
     this.funding = this.project.funding;
     this.contact = new Contact(this.getData("contact.0", {}));

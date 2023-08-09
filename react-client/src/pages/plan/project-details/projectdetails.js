@@ -3,7 +3,6 @@ import {
   Link,
   useParams,
   useNavigate,
-  useSearchParams,
 } from "react-router-dom";
 
 import { DmpApi } from "../../../api.js";
@@ -21,28 +20,27 @@ function ProjectDetails() {
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
   const [formData, setFormData] = useState({});
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [isLocked, setLocked] = useState(true);
 
   useEffect(() => {
     getDraftDmp(dmpId).then(initial => {
       setDmp(initial);
-      console.log('Initial?');
-      console.log(initial);
       setFormData({
         project_name: initial.title,
         project_id: dmpId,
         project_abstract: initial.project.description,
-        start_date: initial.project.start,
-        end_date: initial.project.end,
+        start_date: initial.project.start.format("YYYY-MM-DD"),
+        end_date: initial.project.end.format("YYYY-MM-DD"),
         award_number: initial.funding.opportunityNumber,
       });
     });
+
   }, [dmpId]);
 
-  // FIXME::TODO:: Is this the correct way to do this?
-  // Is there another way to get this information rather than a URL parameter?
-  // Reason: Url Parameters state can be too easilly manipulated
-  let is_locked = searchParams.get("locked");
+  function handleUnlock(ev) {
+    ev.preventDefault();
+    setLocked(!isLocked);
+  }
 
   function handleChange(ev) {
     const {name, value} = ev.target;
@@ -54,6 +52,12 @@ function ProjectDetails() {
 
   async function handleSubmit(ev) {
     ev.preventDefault();
+
+    if (isLocked) {
+      navigate(`/dashboard/dmp/${dmpId}/project-search`);
+      return;
+    }
+
     let api = new DmpApi();
 
     // Update the DMP from the submitted formData
@@ -65,8 +69,8 @@ function ProjectDetails() {
     dmp.title = formData.project_name;
     dmp.project.title = formData.project_name;
     dmp.project.description = formData.project_abstract;
-    dmp.project.start = formData.start;
-    dmp.project.end = formData.end;
+    dmp.project.setStart(formData.start);
+    dmp.project.setEnd(formData.end);
     dmp.funding.opportunityNumber = formData.award_number || "";
     dmp.commit();
 
@@ -80,7 +84,6 @@ function ProjectDetails() {
       api.handleResponse(resp.status);
       return resp.json();
     }).then((data) => {
-      // TODO:: Handle response errors
       navigate(`/dashboard/dmp/${dmpId}/`);
     });
   }
@@ -90,7 +93,8 @@ function ProjectDetails() {
       <div className="dmpui-heading">
         <h1>Plan Details</h1>
       </div>
-      {is_locked && (
+
+      {isLocked && (
         <div className="dmpui-search-form-container alert alert-warning">
           <p>
             This information is not directly editable because it has been
@@ -100,10 +104,15 @@ function ProjectDetails() {
           </p>
           <p>
             <br />
-            <button className="button">Unlock & Edit</button>
+            <button
+              onClick={handleUnlock}
+              className="button">
+              Unlock & Edit
+            </button>
           </p>
         </div>
       )}
+
       <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
         <div className="form-wrapper">
           <div className="dmpui-form-cols">
@@ -113,6 +122,7 @@ function ProjectDetails() {
                 type="text"
                 inputValue={formData.project_name}
                 onChange={handleChange}
+                disabled={isLocked}
                 required="required"
                 name="project_name"
                 id="project_name"
@@ -128,6 +138,7 @@ function ProjectDetails() {
                 type="text"
                 inputValue={formData.project_id}
                 onChange={handleChange}
+                disabled={isLocked}
                 required="required"
                 name="project_id"
                 id="project_id"
@@ -145,6 +156,7 @@ function ProjectDetails() {
                 type="text"
                 inputValue={formData.project_abstract}
                 onChange={handleChange}
+                disabled={isLocked}
                 required="required"
                 name="project_abstract"
                 id="project_abstract"
@@ -155,6 +167,7 @@ function ProjectDetails() {
             </div>
           </div>
 
+
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
               <TextInput
@@ -162,6 +175,7 @@ function ProjectDetails() {
                 type="date"
                 inputValue={formData.start_date}
                 onChange={handleChange}
+                disabled={isLocked}
                 required="required"
                 name="start_date"
                 id="start_date"
@@ -176,6 +190,7 @@ function ProjectDetails() {
                 type="date"
                 inputValue={formData.end_date}
                 onChange={handleChange}
+                disabled={isLocked}
                 required="required"
                 name="end_date"
                 id="end_date"
@@ -193,6 +208,7 @@ function ProjectDetails() {
                 type="text"
                 inputValue={formData.award_number}
                 onChange={handleChange}
+                disabled={isLocked}
                 required="required"
                 name="award_number"
                 id="ppportunity_number"

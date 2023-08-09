@@ -1,7 +1,6 @@
 import {
   useEffect,
   useState,
-  useRef,
   Fragment
 } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -10,7 +9,6 @@ import { DmpApi } from "../../../api.js";
 import { getDraftDmp } from "../../../models.js";
 import { getValue, useDebounce, isEmpty} from "../../../utils.js";
 import TextInput from "../../../components/text-input/textInput";
-import TextArea from "../../../components/textarea/textArea";
 import "./projectsearch.scss";
 
 
@@ -116,8 +114,6 @@ function ProjectSearch() {
 
   function handleSelect(ev) {
     setSelected(parseInt(ev.target.dataset.index, 10));
-    console.log("Selected?");
-    console.log(projects[parseInt(ev.target.dataset.index, 10)]);
   }
 
 
@@ -129,8 +125,12 @@ function ProjectSearch() {
 
       dmp.project.title = getValue(item, "project.title", "");
       dmp.project.description = getValue(item, "project.description", "");
-      dmp.project.start = getValue(item, "project.start", "");
-      dmp.project.end = getValue(item, "project.end", "");
+
+      // TODO:: Using preset format here doesn't seem right
+      // Check with Brian if we can get an ISO format here, rather than the
+      // Americanized format below.
+      dmp.project.setStart(getValue(item, "project.start", ""), "YYYY-DD-MM");
+      dmp.project.setEnd(getValue(item, "project.end", ""), "YYYY-DD-MM");
 
       dmp.funding.grantId = getValue(item, "project.funding.0.grant_id", {});
       dmp.funding.projectNumber = getValue(
@@ -151,7 +151,7 @@ function ProjectSearch() {
         api.handleResponse(resp.status);
         return resp.json();
       }).then((data) => {
-        navigate(`/dashboard/dmp/${dmpId}/project-details?locked=true`);
+        navigate(`/dashboard/dmp/${dmpId}/project-details`);
       });
     }
   }
