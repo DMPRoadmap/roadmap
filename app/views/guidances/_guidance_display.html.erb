@@ -3,15 +3,15 @@
 <div class="question-guidance">
   <div class="accordion" id="<%= question.id %>-guidance">
     <% if !question.guidance_annotation(current_user.org).nil? && question.guidance_annotation(current_user.org) != "" %>
-      <div class="accordion-item">
+      <div class="accordion-item w-100 my-3">
         <h2 class="accordion-header">
-          <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= question.id%>">
+          <a class="accordion-guidance-link" data-bs-toggle="collapse" data-bs-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= question.id%>">
             <div class="accordion_heading_text">
             <%= question.section.phase.template.org.abbreviation %> <%= _('Guidance')%>
             </div>
-            <span class="plus-laranja"> </span></a>
         </h2>
-        <div id="collapse-guidance-<%= question.id%>" class="guidance-accordion-body collapse">
+        <div id="collapse-guidance-<%= question.id%>" 
+                 class="guidance-accordion-body accordion-collapse collapse">
           <div class="accordion-inner">
             <div class="display-readonly-textarea-content">
                <%= sanitize question.guidance_annotation(current_user.org).text %>
@@ -28,10 +28,9 @@
             <div class="accordion_heading_text">
             <%= title %>
           </div>
-            <span class="plus-laranja"> </span></a>
-
         </h2>
-        <div id="collapse-guidance-<%= guidance.id%>-<%= question.id %>" class="guidance-accordion-body collapse">
+        <div id="collapse-guidance-<%= guidance.id%>-<%= question.id %>" 
+        class="guidance-accordion-body accordion-collapse collapse">
           <div class="accordion-inner">
             <div class="display-readonly-textarea-content">
               <%= sanitize guidance.text %>
