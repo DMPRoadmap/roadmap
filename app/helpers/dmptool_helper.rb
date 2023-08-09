@@ -12,6 +12,13 @@ module DmptoolHelper
     query_params.transform_values { |val| val.is_a?(Array) ? val.first : val }
   end
 
+  # Remove non breaking spaces, empty paragraphs and new lines
+  def description_for_json(str: '')
+    return '' unless str.is_a?(String)
+
+    str.gsub(/\u00a0/, '').gsub(%r{<p>([\s]+)?</p>}, '').gsub(%r{[\r\n]+}, ' ')
+  end
+
   # Generate a hyperlink for the DMP ID
   def dmp_id_for_display(dmp_id:, without_prefix: true)
     return _('None defined') if dmp_id.blank?

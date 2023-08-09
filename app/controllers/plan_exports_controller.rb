@@ -143,15 +143,9 @@ class PlanExportsController < ApplicationController
   end
 
   def show_json
-    # If it's a registered DMP ID, then get the JSON from the DMPHub
-    json = DmpIdService.fetch_dmp_id(dmp_id: @plan.dmp_id) if @plan.dmp_id.present?
-
-    if json.nil?
-      json = render_to_string(partial: '/api/v2/plans/show',
-                              locals: { plan: @plan, client: current_user })
-      json = "{\"dmp\":#{json}}"
-    end
-
+    json = render_to_string(partial: '/api/v2/plans/show',
+                            locals: { plan: @plan, client: current_user })
+    json = "{\"dmp\":#{json}}"
     render json: json
   end
 

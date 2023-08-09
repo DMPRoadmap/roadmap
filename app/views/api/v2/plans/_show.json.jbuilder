@@ -12,7 +12,8 @@ presenter = Api::V2::PlanPresenter.new(plan: plan, client: @client)
 # RDA Common Standard format
 json.title plan.title
 # Strip out empty paragraphs from the description
-json.description plan.description&.gsub(%r{<p>(\s+)?</p>}, '')
+
+json.description description_for_json(str: plan.description)
 json.language Api::V1::LanguagePresenter.three_char_code(
   lang: LocaleService.default_locale
 )
