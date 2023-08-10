@@ -54,17 +54,11 @@ function ProjectDetails() {
     ev.preventDefault();
 
     if (isLocked) {
-      navigate(`/dashboard/dmp/${dmpId}/project-search`);
+      navigate(`/dashboard/dmp/${dmpId}/`);
       return;
     }
 
     let api = new DmpApi();
-
-    // Update the DMP from the submitted formData
-    // Use spread operator to update the dmp data, but we separate nested
-    // structures so that we can be explicit about the updates.
-    let dmpProject = getValue(dmp, "project.0", {});
-    let projectFunding = getValue(dmp, "project.0.funding.0", {});
 
     dmp.title = formData.project_name;
     dmp.project.title = formData.project_name;
