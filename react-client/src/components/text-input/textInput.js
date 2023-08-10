@@ -7,6 +7,8 @@ function TextInput(props) {
   const [inputType] = useState(props.type);
   const [inputValue, setInputValue] = useState(props.inputValue);
 
+  let disabledClass = props?.disabled ? "group-disabled" : "";
+
   useEffect(() => {
     setInputValue(props.inputValue)
   }, [props.inputValue]);
@@ -25,7 +27,7 @@ function TextInput(props) {
 
   return (
     <>
-      <div className={"dmpui-field-group " + errorClass}>
+      <div className={`dmpui-field-group ${disabledClass} ${errorClass}`}>
         <label className="dmpui-field-label">
           {props?.label ? props.label : ""}
         </label>
@@ -43,6 +45,7 @@ function TextInput(props) {
             placeholder={props?.placeholder}
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
             className="dmpui-field-input-text"
+            disabled={props.disabled}
           />
         </div>
       </div>

@@ -1,15 +1,14 @@
 import {
   useEffect,
   useState,
-  useRef,
   Fragment
 } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { DmpApi } from "../../../api";
-import {getValue, useDebounce, isEmpty} from "../../../utils.js";
+import { DmpApi } from "../../../api.js";
+import { getDraftDmp } from "../../../models.js";
+import { getValue, useDebounce, isEmpty} from "../../../utils.js";
 import TextInput from "../../../components/text-input/textInput";
-import TextArea from "../../../components/textarea/textArea";
 import "./projectsearch.scss";
 
 
@@ -18,37 +17,27 @@ function ProjectSearch() {
 
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
-  const [contributors, setContributors] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [projects, setProjects] = useState([]);
   const [queryArgs, setQueryArgs] = useState(null);
   const debounceQuery = useDebounce(queryArgs, 500);
 
   var controller;
 
-  useEffect(() => {
-    let api = new DmpApi();
 
-    fetch(api.getPath(`/drafts/${dmpId}`))
-      .then((resp) => {
-        api.handleResponse(resp);
-        return resp.json();
-      })
-      .then((data) => {
-        let initial = data.items[0].dmp;
-        setDmp(initial);
-      });
+  useEffect(() => {
+    getDraftDmp(dmpId).then((initial) => {
+      setDmp(initial);
+    });
   }, [dmpId]);
 
 
-  // TODO::FIXME:: Even though we Abort the request, a request was still sent,
-  // and the rails backend probably sent it off as well.
-  // We need to add a separate debounce as well.
   useEffect(() => {
     if (!isEmpty(debounceQuery)) {
-      let api = new DmpApi();
-
       if (controller) controller.abort();
       controller = new AbortController();
 
+      let api = new DmpApi();
       let headers = api.getHeaders();
       headers.set("Content-Type", "text/plain")
       let options = api.getOptions({
@@ -56,27 +45,27 @@ function ProjectSearch() {
         signal: controller.signal,
       });
 
-      let funderUrl = getValue(dmp, "draft_data.funder.funder_api", null);
-      let url = new URL(funderUrl);
-      let searchParams = new URLSearchParams(queryArgs);
-      url.search = searchParams.toString();
+      let funderUrl = dmp.getDraftData("funder.funder_api", null);
+      if (!funderUrl) {
+        throw new Error(`Error! Invalid funder api url, ${funderUrl}.`);
+      } else {
+        let url = new URL(funderUrl);
+        let searchParams = new URLSearchParams(queryArgs);
+        url.search = searchParams.toString();
 
-      fetch(url, options)
-        .then((resp) => {
-          api.handleResponse(resp);
-          return resp.json();
-        })
-        .then((data) => {
-          console.log('Response?');
-          console.log(data);
-          setContributors(data.items);
-        })
-        .catch((err) => {
-          console.log("Error?");
-          console.log(err);
-          if (err.name === "AbortError") { console.log('Aborted'); }
-          setContributors([]);
-        });
+        fetch(url, options)
+          .then((resp) => {
+            api.handleResponse(resp);
+            return resp.json();
+          })
+          .then((data) => {
+            setProjects(data.items);
+          })
+          .catch((err) => {
+            if (err.name === "AbortError") { console.log('Aborted'); }
+            setProjects([]);
+          });
+      }
     } else {
       setQueryArgs({});
     }
@@ -122,15 +111,51 @@ function ProjectSearch() {
     }
   }
 
-  function handleSubmit(ev) {
+
+  function handleSelect(ev) {
+    setSelected(parseInt(ev.target.dataset.index, 10));
+  }
+
+
+  async function handleSave(ev) {
     ev.preventDefault();
 
-    console.log('Submit?');
-    console.log(ev);
+    if (selected !== null) {
+      const item = projects[selected];
 
-    // TODO::
-    // navigate(`/dashboard/dmp/${dmpId}/project-details?locked=true`);
+      dmp.project.title = getValue(item, "project.title", "");
+      dmp.project.description = getValue(item, "project.description", "");
+
+      // TODO:: Using preset format here doesn't seem right
+      // Check with Brian if we can get an ISO format here, rather than the
+      // Americanized format below.
+      dmp.project.setStart(getValue(item, "project.start", ""), "YYYY-DD-MM");
+      dmp.project.setEnd(getValue(item, "project.end", ""), "YYYY-DD-MM");
+
+      dmp.funding.grantId = getValue(item, "project.funding.0.grant_id", {});
+      dmp.funding.projectNumber = getValue(
+        item, "project.funding.0.dmproadmap_project_number");
+
+      dmp.contact.name = getValue(item, "contact");
+      dmp.contributors = getValue(item, "contributor");
+
+      dmp.commit();
+
+      let api = new DmpApi();
+      let options = api.getOptions({
+        method: "put",
+        body: JSON.stringify({ dmp: dmp.getData() }),
+      });
+
+      fetch(api.getPath(`/drafts/${dmpId}`), options).then((resp) => {
+        api.handleResponse(resp.status);
+        return resp.json();
+      }).then((data) => {
+        navigate(`/dashboard/dmp/${dmpId}/project-details`);
+      });
+    }
   }
+
 
   return (
     <div id="ProjectSearch">
@@ -209,7 +234,7 @@ function ProjectSearch() {
       </div>
 
       <div className="dmpdui-list project-list">
-        {contributors.length === 0 ? (
+        {projects.length === 0 ? (
           <>
             <div className="empty-list">
               <p>Start searching to find your project…</p>
@@ -217,18 +242,29 @@ function ProjectSearch() {
           </>
         ) : (
           <>
-            <div className="data-heading" data-colname="name">Project Name</div>
-            <div className="data-heading" data-colname="role">ID</div>
-            <div className="data-heading" data-colname="actions"></div>
+            <div className="row-wrapper">
+              <div className="data-heading" data-colname="name">Project Name</div>
+              <div className="data-heading" data-colname="role">ID</div>
+              <div className="data-heading" data-colname="actions"></div>
+            </div>
 
-            {contributors.map((item) => (
-              <Fragment key={item.id}>
-                <div data-colname="name">{getValue(item, "project.title", "")}</div>
-                <div data-colname="id">
-                  {getValue(item, "project.funding.0.dmproadmap_project_number", "")}
-                </div>
-                <div data-colname="actions">
-                  <button onClick={handleSubmit}>Select</button>
+            {projects.map((item, index) => (
+              <Fragment key={index}>
+                <div className="row-wrapper"
+                  className={(index == selected) ? "row-wrapper selected" : "row-wrapper"}>
+                  <div data-colname="name">
+                    {getValue(item, "project.title", "")}
+                  </div>
+                  <div data-colname="id">
+                    {getValue(item, "project.funding.0.dmproadmap_project_number", "")}
+                  </div>
+                  <div data-colname="actions">
+                    <button
+                      onClick={handleSelect}
+                      data-index={index}>
+                      Select
+                    </button>
+                  </div>
                 </div>
               </Fragment>
             ))}
@@ -236,7 +272,7 @@ function ProjectSearch() {
         )}
       </div>
 
-      <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
+      <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
         <div className="form-wrapper"></div>
 
         <div className="form-actions ">
@@ -244,7 +280,10 @@ function ProjectSearch() {
             Cancel
           </button>
 
-          <button type="submit" className="primary">
+          <button
+            type="submit"
+            className="primary"
+            disabled={selected === null}>
             Save &amp; Continue
           </button>
         </div>
