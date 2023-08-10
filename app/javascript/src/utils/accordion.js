@@ -101,19 +101,13 @@ n*
 
 $(() => {
   $('body').on('click', '.accordion-controls a[data-toggle-direction]', (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    e.stopPropagation();
     const currentTarget = $(e.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log('currentTarget: ', currentTarget);
     const target = $(e.target);
-    // eslint-disable-next-line no-console
-    console.log('target: ', target);
     const direction = target.attr('data-toggle-direction');
-    // eslint-disable-next-line no-console
-    console.log('direction: ', direction);
     const parentTargetName = currentTarget.parent().attr('data-parent');
-    // eslint-disable-next-line no-console
-    console.log('parentTargetName: ', parentTargetName);
+
     if (direction) {
       // Selects all .accordion-item elements where the parent is
       // currentTarget.attr('data-parent') and
@@ -124,15 +118,24 @@ $(() => {
         const accordionHeader = $(accordionItem.children('.accordion-header')[0]);
         const accordionButton = $(accordionHeader.children('.accordion-button')[0]);
         const accordionCollapse = $(accordionItem.children('.accordion-collapse')[0]);
+        // const accordionBody = $(accordionCollapse.children('.accordion-body')[0]);
         // Expands or collapses according to the
         // direction passed (e.g. show --> expands, hide --> collapses)
         if (direction === 'show') {
-          if (!accordionCollapse.hasClass('show')) {
-            accordionButton.trigger('click');
-          }
+          // if (!accordionCollapse.hasClass('show')) {
+          //   // accordionButton.trigger('click');
+          //   // eslint-disable-next-line no-console
+          //   console.log('Clicked accordionButton: ', accordionButton);
+          //   // setTimeout(() => {
+          //   // eslint-disable-next-line no-console
+          //   //   console.log('Clicked accordionButton: ', accordionButton);
+          //   // }, 500);
+          // }
+
           accordionButton.removeClass('collapsed');
           accordionCollapse.addClass('show');
         }
+
         if (direction === 'hide') {
           accordionButton.addClass('collapsed');
           accordionCollapse.removeClass('show');

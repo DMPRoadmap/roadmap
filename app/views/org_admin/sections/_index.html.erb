@@ -83,21 +83,23 @@
                              modifiable: true } %>
       <% end %>
 
-    </div>
     <% if template.latest? && (modifiable || template.customization_of.present?) %>
     <div class="accordion section-group sections_accordion"
-     data-modifiable="<%= modifiable %>"
-     role="tablist">
+         data-modifiable="<%= modifiable %>"
+         role="tablist">
       <div class="accordion-item w-100 my-3 section">
         <h2 class="accordion-header" role="tab" id="headingSectionNew">
-          <button href="#new_section" class="accordion-button collapsed" type="button"
-                  data-bs-toggle="collapse" data-bs-parent="sections-accordion"
+          <a href="#new_section" 
+                  class="accordion-button collapsed"
+                  role="button"
+                  data-bs-toggle="collapse" 
+                  data-bs-parent="sections_accordion"
                   data-bs-target="#collapseSectionNew"
                   aria-expanded="false"
                   aria-controls="#collapseSectionNew">
 
             <%= _('Add a new section') %>
-          </button>
+          </a>
         </h2>
         <div
           id="collapseSectionNew" class="accordion-collapse collapse" role="tabpanel"
@@ -112,7 +114,7 @@
       </div>
      </div>
     </div>
+  </div>
     <% end %>
   </div>
-
 </div>
