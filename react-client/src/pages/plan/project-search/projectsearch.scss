@@ -5,4 +5,14 @@
   @include device(tablet) {
     grid-template-columns: 3fr 1fr 1fr;
   }
+
+  .row-wrapper {
+    display: contents;
+
+    &.selected > div {
+      background-color: var(--grid-row-selected-bg);
+      color: var(--grid-row-selected-fg);
+      border-bottom: var(--grid-row-selected-border);
+    }
+  }
 }
