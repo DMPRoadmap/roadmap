@@ -138,6 +138,8 @@ export class DmpModel extends Model {
   get title() { return this.getData("title"); }
   set title(val) { this.setData("title", val); }
 
+  get draftId() { return this.getData("draft_id.identifier"); }
+
   get conrtibutors() { return this.getData("contributor"); }
   set contributors(val) { this.setData("contributor"); }
 

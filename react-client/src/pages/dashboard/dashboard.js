@@ -40,18 +40,10 @@ function Dashboard() {
         return resp.json();
       })
       .then((data) => {
-        console.log(data.items);
-        setProjects(data.items);
-
-        // ready to convert to dmp model
-        //   const dmpModels = data.items.map((item) => new DmpModel(item.dmp));
-        //       setProjects(dmpModels);
+        const dmpModels = data.items.map((item) => new DmpModel(item.dmp));
+        setProjects(dmpModels);
       });
   }, []);
-
-  function dmp_id_for(dmp) {
-    return dmp.draft_id.identifier;
-  }
 
   return (
     <div id="Dashboard">
@@ -139,26 +131,26 @@ function Dashboard() {
                 </tr>
               </thead>
               <tbody className="table-body">
-                {projects.map((item) => (
-                  <Fragment key={item.dmp.draft_id.identifier}>
-                    <tr key={item.dmp.draft_id.identifier}>
+                {projects.map((dmp) => (
+                  <Fragment key={dmp.draftId}>
+                    <tr key={dmp.draftId}>
                       <td
                         className="table-data-name table-data-title"
                         data-colname="title"
                       >
                         <a
-                          title={item.dmp?.title}
+                          title={dmp.title}
                           onClick={() =>
-                            handleQuickViewOpen(item.dmp.draft_id.identifier)
+                            handleQuickViewOpen(dmp.draftId)
                           }
                         >
-                          {truncateText(item.dmp?.title, 50)}
+                          {truncateText(dmp.title, 50)}
                         </a>
                         <a
                           href="#"
                           class="preview-button"
                           onClick={() =>
-                            handleQuickViewOpen(item.dmp.draft_id.identifier)
+                            handleQuickViewOpen(dmp.draftId)
                           }
                         >
                           <svg
@@ -174,23 +166,16 @@ function Dashboard() {
 
                         <div className="d-block table-data-pi">
                           PI: {truncateText("John Smith", 50)}
-                          {item.dmp.draft_id.identifier &&
-                            item.dmp.draft_id.identifier !==
-                              "20230629-570ca751fdb0" && (
-                              <span className={"action-required-text"}>
-                                X works need verification
-                              </span>
-                            )}
+                          {dmp.draftId && dmp.draftId !== "20230629-570ca751fdb0" && (
+                            <span className={"action-required-text"}>
+                              X works need verification
+                            </span>
+                          )}
                         </div>
                       </td>
                       <td className="table-data-name" data-colname="funder">
-                        <span
-                          title={item?.dmp?.project?.[0]?.funding?.[0]?.name}
-                        >
-                          {truncateText(
-                            item?.dmp?.project?.[0]?.funding?.[0]?.name,
-                            10
-                          )}
+                        <span title={dmp.funding.name}>
+                          {truncateText(dmp.funding.name, 10)}
                         </span>
                       </td>
                       <td
@@ -200,25 +185,23 @@ function Dashboard() {
                         03-29-2023
                       </td>
                       <td className="table-data-name" data-colname="status">
-                        {item?.dmp?.project?.[0]?.status ?? "Incomplete"}
+                        {dmp.project.status}
                       </td>
                       <td
                         className="table-data-name table-data-actions"
                         data-colname="actions"
                       >
-                        {item.dmp.draft_id.identifier &&
-                        item.dmp.draft_id.identifier ===
-                          "20230629-570ca751fdb0" ? (
+                        {dmp.draftId && dmp.draftId === "20230629-570ca751fdb0" ? (
                           <Link
                             className="edit-button"
-                            to={`/dashboard/dmp/${item.dmp.draft_id.identifier}`}
+                            to={`/dashboard/dmp/${dmp.draftId}`}
                           >
                             Complete
                           </Link>
                         ) : (
                           <Link
                             className="edit-button"
-                            to={`/dashboard/dmp/${item.dmp.draft_id.identifier}`}
+                            to={`/dashboard/dmp/${dmp.draftId}`}
                           >
                             Update
                             <span className={"action-required"}></span>
