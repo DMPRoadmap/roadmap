@@ -24,7 +24,7 @@
        class="accordion-collapse collapse <%= "show" if current_section.present? && section.id == current_section.id %>"
       role="tabpanel"
       aria-labelledby="<%= "headingSection#{section.id}" %>">
-    <div class="accordion-body" data-loaded="<%= current_section.present? && section.id == current_section.id %>">
+    <div class="accordion-body card card-body" data-loaded="<%= current_section.present? && section.id == current_section.id %>">
       <%# This is AJAX loaded on demand unless section_id is specified in the URL %>
       <% if current_section.present? && section.id == current_section.id %>
         <% partial = "org_admin/sections/#{section.modifiable? ? 'edit' : 'show'}" %>

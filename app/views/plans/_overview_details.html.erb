@@ -48,7 +48,7 @@
               </div>
             </button>
             <div id="plan-overview-collapse-<%= p.id %>" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="plan-overview-heading-<%= p.id %>">
-              <div class="accordion-body">
+              <div class="accordion-body card card-body">
                 <%= render(partial: '/phases/overview', locals: { plan_id: plan.id, phase: p }) %>
               </div>
             </div>
