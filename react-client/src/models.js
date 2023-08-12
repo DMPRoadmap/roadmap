@@ -21,6 +21,25 @@ class Model {
 }
 
 
+class ModelSet {
+  constructor(klass, items = []) {
+    if (!items) items = [];
+    this.items = items.map(i => new modelClass(i));
+  }
+
+  getData() {
+    if (!this.items) return [];
+    return this.items.map(i => i.getData());
+  }
+
+  // TODO: Methods to update single contributor instances
+
+  commit() {
+    if (this.items) this.items.forEach(i => i.commit());
+  }
+}
+
+
 export class Contact extends Model {
   get name() { return this.getData("name"); }
   set name(val) { this.setData("name", val); }
@@ -33,12 +52,35 @@ export class Contact extends Model {
 }
 
 
+export class Contributor extends Model {
+  constructor(data) {
+    super(data);
+    this.affiliation = new RoadmapAffiliation(this.getData("dmproadmap_affiliation"));
+  }
+
+  get name() { return this.getData("name"); }
+  set name(val) { this.setData("name", val); }
+
+  get mbox() { return this.getData("mbox", ""); }
+  set mbox(val) { this.setData("mbox", val); }
+
+  get id() { return this.getData("contributor_id.identifier"); }
+  get idType() { return this.getData("contributor_id.type"); }
+
+  get roles() { return this.getData("role"); }
+
+  commit() {
+    this.setData("dmproadmap_affiliation", this.affiliation.getData());
+  }
+}
+
+
 export class RoadmapAffiliation extends Model {
   get name() { return this.getData("name"); }
   set name(val) { this.setData("name", val); }
 
-  get id() { return this.getData("affiliation_id", {}); }
-  set id(val) { this.setData("affiliation_id", val); }
+  get id() { return this.getData("affiliation_id.identifier"); }
+  get idType() { return this.getData("affiliation_id.type"); }
 }
 
 
@@ -124,8 +166,7 @@ export class Project extends Model {
 
 
 export class DmpModel extends Model {
-  project;
-  contact;
+  #_contributors;
 
   constructor(data) {
     super(data);
@@ -133,6 +174,7 @@ export class DmpModel extends Model {
     this.project = new Project(this.getData("project.0", {}));
     this.funding = this.project.funding;
     this.contact = new Contact(this.getData("contact.0", {}));
+    this.contributors = this.getData("contributor", []);
   }
 
   get title() { return this.getData("title"); }
@@ -140,10 +182,10 @@ export class DmpModel extends Model {
 
   get draftId() { return this.getData("draft_id.identifier"); }
 
-  get conrtibutors() { return this.getData("contributor"); }
-  set contributors(val) { this.setData("contributor"); }
-
   get hasFunder() { return (this.project.funding !== null); }
+
+  get contributors() { return this.#_contributors; }
+  set contributors(items) { this.#_contributors = new ModelSet(Contributor, items); }
 
   /* NOTE
    * Draft data is a special temporary place in the data structure
@@ -165,8 +207,14 @@ export class DmpModel extends Model {
 
   commit() {
     this.project.commit();
+    this.contributors.commit();
+
     this.setData("project", [this.project.getData()]);
     this.setData("contact", [this.contact.getData()]);
+
+    // NOTE: Even though the data for this can be many contributors, the key
+    // in the backend data just reads as singular "contributor"
+    this.setData("contributor", this.contributors.getData());
   }
 }
 

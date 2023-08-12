@@ -4,7 +4,7 @@ import { DmpApi } from "../../../api.js";
 
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
-import FunderLookup from "../../../components/funder-lookup/FunderLookup.js";
+import LookupField from "../../../components/lookup-field.js";
 import { getValue } from "../../../utils.js";
 import { getDraftDmp } from "../../../models.js";
 
@@ -142,10 +142,11 @@ function PlanFunders() {
             {hasFunder && hasFunder === "yes" && (
               <div className="dmpui-form-cols">
                 <div className="dmpui-form-col">
-                  <FunderLookup
+                  <LookupField
                     label="Funder Name"
                     name="funder"
                     id="funder"
+                    endpoint="funders"
                     placeholder=""
                     help="Search for your funder by name. If you can't find your funder in the list, just type it in."
                     inputValue={dmp.funding.name}

@@ -126,11 +126,8 @@ function ProjectSearch() {
       dmp.project.title = getValue(item, "project.title", "");
       dmp.project.description = getValue(item, "project.description", "");
 
-      // TODO:: Using preset format here doesn't seem right
-      // Check with Brian if we can get an ISO format here, rather than the
-      // Americanized format below.
-      dmp.project.setStart(getValue(item, "project.start", ""), "YYYY-DD-MM");
-      dmp.project.setEnd(getValue(item, "project.end", ""), "YYYY-DD-MM");
+      dmp.project.setStart(getValue(item, "project.start", ""));
+      dmp.project.setEnd(getValue(item, "project.end", ""));
 
       dmp.funding.grantId = getValue(item, "project.funding.0.grant_id", {});
       dmp.funding.projectNumber = getValue(

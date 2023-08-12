@@ -3,19 +3,26 @@ import {
   useEffect
 } from "react";
 
-import { DmpApi } from "../../api.js";
-import {getValue, useDebounce, isEmpty} from "../../utils.js";
+import { DmpApi } from "../api.js";
+import {getValue, useDebounce, isEmpty} from "../utils.js";
 
 
-function FunderLookup(props) {
+function LookupField(props) {
   const [query, setQuery] = useState(props.inputValue);
   const [suggestions, setSuggestions] = useState([]);
   const debounceQuery = useDebounce(query, 500);
 
-  var controller;
+  // Annoyingly, react components don't use the shadow dom, which mean
+  // the ID's will be globally available instead of isolated within the
+  // component. For this reason we'll use a simple random number for our
+  // search lookup. We don't need somthing super random and secure, just
+  // random enough not to clash with another search field.
+  let resultsId = `lookupResults-${Math.floor(Math.random() * 1000)}`;
 
   let disabledClass = props?.disabled ? "group-disabled" : "";
   let errorMsg = props?.error ? props.error : "";
+
+  var controller;
 
   useEffect(() => {
     // NOTE: Since the server requires a limit of 3 characters,
@@ -28,7 +35,7 @@ function FunderLookup(props) {
       let api = new DmpApi();
       let options = api.getOptions({signal: controller.signal});
 
-      fetch(api.getPath(`/funders?search=${query}`), options)
+      fetch(api.getPath(`/${props.endpoint}?search=${query}`), options)
         .then((resp) => {
           api.handleResponse(resp);
           return resp.json();
@@ -95,16 +102,16 @@ function FunderLookup(props) {
             type="text"
             value={query}
             onChange={handleChange}
-            name={props?.name ? props.name : "funder"}
+            name={props?.name ? props.name : "affilation"}
             id={props?.id ? props.id : ""}
             placeholder={props?.placeholder}
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
-            list="funderLookupResults"
+            list={resultsId}
             className="dmpui-field-input-text"
             disabled={props.disabled}
           />
 
-          <datalist id="funderLookupResults">
+          <datalist id={resultsId}>
             {query.length > 0 && suggestions?.map((el, index) => {
               return <option data-index={index} value={el.name} />;
             })}
@@ -115,4 +122,4 @@ function FunderLookup(props) {
   );
 }
 
-export default FunderLookup;
+export default LookupField;
