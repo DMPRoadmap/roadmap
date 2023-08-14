@@ -398,6 +398,7 @@ module ExternalApis
         scope_env = Rails.env.production? ? 'prd' : (auth_url.include?('uc3stg') ? 'stg' : 'dev')
         scopes = "#{auth_url}#{scope_env}.read #{auth_url}#{scope_env}.write"
         creds = Base64.strict_encode64("#{client_id}:#{client_secret}")
+        Rails.logger.debug "DmphubService Auth Info: URL: #{auth_url}, ENV: #{Rails.env}, CLIENT ID: #{client_id}"
 
         opts = {
           follow_redirects: true,
