@@ -39,76 +39,36 @@ namespace :housekeeping do
     scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
     if scheme.present?
       pauser = 0
+      client_id = ApiClient.find_by(name: 'dmphub').id
 
-      managed_orgs = Org.where(managed: true).pluck(:id)
+      Plan.includes(:org, :research_outputs, :related_identifiers, :subscriptions, roles: [:user],
+                    contributors: [:org, { identifiers: [:identifier_scheme] }])
+          .where.not(dmp_id: nil)
+          # .limit(600)
+          .order(created_at: :desc)
+          .each do |plan|
+        next unless plan.dmp_id.present? && plan.complete? && !plan.is_test?
+        next if DmpIdService.fetch_dmp_id(dmp_id: plan.dmp_id).nil?
 
-      Identifier.includes(:identifiable)
-                .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
-                .where('identifiers.value LIKE ?', 'https://doi.org/%')
-                # .where('identifiable_id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
-                # .where('identifiable_id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
-                # .where('identifiable_id IN ?', [83085])                      # preregistration
-                # .where('identifiable_id IN ?', [78147])                      # bad grant_id type
-                # 77012, 70251, 69178, 67898, 66250 no contact
-                # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
-                # .where('identifiable_id IN (?)', %i[71800 71809]) # test with Hakai DMPs
-                .distinct
-                .limit(100)
-                .order(created_at: :desc)
-                .each do |identifier|
-        next unless identifier.value.present? && identifier.identifiable.present?
+        subscription = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
+        next unless subscription.present?
 
         # Pause after every 10 so that we do not get rate limited
         sleep(3) if pauser >= 10
         pauser = pauser >= 10 ? 0 : pauser + 1
 
-        # Refetch the Plan and all of it's child objects
-        plan = Plan.includes(:org, :research_outputs, :related_identifiers, roles: [:user],
-                              contributors: [:org, { identifiers: [:identifier_scheme] }],
-                              identifiers: [:identifier_scheme])
-                    .find_by(id: identifier.identifiable.id)
-
-
-        next unless managed_orgs.include?(plan.org_id) && !plan.is_test?
-
-        puts "Processing Plan: #{identifier.identifiable_id}, DMP ID: #{identifier.value}"
-        identifier = DmpIdService.mint_dmp_id(plan: plan, seeding: true)
-
-        if identifier.is_a?(Identifier)
-          puts "    registered #{identifier.value}"
-          identifier.save
-          puts "    uploading narrative PDF"
-          PdfPublisherJob.perform_now(plan: plan) if identifier.is_a?(Identifier)
-        end
-=begin
-        begin
-          # See if it exists
-          puts "Processing Plan: #{identifier.identifiable_id}, DMP ID: #{identifier.value}"
-          url = "#{DmpIdService.landing_page_url}#{identifier.value}"
-          url = identifier.value.to_s.gsub('https://doi.org', "#{DmpIdService.api_base_url}dmps")
-          puts "    - #{url}"
-          resp = HTTParty.get(url, { follow_redirects: true, limit: 6 })
-
-          case resp.code
-          when 404, 500
-            puts "   Registering new DMP ID"
-            identifier = DmpIdService.mint_dmp_id(plan: plan, seeding: true)
-            identifier.save if identifier.is_a?(Identifier)
-          when 200
-            puts "   Already registered at #{url}"
-            # puts "   Updating DMP ID"
-            # DmpIdService.update_dmp_id(plan: plan)
+        if plan.owner.present?
+          puts "Processing Plan: #{plan.id}, DMP ID: #{plan.dmp_id}"
+          # Publish the updated meatdata to the DMP ID record
+          if !DmpIdService.update_dmp_id(plan: plan).nil?
+            puts "    Updated"
           else
-            puts "   Unable to process DMP - got a #{resp.code} from #{DmpIdService.name}"
-            puts resp.body
+            puts "    *** FAILED to update the DMP ID."
           end
-        rescue StandardError => e
-          puts "    ERROR: DMP ID: #{identifier.value} - #{e.message}"
+        else
+          puts "SKIPPING Plan: #{plan.id} because it is not 'Complete'."
         end
-=end
       end
-    else
-      p 'No DMP ID minting authority defined so nothing to sync.'
     end
   end
 
