@@ -8,7 +8,7 @@ import {getValue, useDebounce, isEmpty} from "../utils.js";
 
 
 function LookupField(props) {
-  const [query, setQuery] = useState(props.inputValue);
+  const [query, setQuery] = useState(props.inputValue || "");
   const [suggestions, setSuggestions] = useState([]);
   const debounceQuery = useDebounce(query, 500);
 
@@ -27,7 +27,7 @@ function LookupField(props) {
   useEffect(() => {
     // NOTE: Since the server requires a limit of 3 characters,
     // we might as well avoid any work till we reach the minimum.
-    if (query.length > 2 && (query.length == 3 && query.slice(-1) != " ")) {
+    if ((query.length > 2) && query !== props.inputValue) {
       if (controller) controller.abort();
 
       controller = new AbortController();
@@ -66,25 +66,22 @@ function LookupField(props) {
 
   function handleChange(ev) {
     const {name, value} = ev.target;
-
-    if (name == props.name) {
-      // NOTE: Check if the the change happend after selecting an option
-      // in the datalist.
-      // TODO:: I'm not sure if this specific check is handled the same
-      // across browsers. We should test this one major browsers as well
-      // as mobile devices to confirm.
-      if (typeof ev.nativeEvent.inputType === "undefined") {
-        let chosenEl = ev.target
-                         .parentNode
-                         .querySelector(`option[value="${value}"]`);
-        let di = chosenEl.dataset["index"];
-        ev.data = suggestions[di];
-      } else {
-        ev.data = {"name": value};
-      }
-      setQuery(value);
-      props.onChange(ev);
+    // NOTE: Check if the the change happend after selecting an option
+    // in the datalist.
+    // TODO:: I'm not sure if this specific check is handled the same
+    // across browsers. We should test this one major browsers as well
+    // as mobile devices to confirm.
+    if (typeof ev.nativeEvent.inputType === "undefined") {
+      let chosenEl = ev.target
+                       .parentNode
+                       .querySelector(`option[value="${value}"]`);
+      let di = chosenEl.dataset["index"];
+      ev.data = suggestions[di];
+    } else {
+      ev.data = {"name": value};
     }
+    setQuery(value);
+    props.onChange(ev);
   }
 
   return (
@@ -102,7 +99,7 @@ function LookupField(props) {
             type="text"
             value={query}
             onChange={handleChange}
-            name={props?.name ? props.name : "affilation"}
+            name="query"
             id={props?.id ? props.id : ""}
             placeholder={props?.placeholder}
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}

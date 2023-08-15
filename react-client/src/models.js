@@ -68,6 +68,10 @@ export class Contributor extends Model {
   get idType() { return this.getData("contributor_id.type"); }
 
   get roles() { return this.getData("role"); }
+  get role() {
+    if (this.getData("role", []) === []) return "";
+    return this.getData("role")[0];
+  }
 
   commit() {
     this.setData("dmproadmap_affiliation", this.affiliation.getData());
@@ -227,4 +231,15 @@ export async function getDraftDmp(dmpId) {
   const data = await resp.json();
 
   return new DmpModel(data.items[0].dmp);
+}
+
+
+export async function getContributorRoles() {
+  let api = new DmpApi();
+
+  const resp = await fetch(api.getPath("contributor_roles"));
+  api.handleResponse(resp);
+  const data = await resp.json();
+
+  return data.items;
 }

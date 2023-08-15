@@ -1,66 +1,101 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useContext, useEffect, useState, Fragment } from "react";
-import { DmpApi } from "../../../api.js";
+import {
+  useEffect,
+  useState,
+  Fragment
+} from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-// forms
+import {
+  getDraftDmp,
+  getContributorRoles,
+  Contributor,
+} from "../../../models.js";
+
 import TextInput from "../../../components/text-input/textInput";
-import TextArea from "../../../components/textarea/textArea";
-import Modal from "../../../components/modal/modal";
 import RadioButton from "../../../components/radio/radio";
+import LookupField from "../../../components/lookup-field.js";
+
 import "./contributors.scss";
+
 
 function Contributors() {
   let navigate = useNavigate();
-  const [show, setShow] = useState(false);
-  const [role, setRole] = useState(false);
 
-  console.log("Show Contributors Modal: ", show);
-  let contributors = [
-    {
-      id: "3523535",
-      name: "Maria Praetzellis",
-      role: "PI",
-    },
-    {
-      id: "3523535",
-      name: "Maria Praetzellis",
-      role: "PI",
-    },
-  ];
+  const {dmpId} = useParams();
+  const [roles, setRoles] = useState([]);
+  const [defaultRole, setDefaultRole] = useState();
+  const [dmp, setDmp] = useState({});
+  const [contributor, setContributor] = useState(new Contributor({}));
 
-  // api to get the full list
-  let role_list = [
-    {
-      id: "pi",
-      label: "Primary Investigator (PI)",
-    },
-    {
-      id: "project_administrator",
-      label: "Project Administrator",
-    },
-    {
-      id: "data_curator",
-      label: "Data Curator",
-    },
-  ];
+  useEffect(() => {
+    getDraftDmp(dmpId).then(initial => {
+      setDmp(initial);
+      console.log(initial);
+    });
 
-  function handleRoleChange(ev) {
-    const { name, value } = ev.target;
-    setRole(value);
+    getContributorRoles().then(data => {
+      setRoles(data);
+      for (const r of data) {
+        if (r.default) {
+          setDefaultRole(r.value);
+          break;
+        }
+      }
+    });
+  }, [dmpId]);
+
+
+  function handleChange(ev) {
+    const {name, value} = ev.target;
+
+    console.log(`Handle Change - ${name}: ${value}`);
+
+    switch (name) {
+      case "role":
+        contributor.setData("role", [value]);
+        setContributor(contributor);
+        break;
+    }
   }
 
   function handleModalOpen(id) {
-    console.log("Open Modal; Api Load data: ", id);
-
-    setShow(true);
+    // TODO:: If there is an id, populate the modal fields.
+    if (id) {
+      // Load existing contributor (using correct model)
+    } else {
+      setContributor(new Contributor({}));
+    }
+    document.getElementById("contributorModal").showModal();
   }
 
-  async function handleSave(ev) {
+  async function handleSaveContributor(ev) {
     ev.preventDefault();
 
-    console.log("Save Contributors");
-    alert("save contributors");
-    setShow(false);
+    console.log("TODO:: Save Contributors");
+    console.log("Contributor Role?");
+    console.log(contributor.role);
+
+    const data = new FormData(ev.target);
+    console.log("Role?");
+    console.log(data.get("role"));
+
+    let full_name = data.get("first_name");
+    if (data.get("last_name")) full_name += ", " + data.get("last_name");
+    contributor.name = full_name;
+    contributor.mbox = data.get("email");
+    contributor.setData("contributor_id", data.get("orcid"));
+    contributor.setData("role", [data.get("role")]);
+
+    console.log(contributor);
+    console.log(contributor.role);
+
+    document.getElementById("contributorModal").close();
+  }
+
+  function handleCancelModal(ev) {
+    // TODO:: Reset the modal form inputs
+    ev.preventDefault();
+    document.getElementById("contributorModal").close();
   }
 
   return (
@@ -76,7 +111,7 @@ function Contributors() {
       <p>You must specify a Primary Investigator (PI) at minimum.</p>
       <div className="dmpdui-top-actions">
         <div>
-          <button className="secondary" onClick={() => setShow(true)}>
+          <button className="secondary" onClick={() => handleModalOpen()}>
             Add Contributor
           </button>
         </div>
@@ -91,7 +126,7 @@ function Contributors() {
         </div>
         <div className="data-heading" data-colname="actions"></div>
 
-        {contributors.map((item) => (
+        {dmp.contributors ? dmp.contributors.items.map((item) => (
           <Fragment key={item.id}>
             <div data-colname="name">{item.name}</div>
             <div data-colname="role">{item.role}</div>
@@ -101,11 +136,11 @@ function Contributors() {
               </button>
             </div>
           </Fragment>
-        ))}
+        )) : ""}
       </div>
 
-      <Modal title="Add Contributor" onClose={() => setShow(false)} show={show}>
-        <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
+      <dialog id="contributorModal">
+        <form method="post" enctype="multipart/form-data" onSubmit={handleSaveContributor}>
           <div className="form-modal-wrapper">
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
@@ -165,18 +200,20 @@ function Contributors() {
 
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
-                <TextInput
+                <LookupField
                   label="Affiliation"
-                  type="text"
-                  required="required"
                   name="affiliation"
                   id="affiliation"
+                  required="required"
+                  endpoint="affiliations"
                   placeholder=""
                   help="Search for your institution (API)"
+                  onChange={handleChange}
                   error=""
                 />
               </div>
             </div>
+
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
                 <div className={"dmpui-field-group"}>
@@ -185,15 +222,14 @@ function Contributors() {
                   </label>
                   <p className="dmpui-field-help">Only one per DMP</p>
 
-                  <div onChange={handleRoleChange}>
-                    {role_list.map((item) => (
-                      <Fragment key={item.id}>
+                  <div onChange={handleChange}>
+                    {roles.map((role) => (
+                      <Fragment key={role.value}>
                         <RadioButton
-                          label={item.label}
+                          label={role.label}
                           name="role"
-                          id={"role_" + item.id}
-                          inputValue={item.id}
-                          checked={role === item.id}
+                          inputValue={role.value}
+                          checked={role.value === contributor.role}
                         />
                       </Fragment>
                     ))}
@@ -204,7 +240,7 @@ function Contributors() {
           </div>
 
           <div className="form-actions ">
-            <button type="button" onClick={() => setShow(false)}>
+            <button type="button" onClick={handleCancelModal}>
               Cancel
             </button>
             <button type="submit" className="primary">
@@ -212,7 +248,7 @@ function Contributors() {
             </button>
           </div>
         </form>
-      </Modal>
+      </dialog>
 
       <form method="post" enctype="multipart/form-data">
         <div className="form-actions ">

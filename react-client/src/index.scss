@@ -138,6 +138,31 @@ body {
 
 @import "components/forms";
 
+
+/* Dialog and Fullscreen API Styles */
+dialog {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  border-radius: 0.6rem;
+  background-color: white;
+  box-shadow: 0 0 1em black;
+  transition: all 0.3s ease-in-out;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  max-width: 750px;
+  width: 80vw;
+}
+
+::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
 /* Tables */
 
 // TODO::FIXME:: This data grid component is just temporary. Chances are we'll
