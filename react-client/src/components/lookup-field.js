@@ -77,8 +77,6 @@ function LookupField(props) {
                        .querySelector(`option[value="${value}"]`);
       let di = chosenEl.dataset["index"];
       ev.data = suggestions[di];
-    } else {
-      ev.data = {"name": value};
     }
     setQuery(value);
     props.onChange(ev);
@@ -99,7 +97,7 @@ function LookupField(props) {
             type="text"
             value={query}
             onChange={handleChange}
-            name="query"
+            name={props?.name ? props.name : "lookup_query"}
             id={props?.id ? props.id : ""}
             placeholder={props?.placeholder}
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}

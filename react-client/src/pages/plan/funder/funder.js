@@ -40,7 +40,11 @@ function PlanFunders() {
         break;
 
       case "funder":
-        setFunder(ev.data);
+        if (ev.data) {
+          setFunder(ev.data);
+        } else {
+          setFunder({name: value});
+        }
         break;
     }
   }

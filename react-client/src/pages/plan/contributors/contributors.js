@@ -6,9 +6,12 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
-  getDraftDmp,
-  getContributorRoles,
+  DmpModel,
   Contributor,
+  RoadmapAffiliation,
+  getContributorRoles,
+  getDraftDmp,
+  saveDraftDmp,
 } from "../../../models.js";
 
 import TextInput from "../../../components/text-input/textInput";
@@ -23,6 +26,8 @@ function Contributors() {
 
   const {dmpId} = useParams();
   const [roles, setRoles] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
+  const [selectedRole, setSelectedRole] = useState();
   const [defaultRole, setDefaultRole] = useState();
   const [dmp, setDmp] = useState({});
   const [contributor, setContributor] = useState(new Contributor({}));
@@ -38,6 +43,7 @@ function Contributors() {
       for (const r of data) {
         if (r.default) {
           setDefaultRole(r.value);
+          setSelectedRole(r.value);
           break;
         }
       }
@@ -47,55 +53,84 @@ function Contributors() {
 
   function handleChange(ev) {
     const {name, value} = ev.target;
-
-    console.log(`Handle Change - ${name}: ${value}`);
+    console.log(`Changing - ${name}: ${value}`);
 
     switch (name) {
       case "role":
-        contributor.setData("role", [value]);
-        setContributor(contributor);
+        setSelectedRole(value);
+        break;
+
+      case "affiliation":
+        // TODO::FIXME:: I broke something! The dropdown doesn't show anymore
+        // but it was working before I added the "name" attribute
+        if (ev.data) {
+          contributor.affiliation = new RoadmapAffiliation(ev.data);
+        } else {
+          contributor.affiliation.name = value;
+        }
+        contributor.commit();
+        let c = new Contributor(contributor.getData());
+        setContributor(c);
         break;
     }
   }
 
-  function handleModalOpen(id) {
-    // TODO:: If there is an id, populate the modal fields.
-    if (id) {
-      // Load existing contributor (using correct model)
+
+  function handleModalOpen(ev) {
+    ev.preventDefault();
+
+    const index = ev.target.value;
+    if ((index !== "") && (typeof index !== "undefined") ) {
+      setEditIndex(index);
+      let newContrib = dmp.contributors.get(index);
+      setContributor(newContrib);
     } else {
+      setEditIndex(null);
       setContributor(new Contributor({}));
     }
+
     document.getElementById("contributorModal").showModal();
   }
 
-  async function handleSaveContributor(ev) {
+
+  function handleSaveContributor(ev) {
     ev.preventDefault();
 
-    console.log("TODO:: Save Contributors");
-    console.log("Contributor Role?");
-    console.log(contributor.role);
-
     const data = new FormData(ev.target);
-    console.log("Role?");
-    console.log(data.get("role"));
 
     let full_name = data.get("first_name");
     if (data.get("last_name")) full_name += ", " + data.get("last_name");
     contributor.name = full_name;
     contributor.mbox = data.get("email");
-    contributor.setData("contributor_id", data.get("orcid"));
+    contributor.setData("contributor_id.identifier", data.get("orcid"));
+
+    // TODO::FIXME:: For some reason the role is not being saved
     contributor.setData("role", [data.get("role")]);
 
-    console.log(contributor);
-    console.log(contributor.role);
+    if (typeof editIndex === "null") {
+      // NOTE:: Null index indicates a brand new contributor being added
+      dmp.contributors.add(contributor);
+    } else {
+      dmp.contributors.update(editIndex, contributor);
+    }
+    dmp.commit();
+    let newDmp = new DmpModel(dmp.getData());
+    setDmp(newDmp);
 
     document.getElementById("contributorModal").close();
   }
 
   function handleCancelModal(ev) {
-    // TODO:: Reset the modal form inputs
     ev.preventDefault();
+    setContributor(new Contributor({}));
     document.getElementById("contributorModal").close();
+  }
+
+  function handleSave(ev) {
+    ev.preventDefault();
+    saveDraftDmp(dmp).then((savedDmp) => {
+      navigate(-1);
+    });
   }
 
   return (
@@ -111,7 +146,7 @@ function Contributors() {
       <p>You must specify a Primary Investigator (PI) at minimum.</p>
       <div className="dmpdui-top-actions">
         <div>
-          <button className="secondary" onClick={() => handleModalOpen()}>
+          <button className="secondary" onClick={handleModalOpen}>
             Add Contributor
           </button>
         </div>
@@ -126,12 +161,12 @@ function Contributors() {
         </div>
         <div className="data-heading" data-colname="actions"></div>
 
-        {dmp.contributors ? dmp.contributors.items.map((item) => (
-          <Fragment key={item.id}>
+        {dmp.contributors ? dmp.contributors.items.map((item, index) => (
+          <Fragment key={index}>
             <div data-colname="name">{item.name}</div>
             <div data-colname="role">{item.role}</div>
             <div data-colname="actions">
-              <button value={item.id} onClick={() => handleModalOpen(item.id)}>
+              <button value={index} onClick={handleModalOpen}>
                 Edit
               </button>
             </div>
@@ -140,7 +175,9 @@ function Contributors() {
       </div>
 
       <dialog id="contributorModal">
-        <form method="post" enctype="multipart/form-data" onSubmit={handleSaveContributor}>
+        <form method="post"
+              enctype="multipart/form-data"
+              onSubmit={handleSaveContributor}>
           <div className="form-modal-wrapper">
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
@@ -150,6 +187,7 @@ function Contributors() {
                   required="required"
                   name="first_name"
                   id="first_name"
+                  inputValue={contributor.first_name}
                   placeholder=""
                   help=""
                   error=""
@@ -163,6 +201,7 @@ function Contributors() {
                   required="required"
                   name="last_name"
                   id="last_name"
+                  inputValue={contributor.last_name}
                   placeholder=""
                   help=""
                   error=""
@@ -178,6 +217,7 @@ function Contributors() {
                   required="required"
                   name="email"
                   id="email"
+                  inputValue={contributor.mbox}
                   placeholder=""
                   help=""
                   error=""
@@ -191,6 +231,7 @@ function Contributors() {
                   required="required"
                   name="orcid"
                   id="orcid"
+                  inputValue={contributor.id}
                   placeholder=""
                   help=""
                   error=""
@@ -208,6 +249,7 @@ function Contributors() {
                   endpoint="affiliations"
                   placeholder=""
                   help="Search for your institution (API)"
+                  inputValue={contributor.affiliation.name}
                   onChange={handleChange}
                   error=""
                 />
@@ -223,13 +265,14 @@ function Contributors() {
                   <p className="dmpui-field-help">Only one per DMP</p>
 
                   <div onChange={handleChange}>
-                    {roles.map((role) => (
-                      <Fragment key={role.value}>
+                    {roles.map((role, index) => (
+                      <Fragment key={index}>
                         <RadioButton
                           label={role.label}
                           name="role"
+                          id={"_role_" + role.value}
                           inputValue={role.value}
-                          checked={role.value === contributor.role}
+                          checked={role.value === selectedRole}
                         />
                       </Fragment>
                     ))}
@@ -244,13 +287,13 @@ function Contributors() {
               Cancel
             </button>
             <button type="submit" className="primary">
-              Save &amp; Continue
+              Add
             </button>
           </div>
         </form>
       </dialog>
 
-      <form method="post" enctype="multipart/form-data">
+      <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
         <div className="form-actions ">
           <button type="button" onClick={() => navigate(-1)}>
             Cancel
@@ -263,5 +306,6 @@ function Contributors() {
     </div>
   );
 }
+
 
 export default Contributors;

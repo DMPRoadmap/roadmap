@@ -22,9 +22,12 @@ class Model {
 
 
 class ModelSet {
+  #klass;
+
   constructor(klass, items = []) {
+    this.#klass = klass;
     if (!items) items = [];
-    this.items = items.map(i => new modelClass(i));
+    this.items = items.map(i => new klass(i));
   }
 
   getData() {
@@ -32,7 +35,25 @@ class ModelSet {
     return this.items.map(i => i.getData());
   }
 
-  // TODO: Methods to update single contributor instances
+  get(index) {
+    return this.items[index];
+  }
+
+  update(index, item) {
+    if (item instanceof this.#klass) {
+      this.items[index] = item;
+    } else {
+      throw new Error(`Cannot update modelset with ${item}. Modelset may only contain ${this.#klass} objects.`);
+    }
+  }
+
+  add(item) {
+    if (item instanceof this.#klass) {
+      this.items.push(item);
+    } else {
+      throw new Error(`Cannot add ${item} to modelset. Modelset may only contain ${this.#klass} objects.`);
+    }
+  }
 
   commit() {
     if (this.items) this.items.forEach(i => i.commit());
@@ -53,13 +74,29 @@ export class Contact extends Model {
 
 
 export class Contributor extends Model {
+  #first_name;
+  #last_name;
+
   constructor(data) {
     super(data);
     this.affiliation = new RoadmapAffiliation(this.getData("dmproadmap_affiliation"));
+    this.splitNames();
+  }
+
+  splitNames() {
+    let names = this.name.split(',').map(i => i.trim());
+    if (names.length >= 1) this.#first_name = names[0];
+    this.#last_name = names.length == 2 ? names[1] : "";
   }
 
   get name() { return this.getData("name"); }
-  set name(val) { this.setData("name", val); }
+  set name(val) {
+    this.setData("name", val);
+    this.splitNames();
+  }
+
+  get first_name() { return this.#first_name; }
+  get last_name() { return this.#last_name; }
 
   get mbox() { return this.getData("mbox", ""); }
   set mbox(val) { this.setData("mbox", val); }
@@ -68,10 +105,7 @@ export class Contributor extends Model {
   get idType() { return this.getData("contributor_id.type"); }
 
   get roles() { return this.getData("role"); }
-  get role() {
-    if (this.getData("role", []) === []) return "";
-    return this.getData("role")[0];
-  }
+  get role() { return this.getData("role.0", ""); }
 
   commit() {
     this.setData("dmproadmap_affiliation", this.affiliation.getData());
@@ -82,6 +116,8 @@ export class Contributor extends Model {
 export class RoadmapAffiliation extends Model {
   get name() { return this.getData("name"); }
   set name(val) { this.setData("name", val); }
+
+  get acronym() { return this.getData("acronym"); }
 
   get id() { return this.getData("affiliation_id.identifier"); }
   get idType() { return this.getData("affiliation_id.type"); }
@@ -227,6 +263,24 @@ export async function getDraftDmp(dmpId) {
   let api = new DmpApi();
 
   const resp = await fetch(api.getPath(`/drafts/${dmpId}`));
+  api.handleResponse(resp);
+  const data = await resp.json();
+
+  return new DmpModel(data.items[0].dmp);
+}
+
+
+export async function saveDraftDmp(dmp) {
+  // Ensure nested dmp data was comitted before continuing
+  dmp.commit();
+
+  let api = new DmpApi();
+  let options = api.getOptions({
+    method: "put",
+    body: JSON.stringify({ dmp: dmp.getData() }),
+  });
+
+  const resp = await fetch(api.getPath(`/drafts/${dmp.draftId}`), options);
   api.handleResponse(resp);
   const data = await resp.json();
 
