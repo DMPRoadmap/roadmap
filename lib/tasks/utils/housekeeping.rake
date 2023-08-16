@@ -50,6 +50,9 @@ namespace :housekeeping do
         next unless plan.dmp_id.present? && plan.complete? && !plan.is_test?
         next if DmpIdService.fetch_dmp_id(dmp_id: plan.dmp_id).nil?
 
+        # Uncomment this if you only want to reprocess DMPs with related works
+        # next unless plan.related_identifiers.any?
+
         subscription = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
         next unless subscription.present?
 
