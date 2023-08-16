@@ -714,22 +714,20 @@ Below is an example of a full DMP ID record (including some :dmphub_modification
             "timestamp": "2023-07-13T09:25:23+07:00",
             "note": "data received from the Crossref Grants API",
             "status": "pending",
-            "pending_assertions": {
-              "funding": [
-                {
-                  "name": "National Science Foundation",
-                  "funder_id": {
-                    "type": "ror",
-                    "identifier": "https://ror.org/021nxhr62"
-                  },
-                  "funding_status": "granted",
-                  "grant_id": {
-                    "identifier": "https://doi.org/11.1111/2019.22702-3",
-                    "type": "doi"
-                  }
+            "funding": [
+              {
+                "name": "National Science Foundation",
+                "funder_id": {
+                  "type": "ror",
+                  "identifier": "https://ror.org/021nxhr62"
+                },
+                "funding_status": "granted",
+                "grant_id": {
+                  "identifier": "https://doi.org/11.1111/2019.22702-3",
+                  "type": "doi"
                 }
-              ]
-            }
+              }
+            ]
           }
         ],
         "dmphub_versions": [
