@@ -206,8 +206,52 @@ export class Project extends Model {
 }
 
 
+export class DataObject extends Model {
+  static get dataTypes() {
+    // TODO::FIXME Are these types dynamic?
+    return {
+      audiovisual: "Audiovisual",
+      collection: "Collection",
+      data_paper: "Data paper",
+      dataset: "Dataset",
+      event: "Event",
+      image: "Image",
+      interactive_resource: "Interactive resource",
+      model_representation: "Model representation",
+      physical_object: "Physical object",
+      service: "Service",
+      software: "Software",
+      sound: "Sound",
+      text: "Text",
+      workflow: "Workflow",
+    };
+  }
+
+  get title() { return this.getData("title", ""); }
+  set title(val) { this.setData("title", val); }
+
+  get description() { return this.getData("description", ""); }
+  set description(val) { this.setData("description", val); }
+
+  get type() { return this.getData("type", ""); }
+  set type(val) { this.setData("type", val); }
+
+  get repo() { return this.getData("repo", ""); }
+  set repo(val) { this.setData("repo", val); }
+
+  get personal() { return this.getData("personal_data", "no"); }
+  set personal(val) { this.setData("personal_data", val); }
+  get isPersonal() { return (this.getData("personal_data", "no") === "yes"); }
+
+  get sensistive() { return this.getData("sensitive_data", "no"); }
+  set sensistive(val) { this.setData("sensitive_data", val); }
+  get isSensitive() { return (this.getData("sensitive_data", "no") === "yes"); }
+}
+
+
 export class DmpModel extends Model {
   #_contributors;
+  #_dataset;
 
   constructor(data) {
     super(data);
@@ -216,6 +260,7 @@ export class DmpModel extends Model {
     this.funding = this.project.funding;
     this.contact = new Contact(this.getData("contact.0", {}));
     this.contributors = this.getData("contributor", []);
+    this.dataset = this.getData("dataset", []);
   }
 
   get title() { return this.getData("title"); }
@@ -225,8 +270,12 @@ export class DmpModel extends Model {
 
   get hasFunder() { return (this.project.funding !== null); }
 
+  // Modelsets
   get contributors() { return this.#_contributors; }
   set contributors(items) { this.#_contributors = new ModelSet(Contributor, items); }
+
+  get dataset() { return this.#_dataset; }
+  set dataset(items) { this.#_dataset = new ModelSet(DataObject, items); }
 
   /* NOTE
    * Draft data is a special temporary place in the data structure

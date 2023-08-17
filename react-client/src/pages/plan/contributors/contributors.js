@@ -282,7 +282,7 @@ function Contributors() {
               Cancel
             </button>
             <button type="submit" className="primary">
-              {(editIndex === null) ? "Add" : "Save Changes"}
+              {(editIndex === null) ? "Add" : "Update"}
             </button>
           </div>
         </form>
