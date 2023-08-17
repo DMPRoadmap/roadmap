@@ -106,6 +106,7 @@ export class Contributor extends Model {
 
   get roles() { return this.getData("role"); }
   get role() { return this.getData("role.0", ""); }
+  get roleDisplay() { return getRoleDisplay(this.role); }
 
   commit() {
     this.setData("dmproadmap_affiliation", this.affiliation.getData());
@@ -295,5 +296,26 @@ export async function getContributorRoles() {
   api.handleResponse(resp);
   const data = await resp.json();
 
+  // Cache this on the document, this way we can refer back to it later.
+  // (see "getRoleDisplay" below).
+  // This allows us to use this *dynamic list of roles*, without needing to
+  // make repeat HTTP fetches.
+  document.contributorRoles = data.items;
   return data.items;
+}
+
+
+export function getRoleDisplay(roleVal) {
+  if (roleVal === "") return "";
+  if (document.contributorRoles) {
+    let result = document.contributorRoles.find(r => r.value === roleVal);
+    if (result) return result.label;
+  } else {
+    getContributorRoles().then((roles) => {
+      let result = roles.find(r => r.value === roleVal);
+      if (result) return result.label;
+    });
+  }
+  throw new Error(`Invalid role, ${roleVal}`);
+  return "";
 }

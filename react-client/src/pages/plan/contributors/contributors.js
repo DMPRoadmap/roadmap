@@ -32,10 +32,11 @@ function Contributors() {
   const [dmp, setDmp] = useState({});
   const [contributor, setContributor] = useState(new Contributor({}));
 
+  var affiliation;
+
   useEffect(() => {
     getDraftDmp(dmpId).then(initial => {
       setDmp(initial);
-      console.log(initial);
     });
 
     getContributorRoles().then(data => {
@@ -53,7 +54,6 @@ function Contributors() {
 
   function handleChange(ev) {
     const {name, value} = ev.target;
-    console.log(`Changing - ${name}: ${value}`);
 
     switch (name) {
       case "role":
@@ -61,16 +61,9 @@ function Contributors() {
         break;
 
       case "affiliation":
-        // TODO::FIXME:: I broke something! The dropdown doesn't show anymore
-        // but it was working before I added the "name" attribute
         if (ev.data) {
-          contributor.affiliation = new RoadmapAffiliation(ev.data);
-        } else {
-          contributor.affiliation.name = value;
+          affiliation = new RoadmapAffiliation(ev.data);
         }
-        contributor.commit();
-        let c = new Contributor(contributor.getData());
-        setContributor(c);
         break;
     }
   }
@@ -103,9 +96,10 @@ function Contributors() {
     contributor.name = full_name;
     contributor.mbox = data.get("email");
     contributor.setData("contributor_id.identifier", data.get("orcid"));
-
-    // TODO::FIXME:: For some reason the role is not being saved
     contributor.setData("role", [data.get("role")]);
+
+    if (affiliation) { contributor.affiliation = affiliation; }
+    contributor.commit();
 
     if (typeof editIndex === "null") {
       // NOTE:: Null index indicates a brand new contributor being added
@@ -128,6 +122,7 @@ function Contributors() {
 
   function handleSave(ev) {
     ev.preventDefault();
+    dmp.commit();
     saveDraftDmp(dmp).then((savedDmp) => {
       navigate(-1);
     });
@@ -164,7 +159,7 @@ function Contributors() {
         {dmp.contributors ? dmp.contributors.items.map((item, index) => (
           <Fragment key={index}>
             <div data-colname="name">{item.name}</div>
-            <div data-colname="role">{item.role}</div>
+            <div data-colname="role">{item.roleDisplay}</div>
             <div data-colname="actions">
               <button value={index} onClick={handleModalOpen}>
                 Edit
@@ -287,7 +282,7 @@ function Contributors() {
               Cancel
             </button>
             <button type="submit" className="primary">
-              Add
+              {(editIndex === null) ? "Add" : "Save Changes"}
             </button>
           </div>
         </form>
