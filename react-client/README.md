@@ -307,6 +307,9 @@ The following endpoints are available to support user typeahead fields. All of t
 - `GET /api/v3/affiliations?search={term}` - Searches for Contributor institutions/organiztions based on the criteria
 - `GET /api/v3/repositories?search={term}`- Searches for research output repositories based on the criteria
 
+The following endpoints are available to support user typeahead fields. All of these endpoints require at least 1 character in the search and a JS debounce should be used
+- `GET /api/v3/output_types?search={term}` - Searches for output types (e.g. dataset or software)
+
 Please note that some funders and some affiliations may not have identifiers (they may only have a name).
 
 Some results from the `/api/v3/funders` endpoint may contain additional API information. This information can be used to allow the user to search that Funder's API for an award/grant. The responses from these funder APIs can help prepopulate other information (e.g. contributors, project start/end dates, etc.)
