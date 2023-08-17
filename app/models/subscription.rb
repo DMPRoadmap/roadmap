@@ -50,8 +50,7 @@ class Subscription < ApplicationRecord
     return false if self.respond_to?(:subscriber_job_status) && self.subscriber_job_status == 'enqueued'
 
     self.update(subscriber_job_status: 'enqueued') if self.respond_to?(:subscriber_job_status)
-    NotifySubscriberJob.set(wait: 30.seconds).perform_later(self) unless Rails.env.development?
-    NotifySubscriberJob.perform_now(self) if Rails.env.development?
+    NotifySubscriberJob.set(wait: 10.seconds).perform_later(self)
     true
   end
 end

@@ -14,11 +14,7 @@ module Api
 
         @plan = output.plan
         @dataset_id = identifier
-
-        # The DMPHub only recognizes the DEFAULT research_output_types, so use 'other' if these
-        # are custom types added by an admin
-        use_other = !ResearchOutput::DEFAULT_OUTPUT_TYPES.include?(output.research_output_type)
-        @research_output_type = use_other ? 'other' : output.research_output_type
+        @research_output_type = output.research_output_type&.downcase&.strip&.gsub(%r{\s+}, '_')
 
         load_narrative_content
 
