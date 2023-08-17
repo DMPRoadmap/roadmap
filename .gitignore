@@ -152,3 +152,7 @@ app/javascript/dmp-hub-ui/src/tmp.js
 
 # Ignore ActiveStorage content
 storage/
+/config/credentials/stage.key
+/config/credentials/stage.yaml.enc
+/config/credentials/production.key
+/config/credentials/production.yaml.enc

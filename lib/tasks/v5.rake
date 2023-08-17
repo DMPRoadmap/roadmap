@@ -49,6 +49,45 @@ namespace :v5 do
     end
   end
 
+  desc 'Move existing identifiers.value to plans.dmp_id'
+  task move_dmp_ids: :environment do
+    scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
+    if scheme.present?
+      pauser = 0
+
+      managed_orgs = Org.where(managed: true).pluck(:id)
+
+      # Modify this query if you want to test a subset of DMP IDs first
+      identifiers = Identifier.includes(:identifiable)
+                              .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
+                              .where('identifiers.value LIKE ?', 'https://doi.org/%')
+                              # .where('identifiable_id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
+                              # .where('identifiable_id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
+                              # .where('identifiable_id IN ?', [83085])                      # preregistration
+                              # .where('identifiable_id IN ?', [78147])                      # bad grant_id type
+                              # 77012, 70251, 69178, 67898, 66250 no contact
+                              # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
+                              # .where('identifiable_id IN (?)', %i[71800 71809]) # test with Hakai DMPs
+                              .distinct
+                              # .limit(200)
+                              .order(created_at: :desc)
+
+      identifiers.each do |identifier|
+        next unless identifier.value.present? && identifier.identifiable.present?
+
+        # Refetch the Plan and all of it's child objects
+        plan = Plan.find_by(id: identifier.identifiable.id).where(dmp_id: nil)
+        plan.dmp_id = identifier.value
+        if plan.save
+          identifier.destroy
+          puts "  moved #{plan.dmp_id} for Plan #{plan.id}"
+        else
+          puts "  FAIL #{plan.errors.full_messages}"
+        end
+      end
+    end
+  end
+
   # This should only ever be run if you have been using the Rails based DMPHub system (https://github.com/CDLUC3/dmphub)
   # to register DMP IDs and would like to transition those identifiers to the new DMPHub system base in the AWS
   # API Gateway, Lambdas, S3 and DynamoDB (https://github.com/CDLUC3/dmp-hub-cfn).
@@ -70,51 +109,52 @@ namespace :v5 do
     scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
     if scheme.present?
       pauser = 0
+      client_id = ApiClient.find_by(name: 'dmphub').id
 
-      managed_orgs = Org.where(managed: true).pluck(:id)
+      Plan.includes(:org, :research_outputs, :related_identifiers, :subscriptions, roles: [:user],
+                    contributors: [:org, { identifiers: [:identifier_scheme] }])
+          .where.not(dmp_id: nil)
+          # .limit(600)
+          .order(created_at: :desc)
+          .each do |plan|
+        next unless plan.dmp_id.present? && plan.complete? && !plan.is_test?
 
-      # Modify this query if you want to test a subset of DMP IDs first
-      Identifier.includes(:identifiable)
-                .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
-                .where('identifiers.value LIKE ?', 'https://doi.org/%')
-                # .where('identifiable_id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
-                # .where('identifiable_id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
-                # .where('identifiable_id IN ?', [83085])                      # preregistration
-                # .where('identifiable_id IN ?', [78147])                      # bad grant_id type
-                # 77012, 70251, 69178, 67898, 66250 no contact
-                # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
-                # .where('identifiable_id IN (?)', %i[71800 71809]) # test with Hakai DMPs
-                .distinct
-                # .limit(200)
-                .order(created_at: :desc)
-                .each do |identifier|
-        next unless identifier.value.present? && identifier.identifiable.present?
+        recent_subscriptions = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
+                                           .where('last_notified > ?', (Time.now - 1.day).strftime('%Y-%m-%d %H:%M:%S'))
+        next if recent_subscriptions.any?
+        next unless DmpIdService.fetch_dmp_id(dmp_id: plan.dmp_id).nil?
 
         # Pause after every 10 so that we do not get rate limited
         sleep(3) if pauser >= 20
         pauser = pauser >= 20 ? 0 : pauser + 1
 
-        # Refetch the Plan and all of it's child objects
-        plan = Plan.includes(:org, :research_outputs, :related_identifiers, roles: [:user],
-                              contributors: [:org, { identifiers: [:identifier_scheme] }],
-                              identifiers: [:identifier_scheme])
-                    .find_by(id: identifier.identifiable.id)
+        if plan.owner.present?
+          puts "Processing Plan: #{plan.id}, DMP ID: #{plan.dmp_id}"
+          # Call the DMPHub to register the DMP ID and upload the narrative PDF (performed async by ActiveJob)
+          hash = DmpIdService.mint_dmp_id(plan: plan, seeding: true)
+          if hash.is_a?(Hash) && hash[:dmp_id].present?
+              # Add the DMP ID to the Dmp record
+            if plan.update(dmp_id: hash[:dmp_id])
+              # Remove the old subscription for the item. The minting process added a new entry so we don't want the old
+              old_subscriptions = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
+                                              .where('last_notified < ?', (Time.now - 1.day).strftime('%Y-%m-%d %H:%M:%S'))
+              old_subscriptions.destroy_all
 
-
-        next unless plan.dmp_id.nil? && plan.complete? && managed_orgs.include?(plan.org_id) && !plan.is_test?
-
-        if plan.registerable?
-          puts "Processing Plan: #{identifier.identifiable_id}, DMP ID: #{identifier.value}"
-          result = plan.register_dmp_id!
-          if result.nil?
-            puts '    *** FAILED!'
+              puts "    registered #{plan.dmp_id}. Uploading narrative ..."
+              if PdfPublisherJob.perform_now(plan: plan)
+                plan = plan.reload
+                puts "        uploaded to #{plan.narrative_url}"
+              else
+                puts "        *** FAILED to upload narrative!"
+              end
+            else
+              puts "    *** FAILED to save DMP ID to plan record!"
+            end
           else
-            dmp_id = result.fetch('dmp', {}).fetch('dmp_id', {})['identifier']
-            puts "    registered #{dmp_id} and narrative uploaded."
-            identifier.destroy
+            puts "    *** FAILED to register DMP ID."
           end
         else
-          puts "SKIPPING Plan: #{identifier.identifiable_id} because it is not 'Complete'."
+          puts "SKIPPING Plan: #{plan.id} because it is not 'Complete'."
         end
       end
     else

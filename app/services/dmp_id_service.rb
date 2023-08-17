@@ -42,11 +42,11 @@ class DmpIdService
       svc = minter
       return nil if svc.blank? # || !minting_service_defined?
 
-      dmp_id = svc.mint_dmp_id(plan: plan)
-      return nil if dmp_id.blank?
+      hash = svc.mint_dmp_id(plan: plan)
+      return nil if !hash.is_a?(Hash) || hash[:dmp_id].nil?
 
-      dmp_id = "#{svc.landing_page_url}#{dmp_id}" unless dmp_id.downcase.start_with?('http')
-      Identifier.find_or_create_by(identifier_scheme: identifier_scheme, identifiable: plan, value: dmp_id)
+      dmp_id = hash[:dmp_id].downcase.start_with?('http') ? hash[:dmp_id] : "#{svc.landing_page_url}#{hash[:dmp_id]}"
+      { dmp_id: dmp_id, narrative_url: hash[:narrative_url] }
     rescue StandardError => e
       Rails.logger.debug e.message
       Rails.logger.error "DmpIdService.mint_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
@@ -65,8 +65,11 @@ class DmpIdService
       svc = minter
       return nil if svc.blank?
 
-      dmp_id = svc.update_dmp_id(plan: plan)
-      return nil if dmp_id.blank?
+      hash = svc.update_dmp_id(plan: plan)
+      return nil if !hash.is_a?(Hash) || hash[:dmp_id].nil?
+
+      dmp_id = hash[:dmp_id].downcase.start_with?('http') ? hash[:dmp_id] : "#{svc.landing_page_url}#{hash[:dmp_id]}"
+      { dmp_id: dmp_id, narrative_url: hash[:narrative_url] }
     rescue StandardError => e
       Rails.logger.error "DmpIdService.update_dmp_id for #{plan&.class&.name} #{plan&.id} resulted in: #{e.message}"
       Rails.logger.error e.backtrace
@@ -84,8 +87,8 @@ class DmpIdService
       svc = minter
       return nil if svc.blank?
 
-      dmp_id = svc.delete_dmp_id(plan: plan)
-      return nil if dmp_id.blank?
+      hash = svc.delete_dmp_id(plan: plan)
+      return nil if hash[:dmp_id].blank?
     rescue StandardError => e
       Rails.logger.error "DmpIdService.delete_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
       Rails.logger.error e.backtrace

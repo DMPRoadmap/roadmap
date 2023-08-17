@@ -26,7 +26,11 @@ module Api
         dmps = DmpIdService.fetch_dmps(user: current_user)
         render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return unless dmps.is_a?(Array) &&
                                                                                                       dmps.any?
-
+        # Remove any DMPs that the user has explicitly chosen to hide
+        dmps = dmps.reject do |dmp|
+          dmp_id = dmp.fetch('dmp_id', {})['identifier']
+          dmp_id.nil? || current_user.hidden_dmps.pluck(:dmp_id).include?(dmp_id)
+        end
         @items = paginate_response(results: dmps)
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
@@ -72,14 +76,17 @@ module Api
       def destroy
         dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
         render_error(errors: DmpsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
+        render_error(errors: MSG_SERVER_ERROR, status: 500) unless dmp[:dmp_id][:identifier].present?
 
         authed = user_is_authorized(dmp: dmp)
         render_error(errors: DmpsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless authed
 
-        result = DmpIdService.delete_dmp_id(plan: json)
-        render_error(errors: DmpsController::MSG_DMP_ID_TOMBSTONE_FAILED, status: :bad_request) and return if result.nil?
+        # For now a user can only hide a DMP from their dashboard
+        # result = DmpIdService.delete_dmp_id(plan: json)
+        # render_error(errors: DmpsController::MSG_DMP_ID_TOMBSTONE_FAILED, status: :bad_request) and return if result.nil?
+        HiddenDmp.find_or_create_by(user: current_user, dmp_id: dmp[:dmp_id][:identifier])
 
-        @items = paginate_response(results: [result])
+        @items = paginate_response(results: ['The DMP has been hidden for this user.'])
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::ProxiesController.destroy #{e.message}"

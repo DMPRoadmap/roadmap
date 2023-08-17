@@ -64,16 +64,18 @@ module Dmptool
         return latest_version if dmp_id.present? && dmp_id_registerable?
 
         # Call the DMPHub to register the DMP ID and upload the narrative PDF (performed async by ActiveJob)
-        dmp_id = DmpIdService.mint_dmp_id(plan: self)
-        if dmp_id.is_a?(Identifier)
+        hash = DmpIdService.mint_dmp_id(plan: self)
+        if hash.is_a?(Hash) && hash[:dmp_id].present?
             # Add the DMP ID to the Dmp record
-          if update(dmp_id: dmp_id.value)
+          if update(dmp_id: hash[:dmp_id])
             publish_narrative!
-            publish_to_orcid! if publish_to_orcid
+            orcid = owner&.identifier_for_scheme(scheme: 'orcid')
+            # Only publish to ORCID if it is enabled and this is NOT development
+            publish_to_orcid! if publish_to_orcid && orcid.present? && !Rails.env.development?
 
             latest_version
           else
-            Rails.logger.error "Unable to save the DMP ID, '#{dmp_id.inspect}' for #{self.class.name}: #{id}"
+            Rails.logger.error "Unable to save the DMP ID, '#{hash[:dmp_id].inspect}' for #{self.class.name}: #{id}"
             Rails.logger.error "Errors were: #{errors.full_messages}"
             nil
           end
@@ -90,16 +92,22 @@ module Dmptool
         end
       end
 
-      # TODO: investigate using DelayedJob or another Queing service to execute these tasks in the background
-
       # Send the narrative PDF document to the DMPHub
-      def publish_narrative!(immediate: true)
-        immediate ? PdfPublisherJob.perform_now(plan: self) : PdfPublisherJob.set(wait: 5.minutes).perform_later(plan: self)
+      def publish_narrative!
+        # Don't kick of the job if it is already enqueued!
+        return false if self.respond_to?(:publisher_job_status) && self.publisher_job_status == 'enqueued'
+
+        self.update(publisher_job_status: 'enqueued') if self.respond_to?(:publisher_job_status)
+        PdfPublisherJob.set(wait: 2.minutes).perform_later(plan: self)
+      rescue StandardError => e
+        Rails.logger.error "Unable to publish PDF Narrative - #{e.message}"
       end
 
       # Upload the citation to the owner's ORCID record
-      def publish_to_orcid!(orcid:, immediate: true)
-        OrcidPublisherJob.perform_now(orcid: orcid, plan: self)
+      def publish_to_orcid!
+        OrcidPublisherJob.set(wait: 5.minutes).perform_later(user: owner, plan: self) unless Rails.env.development?
+      rescue StandardError => e
+        Rails.logger.error "Unable to publish DMP ID to ORCID - #{e.message}"
       end
     end
   end

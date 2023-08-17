@@ -17,7 +17,8 @@ class PdfPublisherJob < ApplicationJob
       # nested directory
       file_name = Zaru.sanitize!(plan.title).strip.gsub(/\s+/, '_')[0, 100]
       _process_narrative_file(plan: plan, file_name: file_name, file: pdf)
-    elsif plan.is_a?(Dmp)
+      plan.update(publisher_job_status: 'success')
+    elsif plan.is_a?(Draft)
       return false unless plan.narrative.attached?
 
       # plan.narrative.open { |file| Rails.logger.info "FILE: #{file.path}"; _process_narrative_file(plan: plan, file_name: file.path, file: file) }
@@ -45,7 +46,13 @@ class PdfPublisherJob < ApplicationJob
     pdf_file_name = Rails.root.join('tmp', "#{file_name}.pdf")
     pdf_file = File.open(pdf_file_name, 'wb') { |tmp| tmp << file }
     pdf_file.close
-    DmpIdService.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
+
+    hash = DmpIdService.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
+    if hash.is_a?(Hash) && hash[:narrative_url].present?
+      plan.update(narrative_url: hash[:narrative_url])
+    else
+      Rails.logger.error 'PdfPublisherJob._process_narrative_file did not return a narrtive URL!'
+    end
     # Delete the tmp file
     File.delete(pdf_file_name)
   end

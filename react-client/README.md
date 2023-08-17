@@ -512,9 +512,19 @@ A finalized DMP ID record is very similar to a Draft DMP record. It can have mor
 
 Note that the `dmphub_versions` array can be used to retrieve older versions of the DMP ID.
 
-The `dmphub_assertions` array includes assertions made to enrich the DMP ID metadata by an external system. A DMPTool administrator or the primary contact of the DMP ID can determine whether or not the assertions should be accepted or rejected.
+#### External modifications
+Once a DMP has been registered it will be included in periodic scans of external systems. Those scans attempt to find updated information about the research project. When a match is found, the information is added to the `dmphub_modifications` array on the DMP's JSON record as pending claims/assertions. These pending changes are made in an attempt to enrich the DMP ID metadata.
 
-Below is an example of an enriched DMP ID record:
+A DMPTool administrator or the primary contact of the DMP ID must determine whether or not the pending assertions should be accepted or rejected.
+
+The UI should use the 'status' flag of the pending assertions to determine whether or not they should be displayed to the user. If the status is 'pending', it should be displayed.
+
+If the user decides to 'accept' an assertion, the assertion's status flag should be changed to 'accepted' and the entry should be copied from the `dmphub_modifications` array and placed onto the appropriate section of the main DMP ID record. For example, if an administrator approves a related work in the `dmp.dmphub_modifications[n].dmproadmap_related_identifier` array, that entry should be placed into the `dmp.dmproadmap_related_identifiers` array. If they approve a grant_id from the `dmp.dmphub_modifications[n].funding` array, that id should be placed into the `dmp.project[0].funding[0].grant_id`.
+
+If the admin decides to 'reject' a `pending_assertion`, then the 'status' flag should be changed to `rejected`.
+
+#### Example of a complete DMP ID record
+Below is an example of a full DMP ID record (including some :dmphub_modifications made by an external system):
 ```
 {
   "status": 200,
@@ -660,42 +670,64 @@ Below is an example of an enriched DMP ID record:
           "type": "doi",
           "identifier": "https://doi.org/10.12345/ABCD1234"
         },
-        "dmphub_assertions": [
+        "dmphub_modifications": [
+          {
+            "id": "ZYXW9876",
+            "provenance": "datacite",
+            "timestamp": "2023-07-27T15:08:32+07:00",
+            "note": "data received from event data",
+            "status": "pending",
+            "dmproadmap_related_identifier": {
+              "work_type": "dataset",
+              "descriptor": "references",
+              "type": "doi",
+              "identifier": "https://dx.doi.org/77.6666/H5H5H5"
+            }
+          }, {
+            "id": "ZYXW9878",
+            "provenance": "datacite",
+            "timestamp": "2023-07-27T15:08:52+07:00",
+            "note": "data received from event data",
+            "status": "accepted",
+            "dmproadmap_related_identifier": {
+              "work_type": "article",
+              "descriptor": "is_cited_by",
+              "type": "url",
+              "identifier": "https://doi.org/22.33333/pubmed.1242345234"
+            }
+          }, {
+            "id": "ZYXW9880",
+            "provenance": "datacite",
+            "timestamp": "2023-07-27T15:09:13+07:00",
+            "note": "data received from event data",
+            "status": "rejected",
+            "dmproadmap_related_identifier": {
+              "work_type": "paper",
+              "descriptor": "is_cited_by",
+              "type": "url",
+              "identifier": "https://academic.site/papers/123"
+            }
+          },
           {
             "id": "ABCD1234",
-            "provenance": "dmphub",
+            "provenance": "crossref",
             "timestamp": "2023-07-13T09:25:23+07:00",
-            "note": "data received from the NIH API",
-            "assertions": {
-              "contact": {
-                "name": "Donald Duck"
-              },
-              "contributor": [
-                {
-                  "name": "Mickey Mouse",
-                  "role": ["Investigation"]
+            "note": "data received from the Crossref Grants API",
+            "status": "pending",
+            "funding": [
+              {
+                "name": "National Science Foundation",
+                "funder_id": {
+                  "type": "ror",
+                  "identifier": "https://ror.org/021nxhr62"
+                },
+                "funding_status": "granted",
+                "grant_id": {
+                  "identifier": "https://doi.org/11.1111/2019.22702-3",
+                  "type": "doi"
                 }
-              ],
-              "project": [
-                {
-                  "start": "2024-01-01T00:00:00+07:00",
-                  "end": "2025-12-31T23:59:59+07:00"
-                }
-              ],
-              "funding": [
-                {
-                  "funder_id": {
-                    "identifier": "https://doi.org/10.13039/501100001807",
-                    "type": "fundref"
-                  },
-                  "funding_status": "granted",
-                  "grant_id": {
-                    "identifier": "2019/22702-3",
-                    "type": "other"
-                  }
-                }
-              ]
-            }
+              }
+            ]
           }
         ],
         "dmphub_versions": [
@@ -717,8 +749,14 @@ Below is an example of an enriched DMP ID record:
             "type": "handle"
           },
           {
+            "work_type": "article",
+            "descriptor": "is_cited_by",
+            "type": "url",
+            "identifier": "https://doi.org/22.33333/pubmed.1242345234"
+          }
+          {
             "descriptor": "is_metadata_for",
-            "identifier": "https://api.dmphub-dev.cdlib.org/narratives/1234567890.pdf",
+            "identifier": "https://api.dmphub.uc3dev.cdlib.net/narratives/1234567890.pdf",
             "type": "url",
             "work_type": "output_management_plan"
           }
@@ -759,16 +797,12 @@ Below is an example of an enriched DMP ID record:
                   }
                 ],
                 "dmproadmap_project_number": "prj-XYZ987-UCB",
-                "grant_id": {
-                  "type": "other",
-                  "identifier": "776242"
-                },
                 "name": "National Science Foundation",
                 "funder_id": {
                   "type": "fundref",
                   "identifier": "501100002428"
                 },
-                "funding_status": "granted",
+                "funding_status": "planned",
                 "dmproadmap_opportunity_number": "Award-123"
               }
             ],

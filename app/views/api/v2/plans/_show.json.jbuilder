@@ -11,7 +11,11 @@ presenter = Api::V2::PlanPresenter.new(plan: plan, client: @client)
 # A JSON representation of a Data Management Plan in the
 # RDA Common Standard format
 json.title plan.title
-json.description plan.description
+# Strip out empty paragraphs from the description
+
+# Remove non breaking spaces, empty paragraphs and new lines
+json.description plan.description&.gsub(/\u00a0/, '')&.gsub(%r{<p>([\s]+)?</p>}, '')&.gsub(%r{[\r\n]+}, ' ')
+
 json.language Api::V1::LanguagePresenter.three_char_code(
   lang: LocaleService.default_locale
 )
@@ -22,10 +26,13 @@ json.ethical_issues_exist Api::V2::ConversionService.boolean_to_yes_no_unknown(p
 json.ethical_issues_description plan.ethical_issues_description
 json.ethical_issues_report plan.ethical_issues_report
 
-if plan.dmp_id.present?
-  json.dmp_id do
+json.dmp_id do
+  if plan.dmp_id.present?
     json.type 'doi'
     json.identifier plan.dmp_id
+  else
+    json.type 'url'
+    json.identifier Rails.application.routes.url_helpers.api_v2_plan_url(plan)
   end
 end
 
@@ -62,9 +69,11 @@ unless @minimal
 
   # DMPRoadmap extensions to the RDA common metadata standard
   json.dmproadmap_template do
-    json.id plan.template.family_id
+    json.id plan.template.family_id.to_s
     json.title plan.template.title
   end
+
+  json.dmproadmap_featured plan.featured? ? '1' : '0'
 
   # If the plan was created via the API and the external system provided an identifier,
   # return that value
@@ -73,6 +82,12 @@ unless @minimal
 
   # Any related identifiers known by the DMPTool
   related_identifiers = plan.related_identifiers.map { |r_id| r_id.clone }
+
+  if plan.narrative_url.present?
+    related_identifiers << RelatedIdentifier.new(relation_type: 'is_metadata_for', identifier_type: 'url',
+                                                 work_type: 'output_management_plan', value: plan.narrative_url)
+  end
+
   if related_identifiers.any?
     json.dmproadmap_related_identifiers related_identifiers do |related|
       next unless related.value.present? && related.relation_type.present?

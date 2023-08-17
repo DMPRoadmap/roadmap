@@ -161,7 +161,7 @@ module ExternalApis
             'Accept': 'application/json'
           }
         }
-        opts[:debug_output] = $stdout
+        # opts[:debug_output] = $stdout
         resp = HTTParty.get("#{api_base_url}#{mint_path}?owner_org_ror=#{ror}", opts)
 
         unless resp.present? && resp.code == 200
@@ -207,11 +207,11 @@ module ExternalApis
           notify_administrators(obj: plan, response: resp)
           return nil
         end
-        dmp_id = process_response(response: resp)
+        hash = process_response(response: resp)
 
         # Add a subscription for the DMPHub so that we send it updates in the future (N/A for a DMP!)
-        add_subscription(plan: plan, dmp_id: dmp_id) if plan.is_a?(Plan) && dmp_id.present?
-        dmp_id
+        add_subscription(plan: plan, dmp_id: hash[:dmp_id]) if plan.is_a?(Plan) && hash[:dmp_id].present?
+        hash
       rescue StandardError => e
         puts "FATAL: #{e.message}"
         puts e.backtrace
@@ -248,11 +248,11 @@ module ExternalApis
           notify_administrators(obj: plan, response: resp)
           return nil
         end
-        dmp_id = process_response(response: resp)
+        hash = process_response(response: resp)
 
         # Update the DMP ID in the DMPHub (N/A if this is a DMP!)
-        update_subscription(plan: plan) if plan.is_a?(Plan) && dmp_id.present?
-        dmp_id
+        update_subscription(plan: plan) if plan.is_a?(Plan) && hash[:dmp_id].present?
+        hash
       rescue StandardError => e
         puts "FATAL: #{e.message}"
         log_error(method: 'DmphubService.update_dmp_id', error: e)
@@ -281,10 +281,10 @@ module ExternalApis
            return nil
          end
 
-         dmp_id = process_response(response: resp)
+         hash = process_response(response: resp)
          # Tombstone the DMP ID in the DMPHub (N/A if this is a DMP!)
-         delete_subscription(plan: plan) if plan.is_a?(Plan) && dmp_id.present?
-         dmp_id
+         delete_subscription(plan: plan) if plan.is_a?(Plan) && hash[:dmp_id].present?
+         hash
       rescue StandardError => e
         puts "FATAL: #{e.message}"
         log_error(method: 'DmphubService.delete_dmp_id', error: e)
@@ -318,7 +318,7 @@ module ExternalApis
           return nil
         end
 
-        true
+        process_response(response: resp)
       rescue StandardError => e
         # Close and then destroy the PDF
         pdf_file.close if pdf_file.is_a?(File)
@@ -393,9 +393,12 @@ module ExternalApis
 
       # Authenticate with the DMPHub
       def auth
-        scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'stg' : 'dev'
+        # TODO: Switch this back to stg once the Stage domain is up
+        # scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'stg' : 'dev'
+        scope_env = Rails.env.production? ? 'prd' : (auth_url.include?('uc3stg') ? 'stg' : 'dev')
         scopes = "#{auth_url}#{scope_env}.read #{auth_url}#{scope_env}.write"
         creds = Base64.strict_encode64("#{client_id}:#{client_secret}")
+        Rails.logger.debug "DmphubService Auth Info: URL: #{auth_url}, ENV: #{Rails.env}, CLIENT ID: #{client_id}"
 
         opts = {
           follow_redirects: true,
@@ -450,7 +453,14 @@ module ExternalApis
         return nil unless hash.fetch(:items, []).length == 1
         return nil if hash[:items].first[:dmp].blank?
 
-        hash[:items].first[:dmp].fetch(:dmp_id, {})[:identifier]
+        # Find the narrative URL
+        ids = hash[:items].first[:dmp].fetch(:dmproadmap_related_identifiers, [])
+        narrative = ids.select { |id| id[:work_type] == 'output_management_plan' && id[:descriptor] == 'is_metadata_for' }
+                       .first
+        {
+          dmp_id: hash[:items].first[:dmp].fetch(:dmp_id, {})[:identifier],
+          narrative_url: narrative.is_a?(Hash) ? narrative[:identifier] : nil
+        }
       # If a JSON parse error occurs then return results of a local table search
       rescue JSON::ParserError => e
         log_error(method: 'DMPHub parse response: ', error: e)

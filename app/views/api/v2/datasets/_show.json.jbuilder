@@ -7,7 +7,10 @@ if output.is_a?(ResearchOutput)
 
   json.type presenter.research_output_type
   json.title output.title
-  json.description output.description
+
+  # Remove non breaking spaces, empty paragraphs and new lines
+  json.description output.description&.gsub(/\u00a0/, '')&.gsub(%r{<p>([\s]+)?</p>}, '')&.gsub(%r{[\r\n]+}, ' ')
+
   json.personal_data Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: output.personal_data)
   json.sensitive_data Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: output.sensitive_data)
   json.issued output.release_date&.to_formatted_s(:iso8601)
@@ -33,7 +36,9 @@ if output.is_a?(ResearchOutput)
 
     json.host do
       json.title repository.name
-      json.description repository.description
+
+      # Remove non breaking spaces, empty paragraphs and new lines
+      json.description repository.description&.gsub(/\u00a0/, '')&.gsub(%r{<p>([\s]+)?</p>}, '')&.gsub(%r{[\r\n]+}, ' ')
       json.url repository.homepage
 
       # DMPTool extensions to the RDA common metadata standard
@@ -56,7 +61,9 @@ if output.is_a?(ResearchOutput)
     website = { url: metadata_standard.uri } if website.blank?
 
     descr_array = [metadata_standard.title, metadata_standard.description, website['url']]
-    json.description descr_array.join(' - ')
+
+    # Remove non breaking spaces, empty paragraphs and new lines
+    json.description descr_array.join(' - ')&.gsub(/\u00a0/, '')&.gsub(%r{<p>([\s]+)?</p>}, '')&.gsub(%r{[\r\n]+}, ' ')
 
     json.metadata_standard_id do
       json.type 'url'

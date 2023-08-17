@@ -125,27 +125,28 @@ class PlanExportsController < ApplicationController
 
   def show_pdf
     render pdf: file_name,
-           margin: @formatting[:margin],
-           # wkhtmltopdf behavior is based on the OS so force the zoom level
-           # See 'Gotchas' section of https://github.com/mileszs/wicked_pdf
-           # zoom: 0.78125,
-           # show_as_html: params.key?('debug'),
-           page_size: 'Letter',
-           footer: {
-             center: format(_('Created using %{application_name}. Last modified %{date}'),
+          margin: @formatting[:margin],
+          # wkhtmltopdf behavior is based on the OS so force the zoom level
+          # See 'Gotchas' section of https://github.com/mileszs/wicked_pdf
+          # zoom: 0.78125,
+          # show_as_html: params.key?('debug'),
+          page_size: 'Letter',
+          footer: {
+            center: format(_('Created using %{application_name}. Last modified %{date}'),
                             application_name: ApplicationService.application_name,
                             date: l(@plan.updated_at.localtime.to_date, format: :readable)),
-             font_size: 8,
-             spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right: _('[page] of [topage]'),
-             encoding: 'utf8'
-           }
+            font_size: 8,
+            spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+            right: _('[page] of [topage]'),
+            encoding: 'utf8'
+          }
   end
 
   def show_json
     json = render_to_string(partial: '/api/v2/plans/show',
                             locals: { plan: @plan, client: current_user })
-    render json: "{\"dmp\":#{json}}"
+    json = "{\"dmp\":#{json}}"
+    render json: json
   end
 
   def file_name
