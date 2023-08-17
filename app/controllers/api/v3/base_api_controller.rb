@@ -6,7 +6,7 @@ module Api
     class BaseApiController < ApplicationController
       MSG_SERVER_ERROR = 'Server Error'
 
-      respond_to :json
+      respond_to :json, :html
 
       skip_before_action :verify_authenticity_token
 
@@ -139,7 +139,7 @@ module Api
 
       def affiliation_permitted_params
         %i[name acronym] +
-          [affiliation_ids: identifier_permitted_params]
+          [affiliation_id: identifier_permitted_params]
       end
 
       def cost_permitted_params

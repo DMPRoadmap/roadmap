@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { DmpApi } from "../../../api.js";
-import { getDraftDmp } from "../../../models.js";
+import { getDraftDmp, saveDraftDmp } from "../../../models.js";
 import { getValue } from "../../../utils.js";
 import TextInput from "../../../components/text-input/textInput.js";
 import TextArea from "../../../components/textarea/textArea.js";
@@ -54,26 +53,14 @@ function ProjectDetails() {
       return;
     }
 
-    let api = new DmpApi();
-
     dmp.title = formData.project_name;
     dmp.project.title = formData.project_name;
     dmp.project.description = formData.project_abstract;
     dmp.project.setStart(formData.start);
     dmp.project.setEnd(formData.end);
     dmp.funding.opportunityNumber = formData.award_number || "";
-    dmp.commit();
 
-    // Finally put it all together
-    let options = api.getOptions({
-      method: "put",
-      body: JSON.stringify({dmp: dmp.getData()}),
-    });
-
-    fetch(api.getPath(`/drafts/${dmpId}`), options).then((resp) => {
-      api.handleResponse(resp.status);
-      return resp.json();
-    }).then((data) => {
+    saveDraftDmp(dmp).then((savedDmp) => {
       navigate(`/dashboard/dmp/${dmpId}/`);
     });
   }

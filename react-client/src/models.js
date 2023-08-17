@@ -79,7 +79,7 @@ export class Contributor extends Model {
 
   constructor(data) {
     super(data);
-    this.affiliation = new RoadmapAffiliation(this.getData("dmproadmap_affiliation"));
+    this.affiliation = new RoadmapAffiliation(this.getData("dmproadmap_affiliation", {}));
     this.splitNames();
   }
 
@@ -109,7 +109,10 @@ export class Contributor extends Model {
   get roleDisplay() { return getRoleDisplay(this.role); }
 
   commit() {
-    this.setData("dmproadmap_affiliation", this.affiliation.getData());
+    let affiliationData = this.affiliation.getData();
+    if (affiliationData) {
+      this.setData("dmproadmap_affiliation", affiliationData);
+    }
   }
 }
 

@@ -8,49 +8,23 @@ import "./new.scss";
 
 function PlanNew() {
   let navigate = useNavigate();
-  // let (title, setTitle) = useState("");
-  // let (narrative, setNarrative) = useState();
 
   async function handleSubmit(ev) {
     ev.preventDefault();
     let api = new DmpApi();
 
-    const form = ev.target;
-    const title = form.querySelector('[name="title"]');
-    const narrative = form.querySelector('[name="narrative"]');
+    let formData = new FormData(ev.target);
 
-    // let dmpData = {"title": title.value}
-    // if (narrative.files.length > 0) {
-    //   // const fileResult = await api.getFileDataURL(narrative.files[0]);
-    //   // dmpData["narrative"] = fileResult;
-    //   dmpData["narrative"] = narrative.files[0];
-    // }
-
-    let formData = new FormData();
-    formData.append("title", title.value);
-    if (narrative.files.length > 0) {
-      let file = narrative.files[0];
-      formData.append("narrative", file, file.name);
-    }
-
-    console.log(formData);
-    console.log(formData.get("narrative"));
-    console.log(formData.get("title"));
-
+    // NOTE: Remove the content-type header so that rails and browser will
+    // figure it out If we don't do this, then the request always fail.
     var headers = api.getHeaders();
-    // headers.set('Content-Type', "application/x-www-form-urlencoded");
-    headers.set('Content-Type', "multipart/form-data");
+    headers.delete('Content-Type');
 
     let options = api.getOptions({
       headers: headers,
       method: "post",
       body: formData,
-      // body: JSON.stringify({
-      //   dmp: dmpData,
-      // }),
     });
-
-    console.log(options);
 
     fetch(api.getPath("/drafts"), options)
       .then((resp) => {

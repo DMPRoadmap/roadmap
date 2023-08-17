@@ -1,12 +1,11 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { DmpApi } from "../../../api.js";
 
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
 import LookupField from "../../../components/lookup-field.js";
 import { getValue } from "../../../utils.js";
-import { getDraftDmp } from "../../../models.js";
+import { getDraftDmp, saveDraftDmp } from "../../../models.js";
 
 import "./funder.scss";
 
@@ -67,18 +66,8 @@ function PlanFunders() {
     dmp.setDraftData("funder", funder);
     dmp.funding.name = funder.name;
     if (funder.funder_id) dmp.funding.funderId = funder.funder_id;
-    dmp.commit();
 
-    let api = new DmpApi();
-    let options = api.getOptions({
-      method: "put",
-      body: JSON.stringify({ dmp: dmp.getData() }),
-    });
-
-    fetch(api.getPath(`/drafts/${dmpId}`), options).then((resp) => {
-      api.handleResponse(resp.status);
-      return resp.json();
-    }).then((data) => {
+    saveDraftDmp(dmp).then((savedDmp) => {
       navigate(`/dashboard/dmp/${dmpId}/project-search`);
     });
   }
