@@ -11,7 +11,10 @@ class Model {
   }
 
   getData(path, defaultNone) {
-    if (typeof path === 'undefined') return this.#data;
+    if (typeof path === 'undefined') {
+      if (this.commit) this.commit();
+      return this.#data;
+    }
     return getValue(this.#data, path, defaultNone);
   }
 
@@ -210,45 +213,49 @@ export class Project extends Model {
 
 
 export class DataObject extends Model {
-  static get dataTypes() {
-    // TODO::FIXME Are these types dynamic?
-    return {
-      audiovisual: "Audiovisual",
-      collection: "Collection",
-      data_paper: "Data paper",
-      dataset: "Dataset",
-      event: "Event",
-      image: "Image",
-      interactive_resource: "Interactive resource",
-      model_representation: "Model representation",
-      physical_object: "Physical object",
-      service: "Service",
-      software: "Software",
-      sound: "Sound",
-      text: "Text",
-      workflow: "Workflow",
-    };
+  constructor(data) {
+    super(data);
+
+    this.repository = new DataRepository(this.getData("distribution.0.host", {}));
   }
 
   get title() { return this.getData("title", ""); }
   set title(val) { this.setData("title", val); }
 
-  get description() { return this.getData("description", ""); }
-  set description(val) { this.setData("description", val); }
-
   get type() { return this.getData("type", ""); }
   set type(val) { this.setData("type", val); }
 
-  get repo() { return this.getData("repo", ""); }
-  set repo(val) { this.setData("repo", val); }
-
   get personal() { return this.getData("personal_data", "no"); }
   set personal(val) { this.setData("personal_data", val); }
-  get isPersonal() { return (this.getData("personal_data", "no") === "yes"); }
+  get isPersonal() { return (this.personal === "yes"); }
 
-  get sensistive() { return this.getData("sensitive_data", "no"); }
-  set sensistive(val) { this.setData("sensitive_data", val); }
-  get isSensitive() { return (this.getData("sensitive_data", "no") === "yes"); }
+  get sensitive() { return this.getData("sensitive_data", "no"); }
+  set sensitive(val) { this.setData("sensitive_data", val); }
+  get isSensitive() { return (this.sensitive === "yes"); }
+
+  commit() {
+    this.setData("distribution", [{host: this.repository.getData()}]);
+  }
+}
+
+
+export class DataRepository extends Model {
+  get name() { return this.getData("name", ""); }
+  set name(val) { this.setData("name", val); }
+
+  get url() { return this.getData("url", ""); }
+  set url(val) { this.setData("url", val); }
+
+  get description() { return this.getData("description", ""); }
+  set description(val) { this.setData("description", val); }
+
+  get isLocked() {
+    if (this.getData("dmproadmap_host_id.identifier", "") === "") {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
 
 
@@ -299,11 +306,9 @@ export class DmpModel extends Model {
   }
 
   commit() {
-    this.project.commit();
-    this.contributors.commit();
-
     this.setData("project", [this.project.getData()]);
     this.setData("contact", [this.contact.getData()]);
+    this.setData("dataset", this.dataset.getData());
 
     // NOTE: Even though the data for this can be many contributors, the key
     // in the backend data just reads as singular "contributor"
@@ -341,33 +346,40 @@ export async function saveDraftDmp(dmp) {
 }
 
 
-export async function getContributorRoles() {
-  let api = new DmpApi();
+export async function getOutputTypes(forceUpdate) {
+  // We Cache the results on the document to reduce traffic, but allow for
+  // a forced update if needed.
+  if (!document.outputTypes || forceUpdate) {
+    let api = new DmpApi();
+    const resp = await fetch(api.getPath("output_types"));
+    api.handleResponse(resp);
+    const data = await resp.json();
+    document.outputTypes = data.items;
+  }
+  return document.outputTypes;
+}
 
-  const resp = await fetch(api.getPath("contributor_roles"));
-  api.handleResponse(resp);
-  const data = await resp.json();
 
-  // Cache this on the document, this way we can refer back to it later.
-  // (see "getRoleDisplay" below).
-  // This allows us to use this *dynamic list of roles*, without needing to
-  // make repeat HTTP fetches.
-  document.contributorRoles = data.items;
-  return data.items;
+export async function getContributorRoles(forceUpdate) {
+  // We Cache the results on the document to reduce traffic, but allow for
+  // a forced update if needed.
+  if (!document.contributorRoles || forceUpdate) {
+    let api = new DmpApi();
+    const resp = await fetch(api.getPath("contributor_roles"));
+    api.handleResponse(resp);
+    const data = await resp.json();
+    document.contributorRoles = data.items;
+  }
+  return document.contributorRoles;
 }
 
 
 export function getRoleDisplay(roleVal) {
   if (roleVal === "") return "";
-  if (document.contributorRoles) {
-    let result = document.contributorRoles.find(r => r.value === roleVal);
+  getContributorRoles().then((roles) => {
+    let result = roles.find(r => r.value === roleVal);
     if (result) return result.label;
-  } else {
-    getContributorRoles().then((roles) => {
-      let result = roles.find(r => r.value === roleVal);
-      if (result) return result.label;
-    });
-  }
+  });
   throw new Error(`Invalid role, ${roleVal}`);
   return "";
 }

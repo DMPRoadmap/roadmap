@@ -8,13 +8,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   DmpModel,
   DataObject,
+  DataRepository,
   getDraftDmp,
   saveDraftDmp,
+  getOutputTypes
 } from "../../../models.js";
 
 import TextInput from "../../../components/text-input/textInput.js";
+import TextArea from "../../../components/textarea/textArea.js";
 import Select from "../../../components/select/select.js";
 import RadioButton from "../../../components/radio/radio";
+import LookupField from "../../../components/lookup-field.js";
 
 import "./researchoutputs.scss";
 
@@ -24,6 +28,7 @@ function ResearchOutputs() {
 
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
+  const [outputTypes, setOutputTypes] = useState({});
   const [editIndex, setEditIndex] = useState(null);
   const [dataObj, setDataObj] = useState(new DataObject({}));
 
@@ -31,6 +36,17 @@ function ResearchOutputs() {
   useEffect(() => {
     getDraftDmp(dmpId).then(initial => {
       setDmp(initial);
+      console.log("Initial DMP");
+      console.log(initial);
+    });
+
+    getOutputTypes().then((data) => {
+      console.log(data);
+      let typesMap = data.map(t => {
+        console.log(t);
+        return t;
+      });
+      setOutputTypes(data);
     });
   }, [dmpId]);
 
@@ -41,63 +57,38 @@ function ResearchOutputs() {
     console.log(`Handle Change: ${name}: ${value}`);
 
     switch (name) {
-      case "sensitive_data":
-        // setSensitiveData(value);
-        dataObj.sensitive = value;
+      case "personal_info":
         var newObj = new DataObject(dataObj.getData());
+        newObj.personal = value;
         setDataObj(newObj);
         break;
 
-      case "personal_info":
-        // setPersonalInfo(value);
-        dataObj.personal = value;
+      case "sensitive_data":
         var newObj = new DataObject(dataObj.getData());
+        newObj.sensitive = value;
         setDataObj(newObj);
+        break;
+
+      case "repository":
+        if (ev.data) {
+          let newObj = new DataObject(dataObj.getData());
+          newObj.repository = new DataRepository(ev.data);
+          setDataObj(newObj);
+        } else {
+          // TODO: Set the repository name, but we need extra fields here
+        }
         break;
     }
   }
-
-
-  // let data = [
-  //   {
-  //     id: "1",
-  //     title: "Figure 1",
-  //     personal: "No",
-  //     sensitive: "No",
-  //     repo: "No",
-  //     type: "Image",
-  //   },
-  //   {
-  //     id: "2",
-  //     title: "Dataset",
-  //     personal: "No",
-  //     sensitive: "No",
-  //     repo: "No",
-  //     type: "Dataset",
-  //   },
-  //   {
-  //     id: "3",
-  //     title: "Dateset2",
-  //     personal: "No",
-  //     sensitive: "No",
-  //     repo: "No",
-  //     type: "Dataset",
-  //   },
-  //   {
-  //     id: "4",
-  //     title: "Demographics",
-  //     personal: "yes",
-  //     sensitive: "No",
-  //     repo: "No",
-  //     type: "Dataset",
-  //   },
-  // ];
 
 
   function handleModalOpen(ev) {
     ev.preventDefault();
 
     const index = ev.target.value;
+    console.log('What is the index?');
+    console.log(editIndex);
+    console.log(typeof editIndex);
     if ((index !== "") && (typeof index !== "undefined") ) {
       setEditIndex(index);
       let newObj = dmp.dataset.get(index);
@@ -111,19 +102,39 @@ function ResearchOutputs() {
   }
 
 
+  function handleSaveModal(ev) {
+    ev.preventDefault();
+    const data = new FormData(ev.target);
+    dataObj.title = data.get("title");
+
+    // TODO: Add the Type
+
+    // NOTE: Repository should already be set.
+
+    if (editIndex === null) {
+      dmp.dataset.add(dataObj);
+    } else {
+      dmp.dataset.update(editIndex, dataObj);
+    }
+    let newDmp = new DmpModel(dmp.getData());
+    setDmp(newDmp);
+
+    document.getElementById("outputsModal").close();
+  }
+
+
   function handleCancelModal(ev) {
     ev.preventDefault();
-    // setContributor(new Contributor({}));
+    setDataObj(new DataObject({}));
     document.getElementById("outputsModal").close();
   }
 
 
   async function handleSave(ev) {
     ev.preventDefault();
-
-    console.log("Save Outputs");
-    alert("save Outputs");
-    setShow(false);
+    saveDraftDMP(dmp).then(() => {
+      navigate(-1);
+    });
   }
 
 
@@ -166,7 +177,7 @@ function ResearchOutputs() {
             <div data-colname="name">{item.title}</div>
             <div data-colname="personal">{item.personal}</div>
             <div data-colname="sensitive">{item.sensitive}</div>
-            <div data-colname="repo">{item.repo}</div>
+            <div data-colname="repo">{item.repository.url}</div>
             <div data-colname="datatype">{item.type}</div>
             <div data-colname="actions">
               <button value={index} onClick={handleModalOpen}>
@@ -178,7 +189,7 @@ function ResearchOutputs() {
       </div>
 
       <dialog id="outputsModal">
-        <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
+        <form method="post" enctype="multipart/form-data" onSubmit={handleSaveModal}>
           <div className="form-modal-wrapper">
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
@@ -211,15 +222,37 @@ function ResearchOutputs() {
 
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
-                <TextInput
-                  label="Repository"
-                  type="text"
-                  required="required"
+                <h3>Repository</h3>
+                <LookupField
+                  label="Name"
                   name="repository"
-                  id="repository"
-                  placeholder=""
-                  help=""
-                  error=""
+                  id="idRepository"
+                  endpoint="repositories"
+                  placeholder="Search ..."
+                  help="Search for the repository."
+                  inputValue={dataObj.repository.name}
+                  onChange={handleChange}
+                />
+
+                <TextArea
+                  label="Description"
+                  type="text"
+                  inputValue={dataObj.repository.description}
+                  onChange={handleChange}
+                  name="repository_description"
+                  id="idRepositoryDescription"
+                  disabled={dataObj.repository.isLocked}
+                />
+
+                <TextInput
+                  label="URL"
+                  type="text"
+                  required=""
+                  name="repository_url"
+                  id="idRepositoryURL"
+                  inputValue={dataObj.repository.url}
+                  onChange={handleChange}
+                  disabled={dataObj.repository.isLocked}
                 />
               </div>
             </div>
@@ -235,15 +268,15 @@ function ResearchOutputs() {
                     <RadioButton
                       label="Yes"
                       name="personal_info"
-                      id="_personal_info_yes"
-                      value="yes"
+                      id="idPI_yes"
+                      inputValue="yes"
                       checked={dataObj.isPersonal}
                     />
                     <RadioButton
                       label="No"
                       name="personal_info"
-                      id="_personal_info_no"
-                      value="no"
+                      id="idPI_no"
+                      inputValue="no"
                       checked={!dataObj.isPersonal}
                     />
                   </div>
@@ -260,15 +293,15 @@ function ResearchOutputs() {
                     <RadioButton
                       label="Yes"
                       name="sensitive_data"
-                      id="sensitive_data_yes"
-                      value="yes"
+                      id="idSD_yes"
+                      inputValue="yes"
                       checked={dataObj.isSensitive}
                     />
                     <RadioButton
                       label="No"
                       name="sensitive_data"
-                      id="sensitive_data_no"
-                      value="no"
+                      id="idSD_no"
+                      inputValue="no"
                       checked={!dataObj.isSensitive}
                     />
                   </div>

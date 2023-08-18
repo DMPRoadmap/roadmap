@@ -101,7 +101,7 @@ function Contributors() {
     if (affiliation) { contributor.affiliation = affiliation; }
     contributor.commit();
 
-    if (typeof editIndex === "null") {
+    if (editIndex === null) {
       // NOTE:: Null index indicates a brand new contributor being added
       dmp.contributors.add(contributor);
     } else {
@@ -122,8 +122,7 @@ function Contributors() {
 
   function handleSave(ev) {
     ev.preventDefault();
-    dmp.commit();
-    saveDraftDmp(dmp).then((savedDmp) => {
+    saveDraftDmp(dmp).then(() => {
       navigate(-1);
     });
   }
