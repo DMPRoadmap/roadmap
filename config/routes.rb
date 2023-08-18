@@ -124,8 +124,9 @@ Rails.application.routes.draw do
       get :funders, controller: :typeaheads
       get :affiliations, controller: :typeaheads
       get :repositories, controller: :typeaheads
+      get :output_types, controller: :typeaheads
 
-      # React UI radio button and select box options
+      # React UI radio button, check box and select box options
       get :contributor_roles, controller: :options
 
       # Draft (work in progress) DMPs

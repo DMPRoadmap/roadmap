@@ -12,6 +12,7 @@ json.items @items do |item|
   end
 
   if item.is_a?(Hash)
-
+    json.label item[:label]
+    json.value item[:value]
   end
 end
