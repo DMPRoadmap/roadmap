@@ -224,6 +224,7 @@ export class DataObject extends Model {
 
   get type() { return this.getData("type", ""); }
   set type(val) { this.setData("type", val); }
+  get typeDisplay() { return getOutputTypeDisplay(this.type); }
 
   get personal() { return this.getData("personal_data", "no"); }
   set personal(val) { this.setData("personal_data", val); }
@@ -240,8 +241,8 @@ export class DataObject extends Model {
 
 
 export class DataRepository extends Model {
-  get name() { return this.getData("name", ""); }
-  set name(val) { this.setData("name", val); }
+  get title() { return this.getData("title", ""); }
+  set title(val) { this.setData("title", val); }
 
   get url() { return this.getData("url", ""); }
   set url(val) { this.setData("url", val); }
@@ -349,37 +350,48 @@ export async function saveDraftDmp(dmp) {
 export async function getOutputTypes(forceUpdate) {
   // We Cache the results on the document to reduce traffic, but allow for
   // a forced update if needed.
-  if (!document.outputTypes || forceUpdate) {
+  if (!document._outputTypes || forceUpdate) {
     let api = new DmpApi();
     const resp = await fetch(api.getPath("output_types"));
     api.handleResponse(resp);
     const data = await resp.json();
-    document.outputTypes = data.items;
+
+    document._outputTypes = {};
+    data.items.forEach(item => {
+      document._outputTypes[item.value] = item.label;
+    })
   }
-  return document.outputTypes;
+  return document._outputTypes;
+}
+
+
+export function getOutputTypeDisplay(typeVal) {
+  // Note make sure outputTypes is cached on the document before calling
+  // this function.
+  if (typeVal === "") return "";
+  return document._outputTypes[typeVal] || "";
 }
 
 
 export async function getContributorRoles(forceUpdate) {
   // We Cache the results on the document to reduce traffic, but allow for
   // a forced update if needed.
-  if (!document.contributorRoles || forceUpdate) {
+  if (!document._contributorRoles || forceUpdate) {
     let api = new DmpApi();
     const resp = await fetch(api.getPath("contributor_roles"));
     api.handleResponse(resp);
     const data = await resp.json();
-    document.contributorRoles = data.items;
+    document._contributorRoles = data.items;
   }
-  return document.contributorRoles;
+  return document._contributorRoles;
 }
 
 
 export function getRoleDisplay(roleVal) {
   if (roleVal === "") return "";
-  getContributorRoles().then((roles) => {
-    let result = roles.find(r => r.value === roleVal);
+  if (document._contributorRoles) {
+    let result = document._contributorRoles.find(r => r.value === roleVal);
     if (result) return result.label;
-  });
-  throw new Error(`Invalid role, ${roleVal}`);
+  }
   return "";
 }

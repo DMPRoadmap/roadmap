@@ -36,16 +36,9 @@ function ResearchOutputs() {
   useEffect(() => {
     getDraftDmp(dmpId).then(initial => {
       setDmp(initial);
-      console.log("Initial DMP");
-      console.log(initial);
     });
 
     getOutputTypes().then((data) => {
-      console.log(data);
-      let typesMap = data.map(t => {
-        console.log(t);
-        return t;
-      });
       setOutputTypes(data);
     });
   }, [dmpId]);
@@ -73,9 +66,10 @@ function ResearchOutputs() {
         if (ev.data) {
           let newObj = new DataObject(dataObj.getData());
           newObj.repository = new DataRepository(ev.data);
+          // NOTE:: The lookup data returns the repository name as "name",
+          // but the DMP saves the repo name as "title".
+          newObj.repository.title = ev.data.name;
           setDataObj(newObj);
-        } else {
-          // TODO: Set the repository name, but we need extra fields here
         }
         break;
     }
@@ -86,12 +80,12 @@ function ResearchOutputs() {
     ev.preventDefault();
 
     const index = ev.target.value;
-    console.log('What is the index?');
-    console.log(editIndex);
-    console.log(typeof editIndex);
+
     if ((index !== "") && (typeof index !== "undefined") ) {
-      setEditIndex(index);
       let newObj = dmp.dataset.get(index);
+      console.log('Hello data object');
+      console.log(newObj.getData());
+      setEditIndex(index);
       setDataObj(newObj);
     } else {
       setEditIndex(null);
@@ -106,10 +100,10 @@ function ResearchOutputs() {
     ev.preventDefault();
     const data = new FormData(ev.target);
     dataObj.title = data.get("title");
+    dataObj.type = data.get("data_type");
 
-    // TODO: Add the Type
-
-    // NOTE: Repository should already be set.
+    // NOTE: Repository should already be set, because it's handled in the
+    // handleChange() function.
 
     if (editIndex === null) {
       dmp.dataset.add(dataObj);
@@ -119,12 +113,12 @@ function ResearchOutputs() {
     let newDmp = new DmpModel(dmp.getData());
     setDmp(newDmp);
 
-    document.getElementById("outputsModal").close();
+    closeModal();
   }
 
 
-  function handleCancelModal(ev) {
-    ev.preventDefault();
+  function closeModal(ev) {
+    if (ev) ev.preventDefault();
     setDataObj(new DataObject({}));
     document.getElementById("outputsModal").close();
   }
@@ -132,7 +126,7 @@ function ResearchOutputs() {
 
   async function handleSave(ev) {
     ev.preventDefault();
-    saveDraftDMP(dmp).then(() => {
+    saveDraftDmp(dmp).then(() => {
       navigate(-1);
     });
   }
@@ -177,8 +171,8 @@ function ResearchOutputs() {
             <div data-colname="name">{item.title}</div>
             <div data-colname="personal">{item.personal}</div>
             <div data-colname="sensitive">{item.sensitive}</div>
-            <div data-colname="repo">{item.repository.url}</div>
-            <div data-colname="datatype">{item.type}</div>
+            <div data-colname="repo">{item.repository.title}</div>
+            <div data-colname="datatype">{item.typeDisplay}</div>
             <div data-colname="actions">
               <button value={index} onClick={handleModalOpen}>
                 Edit
@@ -199,6 +193,7 @@ function ResearchOutputs() {
                   required="required"
                   name="title"
                   id="title"
+                  inputValue={dataObj.repository.title}
                   placeholder=""
                   help=""
                   error=""
@@ -207,15 +202,12 @@ function ResearchOutputs() {
 
               <div className="dmpui-form-col">
                 <Select
-                  options={DataObject.dataTypes}
+                  options={outputTypes}
                   label="Data type"
-                  type="text"
-                  required="required"
                   name="data_type"
                   id="data_type"
-                  placeholder=""
+                  inputValue={dataObj.type}
                   help=""
-                  error=""
                 />
               </div>
             </div>
@@ -230,7 +222,7 @@ function ResearchOutputs() {
                   endpoint="repositories"
                   placeholder="Search ..."
                   help="Search for the repository."
-                  inputValue={dataObj.repository.name}
+                  inputValue={dataObj.repository.title}
                   onChange={handleChange}
                 />
 
@@ -311,7 +303,7 @@ function ResearchOutputs() {
           </div>
 
           <div className="form-actions ">
-            <button type="button" onClick={handleCancelModal}>
+            <button type="button" onClick={closeModal}>
               Cancel
             </button>
             <button type="submit" className="primary">
@@ -321,10 +313,9 @@ function ResearchOutputs() {
         </form>
       </dialog>
 
-
-      <form method="post" enctype="multipart/form-data">
+      <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
         <div className="form-actions ">
-          <button type="button" onClick={handleSave}>
+          <button type="button" onClick={() => navigate(-1)}>
             Cancel
           </button>
           <button type="submit" className="primary">
