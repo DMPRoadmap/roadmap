@@ -99,48 +99,46 @@ n*
  *
  */
 
-$(() => {
-  $('body').on('click', '.accordion-controls a[data-toggle-direction]', (e) => {
-    // e.preventDefault();
-    e.stopPropagation();
-    const currentTarget = $(e.currentTarget);
-    const target = $(e.target);
-    const direction = target.attr('data-toggle-direction');
-    const parentTargetName = currentTarget.parent().attr('data-parent');
+$(() => $('body').on('click', '.accordion-controls a[data-toggle-direction]', (e) => {
+  e.preventDefault();
+  const currentTarget = $(e.currentTarget);
+  const target = $(e.target);
+  const direction = target.attr('data-toggle-direction');
+  const parentTargetName = currentTarget.parent().attr('data-parent');
 
-    if (direction) {
-      // Selects all .accordion-item elements where the parent is
-      // currentTarget.attr('data-parent') and
-      // after gets the immediate children whose class selector is accordion-item
-      const parentTarget = $(`#${parentTargetName}`).length ? $(`#${parentTargetName}`) : $(`.${parentTargetName}`);
-      parentTarget.children('.accordion-item').each((i, el) => {
-        const accordionItem = $(el);
-        const accordionHeader = $(accordionItem.children('.accordion-header')[0]);
-        const accordionButton = $(accordionHeader.children('.accordion-button')[0]);
-        const accordionCollapse = $(accordionItem.children('.accordion-collapse')[0]);
-        // const accordionBody = $(accordionCollapse.children('.accordion-body')[0]);
-        // Expands or collapses according to the
-        // direction passed (e.g. show --> expands, hide --> collapses)
-        if (direction === 'show') {
-          // if (!accordionCollapse.hasClass('show')) {
-          //   // accordionButton.trigger('click');
-          //   // eslint-disable-next-line no-console
-          //   console.log('Clicked accordionButton: ', accordionButton);
-          //   // setTimeout(() => {
-          //   // eslint-disable-next-line no-console
-          //   //   console.log('Clicked accordionButton: ', accordionButton);
-          //   // }, 500);
-          // }
-
-          accordionButton.removeClass('collapsed');
-          accordionCollapse.addClass('show');
+  if (direction) {
+    // Selects all .accordion-item elements where the parent is
+    // currentTarget.attr('data-parent') and
+    // after gets the immediate children whose class selector is accordion-item
+    const parentTarget = $(`#${parentTargetName}`).length ? $(`#${parentTargetName}`) : $(`.${parentTargetName}`);
+    parentTarget.children('.accordion-item').each((i, el) => {
+      const accordionItem = $(el);
+      const accordionHeader = $(accordionItem.children('.accordion-header')[0]);
+      const accordionButton = $(accordionHeader.children('.accordion-button')[0]);
+      const accordionCollapse = $(accordionItem.children('.accordion-collapse')[0]);
+      // Expands or collapses according to the
+      // direction passed (e.g. show --> expands, hide --> collapses)
+      if (direction === 'show') {
+        // To check if element with class .accordion-body has attribute data-loaded
+        // we use the vanilla js Dom element so we can use hasAttribute() 
+        // and getAttribute() methods.
+        const accordionBodyVanillaJsEl = accordionCollapse.children('.accordion-body')[0];
+        if (accordionBodyVanillaJsEl.hasAttribute('data-loaded')
+          && accordionBodyVanillaJsEl.getAttribute('data-loaded') === 'false') {
+          // We need the vanilla js Dom element of the button to
+          // to trigger click as the jquery trigger('click')
+          // does not work for rails-ujs
+          const accordionButtonVanillaJsEl = accordionHeader.children('.accordion-button')[0];
+          accordionButtonVanillaJsEl.click();
         }
+        accordionButton.removeClass('collapsed');
+        accordionCollapse.addClass('show');
+      }
 
-        if (direction === 'hide') {
-          accordionButton.addClass('collapsed');
-          accordionCollapse.removeClass('show');
-        }
-      });
-    }
-  });
-});
+      if (direction === 'hide') {
+        accordionButton.addClass('collapsed');
+        accordionCollapse.removeClass('show');
+      }
+    });
+  }
+}));
