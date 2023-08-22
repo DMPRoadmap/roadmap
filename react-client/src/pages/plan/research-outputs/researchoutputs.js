@@ -169,7 +169,7 @@ function ResearchOutputs() {
         </div>
         <div className="data-heading" data-colname="actions"></div>
 
-        {dmp.dataset ? dmp.dataset.items.map((item, index) => (
+        {dmp?.dataset?.items ? dmp.dataset.items.map((item, index) => (
           <Fragment key={index}>
             <div data-colname="name">{item.title}</div>
             <div data-colname="personal">{item.personal}</div>
