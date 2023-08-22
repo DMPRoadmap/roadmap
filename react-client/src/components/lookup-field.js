@@ -25,6 +25,10 @@ function LookupField(props) {
   var controller;
 
   useEffect(() => {
+    setQuery(props.inputValue);
+  }, [props.inputValue]);
+
+  useEffect(() => {
     // NOTE: Since the server requires a limit of 3 characters,
     // we might as well avoid any work till we reach the minimum.
     if ((query.length > 2) && query !== props.inputValue) {
