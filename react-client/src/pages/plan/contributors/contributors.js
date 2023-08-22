@@ -77,14 +77,22 @@ function Contributors() {
       setEditIndex(index);
       let newContrib = dmp.contributors.get(index);
       setContributor(newContrib);
+      setSelectedRole(newContrib.role);
     } else {
       setEditIndex(null);
+      setSelectedRole(defaultRole);
       setContributor(new Contributor({}));
     }
 
     document.getElementById("contributorModal").showModal();
   }
 
+  function closeModal(ev) {
+    if (ev) ev.preventDefault();
+
+    setContributor(new Contributor({}));
+    document.getElementById("contributorModal").close();
+  }
 
   function handleSaveContributor(ev) {
     ev.preventDefault();
@@ -111,13 +119,7 @@ function Contributors() {
     let newDmp = new DmpModel(dmp.getData());
     setDmp(newDmp);
 
-    document.getElementById("contributorModal").close();
-  }
-
-  function handleCancelModal(ev) {
-    ev.preventDefault();
-    setContributor(new Contributor({}));
-    document.getElementById("contributorModal").close();
+    closeModal();
   }
 
   function handleSave(ev) {
@@ -277,7 +279,7 @@ function Contributors() {
           </div>
 
           <div className="form-actions ">
-            <button type="button" onClick={handleCancelModal}>
+            <button type="button" onClick={closeModal}>
               Cancel
             </button>
             <button type="submit" className="primary">

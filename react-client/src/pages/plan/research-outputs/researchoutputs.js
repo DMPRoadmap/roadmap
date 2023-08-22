@@ -83,10 +83,8 @@ function ResearchOutputs() {
 
     if ((index !== "") && (typeof index !== "undefined") ) {
       let newObj = dmp.dataset.get(index);
-      console.log('Hello data object');
-      console.log(newObj.getData());
-      setEditIndex(index);
       setDataObj(newObj);
+      setEditIndex(index);
     } else {
       setEditIndex(null);
       setDataObj(new DataObject({}));
@@ -222,6 +220,7 @@ function ResearchOutputs() {
                   endpoint="repositories"
                   placeholder="Search ..."
                   help="Search for the repository."
+                  // FIXME:: inputValue doesn't work down here
                   inputValue={dataObj.repository.title}
                   onChange={handleChange}
                 />
