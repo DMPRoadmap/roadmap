@@ -20,6 +20,7 @@
   <% if Rails.configuration.x.madmp.enable_related_identifiers %>
     <h2><%= _('Research Outputs') %></h2>
     <p><%= _('Link this plan to research outputs the project has generated– such as journal articles, preprints, datasets, data papers, and software. You can link in-press or embargoed work if a DOI or other URL-based identifier has been assigned to it.') %></p>
+    <p><%= _('Please note that it can take several seconds to retrieve the citation after you add a new DOI.') %></p>
     <div class="row">
       <%= render partial: "related_identifiers/edit", locals: { form: f, plan: plan } %>
     </div>

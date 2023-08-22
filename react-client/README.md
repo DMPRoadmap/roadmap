@@ -680,11 +680,31 @@ Below is an example of a full DMP ID record (including some :dmphub_modification
             "timestamp": "2023-07-27T15:08:32+07:00",
             "note": "data received from event data",
             "status": "pending",
-            "dmproadmap_related_identifier": {
-              "work_type": "dataset",
-              "descriptor": "references",
-              "type": "doi",
-              "identifier": "https://dx.doi.org/77.6666/H5H5H5"
+            "dmproadmap_related_identifiers": [
+              {
+                "work_type": "dataset",
+                "descriptor": "references",
+                "type": "doi",
+                "identifier": "https://dx.doi.org/77.6666/H5H5H5"
+              },
+              {
+                "work_type": "paper",
+                "descriptor": "is_cited_by",
+                "type": "url",
+                "identifier": "https://academic.site/papers/123"
+              }
+            ],
+            "funding": {
+              "name": "National Science Foundation",
+              "funder_id": {
+                "type": "ror",
+                "identifier": "https://ror.org/021nxhr62"
+              },
+              "funding_status": "granted",
+              "grant_id": {
+                "identifier": "https://doi.org/11.1111/2019.22702-3",
+                "type": "doi"
+              }
             }
           }, {
             "id": "ZYXW9878",
@@ -692,43 +712,12 @@ Below is an example of a full DMP ID record (including some :dmphub_modification
             "timestamp": "2023-07-27T15:08:52+07:00",
             "note": "data received from event data",
             "status": "accepted",
-            "dmproadmap_related_identifier": {
-              "work_type": "article",
-              "descriptor": "is_cited_by",
-              "type": "url",
-              "identifier": "https://doi.org/22.33333/pubmed.1242345234"
-            }
-          }, {
-            "id": "ZYXW9880",
-            "provenance": "datacite",
-            "timestamp": "2023-07-27T15:09:13+07:00",
-            "note": "data received from event data",
-            "status": "rejected",
-            "dmproadmap_related_identifier": {
-              "work_type": "paper",
-              "descriptor": "is_cited_by",
-              "type": "url",
-              "identifier": "https://academic.site/papers/123"
-            }
-          },
-          {
-            "id": "ABCD1234",
-            "provenance": "crossref",
-            "timestamp": "2023-07-13T09:25:23+07:00",
-            "note": "data received from the Crossref Grants API",
-            "status": "pending",
-            "funding": [
+            "dmproadmap_related_identifiers": [
               {
-                "name": "National Science Foundation",
-                "funder_id": {
-                  "type": "ror",
-                  "identifier": "https://ror.org/021nxhr62"
-                },
-                "funding_status": "granted",
-                "grant_id": {
-                  "identifier": "https://doi.org/11.1111/2019.22702-3",
-                  "type": "doi"
-                }
+                "work_type": "article",
+                "descriptor": "is_cited_by",
+                "type": "url",
+                "identifier": "https://doi.org/22.33333/pubmed.1242345234"
               }
             ]
           }
@@ -756,7 +745,7 @@ Below is an example of a full DMP ID record (including some :dmphub_modification
             "descriptor": "is_cited_by",
             "type": "url",
             "identifier": "https://doi.org/22.33333/pubmed.1242345234"
-          }
+          },
           {
             "descriptor": "is_metadata_for",
             "identifier": "https://api.dmphub.uc3dev.cdlib.net/narratives/1234567890.pdf",

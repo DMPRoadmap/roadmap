@@ -16,6 +16,7 @@ Rails.configuration.x.dmphub.mint_path = 'dmps'
 Rails.configuration.x.dmphub.update_path = 'dmps/%{dmp_id}'
 Rails.configuration.x.dmphub.delete_path = 'dmps/%{dmp_id}'
 Rails.configuration.x.dmphub.narrative_path = 'narratives?dmp_id=%{dmp_id}'
+Rails.configuration.x.dmphub.citation_path = 'citations'
 
 Rails.configuration.x.dmphub.callback_path = 'dmps/%{dmp_id}'
 Rails.configuration.x.dmphub.callback_method = 'patch'
