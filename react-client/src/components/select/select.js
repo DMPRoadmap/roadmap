@@ -1,16 +1,7 @@
 import { useState, useEffect } from "react";
 
 function Select(props) {
-  const [inputType] = useState(props.type);
-  const [options, setOptions] = useState(props.options);
-  const [inputValue, setInputValue] = useState(props.inputValue);
-
-  useEffect(() => {
-    setInputValue(props.inputValue);
-  }, [props.inputValue]);
-
   function handleChange(ev) {
-    setInputValue(ev.target.value);
     if (props.onChange) props.onChange(ev);
   }
 
@@ -33,20 +24,18 @@ function Select(props) {
 
         <div className="dmpui-field-input-group">
           <select
-            type={inputType}
-            value={inputValue}
+            value={props.inputValue}
             name={props?.name ? props.name : ""}
-            id={props?.id ? props.id : ""}
             onChange={handleChange}
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
             className="dmpui-field-input-text select"
           >
             <option>Select one</option>
-            {options &&
-              Object.keys(options).map((key) => {
+            {props.options &&
+              Object.keys(props.options).map((key) => {
                 return (
                   <option key={key} value={key}>
-                    {options[key]}
+                    {props.options[key]}
                   </option>
                 );
               })}

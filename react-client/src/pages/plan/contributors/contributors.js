@@ -77,14 +77,22 @@ function Contributors() {
       setEditIndex(index);
       let newContrib = dmp.contributors.get(index);
       setContributor(newContrib);
+      setSelectedRole(newContrib.role);
     } else {
       setEditIndex(null);
+      setSelectedRole(defaultRole);
       setContributor(new Contributor({}));
     }
 
     document.getElementById("contributorModal").showModal();
   }
 
+  function closeModal(ev) {
+    if (ev) ev.preventDefault();
+
+    setContributor(new Contributor({}));
+    document.getElementById("contributorModal").close();
+  }
 
   function handleSaveContributor(ev) {
     ev.preventDefault();
@@ -101,7 +109,7 @@ function Contributors() {
     if (affiliation) { contributor.affiliation = affiliation; }
     contributor.commit();
 
-    if (typeof editIndex === "null") {
+    if (editIndex === null) {
       // NOTE:: Null index indicates a brand new contributor being added
       dmp.contributors.add(contributor);
     } else {
@@ -111,19 +119,12 @@ function Contributors() {
     let newDmp = new DmpModel(dmp.getData());
     setDmp(newDmp);
 
-    document.getElementById("contributorModal").close();
-  }
-
-  function handleCancelModal(ev) {
-    ev.preventDefault();
-    setContributor(new Contributor({}));
-    document.getElementById("contributorModal").close();
+    closeModal();
   }
 
   function handleSave(ev) {
     ev.preventDefault();
-    dmp.commit();
-    saveDraftDmp(dmp).then((savedDmp) => {
+    saveDraftDmp(dmp).then(() => {
       navigate(-1);
     });
   }
@@ -278,7 +279,7 @@ function Contributors() {
           </div>
 
           <div className="form-actions ">
-            <button type="button" onClick={handleCancelModal}>
+            <button type="button" onClick={closeModal}>
               Cancel
             </button>
             <button type="submit" className="primary">
