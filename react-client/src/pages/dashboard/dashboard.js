@@ -140,18 +140,15 @@ function Dashboard() {
                       >
                         <a
                           title={dmp.title}
-                          onClick={() =>
-                            handleQuickViewOpen(dmp.draftId)
-                          }
+                          onClick={() => handleQuickViewOpen(dmp.draftId)}
                         >
                           {truncateText(dmp.title, 50)}
                         </a>
                         <a
                           href="#"
                           class="preview-button"
-                          onClick={() =>
-                            handleQuickViewOpen(dmp.draftId)
-                          }
+                          aria-label="Open plan preview"
+                          onClick={() => handleQuickViewOpen(dmp.draftId)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -162,15 +159,19 @@ function Dashboard() {
                           >
                             <path d="M433-344v-272L297-480l136 136ZM180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm453-60h147v-600H633v600Zm-60 0v-600H180v600h393Zm60 0h147-147Z" />
                           </svg>
+                          <span className="screen-reader-text">
+                            Open Plan Preview
+                          </span>
                         </a>
 
                         <div className="d-block table-data-pi">
                           PI: {truncateText("John Smith", 50)}
-                          {dmp.draftId && dmp.draftId !== "20230629-570ca751fdb0" && (
-                            <span className={"action-required-text"}>
-                              X works need verification
-                            </span>
-                          )}
+                          {dmp.draftId &&
+                            dmp.draftId !== "20230629-570ca751fdb0" && (
+                              <span className={"action-required-text"}>
+                                X works need verification
+                              </span>
+                            )}
                         </div>
                       </td>
                       <td className="table-data-name" data-colname="funder">
@@ -191,7 +192,8 @@ function Dashboard() {
                         className="table-data-name table-data-actions"
                         data-colname="actions"
                       >
-                        {dmp.draftId && dmp.draftId === "20230629-570ca751fdb0" ? (
+                        {dmp.draftId &&
+                        dmp.draftId === "20230629-570ca751fdb0" ? (
                           <Link
                             className="edit-button"
                             to={`/dashboard/dmp/${dmp.draftId}`}
