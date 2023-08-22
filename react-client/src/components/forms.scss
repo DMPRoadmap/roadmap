@@ -46,13 +46,18 @@ input[type="submit"] {
     }
   }
 
-  &:focus,
   &:hover,
   &:active {
     outline: none !important;
     outline-color: #000 !important;
     outline-width: 0px !important;
     box-shadow: none !important;
+  }
+  &:focus {
+    outline-offset: 3px;
+    outline-color: #11057b;
+    outline-width: 1px;
+    outline-style: solid;
   }
 }
 
