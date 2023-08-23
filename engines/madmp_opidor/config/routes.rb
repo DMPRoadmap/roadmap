@@ -62,6 +62,10 @@ Rails.application.routes.draw do
             post :import
           end
         end
+        resources :services do
+          resources :items, only: [:ror]
+          get 'ror', action: :ror, on: :collection, as: :ror
+        end
       end
     end
   end
