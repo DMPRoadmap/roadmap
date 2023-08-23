@@ -226,7 +226,6 @@ function ResearchOutputs() {
                   endpoint="repositories"
                   placeholder="Search ..."
                   help="Search for the repository."
-                  // FIXME:: inputValue doesn't work down here
                   inputValue={dataObj.repository.title}
                   onChange={handleChange}
                 />

@@ -6,7 +6,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 
 import { DmpApi } from "../../../api.js";
-import { getDraftDmp } from "../../../models.js";
+import { getDraftDmp, saveDraftDmp } from "../../../models.js";
 import { getValue, useDebounce, isEmpty} from "../../../utils.js";
 import TextInput from "../../../components/text-input/textInput";
 import "./projectsearch.scss";
@@ -136,18 +136,7 @@ function ProjectSearch() {
       dmp.contact.name = getValue(item, "contact");
       dmp.contributors = getValue(item, "contributor");
 
-      dmp.commit();
-
-      let api = new DmpApi();
-      let options = api.getOptions({
-        method: "put",
-        body: JSON.stringify({ dmp: dmp.getData() }),
-      });
-
-      fetch(api.getPath(`/drafts/${dmpId}`), options).then((resp) => {
-        api.handleResponse(resp.status);
-        return resp.json();
-      }).then((data) => {
+      saveDraftDmp(dmp).then((savedDmp) => {
         navigate(`/dashboard/dmp/${dmpId}/project-details`);
       });
     }

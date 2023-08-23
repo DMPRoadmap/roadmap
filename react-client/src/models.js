@@ -371,6 +371,7 @@ export function getOutputTypeDisplay(typeVal) {
   // Note make sure outputTypes is cached on the document before calling
   // this function.
   if (typeVal === "") return "";
+  if (!document._outputTypes) return "";
   return document._outputTypes[typeVal] || "";
 }
 
