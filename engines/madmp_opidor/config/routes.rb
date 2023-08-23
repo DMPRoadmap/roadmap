@@ -63,8 +63,9 @@ Rails.application.routes.draw do
           end
         end
         resources :services do
-          resources :items, only: [:ror]
+          resources :items, only: %i[ror orcid]
           get 'ror', action: :ror, on: :collection, as: :ror
+          get 'orcid', action: :orcid, on: :collection, as: :orcid
         end
       end
     end
