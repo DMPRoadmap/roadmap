@@ -9,7 +9,7 @@ class TemplatesController < ApplicationController
       { sections: :questions }
     ).find(params[:id])
 
-    authorize template
+    authorize template, policy_class: PublicTemplateInfoPolicy
 
     template_data = template.sections.as_json(
       include: {
