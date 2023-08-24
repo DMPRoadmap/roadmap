@@ -64,7 +64,7 @@ function Contributors() {
         if (ev.data) {
           newContrib.affiliation = new RoadmapAffiliation(ev.data);
         } else {
-          newContrib.affilitation.name = value;
+          newContrib.affiliation.name = value;
         }
         setContributor(newContrib);
         break;
@@ -248,7 +248,6 @@ function Contributors() {
                   help="Search for your institution (API)"
                   inputValue={contributor.affiliation.name}
                   onChange={handleChange}
-                  error=""
                 />
               </div>
             </div>

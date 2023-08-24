@@ -245,6 +245,10 @@ input[type="submit"] {
   opacity: 0.5;
 }
 
+.group-hidden {
+  display: none;
+}
+
 .dmpui-search-form-container {
   padding: 2rem;
   background-color: var(--dmpui-brand-blue-100);

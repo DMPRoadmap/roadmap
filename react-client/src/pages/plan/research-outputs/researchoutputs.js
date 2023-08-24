@@ -67,14 +67,21 @@ function ResearchOutputs() {
         break;
 
       case "repository":
+        var newObj = new DataObject(dataObj.getData());
         if (ev.data) {
-          let newObj = new DataObject(dataObj.getData());
           newObj.repository = new DataRepository(ev.data);
           // NOTE:: The lookup data returns the repository name as "name",
           // but the DMP saves the repo name as "title".
           newObj.repository.title = ev.data.name;
           setDataObj(newObj);
+        } else {
+          // Only reset /all/ the data if the repo was previously locked
+          if (newObj.repository.isLocked) {
+            newObj.repository = new DataRepository({});
+          }
+          newObj.repository.title = value;
         }
+        setDataObj(newObj);
         break;
     }
   }
@@ -238,6 +245,7 @@ function ResearchOutputs() {
                   name="repository_description"
                   id="idRepositoryDescription"
                   disabled={dataObj.repository.isLocked}
+                  hidden={dataObj.repository.isLocked}
                 />
 
                 <TextInput
@@ -249,6 +257,7 @@ function ResearchOutputs() {
                   inputValue={dataObj.repository.url}
                   onChange={handleChange}
                   disabled={dataObj.repository.isLocked}
+                  hidden={dataObj.repository.isLocked}
                 />
               </div>
             </div>

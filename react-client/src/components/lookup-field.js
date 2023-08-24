@@ -4,13 +4,12 @@ import {
 } from "react";
 
 import { DmpApi } from "../api.js";
-import {getValue, useDebounce, isEmpty} from "../utils.js";
+import { useDebounce } from "../utils.js";
 
 
 function LookupField(props) {
-  const [query, setQuery] = useState(props.inputValue || "");
   const [suggestions, setSuggestions] = useState([]);
-  const debounceQuery = useDebounce(query, 500);
+  const debounceQuery = useDebounce(props.inputValue, 500);
 
   // Annoyingly, react components don't use the shadow dom, which mean
   // the ID's will be globally available instead of isolated within the
@@ -25,13 +24,9 @@ function LookupField(props) {
   var controller;
 
   useEffect(() => {
-    setQuery(props.inputValue);
-  }, [props.inputValue]);
-
-  useEffect(() => {
     // NOTE: Since the server requires a limit of 3 characters,
     // we might as well avoid any work till we reach the minimum.
-    if ((query.length > 2) && query !== props.inputValue) {
+    if (props.inputValue.length > 2) {
       if (controller) controller.abort();
 
       controller = new AbortController();
@@ -39,7 +34,7 @@ function LookupField(props) {
       let api = new DmpApi();
       let options = api.getOptions({signal: controller.signal});
 
-      fetch(api.getPath(`/${props.endpoint}?search=${query}`), options)
+      fetch(api.getPath(`/${props.endpoint}?search=${props.inputValue}`), options)
         .then((resp) => {
           api.handleResponse(resp);
           return resp.json();
@@ -70,6 +65,7 @@ function LookupField(props) {
 
   function handleChange(ev) {
     const {name, value} = ev.target;
+
     // NOTE: Check if the the change happend after selecting an option
     // in the datalist.
     // TODO:: I'm not sure if this specific check is handled the same
@@ -79,10 +75,9 @@ function LookupField(props) {
       let chosenEl = ev.target
                        .parentNode
                        .querySelector(`option[value="${value}"]`);
-      let di = chosenEl.dataset["index"];
-      ev.data = suggestions[di];
+      let i = chosenEl.dataset["index"];
+      ev.data = suggestions[i];
     }
-    setQuery(value);
     props.onChange(ev);
   }
 
@@ -99,7 +94,7 @@ function LookupField(props) {
         <div className="dmpui-field-input-group">
           <input
             type="text"
-            value={query}
+            value={props.inputValue}
             onChange={handleChange}
             name={props?.name ? props.name : "lookup_query"}
             id={props?.id ? props.id : ""}
@@ -111,7 +106,7 @@ function LookupField(props) {
           />
 
           <datalist id={resultsId}>
-            {query.length > 0 && suggestions?.map((el, index) => {
+            {props.inputValue.length > 0 && suggestions?.map((el, index) => {
               return <option data-index={index} value={el.name} />;
             })}
           </datalist>

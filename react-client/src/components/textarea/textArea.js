@@ -4,10 +4,10 @@ import {
 } from "react";
 
 function TextArea(props) {
-  const [inputType] = useState(props.type);
   const [inputValue, setInputValue] = useState(props.inputValue);
 
   let disabledClass = props?.disabled ? "group-disabled" : "";
+  let hiddenClass = props?.hidden ? "group-hidden" : "";
 
   useEffect(() => {
     setInputValue(props.inputValue)
@@ -27,7 +27,7 @@ function TextArea(props) {
 
   return (
     <>
-      <div className={`dmpui-field-group ${disabledClass} ${errorClass}`}>
+      <div className={`dmpui-field-group ${disabledClass} ${hiddenClass} ${errorClass}`}>
         <label className="dmpui-field-label">
           {props?.label ? props.label : ""}
         </label>
@@ -37,7 +37,6 @@ function TextArea(props) {
 
         <div className="dmpui-field-input-group">
           <textarea
-            type={inputType}
             value={inputValue}
             name={props?.name ? props.name : ""}
             id={props?.id ? props.id : ""}

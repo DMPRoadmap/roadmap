@@ -121,7 +121,7 @@ export class Contributor extends Model {
 
 
 export class RoadmapAffiliation extends Model {
-  get name() { return this.getData("name"); }
+  get name() { return this.getData("name", ""); }
   set name(val) { this.setData("name", val); }
 
   get acronym() { return this.getData("acronym"); }
