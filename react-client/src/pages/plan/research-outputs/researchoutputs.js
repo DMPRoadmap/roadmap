@@ -47,9 +47,13 @@ function ResearchOutputs() {
   function handleChange(ev) {
     const {name, value} = ev.target;
 
-    console.log(`Handle Change: ${name}: ${value}`);
-
     switch (name) {
+      case "data_type":
+        var newObj = new DataObject(dataObj.getData());
+        newObj.type = value;
+        setDataObj(newObj);
+        break;
+
       case "personal_info":
         var newObj = new DataObject(dataObj.getData());
         newObj.personal = value;
@@ -96,6 +100,7 @@ function ResearchOutputs() {
 
   function handleSaveModal(ev) {
     ev.preventDefault();
+
     const data = new FormData(ev.target);
     dataObj.title = data.get("title");
     dataObj.type = data.get("data_type");
@@ -164,7 +169,7 @@ function ResearchOutputs() {
         </div>
         <div className="data-heading" data-colname="actions"></div>
 
-        {dmp.dataset ? dmp.dataset.items.map((item, index) => (
+        {dmp?.dataset?.items ? dmp.dataset.items.map((item, index) => (
           <Fragment key={index}>
             <div data-colname="name">{item.title}</div>
             <div data-colname="personal">{item.personal}</div>
@@ -191,7 +196,7 @@ function ResearchOutputs() {
                   required="required"
                   name="title"
                   id="title"
-                  inputValue={dataObj.repository.title}
+                  inputValue={dataObj.title}
                   placeholder=""
                   help=""
                   error=""
@@ -205,6 +210,7 @@ function ResearchOutputs() {
                   name="data_type"
                   id="data_type"
                   inputValue={dataObj.type}
+                  onChange={handleChange}
                   help=""
                 />
               </div>
@@ -220,7 +226,6 @@ function ResearchOutputs() {
                   endpoint="repositories"
                   placeholder="Search ..."
                   help="Search for the repository."
-                  // FIXME:: inputValue doesn't work down here
                   inputValue={dataObj.repository.title}
                   onChange={handleChange}
                 />

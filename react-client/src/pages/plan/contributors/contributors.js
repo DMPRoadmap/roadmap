@@ -32,7 +32,6 @@ function Contributors() {
   const [dmp, setDmp] = useState({});
   const [contributor, setContributor] = useState(new Contributor({}));
 
-  var affiliation;
 
   useEffect(() => {
     getDraftDmp(dmpId).then(initial => {
@@ -61,9 +60,13 @@ function Contributors() {
         break;
 
       case "affiliation":
+        let newContrib = new Contributor(contributor.getData());
         if (ev.data) {
-          affiliation = new RoadmapAffiliation(ev.data);
+          newContrib.affiliation = new RoadmapAffiliation(ev.data);
+        } else {
+          newContrib.affilitation.name = value;
         }
+        setContributor(newContrib);
         break;
     }
   }
@@ -105,8 +108,6 @@ function Contributors() {
     contributor.mbox = data.get("email");
     contributor.setData("contributor_id.identifier", data.get("orcid"));
     contributor.setData("role", [data.get("role")]);
-
-    if (affiliation) { contributor.affiliation = affiliation; }
     contributor.commit();
 
     if (editIndex === null) {

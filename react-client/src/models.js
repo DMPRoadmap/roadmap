@@ -357,9 +357,11 @@ export async function getOutputTypes(forceUpdate) {
     const data = await resp.json();
 
     document._outputTypes = {};
-    data.items.forEach(item => {
-      document._outputTypes[item.value] = item.label;
-    })
+    if (data.items) {
+      data.items.forEach(item => {
+        document._outputTypes[item.value] = item.label;
+      })
+    }
   }
   return document._outputTypes;
 }
@@ -369,6 +371,7 @@ export function getOutputTypeDisplay(typeVal) {
   // Note make sure outputTypes is cached on the document before calling
   // this function.
   if (typeVal === "") return "";
+  if (!document._outputTypes) return "";
   return document._outputTypes[typeVal] || "";
 }
 
@@ -381,7 +384,11 @@ export async function getContributorRoles(forceUpdate) {
     const resp = await fetch(api.getPath("contributor_roles"));
     api.handleResponse(resp);
     const data = await resp.json();
-    document._contributorRoles = data.items;
+
+    document._contributorRoles = {};
+    if (data.items) {
+      document._contributorRoles = data.items;
+    }
   }
   return document._contributorRoles;
 }
