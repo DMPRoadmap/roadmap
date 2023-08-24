@@ -239,9 +239,12 @@ input[type="submit"] {
     font-size: 1.5rem;
     height: 1.5rem;
 
-    &:hover,
-    &:focus {
+    &:hover {
       outline: none !important;
+    }
+    &:focus-within,
+    &:focus {
+      outline: 1px solid var(--dmpui-brand-blue-500) !important;
     }
   }
 }
