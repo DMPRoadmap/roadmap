@@ -24,7 +24,7 @@ function Contributors() {
   const { dmpId } = useParams();
   const [roles, setRoles] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
-  const [selectedRole, setSelectedRole] = useState();
+  const [selectedRole, setSelectedRole] = useState([]);
   const [defaultRole, setDefaultRole] = useState();
   const [dmp, setDmp] = useState({});
   const [contributor, setContributor] = useState(new Contributor({}));
@@ -47,11 +47,16 @@ function Contributors() {
   }, [dmpId]);
 
   function handleChange(ev) {
-    const { name, value } = ev.target;
+    const { name, value, checked } = ev.target;
 
     switch (name) {
       case "role":
-        setSelectedRole(value);
+        if (checked) {
+          setSelectedRole([...selectedRole, value]);
+        } else {
+          setSelectedRole(selectedRole.filter((role) => role !== value));
+        }
+
         break;
 
       case "affiliation":
@@ -266,7 +271,7 @@ function Contributors() {
                           name="role"
                           id={"_role_" + role.value}
                           inputValue={role.value}
-                          checked={role.value === selectedRole}
+                          checked={selectedRole.includes(role.value)}
                         />
                       </Fragment>
                     ))}
