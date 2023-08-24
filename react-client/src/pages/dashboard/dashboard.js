@@ -139,6 +139,7 @@ function Dashboard() {
                         data-colname="title"
                       >
                         <a
+                          to={`/dashboard/dmp/${dmp.draftId}`}
                           title={dmp.title}
                           onClick={() => handleQuickViewOpen(dmp.draftId)}
                         >
@@ -176,7 +177,7 @@ function Dashboard() {
                       </td>
                       <td className="table-data-name" data-colname="funder">
                         <span title={dmp.funding.name}>
-                          {truncateText(dmp.funding.name, 10)}
+                          {truncateText(dmp.funding.name, 50)}
                         </span>
                       </td>
                       <td

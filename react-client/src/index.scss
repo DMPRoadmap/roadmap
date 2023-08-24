@@ -108,7 +108,20 @@ code {
 
     &:hover {
       text-decoration: underline;
+      outline-offset: 2px;
       color: var(--dmpui-brand-blue-900);
+    }
+    &:focus {
+      outline-offset: 2px;
+      color: #000;
+      background-color: #fd0;
+      box-shadow: 0 -2px 0px 0px rgba(255, 221, 0, 0.281),
+        0 4px rgba(255, 221, 0, 0.281);
+      text-decoration: none;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      outline: none !important;
+      text-decoration: underline;
     }
   }
 }
