@@ -234,13 +234,12 @@ namespace :madmpopidor do
         r.version = 1
       end
       if values.is_a?(Array)
-        registry_values = values
+        values.each_with_index do |reg_val, idx|
+          RegistryValue.create!(data: reg_val, registry: registry, order: idx)
+        end
       elsif values['path'].present?
         values_path = Rails.root.join("engines/madmp_opidor/config/registries/#{values['path']}")
-        registry_values = JSON.parse(File.read(values_path))
-      end
-      registry_values.each_with_index do |reg_val, idx|
-        RegistryValue.create!(data: reg_val, registry: registry, order: idx)
+        Registry.load_values(values_path, registry)
       end
       p "#{registry_name} loaded."
     end
