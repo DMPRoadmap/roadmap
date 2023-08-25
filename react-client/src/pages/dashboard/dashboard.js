@@ -7,6 +7,7 @@ import { DmpModel } from "../../models.js";
 import "./dashboard.scss";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
+  const [previewDmp, setPreviewDmp] = useState({});
   const [user, setUser] = useState({
     givenname: "",
     surname: "",
@@ -19,6 +20,9 @@ function Dashboard() {
   function handleQuickViewOpen(id) {
     console.log("Open Modal; Api Load data: ", id);
     setShow(true);
+    setPreviewDmp(projects.find((dmp) => dmp.draftId === id));
+    console.log("Load DMP");
+    console.log(previewDmp);
     return false;
   }
 
@@ -141,14 +145,20 @@ function Dashboard() {
                         className="table-data-name table-data-title"
                         data-colname="title"
                       >
+                        <Link to={`/dashboard/dmp/${dmp.draftId}`}>
+                          {truncateText(dmp.title, 50)}
+                        </Link>
+
+                        {/*
                         <a
                           href="#"
                           title={dmp.title}
                           value={dmp.draftId}
-                          onClick={() => handleQuickViewOpen(dmp.draftId)}
+                           onClick={() => handleQuickViewOpen(dmp.draftId)} 
                         >
                           {truncateText(dmp.title, 50)}
                         </a>
+            
                         <a
                           href="#"
                           class="preview-button"
@@ -168,7 +178,7 @@ function Dashboard() {
                             Open Plan Preview
                           </span>
                         </a>
-
+*/}
                         <div className="d-block table-data-pi">
                           {dmp.contributors
                             ? dmp.contributors.items.map((item, index) => (
