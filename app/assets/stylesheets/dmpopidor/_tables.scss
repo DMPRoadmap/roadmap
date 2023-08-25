@@ -38,6 +38,12 @@
         // links & fontawesome icons
         color: $dark-blue;
       }
+
+      &.actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
     }
 
     tbody>tr:nth-child(odd) {
@@ -45,7 +51,7 @@
       color: $white;
 
       a,
-      .fas {
+      i {
         color: $white;
       }
     }
