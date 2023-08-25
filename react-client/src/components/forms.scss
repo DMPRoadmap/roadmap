@@ -119,11 +119,13 @@ input[type="submit"] {
   .dmpui-field-help {
     font-size: 0.9rem !important;
     margin-bottom: 0.4rem;
+    line-height: 1.5;
     color: #555 !important;
   }
 
   .dmpui-field-error {
     font-size: 0.8em;
+    line-height: 1.5;
     margin-bottom: 0.25rem;
     color: red;
   }
