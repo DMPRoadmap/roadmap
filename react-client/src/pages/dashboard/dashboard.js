@@ -7,6 +7,7 @@ import { DmpModel } from "../../models.js";
 import "./dashboard.scss";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
+  const [previewDmp, setPreviewDmp] = useState({});
   const [user, setUser] = useState({
     givenname: "",
     surname: "",
@@ -19,6 +20,10 @@ function Dashboard() {
   function handleQuickViewOpen(id) {
     console.log("Open Modal; Api Load data: ", id);
     setShow(true);
+    setPreviewDmp(projects.find((dmp) => dmp.draftId === id));
+    console.log("Load DMP");
+    console.log(previewDmp);
+    return false;
   }
 
   useEffect(() => {
@@ -71,9 +76,10 @@ function Dashboard() {
       </div>
 
       <div className="plan-steps">
+        {/* <div className="plan-step">
         <div className="filter-container">
           <div className="filter-status">
-            <h5>Status</h5>
+            <p className="filter-heading">Status</p>
             <div className="filter-quicklinks">
               <a href="/?status=all">All</a>
               <a href="/?status=registered">Registered</a>
@@ -81,7 +87,7 @@ function Dashboard() {
             </div>
           </div>
           <div className="filter-edited">
-            <h5>Edited</h5>
+            <p className="filter-heading">Edited</p>
             <div className="filter-quicklinks">
               <a href="/?status=all">All</a>
               <a href="/?status=lastweek">Last week</a>
@@ -89,11 +95,12 @@ function Dashboard() {
             </div>
           </div>
           <div className="filter-tags">
-            <h5>Filter DMPs</h5>
+            <p className="filter-heading">Filter DMPs</p>
             <button className="button filter-button">Filter</button>
           </div>
           <div className="xcont"></div>
-        </div>
+          </div>
+          */}
 
         <div class="table-container">
           <div class="table-wrapper">
@@ -138,13 +145,20 @@ function Dashboard() {
                         className="table-data-name table-data-title"
                         data-colname="title"
                       >
+                        <Link to={`/dashboard/dmp/${dmp.draftId}`}>
+                          {truncateText(dmp.title, 50)}
+                        </Link>
+
+                        {/*
                         <a
-                          to={`/dashboard/dmp/${dmp.draftId}`}
+                          href="#"
                           title={dmp.title}
-                          onClick={() => handleQuickViewOpen(dmp.draftId)}
+                          value={dmp.draftId}
+                           onClick={() => handleQuickViewOpen(dmp.draftId)} 
                         >
                           {truncateText(dmp.title, 50)}
                         </a>
+            
                         <a
                           href="#"
                           class="preview-button"
@@ -164,15 +178,26 @@ function Dashboard() {
                             Open Plan Preview
                           </span>
                         </a>
-
+*/}
                         <div className="d-block table-data-pi">
-                          PI: {truncateText("John Smith", 50)}
-                          {dmp.draftId &&
-                            dmp.draftId !== "20230629-570ca751fdb0" && (
-                              <span className={"action-required-text"}>
-                                X works need verification
-                              </span>
-                            )}
+                          {dmp.contributors
+                            ? dmp.contributors.items.map((item, index) => (
+                                <Fragment key={index}>
+                                  {item.roles &&
+                                    item.roles.includes("investigation") && (
+                                      <span>
+                                        PI: {truncateText(item.name, 50)}
+                                      </span>
+                                    )}
+                                </Fragment>
+                              ))
+                            : ""}
+
+                          {dmp.draftId && dmp.draftId == "XXX" && (
+                            <span className={"action-required-text"}>
+                              X works need verification
+                            </span>
+                          )}
                         </div>
                       </td>
                       <td className="table-data-name" data-colname="funder">
@@ -193,8 +218,7 @@ function Dashboard() {
                         className="table-data-name table-data-actions"
                         data-colname="actions"
                       >
-                        {dmp.draftId &&
-                        dmp.draftId === "20230629-570ca751fdb0" ? (
+                        {dmp.draftId && dmp.draftId === "XXX" ? (
                           <Link
                             className="edit-button"
                             to={`/dashboard/dmp/${dmp.draftId}`}
@@ -229,7 +253,8 @@ function Dashboard() {
         <div id="quick-view-backdrop">
           <div id="quick-view-view">
             <div className="quick-view-text-cont">
-              <h2>DMP TITLE</h2>
+              <h3 className="h2">DMP TITLE</h3>
+
               <h4>Funder</h4>
               <p>National Institute for Health (NIH)</p>
               <h4>GrantID</h4>
