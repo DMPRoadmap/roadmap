@@ -36,6 +36,22 @@ module Api
         Rails.logger.error "Failure in Api::V3::OptionsController.output_types #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
+
+      # GET /api/v3/related_work_types
+      def related_work_types
+        matches = RelatedIdentifier.work_types.reject { |typ| typ == 'output_management_plan' }
+        matches = matches.map do |key, val|
+          {
+            label: key.capitalize.gsub('_', ' '),
+            value: key.downcase.gsub(' ', '_')
+          }
+        end
+        @items = paginate_response(results: matches)
+        render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
+      rescue StandardError => e
+        Rails.logger.error "Failure in Api::V3::OptionsController.work_types #{e.message}"
+        render_error(errors: MSG_SERVER_ERROR, status: 500)
+      end
     end
   end
 end

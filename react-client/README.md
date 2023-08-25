@@ -300,6 +300,8 @@ The following represents a typical response from one of the `api/v3/drafts` or `
 ### Canned Value Lists
 The following endpoints can be called to fetch enumerated lists of possible values for various fields.
 - `GET /api/v3/contributor_roles` - The possible roles for a contributor. A contributor can have multiple roles. The default role is indicated in the response.
+- `GET /api/v3/output_types` - The possible output types for a research output (e.g. dataset or software). A research output must have an output type defined.
+- `GET /api/v3/related_work_types` - The possible work types for a related work (e.g. dataset or article). A related work must have a work type defined.
 
 ### Typeahead support
 The following endpoints are available to support user typeahead fields. All of these endpoints require at least 3 characters in the search and a JS debounce should used
@@ -500,6 +502,30 @@ The following represents a typical response from one of the `api/v3/awards/{type
   ]
 }
 ```
+
+### Fetching Citations for Related Works
+When a user adds a related identifier and that identifier has a work_type of 'doi' and it's value matches the DOI pattern: `[0-9]{2}\.[0-9]{4,}/[a-zA-Z0-9/_.-]+` then a call can be made to the API to try and fetch a citation. I suggest letting this run in the background asyncronously. Some of the journals and other DOI hosts are slow to return the citation data.
+
+To fetch the citation:
+- `POST /api/v3/citations`
+
+The body should be (for now, always use 'references' as the descriptor) (the type should always be one of the following: 'doi', 'url', or 'other'):
+```
+{
+  "dmproadmap_related_identifier": {
+    "work_type": "dataset",
+    "descriptor": "references",
+    "type": "doi",
+    "identifier": "https://doi.org/10.5061/dryad.c59zw3r7j"
+  }
+}
+```
+
+If successful, it will return the same identifier record but it will add a `"citation": "Some citation text"` to the object.
+
+Some example DOIs are you can use for testing are:
+- https://doi.org/10.5061/dryad.c59zw3r7j - (a dataset)
+- https://doi.org/10.1002/2688-8319.12095 - (an article related to the above dataset)
 
 ### Finalized/registered DMPs
 Finalized DMPs have been assigned a DMP ID (aka persistent identifier). Once a DMP ID has been registered it is versioned and its metadata is stored wihtin an external system called the DMPHub. The DMPHub allows both the DMPTool application and other external systems to fetch and enrich the DMP ID metadata. The DMPHub also provides versioning for the DMP ID.

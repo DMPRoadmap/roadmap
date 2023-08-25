@@ -10,7 +10,7 @@ module Api
 
       skip_before_action :verify_authenticity_token
 
-      before_action :authenticate, except: %i[fetch_citation]
+      before_action :authenticate
 
       # Prep default instance variables for views
       before_action :base_response_content

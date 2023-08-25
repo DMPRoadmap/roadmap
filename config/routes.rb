@@ -128,6 +128,7 @@ Rails.application.routes.draw do
       # React UI radio button, check box and select box options
       get :contributor_roles, controller: :options
       get :output_types, controller: :options
+      get :related_work_types, controller: :options
 
       # Fetch citations for the given dois
       post :citations, controller: :citations, action: :fetch_citation
