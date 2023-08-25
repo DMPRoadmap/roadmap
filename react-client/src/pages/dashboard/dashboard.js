@@ -187,7 +187,7 @@ function Dashboard() {
                         03-29-2023
                       </td>
                       <td className="table-data-name" data-colname="status">
-                        {dmp.project.status}
+                        {dmp.status}
                       </td>
                       <td
                         className="table-data-name table-data-actions"

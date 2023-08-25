@@ -1,8 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { DmpApi } from "../../../api.js";
-import { DmpModel } from "../../../models.js";
+import {
+  DmpModel,
+  getDraftDmp,
+} from "../../../models.js";
+
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
 import "./overview.scss";
@@ -15,16 +18,9 @@ function PlanOverview() {
 
 
   useEffect(() => {
-    let api = new DmpApi();
-
-    fetch(api.getPath(`/drafts/${dmpId}`))
-      .then((resp) => {
-        api.handleResponse(resp);
-        return resp.json();
-      })
-      .then((data) => {
-        setDmp(new DmpModel(data.items[0].dmp));
-      });
+    getDraftDmp(dmpId).then((initial) => {
+      setDmp(initial);
+    });
   }, [dmpId]);
 
 
@@ -44,7 +40,9 @@ function PlanOverview() {
                 Project name & PDF upload
               </Link>
             </p>
-            <div className="step-status status-completed">Completed</div>
+            <div className={"step-status status-" + dmp.stepStatus.setup}>
+              {dmp.stepStatusDisplay.setup}
+            </div>
           </div>
         </div>
 
@@ -55,7 +53,9 @@ function PlanOverview() {
             <p>
               <Link to={`/dashboard/dmp/${dmpId}/funders`}>Funders</Link>
             </p>
-            <div className="step-status status-completed">Completed</div>
+            <div className={"step-status status-" + dmp.stepStatus.funders}>
+              {dmp.stepStatusDisplay.funders}
+            </div>
           </div>
 
           <div className="plan-steps-step">
@@ -65,7 +65,9 @@ function PlanOverview() {
               </Link>
             </p>
 
-            <div className="step-status status-completed">Completed</div>
+            <div className={"step-status status-" + dmp.stepStatus.project}>
+              {dmp.stepStatusDisplay.project}
+            </div>
           </div>
 
           <div className="plan-steps-step">
@@ -75,7 +77,9 @@ function PlanOverview() {
               </Link>
             </p>
 
-            <div className="step-status status-notstart">Not Started</div>
+            <div className={"step-status status-" + dmp.stepStatus.contributors}>
+              {dmp.stepStatusDisplay.contributors}
+            </div>
           </div>
 
           <div className="plan-steps-step last">
@@ -84,7 +88,9 @@ function PlanOverview() {
                 Research Outputs
               </Link>
             </p>
-            <div className="step-status status-recommended">Recommended</div>
+            <div className={"step-status status-" + dmp.stepStatus.outputs}>
+              {dmp.stepStatusDisplay.outputs}
+            </div>
           </div>
         </div>
 

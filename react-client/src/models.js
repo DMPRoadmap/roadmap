@@ -284,6 +284,22 @@ export class DmpModel extends Model {
   #_contributors;
   #_dataset;
 
+  static get dmpStates() {
+    return {
+      incomplete: "Incomplete",
+      completed: "Completed",
+      registered: "Registered",
+    };
+  }
+
+  static get stepStates() {
+    return {
+      notstart: "Not Started",
+      recommended: "Recommended",
+      completed: "Completed",
+    }
+  }
+
   constructor(data) {
     super(data);
 
@@ -307,6 +323,30 @@ export class DmpModel extends Model {
 
   get dataset() { return this.#_dataset; }
   set dataset(items) { this.#_dataset = new ModelSet(DataObject, items); }
+
+  get stepStatus() {
+    return {
+      setup: "completed",
+      funders: "notstart",
+      project: "notstart",
+      contributors: "recommended",
+      outputs: "recommended",
+    };
+  }
+
+  get stepStatusDisplay() {
+    return {
+      setup: DmpModel.stepStates.completed,
+      funders: DmpModel.stepStates.notstart,
+      project: DmpModel.stepStates.notstart,
+      contributors: DmpModel.stepStates.recommended,
+      outputs: DmpModel.stepStates.recommended,
+    };
+  }
+
+  get status() {
+    return DmpModel.dmpStates.incomplete;
+  }
 
   /* NOTE
    * Draft data is a special temporary place in the data structure
