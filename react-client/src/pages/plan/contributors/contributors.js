@@ -11,12 +11,10 @@ import {
 } from "../../../models.js";
 
 import TextInput from "../../../components/text-input/textInput";
-import RadioButton from "../../../components/radio/radio";
-
 import LookupField from "../../../components/lookup-field.js";
+import Checkbox from "../../../components/checkbox/checkbox.js";
 
 import "./contributors.scss";
-import Checkbox from "../../../components/checkbox/checkbox.js";
 
 function Contributors() {
   let navigate = useNavigate();
@@ -24,7 +22,6 @@ function Contributors() {
   const { dmpId } = useParams();
   const [roles, setRoles] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
-  const [selectedRole, setSelectedRole] = useState([]);
   const [defaultRole, setDefaultRole] = useState();
   const [dmp, setDmp] = useState({});
   const [contributor, setContributor] = useState(new Contributor({}));
@@ -39,7 +36,6 @@ function Contributors() {
       for (const r of data) {
         if (r.default) {
           setDefaultRole(r.value);
-          setSelectedRole(r.value);
           break;
         }
       }
@@ -48,19 +44,20 @@ function Contributors() {
 
   function handleChange(ev) {
     const { name, value, checked } = ev.target;
+    let newContrib = new Contributor(contributor.getData());
 
     switch (name) {
       case "role":
+        console.log(`Role? ${value}; Checked? ${checked}`);
         if (checked) {
-          setSelectedRole([...selectedRole, value]);
+          newContrib.addRole(value);
         } else {
-          setSelectedRole(selectedRole.filter((role) => role !== value));
+          newContrib.removeRole(value);
         }
-
+        setContributor(newContrib);
         break;
 
       case "affiliation":
-        let newContrib = new Contributor(contributor.getData());
         if (ev.data) {
           newContrib.affiliation = new RoadmapAffiliation(ev.data);
         } else {
@@ -79,11 +76,11 @@ function Contributors() {
       setEditIndex(index);
       let newContrib = dmp.contributors.get(index);
       setContributor(newContrib);
-      setSelectedRole(newContrib.role);
     } else {
       setEditIndex(null);
-      setSelectedRole(defaultRole);
-      setContributor(new Contributor({}));
+      setContributor(new Contributor({
+        "role": [defaultRole]
+      }));
     }
 
     document.getElementById("contributorModal").showModal();
@@ -106,7 +103,6 @@ function Contributors() {
     contributor.name = full_name;
     contributor.mbox = data.get("email");
     contributor.setData("contributor_id.identifier", data.get("orcid"));
-    contributor.setData("role", [data.get("role")]);
     contributor.commit();
 
     if (editIndex === null) {
@@ -270,7 +266,7 @@ function Contributors() {
                           name="role"
                           id={"_role_" + role.value}
                           inputValue={role.value}
-                          checked={selectedRole.includes(role.value)}
+                          checked={contributor.roles.includes(role.value)}
                         />
                       </Fragment>
                     ))}

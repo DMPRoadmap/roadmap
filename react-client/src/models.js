@@ -68,8 +68,18 @@ export class Contact extends Model {
   get name() { return this.getData("name"); }
   set name(val) { this.setData("name", val); }
 
-  get role() { return this.getData("role.0", ""); }
-  set role(val) { this.setData("name", val); }
+  get roles() { return this.getData("role", []); }
+  set roles(arr) { this.setData("role", arr); }
+  get roleDisplays() { return this.roles.map(r => getRoleDisplay(r)); }
+
+  addRole(val) {
+    if (this.roleContains(val)) return;
+    this.roles = this.roles.push(val);
+  }
+
+  removeRole(val) {
+    this.roles = this.roles.filter(i => i !== val);
+  }
 
   get id() { return this.getData("contact_id", {}); }
   set id(val) { this.setData("contact_id", val); }
@@ -107,9 +117,19 @@ export class Contributor extends Model {
   get id() { return this.getData("contributor_id.identifier"); }
   get idType() { return this.getData("contributor_id.type"); }
 
-  get roles() { return this.getData("role"); }
-  get role() { return this.getData("role.0", ""); }
-  get roleDisplay() { return getRoleDisplay(this.role); }
+  get roles() { return this.getData("role", []); }
+  set roles(arr) { this.setData("role", arr); }
+
+  getRoleDisplays() { return this.roles.map(r => getRoleDisplay(r)); }
+
+  addRole(val) {
+    if (this.roles.includes(val)) return;
+    this.roles.push(val);
+  }
+
+  removeRole(val) {
+    this.roles = this.roles.filter(i => i !== val);
+  }
 
   commit() {
     let affiliationData = this.affiliation.getData();
