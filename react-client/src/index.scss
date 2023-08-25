@@ -108,7 +108,20 @@ code {
 
     &:hover {
       text-decoration: underline;
+      outline-offset: 2px;
       color: var(--dmpui-brand-blue-900);
+    }
+    &:focus {
+      outline-offset: 2px;
+      color: #000;
+      background-color: #fd0;
+      box-shadow: 0 -2px 0px 0px rgba(255, 221, 0, 0.281),
+        0 4px rgba(255, 221, 0, 0.281);
+      text-decoration: none;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      outline: none !important;
+      text-decoration: underline;
     }
   }
 }
@@ -138,7 +151,6 @@ body {
 
 @import "components/forms";
 
-
 /* Dialog and Fullscreen API Styles */
 dialog {
   position: fixed;
@@ -160,7 +172,6 @@ dialog {
 ::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
-
 
 /* Tables */
 
@@ -229,7 +240,6 @@ dialog {
   display: flex;
   border-bottom: 1px solid #eee;
   padding: 1.125rem 0;
-  justify-content: space-between;
   align-items: center;
 
   &.last {
@@ -280,6 +290,7 @@ dialog {
   font-weight: 300;
   line-height: normal;
   color: var(--dmpui-brand-blue-900);
+  margin-left: 1rem;
 
   &.status-completed {
     background-color: var(--dmpui-brand-green-100);

@@ -1,7 +1,4 @@
-import {
-  useState,
-  useEffect,
-} from "react";
+import { useState, useEffect } from "react";
 
 function TextArea(props) {
   const [inputValue, setInputValue] = useState(props.inputValue);
@@ -10,7 +7,7 @@ function TextArea(props) {
   let hiddenClass = props?.hidden ? "group-hidden" : "";
 
   useEffect(() => {
-    setInputValue(props.inputValue)
+    setInputValue(props.inputValue);
   }, [props.inputValue]);
 
   function handleChange(ev) {
@@ -28,7 +25,10 @@ function TextArea(props) {
   return (
     <>
       <div className={`dmpui-field-group ${disabledClass} ${hiddenClass} ${errorClass}`}>
-        <label className="dmpui-field-label">
+        <label
+          className="dmpui-field-label"
+          htmlFor={props?.id ? props.id : ""}
+        >
           {props?.label ? props.label : ""}
         </label>
         <p className="dmpui-field-help">{props?.help ? props.help : ""}</p>
@@ -45,8 +45,7 @@ function TextArea(props) {
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
             className="dmpui-field-input-textarea"
             disabled={props.disabled}
-          >
-          </textarea>
+          ></textarea>
         </div>
       </div>
     </>

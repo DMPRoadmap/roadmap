@@ -1,8 +1,4 @@
-import {
-  useEffect,
-  useState,
-  Fragment
-} from "react";
+import { useEffect, useState, Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
@@ -16,29 +12,29 @@ import {
 
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
+
 import LookupField from "../../../components/lookup-field.js";
 
 import "./contributors.scss";
-
+import Checkbox from "../../../components/checkbox/checkbox.js";
 
 function Contributors() {
   let navigate = useNavigate();
 
-  const {dmpId} = useParams();
+  const { dmpId } = useParams();
   const [roles, setRoles] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
-  const [selectedRole, setSelectedRole] = useState();
+  const [selectedRole, setSelectedRole] = useState([]);
   const [defaultRole, setDefaultRole] = useState();
   const [dmp, setDmp] = useState({});
   const [contributor, setContributor] = useState(new Contributor({}));
 
-
   useEffect(() => {
-    getDraftDmp(dmpId).then(initial => {
+    getDraftDmp(dmpId).then((initial) => {
       setDmp(initial);
     });
 
-    getContributorRoles().then(data => {
+    getContributorRoles().then((data) => {
       setRoles(data);
       for (const r of data) {
         if (r.default) {
@@ -50,13 +46,17 @@ function Contributors() {
     });
   }, [dmpId]);
 
-
   function handleChange(ev) {
-    const {name, value} = ev.target;
+    const { name, value, checked } = ev.target;
 
     switch (name) {
       case "role":
-        setSelectedRole(value);
+        if (checked) {
+          setSelectedRole([...selectedRole, value]);
+        } else {
+          setSelectedRole(selectedRole.filter((role) => role !== value));
+        }
+
         break;
 
       case "affiliation":
@@ -71,12 +71,11 @@ function Contributors() {
     }
   }
 
-
   function handleModalOpen(ev) {
     ev.preventDefault();
 
     const index = ev.target.value;
-    if ((index !== "") && (typeof index !== "undefined") ) {
+    if (index !== "" && typeof index !== "undefined") {
       setEditIndex(index);
       let newContrib = dmp.contributors.get(index);
       setContributor(newContrib);
@@ -158,23 +157,27 @@ function Contributors() {
         </div>
         <div className="data-heading" data-colname="actions"></div>
 
-        {dmp.contributors ? dmp.contributors.items.map((item, index) => (
-          <Fragment key={index}>
-            <div data-colname="name">{item.name}</div>
-            <div data-colname="role">{item.roleDisplay}</div>
-            <div data-colname="actions">
-              <button value={index} onClick={handleModalOpen}>
-                Edit
-              </button>
-            </div>
-          </Fragment>
-        )) : ""}
+        {dmp.contributors
+          ? dmp.contributors.items.map((item, index) => (
+              <Fragment key={index}>
+                <div data-colname="name">{item.name}</div>
+                <div data-colname="role">{item.roleDisplay}</div>
+                <div data-colname="actions">
+                  <button value={index} onClick={handleModalOpen}>
+                    Edit
+                  </button>
+                </div>
+              </Fragment>
+            ))
+          : ""}
       </div>
 
       <dialog id="contributorModal">
-        <form method="post"
-              enctype="multipart/form-data"
-              onSubmit={handleSaveContributor}>
+        <form
+          method="post"
+          enctype="multipart/form-data"
+          onSubmit={handleSaveContributor}
+        >
           <div className="form-modal-wrapper">
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
@@ -258,17 +261,16 @@ function Contributors() {
                   <label className="dmpui-field-label">
                     What is this person's role? *
                   </label>
-                  <p className="dmpui-field-help">Only one per DMP</p>
 
                   <div onChange={handleChange}>
                     {roles.map((role, index) => (
                       <Fragment key={index}>
-                        <RadioButton
+                        <Checkbox
                           label={role.label}
                           name="role"
                           id={"_role_" + role.value}
                           inputValue={role.value}
-                          checked={role.value === selectedRole}
+                          checked={selectedRole.includes(role.value)}
                         />
                       </Fragment>
                     ))}
@@ -283,7 +285,7 @@ function Contributors() {
               Cancel
             </button>
             <button type="submit" className="primary">
-              {(editIndex === null) ? "Add" : "Update"}
+              {editIndex === null ? "Add" : "Update"}
             </button>
           </div>
         </form>
@@ -302,6 +304,5 @@ function Contributors() {
     </div>
   );
 }
-
 
 export default Contributors;
