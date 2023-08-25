@@ -72,6 +72,7 @@ function Dashboard() {
       </div>
 
       <div className="plan-steps">
+        {/* <div className="plan-step">
         <div className="filter-container">
           <div className="filter-status">
             <p className="filter-heading">Status</p>
@@ -94,7 +95,8 @@ function Dashboard() {
             <button className="button filter-button">Filter</button>
           </div>
           <div className="xcont"></div>
-        </div>
+          </div>
+          */}
 
         <div class="table-container">
           <div class="table-wrapper">
