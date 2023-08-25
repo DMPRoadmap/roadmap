@@ -99,7 +99,6 @@ module ExternalApis
           body: data.to_json
         }
         opts[:debug_output] = $stdout
-        dmp_id = plan.is_a?(Plan) ? plan.dmp_id : plan.fetch('dmp_id', {})['identifier']
         target = "#{api_base_url}tmp/#{dmp_id.gsub(%r{https?://}, '')}"
         resp = HTTParty.put(target, opts)
 
