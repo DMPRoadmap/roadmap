@@ -170,13 +170,24 @@ function Dashboard() {
                         </a>
 
                         <div className="d-block table-data-pi">
-                          PI: {truncateText("John Smith", 50)}
-                          {dmp.draftId &&
-                            dmp.draftId !== "20230629-570ca751fdb0" && (
-                              <span className={"action-required-text"}>
-                                X works need verification
-                              </span>
-                            )}
+                          {dmp.contributors
+                            ? dmp.contributors.items.map((item, index) => (
+                                <Fragment key={index}>
+                                  {item.roles &&
+                                    item.roles.includes("investigation") && (
+                                      <span>
+                                        PI: {truncateText(item.name, 50)}
+                                      </span>
+                                    )}
+                                </Fragment>
+                              ))
+                            : ""}
+
+                          {dmp.draftId && dmp.draftId == "XXX" && (
+                            <span className={"action-required-text"}>
+                              X works need verification
+                            </span>
+                          )}
                         </div>
                       </td>
                       <td className="table-data-name" data-colname="funder">
@@ -233,7 +244,8 @@ function Dashboard() {
         <div id="quick-view-backdrop">
           <div id="quick-view-view">
             <div className="quick-view-text-cont">
-              <h2>DMP TITLE</h2>
+              <h3 className="h2">DMP TITLE</h3>
+
               <h4>Funder</h4>
               <p>National Institute for Health (NIH)</p>
               <h4>GrantID</h4>
