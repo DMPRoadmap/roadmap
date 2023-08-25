@@ -157,7 +157,7 @@ function Contributors() {
           ? dmp.contributors.items.map((item, index) => (
               <Fragment key={index}>
                 <div data-colname="name">{item.name}</div>
-                <div data-colname="role">{item.roleDisplay}</div>
+                <div data-colname="role">{item.getRoleDisplays().join(', ')}</div>
                 <div data-colname="actions">
                   <button value={index} onClick={handleModalOpen}>
                     Edit
