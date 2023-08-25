@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
 import LookupField from "../../../components/lookup-field.js";
-import { getValue } from "../../../utils.js";
+
 import { getDraftDmp, saveDraftDmp } from "../../../models.js";
 
 import "./funder.scss";
@@ -23,7 +23,8 @@ function PlanFunders() {
     getDraftDmp(dmpId).then((initial) => {
       setDmp(initial);
       if (initial.hasFunder) {
-        setFunder(initial.funding);
+        let draftFunder = initial.getDraftData("funder", initial.funding.getData())
+        setFunder(draftFunder);
         setHasFunder("yes");
         setLocked(true);
       }
@@ -42,7 +43,7 @@ function PlanFunders() {
         if (ev.data) {
           setFunder(ev.data);
         } else {
-          setFunder({name: value});
+          setFunder({...funder, name: value});
         }
         break;
     }
@@ -140,9 +141,9 @@ function PlanFunders() {
                     name="funder"
                     id="funder"
                     endpoint="funders"
-                    placeholder=""
+                    placeholder="Search ..."
                     help="Search for your funder by name. If you can't find your funder in the list, just type it in."
-                    inputValue={dmp.funding.name}
+                    inputValue={funder.name}
                     onChange={handleChange}
                     disabled={isLocked}
                     error=""

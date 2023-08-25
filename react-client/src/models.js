@@ -315,7 +315,10 @@ export class DmpModel extends Model {
 
   get draftId() { return this.getData("draft_id.identifier"); }
 
-  get hasFunder() { return (this.project.funding !== null); }
+  get hasFunder() {
+    if (this.project.funding.name && this.project.funding.funderId) return true;
+    return false;
+  }
 
   // Modelsets
   get contributors() { return this.#_contributors; }

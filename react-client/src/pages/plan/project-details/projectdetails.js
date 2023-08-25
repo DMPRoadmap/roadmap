@@ -149,7 +149,7 @@ function ProjectDetails() {
             <div className="dmpui-form-col">
               <TextInput
                 label="Project Start Date"
-                type="date"
+                inputType="date"
                 inputValue={formData.start_date}
                 onChange={handleChange}
                 disabled={isLocked}
@@ -164,7 +164,7 @@ function ProjectDetails() {
             <div className="dmpui-form-col">
               <TextInput
                 label="Project End Date"
-                type="date"
+                inputType="date"
                 inputValue={formData.end_date}
                 onChange={handleChange}
                 disabled={isLocked}

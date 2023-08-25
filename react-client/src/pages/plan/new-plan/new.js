@@ -33,7 +33,7 @@ function PlanNew() {
       })
       .then((data) => {
         let dmp = data.items[0].dmp;
-        navigate(`/dashboard/dmp/${dmp.draft_id.identifier}`);
+        navigate(`/dashboard/dmp/${dmp.draft_id.identifier}/funders`);
       });
   }
 

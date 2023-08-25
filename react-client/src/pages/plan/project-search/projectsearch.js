@@ -47,7 +47,8 @@ function ProjectSearch() {
 
       let funderUrl = dmp.getDraftData("funder.funder_api", null);
       if (!funderUrl) {
-        throw new Error(`Error! Invalid funder api url, ${funderUrl}.`);
+        console.log(`Error! Invalid funder api url, ${funderUrl}.`);
+        console.log(dmp.getData());
       } else {
         let url = new URL(funderUrl);
         let searchParams = new URLSearchParams(queryArgs);
