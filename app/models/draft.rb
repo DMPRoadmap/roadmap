@@ -74,6 +74,10 @@ class Draft < ApplicationRecord
     my_url = Rails.application.routes.url_helpers.api_v3_dmp_url(self)
     base_url = Rails.env.development? ? 'http://localhost:3000' : ENV['DMPROADMAP_HOST']
 
+    # Remove any ephemeral data
+    data['dmp'].delete('draft_data')
+
+    # Prep the DMP ID, privacy and timestamps
     data['dmp']['dmp_id'] = { type: 'doi', identifier: dmp_id } if registered?
     data['dmp']['dmp_id'] = { type: 'url', identifier: my_url } unless registered?
 

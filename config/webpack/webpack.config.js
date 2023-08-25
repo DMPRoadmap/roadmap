@@ -3,9 +3,10 @@ const webpack = require('webpack');
 const erbLoader = require('./loaders/erb');
 
 const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+console.log(`Webpack running in ${mode} mode.`);
 
 module.exports = {
-  mode,
+  mode: mode,
   module: {
     rules: [
       {
@@ -26,6 +27,7 @@ module.exports = {
     reactApplication: './app/javascript/react-application.js',
   },
   optimization: {
+    minimize: mode === 'development' ? false : true,
     moduleIds: 'deterministic',
   },
   output: {

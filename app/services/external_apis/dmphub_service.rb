@@ -61,6 +61,10 @@ module ExternalApis
         Rails.configuration.x.dmphub&.narrative_path
       end
 
+      def citation_path
+        Rails.configuration.x.dmphub&.citation_path
+      end
+
       def caller_name
         ApplicationService.application_name.split('-').first.to_sym
       end
@@ -110,6 +114,54 @@ module ExternalApis
       rescue StandardError => e
         puts "FATAL: #{e.message}"
         log_error(method: 'DmphubService.proxied_award_search', error: e)
+      end
+
+      # Proxy to the DMPHub to get citations for the DOIs supplied. This expects
+      def fetch_citation(related_identifier:, style: nil)
+        authorized = auth
+        id_is_model = related_identifier.is_a?(RelatedIdentifier)
+        notify_administrators(obj: api_target, response: 'Unable to authenticate with DMPHub!') unless authorized
+        return nil unless authorized && (id_is_model || related_identifier.is_a?(Hash))
+
+        # Build the POST body
+        body = { dois: [] }
+        body['style'] = style unless style.nil?
+        body[:dois] << { work_type: related_identifier.work_type, value: related_identifier.value } if id_is_model
+        body[:dois] << related_identifier unless id_is_model
+
+        opts = {
+          follow_redirects: true,
+          limit: 6,
+          headers: {
+            'authorization': @token,
+            'Server-Agent': "#{caller_name} (#{client_id})",
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: body.to_json
+        }
+        opts[:debug_output] = $stdout
+        resp = HTTParty.post("#{api_base_url}#{citation_path}", opts)
+
+        unless resp.present? && resp.code == 200
+          puts "DMPHub unable to fetch citations: received a #{resp.code}"
+          puts resp.body.inspect
+          handle_http_failure(method: 'DMPHub fetch_citations', http_response: resp)
+          notify_administrators(obj: related_identifier, response: resp)
+          return nil
+        end
+        json = JSON.parse(resp.body)
+        item = json.fetch('items', []).first
+        citation = item&.fetch('citation', 'Not available')
+
+        related_identifier.citation = citation.nil? ? 'Not available' : citation if id_is_model
+        related_identifier['citation'] = citation.nil? ? 'Not available' : citation unless id_is_model
+        related_identifier
+      rescue StandardError => e
+        puts "FATAL error in DmpHubService.fetch_citations: #{e.message}"
+        puts e.backtrace
+        log_error(method: 'DmphubService.fetch_citations', error: e)
+        nil
       end
 
       # Retrieve the latest version of the DMP ID

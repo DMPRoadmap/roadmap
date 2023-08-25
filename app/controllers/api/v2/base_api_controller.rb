@@ -172,8 +172,9 @@ module Api
       end
 
       def contributor_permitted_params
-        %i[firstname surname mbox role] +
-          [affiliations: affiliation_permitted_params,
+        %i[firstname surname mbox] +
+          [role: [],
+           affiliations: affiliation_permitted_params,
            contributor_ids: identifier_permitted_params]
       end
 

@@ -124,10 +124,13 @@ Rails.application.routes.draw do
       get :funders, controller: :typeaheads
       get :affiliations, controller: :typeaheads
       get :repositories, controller: :typeaheads
-      get :output_types, controller: :typeaheads
 
       # React UI radio button, check box and select box options
       get :contributor_roles, controller: :options
+      get :output_types, controller: :options
+
+      # Fetch citations for the given dois
+      post :citations, controller: :citations, action: :fetch_citation
 
       # Draft (work in progress) DMPs
       resources :drafts, only: %i[index create destroy show update]
