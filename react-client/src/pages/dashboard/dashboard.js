@@ -218,8 +218,7 @@ function Dashboard() {
                         className="table-data-name table-data-actions"
                         data-colname="actions"
                       >
-                        {dmp.draftId &&
-                        dmp.draftId === "20230629-570ca751fdb0" ? (
+                        {dmp.draftId && dmp.draftId === "XXX" ? (
                           <Link
                             className="edit-button"
                             to={`/dashboard/dmp/${dmp.draftId}`}
