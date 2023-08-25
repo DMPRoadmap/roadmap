@@ -19,6 +19,7 @@ function Dashboard() {
   function handleQuickViewOpen(id) {
     console.log("Open Modal; Api Load data: ", id);
     setShow(true);
+    return false;
   }
 
   useEffect(() => {
@@ -73,7 +74,7 @@ function Dashboard() {
       <div className="plan-steps">
         <div className="filter-container">
           <div className="filter-status">
-            <h5>Status</h5>
+            <p className="filter-heading">Status</p>
             <div className="filter-quicklinks">
               <a href="/?status=all">All</a>
               <a href="/?status=registered">Registered</a>
@@ -81,7 +82,7 @@ function Dashboard() {
             </div>
           </div>
           <div className="filter-edited">
-            <h5>Edited</h5>
+            <p className="filter-heading">Edited</p>
             <div className="filter-quicklinks">
               <a href="/?status=all">All</a>
               <a href="/?status=lastweek">Last week</a>
@@ -89,7 +90,7 @@ function Dashboard() {
             </div>
           </div>
           <div className="filter-tags">
-            <h5>Filter DMPs</h5>
+            <p className="filter-heading">Filter DMPs</p>
             <button className="button filter-button">Filter</button>
           </div>
           <div className="xcont"></div>
@@ -139,8 +140,9 @@ function Dashboard() {
                         data-colname="title"
                       >
                         <a
-                          to={`/dashboard/dmp/${dmp.draftId}`}
+                          href="#"
                           title={dmp.title}
+                          value={dmp.draftId}
                           onClick={() => handleQuickViewOpen(dmp.draftId)}
                         >
                           {truncateText(dmp.title, 50)}
