@@ -162,8 +162,9 @@ Rails.application.routes.draw do
     resources :research_outputs, only: %i[index update destroy], controller: 'research_outputs'
   end
 
-  resources :research_outputs, only: [:create], constraints: { format: [:json] } do
+  resources :research_outputs, only: [:create, :destroy], constraints: { format: [:json] } do
     get 'create_remote', on: :collection
+    delete 'destroy_remote', on: :collection
     post 'sort', on: :collection
   end
 
