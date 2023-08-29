@@ -16,7 +16,7 @@ class MadmpCodebaseController < ApplicationController
     authorize fragment
 
     # EXAMPLE DATA
-    # file_path = Rails.root.join("config/madmp/schemas/codebase_example_data.json")
+    # file_path = Rails.root.join("engines/madmp_opidor/config/example_data/codebase_example_data.json")
     # response = JSON.load(File.open(file_path))
     # fragment.import_with_instructions(response, fragment.madmp_schema)
     # render json: {
@@ -65,7 +65,7 @@ class MadmpCodebaseController < ApplicationController
 
     authorize fragment
     # EXAMPLE DATA
-    # file_path = Rails.root.join("config/madmp/schemas/anr_example_data.json")
+    # file_path = Rails.root.join("engines/madmp_opidor/config/example_data/anr_example_data.json")
     # response = JSON.load(File.open(file_path))
     # dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
 

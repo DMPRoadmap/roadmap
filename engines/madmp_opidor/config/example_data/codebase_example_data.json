@@ -1,0 +1,64 @@
+{
+    "title": "Target-specific RNA-based bioprotectants for sustainable crop production in a changing climate",
+    "principalInvestigator": {
+      "dbid": 17900,
+      "action": "update",
+      "template": "PrincipalInvestigator",
+      "data": {
+        "person": {
+          "action": "create",
+          "template": "PersonStandard",
+          "data": {
+            "nameType": "Personal",
+            "lastName": "HEINLEIN",
+            "firstName": "Manfred",
+            "affiliationName": "Centre National de la Recherche Scientifique (CNRS)",
+            "affiliationId": "200117244U",
+            "affiliationIdType": "RNSR"
+          }
+        }
+      }
+    },
+    "experimentalPlan": {
+      "dbid": 17902
+    },
+    "funding": [
+      {
+        "action": "update",
+        "dbid": 17920,
+        "template": "FundingStandard",
+        "data": {
+          "grantId": "ANR-21-SUSC-0003",
+          "fundingStatus": "Granted"
+        }
+      }
+    ],
+    "partner": [
+      {
+        "action": "create",
+        "template": "PartnerStandard",
+        "data": {
+          "name": "University of Applied Sciences",
+          "rnsr": "rnsr:University of Applied Sciences"
+        }
+      },
+      {
+        "action": "create",
+        "template": "PartnerStandard",
+        "data": {
+          "name": "University of Helsinki",
+          "rnsr": "rnsr:University of Helsinki"
+        }
+      },
+      {
+        "action": "create",
+        "template": "PartnerStandard",
+        "data": {
+          "name": "Justus Liebig University Giessen, Germany",
+          "rnsr": "rnsr:Justus Liebig University Giessen"
+        }
+      }
+    ],
+    "acronym": "BioProtect",
+    "description": "Ma description est cool"
+  }
