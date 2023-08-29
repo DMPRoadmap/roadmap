@@ -2,8 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 29/08/2023
+- Correction d'un problème de fusion des comptes utilisateurs (issue gitbucket 514)
+- Correction d'un problème de génération des statistiques d'utilisation (ajout de la gem ruby-progressbar)
+
 ## 24/07/2023
-- Correction d'un problème du problème de copier/coller du formatage dans les éditeurs TinyMCE (issue gitbucket 510)
+- Correction d'un problème de copier/coller du formatage dans les éditeurs TinyMCE (issue gitbucket 510)
 
 ## 18/07/2023
 - Mise à jour de FontAwesome (librairie d'icônes) vers la version 6
