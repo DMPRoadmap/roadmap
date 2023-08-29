@@ -70,7 +70,7 @@ module DMPRoadmap
     # Used throughout the system via ApplicationService.application_name
     config.x.application.name = 'DMP OPIDoR'
     # App version, displayed in the footer
-    config.x.application.version = 'V3.5.2'
+    config.x.application.version = 'V3.5.4'
     # App Github URL, displayed in the footer
     config.x.application.url = 'https://github.com/OPIDoR/DMPOPIDoR'
     config.x.application.release_notes_url = 'https://github.com/OPIDoR/DMPOPIDoR/wiki/Releases'
@@ -274,7 +274,7 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
-    config.x.dmpopidor.enable_research_structure_template = false
+    config.x.dmpopidor.enable_research_entity_template = false
     config.x.dmpopidor.enable_research_outputs_uuid = false
   end
 end
