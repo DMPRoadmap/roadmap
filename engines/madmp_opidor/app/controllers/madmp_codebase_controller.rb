@@ -81,8 +81,8 @@ class MadmpCodebaseController < ApplicationController
         dmp_fragment.raw_import(response['data'], dmp_fragment.madmp_schema)
         render json: {
           'fragment' => dmp_fragment.get_full_fragment,
-          'message' => _('New data have been added to your plan, please click on the "Reload" button.'),
-          'needs_reload' => true
+          'plan_title' => dmp_fragment.meta.data['title'],
+          'message' => _('Project data have successfully been imported.')
         }, status: 200
         update_run_log(dmp_fragment, script_id)
       else
