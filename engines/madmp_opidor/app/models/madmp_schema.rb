@@ -172,10 +172,6 @@ class MadmpSchema < ApplicationRecord
       MadmpSchema.find_by!(name:).id
     end.to_json.gsub('template_name', 'schema_id')
 
-    json_schema = JsonPath.for(json_schema).gsub('$..registry_name') do |name|
-      Registry.find_by!(name:).id
-    end.to_json.gsub('registry_name', 'registry_id')
-
     JSON.parse(json_schema)
   end
 end
