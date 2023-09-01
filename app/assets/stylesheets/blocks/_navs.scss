@@ -25,7 +25,7 @@ nav ul {
 .nav-tabs, .nav-pills {
   background-color: $color-primary-background;
   color: $color-primary-text;
-  border-bottom: 0px;
+  border-bottom: 50px;
 }
 .nav-tabs > li > a, .nav-pills > li > a {
   color: $color-primary-text;
@@ -50,6 +50,12 @@ nav ul {
   color: $color-secondary-text;
   border: 1px solid $color-border-default;
 }
+
+.nav-pills > li:first-child > a:hover,
+.nav-pills > li:first-child > a:focus,
+.nav-pills > li:first-child > a.active,
+.nav-pills > li:first-child > a.active:focus,
+.nav-pills > li:first-child > a.active:hover,
 .nav-pills > li:last-child > a:hover,
 .nav-pills > li:last-child > a:focus,
 .nav-pills > li:last-child > a.active,
@@ -59,7 +65,4 @@ nav ul {
   background-color: $color-secondary-background;
   color: $color-secondary-text;
 }
-.nav-tabs > li > a,
-.nav-pills > li > a {
-  border-radius: 0px;
-}
+

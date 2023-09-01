@@ -51,9 +51,9 @@ fieldset {
   }
 }
 
-legend {
+legend, .legend-default {
   border: none;
-  font-size: 14px;
+  font-size: 14px; 
   font-weight: bold;
   margin-bottom: 5px;
   text-transform: capitalize;

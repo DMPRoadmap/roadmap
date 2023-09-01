@@ -95,7 +95,7 @@
         <% has_org_themed_guidance = false %>
         <% themes_q = question.themes %>
         <% if !themes_q.nil? %>
-          <div class="card-group" id="<%= question.id %>-guidance">
+          <div class="d-flex flex-column" id="<%= question.id %>-guidance">
             <% ggs = GuidanceGroup.where(org_id: current_user.org.id) %>
             <h4><%= _("Themed Guidance") %></h4>
 
@@ -124,7 +124,7 @@
                       ) %>
                     <% if theme_guidances.length > 0 %>
                       <% theme_guidances.each do |guidance| %>
-                        <div class="accordion my-3 card card-default">
+                        <div class="accordion my-1 card card-default">
                           <div class="accordion-item w-100">
                               <h2 class="accordion-header" 
                                   id="#headingGuidance-<%= guidance.id%>-<%= question.id %>">
