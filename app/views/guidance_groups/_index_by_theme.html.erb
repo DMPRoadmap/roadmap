@@ -1,12 +1,12 @@
 <%# locals{ guidance_groups_by_theme } %>
 <% parent_id = guidance_groups_by_theme.object_id %>
-<div id="<%= parent_id %>" class="card-group" role="tablist" aria-multiselectable="true">
+<div id="<%= parent_id %>" class="d-flex flex-column" role="tablist" aria-multiselectable="true">
   <% guidance_groups_by_theme.each_pair do |guidance_group, theme_hash| %>
     <% guidances_output = [] %>
     <%# Do not show expand/collapse all links if there is only one item in theme_hash %>
     <% if theme_hash.length > 1 %>
   <div id="guidance-accordion-controls">
-      <div class="accordion-controls" data-parent="<%= parent_id %>">
+      <div class="accordion-controls px-1" data-parent="<%= parent_id %>">
         <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
           <span>|</span>
         <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
@@ -17,25 +17,23 @@
       <% question_guidance_id = "#{question.object_id}-#{guidances.object_id}" %>
       <%# if guidances with this theme have not been output %>
       <% if (guidances.map(&:id) - guidances_output).any? %>
-        <div class="accordion-item card card-default">
-          <button
+        <div class="accordion-item my-1 card card-default">
+          <h2 class="accordion-header" id="<%= "headingGuidance-#{question_guidance_id}" %>">
+            <button
             class="accordion-button collapsed"
             type="button"
             data-bs-toggle="collapse"
-            href="<%= "##{question_guidance_id}" %>"
+            href="<%= "#collapseGuidance-#{question_guidance_id}" %>"
             aria-expanded="false"
-            aria-controls="<%= "##{question_guidance_id}" %>">
-            <div class="card-heading" role="tab" id="<%= "card-heading-#{question_guidance_id}" %>">
-              <h2 class="accordion-header">
+            aria-controls="<%= "#collapseGuidance-#{question_guidance_id}" %>">
                 <%= theme.title %>
-              </h2>
-            </div>
-          </button>
+            </button>
+           </h2>
           <div
-            id="<%= "#{question_guidance_id}" %>"
+            id="<%= "collapseGuidance-#{question_guidance_id}" %>"
             class="accordion-collapse collapse"
             role="tabpanel"
-            aria-labelledby="<%= "card-heading-#{question_guidance_id}" %>">
+            aria-labelledby="<%= "headingGuidance-#{question_guidance_id}" %>">
             <div class="accordion-body card card-body">
               <% multiple = false %>
               <% guidances.each do |guidance| %>
@@ -44,8 +42,8 @@
                 <% end %>
                 <p>
                   <% unless guidances_output.include?(guidance.id) %>
-                    <div class="display-readonly-textarea-content">
-                      <%= sanitize(guidance.text) %>
+                    <div class="display-readonly-textarea-content allow-break-words">
+                      <%= sanitize guidance.text %>
                     </div>
                     <% guidances_output << guidance.id %>
                     <% multiple = true %>

@@ -68,11 +68,11 @@ roles_tooltip = _("Select each role that applies to the contributor.")
 <div class="form-group mb-3 row">
   <div class="col-md-12">
     <fieldset>
-      <legend>
+      <legend class="legend-default">
         <span class="red">*</span> <%= _("Roles") %>
       </legend>
       <p><%= roles_tooltip.html_safe %></p>
-
+        <div class="row">
       <% roles = ContributorPresenter.roles_for_radio(contributor: contributor) %>
       <% roles.each do |hash| %>
         <div class="col-md-3">
@@ -86,6 +86,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
           </div>
         </div>
       <% end %>
+      </div>
     </fieldset>
   </div>
 </div>

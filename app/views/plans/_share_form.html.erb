@@ -9,7 +9,7 @@
 <% allow_visibility = @plan.visibility_allowed? %>
 <%= form_with model: @plan, id: "set_visibility" do |f| %>
   <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
-    <legend>
+    <legend class="legend-default">
       <p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.configuration.x.plans.default_percentage_answered } %></p>
     </legend>
     <div class="form-group mb-3 col-xs-8">
