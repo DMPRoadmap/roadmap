@@ -17,7 +17,7 @@
         <%= render partial: 'shared/popover',
                    locals: { message: popover_message, placement: 'right' }%>
       </legend>
-
+      <div class="row">
       <div class="col-md-<%= col_size %>">
         <% all_themes.each do |theme| %>
           <% if cntr >= per_col %>
@@ -37,6 +37,7 @@
           </div>
           <% cntr += 1 %>
         <% end %>
+      </div>
       </div>
     </fieldset>
   <% else %>

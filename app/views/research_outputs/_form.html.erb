@@ -37,10 +37,10 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
 
   <div class="form-group mb-3 row">
     <div class="d-flex justify-content-start col-md-12">
-      <span class="col-md-6">
+      <span class="col pr-md-6">
         <%= f.label(:title, _("Title"), class: "control-label") %>
       </span>
-      <span class="col-md-3">
+      <span class="col px-md-3">
         <%= f.label(:abbreviation, _("Abbreviation"), class: "control-label") %>
       </span>
     </div>
@@ -66,7 +66,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   </div>
 
   <div class="form-group mb-3 row">
-    <div class="col-md-12">
+    <div class="d-flex col-md-12">
       <span class="col-md-4">
         <%= f.label :sensitive_data do %>
           <%= f.check_box :sensitive_data, data: { toggle: "tooltip" } %>
@@ -131,12 +131,12 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   <% end %>
 
   <div class="form-group mb-3 row">
-    <div class="col-md-12">
-      <span class="col-md-4">
+    <div class="d-flex col-md-12">
+      <span class="col pr-md-4">
         <%= f.label(:release_date, _("Anticipated release date"), class: "control-label") %>
         <%= f.date_field :release_date, class: "form-control" %>
       </span>
-      <span class="col-md-4">
+      <span class="col px-md-4">
         <%= f.label(:access, _("Initial access level"), class: "control-label") %>
         <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
                               { selected: f.object.access },
@@ -153,12 +153,12 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   <% end %>
 
   <div class="form-group mb-3 row file-details-section <%= presenter.byte_sizable? ? "" : "hidden" %>">
-    <div class="col-md-12">
+    <div class="d-flex col-md-12">
       <span class="col-md-3">
         <%= f.label(:byte_size, _("Anticipated file size"), class: "control-label") %>
       </span>
     </div>
-    <div class="col-md-12">
+    <div class="d-flex justify-content-start col-md-12">
       <span class="col-md-2">
         <% file_size = presenter.converted_file_size(size: f.object.byte_size) %>
         <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size], class: "form-control", aria: { label: _("Anticipated file size") } %>
