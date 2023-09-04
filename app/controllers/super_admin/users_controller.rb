@@ -91,7 +91,7 @@ module SuperAdmin
       # WHAT TO RETURN!?!?!
       if @users.present? # found a user, or Users, submit for merge
         render json: {
-          form: render_to_string(partial: 'super_admin/users/confirm_merge.html.erb')
+          form: render_to_string(partial: 'super_admin/users/confirm_merge')
         }
       else # NO USER, re-render w/error?
         flash.now[:alert] = 'Unable to find user'
