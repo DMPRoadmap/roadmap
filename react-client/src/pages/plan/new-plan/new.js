@@ -74,6 +74,7 @@ function PlanNew() {
                     <input
                       name="narrative"
                       type="file"
+                      accept=".pdf"
                     />
                   </div>
                 </div>
