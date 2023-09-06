@@ -144,7 +144,7 @@ function LookupField(props) {
           <datalist id={resultsId}>
             {props.inputValue.length > 0 &&
               suggestions?.map((el, index) => {
-                return <option data-index={index} value={el.name} />;
+                return <option key={index} data-index={index} value={el.name} />;
               })}
           </datalist>
         </div>

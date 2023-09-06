@@ -28,6 +28,10 @@ function ProjectSearch() {
   useEffect(() => {
     getDraftDmp(dmpId).then((initial) => {
       setDmp(initial);
+      setQueryArgs({
+        ...queryArgs,
+        title: initial.title,
+      });
     });
   }, [dmpId]);
 
@@ -157,7 +161,7 @@ function ProjectSearch() {
           We'll use this to locate key information.
         </p>
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post">
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
               <TextInput
@@ -166,6 +170,7 @@ function ProjectSearch() {
                 required="required"
                 name="project_id"
                 onChange={handleChange}
+                inputValue=""
                 id="project_id"
                 placeholder="Project ID"
                 help="The Project ID or number provided by your funder"
@@ -180,7 +185,7 @@ function ProjectSearch() {
                 required="required"
                 name="project_name"
                 onChange={handleChange}
-                inputValue={dmp.title}
+                inputValue={dmp ? dmp.title : ""}
                 id="project_name"
                 placeholder="Project Name"
                 help="All or part of the project name/title, e.g. 'Particle Physics'"
@@ -196,6 +201,7 @@ function ProjectSearch() {
                 type="text"
                 required="required"
                 name="principle_investigator"
+                inputValue=""
                 onChange={handleChange}
                 id="principle_investigator"
                 placeholder=""
@@ -210,6 +216,7 @@ function ProjectSearch() {
                 type="text"
                 required="required"
                 name="award_year"
+                inputValue=""
                 onChange={handleChange}
                 id="award_year"
                 placeholder="Award Year"
@@ -260,7 +267,7 @@ function ProjectSearch() {
         )}
       </div>
 
-      <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
+      <form method="post" onSubmit={handleSave}>
         <div className="form-wrapper"></div>
 
         <div className="form-actions ">
