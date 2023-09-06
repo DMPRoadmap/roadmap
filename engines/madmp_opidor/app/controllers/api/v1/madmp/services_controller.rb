@@ -7,7 +7,7 @@ module Api
     module Madmp
       # Handles CRUD operations for Services in API V1
       class ServicesController < BaseApiController
-        before_action :authorize_request, except: %i[ror, orcid]
+        before_action :authorize_request, except: %i[ror orcid]
 
         respond_to :json
 
