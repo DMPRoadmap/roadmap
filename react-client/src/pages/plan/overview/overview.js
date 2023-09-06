@@ -36,7 +36,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step last">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/project-details`}>
+              <Link to={`/dashboard/dmp/${dmpId}/pdf`}>
                 Project name & PDF upload
               </Link>
             </p>

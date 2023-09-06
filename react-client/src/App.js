@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Dashboard from "./pages/dashboard/dashboard";
 import PlanOverview from "./pages/plan/overview/overview";
-import PlanNew from "./pages/plan/new-plan/new";
+import DmpSetup from "./pages/plan/setup/setup";
 import PlanFunders from "./pages/plan/funder/funder";
 import ProjectDetails from "./pages/plan/project-details/projectdetails";
 import ProjectSearch from "./pages/plan/project-search/projectsearch";
@@ -19,12 +19,17 @@ const router = createBrowserRouter([
 
   {
     path: "/dashboard/dmp/new",
-    element: <PlanNew />,
+    element: <DmpSetup />,
   },
 
   {
     path: "/dashboard/dmp/:dmpId",
     element: <PlanOverview />,
+  },
+
+  {
+    path: "/dashboard/dmp/:dmpId/pdf",
+    element: <DmpSetup />,
   },
 
   {

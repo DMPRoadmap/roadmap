@@ -180,6 +180,7 @@ function ProjectSearch() {
                 required="required"
                 name="project_name"
                 onChange={handleChange}
+                inputValue={dmp.title}
                 id="project_name"
                 placeholder="Project Name"
                 help="All or part of the project name/title, e.g. 'Particle Physics'"
