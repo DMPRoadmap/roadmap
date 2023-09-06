@@ -7,7 +7,8 @@
   <dmp-write-plan props-json='{
     "locale": "<%= locale %>",
     "planId": <%= plan.id %>,
-    "templateId": <%= template.id %>
+    "templateId": <%= template.id %>,
+    "userId": <%= @current_user.id %>
   }'/>
 <% end %>
 
