@@ -4,6 +4,8 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   # Customized code for AnswersController
   module AnswersController
+    include Dmpopidor::ErrorHelper
+
     # Added Research outputs support
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -174,6 +176,88 @@ module Dmpopidor
       render json: {
         updated_answers: answer_ids
       }.to_json
+    end
+
+    # Public: Retrieves notes associated with a specific answer and includes user information.
+    #
+    # This method retrieves notes associated with the specified answer and includes information
+    # about the users who created the notes. The method performs authorization checks to ensure
+    # that the requesting user has the appropriate permissions to access the notes.
+    #
+    # Parameters:
+    #   None
+    #
+    # Returns:
+    #   JSON: A JSON response containing the notes with associated user information.
+    #
+    # Errors:
+    #   - 400 (Bad Request) if the answer_id parameter is missing, not a positive integer, or not provided.
+    #   - 404 (Not Found) if the specified answer is not found.
+    #   - 403 (Forbidden) if the requesting user is not authorized to access the resource.
+    #   - 500 (Internal Server Error) if an unexpected error occurs during processing.
+    #
+    # Example:
+    #   GET /answers/:answer_id/notes
+    #
+    #   Returns a JSON response with the notes and associated user information.
+    def notes
+      answer_id = params[:answer_id]
+
+      unless answer_id.present? && answer_id.to_i.positive?
+        Rails.logger.error("Answer id [#{answer_id}] is not valid")
+        bad_request("Answer id [#{answer_id}] is not valid")
+        return
+      end
+
+      begin
+        @answer = ::Answer.find(answer_id)
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Answer [#{answer_id}] not found")
+        Rails.logger.error(e.backtrace.join("\n"))
+        not_found('No answer found')
+        return
+      rescue StandardError => e
+        Rails.logger.error('An error occured during retriving answer data')
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error(e.message)
+        return
+      end
+
+      unless @answer
+        Rails.logger.error('No answer found')
+        not_found('No answer found')
+        return
+      end
+
+      begin
+        authorize @answer
+      rescue Pundit::NotAuthorizedError => e
+        Rails.logger.error('An error occurred while checking authorisations')
+        Rails.logger.error(e.backtrace.join("\n"))
+        forbidden
+        return
+      end
+
+      notes_with_users = begin
+        @answer.notes
+          .where(archived: false)
+          .order(created_at: :desc)
+          .includes(:user)
+          .as_json(
+            include: {
+              user: {
+                only: %w[id surname firstname]
+              }
+            }
+          )
+      rescue StandardError => e
+        Rails.logger.error('An error occurred while rendering response')
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error(e.message)
+        return
+      end
+
+      render json: { status: 200, message: "#{notes_with_users.length} notes found", notes: notes_with_users }
     end
 
     private

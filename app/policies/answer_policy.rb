@@ -10,4 +10,8 @@ class AnswerPolicy < ApplicationPolicy
     # is the plan editable by the user or the user is the owner of the plan
     @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
   end
+
+  def notes?
+    @record.plan.readable_by?(@user.id)
+  end
 end
