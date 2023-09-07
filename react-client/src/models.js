@@ -284,22 +284,6 @@ export class DmpModel extends Model {
   #_contributors;
   #_dataset;
 
-  static get dmpStates() {
-    return {
-      incomplete: "Incomplete",
-      completed: "Completed",
-      registered: "Registered",
-    };
-  }
-
-  static get stepStates() {
-    return {
-      notstart: "Not Started",
-      recommended: "Recommended",
-      completed: "Completed",
-    }
-  }
-
   constructor(data) {
     super(data);
 
@@ -328,27 +312,33 @@ export class DmpModel extends Model {
   set dataset(items) { this.#_dataset = new ModelSet(DataObject, items); }
 
   get stepStatus() {
-    return {
-      setup: "completed",
-      funders: "notstart",
-      project: "notstart",
-      contributors: "recommended",
-      outputs: "recommended",
-    };
-  }
+    let contributorStatus = ["recommended", "Recommended"];
+    if (this.contributors.items.length > 0) {
+      let ctext;
+      if (this.contributors.items.length == 1) {
+        contributorStatus = [
+          "completed",
+          "1 Contributor Added"
+        ];
+      } else {
+        contributorStatus = [
+          "completed",
+          this.contributors.items.length + " Contributors Added"
+        ];
+      }
+    }
 
-  get stepStatusDisplay() {
     return {
-      setup: DmpModel.stepStates.completed,
-      funders: DmpModel.stepStates.notstart,
-      project: DmpModel.stepStates.notstart,
-      contributors: DmpModel.stepStates.recommended,
-      outputs: DmpModel.stepStates.recommended,
+      setup: ["completed", "Completed"],
+      funders: ["notstart", "Not Started"],
+      project: ["notstart", "Not Started"],
+      contributors: contributorStatus,
+      outputs: ["recommended", "Recommended"],
     };
   }
 
   get status() {
-    return DmpModel.dmpStates.incomplete;
+    return ["incomplete", "Incomplete"];
   }
 
   /* NOTE

@@ -40,8 +40,8 @@ function PlanOverview() {
                 Project name & PDF upload
               </Link>
             </p>
-            <div className={"step-status status-" + dmp.stepStatus.setup}>
-              {dmp.stepStatusDisplay.setup}
+            <div className={"step-status status-" + dmp.stepStatus.setup[0]}>
+              {dmp.stepStatus.setup[1]}
             </div>
           </div>
         </div>
@@ -53,8 +53,8 @@ function PlanOverview() {
             <p>
               <Link to={`/dashboard/dmp/${dmpId}/funders`}>Funders</Link>
             </p>
-            <div className={"step-status status-" + dmp.stepStatus.funders}>
-              {dmp.stepStatusDisplay.funders}
+            <div className={"step-status status-" + dmp.stepStatus.funders[0]}>
+              {dmp.stepStatus.funders[1]}
             </div>
           </div>
 
@@ -65,8 +65,8 @@ function PlanOverview() {
               </Link>
             </p>
 
-            <div className={"step-status status-" + dmp.stepStatus.project}>
-              {dmp.stepStatusDisplay.project}
+            <div className={"step-status status-" + dmp.stepStatus.project[0]}>
+              {dmp.stepStatus.project[1]}
             </div>
           </div>
 
@@ -77,8 +77,8 @@ function PlanOverview() {
               </Link>
             </p>
 
-            <div className={"step-status status-" + dmp.stepStatus.contributors}>
-              {dmp.stepStatusDisplay.contributors}
+            <div className={"step-status status-" + dmp.stepStatus.contributors[0]}>
+              {dmp.stepStatus.contributors[1]}
             </div>
           </div>
 
@@ -88,8 +88,8 @@ function PlanOverview() {
                 Research Outputs
               </Link>
             </p>
-            <div className={"step-status status-" + dmp.stepStatus.outputs}>
-              {dmp.stepStatusDisplay.outputs}
+            <div className={"step-status status-" + dmp.stepStatus.outputs[0]}>
+              {dmp.stepStatus.outputs[1]}
             </div>
           </div>
         </div>

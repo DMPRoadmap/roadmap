@@ -69,7 +69,11 @@ function PlanFunders() {
     if (funder.funder_id) dmp.funding.funderId = funder.funder_id;
 
     saveDraftDmp(dmp).then((savedDmp) => {
-      navigate(`/dashboard/dmp/${dmpId}/project-search`);
+      if (savedDmp.hasFunder) {
+        navigate(`/dashboard/dmp/${dmpId}/project-search`);
+      } else {
+        navigate(`/dashboard/dmp/${dmpId}/project-details`);
+      }
     });
   }
 
@@ -98,7 +102,7 @@ function PlanFunders() {
           </div>
         )}
 
-        <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
+        <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
           <div className="form-wrapper">
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">

@@ -28,6 +28,12 @@ function ProjectSearch() {
   useEffect(() => {
     getDraftDmp(dmpId).then((initial) => {
       setDmp(initial);
+
+      let funderUrl = initial.getDraftData("funder.funder_api", null);
+      if (!initial.hasFunder || !funderUrl) {
+        navigate(`/dashboard/dmp/${dmpId}/project-details`);
+      }
+
       setQueryArgs({
         ...queryArgs,
         title: initial.title,
