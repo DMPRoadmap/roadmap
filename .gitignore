@@ -39,6 +39,7 @@ public/*.svg
 public/*.woff
 public/*.woff2
 public/main.*
+public/tinymce/
 
 # Ignore .bak files
 *.bak
