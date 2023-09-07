@@ -134,27 +134,6 @@ module MadmpExternalApis
       # rubocop:enable Metrics/AbcSize
 
       # Convert the JSON items into a hash
-      # def parse_results(json:)
-      #   results = []
-      #   return results unless json.present? && json.fetch('items', []).any?
-
-      #   json['items'].each do |item|
-      #     next unless item['id'].present? && item['name'].present?
-
-      #     results << {
-      #       ror: item['id'].gsub(/^#{landing_page_url}/, ''),
-      #       name: org_name(item: item),
-      #       sort_name: item['name'],
-      #       url: item.fetch('links', []).first,
-      #       language: org_language(item: item),
-      #       fundref: fundref_id(item: item),
-      #       abbreviation: item.fetch('acronyms', []).first
-      #     }
-      #   end
-      #   results
-      # end
-
-      # Convert the JSON items into a hash
       def parse_results(json:)
         return [] unless json['items']&.any?
 
@@ -188,13 +167,19 @@ module MadmpExternalApis
 
         country_code = item&.dig('country', 'country_code').to_s
 
-        # Retrieve the 'labels' value from the 'item' hash, or assign an empty array if it's not present
-        # Map the labels and create a new hash for each label, where 'iso639' is the key and 'label' is the value
-        labels = item&.dig('labels')&.map { |label| { label['iso639'] || '' => label['label'].to_s } } || []
+        # This code extracts 'iso639' values from 'labels' in the 'item' object and constructs a new hash.
+        # Each 'iso639' is used as a symbol key, and 'name' from 'item' is the associated value.
+        # The resulting hash contains 'iso639' symbols as keys and 'name' values.
+        # This process aggregates data from 'labels' to achieve the desired result format.
+        labels = item&.dig('labels').reduce({}) do |hash, label|
+          iso639 = label['iso639'] || ''
+          hash[iso639.to_sym] = item['name'].to_s
+          hash
+        end
 
-        # Create a new array containing a single hash with 'country_code' as the key, converted to lowercase,
-        # and 'item['name']' as the value, then concatenate it with the 'labels' array
-        [{ country_code.downcase => item['name'] }] + labels.compact
+        labels[country_code.downcase.to_sym] = item['name']
+
+        labels
       end
 
       def get_addresses(item:)

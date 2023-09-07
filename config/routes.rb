@@ -125,6 +125,7 @@ Rails.application.routes.draw do
   resources :answers, only: [] do
     post 'create_or_update', on: :collection
     post 'set_answers_as_common', on: :collection
+    get 'notes', constraints: { format: [:json] }
   end
 
   # Question Formats controller, currently just the one action
@@ -132,7 +133,9 @@ Rails.application.routes.draw do
 
   resources :notes, only: %i[create update archive] do
     member do
-      patch 'archive'
+      post 'create', constraints: { format: [:json] }
+      patch 'archive', constraints: { format: [:json] }
+      put 'update', constraints: { format: [:json] }
     end
   end
 
