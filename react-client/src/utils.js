@@ -27,7 +27,7 @@ export function getValue(obj, path, defaultNone) {
   if (!obj[path[0]]) return defaultNone;
   if (path.length === 1) { return obj[path[0]]; }
 
-  return getValue(obj[path[0]], path.slice(1));
+  return getValue(obj[path[0]], path.slice(1), defaultNone);
 }
 
 

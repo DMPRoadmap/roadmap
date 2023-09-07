@@ -355,6 +355,12 @@ export class DmpModel extends Model {
     return ["incomplete", "Incomplete"];
   }
 
+  get isPrivate() {
+    // TODO:: Where to store this in the  DMP? I didn'e see it in the dummy data
+    // For the time being we will store this in the draftdata
+    return this.getDraftData("is_private", true);
+  }
+
   /* NOTE
    * Draft data is a special temporary place in the data structure
    * that the backend _wont use_, but that we can use to keep track of
@@ -367,10 +373,10 @@ export class DmpModel extends Model {
     this.setData(dataPath, data);
   }
 
-  getDraftData(path) {
+  getDraftData(path, defaultNone) {
     if (typeof path === 'undefined') return this.getData("draft_data", {});
     let dataPath = `draft_data.${path}`;
-    return this.getData(dataPath);
+    return this.getData(dataPath, defaultNone);
   }
 
   commit() {
