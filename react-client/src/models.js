@@ -314,17 +314,31 @@ export class DmpModel extends Model {
   get stepStatus() {
     let contributorStatus = ["recommended", "Recommended"];
     if (this.contributors.items.length > 0) {
-      let ctext;
       if (this.contributors.items.length == 1) {
         contributorStatus = [
           "completed",
-          "1 Contributor Added"
+          "1 Contributor"
         ];
       } else {
         contributorStatus = [
           "completed",
-          this.contributors.items.length + " Contributors Added"
+          this.contributors.items.length + " Contributors"
         ];
+      }
+    }
+
+    let outputsStatus = ["recommended", "Recommended"];
+    if (this.dataset.items.length > 0) {
+      if (this.dataset.items.length == 1) {
+        outputsStatus = [
+          "completed",
+          "1 Research Output",
+        ];
+      } else {
+        outputsStatus = [
+          "completed",
+          this.dataset.items.length + " Research Outputs"
+        ]
       }
     }
 
@@ -333,7 +347,7 @@ export class DmpModel extends Model {
       funders: ["notstart", "Not Started"],
       project: ["notstart", "Not Started"],
       contributors: contributorStatus,
-      outputs: ["recommended", "Recommended"],
+      outputs: outputsStatus,
     };
   }
 
