@@ -156,7 +156,7 @@
 
                           <% if plan.present? %>
                             <dialog id="notes-<%= question.id %>-research-output-<%= research_output.id %>" class="notes">
-                              <i class="fas fa-times close-comments pull-right" data-close="notes-<%= question.id %>-research-output-<%= research_output.id %>"></i>
+                              <i class="fas fa-xmark close-comments pull-right" data-close="notes-<%= question.id %>-research-output-<%= research_output.id %>"></i>
                               <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer, research_output: research_output } %>
                             </dialog>
                           <% end %>

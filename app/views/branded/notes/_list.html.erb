@@ -24,14 +24,14 @@
                   </li>
                   <li>
                     <a href=<%= "#note_archive#{note.id}"%> class="note_archive_link">
-                      <i data-toggle="tooltip" data-original-title="<%= _('Remove') %>" class="fas fa-times"></i>
+                      <i data-toggle="tooltip" data-original-title="<%= _('Remove') %>" class="fas fa-xmark"></i>
                     </a>
                   </li>
                 <% else  %>
                   <% if plan.administerable_by?(current_user.id) %>
                     <li>
                       <a href=<%= "#note_archive#{note.id}"%> class="note_archive_link">
-                        <i data-toggle="tooltip" data-original-title="<%= _('Remove') %>" class="fas fa-times"></i>
+                        <i data-toggle="tooltip" data-original-title="<%= _('Remove') %>" class="fas fa-xmark"></i>
                       </a>
                     </li>
                   <% end %>
