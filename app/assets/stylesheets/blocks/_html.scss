@@ -13,6 +13,7 @@ html {
 /* For sticky footer */
 main {
   margin-bottom: 100px;
+  margin-top: 30px;
   @media (max-width: 768px) {
     margin-bottom: 420px;
   }
@@ -23,6 +24,11 @@ main {
 
 body{
   padding-bottom: 50px;
+
+  hr {
+    border-top: 1px solid #eeeeee;
+  }
+  
 }
 
 /* footer */
@@ -72,3 +78,4 @@ h1, h2, h3, h4, h5, h6 {
 .fas:not(.small) {
   font-size: 1rem;
 }
+

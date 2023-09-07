@@ -15,20 +15,20 @@
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
       <li role="profile" class="nav-item">
-        <a href="#profile" class="nav-link" role="tab" aria-controls="profile" data-toggle="tab"><%= _('Profile information') %></a>
+        <a href="#profile" class="nav-link active" role="tab" aria-controls="profile" data-bs-toggle="tab"><%= _('Profile information') %></a>
       </li>
 
       <li class="nav-item" role="feedback">
-        <a href="#feedback" class="nav-link" role="tab" aria-controls="feedback" data-toggle="tab"><%= _('Request feedback') %></a>
+        <a href="#feedback" class="nav-link" role="tab" aria-controls="feedback" data-bs-toggle="tab"><%= _('Request feedback') %></a>
       </li>
 
       <li class="nav-item" role="form">
-        <a href="#departments" class="nav-link" role="tab" aria-controls="form" data-toggle="tab"><%= _('Schools/Departments') %></a>
+        <a href="#departments" class="nav-link" role="tab" aria-controls="form" data-bs-toggle="tab"><%= _('Schools/Departments') %></a>
       </li>
 
       <% if current_user.can_super_admin? %>
         <li class="nav-item" role="merge">
-          <a href="#merge" class="nav-link" role="tab" aria-controls="form" data-toggle="tab"><%= _('Merge') %></a>
+          <a href="#merge" class="nav-link" role="tab" aria-controls="form" data-bs-toggle="tab"><%= _('Merge') %></a>
         </li>
       <% end %>
     </ul>

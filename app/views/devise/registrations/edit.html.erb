@@ -8,23 +8,23 @@
 <div class="row">
   <div class="col-md-12">
       <ul class="nav nav-tabs" role="tablist">
-        <li role="personal-details" class="nav-item active">
-          <a href="#personal-details" role="tab" class="nav-link"
-             aria-controls="personal-details" data-toggle="tab"><%= _('Personal Details') %></a>
+        <li role="personal-details" class="nav-item">
+          <a href="#personal-details" role="tab" class="nav-link active"
+             aria-controls="personal-details" data-bs-toggle="tab"><%= _('Personal Details') %></a>
         </li>
         <li role="password-details" class="nav-item">
           <a href="#password-details" role="tab" class="nav-link"
-             aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
+             aria-controls="password-details" data-bs-toggle="tab"><%= _('Password') %></a>
         </li>
         <% if @user.can_use_api? %>
           <li role="api-details" class="nav-item">
             <a href="#api-details" role="tab" class="nav-link"
-               aria-controls="api-details" data-toggle="tab"><%= _('API Access') %></a>
+               aria-controls="api-details" data-bs-toggle="tab"><%= _('API Access') %></a>
           </li>
         <% end %>
         <li role="notification-preferences" class="nav-item">
           <a href="#notification-preferences" role="tab" class="nav-link"
-             aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
+             aria-controls="notification-preferences" data-bs-toggle="tab"><%= _('Notification Preferences') %></a>
         </li>
       </ul>
 
