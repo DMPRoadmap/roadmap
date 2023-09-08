@@ -224,8 +224,8 @@ function Dashboard() {
                       >
                         03-29-2023
                       </td>
-                      <td className="table-data-name" data-colname="status">
-                        {dmp.status}
+                      <td className={"table-data-name status-" + dmp.status[0]} data-colname="status">
+                        {dmp.status[1]}
                       </td>
                       <td
                         className="table-data-name table-data-actions"

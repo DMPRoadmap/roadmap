@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   DmpModel,
   getDraftDmp,
+  saveDraftDmp,
+  registerDraftDmp,
 } from "../../../models.js";
 
 import TextInput from "../../../components/text-input/textInput";
@@ -46,19 +48,22 @@ function PlanOverview() {
   async function handleRegister(ev) {
     ev.preventDefault();
 
+    dmp.setDraftData("is_private", (visibility !== "public"));
+    saveDraftDmp(dmp).then((savedDmp) => {
+      setDmp(savedDmp);
+      // TODO:: Re-enable when we know the exact url and data structure to
+      // register a DMP.
+      // registerDraftDmp(savedDmp).then((data) => {
+      //   console.log('Response Data?');
+      //   console.log(data);
+      // });
+      const redirectUrl = ev.target.dataset['redirect'];
+      navigate(redirectUrl);
+    });
     // TODO
     // We don't want people to "double-click" and register the same thing twice.
     // So we can disble the save button here, while working, and re-enable when
     // we are done.
-
-    // dmp.setDraftData("is_private", (visibility !== "public"));
-    // saveDraftDmp(dmp).then((savedDmp) => {
-    //     navigate(`/dashboard/dmp/${dmpId}`);
-    // });
-    // d
-
-    const redirectUrl = ev.target.dataset['redirect'];
-    navigate(redirectUrl);
   }
 
   return (

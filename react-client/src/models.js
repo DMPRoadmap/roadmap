@@ -369,14 +369,12 @@ export class DmpModel extends Model {
    * The methods below allows access to the draft data
    **/
   setDraftData(path, data) {
-    let dataPath = `draft_data.${path}`;
-    this.setData(dataPath, data);
+    this.setData(`draft_data.${path}`, data);
   }
 
   getDraftData(path, defaultNone) {
     if (typeof path === 'undefined') return this.getData("draft_data", {});
-    let dataPath = `draft_data.${path}`;
-    return this.getData(dataPath, defaultNone);
+    return this.getData(`draft_data.${path}`, defaultNone);
   }
 
   commit() {
@@ -418,6 +416,24 @@ export async function saveDraftDmp(dmp) {
 
   return new DmpModel(data.items[0].dmp);
 }
+
+
+// export async function registerDraftDmp(dmp) {
+//   console.log('DMP ID?');
+//   console.log(dmp.draftId);
+//
+//   let api = new DmpApi();
+//   let options = api.getOptions({
+//     method: "post",
+//     body: JSON.stringify({ dmp: dmp.getData() }),
+//   });
+//
+//   const resp = await fetch(api.getPath(`/dmps/`), options);
+//   api.handleResponse(resp);
+//   const data = await resp.json();
+//
+//   return data;
+// }
 
 
 export async function getOutputTypes(forceUpdate) {

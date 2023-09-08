@@ -24,7 +24,11 @@ export function getValue(obj, path, defaultNone) {
   if (typeof path === "string") path = path.split(".");
 
   if (path.length === 0) throw "Path Length is Zero";
-  if (!obj[path[0]]) return defaultNone;
+
+  if ((obj[path[0]] === null) || (typeof obj[path[0]] === 'undefined')) {
+    return defaultNone;
+  }
+
   if (path.length === 1) { return obj[path[0]]; }
 
   return getValue(obj[path[0]], path.slice(1), defaultNone);
