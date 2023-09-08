@@ -19,11 +19,12 @@ module Api
           )
         end
 
-        # GET /api/v1/service/orcid?search=:search
+        # GET /api/v1/service/orcid?search=:search&rows=:rows
         # :search can be an orcid id or name
         def orcid
           render json: MadmpExternalApis::OrcidService.search(
-            term: params[:search]
+            term: params[:search],
+            rows: params[:rows]
           )
         end
       end
