@@ -1,5 +1,79 @@
 # Changelog
 
+## v4.2.0
+
+**Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
+
+Note that this will have a significant impact on any scss and html customizations you may have made to your fork of this project. 
+
+The following links will be helpful:
+
+[Get started with Bootstrap v5.2.3](https://getbootstrap.com/docs/5.2/getting-started/introduction/)<br>
+[Migrating to v4](https://getbootstrap.com/docs/4.0/migration)<br>
+[How to Migrate from Bootstrap Version 3 to 4](https://designmodo.com/migrate-bootstrap-4/)<br>
+[Migrating to v5](https://getbootstrap.com/docs/5.0/migration)<br>
+[How to Migrate from Bootstrap Version 4 to 5](https://designmodo.com/migrate-bootstrap-5/)<br>
+[Use Bootstrap 5 with Ruby on Rails 6 and webpack](https://medium.com/daily-web-dev/use-bootstrap-4-with-ruby-on-rails-6-and-webpack-fe7300604267)<br>
+[What happened to $grid-float-breakpoint in Bootstrap 4. And screen size breakpoint shift from 3 -> 4](
+https://bibwild.wordpress.com/2019/06/10/what-happened-to-grid-float-breakpoint-in-bootstrap-4-and-screen-size-breakpoint-shift-from-3-4/)<br>
+[What are media queries in Bootstrap 4?](https://www.educative.io/answers/what-are-media-queries-in-bootstrap-4)<br>
+   
+#### Key changes
+    
+- Node  package changes:
+  * Changed version of `bootstrap "^3.4.1"` --> `"^5.2.3"`
+  * Added  `@popperjs/core.`
+  * Removed `bootstrap-3-typeahead, bootstrap-sass & popper.js`.
+- Stylesheet changes
+  * In `app/assets/stylesheets/application.scss`:
+    + removed `bootstrap-sass` import <br>
+      and replaced with<br>
+       `@import "../../../node_modules/bootstrap/scss/bootstrap";`
+  * In `app/assets/stylesheets/blocks/`:
+    + Replaced in relevant files:
+      + `@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as * ;`<br>
+         with <br>
+         `@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;`
+    + Enclosed all division calculations using symbol `/` with `calc()` function,<br> 
+      e.g., replaced<br>
+         `padding-right: $grid-gutter-width / 2;`<br>
+      with<br>
+         `padding-right: calc($grid-gutter-width / 2);`<br>
+    + Replaced with breaking media queries since Bootstrap 3:
+      - `@media (max-width: $grid-float-breakpoint-max) {}`<br>
+        with<br>
+        `@include media-breakpoint-down(md){}`
+    
+      - `@media (max-width: $grid-float-breakpoint-max) {}`<br>
+        with<br>
+        `@include media-breakpoint-down(md) {}`
+- Deleted `app/javascript/src/utils/popoverHelper.js`
+- Using Bootstrap 5 accordion and spinner now. This replaces bespoke versions used.
+  + The spinner block now uses class `.d-none` instead of `.hidden` to hide.
+- Bootstrap 5 dropped panels, thumbnails, wells and form-groups. So pages with them updated with Bootstrap 5 replacements. 
+  + All views with css classes `.panel, .panel-body, panel-*`. Have panel replaced
+    by card to give `.card, .card_body, .card-*`, etc. As `.panel-default` and some other
+    panel css classes don't have card equivalents with same suffixes we have
+    added these classes temporarily in _cards.sccs. For example, 
+    `.card-default`, etc.
+  TBD: Rewrite app/javascript/src/utils/sectionUpdate.js it has reference to .panel.
+- Pages with css classes nav `.nav` and `.navbar` updated to  work with Bootstrap 5:
+  + CSS classes changes:
+    -  `.nav .navbar-nav` combination -->  `.navbar-nav`
+    - `.navbar-toggle` --> `.navbar-toggler`
+    - multiple spans in `.navbar-toggle` button with class `.icon-bar`<br>  --> single span with `.toggler-icon`
+    - Lists with `.nav .navbar-nav` have class `.nav-item` added to list elements.
+    - Dropdown list items with class `.dropdown` in navigation bar have class `.nav-item` and links in the lists have `.nav-link` added.
+  + SCSS files `app/assets/stylesheets/blocks/_navbars.scss` and `app/assets/stylesheets/blocks/_navs.scss` updated. 
++ Data attributes changes required by Bootstrap 5 (as used by accordion and dropdown buttons):
+  - `data-display` --> `data-bs-display`
+  - `data-parent` -->`data-bs-parent`
+  - `data-target` -->`data-bs-target`
+  - `data-toggle` --> `data-bs-toggle`
++ Notifications now use classes `.d-block` and `.d-none` to show and hide respectively.
++ Bootstrap 5 Popover added to some dropdown-menu items by adding attribute `data-bs-toggle="popover"`.
+
+
 ## v4.1.0
 
 **Note this upgrade is a migration from Ruby v2.7.6 to v3.0.5.** Note that this could have an impact on any customizations you may have made to your fork of this project. Please see https://www.fastruby.io/blog/ruby/upgrades/upgrade-ruby-from-2.7-to-3.0.html for further information on what to check. In particular, please note the changes to the way [Ruby 3 handles keyword arguments](https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0/)
