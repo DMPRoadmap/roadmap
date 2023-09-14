@@ -4,6 +4,8 @@ module Dmpopidor
   # Customized code for PlansController
   # rubocop:disable Metrics/ModuleLength
   module PlansController
+    include Dmpopidor::ErrorHelper
+
     # CHANGES:
     # - Emptied method as logic is now handled by ReactJS
     def new
@@ -169,12 +171,54 @@ module Dmpopidor
         })
     end
 
+    # GET /plans/:id/guidance_groups
     def budget
       @plan = ::Plan.find(params[:id])
       dmp_fragment = @plan.json_fragment
       @costs = Fragment::Cost.where(dmp_id: dmp_fragment.id)
       authorize @plan
       render(:budget, locals: { plan: @plan, costs: @costs })
+    end
+
+    def guidance_groups
+      @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+      render json: { status: 200, message: 'Guidance groups', guidanceGroups: @all_ggs_grouped_by_org }, status: :ok
+    end
+
+    def select_guidance_groups
+      begin
+        @plan = ::Plan.find(params[:id])
+        authorize @plan
+
+        body = JSON.parse(request.raw_post)
+
+        selected_ids = body["guidance_group_ids"]
+
+        guidance_group_ids = if selected_ids.blank?
+                                []
+                              else
+                                selected_ids.map(&:to_i).uniq
+                              end
+
+        @plan.guidance_groups = ::GuidanceGroup.where(id: guidance_group_ids)
+
+        if @plan.save
+          @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+          render json: { status: 200, message: "Guidances updated for plan [#{params[:id]}]", guidanceGroups: @all_ggs_grouped_by_org }, status: :ok
+        else
+          Rails.logger.error("Plan [#{params[:id]}] not updated")
+          internal_server_error("Plan [#{params[:id]}] not updated")
+        end
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Plan [#{params[:id]}] not found")
+        not_found("Plan [#{params[:id]}] not found")
+      rescue JSON::ParserError, TypeError => e
+        Rails.logger.error("Bad request - Invalid JSON data")
+        bad_request("Bad request - Invalid JSON data")
+      rescue StandardError => e
+        Rails.logger.error("Internal server error - #{e.message}")
+        internal_server_error("Internal server error - #{e.message}")
+      end
     end
 
     def import
@@ -312,6 +356,40 @@ module Dmpopidor
                answers: answers,
                guidance_presenter: GuidancePresenter.new(plan)
              })
+    end
+
+    def get_guidances_groups(id)
+      @plan = ::Plan.includes(
+        :guidance_groups, template: [:phases]
+      ).find(id)
+      authorize @plan
+
+      @visibility = if @plan.visibility.present?
+                      @plan.visibility.to_s
+                    else
+                      Rails.configuration.x.plans.default_visibility
+                    end
+
+      @all_guidance_groups = @plan.guidance_group_options
+      @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+      @selected_guidance_groups = @plan.guidance_groups.ids.to_set
+
+      @default_orgs = ::Org.default_orgs
+
+      @all_ggs_grouped_by_org.map do |key, value|
+        {
+          name: key.name,
+          id: key.id,
+          important: @default_orgs.include?(key) || value.any? { |item| @selected_guidance_groups.include?(item.id) },
+          guidances: value.map do |item|
+            {
+              id: item.id,
+              name: item.name,
+              selected: @selected_guidance_groups.include?(item.id)
+            }
+          end
+        }
+      end
     end
   end
   # rubocop:enable Metrics/ModuleLength

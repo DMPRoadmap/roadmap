@@ -11,6 +11,14 @@ module Dmpopidor
       @record.readable_by?(@user.id)
     end
 
+    def guidance_groups?
+      @record.editable_by?(@user.id)
+    end
+
+    def select_guidance_groups?
+      @record.editable_by?(@user.id)
+    end
+
     def create_remote?
       @record.editable_by?(@user.id)
     end
