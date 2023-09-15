@@ -182,7 +182,7 @@ module Dmpopidor
 
     def guidance_groups
       @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
-      render json: { status: 200, message: 'Guidance groups', guidanceGroups: @all_ggs_grouped_by_org }, status: :ok
+      render json: {
     end
 
     def select_guidance_groups
