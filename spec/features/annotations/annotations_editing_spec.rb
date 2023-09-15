@@ -43,7 +43,7 @@ RSpec.feature 'Annotations::Editing', type: :feature do
     template = Template.last
     click_link 'Customise phase'
 
-    click_link section.title
+    click_link(section.title, match: :prefer_exact)
 
     within("fieldset#fields_annotation_#{template.annotation_ids.last}") do
       id = "question_annotations_attributes_annotation_#{template.annotation_ids.last}_text"
@@ -70,7 +70,8 @@ RSpec.feature 'Annotations::Editing', type: :feature do
     end.to change { Template.count }.by(1)
     template = Template.last
     click_link 'Customise phase'
-    click_link section.title
+   
+    click_link(section.title, match: :prefer_exact)
     # NOTE: This is annotation 2, since Annotation was copied upon clicking "Customise"
     within("fieldset#fields_annotation_#{template.annotation_ids.last}") do
       id = "question_annotations_attributes_annotation_#{template.annotation_ids.last}_text"
