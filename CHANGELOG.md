@@ -90,6 +90,7 @@ For more detailed explanation, please refer to this video : https://www.youtube.
  - Added rack-attack version 6.6.1 gem. https://rubygems.org/gems/rack-attack/versions/6.6.1
 
 ### Fixed
+- Updated the default font on the 'Download page' to be 'Roboto, Arial, Sans-Serif'
 - Fixed an issue that was preventing uses from leaving the research output byte_size field blank
 - Patched issue that was causing template visibility to default to organizationally visible after saving
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
