@@ -156,6 +156,9 @@ Rails.application.routes.draw do
       get 'request_feedback'
       get 'download'
       get 'budget'
+      get 'guidance_groups', constraints: { format: [:json] }
+      post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
+      get 'guidances', action: :question_guidances, constraints: { format: [:json] }
       get 'answers_data'
       post 'duplicate'
       post 'visibility', constraints: { format: [:json] }

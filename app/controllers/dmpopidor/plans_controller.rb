@@ -4,6 +4,8 @@ module Dmpopidor
   # Customized code for PlansController
   # rubocop:disable Metrics/ModuleLength
   module PlansController
+    include Dmpopidor::ErrorHelper
+
     # CHANGES:
     # - Emptied method as logic is now handled by ReactJS
     def new
@@ -169,12 +171,131 @@ module Dmpopidor
         })
     end
 
+    # GET /plans/:id/guidance_groups
     def budget
       @plan = ::Plan.find(params[:id])
       dmp_fragment = @plan.json_fragment
       @costs = Fragment::Cost.where(dmp_id: dmp_fragment.id)
       authorize @plan
       render(:budget, locals: { plan: @plan, costs: @costs })
+    end
+
+    def guidance_groups
+      @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+      render json: {
+        status: 200,
+        message: 'Guidance groups',
+        guidance_groups: @all_ggs_grouped_by_org,
+      },status: :ok
+    end
+
+    def select_guidance_groups
+      begin
+        @plan = ::Plan.find(params[:id])
+        authorize @plan
+
+        body = JSON.parse(request.raw_post)
+
+        selected_ids = body["guidance_group_ids"]
+
+        guidance_group_ids = if selected_ids.blank?
+                                []
+                              else
+                                selected_ids.map(&:to_i).uniq
+                              end
+
+        @plan.guidance_groups = ::GuidanceGroup.where(id: guidance_group_ids)
+
+        guidance_presenter = ::GuidancePresenter.new(@plan)
+
+        if @plan.save
+          @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+          render json: {
+              status: 200,
+              message: "Guidances updated for plan [#{params[:id]}]",
+              guidance_groups: @all_ggs_grouped_by_org,
+              questions_with_guidance: @plan.template.questions.select do |q|
+                question = ::Question.find(q.id)
+                guidance_presenter.any?(question:)
+              end.pluck(:id)
+          }, status: :ok
+        else
+          Rails.logger.error("Plan [#{params[:id]}] not updated")
+          internal_server_error("Plan [#{params[:id]}] not updated")
+        end
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Plan [#{params[:id]}] not found")
+        not_found("Plan [#{params[:id]}] not found")
+      rescue JSON::ParserError, TypeError => e
+        Rails.logger.error("Bad request - Invalid JSON data")
+        bad_request("Bad request - Invalid JSON data")
+      rescue StandardError => e
+        Rails.logger.error("Internal server error - #{e.message}")
+        internal_server_error("Internal server error - #{e.message}")
+      end
+    end
+
+    def question_guidances
+      plan_id = params[:id]
+      unless plan_id && plan_id.to_i.positive?
+        bad_request("Plan [#{plan_id}] id, must be present or positive value")
+        return
+      end
+
+      question_id = params[:question]
+      unless question_id && question_id.to_i.positive?
+        bad_request("Question [#{question_id}] id, must be present or positive value")
+        return
+      end
+
+      begin
+        @plan = ::Plan.find(plan_id)
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Plan [#{plan_id}] not found")
+        Rails.logger.error(e.backtrace.join("\n"))
+        not_found('No plan found')
+        return
+      rescue StandardError => e
+        Rails.logger.error('An error occured during retriving plan data')
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error(e.message)
+        return
+      end
+
+      begin
+        authorize @plan
+      rescue Pundit::NotAuthorizedError => e
+        Rails.logger.error('An error occurred while checking authorisations')
+        Rails.logger.error(e.backtrace.join("\n"))
+        forbidden
+        return
+      end
+
+      begin
+        question = ::Question.find(question_id)
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Question [#{plan_id}] not found")
+        Rails.logger.error(e.backtrace.join("\n"))
+        not_found('No plan found')
+        return
+      rescue StandardError => e
+        Rails.logger.error('An error occured during retriving question data')
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error(e.message)
+        return
+      end
+
+      begin
+        guidance_presenter = ::GuidancePresenter.new(@plan)
+        guidances = guidance_presenter.tablist(question)
+      rescue StandardError => e
+        Rails.logger.error("Cannot create guidance presenter")
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error('An error occured during guidance presenter creation')
+        return
+      end
+
+      render json: { status: 200, message: "Guidances for plan [#{plan_id}] and question [#{question_id}]", guidances: guidances }, status: :ok
     end
 
     def import
@@ -248,6 +369,8 @@ module Dmpopidor
         { answers: %i[notes madmp_fragment] }
       ).find(params[:id])
       authorize plan
+
+      guidance_presenter = ::GuidancePresenter.new(plan)
       render json: {
         id: plan.id,
         dmp_id: plan.json_fragment.id,
@@ -266,8 +389,11 @@ module Dmpopidor
               }
             end
           }
-        end
-
+        end,
+        questions_with_guidance: plan.template.questions.select do |q|
+          question = ::Question.find(q.id)
+          guidance_presenter.any?(question:)
+        end.pluck(:id)
       }
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
@@ -312,6 +438,40 @@ module Dmpopidor
                answers: answers,
                guidance_presenter: GuidancePresenter.new(plan)
              })
+    end
+
+    def get_guidances_groups(id)
+      @plan = ::Plan.includes(
+        :guidance_groups, template: [:phases]
+      ).find(id)
+      authorize @plan
+
+      @visibility = if @plan.visibility.present?
+                      @plan.visibility.to_s
+                    else
+                      Rails.configuration.x.plans.default_visibility
+                    end
+
+      @all_guidance_groups = @plan.guidance_group_options
+      @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+      @selected_guidance_groups = @plan.guidance_groups.ids.to_set
+
+      @default_orgs = ::Org.default_orgs
+
+      @all_ggs_grouped_by_org.map do |key, value|
+        {
+          name: key.name,
+          id: key.id,
+          important: @default_orgs.include?(key) || value.any? { |item| @selected_guidance_groups.include?(item.id) },
+          guidances: value.map do |item|
+            {
+              id: item.id,
+              name: item.name,
+              selected: @selected_guidance_groups.include?(item.id)
+            }
+          end
+        }
+      end
     end
   end
   # rubocop:enable Metrics/ModuleLength
