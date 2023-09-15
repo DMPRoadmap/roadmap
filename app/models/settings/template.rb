@@ -38,7 +38,7 @@ module Settings
           left: 12,
           right: 12
         },
-        font_face: 'Arial, Helvetica, Sans-Serif',
+        font_face: 'Roboto, Arial, Sans-Serif',
         font_size: 10 # pt
       },
       max_pages: 3,
