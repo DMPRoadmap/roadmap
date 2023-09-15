@@ -183,6 +183,10 @@ module Dmpopidor
     def guidance_groups
       @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
       render json: {
+        status: 200,
+        message: 'Guidance groups',
+        guidance_groups: @all_ggs_grouped_by_org,
+      },status: :ok
     end
 
     def select_guidance_groups
@@ -202,9 +206,19 @@ module Dmpopidor
 
         @plan.guidance_groups = ::GuidanceGroup.where(id: guidance_group_ids)
 
+        guidance_presenter = ::GuidancePresenter.new(@plan)
+
         if @plan.save
           @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
-          render json: { status: 200, message: "Guidances updated for plan [#{params[:id]}]", guidanceGroups: @all_ggs_grouped_by_org }, status: :ok
+          render json: {
+              status: 200,
+              message: "Guidances updated for plan [#{params[:id]}]",
+              guidance_groups: @all_ggs_grouped_by_org,
+              questions_with_guidance: @plan.template.questions.select do |q|
+                question = ::Question.find(q.id)
+                guidance_presenter.any?(question:)
+              end.pluck(:id)
+          }, status: :ok
         else
           Rails.logger.error("Plan [#{params[:id]}] not updated")
           internal_server_error("Plan [#{params[:id]}] not updated")
@@ -219,6 +233,69 @@ module Dmpopidor
         Rails.logger.error("Internal server error - #{e.message}")
         internal_server_error("Internal server error - #{e.message}")
       end
+    end
+
+    def question_guidances
+      plan_id = params[:id]
+      unless plan_id && plan_id.to_i.positive?
+        bad_request("Plan [#{plan_id}] id, must be present or positive value")
+        return
+      end
+
+      question_id = params[:question]
+      unless question_id && question_id.to_i.positive?
+        bad_request("Question [#{question_id}] id, must be present or positive value")
+        return
+      end
+
+      begin
+        @plan = ::Plan.find(plan_id)
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Plan [#{plan_id}] not found")
+        Rails.logger.error(e.backtrace.join("\n"))
+        not_found('No plan found')
+        return
+      rescue StandardError => e
+        Rails.logger.error('An error occured during retriving plan data')
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error(e.message)
+        return
+      end
+
+      begin
+        authorize @plan
+      rescue Pundit::NotAuthorizedError => e
+        Rails.logger.error('An error occurred while checking authorisations')
+        Rails.logger.error(e.backtrace.join("\n"))
+        forbidden
+        return
+      end
+
+      begin
+        question = ::Question.find(question_id)
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Question [#{plan_id}] not found")
+        Rails.logger.error(e.backtrace.join("\n"))
+        not_found('No plan found')
+        return
+      rescue StandardError => e
+        Rails.logger.error('An error occured during retriving question data')
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error(e.message)
+        return
+      end
+
+      begin
+        guidance_presenter = ::GuidancePresenter.new(@plan)
+        guidances = guidance_presenter.tablist(question)
+      rescue StandardError => e
+        Rails.logger.error("Cannot create guidance presenter")
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error('An error occured during guidance presenter creation')
+        return
+      end
+
+      render json: { status: 200, message: "Guidances for plan [#{plan_id}] and question [#{question_id}]", guidances: guidances }, status: :ok
     end
 
     def import
@@ -292,6 +369,8 @@ module Dmpopidor
         { answers: %i[notes madmp_fragment] }
       ).find(params[:id])
       authorize plan
+
+      guidance_presenter = ::GuidancePresenter.new(plan)
       render json: {
         id: plan.id,
         dmp_id: plan.json_fragment.id,
@@ -310,8 +389,11 @@ module Dmpopidor
               }
             end
           }
-        end
-
+        end,
+        questions_with_guidance: plan.template.questions.select do |q|
+          question = ::Question.find(q.id)
+          guidance_presenter.any?(question:)
+        end.pluck(:id)
       }
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
