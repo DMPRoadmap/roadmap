@@ -19,6 +19,10 @@ module Dmpopidor
       @record.editable_by?(@user.id)
     end
 
+    def question_guidances?
+      @record.readable_by?(@user.id)
+    end
+
     def create_remote?
       @record.editable_by?(@user.id)
     end
