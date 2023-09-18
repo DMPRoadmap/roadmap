@@ -383,7 +383,6 @@ class Plan < ApplicationRecord
       research_output_copy = ResearchOutput.deep_copy(research_output)
       research_output_copy.title = research_output.title || "Copy of #{research_output.abbreviation}"
       research_output_copy.plan_id = plan_copy.id
-      research_output_copy.skip_fragments_creation = true
       research_output_copy.save!
       # Creates the main ResearchOutput fragment
       ro_fragment = Fragment::ResearchOutput.create(
