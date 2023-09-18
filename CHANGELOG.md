@@ -1,5 +1,8 @@
 # Changelog
 
+### Fixed
+- Updated the default font on the 'Download page' to be 'Roboto, Arial, Sans-Serif'
+
 ## v4.1.0
 
 **Note this upgrade is a migration from Ruby v2.7.6 to v3.0.5.** Note that this could have an impact on any customizations you may have made to your fork of this project. Please see https://www.fastruby.io/blog/ruby/upgrades/upgrade-ruby-from-2.7-to-3.0.html for further information on what to check. In particular, please note the changes to the way [Ruby 3 handles keyword arguments](https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0/)
@@ -90,7 +93,6 @@ For more detailed explanation, please refer to this video : https://www.youtube.
  - Added rack-attack version 6.6.1 gem. https://rubygems.org/gems/rack-attack/versions/6.6.1
 
 ### Fixed
-- Updated the default font on the 'Download page' to be 'Roboto, Arial, Sans-Serif'
 - Fixed an issue that was preventing uses from leaving the research output byte_size field blank
 - Patched issue that was causing template visibility to default to organizationally visible after saving
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
