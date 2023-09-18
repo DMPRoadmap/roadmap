@@ -38,7 +38,7 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    def create_json_fragments(parameters = {})
+    def create_json_fragments(configuration = {})
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale plan.template.locale do
         fragment = json_fragment
@@ -61,7 +61,7 @@ module Dmpopidor
             parent_id: dmp_fragment.id,
             additional_info: { 
               property_name: 'researchOutput',
-              hasPersonalData: parameters[:hasPersonalData]
+              hasPersonalData: configuration[:hasPersonalData]
             }
           )
           fragment_description = Fragment::ResearchOutputDescription.new(
@@ -69,7 +69,7 @@ module Dmpopidor
               'title' => title,
               'datasetId' => pid,
               'type' => output_type_description,
-              'containsPersonalData' => parameters[:hasPersonalData] ? _('Yes') : _('No')
+              'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
             },
             madmp_schema: MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard'),
             dmp_id: dmp_fragment.id,

@@ -24,7 +24,7 @@ module Dmpopidor
         is_default: false,
         display_order: max_order
       )
-      created_ro.create_json_fragments(params[:research_output_parameters])
+      created_ro.create_json_fragments(params[:configuration])
       authorize @plan
 
       render json: {
