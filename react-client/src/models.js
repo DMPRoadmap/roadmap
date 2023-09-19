@@ -418,22 +418,21 @@ export async function saveDraftDmp(dmp) {
 }
 
 
-// export async function registerDraftDmp(dmp) {
-//   console.log('DMP ID?');
-//   console.log(dmp.draftId);
-//
-//   let api = new DmpApi();
-//   let options = api.getOptions({
-//     method: "post",
-//     body: JSON.stringify({ dmp: dmp.getData() }),
-//   });
-//
-//   const resp = await fetch(api.getPath(`/dmps/`), options);
-//   api.handleResponse(resp);
-//   const data = await resp.json();
-//
-//   return data;
-// }
+export async function registerDraftDmp(dmp) {
+  console.log('DMP ID?');
+  console.log(dmp.draftId);
+
+  let api = new DmpApi();
+  let options = api.getOptions({
+    method: "post",
+    body: JSON.stringify({ dmp: dmp.getData() }),
+  });
+  const resp = await fetch(api.getPath(`/dmps/`), options);
+  api.handleResponse(resp);
+  const data = await resp.json();
+
+  return data;
+}
 
 
 export async function getOutputTypes(forceUpdate) {

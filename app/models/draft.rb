@@ -29,6 +29,7 @@ class Draft < ApplicationRecord
 
   # Ensure that the :draft_id has been generated on new records
   before_validation :generate_draft_id
+  before_validation :append_ror_ids
 
   # Ensure the :draft_id and :dmproadmap_related_identifier for the narrative are not in the :metadata
   # they are attached on the fly during the call to :to_json
@@ -70,12 +71,15 @@ class Draft < ApplicationRecord
 
   # Render the DMP to JSON designed for submission to the DMPHub
   def to_json_for_registration
-    data = metadata
-    my_url = Rails.application.routes.url_helpers.api_v3_dmp_url(self)
+    data = metadata.dup
+    my_url = Rails.application.routes.url_helpers.api_v3_url(self)
     base_url = Rails.env.development? ? 'http://localhost:3000' : ENV['DMPROADMAP_HOST']
 
     # Remove any ephemeral data
     data['dmp'].delete('draft_data')
+
+    # TODO: Update JS in react-client to stop setting the contact (just have it define contributors)
+    data['dmp']['contact'] = owner_to_contact if data['dmp'].fetch('contact', []).is_a?(Array)
 
     # Prep the DMP ID, privacy and timestamps
     data['dmp']['dmp_id'] = { type: 'doi', identifier: dmp_id } if registered?
@@ -86,6 +90,7 @@ class Draft < ApplicationRecord
     data['dmp']['dataset'] = [] unless data['dmp']['dataset'].present?
     data['dmp']['project'] = [] unless data['dmp']['project'].present?
     data['dmp']['dmproadmap_privacy'] = 'private' unless data['dmp']['dmproadmap_privacy'].present?
+
     JSON.parse(data.to_json).to_json
   end
 
@@ -95,6 +100,28 @@ class Draft < ApplicationRecord
   def generate_draft_id
     if new_record?
       self.draft_id = "#{Time.now.strftime('%Y%m%d')}-#{SecureRandom.hex(6)}"
+    end
+  end
+
+  # Add the ROR IDs for any dmproadmap_affiliation that does not have one
+  def append_ror_ids
+    unless new_record?
+      data = metadata.fetch('dmp', {})
+      data.fetch('contributor', []).each do |contrib|
+        next if contrib['dmproadmap_affiliation'].nil? ||
+                contrib.fetch('dmproadmap_affiliation', {})['affiliation_id'].present?
+
+        ror = RegistryOrg.find_by(name: contrib.fetch('dmproadmap_affiliation', {})['name'])&.ror_id
+        contrib['dmproadmap_affiliation']['affiliation_id'] = { type: 'ror', identifier: ror } if ror.present?
+      end
+
+      project = data.fetch('project', []).first
+      return data if project.present? && project.fetch('funding', []).first.present?
+
+      funding = project['funding'].first
+
+      ror = RegistryOrg.find_by(name: funding['name'])&.ror_id
+      funding['funder_id'] = { type: 'ror', identifier: ror } if ror.present?
     end
   end
 
@@ -132,5 +159,24 @@ class Draft < ApplicationRecord
       work_type: 'output_management_plan',
       identifier: Rails.application.routes.url_helpers.rails_blob_url(narrative, disposition: 'attachment')
     }.to_json)
+  end
+
+  def owner_to_contact
+    user = User.find(user_id)
+    return nil unless user.present?
+
+    ror = RegistryOrg.find_by(org_id: user.org.id)
+    orcid = user.identifier_for_scheme(scheme: 'orcid')
+
+    contact = {
+      name: [user.surname, user.firstname].join(', '),
+      mbox: user.email,
+      dmproadmap_affiliation: {
+        name: ror.present? ? ror.name : user.org.name
+      }
+    }
+    contact[:dmproadmap_affiliation][:affiliation_id] = { type: 'ror', identifier: ror.ror_id } if ror.present?
+    contact[:contact_id] = orcid.present? ? { type: 'orcid', identifier: orcid.value } : { type: 'other', identifier: user.id }
+    JSON.parse(contact.to_json)
   end
 end

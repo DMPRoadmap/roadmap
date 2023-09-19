@@ -53,12 +53,12 @@ function PlanOverview() {
       setDmp(savedDmp);
       // TODO:: Re-enable when we know the exact url and data structure to
       // register a DMP.
-      // registerDraftDmp(savedDmp).then((data) => {
-      //   console.log('Response Data?');
-      //   console.log(data);
-      // });
-      const redirectUrl = ev.target.dataset['redirect'];
-      navigate(redirectUrl);
+      registerDraftDmp(savedDmp).then((data) => {
+        console.log('Response Data?');
+        console.log(data);
+      });
+      // const redirectUrl = ev.target.dataset['redirect'];
+      // navigate(redirectUrl);
     });
     // TODO
     // We don't want people to "double-click" and register the same thing twice.

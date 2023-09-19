@@ -281,7 +281,7 @@ module ExternalApis
           },
           body: plan.is_a?(Draft) ? plan.to_json_for_registration : json_from_template(plan: plan)
         }
-        # opts[:debug_output] = $stdout
+        opts[:debug_output] = $stdout
         resp = HTTParty.post("#{api_base_url}#{mint_path}", opts)
 
         # DMPHub returns a 201 (created) when a new DMP ID has been minted or
