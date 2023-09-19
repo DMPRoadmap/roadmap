@@ -532,7 +532,7 @@ Finalized DMPs have been assigned a DMP ID (aka persistent identifier). Once a D
 
 DMP IDs can be interacted with via the following endpoints:
 - `GET /api/v3/dmps` - returns all of the DMP IDs associated with the administrator's affiliation
-- `POST /api/v3/dmps` - sending a draft DMP ID to this enpoint will register it. It is no longer a draft at this point
+- `POST /api/v3/dmps` - sending a draft DMP ID to this endpoint will register it. It is no longer a draft at this point
 - `GET /api/v3/dmps/10.12345/ABC123` - fetches the specified `dmp_id`
 - `UPDATE /api/v3/dmps/10.12345/ABC123` - updates the specified `dmp_id`
 - `DELETE /api/v3/dmps/10.12345/ABC123` - tombstones the specified `dmp_id`. DMP IDs cannot be deleted. Tombstoning is a very rare scenario.
