@@ -90,6 +90,7 @@ class MadmpFragment < ApplicationRecord
   before_save   :set_defaults
   after_create  :update_parent_references
   after_destroy :update_parent_references
+  after_save    :update_research_output_parameters
 
   # =====================
   # = Nested Attributes =
@@ -191,6 +192,20 @@ class MadmpFragment < ApplicationRecord
     return if classname.nil? || parent.nil?
 
     parent.update_children_references
+  end
+
+  def update_research_output_parameters
+    case classname
+    when 'research_output_description'
+      ro_fragment = parent
+      new_additional_info = ro_fragment.additional_info.merge(
+        hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
+      )
+      ro_fragment.update(additional_info: new_additional_info)
+    else
+      return
+    end
+
   end
 
   # This method return the fragment full record
@@ -425,7 +440,7 @@ class MadmpFragment < ApplicationRecord
 
   # Get the research output fragment from the fragment hierarchy
   def research_output_fragment
-    return nil if %w[meta dmp project budget].include?(classname)
+    return nil if %w[meta dmp project research_entity budget].include?(classname)
 
     return self if classname.eql?('research_output')
 
