@@ -24,6 +24,7 @@ module Dmpopidor
         is_default: false,
         display_order: max_order
       )
+      created_ro.create_json_fragments(params[:configuration])
       authorize @plan
 
       render json: {
@@ -36,7 +37,7 @@ module Dmpopidor
             abbreviation: ro.abbreviation,
             title: ro.title,
             order: ro.display_order,
-            hasPersonalData: ro.has_personal_issues,
+            hasPersonalData: ro.has_personal_data,
             answers: ro.answers.map do |a|
               {
                 answer_id: a.id,
@@ -66,7 +67,7 @@ module Dmpopidor
               abbreviation: ro.abbreviation,
               title: ro.title,
               order: ro.display_order,
-              hasPersonalData: ro.has_personal_issues,
+              hasPersonalData: ro.has_personal_data,
               answers: ro.answers.map do |a|
                 {
                   answer_id: a.id,
@@ -90,12 +91,13 @@ module Dmpopidor
     def create_remote
       @plan = ::Plan.find(params[:plan_id])
       max_order = @plan.research_outputs.maximum('display_order') + 1
-      @plan.research_outputs.create(
+      created_ro = @plan.research_outputs.create(
         abbreviation: "Research Output #{max_order}",
         title: "New research output #{max_order}",
         is_default: false,
         display_order: max_order
       )
+      created_ro.create_json_fragments
 
       authorize @plan
       render json: {

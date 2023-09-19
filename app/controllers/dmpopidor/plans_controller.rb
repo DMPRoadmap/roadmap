@@ -67,12 +67,13 @@ module Dmpopidor
           @plan.create_plan_fragments
 
           # Add default research output if possible
-          @plan.research_outputs.create!(
+          created_ro = @plan.research_outputs.create!(
             abbreviation: 'Default',
             title: 'Default research output',
             is_default: true,
             display_order: 1
           )
+          created_ro.create_json_fragments
 
           flash[:notice] = msg
           render json: {
@@ -380,7 +381,7 @@ module Dmpopidor
             abbreviation: ro.abbreviation,
             title: ro.title,
             order: ro.display_order,
-            hasPersonalData: ro.has_personal_issues,
+            hasPersonalData: ro.has_personal_data,
             answers: ro.answers.map do |a|
               {
                 answer_id: a.id,
