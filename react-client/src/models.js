@@ -284,22 +284,6 @@ export class DmpModel extends Model {
   #_contributors;
   #_dataset;
 
-  static get dmpStates() {
-    return {
-      incomplete: "Incomplete",
-      completed: "Completed",
-      registered: "Registered",
-    };
-  }
-
-  static get stepStates() {
-    return {
-      notstart: "Not Started",
-      recommended: "Recommended",
-      completed: "Completed",
-    }
-  }
-
   constructor(data) {
     super(data);
 
@@ -328,27 +312,53 @@ export class DmpModel extends Model {
   set dataset(items) { this.#_dataset = new ModelSet(DataObject, items); }
 
   get stepStatus() {
-    return {
-      setup: "completed",
-      funders: "notstart",
-      project: "notstart",
-      contributors: "recommended",
-      outputs: "recommended",
-    };
-  }
+    let contributorStatus = ["recommended", "Recommended"];
+    if (this.contributors.items.length > 0) {
+      if (this.contributors.items.length == 1) {
+        contributorStatus = [
+          "completed",
+          "1 Contributor"
+        ];
+      } else {
+        contributorStatus = [
+          "completed",
+          this.contributors.items.length + " Contributors"
+        ];
+      }
+    }
 
-  get stepStatusDisplay() {
+    let outputsStatus = ["recommended", "Recommended"];
+    if (this.dataset.items.length > 0) {
+      if (this.dataset.items.length == 1) {
+        outputsStatus = [
+          "completed",
+          "1 Research Output",
+        ];
+      } else {
+        outputsStatus = [
+          "completed",
+          this.dataset.items.length + " Research Outputs"
+        ]
+      }
+    }
+
     return {
-      setup: DmpModel.stepStates.completed,
-      funders: DmpModel.stepStates.notstart,
-      project: DmpModel.stepStates.notstart,
-      contributors: DmpModel.stepStates.recommended,
-      outputs: DmpModel.stepStates.recommended,
+      setup: ["completed", "Completed"],
+      funders: ["notstart", "Not Started"],
+      project: ["notstart", "Not Started"],
+      contributors: contributorStatus,
+      outputs: outputsStatus,
     };
   }
 
   get status() {
-    return DmpModel.dmpStates.incomplete;
+    return ["incomplete", "Incomplete"];
+  }
+
+  get isPrivate() {
+    // TODO:: Where to store this in the  DMP? I didn'e see it in the dummy data
+    // For the time being we will store this in the draftdata
+    return this.getDraftData("is_private", true);
   }
 
   /* NOTE
@@ -359,14 +369,12 @@ export class DmpModel extends Model {
    * The methods below allows access to the draft data
    **/
   setDraftData(path, data) {
-    let dataPath = `draft_data.${path}`;
-    this.setData(dataPath, data);
+    this.setData(`draft_data.${path}`, data);
   }
 
-  getDraftData(path) {
+  getDraftData(path, defaultNone) {
     if (typeof path === 'undefined') return this.getData("draft_data", {});
-    let dataPath = `draft_data.${path}`;
-    return this.getData(dataPath);
+    return this.getData(`draft_data.${path}`, defaultNone);
   }
 
   commit() {
@@ -408,6 +416,24 @@ export async function saveDraftDmp(dmp) {
 
   return new DmpModel(data.items[0].dmp);
 }
+
+
+// export async function registerDraftDmp(dmp) {
+//   console.log('DMP ID?');
+//   console.log(dmp.draftId);
+//
+//   let api = new DmpApi();
+//   let options = api.getOptions({
+//     method: "post",
+//     body: JSON.stringify({ dmp: dmp.getData() }),
+//   });
+//
+//   const resp = await fetch(api.getPath(`/dmps/`), options);
+//   api.handleResponse(resp);
+//   const data = await resp.json();
+//
+//   return data;
+// }
 
 
 export async function getOutputTypes(forceUpdate) {

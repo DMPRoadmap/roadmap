@@ -38,7 +38,7 @@ function TextInput(props) {
         <div className="dmpui-field-input-group">
           <input
             type={props?.inputType ? props.inputType : "text"}
-            value={inputValue}
+            value={inputValue ? inputValue : ""}
             name={props?.name ? props.name : ""}
             id={props?.id ? props.id : ""}
             onChange={handleChange}

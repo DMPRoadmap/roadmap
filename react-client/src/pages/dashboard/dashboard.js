@@ -145,7 +145,10 @@ function Dashboard() {
                         className="table-data-name table-data-title"
                         data-colname="title"
                       >
-                        <Link to={`/dashboard/dmp/${dmp.draftId}`}>
+                        <Link
+                          title={dmp.title}
+                          to={`/dashboard/dmp/${dmp.draftId}`}
+                        >
                           {truncateText(dmp.title, 50)}
                         </Link>
 
@@ -186,7 +189,7 @@ function Dashboard() {
                                   {item.roles &&
                                     item.roles.includes("investigation") && (
                                       <span>
-                                        PI: {truncateText(item.name, 50)}
+                                        PI: {truncateText(item.name, 80)}
                                       </span>
                                     )}
                                 </Fragment>
@@ -201,9 +204,19 @@ function Dashboard() {
                         </div>
                       </td>
                       <td className="table-data-name" data-colname="funder">
-                        <span title={dmp.funding.name}>
-                          {truncateText(dmp.funding.name, 50)}
-                        </span>
+                        {dmp.funding.acronym ? (
+                          <span title={dmp.funding.name}>
+                            {dmp.funding.acronym}
+                          </span>
+                        ) : dmp.funding.name ? (
+                          <span title={dmp.funding.name}>
+                            {truncateText(dmp.funding.name, 50)}
+                          </span>
+                        ) : (
+                          "None"
+                        )}
+
+                        {console.log(dmp)}
                       </td>
                       <td
                         className="table-data-date"
@@ -211,8 +224,8 @@ function Dashboard() {
                       >
                         03-29-2023
                       </td>
-                      <td className="table-data-name" data-colname="status">
-                        {dmp.status}
+                      <td className={"table-data-name status-" + dmp.status[0]} data-colname="status">
+                        {dmp.status[1]}
                       </td>
                       <td
                         className="table-data-name table-data-actions"

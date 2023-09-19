@@ -131,9 +131,9 @@ function Contributors() {
         <h1>Contributors</h1>
       </div>
       <p>
-        Tell us more about your project contributors. Tell us about the key
-        contributors for your project and designate the Primary Investigator
-        (PI).
+        Tell us about the project contributors for your project and designate
+        the Primary Investigator (PI). You must specify a Primary Investigator
+        (PI) at minimum.
       </p>
       <p>You must specify a Primary Investigator (PI) at minimum.</p>
       <div className="dmpdui-top-actions">
@@ -169,11 +169,8 @@ function Contributors() {
       </div>
 
       <dialog id="contributorModal">
-        <form
-          method="post"
-          enctype="multipart/form-data"
-          onSubmit={handleSaveContributor}
-        >
+        <form method="post" encType="multipart/form-data"
+              onSubmit={handleSaveContributor}>
           <div className="form-modal-wrapper">
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
@@ -287,7 +284,7 @@ function Contributors() {
         </form>
       </dialog>
 
-      <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
+      <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
         <div className="form-actions ">
           <button type="button" onClick={() => navigate(-1)}>
             Cancel

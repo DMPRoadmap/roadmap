@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   DmpModel,
   getDraftDmp,
+  saveDraftDmp,
+  registerDraftDmp,
 } from "../../../models.js";
 
 import TextInput from "../../../components/text-input/textInput";
@@ -15,14 +17,54 @@ function PlanOverview() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState(new DmpModel({}));
+  const [visibility, setVisibility] = useState("private");
 
 
   useEffect(() => {
     getDraftDmp(dmpId).then((initial) => {
       setDmp(initial);
+
+      if (initial.isPrivate) {
+        setVisibility("private");
+      } else {
+        setVisibility("public");
+      }
+
     });
   }, [dmpId]);
 
+
+  function handleChange(ev) {
+    const {name, value} = ev.target;
+
+    switch(name) {
+      case "plan_visible":
+        setVisibility(value);
+        break;
+    }
+  }
+
+
+  async function handleRegister(ev) {
+    ev.preventDefault();
+
+    dmp.setDraftData("is_private", (visibility !== "public"));
+    saveDraftDmp(dmp).then((savedDmp) => {
+      setDmp(savedDmp);
+      // TODO:: Re-enable when we know the exact url and data structure to
+      // register a DMP.
+      // registerDraftDmp(savedDmp).then((data) => {
+      //   console.log('Response Data?');
+      //   console.log(data);
+      // });
+      const redirectUrl = ev.target.dataset['redirect'];
+      navigate(redirectUrl);
+    });
+    // TODO
+    // We don't want people to "double-click" and register the same thing twice.
+    // So we can disble the save button here, while working, and re-enable when
+    // we are done.
+  }
 
   return (
     <>
@@ -36,12 +78,12 @@ function PlanOverview() {
 
           <div className="plan-steps-step last">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/project-details`}>
+              <Link to={`/dashboard/dmp/${dmpId}/pdf`}>
                 Project name & PDF upload
               </Link>
             </p>
-            <div className={"step-status status-" + dmp.stepStatus.setup}>
-              {dmp.stepStatusDisplay.setup}
+            <div className={"step-status status-" + dmp.stepStatus.setup[0]}>
+              {dmp.stepStatus.setup[1]}
             </div>
           </div>
         </div>
@@ -53,8 +95,8 @@ function PlanOverview() {
             <p>
               <Link to={`/dashboard/dmp/${dmpId}/funders`}>Funders</Link>
             </p>
-            <div className={"step-status status-" + dmp.stepStatus.funders}>
-              {dmp.stepStatusDisplay.funders}
+            <div className={"step-status status-" + dmp.stepStatus.funders[0]}>
+              {dmp.stepStatus.funders[1]}
             </div>
           </div>
 
@@ -65,8 +107,8 @@ function PlanOverview() {
               </Link>
             </p>
 
-            <div className={"step-status status-" + dmp.stepStatus.project}>
-              {dmp.stepStatusDisplay.project}
+            <div className={"step-status status-" + dmp.stepStatus.project[0]}>
+              {dmp.stepStatus.project[1]}
             </div>
           </div>
 
@@ -77,8 +119,8 @@ function PlanOverview() {
               </Link>
             </p>
 
-            <div className={"step-status status-" + dmp.stepStatus.contributors}>
-              {dmp.stepStatusDisplay.contributors}
+            <div className={"step-status status-" + dmp.stepStatus.contributors[0]}>
+              {dmp.stepStatus.contributors[1]}
             </div>
           </div>
 
@@ -88,8 +130,8 @@ function PlanOverview() {
                 Research Outputs
               </Link>
             </p>
-            <div className={"step-status status-" + dmp.stepStatus.outputs}>
-              {dmp.stepStatusDisplay.outputs}
+            <div className={"step-status status-" + dmp.stepStatus.outputs[0]}>
+              {dmp.stepStatus.outputs[1]}
             </div>
           </div>
         </div>
@@ -100,37 +142,26 @@ function PlanOverview() {
           <div className="plan-steps-step last step-visibility">
             <div className="">
               <div className="dmpui-form-col">
-                <div className={"dmpui-field-group"}>
+                <div className="dmpui-field-group" onChange={handleChange}>
                   <label className="dmpui-field-label">
                     Set visibility and register your plan
                   </label>
 
-                  <div className="dmpui-field-radio-group">
-                    <input
-                      type="radio"
-                      className="dmpui-field-input-radio"
-                      name="plan_visible"
-                      id="plan_visible_false"
-                      value="private"
-                    />
-                    <label htmlFor="plan_visible_false" className="radio-label">
-                      Private - Keep plan private and only visible to me
-                    </label>
-                  </div>
+                  <RadioButton
+                    name="plan_visible"
+                    id="plan_visible_no"
+                    inputValue="private"
+                    checked={visibility === "private"}
+                    label="Private - Keep plan private and only visible to me"
+                  />
 
-                  <div className="dmpui-field-radio-group">
-                    <input
-                      type="radio"
-                      className="dmpui-field-input-radio"
-                      name="plan_visible"
-                      id="plan_visible"
-                      checked="checked"
-                      value="public"
-                    />
-                    <label htmlFor="plan_visible" className="radio-label">
-                      Public - Keep plan visible to the public
-                    </label>
-                  </div>
+                  <RadioButton
+                    name="plan_visible"
+                    id="plan_visible_yes"
+                    inputValue="public"
+                    checked={visibility === "public"}
+                    label="Public - Keep plan visible to the public"
+                  />
                 </div>
               </div>
             </div>
@@ -141,10 +172,14 @@ function PlanOverview() {
           <button type="button" onClick={() => navigate("/dashboard")}>
             Return to Dashboard
           </button>
-          <button className="primary" onClick={() => navigate("/dashboard")}>
+          <button className="primary"
+                  data-redirect="/dashboard"
+                  onClick={handleRegister}>
             Register &amp; Return to Dashboard
           </button>
-          <button className="secondary" onClick={() => navigate("/dashboard")}>
+          <button className="secondary"
+                  data-redirect="/dashboard/dmp/new"
+                  onClick={handleRegister}>
             Register &amp; Add Another Plan
           </button>
         </div>

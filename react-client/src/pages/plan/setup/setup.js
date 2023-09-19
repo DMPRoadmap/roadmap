@@ -1,13 +1,25 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
+import { DmpModel, getDraftDmp } from '../../../models.js';
 import { DmpApi } from "../../../api.js";
 import TextInput from "../../../components/text-input/textInput.js";
-import "./new.scss";
+import "./setup.scss";
 
 
-function PlanNew() {
+function DmpSetup() {
   let navigate = useNavigate();
+
+  const {dmpId} = useParams();
+  const [dmp, setDmp] = useState(new DmpModel({}));
+
+  useEffect(() => {
+    if (typeof dmpId !== "undefined") {
+      getDraftDmp(dmpId).then((initial) => {
+        setDmp(initial);
+      });
+    }
+  }, [dmpId]);
 
   async function handleSubmit(ev) {
     ev.preventDefault();
@@ -20,6 +32,9 @@ function PlanNew() {
     var headers = api.getHeaders();
     headers.delete('Content-Type');
 
+    // TODO:FIXME: We need to check with Brian what the PUT/POST path is for
+    // updating, and htat page, same as this one, should accept the same
+    // contenttype being sent (iow. NOT json!)
     let options = api.getOptions({
       headers: headers,
       method: "post",
@@ -40,10 +55,10 @@ function PlanNew() {
   return (
     <div id="planNew">
       <div className="dmpui-heading">
-        <h1>New Plan</h1>
+        <h1>{dmpId ? "Update" : "New"} Plan</h1>
       </div>
 
-      <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
+      <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
         <div className="form-wrapper">
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
@@ -53,6 +68,7 @@ function PlanNew() {
                 required="required"
                 name="title"
                 id="title"
+                inputValue={dmp ? dmp.title : ""}
                 placeholder="Project Name"
                 help="All or part of the project name/title, e.g. 'Particle Physics'"
                 error=""
@@ -74,6 +90,7 @@ function PlanNew() {
                     <input
                       name="narrative"
                       type="file"
+                      accept=".pdf"
                     />
                   </div>
                 </div>
@@ -83,16 +100,22 @@ function PlanNew() {
         </div>
 
         <div className="form-actions ">
-          <button type="button" onClick={() => navigate(-1)}>
+          <button type="button" onClick={() => navigate('/dashboard')}>
             Cancel
           </button>
-          <button type="submit" className="primary">
-            Save &amp; Continue
-          </button>
+          {dmpId ? (
+              // TODO: This will render the button to "UPDATE" the dmp title
+              // and PDF
+              ""
+            ) : (
+              <button type="submit" className="primary">
+                Save &amp; Continue
+              </button>
+            )}
         </div>
       </form>
     </div>
   );
 }
 
-export default PlanNew;
+export default DmpSetup;

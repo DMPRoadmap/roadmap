@@ -22,7 +22,7 @@ function ProjectDetails() {
       setDmp(initial);
       setFormData({
         project_name: initial.title,
-        project_id: dmpId,
+        project_id: initial.funding.projectNumber,
         project_abstract: initial.project.description,
         start_date: initial.project.start.format("YYYY-MM-DD"),
         end_date: initial.project.end.format("YYYY-MM-DD"),
@@ -56,8 +56,10 @@ function ProjectDetails() {
     dmp.title = formData.project_name;
     dmp.project.title = formData.project_name;
     dmp.project.description = formData.project_abstract;
-    dmp.project.setStart(formData.start);
-    dmp.project.setEnd(formData.end);
+
+    dmp.project.setStart(formData.start_date);
+    dmp.project.setEnd(formData.end_date);
+    dmp.funding.projectNumber = formData.project_id || "";
     dmp.funding.opportunityNumber = formData.award_number || "";
 
     saveDraftDmp(dmp).then((savedDmp) => {
@@ -90,7 +92,7 @@ function ProjectDetails() {
         </div>
       )}
 
-      <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
+      <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
         <div className="form-wrapper">
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
@@ -198,7 +200,7 @@ function ProjectDetails() {
         </div>
 
         <div className="form-actions ">
-          <button type="button" onClick={() => navigate(-1)}>
+          <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmpId}`)}>
             Cancel
           </button>
           <button type="submit" className="primary">
