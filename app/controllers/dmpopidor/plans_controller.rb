@@ -365,10 +365,7 @@ module Dmpopidor
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def answers_data
-      plan = ::Plan.includes(
-        :research_outputs,
-        { answers: %i[notes madmp_fragment] }
-      ).find(params[:id])
+      plan = ::Plan.find(params[:id])
       authorize plan
 
       guidance_presenter = ::GuidancePresenter.new(plan)
