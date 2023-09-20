@@ -27,8 +27,9 @@ class Draft < ApplicationRecord
   # ActiveStorage for Narrative PDF document
   has_one_attached :narrative
 
-  # Ensure that the :draft_id has been generated on new records
+  # Ensure that the :draft_id has been generated on new records, timestamps are added, and any ROR IDs are added
   before_validation :generate_draft_id
+  before_validation :generate_timestamps
   before_validation :append_ror_ids
 
   # Ensure the :draft_id and :dmproadmap_related_identifier for the narrative are not in the :metadata
@@ -82,12 +83,16 @@ class Draft < ApplicationRecord
     #       with one designated as `"contact": true`)
     data['dmp']['contact'] = designate_contact if data['dmp'].fetch('contact', []).is_a?(Array)
 
-    # Prep the DMP ID, privacy and timestamps
+    # Remove the contact designation before submitting the JSON for DMP ID registration
+    data['dmp'].fetch('contributor', []).each do |contributor|
+      next unless contributor.present? && contributor['contact'].present?
+
+      contributor.delete('contact')
+    end
+
+    # Prep the DMP ID and privacy setting
     data['dmp']['dmp_id'] = { type: 'doi', identifier: dmp_id } if registered?
     data['dmp']['dmp_id'] = { type: 'url', identifier: my_url } unless registered?
-
-    data['dmp']['created'] = created_at.to_formatted_s(:iso8601)
-    data['dmp']['modified'] = updated_at.to_formatted_s(:iso8601)
     data['dmp']['dataset'] = [] unless data['dmp']['dataset'].present?
     data['dmp']['project'] = [] unless data['dmp']['project'].present?
     data['dmp']['dmproadmap_privacy'] = 'private' unless data['dmp']['dmproadmap_privacy'].present?
@@ -102,6 +107,12 @@ class Draft < ApplicationRecord
     if new_record?
       self.draft_id = "#{Time.now.strftime('%Y%m%d')}-#{SecureRandom.hex(6)}"
     end
+  end
+
+  # Add the created and modified timestamps to the JSON
+  def generate_timestamps
+    metadata['dmp']['created'] = created_at.to_formatted_s(:iso8601) if metadata['dmp']['created'].nil?
+    metadata['dmp']['modified'] = updated_at.to_formatted_s(:iso8601)
   end
 
   # Add the ROR IDs for any dmproadmap_affiliation that does not have one
@@ -172,9 +183,9 @@ class Draft < ApplicationRecord
 
     contact = {
       name: contributor['name'],
-      mbox: contributor['mbox'],
-      dmproadmap_affiliation: contributor['dmproadmap_affiliation'] unless contributor['dmproadmap_affiliation'].nil?
+      mbox: contributor['mbox']
     }
+    contact[:dmproadmap_affiliation] = contributor['dmproadmap_affiliation'] unless contributor['dmproadmap_affiliation'].nil?
     contact[:contact_id] = contributor['contributor_id'] unless contributor['contributor_id'].nil?
     contact[:contact_id] = { type: 'other', identifier: contributor['mbox'] } if contact['contact_id'].nil?
     JSON.parse(contact.to_json)
