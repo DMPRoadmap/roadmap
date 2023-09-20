@@ -78,8 +78,9 @@ class Draft < ApplicationRecord
     # Remove any ephemeral data
     data['dmp'].delete('draft_data')
 
-    # TODO: Update JS in react-client to stop setting the contact (just have it define contributors)
-    data['dmp']['contact'] = owner_to_contact if data['dmp'].fetch('contact', []).is_a?(Array)
+    # TODO: Update JS in react-client to stop setting the contact (just have it define contributors
+    #       with one designated as `"contact": true`)
+    data['dmp']['contact'] = designate_contact if data['dmp'].fetch('contact', []).is_a?(Array)
 
     # Prep the DMP ID, privacy and timestamps
     data['dmp']['dmp_id'] = { type: 'doi', identifier: dmp_id } if registered?
@@ -161,6 +162,25 @@ class Draft < ApplicationRecord
     }.to_json)
   end
 
+  # Figure out which contributor is the primary contact
+  def designate_contact
+    contributor = metadata['dmp'].fetch('contributor', [])
+                                 .select { |c| c.present? && c.fetch('contact', false).to_s.downcase == 'true' }
+                                 .first
+    # Use the creator of the draft DMP if no primary contact was designated or the primary contact has no email
+    return owner_to_contact if contributor.nil? || contributor['mbox'].nil?
+
+    contact = {
+      name: contributor['name'],
+      mbox: contributor['mbox'],
+      dmproadmap_affiliation: contributor['dmproadmap_affiliation'] unless contributor['dmproadmap_affiliation'].nil?
+    }
+    contact[:contact_id] = contributor['contributor_id'] unless contributor['contributor_id'].nil?
+    contact[:contact_id] = { type: 'other', identifier: contributor['mbox'] } if contact['contact_id'].nil?
+    JSON.parse(contact.to_json)
+  end
+
+  # Default that will assign the person who created the Draft DMP as the primary contact
   def owner_to_contact
     user = User.find(user_id)
     return nil unless user.present?
