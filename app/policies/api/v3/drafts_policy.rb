@@ -18,7 +18,7 @@ module Api
 
         def resolve
           Draft.includes(narrative_attachment: [:blob])
-               .where(user_id: @user.id, dmp_id: nil)
+               # .where(user_id: @user.id, dmp_id: nil)
         end
       end
     end

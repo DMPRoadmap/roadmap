@@ -97,6 +97,11 @@ class Draft < ApplicationRecord
     data['dmp']['project'] = [] unless data['dmp']['project'].present?
     data['dmp']['dmproadmap_privacy'] = 'private' unless data['dmp']['dmproadmap_privacy'].present?
 
+    # Ensure that the funding block has a status
+    funding = data['dmp']['project'].first&.fetch('funding', [])&.first
+    if funding.present?
+      data['dmp']['project'].first['funding'].first['funding_status'] = funding['grant_id'].present? ? 'granted' : 'planned'
+    end
     JSON.parse(data.to_json).to_json
   end
 

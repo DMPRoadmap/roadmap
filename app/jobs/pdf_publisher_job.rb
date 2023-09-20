@@ -49,7 +49,7 @@ class PdfPublisherJob < ApplicationJob
 
     hash = DmpIdService.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
     if hash.is_a?(Hash) && hash[:narrative_url].present?
-      plan.update(narrative_url: hash[:narrative_url])
+      Rails.logger.info "PdfPublisherJob._process_narrative_file successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
     else
       Rails.logger.error 'PdfPublisherJob._process_narrative_file did not return a narrtive URL!'
     end

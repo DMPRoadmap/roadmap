@@ -69,7 +69,7 @@ module Dmptool
             # Add the DMP ID to the Dmp record
           if update(dmp_id: hash[:dmp_id])
             publish_narrative!
-            orcid = owner&.identifier_for_scheme(scheme: 'orcid')
+            orcid = owner&.identifier_for_scheme(scheme: 'orcid') if publish_to_orcid
             # Only publish to ORCID if it is enabled and this is NOT development
             publish_to_orcid! if publish_to_orcid && orcid.present? && !Rails.env.development?
 

@@ -14,6 +14,15 @@ module Api
       # GET /drafts
       def index
         @drafts = DraftsPolicy::Scope.new(current_user, Draft.new).resolve
+
+p "RECORDS FOUND:"
+pp @drafts.map { |draft| { draft_id: draft.draft_id, dmp_id: draft.dmp_id, title: draft.metadata['dmp']['title']} }
+
+        # Process any filters
+        # @drafts = apply_filters(recs: @drafts)
+        # Process sort
+
+        # Paginate the results
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DraftsController.index #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
@@ -112,6 +121,32 @@ module Api
       def dmp_params
         params.require(:dmp).permit(:narrative, :remove_narrative, dmp_permitted_params, draft_data: {})
       end
+
+      def index_params
+        params.permit(:title, :funder, :grant_id, :visibility, :dmp_id)
+      end
+
+      def apply_filters(recs:)
+        return [] unless recs.present? && recs.length > 0
+
+        title = index_params.fetch(:title, '').to_s.downcase.strip
+        funder = index_params.fetch(:funder, '').to_s.downcase.strip
+        grant = index_params.fetch(:grant_id, '').to_s.downcase.strip
+        visibility = index_params.fetch(:visibility, '').to_s.downcase.strip
+        dmp_id = index_params.fetch(:dmp_id, '').to_s.downcase.strip
+
+        clause = []
+        clause << 'plans.funder_id IN (:funder_ids)' if funder_ids.any?
+        clause << 'plans.org_id IN (:org_ids)' if org_ids.any?
+        clause << 'plans.language_id IN (:language_ids)' if language_ids.any?
+        clause << 'plans.research_domain_id IN (:subject_ids)' if subject_ids.any?
+        return order(sort_by) if clause.blank?
+
+        where(clause.join(' AND '), funder_ids: funder_ids, org_ids: org_ids, language_ids: language_ids,
+                                    subject_ids: subject_ids)
+          .order(sort_by)
+      end
+
     end
   end
 end
