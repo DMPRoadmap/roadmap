@@ -1,21 +1,6 @@
 @use '../variables/colours' as *;
 // Bootstrap overrides
 
-.btn,
-.btn:hover,
-.btn:focus,
-.btn:active,
-.btn:visited,
-.btn:active:hover,
-.btn.active:hover {
-  background-color: $color-primary-background;
-  border-color: $color-border-default;
-  color: $color-primary-text;
-  outline: none;
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-
 /* primary button */
 .btn-primary,
 .btn-primary:hover,
@@ -30,6 +15,7 @@
   outline: none;
   margin-top: 5px;
   margin-bottom: 10px;
+  border-radius: 0rem;
 }
 
 /* default button */
@@ -46,7 +32,10 @@
   outline: none;
   margin-top: 5px;
   margin-bottom: 10px;
+  padding: 5px 12px;
   text-align: center;
+  text-decoration: none;
+  border-radius: 0rem;
 }
 
 /* Popover button */

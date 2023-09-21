@@ -1,9 +1,5 @@
 // Import locally defined variables. Load this before 'bootstrap'
-
 @use "variables";
-
-@use "blocks";
-@use "utils";
 
 // Pull in the webpacker managed copy of Bootstrap Stylesheets
 @import "../../../node_modules/bootstrap/scss/bootstrap";
@@ -39,3 +35,7 @@ $fa-font-path: '.';
 @import "../../../node_modules/bootstrap/scss/images";
 @import "../../../node_modules/bootstrap/scss/containers";
 @import "../../../node_modules/bootstrap/scss/grid";
+
+//Importing customised stylesheets after Bootstrap defaults
+@import "blocks";
+@import "utils";

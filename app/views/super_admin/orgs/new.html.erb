@@ -4,7 +4,7 @@
       <%= _('New organisation')  %>
     </h1>
     <% if current_user.can_super_admin? %>
-      <%= link_to _('View all organisations'), super_admin_orgs_path, class: 'btn btn-default pull-right' %>
+      <%= link_to _('View all organisations'), super_admin_orgs_path, class: 'btn btn-default float-end' %>
     <% end %>
   </div>
 </div>

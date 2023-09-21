@@ -4,7 +4,7 @@
   <div class="col-md-12">
     <h1><%= template.title %></h1>
     <% referrer = template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path %>
-    <%= link_to _('View all templates'), referrer, class: 'btn btn-default pull-right' %>
+    <%= link_to _('View all templates'), referrer, class: 'btn btn-default float-end' %>
   </div>
 </div>
 <div class="row">
@@ -20,7 +20,7 @@
             <div class="pull-left">
               <h2><%= _('Phase details')%></h2>
             </div>
-            <div class="pull-right">
+            <div class="float-end">
               <%= link_to(_('Preview'),
                           preview_org_admin_template_phase_path(template, phase),
                           class: 'btn btn-default phase_preview_link', role: 'button') %>

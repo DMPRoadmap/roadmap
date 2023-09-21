@@ -24,7 +24,7 @@
     <div class="col-md-3"></div>
   <% end %>
   <div class="col-md-3">
-    <form class="form-inline mt-10 mb-10 pull-right">
+    <form class="form-inline mt-10 mb-10 float-end">
       <label for="csv-field-sep">
         <%= _('csv download field separator') %>:
       </label>
@@ -33,14 +33,14 @@
   </div>
   <% if current_user.can_super_admin? %>
     <div class="col-md-3">
-      <%= link_to usage_global_statistics_path(sep: ",", filtered: @filtered), class: "stat btn btn-default #{'pull-right' if @funder.present?}", role: 'button', target: '_blank' do %>
+      <%= link_to usage_global_statistics_path(sep: ",", filtered: @filtered), class: "stat btn btn-default #{'float-end' if @funder.present?}", role: 'button', target: '_blank' do %>
         <%= _('Download global usage') %> <i class="fas fa-download" aria-hidden="true"></i>
       <% end %>
     </div>
   <% end %>
   <% unless @funder.present? %>
     <div class="col-md-3">
-      <%= link_to usage_org_statistics_path(sep: ",", filtered: @filtered), class: 'stat btn btn-default pull-right', role: 'button', target: '_blank' do %>
+      <%= link_to usage_org_statistics_path(sep: ",", filtered: @filtered), class: 'stat btn btn-default float-end', role: 'button', target: '_blank' do %>
         <%= _('Download Monthly Usage') %> <i class="fas fa-download" aria-hidden="true"></i>
       <% end %>
     </div>

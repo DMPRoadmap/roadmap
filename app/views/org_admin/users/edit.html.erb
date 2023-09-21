@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <h1>
       <%= _('Editing profile for %{username}') % { username: @user.name(false) } %>
-      <%= link_to(_('View all users'), admin_index_users_path, class: 'btn btn-default pull-right', role: 'button') %>
+      <%= link_to(_('View all users'), admin_index_users_path, class: 'btn btn-default float-end', role: 'button') %>
     </h1>
   </div>
 </div>

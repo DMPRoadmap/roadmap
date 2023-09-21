@@ -4,6 +4,7 @@
 
 .card {
   border-color: $color-border-default;
+  border-radius: 0rem;
 }
 .heading-button > .card-heading, .card > .card-heading {
   background-color: $color-primary-background;
@@ -32,6 +33,7 @@
 // Classes from Boostrap 3 panels (renamed card) - interim solution
 .card-default {
   border-color: #ddd;
+  border-radius: 0rem;
 }
 .card-default > .card-heading {
   color: #333333;
@@ -48,4 +50,3 @@
 .card-default > .card-footer + .card-collapse > .card-body {
   border-bottom-color: #ddd;
 }
-

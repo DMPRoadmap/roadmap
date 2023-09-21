@@ -16,7 +16,7 @@
       <%= _('Remember email') %>
     <% end %>
   </div>
-  <%= f.button(_('Sign in'), class: "btn-default", type: "submit") %>
+  <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
 
   <% if Rails.configuration.x.shibboleth.enabled %>
     <% if session['devise.shibboleth_data'].nil? %>
