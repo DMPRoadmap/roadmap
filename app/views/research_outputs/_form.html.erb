@@ -12,7 +12,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   <div class="form-group mb-3 row">
     <div class="col-md-12">
       <span class="col-md-3"><%= label(:output_type, _("Type"), class: "control-label") %></span>
-      <span class="col-md-5 output-type-description <%= research_output.other? ? "" : "hidden" %>">
+      <span class="col-md-5 output-type-description <%= research_output.other? ? "" : "visually-hidden-focusable" %>">
         <%= f.label(:output_type_description, _("Please describe the output type"), class: "control-label") %>
       </span>
     </div>
@@ -28,7 +28,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
                        data: { remote: true, url: plan_output_type_selection_path(plan), method: :get }
                      } %>
       </span>
-      <span class="col-md-3 output-type-description <%= research_output.other? ? "" : "hidden" %>">
+      <span class="col-md-3 output-type-description <%= research_output.other? ? "" : "visually-hidden-focusable" %>">
         <%= f.text_field :output_type_description, class: "form-control",
                                                    aria: { required: research_output.other? } %>
       </span>
@@ -73,7 +73,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
           <%= _('May contain sensitive data?') %>
         <% end %>
       </span>
-      <span class="col-md-4">
+      <span class="col-md-8">
         <%= f.label :personal_data do %>
           <%= f.check_box :personal_data, data: { toggle: "tooltip" },
                           title: personal_data_tooltip %>

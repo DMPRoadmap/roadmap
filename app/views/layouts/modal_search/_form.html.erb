@@ -32,17 +32,16 @@ no_results_msg = _("No results matched your filter criteria.")
      aria-labelledby="modal-search-label"
      aria-hidden="true">
 
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
 
       <div class="modal-header">
-        <%= button_tag "X", type: "button", class: "close",
-                       data: { dismiss: "modal" },
-                       aria: { label: _("Close") } %>
-
-        <h3 id="modal-search-label" class="modal-title">
+              <h3 id="modal-search-label" class="modal-title">
           <%= _("%{topic} search") % { topic: label } %>
         </h3>
+
+        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="<%= _('Cancel') %>"></button>
+
       </div>
 
       <div class="modal-body">
@@ -50,7 +49,7 @@ no_results_msg = _("No results matched your filter criteria.")
         <%= form_with model: model_instance, url: search_path, method: search_method, local: false,
                       id: "modal-search-#{namespace}-filters" do |f| %>
           <div class="form-group mb-3 row">
-            <div class="col-md-10">
+            <div class="d-flex justify-content-between col-md-10">
               <%= yield :"filters-#{namespace}" %>
             </div>
           </div>
@@ -79,12 +78,6 @@ no_results_msg = _("No results matched your filter criteria.")
           </div>
         </div>
       </div>
-
-      <div class="modal-footer">
-        <%= button_tag _("Close"), type: "button", class: "close",
-                       data: { dismiss: "modal" } %>
-      </div>
-
     </div>
   </div>
 </div>
