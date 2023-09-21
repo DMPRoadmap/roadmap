@@ -111,6 +111,17 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+    def serialize_infobox_data
+      description_fragment = json_fragment.research_output_description
+      return {
+        abbreviation: abbreviation,
+        title: description_fragment.data['title'],
+        type: description_fragment.data['type'],
+        hasPersonalData: has_personal_data
+      }
+
+    end
+
     def has_personal_data
       json_fragment.additional_info['hasPersonalData'] || false
     end
