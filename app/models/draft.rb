@@ -62,12 +62,12 @@ class Draft < ApplicationRecord
     clause << "LOWER(metadata->>'$.dmp.project[*].funding[*].name') LIKE :funder" if funder.present?
     clause << "LOWER(metadata->>'$.dmp.project[*].funding[*].grant_id.identifier') LIKE :grant" if grant.present?
     clause << "(LOWER(metadata->>'$.dmp.dmproadmap_privacy') = :visibility OR metadata->>'$.dmp.draft_data.is_private' = :private)" if visibility.present?
-    clause << "dmp_id = :dmp_id" if dmp_id.present?
+    clause << "dmp_id LIKE :dmp_id" if dmp_id.present?
 
     return recs unless clause.any?
 
     recs = recs.where(clause.join(' AND '), title: "%#{title.downcase}%", funder: "%#{funder.downcase}%",
-                                            grant: "%#{grant.downcase}%", dmp_id: dmp_id.downcase,
+                                            grant: "%#{grant.downcase}%", dmp_id: "%#{dmp_id}",
                                             visibility: visibility.downcase, private: visibility.downcase == 'private')
     recs
   end
