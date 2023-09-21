@@ -13,15 +13,11 @@ module Api
 
       # GET /drafts
       def index
-        @drafts = Draft.includes(narrative_attachment: [:blob])
+        records = Draft.includes(narrative_attachment: [:blob])
                        .search(user: current_user, params: index_params)
 
-p "RECORDS FOUND:"
-pp @drafts.map { |draft| { draft_id: draft.draft_id, dmp_id: draft.dmp_id, title: draft.metadata['dmp']['title']} }
-
-        # Process sort
-
         # Paginate the results
+        @drafts = paginate_response(results: process_sort(records: records.to_a))
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DraftsController.index #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
@@ -126,7 +122,36 @@ pp @drafts.map { |draft| { draft_id: draft.draft_id, dmp_id: draft.dmp_id, title
       end
 
       def index_params
-        params.permit(:title, :funder, :grant_id, :visibility, :dmp_id)
+        params.permit(:title, :funder, :grant_id, :visibility, :dmp_id, :sort, :sort_dir)
+      end
+
+      def process_sort(records:)
+        return records unless records.is_a?(Array)
+
+        # Process sort
+        sort_col = %w[project funder modified].include?(index_params[:sort]&.downcase&.strip) ? index_params[:sort] : 'modified'
+        sort_dir = index_params[:sort_dir].upcase if %w[asc desc].include?(index_params[:sort_dir]&.downcase&.strip)
+        sort_dir = sort_col == 'modified' ? 'desc' : 'asc' if sort_dir.nil?
+
+        records.sort do |a, b|
+          case sort_col
+          when 'project'
+            a_val = a.metadata['dmp'].fetch('project', [{}])&.first&.fetch('name', '')
+            b_val = b.metadata['dmp'].fetch('project', [{}])&.first&.fetch('name', '')
+          when 'funder'
+            a_val = a.metadata['dmp'].fetch('project', [{}])&.first&.fetch('funding', [{}])&.first&.fetch('name', '')
+            b_val = b.metadata['dmp'].fetch('project', [{}])&.first&.fetch('funding', [{}])&.first&.fetch('name', '')
+          else
+            a_val = a.metadata['dmp'].fetch('modified', '')
+            b_val = b.metadata['dmp'].fetch('modified', '')
+          end
+
+          # Safety check here to prevent comparison failures
+          a_val = '' if a_val.nil?
+          b_val = '' if b_val.nil?
+
+          sort_dir == 'asc' ? a_val <=> b_val : b_val <=> a_val
+        end
       end
     end
   end

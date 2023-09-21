@@ -58,10 +58,18 @@ class Draft < ApplicationRecord
     dmp_id = params.fetch(:dmp_id, '').to_s.downcase.strip
 
     clause = []
-    clause << "((metadata->>'$.dmp.title' LIKE :title) OR (metadata->>'$.dmp.description' LIKE :title))" unless title.blank?
+    clause << "(LOWER(metadata->>'$.dmp.title') LIKE :title OR LOWER(metadata->>'$.dmp.description') LIKE :title)" unless title.blank?
+    clause << "LOWER(metadata->>'$.dmp.project[*].funding[*].name') LIKE :funder" if funder.present?
+    clause << "LOWER(metadata->>'$.dmp.project[*].funding[*].grant_id.identifier') LIKE :grant" if grant.present?
+    clause << "(LOWER(metadata->>'$.dmp.dmproadmap_privacy') = :visibility OR metadata->>'$.dmp.draft_data.is_private' = :private)" if visibility.present?
+    clause << "dmp_id = :dmp_id" if dmp_id.present?
+
     return recs unless clause.any?
 
-    recs.where(clause.join(' AND '), title: title)
+    recs = recs.where(clause.join(' AND '), title: "%#{title.downcase}%", funder: "%#{funder.downcase}%",
+                                            grant: "%#{grant.downcase}%", dmp_id: dmp_id.downcase,
+                                            visibility: visibility.downcase, private: visibility.downcase == 'private')
+    recs
   end
 
   # Method required by the DMPTool::Registerable concern that checks to see if the Plan has all of the
@@ -213,9 +221,10 @@ class Draft < ApplicationRecord
     dmp.fetch('project', []).each do |project|
       next unless project.is_a?(Hash)
 
-      # Ensure that the funding block has a status
+      # Ensure that the funding block has a status and remove the name if it is blank
       funding = project.fetch('funding', [])&.first
       if funding.is_a?(Hash)
+        funding.delete('name') if funding.fetch('name', '').blank?
         project['funding'].first['funding_status'] = funding['grant_id'].present? ? 'granted' : 'planned'
       end
 
