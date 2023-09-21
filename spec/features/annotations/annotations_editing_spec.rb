@@ -56,7 +56,7 @@ RSpec.feature 'Annotations::Editing', type: :feature do
       expect { click_button 'Save' }.not_to change { Annotation.count }
     end
     expect(annotation.text).to eql('Foo bar')
-    expect(Annotation.order('created_at').last.text).to eql('Noo bar')
+    expect(Annotation.order('created_at').last.text).to eql('<p>Noo bar</p>')
     expect(page).not_to have_errors
   end
 
