@@ -36,8 +36,6 @@
 
       &>.active-text {
         transition: opacity 0.5s ease-out;
-        opacity: 0;
-        height: 0;
         overflow: hidden;
       }
     }
@@ -62,7 +60,6 @@
 
     &.active,
     &:hover {
-
       .active-line,
       .active-bullet {
         display: block;
