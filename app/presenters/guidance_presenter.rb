@@ -56,7 +56,7 @@ class GuidancePresenter
       next unless subsets.present?
 
       subsets.each_pair do |group, theme|
-        display_tabs << { name: group.name.truncate(15), groups: theme }
+        display_tabs << { name: group.name, groups: { group => theme} }
       end
     end
     display_tabs
