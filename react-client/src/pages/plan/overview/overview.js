@@ -51,15 +51,16 @@ function PlanOverview() {
     dmp.setDraftData("is_private", (visibility !== "public"));
     saveDraftDmp(dmp).then((savedDmp) => {
       setDmp(savedDmp);
-      // TODO:: Re-enable when we know the exact url and data structure to
-      // register a DMP.
       registerDraftDmp(savedDmp).then((data) => {
-        console.log('Response Data?');
-        console.log(data);
+        const redirectUrl = ev.target.dataset['redirect'];
+        navigate(redirectUrl);
+      }).catch(err => {
+        console.log("Bad response from server");
+        console.log(err.resp);
+        console.log(err);
       });
-      // const redirectUrl = ev.target.dataset['redirect'];
-      // navigate(redirectUrl);
     });
+
     // TODO
     // We don't want people to "double-click" and register the same thing twice.
     // So we can disble the save button here, while working, and re-enable when

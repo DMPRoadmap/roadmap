@@ -419,9 +419,6 @@ export async function saveDraftDmp(dmp) {
 
 
 export async function registerDraftDmp(dmp) {
-  console.log('DMP ID?');
-  console.log(dmp.draftId);
-
   let api = new DmpApi();
   let options = api.getOptions({
     method: "post",

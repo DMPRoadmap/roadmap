@@ -1,4 +1,16 @@
 
+
+class APIResponseError extends Error {
+  constructor(msg, resp) {
+    super(msg);
+    this.name = "API Response Error";
+    this.msg = msg;
+    this.resp = resp;
+  }
+}
+
+
+
 export class DmpApi {
   get baseUrl() {
     return `${window.location.origin}/api/v3`;
@@ -64,15 +76,18 @@ export class DmpApi {
    * other common code here if needed.
    */
   handleResponse(resp) {
+    if (resp.status >= 200 && resp.status < 400) return;
+    // TODO:: Error handling
+    // TODO:: Log and report errors to a logging services
+    // TODO:: Message to display to the user?
+
     switch (resp.status) {
-      case 400:
       case 404:
-        // TODO:: Error handling
-        // TODO:: Log and report errors to a logging services
-        // TODO:: Message to display to the user?
-        console.log('Error fetching from API');
-        console.log(resp);
+        throw new APIResponseError("Not Found", resp);
         break;
+
+      default:
+        throw new APIResponseError("General API Error", resp);
     }
   }
 }
