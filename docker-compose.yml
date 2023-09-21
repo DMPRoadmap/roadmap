@@ -84,7 +84,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:15.3-alpine3.18
+    image: postgres:15.4-alpine3.18
     profiles: ["prod", "dev"]
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
@@ -101,6 +101,18 @@ services:
       timeout: ${POSTGRES_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${POSTGRES_HEALTHCHECK_RETRIES:-3}
       start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
+    networks:
+      - dmpopidor_network
+
+  redis:
+    image: redis:7.2.1-alpine3.18
+    command: "redis-server /etc/redis/redis.conf"
+    profiles: ["prod", "dev"]
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis/sysctl.conf:/etc/sysctl.conf
+      - ./redis/redis.conf:/etc/redis/redis.conf
     networks:
       - dmpopidor_network
 

@@ -78,6 +78,10 @@ gem 'pg', group: :pgsql, require: false
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem 'flag_shih_tzu' # , "~> 0.3.23"
 
+# A Ruby client that tries to match Redis' API one-to-one, while still providing an idiomatic interface
+# (https://github.com/redis/redis-rb)
+gem 'redis' # , "~> 0.3.23"
+
 # ======== #
 # SECURITY #
 # ======== #
