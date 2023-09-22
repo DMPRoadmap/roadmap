@@ -13,16 +13,11 @@ module Api
 
       # GET /drafts
       def index
-        @drafts = DraftsPolicy::Scope.new(current_user, Draft.new).resolve
-
-p "RECORDS FOUND:"
-pp @drafts.map { |draft| { draft_id: draft.draft_id, dmp_id: draft.dmp_id, title: draft.metadata['dmp']['title']} }
-
-        # Process any filters
-        # @drafts = apply_filters(recs: @drafts)
-        # Process sort
+        records = Draft.includes(narrative_attachment: [:blob])
+                       .search(user: current_user, params: index_params)
 
         # Paginate the results
+        @drafts = paginate_response(results: process_sort(records: records.to_a))
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DraftsController.index #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
@@ -47,6 +42,7 @@ pp @drafts.map { |draft| { draft_id: draft.draft_id, dmp_id: draft.dmp_id, title
         render_error(errors: "Invalid request #{Draft::INVALID_JSON_MSG}", status: :bad_request)
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DraftsController.create #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -60,6 +56,7 @@ pp @drafts.map { |draft| { draft_id: draft.draft_id, dmp_id: draft.dmp_id, title
         render json: render_to_string(template: '/api/v3/drafts/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DraftsController.show #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -89,6 +86,7 @@ pp @drafts.map { |draft| { draft_id: draft.draft_id, dmp_id: draft.dmp_id, title
         render_error(errors: "Invalid request #{Draft::INVALID_JSON_MSG}", status: :bad_request)
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DraftsController.update #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -107,6 +105,7 @@ pp @drafts.map { |draft| { draft_id: draft.draft_id, dmp_id: draft.dmp_id, title
         end
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DraftsController.destroy #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -123,30 +122,37 @@ pp @drafts.map { |draft| { draft_id: draft.draft_id, dmp_id: draft.dmp_id, title
       end
 
       def index_params
-        params.permit(:title, :funder, :grant_id, :visibility, :dmp_id)
+        params.permit(:title, :funder, :grant_id, :visibility, :dmp_id, :sort, :sort_dir)
       end
 
-      def apply_filters(recs:)
-        return [] unless recs.present? && recs.length > 0
+      def process_sort(records:)
+        return records unless records.is_a?(Array)
 
-        title = index_params.fetch(:title, '').to_s.downcase.strip
-        funder = index_params.fetch(:funder, '').to_s.downcase.strip
-        grant = index_params.fetch(:grant_id, '').to_s.downcase.strip
-        visibility = index_params.fetch(:visibility, '').to_s.downcase.strip
-        dmp_id = index_params.fetch(:dmp_id, '').to_s.downcase.strip
+        # Process sort
+        sort_col = %w[project funder modified].include?(index_params[:sort]&.downcase&.strip) ? index_params[:sort] : 'modified'
+        sort_dir = index_params[:sort_dir].upcase if %w[asc desc].include?(index_params[:sort_dir]&.downcase&.strip)
+        sort_dir = sort_col == 'modified' ? 'desc' : 'asc' if sort_dir.nil?
 
-        clause = []
-        clause << 'plans.funder_id IN (:funder_ids)' if funder_ids.any?
-        clause << 'plans.org_id IN (:org_ids)' if org_ids.any?
-        clause << 'plans.language_id IN (:language_ids)' if language_ids.any?
-        clause << 'plans.research_domain_id IN (:subject_ids)' if subject_ids.any?
-        return order(sort_by) if clause.blank?
+        records.sort do |a, b|
+          case sort_col
+          when 'project'
+            a_val = a.metadata['dmp'].fetch('project', [{}])&.first&.fetch('name', '')
+            b_val = b.metadata['dmp'].fetch('project', [{}])&.first&.fetch('name', '')
+          when 'funder'
+            a_val = a.metadata['dmp'].fetch('project', [{}])&.first&.fetch('funding', [{}])&.first&.fetch('name', '')
+            b_val = b.metadata['dmp'].fetch('project', [{}])&.first&.fetch('funding', [{}])&.first&.fetch('name', '')
+          else
+            a_val = a.metadata['dmp'].fetch('modified', '')
+            b_val = b.metadata['dmp'].fetch('modified', '')
+          end
 
-        where(clause.join(' AND '), funder_ids: funder_ids, org_ids: org_ids, language_ids: language_ids,
-                                    subject_ids: subject_ids)
-          .order(sort_by)
+          # Safety check here to prevent comparison failures
+          a_val = '' if a_val.nil?
+          b_val = '' if b_val.nil?
+
+          sort_dir == 'asc' ? a_val <=> b_val : b_val <=> a_val
+        end
       end
-
     end
   end
 end

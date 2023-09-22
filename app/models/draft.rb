@@ -46,6 +46,32 @@ class Draft < ApplicationRecord
   # not been registered (aka it is not complete)
   validates_uniqueness_of :dmp_id, allow_blank: true
 
+  def self.search(user:, params: {})
+    return [] unless user.is_a?(User)
+
+    recs = where(user_id: user.id)
+
+    title = params.fetch(:title, '').to_s.downcase.strip
+    funder = params.fetch(:funder, '').to_s.downcase.strip
+    grant = params.fetch(:grant_id, '').to_s.downcase.strip
+    visibility = params.fetch(:visibility, '').to_s.downcase.strip
+    dmp_id = params.fetch(:dmp_id, '').to_s.downcase.strip
+
+    clause = []
+    clause << "(LOWER(metadata->>'$.dmp.title') LIKE :title OR LOWER(metadata->>'$.dmp.description') LIKE :title)" unless title.blank?
+    clause << "LOWER(metadata->>'$.dmp.project[*].funding[*].name') LIKE :funder" if funder.present?
+    clause << "LOWER(metadata->>'$.dmp.project[*].funding[*].grant_id.identifier') LIKE :grant" if grant.present?
+    clause << "(LOWER(metadata->>'$.dmp.dmproadmap_privacy') = :visibility OR metadata->>'$.dmp.draft_data.is_private' = :private)" if visibility.present?
+    clause << "dmp_id LIKE :dmp_id" if dmp_id.present?
+
+    return recs unless clause.any?
+
+    recs = recs.where(clause.join(' AND '), title: "%#{title.downcase}%", funder: "%#{funder.downcase}%",
+                                            grant: "%#{grant.downcase}%", dmp_id: "%#{dmp_id}",
+                                            visibility: visibility.downcase, private: visibility.downcase == 'private')
+    recs
+  end
+
   # Method required by the DMPTool::Registerable concern that checks to see if the Plan has all of the
   # content required to register a DMP ID
   def registerable?
@@ -97,11 +123,7 @@ class Draft < ApplicationRecord
     data['dmp']['project'] = [] unless data['dmp']['project'].present?
     data['dmp']['dmproadmap_privacy'] = 'private' unless data['dmp']['dmproadmap_privacy'].present?
 
-    # Ensure that the funding block has a status
-    funding = data['dmp']['project'].first&.fetch('funding', [])&.first
-    if funding.present?
-      data['dmp']['project'].first['funding'].first['funding_status'] = funding['grant_id'].present? ? 'granted' : 'planned'
-    end
+    data['dmp'] = ensure_defaults(dmp: data['dmp'])
     JSON.parse(data.to_json).to_json
   end
 
@@ -116,8 +138,12 @@ class Draft < ApplicationRecord
 
   # Add the created and modified timestamps to the JSON
   def generate_timestamps
-    metadata['dmp']['created'] = created_at.to_formatted_s(:iso8601) if metadata['dmp']['created'].nil?
-    metadata['dmp']['modified'] = updated_at.to_formatted_s(:iso8601)
+    if metadata['dmp']['created'].nil?
+      metadata['dmp']['created'] = new_record? ? Time.now.utc.iso8601 : created_at.to_formatted_s(:iso8601)
+    end
+    if metadata['dmp']['modified'].nil?
+      metadata['dmp']['modified'] = new_record? ? metadata['dmp']['created'] : updated_at.to_formatted_s(:iso8601)
+    end
   end
 
   # Add the ROR IDs for any dmproadmap_affiliation that does not have one
@@ -176,6 +202,62 @@ class Draft < ApplicationRecord
       work_type: 'output_management_plan',
       identifier: Rails.application.routes.url_helpers.rails_blob_url(narrative, disposition: 'attachment')
     }.to_json)
+  end
+
+  def ensure_defaults(dmp:)
+    return {} unless dmp.is_a?(Hash)
+
+    # Ensure all contributor_id have a type (delete any empty ones)
+    dmp.fetch('contributor', []).each do |contrib|
+      next unless contrib.present?
+
+      contrib.delete('contributor_id') if contrib.fetch('contributor_id', {}).fetch('identifier', '').blank?
+      next unless contrib['contributor_id'].present?
+
+      # TODO: Delete this once the UI has been fixed to include it
+      contrib['contributor_id']['type'] = 'orcid' if contrib['contributor_id']['identifier'].present?
+    end
+
+    dmp.fetch('project', []).each do |project|
+      next unless project.is_a?(Hash)
+
+      # Ensure that the funding block has a status and remove the name if it is blank
+      funding = project.fetch('funding', [])&.first
+      if funding.is_a?(Hash)
+        funding.delete('name') if funding.fetch('name', '').blank?
+        project['funding'].first['funding_status'] = funding['grant_id'].present? ? 'granted' : 'planned'
+      end
+
+      # Strip out empty project start/end dates
+      project.delete('start') if project['start'].blank?
+      project.delete('end') if project['end'].blank?
+    end
+
+    # Ensure all dataset distributions have a title and data_access level
+    dmp.fetch('dataset', []).each do |dataset|
+      next unless dataset.present? && dataset.fetch('distribution', []).any?
+
+      dataset['distribution'].each do |distro|
+        distro['title'] = "Proposed distribution of '#{dataset['title']}'" unless distro['title'].present?
+        next if distro['data_access'].present?
+
+        # TODO: Remove this once the UI is properly pre-populating the URL
+        if distro['host'].present? && distro['host']['url'].nil?
+          repo = Repository.find_by(name: distro['host']['title'])
+          distro['host']['url'] = repo.homepage unless repo.nil?
+        end
+
+        pii = dataset.fetch('personal_data', '').to_s.downcase.strip == 'yes'
+        sensitive = dataset.fetch('sensitive_data', '').to_s.downcase.strip == 'yes'
+        level = 'closed'
+
+        # If the dataset will contain PII then default it to 'closed', if it contains sensitive data then set it to
+        # 'shared', otherwise set the access level to 'open'
+        distro['data_access'] = pii ? 'closed' : (sensitive ? 'shared' : 'open')
+      end
+    end
+
+    dmp
   end
 
   # Figure out which contributor is the primary contact
