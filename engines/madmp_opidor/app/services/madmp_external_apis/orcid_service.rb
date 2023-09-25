@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'cgi'
 
 module MadmpExternalApis
   # This service provides an interface to ORCiD API
@@ -54,7 +55,7 @@ module MadmpExternalApis
 
         # Call the ROR API and log any errors
         resp = http_get(
-          uri: "#{api_base_url}#{search_path}?q=#{term}&rows=#{rows.nil? ? default_rows : rows}",
+          uri: "#{api_base_url}#{search_path}?q=#{CGI.escape(term)}&rows=#{rows.nil? ? default_rows : rows}",
           additional_headers: { Accept: 'application/vnd.orcid+json' },
           debug: false
         )
@@ -62,7 +63,7 @@ module MadmpExternalApis
         return [] unless resp&.code == 200
 
         JSON.parse(resp.body)
-      rescue StandardError
+      rescue StandardError => e
         handle_http_failure(method: 'ORCiD search', http_response: resp)
         []
       end
