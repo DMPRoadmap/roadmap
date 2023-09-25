@@ -151,6 +151,7 @@ Rails.application.routes.draw do
     resources :research_outputs, except: %i[show]
 
     member do
+      get 'structured_edit'
       get 'answer'
       get 'share'
       get 'request_feedback'

@@ -157,7 +157,7 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-    def edit
+    def structured_edit
       plan = ::Plan.includes(
         { template: :phases }
       )
@@ -170,6 +170,7 @@ module Dmpopidor
           template:,
           locale: template.locale
         })
+
     end
 
     # GET /plans/:id/guidance_groups

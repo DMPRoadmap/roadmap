@@ -1,4 +1,5 @@
 <% phases = plan.template.phases %>
+
 <ul id="plan-navigation" class="nav nav-tabs plan-navigation" role="tablist">
   <li role="presentation" class="<%= (active_page?(plan_path(plan), true) ? 'active' : '') %>">
     <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content">
@@ -19,8 +20,9 @@
     </li>
   <% end %>
   <% phases.each do |phase| %>
-    <li role="presentation" class="phase-tab <%= (active_page?(edit_plan_path(plan.id, phase_id: phase.id)) ? 'active' : '') %>">
-      <a href="<%= edit_plan_path(plan.id, phase_id: phase.id) %>" role="tab" aria-controls="content">
+    <% plan_phase_url = plan.template.structured? ? structured_edit_plan_path(plan.id, phase_id: phase.id) : edit_plan_path(plan.id, phase_id: phase.id) %>
+    <li role="presentation" class="phase-tab <%= (active_page?(plan_phase_url) ? 'active' : '') %>">
+      <a href="<%= plan_phase_url %>" role="tab" aria-controls="content">
         <%= inline_svg_tag "plan_navigation/write_plan.svg", class: 'icon' %>
         <span class="active-text"><%= (phases.size > 1 ? phase.title : _('Write Plan')) %></span>
       </a>
@@ -77,7 +79,7 @@
     </li>
   <% end %>
 </ul>
-<% write_plan_class = active_page?(edit_plan_path(plan.id)) ? "write-plan" : ""%>
+<% write_plan_class = active_page?(edit_plan_path(plan.id)) && !plan.template.structured? ? "write-plan" : ""%>
 <div class="tab-content">
   <div class="row">
     <div class="col-md-12">

@@ -50,6 +50,8 @@
     li.active>a:hover {
       color: $blue;
       border: 1px solid $blue;
+      border-bottom-color: transparent;
+      background-color: $white;
     }
   }
 
