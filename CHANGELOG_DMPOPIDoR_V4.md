@@ -2,6 +2,20 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+
+## 25/09/2023
+- Les recommandations sont désormais correctement triées dans le Choix des Recommandations
+- Les formulaires Project/Meta se rechargement correctement après l'utilisation de l'import ANR
+- Le choix du produit de recherche affiché dans l'onglet Rédiger est conservé lors d'un rechargement de la page
+- Le produit de recherche par défaut est désormais créé avec `containsPersonalData` à Non
+- Correction de l'attribution du rôle d'un contributeur
+- Correction d'un problème de suppression des contributeurs
+- Affichage d'un entête des tableaux de fragments lorsque `table_header` n'est pas renseigné
+- Amélioration de l'affichage des résultats des recherches RoR/ORCID (ajout d'un icone lien pour ror, ajout d'un icone pour importer, ajout d'un message lorsqu'il n'y a aucune donnée)
+- Correction du filtre sur les pays dans l'import RoR
+- Ajout de l'affichage du numéro de section dans les questions
+
+
 ## 22/06/2023
 - Correction d'un problème d'affichage des libellés lorsque form_label est absent et ajout d'une valeur par défaut lorsque qu'aucun libellé n'est déclaré.
 - Ajout du support des plans pour les structures de recherche
