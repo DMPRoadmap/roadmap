@@ -261,6 +261,13 @@ gem 'delayed_job_active_record'
 # See: https://rubygems.org/gems/daemons/versions/1.4.1
 gem 'daemons'
 
+# If you are using active_storage gem and you want to add simple validations for it, like presence or
+# content_type you need to write a custom validation method.
+#
+# This gems doing it for you. Just use attached: true or content_type: 'image/png' validation.
+# See: https://github.com/igorkasyanchuk/active_storage_validations
+gem 'active_storage_validations'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #

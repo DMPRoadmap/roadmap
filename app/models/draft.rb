@@ -46,6 +46,10 @@ class Draft < ApplicationRecord
   # not been registered (aka it is not complete)
   validates_uniqueness_of :dmp_id, allow_blank: true
 
+  # Validate that the attachment is a PDF and that it is less than 250KB
+  validates :narrative, size: { less_than: 250.kilobytes , message: 'PDF too large, must be less than 350KB' },
+                        content_type: { in: ['application/pdf'], message: 'must be a PDF document' }
+
   def self.search(user:, params: {})
     return [] unless user.is_a?(User)
 
