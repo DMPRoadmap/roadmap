@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'cgi'
 
 module MadmpExternalApis
   # This service provides an interface to the Research Organization Registry (ROR)
@@ -100,9 +101,9 @@ module MadmpExternalApis
       # filters specified
       def query_string(term:, page: 1, filters: [])
         [
-          "query=#{term}",
+          "query=#{CGI.escape(term)}",
           "page=#{page}",
-          ("filter=#{filters&.join(',')}" unless filters.nil?)
+          ("filter=#{CGI.escape(filters&.join(','))}" unless filters.nil?)
         ]&.compact&.join('&')
       end
 
