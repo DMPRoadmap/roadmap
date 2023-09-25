@@ -19,7 +19,7 @@ export const addAsterisk = (el) => {
     } else {
       const label = target.closest('.form-group').find('label');
       if (isObject(label)) {
-        $(label[0]).before(asterisk);
+        $(label[0]).prepend(asterisk);
       }
     }
   }
