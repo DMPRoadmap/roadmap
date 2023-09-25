@@ -27,6 +27,14 @@ module Dmpopidor
       @record.editable_by?(@user.id)
     end
 
+    def update_remote?
+      @record.editable_by?(@user.id)
+    end
+
+    def destroy_remote?
+      @record.editable_by?(@user.id)
+    end
+
     def sort?
       @record.editable_by?(@user.id)
     end

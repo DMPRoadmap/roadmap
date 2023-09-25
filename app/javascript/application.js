@@ -15,6 +15,9 @@ import 'bootstrap';
 import 'bootstrap-3-typeahead';
 import 'bootstrap-select';
 
+// Select2
+import 'select2';
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -31,6 +34,7 @@ import './src/utils/paginable';
 import './src/utils/panelHeading';
 import './src/utils/popoverHelper';
 import './src/utils/requiredField';
+import './src/utils/select2';
 import './src/utils/tabHelper';
 import './src/utils/tooltipHelper';
 // import './src/utils/cookiebanner';
@@ -58,6 +62,7 @@ import './src/plans/download';
 import './src/plans/index.js.erb';
 import './src/plans/new';
 import './src/plans/import';
+import './src/plans/researchOutputs';
 import './src/plans/share';
 import './src/publicTemplates/show';
 import './src/researchOutputs/form';

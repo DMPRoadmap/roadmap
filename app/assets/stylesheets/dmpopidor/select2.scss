@@ -1,0 +1,15 @@
+@use './colours' as *;
+
+.select2-results__option--highlighted {
+  color: white;
+  background-color: $dark-blue !important;
+}
+
+.select2 {
+  width: 100% !important;
+
+  .select2-selection__choice {
+    color: white !important;
+    background-color: $blue;
+  }
+}
