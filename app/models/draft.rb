@@ -241,8 +241,15 @@ class Draft < ApplicationRecord
     dmp.fetch('dataset', []).each do |dataset|
       next unless dataset.present? && dataset.fetch('distribution', []).any?
 
+      # If a size was specified convert it to bytes and move the value to the distribution
+      size = dataset.fetch('size', {})
+      byte_size = process_byte_size(unit: size['unit'], size: size['value']) if size['value'].present?
+      dataset.delete('size') if dataset['size'].present?
+
       dataset['distribution'].each do |distro|
         distro['title'] = "Proposed distribution of '#{dataset['title']}'" unless distro['title'].present?
+        distro['byte_size'] = byte_size if byte_size.present?
+
         next if distro['data_access'].present?
 
         # TODO: Remove this once the UI is properly pre-populating the URL
@@ -300,5 +307,25 @@ class Draft < ApplicationRecord
     contact[:dmproadmap_affiliation][:affiliation_id] = { type: 'ror', identifier: ror.ror_id } if ror.present?
     contact[:contact_id] = orcid.present? ? { type: 'orcid', identifier: orcid.value } : { type: 'other', identifier: user.id }
     JSON.parse(contact.to_json)
+  end
+
+  # Convert the incoming file size to bytes
+  def process_byte_size(unit: 'kb', size:)
+    return nil unless size.is_a?(Integer) || size.is_?(Float)
+
+    byte_size = 0.bytes + case unit
+                          when 'pb'
+                            size.to_f.petabytes
+                          when 'tb'
+                            size.to_f.terabytes
+                          when 'gb'
+                            size.to_f.gigabytes
+                          when 'mb'
+                            size.to_f.megabytes
+                          else
+                            size.to_i
+                          end
+
+    byte_size
   end
 end
