@@ -12,6 +12,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     environment:
       - RAILS_ENV=production
       - RAKE_ENV=production
@@ -106,13 +108,19 @@ services:
 
   redis:
     image: redis:7.2.1-alpine3.18
-    command: "redis-server /etc/redis/redis.conf"
+    # command: "redis-server /etc/redis/redis.conf"
     profiles: ["prod", "dev"]
     ports:
       - 6379:6379
     volumes:
       - ./redis/sysctl.conf:/etc/sysctl.conf
       - ./redis/redis.conf:/etc/redis/redis.conf
+    healthcheck:
+      test: ["CMD", "redis-cli","ping"]
+      interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
+      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
     networks:
       - dmpopidor_network
 
