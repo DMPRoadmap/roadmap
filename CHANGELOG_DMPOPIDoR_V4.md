@@ -3,6 +3,12 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 
+## 26/09/2023
+- Correction d'un problème d'affichage (effet accordéon) à l'ouverture de la première question dans l'onglet Rédiger
+- Retrait de la vérification du format de l'email (on compte remettre une vérification du format mais elle sera accompagnée de l'intégration d'une nouvelle librairie qui permettra d'améliorer l'affichage et la vérification des formulaires)
+- Prise en compte des caractères spéciaux dans la recherche RoR et ORCID
+- Amélioration du filtrage sur le pays dans la recherche RoR
+
 ## 25/09/2023
 - Les recommandations sont désormais correctement triées dans le Choix des Recommandations
 - Les formulaires Project/Meta se rechargement correctement après l'utilisation de l'import ANR
