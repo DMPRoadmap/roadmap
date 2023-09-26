@@ -95,7 +95,7 @@
                            popover_message: _('Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question.') } %>
     </div>
     <div class="form-group mb-3 col-md-10">
-      <div class="pull-right">
+      <div class="float-end">
         <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
         <% if question.id.present? %>
             <% href = org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id) %>

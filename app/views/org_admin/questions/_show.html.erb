@@ -202,7 +202,7 @@
                   <% end %>
                 <% end %>
                 <div class="form-group mb-3 col-md-10">
-                  <div class="pull-right">
+                  <div class="float-end">
                     <%= f.submit _('Save'), class: "btn btn-default", role: 'button' %>
                   </div>
                 </div>
@@ -211,7 +211,7 @@
           <% end %>
           <% if section.modifiable? %>
             <div class="form-group mb-3 col-md-10">
-              <div class="pull-right">
+              <div class="float-end">
                 <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question", remote: true %>
               </div>
             </div>

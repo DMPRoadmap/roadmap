@@ -38,7 +38,7 @@
 
               <div class="card-heading" role="tab" id="plan-overview-heading-<%= p.id %>">
                 <h2 class="accordion-header">
-                  <div class="pull-left">
+                  <div class="float-start">
                     <%= _("%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})") % {
                       :phase_title => p.title, :sections_size => p.sections.size, :sections => n_('section', 'sections', p.sections.size),
                       :questions_size => questions_size,

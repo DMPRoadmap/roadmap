@@ -10,7 +10,7 @@
   <% end %>
 <% end %>
 <% if template.latest? && section.modifiable? %>
-  <div class="pull-right new-question-button">
+  <div class="float-end new-question-button">
     <%= link_to(_('Add Question'), new_org_admin_template_phase_section_question_path(template_id: template.id, phase_id: section.phase.id, section_id: section.id), { class: 'btn btn-default ajaxified-question', role: "button", remote: true }) %>
   </div>
 

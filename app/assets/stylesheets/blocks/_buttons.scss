@@ -52,6 +52,13 @@
 }
 
 /* link button */
-.btn-link {
+.btn-link, .btn-close {
   color: $color-link-text;
+  border: $color-border-default;
+  border-radius: 0rem;
+}
+
+.btn:disabled {
+  background-color: lighten($color-primary-background, 40%);
+  border: none;
 }

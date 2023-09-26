@@ -2,7 +2,7 @@
 
 <%= form_tag(paginable_base_url(1), method: :get, remote: remote, class: 'form-inline paginable-action') do %>
   <div class="d-inline-flex flex-row">
-    <div class="d-inline-flex input-group">
+    <div class="d-inline-flex input-group pe-3">
       <span class="input-group-addon" id="search-addon">
         <span class="fas fa-search" aria-hidden="true"></span>
       </span>
@@ -12,9 +12,10 @@
     </div>
     <%# @filter_admin is only defined on the users_index page %>
     <% unless @filter_admin.nil?  %>
-      <%= label_tag(:filter_admin, _('Only Show Admins'), class: 'form-check-inline') %>
-      <%= check_box_tag( :filter_admin , "1", @filter_admin)%>
-      &nbsp
+    <div class="form-check col-md-5">
+      <%= label_tag(:filter_admin, _('Only Show Admins'), class: 'form-check-label') %>
+      <%= check_box_tag( :filter_admin , "1", @filter_admin, class: 'form-check-input')%>
+      </div>
     <% end %>
   </div>
   <%= submit_tag(_('Search'), class: 'btn btn-default', style: 'margin-top: 8px;') %>

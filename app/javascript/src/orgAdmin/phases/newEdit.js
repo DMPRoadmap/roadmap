@@ -134,7 +134,7 @@ $(() => {
   $(parentSelector).on('ajax:error', 'a.ajaxified-question[data-remote="true"]', (e) => {
     const panelBody = getQuestionPanel($(e.target));
     if (isObject(panelBody)) {
-      panelBody.html(`<div class="pull-right alert alert-warning" role="alert">${getConstant('AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION')}</div>`);
+      panelBody.html(`<div class="float-end alert alert-warning" role="alert">${getConstant('AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION')}</div>`);
     }
   });
   // When we cancel the new question we just remove the form and its Tinymce editors
