@@ -169,6 +169,13 @@ export class Funding extends Model {
 
   get projectNumber() { return this.getData("dmproadmap_project_number", ""); }
   set projectNumber(val) { this.setData("dmproadmap_project_number", val); }
+
+  getStatus() {
+    let status = ["notstart", "Not Started"];
+    if (this.name && this.funderId)
+      status = ["completed", "Completed"];
+    return status;
+  }
 }
 
 
@@ -224,6 +231,13 @@ export class Project extends Model {
     } else {
       this.setData("end", "")
     }
+  }
+
+  getStatus() {
+    let status = ["notstart", "Not Started"];
+    if (this.title && this.start)
+      status = ["completed", "Completed"];
+    return status;
   }
 
   commit() {
@@ -312,6 +326,9 @@ export class DmpModel extends Model {
   set dataset(items) { this.#_dataset = new ModelSet(DataObject, items); }
 
   get stepStatus() {
+    let setupStatus = ["notstart", "Not Started"];
+    if (this.title) setupStatus = ["completed", "Completed"];
+
     let contributorStatus = ["recommended", "Recommended"];
     if (this.contributors.items.length > 0) {
       if (this.contributors.items.length == 1) {
@@ -343,9 +360,9 @@ export class DmpModel extends Model {
     }
 
     return {
-      setup: ["completed", "Completed"],
-      funders: ["notstart", "Not Started"],
-      project: ["notstart", "Not Started"],
+      setup: setupStatus,
+      funders: this.funding.getStatus(),
+      project: this.project.getStatus(),
       contributors: contributorStatus,
       outputs: outputsStatus,
     };
