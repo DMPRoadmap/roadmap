@@ -4,12 +4,24 @@
 <% locale = LocaleService.to_gettext(locale: locale)%>
 
 <% content_for :plan_tab_body do %>
-  <dmp-write-plan props-json='{
-    "locale": "<%= locale %>",
-    "planId": <%= plan.id %>,
-    "templateId": <%= template.id %>,
-    "userId": <%= @current_user.id %>
-  }'/>
+  <% if plan.template.structured? %>
+    <dmp-write-plan props-json='{
+      "locale": "<%= locale %>",
+      "planId": <%= plan.id %>,
+      "templateId": <%= template.id %>,
+      "userId": <%= @current_user.id %>
+    }'/>
+  <% else %>
+    <%= render partial: 'phases/edit_plan_answers',
+              locals: {
+                plan: plan,
+                phase: phase,
+                answers: answers,
+                readonly: readonly,
+                base_template_org: base_template_org,
+                guidance_presenter: guidance_presenter,
+              } %>
+  <% end %>
 <% end %>
 
 <%= render partial: "plans/navigation", locals: { plan: plan } %>

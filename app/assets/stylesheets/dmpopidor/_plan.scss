@@ -36,8 +36,6 @@
 
       &>.active-text {
         transition: opacity 0.5s ease-out;
-        opacity: 0;
-        height: 0;
         overflow: hidden;
       }
     }
@@ -353,75 +351,35 @@
 .write-plan {
   display: flex;
 
-  .answering-phase {
-    padding: 20px;
-    border: 1px solid $dark-blue;
-    border-radius: 0 20px 20px 20px;
-    margin-left: -155px;
+  &.panel-body {
+    padding: 15px 5px;
+  }
+
+  .research-output-content {
+    background-color: $white;
+    border: 1px solid $blue;
+
+    &.multiple-research-output {
+      border-top-color: transparent;
+    }
   }
 
 
-  .research-outputs-accordion {
+  .research-outputs-tabs {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
 
-    align-self: flex-start;
-    overflow: hidden;
-    border-radius: 20px 0 0 20px;
-    position: relative;
-    left: -175px;
-    min-width: 175px;
-
-    background-color: white;
-
-    .research-outputs-tabs {
-      display: flex;
-      flex-direction: column;
-      background-color: white;
-      max-width: 160px;
-      float: right;
-
-      li.research-outputs-tab {
-        flex: 1 1 15%;
-        text-align: center;
-        border: none;
-        margin: 0;
-
-        &:not(:last-child) {
-          margin-bottom: 3px;
-        }
-
-        &.active>a,
-        &>a:hover {
-          background-color: $dark-blue;
-          color: white;
-          font-size: 16px;
-        }
-
-        a {
-          padding: 20px;
-          font-weight: bold;
-          background-color: $blue;
-        }
-      }
-    }
-
-    .panel-body {
-      padding: 0;
-    }
-
-    .panel-heading {
-      background-color: $dark-blue;
-
-      .accordion-toggle {
-        padding: 20px;
-        background-color: $dark-blue;
-        font-weight: bold;
-      }
+    li {
+      flex: 1 1 15%;
+      text-align: center;
     }
   }
 
-  .sections {
+  .research-output-panel {
+    width: 100%;
+  }
+
+  #sections {
     .section-title {
       background-color: white;
 
@@ -430,10 +388,36 @@
         font-size: 30px;
       }
     }
+
+    .section-panel {
+      border: none;
+    }
   }
 
   .question {
     @include dmpopidor-accordion;
+    margin-left: 0px;
+    margin-right: 0px;
+    border: none;
+
+    .question-text {
+      background-color: $white;
+      color: $dark-blue;
+      border-bottom: 2px solid $dark-blue;
+      border-right: 2px solid $dark-blue;
+
+      .panel-title {
+        color: $dark-blue;
+        font-weight: bold;
+
+        a {
+          display: inline;
+          padding: 0;
+          margin: 0;
+          background-color: $white;
+        }
+      }
+    }
 
     .question-body {
       padding: 15px 0;
@@ -443,23 +427,23 @@
         flex: 8;
         position: relative;
         min-height: 300px;
-      }
 
-      .toggle-guidance-section {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: $blue;
-        color: $white;
-        padding: 10px 5px;
-        cursor: pointer;
-
-        text-orientation: mixed;
-        writing-mode: vertical-rl;
-
-        &.disabled {
-          background-color: $light-grey;
-          cursor: not-allowed;
+        .toggle-guidance-section {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background-color: $blue;
+          color: $white;
+          padding: 10px 5px;
+          cursor: pointer;
+  
+          text-orientation: mixed;
+          writing-mode: vertical-rl;
+  
+          &.disabled {
+            background-color: $light-grey;
+            cursor: not-allowed;
+          }
         }
       }
 

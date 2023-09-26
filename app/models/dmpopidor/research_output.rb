@@ -61,7 +61,7 @@ module Dmpopidor
             parent_id: dmp_fragment.id,
             additional_info: { 
               property_name: 'researchOutput',
-              hasPersonalData: configuration[:hasPersonalData]
+              hasPersonalData: configuration[:hasPersonalData] || false
             }
           )
           fragment_description = Fragment::ResearchOutputDescription.new(

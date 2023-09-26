@@ -21,4 +21,7 @@ $fa-font-path: '.';
 
 @import 'sweetalert2/src/sweetalert2.scss';
 
+@import "../../../node_modules/select2/src/scss/core.scss";
+@import "../../../node_modules/select2-bootstrap-theme/src/build.scss";
+
 @import "./dmpopidor";

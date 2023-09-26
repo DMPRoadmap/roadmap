@@ -82,6 +82,8 @@
     "regenerator-runtime": "^0.14.0",
     "remount": "^1.0.0",
     "sass": "^1.57.1",
+    "select2": "~4.0",
+    "select2-bootstrap-theme": "^0.1.0-beta.10",
     "styled-components": "^6.0.7",
     "stylis": "^4",
     "sweetalert2": "^11.7.3",

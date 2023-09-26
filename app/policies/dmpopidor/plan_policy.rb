@@ -3,6 +3,14 @@
 module Dmpopidor
   # Security rules for plan tables
   module PlanPolicy
+    def classic_edit?
+      @record.readable_by?(@user.id)
+    end
+
+    def structured_edit?
+      @record.readable_by?(@user.id)
+    end
+
     def research_outputs?
       @record.readable_by?(@user.id)
     end
@@ -24,6 +32,14 @@ module Dmpopidor
     end
 
     def create_remote?
+      @record.editable_by?(@user.id)
+    end
+
+    def update_remote?
+      @record.editable_by?(@user.id)
+    end
+
+    def destroy_remote?
       @record.editable_by?(@user.id)
     end
 

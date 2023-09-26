@@ -51,6 +51,48 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
+    def update
+      @research_output = ::ResearchOutput.find(params[:id])
+      attrs = research_output_params
+
+      authorize @research_output
+
+      research_output_description = @research_output.json_fragment.research_output_description
+
+      I18n.with_locale @research_output.plan.template.locale do
+        updated_data = research_output_description.data.merge({ type: params[:type], containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') })
+        research_output_description.update(data: updated_data)
+      end
+
+      research_outputs = ::ResearchOutput.where(plan_id: params[:plan_id])
+
+      if @research_output.update(attrs)
+        render json: {
+          status: 200,
+          message: 'Research output updated',
+          research_outputs: research_outputs.order(:display_order).map do |ro|
+            {
+              id: ro.id,
+              abbreviation: ro.abbreviation,
+              title: ro.title,
+              order: ro.display_order,
+              hasPersonalData: ro.has_personal_data,
+              type: ro.json_fragment.research_output_description['data']['type'],
+              answers: ro.answers.map do |a|
+                {
+                  answer_id: a.id,
+                  question_id: a.question_id,
+                  fragment_id: a.madmp_fragment.id
+                }
+              end
+            }
+          end
+        },
+        status: :ok
+      end
+
+    end
+
     # rubocop:disable Metrics/AbcSize
     def destroy
       @research_output = ::ResearchOutput.find(params[:id])
@@ -121,51 +163,9 @@ module Dmpopidor
       else
         flash[:alert] = failure_message(@research_output, _('delete'))
       end
-      redirect_to(action: 'index')
+      redirect_to(action: 'index', plan_id: @plan.id)
     end
     # rubocop:enable Metrics/AbcSize
-
-    def update
-      @research_output = ::ResearchOutput.find(params[:id])
-      attrs = research_output_params
-
-      authorize @research_output
-
-      research_output_description = @research_output.json_fragment.research_output_description
-
-      I18n.with_locale @research_output.plan.template.locale do
-        updated_data = research_output_description.data.merge({ type: params[:type], containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No') })
-        research_output_description.update(data: updated_data)
-      end
-
-      research_outputs = ::ResearchOutput.where(plan_id: params[:plan_id])
-
-      if @research_output.update(attrs)
-        render json: {
-          status: 200,
-          message: 'Research output updated',
-          research_outputs: research_outputs.order(:display_order).map do |ro|
-            {
-              id: ro.id,
-              abbreviation: ro.abbreviation,
-              title: ro.title,
-              order: ro.display_order,
-              hasPersonalData: ro.has_personal_data,
-              type: ro.json_fragment.research_output_description['data']['type'],
-              answers: ro.answers.map do |a|
-                {
-                  answer_id: a.id,
-                  question_id: a.question_id,
-                  fragment_id: a.madmp_fragment.id
-                }
-              end
-            }
-          end
-        },
-        status: :ok
-      end
-
-    end
 
     # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def update_remote

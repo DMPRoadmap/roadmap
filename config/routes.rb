@@ -152,6 +152,7 @@ Rails.application.routes.draw do
     resources :research_outputs, except: %i[show]
 
     member do
+      get 'structured_edit'
       get 'answer'
       get 'share'
       get 'request_feedback'
@@ -169,7 +170,7 @@ Rails.application.routes.draw do
     resources :research_outputs, only: %i[index update destroy], controller: 'research_outputs'
   end
 
-  resources :research_outputs, only: [:create, :destroy, :update], constraints: { format: [:json] } do
+  resources :research_outputs, only: [:index, :create, :destroy, :update], constraints: { format: [:json] } do
     get 'create_remote', on: :collection
     delete 'destroy_remote', on: :collection
     patch 'update_remote', on: :collection

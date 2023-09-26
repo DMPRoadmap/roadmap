@@ -157,7 +157,7 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-    def edit
+    def structured_edit
       plan = ::Plan.includes(
         { template: :phases }
       )
@@ -170,6 +170,7 @@ module Dmpopidor
           template:,
           locale: template.locale
         })
+
     end
 
     # GET /plans/:id/guidance_groups
@@ -365,10 +366,7 @@ module Dmpopidor
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def answers_data
-      plan = ::Plan.includes(
-        :research_outputs,
-        { answers: %i[notes madmp_fragment] }
-      ).find(params[:id])
+      plan = ::Plan.find(params[:id])
       authorize plan
 
       guidance_presenter = ::GuidancePresenter.new(plan)
