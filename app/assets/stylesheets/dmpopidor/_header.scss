@@ -25,7 +25,7 @@ header.dmpopidor-branding {
     transition: all .1s ease-in;
     position: fixed;
     top: 0;
-    z-index: 10;
+    z-index: 11;
 
     #app-navbar {
       width: 100%;
@@ -110,7 +110,7 @@ header.dmpopidor-branding {
           a#user-menu.dropdown-toggle {
             &:hover {
               border-radius: 5px 5px 0 0;
-              z-index: 10;
+              z-index: 11;
               position: relative;
             }
           }
