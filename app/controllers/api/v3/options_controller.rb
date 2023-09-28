@@ -34,7 +34,7 @@ module Api
           }
         end
         @items = paginate_response(results: matches)
-        render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
+        render json: render_to_string(template: '/api/v3/output_types/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::OptionsController.output_types #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
