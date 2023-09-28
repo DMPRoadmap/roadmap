@@ -5,6 +5,8 @@ module Api
     # Endpoints that supply radio button, select box options to the React UI
     class OptionsController < BaseApiController
 
+      SIZABLE_OUTPUT_TYPES = %w[audiovisual sound image model_representation data_paper dataset text]
+
       # GET /api/v3/contributor_roles
       def contributor_roles
         roles = Contributor.new.all_roles.map do |role|
@@ -27,11 +29,12 @@ module Api
         matches = matches.map do |key, val|
           {
             label: key.capitalize.gsub('_', ' '),
-            value: key.downcase.gsub(' ', '_')
+            value: key.downcase.gsub(' ', '_'),
+            allow_size_specification: SIZABLE_OUTPUT_TYPES.include?(key)
           }
         end
         @items = paginate_response(results: matches)
-        render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
+        render json: render_to_string(template: '/api/v3/output_types/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::OptionsController.output_types #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
