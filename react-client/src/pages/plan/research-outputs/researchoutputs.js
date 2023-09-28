@@ -193,7 +193,7 @@ function ResearchOutputs() {
       </div>
 
       <dialog id="outputsModal">
-        <form method="post" enctype="multipart/form-data" onSubmit={handleSaveModal}>
+        <form method="post" encType="multipart/form-data" onSubmit={handleSaveModal}>
           <div className="form-modal-wrapper">
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
@@ -326,7 +326,7 @@ function ResearchOutputs() {
         </form>
       </dialog>
 
-      <form method="post" enctype="multipart/form-data" onSubmit={handleSave}>
+      <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
         <div className="form-actions ">
           <button type="button" onClick={() => navigate(-1)}>
             Cancel

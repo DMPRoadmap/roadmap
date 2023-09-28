@@ -22,7 +22,6 @@ function Contributors() {
   const { dmpId } = useParams();
   const [roles, setRoles] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
-  const [defaultRole, setDefaultRole] = useState();
   const [dmp, setDmp] = useState({});
   const [contributor, setContributor] = useState(new Contributor({}));
 
@@ -33,12 +32,6 @@ function Contributors() {
 
     getContributorRoles().then((data) => {
       setRoles(data);
-      for (const r of data) {
-        if (r.default) {
-          setDefaultRole(r.value);
-          break;
-        }
-      }
     });
   }, [dmpId]);
 
@@ -48,7 +41,6 @@ function Contributors() {
 
     switch (name) {
       case "role":
-        console.log(`Role? ${value}; Checked? ${checked}`);
         if (checked) {
           newContrib.addRole(value);
         } else {
@@ -79,7 +71,7 @@ function Contributors() {
     } else {
       setEditIndex(null);
       setContributor(new Contributor({
-        "role": [defaultRole]
+        "role": [],
       }));
     }
 
@@ -135,7 +127,6 @@ function Contributors() {
         the Primary Investigator (PI). You must specify a Primary Investigator
         (PI) at minimum.
       </p>
-      <p>You must specify a Primary Investigator (PI) at minimum.</p>
       <div className="dmpdui-top-actions">
         <div>
           <button className="secondary" onClick={handleModalOpen}>
@@ -205,7 +196,7 @@ function Contributors() {
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
                 <TextInput
-                  label="Email addresss"
+                  label="Email address"
                   type="email"
                   required="required"
                   name="email"

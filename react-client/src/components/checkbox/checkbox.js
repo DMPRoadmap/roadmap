@@ -8,6 +8,10 @@ function Checkbox(props) {
     errorMsg = errorMsg;
   }
 
+  function handleChange(ev) {
+    if (props.onChange) props.onChange(ev);
+  }
+
   return (
     <>
       <div className="dmpui-field-checkbox-group">
@@ -19,6 +23,7 @@ function Checkbox(props) {
           checked={props?.checked ? props.checked : ""}
           value={props?.inputValue ? props.inputValue : "x"}
           disabled={props.disabled}
+          onChange={handleChange}
         />
         <label htmlFor={props?.id ? props.id : ""} className="checkbox-label">
           {props?.label ? props.label : ""}

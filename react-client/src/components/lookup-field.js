@@ -69,6 +69,7 @@ function LookupField(props) {
   }
 
   function handleChange(ev) {
+    ev.preventDefault();
     const { name, value } = ev.target;
 
     // NOTE: Check if the the change happend after selecting an option
@@ -77,16 +78,11 @@ function LookupField(props) {
     // across browsers. We should test this one major browsers as well
     // as mobile devices to confirm.
     if (typeof ev.nativeEvent.inputType === "undefined") {
-      let chosenEl = ev.target.parentNode.querySelector(
-        `option[value="${value}"]`
-      );
-      if (chosenEl) {
-        let i = chosenEl.dataset["index"];
-        ev.data = suggestions[i];
-      } else {
-        console.log("no data");
-      }
+      let el = document.querySelector(`#${resultsId} option[value="${value}"]`);
+      let index = el.dataset['index'];
+      ev.data = suggestions[index];
     }
+
     props.onChange(ev);
   }
 
@@ -142,10 +138,9 @@ function LookupField(props) {
             )}
           </div>
           <datalist id={resultsId}>
-            {props.inputValue.length > 0 &&
-              suggestions?.map((el, index) => {
-                return <option key={index} data-index={index} value={el.name} />;
-              })}
+            {props.inputValue.length > 0 && suggestions?.map((el, index) => {
+              return <option key={index} data-index={index} value={el.name} />
+            })}
           </datalist>
         </div>
       </div>
