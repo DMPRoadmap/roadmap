@@ -187,6 +187,13 @@ dialog {
   font-weight: 700;
 }
 
+#App p.dmpui-field-error {
+  color: var(--dmpui-brand-red-500);
+  &::before {
+    content: "⚠ "
+  }
+}
+
 .dmpui-heading {
   text-align: left;
   margin-top: 1rem;

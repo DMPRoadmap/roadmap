@@ -29,6 +29,7 @@ function Checkbox(props) {
           {props?.label ? props.label : ""}
         </label>
       </div>
+      {errorMsg && <p className="dmpui-field-error"> {errorMsg} </p>}
     </>
   );
 }

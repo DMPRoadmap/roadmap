@@ -25,6 +25,7 @@ function Contributors() {
   const [dmp, setDmp] = useState({});
   const [contributor, setContributor] = useState(new Contributor({}));
 
+
   useEffect(() => {
     getDraftDmp(dmpId).then((initial) => {
       setDmp(initial);
@@ -35,11 +36,17 @@ function Contributors() {
     });
   }, [dmpId]);
 
+
   function handleChange(ev) {
     const { name, value, checked } = ev.target;
     let newContrib = new Contributor(contributor.getData());
 
     switch (name) {
+      case "primary_contact":
+        newContrib.primary_contact = checked;
+        setContributor(newContrib);
+        break;
+
       case "role":
         if (checked) {
           newContrib.addRole(value);
@@ -89,25 +96,30 @@ function Contributors() {
     ev.preventDefault();
 
     const data = new FormData(ev.target);
+    let newContrib = new Contributor(contributor.getData());
 
     let full_name = data.get("first_name");
     if (data.get("last_name")) full_name += ", " + data.get("last_name");
-    contributor.name = full_name;
-    contributor.mbox = data.get("email");
-    contributor.setData("contributor_id.identifier", data.get("orcid"));
-    contributor.commit();
+    newContrib.name = full_name;
+    newContrib.mbox = data.get("email");
+    newContrib.setData("contributor_id.identifier", data.get("orcid"));
+    newContrib.commit();
 
-    if (editIndex === null) {
-      // NOTE:: Null index indicates a brand new contributor being added
-      dmp.contributors.add(contributor);
+    if (newContrib.isValid()) {
+      if (editIndex === null) {
+        // NOTE:: Null index indicates a brand new contributor being added
+        dmp.contributors.add(newContrib);
+      } else {
+        dmp.contributors.update(editIndex, newContrib);
+      }
+      dmp.commit();
+      let newDmp = new DmpModel(dmp.getData());
+      setDmp(newDmp);
+      closeModal();
     } else {
-      dmp.contributors.update(editIndex, contributor);
+      setContributor(newContrib);
+      console.log(contributor.errors);
     }
-    dmp.commit();
-    let newDmp = new DmpModel(dmp.getData());
-    setDmp(newDmp);
-
-    closeModal();
   }
 
   function handleSave(ev) {
@@ -123,9 +135,15 @@ function Contributors() {
         <h1>Contributors</h1>
       </div>
       <p>
-        Tell us about the project contributors for your project and designate
+        Tell us about the project contributors for your project and, designate
         the Primary Investigator (PI). You must specify a Primary Investigator
         (PI) at minimum.
+      </p>
+
+      <p>
+        You must designate one of the contributors as the primary contact. The
+        primary contact is the individual responsible for answering questions
+        about the project or its research outputs.
       </p>
       <div className="dmpdui-top-actions">
         <div>
@@ -205,6 +223,16 @@ function Contributors() {
                   placeholder=""
                   help=""
                   error=""
+                />
+
+                <Checkbox
+                  label="Is Primary Contact?"
+                  name="primary_contact"
+                  id="primaryContact"
+                  inputValue={contributor.primary_contact}
+                  checked={contributor.primary_contact}
+                  onChange={handleChange}
+                  error={contributor.errors.get("primary_contact")}
                 />
               </div>
 

@@ -90,6 +90,8 @@ export class Contributor extends Model {
   #first_name;
   #last_name;
 
+  errors = new Map();
+
   constructor(data) {
     super(data);
     this.affiliation = new RoadmapAffiliation(this.getData("dmproadmap_affiliation", {}));
@@ -120,6 +122,9 @@ export class Contributor extends Model {
   get roles() { return this.getData("role", []); }
   set roles(arr) { this.setData("role", arr); }
 
+  get primary_contact() { return this.getData("primary_contact", false); }
+  set primary_contact(val) { this.setData("primary_contact", val); }
+
   getRoleDisplays() { return this.roles.map(r => getRoleDisplay(r)); }
 
   addRole(val) {
@@ -129,6 +134,21 @@ export class Contributor extends Model {
 
   removeRole(val) {
     this.roles = this.roles.filter(i => i !== val);
+  }
+
+  isValid() {
+    this.errors = new Map();
+
+    if (this.primary_contact) {
+      if (!this.name || !this.mbox) {
+        this.errors.set("primary_contact", "Primary contact must have a name and email.");
+      }
+    }
+
+    if (this.errors.size > 0) {
+      return false;
+    }
+    return true;
   }
 
   commit() {
