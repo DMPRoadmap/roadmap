@@ -38,6 +38,7 @@ module Dmpopidor
             title: ro.title,
             order: ro.display_order,
             hasPersonalData: ro.has_personal_data,
+            type: ro.json_fragment.research_output_description['data']['type'],
             answers: ro.answers.map do |a|
               {
                 answer_id: a.id,
