@@ -92,7 +92,7 @@ export class Contact extends Model {
   set mbox(val) { this.setData("mbox", val); }
 
   get id() { return this.getData("contributor_id.identifier"); }
-  get idType() { return this.getData("contributor_id.type"); }
+  get idType() { return this.getData("contributor_id.type", "orcid"); }
 
   get roles() { return this.getData("role", []); }
   set roles(arr) { this.setData("role", arr); }
@@ -106,9 +106,6 @@ export class Contact extends Model {
   removeRole(val) {
     this.roles = this.roles.filter(i => i !== val);
   }
-
-  get id() { return this.getData("contact_id", {"type": "orcid"}); }
-  set id(val) { this.setData("contact_id", val); }
 }
 
 

@@ -103,7 +103,10 @@ function Contributors() {
     if (data.get("last_name")) full_name += ", " + data.get("last_name");
     newContrib.name = full_name;
     newContrib.mbox = data.get("email");
-    newContrib.setData("contributor_id.identifier", data.get("orcid"));
+    newContrib.setData("contributor_id", {
+      "identifier": data.get("orcid"),
+      "type": "orcid",
+    });
     newContrib.commit();
 
     if (newContrib.isValid()) {
