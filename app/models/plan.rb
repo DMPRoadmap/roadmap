@@ -61,6 +61,12 @@ class Plan < ApplicationRecord
   # ----------------------------------------------------------------------
   belongs_to :language, default: -> { Language.default }
 
+  # ActiveStorage for Narrative PDF document
+  # The narrative is only pre-generated and stored in S3 if it is public. The system will still generate the PDF
+  # on the fly if the user is logged in and requesting it from the 'Download' tab. If a request is made for the
+  # PDF from the 'Public DMPs' page then the copy in the S3 bucket is used
+  has_one_attached :narrative
+
   # =============
   # = Constants =
   # =============
@@ -180,6 +186,9 @@ class Plan < ApplicationRecord
   }
   after_update :notify_subscribers!, if: :versionable_change?
   after_touch :notify_subscribers!
+
+  after_update :store_narrative, if :publicly_visible?
+  after_touch :store_narrative if :publicly_visible?
 
   # ==========
   # = Scopes =
@@ -724,6 +733,13 @@ class Plan < ApplicationRecord
 
     errors.add(:end_date, _('must be after the start date')) if end_date < start_date
     false
+  end
+
+  # Store the narrative in local ActiveStorage if the Plan does not have a DMP ID and it is publicly_visible
+  def store_narrative
+    return true unless dmp_id.nil? && publicly_visible?
+
+    PdfPublisherJob.set(wait: 5.seconds).perform_later(plan: self)
   end
 end
 # rubocop:enable Metrics/ClassLength
