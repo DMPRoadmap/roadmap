@@ -129,7 +129,7 @@ module Dmpopidor
 
             @plan.template = ::Template.find(import_params[:template_id])
 
-            @plan.title = format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
+            @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
             @plan.org = current_user.org
 
             if @plan.save
