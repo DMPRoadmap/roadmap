@@ -28,14 +28,14 @@
         <ul class="nav nav-tabs" role="tablist">
           <% tablist.each_with_index do |tab, i| %>
             <% active_nav ||= tab[:name] %>
-            <li role="presentation" class="nav-item<%= 'active' if active_nav == tab[:name]%>">
+            <li role="presentation" class="nav-item">
               <a
                 data-bs-target="<%= "#guidance_per_question_#{question.id}_#{i}" %>"
                 aria-controls="<%= "#guidance_per_question_#{question.id}_#{i}" %>"
                 role="tab"
                 data-bs-toggle="tab"
                 tabindex="0"
-                class="nav-link view-plan-guidance">
+                class="<%= active_nav == tab[:name] ? "nav-link view-plan-guidance active" : "nav-link view-plan-guidance" %>">
                 <%= tab[:name] %>
               </a>
             </li>

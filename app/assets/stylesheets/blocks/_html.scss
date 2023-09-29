@@ -28,6 +28,10 @@ body{
   hr {
     border-top: 1px solid #eeeeee;
   }
+
+  .row {
+    --bs-gutter-x: 0rem;
+  }
   
 }
 
