@@ -65,36 +65,11 @@ class ModelSet {
 
 
 export class Contact extends Model {
-  get name() { return this.getData("name"); }
-  set name(val) { this.setData("name", val); }
-
-  get roles() { return this.getData("role", []); }
-  set roles(arr) { this.setData("role", arr); }
-  get roleDisplays() { return this.roles.map(r => getRoleDisplay(r)); }
-
-  addRole(val) {
-    if (this.roleContains(val)) return;
-    this.roles = this.roles.push(val);
-  }
-
-  removeRole(val) {
-    this.roles = this.roles.filter(i => i !== val);
-  }
-
-  get id() { return this.getData("contact_id", {}); }
-  set id(val) { this.setData("contact_id", val); }
-}
-
-
-export class Contributor extends Model {
   #first_name;
   #last_name;
 
-  errors = new Map();
-
   constructor(data) {
     super(data);
-    this.affiliation = new RoadmapAffiliation(this.getData("dmproadmap_affiliation", {}));
     this.splitNames();
   }
 
@@ -121,11 +96,7 @@ export class Contributor extends Model {
 
   get roles() { return this.getData("role", []); }
   set roles(arr) { this.setData("role", arr); }
-
-  get primary_contact() { return this.getData("primary_contact", false); }
-  set primary_contact(val) { this.setData("primary_contact", val); }
-
-  getRoleDisplays() { return this.roles.map(r => getRoleDisplay(r)); }
+  get roleDisplays() { return this.roles.map(r => getRoleDisplay(r)); }
 
   addRole(val) {
     if (this.roles.includes(val)) return;
@@ -134,6 +105,20 @@ export class Contributor extends Model {
 
   removeRole(val) {
     this.roles = this.roles.filter(i => i !== val);
+  }
+
+  get id() { return this.getData("contact_id", {"type": "orcid"}); }
+  set id(val) { this.setData("contact_id", val); }
+}
+
+
+export class Contributor extends Contact {
+  errors = new Map();
+  primaryContact = false;
+
+  constructor(data) {
+    super(data);
+    this.affiliation = new RoadmapAffiliation(this.getData("dmproadmap_affiliation", {}));
   }
 
   isValid() {

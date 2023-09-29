@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   DmpModel,
   Contributor,
+  Contact,
   RoadmapAffiliation,
   getContributorRoles,
   getDraftDmp,
@@ -43,7 +44,7 @@ function Contributors() {
 
     switch (name) {
       case "primary_contact":
-        newContrib.primary_contact = checked;
+        newContrib.primaryContact = checked;
         setContributor(newContrib);
         break;
 
@@ -112,9 +113,16 @@ function Contributors() {
       } else {
         dmp.contributors.update(editIndex, newContrib);
       }
+
+      // Update primary contact if required?
+      if (contributor.primaryContact) {
+        dmp.contact = new Contact(newContrib.getData());
+      }
+
       dmp.commit();
       let newDmp = new DmpModel(dmp.getData());
       setDmp(newDmp);
+      console.log(newDmp);
       closeModal();
     } else {
       setContributor(newContrib);
@@ -166,7 +174,7 @@ function Contributors() {
           ? dmp.contributors.items.map((item, index) => (
               <Fragment key={index}>
                 <div data-colname="name">{item.name}</div>
-                <div data-colname="role">{item.getRoleDisplays().join(', ')}</div>
+                <div data-colname="role">{item.roleDisplays.join(', ')}</div>
                 <div data-colname="actions">
                   <button value={index} onClick={handleModalOpen}>
                     Edit
@@ -229,8 +237,8 @@ function Contributors() {
                   label="Is Primary Contact?"
                   name="primary_contact"
                   id="primaryContact"
-                  inputValue={contributor.primary_contact}
-                  checked={contributor.primary_contact}
+                  inputValue={contributor.primaryContact}
+                  checked={contributor.primaryContact}
                   onChange={handleChange}
                   error={contributor.errors.get("primary_contact")}
                 />
