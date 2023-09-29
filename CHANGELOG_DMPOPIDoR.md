@@ -3,6 +3,12 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 ## 29/08/2023
+- Correction du problème de bande blanche sous le pied de page (ce problème venait d'une image ajoutée dans par le code Matomo, a voir si retirer cette image a une conséquence sur l'habilité de Matomo suivre les utilsateurs)
+- La recherche d'organisme lors de la création de compte ou dans le profil utilisateur peut désormas se faire sans accent.
+- Correction de l'adresse mail d'envoi du formulaire de contact.
+- Correction du titre par défaut des plans (présence de 's à la fin du titre)
+
+## 29/08/2023
 - Correction d'un problème de fusion des comptes utilisateurs (issue gitbucket 514)
 - Correction d'un problème de génération des statistiques d'utilisation (ajout de la gem ruby-progressbar)
 
