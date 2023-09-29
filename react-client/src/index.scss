@@ -190,7 +190,7 @@ dialog {
 #App p.dmpui-field-error {
   color: var(--dmpui-brand-red-500);
   &::before {
-    content: "⚠ "
+    content: "⚠ ";
   }
 }
 

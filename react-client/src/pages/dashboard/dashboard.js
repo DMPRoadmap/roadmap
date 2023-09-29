@@ -4,6 +4,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { DmpApi } from "../../api.js";
 import { truncateText } from "../../utils.js";
 import { DmpModel } from "../../models.js";
+
+import TextInput from "../../components/text-input/textInput.js";
+
 import "./dashboard.scss";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
@@ -16,6 +19,12 @@ function Dashboard() {
   let navigate = useNavigate();
 
   const [show, setShow] = useState(false);
+  const [showFilterDrawer, setShowFilterDrawer] = useState(false);
+
+  function handleFilterDrawerOpen(id) {
+    setShowFilterDrawer(true);
+    return false;
+  }
 
   function handleQuickViewOpen(id) {
     console.log("Open Modal; Api Load data: ", id);
@@ -39,7 +48,7 @@ function Dashboard() {
       });
 
     // Fetch the work in progress DMPs for the currently logged in user
-    fetch(api.getPath("/drafts"), api.getOptions())
+    fetch(api.getPath("/drafts", window.location.search), api.getOptions())
       .then((resp) => {
         api.handleResponse(resp);
         return resp.json();
@@ -76,6 +85,18 @@ function Dashboard() {
       </div>
 
       <div className="plan-steps">
+        <div className="plan-step">
+          <div className="filter-tags">
+            <p className="filter-heading">Filter DMPs</p>
+            <button
+              className="button filter-button"
+              onClick={() => handleFilterDrawerOpen()}
+            >
+              Filter
+            </button>
+          </div>
+        </div>
+
         {/* <div className="plan-step">
         <div className="filter-container">
           <div className="filter-status">
@@ -102,8 +123,8 @@ function Dashboard() {
           </div>
           */}
 
-        <div class="table-container">
-          <div class="table-wrapper">
+        <div className="table-container">
+          <div className="table-wrapper">
             <table className="dashboard-table">
               <thead>
                 <tr>
@@ -224,7 +245,10 @@ function Dashboard() {
                       >
                         03-29-2023
                       </td>
-                      <td className={"table-data-name status-" + dmp.status[0]} data-colname="status">
+                      <td
+                        className={"table-data-name status-" + dmp.status[0]}
+                        data-colname="status"
+                      >
                         {dmp.status[1]}
                       </td>
                       <td
@@ -301,6 +325,91 @@ function Dashboard() {
                 Close
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="filter-modal"
+        className={showFilterDrawer ? "show" : ""}
+        title="Add Filter"
+        onClose={() => setShowFilterDrawer(false)}
+      >
+        <div id="filter-view-backdrop">
+          <div id="filter-view">
+            <form
+              method="get"
+              encType="multipart/form-data"
+              action="/dashboard"
+            >
+              <div className="quick-view-text-cont">
+                <h3>Filters</h3>
+                <div className="">
+                  <div className="dmpui-form-col">
+                    <TextInput
+                      label="Title"
+                      type="text"
+                      name="title"
+                      id="filter_title"
+                      placeholder="Title or Abstract"
+                      help="Search for the specified text within the project title and abstract"
+                      error=""
+                    />
+                  </div>
+                </div>
+                <div className="">
+                  <div className="dmpui-form-col">
+                    <TextInput
+                      label="Funder"
+                      type="text"
+                      name="funder"
+                      id="filter_funder"
+                      placeholder="Funder"
+                      help="Search for the name of the funder"
+                      error=""
+                    />
+                  </div>
+                </div>
+                <div className="">
+                  <div className="dmpui-form-col">
+                    <TextInput
+                      label="Grant ID"
+                      type="text"
+                      name="grant_id"
+                      id="filter_grant_id"
+                      placeholder="Grant ID"
+                      help="Search for the name of the Grant ID"
+                      error=""
+                    />
+                  </div>
+                </div>
+                <div className="">
+                  <div className="dmpui-form-col">
+                    <TextInput
+                      label="DMP ID"
+                      type="text"
+                      name="dmp_id"
+                      id="filter_dmp_id"
+                      placeholder="DMP ID"
+                      help="Search for the name of the DMP ID"
+                      error=""
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-actions ">
+                <button type="submit" className="primary">
+                  Filter
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowFilterDrawer(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
