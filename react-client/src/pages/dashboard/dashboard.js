@@ -35,6 +35,19 @@ function Dashboard() {
     return false;
   }
 
+  const [filter_title, setFilter_Title] = useState("");
+  const [filter_funder, setFilter_Funder] = useState("");
+  const [filter_grantId, setFilter_GrantId] = useState("");
+  const [filter_dmpId, setFilter_DmpId] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setFilter_Title(params.get("title") || "");
+    setFilter_Funder(params.get("funder") || "");
+    setFilter_GrantId(params.get("grant_id") || "");
+    setFilter_DmpId(params.get("dmp_id") || "");
+  }, [window.location.search]);
+
   useEffect(() => {
     let api = new DmpApi();
 
@@ -344,61 +357,50 @@ function Dashboard() {
             >
               <div className="quick-view-text-cont">
                 <h3>Filters</h3>
-                <div className="">
-                  <div className="dmpui-form-col">
-                    <TextInput
-                      label="Title"
-                      type="text"
-                      name="title"
-                      id="filter_title"
-                      placeholder="Title or Abstract"
-                      help="Search for the specified text within the project title and abstract"
-                      error=""
-                    />
-                  </div>
-                </div>
-                <div className="">
-                  <div className="dmpui-form-col">
-                    <TextInput
-                      label="Funder"
-                      type="text"
-                      name="funder"
-                      id="filter_funder"
-                      placeholder="Funder"
-                      help="Search for the name of the funder"
-                      error=""
-                    />
-                  </div>
-                </div>
-                <div className="">
-                  <div className="dmpui-form-col">
-                    <TextInput
-                      label="Grant ID"
-                      type="text"
-                      name="grant_id"
-                      id="filter_grant_id"
-                      placeholder="Grant ID"
-                      help="Search for the name of the Grant ID"
-                      error=""
-                    />
-                  </div>
-                </div>
-                <div className="">
-                  <div className="dmpui-form-col">
-                    <TextInput
-                      label="DMP ID"
-                      type="text"
-                      name="dmp_id"
-                      id="filter_dmp_id"
-                      placeholder="DMP ID"
-                      help="Search for the name of the DMP ID"
-                      error=""
-                    />
-                  </div>
+                <div className="dmpui-form-col">
+                  <TextInput
+                    label="Title"
+                    type="text"
+                    name="title"
+                    id="filter_title"
+                    placeholder="Title or Abstract"
+                    inputValue={filter_title}
+                    onChange={(e) => setFilter_Title(e.target.value)}
+                    help="Search for the specified text within the project title and abstract"
+                  />
+                  <TextInput
+                    label="Funder"
+                    type="text"
+                    name="funder"
+                    id="filter_funder"
+                    placeholder="Funder"
+                    inputValue={filter_funder}
+                    onChange={(e) => setFilter_Funder(e.target.value)}
+                    help="Search for the name of the funder"
+                  />
+                  <TextInput
+                    label="Grant ID"
+                    type="text"
+                    name="grant_id"
+                    id="filter_grant_id"
+                    placeholder="Grant ID"
+                    value={filter_grantId}
+                    onChange={(e) => setFilter_GrantId(e.target.value)}
+                    help="Search for the name of the Grant ID"
+                  />
+                  <TextInput
+                    label="DMP ID"
+                    type="text"
+                    name="dmp_id"
+                    id="filter_dmp_id"
+                    placeholder="DMP ID"
+                    value={filter_dmpId}
+                    onChange={(e) => setFilter_DmpId(e.target.value)}
+                    help="Search for the name of the DMP ID"
+                  />
                 </div>
               </div>
-
-              <div className="form-actions ">
+              <div className="form-actions">
                 <button type="submit" className="primary">
                   Filter
                 </button>
