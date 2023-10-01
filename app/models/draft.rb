@@ -50,16 +50,17 @@ class Draft < ApplicationRecord
   validates :narrative, size: { less_than: 250.kilobytes , message: 'PDF too large, must be less than 350KB' },
                         content_type: { in: ['application/pdf'], message: 'must be a PDF document' }
 
+  # Support for filtering and search
   def self.search(user:, params: {})
     return [] unless user.is_a?(User)
 
     recs = where(user_id: user.id)
 
-    title = params.fetch(:title, '').to_s.downcase.strip
-    funder = params.fetch(:funder, '').to_s.downcase.strip
-    grant = params.fetch(:grant_id, '').to_s.downcase.strip
-    visibility = params.fetch(:visibility, '').to_s.downcase.strip
-    dmp_id = params.fetch(:dmp_id, '').to_s.downcase.strip
+    title = params.fetch(:title, '').to_s.strip
+    funder = params.fetch(:funder, '').to_s.strip
+    grant = params.fetch(:grant_id, '').to_s.strip
+    visibility = params.fetch(:visibility, '').to_s.strip
+    dmp_id = params.fetch(:dmp_id, '').to_s.strip
 
     clause = []
     clause << "(LOWER(metadata->>'$.dmp.title') LIKE :title OR LOWER(metadata->>'$.dmp.description') LIKE :title)" unless title.blank?
@@ -67,12 +68,11 @@ class Draft < ApplicationRecord
     clause << "LOWER(metadata->>'$.dmp.project[*].funding[*].grant_id.identifier') LIKE :grant" if grant.present?
     clause << "(LOWER(metadata->>'$.dmp.dmproadmap_privacy') = :visibility OR metadata->>'$.dmp.draft_data.is_private' = :private)" if visibility.present?
     clause << "dmp_id LIKE :dmp_id" if dmp_id.present?
-
     return recs unless clause.any?
 
     recs = recs.where(clause.join(' AND '), title: "%#{title.downcase}%", funder: "%#{funder.downcase}%",
                                             grant: "%#{grant.downcase}%", dmp_id: "%#{dmp_id}",
-                                            visibility: visibility.downcase, private: visibility.downcase == 'private')
+                                            visibility: visibility.downcase, private: (visibility.downcase == 'private').to_s)
     recs
   end
 
@@ -82,8 +82,12 @@ class Draft < ApplicationRecord
     return true if dmp_id.present?
     return false if draft_id.nil? || user.nil?
 
-    hash = JSON.parse(metadata).fetch('dmp', {})
-    !hash['title'].blank? && hash.fetch('contact', {}).fetch('contact_id', {})['identifier'].present?
+    hash = metadata.is_a?(String) ? JSON.parse(metadata).fetch('dmp', {}) : metadata.fetch('dmp', {})
+    !hash['title'].blank? &&
+      hash.fetch('contact', {})['name'].present? &&
+      hash.fetch('contact', {})['mbox'].present? &&
+      hash.fetch('contact', {}).fetch('contact_id', {})['type'].present? &&
+      hash.fetch('contact', {}).fetch('contact_id', {})['identifier'].present?
   end
 
   # Attach the draft_id and narrative to the metadata
@@ -115,7 +119,7 @@ class Draft < ApplicationRecord
 
     # Remove the contact designation before submitting the JSON for DMP ID registration
     data['dmp'].fetch('contributor', []).each do |contributor|
-      next unless contributor.present? && contributor['contact'].present?
+      next unless contributor.present?
 
       contributor.delete('contact')
     end
@@ -142,33 +146,44 @@ class Draft < ApplicationRecord
 
   # Add the created and modified timestamps to the JSON
   def generate_timestamps
+    return false if metadata.nil? || metadata['dmp'].nil?
+
     if metadata['dmp']['created'].nil?
       metadata['dmp']['created'] = new_record? ? Time.now.utc.iso8601 : created_at.to_formatted_s(:iso8601)
     end
     if metadata['dmp']['modified'].nil?
       metadata['dmp']['modified'] = new_record? ? metadata['dmp']['created'] : updated_at.to_formatted_s(:iso8601)
     end
+    true
   end
 
   # Add the ROR IDs for any dmproadmap_affiliation that does not have one
   def append_ror_ids
     unless new_record?
       data = metadata.fetch('dmp', {})
+
+      if data.fetch('contact', {})['dmproadmap_affiliation'].present?
+        ror = RegistryOrg.find_by(name: data['contact'].fetch('dmproadmap_affiliation', {})['name'])&.ror_id
+        json = JSON.parse({ type: 'ror', identifier: ror }.to_json)
+        data['contact']['dmproadmap_affiliation']['affiliation_id'] = json if ror.present?
+      end
+
       data.fetch('contributor', []).each do |contrib|
         next if contrib['dmproadmap_affiliation'].nil? ||
                 contrib.fetch('dmproadmap_affiliation', {})['affiliation_id'].present?
 
         ror = RegistryOrg.find_by(name: contrib.fetch('dmproadmap_affiliation', {})['name'])&.ror_id
-        contrib['dmproadmap_affiliation']['affiliation_id'] = { type: 'ror', identifier: ror } if ror.present?
+        json = JSON.parse({ type: 'ror', identifier: ror }.to_json)
+        contrib['dmproadmap_affiliation']['affiliation_id'] = json if ror.present?
       end
 
       project = data.fetch('project', []).first
-      return data if project.present? && project.fetch('funding', []).first.present?
+      return data if project.nil? || project.fetch('funding', []).first.nil?
 
       funding = project['funding'].first
 
       ror = RegistryOrg.find_by(name: funding['name'])&.ror_id
-      funding['funder_id'] = { type: 'ror', identifier: ror } if ror.present?
+      funding['funder_id'] = JSON.parse({ type: 'ror', identifier: ror }.to_json) if ror.present?
     end
   end
 
@@ -219,7 +234,8 @@ class Draft < ApplicationRecord
       next unless contrib['contributor_id'].present?
 
       # TODO: Delete this once the UI has been fixed to include it
-      contrib['contributor_id']['type'] = 'orcid' if contrib['contributor_id']['identifier'].present?
+      contrib['contributor_id']['type'] = 'orcid' if contrib['contributor_id']['identifier'].present? &&
+                                                     !contrib['contributor_id']['type'].present?
     end
 
     dmp.fetch('project', []).each do |project|
@@ -243,14 +259,13 @@ class Draft < ApplicationRecord
 
       # If a size was specified convert it to bytes and move the value to the distribution
       size = dataset.fetch('size', {})
-      byte_size = process_byte_size(unit: size['unit'], size: size['value']) if size['value'].present?
+      val = size['value'].to_f if size['value'].present? && size['value'].match(%r{[\d\.]+}).present?
+      byte_size = process_byte_size(unit: size['unit'], size: val) if val.present?
       dataset.delete('size') if dataset['size'].present?
 
       dataset['distribution'].each do |distro|
         distro['title'] = "Proposed distribution of '#{dataset['title']}'" unless distro['title'].present?
         distro['byte_size'] = byte_size if byte_size.present?
-
-        next if distro['data_access'].present?
 
         # TODO: Remove this once the UI is properly pre-populating the URL
         if distro['host'].present? && distro['host']['url'].nil?
@@ -285,13 +300,13 @@ class Draft < ApplicationRecord
     }
     contact[:dmproadmap_affiliation] = contributor['dmproadmap_affiliation'] unless contributor['dmproadmap_affiliation'].nil?
     contact[:contact_id] = contributor['contributor_id'] unless contributor['contributor_id'].nil?
-    contact[:contact_id] = { type: 'other', identifier: contributor['mbox'] } if contact['contact_id'].nil?
+    contact[:contact_id] = { type: 'other', identifier: contributor['mbox'] } if contact[:contact_id].nil?
     JSON.parse(contact.to_json)
   end
 
   # Default that will assign the person who created the Draft DMP as the primary contact
   def owner_to_contact
-    user = User.find(user_id)
+    user = User.find_by(id: user_id)
     return nil unless user.present?
 
     ror = RegistryOrg.find_by(org_id: user.org.id)
@@ -305,15 +320,15 @@ class Draft < ApplicationRecord
       }
     }
     contact[:dmproadmap_affiliation][:affiliation_id] = { type: 'ror', identifier: ror.ror_id } if ror.present?
-    contact[:contact_id] = orcid.present? ? { type: 'orcid', identifier: orcid.value } : { type: 'other', identifier: user.id }
+    contact[:contact_id] = orcid.present? ? { type: 'orcid', identifier: orcid.value } : { type: 'other', identifier: user.email }
     JSON.parse(contact.to_json)
   end
 
   # Convert the incoming file size to bytes
-  def process_byte_size(unit: 'kb', size:)
-    return nil unless size.is_a?(Integer) || size.is_?(Float)
+  def process_byte_size(unit:, size:)
+    return nil unless size.is_a?(Integer) || size.is_a?(Float)
 
-    byte_size = 0.bytes + case unit
+    byte_size = 0.bytes + case unit.downcase.strip
                           when 'pb'
                             size.to_f.petabytes
                           when 'tb'
@@ -322,10 +337,12 @@ class Draft < ApplicationRecord
                             size.to_f.gigabytes
                           when 'mb'
                             size.to_f.megabytes
+                          when 'kb'
+                            size.to_f.kilobytes
                           else
-                            size.to_i
+                            size
                           end
 
-    byte_size
+    byte_size.to_i
   end
 end

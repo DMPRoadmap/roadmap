@@ -124,6 +124,9 @@ class PlanExportsController < ApplicationController
   end
 
   def show_pdf
+    # If we have a copy of the PDF stored in ActiveStorage, just retrieve that one instead of generating it
+    return @plan.narrative if @plan.narrative.present? && current_user.nil?
+
     render pdf: file_name,
           margin: @formatting[:margin],
           # wkhtmltopdf behavior is based on the OS so force the zoom level

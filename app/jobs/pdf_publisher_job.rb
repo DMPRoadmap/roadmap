@@ -47,14 +47,28 @@ class PdfPublisherJob < ApplicationJob
     pdf_file = File.open(pdf_file_name, 'wb') { |tmp| tmp << file }
     pdf_file.close
 
+    # Send it to DMPHub if it has a DMP ID otherwise store it in local ActiveStorage
+    has_dmp_id = plan.dmp_id.present?
+    _publish_to_dmphub(plan: plan, pdf_file_name: pdf_file_name) if has_dmp_id
+    _publish_locally(plan: plan, pdf_file: pdf_file) unless has_dmp_id
+
+    # Delete the tmp file
+    File.delete(pdf_file_name)
+  end
+
+  # Publish the PDF to local ActiveStorage
+  def _publish_locally(plan:, pdf_file_name:)
+    plan.narrative = pdf_file
+  end
+
+  # Publish the PDF to the DMPHub
+  def _publish_to_dmphub(plan:, pdf_file_name:)
     hash = DmpIdService.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
     if hash.is_a?(Hash) && hash[:narrative_url].present?
       Rails.logger.info "PdfPublisherJob._process_narrative_file successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
     else
       Rails.logger.error 'PdfPublisherJob._process_narrative_file did not return a narrtive URL!'
     end
-    # Delete the tmp file
-    File.delete(pdf_file_name)
   end
 
   # rubocop:disable Metrics/AbcSize
