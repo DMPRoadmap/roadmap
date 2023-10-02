@@ -737,9 +737,13 @@ class Plan < ApplicationRecord
 
   # Store the narrative in local ActiveStorage if the Plan does not have a DMP ID and it is publicly_visible
   def store_narrative
-    return true unless dmp_id.nil? && publicly_visible?
+    return false unless dmp_id.nil? && publicly_visible?
+    # Don't kick of the job if it is already enqueued!
+    return false if publisher_job_status == 'enqueued'
 
+    update(publisher_job_status: 'enqueued')
     PdfPublisherJob.set(wait: 5.seconds).perform_later(plan: self)
+    true
   end
 end
 # rubocop:enable Metrics/ClassLength
