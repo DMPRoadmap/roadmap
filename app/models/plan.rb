@@ -187,8 +187,8 @@ class Plan < ApplicationRecord
   after_update :notify_subscribers!, if: :versionable_change?
   after_touch :notify_subscribers!
 
-  after_update :store_narrative, if :publicly_visible?
-  after_touch :store_narrative if :publicly_visible?
+  after_update :store_narrative, if: :publicly_visible?
+  after_touch :store_narrative, if: :publicly_visible?
 
   # ==========
   # = Scopes =
