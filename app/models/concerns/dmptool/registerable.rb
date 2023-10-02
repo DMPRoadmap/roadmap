@@ -95,10 +95,11 @@ module Dmptool
       # Send the narrative PDF document to the DMPHub
       def publish_narrative!
         # Don't kick of the job if it is already enqueued!
-        return false if self.respond_to?(:publisher_job_status) && self.publisher_job_status == 'enqueued'
+        return false unless self.respond_to?(:publisher_job_status)
+        return false if self.publisher_job_status == 'enqueued'
 
-        self.update(publisher_job_status: 'enqueued') if self.respond_to?(:publisher_job_status)
-        PdfPublisherJob.set(wait: 2.minutes).perform_later(plan: self)
+        self.update(publisher_job_status: 'enqueued')
+        PdfPublisherJob.set(wait: 30.seconds).perform_later(plan: self)
       rescue StandardError => e
         Rails.logger.error "Unable to publish PDF Narrative - #{e.message}"
       end

@@ -187,9 +187,6 @@ class Plan < ApplicationRecord
   after_update :notify_subscribers!, if: :versionable_change?
   after_touch :notify_subscribers!
 
-  after_update :store_narrative, if: :publicly_visible?
-  after_touch :store_narrative, if: :publicly_visible?
-
   # ==========
   # = Scopes =
   # ==========
@@ -720,10 +717,9 @@ class Plan < ApplicationRecord
     end
     targets = targets.flatten.uniq if targets.any?
 
-puts "SUBSCRIPTIONS:"
-targets.each { |subscr| p "    plan: #{subscr.plan_id}, subscriber: #{subscr.subscriber_id} - #{subscr.subscriber_type}" }
-
     targets.each(&:notify!)
+
+    publish_narrative! if dmp_id.nil? && publicly_visible?
     true
   end
 
@@ -734,17 +730,6 @@ targets.each { |subscr| p "    plan: #{subscr.plan_id}, subscriber: #{subscr.sub
 
     errors.add(:end_date, _('must be after the start date')) if end_date < start_date
     false
-  end
-
-  # Store the narrative in local ActiveStorage if the Plan does not have a DMP ID and it is publicly_visible
-  def store_narrative
-    return false unless publicly_visible?
-    # Don't kick of the job if it is already enqueued!
-    # return false if publisher_job_status == 'enqueued'
-
-    # update(publisher_job_status: 'enqueued')
-    PdfPublisherJob.set(wait: 5.seconds).perform_later(plan: self)
-    true
   end
 end
 # rubocop:enable Metrics/ClassLength

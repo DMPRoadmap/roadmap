@@ -49,21 +49,23 @@ class PdfPublisherJob < ApplicationJob
     # Send it to DMPHub if it has a DMP ID otherwise store it in local ActiveStorage
     has_dmp_id = plan.dmp_id.present?
     _publish_to_dmphub(plan: plan, pdf_file_name: pdf_file_name) if has_dmp_id
-    _publish_locally(plan: plan, pdf_file: pdf_file) unless has_dmp_id
-
+    _publish_locally(plan: plan, pdf_file_path: pdf_file_name, pdf_file_name: "#{file_name}.pdf") if plan.publicly_visible? &&
+                                                                                                     !has_dmp_id
     # Delete the tmp file
     File.delete(pdf_file_name)
   end
 
   # Publish the PDF to local ActiveStorage
-  def _publish_locally(plan:, pdf_file:)
-    plan.narrative = pdf_file
+  def _publish_locally(plan:, pdf_file_path:, pdf_file_name:)
+    plan.narrative.attach(io: File.open(pdf_file_path), filename: 'file.pdf', content_type: 'application/pdf')
     if plan.save
-      Rails.logger.info "PdfPublisherJob._publish_locally successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
-      # plan.update(publisher_job_status: 'success')
+      Rails.logger.info "PdfPublisherJob._publish_locally successfully published PDF for #{plan.dmp_id} at #{pdf_file_path}"
+      plan.update(publisher_job_status: 'success')
+
+
     else
-      Rails.logger.error 'PdfPublisherJob._publish_locally did not return a narrtive URL!'
-      # plan.update(publisher_job_status: 'failed')
+      Rails.logger.error 'PdfPublisherJob._publish_locally failed to store file in ActiveStorage!'
+      plan.update(publisher_job_status: 'failed')
     end
   end
 
@@ -72,10 +74,10 @@ class PdfPublisherJob < ApplicationJob
     hash = DmpIdService.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
     if hash.is_a?(Hash) && hash[:narrative_url].present?
       Rails.logger.info "PdfPublisherJob._publish_to_dmphub successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
-      # plan.update(publisher_job_status: 'success')
+      plan.update(publisher_job_status: 'success')
     else
       Rails.logger.error 'PdfPublisherJob._publish_to_dmphub did not return a narrtive URL!'
-      # plan.update(publisher_job_status: 'failed')
+      plan.update(publisher_job_status: 'failed')
     end
   end
 
