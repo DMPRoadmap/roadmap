@@ -153,45 +153,46 @@ function Dashboard() {
 
         <div className="table-container">
           <div className="table-wrapper">
-            <table className="dashboard-table">
-              <thead>
-                <tr>
-                  <th scope="col" className="table-header-name data-heading">
-                    Project Name
-                  </th>
+            {projects.length > 0 ? (
+              <table className="dashboard-table">
+                <thead>
+                  <tr>
+                    <th scope="col" className="table-header-name data-heading">
+                      Project Name
+                    </th>
 
-                  <th scope="col" className="table-header-name data-heading">
-                    Funder
-                  </th>
+                    <th scope="col" className="table-header-name data-heading">
+                      Funder
+                    </th>
 
-                  <th scope="col" className="table-header-name data-heading">
-                    Last Edited
-                  </th>
+                    <th scope="col" className="table-header-name data-heading">
+                      Last Edited
+                    </th>
 
-                  <th scope="col" className="table-header-name data-heading">
-                    Status
-                  </th>
-                  <th scope="col" className="table-header-name data-heading">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="table-body">
-                {projects.map((dmp) => (
-                  <Fragment key={dmp.draftId}>
-                    <tr key={dmp.draftId}>
-                      <td
-                        className="table-data-name table-data-title"
-                        data-colname="title"
-                      >
-                        <Link
-                          title={dmp.title}
-                          to={`/dashboard/dmp/${dmp.draftId}`}
+                    <th scope="col" className="table-header-name data-heading">
+                      Status
+                    </th>
+                    <th scope="col" className="table-header-name data-heading">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="table-body">
+                  {projects.map((dmp) => (
+                    <Fragment key={dmp.draftId}>
+                      <tr key={dmp.draftId}>
+                        <td
+                          className="table-data-name table-data-title"
+                          data-colname="title"
                         >
-                          {truncateText(dmp.title, 50)}
-                        </Link>
+                          <Link
+                            title={dmp.title}
+                            to={`/dashboard/dmp/${dmp.draftId}`}
+                          >
+                            {truncateText(dmp.title, 50)}
+                          </Link>
 
-                        {/*
+                          {/*
                         <a
                           href="#"
                           title={dmp.title}
@@ -221,80 +222,89 @@ function Dashboard() {
                           </span>
                         </a>
 */}
-                        <div className="d-block table-data-pi">
-                          {dmp.contributors
-                            ? dmp.contributors.items.map((item, index) => (
-                                <Fragment key={index}>
-                                  {item.roles &&
-                                    item.roles.includes("investigation") && (
-                                      <span>
-                                        PI: {truncateText(item.name, 80)}
-                                      </span>
-                                    )}
-                                </Fragment>
-                              ))
-                            : ""}
+                          <div className="d-block table-data-pi">
+                            {dmp.contributors
+                              ? dmp.contributors.items.map((item, index) => (
+                                  <Fragment key={index}>
+                                    {item.roles &&
+                                      item.roles.includes("investigation") && (
+                                        <span>
+                                          PI: {truncateText(item.name, 80)}
+                                        </span>
+                                      )}
+                                  </Fragment>
+                                ))
+                              : ""}
 
-                          {dmp.draftId && dmp.draftId == "XXX" && (
-                            <span className={"action-required-text"}>
-                              X works need verification
+                            {dmp.draftId && dmp.draftId == "XXX" && (
+                              <span className={"action-required-text"}>
+                                X works need verification
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="table-data-name" data-colname="funder">
+                          {dmp.funding.acronym ? (
+                            <span title={dmp.funding.name}>
+                              {dmp.funding.acronym}
                             </span>
+                          ) : dmp.funding.name ? (
+                            <span title={dmp.funding.name}>
+                              {truncateText(dmp.funding.name, 50)}
+                            </span>
+                          ) : (
+                            "None"
                           )}
-                        </div>
-                      </td>
-                      <td className="table-data-name" data-colname="funder">
-                        {dmp.funding.acronym ? (
-                          <span title={dmp.funding.name}>
-                            {dmp.funding.acronym}
-                          </span>
-                        ) : dmp.funding.name ? (
-                          <span title={dmp.funding.name}>
-                            {truncateText(dmp.funding.name, 50)}
-                          </span>
-                        ) : (
-                          "None"
-                        )}
 
-                        {console.log(dmp)}
-                      </td>
-                      <td
-                        className="table-data-date"
-                        data-colname="last_edited"
-                      >
-                        03-29-2023
-                      </td>
-                      <td
-                        className={"table-data-name status-" + dmp.status[0]}
-                        data-colname="status"
-                      >
-                        {dmp.status[1]}
-                      </td>
-                      <td
-                        className="table-data-name table-data-actions"
-                        data-colname="actions"
-                      >
-                        {dmp.draftId && dmp.draftId === "XXX" ? (
-                          <Link
-                            className="edit-button"
-                            to={`/dashboard/dmp/${dmp.draftId}`}
-                          >
-                            Complete
-                          </Link>
-                        ) : (
-                          <Link
-                            className="edit-button"
-                            to={`/dashboard/dmp/${dmp.draftId}`}
-                          >
-                            Update
-                            <span className={"action-required"}></span>
-                          </Link>
-                        )}
-                      </td>
-                    </tr>
-                  </Fragment>
-                ))}
-              </tbody>
-            </table>
+                          {console.log(dmp)}
+                        </td>
+                        <td
+                          className="table-data-date"
+                          data-colname="last_edited"
+                        >
+                          03-29-2023
+                        </td>
+                        <td
+                          className={"table-data-name status-" + dmp.status[0]}
+                          data-colname="status"
+                        >
+                          {dmp.status[1]}
+                        </td>
+                        <td
+                          className="table-data-name table-data-actions"
+                          data-colname="actions"
+                        >
+                          {dmp.draftId && dmp.draftId === "XXX" ? (
+                            <Link
+                              className="edit-button"
+                              to={`/dashboard/dmp/${dmp.draftId}`}
+                            >
+                              Complete
+                            </Link>
+                          ) : (
+                            <Link
+                              className="edit-button"
+                              to={`/dashboard/dmp/${dmp.draftId}`}
+                            >
+                              Update
+                              <span className={"action-required"}></span>
+                            </Link>
+                          )}
+                        </td>
+                      </tr>
+                    </Fragment>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="no-dmp-message mt-5">
+                <h3>There are no DMP results found</h3>
+                <p>
+                  No DMPs were found that match your search criteria. Please
+                  broaden your search and try again.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

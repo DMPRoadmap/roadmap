@@ -137,6 +137,9 @@
     border-color: #ddd;
     border-radius: 9px;
   }
+  .filter-button:hover {
+    background-color: #e3e4eb;
+  }
   .table-data-name {
     padding: 1rem 0.75rem 1rem 1rem;
 
@@ -232,4 +235,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.no-dmp-message {
+  margin: 2rem 0;
+  padding: 2rem 2rem;
+  background-color: #fcfcfc;
 }
