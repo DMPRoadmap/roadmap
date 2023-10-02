@@ -345,7 +345,6 @@ function Dashboard() {
       <div
         id="filter-modal"
         className={showFilterDrawer ? "show" : ""}
-        title="Add Filter"
         onClose={() => setShowFilterDrawer(false)}
       >
         <div id="filter-view-backdrop">
@@ -363,7 +362,7 @@ function Dashboard() {
                     type="text"
                     name="title"
                     id="filter_title"
-                    placeholder="Title or Abstract"
+                    placeholder=""
                     inputValue={filter_title}
                     onChange={(e) => setFilter_Title(e.target.value)}
                     help="Search for the specified text within the project title and abstract"
@@ -373,7 +372,7 @@ function Dashboard() {
                     type="text"
                     name="funder"
                     id="filter_funder"
-                    placeholder="Funder"
+                    placeholder=""
                     inputValue={filter_funder}
                     onChange={(e) => setFilter_Funder(e.target.value)}
                     help="Search for the name of the funder"
@@ -383,17 +382,17 @@ function Dashboard() {
                     type="text"
                     name="grant_id"
                     id="filter_grant_id"
-                    placeholder="Grant ID"
+                    placeholder=""
                     value={filter_grantId}
                     onChange={(e) => setFilter_GrantId(e.target.value)}
-                    help="Search for the name of the Grant ID"
+                    help="Search for the Grant ID"
                   />
                   <TextInput
                     label="DMP ID"
                     type="text"
                     name="dmp_id"
                     id="filter_dmp_id"
-                    placeholder="DMP ID"
+                    placeholder=""
                     value={filter_dmpId}
                     onChange={(e) => setFilter_DmpId(e.target.value)}
                     help="Search for the name of the DMP ID"
