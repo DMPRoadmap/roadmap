@@ -44,7 +44,9 @@ function Contributors() {
 
     switch (name) {
       case "primary_contact":
-        newContrib.primaryContact = checked;
+        newContrib.contact = checked;
+        console.log(checked);
+        console.log(newContrib);
         setContributor(newContrib);
         break;
 
@@ -116,13 +118,8 @@ function Contributors() {
       } else {
         dmp.contributors.update(editIndex, newContrib);
       }
-
-      // Update primary contact if required?
-      if (contributor.primaryContact) {
-        dmp.contact = new Contact(newContrib.getData());
-      }
-
       dmp.commit();
+
       let newDmp = new DmpModel(dmp.getData());
       setDmp(newDmp);
       console.log(newDmp);
@@ -240,10 +237,10 @@ function Contributors() {
                   label="Is Primary Contact?"
                   name="primary_contact"
                   id="primaryContact"
-                  inputValue={contributor.primaryContact}
-                  checked={contributor.primaryContact}
+                  inputValue={contributor.contact}
+                  checked={contributor.contact}
                   onChange={handleChange}
-                  error={contributor.errors.get("primary_contact")}
+                  error={contributor.errors.get("contact")}
                 />
               </div>
 

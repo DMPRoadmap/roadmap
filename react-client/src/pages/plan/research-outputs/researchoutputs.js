@@ -111,19 +111,22 @@ function ResearchOutputs() {
     const data = new FormData(ev.target);
     dataObj.title = data.get("title");
     dataObj.type = data.get("data_type");
-
     // NOTE: Repository should already be set, because it's handled in the
     // handleChange() function.
 
-    if (editIndex === null) {
-      dmp.dataset.add(dataObj);
+    if (dataObj.isValid()) {
+      if (editIndex === null) {
+        dmp.dataset.add(dataObj);
+      } else {
+        dmp.dataset.update(editIndex, dataObj);
+      }
+      let newDmp = new DmpModel(dmp.getData());
+      setDmp(newDmp);
+      closeModal();
     } else {
-      dmp.dataset.update(editIndex, dataObj);
+      console.log(dataObj.errors);
+      setDataObj(dataObj);
     }
-    let newDmp = new DmpModel(dmp.getData());
-    setDmp(newDmp);
-
-    closeModal();
   }
 
 
@@ -172,8 +175,8 @@ function ResearchOutputs() {
           Repository
         </div>
         <div className="data-heading" data-colname="datatype">
-          Data type
-        </div>
+          Output type
+       </div>
         <div className="data-heading" data-colname="actions"></div>
 
         {dmp?.dataset?.items ? dmp.dataset.items.map((item, index) => (
@@ -206,7 +209,7 @@ function ResearchOutputs() {
                   inputValue={dataObj.title}
                   placeholder=""
                   help=""
-                  error=""
+                  error={dataObj.errors.get("title")}
                 />
               </div>
 
@@ -218,6 +221,7 @@ function ResearchOutputs() {
                   id="data_type"
                   inputValue={dataObj.type}
                   onChange={handleChange}
+                  error={dataObj.errors.get("type")}
                   help=""
                 />
               </div>

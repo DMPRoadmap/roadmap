@@ -5,6 +5,7 @@ import moment from 'moment';
 
 class Model {
   #data;
+  errors = new Map();
 
   constructor(data) {
     this.#data = data;
@@ -20,6 +21,18 @@ class Model {
 
   setData(path, value) {
     this.#data = setProperty(this.#data, path, value);
+  }
+
+  validateFields() {
+    // sub-classes should use this.errors.set() to set errors
+    throw new Error("validateFields not implemented for model");
+  }
+
+  isValid() {
+    this.errors = new Map();
+    this.validateFields();
+    if (this.errors.size > 0) { return false; }
+    return true;
   }
 }
 
@@ -110,27 +123,20 @@ export class Contact extends Model {
 
 
 export class Contributor extends Contact {
-  errors = new Map();
-  primaryContact = false;
-
   constructor(data) {
     super(data);
     this.affiliation = new RoadmapAffiliation(this.getData("dmproadmap_affiliation", {}));
   }
 
-  isValid() {
-    this.errors = new Map();
+  get contact() { this.getData("contact", false); }
+  set contact(val) { this.setData("contact", val); }
 
-    if (this.primary_contact) {
+  validateFields() {
+    if (this.contact) {
       if (!this.name || !this.mbox) {
-        this.errors.set("primary_contact", "Primary contact must have a name and email.");
+        this.errors.set("contact", "Primary contact must have a name and email.");
       }
     }
-
-    if (this.errors.size > 0) {
-      return false;
-    }
-    return true;
   }
 
   commit() {
@@ -269,6 +275,11 @@ export class DataObject extends Model {
   get sensitive() { return this.getData("sensitive_data", "no"); }
   set sensitive(val) { this.setData("sensitive_data", val); }
   get isSensitive() { return (this.sensitive === "yes"); }
+
+  validateFields() {
+    if (!this.title) this.errors.set("title", "Title is required");
+    if (!this.type) this.errors.set("type", "Type is required");
+  }
 
   commit() {
     this.setData("distribution", [{host: this.repository.getData()}]);
