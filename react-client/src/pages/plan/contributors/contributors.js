@@ -45,8 +45,6 @@ function Contributors() {
     switch (name) {
       case "primary_contact":
         newContrib.contact = checked;
-        console.log(checked);
-        console.log(newContrib);
         setContributor(newContrib);
         break;
 
@@ -109,6 +107,8 @@ function Contributors() {
       "identifier": data.get("orcid"),
       "type": "orcid",
     });
+    newContrib.contact = contributor.contact;
+
     newContrib.commit();
 
     if (newContrib.isValid()) {
@@ -122,7 +122,6 @@ function Contributors() {
 
       let newDmp = new DmpModel(dmp.getData());
       setDmp(newDmp);
-      console.log(newDmp);
       closeModal();
     } else {
       setContributor(newContrib);
@@ -237,9 +236,8 @@ function Contributors() {
                   label="Is Primary Contact?"
                   name="primary_contact"
                   id="primaryContact"
-                  inputValue={contributor.contact}
-                  checked={contributor.contact}
                   onChange={handleChange}
+                  isChecked={contributor.contact}
                   error={contributor.errors.get("contact")}
                 />
               </div>
@@ -282,7 +280,7 @@ function Contributors() {
                     What is this person's role? *
                   </label>
 
-                  <div onChange={handleChange}>
+                  <div id="contributorRoles">
                     {roles.map((role, index) => (
                       <Fragment key={index}>
                         <Checkbox
@@ -290,7 +288,8 @@ function Contributors() {
                           name="role"
                           id={"_role_" + role.value}
                           inputValue={role.value}
-                          checked={contributor.roles.includes(role.value)}
+                          onChange={handleChange}
+                          isChecked={contributor.roles.includes(role.value)}
                         />
                       </Fragment>
                     ))}

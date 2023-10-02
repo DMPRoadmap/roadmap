@@ -106,6 +106,14 @@ export class Contact extends Model {
 
   get id() { return this.getData("contributor_id.identifier"); }
   get idType() { return this.getData("contributor_id.type", "orcid"); }
+}
+
+
+export class Contributor extends Contact {
+  constructor(data) {
+    super(data);
+    this.affiliation = new RoadmapAffiliation(this.getData("dmproadmap_affiliation", {}));
+  }
 
   get roles() { return this.getData("role", []); }
   set roles(arr) { this.setData("role", arr); }
@@ -116,19 +124,15 @@ export class Contact extends Model {
     this.roles.push(val);
   }
 
+  hasRole(role) {
+    return this.roles.includes(role);
+  }
+
   removeRole(val) {
     this.roles = this.roles.filter(i => i !== val);
   }
-}
 
-
-export class Contributor extends Contact {
-  constructor(data) {
-    super(data);
-    this.affiliation = new RoadmapAffiliation(this.getData("dmproadmap_affiliation", {}));
-  }
-
-  get contact() { this.getData("contact", false); }
+  get contact() { return this.getData("contact", false); }
   set contact(val) { this.setData("contact", val); }
 
   validateFields() {
@@ -278,7 +282,9 @@ export class DataObject extends Model {
 
   validateFields() {
     if (!this.title) this.errors.set("title", "Title is required");
-    if (!this.type) this.errors.set("type", "Type is required");
+    if (!this.type || this.type.toLowerCase() == "select one") {
+      this.errors.set("type", "Type is required");
+    }
   }
 
   commit() {
@@ -409,7 +415,6 @@ export class DmpModel extends Model {
 
   commit() {
     this.setData("project", [this.project.getData()]);
-    this.setData("contact", [this.contact.getData()]);
     this.setData("dataset", this.dataset.getData());
 
     // NOTE: Even though the data for this can be many contributors, the key

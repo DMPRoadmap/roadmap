@@ -1,7 +1,17 @@
 import { useState } from "react";
 
-function Checkbox(props) {
-  let errorMsg = props?.error ? props.error : "";
+function Checkbox({ isChecked,
+                    error,
+                    id,
+                    name,
+                    label,
+                    inputValue,
+                    onChange,
+                    disabled
+                  }) {
+  const [checked, setChecked] = useState(isChecked ? isChecked : false);
+
+  let errorMsg = error ? error : "";
   let errorClass = "";
   if (errorMsg) {
     errorClass = "has-error";
@@ -9,7 +19,9 @@ function Checkbox(props) {
   }
 
   function handleChange(ev) {
-    if (props.onChange) props.onChange(ev);
+    const { name, value, chk } = ev.target;
+    setChecked(chk);
+    if (onChange) onChange(ev);
   }
 
   return (
@@ -18,15 +30,15 @@ function Checkbox(props) {
         <input
           type="checkbox"
           className="dmpui-field-input-checkbox"
-          name={props?.name ? props.name : ""}
-          id={props?.id ? props.id : ""}
-          checked={props?.checked ? props.checked : ""}
-          value={props?.inputValue ? props.inputValue : "x"}
-          disabled={props.disabled}
+          name={name ? name : ""}
+          id={id ? id : ""}
+          checked={isChecked}
           onChange={handleChange}
+          value={inputValue}
+          disabled={disabled}
         />
-        <label htmlFor={props?.id ? props.id : ""} className="checkbox-label">
-          {props?.label ? props.label : ""}
+        <label htmlFor={id ? id : ""} className="checkbox-label">
+          {label ? label : ""}
         </label>
       </div>
       {errorMsg && <p className="dmpui-field-error"> {errorMsg} </p>}
