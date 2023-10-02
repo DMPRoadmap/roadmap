@@ -720,7 +720,8 @@ class Plan < ApplicationRecord
     end
     targets = targets.flatten.uniq if targets.any?
 
-puts "SUBSCRIPTIONS: #{targets.map { |subscr| "plan: #{subscr.plan_id}, subscriber: #{subscr.subscriber_id} - #{subscr.subscriber_type}" }"
+puts "SUBSCRIPTIONS:"
+targets.each { |subscr| p "    plan: #{subscr.plan_id}, subscriber: #{subscr.subscriber_id} - #{subscr.subscriber_type}" }
 
     targets.each(&:notify!)
     true
