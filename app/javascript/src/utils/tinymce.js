@@ -53,7 +53,7 @@ export const defaultOptions = {
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
   skin_url: '/tinymce/skins/oxide',
-  content_css: ['/tinymce/tinymce.css'],
+  content_css: [],
 };
 
 /*

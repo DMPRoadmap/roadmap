@@ -37,6 +37,8 @@
 @use './dmpopidor/import_plan' as *;
 @use './dmpopidor/sweet_alert' as *;
 
+@use './dmpopidor/_react_tooltip.scss' as *;
+
 body {
   display: flex;
   flex-direction: column;
