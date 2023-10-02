@@ -719,10 +719,10 @@ class Plan < ApplicationRecord
       subscriptions.select { |sub| sub.selected_subscription_types.include?(typ.to_sym) }
     end
     targets = targets.flatten.uniq if targets.any?
-    targets.each(&:notify!)
 
-    # Re-publish the narrative PDF document
-    publish_narrative! if respond_to?(:publish_narrative!) && dmp_id.present?
+puts "SUBSCRIPTIONS: #{targets.map { |subscr| "plan: #{subscr.plan_id}, subscriber: #{subscr.subscriber_id} - #{subscr.subscriber_type}" }"
+
+    targets.each(&:notify!)
     true
   end
 
@@ -737,11 +737,11 @@ class Plan < ApplicationRecord
 
   # Store the narrative in local ActiveStorage if the Plan does not have a DMP ID and it is publicly_visible
   def store_narrative
-    return false unless dmp_id.nil? && publicly_visible?
+    return false unless publicly_visible?
     # Don't kick of the job if it is already enqueued!
-    return false if publisher_job_status == 'enqueued'
+    # return false if publisher_job_status == 'enqueued'
 
-    update(publisher_job_status: 'enqueued')
+    # update(publisher_job_status: 'enqueued')
     PdfPublisherJob.set(wait: 5.seconds).perform_later(plan: self)
     true
   end

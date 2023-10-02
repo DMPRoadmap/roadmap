@@ -60,10 +60,10 @@ class PdfPublisherJob < ApplicationJob
     plan.narrative = pdf_file
     if plan.save
       Rails.logger.info "PdfPublisherJob._publish_locally successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
-      plan.update(publisher_job_status: 'success')
+      # plan.update(publisher_job_status: 'success')
     else
       Rails.logger.error 'PdfPublisherJob._publish_locally did not return a narrtive URL!'
-      plan.update(publisher_job_status: 'failed')
+      # plan.update(publisher_job_status: 'failed')
     end
   end
 
@@ -72,10 +72,10 @@ class PdfPublisherJob < ApplicationJob
     hash = DmpIdService.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
     if hash.is_a?(Hash) && hash[:narrative_url].present?
       Rails.logger.info "PdfPublisherJob._publish_to_dmphub successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
-      plan.update(publisher_job_status: 'success')
+      # plan.update(publisher_job_status: 'success')
     else
       Rails.logger.error 'PdfPublisherJob._publish_to_dmphub did not return a narrtive URL!'
-      plan.update(publisher_job_status: 'failed')
+      # plan.update(publisher_job_status: 'failed')
     end
   end
 
