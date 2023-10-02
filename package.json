@@ -65,6 +65,7 @@
     "js-cookie": "^3.0.1",
     "lodash.chunk": "^4.2.0",
     "lodash.unionby": "^4.8.0",
+    "lodash.uniqueid": "^4.0.1",
     "moment": "^2.29.4",
     "number-to-text": "^0.3.8",
     "popper.js": "^1.16.1",
