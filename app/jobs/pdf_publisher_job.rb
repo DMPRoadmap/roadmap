@@ -17,7 +17,6 @@ class PdfPublisherJob < ApplicationJob
       # nested directory
       file_name = Zaru.sanitize!(plan.title).strip.gsub(/\s+/, '_')[0, 100]
       _process_narrative_file(plan: plan, file_name: file_name, file: pdf)
-      plan.update(publisher_job_status: 'success')
     elsif plan.is_a?(Draft)
       return false unless plan.narrative.attached?
 
@@ -49,6 +48,9 @@ class PdfPublisherJob < ApplicationJob
 
     # Send it to DMPHub if it has a DMP ID otherwise store it in local ActiveStorage
     has_dmp_id = plan.dmp_id.present?
+
+p "Plan #{plan.id} has a DMP ID? #{has_dmp_id} --> #{plan.dmp_id}"
+
     _publish_to_dmphub(plan: plan, pdf_file_name: pdf_file_name) if has_dmp_id
     _publish_locally(plan: plan, pdf_file: pdf_file) unless has_dmp_id
 
@@ -59,15 +61,24 @@ class PdfPublisherJob < ApplicationJob
   # Publish the PDF to local ActiveStorage
   def _publish_locally(plan:, pdf_file_name:)
     plan.narrative = pdf_file
+    if plan.save
+      Rails.logger.info "PdfPublisherJob._publish_locally successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
+      plan.update(publisher_job_status: 'success')
+    else
+      Rails.logger.error 'PdfPublisherJob._publish_locally did not return a narrtive URL!'
+      plan.update(publisher_job_status: 'failed')
+    end
   end
 
   # Publish the PDF to the DMPHub
   def _publish_to_dmphub(plan:, pdf_file_name:)
     hash = DmpIdService.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
     if hash.is_a?(Hash) && hash[:narrative_url].present?
-      Rails.logger.info "PdfPublisherJob._process_narrative_file successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
+      Rails.logger.info "PdfPublisherJob._publish_to_dmphub successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
+      plan.update(publisher_job_status: 'success')
     else
-      Rails.logger.error 'PdfPublisherJob._process_narrative_file did not return a narrtive URL!'
+      Rails.logger.error 'PdfPublisherJob._publish_to_dmphub did not return a narrtive URL!'
+      plan.update(publisher_job_status: 'failed')
     end
   end
 
