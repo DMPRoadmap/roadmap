@@ -722,7 +722,7 @@ class Plan < ApplicationRecord
     targets.each(&:notify!)
 
     # Re-publish the narrative PDF document
-    publish_narrative! if respond_to?(:publish_narrative!) && plan.dmp_id.present?
+    publish_narrative! if respond_to?(:publish_narrative!) && dmp_id.present?
     true
   end
 
