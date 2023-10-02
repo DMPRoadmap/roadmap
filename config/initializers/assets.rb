@@ -33,24 +33,3 @@ source_dir = Dir.glob(Rails.root.join('app', 'javascript', 'dmp_opidor_react', '
 destination_dir = Rails.root.join('public')
 FileUtils.mkdir_p(destination_dir)
 FileUtils.cp_r(source_dir, destination_dir)
-
-# AssetUrlProcessor
-class AssetUrlProcessor
-  def self.call(input)
-    # don't know why, copy from other processor
-    context = input[:environment].context_class.new(input)
-    data = input[:data].gsub(/url\(["']?(.+?)["']?\)/i) do |match|
-      asset = ::Regexp.last_match(1)
-      if asset && asset !~ /(data:|http)/i
-        path = context.asset_path(asset)
-        "url(#{path})"
-      else
-        match
-      end
-    end
-
-    { data: data }
-  end
-end
-
-Sprockets.register_postprocessor 'text/css', AssetUrlProcessor

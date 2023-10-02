@@ -36,8 +36,8 @@ gem 'turbo-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
-# Provides Sprockets implementation for Rails 4.x (and beyond) Asset Pipeline.
-gem 'sprockets-rails'
+# Propshaft is an asset pipeline library for Rails. Read more: https://github.com/rails/propshaft
+gem 'propshaft'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
