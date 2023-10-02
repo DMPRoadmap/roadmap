@@ -23,6 +23,7 @@ function Dashboard() {
 
   function handleFilterDrawerOpen(id) {
     setShowFilterDrawer(true);
+    document.getElementById("filter_title").focus();
     return false;
   }
 
@@ -47,6 +48,12 @@ function Dashboard() {
     setFilter_GrantId(params.get("grant_id") || "");
     setFilter_DmpId(params.get("dmp_id") || "");
   }, [window.location.search]);
+
+  function checkFiltersApplied() {
+    const filters = [filter_title, filter_funder, filter_grantId, filter_dmpId];
+    const appliedFilters = filters.filter((filter) => filter !== "");
+    return appliedFilters.length;
+  }
 
   useEffect(() => {
     let api = new DmpApi();
@@ -100,12 +107,20 @@ function Dashboard() {
       <div className="plan-steps">
         <div className="plan-step">
           <div className="filter-tags">
-            <p className="filter-heading">Filter DMPs</p>
+            <p className="filter-heading sr-only">Filter:</p>
             <button
               className="button filter-button"
               onClick={() => handleFilterDrawerOpen()}
             >
-              Filter
+              Filter DMPs
+              {checkFiltersApplied() > 0 && (
+                <span
+                  className="filter-count"
+                  title={checkFiltersApplied() + " filters applied"}
+                >
+                  {checkFiltersApplied()}
+                </span>
+              )}
             </button>
           </div>
         </div>
@@ -142,32 +157,22 @@ function Dashboard() {
               <thead>
                 <tr>
                   <th scope="col" className="table-header-name data-heading">
-                    <a href="#" className="header-link">
-                      Project Name
-                    </a>
+                    Project Name
                   </th>
 
                   <th scope="col" className="table-header-name data-heading">
-                    <a href="#" className="header-link">
-                      Funder
-                    </a>
+                    Funder
                   </th>
 
                   <th scope="col" className="table-header-name data-heading">
-                    <a href="#" className="header-link">
-                      Last Edited
-                    </a>
+                    Last Edited
                   </th>
 
                   <th scope="col" className="table-header-name data-heading">
-                    <a href="#" className="header-link">
-                      Status
-                    </a>
+                    Status
                   </th>
                   <th scope="col" className="table-header-name data-heading">
-                    <a href="#" className="header-link">
-                      Actions
-                    </a>
+                    Actions
                   </th>
                 </tr>
               </thead>

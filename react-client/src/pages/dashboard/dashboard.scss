@@ -210,3 +210,26 @@
     margin-bottom: 0.5rem !important;
   }
 }
+.filter-tags {
+  margin-bottom: 1rem;
+}
+.filter-button {
+  position: relative;
+}
+.filter-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #3f51b5;
+  color: #fff;
+  padding: 10px;
+  border-radius: 9999999999px;
+  font-size: 13px;
+  width: 24px;
+  height: 24px;
+  line-height: normal;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
