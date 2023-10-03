@@ -5,7 +5,7 @@
 %>
 
 <!-- footer container -->
-<div id="footer-navbar" class="navbar navbar-expand-md navbar-dark bg-dark navbar-fixed-bottom" role="navigation">
+<div id="footer-navbar" class="navbar navbar-expand-md navbar-branding navbar-fixed-bottom" role="navigation">
   <div class="container-fluid">
     <ul class="navbar-nav">
       <li class="nav-item"><%= link_to sanitize("&copy; 2004 - #{Time.now.year} #{Rails.configuration.x.organisation.name}"), "#{Rails.configuration.x.organisation.url}", class: 'nav-link' %></li>
