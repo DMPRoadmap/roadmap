@@ -196,7 +196,7 @@ function Contributors() {
                   id="first_name"
                   inputValue={contributor.first_name}
                   placeholder=""
-                  help=""
+                  error={contributor.errors.get("name")}
                 />
               </div>
 
@@ -209,7 +209,6 @@ function Contributors() {
                   id="last_name"
                   inputValue={contributor.last_name}
                   placeholder=""
-                  help=""
                 />
               </div>
             </div>
@@ -224,7 +223,7 @@ function Contributors() {
                   id="email"
                   inputValue={contributor.mbox}
                   placeholder=""
-                  help=""
+                  error={contributor.errors.get("mbox")}
                 />
 
                 <Checkbox
@@ -233,7 +232,6 @@ function Contributors() {
                   id="primaryContact"
                   onChange={handleChange}
                   isChecked={contributor.contact}
-                  error={contributor.errors.get("contact")}
                 />
               </div>
 
@@ -263,6 +261,7 @@ function Contributors() {
                   help="Search for your institution (API)"
                   inputValue={contributor.affiliation.name}
                   onChange={handleChange}
+                  error={contributor.errors.get("affiliation")}
                 />
               </div>
             </div>

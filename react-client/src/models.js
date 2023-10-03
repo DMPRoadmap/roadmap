@@ -136,10 +136,16 @@ export class Contributor extends Contact {
   set contact(val) { this.setData("contact", val); }
 
   validateFields() {
+    if (!this.name) {
+      this.errors.set("name", "Name is required");
+    }
+
     if (this.contact) {
-      if (!this.name || !this.mbox) {
-        this.errors.set("contact", "Primary contact must have a name and email.");
-      }
+      if (!this.mbox)
+        this.errors.set("mbox", "Primary contact must have an email.");
+
+      if (!this.affiliation.name)
+        this.errors.set("affiliation", "Primary contact must have an affiliation.");
     }
   }
 
