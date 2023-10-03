@@ -52,11 +52,13 @@ class ResearchOutput < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :plan, optional: true, touch: true
+  belongs_to :plan, optional: true
   belongs_to :license, optional: true
 
   has_and_belongs_to_many :metadata_standards
   has_and_belongs_to_many :repositories
+
+  after_save :notify_plan_subscribers
 
   # ===============
   # = Validations =
@@ -89,5 +91,10 @@ class ResearchOutput < ApplicationRecord
     params.each do |_i, metadata_standard_params|
       metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
     end
+  end
+
+  # Call the Plan's notify_subscribers! method directly
+  def notify_plan_subscribers
+    plan.notify_subscribers! if plan.present? && !new_record?
   end
 end

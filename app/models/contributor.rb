@@ -34,7 +34,9 @@ class Contributor < ApplicationRecord
 
   belongs_to :org, optional: true
 
-  belongs_to :plan, optional: true, touch: true
+  belongs_to :plan, optional: true
+
+  after_update :notify_plan_subscribers
 
   # =====================
   # = Nested attributes =
@@ -140,4 +142,9 @@ class Contributor < ApplicationRecord
     errors.empty?
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+
+  # Call the Plan's notify_subscribers! method directly
+  def notify_plan_subscribers
+    plan.notify_subscribers! if plan.present? && !new_record?
+  end
 end

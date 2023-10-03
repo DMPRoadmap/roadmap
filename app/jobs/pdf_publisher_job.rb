@@ -46,26 +46,32 @@ class PdfPublisherJob < ApplicationJob
     pdf_file = File.open(pdf_file_name, 'wb') { |tmp| tmp << file }
     pdf_file.close
 
-    # Send it to DMPHub if it has a DMP ID otherwise store it in local ActiveStorage
+    # Send it to DMPHub if it has a DMP ID and store it in ActiveStorage if it is publicly visible
     has_dmp_id = plan.dmp_id.present?
+    _publish_locally(plan: plan, pdf_file_path: pdf_file_name, pdf_file_name: "#{file_name}.pdf") if plan.is_a?(Plan) &&
+                                                                                                     plan.publicly_visible?
     _publish_to_dmphub(plan: plan, pdf_file_name: pdf_file_name) if has_dmp_id
-    _publish_locally(plan: plan, pdf_file_path: pdf_file_name, pdf_file_name: "#{file_name}.pdf") if plan.publicly_visible? &&
-                                                                                                     !has_dmp_id
+
     # Delete the tmp file
     File.delete(pdf_file_name)
   end
 
   # Publish the PDF to local ActiveStorage
   def _publish_locally(plan:, pdf_file_path:, pdf_file_name:)
-    plan.narrative.attach(io: File.open(pdf_file_path), filename: 'file.pdf', content_type: 'application/pdf')
-    if plan.save
+    # Get rid of the existing one (if applicable)
+    plan.narrative.purge if plan.narrative.attached?
+
+    plan.narrative.attach(key: "narratives/#{plan.id}.pdf", io: File.open(pdf_file_path), filename: pdf_file_name,
+                          content_type: 'application/pdf')
+    # Skip updating the timestamps so that it does not re-trigger the callabcks again!
+    if plan.save(touch: false)
       Rails.logger.info "PdfPublisherJob._publish_locally successfully published PDF for #{plan.dmp_id} at #{pdf_file_path}"
-      plan.update(publisher_job_status: 'success')
-
-
+      plan.publisher_job_status = 'success'
+      plan.save(touch: false)
     else
       Rails.logger.error 'PdfPublisherJob._publish_locally failed to store file in ActiveStorage!'
-      plan.update(publisher_job_status: 'failed')
+      plan.publisher_job_status = 'failed'
+      plan.save(touch: false)
     end
   end
 
@@ -74,10 +80,14 @@ class PdfPublisherJob < ApplicationJob
     hash = DmpIdService.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
     if hash.is_a?(Hash) && hash[:narrative_url].present?
       Rails.logger.info "PdfPublisherJob._publish_to_dmphub successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
-      plan.update(publisher_job_status: 'success')
+      # Skip updating the timestamps so that it does not re-trigger the callabcks again!
+      plan.publisher_job_status = 'success'
+      plan.save(touch: false)
     else
       Rails.logger.error 'PdfPublisherJob._publish_to_dmphub did not return a narrtive URL!'
-      plan.update(publisher_job_status: 'failed')
+      # Skip updating the timestamps so that it does not re-trigger the callabcks again!
+      plan.publisher_job_status = 'failed'
+      plan.save(touch: false)
     end
   end
 
