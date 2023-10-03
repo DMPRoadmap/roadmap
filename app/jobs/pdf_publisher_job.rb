@@ -57,6 +57,8 @@ class PdfPublisherJob < ApplicationJob
 
   # Publish the PDF to local ActiveStorage
   def _publish_locally(plan:, pdf_file_path:, pdf_file_name:)
+    Rails.logger.debug("ActiveStorage using the '#{Rails.configuration.active_storage.service}' service")
+
     plan.narrative.attach(io: File.open(pdf_file_path), filename: 'file.pdf', content_type: 'application/pdf')
     if plan.save
       Rails.logger.info "PdfPublisherJob._publish_locally successfully published PDF for #{plan.dmp_id} at #{pdf_file_path}"
