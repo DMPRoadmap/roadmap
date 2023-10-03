@@ -124,7 +124,7 @@ class PlanExportsController < ApplicationController
   end
 
   def show_pdf
-    Rails.logger.debug("ActiveStorage using the '#{Rails.configuration.active_storage.service}' service")
+    Rails.logger.debug("ActiveStorage using the '#{Rails.configuration.active_storage.service}' service from bucket: '#{Rails.configuration.x.dmproadmap.dragonfly_bucket}'")
 
     # If we have a copy of the PDF stored in ActiveStorage, just retrieve that one instead of generating it
     redirect_to rails_blob_path(@plan.narrative, disposition: "attachment") and return if @plan.narrative.present? &&
