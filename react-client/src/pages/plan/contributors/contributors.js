@@ -97,8 +97,8 @@ function Contributors() {
     ev.preventDefault();
 
     const data = new FormData(ev.target);
-    let newContrib = new Contributor(contributor.getData());
 
+    let newContrib = new Contributor(contributor.getData());
     let full_name = data.get("first_name");
     if (data.get("last_name")) full_name += ", " + data.get("last_name");
     newContrib.name = full_name;
@@ -108,7 +108,6 @@ function Contributors() {
       "type": "orcid",
     });
     newContrib.contact = contributor.contact;
-
     newContrib.commit();
 
     if (newContrib.isValid()) {
@@ -118,7 +117,6 @@ function Contributors() {
       } else {
         dmp.contributors.update(editIndex, newContrib);
       }
-      dmp.commit();
 
       let newDmp = new DmpModel(dmp.getData());
       setDmp(newDmp);
@@ -199,7 +197,6 @@ function Contributors() {
                   inputValue={contributor.first_name}
                   placeholder=""
                   help=""
-                  error=""
                 />
               </div>
 
@@ -213,7 +210,6 @@ function Contributors() {
                   inputValue={contributor.last_name}
                   placeholder=""
                   help=""
-                  error=""
                 />
               </div>
             </div>
@@ -229,7 +225,6 @@ function Contributors() {
                   inputValue={contributor.mbox}
                   placeholder=""
                   help=""
-                  error=""
                 />
 
                 <Checkbox
@@ -252,7 +247,6 @@ function Contributors() {
                   inputValue={contributor.id}
                   placeholder=""
                   help=""
-                  error=""
                 />
               </div>
             </div>

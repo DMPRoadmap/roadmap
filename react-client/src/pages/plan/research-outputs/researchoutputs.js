@@ -109,23 +109,27 @@ function ResearchOutputs() {
     ev.preventDefault();
 
     const data = new FormData(ev.target);
-    dataObj.title = data.get("title");
-    dataObj.type = data.get("data_type");
+
+    let newObj = new DataObject(dataObj.getData());
+    newObj.title = data.get("title");
+    newObj.type = data.get("data_type");
     // NOTE: Repository should already be set, because it's handled in the
     // handleChange() function.
 
-    if (dataObj.isValid()) {
+    if (newObj.isValid()) {
       if (editIndex === null) {
-        dmp.dataset.add(dataObj);
+        dmp.dataset.add(newObj);
       } else {
-        dmp.dataset.update(editIndex, dataObj);
+        dmp.dataset.update(editIndex, newObj);
       }
+
       let newDmp = new DmpModel(dmp.getData());
       setDmp(newDmp);
       closeModal();
     } else {
-      console.log(dataObj.errors);
-      setDataObj(dataObj);
+      setDataObj(newObj);
+      document.getElementById("outputsModal").scroll(0, 0);
+      console.log(newObj.errors);
     }
   }
 
