@@ -1,4 +1,6 @@
-@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
 // TODO: Refactor this. Instead of writing specific CSS rules for particular objects,
 // we should provide utility classes which can provide the desired style to this object
 .org-logo-controls {

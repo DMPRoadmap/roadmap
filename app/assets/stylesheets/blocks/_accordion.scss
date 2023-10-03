@@ -1,5 +1,7 @@
 @use '../variables/colours' as *;
-@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;
+
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
 
 // Remove box-shadow and highlight from Accordion header
 .accordion-header a {

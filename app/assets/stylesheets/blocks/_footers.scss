@@ -1,5 +1,6 @@
-@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;
-/* For sticky footer */
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
 #footer-navbar {
   margin-bottom: 0px;
   position: absolute;

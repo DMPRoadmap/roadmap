@@ -1,5 +1,8 @@
 @use '../variables/bootstrap' as *;
-@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+@import "../../../../node_modules/bootstrap/scss/mixins";
+
 /* For org navbar custom height */
 #org-navbar {
   border-radius: 0px;
