@@ -59,15 +59,17 @@ class PdfPublisherJob < ApplicationJob
   def _publish_locally(plan:, pdf_file_path:, pdf_file_name:)
     # Rails.logger.debug("ActiveStorage using the '#{Rails.configuration.active_storage.service}' service for bucket: '#{Rails.configuration.x.dmproadmap.dragonfly_bucket}'")
 
-    plan.narrative.attach(io: File.open(pdf_file_path), filename: 'file.pdf', content_type: 'application/pdf')
-    if plan.save
+    plan.narrative.attach(key: "narratives/#{pdf_file_name}", io: File.open(pdf_file_path), filename: pdf_file_name,
+                          content_type: 'application/pdf')
+    # Skip updating the timestamps so that it does not re-trigger the callabcks again!
+    if plan.save(touch: false)
       Rails.logger.info "PdfPublisherJob._publish_locally successfully published PDF for #{plan.dmp_id} at #{pdf_file_path}"
-      plan.update(publisher_job_status: 'success')
-
-
+      plan.publisher_job_status = 'success'
+      plan.save(touch: false)
     else
       Rails.logger.error 'PdfPublisherJob._publish_locally failed to store file in ActiveStorage!'
-      plan.update(publisher_job_status: 'failed')
+      plan.publisher_job_status = 'failed'
+      plan.save(touch: false)
     end
   end
 
@@ -76,10 +78,14 @@ class PdfPublisherJob < ApplicationJob
     hash = DmpIdService.publish_pdf(plan: plan, pdf_file_name: pdf_file_name)
     if hash.is_a?(Hash) && hash[:narrative_url].present?
       Rails.logger.info "PdfPublisherJob._publish_to_dmphub successfully published PDF for #{plan.dmp_id} at #{hash[:narrative_url]}"
-      plan.update(publisher_job_status: 'success')
+      # Skip updating the timestamps so that it does not re-trigger the callabcks again!
+      plan.publisher_job_status = 'success'
+      plan.save(touch: false)
     else
       Rails.logger.error 'PdfPublisherJob._publish_to_dmphub did not return a narrtive URL!'
-      plan.update(publisher_job_status: 'failed')
+      # Skip updating the timestamps so that it does not re-trigger the callabcks again!
+      plan.publisher_job_status = 'failed'
+      plan.save(touch: false)
     end
   end
 
