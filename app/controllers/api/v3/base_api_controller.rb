@@ -131,7 +131,7 @@ module Api
       end
 
       def contributor_permitted_params
-        %i[name mbox] +
+        %i[name mbox contact] +
           [role: [],
            dmproadmap_affiliation: affiliation_permitted_params,
            contact_id: identifier_permitted_params,
