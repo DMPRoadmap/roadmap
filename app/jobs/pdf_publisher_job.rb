@@ -46,11 +46,12 @@ class PdfPublisherJob < ApplicationJob
     pdf_file = File.open(pdf_file_name, 'wb') { |tmp| tmp << file }
     pdf_file.close
 
-    # Send it to DMPHub if it has a DMP ID otherwise store it in local ActiveStorage
+    # Send it to DMPHub if it has a DMP ID and store it in ActiveStorage if it is publicly visible
     has_dmp_id = plan.dmp_id.present?
+    _publish_locally(plan: plan, pdf_file_path: pdf_file_name, pdf_file_name: "#{file_name}.pdf") if plan.is_a?(Plan) &&
+                                                                                                     plan.publicly_visible?
     _publish_to_dmphub(plan: plan, pdf_file_name: pdf_file_name) if has_dmp_id
-    _publish_locally(plan: plan, pdf_file_path: pdf_file_name, pdf_file_name: "#{file_name}.pdf") if plan.publicly_visible? &&
-                                                                                                     !has_dmp_id
+
     # Delete the tmp file
     File.delete(pdf_file_name)
   end

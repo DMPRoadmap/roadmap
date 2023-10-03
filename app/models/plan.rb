@@ -185,7 +185,6 @@ class Plan < ApplicationRecord
     data.sanitize_fields(:title, :identifier, :description)
   }
   after_update :notify_subscribers!, if: :versionable_change?
-  # after_touch :notify_subscribers!
 
   # ==========
   # = Scopes =
@@ -695,7 +694,7 @@ class Plan < ApplicationRecord
     end
     targets = targets.flatten.uniq if targets.any?
 
-    publish_narrative! if dmp_id.nil? && publicly_visible?
+    publish_narrative! if publicly_visible?
     targets.each(&:notify!)
     true
   end

@@ -61,13 +61,6 @@ namespace :v5 do
       identifiers = Identifier.includes(:identifiable)
                               .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
                               .where('identifiers.value LIKE ?', 'https://doi.org/%')
-                              # .where('identifiable_id IN ?', [87731, 86152, 83986, 82377, 81058, 75125, 66756])   # invalid data_access
-                              # .where('identifiable_id IN ?', [87612, 87617, 85046, 84553, 79981, 44403, 71338, 69614]) # no contact_id
-                              # .where('identifiable_id IN ?', [83085])                      # preregistration
-                              # .where('identifiable_id IN ?', [78147])                      # bad grant_id type
-                              # 77012, 70251, 69178, 67898, 66250 no contact
-                              # .where('identifiable_id = ? AND identifiable_type = ?', 59943, 'Plan')
-                              # .where('identifiable_id IN (?)', %i[71800 71809]) # test with Hakai DMPs
                               .distinct
                               # .limit(200)
                               .order(created_at: :desc)
@@ -86,6 +79,37 @@ namespace :v5 do
         end
       end
     end
+  end
+
+  # If using AWS S3, this will generate PDF narrative documents for each public Plan and place it into the
+  # S3 bucket for faster retrieval. This is being done because bad bots have been crawling our public plans page
+  # and the auto-build PDF per-request model was crippling the servers.
+  #
+  # As public plans are updated, the PDF will be regenerated and replace the existing one in ActiveStorage
+  desc 'Create PDF narrative documents for all public plans so that they are downloadable from public plans page'
+  task build_narratives: :environment do
+    pauser = 0
+
+    Plan.includes(:org, :funder, :grant, :answers,
+                  roles: [user: [:org]],
+                  template: [phases: [sections: [:questions]]],
+                  contributors: [:org, :identifiers],
+                  research_outputs: [:identifiers, :metadata_standards, :repositories, :license])
+        .where(visibility: Plan.visibilities[:publicly_visible])
+        .each do |plan|
+      next if plan.publisher_job_status == 'enqueued' || plan.narrative.attached?
+
+      sleep 5 if pauser >= 10
+      p "Publishing PDF narrative to ActiveStorage for Plan #{plan.id} \"#{plan.title}\"."
+
+      # Don't retrigger all of the callbacks when just changing the status of the publisher job!
+      publisher_job_status = 'enqueued'
+      plan.save(touch: false)
+
+      PdfPublisherJob.perform_now(plan: plan)
+      pauser = pauser >= 11 ? 0 : (pauser += 1)
+    end
+    p "done"
   end
 
   # This should only ever be run if you have been using the Rails based DMPHub system (https://github.com/CDLUC3/dmphub)

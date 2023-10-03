@@ -101,7 +101,8 @@ module Dmptool
         # Don't retrigger all of the callbacks when just changing the status of the publisher job!
         publisher_job_status = 'enqueued'
         save(touch: false)
-        PdfPublisherJob.set(wait: 30.seconds).perform_later(plan: self)
+
+        PdfPublisherJob.set(wait: 10.seconds).perform_later(plan: self)
       rescue StandardError => e
         Rails.logger.error "Unable to publish PDF Narrative - #{e.message}"
       end
