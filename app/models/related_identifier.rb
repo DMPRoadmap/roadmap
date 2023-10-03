@@ -34,9 +34,11 @@ class RelatedIdentifier < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :identifiable, polymorphic: true, touch: true
+  belongs_to :identifiable, polymorphic: true
 
   belongs_to :identifier_scheme, optional: true
+
+  after_save :notify_identifiable_subscribers
 
   # ===============
   # = Validations =
@@ -120,5 +122,10 @@ class RelatedIdentifier < ApplicationRecord
     return unless Rails.configuration.x.madmp.enable_citation_lookup && identifier_type == 'doi' && citation.blank?
 
     CitationJob.set(wait: 1.second).perform_later(related_identifier: self)
+  end
+
+  # Call the Identifiable's notify_subscribers! method directly
+  def notify_identifiable_subscribers
+    identifiable.notify_subscribers! if identifiable.present? && identifiable.respond_to?(:notify_subscribers!) && !new_record?
   end
 end

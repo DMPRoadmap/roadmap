@@ -57,9 +57,10 @@ class PdfPublisherJob < ApplicationJob
 
   # Publish the PDF to local ActiveStorage
   def _publish_locally(plan:, pdf_file_path:, pdf_file_name:)
-    # Rails.logger.debug("ActiveStorage using the '#{Rails.configuration.active_storage.service}' service for bucket: '#{Rails.configuration.x.dmproadmap.dragonfly_bucket}'")
+    # Get rid of the existing one (if applicable)
+    plan.narrative.purge if plan.narrative.attached?
 
-    plan.narrative.attach(key: "narratives/#{pdf_file_name}", io: File.open(pdf_file_path), filename: pdf_file_name,
+    plan.narrative.attach(key: "narratives/#{plan.id}.pdf", io: File.open(pdf_file_path), filename: pdf_file_name,
                           content_type: 'application/pdf')
     # Skip updating the timestamps so that it does not re-trigger the callabcks again!
     if plan.save(touch: false)

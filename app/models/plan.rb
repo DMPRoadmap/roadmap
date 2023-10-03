@@ -185,7 +185,7 @@ class Plan < ApplicationRecord
     data.sanitize_fields(:title, :identifier, :description)
   }
   after_update :notify_subscribers!, if: :versionable_change?
-  after_touch :notify_subscribers!
+  # after_touch :notify_subscribers!
 
   # ==========
   # = Scopes =
@@ -688,6 +688,18 @@ class Plan < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
+  # Sends notifications to the Subscribers of the specified subscription types
+  def notify_subscribers!(subscription_types: [:updates])
+    targets = subscription_types.map do |typ|
+      subscriptions.select { |sub| sub.selected_subscription_types.include?(typ.to_sym) }
+    end
+    targets = targets.flatten.uniq if targets.any?
+
+    publish_narrative! if dmp_id.nil? && publicly_visible?
+    targets.each(&:notify!)
+    true
+  end
+
   private
 
   # Determines whether or not the attributes that were updated constitute a versionable change
@@ -709,18 +721,6 @@ class Plan < ApplicationRecord
       saved_change_to_ethical_issues_description? || saved_change_to_ethical_issues_report?
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-  # Sends notifications to the Subscribers of the specified subscription types
-  def notify_subscribers!(subscription_types: [:updates])
-    targets = subscription_types.map do |typ|
-      subscriptions.select { |sub| sub.selected_subscription_types.include?(typ.to_sym) }
-    end
-    targets = targets.flatten.uniq if targets.any?
-
-    publish_narrative! if dmp_id.nil? && publicly_visible?
-    targets.each(&:notify!)
-    true
-  end
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date
