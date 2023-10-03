@@ -131,7 +131,7 @@ module Api
       end
 
       def contributor_permitted_params
-        %i[name mbox] +
+        %i[name mbox contact] +
           [role: [],
            dmproadmap_affiliation: affiliation_permitted_params,
            contact_id: identifier_permitted_params,
@@ -161,7 +161,8 @@ module Api
       def dataset_permitted_params
         %i[title description type issued language personal_data sensitive_data
            keywords data_quality_assurance preservation_statement] +
-          [dataset_id: identifier_permitted_params,
+          [size: %i[unit value],
+           dataset_id: identifier_permitted_params,
            metadata: metadatum_permitted_params,
            security_and_privacy_statement: security_and_privacy_statement_permitted_params,
            technical_resource: technical_resource_permitted_params,
