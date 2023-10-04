@@ -27,6 +27,22 @@ export class DmpApi {
     return url;
   }
 
+  getFullPath(path, queryParams) {
+    if (path.charAt(0) !== "/") {
+      path = "/" + path;
+    }
+    try {
+      let url = new URL(path, window.location.origin);
+    } catch (err) {
+      throw new Error(`Invalid url arguments: ${path}`);
+    }
+    if (queryParams) {
+      let query = new URLSearchParams(queryParams);
+      url.search = query.toString();
+    }
+    return url;
+  }
+
   getHeaders() {
     // NOTE: This just creates "common" headers required for the API.
     // The returned headers object can be customized further if needed by the

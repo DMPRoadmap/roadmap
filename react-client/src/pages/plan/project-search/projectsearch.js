@@ -28,20 +28,10 @@ function ProjectSearch() {
   useEffect(() => {
     getDraftDmp(dmpId).then((initial) => {
       setDmp(initial);
-
-      console.log('Draft DMP Loaded');
-      console.log(initial);
-
       let funderUrl = initial.getDraftData("funder.funder_api", null);
-
-      console.log("funderUrl? " + funderUrl);
-      console.log("Has Funder?");
-      console.log(initial.hasFunder);
-
       if (!initial.hasFunder || !funderUrl) {
         navigate(`/dashboard/dmp/${dmpId}/project-details`);
       }
-
       setQueryArgs({
         ...queryArgs,
         title: initial.title,
@@ -55,28 +45,12 @@ function ProjectSearch() {
       if (controller) controller.abort();
       controller = new AbortController();
 
-      console.log("Degug Query");
-      console.log("Dmp?");
-      console.log(dmp);
-
       let funderUrl = dmp.getDraftData("funder.funder_api", null);
-      console.log(funderUrl);
-
       if (!funderUrl) {
         console.log(`Error! Invalid funder api url, ${funderUrl}.`);
         console.log(dmp.getData());
       } else {
         console.log("Going to make the request?");
-
-        let url = new URL(funderUrl);
-
-        console.log("api url? " + url);
-
-        let searchParams = new URLSearchParams(queryArgs);
-        url.search = searchParams.toString();
-
-        console.log("Search params?");
-        console.log(searchParams);
 
         let api = new DmpApi();
         let headers = api.getHeaders();
@@ -86,7 +60,9 @@ function ProjectSearch() {
           signal: controller.signal,
         });
 
-        console.log("Searching the funder api now");
+        let url = api.GetFullPath(funderUrl, queryArgs);
+        console.log("api url? " + url);
+        console.log("Fetch results");
         fetch(url, options)
           .then((resp) => {
             api.handleResponse(resp);
