@@ -162,12 +162,6 @@ class Draft < ApplicationRecord
     unless new_record?
       data = metadata.fetch('dmp', {})
 
-      if data.fetch('contact', {})['dmproadmap_affiliation'].present?
-        ror = RegistryOrg.find_by(name: data['contact'].fetch('dmproadmap_affiliation', {})['name'])&.ror_id
-        json = JSON.parse({ type: 'ror', identifier: ror }.to_json)
-        data['contact']['dmproadmap_affiliation']['affiliation_id'] = json if ror.present?
-      end
-
       data.fetch('contributor', []).each do |contrib|
         next if contrib['dmproadmap_affiliation'].nil? ||
                 contrib.fetch('dmproadmap_affiliation', {})['affiliation_id'].present?
