@@ -379,7 +379,7 @@ module Dmpopidor
             abbreviation: ro.abbreviation,
             title: ro.title,
             order: ro.display_order,
-            type: ro.json_fragment.research_output_description['data']['type'],
+            type: ro&.json_fragment&.research_output_description&.fetch('data', {})&.fetch('type', nil),
             hasPersonalData: ro.has_personal_data,
             answers: ro.answers.map do |a|
               {
