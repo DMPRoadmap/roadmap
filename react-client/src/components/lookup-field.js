@@ -48,8 +48,11 @@ function LookupField(props) {
           if (err.response && err.response.status === 404) {
             setSuggestions(null);
             setShowSuggestionSpinner(false);
+          } else {
+            console.log('Api error:');
+            console.log(err.response);
+            // errorMsg = err.response.toString();
           }
-          errorMsg = err.response.toString();
         });
     } else {
       setSuggestions(null);

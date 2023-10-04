@@ -99,9 +99,7 @@ function Contributors() {
     const data = new FormData(ev.target);
 
     let newContrib = new Contributor(contributor.getData());
-    let full_name = data.get("first_name");
-    if (data.get("last_name")) full_name += ", " + data.get("last_name");
-    newContrib.name = full_name;
+    newContrib.name = data.get("full_name");
     newContrib.mbox = data.get("email");
     newContrib.setData("contributor_id", {
       "identifier": data.get("orcid"),
@@ -189,26 +187,14 @@ function Contributors() {
             <div className="dmpui-form-cols">
               <div className="dmpui-form-col">
                 <TextInput
-                  label="First name"
+                  label="Full name"
                   type="text"
                   required="required"
-                  name="first_name"
-                  id="first_name"
-                  inputValue={contributor.first_name}
+                  name="full_name"
+                  id="full_name"
+                  inputValue={contributor.name}
                   placeholder=""
                   error={contributor.errors.get("name")}
-                />
-              </div>
-
-              <div className="dmpui-form-col">
-                <TextInput
-                  label="Last name"
-                  type="text"
-                  required="required"
-                  name="last_name"
-                  id="last_name"
-                  inputValue={contributor.last_name}
-                  placeholder=""
                 />
               </div>
             </div>

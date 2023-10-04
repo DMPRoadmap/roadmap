@@ -32,9 +32,6 @@ function DmpSetup() {
     var headers = api.getHeaders();
     headers.delete('Content-Type');
 
-    // TODO:FIXME: We need to check with Brian what the PUT/POST path is for
-    // updating, and htat page, same as this one, should accept the same
-    // contenttype being sent (iow. NOT json!)
     let options = api.getOptions({
       headers: headers,
       method: "post",

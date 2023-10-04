@@ -78,28 +78,12 @@ class ModelSet {
 
 
 export class Contact extends Model {
-  #first_name;
-  #last_name;
-
   constructor(data) {
     super(data);
-    this.splitNames();
   }
 
-  splitNames() {
-    let names = this.name.split(',').map(i => i.trim());
-    if (names.length >= 1) this.#first_name = names[0];
-    this.#last_name = names.length == 2 ? names[1] : "";
-  }
-
-  get name() { return this.getData("name"); }
-  set name(val) {
-    this.setData("name", val);
-    this.splitNames();
-  }
-
-  get first_name() { return this.#first_name; }
-  get last_name() { return this.#last_name; }
+  get name() { return this.getData("name", ""); }
+  set name(val) { this.setData("name", val); }
 
   get mbox() { return this.getData("mbox", ""); }
   set mbox(val) { this.setData("mbox", val); }
