@@ -28,11 +28,9 @@ export class DmpApi {
   }
 
   getFullPath(path, queryParams) {
-    if (path.charAt(0) !== "/") {
-      path = "/" + path;
-    }
+    let url;
     try {
-      let url = new URL(path, window.location.origin);
+      url = new URL(path);
     } catch (err) {
       throw new Error(`Invalid url arguments: ${path}`);
     }

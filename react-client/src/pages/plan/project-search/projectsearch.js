@@ -60,7 +60,7 @@ function ProjectSearch() {
           signal: controller.signal,
         });
 
-        let url = api.GetFullPath(funderUrl, queryArgs);
+        let url = api.getFullPath(funderUrl, queryArgs);
         console.log("api url? " + url);
         console.log("Fetch results");
         fetch(url, options)
