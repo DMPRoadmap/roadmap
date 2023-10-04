@@ -695,6 +695,7 @@ class Plan < ApplicationRecord
     targets = targets.flatten.uniq if targets.any?
 
     publish_narrative! if publicly_visible?
+
     targets.each(&:notify!)
     true
   end
