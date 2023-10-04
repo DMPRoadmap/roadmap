@@ -2,6 +2,25 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 29/09/2023
+- Correction du problème de bande blanche sous le pied de page (ce problème venait d'une image ajoutée dans par le code Matomo, a voir si retirer cette image a une conséquence sur l'habilité de Matomo suivre les utilsateurs)
+- La recherche d'organisme lors de la création de compte ou dans le profil utilisateur peut désormas se faire sans accent.
+- Correction de l'adresse mail d'envoi du formulaire de contact.
+- Correction du titre par défaut des plans (présence de 's à la fin du titre)
+
+## 29/08/2023
+- Correction d'un problème de fusion des comptes utilisateurs (issue gitbucket 514)
+- Correction d'un problème de génération des statistiques d'utilisation (ajout de la gem ruby-progressbar)
+
+## 24/07/2023
+- Correction d'un problème de copier/coller du formatage dans les éditeurs TinyMCE (issue gitbucket 510)
+
+## 18/07/2023
+- Mise à jour de FontAwesome (librairie d'icônes) vers la version 6
+- Amélioration du support des plans pour les entités de recherche
+  - Renommage des fichiers de "research structure" vers "research entity"
+  - Utilisation d'un template DMPResearchEntity pointant sur ResearchEntityStandard à la place de ProjectStandard
+
 ## 30/06/2023
 - Changement des textes référençant "Structure de recherche/Research Structure" en "Entité de Recherche/Research Entity"
 - Ajout du Domaine de Recherche dans le tableau des DMPs Publics

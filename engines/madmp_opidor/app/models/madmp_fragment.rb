@@ -78,6 +78,7 @@ class MadmpFragment < ApplicationRecord
   scope :research_outputs, -> { where(classname: 'research_output') }
   scope :research_output_descriptions, -> { where(classname: 'research_output_description') }
   scope :resource_references, -> { where(classname: 'resource_reference') }
+  scope :research_entities, -> { where(classname: 'research_entity') }
   scope :reused_datas, -> { where(classname: 'reused_data') }
   scope :specific_datas, -> { where(classname: 'specific_data') }
   scope :technical_resources, -> { where(classname: 'technical_resource') }

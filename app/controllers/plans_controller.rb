@@ -102,7 +102,7 @@ class PlansController < ApplicationController
                       if current_user.firstname.blank?
                         format(_('My Plan (%{title})'), title: @plan.template.title)
                       else
-                        format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
+                        format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
                       end
                     else
                       plan_params[:title]

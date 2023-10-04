@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-06-30 14:14+0200\n"
-"PO-Revision-Date: 2023-06-30 14:14+0200\n"
+"POT-Creation-Date: 2023-09-29 15:02+0200\n"
+"PO-Revision-Date: 2023-09-29 15:02+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -238,10 +238,8 @@ msgid "test plan"
 msgstr "test plan"
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:132
-#: ../../app/controllers/plans_controller.rb:105
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:74
-msgid "%{user_name} Plan"
-msgstr "%{user_name} Plan"
+msgid "%{user_name}'s Plan"
+msgstr "%{user_name}'s Plan"
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:142
 msgid "imported"
@@ -381,6 +379,11 @@ msgstr "Unable to identify a suitable template for your plan."
 #: ../../app/controllers/plans_controller.rb:103
 msgid "My Plan (%{title})"
 msgstr "My Plan (%{title})"
+
+#: ../../app/controllers/plans_controller.rb:105
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:74
+msgid "%{user_name} Plan"
+msgstr "%{user_name} Plan"
 
 #: ../../app/controllers/plans_controller.rb:159
 msgid "This plan is based on the default template."
@@ -1037,20 +1040,20 @@ msgstr "can't be blank if no email is provided."
 msgid "can't be blank if no name is provided."
 msgstr "can't be blank if no name is provided."
 
-#: ../../app/models/dmpopidor/plan.rb:78
+#: ../../app/models/dmpopidor/plan.rb:79
 msgid "Personal"
 msgstr "Personal"
 
-#: ../../app/models/dmpopidor/plan.rb:92
+#: ../../app/models/dmpopidor/plan.rb:93
 msgid "DMP manager"
 msgstr "DMP manager"
 
-#: ../../app/models/dmpopidor/plan.rb:111
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:451
+#: ../../app/models/dmpopidor/plan.rb:112
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:452
 msgid "\"%{project_title}\" project DMP"
 msgstr "\"%{project_title}\" project DMP"
 
-#: ../../app/models/dmpopidor/plan.rb:138
+#: ../../app/models/dmpopidor/plan.rb:139
 msgid "Project coordinator"
 msgstr "Project coordinator"
 
@@ -4327,15 +4330,15 @@ msgstr "This property has an invalid format."
 msgid "This property has an unknown problem : %{validation}"
 msgstr "This property has an unknown problem : %{validation}"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:91
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:92
 msgid "Invalid JSON data"
 msgstr "Invalid JSON data"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:92
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:93
 msgid "Invalid format"
 msgstr "Invalid format"
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:96
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:97
 msgid "File should begin with :dmp property"
 msgstr "File should begin with :dmp property"
 

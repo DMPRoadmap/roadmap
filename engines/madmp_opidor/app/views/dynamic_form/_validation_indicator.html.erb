@@ -1,6 +1,6 @@
 <% unless validation == "none" %>
     <% if validation.present? %>
-        <span class="fas fa-times-circle invalid"></span>
-        <span class="fas fa-question-circle explanation" title="<%= display_validation_message(validation) %>"></span>
+        <span class="fas fa-circle-xmark invalid"></span>
+        <span class="fas fa-circle-question explanation" title="<%= display_validation_message(validation) %>"></span>
     <% end %>
 <% end %>

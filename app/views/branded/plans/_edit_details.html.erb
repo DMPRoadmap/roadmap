@@ -1,7 +1,7 @@
 
 <% dmp_fragment = @plan.json_fragment() %>
 <% meta_fragment = dmp_fragment.meta %>
-<% project_fragment = dmp_fragment.project %>
+<% project_fragment = @plan.template.research_entity? ? dmp_fragment.research_entity : dmp_fragment.project %>
 <% project_schema = project_fragment.madmp_schema %>
 <% meta_schema = meta_fragment.madmp_schema %>
 
@@ -45,7 +45,7 @@
                 <%= _("Please enter the acronym, title or identifier of the project") %>
                 <a href="<%= about_registries_path %>" target="_blank"
                   data-toggle="tooltip" data-original-title="<%= _("Find out more.") %>">
-                  <span class="registry-info fas fa-info-circle"></span>
+                  <span class="registry-info fas fa-circle-info"></span>
                 </a>
               </label>
               <%= select_tag "anr_project",

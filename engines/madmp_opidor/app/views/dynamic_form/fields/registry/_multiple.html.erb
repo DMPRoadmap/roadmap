@@ -44,7 +44,7 @@
               <%= f.hidden_field "#{field_name}", 
                       multiple: true,
                       value: val %>
-              <span class="remove-button fa fa-times"></span>
+              <span class="remove-button fa fa-xmark"></span>
             </li>
           <% end %>
         <% else %>
@@ -53,7 +53,7 @@
             <%= f.hidden_field "#{field_name}", 
                     multiple: true,
                     value: nil %>
-            <span class="remove-button fa fa-times"></span>
+            <span class="remove-button fa fa-xmark"></span>
           </li>
         <% end %>
       </ul>

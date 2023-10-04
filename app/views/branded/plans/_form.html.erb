@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-12">
         <h1>
-          <%= @template_context.eql?(::Template.contexts[:research_structure]) ? _('Creating a research entity DMP: ') : _('Creating a research project DMP: ') %>
+          <%= @template_context.eql?(::Template.contexts[:research_entity]) ? _('Creating a research entity DMP: ') : _('Creating a research project DMP: ') %>
           <%= _('Choose a template') %>
         </h1>
         <p class="left-indent">

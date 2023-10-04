@@ -14,8 +14,9 @@ module Import
         else
           dmp = json_data
         end
+        dmp_template_name = plan.template.research_entity? ? 'DMPResearchEntity' : 'DMPResearchProject'
         dmp_fragment.raw_import(
-          dmp.slice('meta', 'project', 'budget'), MadmpSchema.find_by(name: 'DMPStandard')
+          dmp.slice('meta', 'project', 'research_entity', 'budget'), MadmpSchema.find_by(name: dmp_template_name)
         )
         Import::PlanImportService.handle_research_outputs(plan, dmp['researchOutput'])
       end

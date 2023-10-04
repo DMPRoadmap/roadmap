@@ -6,16 +6,16 @@
         <td class="registry-value-actions">
             <%= link_to edit_super_admin_registry_value_path(reg_val), 
                         target: "_self" do  %>
-              <i class="fas fa-edit edit" aria-hidden="true" data-toggle="tooltip"
+              <i class="fas fa-pen-to-square edit" aria-hidden="true" data-toggle="tooltip"
                     data-original-title="<%= _('Edit registry value') %>"></i>
             <% end %>
-            <i class="fas fa-arrows-alt handle" aria-hidden="true" data-toggle="tooltip" 
+            <i class="fas fa-up-down-left-right handle" aria-hidden="true" data-toggle="tooltip" 
                     data-original-title="<%= _('Move registry value') %>"></i>
             <%= link_to super_admin_registry_value_path(reg_val), 
                         target: "_self",
                         data: {:confirm => _('Are you sure you want to delete this registry value?')}, 
                         :method => :delete  do %>
-              <i class="fas fa-times delete" aria-hidden="true" data-toggle="tooltip" 
+              <i class="fas fa-xmark delete" aria-hidden="true" data-toggle="tooltip" 
                     data-original-title="<%= _('Delete registry value') %>"></i>
             <% end %>
         </td>

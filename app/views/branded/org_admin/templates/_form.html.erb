@@ -48,12 +48,12 @@
       name: 'template[type]') %>
 </div>
 
-<% if Rails.configuration.x.dmpopidor.enable_research_structure_template %>
+<% if Rails.configuration.x.dmpopidor.enable_research_entity_template %>
   <div class="form-group col-xs-8">
     <%= f.label(:context, _('Context'), class: "control-label") %>
     <%= select_tag(:context,
         options_for_select(
-          [["Research Project", "research_project"], ["Research Structure", "research_structure"]],
+          [["Research Project", "research_project"], ["Research Entity", "research_entity"]],
           f.object.context
         ),
         class: "form-control",
