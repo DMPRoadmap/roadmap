@@ -29,7 +29,15 @@ function ProjectSearch() {
     getDraftDmp(dmpId).then((initial) => {
       setDmp(initial);
 
+      console.log('Draft DMP Loaded');
+      console.log(initial);
+
       let funderUrl = initial.getDraftData("funder.funder_api", null);
+
+      console.log("funderUrl? " + funderUrl);
+      console.log("Has Funder?");
+      console.log(initial.hasFunder);
+
       if (!initial.hasFunder || !funderUrl) {
         navigate(`/dashboard/dmp/${dmpId}/project-details`);
       }
@@ -47,13 +55,10 @@ function ProjectSearch() {
       if (controller) controller.abort();
       controller = new AbortController();
 
-      let api = new DmpApi();
-      let headers = api.getHeaders();
-      headers.set("Content-Type", "text/plain")
-      let options = api.getOptions({
-        headers: headers,
-        signal: controller.signal,
-      });
+      console.log("Degug Query");
+      console.log("Dmp?");
+      console.log(dmp);
+      console.log("Funder URL? " + funderUrl);
 
       let funderUrl = dmp.getDraftData("funder.funder_api", null);
       if (!funderUrl) {
@@ -63,6 +68,14 @@ function ProjectSearch() {
         let url = new URL(funderUrl);
         let searchParams = new URLSearchParams(queryArgs);
         url.search = searchParams.toString();
+
+        let api = new DmpApi();
+        let headers = api.getHeaders();
+        headers.set("Content-Type", "text/plain")
+        let options = api.getOptions({
+          headers: headers,
+          signal: controller.signal,
+        });
 
         fetch(url, options)
           .then((resp) => {
