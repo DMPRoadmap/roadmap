@@ -43,7 +43,7 @@ function DmpSetup() {
 
     fetch(api.getPath("/drafts"), options)
       .then((resp) => {
-        api.handleResponse(resp.status);
+        api.handleResponse(resp);
         return resp.json();
       })
       .then((data) => {
