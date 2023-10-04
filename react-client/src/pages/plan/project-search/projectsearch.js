@@ -58,16 +58,25 @@ function ProjectSearch() {
       console.log("Degug Query");
       console.log("Dmp?");
       console.log(dmp);
-      console.log("Funder URL? " + funderUrl);
 
       let funderUrl = dmp.getDraftData("funder.funder_api", null);
+      console.log(funderUrl);
+
       if (!funderUrl) {
         console.log(`Error! Invalid funder api url, ${funderUrl}.`);
         console.log(dmp.getData());
       } else {
+        console.log("Going to make the request?");
+
         let url = new URL(funderUrl);
+
+        console.log("api url? " + url);
+
         let searchParams = new URLSearchParams(queryArgs);
         url.search = searchParams.toString();
+
+        console.log("Search params?");
+        console.log(searchParams);
 
         let api = new DmpApi();
         let headers = api.getHeaders();
@@ -77,6 +86,7 @@ function ProjectSearch() {
           signal: controller.signal,
         });
 
+        console.log("Searching the funder api now");
         fetch(url, options)
           .then((resp) => {
             api.handleResponse(resp);
