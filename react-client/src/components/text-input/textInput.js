@@ -1,7 +1,4 @@
-import {
-  useState,
-  useEffect,
-} from "react";
+import { useState, useEffect } from "react";
 
 function TextInput(props) {
   const [inputValue, setInputValue] = useState(props.inputValue);
@@ -10,7 +7,7 @@ function TextInput(props) {
   let hiddenClass = props?.hidden ? "group-hidden" : "";
 
   useEffect(() => {
-    setInputValue(props.inputValue)
+    setInputValue(props.inputValue);
   }, [props.inputValue]);
 
   function handleChange(ev) {
@@ -27,8 +24,13 @@ function TextInput(props) {
 
   return (
     <>
-      <div className={`dmpui-field-group ${disabledClass} ${hiddenClass} ${errorClass}`}>
-        <label className="dmpui-field-label">
+      <div
+        className={`dmpui-field-group ${disabledClass} ${hiddenClass} ${errorClass}`}
+      >
+        <label
+          className="dmpui-field-label"
+          htmlFor={props?.id ? props.id : ""}
+        >
           {props?.label ? props.label : ""}
         </label>
         <p className="dmpui-field-help">{props?.help ? props.help : ""}</p>

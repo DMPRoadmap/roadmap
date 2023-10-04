@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap");
 @import "./components/responsive";
 
+.c-skipnav {
+  color: #fff !important;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -190,7 +193,7 @@ dialog {
 #App p.dmpui-field-error {
   color: var(--dmpui-brand-red-500);
   &::before {
-    content: "⚠ "
+    content: "⚠ ";
   }
 }
 

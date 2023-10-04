@@ -4,6 +4,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { DmpApi } from "../../api.js";
 import { truncateText } from "../../utils.js";
 import { DmpModel } from "../../models.js";
+
+import TextInput from "../../components/text-input/textInput.js";
+
 import "./dashboard.scss";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
@@ -16,6 +19,13 @@ function Dashboard() {
   let navigate = useNavigate();
 
   const [show, setShow] = useState(false);
+  const [showFilterDrawer, setShowFilterDrawer] = useState(false);
+
+  function handleFilterDrawerOpen(id) {
+    setShowFilterDrawer(true);
+    document.getElementById("filter_title").focus();
+    return false;
+  }
 
   function handleQuickViewOpen(id) {
     console.log("Open Modal; Api Load data: ", id);
@@ -24,6 +34,25 @@ function Dashboard() {
     console.log("Load DMP");
     console.log(previewDmp);
     return false;
+  }
+
+  const [filter_title, setFilter_Title] = useState("");
+  const [filter_funder, setFilter_Funder] = useState("");
+  const [filter_grantId, setFilter_GrantId] = useState("");
+  const [filter_dmpId, setFilter_DmpId] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setFilter_Title(params.get("title") || "");
+    setFilter_Funder(params.get("funder") || "");
+    setFilter_GrantId(params.get("grant_id") || "");
+    setFilter_DmpId(params.get("dmp_id") || "");
+  }, [window.location.search]);
+
+  function checkFiltersApplied() {
+    const filters = [filter_title, filter_funder, filter_grantId, filter_dmpId];
+    const appliedFilters = filters.filter((filter) => filter !== "");
+    return appliedFilters.length;
   }
 
   useEffect(() => {
@@ -39,7 +68,7 @@ function Dashboard() {
       });
 
     // Fetch the work in progress DMPs for the currently logged in user
-    fetch(api.getPath("/drafts"), api.getOptions())
+    fetch(api.getPath("/drafts", window.location.search), api.getOptions())
       .then((resp) => {
         api.handleResponse(resp);
         return resp.json();
@@ -76,6 +105,26 @@ function Dashboard() {
       </div>
 
       <div className="plan-steps">
+        <div className="plan-step">
+          <div className="filter-tags">
+            <p className="filter-heading sr-only">Filter:</p>
+            <button
+              className="button filter-button"
+              onClick={() => handleFilterDrawerOpen()}
+            >
+              Filter DMPs
+              {checkFiltersApplied() > 0 && (
+                <span
+                  className="filter-count"
+                  title={checkFiltersApplied() + " filters applied"}
+                >
+                  {checkFiltersApplied()}
+                </span>
+              )}
+            </button>
+          </div>
+        </div>
+
         {/* <div className="plan-step">
         <div className="filter-container">
           <div className="filter-status">
@@ -102,57 +151,48 @@ function Dashboard() {
           </div>
           */}
 
-        <div class="table-container">
-          <div class="table-wrapper">
-            <table className="dashboard-table">
-              <thead>
-                <tr>
-                  <th scope="col" className="table-header-name data-heading">
-                    <a href="#" className="header-link">
+        <div className="table-container">
+          <div className="table-wrapper">
+            {projects.length > 0 ? (
+              <table className="dashboard-table">
+                <thead>
+                  <tr>
+                    <th scope="col" className="table-header-name data-heading">
                       Project Name
-                    </a>
-                  </th>
+                    </th>
 
-                  <th scope="col" className="table-header-name data-heading">
-                    <a href="#" className="header-link">
+                    <th scope="col" className="table-header-name data-heading">
                       Funder
-                    </a>
-                  </th>
+                    </th>
 
-                  <th scope="col" className="table-header-name data-heading">
-                    <a href="#" className="header-link">
+                    <th scope="col" className="table-header-name data-heading">
                       Last Edited
-                    </a>
-                  </th>
+                    </th>
 
-                  <th scope="col" className="table-header-name data-heading">
-                    <a href="#" className="header-link">
+                    <th scope="col" className="table-header-name data-heading">
                       Status
-                    </a>
-                  </th>
-                  <th scope="col" className="table-header-name data-heading">
-                    <a href="#" className="header-link">
+                    </th>
+                    <th scope="col" className="table-header-name data-heading">
                       Actions
-                    </a>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="table-body">
-                {projects.map((dmp) => (
-                  <Fragment key={dmp.draftId}>
-                    <tr key={dmp.draftId}>
-                      <td
-                        className="table-data-name table-data-title"
-                        data-colname="title"
-                      >
-                        <Link
-                          title={dmp.title}
-                          to={`/dashboard/dmp/${dmp.draftId}`}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="table-body">
+                  {projects.map((dmp) => (
+                    <Fragment key={dmp.draftId}>
+                      <tr key={dmp.draftId}>
+                        <td
+                          className="table-data-name table-data-title"
+                          data-colname="title"
                         >
-                          {truncateText(dmp.title, 50)}
-                        </Link>
+                          <Link
+                            title={dmp.title}
+                            to={`/dashboard/dmp/${dmp.draftId}`}
+                          >
+                            {truncateText(dmp.title, 50)}
+                          </Link>
 
-                        {/*
+                          {/*
                         <a
                           href="#"
                           title={dmp.title}
@@ -182,77 +222,89 @@ function Dashboard() {
                           </span>
                         </a>
 */}
-                        <div className="d-block table-data-pi">
-                          {dmp.contributors
-                            ? dmp.contributors.items.map((item, index) => (
-                                <Fragment key={index}>
-                                  {item.roles &&
-                                    item.roles.includes("investigation") && (
-                                      <span>
-                                        PI: {truncateText(item.name, 80)}
-                                      </span>
-                                    )}
-                                </Fragment>
-                              ))
-                            : ""}
+                          <div className="d-block table-data-pi">
+                            {dmp.contributors
+                              ? dmp.contributors.items.map((item, index) => (
+                                  <Fragment key={index}>
+                                    {item.roles &&
+                                      item.roles.includes("investigation") && (
+                                        <span>
+                                          PI: {truncateText(item.name, 80)}
+                                        </span>
+                                      )}
+                                  </Fragment>
+                                ))
+                              : ""}
 
-                          {dmp.draftId && dmp.draftId == "XXX" && (
-                            <span className={"action-required-text"}>
-                              X works need verification
+                            {dmp.draftId && dmp.draftId == "XXX" && (
+                              <span className={"action-required-text"}>
+                                X works need verification
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="table-data-name" data-colname="funder">
+                          {dmp.funding.acronym ? (
+                            <span title={dmp.funding.name}>
+                              {dmp.funding.acronym}
                             </span>
+                          ) : dmp.funding.name ? (
+                            <span title={dmp.funding.name}>
+                              {truncateText(dmp.funding.name, 50)}
+                            </span>
+                          ) : (
+                            "None"
                           )}
-                        </div>
-                      </td>
-                      <td className="table-data-name" data-colname="funder">
-                        {dmp.funding.acronym ? (
-                          <span title={dmp.funding.name}>
-                            {dmp.funding.acronym}
-                          </span>
-                        ) : dmp.funding.name ? (
-                          <span title={dmp.funding.name}>
-                            {truncateText(dmp.funding.name, 50)}
-                          </span>
-                        ) : (
-                          "None"
-                        )}
 
-                        {console.log(dmp)}
-                      </td>
-                      <td
-                        className="table-data-date"
-                        data-colname="last_edited"
-                      >
-                        03-29-2023
-                      </td>
-                      <td className={"table-data-name status-" + dmp.status[0]} data-colname="status">
-                        {dmp.status[1]}
-                      </td>
-                      <td
-                        className="table-data-name table-data-actions"
-                        data-colname="actions"
-                      >
-                        {dmp.draftId && dmp.draftId === "XXX" ? (
-                          <Link
-                            className="edit-button"
-                            to={`/dashboard/dmp/${dmp.draftId}`}
-                          >
-                            Complete
-                          </Link>
-                        ) : (
-                          <Link
-                            className="edit-button"
-                            to={`/dashboard/dmp/${dmp.draftId}`}
-                          >
-                            Update
-                            <span className={"action-required"}></span>
-                          </Link>
-                        )}
-                      </td>
-                    </tr>
-                  </Fragment>
-                ))}
-              </tbody>
-            </table>
+                          {console.log(dmp)}
+                        </td>
+                        <td
+                          className="table-data-date"
+                          data-colname="last_edited"
+                        >
+                          03-29-2023
+                        </td>
+                        <td
+                          className={"table-data-name status-" + dmp.status[0]}
+                          data-colname="status"
+                        >
+                          {dmp.status[1]}
+                        </td>
+                        <td
+                          className="table-data-name table-data-actions"
+                          data-colname="actions"
+                        >
+                          {dmp.draftId && dmp.draftId === "XXX" ? (
+                            <Link
+                              className="edit-button"
+                              to={`/dashboard/dmp/${dmp.draftId}`}
+                            >
+                              Complete
+                            </Link>
+                          ) : (
+                            <Link
+                              className="edit-button"
+                              to={`/dashboard/dmp/${dmp.draftId}`}
+                            >
+                              Update
+                              <span className={"action-required"}></span>
+                            </Link>
+                          )}
+                        </td>
+                      </tr>
+                    </Fragment>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="no-dmp-message mt-5">
+                <h3>There are no DMP results found</h3>
+                <p>
+                  No DMPs were found that match your search criteria. Please
+                  broaden your search and try again.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -301,6 +353,79 @@ function Dashboard() {
                 Close
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="filter-modal"
+        className={showFilterDrawer ? "show" : ""}
+        onClose={() => setShowFilterDrawer(false)}
+      >
+        <div id="filter-view-backdrop">
+          <div id="filter-view">
+            <form
+              method="get"
+              encType="multipart/form-data"
+              action="/dashboard"
+            >
+              <div className="quick-view-text-cont">
+                <h3>Filters</h3>
+                <div className="dmpui-form-col">
+                  <TextInput
+                    label="Title"
+                    type="text"
+                    name="title"
+                    id="filter_title"
+                    placeholder=""
+                    inputValue={filter_title}
+                    onChange={(e) => setFilter_Title(e.target.value)}
+                    help="Search for the specified text within the project title and abstract"
+                  />
+                  <TextInput
+                    label="Funder"
+                    type="text"
+                    name="funder"
+                    id="filter_funder"
+                    placeholder=""
+                    inputValue={filter_funder}
+                    onChange={(e) => setFilter_Funder(e.target.value)}
+                    help="Search for the name of the funder"
+                  />
+                  <TextInput
+                    label="Grant ID"
+                    type="text"
+                    name="grant_id"
+                    id="filter_grant_id"
+                    placeholder=""
+                    value={filter_grantId}
+                    onChange={(e) => setFilter_GrantId(e.target.value)}
+                    help="Search for the Grant ID"
+                  />
+                  <TextInput
+                    label="DMP ID"
+                    type="text"
+                    name="dmp_id"
+                    id="filter_dmp_id"
+                    placeholder=""
+                    value={filter_dmpId}
+                    onChange={(e) => setFilter_DmpId(e.target.value)}
+                    help="Search for the name of the DMP ID"
+                  />
+                </div>
+              </div>
+              <div className="form-actions">
+                <button type="submit" className="primary">
+                  Filter
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowFilterDrawer(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

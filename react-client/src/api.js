@@ -1,5 +1,3 @@
-
-
 class APIResponseError extends Error {
   constructor(msg, resp) {
     super(msg);
@@ -9,16 +7,14 @@ class APIResponseError extends Error {
   }
 }
 
-
-
 export class DmpApi {
   get baseUrl() {
     return `${window.location.origin}/api/v3`;
   }
 
   getPath(endpoint, queryParams) {
-    if (endpoint.charAt(0) !== '/') {
-      endpoint = '/' + endpoint;
+    if (endpoint.charAt(0) !== "/") {
+      endpoint = "/" + endpoint;
     }
 
     let url = new URL(this.baseUrl + endpoint, this.baseUrl);
@@ -36,8 +32,8 @@ export class DmpApi {
     // The returned headers object can be customized further if needed by the
     // caller.
     var headers = new Headers();
-    headers.append('Content-Type', "application/json");
-    headers.append('Accept', "application/json");
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
     return headers;
   }
 
@@ -45,12 +41,15 @@ export class DmpApi {
     // NOTE: Returns common options required for every request. We can
     // still override any of them as required.
     let _headers = this.getHeaders();
-    let _options = Object.assign({
-      method: 'get',
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: _headers,
-    }, options);
+    let _options = Object.assign(
+      {
+        method: "get",
+        mode: "cors",
+        cache: "no-cache",
+        headers: _headers,
+      },
+      options
+    );
 
     return _options;
   }
@@ -60,7 +59,9 @@ export class DmpApi {
    */
   getFileDataURL(fileData) {
     return new Promise((resolve, reject) => {
-      if (fileData.size == 0) { resolve(""); }
+      if (fileData.size == 0) {
+        resolve("");
+      }
 
       const reader = new FileReader();
       reader.onload = () => {

@@ -137,6 +137,9 @@
     border-color: #ddd;
     border-radius: 9px;
   }
+  .filter-button:hover {
+    background-color: #e3e4eb;
+  }
   .table-data-name {
     padding: 1rem 0.75rem 1rem 1rem;
 
@@ -169,7 +172,7 @@
     margin-left: 8px;
   }
 }
-
+#filter-view,
 #quick-view-view {
   position: fixed;
   right: 0px;
@@ -184,6 +187,7 @@
   padding: 2rem 2rem;
   transition: all 0.3s ease-in-out;
 }
+#filter-modal.show,
 #quick-view-modal.show {
   position: fixed;
   left: 0px;
@@ -192,7 +196,7 @@
   width: 100%;
   height: 100%;
   z-index: 10;
-
+  #filter-view,
   #quick-view-view {
     opacity: 1;
     transform: translateX(0%);
@@ -208,4 +212,33 @@
     margin-top: 1.25rem !important;
     margin-bottom: 0.5rem !important;
   }
+}
+.filter-tags {
+  margin-bottom: 1rem;
+}
+.filter-button {
+  position: relative;
+}
+.filter-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #3f51b5;
+  color: #fff;
+  padding: 10px;
+  border-radius: 9999999999px;
+  font-size: 13px;
+  width: 24px;
+  height: 24px;
+  line-height: normal;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-dmp-message {
+  margin: 2rem 0;
+  padding: 2rem 2rem;
+  background-color: #fcfcfc;
 }
