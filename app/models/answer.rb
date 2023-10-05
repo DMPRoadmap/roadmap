@@ -44,7 +44,7 @@ class Answer < ApplicationRecord
 
   has_many :notes
 
-  after_update :notify_plan_subscribers
+  after_save :notify_plan_subscribers
 
   # ===============
   # = Validations =

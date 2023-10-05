@@ -16,11 +16,11 @@ if org.is_a?(RegistryOrg)
     end
 
     if org.api_target.present?
-      base_url = "#{Rails.configuration.x.dmproadmap.server_host}"
-      base_url = "https://#{base_url}" unless base_url.start_with?('http')
-      base_url = "#{base_url}/" unless base_url.end_with?('/')
-      url = org.api_target if org.api_target.start_with?('http')
-      url = "#{base_url}#{org.api_target.start_with?('/') ? org.api_target : "/#{org.api_target}"}" if url.nil?
+      # Ensure that the api_target is a full callable URL
+      base_url = Rails.env.development? ? 'http://localhost:3000' : "#{Rails.configuration.x.dmproadmap.server_host}"
+      base_url += '/' unless base_url.strip.end_with?('/')
+      api_target = org.api_target.start_with?('/') ? org.api_target[1..(org.api_target.strip.length - 1)] : org.api_target
+      url = api_target.start_with?('http') ? api_target : "#{base_url.strip}#{api_target.strip}"
 
       json.funder_api url
       json.funder_api_guidance org.api_guidance

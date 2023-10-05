@@ -22,6 +22,7 @@ tooltip = _('Add another research output to this plan.')
               <%= hidden_field_tag "plan[related_identifiers_attributes[#{idx + 1}][#{attr}]]",
                                  related_identifier.send(attr.to_sym) %>
             <% end %>
+
             <% if related_identifier.citation.present? %>
               <%= sanitize(related_identifier.citation) %>
 
@@ -33,7 +34,12 @@ tooltip = _('Add another research output to this plan.')
               <% else %>
                 <%= related_identifier.value %>
               <% end %>
-              <%= _(" - No citation available.") %>
+
+              <% if related_identifier.created_at >= (Time.now - 1.minute).utc %>
+                <%= _(" - Fetching citation. This can take up to a minute. Please check back later.") %>
+              <% else %>
+                <%= _(" - No citation available.") %>
+              <% end %>
             <% end %>
             <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
               <a href="#" class="delete" aria-label="<%= _('Remove this related work') %>">

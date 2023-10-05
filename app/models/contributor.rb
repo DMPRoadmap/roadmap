@@ -36,7 +36,7 @@ class Contributor < ApplicationRecord
 
   belongs_to :plan, optional: true
 
-  after_update :notify_plan_subscribers
+  after_save :notify_plan_subscribers
 
   # =====================
   # = Nested attributes =
