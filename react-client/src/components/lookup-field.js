@@ -23,8 +23,8 @@ function LookupField(props) {
   useEffect(() => {
     // NOTE: Since the server requires a limit of 3 characters,
     // we might as well avoid any work till we reach the minimum.
-    setShowSuggestionSpinner(true);
     if (props.inputValue.length > 2) {
+      setShowSuggestionSpinner(true);
       if (controller) controller.abort();
 
       controller = new AbortController();
@@ -51,7 +51,6 @@ function LookupField(props) {
           } else {
             console.log('Api error:');
             console.log(err.response);
-            // errorMsg = err.response.toString();
           }
         });
     } else {
@@ -71,21 +70,15 @@ function LookupField(props) {
     errorMsg = errorMsg;
   }
 
+
   function handleChange(ev) {
-    ev.preventDefault();
     const { name, value } = ev.target;
-
-    // NOTE: Check if the the change happend after selecting an option
-    // in the datalist.
-    // TODO:: I'm not sure if this specific check is handled the same
-    // across browsers. We should test this one major browsers as well
-    // as mobile devices to confirm.
-    if (typeof ev.nativeEvent.inputType === "undefined") {
-      let el = document.querySelector(`#${resultsId} option[value="${value}"]`);
-      let index = el.dataset['index'];
-      ev.data = suggestions[index];
-    }
-
+    document.querySelectorAll(`#${resultsId} option`).forEach(el => {
+      if (el.value === value) {
+        let index = el.dataset['index'];
+        ev.data = suggestions[index];
+      }
+    });
     props.onChange(ev);
   }
 
@@ -103,8 +96,8 @@ function LookupField(props) {
           <div className="dmpui-field-input-lookup-icon-wrapper">
             <input
               type="text"
-              value={props.inputValue}
               onChange={handleChange}
+              value={props.inputValue}
               name={props?.name ? props.name : "lookup_query"}
               id={props?.id ? props.id : ""}
               placeholder={props?.placeholder}
