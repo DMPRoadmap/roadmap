@@ -3,50 +3,6 @@
 @import "../../../../node_modules/bootstrap/scss/functions";
 @import "../../../../node_modules/bootstrap/scss/variables";
 
-// Remove box-shadow and highlight from Accordion header
-.accordion-header a {
-  text-decoration: none !important;
-  box-shadow: none !important;
-}
-
-.accordion-header a:hover,
-.accordion-header a:active, 
-.accordion-header a:focus,
-.accordion-header a:focus-visible {
-  text-decoration: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-
-// move fa-arrows-alt to right
-h2.accordion-header {
-  display: flex !important;
-  align-items: center !important;
-  color: $color-accordion-button !important;
-  background-color: $color-accordion-button-bg !important;
-  font-size: 1rem;
-}
-
-h2.accordion-header > a.i {
-  margin-left: auto !important; 
-}
-// The Accordion color variables used are set in _colors.scss
-.accordion-button {
-  font-size: inherit;
-  color: $color-accordion-button !important;
-  background-color: $color-accordion-button-bg !important;
-}
-
-.accordion-button:hover,
-.accordion-button:active, 
-.accordion-button:focus,
-.accordion-button:focus-visible {
-  text-decoration: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
 
 // An explanation of how we change the Bootstrap arrow icon for the accordion to use the footawesome icons.
 // First we get the fontawesome plus.svg and minus.svg for use in background image from:
@@ -61,10 +17,42 @@ h2.accordion-header > a.i {
 // We could have done this without str-replace by adding encoded fill='%23{$color-accordion-button-icon}'.
 // We now use svg as the background-image for the .accordion-button class as follows.
 .accordion-button::after, .accordion-button.collapsed::after {
-  background-image: str-replace(url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}' %3E%3C!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --%3E%3Cpath d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'/%3E%3C/svg%3E"), '#', '%23') !important;
+  background-image: str-replace(url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}' %3E%3C!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --%3E%3Cpath d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'/%3E%3C/svg%3E"), '#', '%23');
 }
 
 .accordion-button:not(.collapsed)::after {
-  background-image: str-replace(url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}' %3E%3C!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --%3E%3Cpath d='M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'/%3E%3C/svg%3E"), '#', '%23') !important;
+  background-image: str-replace(url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}' %3E%3C!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --%3E%3Cpath d='M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'/%3E%3C/svg%3E"), '#', '%23');
   transition: all 0.5s;
 }
+
+// // move fa-arrows-alt to right
+h2.accordion-header {
+  display: flex;
+  align-items: center;
+  color: $color-accordion-button;
+  background-color: $color-accordion-button-bg;
+  font-size: 1rem;
+}
+
+h2.accordion-header > a.i {
+  margin-left: auto; 
+}
+
+// Remove box-shadow and highlight from Accordion header
+a.accordion-button,
+a.accordion-button:hover,
+a.accordion-button:active, 
+a.accordion-button:focus,
+a.accordion-button:focus-visible,
+button.accordion-button,
+button.accordion-button:hover,
+button.accordion-button:active, 
+button.accordion-button:focus,
+button.accordion-button:focus-visible {
+  color: $color-accordion-button;
+  background-color: $color-accordion-button-bg;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
