@@ -34,6 +34,7 @@ export class DmpApi {
     } catch (err) {
       throw new Error(`Invalid url arguments: ${path}`);
     }
+
     if (queryParams) {
       let query = new URLSearchParams(queryParams);
       url.search = query.toString();

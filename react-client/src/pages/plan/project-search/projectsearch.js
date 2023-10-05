@@ -50,8 +50,6 @@ function ProjectSearch() {
         console.log(`Error! Invalid funder api url, ${funderUrl}.`);
         console.log(dmp.getData());
       } else {
-        console.log("Going to make the request?");
-
         let api = new DmpApi();
         let headers = api.getHeaders();
         headers.set("Content-Type", "text/plain")
@@ -61,8 +59,6 @@ function ProjectSearch() {
         });
 
         let url = api.getFullPath(funderUrl, queryArgs);
-        console.log("api url? " + url);
-        console.log("Fetch results");
         fetch(url, options)
           .then((resp) => {
             api.handleResponse(resp);
