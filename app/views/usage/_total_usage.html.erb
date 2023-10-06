@@ -5,7 +5,7 @@
       <i class="fas fa-users f-large"></i>
       <p class="fontsize-h4"><%= user_count.to_i %> <%= _('Total users') %></p>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 pe-1">
       <i class="fas fa-files f-large"></i>
       <p class="fontsize-h4"><%= plan_count.to_i %> <%= _( 'Total plans') %></p>
       <%= form_tag('/usage', method: :get, id: :filter_plans_form) do |f| %>
