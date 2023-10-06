@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   get 'about_us' => 'static_pages#about_us'
   get 'help' => 'static_pages#help'
   get 'terms' => 'static_pages#termsuse'
+  get 'sso_error' => 'static_pages#sso_error'
   get 'privacy' => 'static_pages#privacy'
   get 'public_plans' => 'public_pages#plan_index'
   get 'public_templates' => 'public_pages#template_index'

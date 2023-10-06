@@ -1,0 +1,64 @@
+<%
+# Possible SSO issues:
+#   - Unkown IdentifierScheme (entry missing from identifier_schemes table)
+#   - omniauth hash was blank
+#   - omniauth did not include a UID
+#   - unable to find/create user object no UID match, not email match or email was nil
+omniauth_hash = @hash ||= {}
+hash_empty = !omniauth_hash.is_a?(Hash) || omniauth_hash.keys.empty?
+problems = []
+
+unless hash_empty
+  idp = Identifier.by_scheme_name('shibboleth', 'Org')
+                  .where('LOWER(value) = ?', omniauth_hash['identity_provider'].downcase).first
+  org = idp&.identifiable
+end
+%>
+
+<h1><%= _('Sorry, we were not able to log you in.') %></h1>
+
+<div class="static-page">
+  <h2><%= _('What is the problem?') %></h2>
+  <p><%= _('Your institution did not send us enough information to create or find your account.') %></p>
+
+  <h2><%= _('What you can do in the short term') %></h2>
+  <p>
+    <p>
+      <ul>
+        <li><%= format(_('Return to the %{homepage_link}'), homepage_link: "<a href=\"#{root_path}\">home page</a>.").html_safe %></li>
+        <li><%= _('Enter your email address as before and click Continue') %></li>
+        <li><%= _('Then click the \'Sign in with non SSO\' link under the \'Sign in with Institution (SSO)\' button.') %></li>
+        <li><strong><%= _('If you do not have an account:') %></strong> <%= _('Fill out the form to create your account. Be sure to select your institution from the list of suggestions.') %></li>
+        <li><strong><%= _('If you already have an account:') %></strong> <%= _('Click on the \'Reset Password\' link and then fill out the form. This will email you a link to create a password that is unique to the DMPTool.') %> <em><%= _('(Note that this will NOT change the password you use to sign in to your institution\'s SSO.)') %></em></li>
+        <li><%= _('If this SSO problem happens again in the future you will be able to use the \'Sign in with non SSO\' link and your new password to access the system.') %></li>
+      </ul>
+    </p>
+  </p>
+
+  <h2><%= _('What you can do in the long term') %></h2>
+  <p><%= _('If this problem persists, you should contact your local library administrator and provide them with the information below.') %></p>
+
+  <% if omniauth_hash.is_a?(Hash) && omniauth_hash.keys.any? %>
+    <p><%= _('We received the following SAML information from your institution\'s SSO system:') %></p>
+    <ul>
+      <li><strong>entityId</strong> <em><%= _('(required)') %></em>: <%= omniauth_hash['identity_provider'] %></li>
+      <li><strong>eppn</strong> <em><%= _('(required)') %></em>: <%= omniauth_hash['uid'] %></li>
+      <li><strong>mail</strong> <em><%= _('(required)') %></em>: <%= omniauth_hash.fetch('info', {})['mail'] %></li>
+
+      <% omniauth_hash.fetch('info', {}).each do |key, val| %>
+        <% next if key.nil? || key.downcase == 'mail' %>
+
+        <li><strong><%= key %></strong> <em><%= _('(optional)') %></em>: <%= val %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p><strong><%= _('No SAML information was received from your institution\'s SSO system.') %></strong></p>
+  <% end %>
+
+  <p><%= _('Your administrator will need to contact the appropriate department at your institution to have these issues resolved. They will find the following resources useful when troubleshooting the issue:') %></p>
+  <ul>
+    <li><a href="https://github.com/CDLUC3/dmptool/tree/main/docs/sso"><%= _('DMPTool SSO documentation') %></li>
+    <li><a href="https://dmptool.org/cgi-bin/PrintShibInfo.pl"><%= _('DMPTool SSO test page') %></li>
+    <li><a href="<%= contact_us_path %>"><%= _('Contact the DMPTool helpdesk') %></li>
+  </ul>
+</div>
