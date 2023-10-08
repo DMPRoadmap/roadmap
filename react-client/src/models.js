@@ -105,7 +105,9 @@ export class Contributor extends Contact {
 
   addRole(val) {
     if (this.roles.includes(val)) return;
-    this.roles.push(val);
+    let roles = this.roles;
+    roles.push(val);
+    this.roles = roles;
   }
 
   hasRole(role) {
@@ -130,6 +132,10 @@ export class Contributor extends Contact {
 
       if (!this.affiliation.name)
         this.errors.set("affiliation", "Primary contact must have an affiliation.");
+    }
+
+    if (this.roles.length === 0) {
+      this.errors.set("role", "Please select at least one role.");
     }
   }
 
@@ -272,9 +278,11 @@ export class DataObject extends Model {
 
   validateFields() {
     if (!this.title) this.errors.set("title", "Title is required");
-    if (!this.type || this.type.toLowerCase() == "select one") {
+    if (!this.type || this.type.toLowerCase() == "select one")
       this.errors.set("type", "Type is required");
-    }
+
+    if (!this.repository.url)
+      this.errors.set("repo", "Repository url is required");
   }
 
   commit() {

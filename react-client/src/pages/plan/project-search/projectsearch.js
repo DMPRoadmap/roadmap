@@ -6,7 +6,11 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 
 import { DmpApi } from "../../../api.js";
-import { getDraftDmp, saveDraftDmp } from "../../../models.js";
+import {
+  getDraftDmp,
+  saveDraftDmp,
+  Contributor,
+} from "../../../models.js";
 import { getValue, useDebounce, isEmpty} from "../../../utils.js";
 import TextInput from "../../../components/text-input/textInput";
 import "./projectsearch.scss";
@@ -139,8 +143,21 @@ function ProjectSearch() {
       dmp.funding.projectNumber = getValue(
         item, "project.funding.0.dmproadmap_project_number");
 
-      dmp.contact.name = getValue(item, "contact");
       dmp.contributors = getValue(item, "contributor");
+      dmp.contributors.items.forEach((c, i) => {
+        if (c.roles.length === 0) {
+          c.addRole("other");
+          dmp.contributors.update(i, c);
+        }
+      });
+
+      if (item.contact) {
+        let c = new Contributor(getValue(item, "contact"));
+        c.contact = true;
+        if (c.roles.length === 0)
+          c.addRole("other");
+        dmp.contributors.add(c);
+      }
 
       saveDraftDmp(dmp).then((savedDmp) => {
         navigate(`/dashboard/dmp/${dmpId}/project-details`);

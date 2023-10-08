@@ -5,7 +5,11 @@ import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
 import LookupField from "../../../components/lookup-field.js";
 
-import { getDraftDmp, saveDraftDmp } from "../../../models.js";
+import {
+  getDraftDmp,
+  saveDraftDmp,
+  Funding,
+} from "../../../models.js";
 
 import "./funder.scss";
 
@@ -64,9 +68,15 @@ function PlanFunders() {
     }
 
     // Update and then Commit the changes to the DMP model
-    dmp.setDraftData("funder", funder);
-    dmp.funding.name = funder.name;
-    if (funder.funder_id) dmp.funding.funderId = funder.funder_id;
+    if (hasFunder === "yes") {
+      dmp.setDraftData("funder", funder);
+      dmp.funding.name = funder.name;
+      if (funder.funder_id) dmp.funding.funderId = funder.funder_id;
+    } else {
+      dmp.project.funding = new Funding({});
+      dmp.setDraftData("funder", {});
+      dmp.commit();
+    }
 
     saveDraftDmp(dmp).then((savedDmp) => {
       if (savedDmp.hasFunder) {
@@ -147,7 +157,7 @@ function PlanFunders() {
                     endpoint="funders"
                     placeholder="Search ..."
                     help="Search for your funder by name. If you can't find your funder in the list, just type it in."
-                    inputValue={funder.name}
+                    inputValue={funder.name ? funder.name : ""}
                     onChange={handleChange}
                     disabled={isLocked}
                     error=""
