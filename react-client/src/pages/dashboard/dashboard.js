@@ -6,7 +6,7 @@ import { truncateText } from "../../utils.js";
 import { DmpModel } from "../../models.js";
 
 import TextInput from "../../components/text-input/textInput.js";
-
+import LookupField from "../../components/lookup-field.js";
 import "./dashboard.scss";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
@@ -55,6 +55,15 @@ function Dashboard() {
     return appliedFilters.length;
   }
 
+  function handleClearAll(e) {
+    e.preventDefault();
+    setFilter_Title("");
+    setFilter_Funder("");
+    setFilter_GrantId("");
+    setFilter_DmpId("");
+    return false;
+  }
+
   useEffect(() => {
     let api = new DmpApi();
 
@@ -81,9 +90,12 @@ function Dashboard() {
 
   return (
     <div id="Dashboard">
-      <p>
-        Welcome back {user.givenname} {user.surname}
-      </p>
+      {user && user?.givenname && (
+        <p>
+          Welcome back {user?.givenname} {user?.surname}
+        </p>
+      )}
+
       <p>
         <a href="/plans" className="exit-prototype">
           Back to standard Dashboard
@@ -122,6 +134,12 @@ function Dashboard() {
                 </span>
               )}
             </button>
+
+            {checkFiltersApplied() > 0 && (
+              <a href="/dashboard" className="filter-clear-all-button">
+                Clear Filters
+              </a>
+            )}
           </div>
         </div>
 
@@ -382,16 +400,19 @@ function Dashboard() {
                     onChange={(e) => setFilter_Title(e.target.value)}
                     help="Search for the specified text within the project title and abstract"
                   />
-                  <TextInput
+
+                  <LookupField
                     label="Funder"
-                    type="text"
                     name="funder"
                     id="filter_funder"
+                    endpoint="funders"
                     placeholder=""
+                    help="Search for the name of the funder"
                     inputValue={filter_funder}
                     onChange={(e) => setFilter_Funder(e.target.value)}
-                    help="Search for the name of the funder"
+                    error=""
                   />
+
                   <TextInput
                     label="Grant ID"
                     type="text"
@@ -414,6 +435,14 @@ function Dashboard() {
                   />
                 </div>
               </div>
+
+              {checkFiltersApplied() > 0 && (
+                <div>
+                  <a href="#" onClick={handleClearAll}>
+                    Clear All Filters
+                  </a>
+                </div>
+              )}
               <div className="form-actions">
                 <button type="submit" className="primary">
                   Filter

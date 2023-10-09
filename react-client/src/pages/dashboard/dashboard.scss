@@ -219,6 +219,15 @@
 .filter-button {
   position: relative;
 }
+.filter-clear-all-button {
+  margin-left: 2rem;
+}
+@media screen and (min-width: 700px) {
+  .filter-clear-all-button {
+    margin-left: 2rem;
+  }
+}
+
 .filter-count {
   position: absolute;
   top: -10px;
