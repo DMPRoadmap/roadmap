@@ -111,7 +111,9 @@ module Api
         # Extract the narrative PDF so we can add it to ActiveStorage
         args = create_params
         args.delete(:narrative)
-        dmp = Draft.new(user: current_user, metadata: { dmp: args })
+        dmp = Draft.find_by(draft_id: params[:id])
+        render_error(errors: MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
+        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
 
         # Remove the old narrative if applicable
         dmp.narrative.purge if (create_params[:narrative].present? || create_params[:remove_narrative].present?) &&
