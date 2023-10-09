@@ -15,11 +15,14 @@ function ProjectDetails() {
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState({});
   const [formData, setFormData] = useState({});
-  const [isLocked, setLocked] = useState(true);
+  const [isLocked, setLocked] = useState(false);
 
   useEffect(() => {
     getDraftDmp(dmpId).then(initial => {
       setDmp(initial);
+      if (initial.hasFunder) {
+        setLocked(true);
+      }
       setFormData({
         project_name: initial.title,
         project_id: initial.funding.projectNumber,

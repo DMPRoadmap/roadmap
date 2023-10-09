@@ -264,6 +264,7 @@ function ResearchOutputs() {
                   id="idRepositoryURL"
                   inputValue={dataObj.repository.url}
                   onChange={handleChange}
+                  error={dataObj.errors.get("repo")}
                   disabled={dataObj.repository.isLocked}
                   hidden={dataObj.repository.isLocked}
                 />

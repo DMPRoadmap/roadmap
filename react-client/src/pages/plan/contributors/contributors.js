@@ -121,7 +121,7 @@ function Contributors() {
       closeModal();
     } else {
       setContributor(newContrib);
-      console.log(contributor.errors);
+      console.log(newContrib.errors);
     }
   }
 
@@ -260,6 +260,9 @@ function Contributors() {
                   </label>
 
                   <div id="contributorRoles">
+                    {contributor.errors.get("role") && (
+                      <p className="dmpui-field-error"> {contributor.errors.get("role")} </p>
+                    )}
                     {roles.map((role, index) => (
                       <Fragment key={index}>
                         <Checkbox
