@@ -138,7 +138,13 @@ Rails.application.routes.draw do
       post :simulations, controller: :temporaries
 
       # Draft (work in progress) DMPs
-      resources :drafts, only: %i[index create destroy show update]
+      resources :drafts, only: %i[index create destroy show update] do
+        member do
+          # Update the title and narrative PDF (needs a separate endpoint because this must be
+          # sent as multipart form data instead of JSON)
+          put 'narrative', controller: :drafts, action: :update_narrative
+        end
+      end
 
       # DMP IDs: Defining each individually here since we need to use route globbing to handle DMP ID DOIs
       get 'dmps', controller: :dmps, action: :index
