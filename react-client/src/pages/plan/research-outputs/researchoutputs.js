@@ -140,6 +140,16 @@ function ResearchOutputs() {
     document.getElementById("outputsModal").close();
   }
 
+  function handleDeleteOutput(ev) {
+    const index = ev.target.value;
+    let obj = dmp.dataset.get(index);
+
+    if (confirm(`Are you sure you want to delete the output, ${obj.title}?`)) {
+      let newDmp = new DmpModel(dmp.getData());
+      newDmp.dataset.remove(index);
+      setDmp(newDmp);
+    }
+  }
 
   async function handleSave(ev) {
     ev.preventDefault();
@@ -190,9 +200,13 @@ function ResearchOutputs() {
             <div data-colname="sensitive">{item.sensitive}</div>
             <div data-colname="repo">{item.repository.title}</div>
             <div data-colname="datatype">{item.typeDisplay}</div>
-            <div data-colname="actions">
+            <div data-colname="actions" class="form-actions">
               <button value={index} onClick={handleModalOpen}>
                 Edit
+              </button>
+
+              <button value={index} onClick={handleDeleteOutput}>
+                Delete
               </button>
             </div>
           </Fragment>

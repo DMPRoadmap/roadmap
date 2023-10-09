@@ -93,6 +93,21 @@ function Contributors() {
     document.getElementById("contributorModal").close();
   }
 
+  function handleDeleteContributor(ev) {
+    const index = ev.target.value;
+    let c = dmp.contributors.get(index);
+
+    if (c.contact) {
+      alert("Cannot delete the primary contact. Please choose another contributor to take on this role first");
+    } else {
+      if (confirm(`Are you sure you want to delete the contributor, ${c.name}?`)) {
+        let newDmp = new DmpModel(dmp.getData());
+        newDmp.contributors.remove(index);
+        setDmp(newDmp);
+      }
+    }
+  }
+
   function handleSaveContributor(ev) {
     ev.preventDefault();
 
@@ -170,9 +185,13 @@ function Contributors() {
               <Fragment key={index}>
                 <div data-colname="name">{item.name}</div>
                 <div data-colname="role">{item.roleDisplays.join(', ')}</div>
-                <div data-colname="actions">
+                <div data-colname="actions" class="form-actions">
                   <button value={index} onClick={handleModalOpen}>
                     Edit
+                  </button>
+
+                  <button value={index} onClick={handleDeleteContributor}>
+                    Delete
                   </button>
                 </div>
               </Fragment>

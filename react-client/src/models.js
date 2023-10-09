@@ -71,6 +71,10 @@ class ModelSet {
     }
   }
 
+  remove(index) {
+    this.items.splice(index, 1);
+  }
+
   commit() {
     if (this.items) this.items.forEach(i => i.commit());
   }
