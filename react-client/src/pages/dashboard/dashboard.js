@@ -55,7 +55,8 @@ function Dashboard() {
     return appliedFilters.length;
   }
 
-  function handleClearAll() {
+  function handleClearAll(e) {
+    e.preventDefault();
     setFilter_Title("");
     setFilter_Funder("");
     setFilter_GrantId("");
@@ -434,7 +435,7 @@ function Dashboard() {
 
               {checkFiltersApplied() > 0 && (
                 <div>
-                  <a href="/dashboard" onClick="handleClearAll">
+                  <a href="#" onClick={handleClearAll}>
                     Clear All Filters
                   </a>
                 </div>
