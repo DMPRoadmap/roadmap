@@ -6,7 +6,7 @@ import { truncateText } from "../../utils.js";
 import { DmpModel } from "../../models.js";
 
 import TextInput from "../../components/text-input/textInput.js";
-
+import LookupField from "../../components/lookup-field.js";
 import "./dashboard.scss";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
@@ -382,16 +382,19 @@ function Dashboard() {
                     onChange={(e) => setFilter_Title(e.target.value)}
                     help="Search for the specified text within the project title and abstract"
                   />
-                  <TextInput
+
+                  <LookupField
                     label="Funder"
-                    type="text"
                     name="funder"
                     id="filter_funder"
+                    endpoint="funders"
                     placeholder=""
+                    help="Search for the name of the funder"
                     inputValue={filter_funder}
                     onChange={(e) => setFilter_Funder(e.target.value)}
-                    help="Search for the name of the funder"
+                    error=""
                   />
+
                   <TextInput
                     label="Grant ID"
                     type="text"
