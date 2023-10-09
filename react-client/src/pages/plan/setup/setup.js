@@ -79,7 +79,7 @@ function DmpSetup() {
                 <label className="dmpui-field-label">Upload DMP</label>
                 <p className="dmpui-field-help">
                   Only PDFs may be uploaded, and files should be no more than
-                  250kb.
+                  1MB.
                 </p>
 
                 <div className="dmpui-field-fileinput-group  ">

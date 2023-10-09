@@ -109,8 +109,6 @@ module Api
       # PUT /drafts/{:id}/narrative
       def update_narrative
         # Extract the narrative PDF so we can add it to ActiveStorage
-        args = create_params
-        args.delete(:narrative)
         dmp = Draft.find_by(draft_id: params[:id])
         render_error(errors: MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
         render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
@@ -123,7 +121,7 @@ module Api
         dmp.narrative.attach(create_params[:narrative]) if create_params[:narrative].present?
         if dmp.save
           @drafts = [dmp]
-          render json: render_to_string(template: '/api/v3/drafts/index'), status: :created
+          render json: render_to_string(template: '/api/v3/drafts/index'), status: :ok
         else
           render_error(errors: dmp.errors.full_messages, status: :bad_request)
         end
