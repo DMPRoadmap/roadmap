@@ -90,9 +90,12 @@ function Dashboard() {
 
   return (
     <div id="Dashboard">
-      <p>
-        Welcome back {user.givenname} {user.surname}
-      </p>
+      {user && user?.givenname && (
+        <p>
+          Welcome back {user?.givenname} {user?.surname}
+        </p>
+      )}
+
       <p>
         <a href="/plans" className="exit-prototype">
           Back to standard Dashboard
