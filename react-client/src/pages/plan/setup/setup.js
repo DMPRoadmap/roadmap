@@ -15,7 +15,7 @@ function DmpSetup() {
 
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState(new DmpModel({}));
-  const [fileError, setFileError] = useState(null);
+  const [errors, setErrors] = useState(new Map());
 
   useEffect(() => {
     if (typeof dmpId !== "undefined") {
@@ -27,11 +27,19 @@ function DmpSetup() {
 
 
   function isValid(fdata) {
-    setFileError(null);
-    if (fdata.get("narrative").size > 256000) {
-      setFileError("File size cannot exceed 250 kb");
-      return false;
+    let err = new Map();
+
+    const sizeLimit = 1000000;
+    if (fdata.get("narrative").size > sizeLimit) {
+      err.set("narrative", "File size cannot exceed 1 Mb");
     }
+
+    if (!fdata.get("title")) {
+      err.set("title", "Title cannot be blank");
+    }
+
+    setErrors(err);
+    if (err.size > 0) return false;
     return true;
   }
 
@@ -42,24 +50,19 @@ function DmpSetup() {
     let api = new DmpApi();
     let formData = new FormData(ev.target);
 
-    console.log("form data?");
-    for (const pair of formData.entries()) {
-      console.log(`${pair[0]}, ${pair[1]}`);
-    }
-
     if (isValid(formData)) {
+      // NOTE: Remove the content-type header so that rails and browser will
+      // figure it out If we don't do this, then the request always fail.
+      var headers = api.getHeaders();
+      headers.delete('Content-Type');
+      let options = api.getOptions({
+        headers: headers,
+        method: "post",
+        body: formData,
+      });
+
       if (!dmpId) {
-
-        // NOTE: Remove the content-type header so that rails and browser will
-        // figure it out If we don't do this, then the request always fail.
-        var headers = api.getHeaders();
-        headers.delete('Content-Type');
-
-        let options = api.getOptions({
-          headers: headers,
-          method: "post",
-          body: formData,
-        });
+        options.method = "post";
 
         fetch(api.getPath("/drafts"), options)
           .then((resp) => {
@@ -71,9 +74,22 @@ function DmpSetup() {
             navigate(`/dashboard/dmp/${dmp.draft_id.identifier}/funders`);
           });
       } else {
-        console.log("Hello existing DMP!");
-        console.log(formData.get("remove_narrative"));
+        // NOTE: We cannot use the saveDraftDmp helper function here since
+        // the headers and content type is different during this setup step
+        // (due to the PDF narrative)
+        options.method = "put";
+
+        fetch(api.getPath(`/drafts/${dmpId}/narrative`), options)
+          .then((resp) => {
+            api.handleResponse(resp);
+            return resp.json();
+          })
+          .then((data) => {
+            navigate(`/dashboard/dmp/${dmpId}`);
+          });
       }
+    } else {
+      console.log(errors);
     }
   }
 
@@ -97,7 +113,7 @@ function DmpSetup() {
                 inputValue={dmp ? dmp.title : ""}
                 placeholder="Project Name"
                 help="All or part of the project name/title, e.g. 'Particle Physics'"
-                error=""
+                error={errors.get("title")}
               />
             </div>
           </div>
@@ -110,7 +126,9 @@ function DmpSetup() {
                   Only PDFs may be uploaded, and files should be no more than
                   250kb.
                 </p>
-                {fileError && <p className="dmpui-field-error"> {fileError} </p>}
+                {errors.get("narrative") && (
+                  <p className="dmpui-field-error"> {errors.get("narrative")} </p>
+                )}
 
                 <div className="dmpui-field-fileinput-group">
                   <div>

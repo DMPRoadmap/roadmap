@@ -184,7 +184,8 @@ export class Funding extends Model {
 
   getStatus() {
     let status = ["notstart", "Not Started"];
-    if (this.name && this.funderId)
+
+    if ((this.name && this.funderId) || this.name === "None")
       status = ["completed", "Completed"];
     return status;
   }

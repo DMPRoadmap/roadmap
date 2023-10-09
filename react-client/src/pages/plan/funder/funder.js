@@ -73,7 +73,7 @@ function PlanFunders() {
       dmp.funding.name = funder.name;
       if (funder.funder_id) dmp.funding.funderId = funder.funder_id;
     } else {
-      dmp.project.funding = new Funding({});
+      dmp.project.funding = new Funding({name: "None"});
       dmp.setDraftData("funder", {});
       dmp.commit();
     }
