@@ -95,6 +95,9 @@ class Draft < ApplicationRecord
     data = metadata
     return JSON.parse(data.to_json).to_json unless data['dmp'].present?
 
+    data['dmp']['draft_data'] = {} unless data['dmp']['draft_data'].present?
+    data['dmp']['draft_data']['narrative'] = narrative_to_draft_data if narrative.attached?
+
     data['dmp']['dmp_id'] = { type: 'doi', identifier: dmp_id } if registered?
     data['dmp']['draft_id'] = { type: 'other', identifier: draft_id } if !registered? && draft_id.present?
     return JSON.parse(data.to_json).to_json unless narrative.attached?
@@ -209,11 +212,23 @@ class Draft < ApplicationRecord
   def narrative_to_related_identifier
     return nil unless narrative.attached?
 
+pp narrative.inspect
+
     JSON.parse({
       type: 'url',
       descriptor: 'is_metadata_for',
       work_type: 'output_management_plan',
       identifier: Rails.application.routes.url_helpers.rails_blob_url(narrative, disposition: 'attachment')
+    }.to_json)
+  end
+
+  # Creates the narrative information needed by the UI
+  def narrative_to_draft_data
+    return {} unless narrative.attached?
+
+    JSON.parse({
+      file_name: narrative.blob.filename,
+      url: Rails.application.routes.url_helpers.rails_blob_url(narrative, disposition: 'attachment')
     }.to_json)
   end
 
