@@ -55,6 +55,14 @@ function Dashboard() {
     return appliedFilters.length;
   }
 
+  function handleClearAll() {
+    setFilter_Title("");
+    setFilter_Funder("");
+    setFilter_GrantId("");
+    setFilter_DmpId("");
+    return false;
+  }
+
   useEffect(() => {
     let api = new DmpApi();
 
@@ -122,6 +130,12 @@ function Dashboard() {
                 </span>
               )}
             </button>
+
+            {checkFiltersApplied() > 0 && (
+              <a href="/dashboard" className="filter-clear-all-button">
+                Clear Filters
+              </a>
+            )}
           </div>
         </div>
 
@@ -417,6 +431,14 @@ function Dashboard() {
                   />
                 </div>
               </div>
+
+              {checkFiltersApplied() > 0 && (
+                <div>
+                  <a href="/dashboard" onClick="handleClearAll">
+                    Clear All Filters
+                  </a>
+                </div>
+              )}
               <div className="form-actions">
                 <button type="submit" className="primary">
                   Filter
