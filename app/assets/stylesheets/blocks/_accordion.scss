@@ -38,7 +38,7 @@ h2.accordion-header > a.i {
   margin-left: auto; 
 }
 
-// Remove box-shadow and highlight from Accordion header
+// Remove box-shadow and highlight from Accordion button
 a.accordion-button,
 a.accordion-button:hover,
 a.accordion-button:active, 
@@ -55,4 +55,3 @@ button.accordion-button:focus-visible {
   box-shadow: none !important;
   outline: none !important;
 }
-
