@@ -40,10 +40,14 @@ h2.accordion-header > a.i {
 
 // Remove box-shadow and highlight from Accordion button
 a.accordion-button,
+a.accordion-button.collapsed,
+a.accordion-button:not(.collapsed),
 a.accordion-button:hover,
 a.accordion-button:active, 
 a.accordion-button:focus,
 a.accordion-button:focus-visible,
+button.accordion-button.collapsed,
+button.accordion-button:not(.collapsed)
 button.accordion-button,
 button.accordion-button:hover,
 button.accordion-button:active, 
