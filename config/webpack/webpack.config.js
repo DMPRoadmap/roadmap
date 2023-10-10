@@ -55,6 +55,8 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       'global.jQuery': 'jquery',
+      React: 'react',
+      ReactDOM: 'react-dom',
     }),
   ],
   resolve: {
