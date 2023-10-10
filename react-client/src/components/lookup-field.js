@@ -109,8 +109,10 @@ function LookupField(props) {
                 showSuggestionSpinner ? "show-spinner" : ""
               }`}
               disabled={props.disabled}
+
             />
-            <Spinner isActive={showSuggestionSpinner} />
+            <Spinner className="dmpui-field-input-spinner"
+                     isActive={showSuggestionSpinner} />
           </div>
           <datalist id={resultsId}>
             {props.inputValue.length > 0 && suggestions?.map((el, index) => {

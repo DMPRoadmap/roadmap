@@ -27,6 +27,7 @@ function ProjectSearch() {
   const [selected, setSelected] = useState(null);
   const [projects, setProjects] = useState([]);
   const [queryArgs, setQueryArgs] = useState(null);
+  const [searching, setSearching] = useState(false);
   const debounceQuery = useDebounce(queryArgs, 500);
 
   var controller;
@@ -65,10 +66,13 @@ function ProjectSearch() {
           signal: controller.signal,
         });
 
+        setSearching(true);
+
         let url = api.getFullPath(funderUrl, queryArgs);
         fetch(url, options)
           .then((resp) => {
             api.handleResponse(resp);
+            setSearching(false);
             return resp.json();
           })
           .then((data) => {
@@ -253,18 +257,26 @@ function ProjectSearch() {
         {projects.length === 0 ? (
           <>
             <div className="empty-list">
-              <p>Start searching to find your project…</p>
+              {!searching && (
+                <p>Start searching to find your project…</p>
+              )}
+              <Spinner isActive={searching} message="Searching…"/>
             </div>
           </>
         ) : (
           <>
-            <div className="row-wrapper">
-              <div className="data-heading" data-colname="name">Project Name</div>
-              <div className="data-heading" data-colname="role">ID</div>
-              <div className="data-heading" data-colname="actions"></div>
-            </div>
 
-            {projects.map((item, index) => (
+            {!searching && (
+              <div className="row-wrapper">
+                <div className="data-heading" data-colname="name">Project Name</div>
+                <div className="data-heading" data-colname="role">ID</div>
+                <div className="data-heading" data-colname="actions"></div>
+              </div>
+            )}
+
+            <Spinner isActive={searching} message="Searching…" className="empty-list"/>
+
+            {!searching && projects.map((item, index) => (
               <Fragment key={index}>
                 <div className="row-wrapper"
                   className={(index == selected) ? "row-wrapper selected" : "row-wrapper"}>

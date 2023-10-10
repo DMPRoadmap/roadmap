@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-
+import "./spinner.scss";
 
 function Spinner(props) {
   return (
     <>
       {props?.isActive && (
-        <div className="dmpui-field-input-spinner">
+        <div className={"spinner " + (props.className ? props.className : "") }>
           <svg
-            id="loading-spinner"
+            className="graphic"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -26,6 +26,9 @@ function Spinner(props) {
               />
             </g>
           </svg>
+          {props?.message && (
+            <p> {props.message} </p>
+          )}
         </div>
       )}
     </>
