@@ -136,10 +136,6 @@ module Api
             original: item
           }
         end
-        # Sort by the number of users desc, weight desc and then name asc
-        hashes = hashes.sort do |a, b|
-          [b[:user_count], b[:weight], a[:name]] <=> [a[:user_count], a[:weight], b[:name]]
-        end
 
         # If there are no duplicate names just return the current list
         names = hashes.pluck(:normalized)
