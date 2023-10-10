@@ -154,7 +154,13 @@ function DmpSetup() {
         </div>
 
         <div className="form-actions ">
-          <button type="button" onClick={() => navigate('/dashboard')}>
+          <button type="button" onClick={() => {
+            if (dmpId) {
+              navigate(`/dashboard/dmp/${dmpId}`);
+            } else {
+              navigate('/dashboard');
+            }
+          }}>
             Cancel
           </button>
 

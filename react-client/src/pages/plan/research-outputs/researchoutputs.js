@@ -351,7 +351,7 @@ function ResearchOutputs() {
 
       <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
         <div className="form-actions ">
-          <button type="button" onClick={() => navigate(-1)}>
+          <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmpId}`)}>
             Cancel
           </button>
           <button type="submit" className="primary">
