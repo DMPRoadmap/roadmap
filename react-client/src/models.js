@@ -353,7 +353,19 @@ export class DmpModel extends Model {
   }
   set created(val) { this.setData("created", val); }
 
-  get draftId() { return this.getData("draft_id.identifier"); }
+
+  get draftId() { return this.getData("draft_id.identifier", null); }
+  get id() {
+    // TODO: We need a way to parse or get the DMP ID here.
+    // We can probably parse it from the URL, but I'll need to confirm this
+    // with Brian
+    // This is the current format in the data
+    //
+    // "dmp_id": {
+    //   "type": "doi",
+    //   "identifier": "https://doi.org/10.12345/ABCD1234"
+    // },
+  }
 
   get hasFunder() {
     if (this.project.funding.name && this.project.funding.funderId) return true;
@@ -414,10 +426,14 @@ export class DmpModel extends Model {
     return ["incomplete", "Incomplete"];
   }
 
-  get isPrivate() {
-    // TODO:: Where to store this in the  DMP? I didn'e see it in the dummy data
-    // For the time being we will store this in the draftdata
-    return this.getDraftData("is_private", true);
+  get privacy() { return this.getData("dmproadmap_privacy", "private"); }
+  set privacy(val) { return this.setData("dmproadmap_privacy", val); }
+
+  get isPrivate() { return (this.privacy === "private"); }
+
+  get isRegistered() {
+    if (!this.draftId) return true;
+    return false
   }
 
   /* NOTE

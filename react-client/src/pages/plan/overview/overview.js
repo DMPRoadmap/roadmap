@@ -17,19 +17,11 @@ function PlanOverview() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState(new DmpModel({}));
-  const [visibility, setVisibility] = useState("private");
 
 
   useEffect(() => {
     getDraftDmp(dmpId).then((initial) => {
       setDmp(initial);
-
-      if (initial.isPrivate) {
-        setVisibility("private");
-      } else {
-        setVisibility("public");
-      }
-
     });
   }, [dmpId]);
 
@@ -39,7 +31,8 @@ function PlanOverview() {
 
     switch(name) {
       case "plan_visible":
-        setVisibility(value);
+        let newDmp = new DmpModel(dmp.getData());
+        newDmp.privacy = value
         break;
     }
   }
@@ -48,7 +41,6 @@ function PlanOverview() {
   async function handleRegister(ev) {
     ev.preventDefault();
 
-    dmp.setDraftData("is_private", (visibility !== "public"));
     saveDraftDmp(dmp).then((savedDmp) => {
       setDmp(savedDmp);
       registerDraftDmp(savedDmp).then((data) => {
@@ -66,6 +58,7 @@ function PlanOverview() {
     // So we can disble the save button here, while working, and re-enable when
     // we are done.
   }
+
 
   return (
     <>
@@ -152,7 +145,7 @@ function PlanOverview() {
                     name="plan_visible"
                     id="plan_visible_no"
                     inputValue="private"
-                    checked={visibility === "private"}
+                    checked={dmp.privacy === "private"}
                     label="Private - Keep plan private and only visible to me"
                   />
 
@@ -160,7 +153,7 @@ function PlanOverview() {
                     name="plan_visible"
                     id="plan_visible_yes"
                     inputValue="public"
-                    checked={visibility === "public"}
+                    checked={dmp.privacy === "public"}
                     label="Public - Keep plan visible to the public"
                   />
                 </div>
