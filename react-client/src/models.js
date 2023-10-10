@@ -436,6 +436,10 @@ export class DmpModel extends Model {
     return false
   }
 
+  get narrative() {
+    return this.getDraftData("narrative", null);
+  }
+
   /* NOTE
    * Draft data is a special temporary place in the data structure
    * that the backend _wont use_, but that we can use to keep track of

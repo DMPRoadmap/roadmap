@@ -132,14 +132,26 @@ function DmpSetup() {
 
                 <div className="dmpui-field-fileinput-group">
                   <div>
-                    <Checkbox
-                      label="Remove PDF"
-                      name="remove_narrative"
-                      id="primaryContact"
-                      inputValue="yes"
-                    />
+                    {dmp.narrative && (
+                      <>
+                        <p>
+                          <a Href={dmp.narrative?.url} target="_blank">{dmp.narrative?.file_name}</a>
+                        </p>
 
-                    <br />
+                        <Checkbox
+                          label="Remove PDF"
+                          name="remove_narrative"
+                          id="primaryContact"
+                          inputValue="yes"
+                        />
+
+                        <br />
+
+                        <p>
+                          Uploading a new PDF below will replace the existing one.
+                        </p>
+                      </>
+                    )}
 
                     <input
                       name="narrative"
