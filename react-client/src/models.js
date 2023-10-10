@@ -208,6 +208,8 @@ export class Project extends Model {
   get title() { return this.getData("title"); }
   set title(val) { this.setData("title", val); }
 
+
+
   get description() { return this.getData("description", ""); }
   set description(val) { this.setData("description", val); }
 
@@ -332,6 +334,24 @@ export class DmpModel extends Model {
 
   get title() { return this.getData("title"); }
   set title(val) { this.setData("title", val); }
+
+  get modified() {
+    let date = moment(this.getData("modified"))
+    if (!date.isValid()) {
+      return false;
+    }
+    return moment(this.getData("modified")).format('MM-DD-YYYY');
+  }
+  set modified(val) { this.setData("modified", val); }
+
+  get created() {
+    let date = moment(this.getData("created"))
+    if (!date.isValid()) {
+      return false;
+    }
+    return moment(this.getData("created")).format('MM-DD-YYYY');
+  }
+  set created(val) { this.setData("created", val); }
 
   get draftId() { return this.getData("draft_id.identifier"); }
 

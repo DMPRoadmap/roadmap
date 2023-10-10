@@ -274,13 +274,13 @@ function Dashboard() {
                             "None"
                           )}
 
-                          {console.log(dmp)}
+                        
                         </td>
                         <td
                           className="table-data-date"
                           data-colname="last_edited"
                         >
-                          03-29-2023
+                           {dmp?.modified ? dmp?.modified : dmp?.created}
                         </td>
                         <td
                           className={"table-data-name status-" + dmp.status[0]}
@@ -292,7 +292,7 @@ function Dashboard() {
                           className="table-data-name table-data-actions"
                           data-colname="actions"
                         >
-                          {dmp.draftId && dmp.draftId === "XXX" ? (
+                          {dmp.status[1] === "Complete" ? (
                             <Link
                               className="edit-button"
                               to={`/dashboard/dmp/${dmp.draftId}`}
@@ -305,7 +305,7 @@ function Dashboard() {
                               to={`/dashboard/dmp/${dmp.draftId}`}
                             >
                               Update
-                              <span className={"action-required"}></span>
+                              <span className={"action-required hidden"}></span>
                             </Link>
                           )}
                         </td>
