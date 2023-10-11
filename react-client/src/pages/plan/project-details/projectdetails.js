@@ -20,7 +20,7 @@ function ProjectDetails() {
 
   useEffect(() => {
     getDmp(dmpId).then(initial => {
-      if (initial.hasFunder) {
+      if (initial.hasFunder && initial.funderApi) {
         setLocked(true);
       }
       setFormData({

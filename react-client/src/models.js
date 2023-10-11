@@ -167,7 +167,7 @@ export class Funding extends Model {
   get name() { return this.getData("name", ""); }
   set name(val) { this.setData("name", val); }
 
-  get funderId() { return this.getData("funder_id", {}); }
+  get funderId() { return this.getData("funder_id", null); }
   set funderId(val) { this.setData("funder_id", val); }
 
   get status() { return this.getData("funding_status", "planned"); }
@@ -374,7 +374,7 @@ export class DmpModel extends Model {
 
   get hasFunder() {
     if (this.project.funding.name === "None") return false;
-    if (this.project.funding.name && this.project.funding.funderId) return true;
+    if (this.project.funding.name && this.funding.funderId) return true;
     return false;
   }
 
@@ -515,7 +515,7 @@ export async function saveDmp(dmp) {
     prefix = "dmps";
   }
 
-  const resp = await fetch(api.getPath(`/${prefix}/${dmp.id}`), options);
+  const resp = await fetch(api.getPath(`/${prefix}/${id}`), options);
   api.handleResponse(resp);
   const data = await resp.json();
 

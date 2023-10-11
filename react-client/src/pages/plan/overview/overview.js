@@ -35,7 +35,7 @@ function PlanOverview() {
       case "plan_visible":
         let newDmp = new DmpModel(dmp.getData());
         newDmp.privacy = value
-        setDmp(newDmp.getData());
+        setDmp(newDmp);
         break;
     }
   }

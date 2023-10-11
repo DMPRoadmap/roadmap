@@ -103,7 +103,7 @@ function PlanFunders() {
           <h1>Funder</h1>
         </div>
 
-        {isLocked && (
+        {isLocked && !dmp.isRegistered  && (
           <div className="dmpui-search-form-container alert alert-warning">
             <p>
               This information is not editable because the funder have already
@@ -177,11 +177,13 @@ function PlanFunders() {
 
           <div className="form-actions ">
             <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
-              Cancel
+              {dmp.isRegistered ? "Back" : "Cancel"}
             </button>
-            <button type="submit" className="primary">
-              Save &amp; Continue
-            </button>
+            {!dmp.isRegistered && (
+              <button type="submit" className="primary">
+                Save &amp; Continue
+              </button>
+            )}
           </div>
         </form>
       </div>
