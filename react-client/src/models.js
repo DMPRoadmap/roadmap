@@ -208,8 +208,6 @@ export class Project extends Model {
   get title() { return this.getData("title"); }
   set title(val) { this.setData("title", val); }
 
-
-
   get description() { return this.getData("description", ""); }
   set description(val) { this.setData("description", val); }
 
@@ -246,6 +244,11 @@ export class Project extends Model {
     } else {
       this.setData("end", "")
     }
+  }
+
+  validateFields() {
+    if (!this.title)
+      this.errors.set("name", "Project name is required")
   }
 
   getStatus() {
@@ -466,6 +469,20 @@ export class DmpModel extends Model {
     return this.getData(`draft_data.${path}`, defaultNone);
   }
 
+
+  validateFields() {
+    let hasContact = this.contributors.items.some(c => c.contact);
+    if (!hasContact) {
+      this.errors.set(
+        "contributors",
+        "You must have a primary contact in your contributors. Please select one before registering your DMP"
+      );
+    }
+
+    if (!this.project.title)
+      this.errors.set("project", "Project name is required");
+  }
+
   commit() {
     this.setData("project", [this.project.getData()]);
     this.setData("dataset", this.dataset.getData());
@@ -515,7 +532,7 @@ export async function saveDmp(dmp) {
     prefix = "dmps";
   }
 
-  const resp = await fetch(api.getPath(`/${prefix}/${id}`), options);
+  const resp = await fetch(api.getPath(`/${prefix}/${encodeURIComponent(id)}`), options);
   api.handleResponse(resp);
   const data = await resp.json();
 

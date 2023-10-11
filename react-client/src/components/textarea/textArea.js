@@ -5,6 +5,7 @@ function TextArea(props) {
 
   let disabledClass = props?.disabled ? "group-disabled" : "";
   let hiddenClass = props?.hidden ? "group-hidden" : "";
+  let requiredClass = props?.required ? "required" : "";
 
   useEffect(() => {
     setInputValue(props.inputValue);
@@ -24,7 +25,7 @@ function TextArea(props) {
 
   return (
     <>
-      <div className={`dmpui-field-group ${disabledClass} ${hiddenClass} ${errorClass}`}>
+      <div className={`dmpui-field-group ${disabledClass} ${hiddenClass} ${errorClass} ${requiredClass}`}>
         <label
           className="dmpui-field-label"
           htmlFor={props?.id ? props.id : ""}
@@ -37,6 +38,7 @@ function TextArea(props) {
 
         <div className="dmpui-field-input-group">
           <textarea
+            required={props.required}
             value={inputValue}
             name={props?.name ? props.name : ""}
             id={props?.id ? props.id : ""}

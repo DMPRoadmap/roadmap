@@ -8,13 +8,15 @@ function Select(props) {
   let errorMsg = props?.error ? props.error : "";
   let errorClass = "";
   if (errorMsg) {
-    errorClass = "has-error";
+    errorClass = " has-error ";
     errorMsg = errorMsg;
   }
 
+  let requiredClass = props?.required ? " required " : "";
+
   return (
     <>
-      <div className={"dmpui-field-group " + errorClass}>
+      <div className={"dmpui-field-group " + errorClass + requiredClass}>
         <label className="dmpui-field-label">
           {props?.label ? props.label : ""}
         </label>

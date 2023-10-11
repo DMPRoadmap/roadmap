@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { getDmp, saveDmp } from "../../../models.js";
+import { getDmp, saveDmp, DmpModel } from "../../../models.js";
 
 import TextInput from "../../../components/text-input/textInput.js";
 import TextArea from "../../../components/textarea/textArea.js";
@@ -24,7 +24,7 @@ function ProjectDetails() {
         setLocked(true);
       }
       setFormData({
-        project_name: initial.title,
+        project_name: initial.project.title || initial.title,
         project_id: initial.funding.projectNumber,
         project_abstract: initial.project.description,
         start_date: initial.project.start.format("YYYY-MM-DD"),
@@ -65,9 +65,16 @@ function ProjectDetails() {
     dmp.funding.projectNumber = formData.project_id || "";
     dmp.funding.opportunityNumber = formData.award_number || "";
 
-    saveDmp(dmp).then((savedDmp) => {
-      navigate(`/dashboard/dmp/${dmp.id}`);
-    });
+    if (dmp.project.isValid()) {
+      saveDmp(dmp).then((savedDmp) => {
+        navigate(`/dashboard/dmp/${dmp.id}`);
+      });
+    } else {
+      let newDmp = new DmpModel(dmp.getData());
+      newDmp.project.isValid();
+      setDmp(newDmp);
+      window.scroll(0, 0);
+    }
   }
 
   return (
@@ -114,7 +121,7 @@ function ProjectDetails() {
                   id="project_name"
                   placeholder="Project Name"
                   help="All or part of the project name/title, e.g. 'Particle Physics'"
-                  error=""
+                  error={dmp.project.errors.get("name")}
                 />
               </div>
 
@@ -125,7 +132,6 @@ function ProjectDetails() {
                   inputValue={formData.project_id}
                   onChange={handleChange}
                   disabled={isLocked}
-                  required="required"
                   name="project_id"
                   id="project_id"
                   placeholder="Project ID"
@@ -143,7 +149,6 @@ function ProjectDetails() {
                   inputValue={formData.project_abstract}
                   onChange={handleChange}
                   disabled={isLocked}
-                  required="required"
                   name="project_abstract"
                   id="project_abstract"
                   placeholder=""
@@ -162,7 +167,6 @@ function ProjectDetails() {
                   inputValue={formData.start_date}
                   onChange={handleChange}
                   disabled={isLocked}
-                  required="required"
                   name="start_date"
                   id="start_date"
                   placeholder=""
@@ -177,7 +181,6 @@ function ProjectDetails() {
                   inputValue={formData.end_date}
                   onChange={handleChange}
                   disabled={isLocked}
-                  required="required"
                   name="end_date"
                   id="end_date"
                   placeholder=""
@@ -195,7 +198,6 @@ function ProjectDetails() {
                   inputValue={formData.award_number}
                   onChange={handleChange}
                   disabled={isLocked}
-                  required="required"
                   name="award_number"
                   id="ppportunity_number"
                   placeholder="Opportunity number"

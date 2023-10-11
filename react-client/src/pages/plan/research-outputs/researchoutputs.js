@@ -257,6 +257,7 @@ function ResearchOutputs() {
 
                 <div className="dmpui-form-col">
                   <Select
+                    required={true}
                     options={outputTypes}
                     label="Data type"
                     name="data_type"
