@@ -529,11 +529,6 @@ RSpec.describe Draft do
     let!(:user) { create(:user) }
     let!(:draft) { create(:draft, user: user) }
 
-    it 'returns the owner of the Draft as the :contact if no :contributor has `contact: true`' do
-      contact = draft.send(:designate_contact)
-      expect(contact.present?).to be(true)
-      expect(contact['mbox']).to eql(user.email)
-    end
     it 'returns the first :contributor that has `contact: true` as the :contact' do
       draft.metadata['dmp']['contributor'] = JSON.parse([
         { name: 'contributor1', mbox: 'c1@foo.org', role: ['foo'], contributor_id: { type: 'hey', identifier: 'there' },
@@ -546,32 +541,6 @@ RSpec.describe Draft do
       expected = { name: 'contributor1', mbox: 'c1@foo.org', contact_id: { type: 'other', identifier: 'c1@foo.org' } }
       contact = draft.send(:designate_contact)
       expect(contact).to eql(JSON.parse(expected.to_json))
-    end
-  end
-
-  describe 'owner_to_contact' do
-    let!(:user) { create(:user) }
-    let!(:draft) { create(:draft, user: user) }
-
-    it 'returns nil if the draft has no :user_id' do
-      draft.user_id = 1234455
-      expect(draft.send(:designate_contact)).to be(nil)
-    end
-    it 'returns the owner of the Draft as a :contact using the email when no orcid is present' do
-      contact = draft.send(:designate_contact)
-      expect(contact.present?).to be(true)
-      expect(contact['name']).to eql([user.surname, user.firstname].join(', '))
-      expect(contact['mbox']).to eql(user.email)
-      expect(contact['contact_id']).to eql(JSON.parse({ type: 'other', identifier: user.email }.to_json))
-    end
-
-    it 'returns the owner of the Draft as a :contact using the email when no orcid is present' do
-      orcid = create_orcid(user: user)
-      contact = draft.send(:designate_contact)
-      expect(contact.present?).to be(true)
-      expect(contact['name']).to eql([user.surname, user.firstname].join(', '))
-      expect(contact['mbox']).to eql(user.email)
-      expect(contact['contact_id']).to eql(JSON.parse({ type: 'orcid', identifier: orcid.value }.to_json))
     end
   end
 

@@ -299,9 +299,6 @@ class Draft < ApplicationRecord
     contributor = metadata['dmp'].fetch('contributor', [])
                                  .select { |c| c.present? && c.fetch('contact', false).to_s.downcase == 'true' }
                                  .first
-    # Use the creator of the draft DMP if no primary contact was designated or the primary contact has no email
-    return owner_to_contact if contributor.nil? || contributor['mbox'].nil?
-
     contact = {
       name: contributor['name'],
       mbox: contributor['mbox']
@@ -309,26 +306,6 @@ class Draft < ApplicationRecord
     contact[:dmproadmap_affiliation] = contributor['dmproadmap_affiliation'] unless contributor['dmproadmap_affiliation'].nil?
     contact[:contact_id] = contributor['contributor_id'] unless contributor['contributor_id'].nil?
     contact[:contact_id] = { type: 'other', identifier: contributor['mbox'] } if contact[:contact_id].nil?
-    JSON.parse(contact.to_json)
-  end
-
-  # Default that will assign the person who created the Draft DMP as the primary contact
-  def owner_to_contact
-    user = User.find_by(id: user_id)
-    return nil unless user.present?
-
-    ror = RegistryOrg.find_by(org_id: user.org.id)
-    orcid = user.identifier_for_scheme(scheme: 'orcid')
-
-    contact = {
-      name: [user.surname, user.firstname].join(', '),
-      mbox: user.email,
-      dmproadmap_affiliation: {
-        name: ror.present? ? ror.name : user.org.name
-      }
-    }
-    contact[:dmproadmap_affiliation][:affiliation_id] = { type: 'ror', identifier: ror.ror_id } if ror.present?
-    contact[:contact_id] = orcid.present? ? { type: 'orcid', identifier: orcid.value } : { type: 'other', identifier: user.email }
     JSON.parse(contact.to_json)
   end
 
