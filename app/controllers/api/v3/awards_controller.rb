@@ -9,7 +9,8 @@ module Api
       #          keywords={words}&project={project}&opportunity={opportunity}&pi_names={pi_names}&years={years}
       #          &page={page}&per_page={per}
       def crossref
-        target = "awards/crossref/#{params[:fundref_id]}"
+        fundref = params.fetch(:fundref_id, '').gsub('10.13039/', '')
+        target = "awards/crossref/#{fundref}"
         results = ExternalApis::DmphubService.proxied_award_search(api_target: target, args: args_from_params)
         @items = paginate_response(results: results)
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok

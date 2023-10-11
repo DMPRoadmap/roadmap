@@ -124,6 +124,7 @@ class Draft < ApplicationRecord
     data['dmp'].fetch('contributor', []).each do |contributor|
       next unless contributor.present?
 
+      contributor.delete('mbox') if contributor['mbox'].nil?
       contributor.delete('contact')
     end
 
@@ -211,8 +212,6 @@ class Draft < ApplicationRecord
   # Convert the narrative info into a retrieval URL
   def narrative_to_related_identifier
     return nil unless narrative.attached?
-
-pp narrative.inspect
 
     JSON.parse({
       type: 'url',
