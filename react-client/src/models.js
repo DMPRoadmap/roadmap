@@ -436,6 +436,7 @@ export class DmpModel extends Model {
   }
 
   get status() {
+    if (this.isRegistered) return ["registered", "Registered"];
     return ["incomplete", "Incomplete"];
   }
 
