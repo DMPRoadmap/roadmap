@@ -5,6 +5,7 @@ function TextInput(props) {
 
   let disabledClass = props?.disabled ? "group-disabled" : "";
   let hiddenClass = props?.hidden ? "group-hidden" : "";
+  let requiredClass = props?.required ? "required" : "";
 
   useEffect(() => {
     setInputValue(props.inputValue);
@@ -25,7 +26,7 @@ function TextInput(props) {
   return (
     <>
       <div
-        className={`dmpui-field-group ${disabledClass} ${hiddenClass} ${errorClass}`}
+        className={`dmpui-field-group ${disabledClass} ${hiddenClass} ${errorClass} ${requiredClass}`}
       >
         <label
           className="dmpui-field-label"
@@ -39,6 +40,7 @@ function TextInput(props) {
 
         <div className="dmpui-field-input-group">
           <input
+            required={props.required}
             type={props?.inputType ? props.inputType : "text"}
             value={inputValue ? inputValue : ""}
             name={props?.name ? props.name : ""}

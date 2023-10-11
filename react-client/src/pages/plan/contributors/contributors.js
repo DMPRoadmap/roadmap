@@ -255,7 +255,6 @@ function Contributors() {
                   <TextInput
                     label="ORCID ID"
                     type="text"
-                    required="required"
                     name="orcid"
                     id="orcid"
                     inputValue={contributor.id}

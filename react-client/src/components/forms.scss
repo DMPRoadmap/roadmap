@@ -81,6 +81,15 @@ input[type="submit"] {
   }
 }
 
+.dmpui-field-error {
+  margin-bottom: 1rem;
+  color: var(--error-color);
+
+  &::before {
+    content: "⚠ ";
+  }
+}
+
 .dmpui-form-cols {
   display: flex;
   flex-direction: column;
@@ -127,7 +136,7 @@ input[type="submit"] {
     font-size: 0.8em;
     line-height: 1.5;
     margin-bottom: 0.25rem;
-    color: red;
+    color: var(--error-color);
   }
 
   input[type="text"],
@@ -161,7 +170,7 @@ input[type="submit"] {
     }
 
     &:focus:invalid {
-      border-color: red;
+      border-color: var(--error-color);
     }
 
     &:disabled {
@@ -195,13 +204,20 @@ input[type="submit"] {
     }
 
     &:focus:invalid {
-      border-color: red;
+      border-color: var(--error-color);
     }
 
     &:disabled {
       opacity: 0.4;
       pointer-events: none;
     }
+  }
+}
+
+.required .dmpui-field-label {
+  &::after {
+    content: " *";
+    color: var(--input-required-color);
   }
 }
 
@@ -273,3 +289,4 @@ input[type="submit"] {
   top: 10px;
   right: -30px;
 }
+

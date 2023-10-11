@@ -167,7 +167,7 @@ export class Funding extends Model {
   get name() { return this.getData("name", ""); }
   set name(val) { this.setData("name", val); }
 
-  get funderId() { return this.getData("funder_id", {}); }
+  get funderId() { return this.getData("funder_id", null); }
   set funderId(val) { this.setData("funder_id", val); }
 
   get status() { return this.getData("funding_status", "planned"); }
@@ -208,8 +208,6 @@ export class Project extends Model {
   get title() { return this.getData("title"); }
   set title(val) { this.setData("title", val); }
 
-
-
   get description() { return this.getData("description", ""); }
   set description(val) { this.setData("description", val); }
 
@@ -246,6 +244,11 @@ export class Project extends Model {
     } else {
       this.setData("end", "")
     }
+  }
+
+  validateFields() {
+    if (!this.title)
+      this.errors.set("name", "Project name is required")
   }
 
   getStatus() {
@@ -374,7 +377,7 @@ export class DmpModel extends Model {
 
   get hasFunder() {
     if (this.project.funding.name === "None") return false;
-    if (this.project.funding.name && this.project.funding.funderId) return true;
+    if (this.project.funding.name && this.funding.funderId) return true;
     return false;
   }
 
@@ -433,6 +436,7 @@ export class DmpModel extends Model {
   }
 
   get status() {
+    if (this.isRegistered) return ["registered", "Registered"];
     return ["incomplete", "Incomplete"];
   }
 
@@ -464,6 +468,20 @@ export class DmpModel extends Model {
   getDraftData(path, defaultNone) {
     if (typeof path === 'undefined') return this.getData("draft_data", {});
     return this.getData(`draft_data.${path}`, defaultNone);
+  }
+
+
+  validateFields() {
+    let hasContact = this.contributors.items.some(c => c.contact);
+    if (!hasContact) {
+      this.errors.set(
+        "contributors",
+        "You must have a primary contact in your contributors. Please select one before registering your DMP"
+      );
+    }
+
+    if (!this.project.title)
+      this.errors.set("project", "Project name is required");
   }
 
   commit() {
@@ -515,7 +533,7 @@ export async function saveDmp(dmp) {
     prefix = "dmps";
   }
 
-  const resp = await fetch(api.getPath(`/${prefix}/${dmp.id}`), options);
+  const resp = await fetch(api.getPath(`/${prefix}/${encodeURIComponent(id)}`), options);
   api.handleResponse(resp);
   const data = await resp.json();
 

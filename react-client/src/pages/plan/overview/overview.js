@@ -35,7 +35,7 @@ function PlanOverview() {
       case "plan_visible":
         let newDmp = new DmpModel(dmp.getData());
         newDmp.privacy = value
-        setDmp(newDmp.getData());
+        setDmp(newDmp);
         break;
     }
   }
@@ -43,33 +43,53 @@ function PlanOverview() {
   async function handleUpdateDmp(ev) {
     ev.preventDefault();
     setWorking(true);
-    saveDmp(dmp).then((savedDmp) => {
-      setDmp(savedDmp);
-      setWorking(false);
-    }).catch(err => {
-      setWorking(false);
-      console.log("Bad response from server");
-      console.log(err.resp);
-      console.log(err);
-    });
-  }
 
-  async function handleRegister(ev) {
-    ev.preventDefault();
-    setWorking(true);
-
-    saveDmp(dmp).then((savedDmp) => {
-      setDmp(savedDmp);
-      registerDmp(savedDmp).then((data) => {
-        const redirectUrl = ev.target.dataset['redirect'];
-        navigate(redirectUrl);
+    if (dmp.isValid()) {
+      saveDmp(dmp).then((savedDmp) => {
+        setDmp(savedDmp);
+        setWorking(false);
       }).catch(err => {
         setWorking(false);
         console.log("Bad response from server");
         console.log(err.resp);
         console.log(err);
       });
-    });
+    } else {
+      setWorking(false);
+      setDmp(newDmp);
+      window.scroll(0, 0);
+      console.log(dmp.errors);
+    }
+  }
+
+  async function handleRegister(ev) {
+    ev.preventDefault();
+    setWorking(true);
+
+    if (dmp.isValid()) {
+      saveDmp(dmp).then((savedDmp) => {
+        setDmp(savedDmp);
+        registerDmp(savedDmp).then((data) => {
+          const redirectUrl = ev.target.dataset['redirect'];
+          navigate(redirectUrl);
+        }).catch(err => {
+          setWorking(false);
+          console.log("Bad response from server");
+          console.log(err.resp);
+          console.log(err);
+        });
+      });
+    } else {
+      setWorking(false);
+      let newDmp = new DmpModel(dmp.getData());
+      newDmp.isValid();
+      setDmp(newDmp);
+      console.log(newDmp.project.title);
+      console.log(newDmp);
+      window.scroll(0, 0);
+      console.log("Validation Errors");
+      console.log(newDmp.errors);
+    }
   }
 
   return (
@@ -80,6 +100,11 @@ function PlanOverview() {
       <div id="addPlan">
         <div className="dmpui-heading">
           <h1>{dmp.title}</h1>
+          {dmp.errors.size > 0 && (
+            <div className="dmpui-field-error">
+              Some steps require attention before we can register the DMP.
+            </div>
+          )}
         </div>
 
         <div className="plan-steps">
@@ -119,6 +144,11 @@ function PlanOverview() {
             <div className={"step-status status-" + dmp.stepStatus.project[0]}>
               {dmp.stepStatus.project[1]}
             </div>
+            {dmp.errors.get("project") && (
+              <div className={"step-status status-error"}>
+                Review Needed
+              </div>
+            )}
           </div>
 
           <div className="plan-steps-step">
@@ -131,6 +161,12 @@ function PlanOverview() {
             <div className={"step-status status-" + dmp.stepStatus.contributors[0]}>
               {dmp.stepStatus.contributors[1]}
             </div>
+
+            {dmp.errors.get("contributors") && (
+              <div className={"step-status status-error"}>
+                Review Needed
+              </div>
+            )}
           </div>
 
           <div className="plan-steps-step last">
@@ -145,61 +181,59 @@ function PlanOverview() {
           </div>
         </div>
 
+      {!dmp.isRegistered && (
         <div className="plan-steps">
           <h2>Register</h2>
 
           <div className="plan-steps-step last step-visibility">
             <div className="">
               <div className="dmpui-form-col">
-                <div className="dmpui-field-group" onChange={handleChange}>
-                  <label className="dmpui-field-label">
-                    Set visibility and register your plan
-                  </label>
+                  <div className="dmpui-field-group" onChange={handleChange}>
+                    <label className="dmpui-field-label">
+                      Set visibility and register your plan
+                    </label>
 
-                  <RadioButton
-                    name="plan_visible"
-                    id="plan_visible_no"
-                    inputValue="private"
-                    checked={dmp.privacy === "private"}
-                    label="Private - Keep plan private and only visible to me"
-                  />
+                    <RadioButton
+                      name="plan_visible"
+                      id="plan_visible_no"
+                      inputValue="private"
+                      checked={dmp.privacy === "private"}
+                      label="Private - Keep plan private and only visible to me"
+                    />
 
-                  <RadioButton
-                    name="plan_visible"
-                    id="plan_visible_yes"
-                    inputValue="public"
-                    checked={dmp.privacy === "public"}
-                    label="Public - Keep plan visible to the public"
-                  />
-                </div>
+                    <RadioButton
+                      name="plan_visible"
+                      id="plan_visible_yes"
+                      inputValue="public"
+                      checked={dmp.privacy === "public"}
+                      label="Public - Keep plan visible to the public"
+                    />
+                  </div>
               </div>
             </div>
           </div>
         </div>
+      )}
 
         <div className="page-actions">
+          {dmp.errors.size > 0 && (
+            <div className="dmpui-field-error">
+              Some steps require attention before we can register the DMP.
+            </div>
+          )}
 
           {working && (
             <Spinner isActive={working} message="Registering …" className="empty-list"/>
           )}
 
-          {!working && dmp?.isRegistered && (
-            <>
-              <button type="button" onClick={() => navigate("/dashboard")}>
-                Return to Dashboard
-              </button>
-
-              <button className="primary" onClick={handleUpdateDmp}>
-                Update
-              </button>
-            </>
+          {!working && (
+            <button type="button" onClick={() => navigate("/dashboard")}>
+              Return to Dashboard
+            </button>
           )}
 
           {!working && !dmp?.isRegistered && (
             <>
-              <button type="button" onClick={() => navigate("/dashboard")}>
-                Return to Dashboard
-              </button>
               <button className="primary"
                       data-redirect="/dashboard"
                       onClick={handleRegister}>
@@ -220,3 +254,15 @@ function PlanOverview() {
 }
 
 export default PlanOverview;
+
+//           {!working && dmp?.isRegistered && (
+//             <>
+//               <button type="button" onClick={() => navigate("/dashboard")}>
+//                 Return to Dashboard
+//               </button>
+//
+//               <button className="primary" onClick={handleUpdateDmp}>
+//                 Update
+//               </button>
+//             </>
+//           )}

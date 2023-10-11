@@ -18,6 +18,7 @@ function LookupField(props) {
   let resultsId = `lookupResults-${Math.floor(Math.random() * 1000)}`;
 
   let disabledClass = props?.disabled ? "group-disabled" : "";
+  let requiredClass = props?.required ? "required" : "";
   let errorMsg = props?.error ? props.error : "";
 
   var controller;
@@ -86,7 +87,7 @@ function LookupField(props) {
 
   return (
     <>
-      <div className={`dmpui-field-group  ${disabledClass}  ${errorClass}`}>
+      <div className={`dmpui-field-group ${disabledClass} ${errorClass} ${requiredClass}`}>
         <label className="dmpui-field-label">
           {props?.label ? props.label : ""}
         </label>
