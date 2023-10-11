@@ -217,7 +217,7 @@ class Draft < ApplicationRecord
       type: 'url',
       descriptor: 'is_metadata_for',
       work_type: 'output_management_plan',
-      identifier: Rails.application.routes.url_helpers.rails_blob_url(narrative, disposition: 'attachment')
+      identifier: safe_narrative_url
     }.to_json)
   end
 
@@ -225,10 +225,14 @@ class Draft < ApplicationRecord
   def narrative_to_draft_data
     return {} unless narrative.attached?
 
-    JSON.parse({
-      file_name: narrative.blob.filename,
-      url: Rails.application.routes.url_helpers.rails_blob_url(narrative, disposition: 'attachment')
-    }.to_json)
+
+    JSON.parse({ file_name: narrative.blob.filename, url: safe_narrative_url }.to_json)
+  end
+
+  def safe_narrative_url
+    url = Rails.application.routes.url_helpers.rails_blob_url(narrative, disposition: 'attachment')
+    url = "#{Rails.configuration.x.dmproadmap.server_host}/#{url}" if url.start_with?('https://https/rails')
+    url = "https://#{url}" unless url.start_with?('http')
   end
 
   def ensure_defaults(dmp:)
