@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { DmpModel, getDraftDmp } from '../../../models.js';
+import { DmpModel, getDmp } from '../../../models.js';
 import { DmpApi } from "../../../api.js";
 
 import TextInput from "../../../components/text-input/textInput.js";
 import Checkbox from "../../../components/checkbox/checkbox.js";
+import Spinner from "../../../components/spinner";
 
 import "./setup.scss";
 
@@ -19,7 +20,7 @@ function DmpSetup() {
 
   useEffect(() => {
     if (typeof dmpId !== "undefined") {
-      getDraftDmp(dmpId).then((initial) => {
+      getDmp(dmpId).then((initial) => {
         setDmp(initial);
       });
     }
@@ -61,7 +62,7 @@ function DmpSetup() {
         body: formData,
       });
 
-      if (!dmpId) {
+      if (!dmp.id) {
         options.method = "post";
 
         fetch(api.getPath("/drafts"), options)
@@ -70,11 +71,12 @@ function DmpSetup() {
             return resp.json();
           })
           .then((data) => {
-            let dmp = data.items[0].dmp;
-            navigate(`/dashboard/dmp/${dmp.draft_id.identifier}/funders`);
+            let newDmp = new DmpModel(data.items[0].dmp);
+            navigate(`/dashboard/dmp/${newDmp.id}/funders`);
           });
+
       } else {
-        // NOTE: We cannot use the saveDraftDmp helper function here since
+        // NOTE: We cannot use the saveDmp helper function here since
         // the headers and content type is different during this setup step
         // (due to the PDF narrative)
         options.method = "put";
@@ -85,7 +87,8 @@ function DmpSetup() {
             return resp.json();
           })
           .then((data) => {
-            navigate(`/dashboard/dmp/${dmpId}`);
+            let newDmp = new DmpModel(data.items[0].dmp);
+            navigate(`/dashboard/dmp/${newDmp.id}`);
           });
       }
     } else {
@@ -135,7 +138,7 @@ function DmpSetup() {
                     {dmp.narrative && (
                       <>
                         <p>
-                          <a Href={dmp.narrative?.url} target="_blank">{dmp.narrative?.file_name}</a>
+                          <a href={dmp.narrative?.url} target="_blank">{dmp.narrative?.file_name}</a>
                         </p>
 
                         <Checkbox
@@ -168,7 +171,7 @@ function DmpSetup() {
         <div className="form-actions ">
           <button type="button" onClick={() => {
             if (dmpId) {
-              navigate(`/dashboard/dmp/${dmpId}`);
+              navigate(`/dashboard/dmp/${dmp.id}`);
             } else {
               navigate('/dashboard');
             }

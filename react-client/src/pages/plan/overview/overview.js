@@ -3,9 +3,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import {
   DmpModel,
-  getDraftDmp,
-  saveDraftDmp,
-  registerDraftDmp,
+  getDmp,
+  saveDmp,
+  registerDmp,
 } from "../../../models.js";
 
 import TextInput from "../../../components/text-input/textInput";
@@ -18,11 +18,11 @@ import "./overview.scss";
 function PlanOverview() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
-  const [dmp, setDmp] = useState(new DmpModel({}));
+  const [dmp, setDmp] = useState(null);
   const [working, setWorking] = useState(false);
 
   useEffect(() => {
-    getDraftDmp(dmpId).then((initial) => {
+    getDmp(dmpId).then((initial) => {
       setDmp(initial);
     });
   }, [dmpId]);
@@ -43,7 +43,7 @@ function PlanOverview() {
   async function handleUpdateDmp(ev) {
     ev.preventDefault();
     setWorking(true);
-    saveDraftDmp(dmp).then((savedDmp) => {
+    saveDmp(dmp).then((savedDmp) => {
       setDmp(savedDmp);
       setWorking(false);
     }).catch(err => {
@@ -58,9 +58,9 @@ function PlanOverview() {
     ev.preventDefault();
     setWorking(true);
 
-    saveDraftDmp(dmp).then((savedDmp) => {
+    saveDmp(dmp).then((savedDmp) => {
       setDmp(savedDmp);
-      registerDraftDmp(savedDmp).then((data) => {
+      registerDmp(savedDmp).then((data) => {
         const redirectUrl = ev.target.dataset['redirect'];
         navigate(redirectUrl);
       }).catch(err => {
@@ -74,6 +74,9 @@ function PlanOverview() {
 
   return (
     <>
+    {!dmp ? (
+      <Spinner isActive={true} message="Fetching DMP data…" className="page-loader"/>
+    ) : (
       <div id="addPlan">
         <div className="dmpui-heading">
           <h1>{dmp.title}</h1>
@@ -84,7 +87,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step last">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/pdf`}>
+              <Link to={`/dashboard/dmp/${dmp.id}/pdf`}>
                 Project name & PDF upload
               </Link>
             </p>
@@ -99,7 +102,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/funders`}>Funders</Link>
+              <Link to={`/dashboard/dmp/${dmp.id}/funders`}>Funders</Link>
             </p>
             <div className={"step-status status-" + dmp.stepStatus.funders[0]}>
               {dmp.stepStatus.funders[1]}
@@ -108,7 +111,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/project-details`}>
+              <Link to={`/dashboard/dmp/${dmp.id}/project-details`}>
                 Project Details
               </Link>
             </p>
@@ -120,7 +123,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/contributors`}>
+              <Link to={`/dashboard/dmp/${dmp.id}/contributors`}>
                 Contributors
               </Link>
             </p>
@@ -132,7 +135,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step last">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/research-outputs`}>
+              <Link to={`/dashboard/dmp/${dmp.id}/research-outputs`}>
                 Research Outputs
               </Link>
             </p>
@@ -177,7 +180,7 @@ function PlanOverview() {
         <div className="page-actions">
 
           {working && (
-            <Spinner isActive={searching} message="Searching…" className="empty-list"/>
+            <Spinner isActive={working} message="Registering …" className="empty-list"/>
           )}
 
           {!working && dmp?.isRegistered && (
@@ -211,6 +214,7 @@ function PlanOverview() {
           )}
         </div>
       </div>
+    )}
     </>
   );
 }

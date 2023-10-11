@@ -357,13 +357,29 @@ export class DmpModel extends Model {
   get draftId() { return this.getData("draft_id.identifier", null); }
   get id() {
     if (this.draftId) return this.draftId;
-    let idpath = new URL(this.getData("dmp_id.identifier", null));
-    return idpath.hostname + idpath.pathname;
+
+    let uri = this.getData("dmp_id.identifier", null);
+    if (!uri) return null;
+
+    // return encodeURIComponent(idpath.hostname + idpath.pathname);
+    // NOTE: We will use a custom URI encoder for the ID here. Reason? If we use
+    // encodeURIComponent then the browser and other third partly libraries
+    // makes too many assumptions about what we use this for. In some cases
+    // third party libs will try to decode the URI when it shouldn't
+    // By using our own, we avoid debugging cases like this.
+    let idpath = new URL(uri);
+    let idStr = idpath.hostname + idpath.pathname;
+    return idStr.replace(/\//g, "_");
   }
 
   get hasFunder() {
+    if (this.project.funding.name === "None") return false;
     if (this.project.funding.name && this.project.funding.funderId) return true;
     return false;
+  }
+
+  get funderApi() {
+    return this.getDraftData("funder.funder_api", null);
   }
 
   // Modelsets
@@ -460,19 +476,30 @@ export class DmpModel extends Model {
   }
 }
 
+export function decodeId(id) {
+  return id.replace(/_/g, "/");
+}
 
-export async function getDraftDmp(dmpId) {
+export async function getDmp(dmpId) {
   let api = new DmpApi();
 
-  const resp = await fetch(api.getPath(`/drafts/${dmpId}`));
+  let prefix = "drafts";
+  let id = decodeId(dmpId);
+  if (id !== dmpId) {
+    prefix = "dmps";
+  }
+
+  const resp = await fetch(api.getPath(`/${prefix}/${id}`));
   api.handleResponse(resp);
   const data = await resp.json();
 
+  if (data.items.length == 0)
+    throw Error("DMP Not Found");
   return new DmpModel(data.items[0].dmp);
 }
 
 
-export async function saveDraftDmp(dmp) {
+export async function saveDmp(dmp) {
   // Ensure nested dmp data was comitted before continuing
   dmp.commit();
 
@@ -482,7 +509,13 @@ export async function saveDraftDmp(dmp) {
     body: JSON.stringify({ dmp: dmp.getData() }),
   });
 
-  const resp = await fetch(api.getPath(`/drafts/${dmp.draftId}`), options);
+  let prefix = "drafts";
+  let id = decodeId(dmp.id);
+  if (id !== dmp.id) {
+    prefix = "dmps";
+  }
+
+  const resp = await fetch(api.getPath(`/${prefix}/${dmp.id}`), options);
   api.handleResponse(resp);
   const data = await resp.json();
 
@@ -490,7 +523,11 @@ export async function saveDraftDmp(dmp) {
 }
 
 
-export async function registerDraftDmp(dmp) {
+export async function registerDmp(dmp) {
+  if (dmp.isRegistered) {
+    throw new Error("DMP already registered");
+  }
+
   let api = new DmpApi();
   let options = api.getOptions({
     method: "post",
