@@ -6,7 +6,7 @@ import { truncateText } from "../../utils.js";
 import { DmpModel } from "../../models.js";
 
 import TextInput from "../../components/text-input/textInput.js";
-
+import LookupField from "../../components/lookup-field.js";
 import "./dashboard.scss";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
@@ -55,6 +55,15 @@ function Dashboard() {
     return appliedFilters.length;
   }
 
+  function handleClearAll(e) {
+    e.preventDefault();
+    setFilter_Title("");
+    setFilter_Funder("");
+    setFilter_GrantId("");
+    setFilter_DmpId("");
+    return false;
+  }
+
   useEffect(() => {
     let api = new DmpApi();
 
@@ -81,9 +90,12 @@ function Dashboard() {
 
   return (
     <div id="Dashboard">
-      <p>
-        Welcome back {user.givenname} {user.surname}
-      </p>
+      {user && user?.givenname && (
+        <p>
+          Welcome back {user?.givenname} {user?.surname}
+        </p>
+      )}
+
       <p>
         <a href="/plans" className="exit-prototype">
           Back to standard Dashboard
@@ -122,6 +134,12 @@ function Dashboard() {
                 </span>
               )}
             </button>
+
+            {checkFiltersApplied() > 0 && (
+              <a href="/dashboard" className="filter-clear-all-button">
+                Clear Filters
+              </a>
+            )}
           </div>
         </div>
 
@@ -179,15 +197,15 @@ function Dashboard() {
                 </thead>
                 <tbody className="table-body">
                   {projects.map((dmp) => (
-                    <Fragment key={dmp.draftId}>
-                      <tr key={dmp.draftId}>
+                    <Fragment key={dmp.id}>
+                      <tr key={dmp.id}>
                         <td
                           className="table-data-name table-data-title"
                           data-colname="title"
                         >
                           <Link
                             title={dmp.title}
-                            to={`/dashboard/dmp/${dmp.draftId}`}
+                            to={`/dashboard/dmp/${dmp.id}`}
                           >
                             {truncateText(dmp.title, 50)}
                           </Link>
@@ -236,7 +254,7 @@ function Dashboard() {
                                 ))
                               : ""}
 
-                            {dmp.draftId && dmp.draftId == "XXX" && (
+                            {dmp.id && dmp.id == "XXX" && (
                               <span className={"action-required-text"}>
                                 X works need verification
                               </span>
@@ -256,13 +274,13 @@ function Dashboard() {
                             "None"
                           )}
 
-                          {console.log(dmp)}
+                        
                         </td>
                         <td
                           className="table-data-date"
                           data-colname="last_edited"
                         >
-                          03-29-2023
+                           {dmp?.modified ? dmp?.modified : dmp?.created}
                         </td>
                         <td
                           className={"table-data-name status-" + dmp.status[0]}
@@ -274,20 +292,20 @@ function Dashboard() {
                           className="table-data-name table-data-actions"
                           data-colname="actions"
                         >
-                          {dmp.draftId && dmp.draftId === "XXX" ? (
+                          {dmp.status[1] === "Complete" ? (
                             <Link
                               className="edit-button"
-                              to={`/dashboard/dmp/${dmp.draftId}`}
+                              to={`/dashboard/dmp/${dmp.id}`}
                             >
                               Complete
                             </Link>
                           ) : (
                             <Link
                               className="edit-button"
-                              to={`/dashboard/dmp/${dmp.draftId}`}
+                              to={`/dashboard/dmp/${dmp.id}`}
                             >
                               Update
-                              <span className={"action-required"}></span>
+                              <span className={"action-required hidden"}></span>
                             </Link>
                           )}
                         </td>
@@ -382,16 +400,19 @@ function Dashboard() {
                     onChange={(e) => setFilter_Title(e.target.value)}
                     help="Search for the specified text within the project title and abstract"
                   />
-                  <TextInput
+
+                  <LookupField
                     label="Funder"
-                    type="text"
                     name="funder"
                     id="filter_funder"
+                    endpoint="funders"
                     placeholder=""
+                    help="Search for the name of the funder"
                     inputValue={filter_funder}
                     onChange={(e) => setFilter_Funder(e.target.value)}
-                    help="Search for the name of the funder"
+                    error=""
                   />
+
                   <TextInput
                     label="Grant ID"
                     type="text"
@@ -414,6 +435,14 @@ function Dashboard() {
                   />
                 </div>
               </div>
+
+              {checkFiltersApplied() > 0 && (
+                <div>
+                  <a href="#" onClick={handleClearAll}>
+                    Clear All Filters
+                  </a>
+                </div>
+              )}
               <div className="form-actions">
                 <button type="submit" className="primary">
                   Filter

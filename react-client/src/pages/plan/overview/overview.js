@@ -3,33 +3,27 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import {
   DmpModel,
-  getDraftDmp,
-  saveDraftDmp,
-  registerDraftDmp,
+  getDmp,
+  saveDmp,
+  registerDmp,
 } from "../../../models.js";
 
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
+import Spinner from "../../../components/spinner";
+
 import "./overview.scss";
 
 
 function PlanOverview() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
-  const [dmp, setDmp] = useState(new DmpModel({}));
-  const [visibility, setVisibility] = useState("private");
-
+  const [dmp, setDmp] = useState(null);
+  const [working, setWorking] = useState(false);
 
   useEffect(() => {
-    getDraftDmp(dmpId).then((initial) => {
+    getDmp(dmpId).then((initial) => {
       setDmp(initial);
-
-      if (initial.isPrivate) {
-        setVisibility("private");
-      } else {
-        setVisibility("public");
-      }
-
     });
   }, [dmpId]);
 
@@ -39,36 +33,50 @@ function PlanOverview() {
 
     switch(name) {
       case "plan_visible":
-        setVisibility(value);
+        let newDmp = new DmpModel(dmp.getData());
+        newDmp.privacy = value
+        setDmp(newDmp.getData());
         break;
     }
   }
 
+  async function handleUpdateDmp(ev) {
+    ev.preventDefault();
+    setWorking(true);
+    saveDmp(dmp).then((savedDmp) => {
+      setDmp(savedDmp);
+      setWorking(false);
+    }).catch(err => {
+      setWorking(false);
+      console.log("Bad response from server");
+      console.log(err.resp);
+      console.log(err);
+    });
+  }
 
   async function handleRegister(ev) {
     ev.preventDefault();
+    setWorking(true);
 
-    dmp.setDraftData("is_private", (visibility !== "public"));
-    saveDraftDmp(dmp).then((savedDmp) => {
+    saveDmp(dmp).then((savedDmp) => {
       setDmp(savedDmp);
-      registerDraftDmp(savedDmp).then((data) => {
+      registerDmp(savedDmp).then((data) => {
         const redirectUrl = ev.target.dataset['redirect'];
         navigate(redirectUrl);
       }).catch(err => {
+        setWorking(false);
         console.log("Bad response from server");
         console.log(err.resp);
         console.log(err);
       });
     });
-
-    // TODO
-    // We don't want people to "double-click" and register the same thing twice.
-    // So we can disble the save button here, while working, and re-enable when
-    // we are done.
   }
 
   return (
     <>
+    {!dmp ? (
+      <Spinner isActive={true} message="Fetching DMP data…" className="page-loader"/>
+    ) : (
       <div id="addPlan">
         <div className="dmpui-heading">
           <h1>{dmp.title}</h1>
@@ -79,7 +87,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step last">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/pdf`}>
+              <Link to={`/dashboard/dmp/${dmp.id}/pdf`}>
                 Project name & PDF upload
               </Link>
             </p>
@@ -94,7 +102,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/funders`}>Funders</Link>
+              <Link to={`/dashboard/dmp/${dmp.id}/funders`}>Funders</Link>
             </p>
             <div className={"step-status status-" + dmp.stepStatus.funders[0]}>
               {dmp.stepStatus.funders[1]}
@@ -103,7 +111,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/project-details`}>
+              <Link to={`/dashboard/dmp/${dmp.id}/project-details`}>
                 Project Details
               </Link>
             </p>
@@ -115,7 +123,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/contributors`}>
+              <Link to={`/dashboard/dmp/${dmp.id}/contributors`}>
                 Contributors
               </Link>
             </p>
@@ -127,7 +135,7 @@ function PlanOverview() {
 
           <div className="plan-steps-step last">
             <p>
-              <Link to={`/dashboard/dmp/${dmpId}/research-outputs`}>
+              <Link to={`/dashboard/dmp/${dmp.id}/research-outputs`}>
                 Research Outputs
               </Link>
             </p>
@@ -152,7 +160,7 @@ function PlanOverview() {
                     name="plan_visible"
                     id="plan_visible_no"
                     inputValue="private"
-                    checked={visibility === "private"}
+                    checked={dmp.privacy === "private"}
                     label="Private - Keep plan private and only visible to me"
                   />
 
@@ -160,7 +168,7 @@ function PlanOverview() {
                     name="plan_visible"
                     id="plan_visible_yes"
                     inputValue="public"
-                    checked={visibility === "public"}
+                    checked={dmp.privacy === "public"}
                     label="Public - Keep plan visible to the public"
                   />
                 </div>
@@ -170,21 +178,43 @@ function PlanOverview() {
         </div>
 
         <div className="page-actions">
-          <button type="button" onClick={() => navigate("/dashboard")}>
-            Return to Dashboard
-          </button>
-          <button className="primary"
-                  data-redirect="/dashboard"
-                  onClick={handleRegister}>
-            Register &amp; Return to Dashboard
-          </button>
-          <button className="secondary"
-                  data-redirect="/dashboard/dmp/new"
-                  onClick={handleRegister}>
-            Register &amp; Add Another Plan
-          </button>
+
+          {working && (
+            <Spinner isActive={working} message="Registering …" className="empty-list"/>
+          )}
+
+          {!working && dmp?.isRegistered && (
+            <>
+              <button type="button" onClick={() => navigate("/dashboard")}>
+                Return to Dashboard
+              </button>
+
+              <button className="primary" onClick={handleUpdateDmp}>
+                Update
+              </button>
+            </>
+          )}
+
+          {!working && !dmp?.isRegistered && (
+            <>
+              <button type="button" onClick={() => navigate("/dashboard")}>
+                Return to Dashboard
+              </button>
+              <button className="primary"
+                      data-redirect="/dashboard"
+                      onClick={handleRegister}>
+                Register &amp; Return to Dashboard
+              </button>
+              <button className="secondary"
+                      data-redirect="/dashboard/dmp/new"
+                      onClick={handleRegister}>
+                Register &amp; Add Another Plan
+              </button>
+            </>
+          )}
         </div>
       </div>
+    )}
     </>
   );
 }

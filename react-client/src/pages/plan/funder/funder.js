@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
 import LookupField from "../../../components/lookup-field.js";
+import Spinner from "../../../components/spinner";
 
 import {
-  getDraftDmp,
-  saveDraftDmp,
+  getDmp,
+  saveDmp,
   Funding,
 } from "../../../models.js";
 
@@ -18,13 +19,13 @@ function PlanFunders() {
   let navigate = useNavigate();
   const {dmpId} = useParams();
 
-  const [dmp, setDmp] = useState({});
+  const [dmp, setDmp] = useState();
   const [isLocked, setLocked] = useState(false);
   const [funder, setFunder] = React.useState({name: ""});
   const [hasFunder, setHasFunder] = React.useState("no");
 
   useEffect(() => {
-    getDraftDmp(dmpId).then((initial) => {
+    getDmp(dmpId).then((initial) => {
       setDmp(initial);
       if (initial.hasFunder) {
         let draftFunder = initial.getDraftData("funder", initial.funding.getData())
@@ -63,7 +64,11 @@ function PlanFunders() {
     ev.preventDefault();
 
     if (isLocked) {
-      navigate(`/dashboard/dmp/${dmpId}/project-search`);
+      if (dmp.hasFunder && dmp.funderApi) {
+        navigate(`/dashboard/dmp/${dmp.id}/project-search`);
+      } else {
+        navigate(`/dashboard/dmp/${dmp.id}/project-details`);
+      }
       return;
     }
 
@@ -73,16 +78,16 @@ function PlanFunders() {
       dmp.funding.name = funder.name;
       if (funder.funder_id) dmp.funding.funderId = funder.funder_id;
     } else {
-      dmp.project.funding = new Funding({});
+      dmp.project.funding = new Funding({name: "None"});
       dmp.setDraftData("funder", {});
       dmp.commit();
     }
 
-    saveDraftDmp(dmp).then((savedDmp) => {
-      if (savedDmp.hasFunder) {
-        navigate(`/dashboard/dmp/${dmpId}/project-search`);
+    saveDmp(dmp).then((savedDmp) => {
+      if (savedDmp.hasFunder && dmp.funderApi) {
+        navigate(`/dashboard/dmp/${savedDmp.id}/project-search`);
       } else {
-        navigate(`/dashboard/dmp/${dmpId}/project-details`);
+        navigate(`/dashboard/dmp/${savedDmp.id}/project-details`);
       }
     });
   }
@@ -90,6 +95,9 @@ function PlanFunders() {
 
   return (
     <>
+    {!dmp ? (
+      <Spinner isActive={true} message="Loading DMP funder page…" className="page-loader"/>
+    ) : (
       <div id="funderPage">
         <div className="dmpui-heading">
           <h1>Funder</h1>
@@ -168,7 +176,7 @@ function PlanFunders() {
           </div>
 
           <div className="form-actions ">
-            <button type="button" onClick={() => navigate(-1)}>
+            <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
               Cancel
             </button>
             <button type="submit" className="primary">
@@ -177,6 +185,7 @@ function PlanFunders() {
           </div>
         </form>
       </div>
+    )}
     </>
   );
 }

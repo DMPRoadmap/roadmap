@@ -118,6 +118,7 @@ module Api
                                dmp.narrative.attached?
 
         # Attach the narrative PDF if applicable
+        dmp.metadata.fetch('dmp', {})['title'] = create_params[:title] if create_params[:title].present?
         dmp.narrative.attach(create_params[:narrative]) if create_params[:narrative].present?
         if dmp.save
           @drafts = [dmp]
@@ -138,7 +139,7 @@ module Api
       # Create params come through as multipart/form-data and I'm having trouble getting the top level :dmp to work
       # so we have specific params for the create action
       def create_params
-        params.permit(:title, :narrative)
+        params.permit(:title, :narrative, :remove_narrative)
       end
 
       def dmp_params

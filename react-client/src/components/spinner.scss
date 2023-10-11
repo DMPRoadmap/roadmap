@@ -1,0 +1,25 @@
+
+.spinner {
+  .graphic {
+    animation: loading-spinner 1s linear infinite;
+  }
+
+  p {
+    margin: 0.5em 0;
+  }
+
+  &.page-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@keyframes loading-spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
