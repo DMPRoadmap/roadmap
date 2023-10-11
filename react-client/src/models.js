@@ -356,15 +356,9 @@ export class DmpModel extends Model {
 
   get draftId() { return this.getData("draft_id.identifier", null); }
   get id() {
-    // TODO: We need a way to parse or get the DMP ID here.
-    // We can probably parse it from the URL, but I'll need to confirm this
-    // with Brian
-    // This is the current format in the data
-    //
-    // "dmp_id": {
-    //   "type": "doi",
-    //   "identifier": "https://doi.org/10.12345/ABCD1234"
-    // },
+    if (this.draftId) return this.draftId;
+    let idpath = new URL(this.getData("dmp_id.identifier", null));
+    return idpath.hostname + idpath.pathname;
   }
 
   get hasFunder() {

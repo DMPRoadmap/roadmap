@@ -10,6 +10,8 @@ import {
 
 import TextInput from "../../../components/text-input/textInput";
 import RadioButton from "../../../components/radio/radio";
+import Spinner from "../../../components/spinner";
+
 import "./overview.scss";
 
 
@@ -17,7 +19,7 @@ function PlanOverview() {
   let navigate = useNavigate();
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState(new DmpModel({}));
-
+  const [working, setWorking] = useState(false);
 
   useEffect(() => {
     getDraftDmp(dmpId).then((initial) => {
@@ -33,13 +35,28 @@ function PlanOverview() {
       case "plan_visible":
         let newDmp = new DmpModel(dmp.getData());
         newDmp.privacy = value
+        setDmp(newDmp.getData());
         break;
     }
   }
 
+  async function handleUpdateDmp(ev) {
+    ev.preventDefault();
+    setWorking(true);
+    saveDraftDmp(dmp).then((savedDmp) => {
+      setDmp(savedDmp);
+      setWorking(false);
+    }).catch(err => {
+      setWorking(false);
+      console.log("Bad response from server");
+      console.log(err.resp);
+      console.log(err);
+    });
+  }
 
   async function handleRegister(ev) {
     ev.preventDefault();
+    setWorking(true);
 
     saveDraftDmp(dmp).then((savedDmp) => {
       setDmp(savedDmp);
@@ -47,18 +64,13 @@ function PlanOverview() {
         const redirectUrl = ev.target.dataset['redirect'];
         navigate(redirectUrl);
       }).catch(err => {
+        setWorking(false);
         console.log("Bad response from server");
         console.log(err.resp);
         console.log(err);
       });
     });
-
-    // TODO
-    // We don't want people to "double-click" and register the same thing twice.
-    // So we can disble the save button here, while working, and re-enable when
-    // we are done.
   }
-
 
   return (
     <>
@@ -163,19 +175,40 @@ function PlanOverview() {
         </div>
 
         <div className="page-actions">
-          <button type="button" onClick={() => navigate("/dashboard")}>
-            Return to Dashboard
-          </button>
-          <button className="primary"
-                  data-redirect="/dashboard"
-                  onClick={handleRegister}>
-            Register &amp; Return to Dashboard
-          </button>
-          <button className="secondary"
-                  data-redirect="/dashboard/dmp/new"
-                  onClick={handleRegister}>
-            Register &amp; Add Another Plan
-          </button>
+
+          {working && (
+            <Spinner isActive={searching} message="Searching…" className="empty-list"/>
+          )}
+
+          {!working && dmp?.isRegistered && (
+            <>
+              <button type="button" onClick={() => navigate("/dashboard")}>
+                Return to Dashboard
+              </button>
+
+              <button className="primary" onClick={handleUpdateDmp}>
+                Update
+              </button>
+            </>
+          )}
+
+          {!working && !dmp?.isRegistered && (
+            <>
+              <button type="button" onClick={() => navigate("/dashboard")}>
+                Return to Dashboard
+              </button>
+              <button className="primary"
+                      data-redirect="/dashboard"
+                      onClick={handleRegister}>
+                Register &amp; Return to Dashboard
+              </button>
+              <button className="secondary"
+                      data-redirect="/dashboard/dmp/new"
+                      onClick={handleRegister}>
+                Register &amp; Add Another Plan
+              </button>
+            </>
+          )}
         </div>
       </div>
     </>

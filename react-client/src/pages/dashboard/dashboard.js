@@ -197,15 +197,15 @@ function Dashboard() {
                 </thead>
                 <tbody className="table-body">
                   {projects.map((dmp) => (
-                    <Fragment key={dmp.draftId}>
-                      <tr key={dmp.draftId}>
+                    <Fragment key={dmp.id}>
+                      <tr key={dmp.id}>
                         <td
                           className="table-data-name table-data-title"
                           data-colname="title"
                         >
                           <Link
                             title={dmp.title}
-                            to={`/dashboard/dmp/${dmp.draftId}`}
+                            to={`/dashboard/dmp/${dmp.id}`}
                           >
                             {truncateText(dmp.title, 50)}
                           </Link>
@@ -254,7 +254,7 @@ function Dashboard() {
                                 ))
                               : ""}
 
-                            {dmp.draftId && dmp.draftId == "XXX" && (
+                            {dmp.id && dmp.id == "XXX" && (
                               <span className={"action-required-text"}>
                                 X works need verification
                               </span>
@@ -295,14 +295,14 @@ function Dashboard() {
                           {dmp.status[1] === "Complete" ? (
                             <Link
                               className="edit-button"
-                              to={`/dashboard/dmp/${dmp.draftId}`}
+                              to={`/dashboard/dmp/${dmp.id}`}
                             >
                               Complete
                             </Link>
                           ) : (
                             <Link
                               className="edit-button"
-                              to={`/dashboard/dmp/${dmp.draftId}`}
+                              to={`/dashboard/dmp/${dmp.id}`}
                             >
                               Update
                               <span className={"action-required hidden"}></span>
