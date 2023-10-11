@@ -154,7 +154,7 @@ Rails.application.routes.draw do
       delete 'dmps/*id', controller: :dmps, action: :destroy
 
       # Proxies that call out to the DMPHub for award/grant searches
-      get 'awards/crossref/:fundref_id', controller: :awards, action: :crossref
+      get 'awards/crossref/*fundref_id', controller: :awards, action: :crossref
       get 'awards/nih', controller: :awards, action: :nih
       get 'awards/nsf', controller: :awards, action: :nsf
     end

@@ -219,7 +219,7 @@ module ExternalApis
           puts "DMPHub unable to fetch DMP ID: received a #{resp.code}"
           puts resp.body.inspect
           handle_http_failure(method: 'DMPHub fetch_dmp_id', http_response: resp)
-          notify_administrators(obj: plan, response: resp)
+          notify_administrators(obj: dmp_id, response: resp)
           return nil
         end
         json = JSON.parse(resp.body)

@@ -12,7 +12,7 @@ Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new # defaults to R
 
 # Throttle should send a 429 Error responsec code and display public/429.html
 Rack::Attack.throttled_responder = lambda do |_env|
-  html = ActionView::Base.empty.render(file: 'public/429.html')
+  html = ActionView::Base.empty.render(file: Rails.root.join('public/429.html'))
   [429, { 'Content-Type' => 'text/html' }, [html]]
 end
 
