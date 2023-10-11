@@ -181,37 +181,39 @@ function PlanOverview() {
           </div>
         </div>
 
+      {!dmp.isRegistered && (
         <div className="plan-steps">
           <h2>Register</h2>
 
           <div className="plan-steps-step last step-visibility">
             <div className="">
               <div className="dmpui-form-col">
-                <div className="dmpui-field-group" onChange={handleChange}>
-                  <label className="dmpui-field-label">
-                    Set visibility and register your plan
-                  </label>
+                  <div className="dmpui-field-group" onChange={handleChange}>
+                    <label className="dmpui-field-label">
+                      Set visibility and register your plan
+                    </label>
 
-                  <RadioButton
-                    name="plan_visible"
-                    id="plan_visible_no"
-                    inputValue="private"
-                    checked={dmp.privacy === "private"}
-                    label="Private - Keep plan private and only visible to me"
-                  />
+                    <RadioButton
+                      name="plan_visible"
+                      id="plan_visible_no"
+                      inputValue="private"
+                      checked={dmp.privacy === "private"}
+                      label="Private - Keep plan private and only visible to me"
+                    />
 
-                  <RadioButton
-                    name="plan_visible"
-                    id="plan_visible_yes"
-                    inputValue="public"
-                    checked={dmp.privacy === "public"}
-                    label="Public - Keep plan visible to the public"
-                  />
-                </div>
+                    <RadioButton
+                      name="plan_visible"
+                      id="plan_visible_yes"
+                      inputValue="public"
+                      checked={dmp.privacy === "public"}
+                      label="Public - Keep plan visible to the public"
+                    />
+                  </div>
               </div>
             </div>
           </div>
         </div>
+      )}
 
         <div className="page-actions">
           {dmp.errors.size > 0 && (
@@ -224,23 +226,14 @@ function PlanOverview() {
             <Spinner isActive={working} message="Registering …" className="empty-list"/>
           )}
 
-          {!working && dmp?.isRegistered && (
-            <>
-              <button type="button" onClick={() => navigate("/dashboard")}>
-                Return to Dashboard
-              </button>
-
-              <button className="primary" onClick={handleUpdateDmp}>
-                Update
-              </button>
-            </>
+          {!working && (
+            <button type="button" onClick={() => navigate("/dashboard")}>
+              Return to Dashboard
+            </button>
           )}
 
           {!working && !dmp?.isRegistered && (
             <>
-              <button type="button" onClick={() => navigate("/dashboard")}>
-                Return to Dashboard
-              </button>
               <button className="primary"
                       data-redirect="/dashboard"
                       onClick={handleRegister}>
@@ -261,3 +254,15 @@ function PlanOverview() {
 }
 
 export default PlanOverview;
+
+//           {!working && dmp?.isRegistered && (
+//             <>
+//               <button type="button" onClick={() => navigate("/dashboard")}>
+//                 Return to Dashboard
+//               </button>
+//
+//               <button className="primary" onClick={handleUpdateDmp}>
+//                 Update
+//               </button>
+//             </>
+//           )}
