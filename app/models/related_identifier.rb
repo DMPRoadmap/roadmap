@@ -53,7 +53,7 @@ class RelatedIdentifier < ApplicationRecord
   # Broad categories to identify the type of work the related identifier represents
   enum work_type: { article: 0, dataset: 1, preprint: 2, software: 3, supplemental_information: 4,
                     paper: 5, book: 6, protocol: 7, preregistration: 8,
-                    traditional_knowledge_labels_and_notices: 9 }
+                    traditional_knowledge_labels_and_notices: 9, metadata: 10 }
 
   # The type of identifier based on the DataCite metadata schema
   enum identifier_type: { ark: 0, arxiv: 1, bibcode: 2, doi: 3, ean13: 4, eissn: 5, handle: 6,

@@ -37,16 +37,15 @@ module Users
 
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def process_omniauth_response(scheme_name:, user:, omniauth_hash:)
-      msg = _('Unable to process your request')
-      redirect_to(:back, alert: msg) and return unless user.present? &&
-                                                       omniauth_hash.present? &&
-                                                       scheme_name.present?
+      @hash = omniauth_hash
+      render 'static_pages/sso_error' and return unless user.present? && @hash.present? &&
+                                                        scheme_name.present?
 
       # If the user is inside an Oauth2 API authorization workflow, then redirect back to caller
-      if current_user.present? && omniauth_hash['uid'].present?
+      if current_user.present? && @hash['uid'].present?
         # If the user is already signed in add the OmniAuth provided UID
         handle_third_party_app_registration(
-          user: current_user, scheme_name: scheme_name, omniauth_hash: omniauth_hash
+          user: current_user, scheme_name: scheme_name, omniauth_hash: @hash
         )
 
       elsif user.persisted?
@@ -54,7 +53,7 @@ module Users
         flash[:notice] = _('Successfully signed in')
 
         # Add/update the omniauth credentials if necessary
-        user.attach_omniauth_credentials(scheme_name: scheme_name, omniauth_hash: omniauth_hash)
+        user.attach_omniauth_credentials(scheme_name: scheme_name, omniauth_hash: @hash)
 
         # Refresh the User API token (used by React pages)
         user.generate_ui_token!
@@ -62,7 +61,7 @@ module Users
         sign_in_and_redirect user, event: :authentication
       else
         handle_new_user_sign_in(
-          user: user, scheme_name: scheme_name, omniauth_hash: omniauth_hash
+          user: user, scheme_name: scheme_name, omniauth_hash: @hash
         )
       end
     end
@@ -71,7 +70,7 @@ module Users
     # The path used when OmniAuth fails
     def after_omniauth_failure_path_for(_scope)
       #   super(scope)
-      redirect_to root_path, alert: _('We are having trouble communicating with your institution at this time.')
+      render 'static_pages/sso_error'
     end
 
     # Attach the UID to their record and return to the third party apps page

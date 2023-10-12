@@ -60,11 +60,11 @@
   <% end %>
 
   <% if @plan.start_date.present? %>
-    <p><b><%= _("Start date: ") %></b><%=  l(@plan.start_date.localtime.to_date, formats: :short) %></p>
+    <p><b><%= _("Start date: ") %></b><%= @plan.start_date.strftime('%m-%d-%Y') %></p>
   <% end %>
 
   <% if @plan.end_date.present? %>
-    <p><b><%= _("End date: ") %></b><%=  l(@plan.end_date.localtime.to_date, formats: :short) %></p>
+    <p><b><%= _("End date: ") %></b><%= @plan.end_date.strftime('%m-%d-%Y') %></p>
   <% end %>
 
   <p><b><%= _("Last modified: ") %></b><%=  l(@plan.updated_at.localtime.to_date, formats: :short) %></p>

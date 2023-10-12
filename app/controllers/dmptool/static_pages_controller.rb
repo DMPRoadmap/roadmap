@@ -12,5 +12,7 @@ module Dmptool
     def promote; end
 
     def quick_start_guide; end
+
+    def sso_error; end
   end
 end
