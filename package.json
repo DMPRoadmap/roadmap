@@ -1,13 +1,14 @@
 {
-  "name": "DMPRoadmap",
-  "version": "2.2.0",
-  "description": "DMPRoadmap javascript dependencies",
+  "name": "dmpopidor",
+  "version": "4.0.0",
+  "description": "DMPOPIDoR javascript dependencies",
   "main": "null",
   "scripts": {
     "lint": "yarn run eslint --ext .js,.jsx app/javascript/**/",
     "test": "karma start spec/karma/unit.js",
     "build": "webpack --config ./config/webpack/webpack.config.js",
-    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "postinstall": "yarn --cwd app/javascript/dmp_opidor_react install"
   },
   "babel": {
     "presets": [
@@ -25,19 +26,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DMPRoadmap/roadmap.git"
+    "url": "git+https://github.com/OPIDoR/DMPOPIDoR.git"
   },
   "keywords": [
-    "DMPRoadmap",
+    "DMPOPIDoR",
     "DMP",
     "Data Management Plan"
   ],
-  "author": "California Digital Library (CDL), Digital Curation Centre (DCC)",
+  "author": "Institut de l'Information Scientifique et Technique (INIST)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DMPRoadmap/roadmap/issues"
+    "url": "https://github.com/OPIDoR/DMPOPIDoR/issues"
   },
-  "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
+  "homepage": "https://github.com/OPIDoR/DMPOPIDoR#readme",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@hotwired/turbo-rails": "^7.1.3",
