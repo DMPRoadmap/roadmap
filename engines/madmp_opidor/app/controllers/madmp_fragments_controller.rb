@@ -92,9 +92,8 @@ class MadmpFragmentsController < ApplicationController
     formatted_list = fragment_list.select { |f| f.to_s.downcase.include?(search_term) }
                                   .map do |f|
                                     {
-                                      'id' => f.id,
-                                      'text' => f.to_s,
-                                      'object' => f.get_full_fragment(with_ids: true)
+                                      **f.get_full_fragment(with_ids: true),
+                                      'to_string' => f.to_s,
                                     }
                                   end
     authorize @dmp_fragment
