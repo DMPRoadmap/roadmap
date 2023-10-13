@@ -33,7 +33,7 @@ module Dmpopidor
       end
 
       # ensure user has access to plan BEFORE creating/finding answer
-      raise Pundit::NotAuthorizedError unless ::Plan.find_by(id: plan_id).readable_by?(user_id)
+      raise Pundit::NotAuthorizedError unless ::Plan.find_by(id: plan_id).readable_by?(user_id.to_i)
 
       begin
         @note = ::Note.new
