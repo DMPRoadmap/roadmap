@@ -15,5 +15,8 @@
   "projectFragmentId": <%= project_fragment.id %>,
   "metaFragmentId": <%= meta_fragment.id %>,
   "researchContext": "<%= @plan.template.context %>",
-  "isTest": <%= @plan.is_test? %>
+  "isTest": <%= @plan.is_test? %>,
+  "isClassic": <%= @plan.template.classic? %>,
+  "currentOrgId": <%= current_user.org.id %>,
+  "currentOrgName": "<%= current_user.org.name %>"
 }'/>
