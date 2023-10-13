@@ -17,7 +17,7 @@ Rack::Attack.throttled_responder = lambda do |_env|
   details = request.env
   Rails.logger.warn("RackAttack throttled: Matched: #{details['rack.attack.matched']}, \
                      Type: #{details['rack.attack.match_type']}, Data: #{details['rack.attack.match_data']}, \
-                     Discriminator: #{['rack.attack.match_discriminator']}"
+                     Discriminator: #{['rack.attack.match_discriminator']}")
 
   [ 429, {}, ["Too Many Requests.\n"] ]
 end
@@ -30,4 +30,9 @@ end
 # Throttle attempts to a particular path. 4 POSTs to /users/sign_in every 30 seconds
 Rack::Attack.throttle "logins/ip", limit: 4, period: 30.seconds do |req|
   req.post? && req.path == "/users/sign_in" && req.ip
+end
+
+# Throttle attemps to hammer on our contact-us form
+Rack::Attack.throttle "contact-us", limit: 2, period: 30.seconds do |req|
+  req.post? && req.path == "/contacts" && req.ip
 end
