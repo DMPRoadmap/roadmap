@@ -1,7 +1,16 @@
 # Changelog
 
-## V4.2.0
+
+## V4.1.1
+
+### Added
+- Added `MORE_INFO` and `LESS_INFO` JS constants (for the Research Outputs feature)
+### Fixed
+- Updated the default font on the 'Download page' to be 'Roboto, Arial, Sans-Serif'
+- Fixed an issue with API V0 that was causing a 500 Internal Server error
 - Solved issue where spring was loaded in production mode : ran `bin/spring binstub --all`
+- Updated fontawesome to V6
+
 ## v4.1.0
 
 **Note this upgrade is a migration from Ruby v2.7.6 to v3.0.5.** Note that this could have an impact on any customizations you may have made to your fork of this project. Please see https://www.fastruby.io/blog/ruby/upgrades/upgrade-ruby-from-2.7-to-3.0.html for further information on what to check. In particular, please note the changes to the way [Ruby 3 handles keyword arguments](https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0/)

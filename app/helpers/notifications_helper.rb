@@ -8,11 +8,11 @@ module NotificationsHelper
   def fa_classes(notification)
     case notification.level
     when 'warning'
-      'fa-exclamation-circle'
+      'fa-circle-exclamation'
     when 'danger'
-      'fa-times-circle'
+      'fa-circle-xmark'
     else
-      'fa-info-circle'
+      'fa-circle-info'
     end
   end
 end
