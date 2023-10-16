@@ -1,7 +1,14 @@
 # Changelog
 
+## v4.1.1
+
+### Added
+- Added `MORE_INFO` and `LESS_INFO` JS constants (for the Research Outputs feature)
 ### Fixed
+- Updated the default font on the 'Download page' to be 'Roboto, Arial, Sans-Serif'
 - Fixed an issue with API V0 that was causing a 500 Internal Server error
+- Updated fontawesome to V6
+
 
 ## v4.1.0
 
