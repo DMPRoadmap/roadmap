@@ -34,7 +34,7 @@ class Org
         else
           args = { month: month }
           args[key_target] = count
-          acc[month] = build_model(args)
+          acc[month] = build_model(**args)
         end
 
         acc
