@@ -1,8 +1,12 @@
 # Changelog
 
-## v4.2.0
-
+## v4.1.1
 - Updated fontawesome to V6
+### Added
+- Added `MORE_INFO` and `LESS_INFO` JS constants (for the Research Outputs feature)
+### Fixed
+- Updated the default font on the 'Download page' to be 'Roboto, Arial, Sans-Serif'
+
 
 ## v4.1.0
 
