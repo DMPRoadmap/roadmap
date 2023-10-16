@@ -31,7 +31,7 @@
             <% if plan.readable_by?(current_user.id) %>
               <%= link_to sanitize("#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}"), plan_path(plan) %>
             <% else %>
-              <%= sanitize plan.title.truncate(60) %>
+              <%= sanitize(plan.title.truncate(60)) %>
             <% end %>
           </td>
           <td><%= plan.template.title %></td>
