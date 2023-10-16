@@ -117,3 +117,4 @@ For more detailed explanation, please refer to this video : https://www.youtube.
 
 - Added scss files to EditorConfig
 - Change csv file name for statistics from 'Completed' to 'Created'
+- Added error message and updated saving message for plan writing session to improve user experience
