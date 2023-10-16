@@ -81,7 +81,7 @@
         <% unlinktext = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
         <% unlinkconf = _("Are you sure you want to unlink #{scheme.description} ID?") %>
     <% end %>
-    <%= link_to '<i class="fas fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe,
+    <%= link_to '<i class="fas fa-fw fa-circle-xmark" aria-hidden="true"></i>'.html_safe,
                 destroy_user_identifier_path(id),
                 method: :delete,
                 title: unlinktext,

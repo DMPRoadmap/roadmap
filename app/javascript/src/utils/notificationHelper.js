@@ -40,7 +40,7 @@ function renderMessage(options = {}) {
 export function renderNotice(msg, options = {}) {
   renderMessage({
     message: msg,
-    icon: 'check-circle',
+    icon: 'circle-check',
     className: 'alert-info',
     floating: options.floating === true,
     autoDismiss: options.autoDismiss === true,
@@ -50,7 +50,7 @@ export function renderNotice(msg, options = {}) {
 export function renderAlert(msg, options = {}) {
   renderMessage({
     message: msg,
-    icon: 'times-circle',
+    icon: 'circle-xmark',
     className: 'alert-warning',
     floating: options.floating === true,
     autoDismiss: options.autoDismiss === true,
