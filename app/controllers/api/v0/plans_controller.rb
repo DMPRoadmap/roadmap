@@ -101,7 +101,7 @@ module Api
         max_per_page = Rails.configuration.x.application.api_max_page_size
         page = params.fetch('page', 1).to_i
         per_page = params.fetch('per_page', max_per_page).to_i
-        per_page = max_per_page if @per_page > max_per_page
+        per_page = max_per_page if per_page > max_per_page
         @args = { per_page: per_page, page: page }
         @plans = refine_query(@plans)
         respond_with @plans

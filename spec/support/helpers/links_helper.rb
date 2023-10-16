@@ -6,6 +6,6 @@ module LinksHelper
   end
 
   def remove_link
-    all('.link a > .fa-times-circle').last.click
+    all('.link a > .fa-circle-xmark').last.click
   end
 end

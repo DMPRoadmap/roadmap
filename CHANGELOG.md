@@ -1,8 +1,17 @@
 # Changelog
 
-## v4.1.1
+## V4.1.1
 
+### Added
+- Added `MORE_INFO` and `LESS_INFO` JS constants (for the Research Outputs feature)
 - Added a .gitkeep file to the app/assets/builds directory to address potential issues when building the application.css file during production deploys #3314
+
+### Fixed
+- Updated the default font on the 'Download page' to be 'Roboto, Arial, Sans-Serif'
+- Fixed an issue with API V0 that was causing a 500 Internal Server error
+- Solved issue where spring was loaded in production mode : ran `bin/spring binstub --all`
+- Updated fontawesome to V6
+
 
 ## v4.1.0
 
