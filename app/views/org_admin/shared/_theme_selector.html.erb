@@ -3,7 +3,7 @@
 <% required ||= false %>
 <% in_error ||= false %>
 
-<div class="form-group">
+<div class="form-group mb-3">
   <% if all_themes.length > 0 %>
     <%
       cntr = 0
@@ -12,12 +12,12 @@
       col_size = (12 / (nbr_of_cols > 4 ? 3 : nbr_of_cols)).round
     %>
     <fieldset<%= in_error ? ' class=field_with_errors' : '' %>>
-      <legend>
+      <legend class="legend-default">
         <%= _('Themes') %>
         <%= render partial: 'shared/popover',
                    locals: { message: popover_message, placement: 'right' }%>
       </legend>
-
+      <div class="row">
       <div class="col-md-<%= col_size %>">
         <% all_themes.each do |theme| %>
           <% if cntr >= per_col %>
@@ -37,6 +37,7 @@
           </div>
           <% cntr += 1 %>
         <% end %>
+      </div>
       </div>
     </fieldset>
   <% else %>

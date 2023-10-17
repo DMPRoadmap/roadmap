@@ -95,7 +95,7 @@
         <% has_org_themed_guidance = false %>
         <% themes_q = question.themes %>
         <% if !themes_q.nil? %>
-          <div class="panel-group" id="<%= question.id %>-guidance">
+          <div class="d-flex flex-column" id="<%= question.id %>-guidance">
             <% ggs = GuidanceGroup.where(org_id: current_user.org.id) %>
             <h4><%= _("Themed Guidance") %></h4>
 
@@ -124,40 +124,37 @@
                       ) %>
                     <% if theme_guidances.length > 0 %>
                       <% theme_guidances.each do |guidance| %>
-                        <div class="panel panel-default">
-                          <div class="heading-button"
-                               role="button"
-                               data-toggle="collapse"
-                               href="#collapseGuidance-<%= guidance.id%>-<%= question.id %>"
-                               aria-expanded="false"
-                               aria-controls="#collapseGuidance-<%= guidance.id%>-<%= question.id %>">
-
-                            <div class="panel-heading"
-                                        role="tab"
-                                        id="#headingGuidance-<%= guidance.id%>-<%= question.id %>">
-                              <div class="panel-title">
-                                  <i class="fas fa-plus pull-left" aria-hidden="true"></i>
-                                &nbsp;<%= theme.title %>
-                                <% if ggs.length > 1 %>
-                                  &nbsp;(<%= guidance_group.name %>)
-                                <% end %>
+                        <div class="accordion my-1 card card-default">
+                          <div class="accordion-item w-100">
+                              <h2 class="accordion-header" 
+                                  id="#headingGuidance-<%= guidance.id%>-<%= question.id %>">
+                                <button class="accordion-button collapsed"
+                                     type="button"
+                                     data-bs-toggle="collapse"
+                                     href="#collapseGuidance-<%= guidance.id%>-<%= question.id %>"
+                                     aria-expanded="false"
+                                     aria-controls="#collapseGuidance-<%= guidance.id%>-<%= question.id %>">
+                                     <%= theme.title %>
+                                     <% if ggs.length > 1 %>
+                                        &nbsp;(<%= guidance_group.name %>)
+                                    <% end %>
+                                </button>
+                              </h2>
+                            
+                              <div id="collapseGuidance-<%= guidance.id%>-<%= question.id %>"
+                                 class="accordion-collapse collapse"
+                                 role="tabpanel"
+                                 aria-labelledby="headingGuidance-<%= guidance.id%>-<%= question.id %>">
+                                <div class="accordion-body card card-body allow-break-words">
+                                   <div class="display-readonly-textarea-content">
+                                      <%= sanitize guidance.text %>
+                                   </div>
+                                </div>
                               </div>
-                              <div class="clearfix"></div>
-                            </div>
-                          </div>
-                          <div id="collapseGuidance-<%= guidance.id%>-<%= question.id %>"
-                               class="panel-collapse collapse"
-                               role="tabpanel"
-                               aria-labelledby="headingGuidance-<%= guidance.id%>-<%= question.id %>">
-                            <div class="panel-body allow-break-words">
-                              <div class="display-readonly-textarea-content">
-                                <%= sanitize guidance.text %>
-                              </div>
-                            </div>
+                           </div>
                         </div>
-                      </div>
+                      <% end %>
                     <% end %>
-                   <% end %>
                   <% end %>
                 <% end %>
               <% end %>
@@ -204,8 +201,8 @@
                                locals: { f: annotation_fields } %>
                   <% end %>
                 <% end %>
-                <div class="form-group col-md-10">
-                  <div class="pull-right">
+                <div class="form-group mb-3 col-md-10">
+                  <div class="float-end">
                     <%= f.submit _('Save'), class: "btn btn-default", role: 'button' %>
                   </div>
                 </div>
@@ -213,8 +210,8 @@
             <% end %>
           <% end %>
           <% if section.modifiable? %>
-            <div class="form-group col-md-10">
-              <div class="pull-right">
+            <div class="form-group mb-3 col-md-10">
+              <div class="float-end">
                 <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question", remote: true %>
               </div>
             </div>

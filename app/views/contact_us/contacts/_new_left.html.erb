@@ -1,6 +1,6 @@
 <%= form_for @contact, url: contacts_path do |f| %>
 <% if ContactUs.require_name %>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <%= f.label(:name, _('Name'), class: 'control-label') %>
         <%= f.text_field(:name,
             class: "form-control",
@@ -9,7 +9,7 @@
             "aria-required": true) %>
     </div>
 <% end %>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <%= f.label(:email, _('Email'), class: 'control-label') %>
         <%= f.email_field(:email,
             class: "form-control",
@@ -18,7 +18,7 @@
             "aria-required": true) %>
     </div>
 <% if ContactUs.require_subject %>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <%= f.label(:subject, _('Subject')) %>
         <%= f.text_field(:subject,
             class: "form-control",
@@ -26,7 +26,7 @@
             "aria-required": true) %>
     </div>
 <% end %>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <%= f.label(:message, _('Message')) %>
         <%= f.text_area(:message,
             class: "form-control",
@@ -35,7 +35,7 @@
             "aria-required": true) %>
     </div>
 <% if !user_signed_in? && Rails.configuration.x.recaptcha.enabled then %>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <%= label_tag(nil, _('Security check')) %>
         <%= recaptcha_tags %>
     </div>

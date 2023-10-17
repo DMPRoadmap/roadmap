@@ -15,10 +15,10 @@
 
 <div class="row">
   <div class="col-md-6">
-    <div class="pull-left">
+    <div class="float-start">
       <p class="bold fontsize-h4"><%= _('No. users joined during last year') %></p>
     </div>
-    <div class="pull-right">
+    <div class="float-end">
       <%= link_to usage_yearly_users_path(sep: ","), class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
         <%= _('Download') %> <i class="fas fa-download" aria-hidden="true"></i>
       <% end %>
@@ -30,10 +30,10 @@
     </div>
   </div>
   <div class="col-md-6">
-    <div class="pull-left">
+    <div class="float-start">
       <p class="bold fontsize-h4"><%= _('No. plans during last year') %></p>
     </div>
-    <div class="pull-right">
+    <div class="float-end">
       <%= link_to usage_yearly_plans_path(sep: ",", filtered: @filtered), class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
         <%= _('Download') %> <i class="fas fa-download" aria-hidden="true"></i>
       <% end %>
@@ -53,17 +53,17 @@
 <div class="row">
   <div class="col-md-12">
       <div class="col-md-6">
-        <div class="pull-left">
+        <div class="float-start">
           <p class="bold fontsize-h4"><%= _('No. plans by template') %></p>
         </div>
       </div>
 
       <div class="col-md-6">
-        <div class="pull-right"">
+        <div class="float-end">
           <ul class="list-inline">
             <li>
               <%= form_for :usage, url: usage_plans_by_template_path, remote: true do |f| %>
-                <div class="form-group">
+                <div class="form-group mb-3">
                   <%= f.label :template_plans_range, _('Time period') %>
                   <ul class="list-inline">
                     <li>
@@ -80,7 +80,7 @@
               <% end %>
             </li>
             <li>
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <%= link_to usage_all_plans_by_template_path(sep: ",", filtered: @filtered), class: 'btn btn-default stat', role: 'button', target: '_blank' do %>
                   <%= _('Download all') %> <i class="fas fa-download" aria-hidden="true"></i>
                 <% end %>

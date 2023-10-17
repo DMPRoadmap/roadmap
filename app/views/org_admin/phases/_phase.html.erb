@@ -4,7 +4,7 @@
     <div>
       <h3>
         <%= phase.title %>
-        <div class="pull-right">
+        <div class="float-end">
           <% if template.customization_of.present? && template.latest? %>
             <%= link_to _('Customise phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-default", role: 'button' } %>
           <% elsif modifiable %>
@@ -19,7 +19,7 @@
           <% end %>
         </div>
       </h3>
-      <p class="pull-left">
+      <p class="float-start">
         <div class="display-readonly-textarea-content">
           <%= sanitize phase.description %>
         </div>

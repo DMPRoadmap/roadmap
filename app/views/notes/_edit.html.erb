@@ -1,12 +1,12 @@
 <%# locals: { note } %>
 <% if !note.nil? %>
     <%= form_for(note, url: note_path(note), method: :put) do |f| %>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <%= f.label(:text, _('Edit comment to share with collaborators')) %>
             <%= f.text_area(:text, class: 'form-control', id: "note-#{note.id}",
                             spellcheck: true) %>
         </div>
-        <div class="pull-right">
+        <div class="float-end">
             <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
             <%= f.button(_('Cancel'), class: "btn btn-default", type: "button") %>
         </div>

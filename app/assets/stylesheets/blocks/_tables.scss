@@ -1,11 +1,21 @@
 @use '../variables/colours' as *;
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
-// This file contains overrides to the core Bootstrap 3.x styling
-.table { border: 1px solid $color-border-default; }
-.table thead > tr > th { border-bottom: none; }
-.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid $color-border-default; }
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
 
-thead th {
+// This file contains overrides to the core Bootstrap 3.x styling
+.table { 
+  border: 1px solid $color-border-default;   
+}
+
+.table thead > tr > th { 
+  border-bottom: none;
+ }
+
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { 
+  border: 1px solid $color-border-default; 
+}
+
+.table thead th {
   background-color: $color-border-default;
   color: $color-primary-text;
 }
@@ -16,7 +26,7 @@ thead th.table-scope {
 
   a {
     color: $color-secondary-text;
-    padding: 2px ($grid-gutter-width / 2) 2px 2px;
+    padding: 2px calc($grid-gutter-width / 2) 2px 2px;
   }
 }
 
@@ -35,7 +45,7 @@ th.download-column {
 /* Fix issues with dropdwon within tables being cut off */
 .table-responsive > .table {
   width: 100%;
-  margin-bottom: $grid-gutter-width / 2;
+  margin-bottom: calc($grid-gutter-width / 2);
   overflow: auto;
 }
 

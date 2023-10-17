@@ -4,6 +4,8 @@
 // blocks.
 
 html {
+  font-size: 0.9rem;
+  font-weight: 300;
   position: relative;
   min-height: 100%;
 }
@@ -11,6 +13,7 @@ html {
 /* For sticky footer */
 main {
   margin-bottom: 100px;
+  margin-top: 30px;
   @media (max-width: 768px) {
     margin-bottom: 420px;
   }
@@ -21,6 +24,15 @@ main {
 
 body{
   padding-bottom: 50px;
+
+  hr {
+    border-top: 1px solid #eeeeee;
+  }
+
+  .row {
+    --bs-gutter-x: 0rem;
+  }
+  
 }
 
 /* footer */
@@ -49,9 +61,9 @@ fieldset {
   }
 }
 
-legend {
+legend, .legend-default {
   border: none;
-  font-size: 14px;
+  font-size: 14px; 
   font-weight: bold;
   margin-bottom: 5px;
   text-transform: capitalize;
@@ -65,3 +77,9 @@ h1, h2, h3, h4, h5, h6 {
   /* font-family: "GillSansLight"; */
   color: $color-heading-text;
 }
+
+
+.fas:not(.small) {
+  font-size: 1rem;
+}
+

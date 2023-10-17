@@ -11,11 +11,11 @@
       <%= devise_error_messages! %>
       <%= f.hidden_field :reset_password_token %>
 
-      <div class="form-group">
+      <div class="form-group mb-3">
         <%= f.label(:password, _('New password'), class: 'control-label') %>
         <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
       </div>
-      <div class="form-group">
+      <div class="form-group mb-3">
         <%= f.label(:password_confirmation, _('Password confirmation'), class: 'control-label') %>
         <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true) %>
       </div>
@@ -26,7 +26,7 @@
       </div>
       
       <% if Rails.configuration.x.recaptcha.enabled %>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <%= label_tag(nil, _('Security check')) %>
           <%= recaptcha_tags %>
         </div>

@@ -1,10 +1,6 @@
 @use '../variables/colours' as *;
 // Bootstrap overrides
 
-.btn {
-  border-radius: 0px;
-}
-
 /* primary button */
 .btn-primary,
 .btn-primary:hover,
@@ -19,6 +15,7 @@
   outline: none;
   margin-top: 5px;
   margin-bottom: 10px;
+  border-radius: 0rem;
 }
 
 /* default button */
@@ -35,6 +32,9 @@
   outline: none;
   margin-top: 5px;
   margin-bottom: 10px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0rem;
 }
 
 /* Popover button */
@@ -52,6 +52,13 @@
 }
 
 /* link button */
-.btn-link {
+.btn-link, .btn-close {
   color: $color-link-text;
+  border: $color-border-default;
+  border-radius: 0rem;
+}
+
+.btn:disabled {
+  background-color: lighten($color-primary-background, 40%);
+  border: none;
 }

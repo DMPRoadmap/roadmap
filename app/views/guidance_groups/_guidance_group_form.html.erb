@@ -4,7 +4,7 @@ name_tip = _('Add an appropriate name for your guidance group. This name will te
 published_tip = _("Check this box when you are ready for guidance associated with this group to appear on user's plans.")
 subset_tip = _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.")
 %>
- <div class="form-group col-xs-8">
+ <div class="form-group mb-3 col-xs-8">
   <%= form.label(:name, _('Name'), class: "control-label") %>
   <%= form.text_field :name, class: "form-control", spellcheck: true, aria: { required: true },
                              data: { toggle: 'tooltip' }, title: name_tip %>
@@ -23,7 +23,7 @@ subset_tip = _("If the guidance is only meant for a subset of users e.g. those i
 <% else %>
   <%= form.hidden_field :optional_subset, value: "0" %>
 <% end %>
-<div class="form-group col-xs-8">
+<div class="form-group mb-3 col-xs-8">
   <%= form.hidden_field :org_id %>
   <%= form.submit _('Save'), class: "btn btn-primary" %>
   <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>

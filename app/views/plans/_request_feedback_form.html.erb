@@ -15,7 +15,7 @@
         <%= sanitize plan.owner.org.feedback_msg.to_s % { user_name: current_user.name(false), plan_name: plan.title, organisation_email: current_user.org.contact_email } %>
       </div>
       <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
-      <div class="form-group col-xs-8">
+      <div class="form-group mb-3 col-xs-8">
         <%= link_to _('Request feedback'),
                      feedback_requests_path(plan_id: @plan.id),
                      data: { method: 'post' },

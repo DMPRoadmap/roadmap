@@ -26,7 +26,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div class="pull-left">
+        <div class="float-start">
           <% if total > Kaminari.config.default_per_page %>
             <% if searchable? %>
                 <ul class="list-inline">
@@ -50,7 +50,7 @@
             <% end %>
           <% end %>
         </div>
-        <div class="pull-right">
+        <div class="float-end">
           <% if paginable? %>
               <%= paginate(scope, params: paginable_params, remote: remote) %>
           <% end %>
