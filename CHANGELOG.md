@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.2.0 
+
+- Upgraded Ruby to 3.1
+- Upgraded Rails to 7.0
+
 ## V4.1.1
 
 ### Added
@@ -11,7 +16,6 @@
 - Fixed an issue with API V0 that was causing a 500 Internal Server error
 - Solved issue where spring was loaded in production mode : ran `bin/spring binstub --all`
 - Updated fontawesome to V6
-
 
 ## v4.1.0
 
