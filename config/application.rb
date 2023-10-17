@@ -24,8 +24,7 @@ module DMPRoadmap
     # --------------------------------- #
     # OVERRIDES TO DEFAULT RAILS CONFIG #
     # --------------------------------- #
-    # Ensure that Zeitwerk knows to load our classes in the lib directory
-    config.eager_load_paths << config.root.join('lib')
+    config.autoload_lib(ignore: %w[tasks])
 
     # CVE-2022-32224: add some compatibility with YAML.safe_load
     # Rails 5,6,7 are using YAML.safe_load as the default YAML deserializer
