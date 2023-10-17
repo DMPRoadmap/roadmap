@@ -15,7 +15,7 @@ class RegistriesController < ApplicationController
 
   def by_name
     registry = Registry.find_by(name: params[:name])
-    registry_values = registry.registry_values
+    registry_values = params[:page] ? registry.registry_values.page(params[:page]) : registry.registry_values
 
     skip_authorization
     render json: registry_values.pluck(:data)

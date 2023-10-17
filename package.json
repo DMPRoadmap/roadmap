@@ -63,7 +63,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-proptypes": "^1.0.0",
-    "react-window": "^1.8.9",
     "regenerator-runtime": "^0.14.0",
     "remount": "^1.0.0",
     "sass": "^1.57.1",
