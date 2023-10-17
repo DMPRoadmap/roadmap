@@ -2,14 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.1'
+ruby '>= 3.2'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.0'
+gem 'rails', '~> 7.1'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -40,7 +40,9 @@ gem 'jbuilder'
 gem 'propshaft'
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+# A Ruby client that tries to match Redis' API one-to-one, while still providing an idiomatic interface
+# (https://github.com/redis/redis-rb)
+gem "redis"
 # Use Active Model has_secure_password
 # gem "bcrypt", "~> 3.1.7"
 
@@ -77,10 +79,6 @@ gem 'pg', group: :pgsql, require: false
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem 'flag_shih_tzu' # , "~> 0.3.23"
-
-# A Ruby client that tries to match Redis' API one-to-one, while still providing an idiomatic interface
-# (https://github.com/redis/redis-rb)
-gem 'redis' # , "~> 0.3.23"
 
 # ======== #
 # SECURITY #
@@ -120,7 +118,7 @@ gem 'jwt'
 gem 'pundit'
 
 # Gem for throttling malicious attacks
-gem 'rack-attack', '~> 6.6', '>= 6.6.1'
+gem 'rack-attack'
 
 # ========== #
 # UI / VIEWS #
