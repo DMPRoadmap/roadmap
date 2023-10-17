@@ -47,6 +47,10 @@ gem 'jbuilder'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
+# The ultimate text progress bar library for Ruby!
+# (https://github.com/jfelchner/ruby-progressbar)
+gem 'ruby-progressbar'
+
 # Provides Sprockets implementation for Rails 4.x (and beyond) Asset Pipeline.
 # https://github.com/rails/sprockets-rails
 gem 'sprockets-rails'

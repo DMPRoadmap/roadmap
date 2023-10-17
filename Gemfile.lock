@@ -622,6 +622,7 @@ DEPENDENCIES
   rubocop
   rubocop-i18n
   rubocop-performance
+  ruby-progressbar
   shoulda
   spring
   spring-commands-rspec
