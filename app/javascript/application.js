@@ -18,6 +18,8 @@ import 'bootstrap-select';
 // Select2
 import 'select2';
 
+import Rails from '@rails/ujs';
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -96,17 +98,17 @@ import './src/superAdmin/users/edit';
 
 import './remount';
 
-// Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
-// and Turbo. ActiveStorage and ActionCable would also need to be in here
-// if we decide to implement either before Rails 6
-require('@rails/ujs').start();
-
 // TODO: Disabled turbo for the time being because our custom JS is not
 //       properly setup to work with it. We should review the docs:
 //       https://github.com/hotwired/turbo-rails
 // import "@hotwired/turbo-rails".
 // require("@rails/activestorage").start()
 // require("@rails/actioncable").start()
+
+// Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
+// and Turbo. ActiveStorage and ActionCable would also need to be in here
+// if we decide to implement either before Rails 6
+Rails.start();
 
 // Setup JS functions/libraries so that they're available within the js.erb templates
 window.$ = jQuery;
