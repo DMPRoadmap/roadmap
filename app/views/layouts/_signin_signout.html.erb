@@ -24,8 +24,8 @@
 
 <!-- Sign in / out -->
 <% if user_signed_in? %>
-  <li class="dropdown" id="signin-signout">
-    <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <li class="dropdown nav-item" id="signin-signout">
+    <a href="#" class="dropdown-toggle nav-link" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fas fa-user" aria-hidden="true">&nbsp;</i>
       <%= current_user.name(false) %>
       <span class="caret"></span>
