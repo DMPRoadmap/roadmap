@@ -33,10 +33,10 @@
     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" 
         data-bs-popper="static" aria-labelledby="user-menu">
       <li>
-        <%= link_to '<i class="fas fa-square-pen" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path %>
+        <%= link_to '<i class="fas fa-square-pen" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path, class: 'dropdown-item' %>
       </li>
       <li>
-        <%= link_to '<i class="fas fa-right-to-bracket" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete %>
+        <%= link_to '<i class="fas fa-right-to-bracket" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
       </li>
     </ul>
   </li>
