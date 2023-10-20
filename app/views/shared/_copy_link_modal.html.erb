@@ -1,16 +1,30 @@
 <div id="link-modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
-    <div class="modal-header">
+   <div class="modal-content">
       <p class="modal-title fontsize-h4">
+      <div class="modal-header">
         <%= _('Copy link') %>
+        <p class="modal-title fontsize-h4">
       </p>
+          <%= _('Copy link') %>
       <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="<%= _('Cancel') %>"></button>
+        </p>
     </div>
+        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="<%= _('Cancel') %>"></button>
     <div class="modal-body">
+      </div>
       <input type="text" id="link" readonly="readonly" style="width: 100%">
+      <div class="modal-body">
     </div>
+        <form>
     <div class="modal-footer">
+          <input type="text" id="link" readonly="readonly" style="width: 100%">
       <button id="copy-link-btn" class="btn btn-default"><%= _('Copy link') %></button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="copy-link-btn" class="btn btn-default"><%= _('Copy link') %></button>
+      </div>
     </div>
   </div>
 </div>

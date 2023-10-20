@@ -1,6 +1,10 @@
 @use '../variables/colours' as *;
 // Overrides Bootstrap 3.0's Modals
 
+.modal{
+  --bs-modal-border-radius: 0rem;
+}
+
 .modal-dialog {
   background-color: $color-secondary-background;
 }
