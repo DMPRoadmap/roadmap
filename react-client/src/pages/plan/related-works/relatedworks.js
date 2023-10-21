@@ -37,10 +37,6 @@ function RelatedWorks() {
   const [dataObj, setDataObj] = useState([]);
 
 
-
-
-
-
   const RelatedWorks_ToBeReviewed = [
     {
       "id": "1",
@@ -91,7 +87,6 @@ function RelatedWorks() {
     },
 
   ];
-
   const RelatedWorks_NotRelated = [
     {
       "id": "100",
@@ -113,18 +108,11 @@ function RelatedWorks() {
     },
 
   ];
+
   const [RelatedWorks, setRelatedWorks] = useState(RelatedWorks_ToBeReviewed);
 
 
-
-
-
   useEffect(() => {
-
-
-
-
-
     getDmp(dmpId).then(initial => {
       setDmp(initial);
     });
@@ -132,7 +120,6 @@ function RelatedWorks() {
     getOutputTypes().then((data) => {
       setOutputTypes(data);
     });
-
 
   }, [dmpId]);
 
@@ -156,7 +143,6 @@ function RelatedWorks() {
         setRelatedWorks(RelatedWorks_NotRelated);
         break;
     }
-
 
   }
 
@@ -337,11 +323,6 @@ function RelatedWorks() {
                 </div>
               </div>
             </div>
-
-
-
-
-
             <div className="table-container">
               <div className="table-wrapper">
 
