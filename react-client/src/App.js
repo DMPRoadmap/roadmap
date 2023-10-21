@@ -10,6 +10,8 @@ import ProjectDetails from "./pages/plan/project-details/projectdetails";
 import ProjectSearch from "./pages/plan/project-search/projectsearch";
 import Contributors from "./pages/plan/contributors/contributors";
 import ResearchOutputs from "./pages/plan/research-outputs/researchoutputs";
+import RelatedWorks from "./pages/plan/related-works/relatedworks";
+
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,11 @@ const router = createBrowserRouter([
   {
     path: "/dashboard/dmp/:dmpId/research-outputs",
     element: <ResearchOutputs />,
+  },
+  
+  {
+    path: "/dashboard/dmp/:dmpId/related-works",
+    element: <RelatedWorks />,
   },
 ]);
 

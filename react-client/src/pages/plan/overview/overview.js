@@ -179,6 +179,20 @@ function PlanOverview() {
               {dmp.stepStatus.outputs[1]}
             </div>
           </div>
+              
+        {dmp.isRegistered && (
+          <div className="plan-steps-step last">
+            <p>
+              <Link to={`/dashboard/dmp/${dmp.id}/related-works`}>
+                Related Works
+              </Link>
+            </p>
+            <div className={"step-status status-" + dmp.stepStatus.outputs[0]}>
+              {dmp.stepStatus.outputs[1]}
+            </div>
+          </div>
+        )}
+
         </div>
 
       {!dmp.isRegistered && (
