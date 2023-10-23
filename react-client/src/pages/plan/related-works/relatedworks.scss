@@ -1,0 +1,132 @@
+
+
+#RelatedWorks {
+  table thead th {
+    background-color: transparent;
+  }
+  table tbody tr:nth-child(2n) {
+    background-color: transparent;
+  }
+  td:focus-within,
+  td:focus,
+  td:hover {
+    outline-style: none !important;
+    outline-width: 0 !important;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .dashboard-table {
+    min-width: 600px; /* adjust this to the minimum width at which you want the table to start scrolling */
+
+    min-width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: #e2e8f0;
+    thead tr {
+      border-bottom: 1px solid var(--dmpui-brand-blue-900) !important;
+    }
+    tr {
+      border-bottom: 1px solid #eee;
+    }
+  }
+
+  .table-header-name {
+    padding: 0.875rem 0.75rem 0.875rem 1rem;
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--dmpui-brand-blue-900);
+  }
+
+  .header-link {
+    color: #1a202c;
+    display: inline-flex;
+  }
+
+  .header-link:hover .chevron-icon,
+  .header-link:focus .chevron-icon {
+    visibility: visible;
+  }
+
+  .table-body {
+    border-top: 1px solid #edf2f7;
+    background-color: #fff;
+    vertical-align: top;
+  }
+  .filter-button {
+    padding: 5px 10px;
+    font-size: 1rem;
+    background-color: #eee;
+    border-color: #ddd;
+    border-radius: 9px;
+  }
+  .filter-button:hover {
+    background-color: #e3e4eb;
+  }
+  .table-data-name {
+    padding: 1rem 0.75rem 1rem 1rem;
+
+    color: var(--dmpui-brand-blue-900);
+  }
+  .table-data-title a {
+    color: var(--dmpui-brand-blue-900);
+    font-weight: 400;
+  }
+  .table-data-date {
+    padding: 1rem 0.75rem 1rem 1rem;
+
+    white-space: nowrap;
+    color: var(--dmpui-brand-blue-900);
+  }
+  .table-data-actions a {
+    color: var(--dmpui-brand-blue-500) !important;
+    text-decoration: underline;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration-thickness: 2px;
+    text-decoration-skip-ink: auto;
+  }
+  .table-data-pi {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #585858;
+  }
+  .preview-button {
+    margin-left: 8px;
+  }
+}
+
+abbr[title] {
+  position: relative;
+
+  /* ensure consistent styling across browsers */
+  text-decoration: underline dotted;
+}
+
+abbr[title]:focus::after {
+  content: attr(title);
+
+  /* position tooltip like the native one */
+  position: relative;
+  left: 0;
+  top: 30px;
+  width: auto;
+  white-space: wrap;
+
+  /* style tooltip */
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.4);
+  font-size: 14px;
+  padding: 8px;
+  max-width: 300px;
+  z-index: 5;
+}
