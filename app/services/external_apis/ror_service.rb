@@ -120,7 +120,7 @@ module ExternalApis
         json = JSON.parse(resp.body)
 
         # Extract the most recent file's metadata
-        file_metadata = json.first.fetch('files', []).first&.with_indifferent_access
+        file_metadata = json.fetch('hits', {}).fetch('hits', []).first&.fetch('files', [])&.last&.with_indifferent_access
         unless file_metadata.present? && file_metadata.fetch(:links, {})[:download].present?
           handle_http_failure(method: 'No file found in ROR metadata from Zenodo', http_response: resp)
           notify_administrators(obj: 'RorService', response: resp)

@@ -4,7 +4,7 @@
 # Research Organization Registry (ROR) API. For more information about
 # the API and to verify that your configuration settings are correct,
 # please refer to: https://github.com/ror-community/ror-api
-Rails.configuration.x.ror.download_url = 'https://zenodo.org/api/records/?communities=ror-data&sort=mostrecent'
+Rails.configuration.x.ror.download_url = 'https://zenodo.org/api/communities/ror-data/records?q=&sort=newest'
 Rails.configuration.x.ror.landing_page_url = 'https://ror.org/'
 Rails.configuration.x.ror.api_base_url = 'https://api.ror.org/'
 Rails.configuration.x.ror.heartbeat_path = 'heartbeat'

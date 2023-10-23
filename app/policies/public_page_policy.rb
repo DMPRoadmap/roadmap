@@ -19,11 +19,11 @@ class PublicPagePolicy < ApplicationPolicy
   end
 
   def template_export?
-    @record.published?
+    @record.present? && @record.published?
   end
 
   def plan_export?
-    @record.publicly_visible?
+    @record.present? && @record.publicly_visible?
   end
 
   def plan_organisationally_exportable?
