@@ -173,7 +173,7 @@ module Dmpopidor
 
     end
 
-    # GET /plans/:id/guidance_groups
+    # GET /plans/:id/budget
     def budget
       @plan = ::Plan.find(params[:id])
       dmp_fragment = @plan.json_fragment
@@ -397,6 +397,30 @@ module Dmpopidor
       }
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+    # GET AJAX /plans/:id/contributors_data
+    def contributors_data
+      plan = ::Plan.find(params[:id])
+      authorize plan
+
+      dmp_fragment = plan.json_fragment
+      contributors = dmp_fragment.persons.order(
+        Arel.sql("data->>'lastName', data->>'firstName'")
+      )
+      schema = MadmpSchema.find_by(name: "PersonStandard")
+      render json: {
+        dmp_id: plan.json_fragment.id,
+        contributors: contributors.map do |contributor|
+          {
+            id: contributor.id,
+            data: contributor.data,
+            roles: contributor.roles
+          }
+        end,
+        template_id: schema.id,
+        template: schema.schema
+      } 
+    end
 
     private
 

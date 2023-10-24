@@ -349,7 +349,7 @@ class MadmpFragment < ApplicationRecord
   def instantiate
     save! if id.nil?
 
-    new_data = data
+    new_data = data || {}
     madmp_schema.properties.each do |key, prop|
       next unless prop['type'].eql?('object') && prop['schema_id'].present?
 
