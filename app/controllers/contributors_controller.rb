@@ -3,7 +3,6 @@
 # Controller for the Contributors page
 class ContributorsController < ApplicationController
   include OrgSelectable
-  prepend Dmpopidor::ContributorsController
   helper PaginableHelper
 
   before_action :fetch_plan

@@ -5,35 +5,36 @@
 class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
   include DynamicFormHelper
+  include Dmpopidor::ErrorHelper
 
   # KEEP IN V4
 
   def create_json
-    p_params = permitted_params
-    schema = MadmpSchema.find(p_params[:schema_id])
-    research_output = ::ResearchOutput.find(p_params[:answer][:research_output_id])
-    defaults = schema.defaults(p_params[:template_locale])
+    body = JSON.parse(request.body.string)
+    plan = ::Plan.includes(:template).find(body["plan_id"])
+    schema = MadmpSchema.find(body["schema_id"])
+    defaults = schema.defaults(plan.template.locale)
     classname = schema.classname
-    parent_id = research_output.json_fragment.id unless classname.eql?('person')
     @fragment = MadmpFragment.new(
-      dmp_id: p_params[:dmp_id],
-      parent_id: parent_id,
+      data: body["data"],
+      dmp_id: plan.json_fragment.id,
       madmp_schema: schema,
       additional_info: {
-        'property_name' => p_params[:property_name]
+        'property_name' => body["property_name"]
       }
     )
     @fragment.classname = classname
     authorize @fragment
-
-    @fragment.answer = ::Answer.create!(
-      research_output_id: p_params[:answer][:research_output_id],
-      plan_id: p_params[:answer][:plan_id],
-      question_id: p_params[:answer][:question_id],
-      lock_version: p_params[:answer][:lock_version],
-      is_common: p_params[:answer][:is_common],
-      user_id: current_user.id
-    )
+    unless classname.eql?('person')
+      @fragment.answer = ::Answer.create!(
+        research_output_id: body["research_output_id"],
+        plan_id: plan.id,
+        question_id: body["question_id"],
+        user_id: current_user.id
+      )
+      research_output = ::ResearchOutput.find(body["research_output_id"])
+      @fragment.parent_id = research_output.json_fragment.id
+    end
     @fragment.instantiate
     @fragment.handle_defaults(defaults)
 
@@ -102,6 +103,28 @@ class MadmpFragmentsController < ApplicationController
     }
   end
   # rubocop:enable Metrics/AbcSize
+  
+
+  # rubocop:disable Metrics/AbcSize
+  def destroy
+    @fragment = MadmpFragment.find(params[:id])
+    parent_id = @fragment.parent_id
+
+    authorize @fragment
+    if @fragment.destroy
+      MadmpFragment.find(parent_id).update_children_references if parent_id.present?
+      @fragment = success_message(@fragment, _('removed'))
+      render json: { status: 200, message: 'Fragmant removed successsfully', fragment: @fragment }, status: :ok
+
+    else
+      @notice = failure_message(@fragment, _('remove'))
+      render bad_request(@notice)
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+
+
+
 
   # REMOVE IN V4 (?)
 
@@ -512,30 +535,6 @@ class MadmpFragmentsController < ApplicationController
     }
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
-  # rubocop:disable Metrics/AbcSize
-  def destroy
-    @fragment = MadmpFragment.find(params[:id])
-    query_id = params[:query_id]
-    readonly = params[:readonly] == 'true'
-    parent_id = @fragment.parent_id
-    dmp_id = @fragment.dmp_id
-    property_name = @fragment.additional_info['property_name']
-
-    authorize @fragment
-    return unless @fragment.destroy
-
-    MadmpFragment.find(parent_id).update_children_references if parent_id.present?
-    render json: {
-      'fragment_id' => parent_id,
-      'query_id' => query_id,
-      'html' => render_fragment_list(
-        dmp_id, parent_id, @fragment.madmp_schema_id,
-        property_name, params[:template_locale], query_id:, readonly:
-      )
-    }
-  end
-  # rubocop:enable Metrics/AbcSize
 
   private
 

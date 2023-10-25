@@ -62,5 +62,9 @@ module Dmpopidor
     def answers_data?
       @record.readable_by?(@user.id)
     end
+
+    def contributors_data?
+      @record.readable_by?(@user.id)
+    end
   end
 end

@@ -18,6 +18,14 @@
       <span class="active-line"></span>
       <span class="active-bullet">&#x25cf;</span>
     </li>
+    <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
+      <a href="<%= plan_contributors_path(plan) %>" role="tab" aria-controls="content">
+        <%= inline_svg_tag "plan_navigation/contributors.svg", class: 'icon' %>
+        <span class="active-text"><%= _("Contributors") %></span>
+      </a>
+      <span class="active-line"></span>
+      <span class="active-bullet">&#x25cf;</span>
+    </li>
   <% end %>
   <% phases.each do |phase| %>
     <% plan_phase_url = plan.template.structured? ? structured_edit_plan_path(plan.id, phase_id: phase.id) : edit_plan_path(plan.id, phase_id: phase.id) %>
@@ -30,15 +38,15 @@
       <span class="active-bullet">&#x25cf;</span>
     </li>
   <% end %>
-  <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
-    <a href="<%= plan_contributors_path(plan) %>" role="tab" aria-controls="content">
-      <%= inline_svg_tag "plan_navigation/contributors.svg", class: 'icon' %>
-      <span class="active-text"><%= _("Contributors") %></span>
-    </a>
-    <span class="active-line"></span>
-    <span class="active-bullet">&#x25cf;</span>
-  </li>
   <% if plan.template.structured? %>
+    <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
+      <a href="<%= plan_contributors_path(plan) %>" role="tab" aria-controls="content">
+        <%= inline_svg_tag "plan_navigation/contributors.svg", class: 'icon' %>
+        <span class="active-text"><%= _("Contributors") %></span>
+      </a>
+      <span class="active-line"></span>
+      <span class="active-bullet">&#x25cf;</span>
+    </li>
     <li role="budget" class="<%= (active_page?(budget_plan_path(plan)) ? "active" : "") %>">
       <a href="<%= budget_plan_path(plan) %>" role="tab" aria-controls="content">
         <%= inline_svg_tag "plan_navigation/budget.svg", class: 'icon' %>
@@ -89,7 +97,7 @@
       </h1>
     </div>
   </div>
-  <div id="content" role="tabpanel" class="tab-pane active">
+  <div id="content" role="tabpanel" class="tab-pane active row col-md-12">
     <div class="plan-content panel panel-default">
       <div class="panel-body <%= write_plan_class %> ">
         <%= yield :plan_tab_body %>
