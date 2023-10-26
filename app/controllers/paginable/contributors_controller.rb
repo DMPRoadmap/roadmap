@@ -8,11 +8,6 @@ module Paginable
 
     include Paginable
 
-    # --------------------------------
-    # Start DMP OPIDoR Customization
-    # SEE app/controllers/dmpopidor/paginable/contributors_controller.rb
-    # CHANGES : Contributors tab display DMP OPIDoR contributors (madmp_fragments)
-    # --------------------------------
     # GET /paginable/plans/:plan_id/contributors
     # GET /paginable/plans/:plan_id/contributors/index/:page
     def index

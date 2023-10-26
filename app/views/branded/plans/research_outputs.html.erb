@@ -7,10 +7,9 @@
   <% else %>
     <%= render partial: 'plans/show_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
   <% end %>
-  <div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-labelledby="linkedInformationsModal" aria-hidden="true"></div>
 <% else %>
   <% content_for :plan_tab_body do %>
-    <div id="research-outputs" class="madmp-fragment fragment-<%= @plan.json_fragment.id%>">
+    <div id="research-outputs" class="fragment-<%= @plan.json_fragment.id%>">
       <%= _('This tab is used by classic plans, if you want to manage your research output, please go to the "Write Plan" tab.') %>
     </div>
   <% end %>

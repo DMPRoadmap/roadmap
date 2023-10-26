@@ -15,9 +15,6 @@ import 'bootstrap';
 import 'bootstrap-3-typeahead';
 import 'bootstrap-select';
 
-// Select2
-import 'select2';
-
 import Rails from '@rails/ujs';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -36,7 +33,6 @@ import './src/utils/paginable';
 import './src/utils/panelHeading';
 import './src/utils/popoverHelper';
 import './src/utils/requiredField';
-import './src/utils/select2';
 import './src/utils/tabHelper';
 import './src/utils/tooltipHelper';
 // import './src/utils/cookiebanner';
