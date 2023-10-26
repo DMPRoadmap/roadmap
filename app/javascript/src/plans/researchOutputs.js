@@ -1,7 +1,4 @@
-import { Select2 } from '../utils/select2';
-
 $(() => {
-  Select2.init('#research-outputs-list');
   $('#research-outputs').sortable({
     items: '.research-output-element:not(.inactive)',
     handle: '.research-output-actions .handle',
@@ -24,12 +21,11 @@ $(() => {
   $('#research-outputs').on('ajax:success', (e) => {
     const data = e.detail[0];
     $('#research-outputs-list').html(data.html);
-    Select2.init('#research-outputs-list');
   });
 
   $('#research-outputs').on('click', '.research-output-actions .edit', (e) => {
     const form = $(e.target).parents('form');
-    form.find('.research-output-fields .edit').show();
+    form.find('.research-output-fields .edit').fadeIn().css('display', 'flex');
     form.find('.research-output-fields .cancel').show();
     form.find('.research-output-fields  .readonly').hide();
   });

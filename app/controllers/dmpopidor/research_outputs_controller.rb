@@ -7,6 +7,7 @@ module Dmpopidor
     def index
       @plan = ::Plan.find(params[:plan_id])
       @research_outputs = @plan.research_outputs
+      @persons = @plan.json_fragment.persons
       authorize @plan
       render('plans/research_outputs', locals: { plan: @plan, research_outputs: @research_outputs })
     rescue ActiveRecord::RecordNotFound

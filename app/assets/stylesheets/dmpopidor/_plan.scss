@@ -275,6 +275,7 @@
           .edit,
           .readonly {
             flex: 3;
+            justify-content: space-between;
           }
 
           .action {
@@ -284,6 +285,12 @@
 
           &.form-group {
             flex-direction: column;
+          }
+          select {
+            width: 90%;
+          }
+          .contributor-link {
+            align-self: center;
           }
         }
 
