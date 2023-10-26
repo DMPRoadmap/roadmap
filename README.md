@@ -10,10 +10,10 @@ DMP Roadmap is a Data Management Planning tool. Management and development of DM
 
 ### Requirements
 
-- Ruby 2.4.x
-- Rails 4.2.x
+- Ruby 3.2.x
+- Rails 7.1.x
 - NodeJS LTS
-- PostgreSQL 9.x
+- PostgreSQL 12.x
 
 Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/releases/).
 
