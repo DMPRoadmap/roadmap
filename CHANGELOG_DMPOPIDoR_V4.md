@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 26/10/2023
+- Refonte de l'onglet Contributeurs avec l'ajout de la possibilité d'ajouter une personne dans les plans classiques
+- Retrait de la possibilité d'ajouter une personne depuis l'onglet Produits de Recherche
+- Améliorations d'affichage dans l'onglet Rédiger (espace de rédaction plus large)
 
 ## 26/09/2023
 - Correction d'un problème d'affichage (effet accordéon) à l'ouverture de la première question dans l'onglet Rédiger
