@@ -6,6 +6,6 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<span class="prev">
+<span class="prev px-1">
   <%= link_to_unless current_page.first?, _('Previous'), url, rel: 'prev', remote: remote, class: 'paginable-action' %>
 </span>

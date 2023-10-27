@@ -5,11 +5,11 @@
             <div class="col-md-12">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <div class="pull-left allow-break-words"><!-- note info -->
+                        <div class="float-start allow-break-words"><!-- note info -->
                             <%= render partial: "notes/show", locals: {note: note }, formats: [:html] %>
                         </div>
                         <% if plan.commentable_by?(current_user.id) %>
-                        <div class="pull-right"><!-- note actions -->
+                        <div class="float-end"><!-- note actions -->
                             <ul class="list-inline">
                                   <% if current_user.id == note.user_id %>
                                       <li><%= link_to(_('Edit'), "#note_edit#{note.id}", class: 'note_edit_link') %></li>

@@ -3,14 +3,14 @@
 </p>
 
 <%= form_tag(merge_super_admin_user_path(@user), method: 'put', class: 'form-inline merge_form') do %>
-  <div class="form-group">
+  <div class="form-control mb-3">
     <div class="input-group">
-      <span class="input-group-addon" id="search-addon">
+      <span class="input-group-text" id="search-addon">
         <span class="fas fa-magnifying-glass" aria-hidden="true"></span>
       </span>
     <%= select_tag(:merge_id, options_from_collection_for_select(@users, "id", "email"), class: "form-control") %>
     </div>
   </div>
-  <%= submit_tag( _("Merge"), class: 'btn btn-default', style: 'margin-top: 8px;', data: { confirm: "placeholder" }) %>
-  <%= link_to(_("Cancel"), edit_super_admin_user_path(@user), class: 'btn btn-default') %>
+  <%= submit_tag( _("Merge"), class: 'btn btn-secondary', style: 'margin-top: 8px;', data: { confirm: "placeholder" }) %>
+  <%= link_to(_("Cancel"), edit_super_admin_user_path(@user), class: 'btn btn-secondary') %>
 <% end %>

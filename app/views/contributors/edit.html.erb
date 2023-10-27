@@ -10,9 +10,9 @@
 <% content_for :plan_tab_body do %>
   <h2>
     <%= _("Editing contributor") %>
-    <%= link_to _('View all contributors'), plan_contributors_path(@plan),
-                                            class: "btn btn-default pull-right" %>
   </h2>
+      <%= link_to _('View all contributors'), plan_contributors_path(@plan),
+                                            class: "btn btn-secondary float-end" %>
   <div class="row">
     <div class="col-md-12">
       <%= form_for @contributor, url: plan_contributor_path(@plan, @contributor),

@@ -1,5 +1,153 @@
 # Changelog
 
+## v4.2.0
+
+**Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
+
+Note that this will have a significant impact on any scss and html customizations you may have made to your fork of this project. 
+
+The following links will be helpful:
+
+[Get started with Bootstrap v5.2.3](https://getbootstrap.com/docs/5.2/getting-started/introduction/)<br>
+[Migrating to v4](https://getbootstrap.com/docs/4.0/migration)<br>
+[How to Migrate from Bootstrap Version 3 to 4](https://designmodo.com/migrate-bootstrap-4/)<br>
+[Migrating to v5](https://getbootstrap.com/docs/5.0/migration)<br>
+[How to Migrate from Bootstrap Version 4 to 5](https://designmodo.com/migrate-bootstrap-5/)<br>
+[Use Bootstrap 5 with Ruby on Rails 6 and webpack](https://medium.com/daily-web-dev/use-bootstrap-4-with-ruby-on-rails-6-and-webpack-fe7300604267)<br>
+[What happened to $grid-float-breakpoint in Bootstrap 4. And screen size breakpoint shift from 3 -> 4](
+https://bibwild.wordpress.com/2019/06/10/what-happened-to-grid-float-breakpoint-in-bootstrap-4-and-screen-size-breakpoint-shift-from-3-4/)<br>
+[What are media queries in Bootstrap 4?](https://www.educative.io/answers/what-are-media-queries-in-bootstrap-4)<br>
+   
+### Key changes
+    
+- Node  package changes:
+  * Changed version of `bootstrap "^3.4.1"` --> `"^5.2.3"`
+  * Added  `@popperjs/core.`
+  * Removed `bootstrap-3-typeahead, bootstrap-sass & popper.js`
+- Stylesheet changes
+  * In `app/assets/stylesheets/application.scss`:
+    + removed `bootstrap-sass` import <br>
+      and replaced with<br>
+       `@import "../../../node_modules/bootstrap/scss/bootstrap";`
+
+  * The order of the `import` statements have been changed to import the `blocks/` and `utils/` after the default bootstrap stylesheets
+
+  * In `app/assets/stylesheets/blocks/`:
+    + Replaced in relevant files:
+      + `@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as * ;`<br>
+         with <br>
+         `@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;`
+    + Enclosed all division calculations using symbol `/` with `calc()` function,<br> 
+      e.g., replaced<br>
+         `padding-right: $grid-gutter-width / 2;`<br>
+      with<br>
+         `padding-right: calc($grid-gutter-width / 2);`<br>
+    + Replaced breaking media queries since Bootstrap 3:
+      - `@media (max-width: $grid-float-breakpoint-max) {}`<br>
+        with<br>
+        `@include media-breakpoint-down(md){}`
+    
+      - `@media (max-width: $grid-float-breakpoint-max) {}`<br>
+        with<br>
+        `@include media-breakpoint-down(md) {}`
+  *  Deleted `app/javascript/src/utils/popoverHelper.js`.
++ Mixins
+  - Media query mixins parameters have changed for a more logical approach.
+    * `media-breakpoint-down()` uses the breakpoint itself instead of the next breakpoint (e.g., `media-breakpoint-down(lg)` instead of `media-breakpoint-down(md)` targets viewports smaller than lg).
++ Color system
+  -  All `lighten()`and `darken()` functions replaced. These functions will mix the color with either white or black instead of changing its lightness by a fixed amount.
+     * Replaced `lighten()` by `tint-color()`.
+     * Replaced `darken()` by `shade-color()`.
+
+#### Components & HTML
+
+Note many of these Bootstrap changes has required us to rewrite or change some of the Javascript files.
+
+When we use a native DOM element in Javascript, we obtain it by applying get() to the Jquery element (cf., https://api.jquery.com/get/).
+We sometimes use the button native Dom element to programmatically click, as the Jquery button element with trigger('click') won't work because the trigger() function cannot be used to mimic native browser events, such as clicking (cf., https://learn.jquery.com/events/triggering-event-handlers/ )
+
++ Accordion & spinners
+  - Bespoke versions replaced by Bootstrap 5 accordion and spinner now. 
+  - Accordion
+    * Changed the default Bootstrap arrow icon for the accordion to use the fontawesome icons plus and minus icons. Created a several accordion specific colour variables:
+       <br>// Accordion colors
+       <br> `$color-accordion-button: $color-primary-text`;
+       <br> `$color-accordion-button-icon: $color-primary-text`;
+       <br> `$color-accordion-button-bg: $color-primary-background`;
+       <br> `$color-accordion-button-active-bg:  shade-color($color-accordion-button-bg, 30%)`;
+       <br>(See `app/assets/stylesheets/blocks/_accordion.scss` and `app/assets/stylesheets/variables/_colours.scss` for details.)
+    * The drag icon in `app/views/org_admin/sections/_section.html.erb` now appears after the plus (or minus) icon.
+  - The spinner block now uses class`d-none` instead of`hidden` to hide.
+  - In views with multiple accordion sections with "expand all" or "collapse all" links, we use the native Dom element of the accordion buttons to programmatically click, (cf. to note above).
++ Buttons
+  - Bootstrap dropped `btn-block` class for utilities. So we removed any styling using it.
+  - Close Buttons: Renamed `close` to`btn-close`.
+  - Renamed `btn-default` to `btn-secondary` and variable `$btn-default-color` changed to `$btn-secondary-color`.
++ Dropdowns 
+    - Dropdown list items with class `dropdown` have class `dropdown-item` added usually with`px-3` for positioning.
+    - Added new `dropdown-menu-dark` variant and associated variables for on-demand dark dropdowns.
+    - Data attributes changes required by Bootstrap 5 (as used by accordion and dropdown buttons):
+       * `data-display` --> `data-bs-display`
+       * `data-parent` --> `data-bs-parent`
+       * `data-target` --> `data-bs-target`
+       * `data-toggle` --> `data-bs-toggle`
+    - Bootstrap 5 Popover added to some dropdown-menu items by adding attribute `data-bs-toggle="popover"`
++ Form 
+  - `form-group` class replaced with `form-control`.
+  - Form labels now require `form-label` or `form-check-label` to go with `form-control` and `form-check` respectively. So all obsolete `control-label` replaced by `form-label` and missing ones added.
+  - Dropped form-specific layout classes for our grid system. Use Bootstrap grid and utilities instead of `form-group`, `form-row`, or `form-inline`.
+  - `form-text` no longer sets display, allowing you to create inline or block help text as you wish just by changing the HTML element.
+  - Input group addons are now specific to their placement relative to an input. So `input-group-addon` and in our case we replaced with
+`input-group-addon`.
+  - Renamed `checkbox` and `radio` into `form-check`.
++ Images
+  - Renamed `img-responsive` to `img-fluid`.
++ Labels and badges
+   - Class `label` has been removed and replaced by `badge` to disambiguate from the `<label>` element.
+      * Renamed `label` class to `badge`
+      * Replaced `label-default` by `bg-secondary`
+      * Replaced `label-info` by `bg-info`
+      * Replaced `label-warning` by  `bg-warning .text-dark`
+      * Replaced `label-danger` by `bg-danger`
++ Links
+  - Links are underlined by default (not just on hover), unless they're part of specific components. So we had to add css to remove underline in many cases.
++ Modals
+  - To programmatically show or hide a Bootstrap modal, we have followed both these approaches:
+     * Either, get access to the Jquery modal element and call functions `modal('show')` or `modal('hide')`.
+     * Or, apply click() to the native Dom element of the button to trigger the modal (cf. to note above).
++ Navs & navbars
+  - Bootstrap rewrote component with flexbox. Dropped nearly all > selectors for simpler styling via un-nested classes.
+    Instead of HTML-specific selectors like .nav > li > a, we use separate classes for `navs, nav-items, and nav-links`. (Note because the `nav-link` class has not always been added as it comes with styles not appropriate for our styling for links.)
+    This makes your HTML more flexible while bringing along increased extensibility. So we have dropped  HTML-specific selectors and css in `_navs.scss`
+    e.g., 
+    <br>`.nav-tabs > li > a:hover` --> `nav-tabs nav-link:hover`,
+    <br>`.nav-pills > li > a:hover` -->`nav-pills .nav-link:hover`.
+    - Pages with css classes `nav` and`navbar` updated to work with Bootstrap 5. So `app/assets/stylesheets/blocks/_navbars.scss` and `app/assets/stylesheets/blocks/_navs.scss` updated.
+      * Replaced`nav navbar-nav` combination --> `navbar-nav`
+      * Replaced`navbar-toggle` --> `navbar-toggler`
+      * Replaced multiple spans in`navbar-toggle` button with class`icon-bar`<br>  --> single span with`toggler-icon`
+      * Lists with `nav navbar-nav` have class`nav-item` added to list elements.
+    - Note because the `nav-link` class include styling that is not appropriate in many places, we have not included it in those cases.
++ Notifications
+    - Notifications now use classes `d-block` and `d-none` to show and hide respectively.
++ Panels, thumbnails & wells (replacements)
+  - Bootstrap 5 dropped panels, thumbnails and wells. So pages with them updated with Bootstrap 5 replacements. 
+    * All views with css classes`panel, panel-body, panel-*` Have panel replaced by card to give `card, card_body, card-*`, etc. 
+    * As `panel-default` and some otherpanel css classes don't have card equivalents with same suffixes we have added these classes temporarily in `_cards.sccs`, e.g.,`.card-default`, etc.
++ Utilities
+  - Bootstrap renamed several utilities to use logical property names instead of directional names with the addition of RTL support:
+    * Renamed `left-*` and `right-*` to `start-*` and `end-*`.
+    * Renamed `float-left` and `float-right` to `float-start` and `float-end`.
+    * Renamed `ml-*` and `mr-*` to `ms-*` and `me-*`.
+    * Renamed `pl-*` and `pr-*` to `ps-*` and `pe-*`.
+    * Renamed `text-left` and `text-right` to `text-start` and `text-end`.
+  - The `hidden` and `show` classes have been removed because they conflicted with jQuery's.
+    * Replaced `hidden` with `d-none`.
+  - Text utilities
+    * As Bootstrap 5.2 dropped class `text-justify` we have created a custom version based on comment https://github.com/twbs/bootstrap/pull/29793#issuecomment-1814683346
+    * `text-*` utilities do not add hover and focus states to links anymore. `link-*` helper classes can be used instead.
+
+
 ## V4.1.1
 
 ### Added
@@ -25,7 +173,7 @@ All gem and JS dependencies were also updated via `bundle update && yarn upgrade
 
 - Upgrade to Ruby version 3.0.5 [#3225](https://github.com/DMPRoadmap/roadmap/issues/3225)
 - Bumped all Github actions to use ruby 3.0
-- Removed `.freeze` from Regex and Range constants since those types are already immutable
+- Removed `freeze` from Regex and Range constants since those types are already immutable
 - Fixed Rubocop complaint about redundancy of `r.nil? ? nil : r.user`, so changed it to `r&.user` in `app/models/plan.rb`
 - Fixed Rubocop complaint about redundant `::` in config.log_formatter = `::Logger::Formatter.new` in `config/environments/production.rb`
 - Froze `lib/deprecators/*.rb` constants that were Strings
@@ -52,7 +200,7 @@ As Webpacker is no longer maintained by the Rails community, we have replaced it
 - Added `cssbundling-rails` gem and DartSass JS library
 - Updated SASS stylesheets following the migration to the latest version of the `sass` package (See below).
 - Removed `font-awesome-sass` gem and used `@fortawesome/fontawesome-free` npm package
-- Issue with `@import 'font-awesome-sprockets';` line in `app/assets/stylesheets/application.scss`. Removed that line after referring to the latest font-awesome install/setup guide which no longer includes it.
+- Issue with `@import 'font-awesome-sprockets';` line in `app/assets/stylesheets/application.scss` Removed that line after referring to the latest font-awesome install/setup guide which no longer includes it.
 
 With the removal of Webpacker, the Javascript/SASS code is no longer automaticaly compiled when using the `rails server` command. It has been replaced by the `bin/dev` command that launch the rails server and the processes that watch for changes in the SASS and Javascript code.
 

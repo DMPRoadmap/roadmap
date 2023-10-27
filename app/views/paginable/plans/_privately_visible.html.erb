@@ -51,31 +51,31 @@
           <td>
             <div class="dropdown">
               <button class="btn btn-link dropdown-toggle" type="button"
-                      id="plan-<%= plan.id %>-actions" data-toggle="dropdown"
+                      id="plan-<%= plan.id %>-actions" data-bs-toggle="dropdown" 
                       aria-haspopup="true" aria-expanded="true">
                 <%= _('Actions') %><span class="caret"></span>
               </button>
 
               <ul class="dropdown-menu" aria-labelledby="plan-<%= plan.id %>-actions">
               <% if plan.editable_by?(current_user.id) then %>
-                <li><%= link_to _('Edit'), plan_path(plan) %></li>
+                <li class="nav-item"><%= link_to _('Edit'), plan_path(plan), class: 'dropdown-item  px-3' %></li>
 
                 <% if plan.administerable_by?(current_user.id) %>
-                  <li><%= link_to _('Share'), share_plan_path(plan) %></li>
+                  <li><%= link_to _('Share'), share_plan_path(plan), class: 'dropdown-item  px-3' %></li>
                 <% end %>
 
-                <li><%= link_to _('Download'), download_plan_path(plan) %></li>
-                <li><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { method: :post }) %></li>
+                <li><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3' %></li>
+                <li><%= link_to(_('Copy'), duplicate_plan_path(plan), class: 'dropdown-item  px-3', data: { method: :post }) %></li>
               <% else %>
-                <li><%= link_to _('View'), plan_path(plan) %></li>
+                <li><%= link_to _('View'), plan_path(plan), class: 'dropdown-item  px-3' %></li>
 
                 <% if !plan.reviewable_by?(current_user.id) %>
-                  <li><%= link_to _('Download'), download_plan_path(plan) %></li>
+                  <li><%= link_to _('Download'), download_plan_path(plan), class: 'dropdown-item  px-3' %></li>
                 <% end %>
               <% end %>
               <% role = my_plan_roles.first %>
               <% conf = (role.creator? && plan.publicly_visible?) ? _("Are you sure you wish to remove this public plan? This will remove it from the Public DMPs page but any collaborators will still be able to access it.") : _("Are you sure you wish to remove this plan? Any collaborators will still be able to access it.") %>
-              <li><%= link_to _('Remove'), deactivate_role_path(role), 'data-method': 'put', rel: 'nofollow', 'data-confirm': conf %></li>
+              <li><%= link_to _('Remove'), deactivate_role_path(role), 'class': 'dropdown-item  px-3', 'data-method': 'put', rel: 'nofollow', 'data-confirm': conf %></li>
             </ul>
           </div>
           </td>
