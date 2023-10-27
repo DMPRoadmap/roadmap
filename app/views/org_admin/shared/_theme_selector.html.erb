@@ -12,7 +12,7 @@
       col_size = (12 / (nbr_of_cols > 4 ? 3 : nbr_of_cols)).round
     %>
     <fieldset<%= in_error ? ' class=field_with_errors' : '' %>>
-      <legend class="legend-default">
+      <legend>
         <%= _('Themes') %>
         <%= render partial: 'shared/popover',
                    locals: { message: popover_message, placement: 'right' }%>

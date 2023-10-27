@@ -6,7 +6,7 @@
   <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') % { application_name: app_name } %>
   </p>
   <fieldset>
-    <legend class="legend-default"><%= _('Select up to 6 organisations to see their guidance.') %></legend>
+    <legend><%= _('Select up to 6 organisations to see their guidance.') %></legend>
     <ul id="priority-guidance-orgs">
       <%= render partial: "guidance_choices",
                  locals: { choices: important_ggs, form: form,

@@ -23,7 +23,7 @@
       <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
     <% end %>
     <fieldset>
-      <legend class="legend-default"><%= _("Optional plan components") %></legend>
+      <legend><%= _("Optional plan components") %></legend>
       <div class="checkbox">
         <%= label_tag 'export[project_details]' do %>
           <%= check_box_tag 'export[project_details]', true, download_coversheet_tickbox_checked %>

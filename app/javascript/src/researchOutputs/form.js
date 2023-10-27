@@ -18,11 +18,11 @@ $(() => {
       const info = $(link).siblings('div.info');
 
       if (info.length > 0) {
-        if (info.hasClass('visually-hidden-focusable')) {
-          info.removeClass('visually-hidden-focusable');
+        if (info.hasClass('d-none')) {
+          info.removeClass('d-none');
           link.text(`${getConstant('LESS_INFO')}`);
         } else {
-          info.addClass('visually-hidden-focusable');
+          info.addClass('d-none');
           link.text(`${getConstant('MORE_INFO')}`);
         }
       }

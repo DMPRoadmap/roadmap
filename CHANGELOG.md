@@ -29,6 +29,9 @@ https://bibwild.wordpress.com/2019/06/10/what-happened-to-grid-float-breakpoint-
     + removed `bootstrap-sass` import <br>
       and replaced with<br>
        `@import "../../../node_modules/bootstrap/scss/bootstrap";`
+
+  * The order of the `import` statements have been changed to import the `blocks/` and `utils/` after the default bootstrap stylesheets
+
   * In `app/assets/stylesheets/blocks/`:
     + Replaced in relevant files:
       + `@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as * ;`<br>
@@ -72,8 +75,7 @@ https://bibwild.wordpress.com/2019/06/10/what-happened-to-grid-float-breakpoint-
   - `data-toggle` --> `data-bs-toggle`
 + Notifications now use classes `.d-block` and `.d-none` to show and hide respectively.
 + Bootstrap 5 Popover added to some dropdown-menu items by adding attribute `data-bs-toggle="popover"`.
-
-
+- `float-start` and `float-end` replaced with `pull-left` and `pull-right` respectively
 
 ## V4.1.1
 
