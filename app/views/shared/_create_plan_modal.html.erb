@@ -1,15 +1,19 @@
 <div id="create-modal" class="modal in" role="dialog">
   <div class="modal-dialog">
+    <div class="modal-content">
     <div class="modal-header">
-      <button class="close" type="button" data-dismiss="modal">&times;</button>
-      <p class="modal-title fontsize-h4"><%= _('Create plan') %></p>
+      <p class="modal-title fontsize-h4">
+      <%= _('Create plan') %>
+      </p>
+      <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="<%= _('Cancel') %>"></button>
     </div>
     <div class="modal-body">
       <p><%= _('Would you like to create a plan based on the "%{name}" template?') % { name: @template.title }%></p>
     </div>
     <div class="modal-footer">
       <%= direct_link(@template, false, _('Yes')) %>
-      <button class="btn btn-default" data-dismiss="modal"><%= _('No') %></button>
+      <button class="btn btn-secondary" data-bs-dismiss="modal"><%= _('No') %></button>
+    </div>
     </div>
   </div>
 </div>

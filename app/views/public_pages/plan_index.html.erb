@@ -4,11 +4,11 @@
     <h1><%= _('Public DMPs') %></h1>
     <!-- if the user has projects -->
     <% if @plans.count > 0 %>
-      <p class="left-indent">
+      <p class="start-indent">
         <%= _('Public DMPs are plans created using the %{application_name} service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines.') % {application_name: ApplicationService.application_name} %>
       </p>
     <% else %>
-      <p class="left-indent">
+      <p class="start-indent">
         <%= _("There are currently no public DMPs.")%>
       </p>
     <% end %>

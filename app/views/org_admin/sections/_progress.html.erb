@@ -2,6 +2,6 @@
 <!-- Partial template for showing the progress for a section, i.e. the valid answers -->
 <% num_section_questions = section.questions.size() %>
 <% num_section_answers = section.num_answered_questions(plan) %>
-<span class="right section-status">
+<span class="right section-status mx-1">
   (<%= num_section_answers %> / <%= num_section_questions %>)
 </span>

@@ -7,35 +7,35 @@ orgs = Org.where(is_other: false)
 <%= form_for @api_client, url: url, method: method,
                           html: { class: 'api_client' } do |f| %>
   <div class="row">
-    <div class="form-group col-xs-4">
-      <%= f.label :name, _('Name'), class: 'control-label' %>
+    <div class="form-control mb-3 col-xs-4">
+      <%= f.label :name, _('Name'), class: 'form-label' %>
       <%= f.text_field :name, class: 'form-control', aria: { required: true } %>
     </div>
-    <div class="form-group col-xs-4">
-      <%= f.label :homepage, _('Homepage'), class: 'control-label' %>
+    <div class="form-control mb-3 col-xs-4">
+      <%= f.label :homepage, _('Homepage'), class: 'form-label' %>
       <%= f.url_field :homepage, class: 'form-control' %>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-8">
-      <%= f.label :description, _('Description'), class: 'control-label' %>
+    <div class="form-control mb-3 col-xs-8">
+      <%= f.label :description, _('Description'), class: 'form-label' %>
       <%= f.text_area :description,
                       class: 'form-control api-client-text',
                       spellcheck: true %>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-4">
-      <%= f.label :contact_email, _('Contact Name'), class: 'control-label' %>
+    <div class="form-control mb-3 col-xs-4">
+      <%= f.label :contact_email, _('Contact Name'), class: 'form-label' %>
       <%= f.text_field :contact_name, class: 'form-control' %>
     </div>
-    <div class="form-group col-xs-4">
-      <%= f.label :contact_email, _('Contact Email'), class: 'control-label' %>
+    <div class="form-control mb-3 col-xs-4">
+      <%= f.label :contact_email, _('Contact Email'), class: 'form-label' %>
       <%= f.email_field :contact_email, class: 'form-control', aria: { required: true } %>
     </div>
   </div>
   <div class="row">
-    <div id="api-client-org-controls" class="form-group col-xs-8">
+    <div id="api-client-org-controls" class="form-control mb-3 col-xs-8">
       <%= render partial: "shared/org_selectors/local_only",
                  locals: { form: f, default_org: @api_client.org, orgs: orgs, required: false } %>
     </div>
@@ -43,19 +43,19 @@ orgs = Org.where(is_other: false)
 
   <% unless @api_client.new_record? %>
     <div class="row" id="api-client-credentials">
-      <div class="form-group col-xs-4">
-        <%= f.label :client_id, _('Client ID'), class: 'control-label' %>
+      <div class="form-control mb-3 col-xs-4">
+        <%= f.label :client_id, _('Client ID'), class: 'form-label' %>
         <%= f.email_field :client_id, class: 'form-control', disabled: true %>
       </div>
-      <div class="form-group col-xs-4">
-        <%= f.label :client_secret, _('Client Secret'), class: 'control-label' %>
+      <div class="form-control mb-3 col-xs-4">
+        <%= f.label :client_secret, _('Client Secret'), class: 'form-label' %>
         <%= f.email_field :client_secret, class: 'form-control', disabled: true %>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-group col-xs-3">
-        <%= f.label :client_id, _('Last accessed on'), class: 'control-label' %>
+      <div class="form-control mb-3 col-xs-3">
+        <%= f.label :client_id, _('Last accessed on'), class: 'form-label' %>
         <% date = @api_client.last_access.present? ? @api_client.last_access.utc.to_s  : _("Never") %>
         <%= f.text_field :last_access, class: 'form-control', disabled: true,
                                        value: date %>
@@ -63,26 +63,26 @@ orgs = Org.where(is_other: false)
     </div>
   <% end %>
 
-  <div class="pull-right">
-    <%= f.button _('Save'), class: 'btn btn-default', type: 'submit' %>
+  <div class="float-end">
+    <%= f.button _('Save'), class: 'btn btn-secondary', type: 'submit' %>
 
     <% unless @api_client.new_record? %>
       <%= link_to _("Refresh client ID and secret"),
                   refresh_credentials_super_admin_api_client_path(@api_client),
-                  class: "btn btn-default", remote: true %>
+                  class: "btn btn-secondary", remote: true %>
 
       <%= link_to _("Email credentials to contact"),
                   email_credentials_super_admin_api_client_path(@api_client),
-                  class: "btn btn-default", remote: true %>
+                  class: "btn btn-secondary", remote: true %>
 
       <%= link_to(
             _('Delete'),
             super_admin_api_client_path(@api_client),
-            class: 'btn btn-default',
+            class: 'btn btn-secondary',
             method: :delete,
             data: { confirm: _('Are you sure you want to delete the API client: "%{name}"') % { name: @api_client.name }}) %>
     <% end %>
 
-    <%= link_to _('Cancel'), super_admin_api_clients_path, class: 'btn btn-default', role: 'button' %>
+    <%= link_to _('Cancel'), super_admin_api_clients_path, class: 'btn btn-secondary', role: 'button' %>
   </div>
 <% end %>

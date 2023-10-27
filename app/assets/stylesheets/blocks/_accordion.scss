@@ -1,0 +1,82 @@
+@use '../variables/colours' as *;
+
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
+
+// An explanation of how we change the Bootstrap arrow icon for the accordion to use the fontawesome icons.
+// First we get the fontawesome plus.svg and minus.svg for use in background image from:
+// node_modules/@fortawesome/fontawesome-free/svgs/solid/plus.svg (in .accordion-button.collapsed::after)
+// node_modules/@fortawesome/fontawesome-free/svgs/solid/minus.svg
+// We then encode the svg.
+// Next the svg fill attribute is added with color set by a variable $color-accordion-button-icon in the _colours.scss.
+// This allows us to change color of symbols.
+// "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}'
+// SVG we are using are encoded with fill added as fill='#{$color-accordion-button-icon}': 
+// After encoding # symbols in svg with the unicode %23. Hence the use of the replace function.
+// We could have done this without str-replace by adding encoded fill='%23{$color-accordion-button-icon}'.
+// Example of process for version Font Awesome Free 6.4.0 (node_modules/@fortawesome/fontawesome-free).
+// Get svgs
+// node_modules/@fortawesome/fontawesome-free/svgs/solid/plus.svg:
+// <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+// Encode using a "URL-encoder for SVG" like  https://yoksel.github.io/url-encoder/
+// %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z'/%3E%3C/svg%3E
+// Repeat for
+// node_modules/@fortawesome/fontawesome-free/svgs/solid/minus.svg
+// <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+// Encode using a "URL-encoder for SVG"
+// %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath d='M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z'/%3E%3C/svg%3E?
+// We now use svgs as the background-image for the .accordion-button class as follows leaving a space.
+// After viewBox='0 0 448 512' we add fill='#{$color-accordion-button-icon}' as follows:
+// For node_modules/@fortawesome/fontawesome-free/svgs/solid/plus.svg:
+// %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z'/%3E%3C/svg%3E
+// node_modules/@fortawesome/fontawesome-free/svgs/solid/minus.svg:
+// %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath d='M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z'/%3E%3C/svg%3E??
+// Now add to scss with a str-replace javascript function (which replaces '#' with '%23' after evaluation of #{$color-accordion-button-icon}.
+// background-image: str-replace(url("data:image/svg+xml, ENCODED_SVG, , '#', '%23');
+
+// Change when fontawesome library upgraded. Using Font Awesome Free 6.4.0 (node_modules/@fortawesome/fontawesome-free). See above explanation on how it is done.
+.accordion-button::after, .accordion-button.collapsed::after {
+  background-image: str-replace(url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z'/%3E%3C/svg%3E"), '#', '%23');
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: str-replace(url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='#{$color-accordion-button-icon}'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath d='M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z'/%3E%3C/svg%3E"), '#', '%23');
+  transition: all 0.5s;
+}
+
+
+// // move fa-arrows-alt to right
+h2.accordion-header {
+  display: flex;
+  align-items: center;
+  color: $color-accordion-button;
+  background-color: $color-accordion-button-bg;
+  font-size: 1rem;
+}
+
+h2.accordion-header > a.i {
+  margin-left: auto; 
+}
+
+// Remove box-shadow and highlight from Accordion button
+a.accordion-button,
+a.accordion-button.collapsed,
+a.accordion-button:not(.collapsed),
+a.accordion-button:hover,
+a.accordion-button:active, 
+a.accordion-button:focus,
+a.accordion-button:focus-visible,
+button.accordion-button.collapsed,
+button.accordion-button:not(.collapsed),
+button.accordion-button,
+button.accordion-button:hover,
+button.accordion-button:active, 
+button.accordion-button:focus,
+button.accordion-button:focus-visible {
+  color: $color-accordion-button;
+  background-color: $color-accordion-button-bg;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}

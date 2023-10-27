@@ -1,9 +1,11 @@
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
 // TODO: Refactor this. Instead of writing specific CSS rules for particular objects,
 // we should provide utility classes which can provide the desired style to this object
 .org-logo-controls {
   display: inline-block;
-  margin-left: $grid-gutter-width / 2;
+  margin-left: calc($grid-gutter-width / 2);
   input { display: inline-block; }
   strong { margin: 0 10px; }
 }

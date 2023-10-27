@@ -1,4 +1,4 @@
-<div class="row condition-partial">
+<div class="row condition-partial mb-3">
   <%
    action_type_arr = [["removes", :remove], ["adds notification", :add_webhook]]
    name_start = "conditions[]condition_" + condition_no.to_s
@@ -10,16 +10,16 @@
       grouped_options_for_select(remove_question_collection)
     multiple = (question.question_format.multiselectbox? || question.question_format.checkbox?)
   %>
-  <div class="col-md-3">
+  <div class="col-md-3 pe-2">
     <%= select_tag(:question_option, options_from_collection_for_select(question.question_options.sort_by(&:number), "id", "text",
-        condition_exists ? condition[:question_option_id] : question.question_options.sort_by(&:number)[0]), {class: 'selectpicker regular', 'data-style': 'bg-white px-4 py-3', multiple: multiple, name: name_start + "[question_option][]"}) %>
+        condition_exists ? condition[:question_option_id] : question.question_options.sort_by(&:number)[0]), {class: 'form-select regular', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3', name: name_start + "[question_option][]"}) %>
   </div>
-  <div class="col-md-3">
-    <%= select_tag(:action_type, options_for_select(action_type_arr, type_default), {name: name_start + "[action_type]", class: 'action-type selectpicker narrow', 'data-style': 'bg-white px-4 py-3'}) %>
+  <div class="col-md-3 pe-2">
+    <%= select_tag(:action_type, options_for_select(action_type_arr, type_default), {name: name_start + "[action_type]", class: 'action-type form-select narrow', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3'}) %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 pe-2">
     <div class="remove-dropdown">
-      <%= select_tag(:remove_question_id, remove_question_group, {name: name_start + "[remove_question_id][]", class: 'selectpicker regular', multiple: true, 'data-style': 'bg-white px-4 py-3'}) %>
+      <%= select_tag(:remove_question_id, remove_question_group, {name: name_start + "[remove_question_id][]", class: 'form-select regular', multiple: true, 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3'}) %>
     </div>
     <div class="webhook-replacement display-off my-auto text-center">
       <%= link_to _('Edit email'), '#' %>

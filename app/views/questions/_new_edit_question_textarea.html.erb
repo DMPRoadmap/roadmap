@@ -7,7 +7,7 @@
   rather cumbersome. As such, this workaround, simplifies the logic when a stale answer is found by rendering the html of the answer directly
   within a paragraph.
 %>
-<div class="form-group allow-break-words">
+<div class="form-control mb-3 allow-break-words">
     <div class="display-readonly-textarea-content" id="question-text-<%= question.id %>">
       <label for="answer-text-<%= question.id %>"><%= sanitize(question.text) %></label>
     </div>

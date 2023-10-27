@@ -6,7 +6,7 @@
                            id: "edit_org_feedback_form" } ) do |f| %>
   <h2><%= _('Request Feedback') %></h2>
   <div class="row">
-    <div class="radio col-xs-8">
+    <div class="form-check col-xs-8">
       <%= f.label :feedback_enabled do %>
         <%= f.radio_button(:feedback_enabled, true) %>
         <%= _('On') %>
@@ -22,19 +22,19 @@
       <%= _('Request Expert Feedback - Message Displayed on Share Plan Tab:') %>
     </h3>
     <div class="row">
-      <div class="form-group col-xs-8" data-html="true">
-        <%= f.label :feedback_msg, _('Message'), class: "control-label" %>
+      <div class="form-control mb-3 col-xs-8" data-html="true">
+        <%= f.label :feedback_msg, _('Message'), class: "form-label" %>
         <%= f.text_area :feedback_msg, class: "form-control", spellcheck: true,
                         "aria-required" => true %>
       </div>
-      <div class="form-group col-xs-4">
+      <div class="form-control mb-3 col-xs-4">
         <h4><%= _('Sample Message') %></h4>
         <%= sanitize sample_message_for_org_feedback_form(org) %>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-control mb-3 col-xs-8">
       <%= f.button(_('Save'), id:"save_org_submit", class: "btn btn-primary", type: "submit") %>
     </div>
   </div>

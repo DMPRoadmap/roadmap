@@ -1,4 +1,6 @@
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
 // Overrides Bootstrap 3.0's lists
 
 /* list-group styling */
@@ -13,6 +15,6 @@
 
 /* LIST STYLING */
 span.sublist {
-  margin-left: $grid-gutter-width / -2;
+  margin-left: calc($grid-gutter-width / -2);
   margin-right: 25px;
 }
