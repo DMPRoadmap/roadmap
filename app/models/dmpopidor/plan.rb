@@ -4,7 +4,6 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   # Customized code for Plan model
   module Plan
-    include DynamicFormHelper
 
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
     # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter

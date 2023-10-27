@@ -122,22 +122,6 @@
     @include dmpopidor-accordion-large;
   }
 
-  .madmp-fragment {
-    position: relative;
-
-    .answer-save-zone {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-
-      .answer-save-button {
-        color: $white;
-        background-color: $rust !important;
-      }
-
-    }
-  }
-
   .guidance-configuration {
     border-left: 2px solid $rust;
     border-bottom: 2px solid $very-very-light-blue;
