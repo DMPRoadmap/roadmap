@@ -7,11 +7,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import {
   DmpModel,
-  DataObject,
-  DataRepository,
   getDmp,
   saveDmp,
-  getOutputTypes
+  getRelatedWorkTypes,
 } from "../../../models.js";
 
 import { truncateText } from "../../../utils.js";
@@ -27,15 +25,14 @@ import Spinner from "../../../components/spinner.js";
 import "./relatedworks.scss";
 
 
-function RelatedWorks() {
+function RelatedWorksPage() {
   let navigate = useNavigate();
 
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState(null);
-  const [outputTypes, setOutputTypes] = useState({});
+  const [relatedTypes, setRelatedTypes] = useState({});
   const [editIndex, setEditIndex] = useState(null);
   const [dataObj, setDataObj] = useState([]);
-
 
   const RelatedWorks_ToBeReviewed = [
     {
@@ -117,10 +114,11 @@ function RelatedWorks() {
       setDmp(initial);
     });
 
-    getOutputTypes().then((data) => {
-      setOutputTypes(data);
+    getRelatedWorkTypes().then((data) => {
+      console.log("related types?");
+      console.log(data)
+      setRelatedTypes(data);
     });
-
   }, [dmpId]);
 
 
@@ -147,9 +145,9 @@ function RelatedWorks() {
   }
 
   function handleChange(ev) {
-    /*
     const { name, value } = ev.target;
- 
+
+    /*
     switch (name) {
       case "data_type":
         var newObj = new DataObject(dataObj.getData());
@@ -210,13 +208,9 @@ function RelatedWorks() {
     const index = ev.target.value;
 
     if ((index !== "") && (typeof index !== "undefined")) {
-
       let newObj = RelatedWorks[index];
       setDataObj(newObj);
-
     }
-
-
 
     document.getElementById("outputsModal").showModal();
   }
@@ -305,9 +299,6 @@ function RelatedWorks() {
           <p>Filter the list to show works you've previously marked
             as Related, or to return to the list of Unrelated works. </p>
 
-
-
-
           <div className="plan-steps">
             <div className="plan-step">
               <div className="filter-container">
@@ -315,9 +306,7 @@ function RelatedWorks() {
                   <p className="filter-heading"><strong>Status</strong></p>
                   <div className="filter-quicklinks">
                     <a href="?status=review" name="review" onClick={handleStatusChange} >To be Reviewed</a>
-
                     <a href="?status=related" name="related" onClick={handleStatusChange}>Related</a>
-
                     <a href="?status=notrelated" name="notrelated" onClick={handleStatusChange}>Not Related</a>
                   </div>
                 </div>
@@ -325,7 +314,6 @@ function RelatedWorks() {
             </div>
             <div className="table-container">
               <div className="table-wrapper">
-
                 {RelatedWorks.length > 0 ? (
                   <table className="dashboard-table">
                     <thead>
@@ -358,8 +346,6 @@ function RelatedWorks() {
                               className="table-data-name table-data-title"
                               data-colname="title"
                             >
-
-
                               {item.citation ? (
                                 <span className="truncated-text"
                                   aria-label="{item.citation}"
@@ -372,15 +358,7 @@ function RelatedWorks() {
                                 <span className="text-muted">
                                   The Citation for this work is not available. Review for more information.
                                 </span>
-
                               )}
-
-
-
-
-
-
-
                             </td>
                             <td
                               className="table-data-name table-data-confidence"
@@ -536,7 +514,7 @@ function RelatedWorks() {
                   <div className="dmpui-form-col">
                     <Select
                       required={true}
-                      options={outputTypes}
+                      options={relatedTypes}
                       label="If this work is related to a planned Research Output, select it below"
                       name="associated_output"
                       id="associated_output"
@@ -579,4 +557,4 @@ function RelatedWorks() {
   );
 }
 
-export default RelatedWorks;
+export default RelatedWorksPage;

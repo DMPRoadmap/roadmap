@@ -321,9 +321,53 @@ export class DataRepository extends Model {
 }
 
 
+export class RelatedWork extends Model {
+  get status() { return this.getData("status", "pending"); }
+  get related_identifiers() { return this.getData("dmproadmap_related_identifiers"); }
+
+  /*
+    {
+      "id": "ZYXW9876",
+      "provenance": "datacite",
+      "timestamp": "2023-07-27T15:08:32+07:00",
+      "note": "data received from event data",
+      "status": "pending",
+      "dmproadmap_related_identifiers": [
+        {
+          "work_type": "dataset",
+          "descriptor": "references",
+          "type": "doi",
+          "identifier": "https://dx.doi.org/77.6666/H5H5H5"
+        },
+        {
+          "work_type": "paper",
+          "descriptor": "is_cited_by",
+          "type": "url",
+          "identifier": "https://academic.site/papers/123"
+        }
+      ],
+      "funding": {
+        "name": "National Science Foundation",
+        "funder_id": {
+          "type": "ror",
+          "identifier": "https://ror.org/021nxhr62"
+        },
+        "funding_status": "granted",
+        "grant_id": {
+          "identifier": "https://doi.org/11.1111/2019.22702-3",
+          "type": "doi"
+        }
+      }
+    }
+  */
+
+}
+
+
 export class DmpModel extends Model {
   #_contributors;
   #_dataset;
+  #_relatedWorks;
 
   constructor(data) {
     super(data);
@@ -333,6 +377,7 @@ export class DmpModel extends Model {
     this.contact = new Contact(this.getData("contact.0", {}));
     this.contributors = this.getData("contributor", []);
     this.dataset = this.getData("dataset", []);
+    this.relatedWorks = this.getData("dmphub_modifications", []);
   }
 
   get title() { return this.getData("title"); }
@@ -391,6 +436,9 @@ export class DmpModel extends Model {
 
   get dataset() { return this.#_dataset; }
   set dataset(items) { this.#_dataset = new ModelSet(DataObject, items); }
+
+  get relatedWorks() { return this.#_relatedWorks; }
+  set relatedWorks(items) { this.#_relatedWorks = new ModelSet(RelatedWork, items); }
 
   get stepStatus() {
     let setupStatus = ["notstart", "Not Started"];
@@ -559,35 +607,6 @@ export async function registerDmp(dmp) {
 }
 
 
-export async function getOutputTypes(forceUpdate) {
-  // We Cache the results on the document to reduce traffic, but allow for
-  // a forced update if needed.
-  if (!document._outputTypes || forceUpdate) {
-    let api = new DmpApi();
-    const resp = await fetch(api.getPath("output_types"));
-    api.handleResponse(resp);
-    const data = await resp.json();
-
-    document._outputTypes = {};
-    if (data.items) {
-      data.items.forEach(item => {
-        document._outputTypes[item.value] = item.label;
-      })
-    }
-  }
-  return document._outputTypes;
-}
-
-
-export function getOutputTypeDisplay(typeVal) {
-  // Note make sure outputTypes is cached on the document before calling
-  // this function.
-  if (typeVal === "") return "";
-  if (!document._outputTypes) return "";
-  return document._outputTypes[typeVal] || "";
-}
-
-
 export async function getContributorRoles(forceUpdate) {
   // We Cache the results on the document to reduce traffic, but allow for
   // a forced update if needed.
@@ -612,5 +631,62 @@ export function getRoleDisplay(roleVal) {
     let result = document._contributorRoles.find(r => r.value === roleVal);
     if (result) return result.label;
   }
+  return "";
+}
+
+
+export async function getOutputTypes(forceUpdate) {
+  // We Cache the results on the document to reduce traffic, but allow for
+  // a forced update if needed.
+  if (!document._outputTypes || forceUpdate) {
+    let api = new DmpApi();
+    const resp = await fetch(api.getPath("output_types"));
+    api.handleResponse(resp);
+    const data = await resp.json();
+
+    document._outputTypes = {};
+    if (data.items) {
+      data.items.forEach(item => {
+        document._outputTypes[item.value] = item.label;
+      })
+    }
+  }
+  return document._outputTypes;
+}
+
+
+export function getOutputTypeDisplay(typeVal) {
+  // Note make sure outputTypes is cached on the document before calling
+  // this function.
+  if (document._outputTypes && typeVal !== "")
+    return document._outputTypes[typeVal];
+  return "";
+}
+
+
+export async function getRelatedWorkTypes(forceUpdate) {
+  // We Cache the results on the document to reduce traffic, but allow for
+  // a forced update if needed.
+  if (!document._relatedWorkTypes || forceUpdate) {
+    let api = new DmpApi();
+    const resp = await fetch(api.getPath("related_work_types"));
+    api.handleResponse(resp);
+    const data = await resp.json();
+
+    document._relatedWorkTypes = {};
+    if (data.items) {
+      data.items.forEach(item => {
+        document._relatedWorkTypes[item.value] = item.label;
+      })
+    }
+  }
+
+  return document._relatedWorkTypes;
+}
+
+
+export function getRelatedWorkTypeDisplay(val) {
+  if (document._relatedWorkTypes && val !== "")
+    return document._relatedWorkTypes[val];
   return "";
 }
