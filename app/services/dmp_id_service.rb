@@ -59,8 +59,9 @@ class DmpIdService
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def update_dmp_id(plan:)
       # plan must exist and have a DMP ID
-      return nil unless minting_service_defined? && plan.present? && (plan.is_a?(Plan) || plan.is_a?(Draft)) &&
-                        plan.dmp_id.present?
+      return nil unless minting_service_defined? && plan.present?
+      return nil if (plan.is_a?(Plan) || plan.is_a?(Draft)) && plan.dmp_id.nil?
+      return nil if plan.is_a?(Hash) && plan.fetch('dmp_id', {})['identifier'].nil?
 
       svc = minter
       return nil if svc.blank?

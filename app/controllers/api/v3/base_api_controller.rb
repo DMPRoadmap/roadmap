@@ -115,7 +115,8 @@ module Api
 
       def dmp_permitted_params
         %i[created title description language ethical_issues_exist
-           ethical_issues_description ethical_issues_report modified] +
+           ethical_issues_description ethical_issues_report modified
+           dmproadmap_privacy dmproadmap_featured] +
           [dmp_id: identifier_permitted_params,
            draft_id: identifier_permitted_params,
            dmproadmap_related_identifiers: related_identifier_params,
