@@ -548,7 +548,7 @@ A DMPTool administrator or the primary contact of the DMP ID must determine whet
 
 The UI should use the 'status' flag of the pending assertions to determine whether or not they should be displayed to the user. If the status is 'pending', it should be displayed.
 
-If the user decides to 'accept' an assertion, the assertion's status flag should be changed to 'accepted' and the entry should be copied from the `dmphub_modifications` array and placed onto the appropriate section of the main DMP ID record. For example, if an administrator approves a related work in the `dmp.dmphub_modifications[n].dmproadmap_related_identifier` array, that entry should be placed into the `dmp.dmproadmap_related_identifiers` array. If they approve a grant_id from the `dmp.dmphub_modifications[n].funding` array, that id should be placed into the `dmp.project[0].funding[0].grant_id`.
+If the user decides to 'accept' an assertion, the assertion's status flag should be changed to `accepted` and the entry should be copied from the `dmphub_modifications` array and placed onto the appropriate section of the main DMP ID record. For example, if an administrator approves a related work in the `dmp.dmphub_modifications[n].dmproadmap_related_identifier` array, that entry should be placed into the `dmp.dmproadmap_related_identifiers` array.
 
 If the admin decides to 'reject' a `pending_assertion`, then the 'status' flag should be changed to `rejected`.
 
@@ -701,49 +701,25 @@ Below is an example of a full DMP ID record (including some :dmphub_modification
         },
         "dmphub_modifications": [
           {
-            "id": "ZYXW9876",
-            "provenance": "datacite",
-            "timestamp": "2023-07-27T15:08:32+07:00",
-            "note": "data received from event data",
-            "status": "pending",
+            "augmenter_run_id": "2023-10-31_rthg84hg4w5g",
+            "id": "2023-10-31-137ab1f0",
+            "provenance": "DataCite",
+            "timestamp": "2023-10-31T22:43:51Z",
             "dmproadmap_related_identifiers": [
               {
-                "work_type": "dataset",
+                "citation": "Doe, Jane, Smith, Anon. 2019. "Additional File 1: of interesting images." <a href=\"https://doi.org/10.0000/01.repo.4y4y4egr.v1\" target=\"_blank\">https://doi.org/10.0000/01.repo.4y4y4egr.v1</a>.",
+                "confidence": "Medium",
                 "descriptor": "references",
+                "identifier": "https://doi.org/10.0000/01.repo.4y4y4egr.v1",
+                "notes": [
+                  "contributor ORCIDs matched",
+                  "contributor names and affiliations matched",
+                  "titles are similar"
+                ],
+                "score": 5,
+                "status": "pending",
                 "type": "doi",
-                "identifier": "https://dx.doi.org/77.6666/H5H5H5"
-              },
-              {
-                "work_type": "paper",
-                "descriptor": "is_cited_by",
-                "type": "url",
-                "identifier": "https://academic.site/papers/123"
-              }
-            ],
-            "funding": {
-              "name": "National Science Foundation",
-              "funder_id": {
-                "type": "ror",
-                "identifier": "https://ror.org/021nxhr62"
-              },
-              "funding_status": "granted",
-              "grant_id": {
-                "identifier": "https://doi.org/11.1111/2019.22702-3",
-                "type": "doi"
-              }
-            }
-          }, {
-            "id": "ZYXW9878",
-            "provenance": "datacite",
-            "timestamp": "2023-07-27T15:08:52+07:00",
-            "note": "data received from event data",
-            "status": "accepted",
-            "dmproadmap_related_identifiers": [
-              {
-                "work_type": "article",
-                "descriptor": "is_cited_by",
-                "type": "url",
-                "identifier": "https://doi.org/22.33333/pubmed.1242345234"
+                "work_type": "publication"
               }
             ]
           }
