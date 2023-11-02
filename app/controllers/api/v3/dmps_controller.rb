@@ -52,13 +52,13 @@ module Api
 
       # PUT /api/v3/dmps/{:id}
       def update
-        dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
+        dmp = DmpIdService.fetch_dmp_id(dmp_id: dmp_params.fetch(:dmp_id, {})[:identifier])
         render_error(errors: DraftsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
 
-        authed = user_is_authorized(dmp: dmp)
+        authed = user_is_authorized(dmp: dmp.fetch('dmp', {}))
         render_error(errors: DraftsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless authed
 
-        json = JSON.parse(dmp_permitted_params.to_h.to_json)
+        json = JSON.parse(dmp_params.to_h.to_json)
         result = DmpIdService.update_dmp_id(plan: json)
         render_error(errors: DraftsController::MSG_DMP_ID_UPDATE_FAILED, status: :bad_request) and return if result.nil?
 
@@ -74,11 +74,11 @@ module Api
 
       # DELETE /api/v3/dmps/{:id}
       def destroy
-        dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
+        dmp = DmpIdService.fetch_dmp_id(dmp_id: dmp_params.fetch(:dmp_id, {})[:identifier])
         render_error(errors: DraftsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
         render_error(errors: MSG_SERVER_ERROR, status: 500) unless dmp[:dmp_id][:identifier].present?
 
-        authed = user_is_authorized(dmp: dmp)
+        authed = user_is_authorized(dmp: dmp.fetch('dmp', {}))
         render_error(errors: DraftsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless authed
 
         # For now a user can only hide a DMP from their dashboard
@@ -109,7 +109,11 @@ module Api
           orgs << contrib.fetch('dmproadmap_affiliation', {}).fetch('affiliation_id', {})['identifier']
         end
         orgs = orgs.map { |ror| ror.to_s.downcase.strip }.flatten.compact.uniq
-        orgs.include?(current_org)
+        original_draft = Draft.find_by(dmp_id: dmp.fetch('dmp_id', {})['identifier'])
+
+        # The admin is an Admin for one of the Orgs identified on the DMP record
+        # OR they were the original creator of the draft
+        orgs.include?(current_org) || (original_draft.present? && current_user.id == original_draft.user_id)
       end
     end
   end
