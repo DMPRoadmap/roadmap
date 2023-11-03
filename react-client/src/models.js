@@ -520,7 +520,7 @@ export class DmpModel extends Model {
 
 
   validateFields() {
-    let hasContact = this.contributors.items.some(c => c.contact);
+    let hasContact = this.contributors.items.some(c => c.contact) || this.contact;
     if (!hasContact) {
       this.errors.set(
         "contributors",

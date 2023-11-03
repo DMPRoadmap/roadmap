@@ -310,6 +310,11 @@ module ExternalApis
       def update_dmp_id(plan:)
         return nil unless active? && plan.present? && auth
 
+        # If the plan coming in is a Plan then render the JSON from the templates otherwise it's already JSON
+          # coming from the React UI so just send it as-is
+        payload = json_from_template(plan: plan) if plan.is_a?(Plan)
+        payload = plan['dmp'].nil? ? { dmp: plan }.to_json : plan.to_json
+
         opts = {
           follow_redirects: true,
           limit: 6,
@@ -319,9 +324,7 @@ module ExternalApis
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          # If the plan coming in is a Plan then render the JSON from the templates otherwise it's already JSON
-          # coming from the React UI so just send it as-is
-          body: plan.is_a?(Plan) ? json_from_template(plan: plan) : plan.to_json
+          body: payload
         }
         # opts[:debug_output] = $stdout
         dmp_id = plan.is_a?(Plan) ? plan.dmp_id : plan.fetch('dmp_id', {})['identifier']
