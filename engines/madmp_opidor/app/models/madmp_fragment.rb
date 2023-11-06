@@ -379,56 +379,6 @@ class MadmpFragment < ApplicationRecord
     raw_import(defaults, madmp_schema) # if defaults.any?
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def save_form_fragment(param_data, schema)
-    fragmented_data = {}
-    return if param_data.nil?
-
-    # rubocop:disable Metrics/BlockLength
-    param_data.each do |prop, content|
-      schema_prop = schema.properties[prop]
-
-      next if schema_prop&.dig('type').nil?
-
-      if schema_prop['type'].eql?('object') &&
-         schema_prop['schema_id'].present?
-        sub_data = content # TMP: for readability
-        sub_schema = MadmpSchema.find(schema_prop['schema_id'])
-        instantiate unless data[prop].present?
-
-        if schema_prop&.dig('inputType').eql?('pickOrCreate')
-          fragmented_data[prop] = content
-        elsif schema_prop['overridable'].present? &&
-              param_data.dig(prop, 'custom_value').present?
-          # if the property is overridable & value is custom, take the value as is
-          sub_fragment = MadmpFragment.find(data[prop]['dbid'])
-          additional_info = if param_data.dig(prop, 'custom_value').eql?('__DELETED__')
-                              {}
-                            else
-                              sub_fragment.additional_info.merge(sub_data)
-                            end
-          sub_fragment.update(
-            data: {},
-            additional_info:
-          )
-        elsif data.dig(prop, 'dbid')
-          sub_fragment = MadmpFragment.find(data[prop]['dbid'])
-          sub_fragment.save_form_fragment(sub_data, sub_schema)
-        end
-      else
-        fragmented_data[prop] = content
-      end
-    end
-    # rubocop:enable Metrics/BlockLength
-    update!(
-      data: data.merge(fragmented_data),
-      additional_info: additional_info.except!('custom_value')
-    )
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
   def get_property(property_name)
     return if data.empty? || data[property_name].nil?
 

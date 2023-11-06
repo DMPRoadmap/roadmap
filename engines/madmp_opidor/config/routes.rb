@@ -12,14 +12,6 @@ Rails.application.routes.draw do
   end
 
   resources :madmp_fragments, only: %i[show create update destroy] do
-    get 'load_new_form', action: :load_form, on: :collection
-    get 'load_form/:id', action: :load_form, on: :collection
-    get 'change_form/:id', action: :change_form, on: :collection
-    get 'new_edit_linked', on: :collection, constraints: { format: [:js] }
-    get 'show_linked', on: :collection, constraints: { format: [:js] }
-    get 'create_from_registry', action: :create_from_registry_value, on: :collection
-    get 'create_contributor', action: :create_contributor, on: :collection
-    delete 'destroy_contributor', action: :destroy_contributor, on: :collection
     get 'load_fragments', action: :load_fragments, on: :collection
     post 'update_json/:id', action: :update_json, on: :collection, constraints: { format: [:json] }
     post 'create_json', action: :create_json, on: :collection, constraints: { format: [:json] }
