@@ -134,6 +134,7 @@ module Dmpopidor
 
     def create_remote
       @plan = ::Plan.find(params[:plan_id])
+      @persons = @plan.json_fragment.persons
       max_order = @plan.research_outputs.maximum('display_order') + 1
       created_ro = @plan.research_outputs.create(
         abbreviation: "Research Output #{max_order}",
@@ -157,10 +158,12 @@ module Dmpopidor
     def destroy_remote
       @plan = ::Plan.find(params[:plan_id])
       @research_output = ::ResearchOutput.find(params[:id])
-      research_output_fragment = @research_output.json_fragment
+      p "##################################################"
+      p @research_output
+      p "##################################################"
+      @persons = @plan.json_fragment.persons
       authorize @plan
       if @research_output.destroy
-        research_output_fragment.destroy!
         flash[:notice] = success_message(@research_output, _('deleted'))
       else
         flash[:alert] = failure_message(@research_output, _('delete'))
@@ -173,6 +176,7 @@ module Dmpopidor
     def update_remote
       @plan = ::Plan.find(params[:plan_id])
       @research_output = ::ResearchOutput.find(params[:id])
+      @persons = @plan.json_fragment.persons
       attrs = research_output_params
       contact_id = params[:contact_id]
 

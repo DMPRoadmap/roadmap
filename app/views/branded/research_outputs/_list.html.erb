@@ -35,7 +35,7 @@
                         options_for_select(
                             registryValues.map {|v| [ 
                                     v.to_s(locale: template_locale), 
-                                    select_value(v, template_locale) 
+                                    v.to_s(locale: template_locale)
                                 ] 
                             },
                             selected: research_output_data['type']
@@ -64,9 +64,9 @@
                 aria: { label: _('Contact') },
                 class: "form-control" %>
               <a href="<%= plan_contributors_path(@plan) %>" target="_blank"
-                 class="fas fa-right-long contributor-link"
+                 class="fas fa-plus contributor-link"
                  aria-hidden="true" data-toggle="tooltip" 
-                 data-original-title="<%= _('Go to Contributors tab') %>"></a>
+                 data-original-title="<%= _('Add a person in the Contributors tab') %>"></a>
             </div>
             <span class="readonly"><%= contact.person.to_s %></span>
           </div>

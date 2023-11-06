@@ -194,6 +194,8 @@ class MadmpFragment < ApplicationRecord
   end
 
   def update_research_output_parameters
+    return unless plan.template.structured?
+
     case classname
     when 'research_output_description'
       ro_fragment = parent
