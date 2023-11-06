@@ -313,7 +313,7 @@ module ExternalApis
         # If the plan coming in is a Plan then render the JSON from the templates otherwise it's already JSON
           # coming from the React UI so just send it as-is
         payload = json_from_template(plan: plan) if plan.is_a?(Plan)
-        payload = plan['dmp'].nil? ? { dmp: plan }.to_json : plan.to_json
+        payload = plan['dmp'].nil? ? { dmp: plan }.to_json : plan.to_json unless plan.is_a?(Plan)
 
         opts = {
           follow_redirects: true,
@@ -329,6 +329,7 @@ module ExternalApis
         # opts[:debug_output] = $stdout
         dmp_id = plan.is_a?(Plan) ? plan.dmp_id : plan.fetch('dmp_id', {})['identifier']
         target = "#{api_base_url}#{update_path % { dmp_id: dmp_id.gsub(%r{https?://}, '') }}"
+
         resp = HTTParty.put(target, opts)
 
         # DMPHub returns a 200 when successful
