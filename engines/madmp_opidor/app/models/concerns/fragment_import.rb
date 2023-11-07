@@ -195,7 +195,7 @@ module FragmentImport
         ####################################
         # OBJECT FIELDS
         ####################################
-        next if sub_data['action'].nil?
+        next if sub_data&.dig('action').nil?
 
         sub_fragment_id = sub_data['dbid'] || sub_data['id']
         sub_fragment_data = sub_data['data'] || sub_data
