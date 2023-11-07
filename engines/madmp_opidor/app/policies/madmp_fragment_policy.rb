@@ -6,15 +6,19 @@ class MadmpFragmentPolicy < ApplicationPolicy
     @record.plan.readable_by?(@user.id) || @user == @record.plan.owner
   end
 
-  def create_json?
+  def create?
     @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
   end
 
-  def update_json?
+  def update?
     @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
   end
 
   def destroy?
+    @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
+  end
+
+  def destroy_contributor?
     @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
   end
 
