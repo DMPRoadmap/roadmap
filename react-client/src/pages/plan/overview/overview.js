@@ -112,11 +112,14 @@ function PlanOverview() {
 
             <div className="plan-steps-step last">
               <p>
-                <Link to={`/dashboard/dmp/${dmp.id}/pdf`}>
+                <Link id="step-project-name" to={`/dashboard/dmp/${dmp.id}/pdf`}>
                   Project name & PDF upload
                 </Link>
               </p>
-              <div className={"step-status status-" + dmp.stepStatus.setup[0]}>
+              <div
+                id="step-project-name-status"
+                aria-describedby="step-project-name step-project-name-status"
+                className={"step-status status-" + dmp.stepStatus.setup[0]}>
                 {dmp.stepStatus.setup[1]}
               </div>
             </div>
@@ -127,21 +130,28 @@ function PlanOverview() {
 
             <div className="plan-steps-step">
               <p>
-                <Link to={`/dashboard/dmp/${dmp.id}/funders`}>Funders</Link>
+                <Link id="step-project-funders" to={`/dashboard/dmp/${dmp.id}/funders`}>Funders</Link>
               </p>
-              <div className={"step-status status-" + dmp.stepStatus.funders[0]}>
+              <div
+                id="step-project-funders-status"
+                aria-describedby="step-project-funders step-project-funders-status"
+                className={"step-status status-" + dmp.stepStatus.funders[0]}>
                 {dmp.stepStatus.funders[1]}
               </div>
             </div>
 
             <div className="plan-steps-step">
               <p>
-                <Link to={`/dashboard/dmp/${dmp.id}/project-details`}>
+                <Link id="step-project-details"
+                  to={`/dashboard/dmp/${dmp.id}/project-details`}>
                   Project Details
                 </Link>
               </p>
 
-              <div className={"step-status status-" + dmp.stepStatus.project[0]}>
+              <div
+                id="step-project-details-status"
+                aria-describedby="step-project-details step-project-details-status"
+                className={"step-status status-" + dmp.stepStatus.project[0]}>
                 {dmp.stepStatus.project[1]}
               </div>
               {dmp.errors.get("project") && (
@@ -153,12 +163,15 @@ function PlanOverview() {
 
             <div className="plan-steps-step">
               <p>
-                <Link to={`/dashboard/dmp/${dmp.id}/contributors`}>
+                <Link id="step-project-contributors" to={`/dashboard/dmp/${dmp.id}/contributors`}>
                   Contributors
                 </Link>
               </p>
 
-              <div className={"step-status status-" + dmp.stepStatus.contributors[0]}>
+              <div
+                id="step-project-contributors-status"
+                aria-describedby="step-project-contributors step-project-contributors-status"
+                className={"step-status status-" + dmp.stepStatus.contributors[0]}>
                 {dmp.stepStatus.contributors[1]}
               </div>
 
@@ -171,11 +184,14 @@ function PlanOverview() {
 
             <div className="plan-steps-step ">
               <p>
-                <Link to={`/dashboard/dmp/${dmp.id}/research-outputs`}>
+                <Link id="step-project-outputs" to={`/dashboard/dmp/${dmp.id}/research-outputs`}>
                   Research Outputs
                 </Link>
               </p>
-              <div className={"step-status status-" + dmp.stepStatus.outputs[0]}>
+              <div
+                id="step-project-outputs-status"
+                aria-describedby="step-project-outputs step-project-outputs-status"
+                className={"step-status status-" + dmp.stepStatus.outputs[0]}>
                 {dmp.stepStatus.outputs[1]}
               </div>
             </div>
@@ -183,11 +199,14 @@ function PlanOverview() {
             {dmp.isRegistered && (
               <div className="plan-steps-step last">
                 <p>
-                  <Link to={`/dashboard/dmp/${dmp.id}/related-works`}>
+                  <Link id="step-project-relatedworks" to={`/dashboard/dmp/${dmp.id}/related-works`}>
                     Related Works
                   </Link>
                 </p>
-                <div className={"step-status status-" + dmp.stepStatus.outputs[0]}>
+                <div
+                  id="step-project-relatedworks-status"
+                  aria-describedby="step-project-relatedworks step-project-relatedworks-status"
+                  className={"step-status status-" + dmp.stepStatus.outputs[0]}>
                   {dmp.stepStatus.outputs[1]}
                 </div>
               </div>
