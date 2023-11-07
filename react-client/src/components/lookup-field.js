@@ -122,6 +122,7 @@ function LookupField(props) {
 
             />
             <Spinner className="dmpui-field-input-spinner"
+              message="Searching…"
               isActive={showSuggestionSpinner} />
           </div>
           <datalist id={resultsId}>
