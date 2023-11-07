@@ -8,7 +8,7 @@ class MadmpFragmentsController < ApplicationController
 
   # KEEP IN V4
 
-  def create_json
+  def create
     body = JSON.parse(request.body.string)
     plan = ::Plan.includes(:template).find(body["plan_id"])
     schema = MadmpSchema.find(body["schema_id"])
@@ -55,7 +55,7 @@ class MadmpFragmentsController < ApplicationController
 
   # TODO: will become update
   # Needs some rework
-  def update_json
+  def update
     @fragment = MadmpFragment.find(params[:id])
     form_data = JSON.parse(request.body.string)
     authorize @fragment
