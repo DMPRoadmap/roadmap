@@ -113,7 +113,7 @@ class MadmpFragmentsController < ApplicationController
     if @fragment.destroy
       MadmpFragment.find(parent_id).update_children_references if parent_id.present?
       @fragment = success_message(@fragment, _('removed'))
-      render json: { status: 200, message: 'Fragmant removed successsfully', fragment: @fragment }, status: :ok
+      render json: { status: 200, message: 'Fragment removed successfully', fragment: @fragment }, status: :ok
 
     else
       @notice = failure_message(@fragment, _('remove'))
@@ -122,6 +122,26 @@ class MadmpFragmentsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def destroy_contributor
+    @person = Fragment::Person.find(params[:contributor_id])
+    contributors_list = @person.contributors
+    dmp_id = @person.dmp_id
+    property_name = @person.additional_info['property_name']
+
+    authorize @person.becomes(MadmpFragment)
+    if @person.destroy
+      contributors_list.each { |c| c.destroy }
+
+      @person = success_message(@person, _('removed'))
+      render json: { status: 200, message: 'Contributor removed successfully', fragment: @person }, status: :ok
+
+    else
+      @notice = failure_message(@person, _('remove'))
+      render bad_request(@notice)
+    end
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
 
   private

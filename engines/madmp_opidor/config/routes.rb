@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get 'load_fragments', action: :load_fragments, on: :collection
     post 'update_json/:id', action: :update_json, on: :collection, constraints: { format: [:json] }
     post 'create_json', action: :create_json, on: :collection, constraints: { format: [:json] }
+    delete 'destroy_contributor', action: :destroy_contributor, on: :collection, constraints: { format: [:json] }
   end
 
   resources :madmp_schemas, only: %i[show]
