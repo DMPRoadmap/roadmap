@@ -322,52 +322,72 @@ export class DataRepository extends Model {
 
 
 export class RelatedWork extends Model {
-  get status() { return this.getData("status", "pending"); }
-  get related_identifiers() { return this.getData("dmproadmap_related_identifiers"); }
-
   /*
     {
-      "id": "ZYXW9876",
-      "provenance": "datacite",
-      "timestamp": "2023-07-27T15:08:32+07:00",
-      "note": "data received from event data",
-      "status": "pending",
-      "dmproadmap_related_identifiers": [
-        {
-          "work_type": "dataset",
-          "descriptor": "references",
-          "type": "doi",
-          "identifier": "https://dx.doi.org/77.6666/H5H5H5"
-        },
-        {
-          "work_type": "paper",
-          "descriptor": "is_cited_by",
-          "type": "url",
-          "identifier": "https://academic.site/papers/123"
-        }
-      ],
-      "funding": {
-        "name": "National Science Foundation",
-        "funder_id": {
-          "type": "ror",
-          "identifier": "https://ror.org/021nxhr62"
-        },
-        "funding_status": "granted",
-        "grant_id": {
-          "identifier": "https://doi.org/11.1111/2019.22702-3",
-          "type": "doi"
-        }
-      }
+     "citation": "Waagmeester, Andra, Lynn Schriml, and Andrew Su. 2019. "Wikidata as a Linked-Data Hub for Biodiversity Data." [Article]. <i>Biodiversity Information Science and Standards</i> 3. <a href=\"https://doi.org/10.3897/biss.3.35206\" target=\"_blank\">https://doi.org/10.3897/biss.3.35206</a>.",
+     "confidence": "Medium",
+     "descriptor": "references",
+     "identifier": "https://doi.org/10.3897/biss.3.35206",
+     "notes": [
+      "contributor ORCIDs matched",
+      "contributor names and affiliations matched",
+      "titles are similar"
+     ],
+     "score": 5,
+     "status": "pending",
+     "type": "doi",
+     "work_type": "publication"
     }
   */
 
+  get doi() { return this.getData("identifier", ""); }
+
+  get citation() { return this.getData("citation", null); }
+
+  get confidence() { return this.getData("confidence", ""); }
+
+  get descriptor() { return this.getData("descriptor", ""); }
+
+  get notes() { return this.getData("notes", []); }
+
+  get score() { return this.getData("score", 0); }
+
+  get status() { return this.getData("status", "pending"); }
+  // pending, approved, rejected
+
+  get type() { return this.getData("type", ""); }
+
+  get workType() { return this.getData("work_type", ""); }
+}
+
+
+export class Modification extends Model {
+  #_relatedWorks;
+
+  constructor(data) {
+    super(data);
+    this.relatedWorks = this.getData("dmproadmap_related_identifiers", []);
+  }
+
+  get dateFound() {
+    let date = moment(this.getData("timestamp"));
+    if (!date.isValid()) return false;
+    return moment(this.getData("timestamp")).format('MM-DD-YYYY');
+  }
+
+  get relatedWorks() { return this.#_relatedWorks; }
+  set relatedWorks(items) { this.#_relatedWorks = new ModelSet(RelatedWork, items); }
+
+  hasRelatedWorks() {
+    return (this.relatedWorks.items.length > 0);
+  }
 }
 
 
 export class DmpModel extends Model {
   #_contributors;
   #_dataset;
-  #_relatedWorks;
+  #_modifications;
 
   constructor(data) {
     super(data);
@@ -377,7 +397,7 @@ export class DmpModel extends Model {
     this.contact = new Contact(this.getData("contact.0", {}));
     this.contributors = this.getData("contributor", []);
     this.dataset = this.getData("dataset", []);
-    this.relatedWorks = this.getData("dmphub_modifications", []);
+    this.modifications = this.getData("dmphub_modifications", []);
   }
 
   get title() { return this.getData("title"); }
@@ -437,8 +457,12 @@ export class DmpModel extends Model {
   get dataset() { return this.#_dataset; }
   set dataset(items) { this.#_dataset = new ModelSet(DataObject, items); }
 
-  get relatedWorks() { return this.#_relatedWorks; }
-  set relatedWorks(items) { this.#_relatedWorks = new ModelSet(RelatedWork, items); }
+  get modifications() { return this.#_modifications; }
+  set modifications(items) { this.#_modifications = new ModelSet(Modification, items); }
+
+  hasRelatedWorks() {
+    return this.modifications.items.some(i => i.hasRelatedWorks());
+  }
 
   get stepStatus() {
     let setupStatus = ["notstart", "Not Started"];
