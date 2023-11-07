@@ -64,9 +64,11 @@
                 aria: { label: _('Contact') },
                 class: "form-control" %>
               <a href="<%= plan_contributors_path(@plan) %>" target="_blank"
-                 class="fas fa-plus contributor-link"
+                 class="contributor-link"
                  aria-hidden="true" data-toggle="tooltip" 
-                 data-original-title="<%= _('Add a person in the Contributors tab') %>"></a>
+                 data-original-title="<%= _('Add a person in the Contributors tab') %>">
+                  <i class="fas fa-plus"></i>
+              </a>
             </div>
             <span class="readonly"><%= contact&.person.present? ? contact.person.to_s : nil %></span>
           </div>
