@@ -150,191 +150,199 @@ function Contributors() {
 
   return (
     <>
-    {!dmp ? (
-      <Spinner isActive={true} message="Fetching contributors…" className="page-loader"/>
-    ) : (
-      <div id="Contributors">
-        <div className="dmpui-heading">
-          <h1>Contributors</h1>
-        </div>
-        <p>
-          Tell us about the project contributors for your project and, designate
-          the Primary Investigator (PI). You must specify a Primary Investigator
-          (PI) at minimum.
-        </p>
-
-        <p>
-          You must designate one of the contributors as the primary contact. The
-          primary contact is the individual responsible for answering questions
-          about the project or its research outputs.
-        </p>
-        <div className="dmpdui-top-actions">
-          <div>
-            {!dmp.isRegistered && (
-              <button className="secondary" onClick={handleModalOpen}>
-                Add Contributor
-              </button>
-            )}
+      {!dmp ? (
+        <Spinner isActive={true} message="Fetching contributors…" className="page-loader" />
+      ) : (
+        <div id="Contributors">
+          <div className="dmpui-heading">
+            <h1>Contributors</h1>
           </div>
-        </div>
+          <p>
+            Tell us about the project contributors for your project and, designate
+            the Primary Investigator (PI). You must specify a Primary Investigator
+            (PI) at minimum.
+          </p>
 
-        <div className="dmpdui-list ">
-          <div className="data-heading" data-colname="name">
-            Name
+          <p>
+            You must designate one of the contributors as the primary contact. The
+            primary contact is the individual responsible for answering questions
+            about the project or its research outputs.
+          </p>
+          <div className="dmpdui-top-actions">
+            <div>
+              {!dmp.isRegistered && (
+                <button className="secondary" onClick={handleModalOpen}>
+                  Add Contributor
+                </button>
+              )}
+            </div>
           </div>
-          <div className="data-heading" data-colname="role">
-            Role
-          </div>
-          <div className="data-heading" data-colname="actions"></div>
 
-          {dmp.contributors
-            ? dmp.contributors.items.map((item, index) => (
+          <div className="dmpdui-list ">
+            <div className="data-heading" data-colname="name">
+              Name
+            </div>
+            <div className="data-heading" data-colname="role">
+              Role
+            </div>
+            <div className="data-heading" data-colname="actions"></div>
+
+            {dmp.contributors
+              ? dmp.contributors.items.map((item, index) => (
                 <Fragment key={index}>
-                  <div data-colname="name">{item.name}</div>
+                  <div data-colname="name" id={"Contributor-" + index}  >{item.name}</div>
                   <div data-colname="role">{item.roleDisplays.join(', ')}</div>
                   <div data-colname="actions" className="form-actions">
                     {!dmp.isRegistered && (
-                    <>
-                      <button value={index} onClick={handleModalOpen}>
-                        Edit
-                      </button>
+                      <>
+                        <button
+                          id={"editContributor-" + index}
+                          aria-labelledby={"editContributor-" + index + " " + "Contributor-" + index}
+                          value={index}
+                          onClick={handleModalOpen}>
+                          Edit
+                        </button>
 
-                      <button value={index} onClick={handleDeleteContributor}>
-                        Delete
-                      </button>
-                    </>
+                        <button
+                          id={"deleteContributor-" + index}
+                          aria-labelledby={"editContributor-" + index + " " + "Contributor-" + index}
+                          value={index}
+                          onClick={handleDeleteContributor}>
+                          Delete
+                        </button>
+                      </>
                     )}
                   </div>
                 </Fragment>
               ))
-            : ""}
-        </div>
+              : ""}
+          </div>
 
-        <dialog id="contributorModal">
-          <form method="post" encType="multipart/form-data"
-                onSubmit={handleSaveContributor}>
-            <div className="form-modal-wrapper">
-              <div className="dmpui-form-cols">
-                <div className="dmpui-form-col">
-                  <TextInput
-                    label="Full name"
-                    type="text"
-                    required="required"
-                    name="full_name"
-                    id="full_name"
-                    inputValue={contributor.name}
-                    placeholder=""
-                    error={contributor.errors.get("name")}
-                  />
-                </div>
-              </div>
-
-              <div className="dmpui-form-cols">
-                <div className="dmpui-form-col">
-                  <TextInput
-                    label="Email address"
-                    type="email"
-                    required="required"
-                    name="email"
-                    id="email"
-                    inputValue={contributor.mbox}
-                    placeholder=""
-                    error={contributor.errors.get("mbox")}
-                  />
-
-                  <Checkbox
-                    label="Is Primary Contact?"
-                    name="primary_contact"
-                    id="primaryContact"
-                    onChange={handleChange}
-                    isChecked={contributor.contact}
-                  />
+          <dialog id="contributorModal">
+            <form method="post" encType="multipart/form-data"
+              onSubmit={handleSaveContributor}>
+              <div className="form-modal-wrapper">
+                <div className="dmpui-form-cols">
+                  <div className="dmpui-form-col">
+                    <TextInput
+                      label="Full name"
+                      type="text"
+                      required="required"
+                      name="full_name"
+                      id="full_name"
+                      inputValue={contributor.name}
+                      placeholder=""
+                      error={contributor.errors.get("name")}
+                    />
+                  </div>
                 </div>
 
-                <div className="dmpui-form-col">
-                  <TextInput
-                    label="ORCID ID"
-                    type="text"
-                    name="orcid"
-                    id="orcid"
-                    inputValue={contributor.id}
-                    placeholder=""
-                    help=""
-                  />
+                <div className="dmpui-form-cols">
+                  <div className="dmpui-form-col">
+                    <TextInput
+                      label="Email address"
+                      type="email"
+                      required="required"
+                      name="email"
+                      id="email"
+                      inputValue={contributor.mbox}
+                      placeholder=""
+                      error={contributor.errors.get("mbox")}
+                    />
+
+                    <Checkbox
+                      label="Is Primary Contact?"
+                      name="primary_contact"
+                      id="primaryContact"
+                      onChange={handleChange}
+                      isChecked={contributor.contact}
+                    />
+                  </div>
+
+                  <div className="dmpui-form-col">
+                    <TextInput
+                      label="ORCID ID"
+                      type="text"
+                      name="orcid"
+                      id="orcid"
+                      inputValue={contributor.id}
+                      placeholder=""
+                      help=""
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="dmpui-form-cols">
-                <div className="dmpui-form-col">
-                  <LookupField
-                    label="Affiliation"
-                    name="affiliation"
-                    id="affiliation"
-                    required="required"
-                    endpoint="affiliations"
-                    placeholder=""
-                    help="Search for your institution (API)"
-                    inputValue={contributor.affiliation.name}
-                    onChange={handleChange}
-                    error={contributor.errors.get("affiliation")}
-                  />
+                <div className="dmpui-form-cols">
+                  <div className="dmpui-form-col">
+                    <LookupField
+                      label="Affiliation"
+                      name="affiliation"
+                      id="affiliation"
+                      required="required"
+                      endpoint="affiliations"
+                      placeholder=""
+                      help="Search for your institution (API)"
+                      inputValue={contributor.affiliation.name}
+                      onChange={handleChange}
+                      error={contributor.errors.get("affiliation")}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="dmpui-form-cols">
-                <div className="dmpui-form-col">
-                  <div className={"dmpui-field-group"}>
-                    <label className="dmpui-field-label">
-                      What is this person's role? *
-                    </label>
+                <div className="dmpui-form-cols">
+                  <div className="dmpui-form-col">
+                    <div className={"dmpui-field-group"}>
+                      <label className="dmpui-field-label">
+                        What is this person's role? *
+                      </label>
 
-                    <div id="contributorRoles">
-                      {contributor.errors.get("role") && (
-                        <p className="dmpui-field-error"> {contributor.errors.get("role")} </p>
-                      )}
-                      {roles.map((role, index) => (
-                        <Fragment key={index}>
-                          <Checkbox
-                            label={role.label}
-                            name="role"
-                            id={"_role_" + role.value}
-                            inputValue={role.value}
-                            onChange={handleChange}
-                            isChecked={contributor.roles.includes(role.value)}
-                          />
-                        </Fragment>
-                      ))}
+                      <div id="contributorRoles">
+                        {contributor.errors.get("role") && (
+                          <p className="dmpui-field-error"> {contributor.errors.get("role")} </p>
+                        )}
+                        {roles.map((role, index) => (
+                          <Fragment key={index}>
+                            <Checkbox
+                              label={role.label}
+                              name="role"
+                              id={"_role_" + role.value}
+                              inputValue={role.value}
+                              onChange={handleChange}
+                              isChecked={contributor.roles.includes(role.value)}
+                            />
+                          </Fragment>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
+              <div className="form-actions ">
+                <button type="button" onClick={closeModal}>
+                  Cancel
+                </button>
+                <button type="submit" className="primary">
+                  {editIndex === null ? "Add" : "Update"}
+                </button>
+              </div>
+            </form>
+          </dialog>
+
+          <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
             <div className="form-actions ">
-              <button type="button" onClick={closeModal}>
-                Cancel
+              <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
+                {dmp.isRegistered ? "Back" : "Cancel"}
               </button>
-              <button type="submit" className="primary">
-                {editIndex === null ? "Add" : "Update"}
-              </button>
+              {!dmp.isRegistered && (
+                <button type="submit" className="primary">
+                  Save &amp; Continue
+                </button>
+              )}
             </div>
           </form>
-        </dialog>
-
-        <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
-          <div className="form-actions ">
-            <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
-              {dmp.isRegistered ? "Back" : "Cancel"}
-            </button>
-            {!dmp.isRegistered && (
-              <button type="submit" className="primary">
-                Save &amp; Continue
-              </button>
-            )}
-          </div>
-        </form>
-      </div>
-    )}
+        </div>
+      )}
     </>
   );
 }
