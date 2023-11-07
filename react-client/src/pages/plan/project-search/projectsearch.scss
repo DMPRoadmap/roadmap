@@ -1,5 +1,8 @@
 @import '../../../components/responsive';
 
+.project-list-header{
+  margin-top: 2rem!important;
+}
 .project-list {
 
   @include device(tablet) {

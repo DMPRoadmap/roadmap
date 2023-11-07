@@ -5,7 +5,7 @@ function Spinner(props) {
   return (
     <>
       {props?.isActive && (
-        <div className={"spinner " + (props.className ? props.className : "") }>
+        <div className={"spinner " + (props.className ? props.className : "")}>
           <svg
             className="graphic"
             xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ function Spinner(props) {
             </g>
           </svg>
           {props?.message && (
-            <p> {props.message} </p>
+            <p aria-live='polite' role="status" > {props.message} </p>
           )}
         </div>
       )}
