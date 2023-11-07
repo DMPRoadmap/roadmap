@@ -2,6 +2,18 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 07/11/2023
+- Ajout d'un mode Lecture Seule pour l'onglet Informations Générales
+- Ajout des textes "Selectionnez une valeur" dans les listes de sélection (Carte KB #9555)
+- Correction d'un problème d'ouverture des questions sans recommandations
+- Plans Classiques : Correction d'un problème d'ajout, mise à jour et suppression des produits de recherche (Carte KB #9831)
+- Augmentation de la largeur de l'onglet Informations Générales (Carte KB #9701)
+
+### Contributeurs
+- Plans Classiques : Changement de l'icone et du tooltip d'ajout d'un contributeur depuis l'onglet Produits de Recherche (Carte KB #9817)
+- Amélioration de la gestion des rôles lors de la suppression d'une personne depuis l'onglet Contributeurs (Carte KB #9851)
+- Ajout de l'affichage de l'affiliation et de l'identifiant de la personne dans l'onglet Contributeurs (Carte KB #9832)
+
 ## 26/10/2023
 - Refonte de l'onglet Contributeurs avec l'ajout de la possibilité d'ajouter une personne dans les plans classiques
 - Retrait de la possibilité d'ajouter une personne depuis l'onglet Produits de Recherche
