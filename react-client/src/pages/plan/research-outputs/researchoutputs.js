@@ -215,7 +215,7 @@ function ResearchOutputs() {
 
             {dmp?.dataset?.items ? dmp.dataset.items.map((item, index) => (
               <Fragment key={index}>
-                <div data-colname="name">{item.title}</div>
+                <div data-colname="name" id={"Output-" + index}  >{item.title}</div>
                 <div data-colname="personal">{item.personal}</div>
                 <div data-colname="sensitive">{item.sensitive}</div>
                 <div data-colname="repo">{item.repository.title}</div>
@@ -223,11 +223,19 @@ function ResearchOutputs() {
                 <div data-colname="actions" className="form-actions">
                   {!dmp.isRegistered && (
                     <>
-                      <button value={index} onClick={handleModalOpen}>
+                      <button
+                        id={"editOutput-" + index}
+                        aria-labelledby={"editOutput-" + index + " " + "Output-" + index}
+                        value={index}
+                        onClick={handleModalOpen}>
                         Edit
                       </button>
 
-                      <button value={index} onClick={handleDeleteOutput}>
+                      <button
+                        id={"editOutput-" + index}
+                        aria-labelledby={"editOutput-" + index + " " + "Output-" + index}
+                        value={index}
+                        onClick={handleDeleteOutput}>
                         Delete
                       </button>
                     </>
