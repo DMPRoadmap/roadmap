@@ -57,10 +57,10 @@
                       p.id
                     ] 
                   },
-                  selected: contact.person.present? ? contact.person.id : nil
+                  selected: contact&.person.present? ? contact.person.id : nil
                 ),
                 disabled: readonly,
-                include_blank: false,
+                include_blank: true,
                 aria: { label: _('Contact') },
                 class: "form-control" %>
               <a href="<%= plan_contributors_path(@plan) %>" target="_blank"
@@ -68,7 +68,7 @@
                  aria-hidden="true" data-toggle="tooltip" 
                  data-original-title="<%= _('Add a person in the Contributors tab') %>"></a>
             </div>
-            <span class="readonly"><%= contact.person.to_s %></span>
+            <span class="readonly"><%= contact&.person.present? ? contact.person.to_s : nil %></span>
           </div>
           <div class='research-output-field form-group research-output-pid'>
             <%= f.label :pid, _('Persistent Identifier'),  class: 'control-label' %>

@@ -182,16 +182,14 @@ module Dmpopidor
 
       authorize @plan
       if @research_output.update(attrs)
-        @research_output.create_json_fragments
-        unless @plan.template.structured?
-          research_output_description = @research_output.json_fragment.research_output_description
-          research_output_description.contact.update(
-            data: {
-              'person' => contact_id.present? ? { 'dbid' => contact_id } : nil,
-              'role' => _('Data contact')
-            }
-          )
-        end
+        research_output_description = @research_output.json_fragment.research_output_description
+        research_output_description.instantiate
+        research_output_description.contact.update(
+          data: {
+            'person' => contact_id.present? ? { 'dbid' => contact_id } : nil,
+            'role' => _('Data contact')
+          }
+        )
         render json: {
           'html' => render_to_string(partial: 'research_outputs/list', locals:
             {
