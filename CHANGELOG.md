@@ -59,7 +59,8 @@ https://bibwild.wordpress.com/2019/06/10/what-happened-to-grid-float-breakpoint-
     panel css classes don't have card equivalents with same suffixes we have
     added these classes temporarily in _cards.sccs. For example, 
     `.card-default`, etc.
-  TBD: Rewrite app/javascript/src/utils/sectionUpdate.js it has reference to .panel.
+   + **Note:**  We have retained `.form-group` for use in grouping form inputs as we reference it in 
+    `src/utils/requiredField.js` line 20: const label = target.closest('.form-group').find('label');.
 - Pages with css classes nav `.nav` and `.navbar` updated to  work with Bootstrap 5:
   + CSS classes changes:
     -  `.nav .navbar-nav` combination -->  `.navbar-nav`
