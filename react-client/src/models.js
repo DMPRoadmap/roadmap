@@ -322,6 +322,8 @@ export class DataRepository extends Model {
 
 
 export class RelatedWork extends Model {
+  #_modRun;  // This is a reference to the modification run object.
+
   /*
     {
      "citation": "Waagmeester, Andra, Lynn Schriml, and Andrew Su. 2019. "Wikidata as a Linked-Data Hub for Biodiversity Data." [Article]. <i>Biodiversity Information Science and Standards</i> 3. <a href=\"https://doi.org/10.3897/biss.3.35206\" target=\"_blank\">https://doi.org/10.3897/biss.3.35206</a>.",
@@ -340,6 +342,26 @@ export class RelatedWork extends Model {
     }
   */
 
+  set modrun(modInstance) {
+    if (modInstance instanceof Modification) {
+      this.#_modRun = modInstance;
+    } else {
+      throw new Error("Invalid instance for related works modifier run");
+    }
+  }
+
+  get dateFound() {
+    if (this.#_modRun && this.#_modRun instanceof Modification)
+      return this.#_modRun.dateFound;
+    return null;
+  }
+
+  get provenance() {
+    if (this.#_modRun && this.#_modRun instanceof Modification)
+      return this.#_modRun.provenance;
+    return null;
+  }
+
   get doi() { return this.getData("identifier", ""); }
 
   get citation() { return this.getData("citation", null); }
@@ -350,6 +372,8 @@ export class RelatedWork extends Model {
 
   get notes() { return this.getData("notes", []); }
 
+  get confidenceReason () { return this.notes.join(', '); }
+
   get score() { return this.getData("score", 0); }
 
   get status() { return this.getData("status", "pending"); }
@@ -358,6 +382,7 @@ export class RelatedWork extends Model {
   get type() { return this.getData("type", ""); }
 
   get workType() { return this.getData("work_type", ""); }
+
 }
 
 
@@ -376,7 +401,15 @@ export class Modification extends Model {
   }
 
   get relatedWorks() { return this.#_relatedWorks; }
-  set relatedWorks(items) { this.#_relatedWorks = new ModelSet(RelatedWork, items); }
+  set relatedWorks(items) {
+    this.#_relatedWorks = new ModelSet(RelatedWork, items);
+
+    // Also add a reference to the modification object so that every related
+    // work have access to fields like provenance, dateFound etc.
+    this.#_relatedWorks.items.forEach(rw => rw.modrun = this);
+  }
+
+  get provenance() { return this.getData("provenance", null); }
 
   hasRelatedWorks() {
     return (this.relatedWorks.items.length > 0);

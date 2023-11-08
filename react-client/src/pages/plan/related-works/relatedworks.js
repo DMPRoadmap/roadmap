@@ -32,7 +32,7 @@ function RelatedWorksPage() {
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState(null);
   const [relatedWorks, setRelatedWorks] = useState([]);
-  const [relatedTypes, setRelatedTypes] = useState({});
+  // const [relatedTypes, setRelatedTypes] = useState({});
   const [filterArgs, setFilterArgs] = useState({status: ""});
   const [editIndex, setEditIndex] = useState(null);
   const [relatedWrk, setRelatedWrk] = useState(new RelatedWork({}));
@@ -42,9 +42,9 @@ function RelatedWorksPage() {
       setDmp(initial);
     });
 
-    getRelatedWorkTypes().then((data) => {
-      setRelatedTypes(data);
-    });
+    // getRelatedWorkTypes().then((data) => {
+    //   setRelatedTypes(data);
+    // });
   }, [dmpId]);
 
 
@@ -54,23 +54,14 @@ function RelatedWorksPage() {
 
     let newRelated = [];
 
-    if (filterArgs.status === "") {
-      dmp.modifications
-         .items
-         .forEach(mod => mod.relatedWorks.items.forEach(rw => {
-           rw.dateFound = mod.dateFound;
-           newRelated.push(rw);
-         }));
-    } else {
-      dmp.modifications.items.forEach(mod => {
-        mod.relatedWorks
-           .items
-           .filter(rw => rw.status === filterArgs.status)
-           .forEach(rw => {
-             rw.dateFound = mod.dateFound;
-             newRelated.push(rw)
-           });
-      });
+    dmp.modifications
+        .items
+        .forEach(mod => mod.relatedWorks.items.forEach(rw => {
+          newRelated.push(rw);
+        }));
+
+    if (filterArgs.status !== "") {
+      newRelated = newRelated.filter(rw => rw.status === filterArgs.status);
     }
 
     setRelatedWorks(newRelated);
@@ -201,7 +192,7 @@ function RelatedWorksPage() {
 
   function closeModal(ev) {
     if (ev) ev.preventDefault();
-    setDataObj(new RelatedWork({}));
+    setRelatedWrk(new RelatedWork({}));
     document.getElementById("outputsModal").close();
   }
 
@@ -362,99 +353,96 @@ function RelatedWorksPage() {
 
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
-                    <label>
-                      DOI
-                    </label>
 
-                    {relatedWrk.doi ? (
-                      <p>
-                        <a href={"http://doi.org/" + relatedWrk.doi} target="_blank" rel="noopener noreferrer">
-                          {relatedWrk.doi}
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">DOI</label>
 
-                          <svg xmlns="http://www.w3.org/2000/svg"
-                            style={{ top: "3px", position: "relative", marginLeft: "5px" }}
-                            width="1rem" height="1rem" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                          </svg>
-                        </a>
-                      </p>
-                    ) : (
-                      <p className="text-muted">
-                        No DOI
-                      </p>
-                    )}
+                      {relatedWrk.doi ? (
+                        <p>
+                          <a href={"http://doi.org/" + relatedWrk.doi} target="_blank" rel="noopener noreferrer">
+                            {relatedWrk.doi}
 
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                              style={{ top: "3px", position: "relative", marginLeft: "5px" }}
+                              width="1rem" height="1rem" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                          </a>
+                        </p>
+                      ) : (
+                        <p className="text-muted">
+                          No DOI
+                        </p>
+                      )}
+                    </div>
 
-                    <label>
-                      Citation
-                    </label>
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">
+                        Citation
+                      </label>
+                      {relatedWrk.citation ? (
+                        <p>{relatedWrk.citation}</p>
+                      ) : (
+                        <p className="text-muted">
+                          The Citation for this work is not available.
+                        </p>
+                      )}
+                    </div>
 
-                    {relatedWrk.citation ? (
-                      <p>{relatedWrk.citation}</p>
-                    ) : (
-                      <p className="text-muted">
-                        The Citation for this work is not available.
-                      </p>
-                    )}
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">Provenance</label>
+                      {relatedWrk.provenance ? (
+                        <p>{relatedWrk.provenance}</p>
+                      ) : (
+                        <p className="text-muted">
+                          provenance is not available
+                        </p>
+                      )}
+                    </div>
 
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">
+                        Confidence
+                      </label>
+                      {relatedWrk.confidence ? (
+                        <>
+                          <p>{relatedWrk.confidence}</p>
+                          <p className="dmpui-field-help">{relatedWrk.confidenceReason}</p>
+                        </>
+                      ) : (
+                        <p className="text-muted">
+                          Undetermined
+                        </p>
+                      )}
+                    </div>
 
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">
+                        Date Found
+                      </label>
 
-                    <label>
-                      Confidence
-                    </label>
+                      {relatedWrk.dateFound ? (
+                        <p>{relatedWrk.dateFound}</p>
+                      ) : (
+                        <p className="text-muted">
+                          Undetermined
+                        </p>
+                      )}
+                    </div>
 
-                    {relatedWrk.confidence ? (
-                      <p>{relatedWrk.confidence}
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">
+                        Current Status
+                      </label>
 
-                        {relatedWrk.confidence_reason ? (
-                          <span> - {relatedWrk.confidence_reason}</span>
-                        ) : (
-                          <span></span>
-                        )}
-                      </p>
-                    ) : (
-                      <p className="text-muted">
-                        Undetermined
-                      </p>
-                    )}
-
-                    <label>
-                      Date Found
-                    </label>
-
-                    {relatedWrk.foundDate ? (
-                      <p>{relatedWrk.foundDate}</p>
-                    ) : (
-                      <p className="text-muted">
-                        Undetermined
-                      </p>
-                    )}
-
-                    <label>
-                      Current Status
-                    </label>
-
-                    {relatedWrk.status ? (
-                      <p>{relatedWrk.status}</p>
-                    ) : (
-                      <p className="text-muted">
-                        Undetermined
-                      </p>
-                    )}
-
-                  </div>
-                </div>
-                <div className="dmpui-form-cols">
-                  <div className="dmpui-form-col">
-                    <Select
-                      required={true}
-                      options={relatedTypes}
-                      label="If this work is related to a planned Research Output, select it below"
-                      name="associated_output"
-                      id="associated_output"
-                      inputValue=""
-                      help=""
-                    />
+                      {relatedWrk.status ? (
+                        <p>{relatedWrk.status}</p>
+                      ) : (
+                        <p className="text-muted">
+                          Undetermined
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
