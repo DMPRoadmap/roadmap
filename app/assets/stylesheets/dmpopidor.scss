@@ -123,18 +123,18 @@ body div a.btn {
   }
 
   /** Focus outline required for accessibility */
-  input,
-  select,
-  .form-control {
+  // input,
+  // select,
+  // .form-control {
 
-    &:focus,
-    &:hover,
-    &:active {
-      outline-style: solid !important;
-      outline-color: $blue !important;
-      outline-width: 2px !important;
-    }
-  }
+  //   &:focus,
+  //   &:hover,
+  //   &:active {
+  //     outline-style: solid !important;
+  //     outline-color: $blue !important;
+  //     outline-width: 2px !important;
+  //   }
+  // }
 
 
   input.btn[type="button"] {
