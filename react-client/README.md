@@ -544,6 +544,8 @@ Note that the `dmphub_versions` array can be used to retrieve older versions of 
 #### External modifications
 Once a DMP has been registered it will be included in periodic scans of external systems. Those scans attempt to find updated information about the research project. When a match is found, the information is added to the `dmphub_modifications` array on the DMP's JSON record as pending claims/assertions. These pending changes are made in an attempt to enrich the DMP ID metadata.
 
+For more information about how the external system discovers related works and funding information and attaches them to the DMP record, please see the [DMP Augmentation wiki page of the dmp-hub-cfn repository](https://github.com/CDLUC3/dmp-hub-cfn/wiki/DMP-Augmentation)
+
 A DMPTool administrator or the primary contact of the DMP ID must determine whether or not the pending assertions should be accepted or rejected.
 
 The UI should use the 'status' flag of the pending assertions to determine whether or not they should be displayed to the user. If the status is 'pending', it should be displayed.
