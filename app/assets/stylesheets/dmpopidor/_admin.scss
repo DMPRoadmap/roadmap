@@ -1,0 +1,61 @@
+@use './colours' as *;
+
+.dmpopidor-branding.org-admin {
+
+  h1,
+  h2 {
+    color: $rust;
+  }
+
+  a {
+    color: $rust;
+  }
+
+
+  // main border
+  .panel-default {
+    border-color: $rust;
+  }
+
+  // Sections & Phases
+  .heading-button>.panel-heading,
+  .panel-default>.panel-heading {
+    background-color: $rust;
+  }
+
+  .tab-pane {
+    width: 100%;
+  }
+
+  table {
+    tbody>tr:nth-child(odd) {
+      background: white;
+      color: $rust;
+
+      a,
+      i,
+      button {
+        color: $rust;
+      }
+    }
+
+    tbody>tr:nth-child(even),
+    tbody>tr:hover {
+      background: $rust;
+      color: white;
+
+      a,
+      i,
+      button {
+        color: white;
+      }
+    }
+
+    ul.dropdown-menu {
+      li a {
+        color: $rust;
+      }
+    }
+  }
+
+}

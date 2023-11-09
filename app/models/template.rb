@@ -62,7 +62,7 @@ class Template < ApplicationRecord
   # access to structured forms when adding a new question.
   self.inheritance_column = nil
   enum type: %i[classic structured]
-  # Context describes if the DMP is for a Research Project ou a Research Structure
+  # Context describes if the DMP is for a Research Project ou a Research Entity
   # The Project Form is replaced by a Structure Form in the General information tab.
   # New features might be added in the future
   enum context: %i[research_project research_entity]
