@@ -24,6 +24,7 @@
 @use './dmpopidor/notes' as *;
 @use './dmpopidor/plan' as *;
 @use './dmpopidor/user_profile' as *;
+@use './dmpopidor/admin' as *;
 
 @use './dmpopidor/font_size' as *;
 @use './dmpopidor/signin_form' as *;
@@ -229,35 +230,6 @@ body div a.btn {
     border-bottom: 2px solid $very-very-light-blue;
   }
 
-  /*
-        ADMIN AREA
-    */
-  &.org-admin {
-
-    h1,
-    h2 {
-      color: $rust;
-    }
-
-    a {
-      color: $rust;
-    }
-
-
-    // main border
-    .panel-default {
-      border-color: $rust;
-    }
-
-    // Sections & Phases
-    .heading-button>.panel-heading,
-    .panel-default>.panel-heading {
-      background-color: $rust;
-    }
-
-
-
-  }
 
   /*
     SUPER ADMIN
