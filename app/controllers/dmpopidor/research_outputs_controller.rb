@@ -19,8 +19,8 @@ module Dmpopidor
     def create
       max_order = @plan.research_outputs.maximum('display_order') + 1
       created_ro = @plan.research_outputs.create(
-        abbreviation: params[:abbreviation] || "Research Output #{max_order}",
-        title: params[:title] || "New research output #{max_order}",
+        abbreviation: params[:abbreviation] || "#{_('RO')} #{max_order}",
+        title: params[:title] || "#{_('Research output')} #{max_order}",
         output_type_description: params[:type],
         is_default: false,
         display_order: max_order
@@ -136,8 +136,8 @@ module Dmpopidor
       @plan = ::Plan.find(params[:plan_id])
       max_order = @plan.research_outputs.maximum('display_order') + 1
       created_ro = @plan.research_outputs.create(
-        abbreviation: "Research Output #{max_order}",
-        title: "New research output #{max_order}",
+        abbreviation: "RO #{max_order}",
+        title: "Research output #{max_order}",
         is_default: false,
         display_order: max_order
       )
