@@ -24,7 +24,7 @@ module Import
       def handle_research_outputs(plan, research_outputs)
         research_outputs.each_with_index do |ro_data, idx|
           research_output = plan.research_outputs.create(
-            abbreviation: "Research Output #{idx + 1}",
+            abbreviation: "#{_('RO')} #{idx + 1}",
             title: ro_data['researchOutputDescription']['title'],
             is_default: idx.eql?(0),
             display_order: idx + 1
