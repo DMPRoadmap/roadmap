@@ -10,7 +10,6 @@ import {
   getDmp,
   saveDmp,
   RelatedWork,
-  getRelatedWorkTypes,
 } from "../../../models.js";
 
 import { truncateText } from "../../../utils.js";
@@ -32,7 +31,6 @@ function RelatedWorksPage() {
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState(null);
   const [relatedWorks, setRelatedWorks] = useState([]);
-  // const [relatedTypes, setRelatedTypes] = useState({});
   const [filterArgs, setFilterArgs] = useState({status: ""});
   const [editIndex, setEditIndex] = useState(null);
   const [relatedWrk, setRelatedWrk] = useState(new RelatedWork({}));
@@ -41,10 +39,6 @@ function RelatedWorksPage() {
     getDmp(dmpId).then(initial => {
       setDmp(initial);
     });
-
-    // getRelatedWorkTypes().then((data) => {
-    //   setRelatedTypes(data);
-    // });
   }, [dmpId]);
 
 

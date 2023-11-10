@@ -414,6 +414,10 @@ export class Modification extends Model {
   hasRelatedWorks() {
     return (this.relatedWorks.items.length > 0);
   }
+
+  commit() {
+    this.setData("dmproadmap_related_identifiers", this.relatedWorks.getData());
+  }
 }
 
 
@@ -531,12 +535,15 @@ export class DmpModel extends Model {
       }
     }
 
+    let relatedStatus = ["recommended", "10 Potential Matches Found"]
+
     return {
       setup: setupStatus,
       funders: this.funding.getStatus(),
       project: this.project.getStatus(),
       contributors: contributorStatus,
       outputs: outputsStatus,
+      related: relatedStatus,
     };
   }
 
@@ -596,6 +603,8 @@ export class DmpModel extends Model {
     // NOTE: Even though the data for this can be many contributors, the key
     // in the backend data just reads as singular "contributor"
     this.setData("contributor", this.contributors.getData());
+
+    this.setData("dmphub_modifications", this.modifications.getData());
   }
 }
 

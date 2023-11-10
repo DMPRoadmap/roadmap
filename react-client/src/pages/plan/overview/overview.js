@@ -187,8 +187,8 @@ function PlanOverview() {
                     Related Works
                   </Link>
                 </p>
-                <div className={"step-status status-" + dmp.stepStatus.outputs[0]}>
-                  {dmp.stepStatus.outputs[1]}
+                <div className={"step-status status-" + dmp.stepStatus.related[0]}>
+                  {dmp.stepStatus.related[1]}
                 </div>
               </div>
             )}
@@ -268,15 +268,3 @@ function PlanOverview() {
 }
 
 export default PlanOverview;
-
-//           {!working && dmp?.isRegistered && (
-//             <>
-//               <button type="button" onClick={() => navigate("/dashboard")}>
-//                 Return to Dashboard
-//               </button>
-//
-//               <button className="primary" onClick={handleUpdateDmp}>
-//                 Update
-//               </button>
-//             </>
-//           )}
