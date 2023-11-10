@@ -9,7 +9,7 @@ import {
   DmpModel,
   getDmp,
   saveDmp,
-  getRelatedWorkTypes,
+  RelatedWork,
 } from "../../../models.js";
 
 import { truncateText } from "../../../utils.js";
@@ -30,118 +30,55 @@ function RelatedWorksPage() {
 
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState(null);
-  const [relatedTypes, setRelatedTypes] = useState({});
+  const [relatedWorks, setRelatedWorks] = useState([]);
+  const [filterArgs, setFilterArgs] = useState({status: ""});
   const [editIndex, setEditIndex] = useState(null);
-  const [dataObj, setDataObj] = useState([]);
-
-  const RelatedWorks_ToBeReviewed = [
-    {
-      "id": "1",
-      "citation": "Smith, John A. \"The Unexpected Relationship Between Skyscrapers and Sandwiches: A Comprehensive Investigation into Why Tall Buildings Seemingly Have an Affinity for Tuna Melts.\" Journal of Whimsically Extended Architectural Studies 45, no. 2 (2015): 123-145. DOI: 10.1234/jweas.2015.02.123",
-      "doi": "10.47366/sabia.v5n1a3",
-      "confidence": "High",
-      "confidence_reason": "Cited work has same Grant ID as your DMP",
-      "status": "To be Reviewed",
-      "date_found": "2023-10-04"
-    },
-    {
-      "id": "2",
-      "citation": "Lee, Christopher, and Emily Martin. \"Virtual Reality: The Untold Chronicle of How Avatars Organize Underground Disco Parties When Users Are Away.\" Tech Tales and Giggles Journal 12, no. 3 (2020): 210-235. DOI: 10.9101/ttgj.2020.03.210",
-      "doi": "10.9101/ttgj.2020.03.210",
-      "confidence": "Medium",
-      "confidence_reason": "Cited work has same Funder ID as your DMP",
-      "status": "To be Reviewed",
-      "date_found": "2023-10-01"
-    },
-    {
-      "id": "3",
-      "citation": "Patel, Ankit, Sarah O'Connor, and Peter Wang. \"From Nano- Boogies to Micro - Mambos: The Hidden World of Nanobots Who Just Can't Resist a Good Beat.\" Journal of Far-Fetched Medical Phenomena and Dancing Particles 50, no. 6 (2019): 789-812. DOI: 10.1314/jffmpdp.2019.06.789",
-      "doi": "10.1314/jffmpdp.2019.06.789",
-      "confidence": "High",
-      "confidence_reason": "Cited work has same Grant ID as your DMP",
-      "status": "To be Reviewed",
-      "date_found": "2023-09-27"
-    },
-    {
-      "id": "200",
-      "doi": "10.1314/jffmpdp.2019.06.789",
-      "citation": "",
-      "confidence_reason": "Cited work has same Funder ID as your DMP",
-      "confidence": "Medium",
-      "status": "To be Reviewed",
-      "date_found": "2022-10-01"
-    },
-  ];
-  const RelatedWorks_Related = [
-    {
-      "id": "1",
-      "citation": "Doe, Jane, and Robert Brown. \"Marine Life's Latest Trend: Sunscreen for Fish and Why Crabs Are Opting for Tiny Sunglasses Instead of SPF.\" Laugh Out Loud Environmental Quarterly 32, no. 4 (2018): 567-590. DOI: 10.5678/loleq.2018.04.567",
-      "doi": "10.1314/jffmpdp.2019.06.789",
-      "confidence": "High",
-      "confidence_reason": "Cited work has same Funder ID as your DMP",
-      "status": "Reviewed",
-      "date_found": "2023-10-04"
-    },
-
-  ];
-  const RelatedWorks_NotRelated = [
-    {
-      "id": "100",
-      "citation": "Doe, Jane, and Robert Brown. \"Marine Life's Latest Trend: Sunscreen for Fish and Why Crabs Are Opting for Tiny Sunglasses Instead of SPF.\" Laugh Out Loud Environmental Quarterly 32, no. 4 (2018): 567-590. DOI: 10.5678/loleq.2018.04.567",
-      "doi": "10.1314/jffmpdp.2019.06.789",
-      "confidence": "Low",
-      "confidence_reason": "",
-      "status": "Not Related",
-      "date_found": "2022-10-04"
-    },
-    {
-      "id": "200",
-      "citation": "",
-      "doi": "10.1314/jffmpdp.2019.06.789",
-      "confidence": "Medium",
-      "confidence_reason": "Similar Authors",
-      "status": "Not Related",
-      "date_found": "2022-10-01"
-    },
-
-  ];
-
-  const [RelatedWorks, setRelatedWorks] = useState(RelatedWorks_ToBeReviewed);
-
+  const [relatedWrk, setRelatedWrk] = useState(new RelatedWork({}));
 
   useEffect(() => {
     getDmp(dmpId).then(initial => {
       setDmp(initial);
     });
-
-    getRelatedWorkTypes().then((data) => {
-      console.log("related types?");
-      console.log(data)
-      setRelatedTypes(data);
-    });
   }, [dmpId]);
+
+
+  useEffect(() => {
+    if (!dmp) return;
+    if (!dmp.hasRelatedWorks()) return;
+
+    let newRelated = [];
+
+    dmp.modifications
+        .items
+        .forEach(mod => mod.relatedWorks.items.forEach(rw => {
+          newRelated.push(rw);
+        }));
+
+    if (filterArgs.status !== "") {
+      newRelated = newRelated.filter(rw => rw.status === filterArgs.status);
+    }
+
+    setRelatedWorks(newRelated);
+  }, [filterArgs, dmp]);
 
 
   function handleStatusChange(ev) {
     ev.preventDefault();
     const { name, value } = ev.target;
 
-    console.log("name", name);
     switch (name) {
-      case "review":
-        setRelatedWorks(RelatedWorks_ToBeReviewed);
-
+      case "filter_pending":
+        setFilterArgs({...filterArgs, status: "pending"});
         break;
-      case "related":
-        setRelatedWorks(RelatedWorks_Related);
 
+      case "filter_approved":
+        setFilterArgs({...filterArgs, status: "approved"});
         break;
-      case "notrelated":
 
-        setRelatedWorks(RelatedWorks_NotRelated);
+      case "filter_rejected":
+        setFilterArgs({...filterArgs, status: "rejected"});
         break;
     }
-
   }
 
   function handleChange(ev) {
@@ -208,8 +145,8 @@ function RelatedWorksPage() {
     const index = ev.target.value;
 
     if ((index !== "") && (typeof index !== "undefined")) {
-      let newObj = RelatedWorks[index];
-      setDataObj(newObj);
+      let newObj = relatedWorks[index];
+      setRelatedWrk(newObj);
     }
 
     document.getElementById("outputsModal").showModal();
@@ -249,22 +186,10 @@ function RelatedWorksPage() {
 
   function closeModal(ev) {
     if (ev) ev.preventDefault();
-    // setDataObj(new DataObject({}));
+    setRelatedWrk(new RelatedWork({}));
     document.getElementById("outputsModal").close();
   }
 
-  function handleDeleteOutput(ev) {
-    /*
-    const index = ev.target.value;
-    let obj = dmp.dataset.get(index);
- 
-    if (confirm(`Are you sure you want to delete the output, ${obj.title}?`)) {
-      let newDmp = new DmpModel(dmp.getData());
-      newDmp.dataset.remove(index);
-      setDmp(newDmp);
-    }
-    */
-  }
 
   async function handleSave(ev) {
     /*
@@ -305,22 +230,23 @@ function RelatedWorksPage() {
                 <div className="filter-status">
                   <p className="filter-heading"><strong>Status</strong></p>
                   <div className="filter-quicklinks">
-                    <a href="?status=review" name="review" onClick={handleStatusChange} >To be Reviewed</a>
-                    <a href="?status=related" name="related" onClick={handleStatusChange}>Related</a>
-                    <a href="?status=notrelated" name="notrelated" onClick={handleStatusChange}>Not Related</a>
+                    <a href="?status=pending" name="filter_pending" onClick={handleStatusChange}>Pending Review</a>
+                    <a href="?status=approved" name="filter_approved" onClick={handleStatusChange}>Related</a>
+                    <a href="?status=rejected" name="filter_rejected" onClick={handleStatusChange}>Rejected</a>
                   </div>
                 </div>
               </div>
             </div>
             <div className="table-container">
               <div className="table-wrapper">
-                {RelatedWorks.length > 0 ? (
+                {relatedWorks ? (
                   <table className="dashboard-table">
                     <thead>
                       <tr>
                         <th scope="col" className="table-header-name data-heading">
                           Citation
                         </th>
+
                         <th scope="col" className="table-header-name data-heading">
                           Confidence
                         </th>
@@ -329,30 +255,29 @@ function RelatedWorksPage() {
                           Date Found
                         </th>
 
-
                         <th scope="col" className="table-header-name data-heading">
                           Status
                         </th>
+
                         <th scope="col" className="table-header-name data-heading">
                           Actions
                         </th>
                       </tr>
                     </thead>
                     <tbody className="table-body">
-                      {RelatedWorks ? RelatedWorks.map((item, index) => (
+                      {relatedWorks ? relatedWorks.map((rw, index) => (
                         <Fragment key={index}>
                           <tr>
                             <td
                               className="table-data-name table-data-title"
                               data-colname="title"
                             >
-                              {item.citation ? (
+                              {rw.citation ? (
                                 <span className="truncated-text"
-                                  aria-label="{item.citation}"
-                                  title={item.citation}
+                                  aria-label="{rw.citation}"
+                                  title={rw.citation}
                                 >
-                                  {truncateText(item.citation, 180)}
-
+                                  {truncateText(rw.citation, 180)}
                                 </span>
                               ) : (
                                 <span className="text-muted">
@@ -364,19 +289,19 @@ function RelatedWorksPage() {
                               className="table-data-name table-data-confidence"
                               data-colname="confidence"
                             >
-                              {item.confidence}
+                              {rw.confidence}
                             </td>
                             <td
                               className="table-data-name table-data-date"
                               data-colname="last_edited"
                             >
-                              {item.date_found}
+                              {rw.dateFound}
                             </td>
                             <td
                               className="table-data-name table-data-status"
                               data-colname="status"
                             >
-                              {item.status}
+                              {rw.status}
                             </td>
                             <td
                               className="table-data-name table-data-actions"
@@ -391,7 +316,6 @@ function RelatedWorksPage() {
                       )) : null}
                     </tbody>
                   </table>
-
                 ) : (
                   <div className="no-dmp-message mt-5">
                     <h3>There are no related works found</h3>
@@ -403,7 +327,6 @@ function RelatedWorksPage() {
                 )}
               </div>
             </div>
-
           </div>
 
           <dialog id="outputsModal">
@@ -425,102 +348,95 @@ function RelatedWorksPage() {
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
 
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">DOI</label>
 
+                      {relatedWrk.doi ? (
+                        <p>
+                          <a href={"http://doi.org/" + relatedWrk.doi} target="_blank" rel="noopener noreferrer">
+                            {relatedWrk.doi}
 
-                    <label>
-                      DOI
-                    </label>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                              style={{ top: "3px", position: "relative", marginLeft: "5px" }}
+                              width="1rem" height="1rem" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                          </a>
+                        </p>
+                      ) : (
+                        <p className="text-muted">
+                          No DOI
+                        </p>
+                      )}
+                    </div>
 
-                    {dataObj.doi ? (
-                      <p>
-                        <a href={"http://doi.org/" + dataObj.doi} target="_blank" rel="noopener noreferrer">
-                          {dataObj.doi}
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">
+                        Citation
+                      </label>
+                      {relatedWrk.citation ? (
+                        <p>{relatedWrk.citation}</p>
+                      ) : (
+                        <p className="text-muted">
+                          The Citation for this work is not available.
+                        </p>
+                      )}
+                    </div>
 
-                          <svg xmlns="http://www.w3.org/2000/svg"
-                            style={{ top: "3px", position: "relative", marginLeft: "5px" }}
-                            width="1rem" height="1rem" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                          </svg>
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">Provenance</label>
+                      {relatedWrk.provenance ? (
+                        <p>{relatedWrk.provenance}</p>
+                      ) : (
+                        <p className="text-muted">
+                          provenance is not available
+                        </p>
+                      )}
+                    </div>
 
-                        </a>
-                      </p>
-                    ) : (
-                      <p className="text-muted">
-                        No DOI
-                      </p>
-                    )}
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">
+                        Confidence
+                      </label>
+                      {relatedWrk.confidence ? (
+                        <>
+                          <p>{relatedWrk.confidence}</p>
+                          <p className="dmpui-field-help">{relatedWrk.confidenceReason}</p>
+                        </>
+                      ) : (
+                        <p className="text-muted">
+                          Undetermined
+                        </p>
+                      )}
+                    </div>
 
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">
+                        Date Found
+                      </label>
 
-                    <label>
-                      Citation
-                    </label>
+                      {relatedWrk.dateFound ? (
+                        <p>{relatedWrk.dateFound}</p>
+                      ) : (
+                        <p className="text-muted">
+                          Undetermined
+                        </p>
+                      )}
+                    </div>
 
-                    {dataObj.citation ? (
-                      <p>{dataObj.citation}</p>
-                    ) : (
-                      <p className="text-muted">
-                        The Citation for this work is not available.
-                      </p>
-                    )}
+                    <div className="dmpui-field-group">
+                      <label className="dmpui-field-label">
+                        Current Status
+                      </label>
 
-
-
-                    <label>
-                      Confidence
-                    </label>
-
-                    {dataObj.confidence ? (
-                      <p>{dataObj.confidence}
-
-                        {dataObj.confidence_reason ? (
-                          <span> - {dataObj.confidence_reason}</span>
-                        ) : (
-                          <span></span>
-                        )}
-                      </p>
-                    ) : (
-                      <p className="text-muted">
-                        Undetermined
-                      </p>
-                    )}
-
-                    <label>
-                      Date Found
-                    </label>
-
-                    {dataObj.date_found ? (
-                      <p>{dataObj.date_found}</p>
-                    ) : (
-                      <p className="text-muted">
-                        Undetermined
-                      </p>
-                    )}
-
-                    <label>
-                      Current Status
-                    </label>
-
-                    {dataObj.status ? (
-                      <p>{dataObj.status}</p>
-                    ) : (
-                      <p className="text-muted">
-                        Undetermined
-                      </p>
-                    )}
-
-                  </div>
-                </div>
-                <div className="dmpui-form-cols">
-                  <div className="dmpui-form-col">
-                    <Select
-                      required={true}
-                      options={relatedTypes}
-                      label="If this work is related to a planned Research Output, select it below"
-                      name="associated_output"
-                      id="associated_output"
-                      inputValue=""
-                      help=""
-                    />
+                      {relatedWrk.status ? (
+                        <p>{relatedWrk.status}</p>
+                      ) : (
+                        <p className="text-muted">
+                          Undetermined
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

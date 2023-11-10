@@ -26,7 +26,7 @@ function Contributors() {
   const [roles, setRoles] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [contributor, setContributor] = useState(new Contributor({}));
-
+  const [working, setWorking] = useState(false);
 
   useEffect(() => {
     getDmp(dmpId).then((initial) => {
@@ -143,8 +143,14 @@ function Contributors() {
 
   function handleSave(ev) {
     ev.preventDefault();
+    setWorking(true);
+
     saveDmp(dmp).then(() => {
       navigate(`/dashboard/dmp/${dmp.id}`);
+    }).catch((e) => {
+      console.log("Error saving DMP");
+      console.log(e);
+      setWorking(false);
     });
   }
 
@@ -170,11 +176,9 @@ function Contributors() {
         </p>
         <div className="dmpdui-top-actions">
           <div>
-            {!dmp.isRegistered && (
-              <button className="secondary" onClick={handleModalOpen}>
-                Add Contributor
-              </button>
-            )}
+            <button className="secondary" onClick={handleModalOpen}>
+              Add Contributor
+            </button>
           </div>
         </div>
 
@@ -193,17 +197,13 @@ function Contributors() {
                   <div data-colname="name">{item.name}</div>
                   <div data-colname="role">{item.roleDisplays.join(', ')}</div>
                   <div data-colname="actions" className="form-actions">
-                    {!dmp.isRegistered && (
-                    <>
-                      <button value={index} onClick={handleModalOpen}>
-                        Edit
-                      </button>
+                    <button value={index} onClick={handleModalOpen}>
+                      Edit
+                    </button>
 
-                      <button value={index} onClick={handleDeleteContributor}>
-                        Delete
-                      </button>
-                    </>
-                    )}
+                    <button value={index} onClick={handleDeleteContributor}>
+                      Delete
+                    </button>
                   </div>
                 </Fragment>
               ))
@@ -323,13 +323,17 @@ function Contributors() {
 
         <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
           <div className="form-actions ">
-            <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
-              {dmp.isRegistered ? "Back" : "Cancel"}
-            </button>
-            {!dmp.isRegistered && (
-              <button type="submit" className="primary">
-                Save &amp; Continue
-              </button>
+            {working ? (
+              <Spinner isActive={working} message="" className="empty-list" />
+            ) : (
+              <>
+                <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
+                  {dmp.isRegistered ? "Back" : "Cancel"}
+                </button>
+                <button type="submit" className="primary">
+                  {dmp.isRegistered ? "Update" : "Save &amp; Continue"}
+                </button>
+              </>
             )}
           </div>
         </form>
