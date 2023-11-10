@@ -68,8 +68,8 @@ module Dmpopidor
 
           # Add default research output if possible
           created_ro = @plan.research_outputs.create!(
-            abbreviation: 'Default',
-            title: 'Default research output',
+            abbreviation: "#{_('RO')} 1",
+            title: "#{_('Research output')} 1",
             is_default: true,
             display_order: 1
           )
