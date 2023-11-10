@@ -17,7 +17,7 @@ module Api
         @items = paginate_response(results: [result])
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::ProxiesController.create #{e.message}"
+        Rails.logger.error "Failure in Api::V3::DmpsController.create #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -34,7 +34,7 @@ module Api
         @items = paginate_response(results: dmps)
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::ProxiesController.index #{e.message}"
+        Rails.logger.error "Failure in Api::V3::DmpsController.index #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -46,7 +46,7 @@ module Api
         @items = paginate_response(results: [dmp])
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::ProxiesController.show #{e.message}"
+        Rails.logger.error "Failure in Api::V3::DmpsController.show #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -65,10 +65,10 @@ module Api
         @items = paginate_response(results: [result])
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue JSON::ParserError => e
-        Rails.logger.error "Failure in Api::V3::ProxiesController.register_dmp_id #{e.message}"
+        Rails.logger.error "Failure in Api::V3::DmpsController.register_dmp_id #{e.message}"
         render_error(errors: MSG_INVALID_DMP_ID, status: 400)
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::ProxiesController.update #{e.message}"
+        Rails.logger.error "Failure in Api::V3::DmpsController.update #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -89,7 +89,7 @@ module Api
         @items = paginate_response(results: ['The DMP has been hidden for this user.'])
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::ProxiesController.destroy #{e.message}"
+        Rails.logger.error "Failure in Api::V3::DmpsController.destroy #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 

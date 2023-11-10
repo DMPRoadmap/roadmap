@@ -15,7 +15,7 @@ module Api
         @items = paginate_response(results: results)
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::ProxiesController.crossref_awards #{e.message}"
+        Rails.logger.error "Failure in Api::V3::AwardsController.crossref_awards #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -29,7 +29,7 @@ module Api
         @items = paginate_response(results: results)
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::ProxiesController.nih_awards #{e.message}"
+        Rails.logger.error "Failure in Api::V3::AwardsController.nih_awards #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -43,7 +43,7 @@ module Api
         @items = paginate_response(results: results)
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
-        Rails.logger.error "Failure in Api::V3::ProxiesController.nsf_awards #{e.message}"
+        Rails.logger.error "Failure in Api::V3::AwardsController.nsf_awards #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
