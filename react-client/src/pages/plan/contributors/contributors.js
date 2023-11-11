@@ -169,18 +169,18 @@ function Contributors() {
             (PI) at minimum.
           </p>
 
-        <p>
-          You must designate one of the contributors as the primary contact. The
-          primary contact is the individual responsible for answering questions
-          about the project or its research outputs.
-        </p>
-        <div className="dmpdui-top-actions">
-          <div>
-            <button className="secondary" onClick={handleModalOpen}>
-              Add Contributor
-            </button>
+          <p>
+            You must designate one of the contributors as the primary contact. The
+            primary contact is the individual responsible for answering questions
+            about the project or its research outputs.
+          </p>
+          <div className="dmpdui-top-actions">
+            <div>
+              <button className="secondary" onClick={handleModalOpen}>
+                Add Contributor
+              </button>
+            </div>
           </div>
-        </div>
 
           <div className="dmpdui-list ">
             <div className="data-heading" data-colname="name">
@@ -197,22 +197,22 @@ function Contributors() {
                   <div data-colname="name" id={"Contributor-" + index}  >{item.name}</div>
                   <div data-colname="role">{item.roleDisplays.join(', ')}</div>
                   <div data-colname="actions" className="form-actions">
-                        <button
-                          id={"editContributor-" + index}
-                          aria-labelledby={"editContributor-" + index + " " + "Contributor-" + index}
-                          value={index}
-                          onClick={handleModalOpen}>
-                          Edit
-                        </button>
+                    <button
+                      id={"editContributor-" + index}
+                      aria-labelledby={"editContributor-" + index + " " + "Contributor-" + index}
+                      value={index}
+                      onClick={handleModalOpen}>
+                      Edit
+                    </button>
 
-                        <button
-                          id={"deleteContributor-" + index}
-                          aria-labelledby={"editContributor-" + index + " " + "Contributor-" + index}
-                          value={index}
-                          onClick={handleDeleteContributor}>
-                          Delete
-                        </button>
-                        
+                    <button
+                      id={"deleteContributor-" + index}
+                      aria-labelledby={"editContributor-" + index + " " + "Contributor-" + index}
+                      value={index}
+                      onClick={handleDeleteContributor}>
+                      Delete
+                    </button>
+
                   </div>
                 </Fragment>
               ))
@@ -292,10 +292,10 @@ function Contributors() {
 
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
-                    <div className={"dmpui-field-group"}>
-                      <label className="dmpui-field-label">
+                    <fieldset className={"dmpui-field-group"}>
+                      <legend className="dmpui-field-label">
                         What is this person's role? *
-                      </label>
+                      </legend>
 
                       <div id="contributorRoles">
                         {contributor.errors.get("role") && (
@@ -314,7 +314,7 @@ function Contributors() {
                           </Fragment>
                         ))}
                       </div>
-                    </div>
+                    </fieldset>
                   </div>
                 </div>
               </div>
@@ -330,24 +330,24 @@ function Contributors() {
             </form>
           </dialog>
 
-        <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
-          <div className="form-actions ">
-            {working ? (
-              <Spinner isActive={working} message="" className="empty-list" />
-            ) : (
-              <>
-                <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
-                  {dmp.isRegistered ? "Back" : "Cancel"}
-                </button>
-                <button type="submit" className="primary">
-                  {dmp.isRegistered ? "Update" : "Save &amp; Continue"}
-                </button>
-              </>
-            )}
-          </div>
-        </form>
-      </div>
-    )}
+          <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
+            <div className="form-actions ">
+              {working ? (
+                <Spinner isActive={working} message="" className="empty-list" />
+              ) : (
+                <>
+                  <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
+                    {dmp.isRegistered ? "Back" : "Cancel"}
+                  </button>
+                  <button type="submit" className="primary">
+                    {dmp.isRegistered ? "Update" : "Save & Continue"}
+                  </button>
+                </>
+              )}
+            </div>
+          </form>
+        </div>
+      )}
     </>
   );
 }

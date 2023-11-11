@@ -221,10 +221,12 @@ function PlanOverview() {
               <div className="plan-steps-step last step-visibility">
                 <div className="">
                   <div className="dmpui-form-col">
-                    <div className="dmpui-field-group" onChange={handleChange}>
-                      <label className="dmpui-field-label">
+
+
+                    <fieldset className="dmpui-field-group" onChange={handleChange}>
+                      <legend className="dmpui-field-label">
                         Set visibility and register your plan
-                      </label>
+                      </legend>
 
                       <RadioButton
                         name="plan_visible"
@@ -241,7 +243,9 @@ function PlanOverview() {
                         checked={dmp.privacy === "public"}
                         label="Public - Keep plan visible to the public"
                       />
-                    </div>
+
+
+                    </fieldset>
                   </div>
                 </div>
               </div>
