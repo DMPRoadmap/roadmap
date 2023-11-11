@@ -16,7 +16,8 @@ module Api
         flash[:alert] = 'DMP ID could not be found!' if dmp.nil?
         redirect_to plans_path and return if dmp.nil?
 
-        funder_id = dmp['dmp'].fetch('project', []).first&.fetch('funding', []).first&.fetch('funder_id', {})
+        project = dmp['dmp'].fetch('project', []).first
+        funder_id = project&.fetch('funding', [])&.first&.fetch('funder_id', {})
         funder_ror = funder_id.present? ? funder_id['identifier'] : nil
         include_grant = %w[1 true on].include?(tmp_params[:grant]&.to_s&.downcase) && funder_ror.present?
 

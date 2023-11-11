@@ -32,6 +32,7 @@ function ResearchOutputs() {
   const [outputTypes, setOutputTypes] = useState({});
   const [editIndex, setEditIndex] = useState(null);
   const [dataObj, setDataObj] = useState(new DataObject({}));
+  const [working, setWorking] = useState(false);
 
 
   useEffect(() => {
@@ -167,8 +168,14 @@ function ResearchOutputs() {
 
   async function handleSave(ev) {
     ev.preventDefault();
+    setWorking(true);
+
     saveDmp(dmp).then(() => {
-      navigate(-1);
+      navigate(`/dashboard/dmp/${dmp.id}`);
+    }).catch((e) => {
+      console.log("Error saving DMP");
+      console.log(e);
+      setWorking(false);
     });
   }
 
@@ -187,11 +194,9 @@ function ResearchOutputs() {
 
           <div className="dmpdui-top-actions">
             <div>
-              {!dmp.isRegistered && (
-                <button className="secondary" onClick={handleModalOpen}>
-                  Add Output
-                </button>
-              )}
+              <button className="secondary" onClick={handleModalOpen}>
+                Add Output
+              </button>
             </div>
           </div>
 
@@ -221,8 +226,7 @@ function ResearchOutputs() {
                 <div data-colname="repo">{item.repository.title}</div>
                 <div data-colname="datatype">{item.typeDisplay}</div>
                 <div data-colname="actions" className="form-actions">
-                  {!dmp.isRegistered && (
-                    <>
+
                       <button
                         id={"editOutput-" + index}
                         aria-labelledby={"editOutput-" + index + " " + "Output-" + index}
@@ -238,8 +242,7 @@ function ResearchOutputs() {
                         onClick={handleDeleteOutput}>
                         Delete
                       </button>
-                    </>
-                  )}
+
                 </div>
               </Fragment>
             )) : ""}
@@ -384,13 +387,17 @@ function ResearchOutputs() {
 
           <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
             <div className="form-actions ">
-              <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
-                {dmp.isRegistered ? "Back" : "Cancel"}
-              </button>
-              {!dmp.isRegistered && (
-                <button type="submit" className="primary">
-                  Save &amp; Continue
-                </button>
+              {working ? (
+                <Spinner isActive={working} message="" className="empty-list" />
+              ) : (
+                <>
+                  <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
+                    {dmp.isRegistered ? "Back" : "Cancel"}
+                  </button>
+                  <button type="submit" className="primary">
+                    {dmp.isRegistered ? "Update" : "Save &amp; Continue"}
+                  </button>
+                </>
               )}
             </div>
           </form>

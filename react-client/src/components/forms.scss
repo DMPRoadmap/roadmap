@@ -111,7 +111,7 @@ input[type="submit"] {
   margin-bottom: 2rem;
 
   @include device(tablet) {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   padding-right: 1rem;
@@ -130,6 +130,7 @@ input[type="submit"] {
     margin-bottom: 0.4rem;
     line-height: 1.5;
     color: #555 !important;
+    &::first-letter { text-transform: capitalize; }
   }
 
   .dmpui-field-error {

@@ -26,7 +26,7 @@ function Contributors() {
   const [roles, setRoles] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [contributor, setContributor] = useState(new Contributor({}));
-
+  const [working, setWorking] = useState(false);
 
   useEffect(() => {
     getDmp(dmpId).then((initial) => {
@@ -143,8 +143,14 @@ function Contributors() {
 
   function handleSave(ev) {
     ev.preventDefault();
+    setWorking(true);
+
     saveDmp(dmp).then(() => {
       navigate(`/dashboard/dmp/${dmp.id}`);
+    }).catch((e) => {
+      console.log("Error saving DMP");
+      console.log(e);
+      setWorking(false);
     });
   }
 
@@ -163,20 +169,18 @@ function Contributors() {
             (PI) at minimum.
           </p>
 
-          <p>
-            You must designate one of the contributors as the primary contact. The
-            primary contact is the individual responsible for answering questions
-            about the project or its research outputs.
-          </p>
-          <div className="dmpdui-top-actions">
-            <div>
-              {!dmp.isRegistered && (
-                <button className="secondary" onClick={handleModalOpen}>
-                  Add Contributor
-                </button>
-              )}
-            </div>
+        <p>
+          You must designate one of the contributors as the primary contact. The
+          primary contact is the individual responsible for answering questions
+          about the project or its research outputs.
+        </p>
+        <div className="dmpdui-top-actions">
+          <div>
+            <button className="secondary" onClick={handleModalOpen}>
+              Add Contributor
+            </button>
           </div>
+        </div>
 
           <div className="dmpdui-list ">
             <div className="data-heading" data-colname="name">
@@ -193,8 +197,6 @@ function Contributors() {
                   <div data-colname="name" id={"Contributor-" + index}  >{item.name}</div>
                   <div data-colname="role">{item.roleDisplays.join(', ')}</div>
                   <div data-colname="actions" className="form-actions">
-                    {!dmp.isRegistered && (
-                      <>
                         <button
                           id={"editContributor-" + index}
                           aria-labelledby={"editContributor-" + index + " " + "Contributor-" + index}
@@ -210,8 +212,7 @@ function Contributors() {
                           onClick={handleDeleteContributor}>
                           Delete
                         </button>
-                      </>
-                    )}
+                        
                   </div>
                 </Fragment>
               ))
@@ -329,20 +330,24 @@ function Contributors() {
             </form>
           </dialog>
 
-          <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
-            <div className="form-actions ">
-              <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
-                {dmp.isRegistered ? "Back" : "Cancel"}
-              </button>
-              {!dmp.isRegistered && (
-                <button type="submit" className="primary">
-                  Save &amp; Continue
+        <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
+          <div className="form-actions ">
+            {working ? (
+              <Spinner isActive={working} message="" className="empty-list" />
+            ) : (
+              <>
+                <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
+                  {dmp.isRegistered ? "Back" : "Cancel"}
                 </button>
-              )}
-            </div>
-          </form>
-        </div>
-      )}
+                <button type="submit" className="primary">
+                  {dmp.isRegistered ? "Update" : "Save &amp; Continue"}
+                </button>
+              </>
+            )}
+          </div>
+        </form>
+      </div>
+    )}
     </>
   );
 }
