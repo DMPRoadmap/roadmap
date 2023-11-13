@@ -101,6 +101,11 @@
   .preview-button {
     margin-left: 8px;
   }
+
+}
+
+[data-colname="status"], .field-status p {
+  text-transform: capitalize;
 }
 
 abbr[title] {

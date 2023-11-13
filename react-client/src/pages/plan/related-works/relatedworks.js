@@ -111,15 +111,13 @@ function RelatedWorksPage() {
     });
 
     let newDmp = new DmpModel(dmp.getData());
+
     setDmp(newDmp);
   }
 
   function handleApprove(ev) {
     ev.preventDefault();
 
-    // First add the related work to our approved works on the DMP
-    // Approved works only have a subset of fields, we don't need all of them,
-    // which is why we manually build up the data here.
     let rw = new RelatedWork({
       "work_type": relatedWrk.workType,
       "type": relatedWrk.type,
@@ -135,6 +133,13 @@ function RelatedWorksPage() {
 
   function handleReject(ev) {
     ev.preventDefault();
+
+    let removeIndex;
+    dmp.relatedWorks.items.forEach((rw, i) => {
+      if (rw.doi === relatedWrk.doi) removeIndex = i;
+    });
+    if (removeIndex) dmp.relatedWorks.remove(removeIndex);
+
     updateRWStatus('rejected');
     closeModal();
   }
@@ -384,7 +389,7 @@ function RelatedWorksPage() {
                       )}
                     </div>
 
-                    <div className="dmpui-field-group">
+                    <div className="dmpui-field-group field-status">
                       <label className="dmpui-field-label">
                         Current Status
                       </label>

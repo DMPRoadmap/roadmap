@@ -527,7 +527,19 @@ export class DmpModel extends Model {
       }
     }
 
-    let relatedStatus = ["recommended", "10 Potential Matches Found"]
+    let relatedStatus;
+    let relatedCount = 0;
+    this.modifications.items.forEach((mod) => {
+      let pending = mod.relatedWorks.items.filter((rw) => rw.status === "pending");
+      relatedCount += pending.length;
+    });
+    if (relatedCount === 0) {
+      relatedCount = this.relatedWorks.items.length;
+      relatedStatus = ["completed", `${relatedCount} Items Approved`];
+    } else {
+      relatedStatus = ["recommended", `${relatedCount} Items Pending`];
+    }
+
 
     return {
       setup: setupStatus,
