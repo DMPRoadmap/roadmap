@@ -13,6 +13,8 @@
 - Correction d'un problème d'affichage du champ Context lors de l'édition d'un Modèle de DMP (Carte KB #9686)
 - Amélioration de l'affichage des tableaux dans l'espace Admin
 - Ajout d'une couleur d'activation des boutons Import RoR/ORCID (Carte KB #9636)
+- Correction d'un problème de sauvegarde du Type et PID des produits de recherche dans les plans classiques (Carte KB #9831)
+- Amélioration du fonctionnement des référentiels multiples & amélioration des messages demandant aux utilisateurs de sélectionner une valeur (Carte KB #9555)
 
 
 ## 07/11/2023
