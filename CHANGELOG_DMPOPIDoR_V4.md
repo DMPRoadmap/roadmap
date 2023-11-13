@@ -10,6 +10,9 @@
 - Ajout des textes descriptifs des contextes de plan (projet de recherche / entité de recherche)
 - Modification de l'abréviation et du titre du premier produit de recherche lors de la création d'un plan
 - Augmentation de la largeur des étapes 1 et 2 de la création d'un plan
+- Correction d'un problème d'affichage du champ Context lors de l'édition d'un Modèle de DMP (Carte KB #9686)
+- Amélioration de l'affichage des tableaux dans l'espace Admin
+- Ajout d'une couleur d'activation des boutons Import RoR/ORCID (Carte KB #9636)
 
 
 ## 07/11/2023
