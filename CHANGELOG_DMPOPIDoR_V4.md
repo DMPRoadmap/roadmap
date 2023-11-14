@@ -3,6 +3,7 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/11/2023
 - Modification du style du menu déroulant "Produits de recherche":
   - Les coins arrondis ont été ajustés correctement
   - Au survol, le style est maintenu avec un changement de couleur de fond
@@ -10,11 +11,14 @@
 - Ajout des textes descriptifs des contextes de plan (projet de recherche / entité de recherche)
 - Modification de l'abréviation et du titre du premier produit de recherche lors de la création d'un plan
 - Augmentation de la largeur des étapes 1 et 2 de la création d'un plan
+- Augmentation de la largeur des étapes 1 et 2 de la création d'un plan
 - Correction d'un problème d'affichage du champ Context lors de l'édition d'un Modèle de DMP (Carte KB #9686)
 - Amélioration de l'affichage des tableaux dans l'espace Admin
 - Ajout d'une couleur d'activation des boutons Import RoR/ORCID (Carte KB #9636)
 - Correction d'un problème de sauvegarde du Type et PID des produits de recherche dans les plans classiques (Carte KB #9831)
 - Amélioration du fonctionnement des référentiels multiples & amélioration des messages demandant aux utilisateurs de sélectionner une valeur (Carte KB #9555)
+- Amélioration de la création de plan (Carte KB #9876)
+- Intégration de la librarie react-hook-form  (Carte KB #9587)
 
 
 ## 07/11/2023
