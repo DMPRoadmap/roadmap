@@ -2,14 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.1'
+ruby '>= 3.2'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.0'
+gem 'rails', '~> 7.1'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -116,7 +116,7 @@ gem 'jwt'
 gem 'pundit'
 
 # Gem for throttling malicious attacks
-gem 'rack-attack', '~> 6.6', '>= 6.6.1'
+gem 'rack-attack'
 
 # ========== #
 # UI / VIEWS #
