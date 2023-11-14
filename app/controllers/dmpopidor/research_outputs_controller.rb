@@ -182,6 +182,7 @@ module Dmpopidor
 
       authorize @plan
       if @research_output.update(attrs)
+        @research_output.create_json_fragments
         research_output_description = @research_output.json_fragment.research_output_description
         research_output_description.instantiate
         research_output_description.contact.update(
