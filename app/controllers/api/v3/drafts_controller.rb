@@ -110,6 +110,7 @@ module Api
       def update_narrative
         # Extract the narrative PDF so we can add it to ActiveStorage
         dmp = Draft.find_by(draft_id: params[:id])
+        dmp = Draft.find_by(dmp_id: params[:id]) if dmp.nil?
         render_error(errors: MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
         render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
 
