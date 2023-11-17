@@ -65,38 +65,38 @@ class MadmpCodebaseController < ApplicationController
 
     authorize fragment
     # EXAMPLE DATA
-    file_path = Rails.root.join("engines/madmp_opidor/config/example_data/anr_example_data.json")
-    response = JSON.load(File.open(file_path))
-    dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
+    # file_path = Rails.root.join("engines/madmp_opidor/config/example_data/anr_example_data.json")
+    # response = JSON.load(File.open(file_path))
+    # dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
 
-    render json: {
-      'fragment' => dmp_fragment.get_full_fragment,
-      "message" => _('New data have been added to your plan, please click on the "Reload" button.')
-    }, status: 200
-    return
+    # render json: {
+    #   'fragment' => dmp_fragment.get_full_fragment,
+    #   "message" => _('New data have been added to your plan, please click on the "Reload" button.')
+    # }, status: 200
+    # return
 
-    # begin
-    #   response = fetch_run_data(fragment, script_id, custom_data: { grantId: anr_project_id })
-    #   if response['return_code'].eql?(0)
-    #     dmp_fragment.raw_import(response['data'], dmp_fragment.madmp_schema)
-    #     render json: {
-    #       'fragment' => dmp_fragment.get_full_fragment,
-    #       'plan_title' => dmp_fragment.meta.data['title'],
-    #       'message' => _('Project data have successfully been imported.')
-    #     }, status: 200
-    #     update_run_log(dmp_fragment, script_id)
-    #   else
-    #     # Rails.cache.delete(["codebase_run", fragment.id])
-    #     render json: {
-    #       'error' => "#{_('An error has occured: ')} #{response['result_message']}"
-    #     }, status: 500
-    #   end
-    # rescue StandardError => e
-    #   # Rails.cache.delete(["codebase_run", fragment.id])
-    #   render json: {
-    #     'error' => "Internal Server error: #{e.message}"
-    #   }, status: 500
-    # end
+    begin
+      response = fetch_run_data(fragment, script_id, custom_data: { grantId: anr_project_id })
+      if response['return_code'].eql?(0)
+        dmp_fragment.raw_import(response['data'], dmp_fragment.madmp_schema)
+        render json: {
+          'fragment' => dmp_fragment.get_full_fragment,
+          'plan_title' => dmp_fragment.meta.data['title'],
+          'message' => _('Project data have successfully been imported.')
+        }, status: 200
+        update_run_log(dmp_fragment, script_id)
+      else
+        # Rails.cache.delete(["codebase_run", fragment.id])
+        render json: {
+          'error' => "#{_('An error has occured: ')} #{response['result_message']}"
+        }, status: 500
+      end
+    rescue StandardError => e
+      # Rails.cache.delete(["codebase_run", fragment.id])
+      render json: {
+        'error' => "Internal Server error: #{e.message}"
+      }, status: 500
+    end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
