@@ -3,6 +3,7 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 17/11/2023
 - Modification des étapes de création de plan:
   - Correction et ajout des textes
   - Ajout de [react-form-stepper](https://github.com/M0kY/react-form-stepper)
@@ -11,6 +12,7 @@
   - Ajout d'une ligne d'information du plan (modèle, organisme, version, date de publication)
   - Mise à jour du titre de choix de recommendations:
     - Changement de l'icone (ampoule), changement de couleur
+- Correction d'un problème d'import Financeur (c'était le projet PHYTOCLIM qui était importé quelque soit le choix, du code utilisé en local pour tester l'import avait été déployé sur le serveur)
 
 ## 14/11/2023
 - Modification du style du menu déroulant "Produits de recherche":
