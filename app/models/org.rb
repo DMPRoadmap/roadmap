@@ -207,7 +207,7 @@ class Org < ApplicationRecord
   scope :unmanaged, -> { where(managed: false) }
 
   scope :search, lambda { |term|
-    search_pattern = I18n.transliterate "%#{term}%"
+    search_pattern = "%#{term}%"
     where('lower(UNACCENT(orgs.name)) LIKE lower(UNACCENT(?)) OR ' \
           'lower(orgs.contact_email) LIKE lower(?)',
           search_pattern, search_pattern)
