@@ -77,7 +77,7 @@ class Template < ApplicationRecord
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
   attribute :links, :text, default: { funder: [], sample_plan: [] }
-  serialize :links, JSON
+  serialize :links, coder: JSON
 
   attribute :published, :boolean, default: false
   attribute :archived, :boolean, default: false
