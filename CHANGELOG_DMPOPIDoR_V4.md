@@ -3,6 +3,15 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Modification des étapes de création de plan:
+  - Correction et ajout des textes
+  - Ajout de [react-form-stepper](https://github.com/M0kY/react-form-stepper)
+  - Ajout d'une étape du choix du type de plan (structuré, simplifié)
+- Mise à jour onglet "Rédiger":
+  - Ajout d'une ligne d'information du plan (modèle, organisme, version, date de publication)
+  - Mise à jour du titre de choix de recommendations:
+    - Changement de l'icone (ampoule), changement de couleur
+
 ## 14/11/2023
 - Modification du style du menu déroulant "Produits de recherche":
   - Les coins arrondis ont été ajustés correctement

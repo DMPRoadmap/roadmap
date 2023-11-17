@@ -60,7 +60,15 @@ module Dmpopidor
       end
 
       @templates = @templates.sort_by(&:title)
-      render json: @templates.as_json(only: %i[id title])
+      res = @templates.map do |template|
+        {
+          id: template.id,
+          title: template.title,
+          description: template.description || '',
+          structured: template.structured?
+        }
+      end.as_json()
+      render json: res
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -71,7 +79,9 @@ module Dmpopidor
 
       render json: {
         id: default_template.id,
-        title: default_template.title
+        title: default_template.title,
+        description: default_template.description || '',
+        structured: default_template.structured?
       }
     end
   end

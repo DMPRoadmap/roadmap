@@ -20,6 +20,14 @@ class TemplatesController < ApplicationController
       }
     )
 
-    render json: template_data
+    render json: {
+      locale: template.locale,
+      title: template.title,
+      version: template.version,
+      org: template.org.name,
+      structured: template.structured?,
+      publishedDate: template.updated_at.to_date,
+      sections: template_data
+    }
   end
 end
