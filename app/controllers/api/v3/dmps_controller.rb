@@ -52,13 +52,14 @@ module Api
 
       # PUT /api/v3/dmps/{:id}
       def update
-        dmp = DmpIdService.fetch_dmp_id(dmp_id: dmp_params.fetch(:dmp_id, {})[:identifier])
+        # TODO: In the new system, change this so it has its own endpoint!
+        on_narrative_page = params[:id].end_with?('/narrative')
+        dmp = on_narrative_page ? prep_for_narrative_update : DmpIdService.fetch_dmp_id(dmp_id: params[:id])
         render_error(errors: DraftsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
 
         authed = user_is_authorized(dmp: dmp.fetch('dmp', {}))
         render_error(errors: DraftsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless authed
 
-        json = JSON.parse(dmp_params.to_h.to_json)
         result = DmpIdService.update_dmp_id(plan: json)
         render_error(errors: DraftsController::MSG_DMP_ID_UPDATE_FAILED, status: :bad_request) and return if result.nil?
 
@@ -99,6 +100,10 @@ module Api
         params.require(:dmp).permit(:narrative, :remove_narrative, dmp_permitted_params, draft_data: {})
       end
 
+      def update_narrative_params
+        params.permit(:title, :narrative, :remove_narrative)
+      end
+
       # Check to make sure the current user is authorized to update/tombstone the DMP ID
       def user_is_authorized(dmp:)
         return false unless dmp.is_a?(Hash) && dmp['contact'].present? && current_user.present? && current_user.can_org_admin?
@@ -114,6 +119,26 @@ module Api
         # The admin is an Admin for one of the Orgs identified on the DMP record
         # OR they were the original creator of the draft
         orgs.include?(current_org) || (original_draft.present? && current_user.id == original_draft.user_id)
+      end
+
+      # Process an update from the DMP Upload form's page that allows the narrative document to be uploaded
+      # We need to handle differently because its multipart form data
+      def prep_for_narrative_update
+        # Fetch the draft and update it's narrative doc
+        draft = Draft.find_by(dmp_id: params[:id].gsub('/narrative', ''))
+        args = update_narrative_params
+
+        # Remove the old narrative if applicable
+        draft.narrative.purge if (args[:narrative].present? || args[:remove_narrative].present?) &&
+                                  draft.narrative.attached?
+
+        # Attach the narrative PDF if applicable
+        draft.narrative.attach(args[:narrative]) if args[:narrative].present?
+
+        # Then fetch the actual DMP record. The narrative will get moved to the DMPHub automatically
+        dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
+        dmp['dmp']['title'] = args[:title]
+        dmp
       end
     end
   end
