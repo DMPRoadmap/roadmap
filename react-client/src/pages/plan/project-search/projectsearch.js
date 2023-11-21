@@ -262,60 +262,69 @@ function ProjectSearch() {
           </div>
 
           <h2 id="project-list-header" className="project-list-header">Search Results</h2>
-          <div className="dmpdui-list project-list" aria-live="polite" aria-labelledby="project-list-header">
-            {projects.length === 0 ? (
-              <>
-                <div className="empty-list">
-                  {!searching && (
-                    <p aria-live='polite' role="status">Start searching to find your project…</p>
-                  )}
-                  <Spinner isActive={searching} message="Searching…" />
-                </div>
-              </>
-            ) : (
-              <>
 
-                {!searching && (
-                  <div className="row-wrapper">
-                    <div className="data-heading" data-colname="name">Project Name</div>
-                    <div className="data-heading" data-colname="role">ID</div>
-                    <div className="data-heading" data-colname="actions"></div>
-                  </div>
+          <div className="table-container">
+            <div className="table-wrapper">
+              <table className="dmpdui-list-table dmpui-table  project-search-table" aria-live="polite" aria-labelledby="project-list-header">
+                {projects.length === 0 ? (
+                  <tbody className="table-body">
+                    <tr className="empty-list">
+                      {!searching ? (
+                        <td colSpan="3">
+                          <p className="" aria-live='polite' role="status">Start searching to find your project…</p>
+                        </td>
+                      ) : (
+                        <td colSpan="3">
+                          <Spinner isActive={searching} message="Searching…" />
+                        </td>
+                      )}
+                    </tr>
+                  </tbody>
+                ) : (
+                  <>
+                    {!searching && (
+                      <thead>
+                        <tr className="row-wrapper">
+                          <th className="table-header-name data-heading" data-colname="name">Project Name</th>
+                          <th className="table-header-name data-heading" data-colname="role">ID</th>
+                          <th className="table-header-name data-heading" data-colname="actions"></th>
+                        </tr>
+                      </thead>
+                    )}
+
+                    {searching && <Spinner isActive={searching} message="Searching…" className="empty-list" />}
+
+                    <tbody className="table-body">
+                      {projects.map((item, index) => (
+                        <tr key={index} className={index === selected ? "row-wrapper selected" : "row-wrapper"}>
+                          <td data-colname="name" className="table-data-name " id={"project-" + index}>
+                            {getValue(item, "project.title", "")}
+                          </td>
+                          <td data-colname="id" className="table-data-name " >
+                            {getValue(item, "project.funding.0.dmproadmap_project_number", "")}
+                          </td>
+                          <td data-colname="actions" className="table-data-name table-data-actions" >
+                            <button
+                              id={"select-project-" + index}
+                              aria-labelledby={"select-project-" + index + " " + "project-" + index}
+                              onClick={handleSelect}
+                              aria-pressed={false}
+                              data-index={index}>
+                              Select
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </>
                 )}
-
-                <Spinner isActive={searching} message="Searching…" className="empty-list" />
-
-
-                {!searching && projects.map((item, index) => (
-                  <Fragment key={index}>
-                    <div
-                      className={(index == selected) ? "row-wrapper selected" : "row-wrapper"}>
-                      <div data-colname="name" id={"project-" + index}>
-                        {getValue(item, "project.title", "")}
-                      </div>
-                      <div data-colname="id">
-                        {getValue(item, "project.funding.0.dmproadmap_project_number", "")}
-                      </div>
-                      <div data-colname="actions">
-                        <button
-                          id={"select-project-" + index}
-                          aria-labelledby={"select-project-" + index + " " + "project-" + index}
-                          onClick={handleSelect}
-                          aria-pressed={false}
-                          data-index={index}>
-                          Select
-                        </button>
-                      </div>
-                    </div>
-                  </Fragment>
-                ))}
-
-
-              </>
-            )}
+              </table>
+            </div>
           </div>
+
           <form method="post" onSubmit={handleSave}>
-            <div className="form-wrapper"></div>
+
+
 
             <div className="form-actions ">
               <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmpId}`)}>
