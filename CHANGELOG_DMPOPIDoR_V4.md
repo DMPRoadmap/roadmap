@@ -3,6 +3,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Ajout du support de l'option overridable aux nouveaux formulaires, le comportement est identique à celui en production excepté les référentiels complexes à choix unique (Licences, Financeurs):
+  - Ajout d'un sous formulaire pour Editer/Ajouter une valeur d'un référentiel.
+- Ajustement du CSS des boutons secondaires (boutons Annuler, Fermer)
+
 ## 17/11/2023
 - Modification des étapes de création de plan:
   - Correction et ajout des textes

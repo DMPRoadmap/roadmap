@@ -47,12 +47,12 @@
     }
 
     tbody>tr:nth-child(odd) {
-      background: $blue;
-      color: $white;
+      background: $very-light-blue;
+      color: $dark-blue;
 
       a,
       i {
-        color: $white;
+        color: $dark-blue;
       }
     }
 

@@ -241,20 +241,6 @@ body div a.btn {
       text-decoration: underline;
     }
 
-    .btn-default,
-    .btn-default:hover,
-    .btn-default:focus,
-    .btn-default:active,
-    .btn-default:visited,
-    .btn-default:active:hover,
-    .btn-default.active:hover {
-      border-color: $yellow;
-      background-color: $yellow;
-      color: $black;
-      text-decoration: none;
-      margin-bottom: 10px;
-    }
-
     .combobox-clear-button,
     .combobox-clear-button:hover,
     .combobox-clear-button:focus {
