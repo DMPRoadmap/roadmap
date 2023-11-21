@@ -124,6 +124,16 @@ function ProjectSearch() {
 
 
   function handleSelect(ev) {
+
+    // set aria-pressed to true and change the text to "selected" on the button that was clicked
+    const buttons = document.querySelectorAll("button[data-index]");
+    buttons.forEach((button) => {
+      button.setAttribute("aria-pressed", false);
+      button.innerHTML = "Select";
+    });
+    ev.target.setAttribute("aria-pressed", true);
+    ev.target.innerHTML = "Selected";
+
     setSelected(parseInt(ev.target.dataset.index, 10));
   }
 
@@ -252,7 +262,7 @@ function ProjectSearch() {
           </div>
 
           <h2 id="project-list-header" className="project-list-header">Search Results</h2>
-          <div className="dmpdui-list project-list" aria-labelledby="project-list-header">
+          <div className="dmpdui-list project-list" aria-live="polite" aria-labelledby="project-list-header">
             {projects.length === 0 ? (
               <>
                 <div className="empty-list">
@@ -264,41 +274,42 @@ function ProjectSearch() {
               </>
             ) : (
               <>
-                <div aria-live="polite">
-                  {!searching && (
-                    <div className="row-wrapper">
-                      <div className="data-heading" data-colname="name">Project Name</div>
-                      <div className="data-heading" data-colname="role">ID</div>
-                      <div className="data-heading" data-colname="actions"></div>
-                    </div>
-                  )}
 
-                  <Spinner isActive={searching} message="Searching…" className="empty-list" />
+                {!searching && (
+                  <div className="row-wrapper">
+                    <div className="data-heading" data-colname="name">Project Name</div>
+                    <div className="data-heading" data-colname="role">ID</div>
+                    <div className="data-heading" data-colname="actions"></div>
+                  </div>
+                )}
+
+                <Spinner isActive={searching} message="Searching…" className="empty-list" />
 
 
-                  {!searching && projects.map((item, index) => (
-                    <Fragment key={index}>
-                      <div
-                        className={(index == selected) ? "row-wrapper selected" : "row-wrapper"}>
-                        <div data-colname="name" id={"project-" + index}>
-                          {getValue(item, "project.title", "")}
-                        </div>
-                        <div data-colname="id">
-                          {getValue(item, "project.funding.0.dmproadmap_project_number", "")}
-                        </div>
-                        <div data-colname="actions">
-                          <button
-                            id={"select-project-" + index}
-                            aria-labelledby={"select-project-" + index + " " + "project-" + index}
-                            onClick={handleSelect}
-                            data-index={index}>
-                            Select
-                          </button>
-                        </div>
+                {!searching && projects.map((item, index) => (
+                  <Fragment key={index}>
+                    <div
+                      className={(index == selected) ? "row-wrapper selected" : "row-wrapper"}>
+                      <div data-colname="name" id={"project-" + index}>
+                        {getValue(item, "project.title", "")}
                       </div>
-                    </Fragment>
-                  ))}
-                </div>
+                      <div data-colname="id">
+                        {getValue(item, "project.funding.0.dmproadmap_project_number", "")}
+                      </div>
+                      <div data-colname="actions">
+                        <button
+                          id={"select-project-" + index}
+                          aria-labelledby={"select-project-" + index + " " + "project-" + index}
+                          onClick={handleSelect}
+                          aria-pressed={false}
+                          data-index={index}>
+                          Select
+                        </button>
+                      </div>
+                    </div>
+                  </Fragment>
+                ))}
+
 
               </>
             )}
