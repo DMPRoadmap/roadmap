@@ -154,11 +154,7 @@ function PlanOverview() {
                 className={"step-status status-" + dmp.stepStatus.project[0]}>
                 {dmp.stepStatus.project[1]}
               </div>
-              {dmp.errors.get("project") && (
-                <div className={"step-status status-error"}>
-                  Review Needed
-                </div>
-              )}
+
             </div>
 
             <div className="plan-steps-step">
@@ -174,12 +170,6 @@ function PlanOverview() {
                 className={"step-status status-" + dmp.stepStatus.contributors[0]}>
                 {dmp.stepStatus.contributors[1]}
               </div>
-
-              {dmp.errors.get("contributors") && (
-                <div className={"step-status status-error"}>
-                  Review Needed
-                </div>
-              )}
             </div>
 
             <div className="plan-steps-step ">

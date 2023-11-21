@@ -296,7 +296,7 @@ export class DataObject extends Model {
   }
 
   commit() {
-    this.setData("distribution", [{host: this.repository.getData()}]);
+    this.setData("distribution", [{ host: this.repository.getData() }]);
   }
 }
 
@@ -355,7 +355,7 @@ export class RelatedWork extends Model {
 
   get notes() { return this.getData("notes", []); }
 
-  get confidenceReason () { return this.notes.join(', '); }
+  get confidenceReason() { return this.notes.join(', '); }
 
   get score() { return this.getData("score", 0); }
 
@@ -499,21 +499,26 @@ export class DmpModel extends Model {
 
     let contributorStatus = ["recommended", "Recommended"];
     if (this.contributors.items.length > 0) {
-      if (this.contributors.items.length == 1) {
-        contributorStatus = [
-          "completed",
-          "1 Contributor"
-        ];
-      } else {
-        contributorStatus = [
-          "completed",
-          this.contributors.items.length + " Contributors"
-        ];
-      }
+      let contributorStatus = ["completed", "Recommended"];
+      /*
+            if (this.contributors.items.length == 1) {
+              contributorStatus = [
+                "completed",
+                "1 Contributor"
+              ];
+            } else {
+              contributorStatus = [
+                "completed",
+                this.contributors.items.length + " Contributors"
+              ];
+            }
+      */
     }
 
     let outputsStatus = ["recommended", "Recommended"];
     if (this.dataset.items.length > 0) {
+      let outputsStatus = ["completed", "Recommended"];
+      /*
       if (this.dataset.items.length == 1) {
         outputsStatus = [
           "completed",
@@ -525,6 +530,7 @@ export class DmpModel extends Model {
           this.dataset.items.length + " Research Outputs"
         ]
       }
+      */
     }
 
     let relatedStatus;
