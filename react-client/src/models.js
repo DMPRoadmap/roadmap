@@ -1,4 +1,9 @@
-import { getValue, setProperty } from './utils.js';
+import {
+  getValue,
+  setProperty,
+  formatBytes,
+  convertToBytes,
+} from './utils.js';
 import { DmpApi } from "./api.js";
 import moment from 'moment';
 
@@ -310,6 +315,18 @@ export class DataRepository extends Model {
 
   get description() { return this.getData("description", ""); }
   set description(val) { this.setData("description", val); }
+
+  get size() {
+    // NOTE: formatBytes returns a map containing, 'value' and 'unit'
+    return formatBytes(this.getData("byte_size", 0), 2);
+  }
+
+  setSize(value, unit) {
+    if (typeof unit === "undefined") {
+      throw Error("Cannot call setSize with undefined units");
+    }
+    this.setData("byte_size", convertToBytes(value, unit));
+  }
 
   get isLocked() {
     if (this.getData("dmproadmap_host_id.identifier", "") === "") {

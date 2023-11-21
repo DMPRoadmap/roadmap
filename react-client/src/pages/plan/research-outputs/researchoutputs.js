@@ -13,12 +13,14 @@ import {
   saveDmp,
   getOutputTypes
 } from "../../../models.js";
+import { fileSizeUnits } from "../../../utils.js";
 
 import TextInput from "../../../components/text-input/textInput.js";
 import TextArea from "../../../components/textarea/textArea.js";
 import Select from "../../../components/select/select.js";
 import RadioButton from "../../../components/radio/radio";
 import LookupField from "../../../components/lookup-field.js";
+import SizeInput from "../../../components/size-input.js";
 import Spinner from "../../../components/spinner";
 
 import "./researchoutputs.scss";
@@ -26,6 +28,8 @@ import "./researchoutputs.scss";
 
 function ResearchOutputs() {
   let navigate = useNavigate();
+  let sizeUnits = {};
+  fileSizeUnits.forEach(v => sizeUnits[v] = v);
 
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState(null);
@@ -73,7 +77,8 @@ function ResearchOutputs() {
         if (ev.data) {
           newObj.repository = new DataRepository(ev.data);
           // NOTE:: The lookup data returns the repository name as "name",
-          // but the DMP saves the repo name as "title".
+          // but the DMP saves the repo name as "title". So we do a manual
+          // override here
           newObj.repository.title = ev.data.name;
           setDataObj(newObj);
         } else {
@@ -97,8 +102,14 @@ function ResearchOutputs() {
         newObj.repository.url = value;
         setDataObj(newObj);
         break;
-
     }
+  }
+
+
+  function handleSizeChanged(data) {
+    var newObj = new DataObject(dataObj.getData());
+    newObj.repository.setSize(data.value, data.unit);
+    setDataObj(newObj);
   }
 
 
@@ -267,6 +278,20 @@ function ResearchOutputs() {
                       onChange={handleChange}
                       error={dataObj.errors.get("type")}
                       help=""
+                    />
+                  </div>
+                </div>
+
+                <div className="dmpui-form-cols">
+                  <div className="dmpui-form-col">
+                    <SizeInput
+                      label="Repository Size"
+                      name="size"
+                      id="id_size"
+                      unitOptions={sizeUnits}
+                      initialValue={dataObj.repository.size.value}
+                      initialUnit={dataObj.repository.size.unit}
+                      onChange={handleSizeChanged}
                     />
                   </div>
                 </div>

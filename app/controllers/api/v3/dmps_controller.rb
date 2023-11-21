@@ -60,7 +60,7 @@ module Api
         authed = user_is_authorized(dmp: dmp.fetch('dmp', {}))
         render_error(errors: DraftsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless authed
 
-        result = DmpIdService.update_dmp_id(plan: json)
+        result = DmpIdService.update_dmp_id(plan: dmp)
         render_error(errors: DraftsController::MSG_DMP_ID_UPDATE_FAILED, status: :bad_request) and return if result.nil?
 
         @items = paginate_response(results: [result])
@@ -125,7 +125,8 @@ module Api
       # We need to handle differently because its multipart form data
       def prep_for_narrative_update
         # Fetch the draft and update it's narrative doc
-        draft = Draft.find_by(dmp_id: params[:id].gsub('/narrative', ''))
+        dmp_id = params[:id].gsub('/narrative', '').gsub('_', '/')
+        draft = Draft.find_by(dmp_id: "https://#{dmp_id}")
         args = update_narrative_params
 
         # Remove the old narrative if applicable
@@ -136,8 +137,8 @@ module Api
         draft.narrative.attach(args[:narrative]) if args[:narrative].present?
 
         # Then fetch the actual DMP record. The narrative will get moved to the DMPHub automatically
-        dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
-        dmp['dmp']['title'] = args[:title]
+        dmp = DmpIdService.fetch_dmp_id(dmp_id: dmp_id)
+        dmp['dmp']['title'] = args[:title] unless args[:title].nil?
         dmp
       end
     end
