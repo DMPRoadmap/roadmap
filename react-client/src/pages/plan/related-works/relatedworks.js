@@ -34,6 +34,7 @@ function RelatedWorksPage() {
   const [filterArgs, setFilterArgs] = useState({status: ""});
   const [editIndex, setEditIndex] = useState(null);
   const [relatedWrk, setRelatedWrk] = useState(new RelatedWork({}));
+  const [working, setWorking] = useState(false);
 
   useEffect(() => {
     getDmp(dmpId).then(initial => {
@@ -81,63 +82,6 @@ function RelatedWorksPage() {
     }
   }
 
-  function handleChange(ev) {
-    const { name, value } = ev.target;
-
-    /*
-    switch (name) {
-      case "data_type":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.type = value;
-        setDataObj(newObj);
-        break;
- 
-      case "personal_info":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.personal = value;
-        setDataObj(newObj);
-        break;
- 
-      case "sensitive_data":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.sensitive = value;
-        setDataObj(newObj);
-        break;
- 
-      case "repository":
-        var newObj = new DataObject(dataObj.getData());
-        if (ev.data) {
-          newObj.repository = new DataRepository(ev.data);
-          // NOTE:: The lookup data returns the repository name as "name",
-          // but the DMP saves the repo name as "title".
-          newObj.repository.title = ev.data.name;
-          setDataObj(newObj);
-        } else {
-          // Only reset /all/ the data if the repo was previously locked
-          if (newObj.repository.isLocked) {
-            newObj.repository = new DataRepository({});
-          }
-          newObj.repository.title = value;
-        }
-        setDataObj(newObj);
-        break;
- 
-      case "repository_description":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.repository.description = value;
-        setDataObj(newObj);
-        break;
- 
-      case "repository_url":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.repository.url = value;
-        setDataObj(newObj);
-        break;
- 
-    }
-    */
-  }
-
 
   function handleModalOpen(ev) {
     ev.preventDefault();
@@ -155,32 +99,49 @@ function RelatedWorksPage() {
 
   function handleSaveModal(ev) {
     ev.preventDefault();
-    /*
-        const data = new FormData(ev.target);
-    
-        let newObj = new DataObject(dataObj.getData());
-        newObj.title = data.get("title");
-        newObj.type = data.get("data_type");
-        // NOTE: Repository should already be set, because it's handled in the
-        // handleChange() function.
-    
-        if (newObj.isValid()) {
-          if (editIndex === null) {
-            dmp.dataset.add(newObj);
-          } else {
-            dmp.dataset.update(editIndex, newObj);
-          }
-    
-          let newDmp = new DmpModel(dmp.getData());
-          setDmp(newDmp);
-          closeModal();
-        } else {
-          setDataObj(newObj);
-          document.getElementById("outputsModal").scroll(0, 0);
-          console.log(newObj.errors);
-        }
-        */
-    document.getElementById("outputsModal").close();
+    closeModal();
+  }
+
+  function updateRWStatus(status) {
+    // Update the related work on a specific modifier run
+    dmp.modifications.items.forEach((mod) => {
+      mod.relatedWorks.items.forEach((rw, rwIndex) => {
+        if (rw.doi === relatedWrk.doi) rw.status = status;
+      });
+    });
+
+    let newDmp = new DmpModel(dmp.getData());
+
+    setDmp(newDmp);
+  }
+
+  function handleApprove(ev) {
+    ev.preventDefault();
+
+    let rw = new RelatedWork({
+      "work_type": relatedWrk.workType,
+      "type": relatedWrk.type,
+      "descriptor": relatedWrk.descriptor,
+      "identifier": relatedWrk.doi,
+    });
+    dmp.relatedWorks.add(rw);
+    updateRWStatus('approved');
+
+    closeModal();
+  }
+
+
+  function handleReject(ev) {
+    ev.preventDefault();
+
+    let removeIndex;
+    dmp.relatedWorks.items.forEach((rw, i) => {
+      if (rw.doi === relatedWrk.doi) removeIndex = i;
+    });
+    if (removeIndex) dmp.relatedWorks.remove(removeIndex);
+
+    updateRWStatus('rejected');
+    closeModal();
   }
 
 
@@ -192,12 +153,16 @@ function RelatedWorksPage() {
 
 
   async function handleSave(ev) {
-    /*
     ev.preventDefault();
+    setWorking(true);
+
     saveDmp(dmp).then(() => {
-      navigate(-1);
+      navigate(`/dashboard/dmp/${dmp.id}`);
+    }).catch((e) => {
+      console.log("Error saving DMP");
+      console.log(e);
+      setWorking(false);
     });
-    */
   }
 
 
@@ -424,7 +389,7 @@ function RelatedWorksPage() {
                       )}
                     </div>
 
-                    <div className="dmpui-field-group">
+                    <div className="dmpui-field-group field-status">
                       <label className="dmpui-field-label">
                         Current Status
                       </label>
@@ -445,10 +410,10 @@ function RelatedWorksPage() {
                 <button type="button" onClick={closeModal}>
                   Cancel
                 </button>
-                <button type="submit" className="">
+                <button type="submit" onClick={handleReject} className="">
                   Mark as Unrelated
                 </button>
-                <button type="submit" className="primary">
+                <button type="submit" onClick={handleApprove} className="primary">
                   Mark as Related
                 </button>
               </div>
@@ -457,14 +422,18 @@ function RelatedWorksPage() {
 
           <form method="post" encType="multipart/form-data" onSubmit={handleSave}>
             <div className="form-actions ">
-              <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
-                {dmp.isRegistered ? "Back" : "Cancel"}
-              </button>
-
-              <button type="submit" className="primary">
-                Save &amp; Continue
-              </button>
-
+              {working ? (
+                <Spinner isActive={working} message="" className="empty-list" />
+              ) : (
+                <>
+                  <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
+                    {dmp.isRegistered ? "Back" : "Cancel"}
+                  </button>
+                  <button type="submit" className="primary">
+                    Save &amp; Continue
+                  </button>
+                </>
+              )}
             </div>
           </form>
         </div>

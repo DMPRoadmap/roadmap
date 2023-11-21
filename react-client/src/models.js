@@ -324,24 +324,7 @@ export class DataRepository extends Model {
 export class RelatedWork extends Model {
   #_modRun;  // This is a reference to the modification run object.
 
-  /*
-    {
-     "citation": "Waagmeester, Andra, Lynn Schriml, and Andrew Su. 2019. "Wikidata as a Linked-Data Hub for Biodiversity Data." [Article]. <i>Biodiversity Information Science and Standards</i> 3. <a href=\"https://doi.org/10.3897/biss.3.35206\" target=\"_blank\">https://doi.org/10.3897/biss.3.35206</a>.",
-     "confidence": "Medium",
-     "descriptor": "references",
-     "identifier": "https://doi.org/10.3897/biss.3.35206",
-     "notes": [
-      "contributor ORCIDs matched",
-      "contributor names and affiliations matched",
-      "titles are similar"
-     ],
-     "score": 5,
-     "status": "pending",
-     "type": "doi",
-     "work_type": "publication"
-    }
-  */
-
+  get modrun() { return this.#_modRun; }
   set modrun(modInstance) {
     if (modInstance instanceof Modification) {
       this.#_modRun = modInstance;
@@ -377,12 +360,12 @@ export class RelatedWork extends Model {
   get score() { return this.getData("score", 0); }
 
   get status() { return this.getData("status", "pending"); }
+  set status(val) { this.setData("status", val); }
   // pending, approved, rejected
 
   get type() { return this.getData("type", ""); }
 
   get workType() { return this.getData("work_type", ""); }
-
 }
 
 
@@ -425,6 +408,7 @@ export class DmpModel extends Model {
   #_contributors;
   #_dataset;
   #_modifications;
+  #_relatedWorks;
 
   constructor(data) {
     super(data);
@@ -435,6 +419,11 @@ export class DmpModel extends Model {
     this.contributors = this.getData("contributor", []);
     this.dataset = this.getData("dataset", []);
     this.modifications = this.getData("dmphub_modifications", []);
+
+    // Not to be confused with the same field inside the Modifiers.
+    // This one here is for the related works that were accepted as related,
+    // and added to the DMP directly
+    this.relatedWorks = this.getData("dmproadmap_related_identifiers", []);
   }
 
   get title() { return this.getData("title"); }
@@ -501,6 +490,9 @@ export class DmpModel extends Model {
     return this.modifications.items.some(i => i.hasRelatedWorks());
   }
 
+  get relatedWorks() { return this.#_relatedWorks; }
+  set relatedWorks(items) { this.#_relatedWorks = new ModelSet(RelatedWork, items); }
+
   get stepStatus() {
     let setupStatus = ["notstart", "Not Started"];
     if (this.title) setupStatus = ["completed", "Completed"];
@@ -535,7 +527,19 @@ export class DmpModel extends Model {
       }
     }
 
-    let relatedStatus = ["recommended", "10 Potential Matches Found"]
+    let relatedStatus;
+    let relatedCount = 0;
+    this.modifications.items.forEach((mod) => {
+      let pending = mod.relatedWorks.items.filter((rw) => rw.status === "pending");
+      relatedCount += pending.length;
+    });
+    if (relatedCount === 0) {
+      relatedCount = this.relatedWorks.items.length;
+      relatedStatus = ["completed", `${relatedCount} Items Approved`];
+    } else {
+      relatedStatus = ["recommended", `${relatedCount} Items Pending`];
+    }
+
 
     return {
       setup: setupStatus,
@@ -605,6 +609,7 @@ export class DmpModel extends Model {
     this.setData("contributor", this.contributors.getData());
 
     this.setData("dmphub_modifications", this.modifications.getData());
+    this.setData("dmproadmap_related_identifiers", this.relatedWorks.getData());
   }
 }
 

@@ -17,6 +17,7 @@ function ProjectDetails() {
   const [dmp, setDmp] = useState();
   const [formData, setFormData] = useState({});
   const [isLocked, setLocked] = useState(false);
+  const [working, setWorking] = useState(false);
 
   useEffect(() => {
     getDmp(dmpId).then(initial => {
@@ -50,6 +51,7 @@ function ProjectDetails() {
 
   async function handleSubmit(ev) {
     ev.preventDefault();
+    setWorking(true);
 
     if (isLocked) {
       navigate(`/dashboard/dmp/${dmp.id}`);
@@ -68,11 +70,16 @@ function ProjectDetails() {
     if (dmp.project.isValid()) {
       saveDmp(dmp).then((savedDmp) => {
         navigate(`/dashboard/dmp/${dmp.id}`);
+      }).catch(e => {
+        console.log("Error saving DMP");
+        console.log(e);
+        setWorking(false);
       });
     } else {
       let newDmp = new DmpModel(dmp.getData());
       newDmp.project.isValid();
       setDmp(newDmp);
+      setWorking(false);
       window.scroll(0, 0);
     }
   }
@@ -209,13 +216,17 @@ function ProjectDetails() {
           </div>
 
           <div className="form-actions ">
-            <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
-              {dmp.isRegistered ? "Back" : "Cancel"}
-            </button>
-            {!dmp.isRegistered && (
-              <button type="submit" className="primary">
-                Save &amp; Continue
-              </button>
+            {working ? (
+              <Spinner isActive={working} message="" className="empty-list" />
+            ) : (
+              <>
+                <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
+                  {dmp.isRegistered ? "Back" : "Cancel"}
+                </button>
+                <button type="submit" className="primary">
+                  {dmp.isRegistered ? "Update" : "Save &amp; Continue"}
+                </button>
+              </>
             )}
           </div>
         </form>
