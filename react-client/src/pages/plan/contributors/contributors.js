@@ -182,42 +182,66 @@ function Contributors() {
             </div>
           </div>
 
-          <div className="dmpdui-list ">
-            <div className="data-heading" data-colname="name">
-              Name
+          <div className="table-container">
+            <div className="table-wrapper">
+              {dmp.contributors && dmp.contributors.items.length > 0 ? (
+                <table className="dmpui-table">
+                  <thead>
+                    <tr>
+                      <th scope="col" className="table-header-name data-heading">
+                        Name
+                      </th>
+                      <th scope="col" className="table-header-name data-heading">
+                        Role
+                      </th>
+                      <th scope="col" className="table-header-name data-heading">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="table-body">
+                    {dmp.contributors.items.map((item, index) => (
+                      <tr key={index}>
+                        <td className="table-data-name" data-colname="name" id={"Contributor-" + index}>
+                          {item.name}
+                        </td>
+                        <td className="table-data-name" data-colname="role">
+                          {item.roleDisplays.join(', ')}
+                        </td>
+                        <td className="table-data-name table-data-actions" data-colname="actions">
+                          <button
+                            className="edit-button"
+                            id={"editContributor-" + index}
+                            aria-labelledby={"editContributor-" + index + " " + "Contributor-" + index}
+                            value={index}
+                            onClick={handleModalOpen}>
+                            Edit
+                          </button>
+
+                          <button
+                            className="delete-button"
+                            id={"deleteContributor-" + index}
+                            aria-labelledby={"deleteContributor-" + index + " " + "Contributor-" + index}
+                            value={index}
+                            onClick={handleDeleteContributor}>
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="no-dmp-message mt-5">
+                  <h3>No Contributors Found</h3>
+                  <p>
+                    No contributors were found. Please add some contributors to display them here.
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="data-heading" data-colname="role">
-              Role
-            </div>
-            <div className="data-heading" data-colname="actions"></div>
-
-            {dmp.contributors
-              ? dmp.contributors.items.map((item, index) => (
-                <Fragment key={index}>
-                  <div data-colname="name" id={"Contributor-" + index}  >{item.name}</div>
-                  <div data-colname="role">{item.roleDisplays.join(', ')}</div>
-                  <div data-colname="actions" className="form-actions">
-                    <button
-                      id={"editContributor-" + index}
-                      aria-labelledby={"editContributor-" + index + " " + "Contributor-" + index}
-                      value={index}
-                      onClick={handleModalOpen}>
-                      Edit
-                    </button>
-
-                    <button
-                      id={"deleteContributor-" + index}
-                      aria-labelledby={"editContributor-" + index + " " + "Contributor-" + index}
-                      value={index}
-                      onClick={handleDeleteContributor}>
-                      Delete
-                    </button>
-
-                  </div>
-                </Fragment>
-              ))
-              : ""}
           </div>
+
 
           <dialog id="contributorModal">
             <form method="post" encType="multipart/form-data"
