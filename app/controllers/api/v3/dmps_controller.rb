@@ -32,7 +32,7 @@ module Api
           dmp_id.nil? || current_user.hidden_dmps.pluck(:dmp_id).include?(dmp_id)
         end
         @items = paginate_response(results: dmps)
-        render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
+        render json: render_to_string(template: '/api/v3/drafts/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DmpsController.index #{e.message}"
         render_error(errors: MSG_SERVER_ERROR, status: 500)
@@ -63,7 +63,7 @@ module Api
         result = DmpIdService.update_dmp_id(plan: dmp)
         render_error(errors: DraftsController::MSG_DMP_ID_UPDATE_FAILED, status: :bad_request) and return if result.nil?
 
-        @items = paginate_response(results: [result])
+        @items = paginate_response(results: [dmp])
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue JSON::ParserError => e
         Rails.logger.error "Failure in Api::V3::DmpsController.register_dmp_id #{e.message}"
@@ -135,10 +135,20 @@ module Api
 
         # Attach the narrative PDF if applicable
         draft.narrative.attach(args[:narrative]) if args[:narrative].present?
+        draft.publish_narrative! if args[:narrative].present?
 
         # Then fetch the actual DMP record. The narrative will get moved to the DMPHub automatically
         dmp = DmpIdService.fetch_dmp_id(dmp_id: dmp_id)
         dmp['dmp']['title'] = args[:title] unless args[:title].nil?
+
+        # If the user purged the old narrative remove it from the DMP ID record
+        if args[:remove_narrative].present?
+          works = dmp['dmp'].fetch('dmproadmap_related_identifiers', []).reject do |related|
+            related['descriptor'] == 'is_metadata_for' && related['work_type'] == 'output_management_plan'
+          end
+          dmp['dmp']['dmproadmap_related_identifiers'] = works
+        end
+
         dmp
       end
     end

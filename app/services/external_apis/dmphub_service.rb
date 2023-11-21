@@ -327,7 +327,7 @@ module ExternalApis
           body: payload
         }
         # opts[:debug_output] = $stdout
-        dmp_id = plan.is_a?(Plan) ? plan.dmp_id : plan.fetch('dmp_id', {})['identifier']
+        dmp_id = plan.is_a?(Plan) ? plan.dmp_id : plan.fetch('dmp', {}).fetch('dmp_id', {})['identifier']
         target = "#{api_base_url}#{update_path % { dmp_id: dmp_id.gsub(%r{https?://}, '') }}"
 
         resp = HTTParty.put(target, opts)
