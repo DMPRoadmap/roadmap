@@ -138,6 +138,9 @@ function Contributors() {
     } else {
       setContributor(newContrib);
       console.log(newContrib.errors);
+      const errorDiv = document.getElementById('errors');
+      errorDiv.focus();
+      errorDiv.scrollIntoView();
     }
   }
 
@@ -247,6 +250,23 @@ function Contributors() {
             <form method="post" encType="multipart/form-data"
               onSubmit={handleSaveContributor}>
               <div className="form-modal-wrapper">
+
+
+
+                <div className="dmpui-form-cols" tabIndex={-1} id="errors">
+                  {contributor.errors && contributor.errors.size > 0 && (
+                    <div className="dmpui-form-col">
+                      <p>There has been some errors</p>
+                      <ul>
+                        {Array.from(contributor.errors).map(([key, value]) => (
+                          <li key={key} className="dmpui-field-error">{value}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
                     <TextInput
@@ -316,9 +336,9 @@ function Contributors() {
 
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
-                    <fieldset className={"dmpui-field-group"}>
+                    <fieldset className={"dmpui-field-group required"}>
                       <legend className="dmpui-field-label">
-                        What is this person's role? *
+                        What is this person's role?
                       </legend>
 
                       <div id="contributorRoles">
