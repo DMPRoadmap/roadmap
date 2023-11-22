@@ -493,7 +493,8 @@ header .main-nav {
     border-color: $rust;
     background-color: $rust;
     color: $white;
-    margin-bottom: 10px;
+    outline: none;
+    margin-top: 5px;
   }
 
   .btn-default,
@@ -506,7 +507,8 @@ header .main-nav {
     border-color: $rust;
     background-color: $rust;
     color: $white;
-    margin-bottom: 10px;
+    outline: none;
+    margin-top: 5px;
   }
 
   .btn-secondary,
@@ -521,7 +523,6 @@ header .main-nav {
     color: $black;
     outline: none;
     margin-top: 5px;
-    margin-bottom: 10px;
   }
 
   .combobox-clear-button,

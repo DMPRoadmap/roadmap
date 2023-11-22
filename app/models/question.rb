@@ -123,7 +123,7 @@ class Question < ApplicationRecord
     copy = dup
     copy.modifiable = options.fetch(:modifiable, modifiable)
     copy.section_id = options.fetch(:section_id, nil)
-    copy.save!(validate: false)  if options.fetch(:save, false)
+    copy.save!(validate: false) if options.fetch(:save, false)
     options[:question_id] = copy.id
     question_options.each { |qo| copy.question_options << qo.deep_copy(**options) }
     annotations.each do |annotation|

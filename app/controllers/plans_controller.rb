@@ -275,8 +275,7 @@ class PlansController < ApplicationController
       @important_ggs << [org, ggs] if @default_orgs.include?(org)
 
       # If this is one of the already selected guidance groups its important!
-      @important_ggs << [org, ggs] if !ggs.intersect?(@selected_guidance_groups).nil? && !@important_ggs.include?([org,
-                                                                                                                   ggs])
+      @important_ggs << [org, ggs] if ggs.intersect?(@selected_guidance_groups) && !@important_ggs.include?([org, ggs])
     end
 
     # Sort the rest by org name for the accordion

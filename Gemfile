@@ -2,14 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.1'
+ruby '>= 3.2'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.0'
+gem 'rails', '~> 7.1'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -116,7 +116,7 @@ gem 'jwt'
 gem 'pundit'
 
 # Gem for throttling malicious attacks
-gem 'rack-attack', '~> 6.6', '>= 6.6.1'
+gem 'rack-attack'
 
 # ========== #
 # UI / VIEWS #
@@ -219,6 +219,10 @@ gem 'activerecord_json_validator'
 # https://github.com/rswag/rswag
 gem 'rswag-api'
 gem 'rswag-ui'
+
+# TZInfo::Data is the public domain IANA Time Zone Database packaged as a set of Ruby modules for use with TZInfo.
+# https://github.com/tzinfo/tzinfo-data
+gem 'tzinfo-data'
 
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
