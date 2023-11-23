@@ -74,19 +74,20 @@ function ResearchOutputs() {
 
       case "repository":
         var newObj = new DataObject(dataObj.getData());
+        newObj.repository = new DataRepository(dataObj.repository.getData());
+
         if (ev.data) {
-          newObj.repository = new DataRepository(ev.data);
-          // NOTE:: The lookup data returns the repository name as "name",
-          // but the DMP saves the repo name as "title". So we do a manual
-          // override here
-          newObj.repository.title = ev.data.name;
+          newObj.repository = new DataRepository(dataObj.repository.getData());
+          newObj.repository.host = ev.data;
           setDataObj(newObj);
         } else {
-          // Only reset /all/ the data if the repo was previously locked
-          if (newObj.repository.isLocked) {
-            newObj.repository = new DataRepository({});
-          }
           newObj.repository.title = value;
+
+          // Reset the host data if the repo was previously locked, but keep
+          // other fields intact
+          if (newObj.repository.isLocked) {
+            newObj.repository.host = {};
+          }
         }
         setDataObj(newObj);
         break;
