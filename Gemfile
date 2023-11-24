@@ -227,6 +227,10 @@ gem 'activerecord_json_validator'
 gem 'rswag-api'
 gem 'rswag-ui'
 
+# TZInfo::Data is the public domain IANA Time Zone Database packaged as a set of Ruby modules for use with TZInfo.
+# https://github.com/tzinfo/tzinfo-data
+gem 'tzinfo-data'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #

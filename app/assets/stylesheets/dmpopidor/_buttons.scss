@@ -14,8 +14,8 @@
   .btn-primary:visited,
   .btn-primary:active:hover,
   .btn-primary.active:hover {
-    border-color: $blue;
-    background-color: $blue;
+    border-color: $rust;
+    background-color: $rust;
     color: $white;
     outline: none;
     margin-top: 5px;
@@ -28,9 +28,9 @@
   .btn-default:visited,
   .btn-default:active:hover,
   .btn-default.active:hover {
-    border-color: $blue;
-    background-color: $white;
-    color: $blue;
+    border-color: $rust;
+    background-color: $rust;
+    color: $white;
     outline: none;
     margin-top: 5px;
   }

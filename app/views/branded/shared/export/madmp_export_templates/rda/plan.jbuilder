@@ -44,7 +44,7 @@ json.dmp do
                                                                                            is_person: true)
     end
   end
-  json.cost         dmp.costs do |cost|
+  json.cost dmp.costs do |cost|
     json.currency_code      cost.data["currency"]
     json.description        exportable_description(cost.data["description"]) || cost.data["costType"]
     json.title              cost.data["title"]

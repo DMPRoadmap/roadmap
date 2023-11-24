@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 17/11/2023
+- Correction de l'affichage du choix des recommandations (Carte KB #9917)
+- La recherche d'organisme n'est plus sensible aux accents (Carte KB #9844)
+- Mise à jour vers Ruby 3.2 & Rails 7.1
+
 ## 29/09/2023
 - Correction du problème de bande blanche sous le pied de page (ce problème venait d'une image ajoutée dans par le code Matomo, a voir si retirer cette image a une conséquence sur l'habilité de Matomo suivre les utilsateurs)
 - La recherche d'organisme lors de la création de compte ou dans le profil utilisateur peut désormas se faire sans accent.

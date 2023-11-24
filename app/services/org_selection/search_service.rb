@@ -15,10 +15,17 @@ module OrgSelection
         orgs = [] unless orgs.present?
         # If we got an exact match out of the database then skip the
         # external searches
-        matches = orgs.select do |org|
-          exact_match?(name1: org[:name], name2: search_term)
-        end
-        return orgs if matches.any?
+        # --------------------------------
+        # Start DMP OPIDoR Customization
+        # CHANGES: org search is no longer accent sensitive so we commented exact_match
+        # --------------------------------
+        # matches = orgs.select do |org|
+        #  exact_match?(name1: org[:name], name2: search_term)
+        # end
+        # --------------------------------
+        # End DMP OPIDoR Customization
+        # --------------------------------
+        return orgs if orgs.any?
 
         externals = externals_search(search_term: search_term)
         externals = [] unless externals.present?
