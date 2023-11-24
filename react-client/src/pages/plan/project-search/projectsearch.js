@@ -310,7 +310,7 @@ function ProjectSearch() {
               type="submit"
               className="primary"
               disabled={selected === null}>
-              Save &amp; Continue
+              Save & Continue
             </button>
           </div>
         </form>

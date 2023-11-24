@@ -411,7 +411,7 @@ function ResearchOutputs() {
                     {dmp.isRegistered ? "Back" : "Cancel"}
                   </button>
                   <button type="submit" className="primary">
-                    {dmp.isRegistered ? "Update" : "Save &amp; Continue"}
+                    {dmp.isRegistered ? "Update" : "Save & Continue"}
                   </button>
                 </>
               )}

@@ -181,7 +181,7 @@ function PlanFunders() {
             </button>
             {!dmp.isRegistered && (
               <button type="submit" className="primary">
-                Save &amp; Continue
+                Save & Continue
               </button>
             )}
           </div>

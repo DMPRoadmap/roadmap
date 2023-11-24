@@ -251,12 +251,12 @@ function PlanOverview() {
                 <button className="primary"
                   data-redirect="/dashboard"
                   onClick={handleRegister}>
-                  Register &amp; Return to Dashboard
+                  Register & Return to Dashboard
                 </button>
                 <button className="secondary"
                   data-redirect="/dashboard/dmp/new"
                   onClick={handleRegister}>
-                  Register &amp; Add Another Plan
+                  Register & Add Another Plan
                 </button>
               </>
             )}

@@ -187,7 +187,7 @@ function DmpSetup() {
           </button>
 
           <button type="submit" className="primary">
-            Save &amp; Continue
+            Save & Continue
           </button>
         </div>
       </form>
