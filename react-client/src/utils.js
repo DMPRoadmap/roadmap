@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+
 export function truncateText(text, maxLength) {
   if (text.length > maxLength) {
     return text.slice(0, maxLength) + "...";
@@ -7,6 +8,12 @@ export function truncateText(text, maxLength) {
     return text;
   }
 }
+
+
+export function stripTags(val) {
+    return val.replace(/<[^>]*>/g, '');
+}
+
 
 export function isEmpty(obj) {
   for (const prop in obj) {

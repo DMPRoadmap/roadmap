@@ -3,6 +3,7 @@ import {
   setProperty,
   formatBytes,
   convertToBytes,
+  stripTags,
 } from './utils.js';
 import { DmpApi } from "./api.js";
 import moment from 'moment';
@@ -377,7 +378,7 @@ export class RelatedWork extends Model {
 
   get doi() { return this.getData("identifier", ""); }
 
-  get citation() { return this.getData("citation", null); }
+  get citation() { return stripTags(this.getData("citation", "")); }
 
   get confidence() { return this.getData("confidence", ""); }
 
