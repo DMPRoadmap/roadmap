@@ -1,4 +1,10 @@
-import { getValue, setProperty } from './utils.js';
+import {
+  getValue,
+  setProperty,
+  formatBytes,
+  convertToBytes,
+  stripTags,
+} from './utils.js';
 import { DmpApi } from "./api.js";
 import moment from 'moment';
 
@@ -267,8 +273,7 @@ export class Project extends Model {
 export class DataObject extends Model {
   constructor(data) {
     super(data);
-
-    this.repository = new DataRepository(this.getData("distribution.0.host", {}));
+    this.repository = new DataRepository(this.getData("distribution.0", {}));
   }
 
   get title() { return this.getData("title", ""); }
@@ -296,23 +301,49 @@ export class DataObject extends Model {
   }
 
   commit() {
-    this.setData("distribution", [{ host: this.repository.getData() }]);
+    this.setData("distribution.0", this.repository.getData());
   }
 }
 
 
 export class DataRepository extends Model {
-  get title() { return this.getData("title", ""); }
-  set title(val) { this.setData("title", val); }
 
-  get url() { return this.getData("url", ""); }
-  set url(val) { this.setData("url", val); }
+  set host(hostData) {
+    // NOTE:: The lookup data returns the repository name as "name",
+    // but the DMP saves the repo name as "title". So we do some manual
+    // work here
+    if (hostData.hasOwnProperty('name')) {
+      hostData['title'] = hostData['name'];
+      delete hostData['name'];
+    }
+    this.setData("host", hostData);
+  }
 
-  get description() { return this.getData("description", ""); }
-  set description(val) { this.setData("description", val); }
+  get title() { return this.getData("host.title", ""); }
+  set title(val) { this.setData("host.title", val); }
+
+  get url() { return this.getData("host.url", ""); }
+  set url(val) { this.setData("host.url", val); }
+
+  get description() { return this.getData("host.description", ""); }
+  set description(val) { this.setData("host.description", val); }
+
+  get repoId() { return this.getData("host.dmproadmap_host_id.identifier", ""); }
+
+  /* Returns a map containing the value and unit */
+  get size() {
+    return formatBytes(this.getData("byte_size", 0), 2);
+  }
+
+  setSize(value, unit) {
+    if (typeof unit === "undefined") {
+      throw Error("Cannot call setSize with undefined units");
+    }
+    this.setData("byte_size", convertToBytes(value, unit));
+  }
 
   get isLocked() {
-    if (this.getData("dmproadmap_host_id.identifier", "") === "") {
+    if (this.repoId === "") {
       return false;
     } else {
       return true;
@@ -347,7 +378,7 @@ export class RelatedWork extends Model {
 
   get doi() { return this.getData("identifier", ""); }
 
-  get citation() { return this.getData("citation", null); }
+  get citation() { return stripTags(this.getData("citation", "")); }
 
   get confidence() { return this.getData("confidence", ""); }
 

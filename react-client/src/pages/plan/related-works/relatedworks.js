@@ -430,7 +430,7 @@ function RelatedWorksPage() {
                     {dmp.isRegistered ? "Back" : "Cancel"}
                   </button>
                   <button type="submit" className="primary">
-                    Save &amp; Continue
+                    Save & Continue
                   </button>
                 </>
               )}

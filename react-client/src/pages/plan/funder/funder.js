@@ -178,14 +178,16 @@ function PlanFunders() {
               )}
             </div>
 
-            <div className="form-actions ">
-              <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
-                {dmp.isRegistered ? "Back" : "Cancel"}
+
+
+          <div className="form-actions ">
+            <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
+              {dmp.isRegistered ? "Back" : "Cancel"}
+            </button>
+            {!dmp.isRegistered && (
+              <button type="submit" className="primary">
+                Save & Continue
               </button>
-              {!dmp.isRegistered && (
-                <button type="submit" className="primary">
-                  Save &amp; Continue
-                </button>
               )}
             </div>
           </form>

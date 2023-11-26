@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+
 export function truncateText(text, maxLength) {
   if (text.length > maxLength) {
     return text.slice(0, maxLength) + "...";
@@ -7,6 +8,12 @@ export function truncateText(text, maxLength) {
     return text;
   }
 }
+
+
+export function stripTags(val) {
+    return val.replace(/<[^>]*>/g, '');
+}
+
 
 export function isEmpty(obj) {
   for (const prop in obj) {
@@ -45,6 +52,40 @@ export function setProperty(obj, path, value) {
   }
 }
 
+
+export const fileSizeUnits = ["Bytes", "KB", "MB", "GB", "TB"];
+
+export function formatBytes(bytes, decimals) {
+  if(bytes == 0) return {value: 0, unit: 'Bytes'};
+  var k = 1024,
+      dm = decimals || 2,
+      i = Math.floor(Math.log(bytes) / Math.log(k));
+  return {
+    value: parseFloat((bytes / Math.pow(k, i)).toFixed(dm)),
+    unit: fileSizeUnits[i],
+  };
+}
+
+export function convertToBytes(value, unit) {
+    let bytes = 0;
+    switch (unit.toLowerCase()) {
+        case 'tb':
+            bytes = value * Math.pow(1024, 4);
+            break;
+        case 'gb':
+            bytes = value * Math.pow(1024, 3);
+            break;
+        case 'mb':
+            bytes = value * Math.pow(1024, 2);
+            break;
+        case 'kb':
+            bytes = value * 1024;
+            break;
+        default:
+            bytes = value;
+    }
+    return bytes;
+}
 
 export function useDebounce(val, delay) {
   const [debouncedValue, setDebouncedValue] = useState(val);

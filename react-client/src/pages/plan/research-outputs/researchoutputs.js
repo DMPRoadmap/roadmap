@@ -13,12 +13,14 @@ import {
   saveDmp,
   getOutputTypes
 } from "../../../models.js";
+import { fileSizeUnits } from "../../../utils.js";
 
 import TextInput from "../../../components/text-input/textInput.js";
 import TextArea from "../../../components/textarea/textArea.js";
 import Select from "../../../components/select/select.js";
 import RadioButton from "../../../components/radio/radio";
 import LookupField from "../../../components/lookup-field.js";
+import SizeInput from "../../../components/size-input.js";
 import Spinner from "../../../components/spinner";
 
 import "./researchoutputs.scss";
@@ -26,6 +28,8 @@ import "./researchoutputs.scss";
 
 function ResearchOutputs() {
   let navigate = useNavigate();
+  let sizeUnits = {};
+  fileSizeUnits.forEach(v => sizeUnits[v] = v);
 
   const { dmpId } = useParams();
   const [dmp, setDmp] = useState(null);
@@ -70,18 +74,20 @@ function ResearchOutputs() {
 
       case "repository":
         var newObj = new DataObject(dataObj.getData());
+        newObj.repository = new DataRepository(dataObj.repository.getData());
+
         if (ev.data) {
-          newObj.repository = new DataRepository(ev.data);
-          // NOTE:: The lookup data returns the repository name as "name",
-          // but the DMP saves the repo name as "title".
-          newObj.repository.title = ev.data.name;
+          newObj.repository = new DataRepository(dataObj.repository.getData());
+          newObj.repository.host = ev.data;
           setDataObj(newObj);
         } else {
-          // Only reset /all/ the data if the repo was previously locked
-          if (newObj.repository.isLocked) {
-            newObj.repository = new DataRepository({});
-          }
           newObj.repository.title = value;
+
+          // Reset the host data if the repo was previously locked, but keep
+          // other fields intact
+          if (newObj.repository.isLocked) {
+            newObj.repository.host = {};
+          }
         }
         setDataObj(newObj);
         break;
@@ -97,8 +103,14 @@ function ResearchOutputs() {
         newObj.repository.url = value;
         setDataObj(newObj);
         break;
-
     }
+  }
+
+
+  function handleSizeChanged(data) {
+    var newObj = new DataObject(dataObj.getData());
+    newObj.repository.setSize(data.value, data.unit);
+    setDataObj(newObj);
   }
 
 
@@ -283,6 +295,20 @@ function ResearchOutputs() {
 
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
+                    <SizeInput
+                      label="Repository Size"
+                      name="size"
+                      id="id_size"
+                      unitOptions={sizeUnits}
+                      initialValue={dataObj.repository.size.value}
+                      initialUnit={dataObj.repository.size.unit}
+                      onChange={handleSizeChanged}
+                    />
+                  </div>
+                </div>
+
+                <div className="dmpui-form-cols">
+                  <div className="dmpui-form-col">
                     <h3>Repository</h3>
                     <LookupField
                       label="Name"
@@ -395,7 +421,7 @@ function ResearchOutputs() {
                     {dmp.isRegistered ? "Back" : "Cancel"}
                   </button>
                   <button type="submit" className="primary">
-                    {dmp.isRegistered ? "Update" : "Save &amp; Continue"}
+                    {dmp.isRegistered ? "Update" : "Save & Continue"}
                   </button>
                 </>
               )}

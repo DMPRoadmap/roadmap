@@ -81,7 +81,14 @@ function DmpSetup() {
         // (due to the PDF narrative)
         options.method = "put";
 
-        fetch(api.getPath(`/drafts/${dmpId}/narrative`), options)
+        let prefix;
+        if (dmp.isRegistered) {
+          prefix = "dmps";
+        } else {
+          prefix = "drafts";
+        }
+
+        fetch(api.getPath(`/${prefix}/${dmp.id}/narrative`), options)
           .then((resp) => {
             api.handleResponse(resp);
             return resp.json();
@@ -180,7 +187,7 @@ function DmpSetup() {
           </button>
 
           <button type="submit" className="primary">
-            Save &amp; Continue
+            Save & Continue
           </button>
         </div>
       </form>

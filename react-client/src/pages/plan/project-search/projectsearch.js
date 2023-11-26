@@ -327,16 +327,17 @@ function ProjectSearch() {
 
 
             <div className="form-actions ">
-              <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmpId}`)}>
-                Cancel
-              </button>
 
-              <button
-                type="submit"
-                className="primary"
-                disabled={selected === null}>
-                Save &amp; Continue
-              </button>
+            <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmpId}`)}>
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              className="primary"
+              disabled={selected === null}>
+              Save & Continue
+            </button>
             </div>
           </form>
         </div>

@@ -31,14 +31,17 @@ function Select(props) {
 
         <div className="dmpui-field-input-group">
           <select
-            value={props.inputValue}
             name={props?.name ? props.name : ""}
+            value={props?.inputValue ? props.inputValue : ""}
             onChange={handleChange}
             aria-describedby={props?.id ? props.id + "-description" : ""}
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
             className="dmpui-field-input-text select"
           >
-            <option>Select one</option>
+            {props.emptyText && (
+              <option value="">{props.emptyText}</option>
+            )}
+
             {props.options &&
               Object.keys(props.options).map((key) => {
                 return (
@@ -46,7 +49,8 @@ function Select(props) {
                     {props.options[key]}
                   </option>
                 );
-              })}
+              })
+            }
           </select>
         </div>
       </div>
