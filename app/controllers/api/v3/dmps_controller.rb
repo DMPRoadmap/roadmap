@@ -54,7 +54,7 @@ module Api
       def update
         # TODO: In the new system, change this so it has its own endpoint!
         on_narrative_page = params[:id].end_with?('/narrative')
-        dmp = on_narrative_page ? prep_for_narrative_update : DmpIdService.fetch_dmp_id(dmp_id: params[:id])
+        dmp = on_narrative_page ? prep_for_narrative_update : prep_for_update
         render_error(errors: DraftsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
 
         authed = user_is_authorized(dmp: dmp.fetch('dmp', {}))
@@ -119,6 +119,13 @@ module Api
         # The admin is an Admin for one of the Orgs identified on the DMP record
         # OR they were the original creator of the draft
         orgs.include?(current_org) || (original_draft.present? && current_user.id == original_draft.user_id)
+      end
+
+      # process an update for the DMP's metadata
+      def prep_for_update
+        dmp_id = dmp_params.fetch('dmp_id', {})['identifier']
+        dmp = DmpIdService.fetch_dmp_id(dmp_id: dmp_id)
+        dmp.present? ? JSON.parse({ dmp: dmp_params.to_h }.to_json) : nil
       end
 
       # Process an update from the DMP Upload form's page that allows the narrative document to be uploaded
