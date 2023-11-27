@@ -13,9 +13,11 @@ Locals:
 :search_path    - the path to controller endpoint that will perform the search
 :search_method  - the http method used to perform the search
 :no_results_msg - a custom message to display when the search/filters returned no results
+:readonly       - whether or not to display the Remove button
 %>
 
 <%
+readonly = local_assigns.fetch(:readonly, false)
 results = results || []
 selected = selected || false
 no_results_msg = no_results_msg || _("No results matched your filter criteria.")
@@ -41,7 +43,8 @@ no_results_msg = no_results_msg || _("No results matched your filter criteria.")
                selected: selected,
                result_partial: result_partial,
                search_path: search_path,
-               search_method: search_method
+               search_method: search_method,
+               readonly: readonly
              }%>
   <hr>
 <% end %>

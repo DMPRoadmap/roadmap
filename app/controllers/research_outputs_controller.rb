@@ -6,7 +6,7 @@ class ResearchOutputsController < ApplicationController
 
   before_action :fetch_plan, except: %i[select_output_type select_license repository_search
                                         metadata_standard_search]
-  before_action :fetch_research_output, only: %i[edit update destroy]
+  before_action :fetch_research_output, only: %i[show edit update destroy]
 
   after_action :verify_authorized
 
@@ -23,6 +23,13 @@ class ResearchOutputsController < ApplicationController
     @has_preferred_repos = TemplateRepository.where(template: @plan.template).any?
     @has_preferred_standards = MetadataStandard.by_template(@plan.template.id).any?
     authorize @research_output
+  end
+
+  # GET /plans/:plan_id/research_outputs/:id
+  def show
+    authorize @research_output
+    @has_preferred_repos = TemplateRepository.where(template: @plan.template).any?
+    @has_preferred_standards = MetadataStandard.by_template(@plan.template.id).any?
   end
 
   # GET /plans/:plan_id/research_outputs/:id/edit

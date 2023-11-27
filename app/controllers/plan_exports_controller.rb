@@ -134,10 +134,6 @@ class PlanExportsController < ApplicationController
       encoding: 'utf8'
     }
 
-pp Rails.configuration.x
-puts "INCLUDE THE FOOTER? #{Rails.configuration.x.application.include_footer_in_pdfs}"
-puts "INCLUDE THE FOOTER? #{Rails.configuration.x.dmproadmap.include_footer_in_pdfs}"
-
     render pdf: file_name,
            margin: @formatting[:margin],
            # wkhtmltopdf behavior is based on the OS so force the zoom level
