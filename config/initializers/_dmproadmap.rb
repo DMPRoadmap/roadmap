@@ -100,6 +100,9 @@ module DMPRoadmap
     config.x.application.guidance_comments_toggleable = true
     config.x.application.guidance_comments_opened_by_default = true
 
+    # Whether or not to include the footer in the PDF downloads
+    config.x.application.include_footer_in_pdfs = false
+
     # ------------------- #
     # SHIBBOLETH SETTINGS #
     # ------------------- #
