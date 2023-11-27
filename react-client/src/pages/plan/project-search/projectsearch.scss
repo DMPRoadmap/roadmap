@@ -1,6 +1,10 @@
 @import '../../../components/responsive';
 
 .project-list {
+  // We have to override some of the grid settings here because we need to
+  // style the selected row. We cannot style the row-wrapper in this case.
+  grid-gap: 0;
+  align-items: stretch;
 
   @include device(tablet) {
     grid-template-columns: 3fr 1fr 1fr;
@@ -9,10 +13,14 @@
   .row-wrapper {
     display: contents;
 
+    // Compensate for the grid gap
+    & > div {
+      padding: 0.5rem;
+    }
+
     &.selected > div {
       background-color: var(--grid-row-selected-bg);
       color: var(--grid-row-selected-fg);
-      border-bottom: var(--grid-row-selected-border);
     }
   }
 }
