@@ -307,6 +307,7 @@ export class DataObject extends Model {
 
 
 export class DataRepository extends Model {
+  #_size;
 
   set host(hostData) {
     // NOTE:: The lookup data returns the repository name as "name",
@@ -332,7 +333,15 @@ export class DataRepository extends Model {
 
   /* Returns a map containing the value and unit */
   get size() {
-    return formatBytes(this.getData("byte_size", 0), 2);
+    if (!this.#_size) {
+      let val = this.getData("byte_size", 0);
+      if (typeof val === "string") {
+        val = Math.floor(parseFloat(val));
+      }
+      this.#_size = formatBytes(val, 2);
+      console.log(this.#_size);
+    }
+    return this.#_size;
   }
 
   setSize(value, unit) {
