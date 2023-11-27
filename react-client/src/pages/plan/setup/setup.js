@@ -17,6 +17,7 @@ function DmpSetup() {
   const {dmpId} = useParams();
   const [dmp, setDmp] = useState(new DmpModel({}));
   const [errors, setErrors] = useState(new Map());
+  const [working, setWorking] = useState(false);
 
   useEffect(() => {
     if (typeof dmpId !== "undefined") {
@@ -47,6 +48,7 @@ function DmpSetup() {
 
   async function handleSubmit(ev) {
     ev.preventDefault();
+    setWorking(true);
 
     let api = new DmpApi();
     let formData = new FormData(ev.target);
@@ -73,6 +75,10 @@ function DmpSetup() {
           .then((data) => {
             let newDmp = new DmpModel(data.items[0].dmp);
             navigate(`/dashboard/dmp/${newDmp.id}/funders`);
+          }).catch((e) => {
+            console.log("Error saving DMP");
+            console.log(e);
+            setWorking(false);
           });
 
       } else {
@@ -96,6 +102,10 @@ function DmpSetup() {
           .then((data) => {
             let newDmp = new DmpModel(data.items[0].dmp);
             navigate(`/dashboard/dmp/${newDmp.id}`);
+          }).catch((e) => {
+            console.log("Error saving DMP");
+            console.log(e);
+            setWorking(false);
           });
       }
     } else {
@@ -176,19 +186,18 @@ function DmpSetup() {
         </div>
 
         <div className="form-actions ">
-          <button type="button" onClick={() => {
-            if (dmpId) {
-              navigate(`/dashboard/dmp/${dmp.id}`);
-            } else {
-              navigate('/dashboard');
-            }
-          }}>
-            Cancel
-          </button>
-
-          <button type="submit" className="primary">
-            Save & Continue
-          </button>
+          {working ? (
+            <Spinner isActive={working} message="" className="empty-list" />
+          ) : (
+            <>
+              <button type="button" onClick={() => navigate(`/dashboard/dmp/${dmp.id}`)}>
+                {dmp.isRegistered ? "Back" : "Cancel"}
+              </button>
+              <button type="submit" className="primary">
+                {dmp.isRegistered ? "Update" : "Save & Continue"}
+              </button>
+            </>
+          )}
         </div>
       </form>
     </div>

@@ -571,12 +571,10 @@ export class DmpModel extends Model {
       relatedCount += pending.length;
     });
     if (relatedCount === 0) {
-      relatedCount = this.relatedWorks.items.length;
-      relatedStatus = ["completed", `${relatedCount} Items Approved`];
+      relatedStatus = ["completed", `${relatedCount} Items Pending`];
     } else {
       relatedStatus = ["recommended", `${relatedCount} Items Pending`];
     }
-
 
     return {
       setup: setupStatus,

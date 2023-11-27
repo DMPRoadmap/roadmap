@@ -44,7 +44,8 @@ function LookupField(props) {
           return resp.json();
         })
         .then((data) => {
-          setSuggestions(data.items);
+          let newItems = [{name: props.inputValue}, ...data.items];
+          setSuggestions(newItems);
           setShowSuggestionSpinner(false);
         })
         .catch((err) => {
