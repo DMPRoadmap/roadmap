@@ -596,7 +596,22 @@ export class DmpModel extends Model {
   }
 
   get narrative() {
-    return this.getDraftData("narrative", null);
+    if (this.isRegistered) {
+      let rel = this.getData("dmproadmap_related_identifiers", []);
+      if (rel.length == 0) return null;
+
+      let pdf = rel.find(i => {
+        if (!(i.work_type || i.descriptor)) return false;
+        return (
+          i.work_type == "output_management_plan" &&
+          i.descriptor == "is_metadata_for"
+        );
+      });
+      pdf.file_name = pdf.identifier.split('/').pop();
+      return pdf;
+    } else {
+      return this.getDraftData("narrative", null);
+    }
   }
 
   /* NOTE
