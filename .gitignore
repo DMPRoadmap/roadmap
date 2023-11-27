@@ -135,5 +135,9 @@ yarn-debug.log*
 !/app/assets/builds/.keep
 !/app/assets/builds/.gitkeep
 
+# Ignore local ActiveStorage
+storage/
+
+
 # Ignore briley AWS cloud9 script to start the application
 cloud9-start.sh

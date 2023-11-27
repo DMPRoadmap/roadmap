@@ -65,6 +65,7 @@ class DmproadmapConfig < Anyway::Config
               :extract_security_privacy_statements_from_themed_questions,
               :google_analytics_tracker_root,
               :helpdesk_email,
+              :include_footer_in_pdfs,
               :issue_list_url,
               :locales_default,
               :locales_gettext_join_character,

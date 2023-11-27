@@ -3,6 +3,8 @@
 <%
 presenter = ResearchOutputPresenter.new(research_output: research_output)
 
+readonly = readonly ||= false
+
 abbrev_tooltip = _("Your research output abbreviation can be used as a reference when answering this plan's questions.")
 personal_data_tooltip = _("Any data that could potentially identify a specific individual. Any information that can be used to distinguish one person from another and can be used for de-anonymizing anonymous data can be considered personally identifiable data. (From https://codata.org/rdm-glossary/personally-identifiable-information/)")
 repository_tooltip = _("Repositories preserve, manage, and provide access to many types of digital materials in a variety of formats. Materials in online repositories are curated to enable search, discovery, and reuse. There must be sufficient control for the digital material to be authentic, reliable, accessible and usable on a continuing basis. (From https://codata.org/rdm-glossary/personally-identifiable-information/)")
@@ -18,19 +20,28 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
     <div class="col-md-12">
       <span class="col-md-3" aria-hidden="true" data-toggle="tooltip" title="<%= @plan.template.user_guidance_output_types %>">
+        <%
+        opts = {
+          class: "form-control",
+          aria: { required: true, label: _("Research output type") },
+          data: { remote: true, url: plan_output_type_selection_path(plan), method: :get }
+        }
+        opts[:disabled] = 'disabled' if readonly
+        %>
         <%= f.select :research_output_type, options_for_select(presenter.selectable_output_types, f.object.research_output_type),
                      {
                        include_blank: _("- Please select one -"),
                        selected: (research_output.research_output_type.present? ? research_output.research_output_type : "" )
-                     }, {
-                       class: "form-control",
-                       aria: { required: true, label: _("Research output type") },
-                       data: { remote: true, url: plan_output_type_selection_path(plan), method: :get }
-                     } %>
+                     }, opts %>
       </span>
       <span class="col-md-5 output-type-description <%= research_output.other? ? "" : "hidden" %>">
-        <%= f.text_field :output_type_description, class: "form-control",
-                                                   aria: { required: research_output.other? } %>
+        <% if readonly %>
+          <%= f.text_field :output_type_description, class: "form-control", disabled: "disabled",
+                           aria: { required: research_output.other? } %>
+        <% else %>
+          <%= f.text_field :output_type_description, class: "form-control",
+                                                    aria: { required: research_output.other? } %>
+        <% end %>
       </span>
     </div>
   </div>
@@ -46,11 +57,20 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
     <div class="col-md-12">
       <span class="col-md-6" aria-hidden="true">
-        <%= f.text_field :title, class: "form-control", aria: { required: true } %>
+        <% if readonly %>
+          <%= f.text_field :title, class: "form-control", aria: { required: true }, disabled: "disabled" %>
+        <% else %>
+          <%= f.text_field :title, class: "form-control", aria: { required: true } %>
+        <% end %>
       </span>
       <span class="col-md-2">
-        <%= f.text_field :abbreviation, class: "form-control", title: abbrev_tooltip,
-                                        maxlength: 10, data: { toggle: "tooltip" } %>
+        <% if readonly %>
+          <%= f.text_field :abbreviation, class: "form-control", title: abbrev_tooltip,
+                           maxlength: 10, data: { toggle: "tooltip" }, disabled: "disabled" %>
+        <% else %>
+          <%= f.text_field :abbreviation, class: "form-control", title: abbrev_tooltip,
+                                          maxlength: 10, data: { toggle: "tooltip" } %>
+        <% end %>
       </span>
     </div>
   </div>
@@ -60,7 +80,11 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
     <div class="col-md-12">
       <span class="col-md-8 wysiwyg-block" aria-hidden="true">
-        <%= f.text_area :description, rows: 4, class: 'form-control tinymce', data: { toggle: "tooltip" }, aria: { labelledby: 'research-output-description' } %>
+        <% if readonly %>
+          <%= f.text_area :description, rows: 4, class: 'form-control', data: { toggle: "tooltip" }, aria: { labelledby: 'research-output-description' }, disabled: "disabled" %>
+        <% else %>
+          <%= f.text_area :description, rows: 4, class: 'form-control tinymce', data: { toggle: "tooltip" }, aria: { labelledby: 'research-output-description' } %>
+        <% end %>
       </span>
     </div>
   </div>
@@ -69,14 +93,23 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     <div class="col-md-12">
       <span class="col-md-4">
         <%= f.label :sensitive_data do %>
-          <%= f.check_box :sensitive_data, data: { toggle: "tooltip" } %>
+          <% if readonly %>
+            <%= f.check_box :sensitive_data, data: { toggle: "tooltip" }, disabled: "disabled" %>
+          <% else %>
+            <%= f.check_box :sensitive_data, data: { toggle: "tooltip" } %>
+          <% end %>
           <%= _('May contain sensitive data?') %>
         <% end %>
       </span>
       <span class="col-md-4">
         <%= f.label :personal_data do %>
-          <%= f.check_box :personal_data, data: { toggle: "tooltip" },
-                          title: personal_data_tooltip %>
+          <% if readonly %>
+            <%= f.check_box :personal_data, data: { toggle: "tooltip" },
+                            title: personal_data_tooltip, disabled: "disabled" %>
+          <% else %>
+            <%= f.check_box :personal_data, data: { toggle: "tooltip" },
+                            title: personal_data_tooltip %>
+          <% end %>
           <%= _('May contain personally identifiable information?') %>
         <% end %>
       </span>
@@ -104,7 +137,8 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
                   search_path: plan_repository_search_path(research_output.plan),
                   search_method: :get,
                   guidance: @plan.template.user_guidance_repositories,
-                  preload: @plan.template.preload_repositories?
+                  preload: @plan.template.preload_repositories?,
+                  readonly: readonly
                 } %>
     </div>
   <% end %>
@@ -129,7 +163,8 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
                   search_path: plan_metadata_standard_search_path(research_output.plan),
                   search_method: :get,
                   guidance: @plan.template.user_guidance_metadata_standards,
-                  preload: @plan.template.preload_metadata_standards?
+                  preload: @plan.template.preload_metadata_standards?,
+                  readonly: readonly
                 } %>
     </div>
   <% end %>
@@ -149,9 +184,15 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
     <div class="col-md-12">
       <span class="col-md-4">
-        <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
-                              { selected: f.object.access },
-                              { class: "form-control" } %>
+        <% if readonly %>
+          <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
+                                { selected: f.object.access },
+                                { class: "form-control", disabled: "disabled" } %>
+        <% else %>
+          <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
+                                { selected: f.object.access },
+                                { class: "form-control" } %>
+        <% end %>
       </span>
       <span class="col-md-6">
         <%= _('Data in controlled access databases are available to investigators only after review of their proposed research use. Data in unrestricted access databases are publicly available to anyone.') %>
@@ -162,7 +203,11 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     <div class="col-md-12">
       <span class="col-md-4">
         <%= f.label(:release_date, _("Anticipated release date"), class: "control-label") %>
-        <%= f.date_field :release_date, class: "form-control" %>
+        <% if readonly %>
+          <%= f.date_field :release_date, class: "form-control", disabled: "disabled" %>
+        <% else %>
+          <%= f.date_field :release_date, class: "form-control" %>
+        <% end %>
       </span>
     </div>
   </div>
@@ -170,7 +215,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   <% if Rails.configuration.x.madmp.enable_license_selection && License.all.any? %>
     <div class="form-group row license-selection">
       <%= render partial: "research_outputs/licenses/form",
-                locals: { research_output: research_output, presenter: presenter } %>
+                locals: { research_output: research_output, presenter: presenter, readonly: readonly } %>
     </div>
   <% end %>
 
@@ -183,13 +228,24 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     <div class="col-md-12">
       <span class="col-md-2">
         <% file_size = presenter.converted_file_size(size: f.object.byte_size) %>
-        <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size], class: "form-control", aria: { label: _("Anticipated file size") } %>
+        <% if readonly %>
+          <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size], class: "form-control", disabled: "disabled", aria: { label: _("Anticipated file size") } %>
+        <% else %>
+          <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size], class: "form-control", aria: { label: _("Anticipated file size") } %>
+        <% end %>
       </span>
       <span class="col-md-1">
-        <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units, file_size[:unit]),
-                                       { selected: file_size[:unit] },
-                                       { class: "form-control float-left",
-                                         aria: { label: _('File size units') } } %>
+        <% if readonly %>
+          <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units, file_size[:unit]),
+                                        { selected: file_size[:unit] },
+                                        { class: "form-control float-left", disabled: "disabled",
+                                          aria: { label: _('File size units') } } %>
+        <% else %>
+          <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units, file_size[:unit]),
+                                        { selected: file_size[:unit] },
+                                        { class: "form-control float-left",
+                                          aria: { label: _('File size units') } } %>
+        <% end %>
       </span>
     </div>
   </div>
@@ -197,18 +253,24 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   <div class="form-group row">
     <div class="col-md-12">
       <div class="col-md-6">
-        <%= f.button(_("Save"), class: "btn btn-default", type: "submit") %>
-        <% unless research_output.new_record? %>
-          <%= link_to _("Remove"), plan_research_output_path(plan, research_output),
-                                   method: :delete, class: "btn btn-default" %>
-          <% end %>
-          <%= link_to _("Cancel"), plan_research_outputs_path(plan),
-                                   class: "btn btn-default" %>
+        <% if readonly %>
+          <%= link_to _("Back"), plan_research_outputs_path(plan), class: "btn btn-default" %>
+        <% else %>
+          <%= f.button(_("Save"), class: "btn btn-default", type: "submit") %>
+          <% unless research_output.new_record? %>
+            <%= link_to _("Remove"), plan_research_output_path(plan, research_output),
+                                    method: :delete, class: "btn btn-default" %>
+            <% end %>
+            <%= link_to _("Cancel"), plan_research_outputs_path(plan),
+                                    class: "btn btn-default" %>
+        <% end %>
       </div>
     </div>
   </div>
 <% end %>
 
-<%= render partial: "research_outputs/repositories/search", locals: { research_output: research_output } %>
+<% unless readonly %>
+  <%= render partial: "research_outputs/repositories/search", locals: { research_output: research_output } %>
 
-<%= render partial: "research_outputs/metadata_standards/search", locals: { research_output: research_output } %>
+  <%= render partial: "research_outputs/metadata_standards/search", locals: { research_output: research_output } %>
+<% end %>

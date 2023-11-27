@@ -18,11 +18,9 @@
       <th scope="col">
         <%= _("Access level") %>
       </th>
-      <% if @plan.administerable_by?(current_user.id) %>
-        <th scope="col" class="sorter-false">
-          <span aria-hidden="false" class="sr-only"><%= _("Actions") %></span>
-        </th>
-      <% end %>
+      <th scope="col" class="sorter-false">
+        <span aria-hidden="false" class="sr-only"><%= _("Actions") %></span>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -57,6 +55,10 @@
                 </li>
               </ul>
             </div>
+          </td>
+        <% else %>
+          <td>
+            <%= link_to _('View'), plan_research_output_path(plan_id: @plan.id, id: output.id) %></li>
           </td>
         <% end %>
       </tr>

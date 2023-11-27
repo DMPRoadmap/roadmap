@@ -22,6 +22,10 @@ class ResearchOutputPolicy < ApplicationPolicy
     @research_output.plan.administerable_by?(@user.id)
   end
 
+  def show?
+    @research_output.plan.readable_by?(@user.id)
+  end
+
   def edit?
     @research_output.plan.administerable_by?(@user.id)
   end
