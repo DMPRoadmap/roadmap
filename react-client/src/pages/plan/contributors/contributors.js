@@ -30,6 +30,9 @@ function Contributors() {
 
   useEffect(() => {
     getDmp(dmpId).then((initial) => {
+      // Force the validation to run silently, so that we can detect contribuor
+      // errors
+      initial.isValid();
       setDmp(initial);
     });
 
@@ -145,6 +148,15 @@ function Contributors() {
     ev.preventDefault();
     setWorking(true);
 
+    // Force the validation to run silently, so that we can detect contribuor
+    // errors
+    if (!dmp.isValid()) {
+      if (dmp.errors.has("contributors")) {
+        setWorking(false);
+        return
+      }
+    }
+
     saveDmp(dmp).then(() => {
       navigate(`/dashboard/dmp/${dmp.id}`);
     }).catch((e) => {
@@ -162,6 +174,11 @@ function Contributors() {
       <div id="Contributors">
         <div className="dmpui-heading">
           <h1>Contributors</h1>
+            {dmp.errors.get("contributors") && (
+              <div className="dmpui-field-error">
+                {dmp.errors.get("contributors")}
+              </div>
+            )}
         </div>
         <p>
           Tell us about the project contributors for your project and, designate
