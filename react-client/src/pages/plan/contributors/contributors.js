@@ -255,7 +255,7 @@ function Contributors() {
 
                 <div className="dmpui-form-cols" tabIndex={-1} id="errors">
                   {contributor.errors && contributor.errors.size > 0 && (
-                    <div className="dmpui-form-col">
+                    <div className="dmpui-form-col" >
                       <p>There has been some errors</p>
                       <ul>
                         {Array.from(contributor.errors).map(([key, value]) => (
