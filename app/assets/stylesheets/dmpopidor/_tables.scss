@@ -8,27 +8,40 @@
   */
   .table {
     border: none;
+    border-collapse: separate;
 
     // Header cells
 
     thead>tr>th {
+      background-color: $dark-blue;
+      padding: 15px;
+      border: 1px solid $dark-blue;
+      border-bottom: none;
+      vertical-align: middle;
       &:first-child {
-        border-radius: 20px 0 0 0;
+        border-top-left-radius: 20px;
       }
-
       &:last-child {
-        border-radius: 0 20px 0 0;
+        border-top-right-radius: 20px;
+      }
+      &:not(:last-child) {
+        border-right: 1px solid white;
       }
     }
 
     // Cells and Cells borders
     tbody>tr>td {
-      border: none;
+      width: 100%;
+      border: 1px solid $dark-blue;
+      border-top: none;
 
       input.set_test_plan {
         display: none;
       }
 
+      &:not(:first-child) {
+        border-left: none;
+      }
       &:not(:last-child) {
         border-right: 1px solid white;
       }
@@ -44,6 +57,9 @@
         flex-direction: row;
         justify-content: space-around;
       }
+    }
+    tbody>tr:first-child>td {
+      border-top: 1px solid $dark-blue;
     }
 
     tbody>tr:nth-child(odd) {
@@ -72,14 +88,6 @@
         // links & fontawesome icons
         color: white;
       }
-    }
-
-    // Header cells background
-    thead>tr>th {
-      background-color: $dark-blue;
-      padding: 15px;
-      border: none;
-      border-left: 1px solid $white;
     }
 
     a {
