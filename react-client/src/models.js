@@ -339,7 +339,6 @@ export class DataRepository extends Model {
         val = Math.floor(parseFloat(val));
       }
       this.#_size = formatBytes(val, 2);
-      console.log(this.#_size);
     }
     return this.#_size;
   }
