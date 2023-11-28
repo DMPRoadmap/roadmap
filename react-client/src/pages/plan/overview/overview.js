@@ -21,6 +21,9 @@ function PlanOverview() {
   const [dmp, setDmp] = useState(null);
   const [working, setWorking] = useState(false);
 
+  const [serverErrorMessage, setServerErrorMessage] = useState();
+
+
   useEffect(() => {
     getDmp(dmpId).then((initial) => {
       setDmp(initial);
@@ -43,7 +46,7 @@ function PlanOverview() {
   async function handleUpdateDmp(ev) {
     ev.preventDefault();
     setWorking(true);
-
+    setServerErrorMessage("");
     if (dmp.isValid()) {
       saveDmp(dmp).then((savedDmp) => {
         setDmp(savedDmp);
@@ -51,8 +54,11 @@ function PlanOverview() {
       }).catch(err => {
         setWorking(false);
         console.log("Bad response from server");
-        console.log(err.resp);
         console.log(err);
+        setServerErrorMessage("There was a problem registering your plan. Please try again later.");
+
+
+
       });
     } else {
       setWorking(false);
@@ -66,7 +72,7 @@ function PlanOverview() {
     ev.preventDefault();
     setWorking(true);
     document.getElementById("dmpui-status").focus();
-
+    setServerErrorMessage("");
 
     if (dmp.isValid()) {
       saveDmp(dmp).then((savedDmp) => {
@@ -76,9 +82,12 @@ function PlanOverview() {
           navigate(redirectUrl);
         }).catch(err => {
           setWorking(false);
-          console.log("Bad response from server");
-          console.log(err.resp);
-          console.log(err);
+          console.log("Bad response from server..");
+          console.log(err.body);
+          //  console.log(err);
+
+          setServerErrorMessage("There was a problem registering your plan. Please try again later.");
+
         });
       });
     } else {
@@ -278,6 +287,15 @@ function PlanOverview() {
               id="dmpui-status"
               aria-hidden={!working}
               tabIndex="0">
+
+
+              {serverErrorMessage && (
+                <div className="dmpui-field-error dmpui-status-error">
+                  {serverErrorMessage}
+                </div>
+              )}
+
+
               <Spinner id="spinner-register" isActive={working} message="Registering…" className="empty-list" />
             </div>
           </div>

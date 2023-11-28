@@ -236,9 +236,14 @@ dialog {
     margin-left: 10px;
   }
 
+  .dmpui-status{
+    width: 100%;
+    text-align: right;
+  }
   .dmpui-field-error {
     width: 100%;
     text-align: right;
+    margin-top: 10px;
   }
 }
 
