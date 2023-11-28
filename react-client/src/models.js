@@ -644,10 +644,15 @@ export class DmpModel extends Model {
     return this.getData(`draft_data.${path}`, defaultNone);
   }
 
-
   validateFields() {
-    let hasContact = this.contributors.items.some(c => c.contact) || this.contact;
-    if (!hasContact) {
+    let contact = this.contributors.items.find(c => c.contact);
+    if (contact) {
+      if (!contact.isValid()) {
+        contact.errors.forEach((v, k) => {
+          this.errors.set("contributors", v);
+        });
+      }
+    } else {
       this.errors.set(
         "contributors",
         "You must have a primary contact in your contributors. Please select one before registering your DMP"

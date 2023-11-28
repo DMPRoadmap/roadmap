@@ -103,20 +103,22 @@ function PlanFunders() {
             <h1>Funder</h1>
           </div>
 
-          {isLocked && !dmp.isRegistered && (
+          {isLocked && (
             <div className="dmpui-search-form-container alert alert-warning">
               <p>
                 This information is not editable because the funder have already
                 been selected.
               </p>
-              <p>
-                <br />
-                <button
-                  onClick={handleUnlock}
-                  className="button">
-                  Unlock & Edit
-                </button>
-              </p>
+              {!dmp.isRegistered && (
+                <p>
+                  <br />
+                  <button
+                    onClick={handleUnlock}
+                    className="button">
+                    Unlock & Edit
+                  </button>
+                </p>
+              )}
             </div>
           )}
 
