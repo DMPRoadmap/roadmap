@@ -95,8 +95,6 @@ function PlanOverview() {
       let newDmp = new DmpModel(dmp.getData());
       newDmp.isValid();
       setDmp(newDmp);
-      console.log(newDmp.project.title);
-      console.log(newDmp);
       window.scroll(0, 0);
       console.log("Validation Errors");
       console.log(newDmp.errors);

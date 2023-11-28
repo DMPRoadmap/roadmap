@@ -17,6 +17,12 @@ function SizeInput(props) {
     } else {
       setSizeUnit(props.initialUnit);
     }
+
+    if (typeof props.initialValue === "undefined") {
+      setSizeValue(0);
+    } else {
+      setSizeValue(props.initialValue);
+    }
   }, [props.unitOptions]);
 
 
@@ -24,7 +30,6 @@ function SizeInput(props) {
     props.onChange({
       value: parseInt(sizeValue, 10),
       unit: sizeUnit,
-      msg: "EH?",
     });
   }, [sizeValue, sizeUnit])
 
