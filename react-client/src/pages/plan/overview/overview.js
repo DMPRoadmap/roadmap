@@ -65,6 +65,8 @@ function PlanOverview() {
   async function handleRegister(ev) {
     ev.preventDefault();
     setWorking(true);
+    document.getElementById("dmpui-status").focus();
+
 
     if (dmp.isValid()) {
       saveDmp(dmp).then((savedDmp) => {
@@ -244,13 +246,9 @@ function PlanOverview() {
 
           <div className="page-actions">
             {dmp.errors.size > 0 && (
-              <div className="dmpui-field-error">
+              <div className="dmpui-field-error" tabIndex="0">
                 Some steps require attention before we can register the DMP.
               </div>
-            )}
-
-            {working && (
-              <Spinner isActive={working} message="Registering …" className="empty-list" />
             )}
 
             {!working && (
@@ -273,6 +271,15 @@ function PlanOverview() {
                 </button>
               </>
             )}
+
+
+
+            <div className="dmpui-status text-center"
+              id="dmpui-status"
+              aria-hidden={!working}
+              tabIndex="0">
+              <Spinner id="spinner-register" isActive={working} message="Registering…" className="empty-list" />
+            </div>
           </div>
         </div>
       )}
