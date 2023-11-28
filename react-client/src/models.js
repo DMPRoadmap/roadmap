@@ -307,6 +307,7 @@ export class DataObject extends Model {
 
 
 export class DataRepository extends Model {
+  #_size;
 
   set host(hostData) {
     // NOTE:: The lookup data returns the repository name as "name",
@@ -332,7 +333,15 @@ export class DataRepository extends Model {
 
   /* Returns a map containing the value and unit */
   get size() {
-    return formatBytes(this.getData("byte_size", 0), 2);
+    if (!this.#_size) {
+      let val = this.getData("byte_size", 0);
+      if (typeof val === "string") {
+        val = Math.floor(parseFloat(val));
+      }
+      this.#_size = formatBytes(val, 2);
+      console.log(this.#_size);
+    }
+    return this.#_size;
   }
 
   setSize(value, unit) {
@@ -602,7 +611,22 @@ export class DmpModel extends Model {
   }
 
   get narrative() {
-    return this.getDraftData("narrative", null);
+    if (this.isRegistered) {
+      let rel = this.getData("dmproadmap_related_identifiers", []);
+      if (rel.length == 0) return null;
+
+      let pdf = rel.find(i => {
+        if (!(i.work_type || i.descriptor)) return false;
+        return (
+          i.work_type == "output_management_plan" &&
+          i.descriptor == "is_metadata_for"
+        );
+      });
+      pdf.file_name = pdf.identifier.split('/').pop();
+      return pdf;
+    } else {
+      return this.getDraftData("narrative", null);
+    }
   }
 
   /* NOTE
