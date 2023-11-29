@@ -4,6 +4,21 @@ require 'jsonpath'
 
 # Helper for JSON exports
 module MadmpExportHelper
+  def uri?(string)
+    uri = URI.parse(string)
+    %w[http https].include?(uri.scheme)
+  rescue URI::BadURIError, URI::InvalidURIError
+    false
+  end
+
+  def form_label(property, locale, readonly)
+    if readonly
+      property["label@#{locale}"]
+    else
+      property["form_label@#{locale}"] || property["label@#{locale}"]
+    end
+  end
+
   def load_export_template(name)
     export_format = Rails.root.join("config/madmp/exports/#{name}.json")
 
