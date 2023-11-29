@@ -3,8 +3,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 29/11/2023
 - Amélioration de la consistance du CSS des tableaux (bordures).
 - Amélioration du CSS des boutons du formulaire de création de produit de recherche (onglet Rédiger)
+- Amélioration CSS diverses (#9913)
 - Correction d'un problème de sauvegarde des fragments lors de la création puis de l'édition d'un fragment (sans au préalable sauvegarder le formulaire principal)
 - Correction d'un problème de réinitialisation du formulaire des pop-ups après leur fermeture (#9587)
 - Correction d'un bug se produisant lors de l'export PDF et l'accès à l'onglet Budget (du code utilisé par ces fonctionnalités avait été supprimées et provoquaient un plantage).
