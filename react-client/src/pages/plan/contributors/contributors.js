@@ -385,7 +385,7 @@ function Contributors() {
                   Cancel
                 </button>
                 <button type="submit" className="primary">
-                  {dmp.isRegistered ? "Update" : "Save & Continue"}
+                  {editIndex === null ? "Add" : "Update"}
                 </button>
               </div>
             </form>

@@ -538,26 +538,21 @@ export class DmpModel extends Model {
 
     let contributorStatus = ["recommended", "Recommended"];
     if (this.contributors.items.length > 0) {
-      let contributorStatus = ["completed", "Recommended"];
-      /*
-            if (this.contributors.items.length == 1) {
-              contributorStatus = [
-                "completed",
-                "1 Contributor"
-              ];
-            } else {
-              contributorStatus = [
-                "completed",
-                this.contributors.items.length + " Contributors"
-              ];
-            }
-      */
+      if (this.contributors.items.length == 1) {
+        contributorStatus = [
+          "completed",
+          "1 Contributor"
+        ];
+      } else {
+        contributorStatus = [
+          "completed",
+          this.contributors.items.length + " Contributors"
+        ];
+      }
     }
 
     let outputsStatus = ["recommended", "Recommended"];
     if (this.dataset.items.length > 0) {
-      let outputsStatus = ["completed", "Recommended"];
-      /*
       if (this.dataset.items.length == 1) {
         outputsStatus = [
           "completed",
@@ -569,7 +564,6 @@ export class DmpModel extends Model {
           this.dataset.items.length + " Research Outputs"
         ]
       }
-      */
     }
 
     let relatedStatus;

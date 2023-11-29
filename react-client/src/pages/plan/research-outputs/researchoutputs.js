@@ -252,8 +252,8 @@ function ResearchOutputs() {
                   </button>
 
                   <button
-                    id={"editOutput-" + index}
-                    aria-labelledby={"editOutput-" + index + " " + "Output-" + index}
+                    id={"deleteOutput-" + index}
+                    aria-labelledby={"deleteOutput-" + index + " " + "Output-" + index}
                     value={index}
                     onClick={handleDeleteOutput}>
                     Delete
