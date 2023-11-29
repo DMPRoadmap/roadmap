@@ -394,7 +394,7 @@ export class RelatedWork extends Model {
 
   get notes() { return this.getData("notes", []); }
 
-  get confidenceReason () { return this.notes.join(', '); }
+  get confidenceReason() { return this.notes.join(', '); }
 
   get score() { return this.getData("score", 0); }
 

@@ -20,7 +20,12 @@ function Select(props) {
         <label className="dmpui-field-label">
           {props?.label ? props.label : ""}
         </label>
-        <p className="dmpui-field-help">{props?.help ? props.help : ""}</p>
+        <p
+          className="dmpui-field-help"
+          id={props?.id ? props.id + "-description" : ""}
+        >
+          {props?.help ? props.help : ""}
+        </p>
 
         {errorMsg && <p className="dmpui-field-error"> {errorMsg} </p>}
 
@@ -29,6 +34,7 @@ function Select(props) {
             name={props?.name ? props.name : ""}
             value={props?.inputValue ? props.inputValue : ""}
             onChange={handleChange}
+            aria-describedby={props?.id ? props.id + "-description" : ""}
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
             className="dmpui-field-input-text select"
           >

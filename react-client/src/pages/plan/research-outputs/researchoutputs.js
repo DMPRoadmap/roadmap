@@ -157,6 +157,10 @@ function ResearchOutputs() {
       setDataObj(newObj);
       document.getElementById("outputsModal").scroll(0, 0);
       console.log(newObj.errors);
+
+      const errorDiv = document.getElementById('errors');
+      errorDiv.focus();
+      errorDiv.scrollIntoView();
     }
   }
 
@@ -232,19 +236,29 @@ function ResearchOutputs() {
 
             {dmp?.dataset?.items ? dmp.dataset.items.map((item, index) => (
               <Fragment key={index}>
-                <div data-colname="name">{item.title}</div>
+                <div data-colname="name" id={"Output-" + index}  >{item.title}</div>
                 <div data-colname="personal">{item.personal}</div>
                 <div data-colname="sensitive">{item.sensitive}</div>
                 <div data-colname="repo">{item.repository.title}</div>
                 <div data-colname="datatype">{item.typeDisplay}</div>
                 <div data-colname="actions" className="form-actions">
-                  <button value={index} onClick={handleModalOpen}>
+
+                  <button
+                    id={"editOutput-" + index}
+                    aria-labelledby={"editOutput-" + index + " " + "Output-" + index}
+                    value={index}
+                    onClick={handleModalOpen}>
                     Edit
                   </button>
 
-                  <button value={index} onClick={handleDeleteOutput}>
+                  <button
+                    id={"editOutput-" + index}
+                    aria-labelledby={"editOutput-" + index + " " + "Output-" + index}
+                    value={index}
+                    onClick={handleDeleteOutput}>
                     Delete
                   </button>
+
                 </div>
               </Fragment>
             )) : ""}
@@ -253,6 +267,18 @@ function ResearchOutputs() {
           <dialog id="outputsModal">
             <form method="post" encType="multipart/form-data" onSubmit={handleSaveModal}>
               <div className="form-modal-wrapper">
+                <div className="dmpui-form-cols" tabIndex={-1} id="errors">
+                  {dataObj.errors && dataObj.errors.size > 0 && (
+                    <div className="dmpui-form-col" >
+                      <p>There has been some errors</p>
+                      <ul>
+                        {Array.from(dataObj.errors).map(([key, value]) => (
+                          <li key={key} className="dmpui-field-error">{value}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
                     <TextInput

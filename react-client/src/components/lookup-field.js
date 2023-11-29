@@ -89,10 +89,18 @@ function LookupField(props) {
   return (
     <>
       <div className={`dmpui-field-group ${disabledClass} ${errorClass} ${requiredClass}`}>
-        <label className="dmpui-field-label">
+        <label
+          className="dmpui-field-label"
+          htmlFor={props?.id ? props.id : ""}
+        >
           {props?.label ? props.label : ""}
         </label>
-        <p className="dmpui-field-help">{props?.help ? props.help : ""}</p>
+        <p
+          className="dmpui-field-help"
+          id={props?.id ? props.id + "-description" : ""}
+        >
+          {props?.help ? props.help : ""}
+        </p>
 
         {errorMsg && <p className="dmpui-field-error"> {errorMsg} </p>}
 
@@ -107,14 +115,16 @@ function LookupField(props) {
               placeholder={props?.placeholder}
               autoComplete={props?.autocomplete ? props.autocomplete : "off"}
               list={resultsId}
-              className={`dmpui-field-input-text ${
-                showSuggestionSpinner ? "show-spinner" : ""
-              }`}
+              className={`dmpui-field-input-text ${showSuggestionSpinner ? "show-spinner" : ""
+                }`}
               disabled={props.disabled}
+              {...(props.help && { "aria-describedby": `${props.id}-description` })}
+
 
             />
             <Spinner className="dmpui-field-input-spinner"
-                     isActive={showSuggestionSpinner} />
+              message="Searching…"
+              isActive={showSuggestionSpinner} />
           </div>
           <datalist id={resultsId}>
             {props.inputValue.length > 0 && suggestions?.map((el, index) => {

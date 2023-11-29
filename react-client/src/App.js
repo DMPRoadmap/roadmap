@@ -56,7 +56,7 @@ const router = createBrowserRouter([
     path: "/dashboard/dmp/:dmpId/research-outputs",
     element: <ResearchOutputs />,
   },
-  
+
   {
     path: "/dashboard/dmp/:dmpId/related-works",
     element: <RelatedWorksPage />,
@@ -66,9 +66,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div id="App">
-      <main>
+      <div>
         <RouterProvider router={router} />
-      </main>
+      </div>
     </div>
   );
 }

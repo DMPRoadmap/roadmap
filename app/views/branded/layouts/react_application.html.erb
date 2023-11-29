@@ -22,43 +22,27 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <script src="/dmptool-ui/main.js" data-turbo-track="reload"></script>
 
-     <%= javascript_include_tag "reactApplication", "data-turbo-track": "reload", defer: true %>
-
-   
-     
+    <%= javascript_include_tag "reactApplication", "data-turbo-track": "reload", defer: true %>
     <%= csrf_meta_tags %>
 
     <meta name="msapplication-TileColor" content="#0e5682">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-
-
   </head>
   <body class="<%= page_body_template %>">
-   
-
-
-     <a href="#maincontent" class="c-skipnav">Skip to main content</a>
+  
+    <a href="#maincontent" class="c-skipnav">Skip to main content</a>
 
     <!-- header rendering -->
-    <header>
-      <%= render partial: "layouts/header_reactapp" %>
-      <%= render partial: "layouts/notifications", locals: local_assigns %>
-    </header>
-
+    <%= render partial: "layouts/header_reactapp" %>
+ <%= render partial: "layouts/notifications", locals: local_assigns %>
+   
 
     <main id="maincontent" class="<%= @main_class %>">
-
-
- <%= yield %>
-
-
-
+      <%= yield %>
     </main>
-
-    
-    <footer><%= render "layouts/footer" %></footer>
+    <%= render "layouts/footer" %>
 
   </body>
 </html>

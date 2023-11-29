@@ -34,7 +34,12 @@ function TextInput(props) {
         >
           {props?.label ? props.label : ""}
         </label>
-        <p className="dmpui-field-help">{props?.help ? props.help : ""}</p>
+        <p
+          className="dmpui-field-help"
+          id={props?.id ? props.id + "-description" : ""}
+        >
+          {props?.help ? props.help : ""}
+        </p>
 
         {errorMsg && <p className="dmpui-field-error"> {errorMsg} </p>}
 
@@ -50,6 +55,7 @@ function TextInput(props) {
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
             className="dmpui-field-input-text"
             disabled={props.disabled}
+            {...(props.help && { "aria-describedby": `${props.id}-description` })}
           />
         </div>
       </div>

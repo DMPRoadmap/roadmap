@@ -20,8 +20,16 @@ function Dashboard() {
 
   const [show, setShow] = useState(false);
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
+  const dialog = document.querySelector("#filter-modal");
+
+  function handleFilterDrawerClose(id) {
+    dialog.close();
+    setShowFilterDrawer(false);
+    return false;
+  }
 
   function handleFilterDrawerOpen(id) {
+    dialog.showModal();
     setShowFilterDrawer(true);
     document.getElementById("filter_title").focus();
     return false;
@@ -215,11 +223,11 @@ function Dashboard() {
                           href="#"
                           title={dmp.title}
                           value={dmp.draftId}
-                           onClick={() => handleQuickViewOpen(dmp.draftId)} 
+                           onClick={() => handleQuickViewOpen(dmp.draftId)}
                         >
                           {truncateText(dmp.title, 50)}
                         </a>
-            
+
                         <a
                           href="#"
                           class="preview-button"
@@ -243,15 +251,15 @@ function Dashboard() {
                           <div className="d-block table-data-pi">
                             {dmp.contributors
                               ? dmp.contributors.items.map((item, index) => (
-                                  <Fragment key={index}>
-                                    {item.roles &&
-                                      item.roles.includes("investigation") && (
-                                        <span>
-                                          PI: {truncateText(item.name, 80)}
-                                        </span>
-                                      )}
-                                  </Fragment>
-                                ))
+                                <Fragment key={index}>
+                                  {item.roles &&
+                                    item.roles.includes("investigation") && (
+                                      <span>
+                                        PI: {truncateText(item.name, 80)}
+                                      </span>
+                                    )}
+                                </Fragment>
+                              ))
                               : ""}
 
                             {dmp.id && dmp.id == "XXX" && (
@@ -274,13 +282,13 @@ function Dashboard() {
                             "None"
                           )}
 
-                        
+
                         </td>
                         <td
                           className="table-data-date"
                           data-colname="last_edited"
                         >
-                           {dmp?.modified ? dmp?.modified : dmp?.created}
+                          {dmp?.modified ? dmp?.modified : dmp?.created}
                         </td>
                         <td
                           className={"table-data-name status-" + dmp.status[0]}
@@ -375,8 +383,12 @@ function Dashboard() {
         </div>
       </div>
 
-      <div
+      <dialog
         id="filter-modal"
+        aria-modal="true"
+        role="dialog"
+        aria-labelledby="filter-heading"
+
         className={showFilterDrawer ? "show" : ""}
         onClose={() => setShowFilterDrawer(false)}
       >
@@ -388,7 +400,7 @@ function Dashboard() {
               action="/dashboard"
             >
               <div className="quick-view-text-cont">
-                <h3>Filters</h3>
+                <h3 id="filter-heading">Filters</h3>
                 <div className="dmpui-form-col">
                   <TextInput
                     label="Title"
@@ -449,7 +461,7 @@ function Dashboard() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setShowFilterDrawer(false)}
+                  onClick={() => handleFilterDrawerClose(false)}
                 >
                   Close
                 </button>
@@ -457,9 +469,10 @@ function Dashboard() {
             </form>
           </div>
         </div>
-      </div>
+      </dialog>
     </div>
   );
 }
 
 export default Dashboard;
+
