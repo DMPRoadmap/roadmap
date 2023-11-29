@@ -181,6 +181,11 @@ function PlanOverview() {
                 className={"step-status status-" + dmp.stepStatus.contributors[0]}>
                 {dmp.stepStatus.contributors[1]}
               </div>
+              {dmp.errors.get("contributors") && (
+                <div className={"step-status status-error"}>
+                  Review Needed
+                </div>
+              )}
             </div>
 
             <div className="plan-steps-step ">
