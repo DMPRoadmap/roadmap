@@ -12,8 +12,14 @@ Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new # defaults to R
 
 # Throttle should send a 429 Error responsec code and display public/429.html
 Rack::Attack.throttled_responder = lambda do |_env|
-  html = ActionView::Base.empty.render(file: Rails.root.join('public/429.html'))
-  [429, { 'Content-Type' => 'text/html' }, [html]]
+  # html = ActionView::Base.empty.render(file: Rails.root.join('public/429.html'))
+  # [429, { 'Content-Type' => 'text/html' }, [html]]
+  details = request.env
+  Rails.logger.warn("RackAttack throttled: Matched: #{details['rack.attack.matched']}, \
+                     Type: #{details['rack.attack.match_type']}, Data: #{details['rack.attack.match_data']}, \
+                     Discriminator: #{['rack.attack.match_discriminator']}")
+
+  [ 429, {}, ["Too Many Requests.\n"] ]
 end
 
 # Throttle attempts to a particular path. 2 POSTs to /users/password every 30 seconds
@@ -24,4 +30,9 @@ end
 # Throttle attempts to a particular path. 4 POSTs to /users/sign_in every 30 seconds
 Rack::Attack.throttle "logins/ip", limit: 4, period: 30.seconds do |req|
   req.post? && req.path == "/users/sign_in" && req.ip
+end
+
+# Throttle attemps to hammer on our contact-us form
+Rack::Attack.throttle "contact-us", limit: 2, period: 30.seconds do |req|
+  req.post? && req.path == "/contacts" && req.ip
 end

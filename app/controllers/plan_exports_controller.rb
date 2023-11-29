@@ -130,6 +130,15 @@ class PlanExportsController < ApplicationController
     redirect_to rails_blob_path(@plan.narrative, disposition: "attachment") and return if @plan.narrative.present? &&
                                                                                           current_user.nil?
 
+    footer = {
+      center: format(_('Created using %{application_name}. Last modified %{date}'),
+                      application_name: ApplicationService.application_name,
+                      date: l(@plan.updated_at.localtime.to_date, format: :readable)),
+      font_size: 8,
+      spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+      right: _('[page] of [topage]'),
+      encoding: 'utf8'
+    }
     render pdf: file_name,
           margin: @formatting[:margin],
           # wkhtmltopdf behavior is based on the OS so force the zoom level
@@ -137,15 +146,7 @@ class PlanExportsController < ApplicationController
           # zoom: 0.78125,
           # show_as_html: params.key?('debug'),
           page_size: 'Letter',
-          footer: {
-            center: format(_('Created using %{application_name}. Last modified %{date}'),
-                            application_name: ApplicationService.application_name,
-                            date: l(@plan.updated_at.localtime.to_date, format: :readable)),
-            font_size: 8,
-            spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-            right: _('[page] of [topage]'),
-            encoding: 'utf8'
-          }
+          footer: Rails.configuration.x.dmproadmap.include_footer_in_pdfs ? footer : nil
   end
 
   def show_json

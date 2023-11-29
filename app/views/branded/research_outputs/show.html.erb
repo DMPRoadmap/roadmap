@@ -1,4 +1,4 @@
-<% title "#{@plan.title} - edit research output" %>
+<% title "#{@plan.title} - research output" %>
 
 <div class="row">
   <div class="col-md-12">
@@ -9,7 +9,7 @@
 
 <% content_for :plan_tab_body do %>
   <h2>
-    <%= _("Editing %{research_output_title}") % { research_output_title: @research_output.title } %>
+    <%= @research_output.title %>
     <%= link_to _('View all research outputs'), plan_research_outputs_path(@plan),
                                             class: "btn btn-default pull-right" %>
   </h2>
@@ -21,7 +21,7 @@
                            mime_types: @mime_types,
                            path: plan_research_output_path(@plan, @research_output),
                            method: :put,
-                           readonly: false } %>
+                           readonly: true } %>
     </div>
   </div>
 <% end %>

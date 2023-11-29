@@ -231,7 +231,7 @@ Rails.application.routes.draw do
 
     resources :contributors, except: %i[show]
 
-    resources :research_outputs, except: %i[show]
+    resources :research_outputs
 
     member do
       get 'answer'

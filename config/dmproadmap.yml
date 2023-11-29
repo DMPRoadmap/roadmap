@@ -349,6 +349,9 @@ default: &default
   # Whether or not the coversheet checkbox should be checked by default
   download_coversheet_tickbox_checked: false
 
+  # Whether or not to include the footer in the PDF downloads
+  include_footer_in_pdfs: false
+
   # ======================================= #
   # = maDMP / Networked DMP functionality = #
   # ======================================= #

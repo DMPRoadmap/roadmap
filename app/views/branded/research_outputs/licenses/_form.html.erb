@@ -11,7 +11,7 @@ complete_list = (complete_list + customized_licenses).uniq.sort { |a, b| a[0] <=
 
 show_all = selected == 0 || (preferred_licenses.empty? && customized_licenses.empty?)
 
-puts "selected: #{selected}, show_all: #{show_all}"
+readonly = local_assigns.fetch(:readonly, false)
 
 options = complete_list.sort { |a, b| a[0] <=> b[0] }.uniq if show_all
 options = customized_licenses.any? ? customized_licenses : preferred_licenses unless show_all
@@ -29,6 +29,7 @@ guidance = show_all ? default_guidance : preferred_guidance
 args = { include_blank: _("- Please select one -"), selected: selected, class: "form-control",
          aria: { label: _('Initial license') } }
 args[:data] = { remote: true, url: plan_license_selection_path(research_output.plan), method: :get } unless show_all
+args[:disabled] = "disabled" if readonly
 %>
 <div class="col-md-12">
   <span class="col-md-12">

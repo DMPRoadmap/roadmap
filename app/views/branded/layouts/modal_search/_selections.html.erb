@@ -13,7 +13,10 @@ locals:
   :result_partial - The partial you have defined to display the item's info
   :search_path    - the path to controller endpoint that will perform the search
   :search_method  - the http method used to perform the search
+  :readonly       - whether or not to show the button that launches the modal dialog
 %>
+
+<% readonly = local_assigns.fetch(:readonly, false) %>
 
 <div id="modal-search-<%= namespace %>-selections" class="col-md-12">
   <%= render partial: "layouts/modal_search/results",
@@ -25,13 +28,16 @@ locals:
                result_partial: result_partial,
                search_path: search_path,
                search_method: search_method,
-               guidance: guidance
+               guidance: guidance,
+               readonly: readonly
              } %>
 </div>
 
-<div class="col-md-12">
+<% unless readonly %>
   <div class="col-md-12">
-    <%= button_tag button_label, type: "button", class: "btn btn-default modal-opener",
-                   data: { toggle: "modal", target: "#modal-search-#{namespace}" } %>
+    <div class="col-md-12">
+      <%= button_tag button_label, type: "button", class: "btn btn-default modal-opener",
+                    data: { toggle: "modal", target: "#modal-search-#{namespace}" } %>
+    </div>
   </div>
-</div>
+<% end %>
