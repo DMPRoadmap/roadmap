@@ -3,6 +3,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 01/12/2023
+- Noël !
+- Changement du message par défaut dans les listes de sélections lorsqu'aucun élément n'est trouvé
+- Amélioration du CSS des tableaux
+- Modification de l'entête des pop ups pour refléter l'objet en cours de modification/ajout.
+
 ## 29/11/2023
 - Amélioration de la consistance du CSS des tableaux (bordures).
 - Amélioration du CSS des boutons du formulaire de création de produit de recherche (onglet Rédiger)
