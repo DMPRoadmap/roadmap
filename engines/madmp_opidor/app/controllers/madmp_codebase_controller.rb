@@ -57,8 +57,8 @@ class MadmpCodebaseController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def anr_search
-    anr_project_id = params[:project_id]
+  def project_search
+    project_id = params[:project_id]
     fragment = MadmpFragment.find(params[:fragment_id])
     dmp_fragment = fragment.dmp
     script_id = params[:script_id]
@@ -76,7 +76,7 @@ class MadmpCodebaseController < ApplicationController
     # return
 
     begin
-      response = fetch_run_data(fragment, script_id, custom_data: { grantId: anr_project_id })
+      response = fetch_run_data(fragment, script_id, custom_data: { grantId: project_id })
       if response['return_code'].eql?(0)
         dmp_fragment.raw_import(response['data'], dmp_fragment.madmp_schema)
         render json: {
