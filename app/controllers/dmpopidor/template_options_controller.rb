@@ -81,6 +81,7 @@ module Dmpopidor
       render json: {
         id: default_template.id,
         title: default_template.title,
+        locale: default_template.locale,
         description: default_template.description || '',
         structured: default_template.structured?
       }
