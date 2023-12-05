@@ -3,6 +3,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Correction du titre de la fenêtre d'édition lors de l'ajout d'une personne (#9849)
+- Correction du problème de sauvegarde du type dans la fenêtre d'ajout/modification d'un produit de recherche (#10036)
+
 ## 01/12/2023
 - Noël !
 - Changement du message par défaut dans les listes de sélections lorsqu'aucun élément n'est trouvé
