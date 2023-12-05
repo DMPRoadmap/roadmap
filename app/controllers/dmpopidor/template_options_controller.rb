@@ -63,6 +63,7 @@ module Dmpopidor
       res = @templates.map do |template|
         {
           id: template.id,
+          locale: template.locale,
           title: template.title,
           description: template.description || '',
           structured: template.structured?
