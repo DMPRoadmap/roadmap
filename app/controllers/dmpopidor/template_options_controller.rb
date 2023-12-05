@@ -63,6 +63,7 @@ module Dmpopidor
       res = @templates.map do |template|
         {
           id: template.id,
+          locale: template.locale,
           title: template.title,
           description: template.description || '',
           structured: template.structured?
@@ -80,6 +81,7 @@ module Dmpopidor
       render json: {
         id: default_template.id,
         title: default_template.title,
+        locale: default_template.locale,
         description: default_template.description || '',
         structured: default_template.structured?
       }
