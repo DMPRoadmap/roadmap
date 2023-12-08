@@ -4,6 +4,10 @@
 class MadmpSchemasController < ApplicationController
   after_action :verify_authorized
 
+  def index
+    authorize(MadmpSchema)
+    render json: MadmpSchema.where(classname: params[:by_classname]).select(%w[id label schema])
+  end
   def show
     authorize(MadmpSchema)
     @schema = MadmpSchema.find(params[:id]).schema

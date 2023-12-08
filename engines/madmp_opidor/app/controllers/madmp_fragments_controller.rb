@@ -144,6 +144,24 @@ class MadmpFragmentsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  def change_form
+    @fragment = MadmpFragment.find(params[:id])
+    target_schema = MadmpSchema.find(params[:schema_id])
+
+    authorize @fragment
+
+    return unless @fragment.present? && @fragment.schema_conversion(target_schema, params[:locale])
+
+    render json: {
+      'fragment' => @fragment.get_full_fragment(with_ids: true),
+      'template' => {
+        id: @fragment.madmp_schema_id,
+        schema: @fragment.madmp_schema.schema
+      }
+    }
+  end
+
+
 
   private
 
