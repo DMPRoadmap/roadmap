@@ -38,15 +38,16 @@ module ExternalApis
         JSON.parse(resp.body)
       end
 
-      def run(script_id, body: {})
-        return nil unless active? && run_path.present? && script_id.present?
+      def run(script_name, owner_id = 'superadmin', body: {})
+        return nil unless active? && run_path.present? && script_name.present?
 
-        target = "#{api_base_url}#{run_path % script_id}"
+        target = "#{api_base_url}#{run_path}?name=#{script_name}&owner=#{owner_id}"
 
         resp = http_post(
           uri: target,
           additional_headers: {},
-          data: body.to_json, debug: false
+          data: body.to_json,
+          debug: false
         )
 
         unless resp.present? && [200, 201].include?(resp.code)
