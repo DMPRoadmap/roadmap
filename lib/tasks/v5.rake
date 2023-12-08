@@ -49,6 +49,19 @@ namespace :v5 do
     end
   end
 
+  desc 'Add Orgs to the v5 pilot project'
+  task enable_v5_pilot: :environment do
+    names = [
+      'University of California, Office of the President (UCOP)',
+      'Cazinc Digital'
+    ]
+
+    Org.where(name: names).each do |org|
+      puts "Setting `v5_pilot` flag to true for '#{org.name}' (id: #{org.id})"
+      org.update(v5_pilot: true)
+    end
+  end
+
   desc 'Move existing identifiers.value to plans.dmp_id'
   task move_dmp_ids: :environment do
     scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)

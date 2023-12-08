@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_21_234326) do
+ActiveRecord::Schema.define(version: 2023_12_08_211738) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -408,6 +408,7 @@ ActiveRecord::Schema.define(version: 2023_11_21_234326) do
     t.string "api_create_plan_email_subject"
     t.text "api_create_plan_email_body"
     t.string "helpdesk_email"
+    t.boolean "v5_pilot", default: false
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
   end
@@ -847,8 +848,6 @@ ActiveRecord::Schema.define(version: 2023_11_21_234326) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
