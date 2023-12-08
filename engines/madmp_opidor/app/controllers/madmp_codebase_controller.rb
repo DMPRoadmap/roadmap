@@ -23,9 +23,18 @@ class MadmpCodebaseController < ApplicationController
     #   "message" => _('New data have been added to your plan, please click on the "Reload" button.')
     # }, status: 200
     # return
+
     fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.include?('notifyer')
     begin
-      response = fetch_run_data(fragment, script_id, params: script_params)
+      response = fetch_run_data(fragment, script_id, body: {
+        data: fragment.data,
+        schema: fragment.madmp_schema.schema,
+        dmp_language: fragment.dmp.locale,
+        dmp_id: fragment.dmp_id,
+        research_output_id: fragment.research_output_fragment&.id,
+        params: script_params.merge({ ro_uuid: fragment.research_output&.uuid })
+      })
+
       if response['return_code'].eql?(0)
         if response['data'].empty?
           render json: {
@@ -57,11 +66,11 @@ class MadmpCodebaseController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def anr_search
-    anr_project_id = params[:project_id]
+  def project_search
+    project_id = params[:project_id]
     fragment = MadmpFragment.find(params[:fragment_id])
     dmp_fragment = fragment.dmp
-    script_id = params[:script_id]
+    script_name = params[:script_name]
 
     authorize fragment
     # EXAMPLE DATA
@@ -76,7 +85,15 @@ class MadmpCodebaseController < ApplicationController
     # return
 
     begin
-      response = fetch_run_data(fragment, script_id, custom_data: { grantId: anr_project_id })
+      response = fetch_run_data(fragment, script_name, body: {
+        data: { grantId: project_id },
+        dmp_language: fragment.dmp.locale,
+        # schema: fragment.madmp_schema.schema,
+        # dmp_id: fragment.dmp_id,
+        # research_output_id: fragment.research_output_fragment&.id,
+        # params: params.merge({ ro_uuid: fragment.research_output&.uuid })
+      }, params: {})
+
       if response['return_code'].eql?(0)
         dmp_fragment.raw_import(response['data'], dmp_fragment.madmp_schema)
         render json: {
@@ -84,7 +101,7 @@ class MadmpCodebaseController < ApplicationController
           'plan_title' => dmp_fragment.meta.data['title'],
           'message' => _('Project data have successfully been imported.')
         }, status: 200
-        update_run_log(dmp_fragment, script_id)
+        update_run_log(dmp_fragment, script_name)
       else
         # Rails.cache.delete(["codebase_run", fragment.id])
         render json: {
@@ -102,18 +119,10 @@ class MadmpCodebaseController < ApplicationController
 
   private
 
-  def fetch_run_data(fragment, script_id, params: {}, custom_data: nil)
-    return {} unless fragment.present? && script_id.present?
+  def fetch_run_data(fragment, script_name, body: {}, params: {})
+    return {} unless fragment.present? && script_name.present?
 
-    ExternalApis::MadmpCodebaseService.run(script_id, body:
-      {
-        data: custom_data || fragment.data,
-        schema: fragment.madmp_schema.schema,
-        dmp_language: fragment.dmp.locale,
-        dmp_id: fragment.dmp_id,
-        research_output_id: fragment.research_output_fragment&.id,
-        params: params.merge({ ro_uuid: fragment.research_output&.uuid })
-      })
+    ExternalApis::MadmpCodebaseService.run(script_name, 'superadmin', body:)
   end
 
   def update_run_log(fragment, script_id)

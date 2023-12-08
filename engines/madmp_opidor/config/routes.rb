@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :madmp_schemas, only: %i[index show]
 
   get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
-  get '/codebase/anr_search', to: 'madmp_codebase#anr_search', constraints: { format: [:json] }
+  get '/codebase/project_search', to: 'madmp_codebase#project_search', constraints: { format: [:json] }
 
   resources :registries, only: %i[show] do
     get 'load_values', action: :load_values, on: :collection
