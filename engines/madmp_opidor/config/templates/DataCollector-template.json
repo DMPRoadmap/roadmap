@@ -29,7 +29,7 @@
             "label@fr_FR": "Rôle",
             "label@en_GB": "Role",
             "const@fr_FR": "Responsable de la production ou de la collecte des données",
-            "const@en_GB": "Data producers or collector",
+            "const@en_GB": "Data producer or collector",
             "hidden": true,
             "form_label@fr_FR": "Rôle",
             "form_label@en_GB": "Role"

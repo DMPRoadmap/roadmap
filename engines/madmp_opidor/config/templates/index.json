@@ -120,12 +120,12 @@
         "question_id": null
     },
     {
-        "path": "DMPResearchProject-template.json",
+        "path": "DMPResearchEntity-template.json",
         "classname": "dmp",
         "question_id": null
     },
     {
-        "path": "DMPResearchEntity-template.json",
+        "path": "DMPResearchProject-template.json",
         "classname": "dmp",
         "question_id": null
     },

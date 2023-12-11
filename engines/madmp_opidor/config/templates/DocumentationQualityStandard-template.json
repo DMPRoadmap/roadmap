@@ -56,7 +56,6 @@
                     "dbid"
                 ]
             },
-            "minItems": 1,
             "description": "Standard(s) de métadonnées ou données utilisé(s) en application des principes FAIR",
             "label@fr_FR": "Standards de métadonnées/données",
             "label@en_GB": "Metadata/data standards",
@@ -148,7 +147,6 @@
     },
     "required": [
         "description",
-        "metadataStandard",
         "metadataLanguage"
     ],
     "to_string": []

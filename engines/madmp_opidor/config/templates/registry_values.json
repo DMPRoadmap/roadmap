@@ -412,12 +412,12 @@
             "fr_FR": "Personne contact pour les données"
         },
         {
-            "en_GB": "Data producers or collectors",
-            "fr_FR": "Responsables de la production ou de la collecte des données"
+            "en_GB": "Data producer or collector",
+            "fr_FR": "Responsable de la production ou de la collecte des données"
         },
         {
-            "en_GB": "Data documentation managers",
-            "fr_FR": "Responsables de la documentation des données"
+            "en_GB": "Data documentation manager",
+            "fr_FR": "Responsable de la documentation des données"
         },
         {
             "en_GB": "Research entity manager",
@@ -428,52 +428,36 @@
             "fr_FR": "Responsable de la gestion et de l'ouverture des données"
         },
         {
-            "en_GB": "Persons in charge of data protection",
-            "fr_FR": "Responsables de la protection des données"
+            "en_GB": "Data controller (from GDPR)",
+            "fr_FR": "Responsable de traitement (selon RGPD)"
         },
         {
-            "en_GB": "Legal Experts",
-            "fr_FR": "Responsables juridiques"
+            "en_GB": "Legal Expert",
+            "fr_FR": "Responsable juridique"
         },
         {
-            "en_GB": "Persons in charge of ethical issues ",
-            "fr_FR": "Responsables des questions éthiques"
+            "en_GB": "Person in charge of ethical issues ",
+            "fr_FR": "Responsable des questions éthiques"
         },
         {
             "en_GB": "Research staff processing and analysing data",
-            "fr_FR": "Responsables du traitement et de l'analyse des données"
+            "fr_FR": "Responsable du traitement et de l'analyse des données"
         },
         {
-            "en_GB": "Persons in charge of data storage",
-            "fr_FR": "Responsables du stockage des données"
+            "en_GB": "Person in charge of data storage",
+            "fr_FR": "Responsable du stockage des données"
         },
         {
-            "en_GB": "Persons in charge of data deposition and diffusion",
-            "fr_FR": "Responsables du dépôt et de la diffusion des données"
+            "en_GB": "Person in charge of data deposition and diffusion",
+            "fr_FR": "Responsable du dépôt et de la diffusion des données"
         },
         {
-            "en_GB": "Persons in charge of long term data preservation",
-            "fr_FR": "Responsables de la conservation des données à long terme"
+            "en_GB": "Person in charge of long term data preservation",
+            "fr_FR": "Responsable de la conservation des données à long terme"
         },
         {
-            "en_GB": "Person in charge of sampling management",
-            "fr_FR": "Responsable de la gestion des échantillons"
-        },
-        {
-            "en_GB": "Data quality managers",
-            "fr_FR": "Responsables de la qualité des données"
-        },
-        {
-            "en_GB": "Data model and/or database designer ",
-            "fr_FR": "Concepteur de modèles de données et/ou de bases de données"
-        },
-        {
-            "en_GB": "Data manager",
-            "fr_FR": "Gestionnaire de données"
-        },
-        {
-            "en_GB": "Research staff running instruments",
-            "fr_FR": "Responsable de la gestion des instruments"
+            "en_GB": "Data quality manager",
+            "fr_FR": "Responsable de la qualité des données"
         }
     ],
     "StorageType": [

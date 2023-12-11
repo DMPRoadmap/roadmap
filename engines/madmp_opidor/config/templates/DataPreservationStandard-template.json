@@ -102,7 +102,7 @@
                     "dbid"
                 ]
             },
-            "description": "Personne(s) en charge de la conservation à number term des données",
+            "description": "Personne(s) en charge de la conservation à long terme des données",
             "label@fr_FR": "Responsables de la conservation à long terme des données",
             "label@en_GB": "Persons in charge of long term data preservation",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
@@ -127,7 +127,7 @@
                     "dbid"
                 ]
             },
-            "description": "Coût(s) lié(s) à la conservation à number terme des données",
+            "description": "Coût(s) lié(s) à la conservation à long terme des données",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
             "form_label@fr_FR": "Coûts liés à la conservation à long terme des données",

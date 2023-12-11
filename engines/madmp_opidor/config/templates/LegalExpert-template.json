@@ -29,7 +29,7 @@
             "label@fr_FR": "Rôle",
             "label@en_GB": "Role",
             "const@fr_FR": "Responsable juridique",
-            "const@en_GB": "Person in charge of data protection",
+            "const@en_GB": "Legal expert",
             "hidden": true,
             "form_label@fr_FR": "Rôle",
             "form_label@en_GB": "Role"

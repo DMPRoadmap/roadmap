@@ -80,16 +80,16 @@
         "hasVersioningPolicy": {
             "type": "string",
             "description": "Contrôle des versions",
-            "inputType": "dropdown",
+            "hidden": true,
             "label@fr_FR": "Politique de gestion des versions",
             "label@en_GB": "Versioning policy",
-            "registry_name": "YesNoUnknown",
             "form_label@fr_FR": "Politique de gestion des versions",
             "form_label@en_GB": "Versioning policy"
         },
         "availability": {
             "type": "number",
             "description": "Disponibilité/pérennité de l'hôte en années (jusqu'à quelle année?)",
+            "hidden": true,
             "label@fr_FR": "Disponibilité (années)",
             "label@en_GB": "Availability (years)",
             "form_label@fr_FR": "Disponibilité (années)",
@@ -114,8 +114,7 @@
         "title",
         "hostId",
         "idType",
-        "geoLocation",
-        "hasVersioningPolicy"
+        "geoLocation"
     ],
     "to_string": [
         "$.title",

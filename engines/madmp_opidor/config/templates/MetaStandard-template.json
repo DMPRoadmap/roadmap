@@ -70,7 +70,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Langue",
             "label@en_GB": "Language",
-            "registry_name": "ISO639-3",
+            "registry_name": "ISO639-3_fra_eng",
             "form_label@fr_FR": "Langue de rédaction du plan",
             "form_label@en_GB": "Language in which the plan is drafted"
         },
