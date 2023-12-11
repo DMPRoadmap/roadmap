@@ -6,8 +6,6 @@ class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
   include Dmpopidor::ErrorHelper
 
-  # KEEP IN V4
-
   def create
     body = JSON.parse(request.body.string)
     plan = ::Plan.includes(:template).find(body["plan_id"])
@@ -40,7 +38,10 @@ class MadmpFragmentsController < ApplicationController
     render json: {
       'fragment' => @fragment.get_full_fragment(with_ids: true),
       'answer_id' => @fragment.answer_id,
-      'schema' => @fragment.madmp_schema.schema
+      'template' => {
+        id: @fragment.madmp_schema_id,
+        schema: @fragment.madmp_schema.schema
+      }
     }
   end
 
@@ -49,11 +50,13 @@ class MadmpFragmentsController < ApplicationController
     authorize @fragment
     render json: {
       'fragment' => @fragment.get_full_fragment(with_ids: true),
-      'schema' => @fragment.madmp_schema.schema
+      'template' => {
+        id: @fragment.madmp_schema_id,
+        schema: @fragment.madmp_schema.schema
+      }
     }
   end
 
-  # TODO: will become update
   # Needs some rework
   def update
     @fragment = MadmpFragment.find(params[:id])
@@ -102,9 +105,8 @@ class MadmpFragmentsController < ApplicationController
     }
   end
   # rubocop:enable Metrics/AbcSize
-  
 
-  # rubocop:disable Metrics/AbcSize
+
   def destroy
     @fragment = MadmpFragment.find(params[:id])
     parent_id = @fragment.parent_id
@@ -120,9 +122,8 @@ class MadmpFragmentsController < ApplicationController
       render bad_request(@notice)
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def destroy_contributor
     @person = Fragment::Person.find(params[:contributor_id])
     contributors_list = @person.contributors
@@ -141,7 +142,25 @@ class MadmpFragmentsController < ApplicationController
       render bad_request(@notice)
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
+
+  def change_form
+    @fragment = MadmpFragment.find(params[:id])
+    target_schema = MadmpSchema.find(params[:schema_id])
+
+    authorize @fragment
+
+    return unless @fragment.present? && @fragment.schema_conversion(target_schema, params[:locale])
+
+    render json: {
+      'fragment' => @fragment.get_full_fragment(with_ids: true),
+      'template' => {
+        id: @fragment.madmp_schema_id,
+        schema: @fragment.madmp_schema.schema
+      }
+    }
+  end
+
 
 
   private

@@ -13,10 +13,11 @@ Rails.application.routes.draw do
 
   resources :madmp_fragments, only: %i[show create update destroy] do
     get 'load_fragments', action: :load_fragments, on: :collection
+    get 'change_form/:id', action: :change_form, on: :collection
     delete 'destroy_contributor', action: :destroy_contributor, on: :collection, constraints: { format: [:json] }
   end
 
-  resources :madmp_schemas, only: %i[show]
+  resources :madmp_schemas, only: %i[index show]
 
   get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
   get '/codebase/project_search', to: 'madmp_codebase#project_search', constraints: { format: [:json] }
