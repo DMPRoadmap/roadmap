@@ -3,6 +3,7 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 11/12/2023
 - Ajout de l'import informations de projets provenant de plusieurs financeurs (#9784)
 - Ajout du changement de formulaire (#10040) :
   - Lorsque plusieurs formulaires sont disponibles, une icone s'affiche et permet de faire apparaitre le formulaire de changement de formulaire
