@@ -4,6 +4,10 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
 - Ajout de l'import informations de projets provenant de plusieurs financeurs (#9784)
+- Ajout du changement de formulaire (#10040) :
+  - Lorsque plusieurs formulaires sont disponibles, une icone s'affiche et permet de faire apparaitre le formulaire de changement de formulaire
+- Correction des conditions d'affichage des Contributeurs multiples (devrait corriger le problème d'affichage des contributeurs dans le formulaire ResearchEntityStandard)
+- Correction d'un problème de sélection du rôle des contributeurs.
 
 ## 07/12/2023
 - Correction du titre de la fenêtre d'édition lors de l'ajout d'une personne (#9849)
