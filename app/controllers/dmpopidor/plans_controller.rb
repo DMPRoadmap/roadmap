@@ -39,7 +39,7 @@ module Dmpopidor
                       end
         if @plan.save
           # pre-select org's guidance and the default org's guidance
-          ids = (::Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq
+          ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
           ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
           @plan.guidance_groups << ggs unless ggs.empty?
