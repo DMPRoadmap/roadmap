@@ -484,12 +484,12 @@ module Dmpopidor
 
       @default_orgs = ::Org.default_orgs
 
-      @all_ggs_grouped_by_org.map do |key, value|
+      @all_ggs_grouped_by_org.map do |key, group|
         {
           name: key.name,
           id: key.id,
-          important: @default_orgs.include?(key) || value.any? { |item| @selected_guidance_groups.include?(item.id) },
-          guidances: value.map do |item|
+          important: @default_orgs.include?(key) || group.any? { |item| @selected_guidance_groups.include?(item.id) },
+          guidance_groups: group.map do |item|
             {
               id: item.id,
               name: item.name,
