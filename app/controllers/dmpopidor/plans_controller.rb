@@ -30,6 +30,8 @@ module Dmpopidor
 
         @plan.template = ::Template.find(plan_params[:template_id])
 
+        @plan.org = current_user.org
+
         @plan.title = if current_user.firstname.blank?
                         format(_('My Plan (%{title})'), title: @plan.template.title)
                       else
