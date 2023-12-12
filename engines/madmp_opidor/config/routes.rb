@@ -57,8 +57,6 @@ Rails.application.routes.draw do
           resources :items, only: %i[ror orcid]
           get 'ror', action: :ror, on: :collection, as: :ror
           get 'orcid', action: :orcid, on: :collection, as: :orcid
-          # get 'loterre/:endpoint', action: :loterre, on: :collection, as: :loterre
-          # get 'loterre/:vocid/(:endpoint)', action: :loterre_with_vocid, on: :collection, as: :loterre_with_vocid
           get 'loterre/*path', action: :loterre, on: :collection, as: :loterre
         end
       end
