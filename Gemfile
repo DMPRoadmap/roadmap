@@ -217,7 +217,7 @@ gem 'json_schemer'
 # and manipulate or access it.
 gem 'jsonpath'
 
-gem 'activerecord_json_validator'
+# gem 'activerecord_json_validator'
 
 # Rswag extends rspec-rails "request specs" with a Swagger-based DSL for describing and testing API operations
 # https://github.com/rswag/rswag
