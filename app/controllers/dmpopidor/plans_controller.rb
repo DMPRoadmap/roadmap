@@ -189,7 +189,7 @@ module Dmpopidor
       render json: {
         status: 200,
         message: 'Guidance groups',
-        guidance_groups: @all_ggs_grouped_by_org,
+        data: @all_ggs_grouped_by_org,
       },status: :ok
     end
 
