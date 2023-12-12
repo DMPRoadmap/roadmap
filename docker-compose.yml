@@ -51,6 +51,13 @@ services:
       - RAILS_RELATIVE_URL_ROOT
       - TRANSLATION_API_ROADMAP
       - TRANSLATION_API_CLIENT
+      # MetaDoRe API
+      - METADORE_LANDING_PAGE_URL
+      - METADORE_API_BASE_URL
+      - METADORE_SEARCH_PATH
+      - METADORE_ENABLED
+      - METADORE_SEARCH_SIZE
+      - METADORE_API_KEY
     working_dir: /app
     volumes:
       - ./log:/app/log
