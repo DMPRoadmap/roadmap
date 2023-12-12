@@ -12,7 +12,8 @@ class DashboardsController < ApplicationController
   def show
     # Manually handling security here since we don't have an appropriate model to tie a policy to.
     # Only an admin can currently view the new React UI. May need to remove this later
-    redirect_to plans_path, alert: 'You are not authorized' and return unless current_user&.can_org_admin?
+    redirect_to plans_path, alert: 'You are not authorized' and return unless current_user&.can_org_admin? &&
+                                                                              current_user&.org&.v5_pilot?
 
     render :show, layout: 'react_application'
   end
