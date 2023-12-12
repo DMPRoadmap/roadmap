@@ -7,7 +7,7 @@ module Api
     module Madmp
       # Handles CRUD operations for Services in API V1
       class ServicesController < BaseApiController
-        before_action :authorize_request, except: %i[ror orcid loterre]
+        before_action :authorize_request, except: %i[ror orcid loterre metadore]
 
         respond_to :json
 
@@ -30,12 +30,19 @@ module Api
 
         # GET /api/v1/madmp/services/loterre/{endpoint}[query_parameters]
         # :endpoint Loterre endpoint
-        # :params query parameters
+        # :query_parameters query parameters
         def loterre
           render json: MadmpExternalApis::LoterreService.request(
             query_params: request.query_parameters,
             params:
           )
+        end
+
+        # GET /api/v1/madmp/services/metadore?query=:query
+        # :query query (string)
+        # e.g: api/v1/madmp/services/metadore?query=10.5281/zenodo.10348077
+        def metadore
+          render json: MadmpExternalApis::MetadoreService.search(query_params: request.query_parameters)
         end
       end
     end
