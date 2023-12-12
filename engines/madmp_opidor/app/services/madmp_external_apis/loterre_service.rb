@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'cgi'
 require 'uri'
 
 module MadmpExternalApis
@@ -17,10 +16,6 @@ module MadmpExternalApis
 
       def active?
         Rails.configuration.x.loterre&.active || super
-      end
-
-      def endpoints
-        Rails.configuration.x.loterre&.endpoints
       end
 
       # Ping the Loterre API to determine if it is online
@@ -50,7 +45,7 @@ module MadmpExternalApis
       end
 
       def handle_failure(resp)
-        handle_http_failure(method: 'LoterreService query_builder', http_response: resp)
+        handle_http_failure(method: 'LoterreService request', http_response: resp)
         nil
       end
     end
