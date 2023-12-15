@@ -100,7 +100,7 @@ function Dashboard() {
     <div id="Dashboard">
       <div className="dmpui-heading with-action-button">
         <div>
-          <h1>Dashboard</h1>
+          <h1>Uploads</h1>
         </div>
         <div>
           <button

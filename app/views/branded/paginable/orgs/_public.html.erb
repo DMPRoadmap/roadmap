@@ -3,14 +3,12 @@
     <thead>
       <tr>
         <th class="col-md-8" scope="col"><%= _('Institution') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
-        <th class="col-md-2 text-center" scope="col"><%= _('Institutional Signin Enabled') %></th>
       </tr>
     </thead>
     <tbody>
       <% scope.each do |org| %>
         <tr>
           <td><%= org.name %></td>
-          <td class="text-center"><i class="fa <%= org.shibbolized? ? 'fa-check' : '' %>"></i></td>
         </tr>
       <% end %>
     </tbody>

@@ -140,7 +140,11 @@ The home page should show the initial User sign in / sign up form
                 <p><%= entry[:stat] %></p>
               </div>
               <div class="stats-item-text">
-                <p><%= entry[:text] %></p>
+                <% if entry[:text] == _('Participating Institutions') %>
+                  <p><a href="<%= public_orgs_path %>"><%= entry[:text] %></a></p>
+                <% else %>
+                  <p><%= entry[:text] %></p>
+                <% end %>
               </div>
             </div>
           </div>

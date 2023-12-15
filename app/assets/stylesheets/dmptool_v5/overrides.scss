@@ -54,7 +54,7 @@ body {
   position: absolute;
   right: 0;
   list-style: none;
-  background-color: $color-white;
+  background-color: $color-blue;
   min-width: 180px;
   box-shadow: 0px 8px 16px 0px $color-blue-dark;
   padding: 12px 16px;
@@ -497,6 +497,16 @@ fieldset legend {
   background-color: $color-blue;
   color: $color-blue-dark;
   padding: 5px 10px;
+}
+
+/* Mobile Menu */
+#mobile-navigation {
+  overflow-y: scroll;
+}
+
+ul.mobile-menu-submenu {
+  margin-left: 15px;
+  margin-bottom: 5px;
 }
 
 

@@ -141,7 +141,7 @@ function DmpSetup() {
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
               <div className={"dmpui-field-group"}>
-                <label className="dmpui-field-label">Upload DMP</label>
+                <label className="dmpui-field-label" for="dmpNarrative">Upload DMP</label>
                 <p className="dmpui-field-help">
                   Only PDFs may be uploaded, and files should be no more than
                   1MB.
@@ -174,6 +174,7 @@ function DmpSetup() {
                     )}
 
                     <input
+                      id="dmpNarrative"
                       name="narrative"
                       type="file"
                       accept=".pdf"

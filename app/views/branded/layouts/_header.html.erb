@@ -80,7 +80,7 @@
 
       <li>
         <div class="dmpui-dropdown">
-          <span class="fas fa-globe" aria-label="Language"></span>
+          <a href="#"><span class="fas fa-globe" aria-label="Language"></span></a>
           <div class="dmpui-dropdown-content">
             <% languages.each do |lang| %>
               <p><%= link_to lang.name, locale_path(lang.abbreviation), method: :patch, role: 'menuitem' %></p>
@@ -100,21 +100,101 @@
 
 
   <!-- Mobile Menu -->
-  <button onclick="myFunction()" class="dmpui-mobile mobile-icon">
+  <button class="dmpui-mobile mobile-icon" id="mobile-menu-open">
     <img src="<%= asset_path('mobile-menu.svg') %>" alt="Mobile Menu">
   </button>
 
   <div id="mobile-navigation" class="dmpui-mobile mobile-menu">
-    <button onclick="myFunction()">
+    <button id="mobile-menu-close">
       <img class="close-mobile-icon" src="<%= asset_path('blue-arrow.svg') %>" alt="Close Mobile Menu">
     </button>
     <ul>
-      <li><%= link_to _("About"), about_us_path %></li>
+      <% if user_signed_in? %>
+        <li><%= link_to _("Dashboard"), plans_path %></li>
+        <% if current_user.can_org_admin? && current_user.org&.v5_pilot? %>
+          <li><%= link_to _('Upload Plan'), dashboard_path, role: 'menuitem' %></li>
+        <% end %>
+        <li><%= link_to _("Create Plan"), new_plan_path %></li>
+      <% end %>
+
       <li><%= link_to _("Public DMPs"), public_plans_path %></li>
       <li><%= link_to _("Funder Requirements"), public_templates_path %></li>
-    </ul>
 
-    <a href="#" class="dmpui-frontend-btn dmpui-frontend-btn-primary ">Login</a>
-    <a href="#" class="dmpui-frontend-btn dmpui-frontend-btn-secondary ">Sign Up</a>
+      <% if user_signed_in? %>
+        <li><%= link_to _("Help"), help_path %></li>
+      <% else %>
+        <li><%= link_to _("About"), about_us_path %></li>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <li>
+          <div class="dmpui-dropdown">
+            <span><a href="#"><%= _('Admin') %></a></span>
+            <ul class="mobile-menu-submenu">
+              <% if current_user.can_super_admin? %>
+                <li><%= link_to _('Organisations'), super_admin_orgs_path, role: 'menuitem' %></li>
+              <% elsif current_user.can_modify_org_details? %>
+                <li><%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id), role: 'menuitem' %></li>
+              <% end %>
+              <% if current_user.can_grant_permissions? %>
+                <li><%= link_to _('Users'), admin_index_users_path, role: 'menuitem' %></li>
+              <% end %>
+              <% if current_user.can_org_admin? %>
+                <li><%= link_to _('Plans'), org_admin_plans_path, role: 'menuitem' %></li>
+              <% end %>
+              <% if current_user.can_org_admin? %>
+                <li><%= link_to _('Usage'), usage_index_path, role: 'menuitem' %></li>
+              <% end %>
+              <% if current_user.can_modify_templates? %>
+                <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
+                <li><%= link_to _('Templates'), template_path, role: 'menuitem' %></li>
+              <% end %>
+              <% if current_user.can_modify_guidance? %>
+                <li><%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id), role: 'menuitem' %></li>
+              <% end %>
+              <% if current_user.can_super_admin? %>
+                <li><%= link_to _('Themes'), super_admin_themes_path, role: 'menuitem' %></li>
+              <% end %>
+              <% if current_user.can_super_admin? %>
+                <li><%= link_to _('Api Clients'), super_admin_api_clients_path, role: 'menuitem' %></li>
+                <li><%= link_to _('Api Logs'), super_admin_api_logs_path, role: 'menuitem' %></li>
+              <% end %>
+              <% if current_user.can_super_admin? %>
+                <li><%= link_to _('Notifications'), super_admin_notifications_path, role: 'menuitem' %></li>
+              <% end %>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <div class="dmpui-dropdown">
+            <span><%= current_user.name(false) %></span>
+            <ul class="mobile-menu-submenu">
+              <li><%= link_to _('Edit profile'), edit_user_registration_path, role: 'menuitem' %></li>
+              <li><%= link_to _('3rd party apps'), users_third_party_apps_path, role: 'menuitem' %></li>
+              <li><%= link_to _('Developer tools'), users_developer_tools_path, role: 'menuitem' %></li>
+            </ul>
+          </div>
+        </li>
+      <% end %>
+
+      <li>
+        <div class="dmpui-dropdown">
+          <span><a href="#"><%= _('Language') %></a></span>
+          <ul class="mobile-menu-submenu">
+            <% languages.each do |lang| %>
+              <li><%= link_to lang.name, locale_path(lang.abbreviation), method: :patch, role: 'menuitem' %></li>
+            <% end %>
+          </ul>
+        </div>
+      </li>
+
+      <% if user_signed_in? %>
+        <li><%= link_to _('Logout'), destroy_user_session_path, method: :delete, class: 'dmpui-frontend-btn dmpui-frontend-btn-secondary' %></lig
+      <% else %>
+        <li><a href="<%= auth_path(m: 'l') %>" class="dmpui-frontend-btn dmpui-frontend-btn-primary ">Login</a></li>
+        <li><a href="<%= auth_path(m: 's') %>" class="dmpui-frontend-btn dmpui-frontend-btn-secondary ">Sign Up</a></li>
+      <% end %>
+    </ul>
   </div>
 </div>
