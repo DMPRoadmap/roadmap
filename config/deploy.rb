@@ -41,8 +41,6 @@ end
 namespace :deploy do
   before :compile_assets, 'deploy:retrieve_credentials'
 
-  # after :deploy, 'dmptool_assets:recompile'
-  after :deploy, 'dmptool_assets:copy_ui_assets'
   after :deploy, 'dmptool_assets:copy_robots'
 
   after :deploy, 'git:version'
@@ -86,22 +84,6 @@ namespace :dmptool_assets do
   task :recompile do
     on roles(:app), wait: 1 do
       execute "cd #{release_path} && bin/rails assets:clobber && bin/rails assets:precompile"
-    end
-  end
-
-  desc "Copy over DMPTool-UI repo's images to the public/dmptool-ui-raw-images dir"
-  task :copy_ui_assets do
-    on roles(:app), wait: 1 do
-      execute "mkdir -p #{release_path}/public/dmptool-ui"
-      execute "cp /dmp/install/dmptool/public/dmptool-ui/*.* #{release_path}/public/dmptool-ui"
-
-      # TODO: We can probably remove these lines later on, just need to update our Shib
-      #       metadata to use the new URL for the logo
-      execute "mkdir -p #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp /dmp/install/dmptool/public/dmptool-ui/*.ico #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp /dmp/install/dmptool/public/dmptool-ui/*.jpg #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp /dmp/install/dmptool/public/dmptool-ui/*.png #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp /dmp/install/dmptool/public/dmptool-ui/*.svg #{release_path}/public/dmptool-ui-raw-images/"
     end
   end
 
