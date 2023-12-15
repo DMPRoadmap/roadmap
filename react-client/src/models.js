@@ -599,7 +599,8 @@ export class DmpModel extends Model {
   get isPrivate() { return (this.privacy === "private"); }
 
   get isRegistered() {
-    if (!this.draftId) return true;
+    // If the DraftId is missing AND the Dmp ID is there, then the DMP is registered
+    if (!this.draftId && this.getData("dmp_id", {}).identifier) return true;
     return false
   }
 
