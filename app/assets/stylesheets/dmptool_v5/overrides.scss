@@ -153,10 +153,15 @@ img.org-logo {
 }
 
 /* Notifications */
+.notification-area {
+  margin-bottom: 5px;
+}
 .c-notification--info,
 .c-notification--warning,
 .c-notification--danger {
   padding: 5px;
+  border-radius: 10px;
+  margin: 2px 0;
 
   p {
     margin: 0;
