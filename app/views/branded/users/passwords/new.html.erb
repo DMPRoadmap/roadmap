@@ -1,6 +1,6 @@
 <%# Devise Forgotten Password form %>
 
-<% content_for :authentication do %>
+<div class="row user_request_reset_password_form">
   <%= render partial: 'users/shared/login_header', locals: { title: 'Forgot Your Password?' } %>
 
   <%= form_with model: User.new, url: user_password_path, method: :post, local: true,
@@ -8,7 +8,7 @@
     <div id="forgotten-password" class="c-textfield js-textfield is-required">
       <%= form.label :email, _('Email address') %>
       <%= form.email_field(:email, value: resource.email, autocomplete: 'email',
-                           class: 'require-me') %>
+                            class: 'require-me') %>
     </div>
 
     <% if Rails.configuration.x.recaptcha.enabled %>
@@ -17,18 +17,13 @@
       </div>
     <% end %>
 
-    <button type="submit"><%= _("Send me reset password instructions") %></button>
+    <button type="submit" class="btn btn-primary"><%= _("Send me reset password instructions") %></button>
   <% end %>
 
   <%= render partial: "users/shared/links",
               locals: { show_back_button: true, show_contact_us: true } %>
-<% end %>
 
-<% content_for :errors do %>
-  <%= render partial: "users/shared/error_messages" %>
-<% end %>
-
-
-<% content_for :home do %>
-  <%= render partial: "layouts/home" %>
-<% end %>
+  <% content_for :errors do %>
+    <%= render partial: "users/shared/error_messages" %>
+  <% end %>
+</div>

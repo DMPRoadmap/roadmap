@@ -21,7 +21,7 @@
         <!-- <li><span class="c-tag--funded"><%#= _('Funded') %></span></li> -->
       <%# end %>
       <% if plan.featured? %>
-        <li><span class="c-tag--featured"><%= _('Featured') %></span></li>
+        <li><span class="c-tag--featured"><i class="fas fa-check-circle"></i> <%= _('Featured') %></span></li>
       <% end %>
     </ul>
     <div class="c-plan-template"><%= plan.template.title %></div>

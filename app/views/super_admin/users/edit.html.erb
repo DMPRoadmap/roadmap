@@ -9,7 +9,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-7">
+  <div class="col-md-6">
     <%= form_for(@user, namespace: :superadmin, as: :user, url: super_admin_user_path(@user), html: {method: :put, id: 'super_admin_user_edit' }) do |f| %>
       <div class="form-group col-xs-12">
         <%= f.label(:email, _('Email'), class: 'control-label') %>
@@ -57,7 +57,7 @@
       <% end %>
 
       <div class="form-group col-xs-12">
-        <%= f.button(_('Save'), class: 'btn btn-default', type: "submit", id: "personal_details_registration_form_submit") %>
+        <%= f.button(_('Save'), class: 'btn btn-primary', type: "submit", id: "personal_details_registration_form_submit") %>
 
         <%= link_to _('Archive'), archive_super_admin_user_path(id: @user.id),
             data: { method: :put, confirm: _("You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?") % {user_name: @user.name } },
@@ -74,7 +74,9 @@
     <% end %>
 
   </div>
-  <div class="col-xs-5">
+  <div class="col-md-1"></div>
+
+  <div class="col-xs-5 user-merge">
     <div class="row">
       <h2>
         <%= _('Merge Accounts') %>

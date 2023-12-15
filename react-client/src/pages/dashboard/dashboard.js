@@ -98,18 +98,6 @@ function Dashboard() {
 
   return (
     <div id="Dashboard">
-      {user && user?.givenname && (
-        <p>
-          Welcome back {user?.givenname} {user?.surname}
-        </p>
-      )}
-
-      <p>
-        <a href="/plans" className="exit-prototype">
-          Back to standard Dashboard
-        </a>
-      </p>
-
       <div className="dmpui-heading with-action-button">
         <div>
           <h1>Dashboard</h1>
@@ -475,4 +463,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-

@@ -2,11 +2,24 @@
 
 @use "variables";
 
-@use "blocks";
-@use "utils";
+// @use "blocks";
+
+@use "blocks/accessibility";
+@use "blocks/modal_search";
+@use "blocks/new_window_popup";
+@use "blocks/question_form";
+@use "blocks/spinner";
+@use "blocks/tables";
+@use "blocks/tooltips";
+
+@use "dmptool/authentication";
+@use "dmptool/guidance";
+@use "dmptool/public_plans";
+
+// @use "utils";
 
 // Pull in the webpacker managed copy of Bootstrap Stylesheets
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+// @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../../../node_modules/bootstrap-select/sass/bootstrap-select.scss";
 
 // Pull in the webapcker managed copy of JQuery-UI Stylesheets
@@ -21,4 +34,8 @@ $fa-font-path: '.';
 @import '@fortawesome/fontawesome-free/scss/solid';
 
 // DMPTool additional styling that is not part of the dmptool-ui repo
-@import "dmptool";
+// @import "dmptool";
+
+// Import new DMPTool v5 styling
+@import "dmptool_v5/app";
+@import "dmptool_v5/overrides";

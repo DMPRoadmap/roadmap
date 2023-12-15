@@ -9,15 +9,15 @@
             position: absolute;
             top: 0;
             right: 0;
-            background-color: $color-grey-darker;
+            background-color: $color-black;
             color: $color-white;
             padding: 10px 5px;
             cursor: pointer;
-    
+
             text-orientation: mixed;
             writing-mode: vertical-rl;
             &.disabled {
-                background-color: $color-muted;
+                background-color: $color-grey;
                 cursor: not-allowed;
             }
         }
@@ -26,10 +26,10 @@
             padding-top: 10px;
         }
     }
-    
+
     .guidance-section {
         flex: 4;
-        border-left: 5px solid $color-grey-darker;
+        border-left: 5px solid $color-black;
         padding-left: 5px;
     }
 

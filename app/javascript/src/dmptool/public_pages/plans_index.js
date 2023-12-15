@@ -58,4 +58,71 @@ $(() => {
       setFacetingMessage(form);
     }
   }
+
+  const initFacetToggle = () => {
+    const facets = document.querySelectorAll('.js-facet')
+    for (const facet of facets) {
+      const facetButton = facet.querySelector('.js-facet__toggle-list')
+      const facetList = facet.querySelector('.js-facet__list')
+
+      facetButton.addEventListener('click', () => {
+        let facetIcon = facet.querySelector('.fas')
+        if (facetList.hidden === true) {
+          facetList.hidden = false
+          facetButton.setAttribute('aria-expanded', true)
+          facetIcon.classList.add('fa-minus')
+          facetIcon.classList.remove('fa-plus')
+        } else {
+          facetList.hidden = true
+          facetButton.setAttribute('aria-expanded', false)
+          facetIcon.classList.add('fa-plus')
+          facetIcon.classList.remove('fa-minus')
+        }
+      })
+    }
+  }
+
+  initFacetToggle()
 });
+
+const initFormElRequired = () => {
+  // const requiredField = document.querySelector('.js-login__required-field')
+  const textfields = document.querySelectorAll('.js-textfield')
+  const checkboxes = document.querySelectorAll('.js-checkbox')
+
+  const requiredFormElements = (formEls) => {
+    for (const formEl of formEls) {
+      const input = formEl.querySelector('input')
+
+      if (input.classList.contains('require-me')) {
+        input.setAttribute('required', '')
+        //requiredField.hidden = false
+        formEl.classList.add('is-required')
+      }
+    }
+  }
+
+  requiredFormElements(textfields)
+  requiredFormElements(checkboxes)
+}
+
+const initShowPassword = () => {
+  const passwordField = document.querySelector('#js-password-field input')
+  const checkboxToggle = document.querySelector('#js-password-toggle input')
+
+  if (passwordField) {
+    checkboxToggle.addEventListener('change', (e) => {
+      if (checkboxToggle.checked) {
+        passwordField.setAttribute('type', 'text')
+      } else {
+        passwordField.setAttribute('type', 'password')
+      }
+    })
+  }
+}
+
+const authPage = document.querySelector('.dmpui-authentication-page');
+if (authPage !== undefined) {
+  initFormElRequired();
+  initShowPassword();
+}

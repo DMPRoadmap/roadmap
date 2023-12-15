@@ -1,0 +1,30 @@
+<%#
+Devise Sign up form arrived at after the user enters their email and we determine
+that they do NOT have an existing account
+%>
+<%
+url = @shibbolized && !@bypass_sso ? users_shibboleth_path : user_registration_path
+# Fetch all of the possible orgs related to the entityId
+entity_id = resource&.org&.identifier_for_scheme(scheme: 'shibboleth')&.value
+options = Identifier.includes(:identifiable)
+                    .by_scheme_name('shibboleth', 'Org')
+                    .where(value: entity_id&.downcase)
+                    .map(&:identifiable)
+%>
+<%= render partial: 'users/shared/login_header', locals: { title: _('New Account Sign Up') } %>
+
+<%= form_with model: resource, url: url, method: :post, local: true,
+              class: "novalidate" do |form| %>
+  <%= render partial: "users/registrations/form",
+              locals: { form: form, shibbolized: @shibbolized, bypass_sso: @bypass_sso, org_options: options } %>
+<% end %>
+
+<p>
+  <%= sanitize(_("This will create a new account. If you already have an account, %{go_back_link} to try a different email address, or %{contact_us_link}.") % {
+    go_back_link: link_to(_("go back"), root_path),
+    contact_us_link: link_to(_("contact us"), contact_us_path)
+  }) %>
+</p>
+
+<%= render partial: "users/shared/links",
+            locals: { show_back_button: true, show_contact_us: false } %>

@@ -79,7 +79,10 @@ module DmptoolHelper
     resp = HTTParty.get(Rails.configuration.x.application.blog_rss)
     return [] unless resp.code == 200
 
-    rss = RSS::Parser.parse(resp.body, false).items.first(5)
+    rss = RSS::Parser.parse(resp.body, false).items.first(4)
+
+rss.each { |r| pp r.inspect }
+
     cache_content('rss', rss)
     rss
   rescue StandardError => e

@@ -20,6 +20,8 @@ module Dmptool
       search_term = process_search
       sort_by = process_sort_by
 
+puts sort_by
+
       # Fetch the plan ids that match the user's search criteria
       #    NOTE: changing the order of columns in `pluck` will impact drop_unused_facets()
       plan_ids = ::Plan.joins(roles: [user: [:org]])
@@ -27,7 +29,7 @@ module Dmptool
                        .search(search_term)
                        .faceted_search(facets: selected_facets, sort_by: sort_by)
                        .distinct
-                       .pluck(%w[plans.id plans.funder_id plans.org_id plans.featured plans.created_at
+                       .pluck(%w[plans.id plans.title plans.funder_id plans.org_id plans.featured plans.created_at
                                  plans.language_id plans.research_domain_id].join(', '))
 
       # If the user clicked 'View All', set the per_page to match the record count

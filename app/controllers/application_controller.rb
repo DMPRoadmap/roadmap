@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
   # Used by Devise after a user signs in
   def after_sign_in_path_for(_resource)
     # If not signed in send to the home page
-    return root_path unless user_signed_in?
+    return auth_path unless user_signed_in?
     # If signed in and not part of an Oauth2 workflow send to the Dashboard
     return plans_path if session['oauth-referer'].blank?
 
@@ -82,36 +82,6 @@ class ApplicationController < ActionController::Base
 
     oauth_hash['path']
   end
-
-  # def after_sign_in_path_for(_resource)
-  #   referer_path = URI(request.referer).path unless request.referer.nil?
-  #   if from_external_domain? || referer_path.eql?(new_user_session_path) ||
-  #      referer_path.eql?(new_user_registration_path) ||
-  #      referer_path.nil?
-  #     root_path
-  #   else
-  #     request.referer
-  #   end
-  # end
-  #
-  # def after_sign_up_path_for(_resource)
-  #   referer_path = URI(request.referer).path unless request.referer.nil?
-  #   if from_external_domain? ||
-  #      referer_path.eql?(new_user_session_path) ||
-  #      referer_path.nil?
-  #     root_path
-  #   else
-  #     request.referer
-  # end
-  #
-  #   def after_sign_in_error_path_for(_resource)
-  #     (from_external_domain? ? root_path : request.referer || root_path)
-  #   end
-  #
-  #   def after_sign_up_error_path_for(_resource)
-  #     (from_external_domain? ? root_path : request.referer || root_path)
-  #   end
-  #
   # End DMPTool Customization
   # ---------------------------------------------------------
 

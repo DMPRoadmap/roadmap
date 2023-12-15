@@ -1,11 +1,13 @@
 @use '../variables/colours' as *;
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
+@use '../variables/typography' as *;
+// @use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
 
 // Override FontAwesome icons
 
 /* FONTAWESOME STYLING */
 .fas:not(.small) {
-  font-size: 1.7rem;
+  // font-size: 1.7rem;
+  font-size: $font-size-base;
 }
 .fa-reverse {
   color: $color-secondary-text;
@@ -32,7 +34,7 @@ a {
 
        &.fa-file-pdf,
        &.fa-file-word {
-         color: $color-fa;
+         color: inherit;
          margin: 5px;
 
          &:not(.small) {

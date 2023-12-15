@@ -10,7 +10,7 @@ li.selectable_item {
 
 span.selectable_item_label {
   padding: 4px;
-  border: thin solid $color-grey-darker;
+  border: thin solid $color-black;
   border-radius: 5px; margin: 3px;
   display: inline-block;
 }
@@ -33,7 +33,7 @@ li.selectable_item .custom {
 }
 
 fieldset.selectable_items {
-  border: thin solid $color-grey-darker;
+  border: thin solid $color-black;
   padding: 10px;
   border-radius: 5px;
 }
@@ -43,12 +43,12 @@ div.selectable_items {
 }
 
 div.selectable_items input {
-  border-color: $color-grey-darker
+  border-color: $color-black;
 }
 
 fieldset.user-guidance {
   padding: 4px;
-  border: thin solid $color-grey-darker;
+  border: thin solid $color-black;
   border-radius: 5px; margin: 3px;
 }
 

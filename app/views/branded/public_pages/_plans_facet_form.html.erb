@@ -12,7 +12,7 @@
     <div class="c-search-form" role="search">
       <%= f.search_field :search, value: facets[:search],
                          aria: { labelledby: 'search-label', describedby: 'js-search-results-block' } %>
-      <%= f.button '', aria: { label: 'search' } %>
+      <button aria-label="search" type="submit"><i class="fas fa-search"></i></button>
     </div>
     <% search_msg = search.present? ? _('Showing results for "%<search_term>s"') % { search_term: sanitize(search) } : '' %>
     <div id= "js-search-results-block" class="js-search-results c-search-results"><%= search_msg %></div>

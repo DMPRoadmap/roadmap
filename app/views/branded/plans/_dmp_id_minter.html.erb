@@ -71,7 +71,7 @@ allow_minting = orcid.present? && orcid_access_token.present? if allow_minting &
       </legend>
       <div class="form-group col-xs-8">
         <%= form_for @plan, url: mint_plan_path(@plan), method: :get do |f| %>
-          <%= f.submit _('Register plan'), class: "btn btn-default" %>
+          <%= f.submit _('Register plan'), class: "btn btn-primary" %>
         <% end %>
       </div>
     </fieldset>

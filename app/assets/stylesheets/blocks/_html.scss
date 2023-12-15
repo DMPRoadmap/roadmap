@@ -1,12 +1,17 @@
 @use '../variables/colours' as *;
+@use '../variables/typography' as *;
+
 // This file sets styles for main HTML elements.
 // If it starts to get too large, it would be a good idea to break it into component
 // blocks.
-
+/*
 html {
   position: relative;
   min-height: 100%;
-}
+
+  line-height: 1.15;
+  font-size: $font-size-base;
+}*/
 
 /* For sticky footer */
 main {
@@ -18,11 +23,11 @@ main {
     margin-bottom: 200px;
   }
 }
-
+/*
 body{
   padding-bottom: 50px;
 }
-
+*/
 /* footer */
 footer {
   position: static;

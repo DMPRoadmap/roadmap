@@ -308,7 +308,7 @@ default: &default
   # The link to your Listserv
   user_group_subscription_url: ""
   # The link to your blog
-  blog_rss: "https://example.org/feed"
+  blog_rss: "https://blog.dmptool.org/feed" # "https://example.org/feed"
 
 
   # The links that appear on the home page. Add any number of links

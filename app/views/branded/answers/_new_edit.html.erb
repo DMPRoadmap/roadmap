@@ -65,7 +65,7 @@
     <% elsif question.question_format.date? %>
         <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, locking: locking, readonly: readonly }) %>
     <% end %>
-    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+    <%= f.button(_('Save'), class: "btn btn-primary", type: "submit") %>
   </fieldset>
   <!--Example Answer area -->
   <% if template.present? && template.org.present? %>

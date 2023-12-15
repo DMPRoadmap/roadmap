@@ -3,9 +3,6 @@
   <div class="col-md-12">
     <h1>
       <%= _('My Dashboard') %>
-      <% if current_user.can_org_admin? && current_user.org&.v5_pilot? %>
-        <%= link_to _('Dashboard Prototype'), dashboard_path, class: 'btn btn-primary pull-right' %>
-      <% end %>
     </h1>
 
     <!-- if the user has projects -->
@@ -36,28 +33,6 @@
     <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary" %>
   </div>
 </div>
-
-<% if current_user.can_org_admin? && current_user.org&.v5_pilot? %>
-  <div class="row" style="border: 1px solid grey; padding-bottom: 25px;">
-    <div class="col-md-12">
-      <h2>React Dashboard</h2>
-
-      <%= link_to _('Open Prototype Dashboard'), dashboard_path, class: 'btn btn-primary' %>
-
-      <h3>Simulator</h3>
-      <p>Enter a DMP ID below to simulate the discovery of related works</p>
-      <%= form_for Plan.new, url: api_v3_simulations_path, html: { id: 'simulator' } do |f| %>
-        <%= f.label :dmp_id, 'Dmp Id:' %>
-        <%= f.text_field :dmp_id %>
-        &nbsp;&nbsp;
-        <label>Number of works to "discover": </label>
-        <input type="number" min="1" max="10" name="plan[nbr_works]" id="plan_nbr_works"/>
-        &nbsp;&nbsp;
-        <button type="submit" onclick="toggleSpinner(true)">Attach works</button>
-      <% end %>
-    </div>
-  </div>
-<% end %>
 
 <div class="row">
   <div class="col-md-12">

@@ -1,0 +1,14 @@
+
+<% label = params[:m].nil? ? 'Login / Sign Up' : (params[:m] == 'l' ? 'Login' : 'Sign Up') %>
+
+<div class="dmpui-authentication-page">
+  <div class="c-login">
+    <% if @user.nil? || @user&.email&.nil? %>
+      <%= render partial: "users/sessions/validate", locals: { resource: resource, label: label } %>
+    <% elsif @user&.new_record? %>
+      <%= render partial: "users/registrations/new", locals: { resource: resource, label: 'Sign Up' } %>
+    <% else %>
+    <%= render partial: "users/sessions/new", locals: { resource: resource, label: 'Login' } %>
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,6 @@
-<h1><%= _('Privacy statement') %></h1>
-
 <div class="static-page">
+  <h1><%= _('Privacy statement') %></h1>
+
   <h2 class="fontsize-h3"><%= _("Information about you: how we use it and with whom we share it") %></h2>
   <p><%= _("The information you provide will be used by the %{org_name} to offer you access to and personalisation of the %{application_name} service.") %
           { application_name: ApplicationService.application_name, :org_name => Rails.configuration.x.organisation.names } %></p>

@@ -1,15 +1,17 @@
-<% content_for :faceting do %>
-  <aside class="t-publicplans__intro" aria-label="About public plans">
+<% content_for :home do %>
+  <div class="row">
     <h1><%= _('Public Plans') %></h1>
     <p><%= _('Public DMPs are plans created using the DMPTool service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines.') %></p>
-  </aside>
-
-  <aside class="t-publicplans__plans" aria-labelledby="plans-heading">
-    <%= render partial: '/public_pages/plans_facet_form', locals: { facets: @facets } %>
-  </aside>
-<% end %>
-
-<% content_for :home do %>
-  <%= render partial: '/public_pages/plans_results',
-             locals: { paginated_plan_ids: @paginated_plan_ids, plans: @plans, sort_by: @facets[:sort_by] } %>
+  </div>
+  <div class="c-faceting">
+    <div class="c-facet-controls">
+      <aside class="t-publicplans__plans" aria-labelledby="plans-heading">
+        <%= render partial: '/public_pages/plans_facet_form', locals: { facets: @facets } %>
+      </aside>
+    </div>
+    <div class="c-faceted-content">
+      <%= render partial: '/public_pages/plans_results',
+                locals: { paginated_plan_ids: @paginated_plan_ids, plans: @plans, sort_by: @facets[:sort_by] } %>
+    </div>
+  </div>
 <% end %>

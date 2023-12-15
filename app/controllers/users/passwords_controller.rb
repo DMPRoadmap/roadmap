@@ -8,7 +8,6 @@ module Users
       # super
 
       # Specify any classes for the <main> tag of the page
-      @main_class = 'js-heroimage'
       self.resource = User.new
     end
 

@@ -77,7 +77,9 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get '/sitemap' => 'sitemaps#index', only: %i[xml html]
   get 'about_us' => 'static_pages#about_us'
+  get 'auth' => 'static_pages#auth'
   get 'help' => 'static_pages#help'
+  get 'join_us' => 'static_pages#join_us'
   get 'terms' => 'static_pages#termsuse'
   get 'sso_error' => 'static_pages#sso_error'
   get 'privacy' => 'static_pages#privacy'

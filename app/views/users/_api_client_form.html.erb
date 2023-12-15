@@ -109,7 +109,7 @@
     <div class="col-md-8">
       <%= f.hidden_field :user_id %>
 
-      <%= f.button _('Save'), class: 'btn btn-default', type: 'submit' %>
+      <%= f.button _('Save'), class: 'btn btn-primary', type: 'submit' %>
 
       <% unless api_client.new_record? %>
         <%= link_to _("Refresh client secret"),

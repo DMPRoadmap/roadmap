@@ -1,0 +1,802 @@
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap);
+/*! modern-normalize v2.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+/*
+Document
+========
+*/
+/**
+Use a better box model (opinionated).
+*/
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.15; /* 1. Correct the line height in all browsers. */
+  -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
+  -moz-tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
+  -o-tab-size: 4;
+     tab-size: 4; /* 3 */
+}
+
+/*
+Sections
+========
+*/
+body {
+  margin: 0; /* Remove the margin in all browsers. */
+}
+
+/*
+Grouping content
+================
+*/
+/**
+1. Add the correct height in Firefox.
+2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+*/
+hr {
+  height: 0; /* 1 */
+  color: inherit; /* 2 */
+}
+
+/*
+Text-level semantics
+====================
+*/
+/**
+Add the correct text decoration in Chrome, Edge, and Safari.
+*/
+abbr[title] {
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+/**
+Add the correct font weight in Edge and Safari.
+*/
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+2. Correct the odd 'em' font sizing in all browsers.
+*/
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+Add the correct font size in all browsers.
+*/
+small {
+  font-size: 80%;
+}
+
+/**
+Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
+*/
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/*
+Tabular data
+============
+*/
+/**
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+*/
+table {
+  text-indent: 0; /* 1 */
+  border-color: inherit; /* 2 */
+}
+
+/*
+Forms
+=====
+*/
+/**
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+*/
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+/**
+Remove the inheritance of text transform in Edge and Firefox.
+*/
+button,
+select {
+  text-transform: none;
+}
+
+/**
+Correct the inability to style clickable types in iOS and Safari.
+*/
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+  -webkit-appearance: button;
+}
+
+/**
+Remove the inner border and padding in Firefox.
+*/
+::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+Restore the focus styles unset by the previous rule.
+*/
+:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+Remove the additional ':invalid' styles in Firefox.
+See: https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737
+*/
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+/**
+Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
+*/
+legend {
+  padding: 0;
+}
+
+/**
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+progress {
+  vertical-align: baseline;
+}
+
+/**
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+[type=search] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to 'inherit' in Safari.
+*/
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/*
+Interactive
+===========
+*/
+/*
+Add the correct display in Chrome and Safari.
+*/
+summary {
+  display: list-item;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+:root {
+  --dmpui-frontend-font-size-base: 16px;
+  --dmpui-brand-focus-color: #fd0;
+  --dmpui-brand-focus-text-color: #04032d;
+  --dmpui-brand-gray-100: #f2f2f2;
+  --dmpui-brand-blue-100: #f0fbff;
+  --dmpui-brand-blue-200: #eff6ff;
+  --dmpui-brand-blue-300: #effbfe;
+  --dmpui-brand-blue-400: #54d8ff;
+  --dmpui-brand-blue-500: #004eaa;
+  --dmpui-brand-blue-800: #0c0b57;
+  --dmpui-brand-blue-900: #05042e;
+  --dmpui-brand-blue-950: #04032d;
+  --dmpui-gutter-x: 1.5rem;
+}
+
+.dmpui-skipnav {
+  background: var(--dmpui-brand-blue-900);
+  color: #fff;
+  height: 30px;
+  left: 50%;
+  padding: 4px 12px;
+  position: absolute;
+  transform: translateY(-100%) translateX(-50%);
+  transition: transform 0.3s;
+  border-radius: 0 0 5px 5px;
+  text-decoration: none;
+}
+.dmpui-skipnav:focus {
+  transform: translateY(0%);
+}
+.dmpui-frontend-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding-right: calc(var(--dmpui-gutter-x) * 0.5);
+  padding-left: calc(var(--dmpui-gutter-x) * 0.5);
+}
+
+.dmpui-frontend-container-full {
+  width: 100%;
+  margin: 0 auto;
+  /*
+  padding-right: calc(var(--dmpui-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  */
+}
+
+.dmpui-frontend-btn {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.dmpui-frontend-btn-primary {
+  background-color: var(--dmpui-brand-blue-900);
+  color: #fff;
+  border: 2px solid var(--dmpui-brand-blue-900);
+}
+.dmpui-frontend-btn-primary:hover {
+  background-color: var(--dmpui-brand-blue-500);
+  color: #fff;
+  border: 2px solid var(--dmpui-brand-blue-500);
+}
+.dmpui-frontend-btn-primary.with-mark  {
+  background-image: asset-url('white-arrow.svg');
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: 90% center;
+  padding-right: 5rem;
+}
+.dmpui-frontend-btn-secondary.with-mark  {
+  background-image: asset-url('blue-arrow.svg');
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: 90% center;
+  padding-right: 5rem;
+}
+.dmpui-frontend-btn-primary.with-mark:hover,
+.dmpui-frontend-btn-secondary.with-mark:hover {
+  background-position: 95% center;
+}
+.dmpui-frontend-btn-secondary {
+  background-color: #fff;
+  color: var(--dmpui-brand-blue-900);
+  border: 2px solid var(--dmpui-brand-blue-900);
+}
+.dmpui-frontend-btn-secondary:hover {
+  background-color: var(--dmpui-brand-blue-400);
+  border: 2px solid var(--dmpui-brand-blue-400);
+}
+.dmpui-frontend-header {
+  padding: 1rem 0.7rem;
+  display: flex;
+  align-items: center;
+}
+.dmpui-frontend-header .header-logo img {
+  max-width: 260px;
+}
+.dmpui-frontend-header ul {
+  padding: 0;
+  margin: 0 1rem 0 0;
+}
+.dmpui-frontend-header ul li {
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+.dmpui-frontend-header ul li a {
+  color: var(--dmpui-brand-blue-900);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.dmpui-frontend {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+.dmpui-frontend p {
+  line-height: 1.45rem;
+}
+.dmpui-frontend a:focus {
+  background-color: var(--dmpui-brand-focus-color);
+  box-shadow: 0 -2px var(--dmpui-brand-focus-color), 0 2px var(--dmpui-brand-focus-text-color);
+  color: var(--dmpui-brand-focus-text-color);
+  outline: 2px solid transparent;
+  text-decoration: none;
+}
+.dmpui-frontend h1,
+.dmpui-frontend h2,
+.dmpui-frontend h3,
+.dmpui-frontend h4,
+.dmpui-frontend h5,
+.dmpui-frontend h6 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  color: var(--dmpui-brand-blue-900);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+.dmpui-frontend h1, .dmpui-frontend .h1 {
+  font-size: 1.875rem;
+}
+.dmpui-frontend h2, .dmpui-frontend .h2 {
+  font-size: 1.7625rem;
+}
+.dmpui-frontend h3, .dmpui-frontend .h3 {
+  font-size: 1.525rem;
+}
+.dmpui-frontend h4, .dmpui-frontend .h5 {
+  font-size: 1.425rem;
+}
+.dmpui-frontend .dmpui-frontend-hero-image-cont {
+  position: relative;
+}
+.dmpui-frontend .dmpui-frontend-hero-image img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  height: 600px;
+}
+.dmpui-frontend .dmpui-frontend-hero-text {
+  max-width: 600px;
+  padding: 3rem 3rem 1rem;
+  background-color: #fff;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+.dmpui-frontend .footer-links-grid {
+  padding: 3rem 0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+.dmpui-row {
+  display: flex;
+}
+.dmpui-align-center {
+  align-items: center;
+}
+.dmpui-align-start {
+  align-items: flex-start;
+}
+.dmpui-align-end {
+  align-items: flex-end;
+}
+.dmpui-mb-0 {
+  margin-bottom: 0
+}
+.dmpui-grow {
+  flex-grow: 1;
+}
+.dmpui-external {
+  background-image: asset-url('external-icon.svg');
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: 90% center;
+  padding-right: 3rem;
+}
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  padding: 1rem;
+  z-index: 1;
+  background-color: var(--dmpui-brand-blue-400);
+  transition: all .35s ease;
+  background-image: asset-url('bg-arrow-Up.svg');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 90% auto;
+}
+.mobile-menu.show-mobile-menu {
+  right: 0px !important;
+}
+.mobile-menu ul {
+  margin-bottom: 2rem;
+}
+.mobile-menu li {
+  display: block !important;
+  margin-bottom: 0.8rem !important;
+  margin-left: 0 !important;
+}
+.mobile-menu .dmpui-frontend-btn {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: all .35s ease;
+}
+button:hover img{
+  opacity: 0.7;
+}
+.close-mobile-icon {
+  margin-bottom: 2rem;
+  height: 28px;
+}
+@media screen and (min-width: 1000px) {
+  .dmpui-frontend .footer-links-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.dmpui-frontend .footer-links-grid h1, .dmpui-frontend .footer-links-grid h2, .dmpui-frontend .footer-links-grid h3, .dmpui-frontend .footer-links-grid h4, .dmpui-frontend .footer-links-grid h5 {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  color: #fff;
+}
+.dmpui-frontend .footer-links-grid p {
+  margin: 0;
+  color: #fff;
+}
+.dmpui-frontend .footer-links-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dmpui-frontend .footer-links-grid ul li {
+  margin-bottom: 0.5rem;
+}
+.dmpui-frontend .footer-links-grid ul li a {
+  color: #fff;
+  text-decoration: underline;
+}
+.dmpui-frontend .footer-links-grid ul li a:hover {
+  color: var(--dmpui-brand-blue-400);
+  text-decoration: none;
+}
+.dmpui-frontend .footer-links-logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.dmpui-frontend .dmpui-frontend-icon-grid {
+  margin-top: 3rem;
+}
+.dmpui-frontend .footer-disclaimers-grid {
+  display: grid;
+  padding: 2rem 0;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+@media screen and (min-width: 1000px) {
+  .dmpui-frontend .footer-disclaimers-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+.dmpui-frontend .footer-disclaimers-logo {
+  grid-column: span 2;
+}
+.dmpui-frontend .footer-disclaimers-logo img {
+  width: 100%;
+  max-width: 150px;
+}
+.dmpui-frontend .footer-disclaimers-text {
+  grid-column: span 9;
+  align-self: center;
+}
+.dmpui-frontend .footer-disclaimers-text p {
+  font-size: 0.85rem;
+  margin: 0;
+}
+.dmpui-frontend.dmpui-blog-latest {
+  background-color: var(--dmpui-brand-blue-100);
+  padding: 2rem 0;
+}
+.dmpui-blog-latest .blog-list-card-text a {
+  font-weight: bold;
+  color: var(--dmpui-brand-blue-950);
+}
+.dmpui-blog-latest .blog-list-card-text a:hover {
+  text-decoration: none;
+  color: var(--dmpui-brand-blue-950);
+}
+.dmpui-frontend .footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+@media screen and (min-width: 1000px) {
+  .dmpui-frontend .footer-links-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.dmpui-frontend .icon-grid-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.dmpui-frontend .icon-grid-item {
+  padding: 3rem;
+  border-radius: 1rem;
+  background-color: var(--dmpui-brand-blue-300);
+}
+.dmpui-frontend .icon-grid-item-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+.dmpui-frontend .icon-grid-item-text {
+  max-width: 300px;
+  font-weight: bold;
+}
+.dmpui-frontend .dmpui-frontend-stats {
+  padding: 3rem 0;
+}
+.dmpui-frontend .stats-list {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+}
+@media screen and (min-width: 1000px) {
+  .dmpui-frontend .stats-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.dmpui-frontend .stats-item {
+  padding: 2rem;
+  height: 330px;
+  border-radius: 1rem;
+  background-color: var(--dmpui-brand-blue-950);
+  background-image: asset-url('bg-arrow-Up.svg');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: auto 90%;
+}
+.dmpui-frontend .stats-item-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-items: end;
+  height: 100%;
+  text-align: center;
+  justify-content: flex-end;
+}
+.dmpui-frontend .stats-item-headline {
+  margin-bottom: .7rem;
+}
+.dmpui-frontend .stats-item-headline p {
+  font-size: 3rem;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: var(--dmpui-brand-blue-400);
+}
+.dmpui-frontend .stats-item-text p {
+  color: #fff;
+  font-size: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+.dmpui-frontend .dmpui-frontend-cta {
+  margin: 4rem 0;
+  border-radius: 1rem;
+  padding: 2rem;
+  background-color: #fec744;
+  display: flex;
+  align-items: flex-end;
+}
+.dmpui-frontend .benefit-intro-text {
+  background: #fff;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  max-width: 600px;
+  padding: 3rem;
+}
+.dmpui-frontend .benefit-cards {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+  margin: 2rem 0;
+}
+@media screen and (min-width: 1000px) {
+  .dmpui-frontend .benefit-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.dmpui-frontend .benefit-cards .card {
+  padding: 3rem;
+  border-radius: 1rem;
+  background-color: #fff;
+}
+.dmpui-frontend .benefit-cta {
+  background-color: #76d7ff;
+  margin: 1rem 0;
+}
+.dmpui-frontend .blog-list-card {
+  display: grid;
+  background-color: #fff;
+  grid-template-columns: repeat(12, 1fr);
+  margin: 2rem 0;
+  gap: 1rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.dmpui-frontend .blog-list-card .blog-list-card-image {
+  grid-column: span 4;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.dmpui-frontend .blog-list-card .new-release-tab {
+  background-color: var(--dmpui-brand-blue-400);
+  position: absolute;
+  top: 25px;
+  left: 0;
+  color: var(--dmpui-brand-blue-950);
+  padding: 0.5rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+.dmpui-frontend .blog-list-card .blog-list-card-text {
+  grid-column: span 8;
+  padding: 2rem 2rem 2rem 0;
+}
+
+.dmpui-frontend-benefits {
+  background-color: var(--dmpui-brand-blue-950);
+  padding-bottom: 1rem;
+}
+.dmpui-frontend-benefits .dmpui-frontend-container {
+  background-image: asset-url('bg-arrow.svg');
+  background-position: 98% -25%;
+  background-repeat: no-repeat;
+  background-size: 50%;
+}
+
+.footer-links {
+  background-color: var(--dmpui-brand-blue-950);
+  padding-bottom: 1rem;
+  background-image: asset-url('bg-arrow.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: auto 135%;
+}
+.dmpui-mobile {
+  display: none;
+}
+
+/* mobile styles */
+@media (max-width: 1000px) {
+  .dmpui-desktop,
+  .dmpui-frontend-blog-latest .blog-list-card:nth-child(n+2) {
+    display: none;
+  }
+  .dmpui-mobile {
+    display: inline-block;
+  }
+  .dmpui-frontend .dmpui-frontend-hero-image img {
+    height: 460px;
+  }
+  .dmpui-frontend .footer-links-grid {
+    padding: 2rem 0.5rem;
+  }
+  .dmpui-frontend-header .header-logo img,
+  .dmpui-frontend .footer-links-grid img {
+    max-width: 12.5rem
+  }
+  .dmpui-frontend .footer-links-grid img {
+    margin-bottom: 1.5rem;
+  }
+  .dmpui-frontend .footer-links-grid .footer-links-quicklinks {
+    margin: 1.5rem 0
+  }
+  .dmpui-frontend .footer-links {
+    background-position: 250% 120%;
+    background-size: 90%;
+  }
+  .dmpui-frontend .icon-grid-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dmpui-frontend .dmpui-frontend-cta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+/* mobile styles */
+@media (max-width: 700px) {
+  .dmpui-frontend .blog-list-card .blog-list-card-image {
+    grid-column: span 12;
+    min-height: 200px;
+  }
+  .dmpui-frontend .blog-list-card .blog-list-card-text {
+    padding: 1rem;
+    grid-column: span 12;
+  }
+  .dmpui-frontend .dmpui-frontend-hero-text,
+  .dmpui-frontend .icon-grid-item,
+  .dmpui-frontend .dmpui-frontend-cta,
+  .dmpui-frontend .benefit-intro-text,
+  .dmpui-frontend .stats-item,
+  .dmpui-frontend .benefit-cards .card {
+    padding: 1.5rem;
+  }
+  .dmpui-frontend .icon-grid-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -1,7 +1,7 @@
 <%# Devise Sign in / Sign up (validate) form that allows User to provide an email %>
 
 <%# No email is present, so the homepage has just been loaded %>
-<%= render partial: 'users/shared/login_header', locals: { title: _('Sign in / Sign up') } %>
+<%= render partial: 'users/shared/login_header', locals: { title: label } %>
 
 <%= form_with model: User.new, url: new_user_session_path, method: :post, local: true,
               class: "novalidate" do |form| %>
@@ -12,12 +12,12 @@
                         aria: { describedby: "sign-in-sign-up-email-desc" },
                         autocomplete: 'email') %>
     <div id="sign-in-sign-up-email-desc" class="c-textfield__general-description">
-      <%= _("For SSO, use institutional address.") %>
+      <%= _("For SSO, use your institutional address.") %>
     </div>
     <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
     </div>
   </div>
-  <button type="submit"><%= _("Continue") %></button>
+  <button type="submit" class="btn btn-primary"><%= _("Continue") %></button>
 <% end %>
 
 <footer class="c-login__footer">
