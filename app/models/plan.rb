@@ -28,6 +28,7 @@
 #  feedback_end_at                   :datetime
 #  subscriber_job_status             :string
 #  publisher_job_status              :string
+#  accept_terms                      :boolean           default(false)
 #
 # Indexes
 #

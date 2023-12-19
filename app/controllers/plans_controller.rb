@@ -342,6 +342,7 @@ class PlansController < ApplicationController
       authorize plan
       if plan.visibility_allowed?
         plan.visibility = plan_params[:visibility]
+        plan.accept_terms = plan_params[:visibility] == 'publicly_visible'
         if plan.save
           deliver_if(recipients: plan.owner_and_coowners,
                      key: 'owners_and_coowners.visibility_changed') do |r|

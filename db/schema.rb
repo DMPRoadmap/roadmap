@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_08_211738) do
+ActiveRecord::Schema.define(version: 2023_12_19_175429) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -469,6 +469,7 @@ ActiveRecord::Schema.define(version: 2023_12_08_211738) do
     t.string "narrative_url"
     t.string "subscriber_job_status", default: "success"
     t.string "publisher_job_status", default: "success"
+    t.boolean "accept_terms", default: false
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["language_id"], name: "index_plans_on_language_id"

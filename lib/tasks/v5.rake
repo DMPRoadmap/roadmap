@@ -49,6 +49,11 @@ namespace :v5 do
     end
   end
 
+  desc 'Set plan privacy policy acceptance'
+  task accept_terms_plans: :environment do
+    Plan.where(visibility: 1).update_all(accept_terms: true)
+  end
+
   desc 'Add Orgs to the v5 pilot project'
   task enable_v5_pilot: :environment do
     names = [

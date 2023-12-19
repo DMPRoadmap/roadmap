@@ -19,12 +19,18 @@
   <p><%= _('The CDL holds your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home institution.') %></p>
   <hr>
 
+  <h2><%= _('Sharing and Reuse') %></h2>
+  <p><%= _('Users who choose Public visibility for their plans grant the California Digital Library on behalf of The Regents of the University of California a non-exclusive, irrevocable, royalty-free right to publish, reproduce, publicly display, and distribute their plan in perpetuity, worldwide, by any method or media now known or later developed.') %></p>
+  <p><%= _('Users who choose to use the DMPTool to create a DOI (also referred to as a DMP ID) for their plans grant the California Digital Library on behalf of The Regents of the University of California a non-exclusive, irrevocable, royalty-free right to publish, reproduce, publicly display, and distribute portions of their plans in perpetuity, worldwide, by any method or media now known or later developed. The portions that will be published are those necessary to provide sufficient information about the plan associated with the DOI, including the project description and descriptions of planned outputs, but does not include the full text of the plan unless the user has chosen public visibility for the plan.') %></p>
+  <p><%= _('All users grant the California Digital Library on behalf of The Regents of the University of California permission to: 1) preserve the material they provide to the DMPTool and to perform any copying or distribution that is appropriate in order to maintain that material, including but not limited to format migration and adaptations necessary for accessibility remediation; 2) distribute their plan to administrators or others at their organization as directed by the user-defined plan visibility; and 3) use their material in research regarding improvements to the DMPTool or data management practices, including use in artificial intelligence training within California Digital Library\'s local environment.') %></p>
+  <hr>
+
   <h2><%= _('Passwords') %></h2>
   <p><%= _('Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset.') %></p>
   <hr>
 
-  <h2><%= _('Google Analytics opt-out') %></h2>
-  <p><%= sanitize _('As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href="%{opt_out_url}">Google Analytics opt-out page</a> and install the add-on for your browser.') % { opt_out_url: 'https://tools.google.com/dlpage/gaoptout' }%></p>
+  <h2><%= _('Analytics Use') %></h2>
+  <p><%= sanitize(_('This website uses Matomo Analytics to capture and analyze usage statistics. Matomo allows us to better understand how our users interact with our service.  For information on how Matomo collects and processes data, as well as how you can control information sent to Matomo, review Matomo\'s website, %{matomo_url}') % { matomo_url: "<a href=\"https://matomo.org/faq/new-to-piwik/personal-data-matomo-analytics-collects-and-why/\" target=\"_blank\">#{_('Personal data Matomo analytics collects and why.')}</a>" }) %></p>
   <hr>
 
   <h2><%= _('Third party APIs') %></h2>
@@ -32,5 +38,5 @@
   <hr>
 
   <h2><%= _('Revisions') %></h2>
-  <p><%= _('This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions.') %></p>
+  <p><%= _('This statement was last revised on December 19, 2023 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions.') %></p>
 </div>
