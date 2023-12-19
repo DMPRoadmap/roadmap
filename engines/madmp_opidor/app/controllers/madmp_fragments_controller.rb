@@ -9,13 +9,13 @@ class MadmpFragmentsController < ApplicationController
   def create
     body = JSON.parse(request.body.string)
     plan = ::Plan.includes(:template).find(body["plan_id"])
-    schema = MadmpSchema.find(body["schema_id"])
-    defaults = schema.defaults(plan.template.locale)
-    classname = schema.classname
+    madmp_schema = MadmpSchema.find(body["schema_id"])
+    defaults = madmp_schema.defaults(plan.template.locale)
+    classname = madmp_schema.classname
     @fragment = MadmpFragment.new(
       data: body["data"],
       dmp_id: plan.json_fragment.id,
-      madmp_schema: schema,
+      madmp_schema: madmp_schema,
       additional_info: {
         'property_name' => body["property_name"]
       }
@@ -40,19 +40,32 @@ class MadmpFragmentsController < ApplicationController
       'answer_id' => @fragment.answer_id,
       'template' => {
         id: @fragment.madmp_schema_id,
-        schema: @fragment.madmp_schema.schema
+        schema: madmp_schema.schema,
+        api_client: if madmp_schema.api_client.present?
+          {
+            id: madmp_schema.api_client_id,
+            name: madmp_schema.api_client.name
+          } 
+        end
       }
     }
   end
 
   def show
     @fragment = MadmpFragment.find(params[:id])
+    madmp_schema = @fragment.madmp_schema
     authorize @fragment
     render json: {
       'fragment' => @fragment.get_full_fragment(with_ids: true),
       'template' => {
-        id: @fragment.madmp_schema_id,
-        schema: @fragment.madmp_schema.schema
+        id:madmp_schema.id,
+        schema: madmp_schema.schema,
+        api_client: if madmp_schema.api_client.present?
+          {
+            id: madmp_schema.api_client_id,
+            name: madmp_schema.api_client.name
+          } 
+        end
       }
     }
   end
@@ -155,8 +168,14 @@ class MadmpFragmentsController < ApplicationController
     render json: {
       'fragment' => @fragment.get_full_fragment(with_ids: true),
       'template' => {
-        id: @fragment.madmp_schema_id,
-        schema: @fragment.madmp_schema.schema
+        id: target_schema.id,
+        schema: target_schema.schema,
+        api_client: if target_schema.api_client.present? 
+          {
+            id: target_schema.api_client_id,
+            name: target_schema.api_client.name
+          } 
+        end
       }
     }
   end
