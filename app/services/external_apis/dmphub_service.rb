@@ -483,9 +483,7 @@ module ExternalApis
 
       # Authenticate with the DMPHub
       def auth
-        # TODO: Switch this back to stg once the Stage domain is up
-        # scope_env = Rails.env.production? ? 'prd' : Rails.env.stage? ? 'stg' : 'dev'
-        scope_env = Rails.env.production? ? 'prd' : (auth_url.include?('uc3stg') ? 'stg' : 'dev')
+        scope_env = auth_url.include?('uc3prd') ? 'prd' : (auth_url.include?('uc3stg') ? 'stg' : 'dev')
         scopes = "#{auth_url}#{scope_env}.read #{auth_url}#{scope_env}.write"
         creds = Base64.strict_encode64("#{client_id}:#{client_secret}")
         Rails.logger.debug "DmphubService Auth Info: URL: #{auth_url}, ENV: #{Rails.env}, CLIENT ID: #{client_id}"
@@ -502,7 +500,7 @@ module ExternalApis
           body: "grant_type=client_credentials&scope=#{scopes}",
           debug: true
         }
-        # opts[:debug_output] = $stdout
+        opts[:debug_output] = $stdout
 
         resp = HTTParty.post("#{auth_url}#{token_path}", opts)
         unless resp.present? && resp.code == 200
