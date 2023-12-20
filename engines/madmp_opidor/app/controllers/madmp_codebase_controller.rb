@@ -25,6 +25,7 @@ class MadmpCodebaseController < ApplicationController
     #   'fragment' => fragment.get_full_fragment(with_ids: true),
     #   'needs_reload' => true
     # }, status: 200
+    # return
     # render json: {
     #   'message' => _('Notification has been sent'),
     #   'needs_reload' => false
