@@ -28,6 +28,11 @@ services:
     networks:
       - dmpopidor_network
 
+  postgres:
+    profiles: [ "dev" ]
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+
 networks:
   dmpopidor_network:
     driver: "bridge"
