@@ -1,64 +1,51 @@
 {
-    "title": "Target-specific RNA-based bioprotectants for sustainable crop production in a changing climate",
-    "principalInvestigator": {
-      "dbid": 17900,
-      "action": "update",
-      "template": "PrincipalInvestigator",
-      "data": {
-        "person": {
-          "action": "create",
-          "template": "PersonStandard",
-          "data": {
-            "nameType": "Personal",
-            "lastName": "HEINLEIN",
-            "firstName": "Manfred",
-            "affiliationName": "Centre National de la Recherche Scientifique (CNRS)",
-            "affiliationId": "200117244U",
-            "affiliationIdType": "RNSR"
-          }
-        }
-      }
+  "description": "<p>Mes besoins</p>",
+  "facility": [
+    {
+      "title": "Adonis",
+      "technicalResourceId": "https://cat.opidor.fr/index.php/Adonis",
+      "idType": "URL",
+      "serviceContact": "adonis@inra.fr"
     },
-    "experimentalPlan": {
-      "dbid": 17902
-    },
-    "funding": [
-      {
-        "action": "update",
-        "dbid": 17920,
-        "template": "FundingStandard",
-        "data": {
-          "grantId": "ANR-21-SUSC-0003",
-          "fundingStatus": "Granted"
-        }
-      }
-    ],
-    "partner": [
-      {
-        "action": "create",
-        "template": "PartnerStandard",
-        "data": {
-          "name": "University of Applied Sciences",
-          "rnsr": "rnsr:University of Applied Sciences"
-        }
+    {
+      "title": "ALTAG3D",
+      "technicalResourceId": "https://cat.opidor.fr/index.php/ALTAG3D",
+      "idType": "URL",
+      "serviceContact": "consortium3d-coordination@services.cnrs.fr"
+    }
+  ],
+  "backupPolicy": [
+    {
+      "description": "<p>Ma politique</p>",
+      "backupFrequency": "2",
+      "backupType": "Complète",
+      "storageType": [
+        "Disque dur",
+        "Clé USB"
+      ]
+    }
+  ],
+  "securityMeasures": "<p>Mes mesures</p>",
+  "contributor": [
+    {
+      "person": {
+        "nameType": "Personne",
+        "lastName": "User",
+        "firstName": "Organisational",
+        "mbox": "org_user@example.com"
       },
-      {
-        "action": "create",
-        "template": "PartnerStandard",
-        "data": {
-          "name": "University of Helsinki",
-          "rnsr": "rnsr:University of Helsinki"
-        }
-      },
-      {
-        "action": "create",
-        "template": "PartnerStandard",
-        "data": {
-          "name": "Justus Liebig University Giessen, Germany",
-          "rnsr": "rnsr:Justus Liebig University Giessen"
-        }
-      }
-    ],
-    "acronym": "BioProtect",
-    "description": "Ma description est cool"
-  }
+      "role": "Responsable du stockage des données"
+    }
+  ],
+  "cost": [
+    {
+      "costType": "Frais de personnel",
+      "amount": "530",
+      "currency": "EUR",
+      "title": "Mon cout",
+      "description": "<p>Mon cout</p>"
+    }
+  ],
+  "estimatedVolume": "1000",
+  "volumeUnit": "Octets"
+}
