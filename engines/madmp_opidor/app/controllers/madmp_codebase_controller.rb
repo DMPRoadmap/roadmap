@@ -10,6 +10,9 @@ class MadmpCodebaseController < ApplicationController
     fragment = MadmpFragment.find(params[:fragment_id])
     script_name = params[:script_name]
     schema_run = fragment.madmp_schema.extract_run_parameters(script_name:)
+    p "#####################################"
+    p schema_run
+    p "#####################################"
     script_params = schema_run['params'] || {}
 
     authorize fragment
@@ -18,15 +21,15 @@ class MadmpCodebaseController < ApplicationController
     # file_path = Rails.root.join("engines/madmp_opidor/config/example_data/codebase_example_data.json")
     # response = JSON.load(File.open(file_path))
     # fragment.raw_import(response, fragment.madmp_schema)
-    render json: {
-      'fragment' => fragment.get_full_fragment(with_ids: true),
-      'needs_reload' => true
-    }, status: 200
+    # render json: {
+    #   'fragment' => fragment.get_full_fragment(with_ids: true),
+    #   'needs_reload' => true
+    # }, status: 200
     # render json: {
     #   'message' => _('Notification has been sent'),
     #   'needs_reload' => false
     # }, status: 200
-    return
+    # return
 
     fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.include?('notifyer')
     begin
