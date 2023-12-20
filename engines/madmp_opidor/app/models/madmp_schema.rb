@@ -142,11 +142,11 @@ class MadmpSchema < ApplicationRecord
     CLASSNAME_TO_PROPERTY[classname]
   end
 
-  def extract_run_parameters(script_id: nil)
+  def extract_run_parameters(script_name: nil)
     return [] if schema['run'].nil?
-    return schema['run'] if script_id.nil?
+    return schema['run'] if script_name.nil?
 
-    schema['run'].find { |run| run['script_id'] == script_id.to_i } || {}
+    schema['run'].find { |run| run['script_name'] == script_name } || {}
   end
 
   def run_parameters?

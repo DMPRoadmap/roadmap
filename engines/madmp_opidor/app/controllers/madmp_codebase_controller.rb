@@ -8,9 +8,8 @@ class MadmpCodebaseController < ApplicationController
   # rubocop:disable Metrics/PerceivedComplexity
   def run
     fragment = MadmpFragment.find(params[:fragment_id])
-    script_id = params[:script_id]
-    schema_run = fragment.madmp_schema.extract_run_parameters(script_id:)
-    script_name = schema_run['name'] || ''
+    script_name = params[:script_name]
+    schema_run = fragment.madmp_schema.extract_run_parameters(script_name:)
     script_params = schema_run['params'] || {}
 
     authorize fragment
@@ -18,15 +17,20 @@ class MadmpCodebaseController < ApplicationController
     # EXAMPLE DATA
     # file_path = Rails.root.join("engines/madmp_opidor/config/example_data/codebase_example_data.json")
     # response = JSON.load(File.open(file_path))
-    # fragment.import_with_instructions(response, fragment.madmp_schema)
+    # fragment.raw_import(response, fragment.madmp_schema)
+    render json: {
+      'fragment' => fragment.get_full_fragment(with_ids: true),
+      'needs_reload' => true
+    }, status: 200
     # render json: {
-    #   "message" => _('New data have been added to your plan, please click on the "Reload" button.')
+    #   'message' => _('Notification has been sent'),
+    #   'needs_reload' => false
     # }, status: 200
-    # return
+    return
 
     fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.include?('notifyer')
     begin
-      response = fetch_run_data(fragment, script_id, body: {
+      response = fetch_run_data(fragment, script_name, body: {
         data: fragment.data,
         schema: fragment.madmp_schema.schema,
         dmp_language: fragment.dmp.locale,
@@ -44,11 +48,11 @@ class MadmpCodebaseController < ApplicationController
         else
           fragment.import_with_instructions(response['data'], fragment.madmp_schema)
           render json: {
-            'message' => _('New data have been added to your plan, please click on the "Reload" button.'),
+            'fragment' => fragment.get_full_fragment(with_ids: true),
             'needs_reload' => true
           }, status: 200
         end
-        update_run_log(fragment, script_id)
+        update_run_log(fragment, script_name)
       else
         # Rails.cache.delete(["codebase_run", fragment.id])
         render json: {
@@ -58,7 +62,7 @@ class MadmpCodebaseController < ApplicationController
     rescue StandardError => e
       # Rails.cache.delete(["codebase_run", fragment.id])
       render json: {
-        'error' => "Internal Server error: #{e.message}"
+        'error' => e.message
       }, status: 500
     end
   end
@@ -125,9 +129,9 @@ class MadmpCodebaseController < ApplicationController
     ExternalApis::MadmpCodebaseService.run(script_name, 'superadmin', body:)
   end
 
-  def update_run_log(fragment, script_id)
+  def update_run_log(fragment, script_name)
     runned_scripts = fragment.additional_info['runned_scripts'] || {}
-    runned_scripts[script_id.to_s] = Time.now
+    runned_scripts[script_name] = Time.now
     fragment.additional_info = fragment.additional_info.merge(
       'runned_scripts' => runned_scripts
     )
