@@ -99,6 +99,12 @@ namespace :v5 do
     end
   end
 
+  # Enable React pages for pilot partners
+  desc 'Enable the React prototype "Upload Plan" menu item for the specified orgs'
+  task enable_pilot_partners: :environment do
+    Org.where(id: %i[3 6 11 13 20 22 25 71 85 5271]).update_all(v5_pilot: true)
+  end
+
   # If using AWS S3, this will generate PDF narrative documents for each public Plan and place it into the
   # S3 bucket for faster retrieval. This is being done because bad bots have been crawling our public plans page
   # and the auto-build PDF per-request model was crippling the servers.
