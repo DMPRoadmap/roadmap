@@ -211,6 +211,14 @@ img.org-logo {
 .c-subheader {
   @extend .dmpui-frontend-container;
 }
+
+#maincontent > div.static-page {
+  max-width: 95%
+}
+#maincontent > div.static-page p {
+  margin-bottom: 45px;
+}
+
 #maincontent > div.row {
   margin-bottom: 10px;
 }
