@@ -27,12 +27,12 @@ The home page should show the initial User sign in / sign up form
 
   <%
   icon_grid = [
-	  { icon: asset_path('icon-1.svg'), text: _('The DMP Tool can be tailored to meet your needs.') },
-	  { icon: asset_path('icon-2.svg'), text: _('A mechanism for registering a DMP ID.') },
-    { icon: asset_path('icon-3.svg'), text: _('Best practice guidance to ensure DMSPs are structured and optimized.') },
-    { icon: asset_path('icon-4.svg'), text: _('A dashboard to track research and outputs.') },
-    { icon: asset_path('icon-5.svg'), text: _('A click-through wizard for creating a DMP that complies with funder requirements.') },
-    { icon: asset_path('icon-6.svg'), text: _('Direct links to funder websites, help text for answering questions, and Research Data Management (RDM) best practice resources.') }
+	  { icon: asset_path('icon-1.svg'), text: _('Cusomization tools for reseachers and institutions') },
+	  { icon: asset_path('icon-2.svg'), text: _('A mechanism for registering a DMP ID') },
+    { icon: asset_path('icon-3.svg'), text: _('Best practice guidance to ensure plans are structured and optimized') },
+    { icon: asset_path('icon-4.svg'), text: _('Participating organizations can provide feedback on plans') },
+    { icon: asset_path('icon-5.svg'), text: _('A click-through wizard for creating a DMP that complies with funder requirements') },
+    { icon: asset_path('icon-6.svg'), text: _('Direct links to funder websites, help text for answering questions, and Research Data Management (RDM) best practice resources') }
   ]
   %>
   <!-- Icon Grid -->
@@ -40,7 +40,7 @@ The home page should show the initial User sign in / sign up form
     <div class="dmpui-frontend-icon-grid ">
       <div class="icon-grid-header">
         <h2><%= _('How does the DMP Tool work?') %></h2>
-        <p><%= _('New bit of text. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.') %></p>
+        <p><%= _('Simplifying data management and sharing plans for researchers and institutions with the DMP Tool’s efficient, best practice-oriented, and compliance-designed approach') %></p>
       </div>
       <div class="icon-grid-list">
         <% icon_grid.each do |entry| %>
@@ -63,8 +63,8 @@ The home page should show the initial User sign in / sign up form
   <div class="dmpui-frontend-container dmpui-frontend">
     <div class="dmpui-frontend-cta ">
       <div class="dmpui-grow">
-        <h3><%= _('Get started creating DMPs') %></h3>
-        <p><%= _('Join our growing community of institutions, researchers, funders, and administrators and start creating DMSPs today.') %></p>
+        <h3><%= _('Getting started with the DMP Tool') %></h3>
+        <p><%= _('Create data management and sharing plans that meet requirements and promote research.') %></p>
       </div>
       <div class="">
         <a href="<%= auth_path %>" class="dmpui-frontend-btn dmpui-frontend-btn-primary with-mark">Get Started</a>
@@ -76,37 +76,37 @@ The home page should show the initial User sign in / sign up form
   <div class="dmpui-frontend-benefits dmpui-frontend ">
     <div class="dmpui-frontend-container ">
       <div class="benefit-intro-text">
-        <h2><%= _('What are the benefits of the DMP') %></h2>
-        <p><%= _('DMSPs promote research integrity, support reproducibility, and help to ensure data security. With the DMP Tool you can') %></p>
+        <h2><%= _('What are the benefits?') %></h2>
+        <p><%= _('Quality plans promote research integrity, support reproducibility and help to ensure data security.') %></p>
       </div>
 
       <div class="benefit-cards">
         <div class="card">
           <h3><%= _('Funders') %></h3>
-          <p><%= _('Promote best practice with requirements for DMSPs in your data management policies.') %></p>
-          <p><%= _('Ensure your requirements are met with funder-specific templates.') %></p>
-          <p><%= _('Enrich your organization’s research graph to track research outcomes.') %></p>
+          <p><%= _('Promote best practices in research data managment and sharing') %></p>
+          <p><%= _('Ensure your requirements are met with funder-specific templates') %></p>
+          <p><%= _('Enrich your organization’s research graph to track research outcomes') %></p>
         </div>
 
         <div class="card">
           <h3><%= _('Researchers') %></h3>
-          <p><%= _('Comply with funder requirements for data management and sharing.') %></p>
-          <p><%= _('Create a DMSP quickly and easily, on your own or in collaboration with a colleague.') %></p>
-          <p><%= _('Get credit and extend the reach of your research.') %></p>
+          <p><%= _('Comply with funder requirements for data management and sharing') %></p>
+          <p><%= _('Create a plan quickly and easily, on your own or in collaboration with a colleague') %></p>
+          <p><%= _('Get credit and extend the reach of your research') %></p>
         </div>
 
         <div class="card">
           <h3><%= _('Institutions') %></h3>
-          <p><%= _('Provide DMSP guidance at scale and with fewer resources') %></p>
-          <p><%= _('Track the impact of your organization’s research programs.') %></p>
+          <p><%= _('Provide guidance at scale') %></p>
+          <p><%= _('Track the impact of your organization’s research programs') %></p>
           <p><%= _('Support open science and FAIR data stewardship throughout the research enterprise.') %></p>
         </div>
       </div>
 
       <div class="dmpui-frontend-cta benefit-cta ">
         <div class="dmpui-grow">
-          <h3><%= _('Want to join as an Institution or Funder?') %></h3>
-          <p><%= _('Join our growing community of institutions, researchers, funders, and administrators and start creating DMSPs today.') %></p>
+          <h3><%= _('Interested in joining as a participating organization?') %></h3>
+          <p><%= _('Join our community of research institutions and promote your requirements and resources.') %></p>
         </div>
         <div class="">
           <a href="<%= join_us_path %>" class="dmpui-frontend-btn dmpui-frontend-btn-primary "><%= _('Join as a Partner') %></a>
@@ -129,7 +129,7 @@ The home page should show the initial User sign in / sign up form
     <div class="dmpui-frontend-stats ">
       <div class="stats-header">
         <h2><%= _('Learn more about the DMP Tool') %></h2>
-        <p><%= _('Learn more about the DMP Tool and its history and backers.') %></p>
+        <p><%= _('Explore the DMP Tool\'s features and functionalities to enhance your data management and sharing processes.') %></p>
       </div>
 
       <div class="stats-list">
@@ -141,7 +141,7 @@ The home page should show the initial User sign in / sign up form
               </div>
               <div class="stats-item-text">
                 <% if entry[:text] == _('Participating Institutions') %>
-                  <p><a href="<%= public_orgs_path %>"><%= entry[:text] %></a></p>
+                  <p><a class="underlined" href="<%= public_orgs_path %>"><%= entry[:text] %></a></p>
                 <% else %>
                   <p><%= entry[:text] %></p>
                 <% end %>
@@ -158,7 +158,7 @@ The home page should show the initial User sign in / sign up form
     <div class="dmpui-frontend-container dmpui-frontend  dmpui-frontend-blog-latest">
       <div class="dmpui-row dmpui-align-start">
         <div class="dmpui-grow">
-          <h2><%= _('Learn more about the DMP Tool') %></h2>
+          <h2><%= _('News and updates') %></h2>
         </div>
         <div class="dmpui-desktop">
           <a href="https://blog.dmptool.org/" class="dmpui-frontend-btn dmpui-frontend-btn-primary dmpui-external">

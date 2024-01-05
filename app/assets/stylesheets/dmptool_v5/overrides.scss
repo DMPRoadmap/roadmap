@@ -29,6 +29,10 @@ body {
   color: $color-green;
 }
 
+.underlined {
+  text-decoration: underline;
+}
+
 .btn,
 .c-search-clear,
 .js-facet-clear {
@@ -580,4 +584,8 @@ div.usage-button {
 button.dropdown-toggle {
   @extend .btn-default;
   font-size: .8em;
+}
+
+#maincontent > div.static-page p.join-us-reasons {
+  margin-bottom: 10px;
 }
