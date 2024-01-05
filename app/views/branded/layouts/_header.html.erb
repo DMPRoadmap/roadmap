@@ -26,7 +26,7 @@
         <li><%= link_to _("About"), about_us_path %></li>
       <% end %>
 
-      <% if user_signed_in? %>
+      <% if user_signed_in? && current_user.can_org_admin? %>
         <li>
           <div class="dmpui-dropdown">
             <span><a href="#"><%= _('Admin') %></a></span>
@@ -39,12 +39,8 @@
               <% if current_user.can_grant_permissions? %>
                 <p><%= link_to _('Users'), admin_index_users_path, role: 'menuitem' %></p>
               <% end %>
-              <% if current_user.can_org_admin? %>
-                <p><%= link_to _('Plans'), org_admin_plans_path, role: 'menuitem' %></p>
-              <% end %>
-              <% if current_user.can_org_admin? %>
-                <p><%= link_to _('Usage'), usage_index_path, role: 'menuitem' %></p>
-              <% end %>
+              <p><%= link_to _('Plans'), org_admin_plans_path, role: 'menuitem' %></p>
+              <p><%= link_to _('Usage'), usage_index_path, role: 'menuitem' %></p>
               <% if current_user.can_modify_templates? %>
                 <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
                 <p><%= link_to _('Templates'), template_path, role: 'menuitem' %></p>
