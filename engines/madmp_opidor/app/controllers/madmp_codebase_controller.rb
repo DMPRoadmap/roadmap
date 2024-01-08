@@ -10,9 +10,6 @@ class MadmpCodebaseController < ApplicationController
     fragment = MadmpFragment.find(params[:fragment_id])
     script_name = params[:script_name]
     schema_run = fragment.madmp_schema.extract_run_parameters(script_name:)
-    p "#####################################"
-    p schema_run
-    p "#####################################"
     script_params = schema_run['params'] || {}
 
     authorize fragment
