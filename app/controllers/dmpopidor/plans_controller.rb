@@ -387,7 +387,8 @@ module Dmpopidor
               {
                 answer_id: a.id,
                 question_id: a.question_id,
-                fragment_id: a.madmp_fragment.id
+                fragment_id: a.madmp_fragment.id,
+                madmp_schema_id: a.madmp_fragment.madmp_schema_id
               }
             end
           }
