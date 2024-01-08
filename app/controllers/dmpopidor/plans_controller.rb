@@ -30,6 +30,8 @@ module Dmpopidor
 
         @plan.template = ::Template.find(plan_params[:template_id])
 
+        @plan.org = current_user.org
+
         @plan.title = if current_user.firstname.blank?
                         format(_('My Plan (%{title})'), title: @plan.template.title)
                       else
@@ -37,7 +39,7 @@ module Dmpopidor
                       end
         if @plan.save
           # pre-select org's guidance and the default org's guidance
-          ids = (::Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq
+          ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
           ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
           @plan.guidance_groups << ggs unless ggs.empty?
@@ -187,7 +189,7 @@ module Dmpopidor
       render json: {
         status: 200,
         message: 'Guidance groups',
-        guidance_groups: @all_ggs_grouped_by_org,
+        data: @all_ggs_grouped_by_org,
       },status: :ok
     end
 
@@ -483,12 +485,12 @@ module Dmpopidor
 
       @default_orgs = ::Org.default_orgs
 
-      @all_ggs_grouped_by_org.map do |key, value|
+      @all_ggs_grouped_by_org.map do |key, group|
         {
           name: key.name,
           id: key.id,
-          important: @default_orgs.include?(key) || value.any? { |item| @selected_guidance_groups.include?(item.id) },
-          guidances: value.map do |item|
+          important: @default_orgs.include?(key) || group.any? { |item| @selected_guidance_groups.include?(item.id) },
+          guidance_groups: group.map do |item|
             {
               id: item.id,
               name: item.name,
