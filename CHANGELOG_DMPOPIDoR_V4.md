@@ -3,6 +3,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 08/01/2024
+- Ajout de l'exécution des scripts dans l'onglet Rédiger:
+  - Les scripts s'éxécutent à partir du `name` et du `owner` présents dans le `run`
+  - Si `owner` est absent, le owner "superadmin" est utilisé
+- Améliorations diverses dans le choix des recommandations
+
 ## 11/12/2023
 - Ajout de l'import informations de projets provenant de plusieurs financeurs (#9784)
 - Ajout du changement de formulaire (#10040) :
