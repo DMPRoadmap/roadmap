@@ -11,6 +11,7 @@ class MadmpCodebaseController < ApplicationController
     script_name = params[:script_name]
     schema_run = fragment.madmp_schema.extract_run_parameters(script_name:)
     script_params = schema_run['params'] || {}
+    script_owner = schema_run['owner'] || nil
 
     authorize fragment
 
@@ -31,7 +32,7 @@ class MadmpCodebaseController < ApplicationController
 
     fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.include?('notifyer')
     begin
-      response = fetch_run_data(fragment, script_name, body: {
+      response = fetch_run_data(fragment, script_name, nil, body: {
         data: fragment.data,
         schema: fragment.madmp_schema.schema,
         dmp_language: fragment.dmp.locale,
@@ -90,7 +91,7 @@ class MadmpCodebaseController < ApplicationController
     # return
 
     begin
-      response = fetch_run_data(fragment, script_name, body: {
+      response = fetch_run_data(fragment, script_name, nil, body: {
         data: { grantId: project_id },
         dmp_language: fragment.dmp.locale,
         # schema: fragment.madmp_schema.schema,
@@ -124,10 +125,10 @@ class MadmpCodebaseController < ApplicationController
 
   private
 
-  def fetch_run_data(fragment, script_name, body: {}, params: {})
+  def fetch_run_data(fragment, script_name, script_owner = 'superadmin', body: {}, params: {})
     return {} unless fragment.present? && script_name.present?
 
-    ExternalApis::MadmpCodebaseService.run(script_name, 'superadmin', body:)
+    ExternalApis::MadmpCodebaseService.run(script_name, script_owner, body:)
   end
 
   def update_run_log(fragment, script_name)
