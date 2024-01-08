@@ -32,7 +32,7 @@ class MadmpCodebaseController < ApplicationController
 
     fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.include?('notifyer')
     begin
-      response = fetch_run_data(fragment, script_name, nil, body: {
+      response = fetch_run_data(fragment, script_name, script_owner, body: {
         data: fragment.data,
         schema: fragment.madmp_schema.schema,
         dmp_language: fragment.dmp.locale,
@@ -91,7 +91,7 @@ class MadmpCodebaseController < ApplicationController
     # return
 
     begin
-      response = fetch_run_data(fragment, script_name, nil, body: {
+      response = fetch_run_data(fragment, script_name, 'superadmin', body: {
         data: { grantId: project_id },
         dmp_language: fragment.dmp.locale,
         # schema: fragment.madmp_schema.schema,

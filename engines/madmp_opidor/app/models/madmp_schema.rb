@@ -146,7 +146,7 @@ class MadmpSchema < ApplicationRecord
     return {} if schema['run'].nil?
     return schema['run'] if script_name.nil?
 
-    schema['run'].find { |run| run['script_name'] == script_name } || {}
+    schema['run'].find { |run| run['name'] == script_name } || {}
   end
 
   def run_parameters?
