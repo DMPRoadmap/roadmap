@@ -59,7 +59,7 @@ body {
   right: 0;
   list-style: none;
   background-color: $color-blue;
-  min-width: 180px;
+  min-width: 240px;
   box-shadow: 0px 8px 16px 0px $color-blue-dark;
   padding: 12px 16px;
   z-index: 100;
@@ -156,6 +156,10 @@ img.org-logo {
   gap: $space-sm;
 }
 
+.c-links-org li {
+  max-width: 300px;
+}
+
 /* Notifications */
 .notification-area {
   margin-bottom: 5px;
@@ -218,9 +222,6 @@ img.org-logo {
 
 #maincontent > div.static-page {
   max-width: 95%
-}
-#maincontent > div.static-page p {
-  margin-bottom: 45px;
 }
 
 #maincontent > div.row {
@@ -588,4 +589,11 @@ button.dropdown-toggle {
 
 #maincontent > div.static-page p.join-us-reasons {
   margin-bottom: 10px;
+}
+
+#editorial-board div.row {
+  margin-bottom: 25px;
+}
+#editorial-board div.row div.board-bio {
+  padding-left: 35px;
 }

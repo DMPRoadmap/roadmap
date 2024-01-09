@@ -91,9 +91,9 @@ portrait_logos = [
 %>
 
 <div class="static-page">
-  <h1><%= _('Promote the DMPTool') %></h1>
+  <h1><%= _('Promote the DMP Tool') %></h1>
 
-  <p><%= _('Help spread the word about the DMPTool! Use the materials below to inform researchers, librarians, administrators and others about the tool. All materials are available under a CC-Zero license.') %></p>
+  <p><%= _('Help spread the word about the DMP Tool! Use the DMP Tool logos below when publicizing the tool. All are available under a CC-Zero license.') %></p>
 
   <h2><%= _('DMP Tool logos - landscape orientation') %></h2>
   <div class="promotion-landscape">
@@ -101,14 +101,14 @@ portrait_logos = [
     <% landscape_logos.each do |hash| %>
       <div class="promotion-logo <%= cntr == 2 ? 'separator' : '' %>">
         <img class="promotion-logo <%= hash[:background] ? 'white' : '' %>"
-             alt="DMPTool logo <%= hash[:description] %>"
+             alt="DMP Tool logo <%= hash[:description] %>"
              src="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:png] %>" />
         <p><%= hash[:description] %></p>
-        <a target="_blank" aria-text="Download DMPTool logo <%= hash[:description] %> as SVG"
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as SVG"
            href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:svg] %>">SVG</a>
-        <a target="_blank" aria-text="Download DMPTool logo <%= hash[:description] %> as PNG"
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as PNG"
            href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:png] %>">PNG</a>
-        <a target="_blank" aria-text="Download DMPTool logo <%= hash[:description] %> as PDF"
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as PDF"
            href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:pdf] %>">PDF</a>
       </div>
       <% cntr += 1 %>
@@ -121,14 +121,14 @@ portrait_logos = [
     <% portrait_logos.each do |hash| %>
       <div class="promotion-logo <%= cntr == 2 ? 'separator' : '' %>">
         <img class="promotion-logo <%= hash[:background] ? 'white' : '' %>"
-             alt="DMPTool logo <%= hash[:description] %>"
+             alt="DMP Tool logo <%= hash[:description] %>"
              src="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:png] %>" />
         <p><%= hash[:description] %></p>
-        <a target="_blank" aria-text="Download DMPTool logo <%= hash[:description] %> as SVG"
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as SVG"
            href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:svg] %>">SVG</a>
-        <a target="_blank" aria-text="Download DMPTool logo <%= hash[:description] %> as PNG"
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as PNG"
            href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:png] %>">PNG</a>
-        <a target="_blank" aria-text="Download DMPTool logo <%= hash[:description] %> as PDF"
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as PDF"
            href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:pdf] %>">PDF</a>
       </div>
       <% cntr += 1 %>

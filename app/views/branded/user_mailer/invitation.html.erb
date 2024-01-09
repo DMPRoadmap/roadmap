@@ -45,7 +45,7 @@
   <% else %>
     <br>
     <p><%= _("Thank you,") %></p>
-    <p><%= _("The %{org_name} DMPTool team") % { org_name: @org_name } %></p>
+    <p><%= _("The %{org_name} DMP Tool team") % { org_name: @org_name } %></p>
     <p><%= sanitize(_("Please do not reply to this email. If you have any questions or need help, please contact us at %{org_admin_email}") % {
       org_admin_email: mail_to(@org_email, @org_email)
     }) %></p>

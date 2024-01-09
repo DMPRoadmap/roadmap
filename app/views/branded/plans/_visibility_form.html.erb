@@ -4,7 +4,7 @@
 
 <% allow_visibility = plan.visibility_allowed? %>
 
-<% terms_text = _('I grant permission to California Digital Library to store, share, and adapt the material I have provided as part of my plan in accordance with the Sharing and Reuse section of the DMPTool\'s %{terms_url}') %
+<% terms_text = _('I grant permission to California Digital Library to store, share, and adapt the material I have provided as part of my plan in accordance with the Sharing and Reuse section of the DMP Tool\'s %{terms_url}') %
     { terms_url: link_to(_('terms and conditions'), terms_path, target: '_blank') }  %>
 
 <% if plan.administerable_by?(current_user.id) %>

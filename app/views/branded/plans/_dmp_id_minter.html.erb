@@ -57,9 +57,9 @@ allow_minting = orcid.present? && orcid_access_token.present? if allow_minting &
             <li>
               <% if orcid.present? && orcid_access_token.present?%><span class="fa fa-check green"><span class="sr-only">Complete: </span></span><% else %><span class="fa fa-times red"><span class="sr-only">Incomplete: </span></span><% end %>
               <% if !orcid_access_token.present? %>
-                <%= (_("authorized DMPTool to add works to your ORCID record via the %{link_to_third_part_page}") % { link_to_third_part_page: users_third_party_apps_path }).html_safe %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
+                <%= (_("authorized DMP Tool to add works to your ORCID record via the %{link_to_third_part_page}") % { link_to_third_part_page: users_third_party_apps_path }).html_safe %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
               <% else %>
-                <%= _("linked your DMPTool account to your ORCID via your") %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
+                <%= _("linked your DMP Tool account to your ORCID via your") %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
               <% end %>
             </li>
           <% end %>

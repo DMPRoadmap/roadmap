@@ -14,11 +14,10 @@
         <h4><%= _('Quick links') %></h4>
         <ul>
           <li><%= link_to _("Contact"), contact_us_path %></li>
-          <li><%= link_to _("About"), about_us_path %></li>
           <li><%= link_to _("Public DMPs"), public_plans_path %></li>
           <li><%= link_to _("Funder Requirements"), public_templates_path %></li>
-          <li><%= link_to _("Terms & Privacy"), terms_path %></li>
           <li><%= link_to _("Help"), help_path %></li>
+          <li><%= link_to _("Terms & Privacy"), terms_path %></li>
           <li><%= link_to _("Login"), auth_path %></li>
         </ul>
       </div>
@@ -43,7 +42,7 @@
       </div>
       <div class="footer-disclaimers-text">
         <p>
-          <%= _('DMPTool is a service of the California Digital Library, a division of the University of California Office of the President.') %> <%= _('Version:') %> <%= Rails.configuration.x.dmptool.version&.to_s&.gsub(';', '') || 5 %>
+          <%= _('DMP Tool is a service of the California Digital Library, a division of the University of California Office of the President.') %> <%= _('Version:') %> <%= Rails.configuration.x.dmptool.version&.to_s&.gsub(';', '') || 5 %>
           <br/>
           <%= _('© 2024 The Regents of the University of California') %>
         </p>
