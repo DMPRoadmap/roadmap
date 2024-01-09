@@ -123,11 +123,18 @@
       <li><%= link_to _("Public Plans"), public_plans_path %></li>
       <li><%= link_to _("Funder Requirements"), public_templates_path %></li>
 
-      <% if user_signed_in? %>
-        <li><%= link_to _("Help"), help_path %></li>
-      <% else %>
-        <li><%= link_to _("About"), about_us_path %></li>
-      <% end %>
+      <li>
+        <div class="dmpui-dropdown">
+          <span><a href="#"><%= _('About') %></a></span>
+          <ul class="mobile-menu-submenu">
+            <li><%= link_to _('Learn more'), about_us_path, role: 'menuitem' %></li>
+            <li><%= link_to _('Institutional membership'), join_us_path, role: 'menuitem' %></li>
+            <li><%= link_to _('FAQs'), faq_path, role: 'menuitem' %></li>
+            <li><%= link_to _('Editorial board'), editorial_board_path, role: 'menuitem' %></li>
+            <li><%= link_to _('DMP Tool Logos'), promote_path, role: 'menuitem' %></li>
+          </ul>
+        </div>
+      </li>
 
       <% if user_signed_in? %>
         <li>
