@@ -20,7 +20,8 @@
 
   <p><%= _('When you log in, you will be directed to “My Dashboard.” From here, you can create, edit, share, download, copy, or remove any of your plans. You will also see plans that have been shared with you by others.') %></p>
   <p><%= sanitize _('If others at your institution/organization have chosen to share their plans internally, you will see a second table of organizational plans. This allows you to download a PDF and view their plans as samples or discover new research data. Additional samples are available in the list of <a href="%{public_plans_url}">public plans</a>.') % { public_plans_url: public_plans_path } %></p>
-  <img src="https://github.com/CDLUC3/dmptool/blob/1a3cdfad33bf2a69d0c76e7fdf40e87c5607039c/docs/quickstartguide/my-dashboard-ai.png?raw=true" alt="Screenshot of the My Dashboard page" style="width: 80%; margin-left: 45px;" />
+  <img src="https://github.com/CDLUC3/dmptool/blob/f052f450e4f9e64af9a28c3a629c929d4476c7a3/docs/quickstartguide/dashboard.png?raw=true" alt="Screenshot of the My Dashboard page" style="width: 80%; margin-left: 45px;" />
+
   <hr>
 
   <h2 id="how-do-i-create-a-data-management-plan"><%= _('How do I create a data management plan?') %></h2>
@@ -28,8 +29,7 @@
   <h3><%= _("Start a plan") %></h3>
 
   <p><%= _('Click the “Create plan” button on My dashboard or the top menu to create a plan. This will take you to a wizard that helps you select the appropriate template:') %></p>
-
-  <img src="https://github.com/CDLUC3/dmptool/blob/master/docs/quickstartguide/create-plan-ai.png?raw=true" alt="Screenshot of the Create plan page" style="width: 70%; margin-left: 45px;" />
+  <img src="https://github.com/CDLUC3/dmptool/blob/f052f450e4f9e64af9a28c3a629c929d4476c7a3/docs/quickstartguide/create_plan.png?raw=true" alt="Screenshot of the Create plan page" style="width: 70%; margin-left: 45px;" />
 
   <p><%= sanitize _('<ol type="1"><li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li><li>Select the primary research organization. This field will be pre-populated if you are associated with a participating institution/organization. You have the option to clear the field and select another organization from the list. You will be presented with institution-specific templates and guidance based on your selection. You can also check the box “No organization is associated with this plan.”</li><li>Select the primary funding organization. If you must include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of <a href="%<public_templates_url>s">funder requirements</a> supported by DMP Tool. If your funder is not on the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>') % { public_templates_url: public_templates_path } %></p>
 
