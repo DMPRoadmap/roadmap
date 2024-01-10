@@ -1,14 +1,14 @@
 # Portuguese translations for dmptool package.
-# Copyright (C) 2023 dmptool
+# Copyright (C) 2024 dmptool
 # This file is distributed under the same license as the dmptool package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-12-13 10:17-0800\n"
-"PO-Revision-Date: 2023-12-13 19:17+0100\n"
+"POT-Creation-Date: 2024-01-10 07:59-0800\n"
+"PO-Revision-Date: 2024-01-10 17:00+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -148,6 +148,221 @@ msgstr "Nenhum colaborador foi definido."
 msgid "Add a contributor"
 msgstr "Adicionar um colaborador"
 
+#: ../../app/views/branded/home/index.html.erb:16
+msgid "Best practice made easier"
+msgstr "Melhores práticas facilitadas"
+
+#: ../../app/views/branded/home/index.html.erb:17
+msgid ""
+"With a free, community-supported service that makes it easier to create machin"
+"e-actionable data management and sharing plans (DMSPs) that meet funder requir"
+"ements and follow open science best practice."
+msgstr ""
+"Com um serviço gratuito apoiado pela comunidade que facilita a criação de plan"
+"os de compartilhamento e gerenciamento de dados acionáveis por máquina (DMSPs)"
+" que atendam aos requisitos do financiador e sigam as melhores práticas da ciê"
+"ncia aberta."
+
+#: ../../app/views/branded/home/index.html.erb:19
+#: ../../app/views/branded/layouts/_footer.html.erb:8
+msgid "Get Started"
+msgstr "Iniciar"
+
+#: ../../app/views/branded/home/index.html.erb:30
+msgid "Cusomization tools for reseachers and institutions"
+msgstr "Ferramentas de personalização para pesquisadores e instituições"
+
+#: ../../app/views/branded/home/index.html.erb:31
+msgid "A mechanism for registering a DMP ID"
+msgstr "Um mecanismo para registrar um ID DMP"
+
+#: ../../app/views/branded/home/index.html.erb:32
+msgid "Best practice guidance to ensure plans are structured and optimized"
+msgstr ""
+"Orientação de melhores práticas para garantir que os planos sejam estruturados"
+" e otimizados"
+
+#: ../../app/views/branded/home/index.html.erb:33
+msgid "Participating organizations can provide feedback on plans"
+msgstr "As organizações participantes podem fornecer feedback sobre os planos"
+
+#: ../../app/views/branded/home/index.html.erb:34
+msgid ""
+"A click-through wizard for creating a DMP that complies with funder requiremen"
+"ts"
+msgstr ""
+"Um assistente click-through para criar um DMP que atenda aos requisitos do fin"
+"anciador"
+
+#: ../../app/views/branded/home/index.html.erb:35
+msgid ""
+"Direct links to funder websites, help text for answering questions, and Resear"
+"ch Data Management (RDM) best practice resources"
+msgstr ""
+"Links diretos para sites de financiadores, texto de ajuda para responder pergu"
+"ntas e recursos de práticas recomendadas de gerenciamento de dados de pesquisa"
+" (RDM)"
+
+#: ../../app/views/branded/home/index.html.erb:42
+msgid "How does the DMP Tool work?"
+msgstr "Como funciona a ferramenta DMP?"
+
+#: ../../app/views/branded/home/index.html.erb:43
+msgid ""
+"Simplifying data management and sharing plans for researchers and institutions"
+" with the DMP Tool’s efficient, best practice-oriented, and compliance-designe"
+"d approach"
+msgstr ""
+"Simplificando o gerenciamento de dados e planos de compartilhamento para pesqu"
+"isadores e instituições com a abordagem eficiente, orientada para as melhores "
+"práticas e projetada para conformidade da ferramenta DMP"
+
+#: ../../app/views/branded/home/index.html.erb:66
+msgid "Getting started with the DMP Tool"
+msgstr "Introdução à ferramenta DMP"
+
+#: ../../app/views/branded/home/index.html.erb:67
+msgid ""
+"Create data management and sharing plans that meet requirements and promote re"
+"search."
+msgstr ""
+"Crie planos de gerenciamento e compartilhamento de dados que atendam aos requi"
+"sitos e promovam pesquisas."
+
+#: ../../app/views/branded/home/index.html.erb:79
+msgid "What are the benefits?"
+msgstr "Quais são os benefícios?"
+
+#: ../../app/views/branded/home/index.html.erb:80
+msgid ""
+"Quality plans promote research integrity, support reproducibility and help to "
+"ensure data security."
+msgstr ""
+"Os planos de qualidade promovem a integridade da investigação, apoiam a reprod"
+"utibilidade e ajudam a garantir a segurança dos dados."
+
+#: ../../app/views/branded/home/index.html.erb:85
+msgid "Funders"
+msgstr "Financiadores"
+
+#: ../../app/views/branded/home/index.html.erb:86
+msgid "Promote best practices in research data managment and sharing"
+msgstr "Promover as melhores práticas na gestão e partilha de dados de investigação"
+
+#: ../../app/views/branded/home/index.html.erb:87
+msgid "Ensure your requirements are met with funder-specific templates"
+msgstr ""
+"Garanta que seus requisitos sejam atendidos com modelos específicos para finan"
+"ciadores"
+
+#: ../../app/views/branded/home/index.html.erb:88
+msgid "Enrich your organization’s research graph to track research outcomes"
+msgstr ""
+"Enriqueça o gráfico de pesquisa da sua organização para acompanhar os resultad"
+"os da pesquisa"
+
+#: ../../app/views/branded/home/index.html.erb:92
+msgid "Researchers"
+msgstr "Pesquisadores"
+
+#: ../../app/views/branded/home/index.html.erb:93
+msgid "Comply with funder requirements for data management and sharing"
+msgstr ""
+"Cumprir os requisitos do financiador para gerenciamento e compartilhamento de "
+"dados"
+
+#: ../../app/views/branded/home/index.html.erb:94
+msgid ""
+"Create a plan quickly and easily, on your own or in collaboration with a colle"
+"ague"
+msgstr "Crie um plano de forma rápida e fácil, sozinho ou em colaboração com um colega"
+
+#: ../../app/views/branded/home/index.html.erb:95
+msgid "Get credit and extend the reach of your research"
+msgstr "Obtenha crédito e amplie o alcance de sua pesquisa"
+
+#: ../../app/views/branded/home/index.html.erb:99
+msgid "Institutions"
+msgstr "Instituições"
+
+#: ../../app/views/branded/home/index.html.erb:100
+msgid "Provide guidance at scale"
+msgstr "Forneça orientação em grande escala"
+
+#: ../../app/views/branded/home/index.html.erb:101
+msgid "Track the impact of your organization’s research programs"
+msgstr "Acompanhe o impacto dos programas de pesquisa da sua organização"
+
+#: ../../app/views/branded/home/index.html.erb:102
+msgid ""
+"Support open science and FAIR data stewardship throughout the research enterpr"
+"ise."
+msgstr ""
+"Apoiar a ciência aberta e a administração de dados FAIR em todo o empreendimen"
+"to de pesquisa."
+
+#: ../../app/views/branded/home/index.html.erb:108
+msgid "Interested in joining as a participating organization?"
+msgstr "Interessado em ingressar como organização participante?"
+
+#: ../../app/views/branded/home/index.html.erb:109
+msgid ""
+"Join our community of research institutions and promote your requirements and "
+"resources."
+msgstr ""
+"Junte-se à nossa comunidade de instituições de pesquisa e promova suas necessi"
+"dades e recursos."
+
+#: ../../app/views/branded/home/index.html.erb:112
+msgid "Join as a Partner"
+msgstr "Junte-se como parceiro"
+
+#: ../../app/views/branded/home/index.html.erb:121
+#: ../../app/views/branded/layouts/_header.html.erb:47
+#: ../../app/views/branded/layouts/_header.html.erb:150
+msgid "Users"
+msgstr "Usuários"
+
+#: ../../app/views/branded/home/index.html.erb:122
+#: ../../app/views/branded/home/index.html.erb:143
+#: ../../app/views/branded/public_pages/orgs.html.erb:3
+msgid "Participating Institutions"
+msgstr "Instituições Participantes"
+
+#: ../../app/views/branded/home/index.html.erb:123
+#: ../../app/views/branded/layouts/_header.html.erb:49
+#: ../../app/views/branded/layouts/_header.html.erb:153
+msgid "Plans"
+msgstr "Planos"
+
+#: ../../app/views/branded/home/index.html.erb:131
+msgid "Learn more about the DMP Tool"
+msgstr "Saiba mais sobre a ferramenta DMP"
+
+#: ../../app/views/branded/home/index.html.erb:132
+msgid ""
+"Explore the DMP Tool's features and functionalities to enhance your data manag"
+"ement and sharing processes."
+msgstr ""
+"Explore os recursos e funcionalidades da ferramenta DMP para aprimorar seus pr"
+"ocessos de gerenciamento e compartilhamento de dados."
+
+#: ../../app/views/branded/home/index.html.erb:161
+msgid "News and updates"
+msgstr "Notícias e atualizações"
+
+#: ../../app/views/branded/home/index.html.erb:165
+msgid "Vist the blog"
+msgstr "Visite o blog"
+
+#: ../../app/views/branded/home/index.html.erb:189
+msgid "New release"
+msgstr "Novo lançamento"
+
+#: ../../app/views/branded/home/index.html.erb:200
+msgid "Read more"
+msgstr "Consulte Mais informação"
+
 #: ../../app/views/branded/kaminari/_first_page.html.erb:2
 msgid "First"
 msgstr "Primeiro"
@@ -184,112 +399,220 @@ msgstr "Anterior"
 msgid "Previous Page"
 msgstr "Página anterior"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:8
-#: ../../app/views/branded/layouts/_home.html.erb:16
-msgid "Get Started"
-msgstr "Iniciar"
-
 #: ../../app/views/branded/layouts/_footer.html.erb:14
 msgid "Quick links"
 msgstr "Links Rápidos"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:16
-#: ../../app/views/branded/layouts/_header.html.erb:11
-#: ../../app/views/branded/layouts/_header.html.erb:62
-#: ../../app/views/branded/public_pages/orgs.html.erb:4
-#: ../../app/views/branded/static_pages/about_us.html.erb:2
-msgid "About"
-msgstr "Sobre"
-
-#: ../../app/views/branded/layouts/_footer.html.erb:17
-#: ../../app/views/branded/layouts/_header.html.erb:12
-#: ../../app/views/branded/layouts/_header.html.erb:63
-#: ../../app/views/branded/layouts/_header_reactapp.html.erb:54
-msgid "Public DMPs"
-msgstr "PGDs Públicos"
-
-#: ../../app/views/branded/layouts/_footer.html.erb:18
-#: ../../app/views/branded/layouts/_header.html.erb:13
-#: ../../app/views/branded/layouts/_header.html.erb:64
+#: ../../app/views/branded/layouts/_header.html.erb:21
+#: ../../app/views/branded/layouts/_header.html.erb:124
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:53
 #: ../../app/views/branded/public_pages/template_index.html.erb:4
 msgid "Funder Requirements"
 msgstr "Requisitos do Financiador"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:19
+#: ../../app/views/branded/layouts/_footer.html.erb:17
+#: ../../app/views/branded/layouts/_header.html.erb:20
+#: ../../app/views/branded/layouts/_header.html.erb:123
+#: ../../app/views/branded/layouts/_header_reactapp.html.erb:54
+#: ../../app/views/branded/public_pages/plan_index.html.erb:3
+msgid "Public Plans"
+msgstr "Planos Públicos"
+
+#: ../../app/views/branded/layouts/_footer.html.erb:18
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:55
 #: ../../app/views/branded/static_pages/help.html.erb:2
 msgid "Help"
 msgstr "Ajuda"
 
+#: ../../app/views/branded/layouts/_footer.html.erb:19
+msgid "Terms & Privacy"
+msgstr "Termos e privacidade"
+
 #: ../../app/views/branded/layouts/_footer.html.erb:20
+#: ../../app/views/branded/org_admin/templates/repositories/_search_result.html.erb:41
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:37
+msgid "Contact"
+msgstr "Contato"
+
+#: ../../app/views/branded/layouts/_footer.html.erb:21
 msgid "Login"
 msgstr "Conecte-se"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:25
+#: ../../app/views/branded/layouts/_footer.html.erb:26
 msgid "External links"
 msgstr "links externos"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:27
+#: ../../app/views/branded/layouts/_footer.html.erb:28
 msgid "GitHub"
 msgstr "GitHub"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:28
+#: ../../app/views/branded/layouts/_footer.html.erb:29
 msgid "Blog"
 msgstr "Blogue"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:29
+#: ../../app/views/branded/layouts/_footer.html.erb:30
 msgid "Accessibility"
 msgstr "Acessibilidade"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:44
+#: ../../app/views/branded/layouts/_footer.html.erb:45
 msgid ""
-"DMPTool is a service of the California Digital Library, a division of the Univ"
-"ersity of California Office of the President."
+"DMP Tool is a service of the California Digital Library, a division of the Uni"
+"versity of California Office of the President."
 msgstr ""
-"DMPTool é um serviço da Biblioteca Digital da Califórnia, uma divisão do Gabin"
-"ete do Presidente da Universidade da Califórnia."
+"A ferramenta DMP é um serviço da Biblioteca Digital da Califórnia, uma divisão"
+" do Gabinete do Presidente da Universidade da Califórnia."
 
-#: ../../app/views/branded/layouts/_footer.html.erb:44
+#: ../../app/views/branded/layouts/_footer.html.erb:45
 msgid "Version:"
 msgstr "Versão:"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:46
+#: ../../app/views/branded/layouts/_footer.html.erb:47
 msgid "© 2024 The Regents of the University of California"
 msgstr "© 2024 Os Regentes da Universidade da Califórnia"
 
-#: ../../app/views/branded/layouts/_header.html.erb:36
+#: ../../app/views/branded/layouts/_header.html.erb:12
+#: ../../app/views/branded/layouts/_header.html.erb:116
+msgid "Dashboard"
+msgstr "Painel"
+
+#: ../../app/views/branded/layouts/_header.html.erb:14
+#: ../../app/views/branded/layouts/_header.html.erb:118
+msgid "Upload Plan"
+msgstr "Carregar plano"
+
+#: ../../app/views/branded/layouts/_header.html.erb:16
+#: ../../app/views/branded/layouts/_header.html.erb:120
+#: ../../app/views/branded/layouts/_header_reactapp.html.erb:51
+msgid "Create Plan"
+msgstr "Criar plano"
+
+#: ../../app/views/branded/layouts/_header.html.erb:25
+#: ../../app/views/branded/layouts/_header.html.erb:128
+#: ../../app/views/branded/public_pages/orgs.html.erb:4
+#: ../../app/views/branded/static_pages/about_us.html.erb:2
+msgid "About"
+msgstr "Sobre"
+
+#: ../../app/views/branded/layouts/_header.html.erb:27
+#: ../../app/views/branded/layouts/_header.html.erb:130
+msgid "Learn more"
+msgstr "Saber mais"
+
+#: ../../app/views/branded/layouts/_header.html.erb:28
+#: ../../app/views/branded/layouts/_header.html.erb:131
+msgid "Institutional membership"
+msgstr "Associação institucional"
+
+#: ../../app/views/branded/layouts/_header.html.erb:29
+#: ../../app/views/branded/layouts/_header.html.erb:132
+msgid "FAQs"
+msgstr "Perguntas frequentes"
+
+#: ../../app/views/branded/layouts/_header.html.erb:30
+#: ../../app/views/branded/layouts/_header.html.erb:133
+#: ../../app/views/branded/static_pages/about_us.html.erb:32
+#: ../../app/views/branded/static_pages/editorial_board.html.erb:2
+msgid "Editorial Board"
+msgstr "Conselho Editorial"
+
+#: ../../app/views/branded/layouts/_header.html.erb:31
+#: ../../app/views/branded/layouts/_header.html.erb:134
+msgid "DMP Tool Logos"
+msgstr "Logotipos de ferramentas DMP"
+
+#: ../../app/views/branded/layouts/_header.html.erb:39
+#: ../../app/views/branded/layouts/_header.html.erb:142
+msgid "Admin"
+msgstr "Administrador"
+
+#: ../../app/views/branded/layouts/_header.html.erb:42
+#: ../../app/views/branded/layouts/_header.html.erb:145
+msgid "Organisations"
+msgstr "Organizações"
+
+#: ../../app/views/branded/layouts/_header.html.erb:44
+#: ../../app/views/branded/layouts/_header.html.erb:147
+msgid "Organisation details"
+msgstr "Detalhes da organização"
+
+#: ../../app/views/branded/layouts/_header.html.erb:50
+#: ../../app/views/branded/layouts/_header.html.erb:156
+msgid "Usage"
+msgstr "Uso"
+
+#: ../../app/views/branded/layouts/_header.html.erb:53
+#: ../../app/views/branded/layouts/_header.html.erb:160
+msgid "Templates"
+msgstr "Modelos"
+
+#: ../../app/views/branded/layouts/_header.html.erb:56
+#: ../../app/views/branded/layouts/_header.html.erb:163
+msgid "Guidance"
+msgstr "Instruções"
+
+#: ../../app/views/branded/layouts/_header.html.erb:59
+#: ../../app/views/branded/layouts/_header.html.erb:166
+msgid "Themes"
+msgstr "Temas"
+
+#: ../../app/views/branded/layouts/_header.html.erb:62
+#: ../../app/views/branded/layouts/_header.html.erb:169
+msgid "Api Clients"
+msgstr "Clientes Api"
+
+#: ../../app/views/branded/layouts/_header.html.erb:63
+#: ../../app/views/branded/layouts/_header.html.erb:170
+msgid "Api Logs"
+msgstr "Registros de API"
+
+#: ../../app/views/branded/layouts/_header.html.erb:66
+#: ../../app/views/branded/layouts/_header.html.erb:173
+msgid "Notifications"
+msgstr "Notificações"
+
+#: ../../app/views/branded/layouts/_header.html.erb:76
+#: ../../app/views/branded/layouts/_header.html.erb:183
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:21
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: ../../app/views/branded/layouts/_header.html.erb:37
-#: ../../app/views/branded/layouts/_header_reactapp.html.erb:22
-msgid "3rd party applications"
+#: ../../app/views/branded/layouts/_header.html.erb:77
+#: ../../app/views/branded/layouts/_header.html.erb:184
+msgid "3rd party apps"
 msgstr "Aplicativos de terceiros"
 
-#: ../../app/views/branded/layouts/_header.html.erb:38
+#: ../../app/views/branded/layouts/_header.html.erb:78
+#: ../../app/views/branded/layouts/_header.html.erb:185
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:23
 msgid "Developer tools"
 msgstr "Ferramentas de desenvolvimento"
 
-#: ../../app/views/branded/layouts/_header.html.erb:39
-#: ../../app/views/branded/layouts/_header_reactapp.html.erb:24
-msgid "Sign out"
+#: ../../app/views/branded/layouts/_header.html.erb:96
+#: ../../app/views/branded/layouts/_header.html.erb:203
+msgid "Logout"
 msgstr "Sair"
 
-#: ../../app/views/branded/layouts/_header_reactapp.html.erb:28
-#: ../../app/views/branded/users/sessions/_form.html.erb:39
-#: ../../app/views/branded/users/sessions/new.html.erb:7
-msgid "Sign in"
-msgstr "Entrar"
-
+#: ../../app/views/branded/layouts/_header.html.erb:193
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:33
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:29
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:47
 #: ../../app/views/branded/users/registrations/_profile_form.html.erb:47
 msgid "Language"
 msgstr "Idioma"
+
+#: ../../app/views/branded/layouts/_header_reactapp.html.erb:22
+msgid "3rd party applications"
+msgstr "Aplicativos de terceiros"
+
+#: ../../app/views/branded/layouts/_header_reactapp.html.erb:24
+msgid "Sign out"
+msgstr "Sair"
+
+#: ../../app/views/branded/layouts/_header_reactapp.html.erb:28
+#: ../../app/views/branded/users/sessions/_form.html.erb:39
+msgid "Sign in"
+msgstr "Entrar"
 
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:45
 msgid "main navigation"
@@ -304,205 +627,6 @@ msgstr "a Principal"
 #: ../../app/views/branded/plans/index.html.erb:5
 msgid "My Dashboard"
 msgstr "Meu Painel de Controle"
-
-#: ../../app/views/branded/layouts/_header_reactapp.html.erb:51
-msgid "Create Plan"
-msgstr "Criar plano"
-
-#: ../../app/views/branded/layouts/_home.html.erb:13
-msgid "Best practice made easier"
-msgstr "Melhores práticas facilitadas"
-
-#: ../../app/views/branded/layouts/_home.html.erb:14
-msgid ""
-"With a free, community-supported service that makes it easier to create machin"
-"e-actionable data management and sharing plans (DMSPs) that meet funder requir"
-"ements and follow open science best practice."
-msgstr ""
-"Com um serviço gratuito apoiado pela comunidade que facilita a criação de plan"
-"os de compartilhamento e gerenciamento de dados acionáveis por máquina (DMSPs)"
-" que atendam aos requisitos do financiador e sigam as melhores práticas da ciê"
-"ncia aberta."
-
-#: ../../app/views/branded/layouts/_home.html.erb:27
-msgid "The DMP Tool can be tailored to meet your needs."
-msgstr "A ferramenta DMP pode ser adaptada para atender às suas necessidades."
-
-#: ../../app/views/branded/layouts/_home.html.erb:28
-msgid "A mechanism for registering a DMP ID."
-msgstr "Um mecanismo para registrar um ID DMP."
-
-#: ../../app/views/branded/layouts/_home.html.erb:29
-msgid "Best practice guidance to ensure DMSPs are structured and optimized."
-msgstr ""
-"Orientação de melhores práticas para garantir que os DMSPs sejam estruturados "
-"e otimizados."
-
-#: ../../app/views/branded/layouts/_home.html.erb:30
-msgid "A dashboard to track research and outputs."
-msgstr "Um painel para rastrear pesquisas e resultados."
-
-#: ../../app/views/branded/layouts/_home.html.erb:31
-msgid ""
-"A click-through wizard for creating a DMP that complies with funder requiremen"
-"ts."
-msgstr ""
-"Um assistente click-through para criar um DMP que atenda aos requisitos do fin"
-"anciador."
-
-#: ../../app/views/branded/layouts/_home.html.erb:32
-msgid ""
-"Direct links to funder websites, help text for answering questions, and Resear"
-"ch Data Management (RDM) best practice resources."
-msgstr ""
-"Links diretos para sites de financiadores, texto de ajuda para responder pergu"
-"ntas e recursos de práticas recomendadas de gerenciamento de dados de pesquisa"
-" (RDM)."
-
-#: ../../app/views/branded/layouts/_home.html.erb:39
-msgid "How does the DMP Tool work?"
-msgstr "Como funciona a ferramenta DMP?"
-
-#: ../../app/views/branded/layouts/_home.html.erb:40
-msgid ""
-"New bit of text. Lorem Ipsum has been the industry's standard dummy text ever "
-"since the 1500s, when an unknown printer took a galley of type and scrambled i"
-"t to make a type specimen book."
-msgstr ""
-"Novo trecho de texto. Lorem Ipsum tem sido o texto fictício padrão da indústri"
-"a desde 1500, quando um impressor desconhecido pegou uma prova de tipos e a mi"
-"sturou para fazer um livro de espécimes de tipos."
-
-#: ../../app/views/branded/layouts/_home.html.erb:63
-msgid "Get started creating DMPs"
-msgstr "Comece a criar DMPs"
-
-#: ../../app/views/branded/layouts/_home.html.erb:64
-#: ../../app/views/branded/layouts/_home.html.erb:106
-msgid ""
-"Join our growing community of institutions, researchers, funders, and administ"
-"rators and start creating DMSPs today."
-msgstr ""
-"Junte-se à nossa crescente comunidade de instituições, pesquisadores, financia"
-"dores e administradores e comece a criar DMSPs hoje mesmo."
-
-#: ../../app/views/branded/layouts/_home.html.erb:76
-msgid "What are the benefits of the DMP"
-msgstr "Quais são os benefícios do DMP"
-
-#: ../../app/views/branded/layouts/_home.html.erb:77
-msgid ""
-"DMSPs promote research integrity, support reproducibility, and help to ensure "
-"data security. With the DMP Tool you can"
-msgstr ""
-"Os DMSPs promovem a integridade da pesquisa, apoiam a reprodutibilidade e ajud"
-"am a garantir a segurança dos dados. Com a ferramenta DMP você pode"
-
-#: ../../app/views/branded/layouts/_home.html.erb:82
-msgid "Funders"
-msgstr "Financiadores"
-
-#: ../../app/views/branded/layouts/_home.html.erb:83
-msgid ""
-"Promote best practice with requirements for DMSPs in your data management poli"
-"cies."
-msgstr ""
-"Promova as melhores práticas com requisitos para DMSPs em suas políticas de ge"
-"renciamento de dados."
-
-#: ../../app/views/branded/layouts/_home.html.erb:84
-msgid "Ensure your requirements are met with funder-specific templates."
-msgstr ""
-"Garanta que seus requisitos sejam atendidos com modelos específicos do financi"
-"ador."
-
-#: ../../app/views/branded/layouts/_home.html.erb:85
-msgid "Enrich your organization’s research graph to track research outcomes."
-msgstr ""
-"Enriqueça o gráfico de pesquisa da sua organização para acompanhar os resultad"
-"os da pesquisa."
-
-#: ../../app/views/branded/layouts/_home.html.erb:89
-msgid "Researchers"
-msgstr "Pesquisadores"
-
-#: ../../app/views/branded/layouts/_home.html.erb:90
-msgid "Comply with funder requirements for data management and sharing."
-msgstr "Cumprir os requisitos do financiador para gestão e partilha de dados."
-
-#: ../../app/views/branded/layouts/_home.html.erb:91
-msgid ""
-"Create a DMSP quickly and easily, on your own or in collaboration with a colle"
-"ague."
-msgstr "Crie um DMSP de forma rápida e fácil, sozinho ou em colaboração com um colega."
-
-#: ../../app/views/branded/layouts/_home.html.erb:92
-msgid "Get credit and extend the reach of your research."
-msgstr "Obtenha crédito e amplie o alcance de sua pesquisa."
-
-#: ../../app/views/branded/layouts/_home.html.erb:96
-msgid "Institutions"
-msgstr "Instituições"
-
-#: ../../app/views/branded/layouts/_home.html.erb:97
-msgid "Provide DMSP guidance at scale and with fewer resources"
-msgstr "Forneça orientação DMSP em escala e com menos recursos"
-
-#: ../../app/views/branded/layouts/_home.html.erb:98
-msgid "Track the impact of your organization’s research programs."
-msgstr "Acompanhe o impacto dos programas de pesquisa da sua organização."
-
-#: ../../app/views/branded/layouts/_home.html.erb:99
-msgid ""
-"Support open science and FAIR data stewardship throughout the research enterpr"
-"ise."
-msgstr ""
-"Apoiar a ciência aberta e a administração de dados FAIR em todo o empreendimen"
-"to de pesquisa."
-
-#: ../../app/views/branded/layouts/_home.html.erb:105
-msgid "Want to join as an Institution or Funder?"
-msgstr "Quer aderir como Instituição ou Financiador?"
-
-#: ../../app/views/branded/layouts/_home.html.erb:109
-msgid "Join as a Partner"
-msgstr "Junte-se como parceiro"
-
-#: ../../app/views/branded/layouts/_home.html.erb:118
-#: ../../app/views/branded/layouts/_sub_header.html.erb:29
-msgid "Users"
-msgstr "Usuários"
-
-#: ../../app/views/branded/layouts/_home.html.erb:119
-#: ../../app/views/branded/public_pages/orgs.html.erb:3
-msgid "Participating Institutions"
-msgstr "Instituições Participantes"
-
-#: ../../app/views/branded/layouts/_home.html.erb:120
-#: ../../app/views/branded/layouts/_sub_header.html.erb:32
-msgid "Plans"
-msgstr "Planos"
-
-#: ../../app/views/branded/layouts/_home.html.erb:128
-#: ../../app/views/branded/layouts/_home.html.erb:154
-msgid "Learn more about the DMP Tool"
-msgstr "Saiba mais sobre a ferramenta DMP"
-
-#: ../../app/views/branded/layouts/_home.html.erb:129
-msgid "Learn more about the DMP Tool and its history and backers."
-msgstr "Saiba mais sobre a ferramenta DMP e sua história e apoiadores."
-
-#: ../../app/views/branded/layouts/_home.html.erb:158
-msgid "Vist the blog"
-msgstr "Visite o blog"
-
-#: ../../app/views/branded/layouts/_home.html.erb:182
-msgid "New release"
-msgstr "Novo lançamento"
-
-#: ../../app/views/branded/layouts/_home.html.erb:193
-msgid "Read more"
-msgstr "Consulte Mais informação"
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:9
 #: ../../app/views/branded/plans/new.html.erb:2
@@ -729,56 +853,12 @@ msgstr ""
 msgid "Error:"
 msgstr "Erro"
 
-#: ../../app/views/branded/layouts/_sub_header.html.erb:19
-msgid "administrator menu"
-msgstr "menu do administrador"
-
-#: ../../app/views/branded/layouts/_sub_header.html.erb:20
-msgid "Admin"
-msgstr "Administrador"
-
-#: ../../app/views/branded/layouts/_sub_header.html.erb:24
-msgid "Organisations"
-msgstr "Organizações"
-
-#: ../../app/views/branded/layouts/_sub_header.html.erb:26
-msgid "Organisation details"
-msgstr "Detalhes da organização"
-
-#: ../../app/views/branded/layouts/_sub_header.html.erb:35
-msgid "Usage"
-msgstr "Uso"
-
-#: ../../app/views/branded/layouts/_sub_header.html.erb:39
-msgid "Templates"
-msgstr "Modelos"
-
-#: ../../app/views/branded/layouts/_sub_header.html.erb:42
-msgid "Guidance"
-msgstr "Instruções"
-
-#: ../../app/views/branded/layouts/_sub_header.html.erb:45
-msgid "Themes"
-msgstr "Temas"
-
-#: ../../app/views/branded/layouts/_sub_header.html.erb:48
-msgid "Api Clients"
-msgstr "Clientes Api"
-
-#: ../../app/views/branded/layouts/_sub_header.html.erb:49
-msgid "Api Logs"
-msgstr "Registros de API"
-
-#: ../../app/views/branded/layouts/_sub_header.html.erb:52
-msgid "Notifications"
-msgstr "Notificações"
-
 #: ../../app/views/branded/layouts/application.html.erb:6
-#: ../../app/views/branded/layouts/react_application.html.erb:4
+#: ../../app/views/branded/layouts/react_application.html.erb:6
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-#: ../../app/views/branded/layouts/application.html.erb:42
+#: ../../app/views/branded/layouts/application.html.erb:43
 msgid "Loading..."
 msgstr "Carregando..."
 
@@ -1102,12 +1182,6 @@ msgid "Repository URL"
 msgstr "URL do repositório"
 
 #:
-#: ../../app/views/branded/org_admin/templates/repositories/_search_result.html.erb:41
-#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:37
-msgid "Contact"
-msgstr "Contato"
-
-#:
 #: ../../app/views/branded/org_admin/templates/repositories/_search_result.html.erb:46
 #: ../../app/views/branded/org_admin/templates/repositories/_search_result.html.erb:51
 #: ../../app/views/branded/org_admin/templates/repositories/_search_result.html.erb:54
@@ -1275,10 +1349,6 @@ msgstr "Organização"
 msgid "Organisation type(s)"
 msgstr "Tipo(s) de organização"
 
-#: ../../app/views/branded/paginable/orgs/_public.html.erb:6
-msgid "Institutional Signin Enabled"
-msgstr "Assinatura institucional habilitada"
-
 #: ../../app/views/branded/paginable/plans/_org_admin.html.erb:4
 msgid ""
 "    The data on the usage dashboard is historical in nature. This means that t"
@@ -1309,11 +1379,11 @@ msgstr ""
 
 #: ../../app/views/branded/paginable/plans/_org_admin.html.erb:15
 msgid ""
-"Featured plans are displayed first on the 'Public DMPs' page. A plan must be p"
-"ublicly visible to be 'featured'."
+"Featured plans are displayed first on the 'Public plans' page. A plan must be "
+"publicly visible to be 'featured'."
 msgstr ""
-"Os planos em destaque são exibidos primeiro na página 'PGDs Públicos'. Um plan"
-"o deve ser visível publicamente para ser 'destacado'."
+"Os planos em destaque são exibidos primeiro na página ‘Planos públicos’. Um pl"
+"ano deve ser publicamente visível para ser 'destacado'."
 
 #: ../../app/views/branded/paginable/plans/_org_admin.html.erb:21
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:11
@@ -1434,11 +1504,10 @@ msgstr "Ver"
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:91
 msgid ""
 "Are you sure you wish to remove this public plan? This will remove it from the"
-" Public DMPs page but any collaborators will still be able to access it."
+" Public Plans page but any collaborators will still be able to access it."
 msgstr ""
-"Tem certeza de que deseja remover esse plano público? Isso o removerá da págin"
-"a de PGDs Públicos, mas quaisquer outros colaboradores ainda conseguirão acess"
-"á-lo."
+"Tem certeza de que deseja remover este plano público? Isso irá removê-lo da pá"
+"gina Planos Públicos, mas qualquer colaborador ainda poderá acessá-lo."
 
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:91
 msgid ""
@@ -1546,8 +1615,8 @@ msgstr "Obrigado,"
 #: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:54
 #: ../../app/views/branded/user_mailer/invitation.html.erb:48
 #: ../../app/views/branded/user_mailer/new_plan_via_template.html.erb:20
-msgid "The %{org_name} DMPTool team"
-msgstr "A equipe %{org_name} DMPTool"
+msgid "The %{org_name} DMP Tool team"
+msgstr "A equipe da ferramenta DMP %{org_name}"
 
 #:
 #: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:55
@@ -1761,7 +1830,7 @@ msgstr "Somente leitura"
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:12
 #: ../../app/views/branded/plans/_navigation.html.erb:14
-#: ../../app/views/branded/plans/_visibility_form.html.erb:21
+#: ../../app/views/branded/plans/_visibility_form.html.erb:24
 msgid "Project Details"
 msgstr "Detalhes do Projeto"
 
@@ -1807,7 +1876,7 @@ msgid "only the creator of the plan may register a DMP ID."
 msgstr "somente o idealizador do plano poderá cadastrar um DMP ID."
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:50
-#: ../../app/views/branded/plans/_visibility_form.html.erb:17
+#: ../../app/views/branded/plans/_visibility_form.html.erb:20
 msgid "answered at least %{percentage}%% of questions on the %{write_plan_link} panel"
 msgstr ""
 "respondeu pelo menos %{percentage}%% das perguntas no painel %{write_plan_link"
@@ -1815,7 +1884,7 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:50
 #: ../../app/views/branded/plans/_navigation.html.erb:27
-#: ../../app/views/branded/plans/_visibility_form.html.erb:17
+#: ../../app/views/branded/plans/_visibility_form.html.erb:20
 msgid "Write Plan"
 msgstr "Escrever Plano"
 
@@ -1825,11 +1894,11 @@ msgstr "identificou seu financiador no painel %{project_details_link}"
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:60
 msgid ""
-"authorized DMPTool to add works to your ORCID record via the %{link_to_third_p"
-"art_page}"
+"authorized DMP Tool to add works to your ORCID record via the %{link_to_third_"
+"part_page}"
 msgstr ""
-"autorizou o DMPTool a adicionar trabalhos ao seu registro ORCID por meio do %{"
-"link_to_third_part_page}"
+"Ferramenta DMP autorizada para adicionar obras ao seu ORCID registro através d"
+"o %{link_to_third_part_page}"
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:60
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:62
@@ -1837,11 +1906,11 @@ msgid "Third party applications page"
 msgstr "Página de aplicativos de terceiros"
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:62
-msgid "linked your DMPTool account to your ORCID via your"
-msgstr "vinculou sua conta DMPTool ao seu ORCID por meio de seu"
+msgid "linked your DMP Tool account to your ORCID via your"
+msgstr "vinculou sua conta da ferramenta DMP ao seu ORCID através do seu"
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:68
-#: ../../app/views/branded/plans/_visibility_form.html.erb:21
+#: ../../app/views/branded/plans/_visibility_form.html.erb:24
 msgid "plan is not flagged as a mock project on the %{project_details_link} panel"
 msgstr ""
 "plano não é sinalizado como um projeto fictício no painel %{project_details_li"
@@ -2117,15 +2186,31 @@ msgstr "ID"
 msgid "Set plan visibility"
 msgstr "Definir visibiliade do plano"
 
-#: ../../app/views/branded/plans/_visibility_form.html.erb:11
+#: ../../app/views/branded/plans/_visibility_form.html.erb:7
+msgid ""
+"I grant permission to California Digital Library to store, share, and adapt th"
+"e material I have provided as part of my plan in accordance with the Sharing a"
+"nd Reuse section of the DMP Tool's %{terms_url}"
+msgstr ""
+"Concedo permissão à Biblioteca Digital da Califórnia para armazenar, compartil"
+"har e adaptar o material que forneci como parte do meu plano, de acordo com a "
+"seção Compartilhamento e Reutilização da Ferramenta DMP %{terms_url}"
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:8
+#: ../../app/views/branded/users/registrations/_form.html.erb:92
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:66
+msgid "terms and conditions"
+msgstr "termos e condições"
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:14
 msgid "Public or organisational visibility is intended for finished plans."
 msgstr "A visibilidade pública ou organizacional destina-se a planos concluídos."
 
-#: ../../app/views/branded/plans/_visibility_form.html.erb:13
+#: ../../app/views/branded/plans/_visibility_form.html.erb:16
 msgid "In order to make your plan visible you must have completed the following:"
 msgstr "Para tornar seu plano visível, você deve ter concluído o seguinte:"
 
-#: ../../app/views/branded/plans/_visibility_form.html.erb:29
+#: ../../app/views/branded/plans/_visibility_form.html.erb:33
 msgid ""
 "Private: visible to me, specified collaborators and administrators at my organ"
 "isation"
@@ -2133,37 +2218,37 @@ msgstr ""
 "Privado: visível para mim, para os colaboradores especificados e os administra"
 "dores de minha organização"
 
-#: ../../app/views/branded/plans/_visibility_form.html.erb:35
+#: ../../app/views/branded/plans/_visibility_form.html.erb:39
 msgid "Organisation: anyone at my organisation can view"
 msgstr "Organização: qualquer pessoa em minha organização pode ver"
 
-#: ../../app/views/branded/plans/_visibility_form.html.erb:41
+#: ../../app/views/branded/plans/_visibility_form.html.erb:45
 msgid "Public: anyone can view"
 msgstr "Público: qualquer pessoa pode ver"
 
-#: ../../app/views/branded/plans/_visibility_form.html.erb:46
+#: ../../app/views/branded/plans/_visibility_form.html.erb:57
+msgid "You must accept the terms to make your plan publicly visible!"
+msgstr "Você deve aceitar os termos para tornar seu plano publicamente visível!"
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:61
 msgid "Set Visibility"
 msgstr "Definir visibilidade"
 
-#: ../../app/views/branded/plans/_visibility_form.html.erb:51
+#: ../../app/views/branded/plans/_visibility_form.html.erb:66
 msgid "This plan is currently set to: "
 msgstr "Este plano está atualmente definido para:"
 
-#: ../../app/views/branded/plans/_visibility_form.html.erb:53
+#: ../../app/views/branded/plans/_visibility_form.html.erb:68
 msgid "<strong>Public visibilty</strong> - anyone can view"
 msgstr "<strong>Visibilidade pública</strong> - qualquer pessoa pode ver"
 
-#: ../../app/views/branded/plans/_visibility_form.html.erb:55
+#: ../../app/views/branded/plans/_visibility_form.html.erb:70
 msgid "<strong>Organisation visibility</strong> - anyone at my organisation can view"
 msgstr ""
 "<strong>Visibilidade da organização</strong> - qualquer pessoa na minha organi"
 "zação pode ver"
 
-#: ../../app/views/branded/plans/index.html.erb:7
-msgid "Dashboard Prototype"
-msgstr "Protótipo de painel"
-
-#: ../../app/views/branded/plans/index.html.erb:14
+#: ../../app/views/branded/plans/index.html.erb:11
 msgid ""
 "The table below lists the plans that you have created, and that have been shar"
 "ed with you by others. You can edit, share, download, make a copy, or remove t"
@@ -2173,32 +2258,28 @@ msgstr ""
 "om  você por outras pessoas. Você pode editar, compartilhar, baixar, copiar ou"
 " remover esses planos a qualquer momento."
 
-#: ../../app/views/branded/plans/index.html.erb:16
+#: ../../app/views/branded/plans/index.html.erb:13
 msgid "Welcome"
 msgstr "Bem-vindo"
 
-#: ../../app/views/branded/plans/index.html.erb:17
+#: ../../app/views/branded/plans/index.html.erb:14
 msgid "You are now ready to create your first DMP."
 msgstr "Agora você está prongo para criar seu primeiro PGD."
 
-#: ../../app/views/branded/plans/index.html.erb:18
+#: ../../app/views/branded/plans/index.html.erb:15
 msgid "Click the 'Create plan' button below to begin."
 msgstr "Para começar, clique no botão 'Criar plano' abaixo."
 
-#: ../../app/views/branded/plans/index.html.erb:36
+#: ../../app/views/branded/plans/index.html.erb:33
 #: ../../app/views/branded/plans/new.html.erb:118
 msgid "Create plan"
 msgstr "Criar plano"
 
-#: ../../app/views/branded/plans/index.html.erb:45
-msgid "Open Prototype Dashboard"
-msgstr "Abra o painel do protótipo"
-
-#: ../../app/views/branded/plans/index.html.erb:65
+#: ../../app/views/branded/plans/index.html.erb:40
 msgid "%{org_title} Plans"
 msgstr "%{org_title} Planos"
 
-#: ../../app/views/branded/plans/index.html.erb:66
+#: ../../app/views/branded/plans/index.html.erb:41
 msgid ""
 "The table below lists the plans that users at your organisation have created a"
 "nd shared within your organisation. This allows you to download a PDF and view"
@@ -2355,30 +2436,26 @@ msgstr "Ver menos resultados"
 msgid ""
 "Participating institutions/organizations can configure the tool to point to th"
 "eir resources and services, provide customized help, and provide suggested ans"
-"wers to the questions asked by funding agencies. DMPTool users affiliated with"
-" participating institutions can login with their own institutional accounts. F"
-"or more information visit the %{about_us_link} page."
+"wers to the questions asked by funding agencies. DMP Tool users affiliated wit"
+"h participating institutions can login with their own institutional accounts. "
+"For more information visit the %{about_us_link} page."
 msgstr ""
-"As instituições / organizações participantes podem configurar a ferramenta par"
-"a apontar para seus recursos e serviços, fornecer ajuda personalizada e fornec"
-"er respostas sugeridas às perguntas feitas por agências de financiamento. Os u"
-"suários do DMPTool afiliados às instituições participantes podem fazer o login"
-" com suas próprias contas institucionais. Para obter mais informações, visite "
-"a página %{about_us_link}."
-
-#: ../../app/views/branded/public_pages/plan_index.html.erb:3
-msgid "Public Plans"
-msgstr "Planos Públicos"
+"As instituições/organizações participantes podem configurar a ferramenta para "
+"apontar seus recursos e serviços, fornecer ajuda personalizada e fornecer suge"
+"stões de respostas às perguntas feitas pelas agências de financiamento. Os usu"
+"ários da ferramenta DMP afiliados às instituições participantes podem fazer lo"
+"gin com suas próprias contas institucionais. Para mais informações acesse a pá"
+"gina %{about_us_link}."
 
 #: ../../app/views/branded/public_pages/plan_index.html.erb:4
 msgid ""
-"Public DMPs are plans created using the DMPTool service and shared publicly by"
-" their owners. They are not vetted for quality, completeness, or adherence to "
-"funder guidelines."
+"Public plans are plans created using the DMP Tool service and shared publicly "
+"by their owners. They are not vetted for quality, completeness, or adherence t"
+"o funder guidelines."
 msgstr ""
-"PGD públicos são planos criados usando o serviço DMPTool e compartilhados publ"
-"icamente por seus proprietários. Eles não são avaliados quanto à qualidade, in"
-"tegridade ou aderência às diretrizes do financiador."
+"Planos públicos são planos criados usando o serviço DMP Tool e compartilhados "
+"publicamente por seus proprietários. Eles não são avaliados quanto à qualidade"
+", integridade ou adesão às diretrizes do financiador."
 
 #: ../../app/views/branded/public_pages/template_index.html.erb:1
 msgid "DMP Templates"
@@ -2387,17 +2464,17 @@ msgstr "Modelos de PGD"
 #: ../../app/views/branded/public_pages/template_index.html.erb:7
 msgid ""
 "Templates for data management plans are based on the specific requirements lis"
-"ted in funder policy documents. The DMPTool maintains these templates, however"
-", researchers should always consult the program officers and policy documents "
-"directly for authoritative guidance. Sample plans are provided by a funder or "
-"another trusted party."
+"ted in funder policy documents. The DMP Tool maintains these templates, howeve"
+"r, researchers should always consult the program officers and policy documents"
+" directly for authoritative guidance. Sample plans are provided by a funder or"
+" another trusted party."
 msgstr ""
-"Os modelos para planos de gerenciamento de dados são baseados nos requisitos e"
-"specíficos listados nos documentos de política do financiador. O DMPTool manté"
-"m esses modelos, no entanto, os pesquisadores devem sempre consultar os oficia"
-"is do programa e documentos de política diretamente para obter orientação conf"
-"iável. Os planos de amostra são fornecidos por um financiador ou outra parte c"
-"onfiável."
+"Os modelos para planos de gestão de dados baseiam-se nos requisitos específico"
+"s listados nos documentos de política do financiador. A ferramenta DMP mantém "
+"estes modelos, no entanto, os investigadores devem sempre consultar diretament"
+"e os responsáveis do programa e os documentos políticos para obterem orientaçã"
+"o oficial. Exemplos de planos são fornecidos por um financiador ou outra parte"
+" confiável."
 
 #: ../../app/views/branded/public_pages/template_index.html.erb:9
 msgid "There are currently no public Templates."
@@ -2763,63 +2840,65 @@ msgid "Related Works"
 msgstr "Trabalhos relacionados"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:3
-msgid "What is the DMPTool?"
-msgstr "O que é o DMPTool?"
+msgid "What is the DMP Tool?"
+msgstr "O que é a ferramenta DMP?"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:5
 msgid ""
-"The DMPTool is a free, open-source, online application that helps researchers "
-"create data management plans (DMPs). These plans are now required by many fund"
-"ing agencies as part of the grant proposal submission process. The DMPTool pro"
-"vides a click-through wizard for creating a DMP that complies with funder requ"
-"irements. It also has direct links to funder websites, help text for answering"
-" questions, and data management best practices resources."
+"The DMP Tool is a free, open-source, application that helps researchers create"
+" data management plans (DMPs). These plans are required by many funding agenci"
+"es as part of the grant proposal submission process. The DMP Tool provides a c"
+"lick-through wizard for creating a DMP that complies with funder requirements."
+" It also has direct links to funder websites, help text for answering question"
+"s, and data management best practices resources."
 msgstr ""
-"O DMPTool é um aplicativo on-line gratuito e de código aberto que ajuda os pes"
-"quisadores a criar planos de gerenciamento de dados (PGD). Esses planos agora "
-"são exigidos por muitas agências de financiamento como parte do processo de su"
-"bmissão de propostas de doação. O DMPTool fornece um assistente de clique para"
-" criar um PGD que atenda aos requisitos do financiador. Ele também tem links d"
-"iretos para sites de financiadores, texto de ajuda para responder a perguntas "
-"e recursos de práticas recomendadas de gerenciamento de dados."
+"A ferramenta DMP é um aplicativo gratuito e de código aberto que ajuda os pesq"
+"uisadores a criar planos de gerenciamento de dados (DMPs). Esses planos são ex"
+"igidos por muitas agências de financiamento como parte do processo de apresent"
+"ação de propostas de financiamento. A ferramenta DMP fornece um assistente de "
+"clique para criar um DMP que esteja em conformidade com os requisitos do finan"
+"ciador. Ele também possui links diretos para sites de financiadores, texto de "
+"ajuda para responder perguntas e recursos de práticas recomendadas de gerencia"
+"mento de dados."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:9
-msgid "DMPTool Background"
-msgstr "DMPTool Background"
+msgid "DMP Tool Background"
+msgstr "Fundo da ferramenta DMP"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:11
 msgid ""
-"The original DMPTool was a grassroots effort, beginning in 2011 with eight ins"
-"titutions partnering to provide in-kind contributions of personnel and develop"
-"ment. The effort was in direct response to demands from funding agencies, such"
-" as the National Science Foundation and the National Institutes of Health, tha"
-"t researchers plan for managing their research data. As a result, the contribu"
-"ting institutions consolidated expertise and reduced costs in addressing data "
-"management needs by joining forces."
+"The original DMP Tool was a grassroots effort, beginning in 2011 with eight in"
+"stitutions partnering to provide in-kind contributions of personnel and develo"
+"pment. The effort was in direct response to demands from funding agencies, suc"
+"h as the National Science Foundation and the National Institutes of Health, th"
+"at researchers plan for managing their research data. As a result, the contrib"
+"uting institutions consolidated expertise and reduced costs in addressing data"
+" management needs by joining forces."
 msgstr ""
-"O DMPTool original foi um esforço de base, começando em 2011 com oito institui"
-"ções em parceria para fornecer contribuições em espécie de pessoal e desenvolv"
-"imento. O esforço foi uma resposta direta às demandas de agências de financiam"
-"ento, como a National Science Foundation e o National Institutes of Health, qu"
-"e os pesquisadores planejam gerenciar seus dados de pesquisa. Como resultado, "
-"as instituições contribuintes consolidaram a experiência e reduziram os custos"
-" para atender às necessidades de gerenciamento de dados unindo forças."
+"A ferramenta DMP original foi um esforço de base, iniciado em 2011, com oito i"
+"nstituições em parceria para fornecer contribuições em espécie de pessoal e de"
+"senvolvimento. O esforço foi uma resposta directa às exigências das agências d"
+"e financiamento, como a National Science Foundation e os Institutos Nacionais "
+"de Saúde, de que os investigadores planeiem gerir os seus dados de investigaçã"
+"o. Como resultado, as instituições contribuintes consolidaram conhecimentos e "
+"reduziram custos na resposta às necessidades de gestão de dados através da uni"
+"ão de forças."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:14
 msgid ""
 "The original contributing institutions were: %<uc3_link>s at the %<cdl_link>s,"
 " %<data_one_link>s, %<dcc_link>s, %<smithsonian_link>s, %<ucla_library_link>s,"
 " %<ucsd_library_link>s, %<univ_illinois_library_link>s, and the %<univ_virgina"
-"_library_link>s. Given the success of the first version of the DMPTool, the fo"
-"unding partners obtained funding from the %<sloan_foundation_link>s to create "
-"a second version of the tool, released in 2014."
+"_library_link>s. Given the success of the first version of the DMP Tool, the f"
+"ounding partners obtained funding from the %<sloan_foundation_link>s to create"
+" a second version of the tool, released in 2014."
 msgstr ""
-"As instituições contribuintes originais foram: %<uc3_link> s em %<cdl_link> s,"
-" %<data_one_link>s, %<dcc_link>s, %<smithsonian_link>s, %<ucla_library_link>s,"
-" %<ucsd_library_link>s, %<univ_illinois_library_link>s, e o %<univ_virgina_lib"
-"rary_link>s. Dado o sucesso da primeira versão do DMPTool, os sócios fundadore"
-"s obtiveram financiamento da %<sloan_foundation_link>s para criar uma segunda "
-"versão da ferramenta, lançada em 2014."
+"As instituições contribuintes originais foram: %<uc3_link>s em %<cdl_link>s, %"
+"<data_one_link>s, %<dcc_link>s, %<smithsonian_link>s, %<ucla_library_link>s, %"
+"<ucsd_library_link>s, %<univ_illinois_library_link>s e %<univ_virgina_library_"
+"link>s. Dado o sucesso da primeira versão da Ferramenta DMP, os sócios fundado"
+"res obtiveram financiamento do %<sloan_foundation_link>s para criar uma segund"
+"a versão da ferramenta, lançada em 2014."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:15
 msgid "University of California Curation Center (UC3)"
@@ -2864,122 +2943,170 @@ msgstr "Fundação Alfred P. Sloan"
 #: ../../app/views/branded/static_pages/about_us.html.erb:28
 msgid ""
 "The proliferation of open data policies across the globe led to an explosion o"
-"f interest in the DMPTool and the UK-based version, DMPonline. So in 2016, UC3"
-" and DCC decided to formalize our partnership to codevelop and maintain a sing"
-"le open-source platform. By providing a core infrastructure for DMPs, we could"
-" extend our reach and move best practices forward, allowing us to participate "
-"in a truly global open science ecosystem."
+"f interest in the DMP Tool and the UK-based version, DMPonline. So in 2016, UC"
+"3 and DCC decided to formalize our partnership to codevelop and maintain a sin"
+"gle open-source platform. By providing a core infrastructure for DMPs, we coul"
+"d extend our reach and move best practices forward, allowing us to participate"
+" in a truly global open science ecosystem."
 msgstr ""
 "A proliferação de políticas de dados abertos em todo o mundo levou a uma explo"
-"são de interesse no DMPTool e na versão baseada no Reino Unido, DMPonline. Ent"
-"ão, em 2016, UC3 e DCC decidiram formalizar nossa parceria para desenvolver e "
-"manter uma única plataforma de código aberto. Ao fornecer uma infraestrutura c"
-"entral para DMPs, podemos ampliar nosso alcance e avançar as melhores práticas"
-", permitindo-nos participar de um ecossistema de ciência aberta verdadeirament"
-"e global."
+"são de interesse na ferramenta DMP e na versão baseada no Reino Unido, DMPonli"
+"ne. Assim, em 2016, UC3 e DCC decidiram formalizar nossa parceria para codesen"
+"volver e manter uma única plataforma de código aberto. Ao fornecer uma infraes"
+"trutura básica para DMPs, poderíamos ampliar nosso alcance e avançar com as me"
+"lhores práticas, permitindo-nos participar de um ecossistema de ciência aberta"
+" verdadeiramente global."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:31
 msgid ""
-"The DMPTool continues to be a community support tool. The tool's %<editorial_b"
-"oard_link>s provides leadership and expertise to ensure that grant requirement"
-"s and corresponding best practices remain current. Our Board includes represen"
-"tation across disciplines with varied areas of expertise from a wide range of "
-"institutions committed to supporting effective research data management."
+"The DMP Tool continues to be a community support tool. The tool's %<editorial_"
+"board_link>s provides leadership and expertise to ensure that grant requiremen"
+"ts and corresponding best practices remain current. Our Board includes represe"
+"ntation across disciplines with varied areas of expertise from a wide range of"
+" institutions committed to supporting effective research data management."
 msgstr ""
-"O DMPTool continua sendo uma ferramenta de suporte da comunidade. As ferrament"
-"as %<editorial_board_link>s fornece liderança e experiência para garantir que "
-"os requisitos de concessão e as melhores práticas correspondentes permaneçam a"
-"tualizados. Nosso Conselho inclui representação em disciplinas com diversas ár"
-"eas de especialização de uma ampla gama de instituições comprometidas em apoia"
-"r o gerenciamento eficaz de dados de pesquisa."
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:32
-#: ../../app/views/branded/static_pages/editorial_board.html.erb:2
-msgid "Editorial Board"
-msgstr "Conselho Editorial"
+"A ferramenta DMP continua a ser uma ferramenta de apoio comunitário. A ferrame"
+"nta %<editorial_board_link>s fornece liderança e experiência para garantir que"
+" os requisitos de subvenção e as melhores práticas correspondentes permaneçam "
+"atualizados. Nosso Conselho inclui representação de disciplinas com diversas á"
+"reas de especialização de uma ampla gama de instituições comprometidas em apoi"
+"ar o gerenciamento eficaz de dados de pesquisa."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:37
-msgid "Networked Data Management Plans"
-msgstr "Planos de gerenciamento de dados em rede"
+msgid "Machine-actionable Data Management Plans"
+msgstr "Planos de gerenciamento de dados acionáveis por máquina"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:39
 msgid ""
 "Recent feature developments have focused on transforming the DMP from a static"
 " text file into an interoperable, networked hub of information wherein details"
 " about a research project can be updated and queried over the project’s lifeti"
-"me. This new %<networked_dmp_wiki>s allows information within a DMP to be fed "
+"me. This new machine-actionable DMP allows information within a DMP to be fed "
 "across stakeholders, linking metadata, repositories, and institutions, and all"
 "owing for notifications and verification, reporting in real-time. A key goal o"
 "f this new system is to reduce the burden on researchers by generating automat"
 "ed updates to a plan and facilitating seamless integration with systems and gr"
 "oups that support research."
 msgstr ""
-"Desenvolvimentos recentes de recursos se concentraram em transformar o PGD de "
-"um arquivo de texto estático em um hub de informações interoperável e em rede,"
-" no qual detalhes sobre um projeto de pesquisa podem ser atualizados e consult"
-"ados durante a vida útil do projeto. Esta nova %<networked_dmp_wiki>s permite "
-"que as informações dentro de um PGD sejam alimentadas entre as partes interess"
-"adas, vinculando metadados, repositórios e instituições e permitindo notificaç"
-"ões e verificações, relatórios em tempo real. Um dos principais objetivos dest"
-"e novo sistema é reduzir a carga sobre os pesquisadores, gerando atualizações "
-"automatizadas para um plano e facilitando a integração perfeita com sistemas e"
-" grupos que apoiam a pesquisa."
+"Desenvolvimentos recentes de recursos se concentraram em transformar o DMP de "
+"um arquivo de texto estático em um centro de informações interoperável e em re"
+"de, onde detalhes sobre um projeto de pesquisa podem ser atualizados e consult"
+"ados durante a vida útil do projeto. Este novo DMP acionável por máquina permi"
+"te que as informações dentro de um DMP sejam transmitidas às partes interessad"
+"as, vinculando metadados, repositórios e instituições, e permitindo notificaçõ"
+"es e verificação, reportando em tempo real. Um dos principais objectivos deste"
+" novo sistema é reduzir a carga sobre os investigadores, gerando actualizações"
+" automatizadas para um plano e facilitando a integração perfeita com sistemas "
+"e grupos que apoiam a investigação."
 
-#: ../../app/views/branded/static_pages/about_us.html.erb:40
-msgid "Networked DMP"
-msgstr "PGD em rede"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:44
+#: ../../app/views/branded/static_pages/about_us.html.erb:42
 msgid ""
-"We welcome integrations that utilize this new system. The %<dmptool_api_wiki>s"
-" complies with the %<rda_common_standard_link>s, which is recommended to trans"
-"fer DMP metadata between systems. If you have an integration project, please %"
-"<contact_us_link>s."
+"In 2017, CDL was awarded a National Science Foundation EAGER innovation grant "
+"to explore ways of mapping research project outputs as described in a data man"
+"agement plan to the broader ecosystem (NSF 1745675). This initial work led CDL"
+" to explore how to best capture information about associated outputs (preprint"
+"s, datasets, protocols, instruments, samples, etc.) and map these resources to"
+" other related research outputs."
 msgstr ""
-"Congratulamo-nos com integrações que utilizam este novo sistema. O %<dmptool_a"
-"pi_wiki>s está em conformidade com a %<rda_common_standard_link>s, que é recom"
-"endado para transferir metadados PGD entre sistemas. Se você tem um projeto de"
-" integração, por favor %<contact_us_link>s."
+"Em 2017, o CDL recebeu uma bolsa de inovação EAGER da National Science Foundat"
+"ion para explorar formas de mapear os resultados dos projetos de investigação,"
+" conforme descrito num plano de gestão de dados para o ecossistema mais amplo "
+"(NSF 1745675). Este trabalho inicial levou o CDL a explorar a melhor forma de "
+"capturar informações sobre resultados associados (pré-impressões, conjuntos de"
+" dados, protocolos, instrumentos, amostras, etc.) e mapear esses recursos para"
+" outros resultados de pesquisa relacionados."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:45
-msgid "DMPTool API"
-msgstr "API DMPTool"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:46
-msgid "RDA Common Standard Metadata schema v1.0"
-msgstr "Esquema de metadados padrão comum RDA v1.0"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:47
-#: ../../app/views/branded/users/registrations/new.html.erb:26
-msgid "contact us"
-msgstr "Contate-Nos"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:52
-msgid "How to Participate in the DMPTool"
-msgstr "Como participar do DMPTool"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:54
 msgid ""
-"%<participants_link>s are institutions, profit, and nonprofit organizations, i"
-"ndividuals, or other groups that leverage the DMPTool as an effective and effi"
-"cient way to create data management plans. Our community of participating orga"
-"nizations helps to sustain and support the DMPTool in the following ways:"
+"After several years of consultation with the broader scholarly infrastructure "
+"community and within the Research Data Alliance (RDA), a standardized, structu"
+"red metadata application profile was developed for communicating information a"
+"bout these research project outputs in a machine-actionable form. Thanks to an"
+" additional NSF EAGER innovation grant CDL partnered with DataCite to support "
+"the creation of a unique identifier for DMPs, the %{dmp_id_blog_url}. Building"
+" on the release of DMP-IDs, %{version_one_url} of the DMP Tool maDMP feature s"
+"et was released in April of 2021, including the generation of DMP-IDs for DMPs"
+"."
 msgstr ""
-"%<participants_link>s são instituições, organizações sem fins lucrativos e sem"
-" fins lucrativos, indivíduos ou outros grupos que utilizam o DMPTool como uma "
-"maneira eficaz e eficiente de criar planos de gerenciamento de dados. Nossa co"
-"munidade de organizações participantes ajuda a sustentar e apoiar o DMPTool da"
-"s seguintes maneiras:"
+"Após vários anos de consulta com a comunidade mais ampla de infraestrutura aca"
+"dêmica e dentro da Research Data Alliance (RDA), um perfil de aplicação de met"
+"adados estruturado e padronizado foi desenvolvido para comunicar informações s"
+"obre os resultados desses projetos de pesquisa em um formato acionável por máq"
+"uina. Graças a uma concessão adicional de inovação da NSF EAGER, a CDL fez par"
+"ceria com a DataCite para apoiar a criação de um identificador exclusivo para "
+"DMPs, o %{dmp_id_blog_url}. Com base no lançamento de DMP-IDs, %{version_one_u"
+"rl} do conjunto de recursos maDMP da ferramenta DMP foi lançado em abril de 20"
+"21, incluindo a geração de DMP-IDs para DMPs."
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:48
+msgid ""
+"The DMP Tool team continues to develop new machine-actionable features within "
+"the application. In 2023 CDL began a collaboration with the Association of Res"
+"earch Libraries (ARL) to pilot the integration or creation of prototypes and p"
+"ossible workflows for machine-actionable data management and sharing plans at "
+"ten academic institutions across the US. The pilot project will run from Janua"
+"ry–December 2024. This project is funded by an Institute of Museum and Library"
+" Services (IMLS) %{national_leadership_url}. Additional information about the "
+"project is on our %{project_url}."
+msgstr ""
+"A equipe da DMP Tool continua a desenvolver novos recursos acionáveis por máqu"
+"ina dentro do aplicativo. Em 2023, a CDL iniciou uma colaboração com a Associa"
+"tion of Research Libraries (ARL) para pilotar a integração ou criação de protó"
+"tipos e possíveis fluxos de trabalho para gerenciamento de dados acionáveis po"
+"r máquina e planos de compartilhamento em dez instituições acadêmicas nos EUA."
+" O projeto piloto decorrerá de janeiro a dezembro de 2024. Este projeto é fina"
+"nciado pelo Instituto de Serviços de Museus e Bibliotecas (IMLS) %{national_le"
+"adership_url}. Informações adicionais sobre o projeto estão em nosso %{project"
+"_url}."
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:51
+msgid ""
+"An %{nsf_eager_url} is currently supporting the enhancement of this work and e"
+"mphasizes integrating structured metadata, persistent identifiers, digital obj"
+"ect identifiers, and research output tracking for efficient data management an"
+"d compliance. The initiative consists of two main parts: the first focuses on "
+"advancing maDMSPs through tool enhancements and stakeholder dashboards, and th"
+"e second explores machine learning applications for automating DMSP creation a"
+"nd handling sensitive information.We welcome integrations that utilize this ne"
+"w system. The %{api_url} complies with the %{common_standard_url}, which is re"
+"commended to transfer DMP metadata between systems. If you have an integration"
+" project, please %{contact_us_url}."
+msgstr ""
+"Um %{nsf_eager_url} está atualmente apoiando o aprimoramento deste trabalho e "
+"enfatiza a integração de metadados estruturados, identificadores persistentes,"
+" identificadores de objetos digitais e rastreamento de resultados de pesquisa "
+"para gerenciamento eficiente de dados e conformidade. A iniciativa consiste em"
+" duas partes principais: a primeira se concentra no avanço dos maDMSPs por mei"
+"o de aprimoramentos de ferramentas e painéis das partes interessadas, e a segu"
+"nda explora aplicativos de aprendizado de máquina para automatizar a criação d"
+"e DMSP e o tratamento de informações confidenciais. O %{api_url} está em confo"
+"rmidade com o %{common_standard_url}, que é recomendado para transferência de "
+"metadados DMP entre sistemas. Se você tem um projeto de integração, favor %{co"
+"ntact_us_url}."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:55
-msgid "DMPTool participants"
-msgstr "Participantes do DMPTool"
+msgid "How to Participate in the DMP Tool"
+msgstr "Como participar da ferramenta DMP"
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:57
+msgid ""
+"%<participants_link>s are institutions, nonprofit organizations, individuals, "
+"or other groups that leverage the DMP Tool as an effective and efficient way t"
+"o create data management plans. Our community of participating organizations h"
+"elps to sustain and support the DMP Tool in the following ways:"
+msgstr ""
+"%<participants_link>s são instituições, organizações sem fins lucrativos, indi"
+"víduos ou outros grupos que utilizam a ferramenta DMP como uma forma eficaz e "
+"eficiente de criar planos de gerenciamento de dados. Nossa comunidade de organ"
+"izações participantes ajuda a sustentar e apoiar a ferramenta DMP das seguinte"
+"s maneiras:"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:58
-msgid "Establish institutional authentication with the DMPTool (Shibboleth)"
-msgstr "Estabeleça autenticação institucional com o DMPTool (Shibboleth)"
+msgid "DMP Tool participants"
+msgstr "Participantes da ferramenta DMP"
 
-#: ../../app/views/branded/static_pages/about_us.html.erb:59
+#: ../../app/views/branded/static_pages/about_us.html.erb:61
+#: ../../app/views/branded/static_pages/join_us.html.erb:12
 msgid ""
 "Customize the tool with resources, help text, suggested answers, or other info"
 "rmation"
@@ -2987,29 +3114,29 @@ msgstr ""
 "Personalize a ferramenta com recursos, texto de ajuda, respostas sugeridas ou "
 "outras informações"
 
-#: ../../app/views/branded/static_pages/about_us.html.erb:60
-msgid "Contribute to the maintenance and enhancement of the DMPTool codebase"
-msgstr "Contribuir para a manutenção e aprimoramento da base de código DMPTool"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:61
+#: ../../app/views/branded/static_pages/about_us.html.erb:62
+#: ../../app/views/branded/static_pages/join_us.html.erb:15
 msgid ""
-"Help ensure that the DMPTool maintains its relevance and utility by notifying "
-"the DMPTool Helpdesk when:"
+"Help ensure that the DMP Tool maintains its relevance and utility by notifying"
+" the DMP Tool Helpdesk when:"
 msgstr ""
-"Ajude a garantir que o DMPTool mantenha sua relevância e utilidade notificando"
-" o DMPTool Helpdesk quando:"
+"Ajude a garantir que a ferramenta DMP mantenha sua relevância e utilidade noti"
+"ficando o Helpdesk da ferramenta DMP quando:"
 
-#: ../../app/views/branded/static_pages/about_us.html.erb:63
+#: ../../app/views/branded/static_pages/about_us.html.erb:64
+#: ../../app/views/branded/static_pages/join_us.html.erb:17
 msgid "Funders release new requirements that are not reflected in the tool"
 msgstr ""
 "Os financiadores liberam novos requisitos que não estão refletidos na ferramen"
 "ta"
 
-#: ../../app/views/branded/static_pages/about_us.html.erb:64
+#: ../../app/views/branded/static_pages/about_us.html.erb:65
+#: ../../app/views/branded/static_pages/join_us.html.erb:18
 msgid "Errors, mistakes, or misinformation are discovered in the tool"
 msgstr "Erros, enganos ou informações erradas são descobertos na ferramenta"
 
-#: ../../app/views/branded/static_pages/about_us.html.erb:65
+#: ../../app/views/branded/static_pages/about_us.html.erb:66
+#: ../../app/views/branded/static_pages/join_us.html.erb:19
 msgid ""
 "The tool's functionality is compromised (i.e., slow response times, poor perfo"
 "rmance, or software bugs)"
@@ -3017,180 +3144,133 @@ msgstr ""
 "A funcionalidade da ferramenta está comprometida (ou seja, tempos de resposta "
 "lentos, baixo desempenho ou bugs de software)"
 
-#: ../../app/views/branded/static_pages/about_us.html.erb:72
-msgid "DMPTool Principles"
-msgstr "Princípios da ferramenta DMPTool"
-
 #: ../../app/views/branded/static_pages/about_us.html.erb:74
-msgid ""
-"The following principles guide our work on the DMPTool. Organizations that act"
-"ively participate in the DMPTool community agree to abide by these principles."
-msgstr ""
-"Os princípios a seguir orientam nosso trabalho no DMPTool. As organizações que"
-" participam ativamente da comunidade DMPTool concordam em cumprir esses princí"
-"pios."
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:76
-msgid "Continuous improvement of the DMPTool's utility and features"
-msgstr "Melhoria contínua da utilidade e dos recursos do DMPTool"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:77
-msgid "User-driven requirements and priorities for development"
-msgstr "Requisitos e prioridades orientados ao usuário para desenvolvimento"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:78
-msgid "Enthusiasm for the DMPTool"
-msgstr "Entusiasmo pelo DMPTool"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:79
-msgid ""
-"Commitment to an open process for development, enhancement, and improvement (s"
-"ee %<panton_principles_link>s)"
-msgstr ""
-"Compromisso com um processo aberto para desenvolvimento, aprimoramento e melho"
-"ria (consulte %<panton_principles_link>s)"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:80
-msgid "Panton Principles"
-msgstr "Princípios de Panton"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:82
-msgid "Quality of code and materials created (%<contributor_wiki>s)"
-msgstr "Qualidade do código e materiais criados (%<contributor_wiki>s)"
-
-#: ../../app/views/branded/static_pages/about_us.html.erb:83
-msgid "Contributor guidelines"
-msgstr "Diretrizes do colaborador"
+msgid "Sign Up"
+msgstr "Inscrever-se"
 
 #: ../../app/views/branded/static_pages/editorial_board.html.erb:4
 msgid ""
-"The DMPTool Editorial Board ensures that the tool provides current information"
-" about grant requirements and corresponding guidance. Our Board includes repre"
-"sentation across disciplines with varied areas of expertise from a wide range "
-"of institutions committed to supporting effective research data management."
+"The DMP Tool Editorial Board ensures that the tool provides current informatio"
+"n about grant requirements and corresponding guidance. Our Board includes repr"
+"esentation across disciplines with varied areas of expertise from a wide range"
+" of institutions committed to supporting effective research data management."
 msgstr ""
-"O Conselho Editorial do DMPTool garante que a ferramenta forneça informações a"
-"tualizadas sobre os requisitos de concessão e as orientações correspondentes. "
-"Nosso Conselho inclui representação em disciplinas com diversas áreas de espec"
-"ialização de uma ampla gama de instituições comprometidas em apoiar o gerencia"
-"mento eficaz de dados de pesquisa."
+"O Conselho Editorial da Ferramenta DMP garante que a ferramenta forneça inform"
+"ações atualizadas sobre os requisitos de subvenção e orientações correspondent"
+"es. Nosso Conselho inclui representação de disciplinas com diversas áreas de e"
+"specialização de uma ampla gama de instituições comprometidas em apoiar o gere"
+"nciamento eficaz de dados de pesquisa."
 
 #: ../../app/views/branded/static_pages/faq.html.erb:2
 msgid "FAQ"
 msgstr "Perguntas frequentes"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:5
-#: ../../app/views/branded/static_pages/faq.html.erb:45
-msgid "About the DMPTool"
-msgstr "Sobre o DMPTool"
+#: ../../app/views/branded/static_pages/faq.html.erb:44
+msgid "About the DMP Tool"
+msgstr "Sobre a ferramenta DMP"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:7
-msgid "What is a data management plan (DMP)?"
-msgstr "O que é um plano de gerenciamento de dados (PGD)?"
+msgid "What is a data management and sharing plan (DMSP)?"
+msgstr "O que é um plano de gerenciamento e compartilhamento de dados (DMSP)?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:8
-msgid "What can I do with the DMPTool?"
-msgstr "O que posso fazer com o DMPTool?"
+msgid "What can I do with the DMP Tool?"
+msgstr "O que posso fazer com a ferramenta DMP?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:9
-msgid "How much does it cost to use the DMPTool?"
-msgstr "Quanto custa usar o DMPTool?"
+msgid "How much does it cost to use the DMP Tool?"
+msgstr "Quanto custa usar a ferramenta DMP?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:10
-msgid "Who can use the DMPTool?"
-msgstr "Quem pode usar o DMPTool?"
+msgid "Who can use the DMP Tool?"
+msgstr "Quem pode usar a ferramenta DMP?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:11
-msgid "How can my institution participate in the DMPTool?"
-msgstr "Como minha instituição pode participar do DMPTool?"
+msgid "How can my institution participate in the DMP Tool?"
+msgstr "Como minha instituição pode participar da Ferramenta DMP?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:12
-msgid "What are the benefits of participating in the DMPTool?"
-msgstr "Quais são os benefícios de participar do DMPTool?"
+msgid "What are the benefits of participating in the DMP Tool?"
+msgstr "Quais são os benefícios de participar da Ferramenta DMP?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:13
-msgid "Have funders endorsed the DMPTool?"
-msgstr "Os financiadores endossaram o DMPTool?"
+msgid "Have funders endorsed the DMP Tool?"
+msgstr "Os financiadores endossaram a ferramenta DMP?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:14
-msgid "Who owns the data management plans created with the DMPTool?"
+msgid "Who owns the data management plans created with the DMP Tool?"
 msgstr ""
-"Quem é o proprietário dos planos de gerenciamento de dados criados com o DMPTo"
-"ol?"
+"Quem é o proprietário dos planos de gerenciamento de dados criados com a ferra"
+"menta DMP?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:15
-msgid "Why am I getting email notifications from the DMPTool?"
-msgstr "Por que estou recebendo notificações por e-mail da DMPTool?"
+msgid "Why am I getting email notifications from the DMP Tool?"
+msgstr "Por que estou recebendo notificações por e-mail da ferramenta DMP?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:18
-#: ../../app/views/branded/static_pages/faq.html.erb:97
+#: ../../app/views/branded/static_pages/faq.html.erb:90
 msgid "For Researchers"
 msgstr "Para Pesquisadores"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:20
-msgid ""
-"I'm in a hurry! Is there a quick start guide for creating a data management pl"
-"an?"
-msgstr ""
-"Estou com pressa! Existe um guia de início rápido para a criação de um plano d"
-"e gerenciamento de dados?"
-
-#: ../../app/views/branded/static_pages/faq.html.erb:21
 msgid "Where can I read more about funder requirements for data management plans?"
 msgstr ""
 "Onde posso ler mais sobre os requisitos do financiador para planos de gerencia"
 "mento de dados?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:22
+#: ../../app/views/branded/static_pages/faq.html.erb:21
 msgid "Are there examples of data management plans?"
 msgstr "Existem exemplos de planos de gerenciamento de dados?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:23
+#: ../../app/views/branded/static_pages/faq.html.erb:22
 msgid "What's the difference between “sample” and “public” data management plans?"
 msgstr ""
 "Qual é a diferença entre planos de gerenciamento de dados “amostrais” e “públi"
 "cos”?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:24
+#: ../../app/views/branded/static_pages/faq.html.erb:23
 msgid "What are the visibility options for my data management plan?"
 msgstr "Quais são as opções de visibilidade para meu plano de gerenciamento de dados?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:25
+#: ../../app/views/branded/static_pages/faq.html.erb:24
 msgid "I created a test plan. How can I delete it (or hide it)?"
 msgstr "Eu criei um plano de teste. Como posso excluí-lo (ou ocultá-lo)?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:26
+#: ../../app/views/branded/static_pages/faq.html.erb:25
 msgid "How long will you save my plans?"
 msgstr "Por quanto tempo você salvará meus planos?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:27
+#: ../../app/views/branded/static_pages/faq.html.erb:26
 msgid "What if I move to a new institution?"
 msgstr "E se eu mudar para uma nova instituição?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:28
+#: ../../app/views/branded/static_pages/faq.html.erb:27
 msgid "Who can help me at my institution?"
 msgstr "Quem pode me ajudar na minha instituição?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:29
+#: ../../app/views/branded/static_pages/faq.html.erb:28
 msgid "I have a collaborator. How can we work on the same plan?"
 msgstr "Eu tenho um colaborador. Como podemos trabalhar no mesmo plano?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:30
+#: ../../app/views/branded/static_pages/faq.html.erb:29
 msgid "What happens when I “request feedback” on a plan?"
 msgstr "O que acontece quando eu “solicito feedback” sobre um plano?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:33
-#: ../../app/views/branded/static_pages/faq.html.erb:137
+#: ../../app/views/branded/static_pages/faq.html.erb:32
+#: ../../app/views/branded/static_pages/faq.html.erb:128
 msgid "For Administrators"
 msgstr "Para Administradores"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:35
-msgid "Where can I find help customizing the DMPTool for my institution/organization?"
+#: ../../app/views/branded/static_pages/faq.html.erb:34
+msgid ""
+"Where can I find help customizing the DMP Tool for my institution/organization"
+"?"
 msgstr ""
-"Onde posso encontrar ajuda para personalizar o DMPTool para minha instituição "
-"/ organização?"
+"Onde posso encontrar ajuda para personalizar a ferramenta DMP para minha insti"
+"tuição/organização?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:36
+#: ../../app/views/branded/static_pages/faq.html.erb:35
 msgid ""
 "Can I see customized templates and guidance created by administrators at other"
 " organizations?"
@@ -3198,15 +3278,15 @@ msgstr ""
 "Posso ver modelos personalizados e orientações criadas por administradores em "
 "outras organizações?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:37
+#: ../../app/views/branded/static_pages/faq.html.erb:36
 msgid "I created a test template. How can I delete it?"
 msgstr "Criei um modelo de teste. Como posso excluí-lo?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:38
+#: ../../app/views/branded/static_pages/faq.html.erb:37
 msgid "How do I create guidance? And what are themes?"
 msgstr "Como faço para criar orientação? E quais são os temas?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:41
+#: ../../app/views/branded/static_pages/faq.html.erb:40
 msgid ""
 "Can't find what you’re looking for? <a href=\"%{contact_us_url}\" >Contact us</a"
 ">"
@@ -3214,11 +3294,11 @@ msgstr ""
 "Não consegue encontrar o que está procurando? <a href=\"%{contact_us_url}\" >Con"
 "tate-Nos</a>"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:47
-msgid "Q: What is a data management plan (DMP)?"
-msgstr "P: O que é um plano de gerenciamento de dados (PGD)?"
+#: ../../app/views/branded/static_pages/faq.html.erb:46
+msgid "Q: What is a data management and sharing plan (DMSP)?"
+msgstr "P: O que é um plano de gerenciamento e compartilhamento de dados (DMSP)?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:48
+#: ../../app/views/branded/static_pages/faq.html.erb:47
 msgid ""
 "A data management plan is a formal document that outlines what you will do wit"
 "h your data during and after a research project. Most researchers collect data"
@@ -3235,6 +3315,17 @@ msgstr ""
 "planejamento antecipado. Com o processo e a estrutura certos, não demora muito"
 " e pode render muito a longo prazo."
 
+#: ../../app/views/branded/static_pages/faq.html.erb:48
+msgid ""
+"In 2023, %{nih_req_url} for generating data management and sharing plans (DMSP"
+"). DMSPs and DMPs both refer to the same planning document required by funders"
+" and describe how data will be managed and shared."
+msgstr ""
+"Em 2023, %{nih_req_url} para geração de planos de gerenciamento e compartilham"
+"ento de dados (DMSP). Os DMSP e os DMP referem-se ao mesmo documento de planea"
+"mento exigido pelos financiadores e descrevem como os dados serão geridos e pa"
+"rtilhados."
+
 #: ../../app/views/branded/static_pages/faq.html.erb:50
 msgid ""
 "Read our <a href=\"%{general_guidance_url}\">Data Management General Guidance</a"
@@ -3245,63 +3336,55 @@ msgstr ""
 "dados."
 
 #: ../../app/views/branded/static_pages/faq.html.erb:52
-msgid "Q: What can I do with the DMPTool?"
-msgstr "P: O que posso fazer com o DMPTool?"
+msgid "Q: What can I do with the DMP Tool?"
+msgstr "P: O que posso fazer com a ferramenta DMP?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:53
 msgid ""
-"The DMPTool helps researchers create data management plans (DMPs). It provides"
-" guidance from specific funders who require DMPs, but the tool can be used by "
-"anyone interested in developing generic DMPs to help facilitate their research"
-". The tool also offers resources and services available at <a href=\"%{particip"
-"ating_url}\">participating institutions</a> to help fulfill data management req"
-"uirements."
+"The DMP Tool helps researchers create data management plans (DMPs). It provide"
+"s guidance from specific funders who require DMPs, but the tool can be used by"
+" anyone interested in developing generic DMPs to help facilitate their researc"
+"h. The tool also offers resources and services available at <a href=\"%{partici"
+"pating_url}\">participating institutions</a> to help fulfill data management re"
+"quirements."
 msgstr ""
-"O DMPTool ajuda os pesquisadores a criar planos de gerenciamento de dados (PGD"
-"). Ele fornece orientação de financiadores específicos que exigem PGD, mas a f"
-"erramenta pode ser usada por qualquer pessoa interessada em desenvolver PGD ge"
-"néricos para ajudar a facilitar suas pesquisas. A ferramenta também oferece re"
-"cursos e serviços disponíveis nas <a href=\"%{participating_url}\">instituições "
-"participantes</a> para ajudar a cumprir os requisitos de gerenciamento de dado"
-"s."
+"A ferramenta DMP ajuda os pesquisadores a criar planos de gerenciamento de dad"
+"os (DMPs). Fornece orientação de financiadores específicos que necessitam de D"
+"MPs, mas a ferramenta pode ser utilizada por qualquer pessoa interessada em de"
+"senvolver DMPs genéricos para ajudar a facilitar a sua investigação. A ferrame"
+"nta também oferece recursos e serviços disponíveis nas <a href=\"%{participatin"
+"g_url}\">instituições participantes</a> para ajudar a cumprir os requisitos de "
+"gestão de dados."
 
 #: ../../app/views/branded/static_pages/faq.html.erb:55
-#: ../../app/views/branded/static_pages/faq.html.erb:62
-#: ../../app/views/branded/static_pages/faq.html.erb:69
-msgid "Use our <a href=\"%{help_url}\">Quick Start Guide</a> to begin creating a plan."
-msgstr ""
-"Use nosso <a href=\"%{help_url}\">Guia de início rápido</a> para começar a criar"
-" um plano."
+msgid "Q: How much does it cost to use the DMP Tool?"
+msgstr "P: Quanto custa usar a ferramenta DMP?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:57
-msgid "Q: How much does it cost to use the DMPTool?"
-msgstr "P: Quanto custa para usar o DMPTool?"
+#: ../../app/views/branded/static_pages/faq.html.erb:56
+msgid ""
+"The DMP Tool is FREE. Anyone can create data management plans using the DMP To"
+"ol."
+msgstr ""
+"A ferramenta DMP é GRATUITA. Qualquer pessoa pode criar planos de gerenciament"
+"o de dados usando a ferramenta DMP."
 
 #: ../../app/views/branded/static_pages/faq.html.erb:58
 msgid ""
-"The DMPTool is FREE. Anyone can create data management plans using the DMPTool"
-"."
+"A login is required to access the DMP Tool. If you are a researcher from a <a "
+"href=\"%{participating_url}\">participating institution</a>, you can log in as a"
+" user from your institution. If your institution does not participate, you can"
+" create your account."
 msgstr ""
-"O DMPTool é GRATUITO. Qualquer pessoa pode criar planos de gerenciamento de da"
-"dos usando o DMPTool."
+"É necessário fazer login para acessar a ferramenta DMP. Se você é pesquisador "
+"de uma <a href=\"%{participating_url}\">instituição participante</a> , poderá fa"
+"zer login como usuário da sua instituição. Caso sua instituição não participe,"
+" você pode criar sua conta."
 
 #: ../../app/views/branded/static_pages/faq.html.erb:60
-msgid ""
-"A login is required to access the DMPTool. If you are a researcher from a <a h"
-"ref=\"%{participating_url}\">participating institutions</a>, you can log in as a"
-" user from your institution. If your institution does not participate, you can"
-" create your own account."
-msgstr ""
-"É necessário um login para acessar o DMPTool. Se você for um pesquisador de um"
-"a <a href=\"%{participating_url}\">instituição participante</a> , poderá fazer o"
-" login como um usuário de sua instituição. Se sua instituição não participar, "
-"você pode criar sua própria conta."
+msgid "Q: Who can use the DMP Tool?"
+msgstr "P: Quem pode usar a ferramenta DMP?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:64
-msgid "Q: Who can use the DMPTool?"
-msgstr "P: Quem pode usar o DMPTool?"
-
-#: ../../app/views/branded/static_pages/faq.html.erb:65
+#: ../../app/views/branded/static_pages/faq.html.erb:61
 msgid ""
 "Anyone can create data management plans. If you are a researcher from one of t"
 "he <a href=\"%{participating_url}\">participating institutions</a>, you can log "
@@ -3313,15 +3396,15 @@ msgstr ""
 "a> , você pode fazer login como usuário de sua instituição e receberá orientaç"
 "ões locais para ajudá-lo a concluir seu plano."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:67
+#: ../../app/views/branded/static_pages/faq.html.erb:63
 msgid "If your institution does not participate, you can create your own account."
 msgstr "Se sua instituição não participar, você pode criar sua própria conta."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:71
-msgid "Q: How can my institution participate in the DMPTool?"
-msgstr "P: Como minha instituição pode participar do DMPTool?"
+#: ../../app/views/branded/static_pages/faq.html.erb:65
+msgid "Q: How can my institution participate in the DMP Tool?"
+msgstr "P: Como minha instituição pode participar da Ferramenta DMP?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:72
+#: ../../app/views/branded/static_pages/faq.html.erb:66
 msgid ""
 "First, check these <a href=\"%{participating_url}\">participating institutions</"
 "a> to make sure your institution is not already participating. Learn more abou"
@@ -3332,7 +3415,7 @@ msgstr ""
 "ba mais sobre como se tornar uma <a href=\"%{about_url}\">instituição participan"
 "te</a> ."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:74
+#: ../../app/views/branded/static_pages/faq.html.erb:68
 msgid ""
 "If you are a researcher or potential user, we suggest you talk to a librarian "
 "at your institution. If you are an administrator (librarian or otherwise) and "
@@ -3343,11 +3426,11 @@ msgstr ""
 "não) e tem interesse em se associar, entre em <a href=\"%{contact_url}\">contato"
 " conosco</a> ."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:76
-msgid "Q: What are the benefits of participating in the DMPTool?"
-msgstr "P: Quais são os benefícios de participar do DMPTool?"
+#: ../../app/views/branded/static_pages/faq.html.erb:70
+msgid "Q: What are the benefits of participating in the DMP Tool?"
+msgstr "P: Quais são os benefícios de participar da Ferramenta DMP?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:77
+#: ../../app/views/branded/static_pages/faq.html.erb:71
 msgid ""
 "Participating institutions can incorporate information about their resources a"
 "nd services to aid researchers with data management. Participating institution"
@@ -3362,322 +3445,314 @@ msgstr ""
 "ões participantes que configuraram a ferramenta com o Shibboleth podem fazer l"
 "ogin com suas próprias contas institucionais."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:79
+#: ../../app/views/branded/static_pages/faq.html.erb:73
 msgid "For more information, see <a href=\"%{about_url}\">About participating</a>."
 msgstr ""
 "Para obter mais informações, consulte <a href=\"%{about_url}\">Sobre a participa"
 "ção</a> ."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:81
-msgid "Q: Have funders endorsed the DMPTool?"
-msgstr "P: Os financiadores endossaram o DMPTool?"
+#: ../../app/views/branded/static_pages/faq.html.erb:75
+msgid "Q: Have funders endorsed the DMP Tool?"
+msgstr "P: Os financiadores endossaram a ferramenta DMP?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:82
+#: ../../app/views/branded/static_pages/faq.html.erb:76
 msgid ""
-"Some funders have recommended the use of the DMPTool, although some provide li"
-"nks to the tool or resources within the tool in their public access plans (e.g"
-"., NEH, DOT). For example, the %<nsf_dear_colleague_letter_link>s specifically"
-" recommended that researchers generate machine-readable DMPs via tools such as"
-" the DMPTool."
+"Some funders have recommended the use of the DMP Tool, although some provide l"
+"inks to the tool or resources within the tool in their public access plans (e."
+"g., NEH, DOT). For example, the %<nsf_dear_colleague_letter_link>s specificall"
+"y recommended that researchers generate machine-readable DMPs via tools such a"
+"s the DMP Tool."
 msgstr ""
-"Alguns financiadores recomendaram o uso do DMPTool, embora alguns forneçam lin"
-"ks para a ferramenta ou recursos dentro da ferramenta em seus planos de acesso"
-" público (por exemplo, NEH, DOT). Por exemplo, o %<nsf_dear_colleague_letter_l"
-"ink>s é especificamente recomendado que os pesquisadores gerem DMPs legíveis p"
-"or máquina por meio de ferramentas como o DMPTool."
+"Alguns financiadores recomendaram o uso da ferramenta DMP, embora alguns forne"
+"çam links para a ferramenta ou recursos dentro da ferramenta nos seus planos d"
+"e acesso público (por exemplo, NEH, DOT). Por exemplo, o %<nsf_dear_colleague_"
+"letter_link>s recomendou especificamente que os pesquisadores gerassem DMPs le"
+"gíveis por máquina por meio de ferramentas como a ferramenta DMP."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:83
+#: ../../app/views/branded/static_pages/faq.html.erb:77
 msgid "NSF Dear Colleague Letter: Effective Practices for Data"
 msgstr "Carta do Caro Colega da NSF: Práticas Eficazes para Dados"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:86
+#: ../../app/views/branded/static_pages/faq.html.erb:80
 msgid ""
-"The DMPTool templates incorporate specific data management planning requiremen"
-"ts from a range of funders including foundations and government agencies. We a"
-"re in close contact with some funders as we create templates and for all funde"
-"rs, we monitor public notices and websites for changes."
+"The DMP Tool templates incorporate specific data management planning requireme"
+"nts from a range of funders including foundations and government agencies. We "
+"are in close contact with some funders as we create templates and for all fund"
+"ers, we monitor public notices and websites for changes."
 msgstr ""
-"Os modelos DMPTool incorporam requisitos específicos de planejamento de gerenc"
-"iamento de dados de vários financiadores, incluindo fundações e agências gover"
-"namentais. Estamos em contato próximo com alguns financiadores à medida que cr"
-"iamos modelos e, para todos os financiadores, monitoramos editais e sites em b"
-"usca de alterações."
+"Os modelos da ferramenta DMP incorporam requisitos específicos de planejamento"
+" de gerenciamento de dados de diversos financiadores, incluindo fundações e ag"
+"ências governamentais. Estamos em contato próximo com alguns financiadores enq"
+"uanto criamos modelos e, para todos os financiadores, monitoramos editais e si"
+"tes em busca de alterações."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:88
-msgid "Q: Who owns the data management plans created with the DMPTool?"
+#: ../../app/views/branded/static_pages/faq.html.erb:82
+msgid "Q: Who owns the data management plans created with the DMP Tool?"
 msgstr ""
-"P: Quem é o proprietário dos planos de gerenciamento de dados criados com o DM"
-"PTool?"
+"P: Quem é o proprietário dos planos de gerenciamento de dados criados com a fe"
+"rramenta DMP?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:89
+#: ../../app/views/branded/static_pages/faq.html.erb:83
 msgid ""
-"Data management plans are the intellectual property of their creators. The Cal"
-"ifornia Digital Library makes no claim of copyright or ownership to the data m"
-"anagement plans created using the DMPTool. You can, however, choose to share y"
-"our plan publicly and it will appear in our library of <a href=\"%{public_plans"
-"_url}\">public plans</a> on the DMPTool website. This will benefit other DMPToo"
-"l users and promote open research."
+"Data management plans are the intellectual property of their creators. For mor"
+"e copyright information, please see the %{terms_url}."
 msgstr ""
 "Os planos de gerenciamento de dados são propriedade intelectual de seus criado"
-"res. A California Digital Library não reivindica direitos autorais ou propried"
-"ade dos planos de gerenciamento de dados criados usando o DMPTool. Você pode, "
-"no entanto, optar por compartilhar seu plano publicamente e ele aparecerá em n"
-"ossa biblioteca de <a href=\"%{public_plans_url}\">planos públicos</a> no site d"
-"o DMPTool. Isso beneficiará outros usuários do DMPTool e promoverá a pesquisa "
-"aberta."
+"res. Para obter mais informações sobre direitos autorais, consulte %{terms_url"
+"}."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:91
+#: ../../app/views/branded/static_pages/faq.html.erb:84
 msgid ""
-"See the <a href=\"%{help_url}\">Quick Start Guide</a> for more information on se"
-"tting your plan's visibility."
+"You can choose to share your plan publicly, and it will appear in our library "
+"of <a href=\"%{public_plans_url}\">public plans</a> on the DMP Tool website. Sha"
+"ring plans benefits other DMP Tool users and promotes open research."
 msgstr ""
-"Consulte o <a href=\"%{help_url}\">Guia de início rápido</a> para obter mais inf"
-"ormações sobre como definir a visibilidade do seu plano."
+"Você pode optar por compartilhar seu plano publicamente e ele aparecerá em nos"
+"sa biblioteca de <a href=\"%{public_plans_url}\">planos públicos</a> no site da "
+"ferramenta DMP. O compartilhamento de planos beneficia outros usuários da ferr"
+"amenta DMP e promove pesquisas abertas."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:93
-msgid "Q: Why am I getting email notifications from the DMPTool?"
-msgstr "P: Por que estou recebendo notificações por e-mail da DMPTool?"
+#: ../../app/views/branded/static_pages/faq.html.erb:86
+msgid "Q: Why am I getting email notifications from the DMP Tool?"
+msgstr "P: Por que estou recebendo notificações por e-mail da ferramenta DMP?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:94
+#: ../../app/views/branded/static_pages/faq.html.erb:87
 msgid ""
 "There are multiple actions that generate automatic email notifications from th"
-"e DMPTool. Users can turn these notifications on/off on the profile page. Navi"
-"gate to \"Edit profile\" by clicking your name in the upper right dropdown menu,"
-" then select the \"Notification preferences\" tab, check/uncheck the appropriate"
-" boxes, and click the button to save your changes."
+"e DMP Tool. Users can turn these notifications on/off on the profile page. Nav"
+"igate to \"Edit profile\" by clicking your name in the upper right dropdown menu"
+", then select the \"Notification preferences\" tab, check/uncheck the appropriat"
+"e boxes, and click the button to save your changes."
 msgstr ""
-"Existem várias ações que geram notificações automáticas por e-mail do DMPTool."
-" Os usuários podem ativar/desativar essas notificações na página de perfil. Na"
-"vegue até \"Editar perfil\" clicando em seu nome no menu suspenso superior direi"
-"to, selecione a guia \"Preferências de notificação\", marque/desmarque as caixas"
-" apropriadas e clique no botão para salvar suas alterações."
+"Existem várias ações que geram notificações automáticas por e-mail da ferramen"
+"ta DMP. Os usuários podem ativar/desativar essas notificações na página de per"
+"fil. Navegue até \"Editar perfil\" clicando em seu nome no menu suspenso superio"
+"r direito, selecione a guia \"Preferências de notificação\", marque/desmarque as"
+" caixas apropriadas e clique no botão para salvar suas alterações."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:99
-msgid ""
-"Q: I'm in a hurry! Is there a quick start guide for creating a data management"
-" plan?"
-msgstr ""
-"P: Estou com pressa! Existe um guia de início rápido para a criação de um plan"
-"o de gerenciamento de dados?"
-
-#: ../../app/views/branded/static_pages/faq.html.erb:100
-msgid ""
-"Yes! The <a href=\"%{help_url}\">Quick Start Guide</a> is available as a website"
-" or a PDF you can download."
-msgstr ""
-"Sim! O <a href=\"%{help_url}\">Guia de início rápido</a> está disponível como um"
-" site da Web ou PDF para download."
-
-#: ../../app/views/branded/static_pages/faq.html.erb:102
+#: ../../app/views/branded/static_pages/faq.html.erb:92
 msgid "Q: Where can I read more about funder requirements for data management plans?"
 msgstr ""
 "P: Onde posso ler mais sobre os requisitos do financiador para planos de geren"
 "ciamento de dados?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:103
+#: ../../app/views/branded/static_pages/faq.html.erb:93
 msgid ""
 "The <a href=\"%{public_templates_url}\">Funder Requirements page</a> provides di"
 "rect links to funder guidelines, as well as sample plans if provided. You do n"
-"ot have to be logged into the DMPTool to access this page."
+"ot have to be logged into the DMP Tool to access this page."
 msgstr ""
-"A <a href=\"%{public_templates_url}\">página Requisitos</a> do financiador forne"
+"A <a href=\"%{public_templates_url}\">página Requisitos do Financiador</a> forne"
 "ce links diretos para as diretrizes do financiador, bem como exemplos de plano"
-"s, se fornecidos. Você não precisa estar logado no DMPTool para acessar esta p"
-"ágina."
+"s, se fornecidos. Você não precisa estar logado na ferramenta DMP para acessar"
+" esta página."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:105
+#: ../../app/views/branded/static_pages/faq.html.erb:95
 msgid "Q: Are there examples of data management plans?"
 msgstr "P: Existem exemplos de planos de gerenciamento de dados?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:106
+#: ../../app/views/branded/static_pages/faq.html.erb:96
 msgid ""
-"The DMPTool hosts a collection of <a href=\"%{public_plans_url}\">public plans</"
-"a>. The collection contains actual plans created by DMPTool users who have opt"
-"ed to share their plans publicly. Please note that these plans have not been v"
-"etted for quality. Some funders provide sample plans on their websites; links "
-"to these plans are available on the <a href=\"%{public_templates_url}\">Funder R"
-"equirements page</a>."
+"The DMP Tool hosts a collection of <a href=\"%{public_plans_url}\">public plans<"
+"/a>. The collection contains actual plans created by DMP Tool users who have o"
+"pted to share their plans publicly. Please note that these plans have not been"
+" vetted for quality. DMP Tool Administrators can flag a plan as “Featured.” Fe"
+"atured plans are automatically displayed at the top of the page and provide a "
+"simple way to highlight exemplars."
 msgstr ""
-"O DMPTool hospeda uma coleção de <a href=\"%{public_plans_url}\">planos públicos"
-"</a> . A coleção contém planos reais criados por usuários do DMPTool que optar"
-"am por compartilhar seus planos publicamente. Observe que esses planos não for"
-"am verificados quanto à qualidade. Alguns financiadores fornecem planos de amo"
-"stra em seus sites; links para esses planos estão disponíveis na <a href=\"%{pu"
-"blic_templates_url}\">página de Requisitos do Financiador</a> ."
+"A ferramenta DMP hospeda uma coleção de <a href=\"%{public_plans_url}\">planos p"
+"úblicos</a> . A coleção contém planos reais criados por usuários da ferramenta"
+" DMP que optaram por compartilhar seus planos publicamente. Observe que a qual"
+"idade desses planos não foi avaliada. Os administradores da ferramenta DMP pod"
+"em sinalizar um plano como “Destaque”. Os planos em destaque são exibidos auto"
+"maticamente na parte superior da página e fornecem uma maneira simples de dest"
+"acar os exemplares."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:108
+#: ../../app/views/branded/static_pages/faq.html.erb:97
+msgid ""
+"Some funders provide sample plans on their websites; links to these plans are "
+"available on the <a href=\"%{public_templates_url}\">Funder Requirements page</a"
+">."
+msgstr ""
+"Alguns financiadores fornecem exemplos de planos em seus sites; links para ess"
+"es planos estão disponíveis na <a href=\"%{public_templates_url}\">página Requis"
+"itos do Financiador</a> ."
+
+#: ../../app/views/branded/static_pages/faq.html.erb:99
 msgid "Q: What's the difference between “sample” and “public” data management plans?"
 msgstr ""
 "P: Qual é a diferença entre planos de gerenciamento de dados de “amostra” e “p"
 "úblicos”?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:109
+#: ../../app/views/branded/static_pages/faq.html.erb:100
 msgid ""
 "The sample plans on the <a href=\"%{public_templates_url}\">Funder Requirements "
 "page</a> are created by funders and offered as guidance on their websites. The"
 " <a href=\"%{public_plans_url}\">Public Plans</a> are actual plans created by us"
-"ers of the DMPTool (please note that these have not been vetted for quality). "
-"Both provide helpful examples for researchers creating their own data manageme"
-"nt plans."
+"ers of the DMP Tool (please note that these have not been vetted for quality)."
+" Both provide helpful examples for researchers creating their own data managem"
+"ent plans."
 msgstr ""
-"Os planos de amostra na <a href=\"%{public_templates_url}\">página Requisitos</a"
-"> do financiador são criados pelos financiadores e oferecidos como orientação "
-"em seus sites. Os <a href=\"%{public_plans_url}\">Planos Públicos</a> são planos"
-" reais criados por usuários do DMPTool (observe que estes não foram verificado"
-"s quanto à qualidade). Ambos fornecem exemplos úteis para pesquisadores que cr"
-"iam seus próprios planos de gerenciamento de dados."
+"Os exemplos de planos na <a href=\"%{public_templates_url}\">página Requisitos d"
+"o Financiador</a> são criados pelos financiadores e oferecidos como orientação"
+" em seus sites. Os <a href=\"%{public_plans_url}\">Planos Públicos</a> são plano"
+"s reais criados por usuários da Ferramenta DMP (observe que a qualidade deles "
+"não foi avaliada). Ambos fornecem exemplos úteis para pesquisadores criarem se"
+"us próprios planos de gerenciamento de dados."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:111
+#: ../../app/views/branded/static_pages/faq.html.erb:102
 msgid "Q: What are the visibility options for my data management plan?"
 msgstr ""
 "P: Quais são as opções de visibilidade para meu plano de gerenciamento de dado"
 "s?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:112
+#: ../../app/views/branded/static_pages/faq.html.erb:103
 msgid ""
 "There are three visibility options for each plan you create:<ol><li>Private. Y"
 "our plan will only be visible to you and any specified plan collaborators. Bas"
 "ic plan details (from the project details page, but not the plan content) will"
 " be available to administrators at your institution.</li><li>Organization. If "
-"your institution/organization participates in the DMPTool, this setting allows"
-" administrators and users from your institution to see your plan.</li><li>Publ"
-"ic. Your plan will be available on the <a href=\"%{public_plans_url}\">Public Pl"
-"ans</a> page of the DMPTool website. Choose this option to allow others to see"
-" your plan without restrictions (under a CC-Zero license).</li></ol>"
+"your institution/organization participates in the DMP Tool, this setting allow"
+"s administrators and users from your institution to see your plan.</li><li>Pub"
+"lic. Your plan will be available on the <a href=\"%{public_plans_url}\">Public P"
+"lans</a> page of the DMP Tool website. Choose this option to allow others to s"
+"ee your plan without restrictions (under a CC-Zero license).</li></ol>"
 msgstr ""
-"Existem três opções de visibilidade para cada plano que você cria:<ol><li> Pri"
-"vado. Seu plano ficará visível apenas para você e quaisquer colaboradores do p"
-"lano especificados. Os detalhes básicos do plano (na página de detalhes do pro"
-"jeto, mas não no conteúdo do plano) estarão disponíveis para os administradore"
-"s de sua instituição.</li><li> Organização. Se sua instituição/organização par"
-"ticipa do DMPTool, essa configuração permite que administradores e usuários de"
-" sua instituição vejam seu plano.</li><li> Público. Seu plano estará disponíve"
-"l na página <a href=\"%{public_plans_url}\">Planos Públicos</a> do site DMPTool."
-" Escolha esta opção para permitir que outras pessoas vejam seu plano sem restr"
-"ições (sob uma licença CC-Zero).</li></ol>"
+"Existem três opções de visibilidade para cada plano criado:<ol><li> Privado. S"
+"eu plano ficará visível apenas para você e quaisquer colaboradores do plano es"
+"pecificados. Os detalhes básicos do plano (na página de detalhes do projeto, m"
+"as não no conteúdo do plano) estarão disponíveis para os administradores da su"
+"a instituição.</li><li> Organização. Se a sua instituição/organização particip"
+"a da ferramenta DMP, esta configuração permite que administradores e usuários "
+"da sua instituição vejam o seu plano.</li><li> Público. Seu plano estará dispo"
+"nível na página <a href=\"%{public_plans_url}\">Planos Públicos</a> do site da F"
+"erramenta DMP. Escolha esta opção para permitir que outras pessoas vejam seu p"
+"lano sem restrições (sob uma licença CC-Zero).</li></ol>"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:114
+#: ../../app/views/branded/static_pages/faq.html.erb:105
 msgid "Q: I created a test plan. How can I delete it (or hide it)?"
 msgstr "P: Eu criei um plano de teste. Como posso excluí-lo (ou ocultá-lo)?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:115
+#: ../../app/views/branded/static_pages/faq.html.erb:106
 msgid ""
-"Follow these steps to remove your test plan:<ol><li>Log into the DMPTool.</li>"
-"<li>On \"My Dashboard\" tick the box in the \"Test\" column next to the title of t"
-"he appropriate plan. This action will remove the plan from the public list if "
-"the visibility was set to public (it will become test/private).</li><li>To del"
-"ete the plan: select \"Remove\" from the Actions menu next to the title of the a"
-"ppropriate plan. You will be asked to confirm this action.</li></ol>"
+"Follow these steps to remove your test plan:<ol><li>Log into the DMP Tool.</li"
+"><li>On \"My Dashboard\" tick the box in the \"Test\" column next to the title of "
+"the appropriate plan. This action will remove the plan from the public list if"
+" the visibility was set to public (it will become test/private).</li><li>To de"
+"lete the plan: select \"Remove\" from the Actions menu next to the title of the "
+"appropriate plan. You will be asked to confirm this action.</li></ol>"
 msgstr ""
-"Siga estas etapas para remover seu plano de teste:<ol><li> Faça login no DMPTo"
-"ol.</li><li> Em \"Meu Painel\", marque a caixa na coluna \"Teste\" ao lado do títu"
-"lo do plano apropriado. Esta ação removerá o plano da lista pública se a visib"
-"ilidade estiver definida como pública (ela se tornará teste/privada).</li><li>"
-" Para excluir o plano: selecione \"Remover\" no menu Ações ao lado do título do "
-"plano apropriado. Você será solicitado a confirmar esta ação.</li></ol>"
+"Siga estas etapas para remover seu plano de teste:<ol><li> Faça login na ferra"
+"menta DMP.</li><li> Em “Meu Painel” marque a caixa na coluna “Teste” ao lado d"
+"o título do plano apropriado. Esta ação removerá o plano da lista pública se a"
+" visibilidade tiver sido definida como pública (se tornará teste/privado).</li"
+"><li> Para excluir o plano: selecione \"Remover\" no menu Ações próximo ao títul"
+"o do plano apropriado. Você será solicitado a confirmar esta ação.</li></ol>"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:117
+#: ../../app/views/branded/static_pages/faq.html.erb:108
 msgid "Q: How long will you save my plans?"
 msgstr "P: Por quanto tempo você salvará meus planos?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:118
+#: ../../app/views/branded/static_pages/faq.html.erb:109
 msgid ""
-"We do not plan to delete any plans created with the DMPTool. As a plan owner, "
-"however, you can delete plans by going to “My Dashboard” and selecting “Remove"
-"” from the Actions menu next to the plan name."
+"We do not plan to delete any plans created with the DMP Tool. As a plan owner,"
+" however, you can delete plans by going to “My Dashboard” and selecting “Remov"
+"e” from the Actions menu next to the plan name."
 msgstr ""
-"Não planejamos excluir nenhum plano criado com o DMPTool. Como proprietário de"
-" um plano, no entanto, você pode excluir planos acessando “Meu painel” e selec"
-"ionando “Remover” no menu Ações ao lado do nome do plano."
+"Não planejamos excluir nenhum plano criado com a ferramenta DMP. Como propriet"
+"ário do plano, entretanto, você pode excluir planos acessando “Meu Painel” e s"
+"elecionando “Remover” no menu Ações ao lado do nome do plano."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:120
+#: ../../app/views/branded/static_pages/faq.html.erb:111
 msgid "Q: What if I move to a new institution?"
 msgstr "P: E se eu me mudar para uma nova instituição?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:121
+#: ../../app/views/branded/static_pages/faq.html.erb:112
 msgid ""
-"Since the DMPTool account is tied to an email address, the information will no"
-"t automatically follow a user if they change institutions. However, we can con"
-"nect users to their plans from previous institutions if they contact us. Users"
-" who change institutions and assume new institutional credentials must create "
-"a new DMPTool account."
+"Since the DMP Tool account is tied to an email address, the information will n"
+"ot automatically follow a user if they change institutions. However, we can co"
+"nnect users to their plans from previous institutions if they contact us. User"
+"s who change institutions and assume new institutional credentials must create"
+" a new DMP Tool account."
 msgstr ""
-"Como a conta do DMPTool está vinculada a um endereço de e-mail, as informações"
-" não seguirão automaticamente um usuário se ele mudar de instituição. No entan"
-"to, podemos conectar usuários a seus planos de instituições anteriores se eles"
-" entrarem em contato conosco. Os usuários que mudam de instituição e assumem n"
-"ovas credenciais institucionais devem criar uma nova conta DMPTool."
+"Como a conta da DMP Tool está vinculada a um endereço de e-mail, as informaçõe"
+"s não seguirão automaticamente o usuário caso ele mude de instituição. No enta"
+"nto, podemos conectar os usuários aos seus planos de instituições anteriores s"
+"e eles entrarem em contato conosco. Os usuários que mudarem de instituição e a"
+"ssumirem novas credenciais institucionais deverão criar uma nova conta na DMP "
+"Tool."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:123
+#: ../../app/views/branded/static_pages/faq.html.erb:114
 msgid "Q: Who can help me at my institution?"
 msgstr "P: Quem pode me ajudar em minha instituição?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:124
+#: ../../app/views/branded/static_pages/faq.html.erb:115
 msgid ""
-"If your institution <a href=\"%{participating_url}\">participates in the DMPTool"
-"</a>, you can log into the tool and click on the “Contact” link in the top ban"
-"ner. Your email will be sent directly to an expert on your campus who can foll"
-"ow up with you. If your institution does not participate in the DMPTool, check"
-" with a librarian to see if someone on campus can help."
+"If your institution <a href=\"%{participating_url}\">participates in the DMP Too"
+"l</a>, you can log into the tool and click on the “Contact” link in the top ba"
+"nner. Your email will be sent directly to an expert on your campus who can fol"
+"low up with you. If your institution does not participate in the DMP Tool, che"
+"ck with a librarian to see if someone on campus can help."
 msgstr ""
-"Se sua instituição <a href=\"%{participating_url}\">participa do DMPTool</a> , v"
-"ocê pode fazer login na ferramenta e clicar no link “Contato” no banner superi"
-"or. Seu e-mail será enviado diretamente para um especialista em seu campus que"
-" poderá acompanhá-lo. Se sua instituição não participa do DMPTool, consulte um"
-" bibliotecário para ver se alguém no campus pode ajudar."
+"Caso sua instituição <a href=\"%{participating_url}\">participe da Ferramenta DM"
+"P</a> , você pode fazer login na ferramenta e clicar no link “Contato” no bann"
+"er superior. Seu e-mail será enviado diretamente para um especialista em seu c"
+"ampus que poderá entrar em contato com você. Se a sua instituição não particip"
+"a da Ferramenta DMP, verifique com um bibliotecário se alguém no campus pode a"
+"judar."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:126
+#: ../../app/views/branded/static_pages/faq.html.erb:117
 msgid "Q: I have a collaborator. How can we work on the same plan?"
 msgstr "P: Tenho um colaborador. Como podemos trabalhar no mesmo plano?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:127
+#: ../../app/views/branded/static_pages/faq.html.erb:118
 msgid ""
-"First you must create an account in the DMPTool and begin creating a plan. The"
-"n you can add your collaborator(s) to your plan as co-owner(s), or grant edito"
-"r or read only permissions. You can do this on the “Collaborators” tab for you"
-"r plan. Enter an email address in the field to \"Invite collaborators,” select "
-"the desired level of permissions, and click \"Submit\" to send an email invitati"
-"on."
+"First you must create an account in the DMP Tool and begin creating a plan. Th"
+"en you can add your collaborator(s) to your plan as co-owner(s), or grant edit"
+"or or read only permissions. You can do this on the “Collaborators” tab for yo"
+"ur plan. Enter an email address in the field to \"Invite collaborators,” select"
+" the desired level of permissions, and click \"Submit\" to send an email invitat"
+"ion."
 msgstr ""
-"Primeiro você deve criar uma conta no DMPTool e começar a criar um plano. Em s"
-"eguida, você pode adicionar seu(s) colaborador(es) ao seu plano como co-propri"
-"etário(s) ou conceder permissões de editor ou somente leitura. Você pode fazer"
-" isso na guia “Colaboradores” do seu plano. Insira um endereço de e-mail no ca"
-"mpo \"Convidar colaboradores\", selecione o nível de permissões desejado e cliqu"
-"e em \"Enviar\" para enviar um convite por e-mail."
+"Primeiro você deve criar uma conta na ferramenta DMP e começar a criar um plan"
+"o. Em seguida, você pode adicionar seu(s) colaborador(es) ao seu plano como co"
+"proprietário(s) ou conceder permissões de editor ou somente leitura. Você pode"
+" fazer isso na guia “Colaboradores” do seu plano. Insira um endereço de e-mail"
+" no campo “Convidar colaboradores”, selecione o nível de permissões desejado e"
+" clique em “Enviar” para enviar um convite por e-mail."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:129
+#: ../../app/views/branded/static_pages/faq.html.erb:120
 msgid "For more information, see the <a href=\"%{help_url}\">Quick Start Guide</a>."
 msgstr ""
 "Para obter mais informações, consulte o <a href=\"%{help_url}\">Guia de início r"
 "ápido</a> ."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:131
+#: ../../app/views/branded/static_pages/faq.html.erb:122
 msgid "Q: What happens when I \"request feedback\" on a plan?"
 msgstr "P: O que acontece quando eu \"solicito feedback\" sobre um plano?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:132
+#: ../../app/views/branded/static_pages/faq.html.erb:123
 msgid ""
-"The request feedback functionality of the DMPTool is an optional feature that "
-"institutions may configure to help researchers create data management plans. S"
-"ubmitting a plan for feedback is within-institution only. If this feature is e"
-"nabled, a button to \"Request feedback\" will be displayed on the \"Share\" tab wh"
-"en writing a plan. If a user clicks the \"Request feedback\" button, the DMPTool"
-" will send an email to the plan owner and the institutional administrator cont"
-"act. The institutional administrator will be granted read only permissions and"
-" be able to provide comments on the plan within the tool."
+"The request feedback functionality of the DMP Tool is an optional feature that"
+" institutions may configure to help researchers create data management plans. "
+"Submitting a plan for feedback is within-institution only. If this feature is "
+"enabled, a button to \"Request feedback\" will be displayed on the \"Share\" tab w"
+"hen writing a plan. If a user clicks the \"Request feedback\" button, the DMP To"
+"ol will send an email to the plan owner and the institutional administrator co"
+"ntact. The institutional administrator will be granted read only permissions a"
+"nd be able to provide comments on the plan within the tool."
 msgstr ""
-"A funcionalidade de solicitação de feedback do DMPTool é um recurso opcional q"
-"ue as instituições podem configurar para ajudar os pesquisadores a criar plano"
-"s de gerenciamento de dados. O envio de um plano para feedback é apenas dentro"
-" da instituição. Se esse recurso estiver ativado, um botão para \"Solicitar fee"
-"dback\" será exibido na guia \"Compartilhar\" ao escrever um plano. Se um usuário"
-" clicar no botão \"Solicitar feedback\", o DMPTool enviará um e-mail para o titu"
-"lar do plano e para o contato do administrador institucional. O administrador "
-"institucional terá permissões somente leitura e poderá fornecer comentários so"
-"bre o plano dentro da ferramenta."
+"A funcionalidade de solicitação de feedback da ferramenta DMP é um recurso opc"
+"ional que as instituições podem configurar para ajudar os pesquisadores a cria"
+"r planos de gerenciamento de dados. O envio de um plano para feedback é feito "
+"apenas dentro da instituição. Se esse recurso estiver ativado, um botão para “"
+"Solicitar feedback” será exibido na guia “Compartilhar” ao escrever um plano. "
+"Caso o usuário clique no botão “Solicitar feedback”, a Ferramenta DMP enviará "
+"um e-mail ao proprietário do plano e ao contato do administrador institucional"
+". O administrador institucional receberá permissões somente leitura e poderá f"
+"ornecer comentários sobre o plano dentro da ferramenta."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:134
+#: ../../app/views/branded/static_pages/faq.html.erb:125
 msgid ""
 "Administrators: if you are interested in enabling this functionality for users"
 " at your institution, see the \"Request feedback\" section of the <a href=\"%{adm"
@@ -3687,34 +3762,34 @@ msgstr ""
 "para usuários em sua instituição, consulte a seção \"Solicitar feedback\" da wik"
 "i de <a href=\"%{admin_help_url}\">ajuda para administradores.</a>"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:139
+#: ../../app/views/branded/static_pages/faq.html.erb:130
 msgid ""
-"Q: Where can I find help customizing the DMPTool for my institution/organizati"
-"on?"
+"Q: Where can I find help customizing the DMP Tool for my institution/organizat"
+"ion?"
 msgstr ""
-"P: Onde posso encontrar ajuda para personalizar o DMPTool para minha instituiç"
-"ão / organização?"
+"P: Onde posso encontrar ajuda para personalizar a ferramenta DMP para minha in"
+"stituição/organização?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:140
+#: ../../app/views/branded/static_pages/faq.html.erb:131
 msgid ""
 "An extensive <a href=\"%{admin_help_url}\">help guide for administrators</a> loc"
 "ated on GitHub. You will find detailed instructions for:<ol><li>Setting up the"
-" DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges<"
-"/li><li>Customizing your organizational profile</li><li>Providing feedback on "
-"plans</li><li>Usage information</li></ul></li><li>Creating guidance</li><li>Cr"
-"eating and customizing funder templates</li><li>Creating templates</li><li>Uti"
-"lizing DMP IDs and Networked Data Management Plans (maDMPs)</li></ol>"
+" DMP Tool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges"
+"</li><li>Customizing your organizational profile</li><li>Providing feedback on"
+" plans</li><li>Usage information</li></ul></li><li>Creating guidance</li><li>C"
+"reating and customizing funder templates</li><li>Creating templates</li><li>Ut"
+"ilizing DMP IDs and Networked Data Management Plans (maDMPs)</li></ol>"
 msgstr ""
 "Um extenso <a href=\"%{admin_help_url}\">guia de ajuda para administradores</a> "
 "localizado no GitHub. Você encontrará instruções detalhadas para:<ol><li> Conf"
-"igurando o DMPTool<ul><li> Ativando o Shibboleth</li><li> Como conceder privil"
-"égios de administrador</li><li> Personalizando seu perfil organizacional</li><"
-"li> Fornecer feedback sobre os planos</li><li> Informações de uso</li></ul></l"
-"i><li> Criando orientação</li><li> Criando e personalizando modelos de financi"
-"adores</li><li> Criando modelos</li><li> Utilizando IDs DMP e Planos de Gerenc"
-"iamento de Dados em Rede (maDMPs)</li></ol>"
+"igurando a ferramenta DMP<ul><li> Habilitando Shibboleth</li><li> Concedendo p"
+"rivilégios de administrador</li><li> Personalizando seu perfil organizacional<"
+"/li><li> Fornecendo feedback sobre os planos</li><li> Informações de uso</li><"
+"/ul></li><li> Criando orientação</li><li> Criação e personalização de modelos "
+"de financiadores</li><li> Criando modelos</li><li> Utilizando IDs DMP e Planos"
+" de Gerenciamento de Dados em Rede (maDMPs)</li></ol>"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:142
+#: ../../app/views/branded/static_pages/faq.html.erb:133
 msgid ""
 "Q: Can I see customized templates and guidance created by administrators at ot"
 "her organizations?"
@@ -3722,7 +3797,7 @@ msgstr ""
 "P: Posso ver modelos personalizados e orientações criadas por administradores "
 "em outras organizações?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:143
+#: ../../app/views/branded/static_pages/faq.html.erb:134
 msgid ""
 "Yes! To view guidance created by others, create a new plan in the tool. On the"
 " \"Project details\" tab you will see \"Plan guidance configuration\" on the right"
@@ -3736,7 +3811,7 @@ msgstr ""
 " selecionar até 6 organizações diferentes por vez. Você verá a orientação sele"
 "cionada quando navegar até a guia \"Escrever plano\"."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:145
+#: ../../app/views/branded/static_pages/faq.html.erb:136
 msgid ""
 "To view templates created by others (if available), create a new plan in the t"
 "ool and choose any organization for the second step: \"Select the primary resea"
@@ -3744,41 +3819,41 @@ msgid ""
 "der associated with this plan\" you will be presented with any available organi"
 "zational templates. If the field remains gray and no templates with organizati"
 "onal names appear, then the selected organization has not created any of their"
-" own templates and you will be presented with the default DMPTool template aft"
-"er clicking the button to \"Create plan.\""
+" own templates and you will be presented with the default DMP Tool template af"
+"ter clicking the button to \"Create plan.\""
 msgstr ""
-"Para visualizar modelos criados por outras pessoas (se disponíveis), crie um n"
-"ovo plano na ferramenta e escolha qualquer organização para a segunda etapa: \""
-"Selecione a organização de pesquisa primária\". Para a terceira etapa de criaçã"
-"o do plano, se você marcar a caixa \"Nenhum financiador associado a este plano\""
-", serão apresentados todos os modelos organizacionais disponíveis. Se o campo "
-"permanecer cinza e não aparecer nenhum modelo com nome de organização, a organ"
-"ização selecionada não criou nenhum modelo próprio e você verá o modelo padrão"
-" do DMPTool após clicar no botão \"Criar plano\"."
+"Para visualizar modelos criados por terceiros (se disponíveis), crie um novo p"
+"lano na ferramenta e escolha qualquer organização para a segunda etapa: “Selec"
+"ione a organização de pesquisa principal”. Para a terceira etapa de criação do"
+" plano, se você marcar a caixa \"Nenhum financiador associado a este plano\", se"
+"rão apresentados todos os modelos organizacionais disponíveis. Se o campo perm"
+"anecer cinza e nenhum modelo com nomes organizacionais aparecer, então a organ"
+"ização selecionada não criou nenhum de seus próprios modelos e você verá o mod"
+"elo padrão da ferramenta DMP após clicar no botão \"Criar plano\"."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:147
+#: ../../app/views/branded/static_pages/faq.html.erb:138
 msgid "Q: I created a test template. How can I delete it?"
 msgstr "P: Eu criei um modelo de teste. Como posso excluí-lo?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:148
+#: ../../app/views/branded/static_pages/faq.html.erb:139
 msgid ""
-"DMPTool administrators can delete templates. This option is only available if "
-"no plans have been created using that template. If you cannot or do not want t"
-"o delete a template, you can \"Unpublish\" the template so that it will not appe"
-"ar to users. See our <a href=\"%{admin_help_url}\">help documentation</a> on how"
-" to do this."
+"DMP Tool administrators can delete templates. This option is only available if"
+" no plans have been created using that template. If you cannot or do not want "
+"to delete a template, you can \"Unpublish\" the template so that it will not app"
+"ear to users. See our <a href=\"%{admin_help_url}\">help documentation</a> on ho"
+"w to do this."
 msgstr ""
-"Os administradores do DMPTool podem excluir modelos. Esta opção só está dispon"
-"ível se nenhum plano tiver sido criado usando esse modelo. Se você não puder o"
-"u não quiser excluir um modelo, poderá \"Cancelar a publicação\" do modelo para "
-"que ele não apareça para os usuários. Consulte nossa <a href=\"%{admin_help_url"
-"}\">documentação de ajuda</a> sobre como fazer isso."
+"Os administradores da ferramenta DMP podem excluir modelos. Esta opção só esta"
+"rá disponível se nenhum plano tiver sido criado usando esse modelo. Se você nã"
+"o puder ou não quiser excluir um modelo, poderá \"Cancelar publicação\" do model"
+"o para que ele não apareça aos usuários. Consulte nossa <a href=\"%{admin_help_"
+"url}\">documentação de ajuda</a> sobre como fazer isso."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:150
+#: ../../app/views/branded/static_pages/faq.html.erb:141
 msgid "Q: How do I create guidance? And what are themes?"
 msgstr "P: Como faço para criar orientações? E quais são os temas?"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:151
+#: ../../app/views/branded/static_pages/faq.html.erb:142
 msgid ""
 " The <a href=\"%{admin_help_url}\">help guide for administrators</a> contains de"
 "tailed instructions for creating themed guidance. The basic steps include:<ol>"
@@ -3796,7 +3871,7 @@ msgstr ""
 "inserindo texto, atribuindo um ou mais temas e anexando-o a um grupo de orient"
 "ação</li><li> Publicação da orientação</li></ol>"
 
-#: ../../app/views/branded/static_pages/faq.html.erb:153
+#: ../../app/views/branded/static_pages/faq.html.erb:144
 msgid ""
 "There are 14 themes that represent the most common topics addressed in data ma"
 "nagement plans (e.g., Data format, Metadata). Themes work like tags to associa"
@@ -3813,7 +3888,7 @@ msgstr ""
 "os modelos de uma vez. Isso também alivia a necessidade de atualizar as orient"
 "ações cada vez que um novo modelo é lançado."
 
-#: ../../app/views/branded/static_pages/faq.html.erb:155
+#: ../../app/views/branded/static_pages/faq.html.erb:146
 msgid ""
 "Can't find the answer you’re looking for? <a href=\"%{contact_url}\">Contact us<"
 "/a>"
@@ -3965,14 +4040,14 @@ msgstr ""
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:34
 msgid ""
 "We recommend that those applying for funding from US Federal agencies, such as"
-" the NSF or NIH, use the DMPTool. The DMPTool provides guidance for many of th"
-"e Federal agencies’ requirements, along with links to additional resources, se"
-"rvices, and help."
+" the NSF or NIH, use the DMP Tool. The DMP Tool provides guidance for many of "
+"the Federal agencies’ requirements, along with links to additional resources, "
+"services, and help."
 msgstr ""
 "Recomendamos que aqueles que solicitam financiamento de agências federais dos "
-"EUA, como NSF ou NIH, usem o DMPTool. O DMPTool fornece orientação para muitos"
-" dos requisitos das agências federais, juntamente com links para recursos, ser"
-"viços e ajuda adicionais."
+"EUA, como a NSF ou NIH, utilizem a ferramenta DMP. A ferramenta DMP fornece or"
+"ientação para muitos dos requisitos das agências federais, juntamente com link"
+"s para recursos, serviços e ajuda adicionais."
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:39
 msgid ""
@@ -5467,47 +5542,77 @@ msgstr ""
 
 #: ../../app/views/branded/static_pages/help.html.erb:5
 msgid ""
-"The DMPTool is a free, open-source, online application that helps researchers "
-"create data management plans. The tool provides a click-through wizard for cre"
-"ating a DMP that complies with funder requirements. It also has direct links t"
-"o funder websites, help text for answering questions, and data management best"
-" practices resources."
+"The DMP Tool is a free, open-source, application that helps researchers create"
+" data management plans. The tool provides a click-through wizard for creating "
+"a plan that complies with funder requirements. It also has direct links to fun"
+"der websites, help text for answering questions, and data management best prac"
+"tices resources."
 msgstr ""
-"O DMPTool é um aplicativo on-line gratuito e de código aberto que ajuda os pes"
-"quisadores a criar planos de gerenciamento de dados. A ferramenta fornece um a"
-"ssistente de clique para criar um PGD que atenda aos requisitos do financiador"
-". Ele também tem links diretos para sites de financiadores, texto de ajuda par"
-"a responder a perguntas e recursos de práticas recomendadas de gerenciamento d"
-"e dados."
+"A ferramenta DMP é um aplicativo gratuito e de código aberto que ajuda os pesq"
+"uisadores a criar planos de gerenciamento de dados. A ferramenta fornece um as"
+"sistente de clique para criar um plano que esteja em conformidade com os requi"
+"sitos do financiador. Ele também possui links diretos para sites de financiado"
+"res, texto de ajuda para responder perguntas e recursos de práticas recomendad"
+"as de gerenciamento de dados."
 
 #: ../../app/views/branded/static_pages/help.html.erb:8
 msgid "Help for Researchers"
 msgstr "Ajuda para pesquisadores"
 
 #: ../../app/views/branded/static_pages/help.html.erb:9
-msgid "Help for DMPTool Administrators"
-msgstr "Ajuda para administradores do DMPTool"
+msgid "Help for DMP Tool Administrators"
+msgstr "Ajuda para administradores de ferramentas DMP"
 
 #: ../../app/views/branded/static_pages/help.html.erb:10
 msgid "Data management guidance"
 msgstr "Orientação de gerenciamento de dados"
 
-#: ../../app/views/branded/static_pages/help.html.erb:11
-msgid "Learn more about the DMPTool"
-msgstr "Saiba mais sobre o DMPTool"
+#: ../../app/views/branded/static_pages/join_us.html.erb:2
+msgid "Join Us"
+msgstr "Junte-se a nós"
 
-#: ../../app/views/branded/static_pages/help.html.erb:12
-#: ../../app/views/branded/static_pages/promote.html.erb:2
-msgid "Promote the DMPTool"
-msgstr "Promova o DMPTool"
+#: ../../app/views/branded/static_pages/join_us.html.erb:5
+msgid ""
+"The DMP Tool is free to use for both individual users and organizational accou"
+"nts. Participating institutions can incorporate information about their resour"
+"ces and services to aid researchers. Additionally, DMP Tool administrators can"
+" provide customized help and suggest answers to the funder templates available"
+" in the tool."
+msgstr ""
+"A ferramenta DMP é gratuita para usuários individuais e contas organizacionais"
+". As instituições participantes podem incorporar informações sobre seus recurs"
+"os e serviços para auxiliar os pesquisadores. Além disso, os administradores d"
+"a ferramenta DMP podem fornecer ajuda personalizada e sugerir respostas aos mo"
+"delos de financiadores disponíveis na ferramenta."
 
-#: ../../app/views/branded/static_pages/help.html.erb:13
-msgid "FAQs"
-msgstr "Perguntas frequentes"
+#: ../../app/views/branded/static_pages/join_us.html.erb:7
+msgid ""
+"DMP Tool participants include academic institutions, medical centers, research"
+" labs, nonprofits, and other groups that use the DMP Tool to create best pract"
+"ice data management plans."
+msgstr ""
+"Os participantes da ferramenta DMP incluem instituições acadêmicas, centros mé"
+"dicos, laboratórios de pesquisa, organizações sem fins lucrativos e outros gru"
+"pos que usam a ferramenta DMP para criar planos de gerenciamento de dados de m"
+"elhores práticas."
 
-#: ../../app/views/branded/static_pages/help.html.erb:14
-msgid "Contact Us"
-msgstr "Contate-nos"
+#: ../../app/views/branded/static_pages/join_us.html.erb:9
+msgid ""
+"Our community of participating organizations helps to sustain and support the "
+"DMP Tool in the following ways:"
+msgstr ""
+"Nossa comunidade de organizações participantes ajuda a sustentar e apoiar a fe"
+"rramenta DMP das seguintes maneiras:"
+
+#: ../../app/views/branded/static_pages/join_us.html.erb:13
+msgid "Contribute to the maintenance and enhancement of the DMP Tool codebase"
+msgstr ""
+"Contribua para a manutenção e aprimoramento da base de código da ferramenta DM"
+"P"
+
+#: ../../app/views/branded/static_pages/join_us.html.erb:26
+msgid "Sign up as a participating organization."
+msgstr "Inscreva-se como uma organização participante."
 
 #: ../../app/views/branded/static_pages/privacy.html.erb:2
 msgid "Privacy statement"
@@ -5593,110 +5698,29 @@ msgstr ""
 "Esta declaração foi revisada pela última vez em %{revdate} e pode ser revisada"
 " a qualquer momento com aviso prévio."
 
-#: ../../app/views/branded/static_pages/promote.html.erb:4
+#: ../../app/views/branded/static_pages/promote.html.erb:94
+msgid "Promote the DMP Tool"
+msgstr "Promova a ferramenta DMP"
+
+#: ../../app/views/branded/static_pages/promote.html.erb:96
 msgid ""
-"Help spread the word about the DMPTool! Use the materials below to inform rese"
-"archers, librarians, administrators and others about the tool. All materials a"
-"re available under a CC-Zero license."
+"Help spread the word about the DMP Tool! Use the DMP Tool logos below when pub"
+"licizing the tool. All are available under a CC-Zero license."
 msgstr ""
-"Ajude a divulgar o DMPTool! Use os materiais abaixo para informar pesquisadore"
-"s, bibliotecários, administradores e outros sobre a ferramenta. Todos os mater"
-"iais estão disponíveis sob a licença CC-Zero."
+"Ajude a divulgar a ferramenta DMP! Use os logotipos da ferramenta DMP abaixo a"
+"o divulgar a ferramenta. Todos estão disponíveis sob uma licença CC-Zero."
 
-#: ../../app/views/branded/static_pages/promote.html.erb:6
-msgid "DMPTool logo"
-msgstr "Logotipo da DMPTool"
+#: ../../app/views/branded/static_pages/promote.html.erb:98
+msgid "DMP Tool logos - landscape orientation"
+msgstr "Logotipos da ferramenta DMP - orientação paisagem"
 
-#: ../../app/views/branded/static_pages/promote.html.erb:8
-msgid "DMPTool Logo (blue), with tagline"
-msgstr "Logo DMPTool (azul), com slogan"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:16
-msgid "DMPTool Logo (blue), no tagline"
-msgstr "Logo DMPTool (azul), sem slogan"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:24
-msgid "DMPTool Logo (green v2), with tagline"
-msgstr "Logo DMPTool (verde v2), com slogan"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:30
-msgid "DMPTool Logo (green v2), no tagline"
-msgstr "Logo DMPTool (verde v2), sem slogan"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:36
-msgid "Original DMPTool Logo"
-msgstr "Logo DMPTool Original"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:43
-msgid "Postcards"
-msgstr "Postais"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:45
-msgid "Advertise the DMPTool to students and researchers at your institution."
-msgstr "Anuncie o DMPTool para estudantes e pesquisadores de sua instituição."
-
-#: ../../app/views/branded/static_pages/promote.html.erb:47
-msgid "Postcard 1"
-msgstr "Cartão postal 1"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:48
-msgid "Postcard 2"
-msgstr "Postal 2"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:53
-msgid "Talking points"
-msgstr "Pontos de discussão"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:55
-msgid ""
-"Need to get others on your campus interested in the DMPTool? Use our Talking P"
-"oints to guide your discussions. In general, a talking points document is desi"
-"gned to help you stay on track during meetings with those outside of your depa"
-"rtment. It ensures that your major points are at hand and helps you make progr"
-"ess towards the goals of the meeting."
-msgstr ""
-"Precisa fazer com que outras pessoas em seu campus se interessem pelo DMPTool?"
-" Use nossos Pontos de Discussão para orientar suas discussões. Em geral, um do"
-"cumento de pontos de discussão é projetado para ajudá-lo a manter o controle d"
-"urante as reuniões com pessoas de fora do seu departamento. Ele garante que se"
-"us pontos principais estejam à mão e ajuda você a progredir em direção aos obj"
-"etivos da reunião."
-
-#: ../../app/views/branded/static_pages/promote.html.erb:57
-msgid "Overview of Talking Points:"
-msgstr "Visão geral dos pontos de discussão:"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:62
-msgid "Meeting with your IT Group:"
-msgstr "Reunião com seu grupo de TI:"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:68
-msgid "Meeting with Administrators:"
-msgstr "Reunião com Administradores:"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:74
-msgid "Meeting with Researchers:"
-msgstr "Encontro com Pesquisadores:"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:84
-msgid "General purpose slides"
-msgstr "Slides de uso geral"
-
-#: ../../app/views/branded/static_pages/promote.html.erb:86
-msgid ""
-"We created a generic slide deck that you can use to introduce researchers and "
-"others to the DMPTool."
-msgstr ""
-"Criamos um conjunto de slides genérico que você pode usar para apresentar pesq"
-"uisadores e outros ao DMPTool."
-
-#: ../../app/views/branded/static_pages/promote.html.erb:88
-msgid "Microsoft Powerpoint"
-msgstr "Microsoft Power Point"
+#: ../../app/views/branded/static_pages/promote.html.erb:118
+msgid "DMP Tool logos - portrait orientation"
+msgstr "Logotipos da ferramenta DMP - orientação retrato"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:2
-msgid "Quick start guide"
-msgstr "Guia rápido"
+msgid "Quick start guide for reseachers"
+msgstr "Guia de início rápido para pesquisadores"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:4
 msgid "Contents"
@@ -5708,12 +5732,11 @@ msgid "Who can use the tool?"
 msgstr "Quem pode usar a ferramenta?"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:8
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:19
 msgid "Overview of My dashboard"
 msgstr "Visão geral do meu painel"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:9
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:26
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:27
 msgid "How do I create a data management plan?"
 msgstr "Como faço para criar um plano de gerenciamento de dados?"
 
@@ -5724,31 +5747,35 @@ msgstr "Como obtenho ajuda de alguém em minha instituição?"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:16
 msgid ""
-"DMPTool is free for anyone to create data management plans. As a user, you can"
-":<ul><li>Create your own plans.</li><li>Co-author a plan with collaborators.</"
-"li><li> If you are a researcher from one of the <a href=\"%{participating_url}\""
-">participating institutions</a>, you can log in using your institutional crede"
-"ntials. You may then be presented with institution-specific guidance and have "
-"the option to get feedback from local data experts.</li></ul>"
+"DMP Tool is free for anyone to create data management plans. As a user, you ca"
+"n:<ul><li>Create your own plans.</li><li>Co-author a plan with collaborators.<"
+"/li><li> If you are a researcher from one of the <a href=\"%{participating_url}"
+"\">participating institutions</a>, you can log in using your institutional cred"
+"entials. You may then be presented with institution-specific guidance and have"
+" the option to get feedback from local data experts.</li></ul>"
 msgstr ""
-"O DMPTool é gratuito para qualquer pessoa criar planos de gerenciamento de dad"
-"os. Como usuário, você pode:<ul><li> Crie seus próprios planos.</li><li> Coaut"
-"or de um plano com colaboradores.</li><li> Se você é um pesquisador de uma das"
-" <a href=\"%{participating_url}\">instituições participantes</a> , pode fazer o "
-"login usando suas credenciais institucionais. Em seguida, você receberá orient"
-"ações específicas da instituição e terá a opção de obter feedback de especiali"
-"stas locais em dados.</li></ul>"
+"A ferramenta DMP é gratuita para qualquer pessoa criar planos de gerenciamento"
+" de dados. Como usuário, você pode:<ul><li> Crie seus próprios planos.</li><li"
+"> Co-autor de um plano com colaboradores.</li><li> Se você é pesquisador de um"
+"a das <a href=\"%{participating_url}\">instituições participantes</a> , poderá f"
+"azer o login utilizando suas credenciais institucionais. Você poderá então rec"
+"eber orientações específicas da instituição e ter a opção de obter feedback de"
+" especialistas em dados locais.</li></ul>"
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:19
+msgid "Overview of My Dashboard"
+msgstr "Visão geral do meu painel"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:21
 msgid ""
-"When you log in, you will be directed to “My dashboard.” From here, you can cr"
+"When you log in, you will be directed to “My Dashboard.” From here, you can cr"
 "eate, edit, share, download, copy, or remove any of your plans. You will also "
 "see plans that have been shared with you by others."
 msgstr ""
-"Ao fazer login, você será direcionado para “Meu painel”. A partir daqui, você "
-"pode criar, editar, compartilhar, baixar, copiar ou remover qualquer um de seu"
-"s planos. Você também verá planos que foram compartilhados com você por outras"
-" pessoas."
+"Ao fazer login, você será direcionado para “Meu Painel”. A partir daqui, você "
+"pode criar, editar, compartilhar, baixar, copiar ou remover qualquer um dos se"
+"us planos. Você também verá planos que foram compartilhados com você por outra"
+"s pessoas."
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:22
 msgid ""
@@ -5764,11 +5791,11 @@ msgstr ""
 "scubra novos dados de pesquisa. Amostras adicionais estão disponíveis na lista"
 " de <a href=\"%{public_plans_url}\">planos públicos</a> ."
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:28
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:29
 msgid "Start a plan"
 msgstr "Iniciar um plano"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:30
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:31
 msgid ""
 "Click the “Create plan” button on My dashboard or the top menu to create a pla"
 "n. This will take you to a wizard that helps you select the appropriate templa"
@@ -5786,32 +5813,32 @@ msgid ""
 "ciated with a participating institution/organization. You have the option to c"
 "lear the field and select another organization from the list. You will be pres"
 "ented with institution-specific templates and guidance based on your selection"
-". You can also check the box that “No organization is associated with this pla"
-"n.”</li><li>Select the primary funding organization. If you must include a dat"
-"a management plan as part of a grant proposal, select your funder from the lis"
-"t. You may be presented with a secondary dropdown menu if your funder has diff"
-"erent requirements for specific programs (e.g., NSF, DOE). See the complete li"
-"st of <a href=\"%<public_templates_url>s\">funder requirements</a> supported by "
-"DMPTool. If your funder is not on the list or you are not applying for a grant"
-", check the box for “No funder associated with this plan;” this selection will"
-" provide you with a generic template.</li></ol>"
+". You can also check the box “No organization is associated with this plan.”</"
+"li><li>Select the primary funding organization. If you must include a data man"
+"agement plan as part of a grant proposal, select your funder from the list. Yo"
+"u may be presented with a secondary dropdown menu if your funder has different"
+" requirements for specific programs (e.g., NSF, DOE). See the complete list of"
+" <a href=\"%<public_templates_url>s\">funder requirements</a> supported by DMP T"
+"ool. If your funder is not on the list or you are not applying for a grant, ch"
+"eck the box for “No funder associated with this plan;” this selection will pro"
+"vide you with a generic template.</li></ol>"
 msgstr ""
-"<ol type=\"1\"><li>Digite um título para o seu projeto de pesquisa. Se estiver s"
+"<ol type=\"1\"><li>Insira um título para o seu projeto de pesquisa. Se estiver s"
 "olicitando financiamento, use o título do projeto conforme aparece na proposta"
 ".</li><li> Selecione a organização de pesquisa principal. Este campo será pré-"
 "preenchido se você estiver associado a uma instituição/organização participant"
 "e. Você tem a opção de limpar o campo e selecionar outra organização na lista."
-" Você receberá modelos e orientações específicas da instituição com base em su"
-"a seleção. Você também pode marcar a caixa \"Nenhuma organização está associada"
-" a este plano\".</li><li> Selecione a organização de financiamento principal. S"
-"e você precisar incluir um plano de gerenciamento de dados como parte de uma p"
-"roposta de doação, selecione seu financiador na lista. Você pode ser apresenta"
-"do a um menu suspenso secundário se o seu financiador tiver requisitos diferen"
-"tes para programas específicos (por exemplo, NSF, DOE). Veja a lista completa "
-"de <a href=\"%<public_templates_url>s\">requisitos de financiadores</a> suportad"
-"os pelo DMPTool. Se o seu financiador não estiver na lista ou você não estiver"
-" solicitando um subsídio, marque a caixa \"Nenhum financiador associado a este "
-"plano\"; essa seleção fornecerá um modelo genérico.</li></ol>"
+" Serão apresentados modelos e orientações específicas da instituição com base "
+"em sua seleção. Você também pode marcar a caixa “Nenhuma organização está asso"
+"ciada a este plano”.</li><li> Selecione a principal organização financiadora. "
+"Se você precisar incluir um plano de gerenciamento de dados como parte de uma "
+"proposta de financiamento, selecione seu financiador na lista. Poderá ser apre"
+"sentado um menu suspenso secundário se o seu financiador tiver requisitos dife"
+"rentes para programas específicos (por exemplo, NSF, DOE). Veja a lista comple"
+"ta de <a href=\"%<public_templates_url>s\">requisitos de financiadores</a> supor"
+"tados pela ferramenta DMP. Se o seu financiador não estiver na lista ou você n"
+"ão estiver solicitando um subsídio, marque a caixa “Nenhum financiador associa"
+"do a este plano”; esta seleção fornecerá um modelo genérico.</li></ol>"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:36
 msgid ""
@@ -5841,8 +5868,8 @@ msgstr ""
 "ciamento."
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:42
-msgid "What are the different features of the DMPTool?"
-msgstr "Quais são os diferentes recursos do DMPTool?"
+msgid "What are the different features of the DMP Tool?"
+msgstr "Quais são os diferentes recursos da ferramenta DMP?"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:44
 msgid ""
@@ -5853,65 +5880,86 @@ msgid ""
 "re information you provide here, the more valuable your plan will be to you an"
 "d others in the future (e.g., for data reuse and proper attribution).</li><li>"
 "<strong>Collaborators:</strong> Here, you list the project’s Principal Investi"
-"gator(s) and those responsible for data management. DMP Collaborators section "
-"is where you can invite specific people to read, edit, or administer your plan"
-". Invitees will receive an email notification that they have access to this pl"
-"an.</li><li><strong>Write Plan:</strong> There may be more than one tab if you"
-"r funder or institution asks different sets of questions at different stages, "
-"e.g., a grant application and post-award. Guidance and comments are displayed "
-"in the right-hand panel beside each question. If you need more guidance or fin"
-"d it is too much, you can make adjustments on the “Project details” tab.</li><"
-"li><strong>Research Outputs:</strong> Generate a list of your anticipated rese"
-"arch output(s) that are described in your DMP. You can create as many entries "
-"as needed.</li><li><strong>Download:</strong> This allows you to download your"
-" plan in various formats. You can adjust the formatting (font type, size, and "
-"margins) for PDF files, which may be helpful if working to page limits (e.g., "
-"NSF and NIH data management plans are limited to 2 pages).</li><li><strong>Fin"
-"alize:</strong> This tab has two important functions.<ol><li>You can set your "
-"plan visibility. By default, all new and test plans will be set to Private vis"
-"ibility. Public and Organizational visibility are intended for finished plans."
-" You must answer at least 50% of the questions to enable these options.</li><l"
-"i>Register your plan and add it to ORCID. This is where you can generate a DMP"
-" ID for your data management plan. To register your plan you must have complet"
-"ed the following:<ul><li>answered at least 50% of questions</li><li>identified"
-" your funder</li><li>linked your DMPTool account to your ORCID via your Third-"
+"gator(s) and those responsible for data management. The DMP Collaborators sect"
+"ion is where you can invite specific people to read, edit, or administer your "
+"plan. Invitees will receive an email notification that they have access to thi"
+"s plan.</li><li><strong>Write Plan:</strong> There may be more than one tab if"
+" your funder or institution asks different sets of questions at different stag"
+"es, e.g., a grant application and post-award. Guidance and comments are displa"
+"yed in the right-hand panel beside each question. If you need more guidance or"
+" find it is too much, you can make adjustments on the “Project details” tab.</"
+"li><li><strong>Research Outputs:</strong> Generate a list of your anticipated "
+"research output(s) that are described in your DMP. You can create as many entr"
+"ies as needed.</li><li><strong>Finalize:</strong> This tab has two important f"
+"unctions.<ol><li>You can set your plan visibility. By default, all new and tes"
+"t plans will be set to Private visibility. Public and Organizational visibilit"
+"y are intended for finished plans. You must answer at least 50% of the questio"
+"ns to enable these options.</li><li>Register your plan and add it to ORCID. Th"
+"is is where you can generate a DMP ID for your data management plan. To regist"
+"er your plan you must have completed the following:<ul><li>answered at least 5"
+"0% of questions</li><li>identified your funder</li><li>linked your DMP Tool ac"
+"count to your ORCID via your Third-party applications page</li><li>The plan is"
+" not a mock project for testing, practice, or educational purposes.</li></ul><"
+"/li></ol></li><li><strong>Download:</strong> This allows you to download your "
+"plan in various formats. You can adjust the formatting (font type, size, and m"
+"argins) for PDF files, which may be helpful if working to page limits (e.g., N"
+"SF and NIH data management plans are limited to 2 pages).</li><li><strong>Fina"
+"lize:</strong> This tab has two important functions.<ol><li>You can set your p"
+"lan visibility. By default, all new and test plans will be set to Private visi"
+"bility. Public and Organizational visibility are intended for finished plans. "
+"You must answer at least 50% of the questions to enable these options.</li><li"
+">Register your plan and add it to ORCID. This is where you can generate a DMP "
+"ID for your data management plan. To register your plan you must have complete"
+"d the following:<ul><li>answered at least 50% of questions</li><li>identified "
+"your funder</li><li>linked your DMP Tool account to your ORCID via your Third-"
 "party applications page</li><li>The plan is not a mock project for testing, pr"
 "actice, or educational purposes.</li></ul></li></ol></li></ul>"
 msgstr ""
-"A interface com abas permite navegar por diferentes funções ao editar seu plan"
-"o.<ul><li> <strong>Detalhes do projeto:</strong> Inclui detalhes administrativ"
-"os básicos. O lado direito da página é onde você pode selecionar até 6 organiz"
-"ações para visualizar orientações adicionais enquanto escreve seu plano. Quant"
-"o mais informações você fornecer aqui, mais valioso será seu plano para você e"
-" outras pessoas no futuro (por exemplo, para reutilização de dados e atribuiçã"
-"o adequada).</li><li> <strong>Colaboradores:</strong> Aqui você lista o(s) Inv"
-"estigador(es) Principal(es) do projeto e os responsáveis pelo gerenciamento de"
-" dados. A seção Colaboradores do PGD é onde você pode convidar pessoas específ"
+"A interface com guias permite navegar por diferentes funções ao editar seu pla"
+"no.<ul><li> <strong>Detalhes do projeto:</strong> Inclui detalhes administrati"
+"vos básicos. O lado direito da página é onde você pode selecionar até 6 organi"
+"zações para visualizar orientações adicionais enquanto escreve seu plano. Quan"
+"to mais informações você fornecer aqui, mais valioso será o seu plano para voc"
+"ê e outras pessoas no futuro (por exemplo, para reutilização de dados e atribu"
+"ição adequada).</li><li> <strong>Colaboradores:</strong> Aqui você lista o(s) "
+"Pesquisador(es) Principal(is) do projeto e os responsáveis pelo gerenciamento "
+"dos dados. A seção Colaboradores DMP é onde você pode convidar pessoas específ"
 "icas para ler, editar ou administrar seu plano. Os convidados receberão uma no"
 "tificação por e-mail informando que têm acesso a este plano.</li><li> <strong>"
-"Plano de Redação:</strong> Pode haver mais de uma guia se o seu financiador ou"
+"Plano de redação:</strong> Pode haver mais de uma guia se o seu financiador ou"
 " instituição fizer diferentes conjuntos de perguntas em diferentes estágios, p"
-"or exemplo, um pedido de subsídio e pós-prêmio. Orientações e comentários são "
-"exibidos no painel direito ao lado de cada pergunta. Se você precisar de mais "
-"orientação ou achar que é demais, poderá fazer ajustes na guia \"Detalhes do pr"
-"ojeto\".</li><li> <strong>Resultados de pesquisa:</strong> Gere uma lista de se"
-"us resultados de pesquisa previstos que estão descritos em seu PGD. Você pode "
-"criar quantas entradas forem necessárias.</li><li> <strong>Download:</strong> "
-"permite que você baixe seu plano em vários formatos. Você pode ajustar a forma"
-"tação (tipo de fonte, tamanho e margens) para arquivos PDF, o que pode ser úti"
-"l se estiver trabalhando com limites de página (por exemplo, planos de gerenci"
-"amento de dados NSF e NIH são limitados a 2 páginas).</li><li> <strong>Finaliz"
-"ar:</strong> Esta aba tem duas funções importantes.<ol><li> Você pode definir "
-"a visibilidade do seu plano. Por padrão, todos os planos novos e de teste serã"
-"o definidos como Visibilidade privada. A visibilidade pública e organizacional"
-" destina-se a planos concluídos. Você deve responder pelo menos 50% das pergun"
-"tas para ativar essas opções.</li><li> Registre seu plano e adicione-o ao ORCI"
-"D. É aqui que você pode gerar um ID PGD para seu plano de gerenciamento de dad"
-"os. Para registrar seu plano, você deve ter concluído o seguinte:<ul><li> resp"
-"ondeu pelo menos 50% das perguntas</li><li> identificou seu financiador</li><l"
-"i> vinculou sua conta DMPTool ao seu ORCID por meio da página de aplicativos d"
-"e terceiros</li><li> O plano não é um projeto simulado para testes, prática ou"
-" fins educacionais.</li></ul></li></ol></li></ul>"
+"or exemplo, um pedido de subsídio e pós-concessão. Orientações e comentários s"
+"ão exibidos no painel direito ao lado de cada pergunta. Se precisar de mais or"
+"ientação ou achar que é demais, você pode fazer ajustes na aba “Detalhes do pr"
+"ojeto”.</li><li> <strong>Resultados de pesquisa:</strong> Gere uma lista de se"
+"us resultados de pesquisa previstos, descritos em seu DMP. Você pode criar qua"
+"ntas entradas forem necessárias.</li><li> <strong>Finalizar:</strong> Esta aba"
+" possui duas funções importantes.<ol><li> Você pode definir a visibilidade do "
+"seu plano. Por padrão, todos os planos novos e de teste serão definidos para v"
+"isibilidade Privada. A visibilidade pública e organizacional destina-se a plan"
+"os concluídos. Você deve responder pelo menos 50% das perguntas para ativar es"
+"sas opções.</li><li> Registre seu plano e adicione-o ao ORCID. É aqui que você"
+" pode gerar um ID DMP para seu plano de gerenciamento de dados. Para registrar"
+" seu plano você deve ter preenchido o seguinte:<ul><li> respondeu pelo menos 5"
+"0% das perguntas</li><li> identificou seu financiador</li><li> vinculou sua co"
+"nta da ferramenta DMP ao seu ORCID por meio da página de aplicativos de tercei"
+"ros</li><li> O plano não é um projeto simulado para fins de teste, prática ou "
+"educacional.</li></ul></li></ol></li><li> <strong>Download:</strong> permite q"
+"ue você baixe seu plano em vários formatos. Você pode ajustar a formatação (ti"
+"po de fonte, tamanho e margens) dos arquivos PDF, o que pode ser útil se estiv"
+"er trabalhando com limites de páginas (por exemplo, os planos de gerenciamento"
+" de dados NSF e NIH são limitados a 2 páginas).</li><li> <strong>Finalizar:</s"
+"trong> Esta aba possui duas funções importantes.<ol><li> Você pode definir a v"
+"isibilidade do seu plano. Por padrão, todos os planos novos e de teste serão d"
+"efinidos para visibilidade Privada. A visibilidade pública e organizacional de"
+"stina-se a planos concluídos. Você deve responder pelo menos 50% das perguntas"
+" para ativar essas opções.</li><li> Registre seu plano e adicione-o ao ORCID. "
+"É aqui que você pode gerar um ID DMP para seu plano de gerenciamento de dados."
+" Para registrar seu plano você deve ter preenchido o seguinte:<ul><li> respond"
+"eu pelo menos 50% das perguntas</li><li> identificou seu financiador</li><li> "
+"vinculou sua conta da ferramenta DMP ao seu ORCID por meio da página de aplica"
+"tivos de terceiros</li><li> O plano não é um projeto simulado para fins de tes"
+"te, prática ou educacional.</li></ul></li></ol></li></ul>"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:46
 msgid "Share plans"
@@ -5934,7 +5982,7 @@ msgstr ""
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:50
 msgid ""
 "The \"Finalize\" tab is where you can set your plan visibility.<ul><li>Private: "
-"restricted to you and your collaborators.</li><li>Organizational: anyone at yo"
+"restricted to you and your collaborators.</li><li>Organizational: anyone in yo"
 "ur organization can view your plan.</li><li>Public: anyone can view your plan "
 "in the <a href=\"%<public_plans_path>s\">public plans</a> list.</li></ul>"
 msgstr ""
@@ -5966,17 +6014,17 @@ msgstr ""
 msgid ""
 "There may also be an option to request feedback on your plan. This is availabl"
 "e when research support staff at your institution have enabled the service. Cl"
-"ick to “Request feedback” and your local administrators will be alerted to you"
-"r request. Their comments will be visible in the “Comments” field adjacent to "
-"each question. You will receive an email notification when an administrator pr"
-"ovides feedback."
+"ick on “Request feedback,” and your local administrators will be alerted to yo"
+"ur request. Their comments will be visible in the “Comments” field adjacent to"
+" each question. You will receive an email notification when an administrator p"
+"rovides feedback."
 msgstr ""
-"Também pode haver uma opção para solicitar feedback sobre seu plano. Isso está"
+"Também pode haver uma opção para solicitar feedback sobre seu plano. Isto está"
 " disponível quando a equipe de apoio à pesquisa da sua instituição habilita o "
 "serviço. Clique em “Solicitar feedback” e seus administradores locais serão al"
-"ertados sobre sua solicitação. Seus comentários estarão visíveis no campo “Com"
-"entários” ao lado de cada pergunta. Você receberá uma notificação por e-mail q"
-"uando um administrador fornecer feedback."
+"ertados sobre sua solicitação. Seus comentários ficarão visíveis no campo “Com"
+"entários” adjacente a cada pergunta. Você receberá uma notificação por e-mail "
+"quando um administrador fornecer feedback."
 
 #: ../../app/views/branded/static_pages/sso_error.html.erb:19
 msgid "Sorry, we were not able to log you in."
@@ -6033,10 +6081,10 @@ msgstr "Se você já possui uma conta:"
 #: ../../app/views/branded/static_pages/sso_error.html.erb:32
 msgid ""
 "Click on the 'Reset Password' link and then fill out the form. This will email"
-" you a link to create a password that is unique to the DMPTool."
+" you a link to create a password that is unique to the DMP Tool."
 msgstr ""
-"Clique no link 'Redefinir senha' e preencha o formulário. Isso enviará a você "
-"por e-mail um link para criar uma senha exclusiva para o DMPTool."
+"Clique no link 'Redefinir senha' e preencha o formulário. Você receberá por e-"
+"mail um link para criar uma senha exclusiva para a ferramenta DMP."
 
 #: ../../app/views/branded/static_pages/sso_error.html.erb:32
 msgid ""
@@ -6095,16 +6143,16 @@ msgstr ""
 "rsos úteis para solucionar o problema:"
 
 #: ../../app/views/branded/static_pages/sso_error.html.erb:60
-msgid "DMPTool SSO documentation"
-msgstr "Documentação de SSO do DMPTool"
+msgid "DMP Tool SSO documentation"
+msgstr "Documentação de SSO da ferramenta DMP"
 
 #: ../../app/views/branded/static_pages/sso_error.html.erb:61
-msgid "DMPTool SSO test page"
-msgstr "Página de teste SSO do DMPTool"
+msgid "DMP Tool SSO test page"
+msgstr "Página de teste SSO da ferramenta DMP"
 
 #: ../../app/views/branded/static_pages/sso_error.html.erb:62
-msgid "Contact the DMPTool helpdesk"
-msgstr "Entre em contato com o suporte técnico do DMPTool"
+msgid "Contact the DMP Tool helpdesk"
+msgstr "Entre em contato com o suporte técnico da ferramenta DMP"
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:2
 msgid "Terms of use & Privacy policy"
@@ -6123,20 +6171,20 @@ msgstr ""
 "setor de ensino superior internacional."
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:6
-msgid "DMPTool"
-msgstr "DMPTool"
+msgid "DMP Tool"
+msgstr "Ferramenta DMP"
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:7
 msgid ""
-"DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a h"
-"ref=\"%{dcc_url}\">Digital Curation Centre (DCC)</a> as a shared resource for th"
-"e research community. It is hosted at CDL by the University of California Cura"
-"tion Center (UC3)."
+"DMP Tool ('the tool', 'the system') is a tool developed by the CDL and the <a "
+"href=\"%{dcc_url}\">Digital Curation Centre (DCC)</a> as a shared resource for t"
+"he research community. It is hosted at CDL by the University of California Cur"
+"ation Center (UC3)."
 msgstr ""
-"DMPTool ('a ferramenta', 'o sistema') é uma ferramenta desenvolvida pelo CDL e"
-" o <a href=\"%{dcc_url}\">Digital Curation Center (DCC)</a> como um recurso comp"
-"artilhado para a comunidade de pesquisa. Está hospedado no CDL pelo University"
-" of California Curation Center (UC3)."
+"A Ferramenta DMP ('a ferramenta', 'o sistema') é uma ferramenta desenvolvida p"
+"elo CDL e pelo <a href=\"%{dcc_url}\">Centro de Curadoria Digital (DCC)</a> como"
+" um recurso compartilhado para a comunidade de pesquisa. É hospedado no CDL pe"
+"lo Centro de Curadoria da Universidade da Califórnia (UC3)."
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:10
 msgid "Your personal details"
@@ -6144,20 +6192,20 @@ msgstr "Seus dados pessoais"
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:11
 msgid ""
-"In order to help identify and administer your account with the DMPTool, we nee"
-"d to store your email address. We may also use it to contact you to obtain fee"
-"dback on your use of the tool, or to inform you of the latest developments or "
-"releases. The information may be transferred between the CDL and DCC partner o"
-"rganizations but only for legitimate CDL purposes. We will not sell, rent, or "
-"trade any personal information you provide to us."
+"In order to help identify and administer your account with the DMP Tool, we ne"
+"ed to store your email address. We may also use it to contact you to obtain fe"
+"edback on your use of the tool, or to inform you of the latest developments or"
+" releases. The information may be transferred between the CDL and DCC partner "
+"organizations but only for legitimate CDL purposes. We will not sell, rent, or"
+" trade any personal information you provide to us."
 msgstr ""
-"Para ajudar a identificar e administrar sua conta com a DMPTool, precisamos ar"
-"mazenar seu endereço de e-mail. Também podemos usá-lo para entrar em contato c"
-"om você para obter feedback sobre o uso da ferramenta ou para informá-lo sobre"
-" os desenvolvimentos ou lançamentos mais recentes. As informações podem ser tr"
-"ansferidas entre as organizações parceiras CDL e DCC, mas apenas para fins leg"
-"ítimos de CDL. Não venderemos, alugaremos ou comercializaremos nenhuma informa"
-"ção pessoal que você nos fornecer."
+"Para ajudar a identificar e administrar sua conta com a ferramenta DMP, precis"
+"amos armazenar seu endereço de e-mail. Também poderemos usá-lo para entrar em "
+"contato com você para obter feedback sobre o uso da ferramenta ou para informá"
+"-lo sobre os últimos desenvolvimentos ou lançamentos. As informações podem ser"
+" transferidas entre as organizações parceiras do CDL e do DCC, mas apenas para"
+" fins legítimos do CDL. Não venderemos, alugaremos ou comercializaremos qualqu"
+"er informação pessoal que você nos fornecer."
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:14
 msgid "Privacy policy"
@@ -6208,10 +6256,78 @@ msgstr ""
 "ção de origem."
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:22
+msgid "Sharing and Reuse"
+msgstr "Compartilhamento e Reutilização"
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:23
+msgid ""
+"<strong>Users who choose Public visibility for their plans</strong> grant the "
+"California Digital Library on behalf of The Regents of the University of Calif"
+"ornia a non-exclusive, irrevocable, royalty-free right to publish, reproduce, "
+"publicly display, adapt, and distribute their plan in perpetuity, worldwide, b"
+"y any method or media now known or later developed."
+msgstr ""
+"<strong>Os usuários que escolhem a visibilidade pública para seus planos</stro"
+"ng> concedem à Biblioteca Digital da Califórnia, em nome dos Regentes da Unive"
+"rsidade da Califórnia, um direito não exclusivo, irrevogável e isento de royal"
+"ties para publicar, reproduzir, exibir publicamente, adaptar e distribuir seu "
+"plano em perpetuidade , em todo o mundo, por qualquer método ou meio atualment"
+"e conhecido ou desenvolvido posteriormente."
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:24
+msgid ""
+"<stroong>Users who choose to use the DMP Tool to create a DOI (Digital Object "
+"Identifier aka DMP ID) for their plans</strong> grant the California Digital L"
+"ibrary on behalf of The Regents of the University of California a non-exclusiv"
+"e, irrevocable, royalty-free right to publish, reproduce, publicly display, ad"
+"apt, and distribute portions of their plans in perpetuity, worldwide, by any m"
+"ethod or media now known or later developed. The portions that will be publish"
+"ed are those necessary to provide sufficient information about the plan associ"
+"ated with the DOI, including the project description and descriptions of plann"
+"ed outputs, but does not include the full text of the plan unless the user has"
+" chosen public visibility for the plan."
+msgstr ""
+"<stroong>Os usuários que optam por usar a ferramenta DMP para criar um DOI (Di"
+"gital Object Identifier, também conhecido como DMP ID) para seus planos conced"
+"em à Biblioteca Digital da Califórnia, em nome dos Regentes da Universidade da"
+" Califórnia, um direito não exclusivo, irrevogável e isento de royalties para "
+"publicar, reproduzir, exibir publicamente, adaptar e distribuir partes de seus"
+" planos perpetuamente, em todo o mundo, por qualquer método ou mídia agora con"
+"hecido ou desenvolvido posteriormente. As partes que serão publicadas são aque"
+"las necessárias para fornecer informações suficientes sobre o plano associado "
+"ao DOI, incluindo a descrição do projeto e as descrições dos resultados planej"
+"ados, mas não incluem o texto completo do plano, a menos que o usuário tenha e"
+"scolhido a visibilidade pública para o plano."
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:25
+msgid ""
+"<strong>All users</strong grant the California Digital Library on behalf of Th"
+"e Regents of the University of California permission to: 1) <strong>preserve</"
+"strong> the material they provide to the DMP Tool and to perform any copying o"
+"r distribution that is appropriate in order to maintain that material, includi"
+"ng but not limited to format migration and adaptations necessary for accessibi"
+"lity remediation; 2) <strong>distribute</strong> their plan to administrators "
+"or others at their organization as directed by the user-defined plan visibilit"
+"y; and 3) <strong>use their material in research</strong> regarding improvemen"
+"ts to the DMP Tool or data management practices, including use in artificial i"
+"ntelligence training within California Digital Library's local environment."
+msgstr ""
+"<strong>Todos os usuários</strong> preservam o material que fornecem à Ferrame"
+"nta DMP e realizam qualquer cópia ou distribuição que seja apropriada para man"
+"ter esse material, incluindo, mas não se limitando à migração de formato e ada"
+"ptações necessárias para remediação de acessibilidade; 2) <strong>distribuir</"
+"strong> seu plano para administradores ou outras pessoas em sua organização co"
+"nforme orientado pela visibilidade do plano definida pelo usuário; e 3) <stron"
+"g>usar seu material em pesquisas</strong> relacionadas a melhorias na ferramen"
+"ta DMP ou nas práticas de gerenciamento de dados, incluindo o uso em treinamen"
+"to de inteligência artificial no ambiente local da Biblioteca Digital da Calif"
+"órnia."
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:28
 msgid "Passwords"
 msgstr "Senhas"
 
-#: ../../app/views/branded/static_pages/termsuse.html.erb:23
+#: ../../app/views/branded/static_pages/termsuse.html.erb:29
 msgid ""
 "Your password is stored in encrypted form and cannot be retrieved. If forgotte"
 "n it has to be reset."
@@ -6219,29 +6335,32 @@ msgstr ""
 "Sua senha é armazenada em formato criptografado e não pode ser recuperada. Se "
 "for esquecido, ele deve ser reiniciado."
 
-#: ../../app/views/branded/static_pages/termsuse.html.erb:26
-msgid "Google Analytics opt-out"
-msgstr "Desativação do Google Analytics"
+#: ../../app/views/branded/static_pages/termsuse.html.erb:32
+msgid "Analytics Use"
+msgstr "Uso analítico"
 
-#: ../../app/views/branded/static_pages/termsuse.html.erb:27
+#: ../../app/views/branded/static_pages/termsuse.html.erb:33
 msgid ""
-"As noted in the CDL privacy policy, this website uses Google Analytics to capt"
-"ure and analyze usage statistics. You may choose to opt-out of having your web"
-"site activity tracked by Google Analytics. To do so, visit the <a href=\"%{opt_"
-"out_url}\">Google Analytics opt-out page</a> and install the add-on for your br"
-"owser."
+"This website uses Matomo Analytics to capture and analyze usage statistics. Ma"
+"tomo allows us to better understand how our users interact with our service.  "
+"For information on how Matomo collects and processes data, as well as how you "
+"can control information sent to Matomo, review Matomo's website, %{matomo_url}"
 msgstr ""
-"Conforme observado na política de privacidade do CDL, este site usa o Google A"
-"nalytics para capturar e analisar estatísticas de uso. Você pode optar por não"
-" permitir que a atividade de seu site seja rastreada pelo Google Analytics. Pa"
-"ra fazer isso, visite a <a href=\"%{opt_out_url}\">página de desativação</a> do "
-"Google Analytics e instale o add-on para o seu navegador."
+"Este site usa Matomo Analytics para capturar e analisar estatísticas de uso. M"
+"atomo permite-nos compreender melhor como os nossos utilizadores interagem com"
+" o nosso serviço. Para obter informações sobre como o Matomo coleta e processa"
+" dados, bem como como você pode controlar as informações enviadas ao Matomo, c"
+"onsulte o site do Matomo, %{matomo_url}"
 
-#: ../../app/views/branded/static_pages/termsuse.html.erb:30
+#: ../../app/views/branded/static_pages/termsuse.html.erb:33
+msgid "Personal data Matomo analytics collects and why."
+msgstr "Dados pessoais que o Matomo Analytics coleta e por quê."
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:36
 msgid "Third party APIs"
 msgstr "APIs de terceiros"
 
-#: ../../app/views/branded/static_pages/termsuse.html.erb:31
+#: ../../app/views/branded/static_pages/termsuse.html.erb:37
 msgid ""
 "Certain features on this website utilize third party services and APIs such as"
 " InCommon/Shibboleth or third party hosting of common JavaScript libraries or "
@@ -6255,19 +6374,19 @@ msgstr ""
 "olítica de privacidade desse serviço. O CDL não controla como as informações p"
 "odem ser usadas por esses serviços."
 
-#: ../../app/views/branded/static_pages/termsuse.html.erb:34
+#: ../../app/views/branded/static_pages/termsuse.html.erb:40
 msgid "Revisions"
 msgstr "Revisões"
 
-#: ../../app/views/branded/static_pages/termsuse.html.erb:35
+#: ../../app/views/branded/static_pages/termsuse.html.erb:41
 msgid ""
-"This statement was last revised on October 5, 2017 and may be revised at any t"
-"ime. Use of the tool indicates that you understand and agree to these terms an"
-"d conditions."
+"This statement was last revised on December 19, 2023 and may be revised at any"
+" time. Use of the tool indicates that you understand and agree to these terms "
+"and conditions."
 msgstr ""
-"Esta declaração foi revisada pela última vez em 5 de outubro de 2017 e pode se"
-"r revisada a qualquer momento. O uso da ferramenta indica que você entende e c"
-"oncorda com estes termos e condições."
+"Esta declaração foi revisada pela última vez em 19 de dezembro de 2023 e poder"
+"á ser revisada a qualquer momento. O uso da ferramenta indica que você entende"
+" e concorda com estes termos e condições."
 
 #: ../../app/views/branded/super_admin/notifications/_form.html.erb:3
 msgid ""
@@ -6476,14 +6595,29 @@ msgstr "Senha"
 msgid "I accept the %<terms_url>s"
 msgstr "Eu aceito o %<terms_url>s"
 
-#: ../../app/views/branded/users/registrations/_form.html.erb:92
-#: ../../app/views/branded/users/registrations/_profile_form.html.erb:66
-msgid "terms and conditions"
-msgstr "termos e condições"
-
 #: ../../app/views/branded/users/registrations/_form.html.erb:104
 msgid "Sign up"
 msgstr "Inscrever-se"
+
+#: ../../app/views/branded/users/registrations/_new.html.erb:14
+msgid "New Account Sign Up"
+msgstr "Cadastro de nova conta"
+
+#: ../../app/views/branded/users/registrations/_new.html.erb:23
+msgid ""
+"This will create a new account. If you already have an account, %{go_back_link"
+"} to try a different email address, or %{contact_us_link}."
+msgstr ""
+"Isso criará uma nova conta. Se você já possui uma conta, %{go_back_link} para "
+"tentar um endereço de e-mail diferente, ou %{contact_us_link}."
+
+#: ../../app/views/branded/users/registrations/_new.html.erb:24
+msgid "go back"
+msgstr "volte"
+
+#: ../../app/views/branded/users/registrations/_new.html.erb:25
+msgid "contact us"
+msgstr "Contate-Nos"
 
 #: ../../app/views/branded/users/registrations/_profile_form.html.erb:36
 msgid "Department or school"
@@ -6541,37 +6675,21 @@ msgstr "A visibilidade do meu PGD mudou"
 msgid "Update preferences"
 msgstr "Atualizar preferências"
 
-#: ../../app/views/branded/users/registrations/edit.html.erb:7
+#: ../../app/views/branded/users/registrations/edit.html.erb:9
 msgid "Edit Profile"
 msgstr "Editar perfil"
 
-#: ../../app/views/branded/users/registrations/edit.html.erb:11
+#: ../../app/views/branded/users/registrations/edit.html.erb:15
 msgid "Personal Details"
 msgstr "Detalhes Pessoais"
 
-#: ../../app/views/branded/users/registrations/edit.html.erb:20
+#: ../../app/views/branded/users/registrations/edit.html.erb:24
 msgid "Change Your Password"
 msgstr "Mude sua senha"
 
-#: ../../app/views/branded/users/registrations/edit.html.erb:28
+#: ../../app/views/branded/users/registrations/edit.html.erb:32
 msgid "Email Preferences"
 msgstr "Preferências de Email"
-
-#: ../../app/views/branded/users/registrations/new.html.erb:15
-msgid "New Account Sign Up"
-msgstr "Cadastro de nova conta"
-
-#: ../../app/views/branded/users/registrations/new.html.erb:24
-msgid ""
-"This will create a new account. If you already have an account, %{go_back_link"
-"} to try a different email address, or %{contact_us_link}."
-msgstr ""
-"Isso criará uma nova conta. Se você já possui uma conta, %{go_back_link} para "
-"tentar um endereço de e-mail diferente, ou %{contact_us_link}."
-
-#: ../../app/views/branded/users/registrations/new.html.erb:25
-msgid "go back"
-msgstr "volte"
 
 #: ../../app/views/branded/users/sessions/_form.html.erb:15
 msgid "Sign in with Institution (SSO)"
@@ -6585,13 +6703,9 @@ msgstr "Entrar com não SSO"
 msgid "Forgot password?"
 msgstr "Esqueceu a senha?"
 
-#: ../../app/views/branded/users/sessions/_validate.html.erb:4
-msgid "Sign in / Sign up"
-msgstr "Entrar / Inscrever-se"
-
 #: ../../app/views/branded/users/sessions/_validate.html.erb:15
-msgid "For SSO, use institutional address."
-msgstr "Para SSO, use o endereço institucional."
+msgid "For SSO, use your institutional address."
+msgstr "Para SSO, use seu endereço institucional."
 
 #: ../../app/views/branded/users/sessions/_validate.html.erb:20
 msgid "Continue"
