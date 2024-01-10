@@ -33,7 +33,7 @@
               </a>
               <ul class="dropdown-menu inverse-dropdown" aria-labelledby="reference-menu">
                 <li <%= 'class=active' if active_page?(public_plans_path) %>>
-                  <%= link_to _('Public DMPs'), public_plans_path %>
+                  <%= link_to _('Public Plans'), public_plans_path %>
                 </li>
                 <li <%= 'class=active' if active_page?(public_templates_path) %>>
                   <%= link_to _('DMP Templates'), public_templates_path %>
@@ -44,7 +44,7 @@
             <%= link_to _('Home'), root_path %>
           </li>
           <li <%= 'class=active' if active_page?(public_plans_path, true) %>>
-            <%= link_to _('Public DMPs'), public_plans_path %>
+            <%= link_to _('Public Plans'), public_plans_path %>
           </li>
           <li <%= 'class=active' if active_page?(public_templates_path, true) %>>
             <%= link_to _('DMP Templates'), public_templates_path %>
