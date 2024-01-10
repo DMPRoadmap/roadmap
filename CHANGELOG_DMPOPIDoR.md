@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 10/01/2024
+- Correction du comportement des boutons dans les formulaires
+- Correction du problème d'export des plans pour les entités de recherche
+- Retrait du format d'export JSON RDA pour les plans pour les entités de recherche
+- Création de plan : la liste des financeurs prend désormais en compte le contexte
+
 ## 17/11/2023
 - Correction de l'affichage du choix des recommandations (Carte KB #9917)
 - La recherche d'organisme n'est plus sensible aux accents (Carte KB #9844)
