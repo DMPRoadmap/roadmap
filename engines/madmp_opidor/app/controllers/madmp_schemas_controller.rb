@@ -10,7 +10,16 @@ class MadmpSchemasController < ApplicationController
   end
   def show
     authorize(MadmpSchema)
-    @schema = MadmpSchema.find(params[:id]).schema
-    render json: @schema
+    @schema = MadmpSchema.find(params[:id])
+    render json: {
+      id: @schema.id,
+      schema: @schema.schema,
+      api_client: if @schema.api_client.present?
+        {
+          id: @schema.api_client_id,
+          name: @schema.api_client.name
+        } 
+      end
+    }
   end
 end

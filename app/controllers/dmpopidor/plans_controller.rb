@@ -420,8 +420,10 @@ module Dmpopidor
             roles: contributor.roles
           }
         end,
-        template_id: schema.id,
-        template: schema.schema
+        template: {
+          id: schema.id,
+          schema: schema.schema
+        }
       } 
     end
 
