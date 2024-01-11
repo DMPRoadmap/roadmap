@@ -1,14 +1,19 @@
 # frozen_string_literal: true
 
+plan = dmp.plan
 meta = dmp.meta
-project = dmp.project
-research_outputs = dmp.plan.research_outputs.order(:display_order)
+research_outputs = plan.research_outputs.order(:display_order)
 
 json.prettify!
 
-json.meta             meta.get_full_fragment
-json.project          project.get_full_fragment
-json.contributor      format_contributors(dmp, selected_research_outputs)
+json.meta meta.get_full_fragment
+
+if plan.template.research_entity?
+  json.research_entity dmp.research_entity.get_full_fragment
+else
+  json.project dmp.project.get_full_fragment
+end
+json.contributor format_contributors(dmp, selected_research_outputs)
 
 json.researchOutput research_outputs do |research_output|
   research_output_fragment = research_output.json_fragment
