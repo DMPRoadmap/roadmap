@@ -5,8 +5,8 @@ header.dmpopidor-branding {
   display: flex;
   flex-direction: column;
   padding: 70px 0;
-  // background: url(/header_banner.png) no-repeat top fixed;
-  background-color: #4492C3;
+  background: url(/header_banner.png) no-repeat;
+  // background-color: #4492C3;
   background-size: cover;
   position: relative;
 
@@ -19,7 +19,7 @@ header.dmpopidor-branding {
     display: flex;
     justify-content: center;
     background: transparent;
-    height: 80px;
+    height: 100px;
     align-items: center;
     align-self: center;
     width: 100%;
@@ -36,6 +36,7 @@ header.dmpopidor-branding {
       position: absolute;
       top: 0;
       border-radius: 0;
+      border-bottom: 3px solid $rust;
 
       .header-logo {
 
@@ -351,7 +352,7 @@ header.dmpopidor-branding {
         height: inherit;
 
         div.navbar-header a img {
-          width: 170px;
+          width: 250px;
           height: auto !important;
         }
       }
@@ -380,7 +381,6 @@ header.dmpopidor-branding {
     min-height: 500px;
     padding: 0 50px 0 50px;
     z-index: 1;
-    opacity: 0.9;
     margin-top: 25px;
 
     // #####################################################
@@ -398,6 +398,7 @@ header.dmpopidor-branding {
         border-radius: 15px;
         height: inherit;
         margin-bottom: 60px;
+        border: 1px solid $dark-blue;
 
         .org-infos {
           display: flex;
@@ -597,6 +598,10 @@ header.dmpopidor-branding {
   header.dmpopidor-branding {
     div.main-nav {
       height: 60px;
+      div.navbar-header a img.app-logo {
+        width: 170px !important;
+        transition: width 500ms ease-in-out;
+      }
     }
   }
 }
