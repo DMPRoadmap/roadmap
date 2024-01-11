@@ -9,7 +9,7 @@ class OrgSelectionPresenter
 
     @name = selection.present? ? selection.name : ''
 
-    orgs = [selection] if !orgs.present? || orgs.empty?
+    orgs = [selection || ''] if !orgs.present? || orgs.empty?
 
     @crosswalk = orgs.map do |org|
       next if org.nil?
