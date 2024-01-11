@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 11/01/2024
+- Correction d'un problème d'export des plans entités au format JSON
+- Correction du problème d'affichage des listes d'organismes dans la création de plan, causé par l'absence de financeur.
+
 ## 10/01/2024
 - Correction du comportement des boutons dans les formulaires
 - Correction du problème d'export des plans pour les entités de recherche
