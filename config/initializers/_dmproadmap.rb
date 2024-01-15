@@ -274,7 +274,7 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
-    config.x.dmpopidor.enable_research_entity_template = false
+    config.x.dmpopidor.enable_research_entity_template = true
     config.x.dmpopidor.enable_research_outputs_uuid = false
   end
 end
