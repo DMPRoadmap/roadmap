@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 15/01/2024
+- Correction du problème engendrant la création de plusieurs contributeurs lors de l'ajout d'une personne dans un formulaire contenant plusieurs listes de contributeurs différentes (plans entité)
+- Correction d'un problème faisant disparaître la liste des contributeurs après la mise à jour d'un contributeur.
+
 ## 11/01/2024
 - Correction d'un problème d'export des plans entités au format JSON
 - Correction du problème d'affichage des listes d'organismes dans la création de plan, causé par l'absence de financeur.
