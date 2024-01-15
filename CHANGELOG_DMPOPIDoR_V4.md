@@ -7,6 +7,7 @@
 
 ## 15/01/2024
 
+- Correction de l'affichage du modèle sélectionné quand il est dans une liste
 - Changement du comportement de étapes de création de plan:
   - Le bouton ``Valider mon choix`` n'est plus présent en étape 1 et 2, le choix ce fait au cli
   - Le bouton ``Valider mon choix`` est présent en dernière étape (3)
