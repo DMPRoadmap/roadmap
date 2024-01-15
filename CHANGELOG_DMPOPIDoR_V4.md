@@ -3,6 +3,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Ajout d'une taille fixe pour la cellule contenant les boutons d'édition/suppression dans les tableaux des formulaires dynamiques
+- Correction d'un problème d'affichage des formulaires lors de la fermeture puis l'ouverture d'un formulaire (#10098)
+
 ## 08/01/2024
 - Ajout de l'exécution des scripts dans l'onglet Rédiger:
   - Les scripts s'éxécutent à partir du `name` et du `owner` présents dans le `run`
