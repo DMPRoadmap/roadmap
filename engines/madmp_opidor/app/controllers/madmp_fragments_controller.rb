@@ -131,6 +131,7 @@ class MadmpFragmentsController < ApplicationController
   # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
   def update
     p_params = permitted_params
     @schemas = MadmpSchema.all
@@ -194,10 +195,11 @@ class MadmpFragmentsController < ApplicationController
 
     case source
     when 'list-modal'
-      property_name = @fragment.additional_info['property_name']
+      property_name = p_params[:property_name] || @fragment.additional_info['property_name']
       render json: {
         'fragment_id' => @fragment.parent_id,
         'source' => source,
+        'query_id' => p_params[:query_id],
         'html' => render_fragment_list(
           @fragment.dmp_id,
           p_params[:parent_id].to_i,
@@ -217,6 +219,7 @@ class MadmpFragmentsController < ApplicationController
       render json: render_fragment_form(@fragment, stale_fragment: @stale_fragment)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def change_form
@@ -492,6 +495,7 @@ class MadmpFragmentsController < ApplicationController
           readonly:,
           deletable: true,
           template_locale:,
+          property_name:,
           query_id:
         }
       )
@@ -509,6 +513,7 @@ class MadmpFragmentsController < ApplicationController
           readonly:,
           deletable: true,
           template_locale:,
+          property_name:,
           query_id:
         }
       )
