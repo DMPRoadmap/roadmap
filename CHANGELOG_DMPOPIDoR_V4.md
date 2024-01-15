@@ -2,9 +2,6 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-- Ajout d'une taille fixe pour la cellule contenant les boutons d'édition/suppression dans les tableaux des formulaires dynamiques
-- Correction d'un problème d'affichage des formulaires lors de la fermeture puis l'ouverture d'un formulaire (#10098)
-
 ## 15/01/2024
 
 - Changement du comportement de étapes de création de plan:
@@ -12,6 +9,8 @@
   - Le bouton ``Valider mon choix`` est présent en dernière étape (3)
 - Fusion d'``organisme de financement`` et de ``autres organismes`` en un seul champs
 - Ajout d'une légende (modèle structuré, financeur, organisme)
+- Ajout d'une taille fixe pour la cellule contenant les boutons d'édition/suppression dans les tableaux des formulaires dynamiques
+- Correction d'un problème d'affichage des formulaires lors de la fermeture puis l'ouverture d'un formulaire (#10098)
 
 ## 08/01/2024
 
