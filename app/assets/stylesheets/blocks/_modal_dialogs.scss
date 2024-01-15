@@ -15,7 +15,7 @@
   .btn + .btn {
     margin-left: 5px;
     // account for input[type="submit"] which gets the bottom margin like all other inputs
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
   }
   // but override that for button groups
   .btn-group .btn + .btn {
