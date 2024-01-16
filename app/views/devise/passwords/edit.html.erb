@@ -28,7 +28,7 @@
       <% if Rails.configuration.x.recaptcha.enabled %>
         <div class="form-group">
           <%= label_tag(nil, _('Security check')) %>
-          <%= recaptcha_tags %>
+          <%= recaptcha_tags(hl: @current_locale) %>
         </div>
       <% end %>
 
