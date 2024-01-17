@@ -119,13 +119,15 @@
           <%= _('Default export') %>
         <% end %>
       </li>
-      <li class="checkbox">
-        <%= label_tag do %>
-          <%= radio_button_tag("json_format", "rda", false) %>
-          <%= _('RDA Common Standard') %>
-        <% end %>
-      </li>
-      </li>
+
+      <% if @plan.template.research_project? %>
+        <li class="checkbox">
+          <%= label_tag do %>
+            <%= radio_button_tag("json_format", "rda", false) %>
+            <%= _('RDA Common Standard') %>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
   </fieldset>
   

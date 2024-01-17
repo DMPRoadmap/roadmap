@@ -17,7 +17,7 @@ module Dmpopidor
       @funders = ::Org.funder
                       .includes(identifiers: :identifier_scheme)
                       .joins(:templates)
-                      .where(templates: { published: true }).uniq.sort_by(&:name)
+                      .where(templates: { published: true, context: @template_context }).uniq.sort_by(&:name)
       orgs_with_context = ::Org.includes(identifiers: :identifier_scheme).joins(:templates)
                                .managed.where(templates: { context: @template_context })
       @orgs = (orgs_with_context.organisation + orgs_with_context.institution + orgs_with_context.default_orgs)

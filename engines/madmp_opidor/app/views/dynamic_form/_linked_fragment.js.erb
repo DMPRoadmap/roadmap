@@ -10,7 +10,7 @@ $(() => {
     if (data.classname === 'research_output') {
       $('#research-outputs-list').html(data.html);
     } else if (data.source === 'list-modal') {
-      const queryId = $(e.target).find('.query_id').val();
+      const queryId = data.query_id;
       $(`table.list-${queryId} tbody`).html(data.html);
     } else {
       const queryId = $(e.target).find('.query_id').val();

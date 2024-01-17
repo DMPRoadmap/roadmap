@@ -414,7 +414,7 @@ namespace :upgrade do
                 .where('customization_of IS NOT NULL')
                 .group(:customization_of, :org_id, :version, :id)
                 .order(customization_of: :asc, org_id: :asc, version: :asc, updated_at: :desc)
-    generate_compound_key = ->(customization_of, org_id) { return "#{customization_of}_#{org_id}" }
+    generate_compound_key = ->(customization_of, org_id) { "#{customization_of}_#{org_id}" }
     current = nil
     unique_versions = Set.new
     duplicates = []

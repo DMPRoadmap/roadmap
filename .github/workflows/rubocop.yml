@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   rubocop:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     # Checkout the repo
@@ -13,7 +13,7 @@ jobs:
     # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.1'
+        ruby-version: '3.2'
         bundler-cache: true
 
     # Run the Rubocop linter checks

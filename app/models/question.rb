@@ -213,7 +213,7 @@ class Question < ApplicationRecord
     conditions.destroy_all
     return unless param_conditions.present?
 
-    param_conditions.each do |_key, value|
+    param_conditions.each_value do |value|
       save_condition(value, old_to_new_opts, question_id_map)
     end
   end

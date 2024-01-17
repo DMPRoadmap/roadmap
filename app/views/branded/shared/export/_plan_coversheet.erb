@@ -37,10 +37,11 @@
     <h2><%= @plan.template.research_project? ? _("Project Details") : _("Structure Details") %></h2>
   <% end %>
   <div class="plan-details">
+    <% project_fragment = @plan.template.research_project? ? plan_fragment.project : plan_fragment.research_entity %>
     <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
-            fragment: plan_fragment.project,
-            schema: plan_fragment.project.madmp_schema,
-            classname: plan_fragment.meta.classname,
+            fragment: project_fragment,
+            schema: project_fragment.madmp_schema,
+            classname: project_fragment.classname,
             locale: locale,
             table_header: nil
     } ) %>

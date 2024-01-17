@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   eslint:
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     # Checkout the repo
@@ -15,7 +15,7 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         cache: 'yarn'
-        node-version: 16
+        node-version: 20
 
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'

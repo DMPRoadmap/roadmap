@@ -1,4 +1,4 @@
-<%# locals: { contributors, parent_id, schema_id, readonly, deletable, template_locale, query_id } %>
+<%# locals: { contributors, parent_id, schema_id, readonly, deletable, template_locale, property_name, query_id } %>
 <% contributors.each do |contributor| %>
 <% contributor = contributor.becomes(Fragment::Contributor) %>
   <tr>
@@ -23,6 +23,7 @@
               :parent_id => parent_id, 
               :schema_id => contributor.person.madmp_schema_id,
               :template_locale => template_locale,
+              :property_name => property_name,
               :source => "list-modal",
               :query_id => query_id
           ), {

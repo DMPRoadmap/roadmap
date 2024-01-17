@@ -1,5 +1,5 @@
-<%# locals: { dmp_id, field_values, parent_id, schema, field_name, template_locale, ttip, multiple } %>
-<% query_id = Digest::MD5.hexdigest("#{parent_id}-#{property_name}") %>
+<%# locals: { dmp_id, field_values, parent_id, schema, field_name, template_locale, ttip, multiple, query_id } %>
+<% query_id ||= Digest::MD5.hexdigest("#{parent_id}-#{property_name}") %>
 <% is_multiple_class = multiple ? "create-contributor" : "single-fragment-selector"%>
 <% unless field_label.nil?%>
   <div class="col-md-12">

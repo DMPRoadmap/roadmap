@@ -256,7 +256,7 @@ class PlansController < ApplicationController
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
-    @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
+    @editing = !params[:editing].nil? && @plan.administerable_by?(current_user.id)
 
     # Get all Guidance Groups applicable for the plan and group them by org
     @all_guidance_groups = @plan.guidance_group_options
