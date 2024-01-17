@@ -16,7 +16,7 @@ jobs:
 
     # Install Ruby - using the version found in the Gemfile.lock
     - name: 'Install Ruby'
-      uses: actions/setup-ruby@v1
+      uses: actions/setup-ruby@v2
       with:
         ruby-version: ${{ env.RUBY_VERSION }}
 
