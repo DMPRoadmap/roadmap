@@ -80,12 +80,6 @@ module DmptoolHelper
     return [] unless resp.code == 200
 
     rss = RSS::Parser.parse(resp.body, false).items.first(4)
-
-puts rss.inspect
-
-puts '----------------------------------------------------------'
-
-
     cache_content('rss', rss)
     rss
   rescue StandardError => e
