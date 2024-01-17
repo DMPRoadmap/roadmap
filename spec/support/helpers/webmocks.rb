@@ -29,7 +29,7 @@ module Webmocks
   def stub_openaire
     url = ExternalApis::OpenAireService.api_base_url
     url = "#{url}#{ExternalApis::OpenAireService.search_path}"
-    url = url % ExternalApis::OpenAireService.default_funder
+    url %= ExternalApis::OpenAireService.default_funder
     stub_request(:get, url).to_return(status: 200, body: '', headers: {})
   end
 
