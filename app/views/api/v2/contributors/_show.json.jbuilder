@@ -34,4 +34,9 @@ if orcid.present?
       json.partial! 'api/v2/identifiers/show', identifier: id
     end
   end
+elsif is_contact
+  json.contact_id do
+    json.type 'other'
+    json.identifier contributor.email
+  end
 end
