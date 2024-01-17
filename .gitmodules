@@ -1,0 +1,4 @@
+[submodule "app/javascript/dmp-hub-ui"]
+	path = app/javascript/dmp-hub-ui
+	url = git@github.com:CDLUC3/dmp-hub-ui.git
+	branch = br-dev

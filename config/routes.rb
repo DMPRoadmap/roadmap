@@ -77,7 +77,9 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get '/sitemap' => 'sitemaps#index', only: %i[xml html]
   get 'about_us' => 'static_pages#about_us'
+  get 'auth' => 'static_pages#auth'
   get 'help' => 'static_pages#help'
+  get 'join_us' => 'static_pages#join_us'
   get 'terms' => 'static_pages#termsuse'
   get 'sso_error' => 'static_pages#sso_error'
   get 'privacy' => 'static_pages#privacy'
@@ -107,6 +109,59 @@ Rails.application.routes.draw do
   get 'org_logos/:id' => 'orgs#logos', as: :org_logo
 
   post 'public_plans' => 'public_pages#plan_index'
+
+  # React UI. These routes mimic the React router definitions in `react-client/src/App.js`. They are here so
+  # that the Rails app will render and serve the React app to the client in the event that they navigate to one of
+  # the React pages via a link, button, bookmark, refresh the browser page, etc.
+  get 'dashboard' => 'dashboards#show'
+  get 'dashboard/*all' => 'dashboards#show'
+
+  # API v3 - support for the React UI. The React app calls these endpoints for typeahead functionality, fetching
+  # content, saving content, etc.
+  namespace :api, defaults: { format: :json } do
+    namespace :v3 do
+      # Retrieves the current user's info
+      get :me, controller: :base_api
+
+      # React UI typeahead searches
+      get :funders, controller: :typeaheads
+      get :affiliations, controller: :typeaheads
+      get :repositories, controller: :typeaheads
+
+      # React UI radio button, check box and select box options
+      get :contributor_roles, controller: :options
+      get :output_types, controller: :options
+      get :related_work_types, controller: :options
+
+      # Fetch citations for the given dois
+      post :citations, controller: :citations, action: :fetch_citation
+
+      # Temporary path to trigger the simulation of related works found by an external system
+      post :simulations, controller: :temporaries
+
+      # Draft (work in progress) DMPs
+      resources :drafts, only: %i[index create destroy show update] do
+        member do
+          # Update the title and narrative PDF (needs a separate endpoint because this must be
+          # sent as multipart form data instead of JSON)
+          put 'narrative', controller: :drafts, action: :update_narrative
+        end
+      end
+
+      # DMP IDs: Defining each individually here since we need to use route globbing to handle DMP ID DOIs
+      get 'dmps', controller: :dmps, action: :index
+      post 'dmps', controller: :dmps, action: :create
+      get 'dmps/*id', controller: :dmps, action: :show
+      put 'dmps/*id', controller: :dmps, action: :update
+      delete 'dmps/*id', controller: :dmps, action: :destroy
+
+      # Proxies that call out to the DMPHub for award/grant searches
+      get 'awards/crossref/*fundref_id', controller: :awards, action: :crossref
+      get 'awards/nih', controller: :awards, action: :nih
+      get 'awards/nsf', controller: :awards, action: :nsf
+    end
+  end
+
   # ------------------------------------------
   # End DMPTool customizations
   # ------------------------------------------
@@ -268,7 +323,6 @@ Rails.application.routes.draw do
     # For more info see: https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
     namespace :v2 do
       get :heartbeat, controller: :base_api
-      get :me, controller: :base_api
 
       resources :plans, only: %i[create show index] do
         member do
@@ -277,7 +331,6 @@ Rails.application.routes.draw do
           resources :datasets, only: %i[create update]
         end
       end
-
       resources :related_identifiers, only: %i[create]
 
       resources :templates, only: [:index]

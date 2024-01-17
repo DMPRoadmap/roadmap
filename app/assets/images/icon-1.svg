@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="79px" viewBox="0 0 80 79" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 2</title>
+    <g id="Home-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-page-Copy-7" transform="translate(-290.000000, -939.000000)">
+            <g id="Group-2" transform="translate(282.500000, 936.382000)">
+                <rect id="Rectangle-Copy" stroke="#05042E" stroke-width="2.72727273" fill="#FFFFFF" transform="translate(47.699607, 42.300393) rotate(-45.000000) translate(-47.699607, -42.300393) " x="35.4389888" y="-2.2281967" width="24.5212365" height="89.0571793" rx="6.81818182"></rect>
+                <line x1="30.8261664" y1="22.0622002" x2="40.5065578" y2="22.0622002" id="Line-Copy-2" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round" transform="translate(35.487096, 22.062200) rotate(-45.000000) translate(-35.487096, -22.062200) "></line>
+                <line x1="38.6853213" y1="29.9213551" x2="48.3657128" y2="29.9213551" id="Line-Copy-3" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round" transform="translate(43.346251, 29.921355) rotate(-45.000000) translate(-43.346251, -29.921355) "></line>
+                <line x1="55.4177157" y1="46.6537495" x2="65.0981071" y2="46.6537495" id="Line-Copy-6" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round" transform="translate(60.078645, 46.653749) rotate(-45.000000) translate(-60.078645, -46.653749) "></line>
+                <line x1="63.2768706" y1="54.5129044" x2="72.9572621" y2="54.5129044" id="Line-Copy-4" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round" transform="translate(67.937800, 54.512904) rotate(-45.000000) translate(-67.937800, -54.512904) "></line>
+                <line x1="22.9670115" y1="14.2030452" x2="32.6474029" y2="14.2030452" id="Line-Copy" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round" transform="translate(27.627941, 14.203045) rotate(-45.000000) translate(-27.627941, -14.203045) "></line>
+                <line x1="71.1360256" y1="62.3720593" x2="80.816417" y2="62.3720593" id="Line-Copy-5" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round" transform="translate(75.796955, 62.372059) rotate(-45.000000) translate(-75.796955, -62.372059) "></line>
+                <path d="M58.1189385,-1.03684474 C59.6251697,-1.03684474 60.988806,-0.426323941 61.9758846,0.560754639 C62.9629632,1.54783322 63.573484,2.91146958 63.573484,4.41770072 L63.573484,4.41770072 L63.573484,78.4111133 L39.0522475,78.4111133 L39.0522475,4.41770072 C39.0522475,2.91146958 39.6627683,1.54783322 40.6498469,0.560754639 C41.6369255,-0.426323941 43.0005618,-1.03684474 44.506793,-1.03684474 L44.506793,-1.03684474 Z" id="Rectangle" stroke="#05042E" stroke-width="2.72727273" fill="#FFFFFF" transform="translate(51.312866, 38.687134) rotate(-315.000000) translate(-51.312866, -38.687134) "></path>
+                <line x1="57.4901781" y1="23.3364727" x2="76.850961" y2="23.3364727" id="Line" stroke="#05042E" stroke-width="2.72727273" fill="#D8D8D8" stroke-linecap="square" transform="translate(67.170570, 23.336473) rotate(-315.000000) translate(-67.170570, -23.336473) "></line>
+                <polygon id="Rectangle" fill="#54D8FF" transform="translate(15.946669, 74.053331) scale(1, -1) rotate(315.000000) translate(-15.946669, -74.053331) " points="15.9466686 65.1255911 29.5709232 82.9810718 2.32241395 82.9810718"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

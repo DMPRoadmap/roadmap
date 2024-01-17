@@ -1,0 +1,64 @@
+FROM ruby:3.0.4
+
+RUN groupadd -g 1000 dmpt && useradd -u 1000 -g 1000 dmpt
+
+
+# Install packages needed to run your application (not build deps):
+# We need to recreate the /usr/share/man/man{1..8} directories first because
+# they were clobbered by a parent image.
+RUN set -ex \
+    && RUN_DEPS=" \
+        vim \
+        mtr \
+        autoconf \
+        automake \
+        gawk \
+        g++ \
+        git \
+        imagemagick \
+        libffi-dev \
+        libgdbm-dev \
+        libreadline-dev \
+        libssl-dev \
+        libtool \
+        libyaml-dev \
+        shared-mime-info \
+    " \
+    && seq 1 8 | xargs -I{} mkdir -p /usr/share/man/man{} \
+    && apt-get update && apt-get install -y --no-install-recommends $RUN_DEPS \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# Install nodejs
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get install -y nodejs
+
+# Install yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg -o /root/yarn-pubkey.gpg && apt-key add /root/yarn-pubkey.gpg
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install -y --no-install-recommends nodejs yarn
+
+# Default directory
+ENV INSTALL_PATH /opt/app
+RUN mkdir -p $INSTALL_PATH
+
+# Install gems
+COPY . $INSTALL_PATH/
+RUN chown -R dmpt:dmpt $INSTALL_PATH
+WORKDIR $INSTALL_PATH
+
+ENV RAILS_ENV development
+RUN rm -rf node_modules vendor
+
+RUN gem install bundler -v 2.4
+RUN gem install rails
+RUN gem install foreman
+
+RUN bundle install
+RUN yarn install
+
+USER dmpt
+
+# EXPOSE 25 80 443
+# CMD ["bundle", "exec", "puma", "-C", "config/puma.rb", "-p", "80"]
+CMD ["echo", "Ready…"]

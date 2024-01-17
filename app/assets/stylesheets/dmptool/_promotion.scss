@@ -1,0 +1,37 @@
+@use '../variables/colours' as *;
+
+.promotion-landscape,
+.promotion-portrait {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  gap: 15px;
+  margin: 25px;
+}
+
+.promotion-logo {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 25px;
+  padding: 5px 10px;
+}
+
+.promotion-logo.separator {
+  border-bottom: 1px solid $color-black;
+}
+
+.promotion-logo.white {
+  background-color: $color-black;
+}
+
+.promotion-landscape .promotion-logo img {
+  max-width: 150px;
+  margin-bottom: 15px;
+}
+
+.promotion-portrait .promotion-logo img {
+  max-height: 80px;
+  margin-bottom: 15px;
+}

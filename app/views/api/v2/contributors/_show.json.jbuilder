@@ -15,7 +15,7 @@ if !is_contact && contributor.selected_roles.any?
 end
 
 if contributor.org.present? && ['No funder', 'Non Partner Institution'].exclude?(contributor.org.name)
-  json.affiliation do
+  json.dmproadmap_affiliation do
     json.partial! 'api/v2/orgs/show', org: contributor.org
   end
 end
@@ -33,5 +33,10 @@ if orcid.present?
     json.contributor_id do
       json.partial! 'api/v2/identifiers/show', identifier: id
     end
+  end
+elsif is_contact
+  json.contact_id do
+    json.type 'other'
+    json.identifier contributor.email
   end
 end

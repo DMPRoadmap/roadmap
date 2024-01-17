@@ -19,7 +19,7 @@ module Api
         @plan = plan
         @client = client
 
-        @data_contact = @plan.owner
+        @data_contact = ::Role.where(access: 15, plan_id: @plan.id).first&.user
 
         @plan.contributors.each do |contributor|
           # If there is no owner for the plan, use the user with the data_curation role
@@ -42,6 +42,8 @@ module Api
 
       # Extract the calling system's identifier for the Plan if available
       def external_system_identifier
+        return @plan.dmp_id if @plan.dmp_id.present?
+
         scheme = IdentifierScheme.find_by(name: @client.name.downcase)
 
         ids = @plan.identifiers.select do |id|
@@ -51,21 +53,29 @@ module Api
         ids.last
       end
 
-      # Related identifiers for the Plan
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-      def links
-        ret = { get: "#{@callback_base_url}plans/#{@plan.id}" }
+      def download_pdf_link
+        return nil unless @plan.publicly_visible? &&
+                          ((@client.is_a?(User) && @plan.owner_and_coowners.include?(@client)) ||
+                          (@client.is_a?(User) && @plan.org_id == @plan.owner&.org_id) ||
+                          (@client.is_a?(ApiClient) && @client.access_tokens.select { |t| t.resource_owner_id == @plan.owner }))
 
-        # If the plan is publicly visible or the request has permissions then include the PDF download URL
-        if @plan.publicly_visible? ||
-           (@client.is_a?(User) && @plan.owner_and_coowners.include?(@client)) ||
-           (@client.is_a?(User) && @plan.org_id == @plan.owner&.org_id) ||
-           (@client.is_a?(ApiClient) && @client.access_tokens.select { |t| t.resource_owner_id == @plan.owner })
-          ret[:download] = "#{@callback_base_url}plans/#{@plan.id}.pdf"
-        end
-        ret
+        # If the plan is public then use the public download link
+        url = Rails.application.routes.url_helpers.api_v2_plan_url(@plan, format: :pdf)
+        # TODO: remove this once we've moved dev
+        url = url.gsub('http://localhost:3000', 'https://dmptool-stg.cdlib.org')
+        url
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+      # Related identifiers for the Plan
+      def links
+        ret = { get: Rails.application.routes.url_helpers.api_v2_plan_url(@plan) }
+
+        # If the plan is publicly visible or the request has permissions then include the PDF download URL
+        ret[:download] = download_pdf_link unless download_pdf_link.nil?
+        ret
+      end
 
       # Subscribers of the Plan
       def subscriptions

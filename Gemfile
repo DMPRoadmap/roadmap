@@ -66,7 +66,7 @@ gem 'bootsnap', require: false
 gem 'anyway_config'
 
 # Our homegrown artisinal SSM gem
-gem 'uc3-ssm', git: 'https://github.com/CDLUC3/uc3-ssm', branch: 'ruby3.0'
+gem 'uc3-ssm', git: 'https://github.com/CDLUC3/uc3-ssm' #, branch: 'ruby3.0'
 
 # ============== #
 # ERROR HANDLING #
@@ -137,6 +137,11 @@ gem 'pundit'
 # Gem for throttling malicious attacks
 gem 'rack-attack', '~> 6.6', '>= 6.6.1'
 
+# Support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications.
+# https://github.com/cyu/rack-cors
+# We are using to support development of React UI from a local developer machine.
+gem 'rack-cors'
+
 # ========== #
 # UI / VIEWS #
 # ========== #
@@ -165,7 +170,12 @@ gem 'rss'
 group :aws do
   # Amazon AWS S3 data store for use with the Dragonfly gem.
   gem 'dragonfly-s3_data_store'
+
+  gem "aws-sdk-s3"
 end
+
+# A collection of text algorithms (http://github.com/threedaymonk/text)
+gem 'text', require: false
 
 # ========== #
 # PAGINATION #
@@ -242,13 +252,70 @@ gem 'zaru'
 # See : https://github.com/DMPRoadmap/roadmap/issues/3254
 gem 'mail', '2.7.1'
 
+# Delayed::Job (or DJ) encapsulates the common pattern of asynchronously executing longer tasks in the background.
+# See: https://github.com/collectiveidea/delayed_job#active-job
+gem 'delayed_job_active_record'
+
+# Daemons provides an easy way to wrap existing ruby scripts (for example a self-written server) to be run as a
+# daemon and to be controlled by simple start/stop/restart commands.
+# See: https://rubygems.org/gems/daemons/versions/1.4.1
+gem 'daemons'
+
+# If you are using active_storage gem and you want to add simple validations for it, like presence or
+# content_type you need to write a custom validation method.
+#
+# This gems doing it for you. Just use attached: true or content_type: 'image/png' validation.
+# See: https://github.com/igorkasyanchuk/active_storage_validations
+gem 'active_storage_validations'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
+group :ci, :development do
+  gem 'sassc'
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  # Security vulnerability scanner for Ruby on Rails.
+  # (http://brakemanscanner.org)
+  gem 'brakeman'
+
+  # Helper gem to require bundler-audit
+  # (http://github.com/stewartmckee/bundle-audit)
+  gem 'bundle-audit'
+
+  gem 'capistrano'
+
+  gem 'capistrano-git-with-submodules'
+
+  gem 'capistrano-rails'
+
+  # RuboCop is a Ruby code style checking and code formatting tool. It aims to enforce
+  # the community-driven Ruby Style Guide.
+  gem 'rubocop'
+
+  # RuboCop rules for detecting and autocorrecting undecorated strings for i18n
+  # (gettext and rails-i18n)
+  gem 'rubocop-i18n'
+
+  # A collection of RuboCop cops to check for performance optimizations in Ruby code.
+  # gem 'rubocop-performance'
+
+  # Automatic Rails code style checking tool. A RuboCop extension focused on enforcing
+  # Rails best practices and coding conventions.
+  gem 'rubocop-rails'
+
+  # A RuboCop plugin for Rake tasks
+  # gem 'rubocop-rake'
+
+  # Code style checking for RSpec files. A plugin for the RuboCop code style enforcing
+  # & linting tool.
+  gem 'rubocop-rspec'
+
+  # Thread-safety checks via static analysis. A plugin for the RuboCop code style
+  # enforcing & linting tool.
+  # gem 'rubocop-thread_safety'
+
+  # Performance checks by Rubocop
+  gem 'rubocop-performance', require: false
 end
 
 group :test do
@@ -271,10 +338,6 @@ group :test do
 
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   # gem 'guard-rspec'
-
-  gem 'capistrano'
-
-  gem 'capistrano-rails'
 
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
@@ -312,47 +375,6 @@ group :test do
   gem 'danger'
 end
 
-group :ci, :development do
-  gem 'sassc'
-
-  # Security vulnerability scanner for Ruby on Rails.
-  # (http://brakemanscanner.org)
-  gem 'brakeman'
-
-  # Helper gem to require bundler-audit
-  # (http://github.com/stewartmckee/bundle-audit)
-  gem 'bundle-audit'
-
-  # RuboCop is a Ruby code style checking and code formatting tool. It aims to enforce
-  # the community-driven Ruby Style Guide.
-  gem 'rubocop'
-
-  # RuboCop rules for detecting and autocorrecting undecorated strings for i18n
-  # (gettext and rails-i18n)
-  gem 'rubocop-i18n'
-
-  # A collection of RuboCop cops to check for performance optimizations in Ruby code.
-  # gem 'rubocop-performance'
-
-  # Automatic Rails code style checking tool. A RuboCop extension focused on enforcing
-  # Rails best practices and coding conventions.
-  gem 'rubocop-rails'
-
-  # A RuboCop plugin for Rake tasks
-  # gem 'rubocop-rake'
-
-  # Code style checking for RSpec files. A plugin for the RuboCop code style enforcing
-  # & linting tool.
-  gem 'rubocop-rspec'
-
-  # Thread-safety checks via static analysis. A plugin for the RuboCop code style
-  # enforcing & linting tool.
-  # gem 'rubocop-thread_safety'
-
-  # Performance checks by Rubocop
-  gem 'rubocop-performance', require: false
-end
-
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen'
@@ -365,9 +387,6 @@ group :development do
   # Simple Progress Bar for output to a terminal
   # (http://github.com/paul/progress_bar)
   gem 'progress_bar', require: false
-
-  # A collection of text algorithms (http://github.com/threedaymonk/text)
-  gem 'text', require: false
 
   # Better error page for Rails and other Rack apps
   # (https://github.com/charliesome/better_errors)

@@ -6,7 +6,7 @@
   url = api_client.new_record? ? api_clients_path : api_client_path(api_client)
   method = api_client.new_record? ? :post : :put
 
-  name_tooltip = _("The name of your application/system that will interact with the %{application_name}'s API") % { application_name: "DMPTool" }
+  name_tooltip = _("The name of your application/system that will interact with the %{application_name}'s API") % { application_name: "DMP Tool" }
   description_tooltip = _("Please provide a brief description of your system and the purpose of the intgeration.")
   redirect_uri_tooltip = _("A redirect URI is the address that will be sent the user's OAuth authorization code. If you have multiple URIs, pllease place them on inidividual lines. The redirect_uri you specify in your calls to the API must match one of the ones you define here.")
   callback_uri_tooltip = _("An API endpoint on your application/system that we can use to notify you when a DMP is updated. You will receive notifications of updates to any DMPs you create, download or update.")
@@ -109,7 +109,7 @@
     <div class="col-md-8">
       <%= f.hidden_field :user_id %>
 
-      <%= f.button _('Save'), class: 'btn btn-default', type: 'submit' %>
+      <%= f.button _('Save'), class: 'btn btn-primary', type: 'submit' %>
 
       <% unless api_client.new_record? %>
         <%= link_to _("Refresh client secret"),

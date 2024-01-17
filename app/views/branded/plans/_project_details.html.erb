@@ -12,7 +12,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 <% if Rails.configuration.x.madmp&.enable_dmp_id_registration && dmp_id.present? %>
   <div class="form-group"><!-- dmp_id -->
     <div class="col-md-12">
-      <label>DMP ID</label>&nbsp;<%= id_for_display(id: dmp_id, with_scheme_name: false) %>
+      <label>DMP ID:</label>&nbsp;<%= dmp_id_for_display(dmp_id: plan.dmp_id, without_prefix: true) %>
     </div>
   </div>
 <% end %>

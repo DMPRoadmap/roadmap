@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'text'
+require 'httparty'
 
 namespace :housekeeping do
   desc 'Clear the cache'
@@ -37,13 +38,40 @@ namespace :housekeeping do
   task sync_dmp_ids: :environment do
     scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
     if scheme.present?
-      Identifier.includes(:identifiable)
-                .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
-                .each do |identifier|
-        DmpIdService.update_dmp_id(plan: identifier.identifiable)
+      pauser = 0
+      client_id = ApiClient.find_by(name: 'dmphub').id
+
+      Plan.includes(:org, :research_outputs, :related_identifiers, :subscriptions, roles: [:user],
+                    contributors: [:org, { identifiers: [:identifier_scheme] }])
+          .where.not(dmp_id: nil)
+          # .limit(600)
+          .order(created_at: :desc)
+          .each do |plan|
+        next unless plan.dmp_id.present? && plan.complete? && !plan.is_test?
+        next if DmpIdService.fetch_dmp_id(dmp_id: plan.dmp_id).nil?
+
+        # Uncomment this if you only want to reprocess DMPs with related works
+        # next unless plan.related_identifiers.any?
+
+        subscription = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
+        next unless subscription.present?
+
+        # Pause after every 10 so that we do not get rate limited
+        sleep(3) if pauser >= 10
+        pauser = pauser >= 10 ? 0 : pauser + 1
+
+        if plan.owner.present?
+          puts "Processing Plan: #{plan.id}, DMP ID: #{plan.dmp_id}"
+          # Publish the updated meatdata to the DMP ID record
+          if !DmpIdService.update_dmp_id(plan: plan).nil?
+            puts "    Updated"
+          else
+            puts "    *** FAILED to update the DMP ID."
+          end
+        else
+          puts "SKIPPING Plan: #{plan.id} because it is not 'Complete'."
+        end
       end
-    else
-      p 'No DMP ID minting authority defined so nothing to sync.'
     end
   end
 

@@ -1,0 +1,15 @@
+<%#
+Devise Sign in form arrived at after the user enters their email and we determine
+that they have an existing account
+%>
+<% url = (@shibbolized && !Rails.env.development? && !@bypass_sso) ? users_shibboleth_path : user_session_path %>
+<%= render partial: 'users/shared/login_header', locals: { title: label } %>
+
+<%= form_with model: resource, url: url, method: :post, local: true,
+              class: "novalidate" do |form| %>
+  <%= render partial: "users/sessions/form",
+              locals: { form: form, shibbolized: @shibbolized, bypass_sso: @bypass_sso } %>
+<% end %>
+
+<%= render partial: "users/shared/links",
+            locals: { show_back_button: true, show_contact_us: true } %>

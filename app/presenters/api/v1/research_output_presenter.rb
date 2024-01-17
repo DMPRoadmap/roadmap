@@ -14,15 +14,23 @@ module Api
 
         @plan = output.plan
         @dataset_id = identifier
-
-        # The DMPHub only recognizes the DEFAULT research_output_types, so use 'other' if these
-        # are custom types added by an admin
-        use_other = !ResearchOutput::DEFAULT_OUTPUT_TYPES.include?(output.research_output_type)
-        @research_output_type = use_other ? 'other' : output.research_output_type
+        @research_output_type = output.research_output_type&.downcase&.strip&.gsub(%r{\s+}, '_')
 
         load_narrative_content
 
         @license_start_date = determine_license_start_date(output: output)
+      end
+
+      # Converts the data_access level to RDA common standard
+      def converted_access(data_access:)
+        case data_access
+        when 'open'
+          'open'
+        when 'restricted'
+          'shared'
+        else
+          'closed'
+        end
       end
 
       private

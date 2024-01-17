@@ -1,91 +1,137 @@
-<h1><%= _('Promote the DMPTool') %></h1>
+<%
+landscape_logos = [
+  {
+    background: false,
+    description: 'blue, landscape, without tagline',
+    pdf: 'landscape/DMP_Tool.pdf',
+    png: 'landscape/DMP_Tool.png',
+    svg: 'landscape/DMP_Tool.svg'
+  },
+  {
+    background: true,
+    description: 'white, landscape, without tagline',
+    pdf: 'landscape/DMP_Tool_White.pdf',
+    png: 'landscape/DMP_Tool_White.png',
+    svg: 'landscape/DMP_Tool_White.svg'
+  },
+  {
+    background: false,
+    description: 'black, landscape, without tagline',
+    pdf: 'landscape/DMP_Tool_Black.pdf',
+    png: 'landscape/DMP_Tool_Black.png',
+    svg: 'landscape/DMP_Tool_Black.svg'
+  },
+  {
+    background: false,
+    description: 'blue, landscape, with tagline',
+    pdf: 'landscape/DMP_Tool_stapline.pdf',
+    png: 'landscape/DMP_Tool_stapline.png',
+    svg: 'landscape/DMP_Tool_strapline.svg'
+  },
+  {
+    background: true,
+    description: 'white, landscape, with tagline',
+    pdf: 'landscape/DMP_Tool_White_strapline.pdf',
+    png: 'landscape/DMP_Tool_White_strapline.png',
+    svg: 'landscape/DMP_Tool_White_strapline.svg'
+  },
+  {
+    background: false,
+    description: 'black, landscape, with tagline',
+    pdf: 'landscape/DMP_Tool_Black_strapline.pdf',
+    png: 'landscape/DMP_Tool_Black_strapline.png',
+    svg: 'landscape/DMP_Tool_Black_strapline.svg'
+  }
+]
+
+portrait_logos = [
+  {
+    background: false,
+    description: 'blue, portrait, without tagline',
+    pdf: 'portrait/DMP_Tool.pdf',
+    png: 'portrait/DMP_Tool.png',
+    svg: 'portrait/DMP_Tool.svg'
+  },
+  {
+    background: true,
+    description: 'white, portrait, without tagline',
+    pdf: 'portrait/DMP_Tool_White.pdf',
+    png: 'portrait/DMP_Tool_White.png',
+    svg: 'portrait/DMP_Tool_White.svg'
+  },
+  {
+    background: false,
+    description: 'black, portrait, without tagline',
+    pdf: 'portrait/DMP_Tool_Black.pdf',
+    png: 'portrait/DMP_Tool_Black.png',
+    svg: 'portrait/DMP_Tool_Black.svg'
+  },
+  {
+    background: false,
+    description: 'blue, portrait, with tagline',
+    pdf: 'portrait/DMP_Tool_strapline.pdf',
+    png: 'portrait/DMP_Tool_strapline.png',
+    svg: 'portrait/DMP_Tool_strapline.svg'
+  },
+  {
+    background: true,
+    description: 'white, portrait, with tagline',
+    pdf: 'portrait/DMP_Tool_White_Strapline.pdf',
+    png: 'portrait/DMP_Tool_White_Strapline.png',
+    svg: 'portrait/DMP_Tool_White_Strapline.svg'
+  },
+  {
+    background: false,
+    description: 'black, portrait, with tagline',
+    pdf: 'portrait/DMP_Tool_Black_strapline.pdf',
+    png: 'portrait/DMP_Tool_Black_strapline.png',
+    svg: 'portrait/DMP_Tool_Black_strapline.svg'
+  }
+]
+%>
 
 <div class="static-page">
-  <p><%= _('Help spread the word about the DMPTool! Use the materials below to inform researchers, librarians, administrators and others about the tool. All materials are available under a CC-Zero license.') %></p>
+  <h1><%= _('Promote the DMP Tool') %></h1>
 
-  <h2><%= _('DMPTool logo') %></h2>
-  <p>
-    <%= _('DMPTool Logo (blue), with tagline') %>
-    <ul>
-      <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps">EPS</a></li>
-      <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg">SVG</a>
-      <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png">PNG</a>
-    </ul>
-  </p>
-  <p>
-    <%= _('DMPTool Logo (blue), no tagline') %>
-    <ul>
-      <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps">EPS</a></li>
-      <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg">SVG</a>
-      <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png">PNG</a>
-    </ul>
-  </p>
-  <p>
-    <%= _('DMPTool Logo (green v2), with tagline') %>
-    <ul>
-      <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png">PNG</a>
-    </ul>
-  </p>
-  <p>
-    <%= _('DMPTool Logo (green v2), no tagline') %>
-    <ul>
-      <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png">PNG</a>
-    </ul>
-  </p>
-  <p>
-    <%= _('Original DMPTool Logo') %>
-    <ul>
-      <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png">PNG</a>
-    </ul>
-  </p>
-  <hr>
+  <p><%= _('Help spread the word about the DMP Tool! Use the DMP Tool logos below when publicizing the tool. All are available under a CC-Zero license.') %></p>
 
-  <h2><%= _('Postcards') %></h2>
-  <p>
-    <% _('Advertise the DMPTool to students and researchers at your institution.') %>
-    <ul>
-      <li><%= _('Postcard 1') %> <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/postcard/DMPTool_postcard1.pdf"><%= ('Adobe PDF') %></a>
-      <li><%= _('Postcard 2') %> <a href="https://github.com/CDLUC3/dmptool/blob/master/docs/postcard/DMPTool_postcard2.pdf"><%= ('Adobe PDF') %></a>
-    </ul>
-  </p>
-  <hr>
+  <h2><%= _('DMP Tool logos - landscape orientation') %></h2>
+  <div class="promotion-landscape">
+    <% cntr = 0 %>
+    <% landscape_logos.each do |hash| %>
+      <div class="promotion-logo <%= cntr == 2 ? 'separator' : '' %>">
+        <img class="promotion-logo <%= hash[:background] ? 'white' : '' %>"
+             alt="DMP Tool logo <%= hash[:description] %>"
+             src="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:png] %>" />
+        <p><%= hash[:description] %></p>
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as SVG"
+           href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:svg] %>">SVG</a>
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as PNG"
+           href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:png] %>">PNG</a>
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as PDF"
+           href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:pdf] %>">PDF</a>
+      </div>
+      <% cntr += 1 %>
+    <% end %>
+  </div>
 
-  <h2><%= _('Talking points') %></h2>
-  <p>
-    <%= _('Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.') %>
-    <ul>
-      <li><%= _('Overview of Talking Points:') %>
-        <ul>
-          <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/overview.pdf"><%= ('Adobe PDF') %></a></li>
-        </ul>
-      </li>
-      <li><%= _('Meeting with your IT Group:') %>
-        <ul>
-          <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.docx"><%= ('Microsoft Word') %></a></li>
-          <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.pdf"><%= ('Adobe PDF') %></a></li>
-        </ul>
-      </li>
-      <li><%= _('Meeting with Administrators:') %>
-        <ul>
-          <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.docx"><%= ('Microsoft Word') %></a></li>
-          <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.pdf"><%= ('Adobe PDF') %></a></li>
-        </ul>
-      </li>
-      <li><%= _('Meeting with Researchers:') %>
-        <ul>
-          <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.docx"><%= ('Microsoft Word') %></a></li>
-          <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.pdf"><%= ('Adobe PDF') %></a></li>
-        </ul>
-      </li>
-    </ul>
-  </p>
-  <hr>
-
-  <h2><%= _('General purpose slides') %></h2>
-  <p>
-    <%= _('We created a generic slide deck that you can use to introduce researchers and others to the DMPTool.') %>
-    <ul>
-      <li><a href="https://github.com/CDLUC3/dmptool/blob/master/docs/genericslides/DMPTool-Generic-Slides.pptx"><%= _('Microsoft Powerpoint') %></a></li>
-    </ul>
-  </p>
+  <h2><%= _('DMP Tool logos - portrait orientation') %></h2>
+  <div class="promotion-portrait">
+    <% cntr = 0 %>
+    <% portrait_logos.each do |hash| %>
+      <div class="promotion-logo <%= cntr == 2 ? 'separator' : '' %>">
+        <img class="promotion-logo <%= hash[:background] ? 'white' : '' %>"
+             alt="DMP Tool logo <%= hash[:description] %>"
+             src="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:png] %>" />
+        <p><%= hash[:description] %></p>
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as SVG"
+           href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:svg] %>">SVG</a>
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as PNG"
+           href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:png] %>">PNG</a>
+        <a target="_blank" aria-text="Download DMP Tool logo <%= hash[:description] %> as PDF"
+           href="https://raw.githubusercontent.com/CDLUC3/dmptool/main/docs/logos/<%= hash[:pdf] %>">PDF</a>
+      </div>
+      <% cntr += 1 %>
+    <% end %>
+  </div>
 </div>

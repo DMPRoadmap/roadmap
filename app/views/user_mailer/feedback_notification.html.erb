@@ -3,12 +3,12 @@
 </p>
 
 <p>
-  <%= sanitize(_("A DMPTool user, %{requestor}, has submitted a request for feedback on their data management plan: '%{link_html}'.") % {
+  <%= sanitize(_("A DMP Tool user, %{requestor}, has submitted a request for feedback on their data management plan: '%{link_html}'.") % {
     requestor: @requestor_name, link_html: link_to(@plan_name&.strip, plan_url(@plan))
   }) %>
 </p>
 <p>
-  <%= _('Please log into the DMPTool in order to view this plan.') %>
+  <%= _('Please log into the DMP Tool in order to view this plan.') %>
 </p>
 
 <%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>

@@ -360,6 +360,8 @@ RSpec.describe 'Org admin template preferences' do
       expect(page).to have_selector('#modal-search-repositories-results nav', count: 2)
       expect(page).to have_selector('#modal-search-repositories-results div.modal-search-result', count: 3)
 
+      sleep(2) # wait for results to load
+
       # select the first item
       within(all('div.modal-search-result')[0]) do
         click_button 'Select'

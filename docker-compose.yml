@@ -1,0 +1,36 @@
+version: '3.4'
+
+# NOTE::
+#
+# The services, settings and environment setup in this compose file is
+# for DEVELOPMENT ONLY!
+#
+# Do not use this compose file in a live environment.
+
+services:
+  db:
+    container_name: "mysql"
+    image: "mysql:8.0"
+    command: "--default-authentication-plugin=mysql_native_password"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'secret'
+    volumes:
+      - ./share/mysql:/var/lib/mysql
+
+  dmptool:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file:
+      - .env.dev
+    command: bash -c "rm -f ./tmp/pids/server.pid && rm -f ./tmp/pids/delayed_job.pid && ./bin/dev"
+    user: "1000:1000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    volumes:
+      - ./:/opt/app
+      # The following is to prevent the mysql data folder to be mounted due
+      # to the mount above.
+      - /opt/app/share/mysql

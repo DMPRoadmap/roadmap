@@ -10,7 +10,7 @@
      <%= f.text_area(:description, class: "form-control", rows: 10, spellcheck: true) %>
    </div>
    <div class="pull-right">
-     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+     <%= f.button(_('Save'), class: "btn btn-primary", type: "submit") %>
      <% unless @theme.new_record? %>
        <%= link_to(_('Delete'), super_admin_theme_path(@theme), class: 'btn btn-default',
          rel: 'nofollow', 'data-method': 'delete',

@@ -1,32 +1,52 @@
-<footer class="c-footer">
+<div class="footer-links">
+  <div class="dmpui-frontend-container dmpui-frontend">
+    <div class="footer-links-grid">
+      <div class="footer-links-logo">
+        <img src="<%= asset_path('DMP-logo-white.svg') %>" alt="DMP Tool">
+        <p>
+          <a href="#" class="dmpui-frontend-btn dmpui-frontend-btn-secondary with-mark">
+            <%= _('Get Started') %>
+          </a>
+        </p>
+      </div>
 
-  <a class="c-logo-cdl" href="https://cdlib.org">
-    <img src="/dmptool-ui/logo-cdl.svg" alt="California Digital Library logo" width="104" height="39"
-         loading="lazy">
-  </a>
+      <div class="footer-links-quicklinks">
+        <h4><%= _('Quick links') %></h4>
+        <ul>
+          <li><%= link_to _("Funder Requirements"), public_templates_path %></li>
+          <li><%= link_to _("Public Plans"), public_plans_path %></li>
+          <li><%= link_to _("Help"), help_path %></li>
+          <li><%= link_to _("Terms & Privacy"), terms_path %></li>
+          <li><%= link_to _("Contact"), contact_us_path %></li>
+          <li><%= link_to _("Login"), auth_path %></li>
+        </ul>
+      </div>
 
-  <nav aria-label="<%= _('footer') %>" class="c-footernav">
-    <ul>
-      <li><%= link_to _("About"), about_us_path %></li>
-      <li><%= link_to _("Contact Us"), contact_us_path %></li>
-      <li><%= link_to _("Terms of Use"), terms_path %></li>
-      <li><%= link_to _("Privacy Statement"), privacy_path %></li>
-      <li><%= link_to _("Github"), "https://github.com/cdluc3/dmptool/wiki" %></li>
-      <li><%= link_to _("Accessibility"), "https://www.cdlib.org/about/accessibility.html" %></li>
-      <li><%= link_to _("Site Map"), sitemap_path %></li>
-    </ul>
-  </nav>
-
-  <div class="c-copyright">
-    <p>
-      <%=
-      sanitize _('DMPTool is a service of the %{cdl_url}, a division of the %{university_of_ca_url}. Version: %{version}') % {
-        university_of_ca_url: "<a href=\"https://www.universityofcalifornia.edu/\" target=\"_blank\">University of California Office of the President</a>",
-        cdl_url: "<a href=\"http://www.cdlib.org/\" target=\"_blank\">California Digital Library</a>",
-        version: Rails.configuration.x.dmptool.version&.to_s&.gsub(';', '')
-      } %>
-    </p>
-
-    <p>&copy; <%= _("%{current_year} The Regents of the University of California") % { current_year: Date.today.year } %></p>
+      <div class="footer-links-external">
+        <h4><%= _('External links') %></h4>
+        <ul>
+          <li><%= link_to _("GitHub"), "https://github.com/cdluc3/dmptool/wiki" %></li>
+          <li><%= link_to _("Blog"), "https://blog.dmptool.org" %></li>
+          <li><%= link_to _("Accessibility"), "https://www.cdlib.org/about/accessibility.html" %></li>
+        </ul>
+      </div>
+    </div>
   </div>
-</footer>
+</div>
+
+<div class="footer-disclaimers">
+  <div class="dmpui-frontend-container dmpui-frontend ">
+    <div class="footer-disclaimers-grid">
+      <div class="footer-disclaimers-logo">
+        <img src="<%= asset_path('logo-cdl.png') %>" alt="CDL">
+      </div>
+      <div class="footer-disclaimers-text">
+        <p>
+          <%= _('DMP Tool is a service of the California Digital Library, a division of the University of California Office of the President.') %> <%= _('Version:') %> <%= Rails.configuration.x.dmptool.version&.to_s&.gsub(';', '') || 5 %>
+          <br/>
+          <%= _('© 2024 The Regents of the University of California') %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,10 @@ module Dmptool
 
     def general_guidance; end
 
+    def auth; end
+
+    def join_us; end
+
     def promote; end
 
     def quick_start_guide; end

@@ -1,10 +1,12 @@
 <% title _('Editing Notification') %>
 
-<h1 class="fontsize-h2">
+<div class="row">
+  <h1 class="fontsize-h2">
 
-   <%= _('Editing Notification') %>
-   <%= link_to(_('View all notifications'), super_admin_notifications_path,
-       class: 'btn btn-default pull-right', role: 'button') %>
- </h1>
+  <%= _('Editing Notification') %>
+  <%= link_to(_('View all notifications'), super_admin_notifications_path,
+              class: 'btn btn-default pull-right', role: 'button') %>
+  </h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
+</div>

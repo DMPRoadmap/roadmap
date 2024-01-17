@@ -1,8 +1,210 @@
 <%#
 The home page should show the initial User sign in / sign up form
 %>
-<% content_for :authentication do %>
-  <%= render partial: "users/sessions/validate",
-             layout: "layouts/home",
-             locals: { resource: @user } %>
+<% content_for :home do %>
+  <!-- Hero Image -->
+  <div class="dmpui-frontend-hero dmpui-frontend ">
+    <div class="dmpui-frontend-container-full ">
+      <div class="dmpui-frontend-hero-image-cont">
+        <div class="dmpui-frontend-hero-image">
+          <img src="<%= asset_path('default2.webp') %>"/>
+        </div>
+
+        <div class="" style="position: absolute;bottom: 0px;left: 0px;width: 100%;height: auto">
+          <div class="dmpui-frontend-container  ">
+            <div class="dmpui-frontend-hero-text">
+              <h1><%= _('Best practice made easier') %></h1>
+              <p><%= _('With a free, community-supported service that makes it easier to create machine-actionable data management and sharing plans (DMSPs) that meet funder requirements and follow open science best practice.') %></p>
+              <p>
+                <a href="<%= auth_path %>" class="dmpui-frontend-btn dmpui-frontend-btn-primary with-mark"><%= _('Get Started') %></a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%
+  icon_grid = [
+	  { icon: asset_path('icon-1.svg'), text: _('Cusomization tools for reseachers and institutions') },
+	  { icon: asset_path('icon-2.svg'), text: _('A mechanism for registering a DMP ID') },
+    { icon: asset_path('icon-3.svg'), text: _('Best practice guidance to ensure plans are structured and optimized') },
+    { icon: asset_path('icon-4.svg'), text: _('Participating organizations can provide feedback on plans') },
+    { icon: asset_path('icon-5.svg'), text: _('A click-through wizard for creating a DMP that complies with funder requirements') },
+    { icon: asset_path('icon-6.svg'), text: _('Direct links to funder websites, help text for answering questions, and Research Data Management (RDM) best practice resources') }
+  ]
+  %>
+  <!-- Icon Grid -->
+  <div class="dmpui-frontend-container dmpui-frontend">
+    <div class="dmpui-frontend-icon-grid ">
+      <div class="icon-grid-header">
+        <h2><%= _('How does the DMP Tool work?') %></h2>
+        <p><%= _('Simplifying data management and sharing plans for researchers and institutions with the DMP Tool’s efficient, best practice-oriented, and compliance-designed approach') %></p>
+      </div>
+      <div class="icon-grid-list">
+        <% icon_grid.each do |entry| %>
+          <div class="icon-grid-item">
+            <div class="icon-grid-item-inner">
+              <div class="icon-grid-item-icon">
+                <img src="<%= entry[:icon] %>" alt="Icon Grid 1">
+              </div>
+              <div class="icon-grid-item-text">
+                <p><%= entry[:text] %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="dmpui-frontend-container dmpui-frontend">
+    <div class="dmpui-frontend-cta ">
+      <div class="dmpui-grow">
+        <h3><%= _('Getting started with the DMP Tool') %></h3>
+        <p><%= _('Create data management and sharing plans that meet requirements and promote research.') %></p>
+      </div>
+      <div class="">
+        <a href="<%= auth_path %>" class="dmpui-frontend-btn dmpui-frontend-btn-primary with-mark">Get Started</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Benefits -->
+  <div class="dmpui-frontend-benefits dmpui-frontend ">
+    <div class="dmpui-frontend-container ">
+      <div class="benefit-intro-text">
+        <h2><%= _('What are the benefits?') %></h2>
+        <p><%= _('Quality plans promote research integrity, support reproducibility and help to ensure data security.') %></p>
+      </div>
+
+      <div class="benefit-cards">
+        <div class="card">
+          <h3><%= _('Funders') %></h3>
+          <p><%= _('Promote best practices in research data managment and sharing') %></p>
+          <p><%= _('Ensure your requirements are met with funder-specific templates') %></p>
+          <p><%= _('Enrich your organization’s research graph to track research outcomes') %></p>
+        </div>
+
+        <div class="card">
+          <h3><%= _('Researchers') %></h3>
+          <p><%= _('Comply with funder requirements for data management and sharing') %></p>
+          <p><%= _('Create a plan quickly and easily, on your own or in collaboration with a colleague') %></p>
+          <p><%= _('Get credit and extend the reach of your research') %></p>
+        </div>
+
+        <div class="card">
+          <h3><%= _('Institutions') %></h3>
+          <p><%= _('Provide guidance at scale') %></p>
+          <p><%= _('Track the impact of your organization’s research programs') %></p>
+          <p><%= _('Support open science and FAIR data stewardship throughout the research enterprise.') %></p>
+        </div>
+      </div>
+
+      <div class="dmpui-frontend-cta benefit-cta ">
+        <div class="dmpui-grow">
+          <h3><%= _('Interested in joining as a participating organization?') %></h3>
+          <p><%= _('Join our community of research institutions and promote your requirements and resources.') %></p>
+        </div>
+        <div class="">
+          <a href="<%= join_us_path %>" class="dmpui-frontend-btn dmpui-frontend-btn-primary "><%= _('Join as a Partner') %></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%
+  stats = statistics
+  stats_icon_grid = [
+    { stat: number_with_delimiter(stats[:user_count]) || '?', text: _('Users') },
+    { stat: number_with_delimiter(stats[:institution_count]) || '?', text: _('Participating Institutions') },
+    { stat: number_with_delimiter(stats[:completed_plan_count]) || '?', text: _('Plans') }
+  ]
+  %>
+
+  <!-- Stats Icon Grid -->
+  <div class="dmpui-frontend-container dmpui-frontend">
+    <div class="dmpui-frontend-stats ">
+      <div class="stats-header">
+        <h2><%= _('Learn more about the DMP Tool') %></h2>
+        <p><%= _('Explore the DMP Tool\'s features and functionalities to enhance your data management and sharing processes.') %></p>
+      </div>
+
+      <div class="stats-list">
+        <% stats_icon_grid.each do |entry| %>
+          <div class="stats-item">
+            <div class="stats-item-inner">
+              <div class="stats-item-headline">
+                <p><%= entry[:stat] %></p>
+              </div>
+              <div class="stats-item-text">
+                <% if entry[:text] == _('Participating Institutions') %>
+                  <p><a class="underlined" href="<%= public_orgs_path %>"><%= entry[:text] %></a></p>
+                <% else %>
+                  <p><%= entry[:text] %></p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog Posts -->
+  <div class="dmpui-blog-latest dmpui-frontend">
+    <div class="dmpui-frontend-container dmpui-frontend  dmpui-frontend-blog-latest">
+      <div class="dmpui-row dmpui-align-start">
+        <div class="dmpui-grow">
+          <h2><%= _('News and updates') %></h2>
+        </div>
+        <div class="dmpui-desktop">
+          <a href="https://blog.dmptool.org/" class="dmpui-frontend-btn dmpui-frontend-btn-primary dmpui-external">
+            <%= _('Vist the blog') %>
+          </a>
+        </div>
+      </div>
+
+      <%
+      blog_items = feed
+      if blog_items.is_a?(Array)
+      %>
+        <div>
+          <% blog_items.each_with_index do |entry, idx| %>
+            <%
+            item = {
+              # img: entry&.image,
+		          title: entry.title,
+		          link: entry.link,
+		          date: entry.pubDate,
+		          author: entry.dc_creator,
+              new_release: idx == 0
+            }
+            %>
+            <div class="blog-list-card">
+              <div class="blog-list-card-image" style="background-image:url(<%= asset_path('news-img.webp') %>)">
+                <% if item[:new_release] %>
+                  <div class="new-release-tab"><%= _('New release') %></div>
+                <% end %>
+              </div>
+              <div class="blog-list-card-text">
+                <h3><%= item[:title] %></h3>
+                <div class="dmpui-row dmpui-align-end">
+                  <p class="dmpui-grow dmpui-mb-0">
+                    Posted on <%= item[:date].strftime('%B %d') %> <br/>
+                    By <%= item[:author] %>
+                  </p>
+                  <a href="<%= item[:link] %>" class="dmpui-frontend-btn dmpui-frontend-btn-secondary ">
+                    <%= _('Read more') %>
+                  </a>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 <% end %>

@@ -57,7 +57,7 @@
     </div>
   <% end %>
 
-  <% unless current_user.accept_terms? %> 
+  <% unless current_user.accept_terms? %>
     <div class="form-group col-md-12 c-checkbox js-checkbox">
     <!-- <div id="sign-up-accept-terms" class="c-checkbox js-checkbox"> -->
       <%= f.check_box :accept_terms, { class: "require-me" }, true, false %>
@@ -71,6 +71,6 @@
   <% end %>
 
   <div class="actions col-md-4">
-    <%= f.submit "Update details", class: 'btn btn-default' %>
+    <%= f.submit "Update details", class: 'btn btn-primary' %>
   </div>
 <% end %>

@@ -3,23 +3,31 @@ const webpack = require('webpack');
 const erbLoader = require('./loaders/erb');
 
 const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+console.log(`Webpack running in ${mode} mode.`);
 
 module.exports = {
-  mode,
+  mode: mode,
   module: {
     rules: [
       {
-        test: /\.(js)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules|bower_components/,
+        loader: 'babel-loader',
+        options: { presets: ['@babel/env','@babel/preset-react'] },
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: ["style-loader", "css-loader", "sass-loader"]
       },
       erbLoader,
     ],
   },
   entry: {
     application: './app/javascript/application.js',
+    reactApplication: './app/javascript/react-application.js',
   },
   optimization: {
+    minimize: mode === 'development' ? false : true,
     moduleIds: 'deterministic',
   },
   output: {

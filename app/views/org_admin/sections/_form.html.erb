@@ -14,7 +14,7 @@
 
   <div class="form-group col-md-10">
     <div class="pull-right">
-      <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
+      <%= f.button(_('Save'), class: 'btn btn-primary', type: "submit") %>
       <% if section.id.present? %>
         <%= link_to _('Delete'), org_admin_template_phase_section_path(template_id: template.id, phase_id: section.phase.id, id: section), 'data-method': 'delete', rel: 'nofollow',
             'data-confirm': _("You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?") % { :section_title => section.title }, class: 'btn btn-default', role:'button' %>

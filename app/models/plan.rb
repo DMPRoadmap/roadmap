@@ -25,7 +25,10 @@
 #  ethical_issues_description        :text
 #  ethical_issues_report             :string
 #  feedback_start_at                 :datetime
-#  feedback_end_at                  :datetime
+#  feedback_end_at                   :datetime
+#  subscriber_job_status             :string
+#  publisher_job_status              :string
+#  accept_terms                      :boolean           default(false)
 #
 # Indexes
 #
@@ -53,10 +56,17 @@ class Plan < ApplicationRecord
   # Start DMPTool Customization
   # ----------------------------------------
   include Dmptool::Plan
+  include Dmptool::Registerable
 
   # DMPTool customization to support faceting the public plans by language
   # ----------------------------------------------------------------------
   belongs_to :language, default: -> { Language.default }
+
+  # ActiveStorage for Narrative PDF document
+  # The narrative is only pre-generated and stored in S3 if it is public. The system will still generate the PDF
+  # on the fly if the user is logged in and requesting it from the 'Download' tab. If a request is made for the
+  # PDF from the 'Public DMPs' page then the copy in the S3 bucket is used
+  has_one_attached :narrative
 
   # =============
   # = Constants =
@@ -176,7 +186,6 @@ class Plan < ApplicationRecord
     data.sanitize_fields(:title, :identifier, :description)
   }
   after_update :notify_subscribers!, if: :versionable_change?
-  after_touch :notify_subscribers!
 
   # ==========
   # = Scopes =
@@ -609,51 +618,6 @@ class Plan < ApplicationRecord
     end
   end
 
-  # Returns the plan's identifier (either a DOI/ARK)
-  def landing_page
-    identifiers.find { |i| DMP_ID_TYPES.include?(i.identifier_format) }
-  end
-
-  # Retrieves the Plan's most recent DOI
-  def dmp_id
-    return nil unless Rails.configuration.x.madmp.enable_dmp_id_registration
-
-    id = identifiers.includes(:identifier_scheme)
-                    .reverse.find { |i| i.identifier_scheme == DmpIdService.identifier_scheme }
-    return id if id.present?
-  end
-
-  # Returns whether or not minting is allowed for the current plan
-  # rubocop:disable Metrics/AbcSize
-  def registration_allowed?
-    return false unless Rails.configuration.x.madmp.enable_dmp_id_registration
-
-    # Just check for visibility and funder if we are not allowing ORCID publication
-    orcid_enabled = Rails.configuration.x.madmp.enable_orcid_publication
-    return (visibility_allowed? && funder.present?) unless orcid_enabled
-
-    # If we're allowing ORCID publication but no ORCID scheme is defined
-    orcid_scheme = IdentifierScheme.where(name: 'orcid').first
-    return false if orcid_scheme.blank?
-
-    # The owner must have an orcid, a funder and :visibility_allowed? (aka :complete)
-    orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
-    visibility_allowed? && orcid.present? && funder.present?
-  end
-  # rubocop:enable Metrics/AbcSize
-
-  # Returns whether or not minting is allowed for the current plan
-  def minting_allowed?
-    orcid_scheme = IdentifierScheme.where(name: 'orcid').first
-    return false if orcid_scheme.blank?
-
-    # The owner must have an orcid and have authorized us to add to their record
-    orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
-    token = ExternalApiAccessToken.for_user_and_service(user: owner, service: 'orcid')
-
-    visibility_allowed? && orcid.present? && token.present? && funder.present?
-  end
-
   # Since the Grant is not a normal AR association, override the getter and setter
   def grant
     Identifier.find_by(id: grant_id)
@@ -678,25 +642,6 @@ class Plan < ApplicationRecord
     self.grant_id = current.id
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
-  # Return the citation for the DMP. For example:
-  #
-  # Jane Doe. (2021). "My DMP" [Data Management Plan]. DMPRoadmap. https://doi.org/10.12/a1.b2
-  #
-  def citation
-    return nil unless owner.present? && dmp_id.is_a?(Identifier)
-
-    # authors = owner_and_coowners.map { |author| author.name(false) }
-    #                             .uniq
-    #                             .sort { |a, b| a <=> b }
-    #                             .join(", ")
-    # TODO: display all authors once we determine the appropriate way to handle on the ORCID side
-    authors = owner.name(false)
-    pub_year = updated_at.strftime('%Y')
-    app_name = ApplicationService.application_name
-    link = dmp_id.value
-    "#{authors}. (#{pub_year}). \"#{title}\" [Data Management Plan]. #{app_name}. #{link}"
-  end
 
   # Returns the Subscription for the specified subscriber or nil if none exists
   def subscription_for(subscriber:)
@@ -743,6 +688,19 @@ class Plan < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
+  # Sends notifications to the Subscribers of the specified subscription types
+  def notify_subscribers!(subscription_types: [:updates])
+    targets = subscription_types.map do |typ|
+      subscriptions.select { |sub| sub.selected_subscription_types.include?(typ.to_sym) }
+    end
+    targets = targets.flatten.uniq if targets.any?
+
+    publish_narrative! if publicly_visible?
+
+    targets.each(&:notify!)
+    true
+  end
+
   private
 
   # Determines whether or not the attributes that were updated constitute a versionable change
@@ -764,16 +722,6 @@ class Plan < ApplicationRecord
       saved_change_to_ethical_issues_description? || saved_change_to_ethical_issues_report?
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-  # Sends notifications to the Subscribers of the specified subscription types
-  def notify_subscribers!(subscription_types: [:updates])
-    targets = subscription_types.map do |typ|
-      subscriptions.select { |sub| sub.selected_subscription_types.include?(typ.to_sym) }
-    end
-    targets = targets.flatten.uniq if targets.any?
-    targets.each(&:notify!)
-    true
-  end
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date

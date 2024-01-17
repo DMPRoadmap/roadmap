@@ -11,6 +11,7 @@
   <div id="download-settings">
     <h2><%= _("Download settings") %></h2>
     <%= hidden_field_tag 'export[form]', true %>
+
     <% if @phase_options.length > 1 %>
       <div class="form-group">
         <%= label_tag(:phase_id, _("Select phase to download")) %>
@@ -137,8 +138,7 @@
     </div>
   </div>
 
-  <%= button_tag(sanitize(_("Download Plan <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span>") % { open_in_new_window_text: _('Opens in new window') },
-        tags: %w{ span em }),
+  <%= button_tag(_("Download Plan (new window)"),
       class: "btn btn-primary has-new-window-popup-info",
       type: "submit") %>
 <% end %>

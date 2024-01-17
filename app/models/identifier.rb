@@ -26,9 +26,11 @@ class Identifier < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :identifiable, polymorphic: true, touch: true
+  belongs_to :identifiable, polymorphic: true
 
   belongs_to :identifier_scheme, optional: true
+
+  after_save :notify_identifiable_subscribers
 
   # ===============
   # = Validations =
@@ -143,5 +145,10 @@ class Identifier < ApplicationRecord
                                        identifiable: identifiable).any?
       errors.add(:identifier_scheme, _('already assigned a value'))
     end
+  end
+
+  # Call the Identifiable's notify_subscribers! method directly
+  def notify_identifiable_subscribers
+    identifiable.notify_subscribers! if identifiable.present? && identifiable.respond_to?(:notify_subscribers!) && !new_record?
   end
 end

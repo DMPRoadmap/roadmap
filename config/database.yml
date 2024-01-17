@@ -1,22 +1,33 @@
 defaults: &defaults
   adapter: <%= Rails.configuration.x.dmproadmap.database_adapter %>
-  encoding: <%= Rails.configuration.x.dmproadmap.database_adapter == "mysql2" ? "utf8mb4" : "" %>
+  encoding: <%= Rails.configuration.x.dmproadmap.database_adapter == 'mysql2' ? 'utf8mb4' : '' %>
   database: <%= Rails.configuration.x.dmproadmap.database_name %>
   pool: <%= Rails.configuration.x.dmproadmap.database_pool_size %>
   host: <%= Rails.configuration.x.dmproadmap.database_host %>
   username: <%= Rails.configuration.x.dmproadmap.database_username %>
   password: <%= Rails.configuration.x.dmproadmap.database_password %>
 
+# Local development environment
+local:
+  <<: *defaults
+
+# ECS hosted development environment
 development:
   <<: *defaults
 
+  # username: {!SSM: dev/RdsDbaUsername}
+  # password: {!SSM: dev/RdsDbaPassword}
+
+# Local test environment (also used for GitHub actions)
 test:
   <<: *defaults
 
   database: "<%= Rails.configuration.x.dmproadmap.database_name %>_test"
 
+# ECS hosted staging environment
 stage:
   <<: *defaults
 
+# ECS hosted production environment
 production:
   <<: *defaults

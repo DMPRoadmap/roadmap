@@ -1,0 +1,313 @@
+/* Form components, and buttons */
+button,
+input[type="button"],
+input[type="submit"] {
+  background-color: transparent;
+  color: var(--btn-basic-fg-color);
+  border: none;
+  border-radius: var(--btn-border-radius);
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  line-height: normal;
+  border: 1px solid var(--dmpui-brand-blue-900);
+  display: inline-block;
+  font-family: var(--btn-font-family);
+  font-size: inherit;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &.primary {
+    background-color: var(--dmpui-brand-blue-900);
+    color: var(--btn-primary-fg-color);
+    border: none;
+
+    &:hover {
+      background-color: var(--dmpui-brand-blue-800);
+      color: var(--btn-primary-fg-color);
+    }
+  }
+
+  &.secondary {
+    background-color: var(--dmpui-brand-blue-400);
+    color: var(--dmpui-brand-blue-900);
+    border: none;
+
+    &:hover {
+      background-color: var(--dmpui-brand-blue-500);
+      color: var(--btn-primary-fg-color);
+    }
+  }
+
+  &:hover,
+  &:active {
+    outline: none !important;
+    outline-color: #000 !important;
+    outline-width: 0px !important;
+    box-shadow: none !important;
+  }
+  &:focus {
+    outline-offset: 3px;
+    outline-color: #11057b;
+    outline-width: 1px;
+    outline-style: solid;
+  }
+}
+
+.form-wrapper {
+  text-align: left;
+  padding: 20px;
+  border: 1px solid #eee;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: end;
+  padding: 0.5rem;
+
+  & > * {
+    margin: 0.5rem;
+  }
+}
+
+.dmpui-field-error {
+  margin-bottom: 1rem;
+  color: var(--error-color);
+
+  &::before {
+    content: "⚠ ";
+  }
+}
+
+.dmpui-form-cols {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  text-align: left;
+
+  justify-content: space-between;
+
+  @include device(tablet) {
+    flex-direction: row;
+  }
+
+  .dmpui-form-col {
+    width: 100%;
+  }
+}
+
+.dmpui-field-group {
+  margin-bottom: 2rem;
+
+  @include device(tablet) {
+    margin-bottom: 1.5rem;
+  }
+
+  padding-right: 1rem;
+  text-align: left;
+  max-width: none;
+
+  .dmpui-field-label {
+    font-weight: bold;
+    color: var(--dmpui-brand-blue-900);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .dmpui-field-help {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
+    color: #555 !important;
+    &::first-letter { text-transform: capitalize; }
+  }
+
+  .dmpui-field-error {
+    font-size: 0.8em;
+    line-height: 1.5;
+    margin-bottom: 0.25rem;
+    color: var(--error-color);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="password"],
+  input[type="number"],
+  input[type="url"],
+  input[type="time"],
+  input[type="tel"],
+  input[type="search"],
+  textarea {
+    box-sizing: border-box;
+    border: 1px solid var(--form-field-border-color);
+    border-radius: 10px;
+    color: var(--form-field-fg-color);
+    background-color: var(--form-field-bg-color);
+    padding: 0.75rem 1rem;
+    width: 100%;
+
+    &:hover {
+      outline: none !important;
+      border: 1px solid var(--form-field-border-color);
+    }
+
+    &:focus {
+      border: 1px solid #000 !important;
+      box-shadow: inset 0 0 0 0dvi !important;
+    }
+
+    &:focus {
+      outline-offset: 3px;
+      outline-color: #11057b;
+      outline-width: 1px;
+      outline-style: solid;
+    }
+
+    &:focus:invalid {
+      border-color: var(--error-color);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  textarea {
+    min-height: 10rem;
+    line-height: normal;
+  }
+  select {
+    box-sizing: border-box;
+    border: 1px solid var(--form-field-border-color);
+    border-radius: 10px;
+    color: var(--form-field-fg-color);
+    background-color: var(--form-field-bg-color);
+    padding: 0.75rem 1rem;
+    width: 100%;
+
+    &:hover {
+      outline: none !important;
+      border: 1px solid var(--form-field-border-color);
+    }
+
+    &:focus {
+      border: 1px solid #000 !important;
+      box-shadow: inset 0 0 0 0dvi !important;
+    }
+
+     &:focus {
+      outline-offset: 3px;
+      outline-color: #11057b;
+      outline-width: 1px;
+      outline-style: solid;
+    }
+
+    &:focus:invalid {
+      border-color: var(--error-color);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+}
+
+.required .dmpui-field-label {
+  &::after {
+    content: " *";
+    color: var(--input-required-color);
+  }
+}
+
+.dmpui-field-fileinput-group {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  border: 2px dashed var(--dmpui-brand-gray-100);
+}
+
+.checkbox-label,
+.radio-label {
+  padding-left: 10px;
+  font-weight: normal;
+}
+
+.dmpui-field-checkbox-group,
+.dmpui-field-radio-group {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+
+  .checkbox-label,
+  .radio-label {
+    margin: 0;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    accent-color: var(--dmpui-brand-blue-500);
+    margin: 0 !important;
+    line-height: normal;
+    width: 1.5rem;
+    font-size: 1.5rem;
+    height: 1.5rem;
+
+    &:hover {
+      outline: none !important;
+    }
+    &:focus-within{
+      outline: 1px solid var(--dmpui-brand-blue-500) !important;
+    }
+
+
+    &:focus {
+      outline-offset: 3px;
+      outline-color: #11057b;
+      outline-width: 1px;
+      outline-style: solid;
+    }
+
+  }
+}
+
+.group-disabled {
+  opacity: 0.5;
+}
+
+.group-hidden {
+  display: none;
+}
+
+.dmpui-search-form-container {
+  padding: 2rem;
+  background-color: var(--dmpui-brand-blue-100);
+}
+
+.dmpui-field-input-lookup-icon-wrapper {
+  position: relative;
+}
+
+.dmpui-field-input-spinner {
+  position: absolute;
+  top: 10px;
+  right: -30px;
+}
+

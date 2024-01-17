@@ -109,6 +109,40 @@ module OrgSelectable
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+    # Function very similar to process_org! above but works with requests from the React UI
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def process_react_typeahead(user: nil, search_term:)
+      return nil if search_term.blank?
+
+      # check the Orgs table first
+      org = Org.where('LOWER(name) = ?', search_term.downcase).first
+      # If we are expecting managed_only do not return it if it is not managed!
+      return org if org.present? && (!managed_only || (managed_only && org.managed?))
+
+      # Skip if restrict_orgs is set to true! (unless its a Super Admin)
+      if (user.present? && user.can_super_admin?) || !Rails.configuration.x.application.restrict_orgs
+        # fetch from the ror table
+        registry_org = RegistryOrg.where('LOWER(name) = ?', name.downcase).first
+
+        # If managed_only make sure the org is managed!
+        return nil if managed_only &&
+                      (registry_org.nil? || registry_org&.org&.nil? || !registry_org&.org&.managed?)
+
+        # Convert the RegistryOrg to an Org, save it and then update the RegistryOrg if its ok
+        org = ::Org.from_registry_org!(registry_org: registry_org)
+        return org if org.present?
+      end
+
+      # We only want to create it if the user provided a custom name
+      return nil if in_list?(namespace: namespace)
+
+      # otherwise initialize a new org
+      create_org!(name: name)
+    end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
     private
 
     def org_selectable_params

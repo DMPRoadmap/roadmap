@@ -13,6 +13,7 @@ class NotifySubscriberJob < ApplicationJob
     case subscription.subscriber_type
     when 'ApiClient'
       notify_api_client(subscription: subscription)
+      subscription.update(subscriber_job_status: 'success') if subscription.respond_to?(:subscriber_job_status)
     else
       # Maybe just use HTTParty for this if we ever want to subscribe a different model
       # like a User or Org
@@ -43,8 +44,8 @@ class NotifySubscriberJob < ApplicationJob
       Rails.logger.info "Sending #{api_client.name} the updated DMP ID metadata \
                         for Plan #{subscription.plan.id}"
 
+      # Publish the updated meatdata to the DMP ID record
       DmpIdService.update_dmp_id(plan: subscription.plan)
-
     elsif !dmp_id_svc
       # As long as this isn't the DMP ID service, send the update directly to the callback
       # Maybe just use HTTParty for this

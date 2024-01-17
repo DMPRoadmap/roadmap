@@ -16,7 +16,8 @@ module Users
       @bypass_sso = params[:sso_bypass] == 'true'
       if sign_in_params[:email].blank?
         # If the email was left blank display an error
-        redirect_to root_path, alert: _('Invalid email address!')
+        flash[:alert] = _('Invalid email address!')
+        # redirect_to root_path, alert: _('Invalid email address!')
 
       elsif sign_in_params[:org_id].present? && !@bypass_sso
         # If there is an Org in the params then this is step 2 of the email+password workflow
@@ -47,10 +48,9 @@ module Users
           oauth_hash = ApplicationService.decrypt(payload: session['oauth-referer'])
 
           @client = ApiClient.where(uid: oauth_hash['client_id'])
-
           render 'doorkeeper/authorizations/new', layout: 'doorkeeper/application'
         else
-          render is_new_user ? 'users/registrations/new' : :new
+          render 'static_pages/auth'
         end
       end
     end
@@ -91,7 +91,13 @@ module Users
       # Refresh the User API token (used by React pages)
       resource.generate_ui_token! if resource.present?
 
-      (oauth_path.presence || plans_path)
+      # Direct the user to the appropriate dashboard based on their permission level
+      # TODO: Allow the dashboard to be the target once we're further along with development of the React pages
+      landing_page_path = plans_path
+      # landing_page_path = resource.can_org_admin? ? dashboard_path : plans_path
+
+      # If we're in OAuth2 workkflow, stick with that, otherwise go to the dashboard
+      (oauth_path.presence || landing_page_path)
     end
     # rubocop:enable Metrics/AbcSize
   end

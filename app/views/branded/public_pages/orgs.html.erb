@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Participating Institutions') %></h1>
-    <p><%= raw _("Participating institutions/organizations can configure the tool to point to their resources and services, provide customized help, and provide suggested answers to the questions asked by funding agencies. DMPTool users affiliated with participating institutions can login with their own institutional accounts. For more information visit the %{about_us_link} page.") % { about_us_link: link_to(_('About'), about_us_path) } %></p>
+    <p><%= raw _("Participating institutions/organizations can configure the tool to point to their resources and services, provide customized help, and provide suggested answers to the questions asked by funding agencies. DMP Tool users affiliated with participating institutions can login with their own institutional accounts. For more information visit the %{about_us_link} page.") % { about_us_link: link_to(_('About'), about_us_path) } %></p>
 
     <% if @orgs.count > 0 %>
       <%= paginable_renderise(

@@ -18,13 +18,13 @@ module IdentifierHelper
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   def sandbox_dmp_id(id:, with_domain: false)
-    return _('None defined') if id.new_record? || id.value.blank?
+    return _('None defined') if id.blank?
 
     url = DmpIdService.landing_page_url
-    without = id.value_without_scheme_prefix
+    without = id.gsub(/^https?:\/\/doi.org\//, '')
 
-    return id.value unless url.present? && without != id.value && !without.starts_with?('http')
+    return id unless url.present? && without != id && !without.starts_with?('http')
 
-    link_to(with_domain ? id.value : without, "#{url}#{without}", class: 'has-new-window-popup-info')
+    link_to(with_domain ? id : without, "#{url}#{without}", class: 'has-new-window-popup-info')
   end
 end

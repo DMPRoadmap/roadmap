@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="86px" height="91px" viewBox="0 0 86 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 6</title>
+    <g id="Home-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-page-Copy-7" transform="translate(-758.000000, -1301.000000)">
+            <g id="Group-6" transform="translate(758.213963, 1301.500000)">
+                <rect id="Rectangle-Copy" stroke="#05042E" stroke-width="2.72727273" fill="#FFFFFF" x="1.36363636" y="1.36363636" width="57.0753589" height="75.430622" rx="6.81818182"></rect>
+                <rect id="Rectangle-Copy" stroke="#05042E" stroke-width="2.72727273" fill="#FFFFFF" x="7.284689" y="7.284689" width="57.0753589" height="75.430622" rx="6.81818182"></rect>
+                <rect id="Rectangle-Copy" stroke="#05042E" stroke-width="2.72727273" fill="#FFFFFF" x="13.2057416" y="13.2057416" width="57.0753589" height="75.430622" rx="6.81818182"></rect>
+                <line x1="22.478814" y1="25.6762996" x2="61.304002" y2="25.6762996" id="Line-Copy" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="22.478814" y1="53.2091944" x2="61.304002" y2="53.2091944" id="Line-Copy-4" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="22.478814" y1="34.8539312" x2="61.304002" y2="34.8539312" id="Line-Copy-2" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="22.478814" y1="62.3868259" x2="41.891408" y2="62.3868259" id="Line-Copy-5" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="22.478814" y1="44.0315628" x2="61.304002" y2="44.0315628" id="Line-Copy-3" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="22.478814" y1="71.5644575" x2="41.891408" y2="71.5644575" id="Line-Copy-6" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <g id="Group" transform="translate(47.059505, 41.116482)" fill-rule="nonzero">
+                    <ellipse id="Oval" fill="#FFFFFF" cx="18.6513158" cy="19.2434211" rx="13.3223684" ry="8.58552632"></ellipse>
+                    <g id="shield-solid" fill="#54D8FF">
+                        <path d="M19.2562847,0 C19.6253621,0 19.9944395,0.0802342167 20.3314232,0.232679229 L35.4395262,6.64339315 C37.204679,7.38957136 38.5205201,9.13065386 38.5125332,11.2327903 C38.4723796,19.1920246 35.1988235,33.754535 21.374468,40.3738579 C20.0345566,41.0157316 18.4780128,41.0157316 17.1381014,40.3738579 C3.31374581,33.754535 0.040189767,19.1920246 3.61641235e-05,11.2327903 C-0.00795076308,9.13065386 1.30789039,7.38957136 3.07304316,6.64339315 L18.1891696,0.232679229 C18.5181299,0.0802342167 18.8872073,0 19.2562847,0 Z M26.6984233,13.8782034 C26.0853862,13.2585745 25.0834331,13.2585745 24.4638042,13.8782034 L24.4638042,13.8782034 L17.1469097,21.2016898 L14.0487651,18.1035452 C13.435728,17.4839163 12.4337749,17.4905081 11.814146,18.1035452 C11.1945171,18.7165823 11.1945171,19.7185355 11.814146,20.3381644 L11.814146,20.3381644 L16.032896,24.5569144 C16.6459331,25.1765433 17.6478862,25.1765433 18.2675151,24.5569144 L18.2675151,24.5569144 L26.7050151,16.1194144 C27.3180523,15.4997855 27.3114605,14.4978323 26.6984233,13.8782034 Z" id="Combined-Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

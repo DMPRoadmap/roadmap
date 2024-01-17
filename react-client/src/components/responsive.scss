@@ -1,0 +1,72 @@
+/* NOTE:: Since we are doing responsive, all CSS that DOESN'T use
+ * media queries will be assumed to be for mobile sizes.
+ */
+
+// Responsive Sizes
+$mobile-small: 320px;
+$mobile: 375px;
+$mobile-large: 425px;
+$phablet: 560px;
+$tablet-small: 640px;
+$tablet: 768px;
+$laptop: 1024px;
+$laptop-large: 1440px;
+$display-4k: 2560px;
+
+
+// A quick helper to quickly create a media query block for a named device
+@mixin device($breakpoint) {
+  @if $breakpoint == mobile-small {
+    @media screen and (min-width: $mobile-small) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==mobile {
+    @media screen and (min-width: $mobile-small) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==mobile-large {
+    @media screen and (min-width: $mobile-large) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==phablet {
+    @media screen and (min-width: $phablet) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==tablet-small {
+    @media screen and (min-width: $tablet-small) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==tablet {
+    @media screen and (min-width: $tablet) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==laptop {
+    @media screen and (min-width: $laptop) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==laptop-large {
+    @media screen and (min-width: $laptop-large) {
+      @content;
+    }
+  }
+
+  @if $breakpoint ==display-4k {
+    @media screen and (min-width: $display-4k) {
+      @content;
+    }
+  }
+}

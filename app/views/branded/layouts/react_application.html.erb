@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= render partial: 'layouts/analytics' %>
+
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % {
+      application_name: ApplicationService.application_name } %>
+    </title>
+    <%= favicon_link_tag 'favicon.ico', rel: 'icon', type: 'image/png' %>
+    <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
+    <%= favicon_link_tag 'favicon-32x32.png', rel: 'icon', sizes: "32x32", type: 'image/png' %>
+    <%= favicon_link_tag 'favicon-16x16.png', rel: 'icon', sizes: "16x16", type: 'image/png' %>
+    <%= favicon_link_tag 'safari-pinned-tab.svg', rel: 'mask-icon', color: "#0E5682" %>
+    <%= favicon_link_tag 'site.webmanifest', rel: 'manifest' %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "reactApplication", "data-turbo-track": "reload", defer: true %>
+
+    <%= csrf_meta_tags %>
+
+    <meta name="msapplication-TileColor" content="#0e5682">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  </head>
+  <body class="<%= page_body_template %>">
+    <a href="#maincontent" class="c-skipnav dmpui-skipnav">Skip to main content</a>
+
+    <!-- header rendering -->
+    <header>
+      <%= render partial: "layouts/header" %>
+      <%# = render partial: "layouts/notifications", locals: local_assigns %>
+      <%= render partial: "layouts/sub_header", locals: local_assigns if user_signed_in? %>
+      <%= render partial: "layouts/notifications", locals: local_assigns %>
+    </header>
+
+    <main id="maincontent">
+      <%= yield %>
+    </main>
+
+    <footer>
+      <%= render "layouts/footer" %>
+    </footer>
+  </body>
+</html>

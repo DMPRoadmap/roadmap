@@ -1,14 +1,14 @@
-<h1><%= _('Terms of use & Privacy policy')%></h1>
-
 <div class="static-page">
+  <h1><%= _('Terms of use & Privacy policy')%></h1>
+
   <p><%= sanitize _('The <a href="%{cdlib_url}">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector.') % { cdlib_url: 'http://www.cdlib.org' } %></p>
 
-  <h2><%= _('DMPTool') %></h2>
-  <p><%= sanitize _("DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a href=\"%{dcc_url}\">Digital Curation Centre (DCC)</a> as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center (UC3).") % { dcc_url: 'http://www.dcc.ac.uk/' } %></p>
+  <h2><%= _('DMP Tool') %></h2>
+  <p><%= sanitize _("DMP Tool ('the tool', 'the system') is a tool developed by the CDL and the <a href=\"%{dcc_url}\">Digital Curation Centre (DCC)</a> as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center (UC3).") % { dcc_url: 'http://www.dcc.ac.uk/' } %></p>
   <hr>
 
   <h2><%= _('Your personal details') %></h2>
-  <p><%= _('In order to help identify and administer your account with the DMPTool, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the CDL and DCC partner organizations but only for legitimate CDL purposes. We will not sell, rent, or trade any personal information you provide to us.') %></p>
+  <p><%= _('In order to help identify and administer your account with the DMP Tool, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the CDL and DCC partner organizations but only for legitimate CDL purposes. We will not sell, rent, or trade any personal information you provide to us.') %></p>
   <hr>
 
   <h2><%= _('Privacy policy') %></h2>
@@ -19,12 +19,18 @@
   <p><%= _('The CDL holds your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home institution.') %></p>
   <hr>
 
+  <h2><%= _('Sharing and Reuse') %></h2>
+  <p><%= sanitize _('<strong>Users who choose Public visibility for their plans</strong> grant the California Digital Library on behalf of The Regents of the University of California a non-exclusive, irrevocable, royalty-free right to publish, reproduce, publicly display, adapt, and distribute their plan in perpetuity, worldwide, by any method or media now known or later developed.') %></p>
+  <p><%= sanitize _('<strong>Users who choose to use the DMP Tool to create a DOI (Digital Object Identifier aka DMP ID) for their plans</strong> grant the California Digital Library on behalf of The Regents of the University of California a non-exclusive, irrevocable, royalty-free right to publish, reproduce, publicly display, adapt, and distribute portions of their plans in perpetuity, worldwide, by any method or media now known or later developed. The portions that will be published are those necessary to provide sufficient information about the plan associated with the DOI, including the project description and descriptions of planned outputs, but does not include the full text of the plan unless the user has chosen public visibility for the plan.') %></p>
+  <p><%= sanitize _('<strong>All users</strong> grant the California Digital Library on behalf of The Regents of the University of California permission to: 1) <strong>preserve</strong> the material they provide to the DMP Tool and to perform any copying or distribution that is appropriate in order to maintain that material, including but not limited to format migration and adaptations necessary for accessibility remediation; 2) <strong>distribute</strong> their plan to administrators or others at their organization as directed by the user-defined plan visibility; and 3) <strong>use their material in research</strong> regarding improvements to the DMP Tool or data management practices, including use in artificial intelligence training within California Digital Library\'s local environment.') %></p>
+  <hr>
+
   <h2><%= _('Passwords') %></h2>
   <p><%= _('Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset.') %></p>
   <hr>
 
-  <h2><%= _('Google Analytics opt-out') %></h2>
-  <p><%= sanitize _('As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href="%{opt_out_url}">Google Analytics opt-out page</a> and install the add-on for your browser.') % { opt_out_url: 'https://tools.google.com/dlpage/gaoptout' }%></p>
+  <h2><%= _('Analytics Use') %></h2>
+  <p><%= sanitize(_('This website uses Matomo Analytics to capture and analyze usage statistics. Matomo allows us to better understand how our users interact with our service.  For information on how Matomo collects and processes data, as well as how you can control information sent to Matomo, review Matomo\'s website, %{matomo_url}') % { matomo_url: "<a href=\"https://matomo.org/faq/new-to-piwik/personal-data-matomo-analytics-collects-and-why/\" target=\"_blank\">#{_('Personal data Matomo analytics collects and why.')}</a>" }) %></p>
   <hr>
 
   <h2><%= _('Third party APIs') %></h2>
@@ -32,5 +38,5 @@
   <hr>
 
   <h2><%= _('Revisions') %></h2>
-  <p><%= _('This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions.') %></p>
+  <p><%= _('This statement was last revised on December 19, 2023 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions.') %></p>
 </div>

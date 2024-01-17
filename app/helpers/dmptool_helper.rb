@@ -12,6 +12,20 @@ module DmptoolHelper
     query_params.transform_values { |val| val.is_a?(Array) ? val.first : val }
   end
 
+  # Generate a hyperlink for the DMP ID
+  def dmp_id_for_display(dmp_id:, without_prefix: true)
+    return _('None defined') if dmp_id.blank?
+
+    without = dmp_id.gsub(/https?:\/\//, '').gsub('doi.org/', '')
+    label = without_prefix ? without : dmp_id
+    return link_to label, dmp_id, class: 'has-new-window-popup-info' if Rails.env.production?
+
+    url = DmpIdService.landing_page_url
+    return dmp_id unless url.present? && without != dmp_id && !without.starts_with?('http')
+
+    link_to(label, "#{url}#{without}", class: 'has-new-window-popup-info')
+  end
+
   # Converts some of the language of User validation errors
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def auth_has_error?(attribute)
@@ -65,7 +79,7 @@ module DmptoolHelper
     resp = HTTParty.get(Rails.configuration.x.application.blog_rss)
     return [] unless resp.code == 200
 
-    rss = RSS::Parser.parse(resp.body, false).items.first(5)
+    rss = RSS::Parser.parse(resp.body, false).items.first(4)
     cache_content('rss', rss)
     rss
   rescue StandardError => e

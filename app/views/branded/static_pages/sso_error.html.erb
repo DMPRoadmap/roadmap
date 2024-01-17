@@ -15,9 +15,9 @@ unless hash_empty
 end
 %>
 
-<h1><%= _('Sorry, we were not able to log you in.') %></h1>
-
 <div class="static-page">
+  <h1><%= _('Sorry, we were not able to log you in.') %></h1>
+
   <h2><%= _('What is the problem?') %></h2>
   <p><%= _('Your institution did not send us enough information to create or find your account.') %></p>
 
@@ -29,7 +29,7 @@ end
         <li><%= _('Enter your email address as before and click Continue') %></li>
         <li><%= _('Then click the \'Sign in with non SSO\' link under the \'Sign in with Institution (SSO)\' button.') %></li>
         <li><strong><%= _('If you do not have an account:') %></strong> <%= _('Fill out the form to create your account. Be sure to select your institution from the list of suggestions.') %></li>
-        <li><strong><%= _('If you already have an account:') %></strong> <%= _('Click on the \'Reset Password\' link and then fill out the form. This will email you a link to create a password that is unique to the DMPTool.') %> <em><%= _('(Note that this will NOT change the password you use to sign in to your institution\'s SSO.)') %></em></li>
+        <li><strong><%= _('If you already have an account:') %></strong> <%= _('Click on the \'Reset Password\' link and then fill out the form. This will email you a link to create a password that is unique to the DMP Tool.') %> <em><%= _('(Note that this will NOT change the password you use to sign in to your institution\'s SSO.)') %></em></li>
         <li><%= _('If this SSO problem happens again in the future you will be able to use the \'Sign in with non SSO\' link and your new password to access the system.') %></li>
       </ul>
     </p>
@@ -57,8 +57,8 @@ end
 
   <p><%= _('Your administrator will need to contact the appropriate department at your institution to have these issues resolved. They will find the following resources useful when troubleshooting the issue:') %></p>
   <ul>
-    <li><a href="https://github.com/CDLUC3/dmptool/tree/main/docs/sso"><%= _('DMPTool SSO documentation') %></li>
-    <li><a href="https://dmptool.org/cgi-bin/PrintShibInfo.pl"><%= _('DMPTool SSO test page') %></li>
-    <li><a href="<%= contact_us_path %>"><%= _('Contact the DMPTool helpdesk') %></li>
+    <li><a href="https://github.com/CDLUC3/dmptool/tree/main/docs/sso"><%= _('DMP Tool SSO documentation') %></li>
+    <li><a href="https://dmptool.org/cgi-bin/PrintShibInfo.pl"><%= _('DMP Tool SSO test page') %></li>
+    <li><a href="<%= contact_us_path %>"><%= _('Contact the DMP Tool helpdesk') %></li>
   </ul>
 </div>

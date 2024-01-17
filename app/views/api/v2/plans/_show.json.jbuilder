@@ -11,7 +11,11 @@ presenter = Api::V2::PlanPresenter.new(plan: plan, client: @client)
 # A JSON representation of a Data Management Plan in the
 # RDA Common Standard format
 json.title plan.title
-json.description plan.description
+# Strip out empty paragraphs from the description
+
+# Remove non breaking spaces, empty paragraphs and new lines
+json.description plan.description&.gsub(/\u00a0/, '')&.gsub(%r{<p>([\s]+)?</p>}, '')&.gsub(%r{[\r\n]+}, ' ')
+
 json.language Api::V1::LanguagePresenter.three_char_code(
   lang: LocaleService.default_locale
 )
@@ -22,10 +26,13 @@ json.ethical_issues_exist Api::V2::ConversionService.boolean_to_yes_no_unknown(p
 json.ethical_issues_description plan.ethical_issues_description
 json.ethical_issues_report plan.ethical_issues_report
 
-id = presenter.identifier
-if id.present?
-  json.dmp_id do
-    json.partial! 'api/v2/identifiers/show', identifier: id
+json.dmp_id do
+  if plan.dmp_id.present?
+    json.type 'doi'
+    json.identifier plan.dmp_id
+  else
+    json.type 'url'
+    json.identifier Rails.application.routes.url_helpers.api_v2_plan_url(plan)
   end
 end
 
@@ -62,23 +69,33 @@ unless @minimal
 
   # DMPRoadmap extensions to the RDA common metadata standard
   json.dmproadmap_template do
-    json.id plan.template.family_id
+    json.id plan.template.family_id.to_s
     json.title plan.template.title
   end
 
+  json.dmproadmap_featured plan.featured? ? '1' : '0'
+
   # If the plan was created via the API and the external system provided an identifier,
   # return that value
-  json.dmproadmap_external_system_identifier presenter.external_system_identifier&.value
+  external_id = presenter.external_system_identifier
+  json.dmproadmap_external_system_identifier external_id.is_a?(Identifier) ? external_id.value : external_id
 
   # Any related identifiers known by the DMPTool
-  if plan.related_identifiers.any?
-    json.dmproadmap_related_identifiers plan.related_identifiers do |related|
+  related_identifiers = plan.related_identifiers.map { |r_id| r_id.clone }
+
+  if plan.narrative_url.present?
+    related_identifiers << RelatedIdentifier.new(relation_type: 'is_metadata_for', identifier_type: 'url',
+                                                 work_type: 'output_management_plan', value: plan.narrative_url)
+  end
+
+  if related_identifiers.any?
+    json.dmproadmap_related_identifiers related_identifiers do |related|
       next unless related.value.present? && related.relation_type.present?
 
       json.descriptor related.relation_type
       json.type related.identifier_type
-      json.identifier related.value
-      json.work_type related.work_type
+      json.identifier related.value.start_with?('http') ? related.value : "https://doi.org/#{related.value}"
+      json.work_type related.relation_type == 'is_metadata_for' ? 'output_management_plan' : related.work_type
     end
   end
 
@@ -86,13 +103,13 @@ unless @minimal
 
   # TODO: Refactor as we determine how best to fully implement sponsors
   if plan.template&.sponsor.present?
-    json.dmproadmap_sponsors [plan.template&.sponsor] do |sponsor|
+    json.dmproadmap_research_facilities [plan.template&.sponsor] do |sponsor|
       json.name sponsor.name
       json.type 'field_station'
 
       ror = sponsor.identifier_for_scheme(scheme: 'ror')
       if ror.present?
-        json.sponsor_id do
+        json.facility_id do
           json.partial! 'api/v2/identifiers/show', identifier: ror
         end
       end

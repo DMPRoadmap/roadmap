@@ -120,8 +120,9 @@ default: &default
   # DMPHub is a DMP metadata repository that will mint DMP IDs and provide a landing page for them.
   # See https://github.com/CDLUC3/dmphub
   dmphub_active: true
-  dmphub_url: "http://localhost:3001/api/v0/"
-  dmphub_landing_page_url: "http://localhost:3001/dmps/doi:"
+  dmphub_url: "https://api.dmphub.uc3dev.cdlib.net/"
+  dmphub_landing_page_url: "https://dmphub.uc3dev.cdlib.net/dmps/"
+  dmphub_auth_url: 'https://auth.dmphub.uc3dev.cdlib.net/'
   # You should also check the config/initializers/external_apis/dmphub.rb config
 
   # Matomo tracking
@@ -307,7 +308,7 @@ default: &default
   # The link to your Listserv
   user_group_subscription_url: ""
   # The link to your blog
-  blog_rss: "https://example.org/feed"
+  blog_rss: "https://blog.dmptool.org/feed" # "https://example.org/feed"
 
 
   # The links that appear on the home page. Add any number of links

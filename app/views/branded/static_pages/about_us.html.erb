@@ -1,18 +1,17 @@
-<h1><%= _('About') %></h1>
-
 <div class="static-page">
-  <h2><%= _('What is the DMPTool?') %></h2>
+  <h1><%= _('About') %></h1>
+  <h2><%= _('What is the DMP Tool?') %></h2>
   <p>
-    <%= _('The DMPTool is a free, open-source, online application that helps researchers create data management plans (DMPs). These plans are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and data management best practices resources.') %>
+    <%= _('The DMP Tool is a free, open-source, application that helps researchers create data management plans (DMPs). These plans are required by many funding agencies as part of the grant proposal submission process. The DMP Tool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and data management best practices resources.') %>
   </p>
   <hr>
 
-  <h2><%= _('DMPTool Background') %></h2>
+  <h2><%= _('DMP Tool Background') %></h2>
   <p>
-    <%= _('The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. As a result, the contributing institutions consolidated expertise and reduced costs in addressing data management needs by joining forces.') %>
+    <%= _('The original DMP Tool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. As a result, the contributing institutions consolidated expertise and reduced costs in addressing data management needs by joining forces.') %>
   </p>
   <p>
-    <%= sanitize(_('The original contributing institutions were: %<uc3_link>s at the %<cdl_link>s, %<data_one_link>s, %<dcc_link>s, %<smithsonian_link>s, %<ucla_library_link>s, %<ucsd_library_link>s, %<univ_illinois_library_link>s, and the %<univ_virgina_library_link>s. Given the success of the first version of the DMPTool, the founding partners obtained funding from the %<sloan_foundation_link>s to create a second version of the tool, released in 2014.') % {
+    <%= sanitize(_('The original contributing institutions were: %<uc3_link>s at the %<cdl_link>s, %<data_one_link>s, %<dcc_link>s, %<smithsonian_link>s, %<ucla_library_link>s, %<ucsd_library_link>s, %<univ_illinois_library_link>s, and the %<univ_virgina_library_link>s. Given the success of the first version of the DMP Tool, the founding partners obtained funding from the %<sloan_foundation_link>s to create a second version of the tool, released in 2014.') % {
       uc3_link: link_to(_('University of California Curation Center (UC3)'), 'https://www.cdlib.org/services/uc3/'),
       cdl_link: link_to(_('California Digital Library'), 'https://www.cdlib.org/'),
       data_one_link: link_to(_('DataONE'), 'https://www.dataone.org/'),
@@ -26,40 +25,41 @@
     }) %>
   </p>
   <p>
-    <%= _('The proliferation of open data policies across the globe led to an explosion of interest in the DMPTool and the UK-based version, DMPonline. So in 2016, UC3 and DCC decided to formalize our partnership to codevelop and maintain a single open-source platform. By providing a core infrastructure for DMPs, we could extend our reach and move best practices forward, allowing us to participate in a truly global open science ecosystem.') %>
+    <%= _('The proliferation of open data policies across the globe led to an explosion of interest in the DMP Tool and the UK-based version, DMPonline. So in 2016, UC3 and DCC decided to formalize our partnership to codevelop and maintain a single open-source platform. By providing a core infrastructure for DMPs, we could extend our reach and move best practices forward, allowing us to participate in a truly global open science ecosystem.') %>
   </p>
   <p>
-    <%= sanitize(_('The DMPTool continues to be a community support tool. The tool\'s %<editorial_board_link>s provides leadership and expertise to ensure that grant requirements and corresponding best practices remain current. Our Board includes representation across disciplines with varied areas of expertise from a wide range of institutions committed to supporting effective research data management.') % {
+    <%= sanitize(_('The DMP Tool continues to be a community support tool. The tool\'s %<editorial_board_link>s provides leadership and expertise to ensure that grant requirements and corresponding best practices remain current. Our Board includes representation across disciplines with varied areas of expertise from a wide range of institutions committed to supporting effective research data management.') % {
       editorial_board_link: link_to(_('Editorial Board'), editorial_board_path)
     }) %>
   </p>
   <hr>
 
-  <h2><%= _('Networked Data Management Plans') %></h2>
+  <h2><%= _('Machine-actionable Data Management Plans') %></h2>
   <p>
-    <%= sanitize(_('Recent feature developments have focused on transforming the DMP from a static text file into an interoperable, networked hub of information wherein details about a research project can be updated and queried over the project’s lifetime. This new %<networked_dmp_wiki>s allows information within a DMP to be fed across stakeholders, linking metadata, repositories, and institutions, and allowing for notifications and verification, reporting in real-time. A key goal of this new system is to reduce the burden on researchers by generating automated updates to a plan and facilitating seamless integration with systems and groups that support research.') % {
-      networked_dmp_wiki: link_to(_('Networked DMP'), 'https://github.com/CDLUC3/dmptool/wiki/DMP-IDs-and-Networked-Data-Management-Plans-(maDMPs)')
-    }) %>
+    <%= _('Recent feature developments have focused on transforming the DMP from a static text file into an interoperable, networked hub of information wherein details about a research project can be updated and queried over the project’s lifetime. This new machine-actionable DMP allows information within a DMP to be fed across stakeholders, linking metadata, repositories, and institutions, and allowing for notifications and verification, reporting in real-time. A key goal of this new system is to reduce the burden on researchers by generating automated updates to a plan and facilitating seamless integration with systems and groups that support research.') %>
   </p>
   <p>
-    <%= sanitize(_('We welcome integrations that utilize this new system. The %<dmptool_api_wiki>s complies with the %<rda_common_standard_link>s, which is recommended to transfer DMP metadata between systems. If you have an integration project, please %<contact_us_link>s.') % {
-      dmptool_api_wiki: link_to(_('DMPTool API'), 'https://github.com/CDLUC3/dmptool/wiki/API-Overview'),
-      rda_common_standard_link: link_to(_('RDA Common Standard Metadata schema v1.0'), 'https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/blob/master/examples/JSON/JSON-schema/1.0/maDMP-schema-1.0.json'),
-      contact_us_link: link_to(_('contact us'), contact_us_path)
-    }) %>
+    <%= _('In 2017, CDL was awarded a National Science Foundation EAGER innovation grant to explore ways of mapping research project outputs as described in a data management plan to the broader ecosystem (NSF 1745675). This initial work led CDL to explore how to best capture information about associated outputs (preprints, datasets, protocols, instruments, samples, etc.) and map these resources to other related research outputs.') %>
+  </p>
+  <p>
+    <%= sanitize(_('After several years of consultation with the broader scholarly infrastructure community and within the Research Data Alliance (RDA), a standardized, structured metadata application profile was developed for communicating information about these research project outputs in a machine-actionable form. Thanks to an additional NSF EAGER innovation grant CDL partnered with DataCite to support the creation of a unique identifier for DMPs, the %{dmp_id_blog_url}. Building on the release of DMP-IDs, %{version_one_url} of the DMP Tool maDMP feature set was released in April of 2021, including the generation of DMP-IDs for DMPs.') % { dmp_id_blog_url: '<a href="https://blog.datacite.org/announcing-dmp-ids/" target="_blank">DMP-ID</a>', version_one_url: '<a href="https://blog.dmptool.org/2021/04/20/dmp-ids-and-the-dmptool-announcing-dmptool-v-3-1/" target="_blank">version 1</a>' })  %>
+  </p>
+  <p>
+    <%= sanitize(_('The DMP Tool team continues to develop new machine-actionable features within the application. In 2023 CDL began a collaboration with the Association of Research Libraries (ARL) to pilot the integration or creation of prototypes and possible workflows for machine-actionable data management and sharing plans at ten academic institutions across the US. The pilot project will run from January–December 2024. This project is funded by an Institute of Museum and Library Services (IMLS) %{national_leadership_url}. Additional information about the project is on our %{project_url}.') % { national_leadership_url: '<a href="https://imls.gov/grants/awarded/lg-254861-ols-23" target="_blank">National Leadership Grant</a>', project_url: '<a href="https://www.arl.org/building-a-scalable-data-management-infrastructure-for-strategic-institutional-coordination/" target="_blank">project website</a>' })  %>
+  </p>
+  <p>
+    <%= sanitize(_('An %{nsf_eager_url} is currently supporting the enhancement of this work and emphasizes integrating structured metadata, persistent identifiers, digital object identifiers, and research output tracking for efficient data management and compliance. The initiative consists of two main parts: the first focuses on advancing maDMSPs through tool enhancements and stakeholder dashboards, and the second explores machine learning applications for automating DMSP creation and handling sensitive information.We welcome integrations that utilize this new system. The %{api_url} complies with the %{common_standard_url}, which is recommended to transfer DMP metadata between systems. If you have an integration project, please %{contact_us_url}.') % { nsf_eager_url: '<a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2332353&HistoricalAwards=false" target="_blank"> NSF EAGER grant</a>', api_url: '<a href="https://github.com/CDLUC3/dmsp_aws_prototype/wiki/api-overview" target="_blank">DMP Tool API</a>', common_standard_url: '<a href="https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/blob/master/examples/JSON/JSON-schema/1.0/maDMP-schema-1.0.json" target="_blank">RDA Common Standard Metadata schema v1.0</a>', contact_us_url: "<a href=\"#{contact_us_path}\">contact us</a>" }) %>
   </p>
   <hr>
 
-  <h2><%= _('How to Participate in the DMPTool') %></h2>
+  <h2><%= _('How to Participate in the DMP Tool') %></h2>
   <p>
-    <%= sanitize(_('%<participants_link>s are institutions, profit, and nonprofit organizations, individuals, or other groups that leverage the DMPTool as an effective and efficient way to create data management plans. Our community of participating organizations helps to sustain and support the DMPTool in the following ways:') % {
-      participants_link: link_to(_('DMPTool participants'), public_orgs_path)
+    <%= sanitize(_('%<participants_link>s are institutions, nonprofit organizations, individuals, or other groups that leverage the DMP Tool as an effective and efficient way to create data management plans. Our community of participating organizations helps to sustain and support the DMP Tool in the following ways:') % {
+      participants_link: link_to(_('DMP Tool participants'), public_orgs_path)
     }) %>
     <ul>
-      <li><%= _('Establish institutional authentication with the DMPTool (Shibboleth)') %></li>
       <li><%= _('Customize the tool with resources, help text, suggested answers, or other information') %></li>
-      <li><%= _('Contribute to the maintenance and enhancement of the DMPTool codebase') %></li>
-      <li><%= _('Help ensure that the DMPTool maintains its relevance and utility by notifying the DMPTool Helpdesk when:') %>
+      <li><%= _('Help ensure that the DMP Tool maintains its relevance and utility by notifying the DMP Tool Helpdesk when:') %>
         <ul>
           <li><%= _('Funders release new requirements that are not reflected in the tool') %></li>
           <li><%= _('Errors, mistakes, or misinformation are discovered in the tool') %></li>
@@ -70,19 +70,7 @@
   </p>
   <hr>
 
-  <h2><%= _('DMPTool Principles') %></h2>
   <p>
-    <%= _('The following principles guide our work on the DMPTool. Organizations that actively participate in the DMPTool community agree to abide by these principles.') %>
-    <ul>
-      <li><%= _('Continuous improvement of the DMPTool\'s utility and features') %></li>
-      <li><%= _('User-driven requirements and priorities for development') %></li>
-      <li><%= _('Enthusiasm for the DMPTool') %></li>
-      <li><%= sanitize(_('Commitment to an open process for development, enhancement, and improvement (see %<panton_principles_link>s)') % {
-        panton_principles_link: link_to(_('Panton Principles'), 'https://pantonprinciples.org/')
-      }) %></li>
-      <li><%= sanitize(_('Quality of code and materials created (%<contributor_wiki>s)') % {
-        contributor_wiki: link_to(_('Contributor guidelines'), 'https://github.com/DMPRoadmap/roadmap/wiki/Get-involved')
-      }) %></li>
-    </ul>
+  <a href="<%= auth_path %>" class="dmpui-frontend-btn dmpui-frontend-btn-primary with-mark"><%= _('Sign Up') %></a>
   </p>
 </div>

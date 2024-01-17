@@ -57,9 +57,9 @@ allow_minting = orcid.present? && orcid_access_token.present? if allow_minting &
             <li>
               <% if orcid.present? && orcid_access_token.present?%><span class="fa fa-check green"><span class="sr-only">Complete: </span></span><% else %><span class="fa fa-times red"><span class="sr-only">Incomplete: </span></span><% end %>
               <% if !orcid_access_token.present? %>
-                <%= (_("authorized DMPTool to add works to your ORCID record via the %{link_to_third_part_page}") % { link_to_third_part_page: users_third_party_apps_path }).html_safe %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
+                <%= (_("authorized DMP Tool to add works to your ORCID record via the %{link_to_third_part_page}") % { link_to_third_part_page: users_third_party_apps_path }).html_safe %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
               <% else %>
-                <%= _("linked your DMPTool account to your ORCID via your") %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
+                <%= _("linked your DMP Tool account to your ORCID via your") %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
               <% end %>
             </li>
           <% end %>
@@ -70,17 +70,9 @@ allow_minting = orcid.present? && orcid_access_token.present? if allow_minting &
         </ul>
       </legend>
       <div class="form-group col-xs-8">
-        <%= button_to _("Register Plan"), {
-          controller: 'plans',
-          action: 'mint',
-          data: { disable_with: "registering ..." }
-        },
-        {
-          remote: false,
-          method: :get,
-          class: "btn btn-default mint-dmp-id"
-        } %>
-        <p class="dmp-id-minter-response"></p>
+        <%= form_for @plan, url: mint_plan_path(@plan), method: :get do |f| %>
+          <%= f.submit _('Register plan'), class: "btn btn-primary" %>
+        <% end %>
       </div>
     </fieldset>
   <% end %>

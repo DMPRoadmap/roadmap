@@ -8,7 +8,7 @@
 
 <% app_name = "the #{Rails.configuration.x.dmproadmap.name}" %>
 
-<div id="third-party-apps" class="col-xs-12">
+<div id="third-party-apps" class="row">
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
       <% if scheme.name.downcase == 'shibboleth' %>

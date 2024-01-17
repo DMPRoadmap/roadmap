@@ -34,9 +34,11 @@ class RelatedIdentifier < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :identifiable, polymorphic: true, touch: true
+  belongs_to :identifiable, polymorphic: true
 
   belongs_to :identifier_scheme, optional: true
+
+  after_save :notify_identifiable_subscribers
 
   # ===============
   # = Validations =
@@ -53,7 +55,7 @@ class RelatedIdentifier < ApplicationRecord
   # Broad categories to identify the type of work the related identifier represents
   enum work_type: { article: 0, dataset: 1, preprint: 2, software: 3, supplemental_information: 4,
                     paper: 5, book: 6, protocol: 7, preregistration: 8,
-                    traditional_knowledge_labels_and_notices: 9, metadata: 10 }
+                    traditional_knowledge_labels_and_notices: 9, metadata: 10, output_management_plan: 11 }
 
   # The type of identifier based on the DataCite metadata schema
   enum identifier_type: { ark: 0, arxiv: 1, bibcode: 2, doi: 3, ean13: 4, eissn: 5, handle: 6,
@@ -81,7 +83,7 @@ class RelatedIdentifier < ApplicationRecord
 
   # If we've enabled citation lookups, then try to fetch the citation after its created
   # or the value has changed
-  before_save :load_citation
+  after_save :load_citation
 
   # Returns the value sans the identifier scheme's prefix.
   # For example:
@@ -117,10 +119,13 @@ class RelatedIdentifier < ApplicationRecord
   def load_citation
     # Only attempt to load the citation if that functionality has been enabled in the
     # config, this is a DOI and its either a new record or the value has changed
-    return unless Rails.configuration.x.madmp.enable_citation_lookup && identifier_type == 'doi' && citation.nil?
+    return unless Rails.configuration.x.madmp.enable_citation_lookup && identifier_type == 'doi' && citation.blank?
 
-    wrk_type = work_type == 'supplemental_information' ? '' : work_type
-    # Use the UC3Citation service to fetch the citation for the DOI
-    self.citation = fetch_citation(doi: value, work_type: wrk_type) # , debug: true)
+    CitationJob.set(wait: 1.second).perform_later(related_identifier: self)
+  end
+
+  # Call the Identifiable's notify_subscribers! method directly
+  def notify_identifiable_subscribers
+    identifiable.notify_subscribers! if identifiable.present? && identifiable.respond_to?(:notify_subscribers!) && !new_record?
   end
 end

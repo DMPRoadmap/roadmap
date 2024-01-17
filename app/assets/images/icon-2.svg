@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="84px" height="91px" viewBox="0 0 84 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 3</title>
+    <g id="Home-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-page-Copy-7" transform="translate(-759.000000, -940.000000)">
+            <g id="Group-3" transform="translate(759.920455, 940.088000)">
+                <rect id="Rectangle-Copy" stroke="#05042E" stroke-width="2.72727273" fill="#FFFFFF" x="1.36363636" y="1.36363636" width="66.1363636" height="87.2727273" rx="6.81818182"></rect>
+                <line x1="12.2483313" y1="13.5749125" x2="56.9561235" y2="13.5749125" id="Line-Copy" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="12.2483313" y1="45.279458" x2="56.9561235" y2="45.279458" id="Line-Copy-4" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="12.2483313" y1="24.1430943" x2="56.9561235" y2="24.1430943" id="Line-Copy-2" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="12.2483313" y1="55.8476398" x2="34.6022274" y2="55.8476398" id="Line-Copy-5" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="12.2483313" y1="34.7112762" x2="56.9561235" y2="34.7112762" id="Line-Copy-3" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="12.2483313" y1="66.4158216" x2="34.6022274" y2="66.4158216" id="Line-Copy-6" stroke="#05042E" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <circle id="Oval" fill="#FFFFFF" cx="61.6778589" cy="62.4111884" r="13.9704271"></circle>
+                <g id="circle-check-solid" transform="translate(43.295455, 43.817272)" fill="#54D8FF" fill-rule="nonzero">
+                    <path d="M19.4318182,38.8636364 C30.163715,38.8636364 38.8636364,30.163715 38.8636364,19.4318182 C38.8636364,8.69992134 30.163715,0 19.4318182,0 C8.69992134,0 0,8.69992134 0,19.4318182 C0,30.163715 8.69992134,38.8636364 19.4318182,38.8636364 Z M28.0091442,15.8642578 L18.2932351,25.5801669 C17.579723,26.293679 16.4259588,26.293679 15.7200373,25.5801669 L10.8620827,20.7222124 C10.1485707,20.0087003 10.1485707,18.8549361 10.8620827,18.1490146 C11.5755948,17.443093 12.729359,17.4355025 13.4352805,18.1490146 L17.0028409,21.7165749 L25.4283558,13.2834695 C26.1418679,12.5699574 27.2956321,12.5699574 28.0015536,13.2834695 C28.7074751,13.9969815 28.7150657,15.1507457 28.0015536,15.8566673 L28.0091442,15.8642578 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

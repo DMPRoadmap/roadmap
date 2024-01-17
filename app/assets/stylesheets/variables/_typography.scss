@@ -1,8 +1,7 @@
-@font-face {
-  font-family: 'GillSansLight';
-  src: url(asset-path('GillSans-Light.ttf')) format("truetype");
-  font-weight: normal;
-}
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap);
 
-// Chosen for Accessibility
-$font-family: Verdana, Trebuchet, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+$font-size-base: 16px;
+
+$grid-gutter-width: 1.5rem;

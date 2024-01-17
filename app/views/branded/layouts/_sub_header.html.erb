@@ -1,78 +1,40 @@
 <%# locals: org %>
 
-<div class="c-subheader">
-  <a class="c-logo-org" href="<%= org.target_url.present? ? org.target_url : root_path %>">
-    <% if org&.logo&.present? %>
-      <%= image_tag(logo_url_for_org(org), alt: "#{org.name} logo",
-                                           width: "104", height: "39") %>
-    <% else %>
-      <p><%= org.name %></p>
+<% org = local_assigns.fetch(:org, current_user.org) %>
+
+<% unless org.nil? %>
+  <div class="c-subheader">
+    <a class="c-logo-org" href="<%= org.target_url.present? ? org.target_url : root_path %>">
+      <% if org&.logo&.present? %>
+        <%= image_tag(logo_url_for_org(org), alt: "#{org.name} logo",
+                                            width: "104", height: "39") %>
+      <% else %>
+        <p><%= org.name %></p>
+      <% end %>
+    </a>
+
+    <% if org.links.any? && org.links['org'].present? %>
+      <ul class="c-links-org">
+        <% org.links['org'].each do |link| %>
+          <% next unless link['link'].present? %>
+
+          <li>
+            <a href="<%= link['link'] %>" class="c-links-org__ucop" target="_blank">
+              <i class="fas fa-cloud"></i>
+              <%= link['text'].blank? ? link['link'] : link['text'] %>
+            </a>
+          </li>
+        <% end %>
+
+        <% if org.contact_email.present? %>
+          <li>
+            <a href="mailto:<%= org.contact_email %>" class="c-links-org__uc3-helpdesk">
+              <i class="fas fa-envelope"></i>
+              <%= org.contact_name ? org.contact_name : org.contact_email %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
     <% end %>
-  </a>
-
-  <% if current_user.can_org_admin? %>
-    <div class="c-headermenugroup">
-      <!-- This menu uses accessibility techniques from: https://www.w3.org/TR/wai-aria-practices-1.1/examples/menu-button/menu-button-links.html -->
-
-      <div id="js-admin" class="c-admin c-headermenu">
-        <button id="js-admin__button" class="c-headermenu__button" aria-haspopup="true"
-                aria-label="<%= _('administrator menu') %>">
-          <%= _('Admin') %>
-        </button>
-        <ul id="js-admin__menu" class="c-headermenu__menu" hidden>
-          <% if current_user.can_super_admin? %>
-            <li><%= link_to _('Organisations'), super_admin_orgs_path, role: 'menuitem' %></li>
-          <% elsif current_user.can_modify_org_details? %>
-            <li><%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id), role: 'menuitem' %></li>
-          <% end %>
-          <% if current_user.can_grant_permissions? %>
-            <li><%= link_to _('Users'), admin_index_users_path, role: 'menuitem' %></li>
-          <% end %>
-          <% if current_user.can_org_admin? %>
-            <li><%= link_to _('Plans'), org_admin_plans_path, role: 'menuitem' %></li>
-          <% end %>
-          <% if current_user.can_org_admin? %>
-            <li><%= link_to _('Usage'), usage_index_path, role: 'menuitem' %></li>
-          <% end %>
-          <% if current_user.can_modify_templates? %>
-            <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
-            <li><%= link_to _('Templates'), template_path, role: 'menuitem' %></li>
-          <% end %>
-          <% if current_user.can_modify_guidance? %>
-            <li><%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id), role: 'menuitem' %></li>
-          <% end %>
-          <% if current_user.can_super_admin? %>
-            <li><%= link_to _('Themes'), super_admin_themes_path, role: 'menuitem' %></li>
-          <% end %>
-          <% if current_user.can_super_admin? %>
-            <li><%= link_to _('Api Clients'), super_admin_api_clients_path, role: 'menuitem' %></li>
-            <li><%= link_to _('Api Logs'), super_admin_api_logs_path, role: 'menuitem' %></li>
-          <% end %>
-          <% if current_user.can_super_admin? %>
-            <li><%= link_to _('Notifications'), super_admin_notifications_path, role: 'menuitem' %></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-
-  <% if org.links.any? && org.links['org'].present? %>
-    <ul class="c-links-org">
-      <% org.links['org'].each do |link| %>
-        <% next unless link['link'].present? %>
-
-        <li>
-          <%= link_to (link['text'].blank? ? link['link'] : link['text']), link['link'],
-                      class: 'c-links-org__ucop', target: '_blank' %>
-        </li>
-      <% end %>
-
-      <% if org.contact_email.present? %>
-        <li>
-          <%= mail_to org.contact_email, (org.contact_name ? org.contact_name : org.contact_email),
-                      class: "c-links-org__uc3-helpdesk" %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
+  </div>
+<% end %>

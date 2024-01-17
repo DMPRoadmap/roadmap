@@ -342,6 +342,7 @@ class PlansController < ApplicationController
       authorize plan
       if plan.visibility_allowed?
         plan.visibility = plan_params[:visibility]
+        plan.accept_terms = plan_params[:visibility] == 'publicly_visible'
         if plan.save
           deliver_if(recipients: plan.owner_and_coowners,
                      key: 'owners_and_coowners.visibility_changed') do |r|
@@ -390,21 +391,12 @@ class PlansController < ApplicationController
   def mint
     @plan = Plan.find(params[:id])
     authorize @plan
+    redirect_to(publish_plan_path(@plan), alert: 'DMP ID has already been registed!') and return if @plan.dmp_id.present?
 
-    dmp_id = DmpIdService.mint_dmp_id(plan: @plan)
-    if dmp_id.save
-      @plan = @plan.reload
+    result = @plan.register_dmp_id!(publish_to_orcid: true)
+    @plan = @plan.reload
 
-      # Only allow ORCID publication for the DMP ID if it is enabled in the config!
-      if Rails.configuration.x.madmp.enable_orcid_publication
-        @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
-      end
-
-      # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
-      if @plan.dmp_id.present? && @orcid_access_token.present?
-        ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
-      end
-
+    if @plan.dmp_id.present?
       redirect_to publish_plan_path(@plan), notice: success_message(@plan, _('registered'))
     else
       redirect_to publish_plan_path(@plan), alert: failure_message(@plan, _('register'))

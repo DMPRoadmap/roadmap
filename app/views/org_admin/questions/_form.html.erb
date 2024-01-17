@@ -96,7 +96,7 @@
     </div>
     <div class="form-group col-md-10">
       <div class="pull-right">
-        <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
+        <%= f.submit _('Save'), class: "btn btn-primary", role:'button' %>
         <% if question.id.present? %>
             <% href = org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id) %>
             <%= link_to _('Delete'), href, method: :delete, class: "btn btn-default", role:'button', 'data-confirm': _("You are about to delete question #%{question_number}. Are you sure?") % { question_number: question.number } %>

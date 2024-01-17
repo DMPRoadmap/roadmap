@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="91px" height="91px" viewBox="0 0 91 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 4</title>
+    <g id="Home-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-page-Copy-7" transform="translate(-1229.000000, -940.000000)" stroke="#05042E">
+            <g id="Group-4" transform="translate(1229.500000, 940.088000)">
+                <circle id="Oval" stroke-width="2.72727273" fill="#FFFFFF" cx="45" cy="45" r="43.6363636"></circle>
+                <line x1="72.6624458" y1="44.49429" x2="80.7624458" y2="44.49429" id="Line-Copy" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="9.38755416" y1="44.49429" x2="17.4875542" y2="44.49429" id="Line-Copy-7" stroke-width="2.72727273" stroke-linecap="round"></line>
+                <line x1="41.025" y1="12.8977533" x2="49.125" y2="12.8977533" id="Line-Copy" stroke-width="2.72727273" stroke-linecap="round" transform="translate(44.925000, 12.897753) rotate(-90.000000) translate(-44.925000, -12.897753) "></line>
+                <line x1="41.025" y1="76.1726449" x2="49.125" y2="76.1726449" id="Line-Copy-7" stroke-width="2.72727273" stroke-linecap="round" transform="translate(44.925000, 76.172645) rotate(-90.000000) translate(-44.925000, -76.172645) "></line>
+                <polyline id="Line-2" stroke-width="2.38636364" stroke-linecap="square" transform="translate(56.918626, 33.081374) rotate(45.000000) translate(-56.918626, -33.081374) " points="47.3731715 49.1633816 57.6257627 16.9993663 66.4640806 49.1633816"></polyline>
+                <polyline id="Line-2" stroke-width="2.38636364" stroke-linecap="square" transform="translate(33.081374, 56.918626) rotate(-135.000000) translate(-33.081374, -56.918626) " points="23.5359194 73.0006337 33.7885106 40.8366184 42.6268285 73.0006337"></polyline>
+                <circle id="Oval-Copy-2" stroke-width="2.72727273" fill="#54D8FF" transform="translate(45.546929, 44.453071) rotate(45.000000) translate(-45.546929, -44.453071) " cx="45.5469294" cy="44.4530706" r="9.60051519"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

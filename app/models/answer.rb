@@ -44,6 +44,8 @@ class Answer < ApplicationRecord
 
   has_many :notes
 
+  after_save :notify_plan_subscribers
+
   # ===============
   # = Validations =
   # ===============
@@ -147,7 +149,12 @@ class Answer < ApplicationRecord
     else
       # Force updated_at changes if nothing changed since save only saves if changes
       # were made to the record
-      plan.touch
+      notify_plan_subscribers
     end
+  end
+
+  # Call the Plan's notify_subscribers! method directly
+  def notify_plan_subscribers
+    plan.notify_subscribers! if plan.present? && !new_record?
   end
 end

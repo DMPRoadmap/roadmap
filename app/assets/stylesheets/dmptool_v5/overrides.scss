@@ -1,0 +1,600 @@
+@use '../variables/colours' as *;
+
+/*
+---------------------------------------------------------------
+OVERRIDES FOR BOOTSTRAP AND DMPROADMAP STYLING
+  briley Dec. 12 2023
+
+  Includes pulling in some of the old UI code's for the
+  Public Plans page.
+---------------------------------------------------------------
+*/
+html {
+  font-size: var(--dmpui-frontend-font-size-base);
+}
+
+body {
+  font-size: var(--dmpui-frontend-font-size-base);
+  line-height: 1.45;
+}
+
+.hidden {
+  display: none;
+}
+
+.red {
+  color: $color-red;
+}
+.green {
+  color: $color-green;
+}
+
+.underlined {
+  text-decoration: underline;
+}
+
+.btn,
+.c-search-clear,
+.js-facet-clear {
+  @extend .dmpui-frontend-btn;
+}
+.btn-primary {
+  @extend .dmpui-frontend-btn-primary;
+}
+.btn-default,
+.c-search-clear,
+.js-facet-clear {
+  @extend .dmpui-frontend-btn-secondary;
+}
+
+/* Dropdown menus */
+.dmpui-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dmpui-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  list-style: none;
+  background-color: $color-blue;
+  min-width: 240px;
+  box-shadow: 0px 8px 16px 0px $color-blue-dark;
+  padding: 12px 16px;
+  z-index: 100;
+}
+
+.dmpui-dropdown:hover .dmpui-dropdown-content {
+  display: block;
+}
+
+/* Pagination links */
+.c-pagination {
+  margin-top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.2rem;
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+
+  a {
+    display: block;
+    padding-inline: 0.5rem;
+  }
+
+  [aria-current='page'] {
+    border: 1px solid $color-secondary-text;
+    color: $color-black;
+  }
+}
+.c-pagination__overflow {
+  align-self: flex-end;
+}
+
+/* Subheader Org Branding */
+.c-subheader {
+  display: grid;
+  gap: $space-base;
+  margin-bottom: 25px;
+}
+
+@media (min-width: 1000px) {
+  .c-subheader {
+    gap: $space-lg;
+    grid-template-columns: auto 1fr auto;
+    margin-block-start: $space-lg;
+
+    .c-headermenugroup {
+      grid-column: 3;
+    }
+
+    .c-links-org {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+}
+
+.c-logo-org {
+  img {
+    display: block;
+    inline-size: clamp(8rem, 26vw, 12rem);
+    block-size: auto;
+    background-color: $color-white;
+  }
+
+  // If <img> isn't present, then use text label:
+
+  p {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
+img.org-logo {
+  inline-size: clamp(6rem, 26vw, 10rem);
+}
+
+.c-links-org {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.c-links-org__ucop,
+.c-links-org__uc3-helpdesk {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.c-links-org li {
+  max-width: 300px;
+}
+
+/* Notifications */
+.notification-area {
+  margin-bottom: 5px;
+}
+.c-notification--info,
+.c-notification--warning,
+.c-notification--danger {
+  padding: 5px;
+  border-radius: 10px;
+  margin: 2px 0;
+
+  p {
+    margin: 0;
+  }
+}
+
+.c-notification--info {
+  background-color: $color-green;
+  color: $color-grey;
+
+  a {
+    color: $color-grey;
+    text-decoration: underline;
+  }
+}
+.c-notification--warning {
+  background-color: $color-gold;
+  color: $color-black;
+
+  a {
+    color: $color-black;
+    text-decoration: underline;
+  }
+}
+.c-notification--danger {
+  background-color: $color-red;
+  color: $color-grey;
+
+  a {
+    color: $color-grey;
+    text-decoration: underline;
+  }
+}
+
+.alert.alert-info {
+  @extend .c-notification--warning;
+}
+
+/* Layout */
+#maincontent > div.static-page,
+#maincontent > div.row,
+#maincontent > ul.nav-tabs,
+#maincontent > div.tab-content,
+#maincontent > div.c-faceting,
+#notification-area,
+#App > div > div,
+.c-subheader {
+  @extend .dmpui-frontend-container;
+}
+
+#maincontent > div.static-page {
+  max-width: 95%;
+  margin-bottom: 25px;
+}
+
+#maincontent > div.row {
+  margin-bottom: 10px;
+}
+
+#maincontent > div.row > div[class^="col-"] {
+  padding: 0;
+}
+
+form.paginable-action .input-group {
+  margin-top: 8px;
+}
+div.paginable div.row {
+  padding: 0;
+}
+
+/* Tables */
+table {
+  margin-top: 10px;
+}
+th a {
+  color: $color-white;
+}
+
+/* Tabs */
+ul.nav-tabs li {
+  background-color: $color-blue-dark;
+  color: $color-white;
+  border: 1px solid $color-white;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+  a {
+    color: $color-white;
+    font-weight: bold;
+  }
+
+  a:hover {
+    color: $color-blue-dark;
+    font-weight: bold;
+  }
+}
+ui.nav-tabs li:hover {
+  background-color: $color-grey;
+  color: $color-blue-dark;
+}
+ul.nav-tabs li.active {
+  background-color: $color-white;
+  color: $color-blue-dark;
+  border-bottom-color: transparent;
+
+  a {
+    color: $color-blue-dark;
+    font-weight: bold;
+  }
+}
+
+/* Login / Sign Up */
+.c-login {
+  display: flex;
+  flex-direction: column;
+  gap: $space-base;
+  inline-size: clamp(18rem, 35vw, 22rem);
+  padding: $space-base;
+  border: 1px solid $color-blue-dark;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-base;
+  }
+
+  [aria-disabled='true'] { // #1
+    border: 1px solid $color-black;
+    background-color: $color-black;
+    cursor: not-allowed;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .c-serialnav {
+    margin-inline-end: auto;
+  }
+}
+
+.c-login__header {
+  h2 {
+    margin-block-start: 0;
+    margin-block-end: $space-sm;
+    color: $color-blue-dark;
+    font-size: 1.2rem;
+  }
+}
+
+.c-login__required-field {
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: end;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.c-login__invalid-notification {
+  display: flex;
+  align-items: center;
+  color: $color-red;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.c-login__invalid-notification.errors-fixed {
+  color: $color-green;
+}
+
+.c-login__pseudo-description { // #2
+  margin-block-start: -$space-base;
+  font-size: 0.9rem;
+}
+
+.c-login__footer {
+  margin-block-start: auto;
+  margin-inline-start: auto;
+}
+
+/* Write Plan Guidance/Comments sections */
+.nav-pills > li {
+  background-color: $color-primary-background;
+  color: $color-primary-text;
+  border: 1px solid $color-primary-background;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  a {
+    color: $color-primary-text;
+  }
+}
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus,
+.nav-pills > li > a.active,
+.nav-pills > li > a:focus.active,
+.nav-pills > li > a:hover.active {
+  background-color: $color-secondary-background;
+  color: $color-secondary-text;
+  border: 1px solid $color-border-default;
+
+  a {
+    color: $color-secondary-text;
+  }
+}
+.nav-pills > li:last-child > a:hover,
+.nav-pills > li:last-child > a:focus,
+.nav-pills > li:last-child > a.active,
+.nav-pills > li:last-child > a.active:focus,
+.nav-pills > li:last-child > a.active:hover {
+  border-right: 0px;
+}
+.nav-tabs > li > a,
+.nav-pills > li > a {
+  border-radius: 0px;
+}
+
+li.active a[data-toggle="pill"] {
+
+}
+
+/* Accordions */
+div.panel-heading {
+  background-color: $color-blue-dark;
+  color: $color-white;
+
+  a {
+    color: $color-white;
+  }
+}
+
+/* Forms */
+input[disabled="disabled"] {
+  background-color: $color-grey;
+}
+
+.form-horizontal .control-label {
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+fieldset legend {
+  font-size: 1.1em;
+}
+
+.c-checkbox {
+  input[type="checkbox"] {
+    // display: inline-block;
+    inline-size: auto;
+  }
+
+  label {
+    display: inline-block;
+    //align-items: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+}
+
+.c-checkbox__general-description {
+  font-size: 0.9rem;
+}
+
+.c-checkbox.is-required {
+  label::after {
+    content: '*';
+    margin-inline-start: 0.2rem;
+    color: $color-red;
+  }
+}
+
+// 'invalid' state:
+.c-checkbox.is-invalid {
+  --border-width: 5px;
+
+  margin-inline: calc(#{-$space-sm} + var(--border-width) * -1);
+  padding-inline: $space-sm;
+  border-left: var(--border-width) solid $color-red;
+
+  input + label::before {
+    border: 1px solid $color-red;
+  }
+}
+
+.c-checkbox__invalid-description {
+  color: $color-red;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.c-facet__list li {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.c-facet__list input[type="checkbox"] {
+  align-self: flex-start;
+}
+
+@media (max-width: 1000px) {
+  div.c-faceting {
+    flex-flow: row wrap;
+  }
+}
+
+/* Modal Dialogs */
+.modal-dialog {
+  width: 80%;
+}
+
+.modal-body #modal-search-repositories-results,
+.modal-body #modal-search-metadata_standards-results {
+  margin: 0 20px 25px 20px;
+}
+
+.modal-search-result {
+  padding-left: 0;
+}
+
+.modal-search-result .modal-search-result-selector,
+.modal-search-result .modal-search-result-unselector {
+  padding: 5px 25px;
+}
+
+.modal-search-result .modal-search-result-unselector {
+  background-color: $color-red;
+  color: $color-grey;
+}
+
+.modal-search-result .tags .facet {
+  background-color: $color-blue;
+  color: $color-blue-dark;
+  padding: 5px 10px;
+}
+
+/* Mobile Menu */
+#mobile-navigation {
+  overflow-y: scroll;
+}
+
+ul.mobile-menu-submenu {
+  margin-left: 15px;
+  margin-bottom: 5px;
+}
+
+
+/* Annoying one-off styles */
+.edit_plan button[type="submit"] {
+  margin-top: 10px;
+}
+
+div.user_request_reset_password_form {
+  padding-top: 25px;
+
+  #user_email {
+    inline-size: 30%;
+  }
+
+  .btn {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+}
+
+#sign-in-bypass-sso {
+  float: right;
+}
+
+div.usage-button {
+  text-align: center;
+}
+
+#users_joined_chart,
+#plans_created_chart {
+  margin-top: 10px;
+}
+
+#preferences_registration_form div.preferences .btn-default,
+#super-admin-switch-org .btn-default,
+.modal-body .btn-default,
+.modal-body .btn-primary {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn.btn-default[data-toggle="tooltip"] {
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.dmpui-frontend-header ul li a.dmpui-frontend-btn-primary {
+  color: $color-white;
+}
+
+.progress-bar {
+  border: 1px solid $color-blue-dark;
+  background-color: $color-grey;
+  color: $color-black;
+
+  div {
+    background-color: $color-blue;
+  }
+}
+
+button.dropdown-toggle {
+  @extend .btn-default;
+  font-size: .8em;
+}
+
+#maincontent > div.static-page p.join-us-reasons {
+  margin-bottom: 10px;
+}
+
+#editorial-board div.row {
+  margin-bottom: 25px;
+}
+#editorial-board div.row div.board-bio {
+  padding-left: 35px;
+}

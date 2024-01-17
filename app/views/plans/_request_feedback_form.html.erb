@@ -5,7 +5,7 @@
     <% if plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
       <h2><%= _('Request expert feedback') %></h2>
       <p>
-       <%= 
+       <%=
        _("Click below to give data management staff at %{owner_org}, the Plan Owner's org, access to read and comment on your plan.") % {
          owner_org: plan.owner.org.name,
        }
@@ -24,7 +24,7 @@
         <%= link_to _('Request feedback'),
                      feedback_requests_path(plan_id: @plan.id),
                      data: { method: 'post' },
-                     class: "btn btn-default#{' disabled' if @plan.feedback_requested?}" %>
+                     class: "btn btn-primary#{' disabled' if @plan.feedback_requested?}" %>
         <span><%= _("Feedback has been requested.") if @plan.feedback_requested? %></span>
       </div>
     <% end %>

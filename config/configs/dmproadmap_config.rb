@@ -36,6 +36,7 @@ class DmproadmapConfig < Anyway::Config
               :devise_secret,
               :devise_pepper,
               :dmphub_active,
+              :dmphub_auth_url,
               :dmphub_url,
               :dmphub_client_id,
               :dmphub_client_secret,

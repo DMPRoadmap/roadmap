@@ -1,0 +1,62 @@
+<header class="c-header">
+  <a class="c-logo-dmptool" href="<%= root_path %>">
+    <picture>
+      <source srcset="/dmptool-ui/dmp-logo.svg"
+              media="(min-width: 50rem)" width="272" height="73">
+      <img src="/dmptool-ui/dmp-logo.svg"
+          alt="DMP Tool logo" width="208" height="37">
+    </picture>
+  </a>
+
+  <div class="c-headermenugroup">
+    <% if user_signed_in? %>
+      <!-- This menu uses accessibility techniques from: https://www.w3.org/TR/wai-aria-practices-1.1/examples/menu-button/menu-button-links.html -->
+
+      <div id="js-user-profile" class="c-profile c-headermenu">
+        <button id="js-user-profile__button" class="c-headermenu__button"
+                aria-label="<%= current_user.name(false) %> profile" aria-haspopup="true">
+          <%= current_user.name(false) %>
+        </button>
+        <ul id="js-user-profile__menu" class="c-headermenu__menu" hidden>
+          <li><%= link_to _('Edit profile'), edit_user_registration_path, role: 'menuitem' %></li>
+          <li><%= link_to _('3rd party applications'), users_third_party_apps_path, role: 'menuitem' %></li>
+          <li><%= link_to _('Developer tools'), users_developer_tools_path, role: 'menuitem' %></li>
+          <li><%= link_to _('Sign out'), destroy_user_session_path, method: :delete, role: 'menuitem' %></li>
+        </ul>
+      </div>
+    <% elsif page_body_template != "t-home" %>
+      <a class="c-signin" href="<%= root_path %>"><%= _('Sign in') %></a>
+    <% end %>
+
+    <div id="js-language" class="c-language c-headermenu">
+      <button id="js-language__button" class="c-headermenu__button" aria-haspopup="true">
+        <%= _('Language') %>
+      </button>
+      <ul id="js-language__menu" class="c-headermenu__menu" foo="bar" hidden>
+        <% languages.each do |lang| %>
+          <li lang="<%= lang.abbreviation %>">
+            <%= link_to lang.name, locale_path(lang.abbreviation), method: :patch, role: 'menuitem' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <button id="js-navtoggle" class="c-navtoggle" aria-label="<%= _('main navigation') %>"></button>
+
+  <nav aria-label="<%= _('main') %>" id="js-headernav" class="c-headernav">
+    <ul>
+      <% if user_signed_in? %>
+        <li><%= link_to _("My Dashboard"), plans_path %></li>
+        <li><%= link_to _("Create Plan"), new_plan_path %></li>
+      <% end %>
+      <li><%= link_to _("Funder Requirements"), public_templates_path %></li>
+      <li><%= link_to _("Public Plans"), public_plans_path %></li>
+      <li><%= link_to _("Help"), help_path %></li>
+    </ul>
+  </nav>
+
+  <% if user_signed_in? && current_user.org.present? && (current_user.org.managed? || current_user.can_super_admin?) %>
+    <%= render partial: "layouts/sub_header", locals: { org: current_user.org } %>
+  <% end %>
+</header>
