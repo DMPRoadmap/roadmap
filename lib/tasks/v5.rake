@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'base64'
+
 # Upgrade tasks for 5.x versions. See https://github.com/DMPRoadmap/roadmap/releases for information
 # on how and when to run each task.
 
@@ -57,8 +59,7 @@ namespace :v5 do
   desc 'Add Orgs to the v5 pilot project'
   task enable_v5_pilot: :environment do
     names = [
-      'University of California, Office of the President (UCOP)',
-      'Cazinc Digital'
+      'University of California, Office of the President (UCOP)'
     ]
 
     Org.where(name: names).each do |org|
@@ -77,17 +78,18 @@ namespace :v5 do
 
       # Modify this query if you want to test a subset of DMP IDs first
       identifiers = Identifier.includes(:identifiable)
-                              .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
+                              .where(identifiable_type: 'Plan')
                               .where('identifiers.value LIKE ?', 'https://doi.org/%')
+                              # .where('created_at <= \'2021-01-01T00:00:00+00:00\'')
                               .distinct
-                              # .limit(200)
+                              # .limit(3)
                               .order(created_at: :desc)
 
       identifiers.each do |identifier|
         next unless identifier.value.present? && identifier.identifiable.present?
 
         # Refetch the Plan and all of it's child objects
-        plan = Plan.find_by(id: identifier.identifiable.id).where(dmp_id: nil)
+        plan = Plan.where(id: identifier.identifiable_id, dmp_id: nil).first
         plan.dmp_id = identifier.value
         if plan.save
           identifier.destroy
@@ -162,14 +164,15 @@ namespace :v5 do
       Plan.includes(:org, :research_outputs, :related_identifiers, :subscriptions, roles: [:user],
                     contributors: [:org, { identifiers: [:identifier_scheme] }])
           .where.not(dmp_id: nil)
-          # .limit(600)
+          # .where(id: [29826, 27605, 27190, 21034, 13478, 2782])
+          # .limit(3)
           .order(created_at: :desc)
           .each do |plan|
-        next unless plan.dmp_id.present? && plan.complete? && !plan.is_test?
+        next unless plan.dmp_id.present? && !plan.is_test?
 
-        recent_subscriptions = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
-                                           .where('last_notified > ?', (Time.now - 1.day).strftime('%Y-%m-%d %H:%M:%S'))
-        next if recent_subscriptions.any?
+        # recent_subscriptions = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
+        #                                    .where('last_notified > ?', (Time.now - 1.day).strftime('%Y-%m-%d %H:%M:%S'))
+        # next if recent_subscriptions.any?
         next unless DmpIdService.fetch_dmp_id(dmp_id: plan.dmp_id).nil?
 
         # Pause after every 10 so that we do not get rate limited
@@ -207,6 +210,65 @@ namespace :v5 do
       end
     else
       p 'No DMP ID minting authority defined so nothing to sync.'
+    end
+  end
+
+  # Update all of the EZID targets to point to the new DMPHub
+  desc 'Update EZID targets to point to the new DMPHub'
+  task update_ezid_targets: :environment do
+    pauser = 0
+    ezid_api = ENV['EZID_API_URL']
+    target_url = ENV['DMPROADMAP_DMPHUB_LANDING_PAGE_URL']
+    creds = Base64.encode64("#{ENV['EZID_USERNAME']}:#{ENV['EZID_PASSWORD']}").chomp
+
+    puts 'Missing EZID_API_URL' if ezid_api.nil?
+    puts 'Missing DMPROADMAP_DMPHUB_LANDING_PAGE_URL' if target_url.nil?
+    puts 'Missing EZID_USERNAME and/or EZID_PASSWORD' if creds.nil?
+    return 1 if creds.nil? || ezid_api.nil? || target_url.nil?
+
+    opts = {
+      headers: {
+        Accept: 'text/plain',
+        Authorization: "Basic #{creds}",
+        'Content-Type': 'text/plain',
+        'User-Agent': "#{ENV['EZID_AGENT_NAME']} (#{ENV['EZID_AGENT_EMAIL']})"
+      },
+      follow_redirects: true
+      # debug_output: $stdout
+    }
+
+    Plan.includes(:org, :research_outputs, :related_identifiers, :subscriptions, roles: [:user],
+                  contributors: [:org, { identifiers: [:identifier_scheme] }])
+        .where.not(dmp_id: nil)
+        # .where('created_at BETWEEN \'2022-01-01T00:00:00+00:00\' AND \'2023-01-01T00:00:00+00:00\'')
+        # .where(id: [29826, 27605, 27190, 21034, 13478, 2782])
+        # .limit(3)
+        .order(created_at: :desc)
+        .each do |plan|
+
+      existing = DmpIdService.fetch_dmp_id(dmp_id: plan.dmp_id)
+      p "Skipping Plan #{plan.id} because it is a test!" unless plan.complete? && !plan.is_test?
+      next if plan.is_test?
+      p "Skipping Plan #{plan.id} because DMPHub does not have a record for this DMP!" if existing.nil?
+      next if existing.nil?
+
+      # Pause after every 10 so that we do not get rate limited
+      sleep(3) if pauser >= 20
+      pauser = pauser >= 20 ? 0 : pauser + 1
+
+      identifier = plan.dmp_id.gsub(%r{https?://doi.org/}, '')
+      puts "Could not determine DMPID for Plan #{plan.id}!" if identifier.nil?
+      next if identifier.nil? || !opts[:body].nil?
+
+      opts[:body] = "_target: #{target_url}#{identifier}"
+      puts "Updating EZID target for Plan #{plan.id} - #{identifier}"
+      resp = HTTParty.post("#{ezid_api}/id/doi:#{identifier}", opts)
+      if resp.present? && [200, 201].include?(resp.code)
+        puts "        Succes!"
+      else
+        puts "        FAILURE! #{resp.code} - #{resp.body}"
+      end
+      opts[:body] = nil
     end
   end
 end
