@@ -2,6 +2,20 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 15/01/2024
+- Correction du problème engendrant la création de plusieurs contributeurs lors de l'ajout d'une personne dans un formulaire contenant plusieurs listes de contributeurs différentes (plans entité)
+- Correction d'un problème faisant disparaître la liste des contributeurs après la mise à jour d'un contributeur.
+
+## 11/01/2024
+- Correction d'un problème d'export des plans entités au format JSON
+- Correction du problème d'affichage des listes d'organismes dans la création de plan, causé par l'absence de financeur.
+
+## 10/01/2024
+- Correction du comportement des boutons dans les formulaires
+- Correction du problème d'export des plans pour les entités de recherche
+- Retrait du format d'export JSON RDA pour les plans pour les entités de recherche
+- Création de plan : la liste des financeurs prend désormais en compte le contexte
+
 ## 17/11/2023
 - Correction de l'affichage du choix des recommandations (Carte KB #9917)
 - La recherche d'organisme n'est plus sensible aux accents (Carte KB #9844)
