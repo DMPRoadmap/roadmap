@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Ajout d'un sous formulaire pour les propriétés de type objet non liées à un référentiel (ex Meso@LRServiceRequest) (#10160)
+- Les modales ne se ferment désormais plus lorsque l'on clique en dehors. (#10169)
+- Ajout d'un bouton Supprimer dans le tableau Valeur Selectionnée des référentiels complexes à choix uniques (Licences/Financeurs)
+
 ## 15/01/2024
 
 - Correction de l'affichage du modèle sélectionné quand il est dans une liste

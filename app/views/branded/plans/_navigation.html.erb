@@ -28,7 +28,7 @@
     </li>
   <% end %>
   <% phases.each do |phase| %>
-    <% plan_phase_url = plan.template.structured? ? structured_edit_plan_path(plan.id, phase_id: phase.id) : edit_plan_path(plan.id, phase_id: phase.id) %>
+    <% plan_phase_url = plan.template.structured? ? structured_edit_plan_path(plan.id, phase_id: phase.id, research_output: plan.research_outputs.first.id) : edit_plan_path(plan.id, phase_id: phase.id) %>
     <li role="presentation" class="phase-tab <%= (active_page?(plan_phase_url) ? 'active' : '') %>">
       <a href="<%= plan_phase_url %>" role="tab" aria-controls="content">
         <%= inline_svg_tag "plan_navigation/write_plan.svg", class: 'icon' %>
