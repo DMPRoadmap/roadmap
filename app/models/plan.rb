@@ -736,7 +736,7 @@ class Plan < ApplicationRecord
   # Make sure the start date is within this millenia
   def start_date_valid
     resonable_date = Time.new('2000-01-01T00:00:00+00:00')
-    return true if start_date > resonable_date
+    return true if start_date.nil? || start_date.blank? || start_date > resonable_date
 
     errors.add(:start_date, _('must be greater than January 1, 2000'))
     false
