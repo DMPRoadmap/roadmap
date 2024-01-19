@@ -94,7 +94,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:15.4-alpine3.18
+    image: postgres:15.5-alpine3.19
     profiles: ["prod", "dev"]
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
@@ -115,7 +115,7 @@ services:
       - dmpopidor_network
 
   redis:
-    image: redis:7.2.3-alpine3.18
+    image: redis:7.2.4-alpine3.19
     # command: "redis-server /etc/redis/redis.conf"
     profiles: ["prod", "dev"]
     ports:
