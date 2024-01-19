@@ -1,6 +1,5 @@
 import { define } from 'remount';
-import HomepageNews from './dmp_opidor_react/src/components/news/HomepageNews.jsx';
-import NewsPage from './dmp_opidor_react/src/components/news/NewsPage.jsx';
+import NewsPageLayout from './dmp_opidor_react/src/components/news/NewsPageLayout.jsx';
 
 import Comment from './dmp_opidor_react/src/components/Shared/Comment.jsx';
 import ContributorsTabLayout from './dmp_opidor_react/src/components/ContributorsTab/ContributorsTabLayout.jsx';
@@ -9,8 +8,7 @@ import PlanCreationLayout from './dmp_opidor_react/src/components/PlanCreation/P
 import WritePlanLayout from './dmp_opidor_react/src/components/WritePlan/WritePlanLayout.jsx';
 
 define({
-  'dmp-homepage-news-page': HomepageNews,
-  'dmp-news-page': NewsPage,
+  'dmp-news-page': NewsPageLayout,
   'dmp-general-info': GeneralInfoLayout,
   'dmp-plan-creation': PlanCreationLayout,
   'dmp-write-plan': WritePlanLayout,
