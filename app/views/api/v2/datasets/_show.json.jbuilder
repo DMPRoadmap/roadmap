@@ -39,7 +39,7 @@ if output.is_a?(ResearchOutput)
 
       # Remove non breaking spaces, empty paragraphs and new lines
       json.description repository.description&.gsub(/\u00a0/, '')&.gsub(%r{<p>([\s]+)?</p>}, '')&.gsub(%r{[\r\n]+}, ' ')
-      json.url repository.homepage
+      json.url repository.homepage.nil? ? repository.uri : repository.homepage
 
       # DMPTool extensions to the RDA common metadata standard
       json.dmproadmap_host_id do

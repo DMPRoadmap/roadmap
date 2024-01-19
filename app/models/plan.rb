@@ -175,6 +175,7 @@ class Plan < ApplicationRecord
 
   validates :complete, inclusion: { in: BOOLEAN_VALUES }
 
+  validate :start_date_valid
   validate :end_date_after_start_date
 
   # =============
@@ -729,6 +730,15 @@ class Plan < ApplicationRecord
     return true if end_date.blank? || start_date.blank? || end_date > start_date
 
     errors.add(:end_date, _('must be after the start date')) if end_date < start_date
+    false
+  end
+
+  # Make sure the start date is within this millenia
+  def start_date_valid
+    resonable_date = Time.new('2000-01-01T00:00:00+00:00')
+    return true if start_date > resonable_date
+
+    errors.add(:start_date, _('must be greater than January 1, 2000'))
     false
   end
 end
