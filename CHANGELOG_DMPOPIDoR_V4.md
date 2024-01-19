@@ -9,13 +9,10 @@
 - Les modales ne se ferment désormais plus lorsque l'on clique en dehors. (#10169)
 - Ajout d'un bouton Supprimer dans le tableau Valeur Selectionnée des référentiels complexes à choix uniques (Licences/Financeurs)
 - Ajustements CSS : recommandations, icone des commentaires
-
-## 19/01/2023
-
-Refonte de la création de plan:
-- Modification des étiquettes des modèles (étape 3)
-- Supprimer l'utilisation du contexte (à l'aide de props)
-- Affichage des choix sous les étiquettes d'étapes
+- Refonte de la création de plan:
+  - Modification des étiquettes des modèles (étape 3)
+  - Supprimer l'utilisation du contexte (à l'aide de props)
+  - Affichage des choix sous les étiquettes d'étapes
 
 ## 15/01/2024
 
