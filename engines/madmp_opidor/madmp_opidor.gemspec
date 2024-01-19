@@ -32,11 +32,11 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'rails', '~> 7.1'
 
-  spec.add_dependency 'pundit', '~> 2.2.0'
+  spec.add_dependency 'pundit'
 
   spec.add_dependency 'jsonpath', '~> 1.1.0'
 
   # Activerecord-Import is a library for bulk inserting data using ActiveRecord.
   # (https://github.com/zdennis/activerecord-import)
-  spec.add_dependency 'activerecord-import', '~> 1.5.0'
+  spec.add_dependency 'activerecord-import'
 end
