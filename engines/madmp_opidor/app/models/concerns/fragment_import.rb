@@ -213,9 +213,12 @@ module FragmentImport
           sub_fragment.classname = sub_schema.classname
           sub_fragment.save!
           created_frag = sub_fragment.import_with_instructions(sub_fragment_data, sub_schema)
-        elsif sub_fragment_id.present? || sub_data['action'].eql?('update')
+        elsif sub_fragment_id.present? && sub_data['action'].eql?('update')
           sub_fragment = MadmpFragment.find(sub_fragment_id)
           sub_fragment.import_with_instructions(sub_fragment_data, sub_schema)
+        elsif sub_fragment_id.present? && sub_data['action'].eql?('delete')
+          sub_fragment = MadmpFragment.find(sub_fragment_id)
+          sub_fragment.destroy!
         end
         # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
         # and update_references function is not triggered
