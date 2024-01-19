@@ -9,6 +9,7 @@
 - Les modales ne se ferment désormais plus lorsque l'on clique en dehors. (#10169)
 - Ajout d'un bouton Supprimer dans le tableau Valeur Selectionnée des référentiels complexes à choix uniques (Licences/Financeurs)
 - Ajustements CSS : recommandations, icone des commentaires
+- Correction du problème de sauvegarde des contributeurs (#9556)
 - Refonte de la création de plan:
   - Modification des étiquettes des modèles (étape 3)
   - Supprimer l'utilisation du contexte (à l'aide de props)
