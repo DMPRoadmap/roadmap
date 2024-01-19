@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   rubocop:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v3
@@ -15,9 +15,9 @@ jobs:
 
     # Install Ruby and run bundler
     - name: 'Install Ruby'
-      uses: ruby/setup-ruby@v1.167.0
+      uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ env.RUBY_VERSION }}
+        ruby-version: '3.2'
         bundler-cache: true
 
     # Run the Rubocop linter checks
