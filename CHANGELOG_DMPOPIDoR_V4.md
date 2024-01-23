@@ -3,6 +3,13 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
 
+## 23/01/2024
+
+- Amélioration de l'affichage des news
+- Amélioration de l'affichage du formulaire de création de compte (#10158)
+- Nouvelle image de bannière
+- Correction d'un problème d'affichage des sous fragments provoquant le plantage lors de leur ouverture
+
 ## 19/01/2024
 
 - Ajout d'un sous formulaire pour les propriétés de type objet non liées à un référentiel (ex Meso@LRServiceRequest) (#10160)
