@@ -33,7 +33,6 @@
     <% end %>
   </div>
   <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
-  <input type="button" class="btn btn-default" onclick="location.href='<%= login_path %>#content'" value="<%= _('Create account?') %>" />
- 
+  <input type="button" class="btn btn-default" onclick="location.href='<%= login_path %>?place=signup#content'" value="<%= _('Create account?') %>" />
 
 <% end %>
