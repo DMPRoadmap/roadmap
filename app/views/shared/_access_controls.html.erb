@@ -1,36 +1,22 @@
 <div class="sign-in">
-<!--
-  # <ul class="nav nav-tabs" role="tablist">
-  #   <li role="presentation" class="active">
-  #     <a href="#sign-in-form" onclick="document.location='#log-in';return false;" role="tab" aria-controls="sign-in-form" data-toggle="tab">
-  #       <%= _('Sign in') %>
-  #     </a>
-  #   </li>
-  #   <% unless active_page?(new_user_registration_path, true) %>
-  #     <li role="presentation">
-  #       <a href="#create-account-form" onclick="document.location='#register';return false;" role="tab" aria-controls="create-account-form" data-toggle="tab">
-  #         <%= _('Create account') %>
-  #       </a>
-  #     </li>
-  #   <% end %>
-  # </ul>
--->
   <div class="tab-content">
-    <div id="sign-in-form" role="tabpanel" class=" active">
-      <div class="panel panel-default">
-        <div class="panel-body">
-        <h1><%= _('Sign in') %></h1>
-          <%= render :partial => 'shared/sign_in_form' %>
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-default" id="create-account-over"><%= _('Create account?') %></button>
-    <% unless active_page?(new_user_registration_path, true) %>
-      <div id="create-account-form" role="tabpanel">
+    <% if request.query_parameters[:place] == "signin" %>
+      <div id="sign-in-form" role="tabpanel" class="active">
         <div class="panel panel-default">
           <div class="panel-body">
-          <h1><%= _('Create account') %></h1>
-            <%= render :partial => 'shared/create_account_form', locals: {orgs: orgs, org_partial: org_partial} %>
+            <h1><%= _('Sign in') %></h1>
+            <%= render partial: 'shared/sign_in_form' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if request.query_parameters[:place] == "signup" %>
+      <div id="sign-in-form" role="tabpanel" class="active">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h1><%= _('Create account') %></h1>
+            <%= render partial: 'shared/create_account_form', locals: { orgs: orgs, org_partial: org_partial } %>
           </div>
         </div>
       </div>
