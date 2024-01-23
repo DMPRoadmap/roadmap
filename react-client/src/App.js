@@ -63,14 +63,32 @@ const router = createBrowserRouter([
   },
 ]);
 
+/* Last resort hack to detect Safari and warn user to use a different browser since Safari
+ * is throwing the following error. Sometimes a page refresh fixes the issue but it occurs on
+ * every page and really hurts usability.
+ *
+ */
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 function App() {
-  return (
-    <div id="App">
+  // If it is Safari, warn the user away
+  if (isSafari) {
+    return (
       <div>
-        <RouterProvider router={router} />
+        <h1>Incompatible Browser</h1>
+        <p>The Safari browser is not currently supported. Please use Chrome, Firefox or Edge. We apologize for the inconvenience.</p>
       </div>
-    </div>
-  );
+    );
+  } else {
+    // Otherwise the React app should work without issue
+    return (
+      <div id="App">
+        <div>
+          <RouterProvider router={router} />
+        </div>
+      </div>
+    );
+  }
 }
 
 
