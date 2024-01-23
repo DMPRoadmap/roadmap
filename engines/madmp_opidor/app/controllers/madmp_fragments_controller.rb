@@ -8,15 +8,16 @@ class MadmpFragmentsController < ApplicationController
 
   def create
     body = JSON.parse(request.body.string)
-    plan = ::Plan.includes(:template).find(body["plan_id"])
-    research_output = ::ResearchOutput.find(body["research_output_id"])
+    dmp = Fragment::Dmp.find(body["dmp_id"])
+    plan = dmp.plan
+    research_output = body["research_output_id"] ? ::ResearchOutput.find(body["research_output_id"]) : nil
     madmp_schema = MadmpSchema.find(body["schema_id"])
     defaults = madmp_schema.defaults(plan.template.locale)
     classname = madmp_schema.classname
     @fragment = MadmpFragment.new(
       data: body["data"],
-      parent_id: research_output.json_fragment.id,
-      dmp_id: plan.json_fragment.id,
+      parent_id: research_output.present? ? research_output.json_fragment.id : nil,
+      dmp_id: dmp.id,
       madmp_schema: madmp_schema,
       additional_info: {
         'property_name' => madmp_schema.property_name_from_classname

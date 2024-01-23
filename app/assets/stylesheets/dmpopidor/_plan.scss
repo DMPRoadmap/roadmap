@@ -33,7 +33,7 @@
       font-size: large;
 
       border-radius: 20px;
-      box-shadow: 5px 5px 5px $light-grey;
+      // box-shadow: 5px 5px 5px $light-grey;
 
       &>.active-text {
         transition: opacity 0.5s ease-out;
@@ -78,7 +78,7 @@
   &>li>a:hover {
     color: white;
     background-color: $dark-blue;
-    border-color: $dark-blue;
+    border-color: white;
     box-shadow: none;
   }
 
