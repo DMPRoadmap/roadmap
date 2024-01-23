@@ -71,6 +71,7 @@ namespace :v5 do
   desc 'Move existing identifiers.value to plans.dmp_id'
   task move_dmp_ids: :environment do
     scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
+    ids_rpt = []
     if scheme.present?
       pauser = 0
 
@@ -80,7 +81,8 @@ namespace :v5 do
       identifiers = Identifier.includes(:identifiable)
                               .where(identifiable_type: 'Plan')
                               .where('identifiers.value LIKE ?', 'https://doi.org/%')
-                              # .where('created_at <= \'2021-01-01T00:00:00+00:00\'')
+                              .where('created_at BETWEEN \'2023-12-01T00:00:00+00:00\' AND \'2024-01-01T00:00:00+00:00\'')
+                              # .where('created_at >= \'2023-12-01-01T00:00:00+00:00')
                               .distinct
                               # .limit(3)
                               .order(created_at: :desc)
@@ -90,14 +92,20 @@ namespace :v5 do
 
         # Refetch the Plan and all of it's child objects
         plan = Plan.where(id: identifier.identifiable_id, dmp_id: nil).first
+        next if plan.nil?
+
         plan.dmp_id = identifier.value
-        if plan.save
+        if plan.save(touch: false)
+          ids_rpt << plan.id
           identifier.destroy
           puts "  moved #{plan.dmp_id} for Plan #{plan.id}"
         else
           puts "  FAIL #{plan.errors.full_messages}"
         end
       end
+
+      puts "Plans processed:"
+      p ids_rpt
     end
   end
 
@@ -164,15 +172,15 @@ namespace :v5 do
       Plan.includes(:org, :research_outputs, :related_identifiers, :subscriptions, roles: [:user],
                     contributors: [:org, { identifiers: [:identifier_scheme] }])
           .where.not(dmp_id: nil)
-          # .where(id: [29826, 27605, 27190, 21034, 13478, 2782])
+          .where(id: [112389, 112140])
           # .limit(3)
           .order(created_at: :desc)
           .each do |plan|
-        next unless plan.dmp_id.present? && !plan.is_test?
+        next unless plan.dmp_id.present? #&& !plan.is_test?
 
-        # recent_subscriptions = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
-        #                                    .where('last_notified > ?', (Time.now - 1.day).strftime('%Y-%m-%d %H:%M:%S'))
-        # next if recent_subscriptions.any?
+        recent_subscriptions = Subscription.where(plan: plan, subscriber_id: client_id, subscriber_type: 'ApiClient')
+                                           .where('last_notified > ?', (Time.now - 1.day).strftime('%Y-%m-%d %H:%M:%S'))
+        next if recent_subscriptions.any?
         next unless DmpIdService.fetch_dmp_id(dmp_id: plan.dmp_id).nil?
 
         # Pause after every 10 so that we do not get rate limited
@@ -205,7 +213,7 @@ namespace :v5 do
             puts "    *** FAILED to register DMP ID."
           end
         else
-          puts "SKIPPING Plan: #{plan.id} because it is not 'Complete'."
+          puts "SKIPPING Plan: #{plan.id} because it is no active 'Owner'."
         end
       end
     else
@@ -217,6 +225,7 @@ namespace :v5 do
   desc 'Update EZID targets to point to the new DMPHub'
   task update_ezid_targets: :environment do
     pauser = 0
+    client_id = ApiClient.find_by(name: 'dmphub').id
     ezid_api = ENV['EZID_API_URL']
     target_url = ENV['DMPROADMAP_DMPHUB_LANDING_PAGE_URL']
     creds = Base64.encode64("#{ENV['EZID_USERNAME']}:#{ENV['EZID_PASSWORD']}").chomp
@@ -240,15 +249,20 @@ namespace :v5 do
     Plan.includes(:org, :research_outputs, :related_identifiers, :subscriptions, roles: [:user],
                   contributors: [:org, { identifiers: [:identifier_scheme] }])
         .where.not(dmp_id: nil)
-        # .where('created_at BETWEEN \'2022-01-01T00:00:00+00:00\' AND \'2023-01-01T00:00:00+00:00\'')
-        # .where(id: [29826, 27605, 27190, 21034, 13478, 2782])
+        # .where(id: [52416, 66461, 75424, 80861, 82200, 87375, 59866])
         # .limit(3)
         .order(created_at: :desc)
         .each do |plan|
 
+      doi_check = HTTParty.get(plan.dmp_id, { follow_redirects: false })
+
+      p "No DMP ID found in EZID for #{plan.dmp_id}! Got #{doi_check.code}" unless [301, 302].include?(doi_check.code)
+      next unless [301, 302].include?(doi_check.code)
+      next if doi_check.body.include?('dmphub.uc3')
+
       existing = DmpIdService.fetch_dmp_id(dmp_id: plan.dmp_id)
-      p "Skipping Plan #{plan.id} because it is a test!" unless plan.complete? && !plan.is_test?
-      next if plan.is_test?
+      # p "Skipping Plan #{plan.id} because it is a test!" unless plan.complete? && !plan.is_test?
+      # next if plan.is_test?
       p "Skipping Plan #{plan.id} because DMPHub does not have a record for this DMP!" if existing.nil?
       next if existing.nil?
 
