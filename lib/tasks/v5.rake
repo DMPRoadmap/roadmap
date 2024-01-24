@@ -137,13 +137,15 @@ namespace :v5 do
       next if plan.publisher_job_status == 'enqueued'
 
       if plan.narrative.attached?
-        puts "Plan has a narrative defined. Checking S3 to make sure it exists."
-        client = Aws::S3::Client.new(region: ENV.fetch('AWS_REGION', 'us-west-2'))
-        bucket = "uc3-s3dmp-#{Rails.env.production? ? 'prd' : 'stg'}"
-        resp = client.get_object({ bucket: bucket, key: "narratives/#{plan.id}.pdf" })
-        next if resp.successful?
-      rescue Aws::S3::Errors::NoSuchKey
-        puts '    no copy in s3!'
+        begin
+          puts "Plan #{plan.id} has a narrative defined. Checking S3 to make sure it exists."
+          client = Aws::S3::Client.new(region: ENV.fetch('AWS_REGION', 'us-west-2'))
+          bucket = "uc3-s3dmp-#{Rails.env.production? ? 'prd' : 'stg'}"
+          resp = client.get_object({ bucket: bucket, key: "narratives/#{plan.id}.pdf" })
+          next if resp.successful?
+        rescue Aws::S3::Errors::NoSuchKey
+          puts '    no copy in s3!'
+        end
       end
 
       sleep 5 if pauser >= 10
