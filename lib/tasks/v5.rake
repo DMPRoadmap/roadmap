@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'base64'
+require 'aws-sdk-s3'
 
 # Upgrade tasks for 5.x versions. See https://github.com/DMPRoadmap/roadmap/releases for information
 # on how and when to run each task.
@@ -122,8 +123,10 @@ namespace :v5 do
   # As public plans are updated, the PDF will be regenerated and replace the existing one in ActiveStorage
   desc 'Create PDF narrative documents for all public plans so that they are downloadable from public plans page'
   task build_narratives: :environment do
-    pauser = 0
+    puts 'This task MUST be run on a server because it needs access to S3!' if Rails.env.development?
+    return 1 if Rails.env.development?
 
+    pauser = 0
     Plan.includes(:org, :funder, :grant, :answers,
                   roles: [user: [:org]],
                   template: [phases: [sections: [:questions]]],
@@ -131,7 +134,17 @@ namespace :v5 do
                   research_outputs: [:identifiers, :metadata_standards, :repositories, :license])
         .where(visibility: Plan.visibilities[:publicly_visible])
         .each do |plan|
-      next if plan.publisher_job_status == 'enqueued' || plan.narrative.attached?
+      next if plan.publisher_job_status == 'enqueued'
+
+      if plan.narrative.attached?
+        puts "Plan has a narrative defined. Checking S3 to make sure it exists."
+        client = Aws::S3::Client.new(region: ENV.fetch('AWS_REGION', 'us-west-2'))
+        bucket = "uc3-s3dmp-#{Rails.env.production? ? 'prd' : 'stg'}"
+        resp = client.get_object({ bucket: bucket, key: "narratives/#{plan.id}.pdf" })
+        next if resp.successful?
+      rescue Aws::S3::Errors::NoSuchKey
+        puts '    no copy in s3!'
+      end
 
       sleep 5 if pauser >= 10
       p "Publishing PDF narrative to ActiveStorage for Plan #{plan.id} \"#{plan.title}\"."
@@ -285,5 +298,7 @@ namespace :v5 do
       opts[:body] = nil
     end
   end
+
+
 end
 # rubocop:enable Naming/VariableNumber
