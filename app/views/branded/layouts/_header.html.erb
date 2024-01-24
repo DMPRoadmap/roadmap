@@ -68,7 +68,9 @@
             </div>
           </div>
         </li>
+      <% end %>
 
+      <% if user_signed_in? %>
         <li>
           <div class="dmpui-dropdown">
             <span class="fas fa-user" aria-label="<%= current_user.name(false) %>"></span>
@@ -136,7 +138,7 @@
         </div>
       </li>
 
-      <% if user_signed_in? %>
+      <% if user_signed_in? && current_user.can_org_admin? %>
         <li>
           <div class="dmpui-dropdown">
             <span><a href="#"><%= _('Admin') %></a></span>
@@ -176,6 +178,9 @@
           </div>
         </li>
 
+      <% end %>
+
+      <% if user_signed_in? %>
         <li>
           <div class="dmpui-dropdown">
             <span><%= current_user.name(false) %></span>
