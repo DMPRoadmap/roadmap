@@ -3,16 +3,19 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
 
+## 24/01/2024
+
+- L'ajout/mise à jour d'une personne met désormais à jour les listes de contributeurs et les listes de sélection
+- Ajout d'un message de confirmation lors de l'ajout/mise à jour des infos d'un produit de recherche
+- Ajout du support des valeurs par défaut lors de l'ouverture de sous formulaires ou de modales (ex: Coûts, demandes de ressources...)
+- Mise à jour de couleurs et bordures pour correspondre à la nouvelle bannière.
+
 ## 23/01/2024
 
 - Amélioration de l'affichage des news
 - Amélioration de l'affichage du formulaire de création de compte (#10158)
 - Nouvelle image de bannière
 - Correction d'un problème d'affichage des sous fragments provoquant le plantage lors de leur ouverture
-- L'ajout/mise à jour d'une personne met désormais à jour les listes de contributeurs et les listes de sélection
-- Ajout d'un message de confirmation lors de l'ajout/mise à jour des infos d'un produit de recherche
-- Ajout du support des valeurs par défaut lors de l'ouverture de sous formulaires ou de modales (ex: Coûts, demandes de ressources...)
-- Mise à jour de couleurs et bordures pour correspondre à la nouvelle bannière.
 
 ## 19/01/2024
 
