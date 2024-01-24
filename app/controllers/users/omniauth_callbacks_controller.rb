@@ -115,15 +115,17 @@ module Users
         # them an opportunity to sign in with a password (scenarios where the user had
         # an account before their Org was setup for SSO) or correct any of the info we
         # got from OmniAuth (e.g. First name, Last name)
-        redirect_to_registration(scheme_name: scheme_name, omniauth_hash: omniauth_hash)
+        redirect_to_registration(scheme_name: scheme_name, omniauth_hash: omniauth_hash, user: user)
       end
     end
 
     # rubocop:disable Layout/LineLength
-    def redirect_to_registration(scheme_name:, omniauth_hash:)
+    def redirect_to_registration(scheme_name:, omniauth_hash:, user:)
       session["devise.#{scheme_name.downcase}_data"] = omniauth_hash
-      redirect_to new_user_registration_path,
-                  notice: _('It looks like this is your first time signing in. Please verify and complete the information below to finish creating an account.')
+      @user = user
+      render 'static_pages/auth'
+      # redirect_to new_user_registration_path,
+      #             notice: _('It looks like this is your first time signing in. Please verify and complete the information below to finish creating an account.')
     end
     # rubocop:enable Layout/LineLength
 
