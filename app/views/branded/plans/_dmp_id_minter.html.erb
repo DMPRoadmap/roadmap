@@ -26,11 +26,7 @@ allow_minting = orcid.present? && orcid_access_token.present? if allow_minting &
 
   <% if dmp_id.present? %>
     <p><strong><%= _('This DMP has been registered.') %></strong></p>
-    <% if Rails.env.production? %>
-      <% val = link_to dmp_id.value, dmp_id.value, target: "_blank", class: "has-new-window-popup-info" %>
-    <% else %>
-      <% val = sandbox_dmp_id(id: @plan.dmp_id, with_domain: true) %>
-    <% end %>
+    <% val = sandbox_dmp_id(id: @plan.dmp_id, with_domain: true) %>
 
     <p><%= _('When referencing this DMP in other systems, please use the DMP ID: ') %></p>
     <p>&nbsp;&nbsp;<%= val %></p>
