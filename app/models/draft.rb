@@ -52,9 +52,9 @@ class Draft < ApplicationRecord
 
   # Support for filtering and search
   def self.search(user:, params: {})
-    return [] unless user.is_a?(User)
+    return [] unless user.is_a?(User) && !user.org_id.nil?
 
-    recs = where(user_id: user.id)
+    recs = includes(:user).joins(:user).where('users.org_id = ?', user&.org_id)
 
     title = params.fetch(:title, '').to_s.strip
     funder = params.fetch(:funder, '').to_s.strip

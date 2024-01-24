@@ -81,40 +81,6 @@ module ExternalApis
         Rails.configuration.x.dmphub&.callback_method&.downcase&.to_sym || super
       end
 
-      def simulate_works(dmp_id:, works_count: 1, funder_ror: nil)
-        return false unless active? && dmp_id.present? && auth
-
-        data = { works: works_count }
-        data[:grant] = funder_ror if funder_ror.present?
-
-        opts = {
-          follow_redirects: true,
-          limit: 6,
-          headers: {
-            'authorization': @token,
-            'Server-Agent': "#{caller_name} (#{client_id})",
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: data.to_json
-        }
-        opts[:debug_output] = $stdout
-        target = "#{api_base_url}tmp/#{dmp_id.gsub(%r{https?://}, '')}"
-        resp = HTTParty.put(target, opts)
-
-        # DMPHub returns a 200 when successful
-        unless resp.present? && resp.code == 200
-          handle_http_failure(method: 'DMPHub simulate_works', http_response: resp)
-          notify_administrators(obj: { dmp_id: dmp_id, works_count: works_count, funder_ror: funder_ror }, response: resp)
-          return false
-        end
-        true
-      rescue StandardError => e
-        puts "FATAL: #{e.message}"
-        log_error(method: 'DmphubService.simulate_works', error: e)
-        false
-      end
-
       # Proxy a call to one of the funder API searches that resides in the DMPHub AWS based API Gateway
       def proxied_award_search(api_target:, args: {})
         authorized = auth

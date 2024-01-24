@@ -50,7 +50,7 @@ module Api
       def show
         dmp = Draft.find_by(draft_id: params[:id])
         render_error(errors: MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
-        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
+        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user&.org_id == current_user&.org_id
 
         @drafts = [dmp]
         render json: render_to_string(template: '/api/v3/drafts/index'), status: :ok
@@ -64,7 +64,7 @@ module Api
       def update
         dmp = Draft.find_by(draft_id: params[:id])
         render_error(errors: MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
-        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
+        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user&.org_id == current_user&.org_id
 
         # Extract the narrative PDF so we can add it to ActiveStorage
         args = dmp_params
@@ -91,7 +91,7 @@ module Api
       def destroy
         dmp = Draft.find_by(draft_id: params[:id])
         render_error(errors: MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
-        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
+        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user&.org_id == current_user&.org_id
 
         # Narrative PDF will be automatically removed
         if dmp.destroy
@@ -112,7 +112,7 @@ module Api
         dmp = Draft.find_by(draft_id: params[:id])
         dmp = Draft.find_by(dmp_id: params[:id]) if dmp.nil?
         render_error(errors: MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
-        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
+        render_error(errors: MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user&.org_id == current_user&.org_id
 
         # Remove the old narrative if applicable
         dmp.narrative.purge if (create_params[:narrative].present? || create_params[:remove_narrative].present?) &&

@@ -136,9 +136,6 @@ Rails.application.routes.draw do
       # Fetch citations for the given dois
       post :citations, controller: :citations, action: :fetch_citation
 
-      # Temporary path to trigger the simulation of related works found by an external system
-      post :simulations, controller: :temporaries
-
       # Draft (work in progress) DMPs
       resources :drafts, only: %i[index create destroy show update] do
         member do

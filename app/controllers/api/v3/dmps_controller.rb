@@ -9,7 +9,7 @@ module Api
       def create
         dmp = Draft.find_by(draft_id: dmp_params[:draft_id][:identifier])
         render_error(errors: DraftsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
-        render_error(errors: DraftsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user == current_user
+        render_error(errors: DraftsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user&.org_id == current_user&.org_id
 
         result = dmp.register_dmp_id!
         render_error(errors: DraftsController::MSG_DMP_ID_REGISTRATION_FAILED, status: :bad_request) and return if result.nil?
