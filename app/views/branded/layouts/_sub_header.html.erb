@@ -13,8 +13,8 @@
       <% end %>
     </a>
 
-    <% if org.links.any? && org.links['org'].present? %>
-      <ul class="c-links-org">
+    <ul class="c-links-org">
+      <% if !org.links.nil? && org.links.any? && org.links['org'].present? %>
         <% org.links['org'].each do |link| %>
           <% next unless link['link'].present? %>
 
@@ -25,16 +25,16 @@
             </a>
           </li>
         <% end %>
+      <% end %>
 
-        <% if org.contact_email.present? %>
-          <li>
-            <a href="mailto:<%= org.contact_email %>" class="c-links-org__uc3-helpdesk">
-              <i class="fas fa-envelope"></i>
-              <%= org.contact_name ? org.contact_name : org.contact_email %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
+      <% if org.contact_email.present? %>
+        <li>
+          <a href="mailto:<%= org.contact_email %>" class="c-links-org__uc3-helpdesk">
+            <i class="fas fa-envelope"></i>
+            <%= org.contact_name ? org.contact_name : org.contact_email %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
