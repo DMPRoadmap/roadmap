@@ -203,7 +203,7 @@ class MadmpFragment < ApplicationRecord
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
       )
       ro_fragment.update(additional_info: new_additional_info)
-      ResearchOutputChannel.broadcast_to(research_output, research_output.serialize_infobox_data)
+      # ResearchOutputChannel.broadcast_to(research_output, research_output.serialize_infobox_data)
     else
       return
     end
