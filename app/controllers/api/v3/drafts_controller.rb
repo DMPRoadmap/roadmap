@@ -16,10 +16,14 @@ module Api
         records = Draft.includes(narrative_attachment: [:blob])
                        .search(user: current_user, params: index_params)
 
+        records += plans_to_drafts(plans: Plan.includes(narrative_attachment: [:blob])
+                                              .react_search(user: current_user, params: index_params))
+
         # Paginate the results
         @drafts = paginate_response(results: process_sort(records: records.to_a))
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DraftsController.index #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -177,6 +181,17 @@ module Api
           b_val = '' if b_val.nil?
 
           sort_dir == 'asc' ? a_val <=> b_val : b_val <=> a_val
+        end
+      end
+
+      # Convert the ActiveRecord results into JSON
+      def plans_to_drafts(plans:)
+        return plans unless plans.respond_to?(:any?) && plans.any?
+
+        jsons = plans.map do |plan|
+          json = render_to_string(partial: '/api/v2/plans/show', locals: { plan: plan })
+          metadata = JSON.parse({ dmp: JSON.parse(json) }.to_json)
+          Draft.new(metadata: metadata, dmp_id: plan.dmp_id)
         end
       end
     end

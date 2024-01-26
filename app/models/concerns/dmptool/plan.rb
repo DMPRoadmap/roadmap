@@ -58,6 +58,38 @@ module Dmptool
           .order(sort_by)
       end
       # rubocop:enable Metrics/AbcSize
+
+       # Support for filtering and search
+      def react_search(user:, params: {})
+        return [] unless user.is_a?(User) && !user.org_id.nil?
+
+        recs = where('dmp_id IS NOT NULL AND org_id = ?', user&.org_id)
+
+        title = params.fetch(:title, '').to_s.strip
+        funder = params.fetch(:funder, '').to_s.strip
+        grant = params.fetch(:grant_id, '').to_s.strip
+        visibility = params.fetch(:visibility, '').to_s.strip
+        dmp_id = params.fetch(:dmp_id, '').to_s.strip
+
+        funder_ids = funder.present? ? Org.where('name LIKE ?',  "%#{funder}%").pluck(:id) : []
+        grant_ids = grant.present? ? Identifier.where('value LIKE ?', "%#{grant_id}%").pluck(:id) : []
+
+        clause = []
+        clause << '(LOWER(title) LIKE :title OR LOWER(description) LIKE :title)' unless title.blank?
+        clause << '(funder_id IN :funder_ids)' unless funder_ids.empty?
+        clause << '(grant_id IN :grant_ids)' unless grant_ids.empty?
+        clause << visibility == 'public' ? '(visibility = 1)' : '(visibility != 1)' unless visibility.blank?
+        clause << "dmp_id LIKE :dmp_id" unless dmp_id.blank?
+
+pp clause
+
+        return recs unless clause.any?
+
+        recs = recs.where(clause.join(' AND '), title: "%#{title.downcase}%", funder_ids: funder_ids,
+                                                grant_ids: grant_ids, dmp_id: "%#{dmp_id}",
+                                                visibility: visibility.downcase)
+        recs
+      end
     end
   end
 end
