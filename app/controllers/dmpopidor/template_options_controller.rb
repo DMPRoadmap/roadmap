@@ -74,16 +74,16 @@ module Dmpopidor
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    def default
-      default_template = ::Template.default
+    def recommend
+      recommended_template = ::Template.recommend(context: params[:context], locale: params[:locale]) || ::Template.default
       authorize ::Template.new, :template_options?
 
       render json: {
-        id: default_template.id,
-        title: default_template.title,
-        locale: default_template.locale,
-        description: default_template.description || '',
-        structured: default_template.structured?
+        id: recommended_template.id,
+        title: recommended_template.title,
+        locale: recommended_template.locale,
+        description: recommended_template.description || '',
+        structured: recommended_template.structured?
       }
     end
   end

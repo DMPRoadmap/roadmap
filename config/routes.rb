@@ -342,6 +342,7 @@ Rails.application.routes.draw do
 
   resources :template_options, only: [:index], constraints: { format: /json/ } do
     get 'default', action: :default, on: :collection, as: :default
+    get 'recommend', action: :recommend, on: :collection, as: :recommend
   end
 
   # ORG ADMIN specific pages
