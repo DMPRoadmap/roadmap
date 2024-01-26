@@ -18,12 +18,14 @@ module Api
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DmpsController.create #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       # GET /api/v3/dmps
       def index
         dmps = DmpIdService.fetch_dmps(user: current_user)
+        dmps = dmps.map { |dmp| _handle_contact_from_dmphub(dmp: dmp) }
         render_error(errors: DraftsController::MSG_DMP_NOT_FOUND, status: :not_found) and return unless dmps.is_a?(Array) &&
                                                                                                       dmps.any?
         # Remove any DMPs that the user has explicitly chosen to hide
@@ -35,18 +37,22 @@ module Api
         render json: render_to_string(template: '/api/v3/drafts/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DmpsController.index #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
       # GET /api/v3/dmps/{:id}
       def show
         dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
+        dmp = _handle_contact_from_dmphub(dmp: dmp)
+
         render_error(errors: DraftsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
 
         @items = paginate_response(results: [dmp])
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DmpsController.show #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -55,6 +61,7 @@ module Api
         # TODO: In the new system, change this so it has its own endpoint!
         on_narrative_page = params[:id].end_with?('/narrative')
         dmp = on_narrative_page ? prep_for_narrative_update : prep_for_update
+        dmp = _handle_contact_from_ui(dmp: dmp)
         render_error(errors: DraftsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
 
         authed = user_is_authorized(dmp: dmp.fetch('dmp', {}))
@@ -70,6 +77,7 @@ module Api
         render_error(errors: MSG_INVALID_DMP_ID, status: 400)
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DmpsController.update #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -91,6 +99,7 @@ module Api
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DmpsController.destroy #{e.message}"
+        Rails.logger.error e.backtrace
         render_error(errors: MSG_SERVER_ERROR, status: 500)
       end
 
@@ -106,15 +115,20 @@ module Api
 
       # Check to make sure the current user is authorized to update/tombstone the DMP ID
       def user_is_authorized(dmp:)
+
+pp dmp
+
         return false unless dmp.is_a?(Hash) && dmp['contact'].present? && current_user.present? && current_user.can_org_admin?
 
-        current_org = current_user.org&.identifier_for_scheme(scheme: 'ror')
+        current_org = current_user.org&.identifier_for_scheme(scheme: 'ror')&.value
         orgs = [dmp.fetch('contact', {}).fetch('dmproadmap_affiliation', {}).fetch('affiliation_id', {})['identifier']]
         dmp.fetch('contributor', []).each do |contrib|
           orgs << contrib.fetch('dmproadmap_affiliation', {}).fetch('affiliation_id', {})['identifier']
         end
         orgs = orgs.map { |ror| ror.to_s.downcase.strip }.flatten.compact.uniq
         original_draft = Draft.find_by(dmp_id: dmp.fetch('dmp_id', {})['identifier'])
+
+puts "#{current_org} in #{orgs}? || #{original_draft.present? && current_user.id == original_draft.user_id}"
 
         # The admin is an Admin for one of the Orgs identified on the DMP record
         # OR they were the original creator of the draft
@@ -156,6 +170,50 @@ module Api
           dmp['dmp']['dmproadmap_related_identifiers'] = works
         end
 
+        dmp
+      end
+
+      # The DMP-ID actually stores the contact in a separate location, so transform it into a contributor
+      # since that's what the React page currently works with!
+      def _handle_contact_from_dmphub(dmp:)
+        contact = dmp['dmp']['contact']
+        return dmp if contact.nil?
+
+        # Find the matching contributor entry
+        contributors = dmp['dmp'].fetch('contributor', [])
+        contrib = contributors.select do |hash|
+          (!contact['contact_id'].nil? && hash['contributor_id'] == contact['contact_id']) ||
+          (!contact['mbox'].nil? && hash['mbox'] == contact['mbox']) ||
+          (!contact['name'].nil? && hash['name'] == contact['mbox'])
+        end
+
+        # If a match was found mark it as the primary contact
+        contrib.first['contact'] = true unless contrib.empty?
+        return dmp unless contrib.empty?
+
+        # Otherwise add the contact to the contributor array
+        dmp['dmp']['contributor'] << JSON.parse({
+          contact: true,
+          name: contact['name'],
+          mbox: contact['mbox'],
+          contributor_id: contact['contact_id'],
+          dmproadmap_affiliation: contact['dmproadmap_affiliation'],
+          role: ['data_curation']
+        }.to_json)
+        dmp
+      end
+
+      # Transform a DMP from the React UI so that the contact is properly handled
+      def _handle_contact_from_ui(dmp:)
+        contact = dmp['dmp'].fetch('contributor', []).select { |h| !h['contact'].to_s&.downcase&.strip == 'true' }.first
+        return dmp if contact.nil?
+
+        dmp['dmp']['contact'] = {
+          name: contact['name'],
+          mbox: contact['mbox'],
+          contact_id: contact['contributor_id'],
+          dmproadmap_affiliation: contact['dmproadmap_affiliation']
+        }
         dmp
       end
     end

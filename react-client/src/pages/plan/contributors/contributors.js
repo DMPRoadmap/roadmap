@@ -370,7 +370,7 @@ function Contributors() {
                               id={"_role_" + role.value}
                               inputValue={role.value}
                               onChange={handleChange}
-                              isChecked={contributor.roles.includes(role.value)}
+                              isChecked={contributor.roles.filter(str => str.includes(role.value)).length > 0}
                             />
                           </Fragment>
                         ))}

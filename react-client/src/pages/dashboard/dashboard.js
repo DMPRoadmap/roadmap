@@ -241,7 +241,7 @@ function Dashboard() {
                               ? dmp.contributors.items.map((item, index) => (
                                 <Fragment key={index}>
                                   {item.roles &&
-                                    item.roles.includes("investigation") && (
+                                    item.roles.filter(str => str.includes("investigation")) && (
                                       <span>
                                         PI: {truncateText(item.name, 80)}
                                       </span>
