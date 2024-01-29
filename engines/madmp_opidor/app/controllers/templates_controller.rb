@@ -32,9 +32,7 @@ class TemplatesController < ApplicationController
   end
 
   def set_recommended
-    template = ::Template.includes(
-      { sections: :questions }
-    ).find(params[:template_id])
+    template = ::Template.find(params[:template_id])
 
     authorize template, policy_class: PublicTemplateInfoPolicy
     template.is_recommended = params[:is_recommended] == '1'
