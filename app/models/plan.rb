@@ -285,6 +285,7 @@ class Plan < ApplicationRecord
     plan_copy.feedback_requested = false
     plan_copy.feedback_start_at = nil
     plan_copy.feedback_end_at = nil
+    plan_copy.dmp_id = nil
     plan_copy.save!
     plan.answers.each do |answer|
       answer_copy = Answer.deep_copy(answer)

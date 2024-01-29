@@ -757,7 +757,7 @@ export async function getContributorRoles(forceUpdate) {
 export function getRoleDisplay(roleVal) {
   if (roleVal === "") return "";
   if (document._contributorRoles) {
-    let result = document._contributorRoles.find(r => r.value === roleVal);
+    let result = document._contributorRoles.find(r => roleVal.includes(r.value));
     if (result) return result.label;
   }
   return "";

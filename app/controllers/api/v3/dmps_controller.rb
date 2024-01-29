@@ -70,6 +70,21 @@ module Api
         result = DmpIdService.update_dmp_id(plan: dmp)
         render_error(errors: DraftsController::MSG_DMP_ID_UPDATE_FAILED, status: :bad_request) and return if result.nil?
 
+        # If they updated a DMP that was created via the normal DMPTool create plan workflow, then we need to backfill
+        # the updates
+
+pp dmp
+
+        dmp_id = dmp.fetch('dmp', dmp).fetch('dmp_id', {})['identifier']
+
+puts "DMP ID: #{dmp_id}"
+
+        plan = Plan.find_by(dmp_id: dmp_id)
+
+puts "PLAN: #{plan.id}"
+
+        _backfill_updates_to_plan(plan: plan, dmp: dmp) unless plan.nil?
+
         @items = paginate_response(results: [dmp])
         render json: render_to_string(template: '/api/v3/proxies/index'), status: :ok
       rescue JSON::ParserError => e
@@ -115,9 +130,6 @@ module Api
 
       # Check to make sure the current user is authorized to update/tombstone the DMP ID
       def user_is_authorized(dmp:)
-
-pp dmp
-
         return false unless dmp.is_a?(Hash) && dmp['contact'].present? && current_user.present? && current_user.can_org_admin?
 
         current_org = current_user.org&.identifier_for_scheme(scheme: 'ror')&.value
@@ -127,8 +139,6 @@ pp dmp
         end
         orgs = orgs.map { |ror| ror.to_s.downcase.strip }.flatten.compact.uniq
         original_draft = Draft.find_by(dmp_id: dmp.fetch('dmp_id', {})['identifier'])
-
-puts "#{current_org} in #{orgs}? || #{original_draft.present? && current_user.id == original_draft.user_id}"
 
         # The admin is an Admin for one of the Orgs identified on the DMP record
         # OR they were the original creator of the draft
@@ -215,6 +225,50 @@ puts "#{current_org} in #{orgs}? || #{original_draft.present? && current_user.id
           dmproadmap_affiliation: contact['dmproadmap_affiliation']
         }
         dmp
+      end
+
+      # Back changes made to a DMP ID to the original Plan
+      def _backfill_updates_to_plan(plan:, dmp:)
+        return false unless plan.is_a?(Plan) && dmp.is_a?(Hash) && dmp['dmp'].is_a?(Hash)
+
+        hash = dmp['dmp']
+        project = hash.fetch('project', []).first
+        funding = project.fetch('funding', []).first
+        funder = Org.find_by(name: funding['name']) unless funding.nil?
+        grant = funding.fetch('grant_id', {})['identifier']
+
+        # Handle the DMP, Project and Funder info
+        plan.title = hash.fetch('title', project.nil? ? nil : project['description'])
+        plan.description = hash.fetch('description', project.nil? ? nil : project['description'])
+        plan.start_date = project.nil? ? nil : project['start']
+        plan.end_date = project.nil? ? nil : project['end']
+        plan.funder_id = funder&.id
+        plan.identifier = funding.nil? ? nil : funding['dmproadmap_opportunity_number']
+        plan.grant = grant.nil? ? nil : Identifier.new(value: grant) unless plan.grant.present? && plan.grant.value == grant
+
+        # Handle the contributors
+=begin
+        contrib_array = hash.fetch('contributor', [])
+        orcid_scheme = IdentifierScheme.find_by(name: 'orcid')
+        contribs = []
+        contrib_array.each do |hash|
+          id = hash.fetch('contributor_id', {})['identifier']
+          contrib = Contributor.new(name: hash['name'], email: hash['mbox'],
+                                    roles: hash['role'].map { |role| role.split('/').last&.to_sym })
+          contrib.identifiers << Identifier.new(value: id['identifier'], identifier_scheme: orcid_scheme) if id.present? &&
+                                                                                                             id.start_with?(%r{[0-9]\{4\}-})
+          contribs << contrib
+        end
+        plan.contributors = contribs
+
+        # Handle research outputs
+        research_outputs = hash.fetch('dataset', [])
+
+        # Handle related works
+        identifiers = hash.fetch('dmproadmap_related_identifier', [])
+=end
+
+        plan.save(touch: false)
       end
     end
   end
