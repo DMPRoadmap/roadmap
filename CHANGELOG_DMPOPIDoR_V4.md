@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Ajout des modèles recommandés:
+  - Lors de la création de plan, un modèle recommandé est proposé selon les critères suivants : contexte, langue, recommendé
+  - Ajout d'une nouvelle colonne indiquant qu'un modèle est recommandé dans le tableau des modèles accessible par les administrateurs
+  - Dans la liste des modèles, le super adminitrateur peut cocher une case pour indiquer qu'un modèle **publié** est recommandé.
+  
 
 ## 24/01/2024
 
