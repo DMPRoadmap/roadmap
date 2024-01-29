@@ -6,4 +6,8 @@ class PublicTemplateInfoPolicy < ApplicationPolicy
   def show?
     @user.present?
   end
+
+  def set_recommended?
+    @user.can_super_admin?
+  end
 end

@@ -5,6 +5,9 @@
         <th scope="col"><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th scope="col"><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
         <th scope="col"><%= _('Status') %></th>
+        <% if current_user.can_super_admin? %>
+          <th scope="col"><%= _('Recommended') %></th>
+        <% end %>
         <th scope="col" class="date-column"><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
       </tr>
     </thead>

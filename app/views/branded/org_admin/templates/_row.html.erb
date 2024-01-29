@@ -1,0 +1,40 @@
+<tr id="<%= dom_id(template) %>">
+  <td>
+    <%= "#{template.is_default? ? '* ' : ''}#{template.title}" %>
+  </td>
+  <td>
+    <%= template.org.name %>
+  </td>
+  <td>
+    <% if template.published? %>
+      <%= _('Published') %>
+    <% elsif template.draft? %>
+      <% tooltip = _('This template is published changes but has unpublished changes!') %>
+      <%= _('Published') %> <em class="sr-only"><%= tooltip %></em>
+    &nbsp;&nbsp;<i class="fas fa-pencil-square" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
+    <% else %>
+      <%= _('Unpublished') %>
+    <% end %>
+  </td>
+  <% if current_user.can_super_admin? && template.published? %>
+    <td>
+      <%= check_box_tag "is_recommended", "1", (template.is_recommended?),
+                                  id: "is_recommended_#{template.id}",
+                                  class: "set_recommended_template",
+                                  aria: {
+                                    label: "#{template.title} - recommended template flag"
+                                  },
+                                  data: { remote: true, method: :post,
+                                          url: template_set_recommended_path(template) } %>
+      <label for="is_recommended_<%= template.id %>">
+        <span class="visually-hidden"><%= _('Recommended template') %></span>
+      </label>
+    </td>
+  <% else %>
+    <td><%= template.is_recommended? ? _('Recommended') : '' %></td>
+  <% end %>
+  <td>
+    <% last_temp_updated = template.updated_at %>
+    <%= l last_temp_updated.to_date, formats: :short %>
+  </td>
+</tr>

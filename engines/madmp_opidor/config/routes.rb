@@ -29,7 +29,9 @@ Rails.application.routes.draw do
 
   resources :api_client_roles, only: %i[create update destroy]
 
-  resources :templates, only: %i[show], constraints: { format: [:json] }
+  resources :templates, only: %i[show], constraints: { format: [:json] } do 
+    post 'set_recommended', action: :set_recommended
+  end
 
   namespace :api, defaults: { format: :json } do
     namespace :v0 do

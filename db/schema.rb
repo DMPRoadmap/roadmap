@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_02_083031) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -583,6 +583,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_083031) do
     t.text "links"
     t.integer "type", default: 0, null: false
     t.integer "context", default: 0, null: false
+    t.boolean "is_recommended", default: false
     t.index ["customization_of", "version", "org_id"], name: "templates_customization_of_version_org_id_key", unique: true
     t.index ["family_id", "version"], name: "templates_family_id_version_key", unique: true
     t.index ["org_id"], name: "templates_org_id_idx"

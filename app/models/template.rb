@@ -255,6 +255,10 @@ class Template < ApplicationRecord
     where(is_default: true, published: true).last
   end
 
+  def self.recommend(context: 'research_project', locale: 'fr-FR')
+    where(is_recommended: true, published: true, context: , locale:).last
+  end
+
   def self.current(family_id)
     unarchived.where(family_id: family_id).order(version: :desc).first
   end

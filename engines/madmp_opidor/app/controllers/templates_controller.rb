@@ -30,4 +30,24 @@ class TemplatesController < ApplicationController
       sections: template_data
     }
   end
+
+  def set_recommended
+    template = ::Template.includes(
+      { sections: :questions }
+    ).find(params[:template_id])
+
+    authorize template, policy_class: PublicTemplateInfoPolicy
+    template.is_recommended = params[:is_recommended] == '1'
+
+    if template.save
+      render json: {
+        code: 1,
+        msg: (template.is_recommended? ? _("'#{template.title}' template is now recommended.") : _("'#{template.title}' template is no longer recommended."))
+      }
+    else
+      render status: :bad_request, json: {
+        code: 0, msg: _("Unable to change the template's recommended status")
+      }
+    end
+  end
 end
