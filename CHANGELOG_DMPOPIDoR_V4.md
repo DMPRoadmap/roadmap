@@ -2,6 +2,8 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+# 29/01/2024
+- Ajout de l'import RoR au niveau des partenaires
 - Ajout des modèles recommandés:
   - Lors de la création de plan, un modèle recommandé est proposé selon les critères suivants : contexte, langue, recommendé
   - Ajout d'une nouvelle colonne indiquant qu'un modèle est recommandé dans le tableau des modèles accessible par les administrateurs
