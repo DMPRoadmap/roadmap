@@ -23,7 +23,7 @@ module FragmentImport
         sub_schema = MadmpSchema.find(schema_prop['schema_id'])
         # For persons, we need to check if the person exists and set manually
         # the dbid in the parent fragment
-        if schema_prop['inputType'].eql?('pickOrCreate')
+        if schema_prop['inputType'].eql?('pickOrCreate') || sub_schema.classname.eql?('person')
           sub_fragment = MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, parent_id)
           if sub_fragment.eql?(false)
             sub_fragment = MadmpFragment.new(
