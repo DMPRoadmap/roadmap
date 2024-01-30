@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Correction d'un problème de mise à jour des listes de personnes après la création d'un nouvelle personne. Lorsque le nouveau contributeur était créé à partir de cette personne, la ligne était "vide" 
+- Correction du problème de mise à jour du titre du plan dans le Tableau de bord après l'import de données Projet
+- Ajout de la mise à jour de la liste des personnes après l'import de données Projet
+- Correction du problème de captcha lors d'un changement de mot de passe.
+- Changement du tooltip du bouton d'ajout d'un contributeur dans l'onglet Produits de Recherche des plans classique. (#9831)
+- Correction du problème de mise à jour du titre de produit de recherche dans le formulaire Description aptès de la mise à jour des informations de l'infobox. (Il est encore nécessaire de recharger la page).
+
 # 29/01/2024
 - Ajout de l'import RoR au niveau des partenaires
 - Ajout des modèles recommandés:
