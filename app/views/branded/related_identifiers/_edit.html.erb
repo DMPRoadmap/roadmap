@@ -23,7 +23,7 @@ tooltip = _('Add another research output to this plan.')
                                  related_identifier.send(attr.to_sym) %>
             <% end %>
 
-            <% if related_identifier.citation.present? %>
+            <% if related_identifier.citation.present? && related_identifier.citation&.downcase != 'not available' %>
               <%= sanitize(related_identifier.citation) %>
 
             <% else %>
@@ -58,7 +58,7 @@ tooltip = _('Add another research output to this plan.')
   </div>
   <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
     <div class="add-related-work col-md-4">
-      <button class="btn btn-secondary" title="<%= tooltip %>" data-toggle="tooltip"><%= _('Add a research output') %></button>
+      <button class="btn btn-default" title="<%= tooltip %>" data-toggle="tooltip"><%= _('Add a research output') %></button>
     </div>
   <% end %>
   <div class="row related-works-save-btn">
