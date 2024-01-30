@@ -39,11 +39,9 @@ Dir[Rails.root.join('spec/mixins/*.rb')].each { |f| require f }
 # No need to run this during CI because we build the DB from the schema
 # ActiveRecord::Migration.maintain_test_schema!
 
-# Block all external HTTP requests except to the Google APIs URL so that WebDrivers can fetch
-# the latest Chromedrivers.
+# Block all external HTTP requests
 WebMock.disable_net_connect!(
   allow_localhost: true,
-  allow: %w[chromedriver.storage.googleapis.com]
 )
 
 # Configure RSpec
