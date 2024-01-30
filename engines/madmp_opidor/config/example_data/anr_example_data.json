@@ -1,49 +1,44 @@
 {
-    "project": {
-      "title": "Modélisation de l'impact climatique d\u2019une maladie émergente, le dépérissement de l'aulne induit par Phytophthora alni",
-      "acronym": "PHYTOCLIM",
-      "description": "A partir des années 1990, une nouvelle maladie est apparue sur les aulnes en bordure des cours d\u2019eau. Elle est causée par un microorganisme pathogène, Phytophthora alni, qui attaque les racines des arbres et provoque leur dépérissement. Ce pathogène est une espèce  thermophile. Par ailleurs, l\u2019émergence du dépérissement de l\u2019aulne est concomitante avec les années particulièrement chaudes des deux dernières décennies. \nLes facteurs environnementaux, tels que la température moyenne du site et les caractéristiques du sol jouent un rôle important dans l'apparition de la maladie.\nL'objectif de ce projet est :\n\u2022 de modéliser et de prévoir l'effet de l'environnement sur la gravité des épidémies dues à Phytophthora alni et,\n\u2022 de déterminer si les récents changements climatiques pourraient expliquer l'émergence de la maladie.\n",
+  "project": {
+      "title": "Mettre le plan de gestion des données automatisé dans les mains des biologistes",
+      "acronym": "maDMP4LS",
+      "description": "L'Institut Français de Bioinformatique (IFB), avec ses deux infrastructures informatiques et ses 30 plates-formes, est une structure essentielle pour les Sciences de la Vie et ses applications (santé, agriculture, environnement), fournissant un environnement de production, d'analyse et de gestion de données pour les communautés d’usagers. Bien que ces communautés puissent être considérées comme bien dotées d'outils de structuration et de gestion des données, des problèmes subsistent pour mettre pleinement en œuvre les bonnes pratiques et gérer les données, de leur production à leur préservation, en assurant leur accessibilité, leur reproductibilité et leur réutilisation. Le Plan de Gestion des Données (PGD ou DMP pour Data Management Plan) est considéré comme un élément-clé qui facilitera la mise en œuvre des principes FAIR (Findable, Accessible, Interoperable, Reusable). Le DMP contient les éléments qui guident le processus de gestion des données tout au long de leur cycle de vie et fournissent également des traces de la provenance des données (inclus tous les résultats de recherche dérivés des données brutes). L’Inist-CNRS propose l’outil Web DMP-OPIDoR qui facilite la rédaction des DMP et contribue également à l'harmonisation des bonnes pratiques en fournissant conseils, exemples et modèles spécifiques de certaines institutions. L'évolution du DMP OPIDoR vers un DMP automatisable (« machine-actionable DMP ») est actuellement à l'étude sur la base des retours d'expérience des utilisateurs, des cas collectés et des travaux de RDA sur le DMP actif. L'outil DMP OPIDoR « machine actionable » sera conforme au modèle commun RDA DMP mais inclura également une extension afin de servir les différents acteurs et besoins disciplinaires validés par un large groupe d'utilisateurs.",
+      "startDate": "2019",
       "funding": [
-        {
-          "funder": {
-            "name": "Agence Nationale de la Recherche",
-            "dataPolicy": {
-              "title": "La politique science ouverte de l'ANR",
-              "docIdentifier": "https://anr.fr/fr/lanr-et-la-recherche/engagements-et-valeurs/la-science-ouverte/",
-              "idType": "URL"
-            },
-            "funderId": "http://dx.doi.org/10.13039/501100001665",
-            "idType": "DOI"
-          },
-          "grantId": "ANR-07-BDIV-0003",
-          "fundingStatus": "Approuvé"
-        }
+          {
+              "funder": {
+                  "name": "Agence Nationale de la Recherche",
+                  "dataPolicy": {
+                      "title": "La politique science ouverte de l'ANR",
+                      "docIdentifier": "https://anr.fr/fr/lanr-et-la-recherche/engagements-et-valeurs/la-science-ouverte/",
+                      "idType": "URL"
+                  },
+                  "funderId": "http://doi.org/10.13039/501100001665",
+                  "idType": "Crossref funder ID"
+              },
+              "grantId": "ANR-19-DATA-0017",
+              "fundingStatus": "Approuvé"
+          }
       ],
-      "startDate": null,
       "partner": [
-        {
-          "name": "Biodiversité, Gènes et Communautés ",
-          "rnsr": "200317684N"
-        },
-        {
-          "name": "Walloon Agricultural Research Centre "
-        },
-        {
-          "name": "Plant Protection Institute "
-        }
+          {
+              "name": "Institut de l'information scientifique et technique",
+              "rnsr": "198822446E"
+          }
       ],
       "principalInvestigator": {
-        "person": {
-          "nameType": "Personne",
-          "lastName": "Marçais",
-          "firstName": "Benoît",
-          "affiliationName": "Interactions Arbres/Micro-organismes ",
-          "affiliationId": "200117307M",
-          "affiliationIdType": "RNSR"
-        }
+          "person": {
+              "lastName": "VAN HELDEN",
+              "firstName": "Jacques",
+              "nameType": "Personne",
+              "affiliationName": "Institut français de bioinformatique",
+              "affiliationId": "201321719F",
+              "affiliationIdType": "RNSR"
+          },
+          "role": "Coordinateur du projet"
       }
-    },
-    "meta": {
-      "title": "DMP du projet \"Modélisation de l'impact climatique d\u2019une maladie émergente, le dépérissement de l'aulne induit par Phytophthora alni\""
-    }
+  },
+  "meta": {
+      "title": "DMP du projet \"Mettre le plan de gestion des données automatisé dans les mains des biologistes\""
   }
+}

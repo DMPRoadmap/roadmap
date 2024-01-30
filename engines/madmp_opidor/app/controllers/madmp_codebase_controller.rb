@@ -80,14 +80,28 @@ class MadmpCodebaseController < ApplicationController
 
     authorize fragment
     # EXAMPLE DATA
-    # file_path = Rails.root.join("engines/madmp_opidor/config/example_data/anr_example_data.json")
-    # response = JSON.load(File.open(file_path))
-    # dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
+    # begin
+    #   file_path = Rails.root.join("engines/madmp_opidor/config/example_data/anr_example_data.json")
+    #   response = JSON.load(File.open(file_path))
+    #   dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
+    #   dmp_fragment.update_meta_fragment
 
-    # render json: {
-    #   'fragment' => dmp_fragment.get_full_fragment,
-    #   "message" => _('New data have been added to your plan, please click on the "Reload" button.')
-    # }, status: 200
+    #   render json: {
+    #     'fragment' => dmp_fragment.get_full_fragment,
+    #     'persons' => dmp_fragment.persons.map do |f|
+    #       {
+    #         **f.get_full_fragment(with_ids: true),
+    #         'to_string' => f.to_s,
+    #       }
+    #     end,
+    #     "message" => _('New data have been added to your plan, please click on the "Reload" button.')
+    #   }, status: 200
+    # rescue StandardError => e
+    #   # Rails.cache.delete(["codebase_run", fragment.id])
+    #   render json: {
+    #     'error' => "Internal Server error: #{e.message}"
+    #   }, status: 500
+    # end
     # return
 
     begin
@@ -102,8 +116,15 @@ class MadmpCodebaseController < ApplicationController
 
       if response['return_code'].eql?(0)
         dmp_fragment.raw_import(response['data'], dmp_fragment.madmp_schema)
+        dmp_fragment.update_meta_fragment
         render json: {
           'fragment' => dmp_fragment.get_full_fragment,
+          'persons' => dmp_fragment.persons.map do |f|
+            {
+              **f.get_full_fragment(with_ids: true),
+              'to_string' => f.to_s,
+            }
+          end,
           'plan_title' => dmp_fragment.meta.data['title'],
           'message' => _('Project data have successfully been imported.')
         }, status: 200
