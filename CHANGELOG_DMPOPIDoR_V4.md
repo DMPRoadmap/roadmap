@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Correction d'un problème de mise à jour des listes de personnes après la création d'un nouvelle personne. Lorsque le nouveau contributeur était créé à partir de cette personne, la ligne était "vide" 
+- Correction du problème de mise à jour du titre du plan dans le Tableau de bord après l'import de données Projet
+- Ajout de la mise à jour de la liste des personnes après l'import de données Projet
+
 # 29/01/2024
 - Ajout de l'import RoR au niveau des partenaires
 - Ajout des modèles recommandés:
