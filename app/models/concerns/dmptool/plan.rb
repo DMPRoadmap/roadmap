@@ -80,9 +80,6 @@ module Dmptool
         clause << '(grant_id IN :grant_ids)' unless grant_ids.empty?
         clause << visibility == 'public' ? '(visibility = 1)' : '(visibility != 1)' unless visibility.blank?
         clause << "dmp_id LIKE :dmp_id" unless dmp_id.blank?
-
-pp clause
-
         return recs unless clause.any?
 
         recs = recs.where(clause.join(' AND '), title: "%#{title.downcase}%", funder_ids: funder_ids,
