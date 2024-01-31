@@ -7,6 +7,7 @@ import { DmpModel } from "../../models.js";
 
 import TextInput from "../../components/text-input/textInput.js";
 import LookupField from "../../components/lookup-field.js";
+import Spinner from "../../../components/spinner";
 import "./dashboard.scss";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
@@ -20,6 +21,7 @@ function Dashboard() {
 
   const [show, setShow] = useState(false);
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
+  const [working, setWorking] = useState(false);
   const dialog = document.querySelector("#filter-modal");
 
   function handleFilterDrawerClose(id) {
@@ -74,6 +76,7 @@ function Dashboard() {
 
   useEffect(() => {
     let api = new DmpApi();
+    setWorking(true);
 
     fetch(api.getPath("/me"), api.getOptions())
       .then((resp) => {
@@ -93,6 +96,7 @@ function Dashboard() {
       .then((data) => {
         const dmpModels = data.items.map((item) => new DmpModel(item.dmp));
         setProjects(dmpModels);
+        setWorking(true);
       });
   }, []);
 
@@ -167,7 +171,9 @@ function Dashboard() {
 
         <div className="table-container">
           <div className="table-wrapper">
-            {projects.length > 0 ? (
+            {working ? (
+              <Spinner isActive={working} message="Fetching DMPs ..." className="empty-list" />
+            ) : projects.length > 0 ? (
               <table className="dashboard-table">
                 <thead>
                   <tr>

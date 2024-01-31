@@ -592,11 +592,13 @@ button.dropdown-toggle {
   margin-bottom: 10px;
 }
 
-div.related_works div.citation,
+div.citation,
 div.add-related-work {
   margin-bottom: 20px;
 }
-
+div.citation span {
+  padding-left: 0;
+}
 
 #editorial-board div.row {
   margin-bottom: 25px;
