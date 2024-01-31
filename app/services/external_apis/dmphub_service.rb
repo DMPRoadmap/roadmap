@@ -147,7 +147,6 @@ module ExternalApis
           puts "DMPHub unable to fetch citations: received a #{resp.code}"
           puts resp.body.inspect
           handle_http_failure(method: 'DMPHub fetch_citations', http_response: resp)
-          notify_administrators(obj: related_identifier, response: resp)
           return nil
         end
         json = JSON.parse(resp.body)

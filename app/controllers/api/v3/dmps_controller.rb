@@ -62,6 +62,7 @@ module Api
         on_narrative_page = params[:id].end_with?('/narrative')
         dmp = on_narrative_page ? prep_for_narrative_update : prep_for_update
         dmp = _handle_contact_from_ui(dmp: dmp)
+        dmp = _handle_dataset_distributions(dmp: dmp)
         render_error(errors: DraftsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
 
         authed = user_is_authorized(dmp: dmp.fetch('dmp', {}))
@@ -72,17 +73,8 @@ module Api
 
         # If they updated a DMP that was created via the normal DMPTool create plan workflow, then we need to backfill
         # the updates
-
-pp dmp
-
         dmp_id = dmp.fetch('dmp', dmp).fetch('dmp_id', {})['identifier']
-
-puts "DMP ID: #{dmp_id}"
-
         plan = Plan.find_by(dmp_id: dmp_id)
-
-puts "PLAN: #{plan.id}"
-
         _backfill_updates_to_plan(plan: plan, dmp: dmp) unless plan.nil?
 
         @items = paginate_response(results: [dmp])
@@ -179,7 +171,6 @@ puts "PLAN: #{plan.id}"
           end
           dmp['dmp']['dmproadmap_related_identifiers'] = works
         end
-
         dmp
       end
 
@@ -227,6 +218,17 @@ puts "PLAN: #{plan.id}"
         dmp
       end
 
+      def _handle_dataset_distributions(dmp:)
+        # hack to fix issue in React client for dataset.distribution coming through as a Hash instead of an Array :/
+        dmp['dmp']['dataset'] = dmp['dmp'].fetch('dataset', []).map do |entry|
+          return entry if entry['distribution'].nil? || !entry['distribution'].is_a?(Hash)
+
+          entry['distribution'] = entry['distribution'].values
+          entry
+        end
+        dmp
+      end
+
       # Back changes made to a DMP ID to the original Plan
       def _backfill_updates_to_plan(plan:, dmp:)
         return false unless plan.is_a?(Plan) && dmp.is_a?(Hash) && dmp['dmp'].is_a?(Hash)
@@ -247,29 +249,79 @@ puts "PLAN: #{plan.id}"
         plan.grant = grant.nil? ? nil : Identifier.new(value: grant) unless plan.grant.present? && plan.grant.value == grant
 
         # Handle the contributors
-=begin
-        contrib_array = hash.fetch('contributor', [])
-        orcid_scheme = IdentifierScheme.find_by(name: 'orcid')
-        contribs = []
-        contrib_array.each do |hash|
-          id = hash.fetch('contributor_id', {})['identifier']
-          contrib = Contributor.new(name: hash['name'], email: hash['mbox'],
-                                    roles: hash['role'].map { |role| role.split('/').last&.to_sym })
-          contrib.identifiers << Identifier.new(value: id['identifier'], identifier_scheme: orcid_scheme) if id.present? &&
-                                                                                                             id.start_with?(%r{[0-9]\{4\}-})
-          contribs << contrib
-        end
-        plan.contributors = contribs
+        plan = _backfill_updates_to_contributors(plan: plan, contributors_in: hash.fetch('contributor', []))
 
         # Handle research outputs
-        research_outputs = hash.fetch('dataset', [])
+        plan = _backfill_updates_to_outputs(plan: plan, outputs_in: hash.fetch('dataset', []))
 
         # Handle related works
         identifiers = hash.fetch('dmproadmap_related_identifier', [])
-=end
-
         plan.save(touch: false)
       end
+
+      # Clear the Plan's existing contributors and then replace with the ones from the UI
+      def _backfill_updates_to_contributors(plan:, contributors_in:)
+        # Delete any existing contributors if the array is empty
+        return plan.contributors.clear if !contributors_in.is_a?(Array) || contributors_in.empty?
+
+        orcid = IdentifierScheme.find_by(name: 'orcid')
+
+        # Loop through and add or update the ones from the incoming hash
+        contribs = contributors_in.map do |hash|
+          id = hash.fetch('contributor_id', {})['identifier']
+          ror = hash.fetch('dmproadmap_affiliation', {}).fetch('affiliation_id', {})['identifier']
+          org_name = hash.fetch('dmproadmap_affiliation', {})['name']
+          org = RegistryOrg.find_by(ror_id: ror)&.org if ror.present?
+          org = Org.find_or_create_by(name: name) if org.nil? && org_name.present?
+          roles = hash.fetch('role', []).map do |role|
+            role.start_with?('http') ? role.gsub(Contributor::ONTOLOGY_BASE_URL, '')&.downcase : role
+          end
+
+          contrib = Contributor.new(name: hash['name'], email: hash['mbox'], org: org)
+          roles.each { |role| contrib.send(:"#{role.gsub('-', '_')}=", true) }
+          contrib.identifiers << Identifier.new(value: id, identifier_scheme: orcid) if id.present?
+          contrib
+        end
+
+        plan.contributors.clear
+        contribs.each { |contrib| plan.contributors << contrib }
+        plan
+      end
+
+      def _backfill_updates_to_outputs(plan:, outputs_in:)
+        research_outputs = outputs_in.map do |hash|
+          distros = hash.fetch('distribution', [])
+          hosts = distros.map { |distro| distro.fetch('host', []) }.flatten.uniq
+          license = License.find_by(uri: distros.first.fetch('license', {})['license_ref']) if distros.any?
+          byte_size = distros.first['byte_size']
+          access = distros.first.fetch('data_access', 'open')
+
+          repositories = hosts.map do |host|
+            uri = host.fetch('dmproadmap_host_id', {})['identifier']
+            repo = Repository.find_by(uri: uri) unless uri.nil?
+            repo.present? ? repo : (!host['url'].nil? ? nil : Repository.find_by(homepage: host['url']))
+          end
+
+          standards = hash.fetch('metadata', []).map do |hash|
+            uri = hash.fetch('metadata_standard_id', {})['identifier']
+            standard = MetadataStandard.find_by(uri: uri) if uri.present?
+            standard.present? ? standard : MetadataStandard.find_by(title: hash['description'])
+          end
+
+          output = ResearchOutput.new(title: hash['title'], description: hash['description'], release_date: hash['issued'],
+                                      license: license, byte_size: byte_size, access: access, output_type: hash['type'],
+                                      personal_data: hash['personal_data'] == 'yes', sensitive_data: hash['sensitive_data'] == 'yes')
+
+          repositories.each { |repo| output.repositories << repo }
+          standards.each { |standard| output.metadata_standards << standard }
+          output
+        end
+
+        plan.research_outputs.clear
+        research_outputs.each { |output| plan.research_outputs << output }
+        plan
+      end
+
     end
   end
 end

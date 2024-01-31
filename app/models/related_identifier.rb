@@ -48,6 +48,8 @@ class RelatedIdentifier < ApplicationRecord
 
   validates :identifiable, presence: { message: PRESENCE_MESSAGE }
 
+  validate :valid_url?
+
   # =========
   # = Enums =
   # =========
@@ -114,6 +116,12 @@ class RelatedIdentifier < ApplicationRecord
 
   def detect_relation_type
     (relation_type.presence || 'cites')
+  end
+
+  def valid_url?
+    URI(URI.encode_uri_component(value))
+  rescue URI::InvalidURIError
+    errors.add(:value, "is an invalid URL!")
   end
 
   def load_citation
