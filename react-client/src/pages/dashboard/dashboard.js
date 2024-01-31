@@ -7,7 +7,7 @@ import { DmpModel } from "../../models.js";
 
 import TextInput from "../../components/text-input/textInput.js";
 import LookupField from "../../components/lookup-field.js";
-import Spinner from "../../../components/spinner";
+import Spinner from "../../components/spinner";
 import "./dashboard.scss";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
@@ -96,7 +96,7 @@ function Dashboard() {
       .then((data) => {
         const dmpModels = data.items.map((item) => new DmpModel(item.dmp));
         setProjects(dmpModels);
-        setWorking(true);
+        setWorking(false);
       });
   }, []);
 
