@@ -27,7 +27,6 @@ jobs:
       with:
         node-version: '16.6.0'
         cache: 'yarn'
-        node-version: 16
 
     # Copy all of the example configs over
     - name: 'Setup the application'
