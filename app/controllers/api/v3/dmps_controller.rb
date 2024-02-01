@@ -208,7 +208,17 @@ module Api
 
       # Transform a DMP from the React UI so that the contact is properly handled
       def _handle_contact_from_ui(dmp:)
+
+pp dmp
+p "INITIAL DMP:"
+pp dmp['dmp']['contact']
+pp dmp['dmp']['contributor']
+
         contact = dmp['dmp'].fetch('contributor', []).select { |h| !h['contact'].to_s&.downcase&.strip == 'true' }.first
+
+p "CONTACT FOUND IN CONTRIBUTOR:"
+pp contact
+
         return dmp if contact.nil?
 
         dmp['dmp']['contact'] = {
@@ -217,6 +227,13 @@ module Api
           contact_id: contact['contributor_id'],
           dmproadmap_affiliation: contact['dmproadmap_affiliation']
         }
+
+p "AFTER SETTING CONTACT:"
+pp dmp['dmp']['contact']
+pp dmp['dmp']['contributor']
+
+a = b / 0
+
         dmp
       end
 

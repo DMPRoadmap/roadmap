@@ -318,7 +318,7 @@ class Draft < ApplicationRecord
       mbox: contributor['mbox']
     }
     contact[:dmproadmap_affiliation] = contributor['dmproadmap_affiliation'] unless contributor['dmproadmap_affiliation'].nil?
-    contact[:contact_id] = contributor['contributor_id'] unless contributor['contributor_id'].nil?
+    contact[:contact_id] = contributor['contributor_id'] if contributor.fetch('contributor_id', {})['identifier'].nil?
     contact[:contact_id] = { type: 'other', identifier: contributor['mbox'] } if contact[:contact_id].nil?
     JSON.parse(contact.to_json)
   end
