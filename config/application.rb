@@ -7,6 +7,9 @@ require "rails/all"
 # Question: is there a nicer way to do this require_relative?
 require_relative '../lib/ssm_config_loader'
 
+# Check for the SSM_ROOT_PATH before we try to startup because the Uc3SsmResolver needs it immediately!
+raise StandardError, 'No ENV[\'SSM_ROOT_PATH\'] defined!' if !Rails.env.development? && !ENV.key?('SSM_ROOT_PATH')
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

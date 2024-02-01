@@ -193,6 +193,7 @@ module Api
         return dmp unless contrib.empty?
 
         # Otherwise add the contact to the contributor array
+        dmp['dmp']['contributor'] = [] if dmp['dmp']['contributor'].nil?
         dmp['dmp']['contributor'] << JSON.parse({
           contact: true,
           name: contact['name'],
