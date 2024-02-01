@@ -11,6 +11,7 @@ module Api
         render_error(errors: DraftsController::MSG_DMP_NOT_FOUND, status: :not_found) and return if dmp.nil?
         render_error(errors: DraftsController::MSG_DMP_UNAUTHORIZED, status: :unauthorized) and return unless dmp.user&.org_id == current_user&.org_id
 
+        dmp.metadata = _handle_dataset_distributions(dmp: dmp.metadata)
         result = dmp.register_dmp_id!
         render_error(errors: DraftsController::MSG_DMP_ID_REGISTRATION_FAILED, status: :bad_request) and return if result.nil?
 
@@ -310,8 +311,10 @@ module Api
           end
 
           output = ResearchOutput.new(title: hash['title'], description: hash['description'], release_date: hash['issued'],
-                                      license: license, byte_size: byte_size, access: access, output_type: hash['type'],
-                                      personal_data: hash['personal_data'] == 'yes', sensitive_data: hash['sensitive_data'] == 'yes')
+                                      license: license, byte_size: byte_size, access: access,
+                                      research_output_type: hash['type'],
+                                      personal_data: hash['personal_data'] == 'yes',
+                                      sensitive_data: hash['sensitive_data'] == 'yes')
 
           repositories.each { |repo| output.repositories << repo }
           standards.each { |standard| output.metadata_standards << standard }

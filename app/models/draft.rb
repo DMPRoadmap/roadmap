@@ -135,6 +135,16 @@ class Draft < ApplicationRecord
     data['dmp']['project'] = [] unless data['dmp']['project'].present?
     data['dmp']['dmproadmap_privacy'] = 'private' unless data['dmp']['dmproadmap_privacy'].present?
 
+    # Hack to fix issue in React because it is sending an object that includes the index of the item
+    # instead of a regular array
+    data['dmp']['dataset'] = data['dmp'].fetch('dataset', []).map do |dataset|
+      return dataset if dataset['distribution'].nil?
+
+      distros = dataset['distribution'].is_a?(Hash) ? dataset['distribution'].values : dataset['distribution']
+      dataset['distribution'] = distros
+      dataset
+    end
+
     data['dmp'] = ensure_defaults(dmp: data['dmp'])
     JSON.parse(data.to_json).to_json
   end
@@ -275,7 +285,7 @@ class Draft < ApplicationRecord
       byte_size = process_byte_size(unit: size['unit'], size: val) if val.present?
       dataset.delete('size') if dataset['size'].present?
 
-      dataset['distribution'].each do |distro|
+      dataset.fetch('distribution', []).each do |distro|
         distro['title'] = "Proposed distribution of '#{dataset['title']}'" unless distro['title'].present?
         distro['byte_size'] = byte_size if byte_size.present?
 

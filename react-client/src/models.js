@@ -704,17 +704,11 @@ export async function saveDmp(dmp) {
     body: JSON.stringify({ dmp: dmp.getData() }),
   });
 
-  console.log(options);
-
   let prefix = "drafts";
   let id = decodeId(dmp.id);
   if (id !== dmp.id) {
     prefix = "dmps";
   }
-
-  console.log(`PREFIX: ${prefix}`);
-  console.log(api.getPath(`/${prefix}/${encodeURIComponent(id)}`));
-  console.log(id);
 
   /* briley - commenting out the original encodeURIComponent bit because it is returning a 404 on stage but
    *          Rails never gets the request. Checked the WAF and it is not being blocked.
@@ -723,9 +717,6 @@ export async function saveDmp(dmp) {
   const resp = await fetch(api.getPath(`/${prefix}/${id}`), options);
   api.handleResponse(resp);
   const data = await resp.json();
-
-  console.log(data);
-
   return new DmpModel(data.items[0].dmp);
 }
 
