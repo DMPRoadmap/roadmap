@@ -704,11 +704,16 @@ export async function saveDmp(dmp) {
     body: JSON.stringify({ dmp: dmp.getData() }),
   });
 
+  console.log(options);
+
   let prefix = "drafts";
   let id = decodeId(dmp.id);
   if (id !== dmp.id) {
     prefix = "dmps";
   }
+
+  console.log(`PREFIX: ${prefix}`);
+  console.log(api.getPath(`/${prefix}/${encodeURIComponent(id)}`));
 
   const resp = await fetch(api.getPath(`/${prefix}/${encodeURIComponent(id)}`), options);
   api.handleResponse(resp);

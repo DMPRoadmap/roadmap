@@ -69,7 +69,7 @@ function ProjectDetails() {
 
     if (dmp.project.isValid()) {
       saveDmp(dmp).then((savedDmp) => {
-        navigate(`/dashboard/dmp/${dmp.id}`);
+        // navigate(`/dashboard/dmp/${dmp.id}`);
       }).catch(e => {
         console.log("Error saving DMP");
         console.log(e);
