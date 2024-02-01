@@ -55,19 +55,26 @@ module Dmpopidor
 
     def update
       @research_output = ::ResearchOutput.find(params[:id])
+      plan =  @research_output.plan
       attrs = research_output_params
 
       authorize @research_output
 
       research_output_description = @research_output.json_fragment.research_output_description
 
-      I18n.with_locale @research_output.plan.template.locale do
+      I18n.with_locale plan.template.locale do
         updated_data = research_output_description.data.merge({
           title: params[:title],
           type: params[:type],
           containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No')
         })
         research_output_description.update(data: updated_data)
+        research_output_description.update_research_output_parameters(true)
+        PlanChannel.broadcast_to(plan, {
+          target: "dynamic_form",
+          fragment_id: research_output_description.id,
+          payload: research_output_description.get_full_fragment
+        })
       end
 
       research_outputs = ::ResearchOutput.where(plan_id: params[:plan_id])

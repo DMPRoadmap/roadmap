@@ -86,6 +86,7 @@ class MadmpFragmentsController < ApplicationController
       )
 
       @fragment.update_meta_fragment
+      @fragment.update_research_output_parameters
       render json: {
         fragment: @fragment.get_full_fragment(with_ids: true),
         plan_title: (@fragment.dmp.meta.data['title'] if %w[dmp project entity].include?( @fragment.classname)),
