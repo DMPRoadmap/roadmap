@@ -4,8 +4,7 @@
   shared_links_tooltip = _('Links will be displayed next to your organisation\'s logo')
   org_config_info_tooltip =  _('This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes.')
   org_types_tooltip = _(
-  'This information can only be changed by a system administrator. Contact %{support_email} if you have questions or to request changes.' % { support_email: Rails.configuration.x.organisation.email}
-  )
+  'This information can only be changed by a system administrator. Contact %{support_email} if you have questions or to request changes.') % { support_email: Rails.configuration.x.organisation.email}
 %>
 
 <%= form_for(org, url: url, html: { multipart: true, method: method,
