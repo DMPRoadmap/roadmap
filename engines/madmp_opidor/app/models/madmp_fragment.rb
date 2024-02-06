@@ -89,7 +89,6 @@ class MadmpFragment < ApplicationRecord
   before_save   :set_defaults
   after_create  :update_parent_references
   after_destroy :update_parent_references
-  after_save    :update_research_output_parameters
 
   # =====================
   # = Nested Attributes =
@@ -193,7 +192,7 @@ class MadmpFragment < ApplicationRecord
     parent.update_children_references
   end
 
-  def update_research_output_parameters
+  def update_research_output_parameters(skip_broadcast = false)
     return unless plan.template.structured?
 
     case classname
@@ -202,8 +201,15 @@ class MadmpFragment < ApplicationRecord
       new_additional_info = ro_fragment.additional_info.merge(
         hasPersonalData: %w[Oui Yes].include?(data['containsPersonalData'])
       )
+      research_output.update(
+        title: data['title']
+      )
       ro_fragment.update(additional_info: new_additional_info)
-      # ResearchOutputChannel.broadcast_to(research_output, research_output.serialize_infobox_data)
+      PlanChannel.broadcast_to(research_output.plan, {
+        target: "research_output_infobox",
+        research_output_id: research_output.id,
+        payload: research_output.serialize_infobox_data
+      }) unless skip_broadcast
     else
       return
     end
