@@ -14,8 +14,6 @@ services:
       - RAILS_ENV=development
       - RAKE_ENV=development
       - NODE_ENV=development
-      - DB_USERNAME=${DB_USERNAME:-postgres}
-      - DB_PASSWORD=${DB_PASSWORD:-changeme}
       - RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES:-false}
     volumes:
       - ./:/app
@@ -29,7 +27,6 @@ services:
       - dmpopidor_network
 
   postgres:
-    profiles: [ "dev" ]
     ports:
       - ${POSTGRES_PORT:-5432}:5432
 
