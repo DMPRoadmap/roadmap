@@ -2,24 +2,32 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-# 30/01/2024
-- Correction d'un problème de mise à jour des listes de personnes après la création d'un nouvelle personne. Lorsque le nouveau contributeur était créé à partir de cette personne, la ligne était "vide" 
+## 06/02/2024
+
+- Agrandissement de la zone de connexion (sur "Mon Compte")
+- Suppression du modèle par défaut dans les autres sélecteurs de modèle.
+- Changement de la redirection après connexion, la redirection se fait sur "Tableau de bord"
+- Mise à jour des fichiers docker compose.
+
+## 30/01/2024
+
+- Correction d'un problème de mise à jour des listes de personnes après la création d'un nouvelle personne. Lorsque le nouveau contributeur était créé à partir de cette personne, la ligne était "vide"
 - Correction du problème de mise à jour du titre du plan dans le Tableau de bord après l'import de données Projet
 - Ajout de la mise à jour de la liste des personnes après l'import de données Projet
 - Correction du problème de captcha lors d'un changement de mot de passe.
 - Changement du tooltip du bouton d'ajout d'un contributeur dans l'onglet Produits de Recherche des plans classique. (#9831)
-- Correction du problème de mise à jour du titre de produit de recherche dans le formulaire Description aptès de la mise à jour des informations de l'infobox. (Il est encore nécessaire de recharger la page).
+- Correction du problème de mise à jour du titre de produit de recherche dans le formulaire Description après de la mise à jour des informations de l'infobox. (Il est encore nécessaire de recharger la page).
 - Changement du nombre de news affichées sur la page d'accueil (13 -> 12)
 - Correction du problème d'import RoR dans le formulaire Person
 - Correction du problème de recherche dans les listes d'organisme dans la page de création de plan
 
-# 29/01/2024
+## 29/01/2024
+
 - Ajout de l'import RoR au niveau des partenaires
 - Ajout des modèles recommandés:
-  - Lors de la création de plan, un modèle recommandé est proposé selon les critères suivants : contexte, langue, recommendé
+  - Lors de la création de plan, un modèle recommandé est proposé selon les critères suivants : contexte, langue, recommandé
   - Ajout d'une nouvelle colonne indiquant qu'un modèle est recommandé dans le tableau des modèles accessible par les administrateurs
-  - Dans la liste des modèles, le super adminitrateur peut cocher une case pour indiquer qu'un modèle **publié** est recommandé.
-  
+  - Dans la liste des modèles, le super administrateur peut cocher une case pour indiquer qu'un modèle **publié** est recommandé.
 
 ## 24/01/2024
 
@@ -39,8 +47,8 @@
 
 - Ajout d'un sous formulaire pour les propriétés de type objet non liées à un référentiel (ex Meso@LRServiceRequest) (#10160)
 - Les modales ne se ferment désormais plus lorsque l'on clique en dehors. (#10169)
-- Ajout d'un bouton Supprimer dans le tableau Valeur Selectionnée des référentiels complexes à choix uniques (Licences/Financeurs)
-- Ajustements CSS : recommandations, icone des commentaires
+- Ajout d'un bouton Supprimer dans le tableau Valeur Sélectionner des référentiels complexes à choix uniques (Licences/Financeurs)
+- Ajustements CSS : recommandations, icône des commentaires
 - Correction du problème de sauvegarde des contributeurs (#9556)
 - Refonte de la création de plan:
   - Modification des étiquettes des modèles (étape 3)
@@ -61,7 +69,7 @@
 ## 08/01/2024
 
 - Ajout de l'exécution des scripts dans l'onglet Rédiger:
-  - Les scripts s'éxécutent à partir du `name` et du `owner` présents dans le `run`
+  - Les scripts s'exécutent à partir du `name` et du `owner` présents dans le `run`
   - Si `owner` est absent, le owner "superadmin" est utilisé
 - Améliorations diverses dans le choix des recommandations
 
@@ -69,7 +77,7 @@
 
 - Ajout de l'import informations de projets provenant de plusieurs financeurs (#9784)
 - Ajout du changement de formulaire (#10040) :
-  - Lorsque plusieurs formulaires sont disponibles, une icone s'affiche et permet de faire apparaitre le formulaire de changement de formulaire
+  - Lorsque plusieurs formulaires sont disponibles, une icône s'affiche et permet de faire apparaître le formulaire de changement de formulaire
 - Correction des conditions d'affichage des Contributeurs multiples (devrait corriger le problème d'affichage des contributeurs dans le formulaire ResearchEntityStandard)
 - Correction d'un problème de sélection du rôle des contributeurs.
 
@@ -112,7 +120,7 @@
 - Mise à jour onglet "Rédiger":
   - Ajout d'une ligne d'information du plan (modèle, organisme, version, date de publication)
   - Mise à jour du titre de choix de recommendations:
-    - Changement de l'icone (ampoule), changement de couleur
+    - Changement de l'icône (ampoule), changement de couleur
 - Correction d'un problème d'import Financeur (c'était le projet PHYTOCLIM qui était importé quelque soit le choix, du code utilisé en local pour tester l'import avait été déployé sur le serveur)
 
 ## 14/11/2023
@@ -131,19 +139,19 @@
 - Correction d'un problème de sauvegarde du Type et PID des produits de recherche dans les plans classiques (Carte KB #9831)
 - Amélioration du fonctionnement des référentiels multiples & amélioration des messages demandant aux utilisateurs de sélectionner une valeur (Carte KB #9555)
 - Amélioration de la création de plan (Carte KB #9876)
-- Intégration de la librarie react-hook-form  (Carte KB #9587)
+- Intégration de la bibliothèque react-hook-form  (Carte KB #9587)
 
 ## 07/11/2023
 
 - Ajout d'un mode Lecture Seule pour l'onglet Informations Générales
-- Ajout des textes "Selectionnez une valeur" dans les listes de sélection (Carte KB #9555)
+- Ajout des textes "Sélectionnez une valeur" dans les listes de sélection (Carte KB #9555)
 - Correction d'un problème d'ouverture des questions sans recommandations
 - Plans Classiques : Correction d'un problème d'ajout, mise à jour et suppression des produits de recherche (Carte KB #9831)
 - Augmentation de la largeur de l'onglet Informations Générales (Carte KB #9701)
 
 ### Contributeurs
 
-- Plans Classiques : Changement de l'icone et du tooltip d'ajout d'un contributeur depuis l'onglet Produits de Recherche (Carte KB #9817)
+- Plans Classiques : Changement de l'icône et du tooltip d'ajout d'un contributeur depuis l'onglet Produits de Recherche (Carte KB #9817)
 - Amélioration de la gestion des rôles lors de la suppression d'une personne depuis l'onglet Contributeurs (Carte KB #9851)
 - Ajout de l'affichage de l'affiliation et de l'identifiant de la personne dans l'onglet Contributeurs (Carte KB #9832)
 
@@ -169,7 +177,7 @@
 - Correction de l'attribution du rôle d'un contributeur
 - Correction d'un problème de suppression des contributeurs
 - Affichage d'un entête des tableaux de fragments lorsque `table_header` n'est pas renseigné
-- Amélioration de l'affichage des résultats des recherches RoR/ORCID (ajout d'un icone lien pour ror, ajout d'un icone pour importer, ajout d'un message lorsqu'il n'y a aucune donnée)
+- Amélioration de l'affichage des résultats des recherches RoR/ORCID (ajout d'un icône lien pour ror, ajout d'un icône pour importer, ajout d'un message lorsqu'il n'y a aucune donnée)
 - Correction du filtre sur les pays dans l'import RoR
 - Ajout de l'affichage du numéro de section dans les questions
 
