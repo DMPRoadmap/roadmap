@@ -15,6 +15,9 @@
   <% end %>
 
   <p class="fontsize-h3"><%= _('Individual Access')%></p>
+  <div style="font-size: 14px; margin: -5px 0 10px 0">
+    <%= _('Not registered yet?') %> <a href="<%= login_path %>?place=signup#content"><%= _('Create my account') %></a>
+  </div>
   <div class="form-group">
     <%= f.label(:email, _('Email'), class: 'control-label') %>
     <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
@@ -23,17 +26,14 @@
     <%= f.label(:password, _('Password'), class: 'control-label') %>
     <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
   </div>
-  <div>
-    <%= link_to _('Forgot password?'), new_password_path('user') %>
-  </div>
   <div class="checkbox">
-    <%= label_tag 'remember_email' do %>
-      <%= check_box_tag 'remember_email' %>
-      <%= _('Remember email') %>
+    <%= label_tag 'remember_me' do %>
+      <%= check_box_tag 'remember_me' %>
+      <%= _('Remember me') %>
     <% end %>
   </div>
   <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
-  
- 
-
+  <div style="font-size: 14px; margin: -5px 0 10px 0">
+    <%= link_to _('Forgot password?'), new_password_path('user') %>
+  </div>
 <% end %>
