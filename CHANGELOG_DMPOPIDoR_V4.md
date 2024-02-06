@@ -4,6 +4,7 @@
 
 - Ajout de la mise à jour automatique des informations de l'infobox des Produits de recherche lors de l'enregistrement du formulaire Description d'un produit de recherche
 - Ajout de la mise à jour automatique du formulaire Description d'un produit de recherche lors de l'enregistrement de l'infobox d'un produit de recherche
+- Correction d'un problème de mise à jour d'une personne après un import Financeur (#9556)
 
 
 # 30/01/2024
