@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Ajout de la mise à jour automatique des informations de l'infobox des Produits de recherche lors de l'enregistrement du formulaire Description d'un produit de recherche
+- Ajout de la mise à jour automatique du formulaire Description d'un produit de recherche lors de l'enregistrement de l'infobox d'un produit de recherche
+
+
 # 30/01/2024
 - Correction d'un problème de mise à jour des listes de personnes après la création d'un nouvelle personne. Lorsque le nouveau contributeur était créé à partir de cette personne, la ligne était "vide" 
 - Correction du problème de mise à jour du titre du plan dans le Tableau de bord après l'import de données Projet
