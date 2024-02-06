@@ -63,6 +63,7 @@ chdir APP_ROOT do
     "s/^dragonfly_secret:(.*)$/\dragonfly_secret:\s#{ENV["DRAGON_FLY_SECRET"] || 'my_secret_key'}/",
     "s/^[\s]+site_key:(.*)$/\  site_key:\s#{ENV["RECAPTCHA_SITE_KEY"] || '11111'}/",
     "s/^[\s]+secret_key:(.*)$/\  secret_key:\s#{ENV["RECAPTCHA_SECRET_KEY"] || '22222'}/",
+    "s/^[\s]+translation_api_key:(.*)$/\  translation_api_key:\s#{ENV["TRANSLATION_API_CLIENT"] || 'my_key'}/",
   ].join(';')
   credentials_data = `sed -E \"#{regex}\" config/credentials.yml.sample`
 
