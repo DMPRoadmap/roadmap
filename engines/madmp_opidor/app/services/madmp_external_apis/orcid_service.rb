@@ -79,7 +79,7 @@ module MadmpExternalApis
 
         data.map do |item|
           {
-            orcid: item&.dig('orcid-id').to_s,
+            orcid: "#{landing_page_url}#{item&.dig('orcid-id').to_s}",
             givenNames: item&.dig('given-names').to_s,
             familyNames: item&.dig('family-names').to_s,
             institutionName: item&.dig('institution-name') || []
