@@ -110,7 +110,7 @@ RSpec.configure do |config|
   end
 
   # Enable Capybara webmocks if we are testing a feature
-  config.before(:each) do |example|
+  config.before(:each) do
     # Ensure that there is always a default Language
     create(:language, abbreviation: 'en', default_language: true) unless Language.default.present?
   end

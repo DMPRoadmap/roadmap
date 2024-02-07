@@ -21,6 +21,6 @@ end
 
 # Throttle attempts to a particular path. 4 POSTs to /users/sign_in every 30 seconds
 Rack::Attack.throttle "logins/ip", limit: 4, period: 30.seconds do |req|
-  # Don't apply sign-in rate-limiting to test environment 
+  # Don't apply sign-in rate-limiting to test environment
   req.post? && req.path == "/users/sign_in" && req.ip unless Rails.env.test?
 end

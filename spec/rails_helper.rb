@@ -41,7 +41,7 @@ Dir[Rails.root.join('spec/mixins/*.rb')].each { |f| require f }
 
 # Block all external HTTP requests
 WebMock.disable_net_connect!(
-  allow_localhost: true,
+  allow_localhost: true
 )
 
 # Configure RSpec
