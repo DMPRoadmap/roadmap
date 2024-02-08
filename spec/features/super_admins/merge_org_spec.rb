@@ -45,16 +45,7 @@ RSpec.describe 'SuperAdmins Merge Orgs', type: :feature do
     expect(page).to have_text('Merge Organisations')
     choose_suggestion('org_org_name', @to_org)
 
-    # rubocop:disable Layout/LineLength
-    # Using JS to click on button as click_button 'Analyze' fails due to error like
-    # Selenium::WebDriver::Error::ElementClickInterceptedError: element click intercepted:
-    # Element <button name="button" type="submit" class="btn btn-primary">...</button> is not clickable at point (86, 349).
-    # Other element would receive the click: <div id="ui-id-2" tabindex="-1" class="ui-menu-item-wrapper">...</div>
-    # So replacing  click_button 'Analyze'with
-    # rubocop:enable Layout/LineLength
-    analyze_button = find('button', text: 'Analyze')
-    execute_script('arguments[0].click();', analyze_button)
-
+    click_button 'Analyze'
     # Wait for response
     sleep(0.3)
     expect(page).to have_text('Summary:')
