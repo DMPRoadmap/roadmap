@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Correction d'un problème de création des fragments à partir d'une modale. L'application pouvaient bloquer la création des fragments avec un champ inclus dans les contraintes d'unicités et dont la valeur est vide (ex: RNSR dans les partenaires).
+- Ajout de la possibilité de supprimer le premier produit de recherche
+- Amélioration de l'affichage des icones dans les tableaux de fragments. Certains icones étaient difficilement cliquables
+- Correction d'un problème de sauvegarde d'un fragment dont des champs inclus dans les contraintes d'unicités n'avaient pas été modifiés (ex: ajout d'un identifiant pour une personne sans modification du nom/prénom).
+- Ajout de l'URL avant les identifiants ROR et ORCID lors de l'import ROR/ORCID
+
 ## 06/02/2024
 
 - Agrandissement de la zone de connexion (sur "Mon Compte")
