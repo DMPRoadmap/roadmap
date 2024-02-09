@@ -1,0 +1,98 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "maDMP OPIDoR API",
+    "description": "Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the \"Authorize\" button",
+    "version": "0",
+    "contact":{
+      "email" : "dmp.opidor@inist.fr",
+      "name" : "DMP OPIDoR support staff"
+
+    },
+   "license": {
+      "name" : "MIT license",
+      "url": "https://spdx.org/licenses/MIT.html"
+   }
+   } ,
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description" : "local test instance"
+    }
+  ],
+
+  "paths": {
+    "/api/v0/templates": {
+    "get": {
+      "tags": [
+        "Templates"
+      ],
+      "summary": "Returns a list of all published templates, sorted by organization",
+      "security":[{
+        "ApiKeyAuth" :[]
+      }],
+      "responses": {
+        "200": {
+          "description": "successful",
+          "content": {}
+        }
+      }
+    }
+  },
+  "/api/v0/guidances": {
+    "get": {
+      "tags": [
+        "Guidances"
+      ],
+      "summary": "Returns a list of all published guidances for your organisation, and the managing organisation, sorted by guidance group",
+      "security":[{
+        "ApiKeyAuth" :[]
+      }],
+      "responses": {
+        "200": {
+          "description": "successful",
+          "content": {}
+        }
+      }
+    }
+  },
+  "/api/v0/statistics/plans": {
+    "get": {
+      "tags": [
+        "Statistics"
+      ],
+      "summary": "Generic metadata about all plans created by all users from your organisation",
+      "security":[{
+        "ApiKeyAuth" :[]
+      }],
+      "responses": {
+        "200": {
+          "description": "successful",
+          "content": {}
+        }
+      }
+    }
+  }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in" :"header",
+        "description" : "Enter the API token value "
+      }
+    },
+
+    "responses":{
+
+      }
+
+  }
+
+}
+
+
+
+
+
