@@ -2,6 +2,8 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 09/02/2024
+
 - Correction d'un problème de création des fragments à partir d'une modale. L'application pouvaient bloquer la création des fragments avec un champ inclus dans les contraintes d'unicités et dont la valeur est vide (ex: RNSR dans les partenaires).
 - Ajout de la possibilité de supprimer le premier produit de recherche
 - Amélioration de l'affichage des icones dans les tableaux de fragments. Certains icones étaient difficilement cliquables
