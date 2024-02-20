@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Mise à jour de la bannière
+- Mise à jour du logo CNRS & Ajout du logo dans le menu principal
+- Correction d'un bug du formulaire qui enregistrait les champs "nombre" en tant que chaine de caractère. (#10291)
+- Ajout de la gestion d'erreur (ex: unicité du titre et abréviation) lors de l'ajout/mise à jour d'un produit de recherche (#10246)
+- Correction d'un problème de génération du titre et abréviation par défaut d'un produit de recherche
+
 ## 09/02/2024
 
 - Correction d'un problème de création des fragments à partir d'une modale. L'application pouvaient bloquer la création des fragments avec un champ inclus dans les contraintes d'unicités et dont la valeur est vide (ex: RNSR dans les partenaires).

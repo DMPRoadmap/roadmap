@@ -1,6 +1,10 @@
 ---
 en-GB:
   activerecord:
+    attributes:
+      research_output:
+        abbreviation: "Short name"
+        title: "Name"
     errors:
       messages:
         record_invalid: 'Validation failed: %{errors}'
