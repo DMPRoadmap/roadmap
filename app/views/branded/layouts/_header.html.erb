@@ -15,8 +15,8 @@
     <% if user_signed_in? && !current_user.org.nil? && (!current_user.org.is_other || current_user.can_super_admin?) %>
       <%= render partial: "layouts/branding" , locals: {max_number_links: Rails.configuration.x.max_number_links_funder} %>
     <% else %>
-      <span class="homepage-h1"><%= _('Research data management') %></span>
-      <span class="homepage-h2"><%= _('A key element in keeping good management practices and making your data FAIR.') %></span>
+      <span class="homepage-h1"><%= _('Effectively describing the life of your data to ensure its future') %></span>
+      <span class="homepage-h2"><%= _('DMP OPIDoR – an active tool and just as active support to help plan your data management in harmony with your community’s practices.') %></span>
     <% end %>
   </div>
 
