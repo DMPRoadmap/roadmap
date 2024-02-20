@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-02-06 08:47+0100\n"
-"PO-Revision-Date: 2024-02-06 08:47+0100\n"
+"POT-Creation-Date: 2024-02-19 10:15+0100\n"
+"PO-Revision-Date: 2024-02-19 10:15+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -156,8 +156,8 @@ msgstr ""
 #: ../../app/controllers/dmpopidor/notes_controller.rb:237
 #: ../../app/controllers/notes_controller.rb:153
 #: ../../app/controllers/research_outputs_controller.rb:83
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:133
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:153
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:134
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:154
 msgid "removed"
 msgstr ""
 
@@ -165,8 +165,8 @@ msgstr ""
 #: ../../app/controllers/dmpopidor/notes_controller.rb:241
 #: ../../app/controllers/notes_controller.rb:171
 #: ../../app/controllers/research_outputs_controller.rb:86
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:137
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:157
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:138
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:158
 msgid "remove"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgstr ""
 msgid "There is no plan associated with id %{id}"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:68
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:69
 #: ../../app/models/dmpopidor/research_output.rb:72
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
@@ -324,7 +324,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:68
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:69
 #: ../../app/models/dmpopidor/research_output.rb:72
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
@@ -337,8 +337,8 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:131
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:173
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:138
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:180
 #: ../../app/controllers/guidance_groups_controller.rb:97
 #: ../../app/controllers/guidances_controller.rb:96
 #: ../../app/controllers/plans_controller.rb:405
@@ -348,7 +348,7 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:171
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:178
 #: ../../app/controllers/guidance_groups_controller.rb:95
 #: ../../app/controllers/guidances_controller.rb:94
 #: ../../app/controllers/plans_controller.rb:400
@@ -358,12 +358,12 @@ msgstr ""
 msgid "deleted"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:195
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:202
 #: ../../app/models/dmpopidor/research_output.rb:83
 msgid "Data contact"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:207
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:214
 #: ../../app/controllers/plans_controller.rb:486
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
@@ -1056,7 +1056,7 @@ msgid "DMP manager"
 msgstr ""
 
 #: ../../app/models/dmpopidor/plan.rb:111
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:418
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:424
 msgid "\"%{project_title}\" project DMP"
 msgstr ""
 
@@ -1333,8 +1333,8 @@ msgstr ""
 #: ../../app/views/branded/paginable/users/_index.html.erb:21
 #: ../../app/views/branded/plans/_share_form.html.erb:76
 #: ../../app/views/branded/shared/_create_account_form.html.erb:12
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:19
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:22
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:22
 msgid "Email"
 msgstr ""
 
@@ -1519,8 +1519,8 @@ msgstr ""
 
 #: ../../app/views/branded/devise/registrations/edit.html.erb:44
 #: ../../app/views/branded/shared/_create_account_form.html.erb:25
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:23
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:23
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:26
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:26
 msgid "Password"
 msgstr ""
 
@@ -3435,18 +3435,24 @@ msgstr ""
 msgid "Individual Access"
 msgstr ""
 
-#: ../../app/views/branded/shared/_sign_in_form.html.erb:27
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:27
-msgid "Forgot password?"
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:19
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
+msgid "Not registered yet?"
+msgstr ""
+
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:19
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
+msgid "Create my account"
 msgstr ""
 
 #: ../../app/views/branded/shared/_sign_in_form.html.erb:32
 #: ../../app/views/branded/shared/_sign_in_form_header.html.erb:32
-msgid "Remember email"
+msgid "Remember me"
 msgstr ""
 
-#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:36
-msgid "Create account?"
+#: ../../app/views/branded/shared/_sign_in_form.html.erb:37
+#: ../../app/views/branded/shared/_sign_in_form_header.html.erb:37
+msgid "Forgot password?"
 msgstr ""
 
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:15
@@ -4022,11 +4028,11 @@ msgstr ""
 msgid "Project data have successfully been imported."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:92
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:93
 msgid "Form saved successfully."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:96
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:97
 msgid "Error when saving form."
 msgstr ""
 
