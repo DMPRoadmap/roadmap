@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 20/02/2024
+
+- Ajout d'importation externe de données
+  - Ajout de ``"externalImports": { "ror": {}, "orcid": {} }`` dans ``PersonStandard``
+  - Ajout de ``"externalImports": { "ror": { "affiliationName": "name", "affiliationId": "orgId", "acronyms": "acronym", "affiliationIdType": "idType" } }`` dans ``PartnerStandard``
+  - Ajout de ``"externalImports": { "ror": {}, "orcid": {} }`` dans ``ResearchEntityStandard``
+- Ajout de la logique pour ``externalImports`` dans les composants ``NestedForm``, ``ModalForm`` et ``DynamicForm``.
+
 ## 09/02/2024
 
 - Correction d'un problème de création des fragments à partir d'une modale. L'application pouvaient bloquer la création des fragments avec un champ inclus dans les contraintes d'unicités et dont la valeur est vide (ex: RNSR dans les partenaires).
