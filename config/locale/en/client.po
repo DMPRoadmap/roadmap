@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-02-19 10:15+0100\n"
-"PO-Revision-Date: 2024-02-19 10:15+0100\n"
+"POT-Creation-Date: 2024-02-21 14:04+0100\n"
+"PO-Revision-Date: 2024-02-21 14:04+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -115,8 +115,8 @@ msgstr "added"
 
 #: ../../app/controllers/contributors_controller.rb:79
 #: ../../app/controllers/dmpopidor/orgs_controller.rb:99
-#: ../../app/controllers/dmpopidor/plans_controller.rb:133
 #: ../../app/controllers/dmpopidor/plans_controller.rb:136
+#: ../../app/controllers/dmpopidor/plans_controller.rb:139
 #: ../../app/controllers/guidance_groups_controller.rb:55
 #: ../../app/controllers/guidances_controller.rb:75
 #: ../../app/controllers/notes_controller.rb:103
@@ -136,10 +136,10 @@ msgstr "saved"
 #: ../../app/controllers/contributors_controller.rb:81
 #: ../../app/controllers/dmpopidor/notes_controller.rb:205
 #: ../../app/controllers/dmpopidor/orgs_controller.rb:101
-#: ../../app/controllers/dmpopidor/plans_controller.rb:142
 #: ../../app/controllers/dmpopidor/plans_controller.rb:145
-#: ../../app/controllers/dmpopidor/plans_controller.rb:149
+#: ../../app/controllers/dmpopidor/plans_controller.rb:148
 #: ../../app/controllers/dmpopidor/plans_controller.rb:152
+#: ../../app/controllers/dmpopidor/plans_controller.rb:155
 #: ../../app/controllers/guidance_groups_controller.rb:57
 #: ../../app/controllers/guidances_controller.rb:77
 #: ../../app/controllers/notes_controller.rb:121
@@ -202,7 +202,7 @@ msgid "registry value"
 msgstr "registry value"
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:99
-#: ../../app/controllers/dmpopidor/plans_controller.rb:49
+#: ../../app/controllers/dmpopidor/plans_controller.rb:51
 #: ../../app/controllers/guidance_groups_controller.rb:31
 #: ../../app/controllers/guidances_controller.rb:53
 #: ../../app/controllers/notes_controller.rb:54
@@ -213,8 +213,8 @@ msgid "created"
 msgstr "created"
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:114
-#: ../../app/controllers/dmpopidor/plans_controller.rb:88
-#: ../../app/controllers/dmpopidor/plans_controller.rb:350
+#: ../../app/controllers/dmpopidor/plans_controller.rb:90
+#: ../../app/controllers/dmpopidor/plans_controller.rb:353
 #: ../../app/controllers/guidance_groups_controller.rb:34
 #: ../../app/controllers/guidances_controller.rb:55
 #: ../../app/controllers/notes_controller.rb:73
@@ -237,32 +237,32 @@ msgstr "Unable to notify user that you have finished providing feedback."
 msgid "Unable to identify a suitable template for your plan."
 msgstr "Unable to identify a suitable template for your plan."
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:36
+#: ../../app/controllers/dmpopidor/plans_controller.rb:38
 #: ../../app/controllers/plans_controller.rb:103
 msgid "My Plan (%{title})"
 msgstr "My Plan (%{title})"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:38
+#: ../../app/controllers/dmpopidor/plans_controller.rb:40
 #: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:74
 msgid "%{user_name} Plan"
 msgstr "%{user_name} Plan"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:53
+#: ../../app/controllers/dmpopidor/plans_controller.rb:55
 #: ../../app/controllers/plans_controller.rb:143
 msgid "This plan is based on the default template."
 msgstr "This plan is based on the default template."
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:58
+#: ../../app/controllers/dmpopidor/plans_controller.rb:60
 #: ../../app/controllers/plans_controller.rb:148
 msgid "This plan is based on the"
 msgstr "This plan is based on the"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:58
+#: ../../app/controllers/dmpopidor/plans_controller.rb:60
 #: ../../app/controllers/plans_controller.rb:148
 msgid "template with customisations by the"
 msgstr "template with customisations by the"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:62
+#: ../../app/controllers/dmpopidor/plans_controller.rb:64
 #: ../../app/controllers/plans_controller.rb:156
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:9
 msgid ""
@@ -272,50 +272,50 @@ msgstr ""
 "This plan is based on the \"%{template_title}\" template provided by %{org_name}"
 "."
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:73
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:22
+#: ../../app/controllers/dmpopidor/plans_controller.rb:75
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:26
 #: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:27
 msgid "RO"
 msgstr "RO"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:74
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:23
+#: ../../app/controllers/dmpopidor/plans_controller.rb:76
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:27
 msgid "Research output"
 msgstr "Research output"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:338
+#: ../../app/controllers/dmpopidor/plans_controller.rb:341
 #: ../../app/controllers/plans_controller.rb:105
 msgid "%{user_name}'s Plan"
 msgstr "%{user_name}'s Plan"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:348
+#: ../../app/controllers/dmpopidor/plans_controller.rb:351
 msgid "imported"
 msgstr "imported"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:354
+#: ../../app/controllers/dmpopidor/plans_controller.rb:357
 msgid "Unvalid file"
 msgstr "Unvalid file"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:356
+#: ../../app/controllers/dmpopidor/plans_controller.rb:359
 msgid "File should contain JSON"
 msgstr "File should contain JSON"
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:359
+#: ../../app/controllers/dmpopidor/plans_controller.rb:362
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:61
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:135
 msgid "An error has occured: "
 msgstr "An error has occured: "
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:438
+#: ../../app/controllers/dmpopidor/plans_controller.rb:441
 msgid "Invalid JSON: "
 msgstr "Invalid JSON: "
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:14
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:15
 #: ../../app/controllers/plans_controller.rb:529
 msgid "There is no plan associated with id %{id}"
 msgstr "There is no plan associated with id %{id}"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:69
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:78
 #: ../../app/models/dmpopidor/research_output.rb:72
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
@@ -328,7 +328,7 @@ msgstr "There is no plan associated with id %{id}"
 msgid "Yes"
 msgstr "Yes"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:69
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:78
 #: ../../app/models/dmpopidor/research_output.rb:72
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:25
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
@@ -341,8 +341,8 @@ msgstr "Yes"
 msgid "No"
 msgstr "No"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:138
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:180
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:150
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:192
 #: ../../app/controllers/guidance_groups_controller.rb:97
 #: ../../app/controllers/guidances_controller.rb:96
 #: ../../app/controllers/plans_controller.rb:405
@@ -352,7 +352,7 @@ msgstr "No"
 msgid "delete"
 msgstr "delete"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:178
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
 #: ../../app/controllers/guidance_groups_controller.rb:95
 #: ../../app/controllers/guidances_controller.rb:94
 #: ../../app/controllers/plans_controller.rb:400
@@ -362,12 +362,12 @@ msgstr "delete"
 msgid "deleted"
 msgstr "deleted"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:202
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:214
 #: ../../app/models/dmpopidor/research_output.rb:83
 msgid "Data contact"
 msgstr "Data contact"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:214
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:226
 #: ../../app/controllers/plans_controller.rb:486
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
@@ -982,7 +982,7 @@ msgid "Your ORCID"
 msgstr "Your ORCID"
 
 #: ../../app/helpers/template_helper.rb:48
-#: ../../app/views/branded/layouts/_navigation.html.erb:31
+#: ../../app/views/branded/layouts/_navigation.html.erb:34
 #: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:11
 #: ../../app/views/branded/plans/index.html.erb:27
 msgid "Create plan"
@@ -1436,6 +1436,7 @@ msgstr ""
 #: ../../app/views/branded/layouts/_footer.html.erb:69
 #: ../../app/views/branded/layouts/_footer.html.erb:74
 #: ../../app/views/branded/layouts/_footer.html.erb:79
+#: ../../app/views/branded/layouts/_navigation.html.erb:11
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:33
 #: ../../app/views/branded/paginable/templates/_history.html.erb:25
@@ -1679,7 +1680,7 @@ msgid "Technical Support"
 msgstr "Technical Support"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:11
-#: ../../app/views/branded/layouts/_navigation.html.erb:11
+#: ../../app/views/branded/layouts/_navigation.html.erb:14
 #: ../../app/views/branded/orgs/_profile_form.html.erb:46
 msgid "logo"
 msgstr "logo"
@@ -1697,19 +1698,19 @@ msgid "Navigation"
 msgstr "Navigation"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:19
-#: ../../app/views/branded/layouts/_navigation.html.erb:45
+#: ../../app/views/branded/layouts/_navigation.html.erb:48
 msgid "Help"
 msgstr "Help"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:20
-#: ../../app/views/branded/layouts/_navigation.html.erb:68
+#: ../../app/views/branded/layouts/_navigation.html.erb:71
 #: ../../app/views/branded/public_pages/template_index.html.erb:1
 #: ../../app/views/branded/public_pages/template_index.html.erb:5
 msgid "DMP Templates"
 msgstr "DMP Templates"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:21
-#: ../../app/views/branded/layouts/_navigation.html.erb:84
+#: ../../app/views/branded/layouts/_navigation.html.erb:87
 #: ../../app/views/branded/layouts/application.html.erb:71
 msgid "Learn more"
 msgstr "Learn more"
@@ -1749,16 +1750,21 @@ msgid "Mailing list"
 msgstr "Mailing list"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:74
+#: ../../app/views/branded/layouts/_navigation.html.erb:11
 msgid "CNRS website"
 msgstr "CNRS website"
 
 #: ../../app/views/branded/layouts/_header.html.erb:18
-msgid "Research data management"
-msgstr "Research data management"
+msgid "Effectively describing the life of your data to ensure its future"
+msgstr "Effectively describing the life of your data to ensure its future"
 
 #: ../../app/views/branded/layouts/_header.html.erb:19
-msgid "A key element in keeping good management practices and making your data FAIR."
-msgstr "A key element in keeping good management practices and making your data FAIR."
+msgid ""
+"DMP OPIDoR – an active support tool to help plan your data management in harmo"
+"ny with your community’s practices."
+msgstr ""
+"DMP OPIDoR – an active support tool to help plan your data management in harmo"
+"ny with your community’s practices."
 
 #: ../../app/views/branded/layouts/_header.html.erb:28
 msgid "Error:"
@@ -1768,17 +1774,17 @@ msgstr "Error:"
 msgid "Notice:"
 msgstr "Notice:"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:23
+#: ../../app/views/branded/layouts/_navigation.html.erb:26
 msgid "My plans"
 msgstr "My plans"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:27
+#: ../../app/views/branded/layouts/_navigation.html.erb:30
 #: ../../app/views/branded/plans/index.html.erb:1
 #: ../../app/views/branded/plans/index.html.erb:3
 msgid "My Dashboard"
 msgstr "My Dashboard"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:35
+#: ../../app/views/branded/layouts/_navigation.html.erb:38
 #: ../../app/views/branded/plans/_form.html.erb:147
 #: ../../app/views/branded/plans/_form.html.erb:148
 #: ../../app/views/branded/plans/import.html.erb:1
@@ -1786,11 +1792,11 @@ msgstr "My Dashboard"
 msgid "Import DMP"
 msgstr "Import DMP"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:57
+#: ../../app/views/branded/layouts/_navigation.html.erb:60
 msgid "Plans & Templates"
 msgstr "Plans & Templates"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:62
+#: ../../app/views/branded/layouts/_navigation.html.erb:65
 #: ../../app/views/branded/public_pages/plan_index.html.erb:1
 #: ../../app/views/branded/public_pages/plan_index.html.erb:5
 msgid "Public DMPs"
