@@ -7,7 +7,7 @@
 - Ajout d'importation externe de données
   - Ajout de ``"externalImports": { "ror": {}, "orcid": {} }`` dans ``PersonStandard``
   - Ajout de ``"externalImports": { "ror": { "affiliationName": "name", "affiliationId": "orgId", "acronyms": "acronym", "affiliationIdType": "idType" } }`` dans ``PartnerStandard``
-  - Ajout de ``"externalImports": { "ror": {}, "orcid": {} }`` dans ``ResearchEntityStandard``
+  - Ajout de ``"externalImports": { "ror": { "affiliationName": "name", "affiliationId": "orgId", "acronyms": "acronym", "affiliationIdType": "idType" } }`` dans ``ResearchEntityStandard``
 - Ajout de la logique pour ``externalImports`` dans les composants ``NestedForm``, ``ModalForm`` et ``DynamicForm``.
 
 ## 20/02/2024
