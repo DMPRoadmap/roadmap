@@ -2,6 +2,8 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 22/02/2024
+
 - Ajout du mail de contact manquant à la signature des notifications de nouveau commentaire.
 - Correction d'un problème d'ouverture du formulaire de description du produit de recherche après la mise à jour de l'infobox.
 - Ajout d'une option pour afficher l'ensemble des données d'un formulaire lors d'un export PDF/DOCX
