@@ -27,12 +27,27 @@
           %>
           <% unless values.empty? %>
             <tr class="fragment-property fragment-list">
-              <td class="property-label"><%= label %></td> 
-              <td class="property-value"><ul>
-                <% values.each do |val| %>
-                  <li><%= raw val.to_s %></li>
-                <% end %>
-              </ul></td> 
+              <td class="property-label"><%= label %></td>
+              <% if @show_complete_data %>
+                <td class="property-value fragment-list-display">
+                  <% values.each do |val| %>
+                    <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
+                                fragment: val,
+                                schema: val.madmp_schema,
+                                classname: val.classname,
+                                locale: locale
+                    })%>
+                  <% end %>
+                </td> 
+              <% else %>
+                <td class="property-value">
+                  <ul>
+                    <% values.each do |val| %>
+                      <li><%= raw val.to_s %></li>
+                    <% end %>
+                  </ul>
+                </td> 
+              <% end %>
             </tr>
           <% end %>
         <% else %>
@@ -44,8 +59,8 @@
       <% when 'object' %>
         <% sub_fragment = dmp_fragments.find(value["dbid"]) %>
         <% next if sub_fragment.data.nil? || sub_fragment.data.compact.empty? %>
-        <% next if sub_fragment.classname.eql?("contributor") %>
-        <% if  prop["registry_id"].present? %>
+        <% next if sub_fragment.classname.eql?("contributor") && !@show_complete_data %>
+        <% if prop["registry_id"].present? && ! @show_complete_data %>
           <tr class="fragment-property">
             <td class="property-label"><%= label %></td> 
             <td class="property-value"><%= sub_fragment.to_s %></td> 
