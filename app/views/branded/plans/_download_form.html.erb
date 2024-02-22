@@ -85,6 +85,14 @@
         <%= _('unanswered questions') %>
       <% end %>
     </div>
+    <% if @plan.template.structured? %>
+    <div class="checkbox">
+      <%= label_tag 'export[complete_data]' do %>
+        <%= check_box_tag 'export[complete_data]', true, false %>
+        <%= _('export complete data') %>
+      <% end %>
+    </div>
+    <% end %>
     <% if @plan.template.customization_of.present? %>
       <div class="checkbox">
         <%= label_tag 'export[custom_sections]' do %>

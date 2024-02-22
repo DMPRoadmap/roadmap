@@ -82,7 +82,7 @@ module Dmpopidor
             PlanChannel.broadcast_to(plan, {
               target: "dynamic_form",
               fragment_id: research_output_description.id,
-              payload: research_output_description.get_full_fragment
+              payload: research_output_description.get_full_fragment(with_ids: true)
             })
 
           research_outputs = ::ResearchOutput.where(plan_id: params[:plan_id])
