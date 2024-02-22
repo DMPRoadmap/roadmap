@@ -30,6 +30,7 @@ module Dmpopidor
       research_output_description = research_output&.json_fragment&.research_output_description
       @research_output_name = research_output_description.data['title']
       @phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
+      @helpdesk_email = helpdesk_email(org: @user.org)
 
       I18n.with_locale current_locale(collaborator) do
         @user_name = collaborator.name
