@@ -10,6 +10,8 @@
 - Ajout du paramètre ``readonly`` dans l'édition des phases
 - Corrections/ajouts de traductions
 - Changement de la mise en forme de la phrase d'accroche.
+- Correction d'un problème d'affichage du type des produits de recherche dans l'infobox après la suppression d'un produit de recherche
+- Correction d'un problème de sauvegarde des sous formulaires des référentiels complexes à choix simple (ex: Financeurs)
 
 ## 22/02/2024
 
