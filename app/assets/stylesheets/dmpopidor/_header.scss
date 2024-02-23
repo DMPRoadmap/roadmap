@@ -527,8 +527,9 @@ header.dmpopidor-branding {
 
       .homepage-h1 {
         color: white;
-        font-size: 60px;
+        font-size: 55px;
         font-weight: bold;
+        text-align: center;
 
         @media (max-width: 767px) {
           font-size: 28pt;
@@ -537,8 +538,9 @@ header.dmpopidor-branding {
 
       .homepage-h2 {
         color: white;
-        width: 75%;
-        font-size: 35px;
+        font-size: 32px;
+        text-align: center;
+        margin-top: 20px;
 
         @media (max-width: 767px) {
           font-size: 18pt;
