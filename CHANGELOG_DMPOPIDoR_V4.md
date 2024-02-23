@@ -2,6 +2,15 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 23/02/2024
+
+- Changement de la loupe par un (i) afin d'afficher la description du modèle dans le choix du modèle (création de plan)
+- Suppréssion du tooltip par un conteneur qui apparaît au clic de l'icône (i) pour afficher la description
+- Modification de la légende des types de modèle de plan (les icônes sont dans le label)
+- Ajout du paramètre ``readonly`` dans l'édition des phases
+- Corrections/ajouts de traductions
+- Changement de la mise en forme de la phrase d'accroche.
+
 ## 22/02/2024
 
 - Ajout du mail de contact manquant à la signature des notifications de nouveau commentaire.
