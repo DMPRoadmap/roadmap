@@ -141,7 +141,7 @@ module MadmpExternalApis
         json['items']&.map do |item|
           {
             type: 'ROR',
-            ror: get_ror_value(item:),
+            ror: item['id'],
             name: get_name(item:),
             links: item&.dig('links' || []),
             country: get_country(item:),

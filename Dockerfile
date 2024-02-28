@@ -1,4 +1,4 @@
-FROM ruby:3.2.2-slim as base
+FROM ruby:3.2.3-slim as base
 WORKDIR /app
 RUN apt update -y && apt install -y \
     build-essential \
@@ -48,4 +48,5 @@ COPY --from=production-builder /app/public ./public
 COPY --from=production-builder /app/config ./config
 COPY --from=production-builder /usr/local/bundle /usr/local/bundle
 EXPOSE 3000
-CMD [ "bundle", "exec", "puma", "-C", "/app/config/puma.rb", "-e", "production" ]
+RUN chmod a+x /app/bin/prod
+CMD [ "/app/bin/prod" ]

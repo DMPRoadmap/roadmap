@@ -35,7 +35,7 @@ module Dmpopidor
     # rubocop:enable Metrics/AbcSize
 
     def after_sign_in_path_for(_resource)
-      root_path
+      plans_path(anchor: 'content')
     end
   end
 end

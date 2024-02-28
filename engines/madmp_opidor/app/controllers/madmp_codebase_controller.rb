@@ -118,7 +118,7 @@ class MadmpCodebaseController < ApplicationController
         dmp_fragment.raw_import(response['data'], dmp_fragment.madmp_schema)
         dmp_fragment.update_meta_fragment
         render json: {
-          'fragment' => dmp_fragment.get_full_fragment,
+          'fragment' => dmp_fragment.get_full_fragment(with_ids: true),
           'persons' => dmp_fragment.persons.map do |f|
             {
               **f.get_full_fragment(with_ids: true),

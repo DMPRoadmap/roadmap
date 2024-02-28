@@ -342,7 +342,7 @@ header.dmpopidor-branding {
         }
 
         a img {
-          width: 70px;
+          height: 60px;
         }
       }
 
@@ -351,9 +351,10 @@ header.dmpopidor-branding {
         align-items: center;
         height: inherit;
 
-        div.navbar-header a img {
-          width: 250px;
-          height: auto !important;
+        div.navbar-header a img.app-logo {
+          width: auto;
+          height: 100px;
+          padding: 5px 15px;
         }
       }
     }
@@ -526,8 +527,9 @@ header.dmpopidor-branding {
 
       .homepage-h1 {
         color: white;
-        font-size: 60px;
+        font-size: 55px;
         font-weight: bold;
+        text-align: center;
 
         @media (max-width: 767px) {
           font-size: 28pt;
@@ -536,8 +538,9 @@ header.dmpopidor-branding {
 
       .homepage-h2 {
         color: white;
-        width: 75%;
-        font-size: 35px;
+        font-size: 32px;
+        text-align: center;
+        margin-top: 20px;
 
         @media (max-width: 767px) {
           font-size: 18pt;
@@ -599,8 +602,11 @@ header.dmpopidor-branding {
     div.main-nav {
       height: 60px;
       div.navbar-header a img.app-logo {
-        width: 170px !important;
-        transition: width 500ms ease-in-out;
+        height: 60px !important;
+        transition: height 200ms ease-in-out;
+      }
+      div.navbar-collapse {
+        padding: 0;
       }
     }
   }

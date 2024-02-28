@@ -8,7 +8,7 @@ services:
         - DB_ADAPTER=${DB_ADAPTER:-postgres}
         - DB_USERNAME=${DB_USERNAME:-postgres}
         - DB_PASSWORD=${DB_PASSWORD:-changeme}
-    profiles: ["prod", "dev"]
+    profiles: ["prod"]
     depends_on:
       postgres:
         condition: service_healthy
@@ -74,7 +74,6 @@ services:
     image: nginx:1.25.3-alpine-slim
     ports:
       - ${NGINX_PORT:-8080}:80
-    profiles: ["prod", "dev"]
     depends_on:
       dmpopidor:
         condition: service_healthy
@@ -95,7 +94,6 @@ services:
 
   postgres:
     image: postgres:15.5-alpine3.19
-    profiles: ["prod", "dev"]
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
@@ -117,7 +115,6 @@ services:
   redis:
     image: redis:7.2.4-alpine3.19
     # command: "redis-server /etc/redis/redis.conf"
-    profiles: ["prod", "dev"]
     ports:
       - 6379:6379
     volumes:

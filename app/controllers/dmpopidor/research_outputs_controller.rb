@@ -3,6 +3,7 @@
 module Dmpopidor
   # Customized code for ResearchOutputsController
   module ResearchOutputsController
+    include Dmpopidor::ErrorHelper
     # GET /plans/:plan_id/research_outputs
     def index
       @plan = ::Plan.find(params[:plan_id])
@@ -17,86 +18,104 @@ module Dmpopidor
 
     # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def create
-      max_order = @plan.research_outputs.maximum('display_order') + 1
-      created_ro = @plan.research_outputs.create(
-        abbreviation: params[:abbreviation] || "#{_('RO')} #{max_order}",
-        title: params[:title] || "#{_('Research output')} #{max_order}",
-        output_type_description: params[:type],
-        is_default: false,
-        display_order: max_order
-      )
-      created_ro.create_json_fragments(params[:configuration])
       authorize @plan
+      I18n.with_locale @plan.template.locale do
+        begin
+          max_order = @plan.research_outputs.maximum('display_order') + 1
+          created_ro = @plan.research_outputs.create!(
+            abbreviation: params[:abbreviation] || "#{_('RO')} #{max_order}",
+            title: params[:title] || "#{_('Research output')} #{max_order}",
+            output_type_description: params[:type],
+            is_default: false,
+            display_order: max_order
+          )
+          created_ro.create_json_fragments(params[:configuration])
 
-      render json: {
-        id: @plan.id,
-        created_ro_id: created_ro.id,
-        dmp_id: @plan.json_fragment.id,
-        research_outputs: @plan.research_outputs.order(:display_order).map do |ro|
-          {
-            id: ro.id,
-            abbreviation: ro.abbreviation,
-            title: ro.title,
-            order: ro.display_order,
-            hasPersonalData: ro.has_personal_data,
-            type: ro.json_fragment.research_output_description['data']['type'],
-            answers: ro.answers.map do |a|
+          render json: {
+            id: @plan.id,
+            created_ro_id: created_ro.id,
+            dmp_id: @plan.json_fragment.id,
+            research_outputs: @plan.research_outputs.order(:display_order).map do |ro|
               {
-                answer_id: a.id,
-                question_id: a.question_id,
-                fragment_id: a.madmp_fragment.id
+                id: ro.id,
+                abbreviation: ro.abbreviation,
+                title: ro.title,
+                order: ro.display_order,
+                hasPersonalData: ro.has_personal_data,
+                type: ro.json_fragment.research_output_description['data']['type'],
+                answers: ro.answers.map do |a|
+                  {
+                    answer_id: a.id,
+                    question_id: a.question_id,
+                    fragment_id: a.madmp_fragment.id
+                  }
+                end
               }
             end
           }
+        rescue ActiveRecord::RecordInvalid  => e
+          Rails.logger.error(e.backtrace.join("\n"))
+          internal_server_error(e.message)
         end
-      }
+      end
     end
     # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
     def update
       @research_output = ::ResearchOutput.find(params[:id])
+      plan =  @research_output.plan
       attrs = research_output_params
 
       authorize @research_output
 
-      research_output_description = @research_output.json_fragment.research_output_description
+      I18n.with_locale plan.template.locale do
+        begin
+          research_output_description = @research_output.json_fragment.research_output_description
 
-      I18n.with_locale @research_output.plan.template.locale do
-        updated_data = research_output_description.data.merge({
-          title: params[:title],
-          type: params[:type],
-          containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No')
-        })
-        research_output_description.update(data: updated_data)
+            updated_data = research_output_description.data.merge({
+              title: params[:title],
+              type: params[:type],
+              containsPersonalData: params[:configuration][:hasPersonalData] ? _('Yes') : _('No')
+            })
+            research_output_description.update(data: updated_data)
+            research_output_description.update_research_output_parameters(true)
+            PlanChannel.broadcast_to(plan, {
+              target: "dynamic_form",
+              fragment_id: research_output_description.id,
+              payload: research_output_description.get_full_fragment(with_ids: true)
+            })
+
+          research_outputs = ::ResearchOutput.where(plan_id: params[:plan_id])
+
+          @research_output.update!(attrs)
+
+          render json: {
+            status: 200,
+            message: 'Research output updated',
+            research_outputs: research_outputs.order(:display_order).map do |ro|
+              {
+                id: ro.id,
+                abbreviation: ro.abbreviation,
+                title: ro.title,
+                order: ro.display_order,
+                hasPersonalData: ro.has_personal_data,
+                type: ro.json_fragment.research_output_description['data']['type'],
+                answers: ro.answers.map do |a|
+                  {
+                    answer_id: a.id,
+                    question_id: a.question_id,
+                    fragment_id: a.madmp_fragment.id
+                  }
+                end
+              }
+            end
+          },
+          status: :ok
+        rescue ActiveRecord::RecordInvalid  => e
+          Rails.logger.error(e.backtrace.join("\n"))
+          internal_server_error(e.message)
+        end
       end
-
-      research_outputs = ::ResearchOutput.where(plan_id: params[:plan_id])
-
-      if @research_output.update(attrs)
-        render json: {
-          status: 200,
-          message: 'Research output updated',
-          research_outputs: research_outputs.order(:display_order).map do |ro|
-            {
-              id: ro.id,
-              abbreviation: ro.abbreviation,
-              title: ro.title,
-              order: ro.display_order,
-              hasPersonalData: ro.has_personal_data,
-              type: ro.json_fragment.research_output_description['data']['type'],
-              answers: ro.answers.map do |a|
-                {
-                  answer_id: a.id,
-                  question_id: a.question_id,
-                  fragment_id: a.madmp_fragment.id
-                }
-              end
-            }
-          end
-        },
-        status: :ok
-      end
-
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -116,6 +135,7 @@ module Dmpopidor
               title: ro.title,
               order: ro.display_order,
               hasPersonalData: ro.has_personal_data,
+              type: ro.json_fragment.research_output_description['data']['type'],
               answers: ro.answers.map do |a|
                 {
                   answer_id: a.id,

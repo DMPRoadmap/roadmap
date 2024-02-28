@@ -26,67 +26,70 @@ module Dmpopidor
           message: _('Unable to identify a suitable template for your plan.')
         }, status: 400
       else
-        @plan.visibility = Rails.configuration.x.plans.default_visibility
-
         @plan.template = ::Template.find(plan_params[:template_id])
+        I18n.with_locale @plan.template.locale do
+          @plan.visibility = Rails.configuration.x.plans.default_visibility
 
-        @plan.org = current_user.org
+          @plan.template = ::Template.find(plan_params[:template_id])
 
-        @plan.title = if current_user.firstname.blank?
-                        format(_('My Plan (%{title})'), title: @plan.template.title)
-                      else
-                        format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
-                      end
-        if @plan.save
-          # pre-select org's guidance and the default org's guidance
-          ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
-          ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
+          @plan.org = current_user.org
 
-          @plan.guidance_groups << ggs unless ggs.empty?
+          @plan.title = if current_user.firstname.blank?
+                          format(_('My Plan (%{title})'), title: @plan.template.title)
+                        else
+                          format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
+                        end
+          if @plan.save
+            # pre-select org's guidance and the default org's guidance
+            ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
+            ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
-          default = ::Template.default
+            @plan.guidance_groups << ggs unless ggs.empty?
 
-          msg = "#{success_message(@plan, _('created'))}<br />"
+            default = ::Template.default
 
-          if !default.nil? && default == @plan.template
-            # We used the generic/default template
-            msg += " #{_('This plan is based on the default template.')}"
+            msg = "#{success_message(@plan, _('created'))}<br />"
 
-          elsif !@plan.template.customization_of.nil?
-            # We used a customized version of the the funder template
-            # rubocop:disable Layout/LineLength
-            msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
-            # rubocop:enable Layout/LineLength
+            if !default.nil? && default == @plan.template
+              # We used the generic/default template
+              msg += " #{_('This plan is based on the default template.')}"
+
+            elsif !@plan.template.customization_of.nil?
+              # We used a customized version of the the funder template
+              # rubocop:disable Layout/LineLength
+              msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
+              # rubocop:enable Layout/LineLength
+            else
+              # We used the specified org's or funder's template
+              msg += format(_('This plan is based on the "%{template_title}" template provided by %{org_name}.'),
+                            template_title: @plan.template.title, org_name: @plan.template.org.name)
+            end
+
+            @plan.add_user!(current_user.id, :creator)
+            @plan.save
+            # Initialize Meta & Project
+            @plan.create_plan_fragments
+
+            # Add default research output if possible
+            created_ro = @plan.research_outputs.create!(
+              abbreviation: "#{_('RO')} 1",
+              title: "#{_('Research output')} 1",
+              is_default: true,
+              display_order: 1
+            )
+            created_ro.create_json_fragments
+
+            flash[:notice] = msg
+            render json: {
+              id: @plan.id
+            }, status: 200
+
           else
-            # We used the specified org's or funder's template
-            msg += format(_('This plan is based on the "%{template_title}" template provided by %{org_name}.'),
-                          template_title: @plan.template.title, org_name: @plan.template.org.name)
+            # Something went wrong so report the issue to the user
+            render json: {
+              message: failure_message(@plan, _('create'))
+            }, status: 400
           end
-
-          @plan.add_user!(current_user.id, :creator)
-          @plan.save
-          # Initialize Meta & Project
-          @plan.create_plan_fragments
-
-          # Add default research output if possible
-          created_ro = @plan.research_outputs.create!(
-            abbreviation: "#{_('RO')} 1",
-            title: "#{_('Research output')} 1",
-            is_default: true,
-            display_order: 1
-          )
-          created_ro.create_json_fragments
-
-          flash[:notice] = msg
-          render json: {
-            id: @plan.id
-          }, status: 200
-
-        else
-          # Something went wrong so report the issue to the user
-          render json: {
-            message: failure_message(@plan, _('create'))
-          }, status: 400
         end
       end
     end

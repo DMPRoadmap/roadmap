@@ -1,7 +1,7 @@
 <% template = plan.template %>
 <% template_title = template.title %>
 <% template_title += " - #{_('Customized')}" if template.customization_of.present? %>
-<div class="tab-panels" role="tabpanel">
+<div class="tab-panels" role="tabpanel" style="width: 100%">
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active answering-phase" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="section-description">
       <div class="display-readonly-textarea-content">
