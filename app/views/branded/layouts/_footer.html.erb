@@ -11,27 +11,26 @@
                     alt: "#{ApplicationService.application_name} #{_('logo')}",
                     title: ApplicationService.application_name) %>
     <span>
-      <%= _('%{tool_name} guides you through the drafting and implementation into practice of data or software management plans.')  % { tool_name: ApplicationService.application_name } %>
+      <%= _('%{tool_name} guides you through the drafting and implementation into practice of data, software and other products management plan.')  % { tool_name: ApplicationService.application_name } %>
     </span>
   </div>
   <div class="footer-col">
     <span class="footer-col-title"><%= _('Navigation') %></span>
-    <span><a href="<%= help_path+'#content' %>"><%= _('Help') %></a></span>
-    <span><a href="<%= public_templates_path+'#content' %>"><%= _('DMP Templates') %></a></span>
-    <span><a href="#"><%= _('Learn more') %></a></span>
-    <span><a href="<%= news_feed_path+'#content' %>"><%= _('News') %></a></span>
+    <span><a href="<%= help_path+'#content' %>" taget="_blank"><%= _('Help') %></a></span>
+    <span><a href="<%= public_templates_path+'#content' %>" taget="_blank"><%= _('DMP Templates') %></a></span>
+    <span><a href="<%= news_feed_path+'#content' %>" taget="_blank"><%= _('News') %></a></span>
     <span>
       <a href="https://opidor.fr/category/dmp-faq/" title="DMPOPIDoR FAQ - <%= _("Opens in new window") %>" target="_blank">
         <%= _('FAQ') %>
       </a>
     </span>
-    <span><a href="<%= contact_us+'#content' %>"><%= _('Contact Us') %></a></span>
+    <span><a href="<%= contact_us+'#content' %>" taget="_blank"><%= _('Contact Us') %></a></span>
   </div>
   <div class="footer-col">
     <span class="footer-col-title"><%= _('About') %></span>
-    <span><a href="<%= about_us_path+'#content' %>"><%= _('About') %></a></span>
-    <span><a href="<%= terms_path+'#content' %>"><%= _('Terms of use') %></a></span>
-    <span><a href="<%= privacy_path+'#content' %>"><%= _('Privacy statement') %></a></span>
+    <span><a href="<%= about_us_path+'#content' %>" taget="_blank"><%= _('About') %></a></span>
+    <span><a href="<%= terms_path+'#content' %>" taget="_blank"><%= _('Terms of use') %></a></span>
+    <span><a href="<%= privacy_path+'#content' %>" taget="_blank"><%= _('Privacy statement') %></a></span>
     <span>
       <a title="DMPOPIDoR Github - <%= _("Opens in new window") %>" target="_blank" href="<%= Rails.configuration.x.application.url %>" target="_blank">
         Github <i class="fab fa-github"></i>
@@ -40,7 +39,6 @@
   </div>
   <div class="footer-col">
     <span class="footer-col-title"><%= _('Ecosystem') %></span>
-    <span><a href="<%= about_us_path+'#content' %>"><%= _('About') %></a></span>
     <span>
       <%= link_to("http://www.opidor.fr/", title: _("OPIDoR website") + " - " + _("Opens in new window"), target: '_blank')  do %>
         <%= image_tag("opidor-logo-white.png", alt: 'OPIDoR logo (opens in a new window)') %>
@@ -69,11 +67,6 @@
       <a title="<%= _('Mailing list') %> - <%= _("Opens in new window") %>"  target="_blank" href="<%= Rails.configuration.x.application.user_group_subscription_url %>">
         <i class="far fa-comments"></i>
       </a>
-    </span>
-    <span>
-      <%= link_to("http://www.cnrs.fr/", title: _("CNRS website") + " - " + _("Opens in new window"), target: '_blank')  do %>
-        <%= image_tag("cnrs_blanc.png", alt: 'CNRS logo (opens in a new window)') %>
-      <% end %>
     </span>
     <span>
       <%= link_to("https://github.com/DMPRoadmap/roadmap", title: "DMPRoadmap Github - " + _("Opens in new window"), target: '_blank')  do %>

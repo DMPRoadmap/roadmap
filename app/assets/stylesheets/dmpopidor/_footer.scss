@@ -83,7 +83,7 @@
       &:not(:first-of-type) {
         span {
           text-align: left;
-          margin: auto;
+          margin: 5px 0;
           width: 100%;
         }
       }
@@ -129,6 +129,7 @@
 
         img,
         i {
+          font-size: 20px !important;
           &:hover {
             transform: scale(1.1);
           }
@@ -137,7 +138,7 @@
 
       img {
         &:nth-of-type(1) {
-          height: 50px;
+          height: 30px;
 
           @media (max-width: 767px) {
             height: 30px;
