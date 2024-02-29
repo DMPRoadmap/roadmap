@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "maDMP OPIDoR API",
-    "description": "Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the \"Authorize\" button",
+    "title": "DMP OPIDoR API",
+    "description": "Please use the access token available in your profile",
     "version": "0",
     "contact":{
       "email" : "dmp.opidor@inist.fr",

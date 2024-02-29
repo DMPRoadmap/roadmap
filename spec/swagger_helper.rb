@@ -33,6 +33,25 @@ RSpec.configure do |config|
           in: :header
         }
       } # supportedSubmitMethods
+    },
+    'v0/swagger.json' => {
+      openapi: '3.0.1',
+      info: {
+        title: 'DMP OPIDoR API',
+        # rubocop:disable Layout/LineLength
+        description: 'Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the "Authorize" button',
+        # rubocop:enable Layout/LineLength
+        version: 'v0'
+      },
+      paths: {},
+      securityDefinitions: {
+        apiKey: {
+          description: 'JWT',
+          type: :apiKey,
+          name: 'Authorization',
+          in: :header
+        }
+      } # supportedSubmitMethods
     }
   }
 
