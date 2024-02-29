@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-02-21 14:04+0100\n"
-"PO-Revision-Date: 2024-02-21 14:04+0100\n"
+"POT-Creation-Date: 2024-02-29 13:56+0100\n"
+"PO-Revision-Date: 2024-02-29 13:56+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -341,8 +341,8 @@ msgstr "Yes"
 msgid "No"
 msgstr "No"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:150
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:192
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:151
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:193
 #: ../../app/controllers/guidance_groups_controller.rb:97
 #: ../../app/controllers/guidances_controller.rb:96
 #: ../../app/controllers/plans_controller.rb:405
@@ -352,7 +352,7 @@ msgstr "No"
 msgid "delete"
 msgstr "delete"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:191
 #: ../../app/controllers/guidance_groups_controller.rb:95
 #: ../../app/controllers/guidances_controller.rb:94
 #: ../../app/controllers/plans_controller.rb:400
@@ -362,12 +362,12 @@ msgstr "delete"
 msgid "deleted"
 msgstr "deleted"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:214
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:215
 #: ../../app/models/dmpopidor/research_output.rb:83
 msgid "Data contact"
 msgstr "Data contact"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:226
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:227
 #: ../../app/controllers/plans_controller.rb:486
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
@@ -983,7 +983,6 @@ msgstr "Your ORCID"
 
 #: ../../app/helpers/template_helper.rb:48
 #: ../../app/views/branded/layouts/_navigation.html.erb:34
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:11
 #: ../../app/views/branded/plans/index.html.erb:27
 msgid "Create plan"
 msgstr "Create plan"
@@ -1008,53 +1007,53 @@ msgstr "Last 9 months"
 msgid "Last 12 months"
 msgstr "Last 12 months"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:37
+#: ../../app/mailers/dmpopidor/user_mailer.rb:38
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: A new comment was added to %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:58 ../../app/models/user.rb:404
+#: ../../app/mailers/dmpopidor/user_mailer.rb:59 ../../app/models/user.rb:404
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:79
+#: ../../app/mailers/dmpopidor/user_mailer.rb:80
 #: ../../app/mailers/user_mailer.rb:82
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr "Changed permissions on a Data Management Plan in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:96
+#: ../../app/mailers/dmpopidor/user_mailer.rb:97
 #: ../../app/mailers/user_mailer.rb:98
 msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr "Permissions removed on a DMP in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:115
+#: ../../app/mailers/dmpopidor/user_mailer.rb:116
 #: ../../app/mailers/user_mailer.rb:117
 msgid "%{user_name} has requested feedback on a %{tool_name} plan"
 msgstr "%{user_name} has requested feedback on a %{tool_name} plan"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:141
+#: ../../app/mailers/dmpopidor/user_mailer.rb:142
 #: ../../app/mailers/user_mailer.rb:143
 msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
 msgstr "%{tool_name}: Expert feedback has been provided for %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:161
+#: ../../app/mailers/dmpopidor/user_mailer.rb:162
 #: ../../app/mailers/user_mailer.rb:164
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "DMP Visibility Changed: %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:177
+#: ../../app/mailers/dmpopidor/user_mailer.rb:178
 #: ../../app/mailers/user_mailer.rb:217
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr "Administrator privileges granted in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:194
+#: ../../app/mailers/dmpopidor/user_mailer.rb:195
 msgid "%{tool_name} API client created/updated"
 msgstr "%{tool_name} API client created/updated"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:208
+#: ../../app/mailers/dmpopidor/user_mailer.rb:209
 msgid "Account expiration in %{tool_name}"
 msgstr "Account expiration in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:217
+#: ../../app/mailers/dmpopidor/user_mailer.rb:218
 msgid "Account expired in %{tool_name}"
 msgstr "Account expired in %{tool_name}"
 
@@ -1348,9 +1347,9 @@ msgid "This answer triggers email(s) to "
 msgstr "This answer triggers email(s) to "
 
 #: ../../app/views/branded/answers/_status.html.erb:26
-#: ../../app/views/branded/shared/export/_export_by_question.erb:69
-#: ../../app/views/branded/shared/export/_export_by_research_output.erb:72
-#: ../../app/views/branded/shared/export/_export_by_section.erb:68
+#: ../../app/views/branded/shared/export/_export_by_question.erb:70
+#: ../../app/views/branded/shared/export/_export_by_research_output.erb:73
+#: ../../app/views/branded/shared/export/_export_by_section.erb:69
 msgid "Question not answered."
 msgstr "Question not answered."
 
@@ -1442,7 +1441,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/templates/_history.html.erb:25
 #: ../../app/views/branded/paginable/templates/_history.html.erb:31
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:89
-#: ../../app/views/branded/plans/_download_form.html.erb:200
+#: ../../app/views/branded/plans/_download_form.html.erb:208
 msgid "Opens in new window"
 msgstr "Opens in new window"
 
@@ -2710,8 +2709,8 @@ msgstr "Unknown"
 #: ../../app/views/branded/paginable/templates/_history.html.erb:27
 #: ../../app/views/branded/paginable/templates/_history.html.erb:33
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:88
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:31
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:35
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:30
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:34
 msgid "(new window)"
 msgstr "(new window)"
 
@@ -2817,19 +2816,11 @@ msgstr "Organisation Name"
 msgid "Organisation Type"
 msgstr "Organisation Type"
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:21
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:20
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:3
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:10
 msgid "Customized"
 msgstr "Customized"
-
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:41
-msgid "Copy link to create a new plan"
-msgstr "Copy link to create a new plan"
-
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:43
-msgid "Requires login"
-msgstr "Requires login"
 
 #: ../../app/views/branded/paginable/users/_index.html.erb:4
 msgid ""
@@ -2965,64 +2956,68 @@ msgid "unanswered questions"
 msgstr "unanswered questions"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:92
+msgid "export complete data"
+msgstr "export complete data"
+
+#: ../../app/views/branded/plans/_download_form.html.erb:100
 msgid "supplementary section(s) not requested by funding organisation"
 msgstr "supplementary section(s) not requested by funding organisation"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:98
+#: ../../app/views/branded/plans/_download_form.html.erb:106
 #: ../../app/views/branded/plans/import.html.erb:10
 msgid "Format"
 msgstr "Format"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:114
+#: ../../app/views/branded/plans/_download_form.html.erb:122
 msgid "JSON format"
 msgstr "JSON format"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:119
+#: ../../app/views/branded/plans/_download_form.html.erb:127
 msgid "Default export"
 msgstr "Default export"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:127
+#: ../../app/views/branded/plans/_download_form.html.erb:135
 #: ../../app/views/branded/plans/import.html.erb:23
 msgid "RDA Common Standard"
 msgstr "RDA Common Standard"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:135
+#: ../../app/views/branded/plans/_download_form.html.erb:143
 msgid "PDF formatting"
 msgstr "PDF formatting"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:138
+#: ../../app/views/branded/plans/_download_form.html.erb:146
 msgid "Font"
 msgstr "Font"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:141
+#: ../../app/views/branded/plans/_download_form.html.erb:149
 msgid "Margin (mm)"
 msgstr "Margin (mm)"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:146
+#: ../../app/views/branded/plans/_download_form.html.erb:154
 msgid "Face"
 msgstr "Face"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:154
+#: ../../app/views/branded/plans/_download_form.html.erb:162
 msgid "Size"
 msgstr "Size"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:162
+#: ../../app/views/branded/plans/_download_form.html.erb:170
 msgid "Top"
 msgstr "Top"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:171
+#: ../../app/views/branded/plans/_download_form.html.erb:179
 msgid "Bottom"
 msgstr "Bottom"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:180
+#: ../../app/views/branded/plans/_download_form.html.erb:188
 msgid "Left"
 msgstr "Left"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:189
+#: ../../app/views/branded/plans/_download_form.html.erb:197
 msgid "Right"
 msgstr "Right"
 
-#: ../../app/views/branded/plans/_download_form.html.erb:200
+#: ../../app/views/branded/plans/_download_form.html.erb:208
 msgid "Download Plan"
 msgstr "Download Plan"
 
