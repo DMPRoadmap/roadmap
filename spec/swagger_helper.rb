@@ -18,7 +18,7 @@ RSpec.configure do |config|
     'v1/swagger.json' => {
       openapi: '3.0.1',
       info: {
-        title: 'maDMP OPIDoR API',
+        title: 'maDMP OPIDoR API V1',
         # rubocop:disable Layout/LineLength
         description: 'Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the "Authorize" button',
         # rubocop:enable Layout/LineLength
@@ -37,15 +37,36 @@ RSpec.configure do |config|
     'v0/swagger.json' => {
       openapi: '3.0.1',
       info: {
-        title: 'DMP OPIDoR API',
+        title: 'DMP OPIDoR API v0',
         # rubocop:disable Layout/LineLength
         description: 'Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the "Authorize" button',
         # rubocop:enable Layout/LineLength
         version: 'v0'
       },
+      servers: [
+        {
+          url: 'https://{defaultHost}',
+          variables: {
+            defaultHost: {
+                default: 'localhost:8080'
+            }
+          }
+        }
+      ]
+    },
       paths: {},
+      servers: [
+        {
+          url: 'https://{defaultHost}',
+          variables: {
+            defaultHost: {
+                default: 'localhost:8080'
+            }
+          }
+        }
+      ]
       securityDefinitions: {
-        apiKey: {
+        token: {
           description: 'JWT',
           type: :apiKey,
           name: 'Authorization',
