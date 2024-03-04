@@ -2,6 +2,8 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Ajout de la langue choisie dans le filtre des organismes affichées lors de la création de plan & les organismes possédant des modèles publiés mais archivés ne doivent plus apparaitre dans les organimes proposés (#10294)
+
 ## 23/02/2024
 
 - Changement de la loupe par un (i) afin d'afficher la description du modèle dans le choix du modèle (création de plan)
