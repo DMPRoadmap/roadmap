@@ -27,7 +27,7 @@
       </div>
       <div class="form-group">
         <%= f.label(:schema, _('Schema'), class: 'control-label') %>
-        <%= f.text_area(:schema, class: "form-control", rows: 10, value: @schema.schema.to_json)  %>
+        <%= f.text_area(:schema, class: "form-control json", rows: 100, value: JSON.pretty_generate(@schema.schema))  %>
       </div>
       <div class="pull-right">
         <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
