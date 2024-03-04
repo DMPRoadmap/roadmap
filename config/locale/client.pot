@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-02-29 13:56+0100\n"
-"PO-Revision-Date: 2024-02-29 13:56+0100\n"
+"POT-Creation-Date: 2024-03-04 14:38+0100\n"
+"PO-Revision-Date: 2024-03-04 14:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -359,7 +359,6 @@ msgid "deleted"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:215
-#: ../../app/models/dmpopidor/research_output.rb:83
 msgid "Data contact"
 msgstr ""
 
@@ -830,7 +829,6 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:9
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:16
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:9
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:9
 msgid "Owner"
 msgstr ""
 
@@ -1061,6 +1059,10 @@ msgstr ""
 
 #: ../../app/models/dmpopidor/plan.rb:138
 msgid "Project coordinator"
+msgstr ""
+
+#: ../../app/models/dmpopidor/research_output.rb:83
+msgid "Contact Person"
 msgstr ""
 
 #: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
@@ -1360,7 +1362,7 @@ msgstr ""
 
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:1
 #: ../../app/views/branded/layouts/_contact_icons.html.erb:10
-#: ../../app/views/branded/layouts/_footer.html.erb:28
+#: ../../app/views/branded/layouts/_footer.html.erb:27
 msgid "Contact Us"
 msgstr ""
 
@@ -1378,17 +1380,16 @@ msgstr ""
 
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:12
 #: ../../app/views/branded/layouts/_branding.html.erb:35
-#: ../../app/views/branded/layouts/_footer.html.erb:24
-#: ../../app/views/branded/layouts/_footer.html.erb:36
-#: ../../app/views/branded/layouts/_footer.html.erb:45
-#: ../../app/views/branded/layouts/_footer.html.erb:55
-#: ../../app/views/branded/layouts/_footer.html.erb:64
-#: ../../app/views/branded/layouts/_footer.html.erb:69
-#: ../../app/views/branded/layouts/_footer.html.erb:74
-#: ../../app/views/branded/layouts/_footer.html.erb:79
+#: ../../app/views/branded/layouts/_footer.html.erb:23
+#: ../../app/views/branded/layouts/_footer.html.erb:35
+#: ../../app/views/branded/layouts/_footer.html.erb:43
+#: ../../app/views/branded/layouts/_footer.html.erb:53
+#: ../../app/views/branded/layouts/_footer.html.erb:62
+#: ../../app/views/branded/layouts/_footer.html.erb:67
+#: ../../app/views/branded/layouts/_footer.html.erb:72
 #: ../../app/views/branded/layouts/_navigation.html.erb:11
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:33
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:31
 #: ../../app/views/branded/paginable/templates/_history.html.erb:25
 #: ../../app/views/branded/paginable/templates/_history.html.erb:31
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:89
@@ -1600,7 +1601,7 @@ msgid "Cancel"
 msgstr ""
 
 #: ../../app/views/branded/home/_welcome.html.erb:4
-#: ../../app/views/branded/layouts/_footer.html.erb:22
+#: ../../app/views/branded/layouts/_footer.html.erb:21
 msgid "News"
 msgstr ""
 
@@ -1617,7 +1618,7 @@ msgstr ""
 #: ../../app/views/branded/layouts/_footer.html.erb:14
 msgid ""
 "%{tool_name} guides you through the drafting and implementation into practice "
-"of data or software management plans."
+"of data, software and other products management plan."
 msgstr ""
 
 #: ../../app/views/branded/layouts/_footer.html.erb:18
@@ -1636,49 +1637,37 @@ msgstr ""
 msgid "DMP Templates"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_footer.html.erb:21
-#: ../../app/views/branded/layouts/_navigation.html.erb:87
-#: ../../app/views/branded/layouts/application.html.erb:71
-msgid "Learn more"
-msgstr ""
-
-#: ../../app/views/branded/layouts/_footer.html.erb:25
+#: ../../app/views/branded/layouts/_footer.html.erb:24
 msgid "FAQ"
 msgstr ""
 
+#: ../../app/views/branded/layouts/_footer.html.erb:30
 #: ../../app/views/branded/layouts/_footer.html.erb:31
-#: ../../app/views/branded/layouts/_footer.html.erb:32
-#: ../../app/views/branded/layouts/_footer.html.erb:43
 msgid "About"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_footer.html.erb:33
+#: ../../app/views/branded/layouts/_footer.html.erb:32
 msgid "Terms of use"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_footer.html.erb:34
+#: ../../app/views/branded/layouts/_footer.html.erb:33
 msgid "Privacy statement"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_footer.html.erb:42
+#: ../../app/views/branded/layouts/_footer.html.erb:41
 msgid "Ecosystem"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_footer.html.erb:45
+#: ../../app/views/branded/layouts/_footer.html.erb:43
 msgid "OPIDoR website"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_footer.html.erb:55
+#: ../../app/views/branded/layouts/_footer.html.erb:53
 msgid "INIST website"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_footer.html.erb:69
+#: ../../app/views/branded/layouts/_footer.html.erb:67
 msgid "Mailing list"
-msgstr ""
-
-#: ../../app/views/branded/layouts/_footer.html.erb:74
-#: ../../app/views/branded/layouts/_navigation.html.erb:11
-msgid "CNRS website"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_header.html.erb:18
@@ -1688,7 +1677,7 @@ msgstr ""
 #: ../../app/views/branded/layouts/_header.html.erb:19
 msgid ""
 "DMP OPIDoR – an active support tool to help plan your data management in harmo"
-"ny with your community’s practices."
+"ny with your community’s practices"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_header.html.erb:28
@@ -1697,6 +1686,10 @@ msgstr ""
 
 #: ../../app/views/branded/layouts/_header.html.erb:28
 msgid "Notice:"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_navigation.html.erb:11
+msgid "CNRS website"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:26
@@ -1725,6 +1718,11 @@ msgstr ""
 #: ../../app/views/branded/public_pages/plan_index.html.erb:1
 #: ../../app/views/branded/public_pages/plan_index.html.erb:5
 msgid "Public DMPs"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_navigation.html.erb:87
+#: ../../app/views/branded/layouts/application.html.erb:71
+msgid "Learn more"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_signin_signout.html.erb:37
@@ -2529,7 +2527,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:21
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:72
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:78
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:14
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:13
 #: ../../app/views/branded/paginable/templates/_history.html.erb:6
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:2
 #: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:10
@@ -2570,7 +2568,6 @@ msgstr ""
 
 #:
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:31
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:26
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:47
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:52
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:55
@@ -2584,7 +2581,7 @@ msgstr ""
 
 #:
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:38
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:32
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:30
 #: ../../app/views/branded/paginable/templates/_history.html.erb:27
 #: ../../app/views/branded/paginable/templates/_history.html.erb:33
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:88
@@ -2606,12 +2603,12 @@ msgstr ""
 msgid "Research Domains"
 msgstr ""
 
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:11
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:10
 #: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:9
 msgid "Last Updated"
 msgstr ""
 
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:25
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:24
 msgid "Not Applicable"
 msgstr ""
 
