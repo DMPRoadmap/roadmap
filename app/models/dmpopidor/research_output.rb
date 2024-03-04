@@ -59,7 +59,7 @@ module Dmpopidor
             madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
             dmp_id: dmp_fragment.id,
             parent_id: dmp_fragment.id,
-            additional_info: { 
+            additional_info: {
               property_name: 'researchOutput',
               hasPersonalData: configuration[:hasPersonalData] || false
             }
@@ -80,7 +80,7 @@ module Dmpopidor
           fragment_description.contact.update(
             data: {
               'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
-              'role' => _('Data contact')
+              'role' => _('Contact Person')
             }
           )
 
