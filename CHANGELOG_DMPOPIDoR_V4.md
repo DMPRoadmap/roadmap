@@ -2,7 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 04/03/2024
+
 - Ajout de la langue choisie dans le filtre des organismes affichées lors de la création de plan & les organismes possédant des modèles publiés mais archivés ne doivent plus apparaitre dans les organimes proposés (#10294)
+- Mise à jour des traductions
 
 ## 23/02/2024
 
