@@ -73,7 +73,7 @@
         "type": "apiKey",
         "name": "Authorization",
         "in" :"header",
-        "description" : "Enter the API token value "
+        "description" : "Enter the access token value in the following format: Token token=access token's value within double quotation marks"
       }
     },
 
