@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 05/03/2024
+
+- Ajout du support de l'option 'overridable' pour le rôle des contributeurs
+- Ajustement de la position du tooltip permissions de l'onglet Partager (#10330)
+- Correction d'un problème d'import de plan au format JSON (#10318)
+- Correction du problème de sauvegarde des valeurs constantes
+
 ## 04/03/2024
 
 - Ajout de la langue choisie dans le filtre des organismes affichées lors de la création de plan & les organismes possédant des modèles publiés mais archivés ne doivent plus apparaitre dans les organimes proposés (#10294)
