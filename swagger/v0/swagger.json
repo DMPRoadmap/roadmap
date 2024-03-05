@@ -14,13 +14,6 @@
       "url": "https://spdx.org/licenses/MIT.html"
    }
    } ,
-  "servers": [
-    {
-      "url": "http://localhost:8080",
-      "description" : "local test instance"
-    }
-  ],
-
   "paths": {
     "/api/v0/templates": {
     "get": {
