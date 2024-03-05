@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-04 14:38+0100\n"
-"PO-Revision-Date: 2024-03-04 14:38+0100\n"
+"POT-Creation-Date: 2024-03-05 13:52+0100\n"
+"PO-Revision-Date: 2024-03-05 13:52+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -112,7 +112,7 @@ msgid "added"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:79
-#: ../../app/controllers/dmpopidor/orgs_controller.rb:99
+#: ../../app/controllers/dmpopidor/orgs_controller.rb:104
 #: ../../app/controllers/dmpopidor/plans_controller.rb:136
 #: ../../app/controllers/dmpopidor/plans_controller.rb:139
 #: ../../app/controllers/guidance_groups_controller.rb:55
@@ -133,7 +133,7 @@ msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:81
 #: ../../app/controllers/dmpopidor/notes_controller.rb:205
-#: ../../app/controllers/dmpopidor/orgs_controller.rb:101
+#: ../../app/controllers/dmpopidor/orgs_controller.rb:106
 #: ../../app/controllers/dmpopidor/plans_controller.rb:145
 #: ../../app/controllers/dmpopidor/plans_controller.rb:148
 #: ../../app/controllers/dmpopidor/plans_controller.rb:152
@@ -212,7 +212,7 @@ msgstr ""
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:114
 #: ../../app/controllers/dmpopidor/plans_controller.rb:90
-#: ../../app/controllers/dmpopidor/plans_controller.rb:353
+#: ../../app/controllers/dmpopidor/plans_controller.rb:354
 #: ../../app/controllers/guidance_groups_controller.rb:34
 #: ../../app/controllers/guidances_controller.rb:55
 #: ../../app/controllers/notes_controller.rb:73
@@ -270,7 +270,7 @@ msgstr ""
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:75
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:26
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:27
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:28
 msgid "RO"
 msgstr ""
 
@@ -279,30 +279,30 @@ msgstr ""
 msgid "Research output"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:341
+#: ../../app/controllers/dmpopidor/plans_controller.rb:342
 #: ../../app/controllers/plans_controller.rb:105
 msgid "%{user_name}'s Plan"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:351
+#: ../../app/controllers/dmpopidor/plans_controller.rb:352
 msgid "imported"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:357
+#: ../../app/controllers/dmpopidor/plans_controller.rb:358
 msgid "Unvalid file"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:359
+#: ../../app/controllers/dmpopidor/plans_controller.rb:360
 msgid "File should contain JSON"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:362
+#: ../../app/controllers/dmpopidor/plans_controller.rb:363
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:61
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:135
 msgid "An error has occured: "
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:441
+#: ../../app/controllers/dmpopidor/plans_controller.rb:443
 msgid "Invalid JSON: "
 msgstr ""
 
@@ -338,7 +338,7 @@ msgid "No"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:151
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:193
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
 #: ../../app/controllers/guidance_groups_controller.rb:97
 #: ../../app/controllers/guidances_controller.rb:96
 #: ../../app/controllers/plans_controller.rb:405
@@ -348,7 +348,7 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:191
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:188
 #: ../../app/controllers/guidance_groups_controller.rb:95
 #: ../../app/controllers/guidances_controller.rb:94
 #: ../../app/controllers/plans_controller.rb:400
@@ -358,11 +358,11 @@ msgstr ""
 msgid "deleted"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:215
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:212
 msgid "Data contact"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:227
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:224
 #: ../../app/controllers/plans_controller.rb:486
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
@@ -4036,15 +4036,15 @@ msgstr ""
 msgid "Unable to change the template's recommended status"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:92
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:96
 msgid "Invalid JSON data"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:93
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:97
 msgid "Invalid format"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:97
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:101
 msgid "File should begin with :dmp property"
 msgstr ""
 
