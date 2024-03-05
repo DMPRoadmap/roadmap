@@ -321,47 +321,49 @@ module Dmpopidor
       authorize @plan
       # rubocop:disable Metrics/BlockLength
       ::Plan.transaction do
-        respond_to do |format|
-          json_file = import_params[:json_file]
-          if json_file.respond_to?(:read)
-            json_data = JSON.parse(json_file.read)
-          elsif json_file.respond_to?(:path)
-            json_data = JSON.parse(File.read(json_file.path))
-          else
-            raise IOError
-          end
-          errs = Import::PlanImportService.validate(json_data, import_params[:format])
-          if errs.any?
-            format.html { redirect_to import_plans_path, alert: import_errors(errs) }
-          else
-            @plan.visibility = Rails.configuration.x.plans.default_visibility
-
-            @plan.template = ::Template.find(import_params[:template_id])
-
-            @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
-            @plan.org = current_user.org
-
-            if @plan.save
-              @plan.add_user!(current_user.id, :creator)
-              @plan.save
-              @plan.create_plan_fragments
-
-              Import::PlanImportService.import(@plan, json_data, import_params[:format])
-
-              format.html { redirect_to plan_path(@plan), notice: success_message(@plan, _('imported')) }
+        @plan.template = ::Template.find(import_params[:template_id])
+        I18n.with_locale @plan.template.locale do
+          respond_to do |format|
+            json_file = import_params[:json_file]
+            if json_file.respond_to?(:read)
+              json_data = JSON.parse(json_file.read)
+            elsif json_file.respond_to?(:path)
+              json_data = JSON.parse(File.read(json_file.path))
             else
-              format.html { redirect_to import_plans_path, alert: failure_message(@plan, _('create')) }
+              raise IOError
             end
+            errs = Import::PlanImportService.validate(json_data, import_params[:format], locale: @plan.template.locale)
+            if errs.any?
+              format.html { redirect_to import_plans_path, alert: import_errors(errs) }
+            else
+              @plan.visibility = Rails.configuration.x.plans.default_visibility
+
+
+              @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
+              @plan.org = current_user.org
+
+              if @plan.save
+                @plan.add_user!(current_user.id, :creator)
+                @plan.save
+                @plan.create_plan_fragments
+
+                Import::PlanImportService.import(@plan, json_data, import_params[:format])
+
+                format.html { redirect_to plan_path(@plan), notice: success_message(@plan, _('imported')) }
+              else
+                format.html { redirect_to import_plans_path, alert: failure_message(@plan, _('create')) }
+              end
+            end
+          rescue IOError
+            format.html { redirect_to import_plans_path, alert: _('Unvalid file') }
+          rescue JSON::ParserError
+            msg = _('File should contain JSON')
+            format.html { redirect_to import_plans_path, alert: msg }
+          rescue StandardError => e
+            msg = "#{_('An error has occured: ')} #{e.message}"
+            Rails.logger.error e.backtrace
+            format.html { redirect_to import_plans_path, alert: msg }
           end
-        rescue IOError
-          format.html { redirect_to import_plans_path, alert: _('Unvalid file') }
-        rescue JSON::ParserError
-          msg = _('File should contain JSON')
-          format.html { redirect_to import_plans_path, alert: msg }
-        rescue StandardError => e
-          msg = "#{_('An error has occured: ')} #{e.message}"
-          Rails.logger.error e.backtrace
-          format.html { redirect_to import_plans_path, alert: msg }
         end
       end
       # rubocop:enable Metrics/BlockLength

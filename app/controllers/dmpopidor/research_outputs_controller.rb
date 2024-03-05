@@ -182,9 +182,6 @@ module Dmpopidor
     def destroy_remote
       @plan = ::Plan.find(params[:plan_id])
       @research_output = ::ResearchOutput.find(params[:id])
-      p "##################################################"
-      p @research_output
-      p "##################################################"
       @persons = @plan.json_fragment.persons
       authorize @plan
       if @research_output.destroy

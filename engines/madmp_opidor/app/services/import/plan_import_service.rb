@@ -22,15 +22,18 @@ module Import
       end
 
       def handle_research_outputs(plan, research_outputs)
-        research_outputs.each_with_index do |ro_data, idx|
-          research_output = plan.research_outputs.create(
-            abbreviation: "#{_('RO')} #{idx + 1}",
-            title: ro_data['researchOutputDescription']['title'],
-            is_default: idx.eql?(0),
-            display_order: idx + 1
-          )
-          ro_frag = research_output.json_fragment
-          import_research_output(ro_frag, ro_data, plan)
+        I18n.with_locale plan.template.locale do
+          research_outputs.each_with_index do |ro_data, idx|
+            research_output = plan.research_outputs.create!(
+              abbreviation: "#{_('RO')} #{idx + 1}",
+              title: ro_data['researchOutputDescription']['title'],
+              is_default: idx.eql?(0),
+              display_order: idx + 1
+            )
+            research_output.create_json_fragments
+            ro_frag = research_output.json_fragment
+            import_research_output(ro_frag, ro_data, plan)
+          end
         end
       end
 
@@ -88,19 +91,21 @@ module Import
       # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-      def validate(json_data, import_format)
-        return [_('Invalid JSON data')] if json_data.nil?
-        return [_('Invalid format')] unless %w[rda standard].include?(import_format)
+      def validate(json_data, import_format, locale: I18n.default_locale)
+        I18n.with_locale locale do
+          return [_('Invalid JSON data')] if json_data.nil?
+          return [_('Invalid format')] unless %w[rda standard].include?(import_format)
 
-        errs = []
-        if import_format.eql?('rda')
-          return [_('File should begin with :dmp property')] unless json_data['dmp'].present?
+          errs = []
+          if import_format.eql?('rda')
+            return [_('File should begin with :dmp property')] unless json_data['dmp'].present?
 
-          errs = Import::Validators::Rda.validation_errors(json: json_data['dmp'].deep_symbolize_keys)
-        else
-          errs = Import::Validators::Standard.validation_errors(json: json_data)
+            errs = Import::Validators::Rda.validation_errors(json: json_data['dmp'].deep_symbolize_keys)
+          else
+            errs = Import::Validators::Standard.validation_errors(json: json_data)
+          end
+          errs
         end
-        errs
       end
     end
   end
