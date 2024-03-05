@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 05/03/2024
+
+- Changement de l'attribut ``disable`` des ``input`` de type ``text`` pour ``readonly`` ce qui permet de sauvegarder les valeurs **cosntantes**
+
 ## 04/03/2024
 
 - Ajout de la langue choisie dans le filtre des organismes affichées lors de la création de plan & les organismes possédant des modèles publiés mais archivés ne doivent plus apparaitre dans les organimes proposés (#10294)
