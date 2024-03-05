@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-05 13:52+0100\n"
-"PO-Revision-Date: 2024-03-05 13:52+0100\n"
+"POT-Creation-Date: 2024-03-05 17:29+0100\n"
+"PO-Revision-Date: 2024-03-05 17:29+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -284,8 +284,7 @@ msgstr "PR"
 #: ../../app/controllers/dmpopidor/plans_controller.rb:76
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:27
 msgid "Research output"
-msgstr ""
-"Produit de recherche\n"
+msgstr "Produit de recherche"
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:342
 #: ../../app/controllers/plans_controller.rb:105
@@ -603,8 +602,7 @@ msgstr "Le mot de passe et sa confirmation doivent correspondre"
 
 #: ../../app/controllers/research_outputs_controller.rb:226
 msgid "research output not found"
-msgstr ""
-"Produit de recherche introuvable\n"
+msgstr "Produit de recherche introuvable"
 
 #: ../../app/controllers/roles_controller.rb:26
 msgid ""
@@ -1112,13 +1110,11 @@ msgstr "DMP du projet \"%{project_title}\""
 
 #: ../../app/models/dmpopidor/plan.rb:138
 msgid "Project coordinator"
-msgstr ""
-"Coordinateur du projet\n"
+msgstr "Coordinateur du projet"
 
 #: ../../app/models/dmpopidor/research_output.rb:83
 msgid "Contact Person"
-msgstr ""
-"Personne contact\n"
+msgstr "Personne contact"
 
 #: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Section"
@@ -1445,12 +1441,12 @@ msgstr ""
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:12
 #: ../../app/views/branded/layouts/_branding.html.erb:35
 #: ../../app/views/branded/layouts/_footer.html.erb:23
-#: ../../app/views/branded/layouts/_footer.html.erb:35
-#: ../../app/views/branded/layouts/_footer.html.erb:43
-#: ../../app/views/branded/layouts/_footer.html.erb:53
-#: ../../app/views/branded/layouts/_footer.html.erb:62
-#: ../../app/views/branded/layouts/_footer.html.erb:67
-#: ../../app/views/branded/layouts/_footer.html.erb:72
+#: ../../app/views/branded/layouts/_footer.html.erb:36
+#: ../../app/views/branded/layouts/_footer.html.erb:44
+#: ../../app/views/branded/layouts/_footer.html.erb:54
+#: ../../app/views/branded/layouts/_footer.html.erb:63
+#: ../../app/views/branded/layouts/_footer.html.erb:68
+#: ../../app/views/branded/layouts/_footer.html.erb:73
 #: ../../app/views/branded/layouts/_navigation.html.erb:11
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:31
@@ -1698,8 +1694,7 @@ msgstr "Actualités"
 
 #: ../../app/views/branded/layouts/_contact_icons.html.erb:15
 msgid "Technical Support"
-msgstr ""
-"Support technique\n"
+msgstr "Support technique"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:11
 #: ../../app/views/branded/layouts/_navigation.html.erb:14
@@ -1717,8 +1712,7 @@ msgstr ""
 
 #: ../../app/views/branded/layouts/_footer.html.erb:18
 msgid "Navigation"
-msgstr ""
-"Navigation\n"
+msgstr "Navigation"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:19
 #: ../../app/views/branded/layouts/_navigation.html.erb:48
@@ -1736,36 +1730,36 @@ msgstr "Modèles de DMP"
 msgid "FAQ"
 msgstr "FAQ"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:30
+#: ../../app/views/branded/layouts/_footer.html.erb:28
+msgid "API Documentation"
+msgstr "Documentation API"
+
 #: ../../app/views/branded/layouts/_footer.html.erb:31
+#: ../../app/views/branded/layouts/_footer.html.erb:32
 msgid "About"
 msgstr "A propos"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:32
+#: ../../app/views/branded/layouts/_footer.html.erb:33
 msgid "Terms of use"
 msgstr "Conditions générales d'utilisation"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:33
+#: ../../app/views/branded/layouts/_footer.html.erb:34
 msgid "Privacy statement"
-msgstr ""
-"Politique de confidentialité\n"
+msgstr "Politique de confidentialité"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:41
+#: ../../app/views/branded/layouts/_footer.html.erb:42
 msgid "Ecosystem"
-msgstr ""
-"Écosystème\n"
-"\n"
+msgstr "Écosystème"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:43
+#: ../../app/views/branded/layouts/_footer.html.erb:44
 msgid "OPIDoR website"
-msgstr ""
-"Site web OPIDoR\n"
+msgstr "Site web OPIDoR"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:53
+#: ../../app/views/branded/layouts/_footer.html.erb:54
 msgid "INIST website"
 msgstr "Site INIST"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:67
+#: ../../app/views/branded/layouts/_footer.html.erb:68
 msgid "Mailing list"
 msgstr "Liste de diffusion"
 
@@ -1779,8 +1773,7 @@ msgid ""
 "ny with your community’s practices"
 msgstr ""
 "DMP OPIDoR, un outil et un accompagnement actifs pour planifier la gestion de "
-"vos données en harmonie avec les pratiques de votre communauté\n"
-"\n"
+"vos données en harmonie avec les pratiques de votre communauté"
 
 #: ../../app/views/branded/layouts/_header.html.erb:28
 msgid "Error:"
@@ -1796,8 +1789,7 @@ msgstr "Site CNRS"
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:26
 msgid "My plans"
-msgstr ""
-"Mes plans\n"
+msgstr "Mes plans"
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:30
 #: ../../app/views/branded/plans/index.html.erb:1
@@ -1815,8 +1807,7 @@ msgstr "Importer un plan"
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:60
 msgid "Plans & Templates"
-msgstr ""
-"PGD & Modèles\n"
+msgstr "PGD & Modèles"
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:65
 #: ../../app/views/branded/public_pages/plan_index.html.erb:1
@@ -1902,9 +1893,7 @@ msgstr "Référentiels"
 
 #: ../../app/views/branded/layouts/_signin_signout.html.erb:117
 msgid "My Account"
-msgstr ""
-"Mon espace\n"
-"\n"
+msgstr "Mon espace"
 
 #: ../../app/views/branded/layouts/application.html.erb:32
 msgid "%{application_name}"
@@ -2228,8 +2217,7 @@ msgstr "Supprimer"
 msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr ""
 "Vous êtes sur le point de supprimer la question #%{question_number}. En êtes-v"
-"\"\n"
-"\"ous sûr ?"
+"ous sûr ?"
 
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:14
 msgid "Question number"
@@ -2270,8 +2258,7 @@ msgid ""
 msgstr ""
 "Cliquez sur les liens ci-dessous pour afficher les directives organisationnell"
 "es.\n"
-"\n"
-"                        liées aux thèmes associés à cette question."
+"                        liées aux thèmes associés à cette question."
 
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:178
 msgid ""
@@ -2279,10 +2266,10 @@ msgid ""
 "            Users then have the ability to hide/display the guidance when edit"
 "ing their plan."
 msgstr ""
-"Remarque: Les nouveaux plans afficheront automatiquement ce guidage.\n"
+"Remarque: Les nouveaux plans afficheront automatiquement cette recommandation."
 "\n"
-"            Les utilisateurs ont ensuite la possibilité de masquer / afficher "
-"les conseils lors de la modification de leur plan."
+"            Les utilisateurs ont ensuite la possibilité de masquer / afficher "
+"des recommandations lors de la modification de leur plan."
 
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:181
 msgid ""
@@ -2881,18 +2868,15 @@ msgid ""
 msgstr ""
 "Les données du tableau de bord d'utilisation sont de nature historique. Ce\n"
 "la signifie que le nombre d'enregistrements ci-dessous peut ne pas\n"
-"\n"
 "    correspondent au nombre indiqué sur le tableau de bord d'utilisation. Par "
 "\n"
 "exemple, si l'un de vos utilisateurs s'est joint en octobre, puis\n"
-"\n"
 "    déplacé vers une autre organisation ou désactivé leur compte, ils auraient"
 "\n"
 "été inclus dans l'utilisation\n"
-"\n"
 "    total du tableau de bord pour octobre mais n'apparaîtra pas dans la liste "
 "\n"
-"ci-dessous.\n"
+"ci-dessous."
 
 #: ../../app/views/branded/paginable/users/_index.html.erb:13
 msgid ""
@@ -2958,8 +2942,7 @@ msgstr "Runs"
 
 #: ../../app/views/branded/phases/_research_outputs_tabs.html.erb:12
 msgid "Outputs"
-msgstr ""
-"Produits de recherche\n"
+msgstr "Produits de recherche"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:2
 msgid "Download settings"
@@ -3712,14 +3695,12 @@ msgstr "Accès individuel"
 #: ../../app/views/branded/shared/_sign_in_form.html.erb:19
 #: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
 msgid "Not registered yet?"
-msgstr ""
-"Pas encore inscrit ?\n"
+msgstr "Pas encore inscrit ?"
 
 #: ../../app/views/branded/shared/_sign_in_form.html.erb:19
 #: ../../app/views/branded/shared/_sign_in_form_header.html.erb:19
 msgid "Create my account"
-msgstr ""
-"Créer mon compte\n"
+msgstr "Créer mon compte"
 
 #: ../../app/views/branded/shared/_sign_in_form.html.erb:32
 #: ../../app/views/branded/shared/_sign_in_form_header.html.erb:32
@@ -4104,7 +4085,8 @@ msgid ""
 "        sort the data by each field."
 msgstr ""
 "Vous trouverez ci-dessous une liste des utilisateurs enregistrés pour votre or"
-"ganisme. Vous pouvez trier les données par champ."
+"ganisme.\n"
+"        Vous pouvez trier les données par champ."
 
 #: ../../app/views/branded/users/admin_index.html.erb:25
 msgid "Download users"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-05 13:52+0100\n"
-"PO-Revision-Date: 2024-03-05 13:52+0100\n"
+"POT-Creation-Date: 2024-03-05 17:29+0100\n"
+"PO-Revision-Date: 2024-03-05 17:29+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -1430,12 +1430,12 @@ msgstr ""
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:12
 #: ../../app/views/branded/layouts/_branding.html.erb:35
 #: ../../app/views/branded/layouts/_footer.html.erb:23
-#: ../../app/views/branded/layouts/_footer.html.erb:35
-#: ../../app/views/branded/layouts/_footer.html.erb:43
-#: ../../app/views/branded/layouts/_footer.html.erb:53
-#: ../../app/views/branded/layouts/_footer.html.erb:62
-#: ../../app/views/branded/layouts/_footer.html.erb:67
-#: ../../app/views/branded/layouts/_footer.html.erb:72
+#: ../../app/views/branded/layouts/_footer.html.erb:36
+#: ../../app/views/branded/layouts/_footer.html.erb:44
+#: ../../app/views/branded/layouts/_footer.html.erb:54
+#: ../../app/views/branded/layouts/_footer.html.erb:63
+#: ../../app/views/branded/layouts/_footer.html.erb:68
+#: ../../app/views/branded/layouts/_footer.html.erb:73
 #: ../../app/views/branded/layouts/_navigation.html.erb:11
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:31
@@ -1713,32 +1713,36 @@ msgstr "DMP Templates"
 msgid "FAQ"
 msgstr "FAQ"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:30
+#: ../../app/views/branded/layouts/_footer.html.erb:28
+msgid "API Documentation"
+msgstr "API Documentation"
+
 #: ../../app/views/branded/layouts/_footer.html.erb:31
+#: ../../app/views/branded/layouts/_footer.html.erb:32
 msgid "About"
 msgstr "About"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:32
+#: ../../app/views/branded/layouts/_footer.html.erb:33
 msgid "Terms of use"
 msgstr "Terms of use"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:33
+#: ../../app/views/branded/layouts/_footer.html.erb:34
 msgid "Privacy statement"
 msgstr "Privacy statement"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:41
+#: ../../app/views/branded/layouts/_footer.html.erb:42
 msgid "Ecosystem"
 msgstr "Ecosystem"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:43
+#: ../../app/views/branded/layouts/_footer.html.erb:44
 msgid "OPIDoR website"
 msgstr "OPIDoR website"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:53
+#: ../../app/views/branded/layouts/_footer.html.erb:54
 msgid "INIST website"
 msgstr "INIST website"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:67
+#: ../../app/views/branded/layouts/_footer.html.erb:68
 msgid "Mailing list"
 msgstr "Mailing list"
 
