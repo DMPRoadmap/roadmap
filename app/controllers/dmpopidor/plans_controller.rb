@@ -37,7 +37,7 @@ module Dmpopidor
           @plan.title = if current_user.firstname.blank?
                           format(_('My Plan (%{title})'), title: @plan.template.title)
                         else
-                          format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
+                          format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
                         end
           if @plan.save
             # pre-select org's guidance and the default org's guidance
