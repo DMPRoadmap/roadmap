@@ -33,6 +33,7 @@ module Import
             research_output.create_json_fragments
             ro_frag = research_output.json_fragment
             import_research_output(ro_frag, ro_data, plan)
+            ro_frag.research_output_description.update_research_output_parameters(true)
           end
         end
       end
