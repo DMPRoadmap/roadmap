@@ -8,6 +8,9 @@
 - Ajustement de la position du tooltip permissions de l'onglet Partager (#10330)
 - Correction d'un problème d'import de plan au format JSON (#10318)
 - Changement de l'attribut ``disable`` des ``input`` de type ``text`` pour ``readonly`` ce qui permet de sauvegarder les valeurs **constantes**
+- Modification du style par défaut des modales (``InnerModal``) des commentaires, recommendations, ...
+- Changement affichage bouton "choix du formulaire personnalisé", il s'affiche comme les commentaires, recommendations, ...
+- Correction affichage nombre de commentaire (titre de la modale)
 
 ## 04/03/2024
 
