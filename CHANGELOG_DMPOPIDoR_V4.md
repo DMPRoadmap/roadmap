@@ -2,15 +2,19 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Modification du style par défaut des modales (``InnerModal``) des commentaires, recommendations, ...
+- Changement affichage bouton "choix du formulaire personnalisé", il s'affiche comme les commentaires, recommendations, ...
+- Correction affichage nombre de commentaire (titre de la modale)
+- Retrait des modèles Entité de la liste des modèles proposés lors de l'import de plan
+- Correction d'un problème de mise à jour de l'infobox des produits de recherche lors de l'import d'un plan (#10340)
+- Ajout de l'identifiant d'affiliation clickable dans la liste des contributeurs de l'onglet Contributeurs et de l'export de Plan (#10295)
+
 ## 05/03/2024
 
 - Ajout du support de l'option 'overridable' pour le rôle des contributeurs
 - Ajustement de la position du tooltip permissions de l'onglet Partager (#10330)
 - Correction d'un problème d'import de plan au format JSON (#10318)
 - Changement de l'attribut ``disable`` des ``input`` de type ``text`` pour ``readonly`` ce qui permet de sauvegarder les valeurs **constantes**
-- Modification du style par défaut des modales (``InnerModal``) des commentaires, recommendations, ...
-- Changement affichage bouton "choix du formulaire personnalisé", il s'affiche comme les commentaires, recommendations, ...
-- Correction affichage nombre de commentaire (titre de la modale)
 
 ## 04/03/2024
 
