@@ -74,6 +74,7 @@
       <tbody>
       <% contributors.each do |contributor| %>
         <% person_id = contributor.data["personId"]%>
+        <% affiliation_id = contributor.data["affiliationId"]%>
         <tr>
           <td>
             <%= contributor.to_s %>
@@ -81,7 +82,12 @@
               - <%= uri?(person_id) ? link_to(person_id, person_id, target: "_blank") : person_id %>
             <% end %>
           </td>
-          <td><%= contributor.data["affiliationName"] %></td>
+          <td>
+            <%= contributor.data["affiliationName"] %>
+            <% if affiliation_id.present? %>
+              - <%= uri?(affiliation_id) ? link_to(affiliation_id, affiliation_id, target: "_blank") : affiliation_id %>
+            <% end %>
+          </td>
           <td>
             <% if contributor.roles.present? %>
               <ul>

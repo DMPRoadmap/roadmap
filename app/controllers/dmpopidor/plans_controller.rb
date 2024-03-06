@@ -310,7 +310,7 @@ module Dmpopidor
       authorize @plan
 
       @templates = ::Template.includes(:org)
-                             .where(type: 'structured', customization_of: nil)
+                             .where(type: 'structured', context: 'research_project', customization_of: nil)
                              .unarchived.published
     end
 
