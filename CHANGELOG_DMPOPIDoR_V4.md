@@ -2,6 +2,8 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 07/03/2024
+
 - Modification du style par défaut des modales (``InnerModal``) des commentaires, recommendations, ...
 - Changement affichage bouton "choix du formulaire personnalisé", il s'affiche comme les commentaires, recommendations, ...
 - Correction affichage nombre de commentaire (titre de la modale)
