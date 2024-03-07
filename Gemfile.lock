@@ -478,8 +478,17 @@ GEM
     recaptcha (5.16.0)
     redis (5.1.0)
       redis-client (>= 0.17.0)
+    redis-actionpack (5.4.0)
+      actionpack (>= 5, < 8)
+      redis-rack (>= 2.1.0, < 4)
+      redis-store (>= 1.1.0, < 2)
     redis-client (0.20.0)
       connection_pool
+    redis-rack (3.0.0)
+      rack-session (>= 0.2.0)
+      redis-store (>= 1.2, < 2)
+    redis-store (1.10.0)
+      redis (>= 4, < 6)
     regexp_parser (2.9.0)
     reline (0.4.3)
       io-console (~> 0.5)
@@ -681,6 +690,7 @@ DEPENDENCIES
   rails-controller-testing
   recaptcha
   redis
+  redis-actionpack
   rollbar
   rspec-collection_matchers
   rspec-rails
