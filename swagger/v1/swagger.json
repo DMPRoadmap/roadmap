@@ -71,10 +71,10 @@
             "Plans"
           ],
           "summary": "Returns a user's plan as JSON in the OPIDoR Standard (Science Europe compliant and structured information) or RDA DMP Common Standard compliant format",
-          "security":
-        {
-          "bearerAuth": []
-        },
+          "security":[
+            {
+              "bearerAuth": []
+            }],
           "parameters": [
             {
               "name": "id",
@@ -114,10 +114,10 @@
             "Plans"
           ],
           "summary": "Returns a user's plan for a given research output as JSON document, in a OPIDoR standard or RDA DMP Common Standard compliant format",
-          "security":
-        {
-          "bearerAuth": []
-        },
+          "security":[
+            {
+              "bearerAuth": []
+            }],
           "parameters": [
             {
               "name": "uuid",
@@ -157,10 +157,10 @@
             "Plans"
           ],
           "summary": "Allows for the import and creation of a new plan based on a OPIDoR standard or RDA DMP Common Standard, format-compliant DMP",
-          "security":
+          "security":[
             {
               "bearerAuth": []
-            },
+            }],
           "parameters": [
             {
               "name": "import_format",
@@ -202,10 +202,10 @@
           "MadmpFragments"
         ],
         "summary": "Returns a fragment of information as JSON using a madmp fragment identifier",
-        "security":
+        "security":[
           {
             "bearerAuth": []
-          },
+          }],
         "parameters": [
           {
             "name": "id",
@@ -246,10 +246,10 @@
           "MadmpFragments"
         ],
         "summary": "Allows for the update of a fragment",
-        "security":
-        {
-          "bearerAuth": []
-        },
+        "security":[
+          {
+            "bearerAuth": []
+          }],
         "parameters": [
           {
             "name": "id",
@@ -300,10 +300,10 @@
           "MadmpSchemas"
         ],
         "summary": "List of the available \"standards and customized\" forms'schemas",
-        "security":
-        {
-        "Bearer": []
-        },
+        "security":[
+          {
+            "bearerAuth": []
+          }],
         "responses": {
           "200": {
             "description": "successful",
@@ -318,10 +318,10 @@
           "MadmpSchemas"
         ],
         "summary": "Returns a specific form's schema as JSON using its id",
-        "security":
-      {
-        "bearerAuth": []
-      },
+        "security":[
+          {
+            "bearerAuth": []
+          }],
         "parameters": [
           {
             "name": "id",
@@ -410,6 +410,7 @@
         "bearerFormat": "JWT",
         "description" : "Enter the access_token value without \" "
       }
+
     },
 
     "responses":{
