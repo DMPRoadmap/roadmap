@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Ajout de Redis comme gestionnaire de données de session: cet ajout permet de résoudre le problème d'export des plans avec de nombreux produits de recherche (#10303)
+- Correction du problème d'envoie de notifications pour l'ajout d'un nouveau commentaire (#10302)
+
 ## 07/03/2024
 
 - Modification du style par défaut des modales (``InnerModal``) des commentaires, recommendations, ...
