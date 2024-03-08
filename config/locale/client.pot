@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-05 17:29+0100\n"
-"PO-Revision-Date: 2024-03-05 17:29+0100\n"
+"POT-Creation-Date: 2024-03-08 08:47+0100\n"
+"PO-Revision-Date: 2024-03-08 08:47+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -241,8 +241,9 @@ msgid "My Plan (%{title})"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:40
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:74
-msgid "%{user_name} Plan"
+#: ../../app/controllers/dmpopidor/plans_controller.rb:342
+#: ../../app/controllers/plans_controller.rb:105
+msgid "%{user_name}'s Plan"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:55
@@ -277,11 +278,6 @@ msgstr ""
 #: ../../app/controllers/dmpopidor/plans_controller.rb:76
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:27
 msgid "Research output"
-msgstr ""
-
-#: ../../app/controllers/dmpopidor/plans_controller.rb:342
-#: ../../app/controllers/plans_controller.rb:105
-msgid "%{user_name}'s Plan"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:352
@@ -1453,6 +1449,39 @@ msgstr ""
 #: ../../app/views/branded/devise/invitations/edit.html.erb:43
 #: ../../app/views/branded/shared/_create_account_form.html.erb:60
 msgid "Create account"
+msgstr ""
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:6
+msgid "Access token"
+msgstr ""
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:10
+msgid "Click the button below to generate an API token"
+msgstr ""
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:14
+msgid "Documentation"
+msgstr ""
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:16
+msgid ""
+"See the <a href=\"%{api_v0_wiki}\">documentation for v0</a> for more details on "
+"the API endpoints which include access to the list of all viewable DMP templat"
+"es, or your organisation’s guidance or statistics."
+msgstr ""
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:18
+msgid ""
+"See the <a href=\"%{api_v1_wiki}\">documentation for v1</a> for more details on "
+"the API endpoints which enable the reuse of information structured in complian"
+"ce with the common DMP OPIDoR or <a href=\"%{rda_standard_url}\">RDA DMP Common "
+"standard</a> schemas. These include access to the schemas, registries, plans ("
+"whole DMP, DMP for a single research product) or information fragments, to whi"
+"ch the user has access."
+msgstr ""
+
+#: ../../app/views/branded/devise/registrations/_api_token.html.erb:21
+msgid "Regenerate token"
 msgstr ""
 
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:3
@@ -3050,7 +3079,7 @@ msgid "Write Plan"
 msgstr ""
 
 #: ../../app/views/branded/plans/_navigation.html.erb:53
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:103
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:109
 msgid "Budget"
 msgstr ""
 
@@ -3214,22 +3243,22 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:15
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:107
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:113
 msgid "Cost type (Title)"
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:16
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:108
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:114
 msgid "Amount"
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:17
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:109
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:115
 msgid "Lifecycle stage"
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:36
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:130
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:136
 msgid "General Budget"
 msgstr ""
 
@@ -3481,11 +3510,11 @@ msgstr ""
 msgid "Roles"
 msgstr ""
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:140
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:146
 msgid "Copyright information:"
 msgstr ""
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:143
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:149
 msgid ""
 " The above plan creator(s) have agreed that others may use as much of the text"
 " of this plan as they would like in their own plans, and customise it as neces"
@@ -3990,6 +4019,11 @@ msgid ""
 msgstr ""
 
 #:
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:74
+msgid "%{user_name} Plan"
+msgstr ""
+
+#:
 #: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:84
 #: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:87
 msgid "Invalid JSON"
@@ -4040,15 +4074,15 @@ msgstr ""
 msgid "Unable to change the template's recommended status"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:96
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:97
 msgid "Invalid JSON data"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:97
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:98
 msgid "Invalid format"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:101
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:102
 msgid "File should begin with :dmp property"
 msgstr ""
 
