@@ -2,8 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 08/03/2024
+
 - Ajout de Redis comme gestionnaire de données de session: cet ajout permet de résoudre le problème d'export des plans avec de nombreux produits de recherche (#10303)
 - Correction du problème d'envoie de notifications pour l'ajout d'un nouveau commentaire (#10302)
+- Mise à jour du Swagger
+- Mise à jour du profil utilisateur pour inclure les liens vers le Swagger
 
 ## 07/03/2024
 
