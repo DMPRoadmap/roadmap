@@ -90,8 +90,8 @@ module DMPRoadmap
     config.x.application.api_max_page_size = 100
     # The link to the API documentation - used in emails about the API
     config.x.application.api_documentation_urls = {
-      v0: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation',
-      v1: 'https://github.com/OPIDoR/DMPOPIDoR/wiki/API-DMP-OPIDoR'
+      v0: '/api-docs/index.html?urls.primaryName=API%20VO%20Docs',
+      v1: '/api-docs/index.html?urls.primaryName=API%20V1%20Docs'
     }
     # The links that appear on the home page. Add any number of links
     # config.x.application.welcome_links = [
