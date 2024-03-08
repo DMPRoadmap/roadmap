@@ -24,7 +24,6 @@ RSpec.configure do |config|
         # rubocop:enable Layout/LineLength
         version: 'v1'
       },
-      paths: {},
       securityDefinitions: {
         Bearer: {
           description: 'JWT',
@@ -32,7 +31,8 @@ RSpec.configure do |config|
           name: 'Authorization',
           in: :header
         }
-      } # supportedSubmitMethods
+      },
+      paths: {}
     },
     'v0/swagger.json' => {
       openapi: '3.0.1',
@@ -43,37 +43,17 @@ RSpec.configure do |config|
         # rubocop:enable Layout/LineLength
         version: 'v0'
       },
-      servers: [
-        {
-          url: 'https://{defaultHost}',
-          variables: {
-            defaultHost: {
-                default: 'localhost:8080'
-            }
-          }
-        }
-      ]
-    },
       paths: {},
-      servers: [
-        {
-          url: 'https://{defaultHost}',
-          variables: {
-            defaultHost: {
-                default: 'localhost:8080'
-            }
-          }
-        }
-      ]
       securityDefinitions: {
-        token: {
+        "ApiKeyAuth": {
           description: 'JWT',
           type: :apiKey,
           name: 'Authorization',
           in: :header
         }
-      } # supportedSubmitMethods
-    }
+      }
+
+
   }
 
   # Specify the format of the output Swagger file when running 'rswag:specs:swaggerize'.
