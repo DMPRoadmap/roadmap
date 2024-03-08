@@ -43,6 +43,10 @@ gem 'propshaft'
 # A Ruby client that tries to match Redis' API one-to-one, while still providing an idiomatic interface
 # (https://github.com/redis/redis-rb)
 gem "redis"
+
+# redis-actionpack provides a session store for ActionPack, specifically for ActionDispatch. 
+# (https://github.com/redis-store/redis-actionpack)
+gem 'redis-actionpack'
 # Use Active Model has_secure_password
 # gem "bcrypt", "~> 3.1.7"
 
