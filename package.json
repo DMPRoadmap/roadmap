@@ -7,8 +7,7 @@
     "lint": "yarn run eslint --ext .js,.jsx app/javascript/**/",
     "test": "karma start spec/karma/unit.js",
     "build": "webpack --config ./config/webpack/webpack.config.js",
-    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
-    "postinstall": "yarn --cwd app/javascript/dmp_opidor_react install"
+    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "babel": {
     "presets": [

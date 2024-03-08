@@ -30,7 +30,7 @@ RUN mkdir -p /etc/apt/keyrings && \
     nodejs && \
   bundle config set --local without 'mysql' && \
   bundle install && \
-  yarn install
+  yarn install && yarn --cwd app/javascript/dmp_opidor_react install
 
 FROM dev as production-builder
 ARG DB_ADAPTER \
