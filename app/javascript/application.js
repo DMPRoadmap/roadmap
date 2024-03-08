@@ -92,7 +92,7 @@ import './src/superAdmin/staticPages/edit';
 import './src/superAdmin/themes/newEdit';
 import './src/superAdmin/users/edit';
 
-import './remount';
+import './react.jsx';
 
 // TODO: Disabled turbo for the time being because our custom JS is not
 //       properly setup to work with it. We should review the docs:

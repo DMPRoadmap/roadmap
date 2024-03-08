@@ -15,11 +15,11 @@
       </div>
     <% end %>
     <div class="col-md-12">
-      <dmp-contributors-tab props-json='{
-        "locale": "<%= LocaleService.to_gettext(locale: locale) %>",
-        "planId": "<%= @plan.id %>",
-        "readonly": <%= !@plan.editable_by?(current_user.id) %>
-      }'/>
+      <%= react("ContributorsTabLayout", props: { 
+        locale: LocaleService.to_gettext(locale: locale),
+        planId: @plan.id,
+        readonly: !@plan.editable_by?(current_user.id)
+      }) %>
     </div>
   </div>
 <% end %>
