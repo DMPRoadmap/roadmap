@@ -1,4 +1,4 @@
-{"ProcessingServices": [
+ {"ProcessingServices": [
     {
         "label": {
             "en_GB": "ABiMS, Plateforme   ABiMS, Analysis   and   Bioinformatics   for   Marine Science.",
@@ -8,6 +8,16 @@
         "technicalResourceId": "https://cat.opidor.fr/index.php/ABiMS",
         "idType": "URL",
         "serviceContact": "support.abims@sb-roscoff.fr"
+    },
+    {
+        "label": {
+            "en_GB": "ARTbio, Bioinformatics analyses platform",
+            "fr_FR": "ARTbio, Bioinformatics analyses platform"
+        },
+        "title": "ARTbio",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/ARTbio",
+        "idType": "URL",
+        "serviceContact": "artbio@listes.upmc.fr"
     },
     {
         "label": {
@@ -31,6 +41,16 @@
     },
     {
         "label": {
+            "en_GB": "B&G, Bioninformatics&Genetics, MMG-GBIT",
+            "fr_FR": "B&G, Bioninformatics&Genetics, MMG-GBIT"
+        },
+        "title": "B&G",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/B&G",
+        "idType": "URL",
+        "serviceContact": "https://geneticsandbioinformatics.eu/"
+    },
+    {
+        "label": {
             "en_GB": "BiGEst, Bioinformatique et G\u00e9nomique Est, Plateforme Bioinformatique de Strasbourg, BISTRO",
             "fr_FR": "BiGEst, Bioinformatique et G\u00e9nomique Est, Plateforme Bioinformatique de Strasbourg, BISTRO"
         },
@@ -51,16 +71,6 @@
     },
     {
         "label": {
-            "en_GB": "BiRD, Plateforme de Bioinformatique de Nantes",
-            "fr_FR": "BiRD, Plateforme de Bioinformatique de Nantes"
-        },
-        "title": "BiRD",
-        "technicalResourceId": "https://cat.opidor.fr/index.php/BiRD",
-        "idType": "URL",
-        "serviceContact": "pf-bird@univ-nantes.fr"
-    },
-    {
-        "label": {
             "en_GB": "Bilille, Service en bio-informatique de Lille, Plateforme de bioinformatique de Lille",
             "fr_FR": "Bilille, Service en bio-informatique de Lille, Plateforme de bioinformatique de Lille"
         },
@@ -68,6 +78,26 @@
         "technicalResourceId": "https://cat.opidor.fr/index.php/Bilille",
         "idType": "URL",
         "serviceContact": "helene.touzet@univ-lille.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Bio2M, Bio-Informatique et Bio-Marqueurs",
+            "fr_FR": "Bio2M, Bio-Informatique et Bio-Marqueurs"
+        },
+        "title": "Bio2M",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Bio2M",
+        "idType": "URL",
+        "serviceContact": "therese.commes@inserm.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Biomics",
+            "fr_FR": "Biomics"
+        },
+        "title": "Biomics",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Biomics",
+        "idType": "URL",
+        "serviceContact": "biomics@pasteur.fr"
     },
     {
         "label": {
@@ -107,7 +137,8 @@
         "title": "CBP-PSMN",
         "technicalResourceId": "https://cat.opidor.fr/index.php/CBP-PSMN",
         "idType": "URL",
-        "serviceContact": "http://www.ens-lyon.fr/PSMN/doku.php?id=contact:forms:accueil"
+        "serviceContact": "http://www.ens-lyon.fr/PSMN/doku.php?id=contact:forms:accueil",
+        "policyUrl": "https://www.ens-lyon.fr/sites/default/files/2023-10/FdR_SO_2023.pdf"
     },
     {
         "label": {
@@ -121,8 +152,8 @@
     },
     {
         "label": {
-            "en_GB": "CC-IN2P3, Centre de calcul de l'IN2P3, Centre de calcul de l'IN2P3/CNRS, Centre de Calcul de l'Institut National de Physique Nucl\u00e9aire et de Physique des Particules,Computing Centre of the National Institute of Nuclear Physics and Particle Physics,UAR 6402",
-            "fr_FR": "CC-IN2P3, Centre de calcul de l'IN2P3, Centre de calcul de l'IN2P3/CNRS, Centre de Calcul de l'Institut National de Physique Nucl\u00e9aire et de Physique des Particules,Computing Centre of the National Institute of Nuclear Physics and Particle Physics,UAR 6402"
+            "en_GB": "CC-IN2P3, Centre de calcul de l'IN2P3, Centre de calcul de CNRS Nucl\u00e9aire & Particules, Centre de Calcul de l'Institut National de Physique Nucl\u00e9aire et de Physique des Particules,Computing Centre of the National Institute of Nuclear Physics and Particle Physics,UAR 6402",
+            "fr_FR": "CC-IN2P3, Centre de calcul de l'IN2P3, Centre de calcul de CNRS Nucl\u00e9aire & Particules, Centre de Calcul de l'Institut National de Physique Nucl\u00e9aire et de Physique des Particules,Computing Centre of the National Institute of Nuclear Physics and Particle Physics,UAR 6402"
         },
         "title": "CC-IN2P3",
         "technicalResourceId": "https://cat.opidor.fr/index.php/CC-IN2P3",
@@ -211,6 +242,16 @@
     },
     {
         "label": {
+            "en_GB": "CNES Centre de calcul, Centre de calcul du CNES",
+            "fr_FR": "CNES Centre de calcul, Centre de calcul du CNES"
+        },
+        "title": "CNES Centre de calcul",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/CNES Centre de calcul",
+        "idType": "URL",
+        "serviceContact": "L-SIS-poleHPC@cnes.fr"
+    },
+    {
+        "label": {
             "en_GB": "CRIANN, Centre R\u00e9gional Informatique et d'Applications Num\u00e9riques de Normandie, M\u00e9socentre de calcul pour la Normandie",
             "fr_FR": "CRIANN, Centre R\u00e9gional Informatique et d'Applications Num\u00e9riques de Normandie, M\u00e9socentre de calcul pour la Normandie"
         },
@@ -241,16 +282,6 @@
     },
     {
         "label": {
-            "en_GB": "DataCenter@UPSud",
-            "fr_FR": "DataCenter@UPSud"
-        },
-        "title": "DataCenter@UPSud",
-        "technicalResourceId": "https://cat.opidor.fr/index.php/DataCenter@UPSud",
-        "idType": "URL",
-        "serviceContact": "https://www.mesocentre.u-psud.fr/contact/"
-    },
-    {
-        "label": {
             "en_GB": "EXPLOR, M\u00e9socentre Explor, Ensemble de Calcul Scientifique Pour la Lorraine",
             "fr_FR": "EXPLOR, M\u00e9socentre Explor, Ensemble de Calcul Scientifique Pour la Lorraine"
         },
@@ -258,6 +289,26 @@
         "technicalResourceId": "https://cat.opidor.fr/index.php/EXPLOR",
         "idType": "URL",
         "serviceContact": "http://explor.univ-lorraine.fr/contacts/"
+    },
+    {
+        "label": {
+            "en_GB": "Eskemm Num\u00e9rique, Groupement d\u2019Int\u00e9r\u00eat Public Num\u00e9rique de Bretagne,  GIP Num\u00e9rique de Bretagne",
+            "fr_FR": "Eskemm Num\u00e9rique, Groupement d\u2019Int\u00e9r\u00eat Public Num\u00e9rique de Bretagne,  GIP Num\u00e9rique de Bretagne"
+        },
+        "title": "Eskemm Num\u00e9rique",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Eskemm Num\u00e9rique",
+        "idType": "URL",
+        "serviceContact": "contact@eskemm-numerique.fr"
+    },
+    {
+        "label": {
+            "en_GB": "EvryRNA",
+            "fr_FR": "EvryRNA"
+        },
+        "title": "EvryRNA",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/EvryRNA",
+        "idType": "URL",
+        "serviceContact": "fariza.tahi@ibisc.univ-evry.fr"
     },
     {
         "label": {
@@ -278,6 +329,16 @@
         "technicalResourceId": "https://cat.opidor.fr/index.php/France Grilles",
         "idType": "URL",
         "serviceContact": "info@france-grilles.fr"
+    },
+    {
+        "label": {
+            "en_GB": "GLiCID, Groupe lig\u00e9rien en calcul intensif distribu\u00e9",
+            "fr_FR": "GLiCID, Groupe lig\u00e9rien en calcul intensif distribu\u00e9"
+        },
+        "title": "GLiCID",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/GLiCID",
+        "idType": "URL",
+        "serviceContact": "contact@glicid.fr"
     },
     {
         "label": {
@@ -311,8 +372,8 @@
     },
     {
         "label": {
-            "en_GB": "Galaxy-E, Plateforme collaborative d\u2019acc\u00e8s et analyse de donn\u00e9es en \u00e9cologie",
-            "fr_FR": "Galaxy-E, Plateforme collaborative d\u2019acc\u00e8s et analyse de donn\u00e9es en \u00e9cologie"
+            "en_GB": "Galaxy-E, Plateforme collaborative d\u2019acc\u00e8s et analyse de donn\u00e9es en \u00e9cologie, Galaxy-Ecology",
+            "fr_FR": "Galaxy-E, Plateforme collaborative d\u2019acc\u00e8s et analyse de donn\u00e9es en \u00e9cologie, Galaxy-Ecology"
         },
         "title": "Galaxy-E",
         "technicalResourceId": "https://cat.opidor.fr/index.php/Galaxy-E",
@@ -451,6 +512,16 @@
     },
     {
         "label": {
+            "en_GB": "INSERM Cloud",
+            "fr_FR": "INSERM Cloud"
+        },
+        "title": "INSERM Cloud",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/INSERM Cloud",
+        "idType": "URL",
+        "serviceContact": "support.dsi@inserm.fr"
+    },
+    {
+        "label": {
             "en_GB": "ISC-PIF : Plateformes technologiques, Plateformes technologique de l'Institut des Syst\u00e8mes Complexes de Paris Ile de France",
             "fr_FR": "ISC-PIF : Plateformes technologiques, Plateformes technologique de l'Institut des Syst\u00e8mes Complexes de Paris Ile de France"
         },
@@ -508,6 +579,16 @@
         "technicalResourceId": "https://cat.opidor.fr/index.php/MCIA",
         "idType": "URL",
         "serviceContact": "pierre.gay@u-bordeaux.fr"
+    },
+    {
+        "label": {
+            "en_GB": "MEP, CENTURI Multi-Engineering Platform",
+            "fr_FR": "MEP, CENTURI Multi-Engineering Platform"
+        },
+        "title": "MEP",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/MEP",
+        "idType": "URL",
+        "serviceContact": "https://centuri-livingsystems.org/multi-engineering-platform/#contact"
     },
     {
         "label": {
@@ -591,16 +672,6 @@
     },
     {
         "label": {
-            "en_GB": "Migale",
-            "fr_FR": "Migale"
-        },
-        "title": "Migale",
-        "technicalResourceId": "https://cat.opidor.fr/index.php/Migale",
-        "idType": "URL",
-        "serviceContact": "help-migale@inrae.fr"
-    },
-    {
-        "label": {
             "en_GB": "Mod\u00e8le de la galaxie de Besan\u00e7on, Besan\u00e7on Model of the Galaxy",
             "fr_FR": "Mod\u00e8le de la galaxie de Besan\u00e7on, Besan\u00e7on Model of the Galaxy"
         },
@@ -661,6 +732,26 @@
     },
     {
         "label": {
+            "en_GB": "NSBD, Networks and Systems Biology for Diseases, Biologie des syst\u00e8mes et des r\u00e9seaux pour les maladies",
+            "fr_FR": "NSBD, Networks and Systems Biology for Diseases, Biologie des syst\u00e8mes et des r\u00e9seaux pour les maladies"
+        },
+        "title": "NSBD",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/NSBD",
+        "idType": "URL",
+        "serviceContact": "anais.baudot@univ-amu.fr"
+    },
+    {
+        "label": {
+            "en_GB": "OPAL, Observatoire Pluridisciplinaire des Alpes-Maritimes",
+            "fr_FR": "OPAL, Observatoire Pluridisciplinaire des Alpes-Maritimes"
+        },
+        "title": "OPAL",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/OPAL",
+        "idType": "URL",
+        "serviceContact": "centre-calculs.cs@univ-cotedazur.fr"
+    },
+    {
+        "label": {
             "en_GB": "OSIRIM, Observatoire des Syst\u00e8mes d'Indexation et de Recherche d'Information Multim\u00e9dia",
             "fr_FR": "OSIRIM, Observatoire des Syst\u00e8mes d'Indexation et de Recherche d'Information Multim\u00e9dia"
         },
@@ -701,6 +792,16 @@
     },
     {
         "label": {
+            "en_GB": "PB-IBENS, La Plateforme Bioinformatique (PB-IBENS)",
+            "fr_FR": "PB-IBENS, La Plateforme Bioinformatique (PB-IBENS)"
+        },
+        "title": "PB-IBENS",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/PB-IBENS",
+        "idType": "URL",
+        "serviceContact": "admin-bioclust@bio.ens.psl.eu"
+    },
+    {
+        "label": {
             "en_GB": "PCDM, P\u00f4le de Calcul et de Donn\u00e9es pour la Mer, P\u00f4le de Calcul Intensif pour la Mer (ancien nom)",
             "fr_FR": "PCDM, P\u00f4le de Calcul et de Donn\u00e9es pour la Mer, P\u00f4le de Calcul Intensif pour la Mer (ancien nom)"
         },
@@ -711,23 +812,13 @@
     },
     {
         "label": {
-            "en_GB": "PHYMATH, M\u00e9socentre PHYMATH",
-            "fr_FR": "PHYMATH, M\u00e9socentre PHYMATH"
-        },
-        "title": "PHYMATH",
-        "technicalResourceId": "https://cat.opidor.fr/index.php/PHYMATH",
-        "idType": "URL",
-        "serviceContact": "polytechnique.labos-phymath.informatique@groupes.renater.fr"
-    },
-    {
-        "label": {
             "en_GB": "PMCS2I, P\u00f4le de Mod\u00e9lisation et Calcul en Science de l'Ing\u00e9nieur et de l'Information",
             "fr_FR": "PMCS2I, P\u00f4le de Mod\u00e9lisation et Calcul en Science de l'Ing\u00e9nieur et de l'Information"
         },
         "title": "PMCS2I",
         "technicalResourceId": "https://cat.opidor.fr/index.php/PMCS2I",
         "idType": "URL",
-        "serviceContact": "calcul.support@ec-lyon.fr"
+        "serviceContact": "pmcs2i-staff@listes.ec-lyon.fr"
     },
     {
         "label": {
@@ -831,6 +922,16 @@
     },
     {
         "label": {
+            "en_GB": "Saclay Lab-IA",
+            "fr_FR": "Saclay Lab-IA"
+        },
+        "title": "Saclay Lab-IA",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/Saclay Lab-IA",
+        "idType": "URL",
+        "serviceContact": "users.lab-ia@services.cnrs.fr"
+    },
+    {
+        "label": {
             "en_GB": "South Green, Plateforme South Green de bioinformatique, SGBP",
             "fr_FR": "South Green, Plateforme South Green de bioinformatique, SGBP"
         },
@@ -848,6 +949,16 @@
         "technicalResourceId": "https://cat.opidor.fr/index.php/TGCC",
         "idType": "URL",
         "serviceContact": "hotline.tgcc@cea.fr"
+    },
+    {
+        "label": {
+            "en_GB": "TGML, Transcriptomique et g\u00e9nomique Marseille Luminy, TAGC-BU",
+            "fr_FR": "TGML, Transcriptomique et g\u00e9nomique Marseille Luminy, TAGC-BU"
+        },
+        "title": "TGML",
+        "technicalResourceId": "https://cat.opidor.fr/index.php/TGML",
+        "idType": "URL",
+        "serviceContact": "denis.puthier@univ-amu.fr"
     },
     {
         "label": {
