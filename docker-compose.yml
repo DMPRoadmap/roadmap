@@ -44,7 +44,7 @@ services:
       # Uncomment this FIRST_TIME variable when you first setup your local dev environment.
       # This will initialize the mysql DB. Then comment out afterward. You may need to restart
       # the container after the initial run builds the DB.
-      # - FIRST_TIME=true
+      #- FIRST_TIME=true
     env_file:
       - .env.dev
     volumes:

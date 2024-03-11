@@ -6,9 +6,13 @@ if ! gem list foreman -i --silent; then
 fi
 
 # Only run this the first time!
-if ! $FIRST_TIME; then
+#if ! $FIRST_TIME; then
+if [ -z $FIRST_TIME ]; then
+echo "Not the first time"
+else
   echo "Running db:setup to initialize the DB"
-  exec rails db:setup
+  #exec $(rails db:drop && rails db:create && rails db:schema:load)
+  exec rails db:schema:load
 fi
 
 exec foreman start -f Procfile.dev "$@"
