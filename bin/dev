@@ -5,14 +5,20 @@ if ! gem list foreman -i --silent; then
   gem install foreman
 fi
 
-# Only run this the first time!
-#if ! $FIRST_TIME; then
 if [ -z $FIRST_TIME ]; then
-echo "Not the first time"
+  echo 'No need to initialize the database, will run any pending DB migrations before startup.'
+  export DB_CMD="bin/rails db:migrate"
 else
-  echo "Running db:setup to initialize the DB"
-  #exec $(rails db:drop && rails db:create && rails db:schema:load)
-  exec rails db:schema:load
+  echo "FIRST TIME! Will initialize the database before startup."
+  export DB_CMD="bin/rails db:create && bin/rails db:schema:load"
+
+  # TROUBLESHOOTING:
+  # -------------------------
+  # If you receive an error about the DB existing or tables that cannot be `dropped` due to a
+  # foreign key constraint, then something went wrong and you will first need to drop the DB.
+  # In this scenario, comment out the above `export` command and uncomment the one below
+  #
+  # export DB_CMD="bin/rails db:drop && bin/rails db:create && bin/rails db:schema:load"
 fi
 
 exec foreman start -f Procfile.dev "$@"

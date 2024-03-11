@@ -41,9 +41,9 @@ services:
       - "3000"
     environment:
       - RAILS_ENV=development
-      # Uncomment this FIRST_TIME variable when you first setup your local dev environment.
-      # This will initialize the mysql DB. Then comment out afterward. You may need to restart
-      # the container after the initial run builds the DB.
+      # The first time you startup these docker containers, you will need to uncomment the
+      # following FIRST_TIME variable so the MySQL database is properly initialized.
+      #
       #- FIRST_TIME=true
     env_file:
       - .env.dev
