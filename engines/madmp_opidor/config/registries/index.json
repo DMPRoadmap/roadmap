@@ -493,9 +493,6 @@
     "Archives": {
         "path": "Archives.json"
     },
-    "BackupPolicyGenci": {
-        "path": "BackupPolicyGenci.json"
-    },
     "Biodiversite": {
         "path": "Biodiversite.json"
     },
