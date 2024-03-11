@@ -36,6 +36,7 @@
             "description": "Jeu de données réutilisé",
             "label@fr_FR": "Données réutilisées",
             "label@en_GB": "Reused data",
+            "tooltip": null,
             "form_label@fr_FR": "Décrire le ou les produits de recherche réutilisés",
             "form_label@en_GB": "Describe the reused research output(s)"
         },
@@ -59,6 +60,7 @@
             "description": "Coûts éventuels liés à l'achat de données",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
+            "tooltip": null,
             "form_label@fr_FR": "Coûts liés à la réutilisation de données existantes",
             "form_label@en_GB": "Existing reuse data associated costs"
         }

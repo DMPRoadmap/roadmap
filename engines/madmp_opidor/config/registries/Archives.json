@@ -9,11 +9,15 @@
             "hostId": "https://cat.opidor.fr/index.php/CINES_Archivage_numérique_pérenne",
             "idType": "URL",
             "geoLocation": "FR",
-            "certification": ["CoreTrustSeal"],
-            "pidSystem": null,
+            "certification": ["DSA"],
+            "pidSystem": [
+                "ARK"
+            ],
             "hasVersioningPolicy": null,
             "availability": null,
-            "metadataStandard": null,
+            "metadataStandard": [
+                "Dublin Core"
+            ],
             "policyUrl": null
         },
         {
@@ -59,10 +63,10 @@
             "idType": "URL",
             "geoLocation": "FR",
             "certification": [],
-            "pidSystem": null,
+            "pidSystem": ["SWHID"],
             "hasVersioningPolicy": null,
             "availability": null,
-            "metadataStandard": null,
+            "metadataStandard": [],
             "policyUrl": null
         }
     ]

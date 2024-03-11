@@ -5,12 +5,14 @@
     "description": "PartnerStandard template",
     "type": "object",
     "class": "PartnerStandard",
+	"externalImports": { "ror": { "affiliationName": "name", "affiliationId": "orgId", "acronyms": "acronym", "affiliationIdType": "idType" } },
     "properties": {
         "name": {
             "type": "string",
             "description": "Nom de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
             "label@fr_FR": "Nom",
             "label@en_GB": "Name",
+            "tooltip": null,
             "form_label@fr_FR": "Nom",
             "form_label@en_GB": "Name"
         },
@@ -19,6 +21,7 @@
             "description": "Acronyme de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
             "label@fr_FR": "Acronyme",
             "label@en_GB": "Acronym",
+            "tooltip": null,
             "form_label@fr_FR": "Acronyme",
             "form_label@en_GB": "Acronym"
         },
@@ -27,25 +30,30 @@
             "description": "Identifiant de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
+            "tooltip": null,
             "form_label@fr_FR": "Identifiant",
             "form_label@en_GB": "Identifier"
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant (ROR) e l'organisation ou structure partenaire",
+            "description": "Type d'identifiant (ROR) de l'organisation ou structure partenaire",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registry_name": "AgentIdSystem",
+            "registries": [
+                "OrganizationIdSystem"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant",
             "form_label@en_GB": "Identifier type"
         },
         "rnsr": {
             "type": "string",
-            "description": "Idenfiant RNSR e l'organisation ou structure partenaire",
+            "description": "Identifiant RNSR de l'organisation ou structure partenaire",
             "label@fr_FR": "Identifiant RNSR",
             "label@en_GB": "RNSR identifier",
+            "tooltip": null,
             "form_label@fr_FR": "Identifiant RNSR",
             "form_label@en_GB": "RNSR identifier"
         }
@@ -55,9 +63,12 @@
     ],
     "to_string": [
         "$.name",
-        " (",
-        "$.rnsr",
-        ") "
+        " ",
+        "<a href:",
+        "$.orgId",
+        ">",
+        "$.orgId",
+        "</a>"
     ],
     "unicity": [
         "rnsr"

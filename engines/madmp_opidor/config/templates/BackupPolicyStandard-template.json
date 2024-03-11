@@ -12,16 +12,18 @@
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
-            "form_label@fr_FR": "Type de coût",
-            "form_label@en_GB": "Cost type"
+            "tooltip": null,
+            "form_label@fr_FR": "Décrire la politique de sauvegarde",
+            "form_label@en_GB": "Describe the backup policy"
         },
         "backupFrequency": {
             "type": "string",
             "description": "Fréquence de sauvegarde",
             "label@fr_FR": "Fréquence des sauvegardes",
             "label@en_GB": "Backup frequency",
-            "form_label@fr_FR": "Montant",
-            "form_label@en_GB": "Amount"
+            "tooltip": null,
+            "form_label@fr_FR": "Fréquence des sauvegardes",
+            "form_label@en_GB": "Backup frequency"
         },
         "backupType": {
             "type": "string",
@@ -29,10 +31,13 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type de sauvegarde",
             "label@en_GB": "Backup type",
-            "registry_name": "BackupType",
+            "registries": [
+                "BackupType"
+            ],
             "overridable": true,
-            "form_label@fr_FR": "Devise",
-            "form_label@en_GB": "Currency"
+            "tooltip": null,
+            "form_label@fr_FR": "Type de sauvegarde",
+            "form_label@en_GB": "Backup type"
         },
         "storageType": {
             "type": "array",
@@ -43,10 +48,13 @@
             "inputType": "dropdown",
             "label@fr_FR": "Supports de stockage",
             "label@en_GB": "Storage types",
-            "registry_name": "StorageType",
+            "registries": [
+                "StorageType"
+            ],
             "overridable": true,
-            "form_label@fr_FR": "Titre",
-            "form_label@en_GB": "Title"
+            "tooltip": null,
+            "form_label@fr_FR": "Supports de stockage",
+            "form_label@en_GB": "Storage types"
         }
     },
     "required": [

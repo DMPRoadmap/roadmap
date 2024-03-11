@@ -1,0 +1,44 @@
+{
+  "MesoUCAStorageTimes": [
+    {
+      "fr_FR": 6,
+      "en_GB": 6
+    },
+    {
+      "fr_FR": 12,
+      "en_GB": 12
+    },
+    {
+      "fr_FR": 18,
+      "en_GB": 18
+    },
+    {
+      "fr_FR": 24,
+      "en_GB": 24
+    },
+    {
+      "fr_FR": 30,
+      "en_GB": 30
+    },
+    {
+      "fr_FR": 36,
+      "en_GB": 36
+    },
+    {
+      "fr_FR": 42,
+      "en_GB": 42
+    },
+    {
+      "fr_FR": 48,
+      "en_GB": 48
+    },
+    {
+      "fr_FR": 54,
+      "en_GB": 54
+    },
+    {
+      "fr_FR": 60,
+      "en_GB": 60
+    }
+  ]
+}

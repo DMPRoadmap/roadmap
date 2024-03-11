@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 11/03/2024
+
+- Mise à jour des templates & registries
+- Lancement de la visite guidée à la première visite d'un plan déjà créé ou nouvellement créé.
+- Changement de "recommended" par "proposed" dans le choix du modèle à la création de plan
+- Affichage du bouton changement de formulaire uniquement quand il y a plus d'un formulaire
+
 ## 08/03/2024
 
 - Ajout de Redis comme gestionnaire de données de session: cet ajout permet de résoudre le problème d'export des plans avec de nombreux produits de recherche (#10303)

@@ -11,6 +11,7 @@
             "description": "Intitulé de l'aspect organisationnel",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
+            "tooltip": null,
             "form_label@fr_FR": "Titre",
             "form_label@en_GB": "Title"
         },
@@ -19,6 +20,7 @@
             "description": "Identification du document associé à cet aspect organisationnel",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
+            "tooltip": null,
             "form_label@fr_FR": "Identifiant du document",
             "form_label@en_GB": "Document identifier"
         },
@@ -28,8 +30,11 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registry_name": "PIDSystem",
+            "registries": [
+                "PIDSystem"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant de la ressource",
             "form_label@en_GB": "Identifier type"
         }

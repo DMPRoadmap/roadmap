@@ -11,6 +11,7 @@
             "description": "Nom du fichier",
             "label@fr_FR": "Nom du fichier",
             "label@en_GB": "Filename",
+            "tooltip": null,
             "form_label@fr_FR": "Nom du fichier",
             "form_label@en_GB": "Filename"
         },
@@ -31,6 +32,7 @@
             "description": "Date à laquelle les donnés sont publiées",
             "label@fr_FR": "Date de diffusion",
             "label@en_GB": "Release date",
+            "tooltip": null,
             "form_label@fr_FR": "Date de diffusion",
             "form_label@en_GB": "Release date"
         },
@@ -40,7 +42,10 @@
             "inputType": "dropdown",
             "label@fr_FR": "Mode d'accès",
             "label@en_GB": "DataAccess",
-            "registry_name": "DataAccess",
+            "registries": [
+                "DataAccess"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Mode d'accès",
             "form_label@en_GB": "DataAccess"
         },
@@ -50,7 +55,9 @@
             "inputType": "dropdown",
             "label@fr_FR": "Format du fichier",
             "label@en_GB": "File format",
-            "registry_name": "MediaType",
+            "registries": [
+                "MediaType"
+            ],
             "overridable": true,
             "tooltip@fr_FR": "Format sous forme MIME type",
             "tooltip@en_GB": "Format expressed as MIME type",
@@ -74,6 +81,7 @@
             "description": "Nombre d'octets",
             "label@fr_FR": "Volume du fichier",
             "label@en_GB": "File volume",
+            "tooltip": null,
             "form_label@fr_FR": "Volume du fichier",
             "form_label@en_GB": "File volume"
         },
@@ -83,8 +91,11 @@
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
-            "registry_name": "VolumeUnit",
+            "registries": [
+                "VolumeUnit"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Unité",
             "form_label@en_GB": "Unit"
         },
@@ -94,6 +105,7 @@
             "description": "Date jusqu'à laquelle les données sont disponibles chez cet hébergeur (entrepôt ou centre de calcul, …)",
             "label@fr_FR": "Disponible jusqu'à",
             "label@en_GB": "Available until",
+            "tooltip": null,
             "form_label@fr_FR": "Disponible jusqu'à",
             "form_label@en_GB": "Available until"
         },
@@ -135,8 +147,11 @@
             "label@fr_FR": "Licence",
             "label@en_GB": "License",
             "inputType": "dropdown",
-            "registry_name": "DataLicenses",
+            "registries": [
+                "DataLicenses"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Licence",
             "form_label@en_GB": "License"
         },

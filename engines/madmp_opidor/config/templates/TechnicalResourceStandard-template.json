@@ -11,6 +11,7 @@
             "description": "Intitulé de la resource technique",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
+            "tooltip": null,
             "form_label@fr_FR": "Titre",
             "form_label@en_GB": "Title"
         },
@@ -19,6 +20,7 @@
             "description": "Identifiant pérenne ou Url de référence",
             "label@fr_FR": "Identifiant",
             "label@en_GB": "Identifier",
+            "tooltip": null,
             "form_label@fr_FR": "Identifiant de la ressource technique",
             "form_label@en_GB": "Technical resource identifier"
         },
@@ -28,8 +30,11 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registry_name": "PIDSystem",
+            "registries": [
+                "PIDSystem"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant de la ressource technique",
             "form_label@en_GB": "Technical resource identifier type"
         },
@@ -38,6 +43,7 @@
             "description": "Adresse contact d'un service",
             "label@fr_FR": "Contact",
             "label@en_GB": "Contact",
+            "tooltip": null,
             "form_label@fr_FR": "Adresse de contact du service",
             "form_label@en_GB": "Contact address of the service"
         },
@@ -46,6 +52,7 @@
             "description": "Politique de gestion des données d'un service",
             "label@fr_FR": "Politique de données",
             "label@en_GB": "Data policy",
+            "tooltip": null,
             "form_label@fr_FR": "Politique de données du service",
             "form_label@en_GB": "Data policy of the service"
         }

@@ -44,27 +44,27 @@
         },
         "contributor": {
             "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
-                "class": "ContributorStandard",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "LegalExpert",
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
             },
             "description": "Personne(s) en charge des aspects juridiques",
-            "label@fr_FR": "Responsables juridiques",
+            "label@fr_FR": "Personnes impliquées dans les questions juridiques",
             "label@en_GB": "Legal experts",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department",
-            "form_label@fr_FR": "Responsables juridiques",
+            "form_label@fr_FR": "Personnes impliquées dans les questions juridiques",
             "form_label@en_GB": "Legal experts"
         }
     },

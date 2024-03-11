@@ -43,27 +43,27 @@
         },
         "contributor": {
             "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
-                "class": "ContributorStandard",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "DataQualityManager",
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
             },
             "description": "Personne(s) impliquée(s) dans l'assurance qualité des données",
-            "label@fr_FR": "Responsables de la qualité des données",
+            "label@fr_FR": "Personnes impliquées dans la qualité des données",
             "label@en_GB": "Data quality managers",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department",
-            "form_label@fr_FR": "Responsables de la qualité des données",
+            "form_label@fr_FR": "Personnes impliquées dans la qualité des données",
             "form_label@en_GB": "Data quality managers"
         }
     },

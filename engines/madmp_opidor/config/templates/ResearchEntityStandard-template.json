@@ -5,27 +5,48 @@
     "description": "ResearchEntityStandard template",
     "type": "object",
     "class": "ResearchEntityStandard",
+	"externalImports": { "ror": { "affiliationName": "name", "affiliationId": "orgId", "acronyms": "acronym", "affiliationIdType": "idType" } },
     "properties": {
-        "researchEntityIdentification": {
-            "type": "object",
-            "class": "Partner",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "PartnerStandard",
-            "required": [
-                "dbid"
-            ],
-            "description": "Identification de l'entité (ou structure) de recherche",
+        "name": {
+            "type": "string",
+            "description": "Nom de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
             "label@fr_FR": "Nom de l'entité",
             "label@en_GB": "Entity's name",
-            "inputType": "dropdown",
-            "registry_name": "Partners",
-            "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Nom de l'entité",
             "form_label@en_GB": "Entity's name"
+        },
+        "acronym": {
+            "type": "string",
+            "description": "Acronyme de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
+            "label@fr_FR": "Acronyme",
+            "label@en_GB": "Acronym",
+            "tooltip": null,
+            "form_label@fr_FR": "Acronyme",
+            "form_label@en_GB": "Acronym"
+        },
+        "orgId": {
+            "type": "string",
+            "description": "Identifiant de l'entité (ou structure) ou d'un partenaire d'un projet de recherche",
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier",
+            "tooltip": null,
+            "form_label@fr_FR": "Identifiant",
+            "form_label@en_GB": "Identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant (ROR) de l'organisation ou structure partenaire",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "registries": [
+                "OrganizationIdSystem"
+            ],
+            "overridable": true,
+            "tooltip": null,
+            "form_label@fr_FR": "Type d'identifiant",
+            "form_label@en_GB": "Identifier type"
         },
         "description": {
             "type": "string",
@@ -33,8 +54,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
-            "form_label@fr_FR": "Description",
-            "form_label@en_GB": "Description"
+            "tooltip": null
         },
         "startDate": {
             "type": "string",
@@ -42,10 +62,9 @@
             "description": "Année de création de l'entité (ou structure) de recherche",
             "label@fr_FR": "Date de création",
             "label@en_GB": "Creation date",
-            "form_label@fr_FR": "Date de création",
-            "form_label@en_GB": "Creation date"
+            "tooltip": null
         },
-        "members": {
+        "partner": {
             "type": "array",
             "table_header": null,
             "items": {
@@ -65,9 +84,7 @@
             "description": "Etablissements tutelles de l'entité (ou structure) de recherche",
             "label@fr_FR": "Tutelle(s) de l'entité",
             "label@en_GB": "Entity's regulatory authority",
-            "inputType": "dropdown",
-            "registry_name": "Partners",
-            "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Tutelle(s) de l'entité",
             "form_label@en_GB": "Entity's regulatory authority"
         },
@@ -92,66 +109,57 @@
             "description": "Source(s) de financement",
             "label@fr_FR": "Source(s) de financement",
             "label@en_GB": "Funding(s)",
+            "tooltip": null,
             "form_label@fr_FR": "Source(s) de financement",
             "form_label@en_GB": "Funding(s)"
         },
-        "researchEntityManager": {
+        "contributor": {
             "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
-                "class": "ContributorStandard",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "ResearchEntityManager",
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
             },
             "minItems": 1,
-            "description": "Responsable de l'entité (ou structure) de recherche",
-            "label@fr_FR": "Responsable(s) de l'entité",
-            "label@en_GB": "Entity's manager(s)",
-            "form_label@fr_FR": "Responsable(s) de l'entité",
-            "form_label@en_GB": "Entity's manager(s)"
-        },
-        "dataSteward": {
-            "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
-            "items": {
-                "type": "object",
-                "class": "ContributorStandard",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "DataSteward",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "minItems": 1,
-            "description": "Responsable de la gestion et de l'ouverture des données",
-            "label@fr_FR": "Responsable(s) de la gestion et de l'ouverture des données",
-            "label@en_GB": "DataSteward(s)",
-            "form_label@fr_FR": "Responsable(s) de la gestion et de l'ouverture des données",
-            "form_label@en_GB": "DataSteward(s)"
+            "description": "Responsable(s) de l'entité (ou structure) de recherche et/ou gestionnaire(s) de données",
+            "label@fr_FR": "Responsable(s) de l'entité de recherche et/ou gestionnaire(s) de données",
+            "label@en_GB": "Entity's manager(s) and/or data steward(s)",
+            "tooltip": null,
+            "form_label@fr_FR": "Renseigner le(s) responsable(s) de l'entité et/ou le(s) gestionnaire(s) de données",
+            "form_label@en_GB": "Enter the Entity's manager(s)and/or Data Manger(s)"
         }
     },
     "required": [
-        "researchEntityIdentification",
-        "description",
-        "startDate",
-        "members",
+        "name",
+        "partner",
         "funding",
-        "researchEntityManager",
-        "dataSteward"
+        "contributor"
     ],
-    "to_string": []
+    "to_string": [],
+    "default": {
+        "fr_FR": {
+            "contributor": [
+                {
+                    "role": "Responsable de l'entité"
+                }
+            ]
+        },
+        "en_GB": {
+            "contributor": [
+                {
+                    "role": "Entity's manager"
+                }
+            ]
+        }
+    }
 }

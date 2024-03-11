@@ -1,0 +1,28 @@
+{
+  "MesoUCACalculTypes": [
+    {
+      "fr_FR": "Calcul sur cluster de base (espace de stockage de travail inclus dans les heures de calcul)",
+      "en_GB": "Computing on base cluster (working directory included in compute hours)",
+      "costInt": "11",
+      "costExt": "14"
+    },
+    {
+      "fr_FR": "Calcul sur cluster supercalculateur (espace de stockage de travail inclus dans les heures de calcul)",
+      "en_GB": "Supercomputer cluster computing (working directory included in compute hours)",
+      "costInt": "51",
+      "costExt": "64"
+    },
+    {
+      "fr_FR": "Calcul sur cluster GPU (espace de stockage de travail inclus dans les heures de calcul)",
+      "en_GB": "GPU cluster computing (working directory included in compute hours)",
+      "costInt": "463",
+      "costExt": "581"
+    },
+    {
+      "fr_FR": "Calcul sur cloud (espace de stockage de travail inclus dans les heures de calcul)",
+      "en_GB": "Cloud computing (working directory included in compute hours)",
+      "costInt": "18",
+      "costExt": "22"
+    }
+  ]
+}

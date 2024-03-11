@@ -22,7 +22,9 @@
             "label@fr_FR": "Financeurs",
             "label@en_GB": "Funders",
             "inputType": "dropdown",
-            "registry_name": "Funders",
+            "registries": [
+                "Funders"
+            ],
             "overridable": true,
             "tooltip@fr_FR": "Liste interne en cours d'élaboration",
             "tooltip@en_GB": "Internal list in progress",
@@ -45,7 +47,10 @@
             "inputType": "dropdown",
             "label@fr_FR": "Statut du financement",
             "label@en_GB": "Funding status",
-            "registry_name": "FundingStatus",
+            "registries": [
+                "FundingStatus"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Statut du financement",
             "form_label@en_GB": "Funding status"
         }

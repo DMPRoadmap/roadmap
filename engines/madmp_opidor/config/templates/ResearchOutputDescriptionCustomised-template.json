@@ -11,6 +11,7 @@
             "description": "Titre du produit de recherche généré au cours du projet",
             "label@fr_FR": "Nom",
             "label@en_GB": "Name",
+            "tooltip": null,
             "form_label@fr_FR": "Nom  complet",
             "form_label@en_GB": "Full name"
         },
@@ -31,7 +32,9 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type",
             "label@en_GB": "Type",
-            "registry_name": "ResearchDataType",
+            "registries": [
+                "ResearchDataType"
+            ],
             "overridable": true,
             "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.4.",
             "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.4. ",
@@ -68,14 +71,16 @@
             },
             "minItems": 1,
             "description": "Mot(s)-clé(s) issu(s) de vocabulaire(s) contrôlé(s) ou d'ontologie(s)",
-            "label@fr_FR": "Thésaurus INRAE",
-            "label@en_GB": "Thesaurus INRAE",
+            "label@fr_FR": "Mots clés",
+            "label@en_GB": "Keywords",
             "inputType": "dropdown",
-            "registry_name": "ThesaurusInrae",
+            "registries": [
+                "ThesaurusInrae"
+            ],
             "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
             "tooltip@en_GB": "Key words describing important aspects of the dataset",
-            "form_label@fr_FR": "Thésaurus INRAE",
-            "form_label@en_GB": "Thesaurus INRAE"
+            "form_label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
+            "form_label@en_GB": "Controlled keywords (vocabulary, thesaurus, lexicon...)"
         },
         "subject": {
             "type": "array",
@@ -84,10 +89,13 @@
             },
             "description": "Subject : construit à partir de la classification de l’OCDE pour DataInrae https://ist.blogs.inrae.fr/datainrae-guide/metadonnees-controlees-par-une-liste-de-valeurs/#Subject_construit_a_partir_de_la_classification_de_lOCDE",
             "inputType": "dropdown",
-            "label@fr_FR": "Subject",
+            "label@fr_FR": "Sujet",
             "label@en_GB": "Subject",
-            "registry_name": "Subjects",
+            "registries": [
+                "Subjects"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Subject",
             "form_label@en_GB": "Subject"
         },
@@ -98,20 +106,23 @@
             "inputType": "dropdown",
             "label@fr_FR": "Langue",
             "label@en_GB": "Language",
-            "registry_name": "ISO639-3",
+            "registries": [
+                "ISO639-3"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Indiquer la langue dans laquelle est décrit le produit de recherche",
             "form_label@en_GB": "Indicate the language in which the research product is described"
         },
         "contact": {
             "type": "object",
-            "class": "ContributorStandard",
+            "class": "Contributor",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "ResearchOutputContact",
+            "template_name": "ContributorStandard",
             "required": [
                 "dbid"
             ],
@@ -129,6 +140,7 @@
             "description": "Date à laquelle les données sont publiées",
             "label@fr_FR": "Date de publication",
             "label@en_GB": "Issued date",
+            "tooltip": null,
             "form_label@fr_FR": "Date de publication",
             "form_label@en_GB": "Issued date"
         },
@@ -148,8 +160,11 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": " Identifier type",
-            "registry_name": "PIDSystem",
+            "registries": [
+                "PIDSystem"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant du produit de recherche",
             "form_label@en_GB": " Reseach product identifier"
         },
@@ -159,7 +174,10 @@
             "inputType": "dropdown",
             "label@fr_FR": "Contient des données personnelles ?",
             "label@en_GB": "May contain personal data?",
-            "registry_name": "YesNoUnknown",
+            "registries": [
+                "YesNoUnknown"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Le produit de recherche contient-il des données personnelles ?",
             "form_label@en_GB": "Does the research product contain personal data?"
         },
@@ -169,7 +187,10 @@
             "inputType": "dropdown",
             "label@fr_FR": "Contient des données sensibles ?",
             "label@en_GB": "May contain sensible data?",
-            "registry_name": "YesNoUnknown",
+            "registries": [
+                "YesNoUnknown"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Le produit de recherche contient-il des données sensibles ?",
             "form_label@en_GB": "Does the research product contain sensible data?"
         },
@@ -179,7 +200,10 @@
             "inputType": "dropdown",
             "label@fr_FR": "Prend en compte des aspects éthiques ?",
             "label@en_GB": "May take ethical issues into account?",
-            "registry_name": "YesNoUnknown",
+            "registries": [
+                "YesNoUnknown"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Le contexte de production du produit de recherche prend-t-il en compte des aspects éthiques ?",
             "form_label@en_GB": "Does the production context of the research product takes ethical issues into account?"
         }

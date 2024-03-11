@@ -22,6 +22,7 @@
             "description": "Volume des données concernées en octets",
             "label@fr_FR": "Volume estimé des données",
             "label@en_GB": "Estimated volume of data",
+            "tooltip": null,
             "form_label@fr_FR": "Volume estimé des données",
             "form_label@en_GB": "Estimated volume of data"
         },
@@ -31,8 +32,11 @@
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
-            "registry_name": "VolumeUnit",
+            "registries": [
+                "VolumeUnit"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Unité",
             "form_label@en_GB": "Unit"
         },
@@ -42,6 +46,7 @@
             "description": "Début de conservation",
             "label@fr_FR": "Date de début",
             "label@en_GB": "Start date",
+            "tooltip": null,
             "form_label@fr_FR": "Date de début",
             "form_label@en_GB": "Start date"
         },
@@ -51,6 +56,7 @@
             "description": "Fin de conservation",
             "label@fr_FR": "Date de fin",
             "label@en_GB": "End date",
+            "tooltip": null,
             "form_label@fr_FR": "Date de fin",
             "form_label@en_GB": "End date"
         },
@@ -70,8 +76,11 @@
             "label@fr_FR": "Archive",
             "label@en_GB": "Archive",
             "inputType": "dropdown",
-            "registry_name": "Archives",
+            "registries": [
+                "Archives"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Choisir une archive pour conserver les données à long terme",
             "form_label@en_GB": "Choose an archive for long-term data preservation"
         },
@@ -87,27 +96,27 @@
         },
         "contributor": {
             "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
-                "class": "ContributorStandard",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "DataPreservationManager",
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
             },
             "description": "Personne(s) en charge de la conservation à long terme des données",
-            "label@fr_FR": "Responsables de la conservation à long terme des données",
+            "label@fr_FR": "Personnes impliquées dans la conservation à long terme des données",
             "label@en_GB": "Persons in charge of long term data preservation",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department",
-            "form_label@fr_FR": "Responsables de la conservation à long terme des données",
+            "form_label@fr_FR": "Personnes impliquées dans la conservation à long terme des données",
             "form_label@en_GB": "Persons in charge of long term data preservation"
         },
         "cost": {
@@ -130,6 +139,7 @@
             "description": "Coût(s) lié(s) à la conservation à long terme des données",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
+            "tooltip": null,
             "form_label@fr_FR": "Coûts liés à la conservation à long terme des données",
             "form_label@en_GB": "Long term data preservation associated costs"
         }

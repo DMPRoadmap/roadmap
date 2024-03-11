@@ -33,7 +33,9 @@
             "inputType": "dropdown",
             "label@fr_FR": "Nature des données",
             "label@en_GB": "Data Nature",
-            "registry_name": "DataNature",
+            "registries": [
+                "DataNature"
+            ],
             "overridable": true,
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
             "tooltip@en_GB": "Choose in the dropdown the research output data nature",
@@ -60,8 +62,11 @@
             "label@fr_FR": "Equipements, plateaux techniques utilisés",
             "label@en_GB": "Equipments, technical platforms used",
             "inputType": "dropdown",
-            "registry_name": "CollectionServices",
+            "registries": [
+                "CollectionServices"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour la production ou l'acquisition de données",
             "form_label@en_GB": "Equipments, technical platforms used for production or acquisition of data"
         },
@@ -84,32 +89,33 @@
             "description": "Référence(s) de protocoles /méthodes utilisées",
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
+            "tooltip": null,
             "form_label@en_GB": "Indicate the reference(s) of the methods",
             "form_label@fr_FR": "Indiquer la ou les références des méthodes/protocoles utilisés"
         },
         "contributor": {
             "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
-                "class": "ContributorStandard",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "DataCollector",
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
             },
             "description": "Personne(s) impliquée(s) dans la collecte/acquisition des données",
-            "label@fr_FR": "Responsables de la production ou de la collecte des données",
+            "label@fr_FR": "Personnes impliquées dans la production ou la collecte des données",
             "label@en_GB": "Data producers or collectors",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department",
-            "form_label@fr_FR": "Responsables de la production ou de la collecte des données",
+            "form_label@fr_FR": "Personnes impliquées dans la production ou la collecte des données",
             "form_label@en_GB": "Data producers or collectors"
         },
         "cost": {
@@ -132,6 +138,7 @@
             "description": "Coûts éventuels liés à la collecte des données",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
+            "tooltip": null,
             "form_label@fr_FR": "Coûts liés à la collecte/production des données",
             "form_label@en_GB": "Data collection/production associated costs"
         }

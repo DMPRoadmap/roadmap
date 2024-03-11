@@ -12,6 +12,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Modalités de partage",
             "label@en_GB": "Modalities of sharing",
+            "tooltip": null,
             "form_label@fr_FR": "Décrire les modalités de partage",
             "form_label@en_GB": "Describe the modalities of sharing"
         },
@@ -47,9 +48,12 @@
             "label@fr_FR": "Entrepôt/Catalogue de données",
             "label@en_GB": "Data repository/catalogs",
             "inputType": "dropdown",
-            "registry_name": "Repositories",
+            "registries": [
+                "Repositories"
+            ],
             "overridable": true,
             "substitutable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Choisir un entrepôt et/ou un catalogue pour déposer ou exposer les données",
             "form_label@en_GB": "Choose a data repository / catalog  to deposit or describe the data "
         },
@@ -81,27 +85,27 @@
         },
         "contributor": {
             "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
-                "class": "ContributorStandard",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "DataSharingManager",
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
             },
             "description": "Personne(s) impliquée(s) dans la mise à disposition des données",
-            "label@fr_FR": "Responsables du depôt et de la diffusion des données",
+            "label@fr_FR": "Personnes impliquées dans le depôt et la diffusion des données",
             "label@en_GB": "Persons in charge of data deposition and diffusion",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department",
-            "form_label@fr_FR": "Responsables du dépôt et de la diffusion des données",
+            "form_label@fr_FR": "Personnes impliquées dans le depôt et la diffusion des données",
             "form_label@en_GB": "Persons in charge of data deposition and diffusion"
         },
         "cost": {
@@ -124,6 +128,7 @@
             "description": "Coûts éventuels liés au dépôt des données dans un entrepôt",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
+            "tooltip": null,
             "form_label@fr_FR": "Coûts liés au partage des données",
             "form_label@en_GB": "Data sharing associated costs"
         }
