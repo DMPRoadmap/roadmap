@@ -5,7 +5,10 @@ if ! gem list foreman -i --silent; then
   gem install foreman
 fi
 
-echo "Running db:setup to run pending migrations (or initialize the DB if this is the first time)"
-exec rails db:setup
+# Only run this the first time!
+if ! $FIRST_TIME; then
+  echo "Running db:setup to initialize the DB"
+  exec rails db:setup
+fi
 
 exec foreman start -f Procfile.dev "$@"

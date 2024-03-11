@@ -19,10 +19,10 @@ development:
   # password: {!SSM: dev/RdsDbaPassword}
 
 # Local test environment (also used for GitHub actions)
-test:
-  <<: *defaults
+# test:
+#   <<: *defaults
 
-  database: "<%= Rails.configuration.x.dmproadmap.database_name %>_test"
+#   database: "<%= Rails.configuration.x.dmproadmap.database_name %>_test"
 
 # ECS hosted staging environment
 stage:
