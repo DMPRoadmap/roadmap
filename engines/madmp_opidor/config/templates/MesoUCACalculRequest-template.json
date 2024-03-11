@@ -1,0 +1,93 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "MesoUCACalculRequest",
+    "description": "MesoUCACalculRequest template",
+    "type": "object",
+    "class": "MesoUCACalculRequest",
+    "properties": {
+        "agentType": {
+            "type": "string",
+            "description": "Classification des utilisateurs du Mésocentre Clermont Auvergne",
+            "inputType": "dropdown",
+            "label@fr_FR": "Agents",
+            "label@en_GB": "Agents",
+            "registries": [
+                "MesoUCACalculAgents"
+            ],
+            "tooltip": null,
+            "form_label@fr_FR": "Utilisateurs",
+            "form_label@en_GB": "Applicants"
+        },
+        "justification": {
+            "type": "string",
+            "description": "Justification du besoin",
+            "inputType": "textarea",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "justification",
+            "tooltip": null,
+            "example@fr_FR": "Une demande de 10 000 heures de calcul correspond à 100 h sur 100 CPU ou encore 100 jobs de 10 CPU pendant 10 h",
+            "example@en_GB": "A request for 10,000 computing hours corresponds to 100 hours on 100 CPUs or 100 jobs of 10 CPUs for 10 hours",
+            "form_label@fr_FR": "Justification de la demande de ressource",
+            "form_label@en_GB": "Justification for resource request"
+        },
+        "calculType": {
+            "type": "string",
+            "description": "Type de calcul proposé par le Mésocentre UCA",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type de calcul",
+            "label@en_GB": "Computational type",
+            "registries": [
+                "MesoUCACalculTypes"
+            ],
+            "tooltip": null,
+            "form_label@fr_FR": "Type de calcul",
+            "form_label@en_GB": "Computational type"
+        },
+        "processTime": {
+            "type": "number",
+            "description": "Heures de calcul (par tranches de 1000 heures de CPU ou de GPU)",
+            "label@fr_FR": "Nombre de tranches de 1 000 heures CPU ou GPU (exprimé en unités de 1 000 heures)",
+            "label@en_GB": "Number of sets of 1000 CPU or GPU hours (per units of 1000 hours)",
+            "tooltip": null,
+            "example@fr_FR": "10",
+            "example@en_GB": "10",
+            "form_label@fr_FR": "Nombre de tranches de 1 000 heures CPU ou GPU (exprimé en unités de 1 000 heures)",
+            "form_label@en_GB": "Number of sets of 1000 CPU or GPU hours (per units of 1000 hours)"
+        },
+        "timeUnit": {
+            "type": "string",
+            "description": "Unité de temps",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "tooltip": null,
+            "hidden": true,
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        }
+    },
+    "required": [
+        "agentType",
+        "justification",
+        "calculType",
+        "processTime",
+        "timeUnit"
+    ],
+    "to_string": [
+        "$.calculType",
+        " : ",
+        "$.processTime",
+        " ",
+        " $.timeUnit"
+    ],
+    "default": {
+        "fr_FR": {
+            "processTime": 10,
+            "timeUnit": "par tranche de 1000 heures de CPU ou GPU"
+        },
+        "en_GB": {
+            "processTime": 10,
+            "timeUnit": "per 1000 CPU or GPU hours"
+        }
+    }
+}

@@ -1,10 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "CostMesoatLR",
-    "description": "CostMesoatLR template",
+    "title": "CostStorageMesoUCA",
+    "description": "CostStorageMesoUCA template",
     "type": "object",
-    "class": "CostMesoatLR",
+    "class": "CostStorageMesoUCA",
     "properties": {
         "costType": {
             "type": "string",
@@ -63,12 +63,12 @@
         "fr_FR": {
             "costType": "Stockage",
             "currency": "EUR",
-            "title": "Estimation du coût de stockage et calcul auprès du mésocentre MESO@LR"
+            "title": "Estimation du coût de stockage auprès du Mésocentre Clermont Auvergne"
         },
         "en_GB": {
             "costType": "Storage",
             "currency": "EUR",
-            "title": "Estimated cost of storage and compute at MESO@LR"
+            "title": "Estimated storage cost at Clermont Auvergne Mesocentre"
         }
     }
 }

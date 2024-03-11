@@ -1,10 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "DataProcessingStandard",
-    "description": "DataProcessingStandard template",
+    "title": "DataProcessingMesoUCA",
+    "description": "DataProcessingMesoUCA template",
     "type": "object",
-    "class": "DataProcessingStandard",
+    "class": "DataProcessingMesoUCA",
     "properties": {
         "description": {
             "type": "string",
@@ -58,14 +58,35 @@
             "description": "Ressource technique utilisée pour réaliser les traitements",
             "label@fr_FR": "Equipements, plateaux techniques",
             "label@en_GB": "Equipments, technical platforms",
-            "inputType": "dropdown",
-            "registries": [
-                "ProcessingServices"
-            ],
-            "overridable": true,
             "tooltip": null,
+            "isConst": true,
             "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour le traitement et l'analyse des données",
             "form_label@en_GB": "Equipments, technical platforms used for data processing and analysis"
+        },
+        "mesoUCACalculRequest": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "SpecificData",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MesoUCACalculRequest",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Informations requises pour une demande d'heures de calcul auprès du Mésocentre Clermont Auvergne (une par type de calcul)",
+            "label@fr_FR": "Demande d'heures de calcul auprès du Mésocentre Clermont Auvergne",
+            "label@en_GB": "Request for coumputing time from Mésocentre Clermont Auvergne",
+            "tooltip@fr_FR": "Toute demande d'heures de calcul inclut un espace de stockage. Si vous souhaitez plus d'espace de stockage, merci de compléter le formulaire \"Demande d'espace de stockage auprès du Mésocentre Clermont Auvergne\"",
+            "tooltip@en_GB": "Any request for computing hours includes a storage space. If you would like more storage space, please complete the form \"Storage space request from Mésocentre Clermont Auvergne\"",
+            "form_label@fr_FR": "Demande d'heures de calcul auprès du Mésocentre Clermont Auvergne",
+            "form_label@en_GB": "Request for coumputing time from Mésocentre Clermont Auvergne"
         },
         "contributor": {
             "type": "array",
@@ -85,11 +106,11 @@
                 ]
             },
             "description": "Personnes impliquées dans le traitement des données",
-            "label@fr_FR": "Personnes impliquées dans le traitement et l’analyse des données",
+            "label@fr_FR": "Responsables du traitement et de l’analyse des données",
             "label@en_GB": "Research staff processing and analysing data",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department",
-            "form_label@fr_FR": "Personnes impliquées dans le traitement et l’analyse des données",
+            "form_label@fr_FR": "Responsables du traitement et de l’analyse des données",
             "form_label@en_GB": "Research staff processing and analysing data"
         },
         "cost": {
@@ -104,7 +125,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "CostStandard",
+                "template_name": "CostCalculMesoUCA",
                 "required": [
                     "dbid"
                 ]
@@ -118,7 +139,56 @@
         }
     },
     "required": [
-        "description"
+        "description",
+        "mesoUCACalculRequest"
     ],
-    "to_string": []
+    "to_string": [],
+    "run": [
+        {
+            "script_id": 0,
+            "name": "MesoUCA_computing_cost_v1",
+            "owner": "superadmin",
+            "label@fr_FR": "Calculer le coût de calcul",
+            "label@en_GB": "Compute data computing cost",
+            "tooltip": null
+        },
+        {
+            "script_id": 0,
+            "name": "MesoUCA_computing_notifyer_v1",
+            "owner": "superadmin",
+            "label@fr_FR": "Notifier Mésocentre Clermont Auvergne",
+            "label@en_GB": "Notify Mesocentre Clermont Auvergne",
+            "tooltip": null,
+            "params": {
+                "recipients": [
+                    "francoise.cosserat@inist.fr",
+                    "anne.busin@inist.fr"
+                ]
+            }
+        }
+    ],
+    "default": {
+        "fr_FR": {
+            "facility": [
+                {
+                    "title": "Mésocentre Clermont Auvergne",
+                    "technicalResourceId": "https://cat.opidor.fr/index.php/Mésocentre_Clermont_Auvergne",
+                    "idType": "URL",
+                    "serviceContact": "https://hub.mesocentre.uca.fr/",
+                    "policyUrl": null
+                }
+            ]
+        },
+        "en_GB": {
+            "facility": [
+                {
+                    "title": "Mesocentre Clermont Auvergne",
+                    "technicalResourceId": "https://cat.opidor.fr/index.php/Mésocentre_Clermont_Auvergne",
+                    "idType": "URL",
+                    "serviceContact": "https://hub.mesocentre.uca.fr/",
+                    "policyUrl": null
+                }
+            ]
+        }
+    }
 }

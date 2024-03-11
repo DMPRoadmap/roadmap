@@ -12,6 +12,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
+            "tooltip": null,
             "form_label@fr_FR": "Description",
             "form_label@en_GB": "Description"
         },
@@ -35,6 +36,7 @@
             "description": "Elément de description des coûts",
             "label@fr_FR": "Liste des coûts, s'ils n'ont pas été détaillés dans les questions précédentes",
             "label@en_GB": "List of costs, if they have not been detailed in the previous questions",
+            "tooltip": null,
             "form_label@fr_FR": "Liste détaillée des coûts",
             "form_label@en_GB": "Details of cost description"
         }

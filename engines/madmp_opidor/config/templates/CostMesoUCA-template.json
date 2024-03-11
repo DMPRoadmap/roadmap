@@ -11,9 +11,10 @@
             "description": "Type de coût engagé",
             "label@fr_FR": "Type de coût",
             "label@en_GB": "Cost type",
+            "const@fr_FR": "Stockage et/ou calcul",
+            "const@en_GB": "Storage and/or computation",
             "form_label@fr_FR": "Type de coût",
-            "form_label@en_GB": "Cost type",
-            "isConst": true
+            "form_label@en_GB": "Cost type"
         },
         "amount": {
             "type": "number",
@@ -28,18 +29,20 @@
             "description": "Monnaie dans laquelle ce coût est exprimé (Référentiel des monnaies. (Voir ISO 4217))",
             "label@fr_FR": "Devise",
             "label@en_GB": "Currency",
+            "const@fr_FR": "EUR",
+            "const@en_GB": "EUR",
             "form_label@fr_FR": "Devise",
-            "form_label@en_GB": "Currency",
-            "isConst": true
+            "form_label@en_GB": "Currency"
         },
         "title": {
             "type": "string",
             "description": "Libellé du coût",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
+            "const@fr_FR": "Estimation du coût de stockage et/ou calcul auprès du Mésocentre Clermont Auvergne",
+            "const@en_GB": "Estimated cost of storage and/or computation at Mésocentre Clermont Auvergne",
             "form_label@fr_FR": "Titre",
-            "form_label@en_GB": "Title",
-            "isConst": true
+            "form_label@en_GB": "Title"
         }
     },
     "required": [
@@ -54,17 +57,5 @@
         "$.amount",
         " ",
         "$.currency"
-    ],
-    "default": {
-        "fr_FR": {
-            "costType": "Stockage et/ou calcul",
-            "currency": "EUR",
-            "title": "Estimation du coût de stockage et/ou calcul auprès du Mésocentre Clermont Auvergne"
-        },
-        "en_GB": {
-            "costType": "Storage and/or computation",
-            "currency": "EUR",
-            "title": "Estimated cost of storage and/or computation at Mésocentre Clermont Auvergne"
-        }
-    }
+    ]
 }

@@ -11,6 +11,7 @@
             "description": "Titre du projet",
             "label@fr_FR": "Titre du projet",
             "label@en_GB": "Project title",
+            "tooltip": null,
             "form_label@fr_FR": "Titre du projet",
             "form_label@en_GB": "Project title"
         },
@@ -19,6 +20,7 @@
             "description": "Acronyme du projet",
             "label@fr_FR": "Acronyme",
             "label@en_GB": "Acronym",
+            "tooltip": null,
             "form_label@fr_FR": "Acronyme du projet",
             "form_label@en_GB": "Project acronym"
         },
@@ -28,6 +30,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Résumé",
             "label@en_GB": "Abstract",
+            "tooltip": null,
             "form_label@fr_FR": "Résumé du projet",
             "form_label@en_GB": "Project abstract"
         },
@@ -52,6 +55,7 @@
             "description": "Source(s) de financement d'un projet ou d'une activité de recherche",
             "label@fr_FR": "Sources de financement",
             "label@en_GB": "Funding",
+            "tooltip": null,
             "form_label@fr_FR": "Indiquer les sources de financement du projet",
             "form_label@en_GB": "Indicate the funding of the project"
         },
@@ -61,6 +65,7 @@
             "description": "Début de projet",
             "label@fr_FR": "Date de début",
             "label@en_GB": "Start date",
+            "tooltip": null,
             "form_label@fr_FR": "Date de début du projet",
             "form_label@en_GB": "Project start date"
         },
@@ -70,6 +75,7 @@
             "description": "Fin de projet",
             "label@fr_FR": "Date de fin",
             "label@en_GB": "End date",
+            "tooltip": null,
             "form_label@fr_FR": "Date de fin du projet",
             "form_label@en_GB": "Project end date"
         },
@@ -93,21 +99,19 @@
             "description": "Partenaires d'un projet ou d'une activité de recherche",
             "label@fr_FR": "Partenaires",
             "label@en_GB": "Partners",
-            "inputType": "dropdown",
-            "registry_name": "Partners",
-            "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Lister les partenaires associés au projet",
             "form_label@en_GB": "List the partners associated with the project"
         },
         "principalInvestigator": {
             "type": "object",
-            "class": "ContributorStandard",
+            "class": "Contributor",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "PrincipalInvestigator",
+            "template_name": "ContributorStandard",
             "required": [
                 "dbid"
             ],
@@ -133,10 +137,24 @@
     "to_string": [],
     "run": [
         {
-            "script_id": 4,
+            "script_id": 0,
             "name": "Anr_data_fetcher_v2",
+            "owner": "superadmin",
             "label@fr_FR": "Importer informations si projet ANR",
-            "label@en_GB": "Fill informations if ANR project "
+            "label@en_GB": "Fill informations if ANR project ",
+            "tooltip": null
         }
-    ]
+    ],
+    "default": {
+        "fr_FR": {
+            "principalInvestigator": {
+                "role": "Coordinateur du projet"
+            }
+        },
+        "en_GB": {
+            "principalInvestigator": {
+                "role": "Project coordinator"
+            }
+        }
+    }
 }

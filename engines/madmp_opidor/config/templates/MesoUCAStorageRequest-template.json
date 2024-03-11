@@ -12,7 +12,10 @@
             "inputType": "dropdown",
             "label@fr_FR": "Agents",
             "label@en_GB": "Agents",
-            "registry_name": "MesoUCAStorageAgents",
+            "registries": [
+                "MesoUCAStorageAgents"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Utilisateurs",
             "form_label@en_GB": "Applicants"
         },
@@ -22,6 +25,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Justification",
             "label@en_GB": "justification",
+            "tooltip": null,
             "example@fr_FR": "Demande d'espace de stockage de 10 To pour 3 ans",
             "example@en_GB": "Request for 10 TB storage space for 3 years",
             "form_label@fr_FR": "Justification de la demande de ressource",
@@ -32,6 +36,7 @@
             "description": "Volume des données pour le stockage",
             "label@fr_FR": "Taille des données pour le stockage",
             "label@en_GB": "Data size for storage",
+            "tooltip": null,
             "form_label@fr_FR": "Volume de stockage (en To)",
             "form_label@en_GB": "Storage volum (in Tb)"
         },
@@ -40,10 +45,10 @@
             "description": "Unité de volume",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
+            "tooltip": null,
             "hidden": true,
             "form_label@fr_FR": "Unité",
-            "form_label@en_GB": "Unit",
-            "isConst": true
+            "form_label@en_GB": "Unit"
         },
         "storageTime": {
             "type": "string",
@@ -51,7 +56,10 @@
             "inputType": "dropdown",
             "label@fr_FR": "Durée de stockage en mois",
             "label@en_GB": "Storage time (in months)",
-            "registry_name": "MesoUCAStorageTimes",
+            "registries": [
+                "MesoUCAStorageTimes"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Durée de stockage (en mois)",
             "form_label@en_GB": "Storage time (in months)"
         },
@@ -60,10 +68,10 @@
             "description": "Unité de temps",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
+            "tooltip": null,
             "hidden": true,
             "form_label@fr_FR": "Unité",
-            "form_label@en_GB": "Unit",
-            "isConst": true
+            "form_label@en_GB": "Unit"
         },
         "endStorageDate": {
             "type": "string",
@@ -71,6 +79,7 @@
             "description": "Date de fin de stockage",
             "label@fr_FR": "Date de fin du stockage",
             "label@en_GB": "End date of storage",
+            "tooltip": null,
             "form_label@fr_FR": "Date de fin du stockage",
             "form_label@en_GB": "End date of storage"
         }
@@ -97,10 +106,12 @@
     ],
     "default": {
         "fr_FR": {
-        "volumeUnit": "To",
-        "timeUnit": "mois"},
+            "volumeUnit": "To",
+            "timeUnit": "mois"
+        },
         "en_GB": {
-        "volumeUnit": "TB",
-        "timeUnit": "months"}
+            "volumeUnit": "TB",
+            "timeUnit": "months"
+        }
     }
 }

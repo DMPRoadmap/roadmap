@@ -1,10 +1,5 @@
 [
     {
-        "path": "BackupPolicyGenOuest-template.json",
-        "classname": "backup_policy",
-        "question_id": null
-    },
-    {
         "path": "BackupPolicyStandard-template.json",
         "classname": "backup_policy",
         "question_id": null
@@ -35,23 +30,8 @@
         "question_id": null
     },
     {
-        "path": "DataCollector-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataDocumentationManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
         "path": "DataOrganizationReference-template.json",
         "classname": "resource_reference",
-        "question_id": null
-    },
-    {
-        "path": "DataPreservationManager-template.json",
-        "classname": "contributor",
         "question_id": null
     },
     {
@@ -60,23 +40,8 @@
         "question_id": null
     },
     {
-        "path": "DataProcessingManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
         "path": "DataProcessingStandard-template.json",
         "classname": "data_processing",
-        "question_id": null
-    },
-    {
-        "path": "DataProtectionManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataQualityManager-template.json",
-        "classname": "contributor",
         "question_id": null
     },
     {
@@ -85,23 +50,8 @@
         "question_id": null
     },
     {
-        "path": "DataSharingManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
         "path": "DataSharingStandard-template.json",
         "classname": "data_sharing",
-        "question_id": null
-    },
-    {
-        "path": "DataStorageGenOuest-template.json",
-        "classname": "data_storage",
-        "question_id": null
-    },
-    {
-        "path": "DataStorageManager-template.json",
-        "classname": "contributor",
         "question_id": null
     },
     {
@@ -115,28 +65,18 @@
         "question_id": null
     },
     {
-        "path": "DMPCoordinator-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
         "path": "DMPResearchEntity-template.json",
         "classname": "dmp",
         "question_id": null
     },
     {
-        "path": "DMPResearchProject-template.json",
+        "path": "DMPStandard-template.json",
         "classname": "dmp",
         "question_id": null
     },
     {
         "path": "DocumentationQualityStandard-template.json",
         "classname": "documentation_quality",
-        "question_id": null
-    },
-    {
-        "path": "EthicalIssuesManager-template.json",
-        "classname": "contributor",
         "question_id": null
     },
     {
@@ -155,23 +95,8 @@
         "question_id": null
     },
     {
-        "path": "GenOuestRequest-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
-        "path": "GenOuestServiceRequest-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
         "path": "HostStandard-template.json",
         "classname": "host",
-        "question_id": null
-    },
-    {
-        "path": "LegalExpert-template.json",
-        "classname": "contributor",
         "question_id": null
     },
     {
@@ -220,11 +145,6 @@
         "question_id": null
     },
     {
-        "path": "PrincipalInvestigator-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
         "path": "ProjectStandard-template.json",
         "classname": "project",
         "question_id": null
@@ -232,16 +152,6 @@
     {
         "path": "QualityAssuranceMethodStandard-template.json",
         "classname": "quality_assurance_method",
-        "question_id": null
-    },
-    {
-        "path": "ResearchOutputContact-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "ResearchOutputDescriptionCustomised-template.json",
-        "classname": "research_output_description",
         "question_id": null
     },
     {
@@ -270,23 +180,8 @@
         "question_id": null
     },
     {
-        "path": "ResearchEntityManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataSteward-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
         "path": "ResearchEntityStandard-template.json",
         "classname": "research_entity",
-        "question_id": null
-    },
-    {
-        "path": "TechnicalResourceGenOuest-template.json",
-        "classname": "technical_resource",
         "question_id": null
     },
     {
@@ -300,16 +195,6 @@
         "question_id": null
     },
     {
-        "path": "BackupPolicyMesoatLR-template.json",
-        "classname": "backup_policy",
-        "question_id": null
-    },
-    {
-        "path": "TechnicalResourceMesoatLR-template.json",
-        "classname": "technical_resource",
-        "question_id": null
-    },
-    {
         "path": "MesoatLRServiceRequest-template.json",
         "classname": "specific_data",
         "question_id": null
@@ -317,6 +202,51 @@
     {
         "path": "CostMesoatLR-template.json",
         "classname": "cost",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageMesoUCA_v2-template.json",
+        "classname": "data_storage",
+        "question_id": null
+    },
+    {
+        "path": "MesoUCAStorageRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "CostStorageMesoUCA-template.json",
+        "classname": "cost",
+        "question_id": null
+    },
+    {
+        "path": "DataProcessingMesoUCA-template.json",
+        "classname": "data_processing",
+        "question_id": null
+    },
+    {
+        "path": "MesoUCACalculRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "CostCalculMesoUCA-template.json",
+        "classname": "cost",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageGenOuest-template.json",
+        "classname": "data_storage",
+        "question_id": null
+    },
+    {
+        "path": "GenOuestServiceRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "GenOuestRequest-template.json",
+        "classname": "specific_data",
         "question_id": null
     }
 ]

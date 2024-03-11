@@ -5,7 +5,6 @@
     "description": "PartnerStandard template",
     "type": "object",
     "class": "PartnerStandard",
-	"externalImports": { "ror": { "affiliationName": "name", "affiliationId": "orgId", "acronyms": "acronym", "affiliationIdType": "idType" } },
     "properties": {
         "name": {
             "type": "string",

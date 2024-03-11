@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "EntityStandard",
+    "description": "EntityStandard template",
+    "type": "object",
+    "class": "EntityStandard",
+    "properties": {
+        "partner": {
+            "type": "object",
+            "class": "Partner",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ResearchEntityIdentification",
+            "required": [
+                "dbid"
+            ],
+            "description": "Identification de l'entité (ou structure) de recherche",
+            "label@fr_FR": "Entité",
+            "label@en_GB": "Entity",
+            "tooltip": null,
+            "form_label@fr_FR": "Entité",
+            "form_label@en_GB": "Entity"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description globale des activités de l'entité (ou structure) de recherche",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip": null,
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        },
+        "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Année de création de l'entité (ou structure) de recherche",
+            "label@fr_FR": "Date de création",
+            "label@en_GB": "Creation date",
+            "tooltip": null,
+            "form_label@fr_FR": "Date de création",
+            "form_label@en_GB": "Creation date"
+        }
+    },
+    "required": [
+        "partner",
+        "description",
+        "startDate"
+    ],
+    "to_string": [
+        "$.partner.name",
+        " (",
+        "$.partner.acronym",
+        ") "
+    ]
+}

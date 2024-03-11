@@ -78,7 +78,6 @@
         "securityMeasures": {
             "type": "string",
             "description": "Description des mesures prises pour assurer la sécurité des données",
-			"inputType": "textarea",
             "tooltip": null,
             "isConst": true,
             "form_label@fr_FR": "Mesures de sécurité",

@@ -21,6 +21,7 @@
             "description": "Description générale du produit de recherche",
             "label@fr_FR": "Description des produits de recherche",
             "label@en_GB": "Research output description",
+            "tooltip": null,
             "form_label@fr_FR": "Description des produits de recherche",
             "form_label@en_GB": "Research output description"
         },
@@ -39,6 +40,7 @@
             "description": "",
             "label@fr_FR": "Réutilisation de données",
             "label@en_GB": "Reuse of data",
+            "tooltip": null,
             "form_label@fr_FR": "Réutilisation de données",
             "form_label@en_GB": "Reuse of data"
         },
@@ -57,6 +59,7 @@
             "description": "Mesures à prendre concernant les données personnelles contenues dans les données",
             "label@fr_FR": "Procédures/mesures liées aux données personnelles",
             "label@en_GB": "Personal data issues",
+            "tooltip": null,
             "form_label@fr_FR": "Procédures/mesures liées aux données personnelles",
             "form_label@en_GB": "Personal data issues"
         },
@@ -75,6 +78,7 @@
             "description": "Mesures à prendre pour respecter les droits spécifiques couvrant les données sensibles",
             "label@fr_FR": "Aspects juridiques",
             "label@en_GB": "Legal issues",
+            "tooltip": null,
             "form_label@fr_FR": "Aspects juridiques",
             "form_label@en_GB": "Legal issues"
         },
@@ -93,6 +97,7 @@
             "description": "Mesures à prendre si des des enjeux éthiques entrent en considération",
             "label@fr_FR": "Enjeux éthiques",
             "label@en_GB": "Ethical issues",
+            "tooltip": null,
             "form_label@fr_FR": "Enjeux éthiques",
             "form_label@en_GB": "Ethical issues"
         },
@@ -111,6 +116,7 @@
             "description": "Aspects relatifs à la collecte des données pour ce produit de recherche",
             "label@fr_FR": "Collecte des données",
             "label@en_GB": "Data collection",
+            "tooltip": null,
             "form_label@fr_FR": "Collecte des données",
             "form_label@en_GB": "Data collection"
         },
@@ -129,6 +135,7 @@
             "description": "Aspects relatifs au traitement des données pendant le processus de recherche",
             "label@fr_FR": "Traitement des données",
             "label@en_GB": "Data processing",
+            "tooltip": null,
             "form_label@fr_FR": "Traitement des données",
             "form_label@en_GB": "Data processing"
         },
@@ -147,6 +154,7 @@
             "description": "Aspects relatifs au stockage des données pendant le processus de recherche",
             "label@fr_FR": "Stockage des données",
             "label@en_GB": "Data storage",
+            "tooltip": null,
             "form_label@fr_FR": "Stockage des données",
             "form_label@en_GB": "Data storage"
         },
@@ -164,6 +172,7 @@
             ],
             "description": "Informations relatives aux outils et méthodes de documentation des données et à la qualité de celles-ci",
             "label@en_EN": "Documentation quality",
+            "tooltip": null,
             "form_label@en_EN": "Documentation quality"
         },
         "qualityAssuranceMethod": {
@@ -181,6 +190,7 @@
             "description": "Méthodes d'assurance qualité mises en œuvre",
             "label@fr_FR": "Méthode(s) d'assurance qualité",
             "label@en_GB": "Quality assurance method",
+            "tooltip": null,
             "form_label@fr_FR": "Méthode(s) d'assurance qualité",
             "form_label@en_GB": "Quality assurance method"
         },
@@ -199,6 +209,7 @@
             "description": "Aspects relatifs au partage des données",
             "label@fr_FR": "Partage",
             "label@en_GB": "Sharing",
+            "tooltip": null,
             "form_label@fr_FR": "Partage",
             "form_label@en_GB": "Sharing"
         },
@@ -216,6 +227,7 @@
             ],
             "description": "Aspects relatifs à la conservation des données",
             "label@en_GB": "Preservation Issues",
+            "tooltip": null,
             "form_label@en_GB": "Preservation Issues"
         }
     },

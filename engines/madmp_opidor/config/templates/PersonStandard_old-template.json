@@ -5,7 +5,6 @@
     "description": "PersonStandard template",
     "type": "object",
     "class": "PersonStandard",
-	"externalImports": { "ror": {}, "orcid": {} },
     "properties": {
         "nameType": {
             "type": "string",

@@ -19,7 +19,7 @@
                 "dbid"
             ],
             "description": "Personnes impliquées dans la production et gestion des données",
-            "inputType": "pickOrCreate",
+            "tooltip": null,
             "form_label@fr_FR": "Sélectionner une valeur dans la liste déroulante",
             "form_label@en_GB": "Select a person from the drop-down list"
         },
@@ -29,7 +29,9 @@
             "inputType": "dropdown",
             "label@fr_FR": "Rôle",
             "label@en_GB": "Role",
-            "registry_name": "Role",
+            "registries": [
+                "Role"
+            ],
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante le rôle du contributeur",
             "tooltip@en_GB": "Choose in the dropdown the contributor's role",
             "form_label@fr_FR": "Rôle",
@@ -43,9 +45,6 @@
     "to_string": [
         "$.person.firstName",
         " ",
-        "$.person.lastName ",
-        " (",
-        "$.role",
-        ")"
+        "$.person.lastName "
     ]
 }

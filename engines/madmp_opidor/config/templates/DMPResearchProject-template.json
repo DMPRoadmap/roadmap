@@ -1,14 +1,15 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "DMPResearchProject",
-    "description": "DMPResearchProject template",
+    "title": "DMPStandard",
+    "description": "DMPStandard template",
     "type": "object",
-    "class": "DMPResearchProject",
+    "class": "DMPStandard",
     "properties": {
         "identifier": {
             "type": "number",
-            "description": "Identifiant interne à l'application DMP OPIDoR"
+            "description": "Identifiant interne à l'application DMP OPIDoR",
+            "tooltip": null
         },
         "meta": {
             "type": "object",
@@ -25,6 +26,7 @@
             "description": "Ensemble des métadonnées concernant le plan de gestion de données",
             "label@fr_FR": "Métadonnées du plan",
             "label@en_GB": "Plan Metadata",
+            "tooltip": null,
             "form_label@fr_FR": "Métadonnées du plan",
             "form_label@en_GB": "Plan Metadata"
         },
@@ -43,6 +45,7 @@
             "description": "Aspects relatifs au projet de recherche ou activité de recherche",
             "label@fr_FR": "Renseignements sur le projet",
             "label@en_GB": "Project Details",
+            "tooltip": null,
             "form_label@fr_FR": "Renseignements sur le projet",
             "form_label@en_GB": "Project Details"
         },
@@ -63,7 +66,8 @@
                 ]
             },
             "minItems": 1,
-            "description": "Ensemble des informations concernant les produits de recherche générés dans le cadre du projet ou activité de recherche"
+            "description": "Ensemble des informations concernant les produits de recherche générés dans le cadre du projet ou activité de recherche",
+            "tooltip": null
         },
         "budget": {
             "type": "object",
@@ -77,7 +81,8 @@
             "required": [
                 "dbid"
             ],
-            "description": "Budget lié à la gestion des données de recherche"
+            "description": "Budget lié à la gestion des données de recherche",
+            "tooltip": null
         }
     },
     "required": [
@@ -85,8 +90,7 @@
         "meta",
         "project",
         "researchOutput",
-        "budget",
-        "researchEntity"
+        "budget"
     ],
     "to_string": []
 }
