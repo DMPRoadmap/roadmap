@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-08 09:13+0100\n"
-"PO-Revision-Date: 2024-03-08 09:13+0100\n"
+"POT-Creation-Date: 2024-03-12 10:45+0100\n"
+"PO-Revision-Date: 2024-03-12 10:45+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1011,7 +1011,7 @@ msgstr "12 derniers mois"
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: Un nouveau commentaire a été ajouté à %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:59 ../../app/models/user.rb:404
+#: ../../app/mailers/dmpopidor/user_mailer.rb:59 ../../app/models/user.rb:405
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr ""
 "%{user_name} a partagé un plan de gestion des données avec vous dans %{tool_na"
@@ -1730,6 +1730,14 @@ msgstr "Annuler"
 #: ../../app/views/branded/layouts/_footer.html.erb:21
 msgid "News"
 msgstr "Actualités"
+
+#: ../../app/views/branded/home/_welcome.html.erb:7
+msgid "First time visiting?"
+msgstr "Première visite chez nous ?"
+
+#: ../../app/views/branded/home/_welcome.html.erb:8
+msgid "Discover DMP OPIDoR in 180s!"
+msgstr "Découvrez DMP OPIDoR en 180s !"
 
 #: ../../app/views/branded/layouts/_contact_icons.html.erb:15
 msgid "Technical Support"
