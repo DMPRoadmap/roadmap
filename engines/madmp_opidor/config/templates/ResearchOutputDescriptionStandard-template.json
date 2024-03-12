@@ -72,9 +72,10 @@
             "description": "Mot(s)-clé(s) issu(s) de vocabulaire(s) contrôlé(s) ou d'ontologie(s)",
             "label@fr_FR": "Mots clés",
             "label@en_GB": "Keywords",
-            "inputType": "",
+            "inputType": "dropdown",
             "registries": [
-                "ThesaurusInrae",
+                "Thésaurus INRAE",
+                "Biodiversite",
                 "GEMET"
             ],
             "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
