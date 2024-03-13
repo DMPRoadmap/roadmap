@@ -56,7 +56,7 @@ docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev bui
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker postgres'
 
 # Setup database
-docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'bin/rails db:environment:set RAILS_ENV=development; ruby bin/docker db:setup'
 
 # Run all services
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev up -d
