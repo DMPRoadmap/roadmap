@@ -8,6 +8,7 @@
 - Mise en place du bouton visite guidée (boussole) à gauche de la phrase, "Ce plan est basé sur ....",
 - Traduction de la phrase "Ce plan est basé sur ...."
 - Correction sauvegarde JSON des schémas
+- Tri des template par financeurs puis autres organismes et par ordre alphabétique
 
 ## 08/03/2024
 
