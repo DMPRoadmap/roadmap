@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/03/2024
+
+- Correction, lancement de la visite guidée au clic sur le bouton
+- Mise en place du bouton visite guidée (boussole) à gauche de la phrase, "Ce plan est basé sur ....",
+- Traduction de la phrase "Ce plan est basé sur ...."
+- Correction sauvegarde JSON des schémas
+- Tri des template par financeurs puis autres organismes et par ordre alphabétique
+
 ## 11/03/2024
 
 - Mise à jour des templates & registries
