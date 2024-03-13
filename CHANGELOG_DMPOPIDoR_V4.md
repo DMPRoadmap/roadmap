@@ -4,6 +4,7 @@
 
 ## 13/03/2024
 
+- Mise à jour de la visite guidée et traduction
 - Correction, lancement de la visite guidée au clic sur le bouton
 - Mise en place du bouton visite guidée (boussole) à gauche de la phrase, "Ce plan est basé sur ....",
 - Traduction de la phrase "Ce plan est basé sur ...."
