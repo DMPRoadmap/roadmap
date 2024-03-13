@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-12 10:45+0100\n"
-"PO-Revision-Date: 2024-03-12 10:45+0100\n"
+"POT-Creation-Date: 2024-03-13 15:08+0100\n"
+"PO-Revision-Date: 2024-03-13 15:08+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -3271,7 +3271,9 @@ msgid "General Budget"
 msgstr ""
 
 #: ../../app/views/branded/plans/import.html.erb:6
-msgid "This feature is only available for structured templates."
+msgid ""
+"This feature is currently only available for structured DMPs created in the co"
+"ntext of a research project."
 msgstr ""
 
 #: ../../app/views/branded/plans/import.html.erb:19
