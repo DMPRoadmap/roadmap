@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 13/03/2024
+
+- Correction, lancement de la visite guidée au clic sur le bouton
+- Mise en place du bouton visite guidée (boussole) à gauche de la phrase, "Ce plan est basé sur ....",
+- Traduction de la phrase "Ce plan est basé sur ...."
+- Correction sauvegarde JSON des schémas
+
 ## 08/03/2024
 
 - Ajout de Redis comme gestionnaire de données de session: cet ajout permet de résoudre le problème d'export des plans avec de nombreux produits de recherche (#10303)
