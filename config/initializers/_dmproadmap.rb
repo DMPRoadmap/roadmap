@@ -116,7 +116,7 @@ module DMPRoadmap
     config.x.application.preferences = {
       email: {
         users: {
-          new_comment: false,
+          new_comment: true,
           admin_privileges: true,
           added_as_coowner: true,
           feedback_requested: true,
