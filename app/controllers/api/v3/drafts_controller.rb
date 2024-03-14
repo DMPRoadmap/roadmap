@@ -16,10 +16,7 @@ module Api
         records = Draft.includes(narrative_attachment: [:blob])
                        .search(user: current_user, params: index_params)
 
-        records += plans_to_drafts(plans: Plan.includes(narrative_attachment: [:blob])
-                                              .react_search(user: current_user, params: index_params))
-
-        # Paginate the results
+                       # Paginate the results
         @drafts = paginate_response(results: process_sort(records: records.to_a))
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DraftsController.index #{e.message}"
