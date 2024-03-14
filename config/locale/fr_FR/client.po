@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-12 10:45+0100\n"
-"PO-Revision-Date: 2024-03-12 10:45+0100\n"
+"POT-Creation-Date: 2024-03-14 14:33+0100\n"
+"PO-Revision-Date: 2024-03-14 14:33+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1736,8 +1736,8 @@ msgid "First time visiting?"
 msgstr "Première visite chez nous ?"
 
 #: ../../app/views/branded/home/_welcome.html.erb:8
-msgid "Discover DMP OPIDoR in 180s!"
-msgstr "Découvrez DMP OPIDoR en 180s !"
+msgid "Discover DMP OPIDoR in three minutes!"
+msgstr "Découvrez DMP OPIDoR en 180 secondes !"
 
 #: ../../app/views/branded/layouts/_contact_icons.html.erb:15
 msgid "Technical Support"
@@ -3505,8 +3505,12 @@ msgid "General Budget"
 msgstr "Budget général"
 
 #: ../../app/views/branded/plans/import.html.erb:6
-msgid "This feature is only available for structured templates."
-msgstr "Cette fonctionnalité n'est disponible que pour les modèles structurés."
+msgid ""
+"This feature is currently only available for structured DMPs created in the co"
+"ntext of a research project."
+msgstr ""
+"Cette fonctionnalité n'est actuellement disponible que pour les plans de gesti"
+"on structurés créés dans le contexte d’un projet de recherche. \n"
 
 #: ../../app/views/branded/plans/import.html.erb:19
 msgid "Standard"

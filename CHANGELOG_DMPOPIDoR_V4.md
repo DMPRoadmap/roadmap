@@ -2,10 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 14/03/2024
+
 - Tri des template par financeurs puis autres organismes et par ordre alphabétique
 - Amélioration du mode lecture seule des formulaires et des questions
 - La notification des nouveaux commentaires est désactivée par défaut
 - Retrait des organismes avec un modèle recommandé de liste des organismes disponibles dans la création de plan.
+- Mise à jour des traductions
 
 ## 13/03/2024
 
