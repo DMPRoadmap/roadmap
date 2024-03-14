@@ -104,9 +104,6 @@ class Draft < ApplicationRecord
 
     data['dmp']['dmproadmap_related_identifiers'] = [] unless data['dmp']['dmproadmap_related_identifiers']
     data['dmp']['dmproadmap_related_identifiers'] << narrative_to_related_identifier
-
-puts JSON.parse(data.to_json).to_json
-
     JSON.parse(data.to_json).to_json
   end
 
