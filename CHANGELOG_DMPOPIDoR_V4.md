@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+- Tri des template par financeurs puis autres organismes et par ordre alphabétique
+- Amélioration du mode lecture seule des formulaires et des questions
+- La notification des nouveaux commentaires est désactivée par défaut
+- Retrait des organismes avec un modèle recommandé de liste des organismes disponibles dans la création de plan.
+
 ## 13/03/2024
 
 - Mise à jour de la visite guidée et traduction
@@ -9,7 +14,6 @@
 - Mise en place du bouton visite guidée (boussole) à gauche de la phrase, "Ce plan est basé sur ....",
 - Traduction de la phrase "Ce plan est basé sur ...."
 - Correction sauvegarde JSON des schémas
-- Tri des template par financeurs puis autres organismes et par ordre alphabétique
 
 ## 11/03/2024
 
