@@ -104,7 +104,8 @@ function Dashboard() {
     <div id="Dashboard">
       <div className="dmpui-heading with-action-button">
         <div>
-          <h1>Uploads</h1>
+          <h1>Pilot Upload Projects</h1>
+          <p>Projects created via the upload of an existing DMP are listed in the table below, including their registration status and DOI (when generated).</p>
         </div>
         <div>
           <button
@@ -181,12 +182,20 @@ function Dashboard() {
                       Project Name
                     </th>
 
+                    <th scope="col" className="table-header-name data-heading text-center">
+                      DMP PDF
+                    </th>
+
                     <th scope="col" className="table-header-name data-heading">
                       Funder
                     </th>
 
                     <th scope="col" className="table-header-name data-heading">
                       Last Edited
+                    </th>
+
+                    <th scope="col" className="table-header-name data-heading">
+                      DMP ID
                     </th>
 
                     <th scope="col" className="table-header-name data-heading">
@@ -263,6 +272,13 @@ function Dashboard() {
                             )}
                           </div>
                         </td>
+                        <td className="table-data-name text-center" data-colname="pdf">
+                          <a target="_blank" className="has-new-window-popup-info" href="">
+                            <i className="fas fa-file-pdf" aria-hidden="true"></i>
+                            <em className="sr-only">(opens as a .pdf document in a new window)</em>
+                            <span className="new-window-popup-info">Opens in a new window</span>
+                          </a>
+                        </td>
                         <td className="table-data-name" data-colname="funder">
                           {dmp.funding.acronym ? (
                             <span title={dmp.funding.name}>
@@ -283,6 +299,12 @@ function Dashboard() {
                           data-colname="last_edited"
                         >
                           {dmp?.modified ? dmp?.modified : dmp?.created}
+                        </td>
+                        <td className="table-data-date" data-colname="dmp_id">
+                          <a target="_blank" className="has-new-window-popup-info" href="http://localhost:3000/dmps/10.48321/D1SP4H" title="dmp info">
+                            <em className="sr-only">(opens dmp info in a new window</em>
+                            <span className="new-window-popup-info">Opens in new window</span>
+                          </a>
                         </td>
                         <td
                           className={"table-data-name status-" + dmp.status[0]}
