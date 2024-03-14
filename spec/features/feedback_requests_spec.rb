@@ -35,7 +35,7 @@ RSpec.describe 'FeedbackRequests', type: :feature do
     end
 
     # Click "Request feedback" button within panel
-    within('div.panel') do
+    within('.tab-pane.active') do
       click_link 'Request feedback'
     end
 
