@@ -13,6 +13,7 @@ module Dmpopidor
                                  templates: { 
                                     published: true,
                                     archived: false,
+                                    is_recommended: false,
                                     context: params[:context],
                                     locale: params[:locale]  
                                   }
