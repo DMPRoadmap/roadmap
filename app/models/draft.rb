@@ -104,6 +104,9 @@ class Draft < ApplicationRecord
 
     data['dmp']['dmproadmap_related_identifiers'] = [] unless data['dmp']['dmproadmap_related_identifiers']
     data['dmp']['dmproadmap_related_identifiers'] << narrative_to_related_identifier
+
+puts JSON.parse(data.to_json).to_json
+
     JSON.parse(data.to_json).to_json
   end
 
@@ -235,7 +238,6 @@ class Draft < ApplicationRecord
   def narrative_to_draft_data
     return {} unless narrative.attached?
 
-
     JSON.parse({ file_name: narrative.blob.filename, url: safe_narrative_url }.to_json)
   end
 
@@ -243,6 +245,7 @@ class Draft < ApplicationRecord
     url = Rails.application.routes.url_helpers.rails_blob_url(narrative, disposition: 'attachment')
     url = "#{Rails.configuration.x.dmproadmap.server_host}/#{url}" if url.start_with?('https://https/rails')
     url = "https://#{url}" unless url.start_with?('http')
+    url
   end
 
   def ensure_defaults(dmp:)
