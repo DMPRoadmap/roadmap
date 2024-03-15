@@ -40,7 +40,7 @@ end
     <!-- Tabs content for content language -->
     <div class="tab-content">
       <%= f.fields_for :static_page_contents do |ff| %>
-      <div id="<%= ff.object.language.abbreviation %>" class="tab-pane fade <%= active_tab?(ff.object.language.abbreviation, content: true) %>">
+      <div id="<%= ff.object.language.abbreviation %>" class="tab-pane fade <%= active_tab?(ff.object.language.abbreviation, content: true) %>" style="width: 100%;">
         <%= ff.hidden_field :language_id, value: ff.object.language.id %>
         <div class="form-group">
           <%= ff.label :title, _('Title displayed on the static page'), class: 'control-label' %>
