@@ -9,6 +9,8 @@ import TextInput from "../../components/text-input/textInput.js";
 import LookupField from "../../components/lookup-field.js";
 import Spinner from "../../components/spinner";
 import "./dashboard.scss";
+
+const DMP_ID_REGEX = /\/dmps\/([^/]+\/[^/]+)/
 function Dashboard() {
   const [projects, setProjects] = useState([]);
   const [previewDmp, setPreviewDmp] = useState({});
@@ -182,7 +184,7 @@ function Dashboard() {
                       Project Name
                     </th>
 
-                    <th scope="col" className="table-header-name data-heading text-center">
+                    <th scope="col" className="table-header-name data-heading text-center no-wrap">
                       DMP PDF
                     </th>
 
@@ -207,21 +209,25 @@ function Dashboard() {
                   </tr>
                 </thead>
                 <tbody className="table-body">
-                  {projects.map((dmp) => (
-                    <Fragment key={dmp.id}>
-                      <tr key={dmp.id}>
-                        <td
-                          className="table-data-name table-data-title"
-                          data-colname="title"
-                        >
-                          <Link
-                            title={dmp.title}
-                            to={`/dashboard/dmp/${dmp.id}`}
-                          >
-                            {truncateText(dmp.title, 50)}
-                          </Link>
+                  {projects.map((dmp) => {
 
-                          {/*
+                    const dmpId = dmp.landingPageUrl ? dmp.landingPageUrl.match(DMP_ID_REGEX)[1] || [] : null;
+
+                    return (
+                      <Fragment key={dmp.id}>
+                        <tr key={dmp.id}>
+                          <td
+                            className="table-data-name table-data-title"
+                            data-colname="title"
+                          >
+                            <Link
+                              title={dmp.title}
+                              to={`/dashboard/dmp/${dmp.id}`}
+                            >
+                              {truncateText(dmp.title, 50)}
+                            </Link>
+
+                            {/*
                         <a
                           href="#"
                           title={dmp.title}
@@ -251,91 +257,99 @@ function Dashboard() {
                           </span>
                         </a>
 */}
-                          <div className="d-block table-data-pi">
-                            {dmp.contributors
-                              ? dmp.contributors.items.map((item, index) => (
-                                <Fragment key={index}>
-                                  {item.roles &&
-                                    item.roles.filter(str => str.includes("investigation")) && (
-                                      <span>
-                                        PI: {truncateText(item.name, 80)}
-                                      </span>
-                                    )}
-                                </Fragment>
-                              ))
-                              : ""}
+                            <div className="d-block table-data-pi">
+                              {dmp.contributors
+                                ? dmp.contributors.items.map((item, index) => (
+                                  <Fragment key={index}>
+                                    {item.roles &&
+                                      item.roles.filter(str => str.includes("investigation")) && (
+                                        <span>
+                                          PI: {truncateText(item.name, 80)}
+                                        </span>
+                                      )}
+                                  </Fragment>
+                                ))
+                                : ""}
 
-                            {dmp.id && dmp.id == "XXX" && (
-                              <span className={"action-required-text"}>
-                                X works need verification
+                              {dmp.id && dmp.id == "XXX" && (
+                                <span className={"action-required-text"}>
+                                  X works need verification
+                                </span>
+                              )}
+                            </div>
+                          </td>
+
+                          <td className="table-data-name text-center" data-colname="pdf">
+                            {dmp.narrativeUrl &&
+                              <a target="_blank" className="has-new-window-popup-info" href={dmp.narrativeUrl}>
+                                <i className="fas fa-file-pdf" aria-hidden="true"></i>
+                                <em className="sr-only">(opens as a .pdf document in a new window)</em>
+                                <span className="new-window-popup-info">Opens in a new window</span>
+                              </a>
+                            }
+                          </td>
+
+                          <td className="table-data-name" data-colname="funder">
+                            {dmp.funding.acronym ? (
+                              <span title={dmp.funding.name}>
+                                {dmp.funding.acronym}
                               </span>
+                            ) : dmp.funding.name ? (
+                              <span title={dmp.funding.name}>
+                                {truncateText(dmp.funding.name, 50)}
+                              </span>
+                            ) : (
+                              "None"
                             )}
-                          </div>
-                        </td>
-                        <td className="table-data-name text-center" data-colname="pdf">
-                          <a target="_blank" className="has-new-window-popup-info" href="">
-                            <i className="fas fa-file-pdf" aria-hidden="true"></i>
-                            <em className="sr-only">(opens as a .pdf document in a new window)</em>
-                            <span className="new-window-popup-info">Opens in a new window</span>
-                          </a>
-                        </td>
-                        <td className="table-data-name" data-colname="funder">
-                          {dmp.funding.acronym ? (
-                            <span title={dmp.funding.name}>
-                              {dmp.funding.acronym}
-                            </span>
-                          ) : dmp.funding.name ? (
-                            <span title={dmp.funding.name}>
-                              {truncateText(dmp.funding.name, 50)}
-                            </span>
-                          ) : (
-                            "None"
-                          )}
 
 
-                        </td>
-                        <td
-                          className="table-data-date"
-                          data-colname="last_edited"
-                        >
-                          {dmp?.modified ? dmp?.modified : dmp?.created}
-                        </td>
-                        <td className="table-data-date" data-colname="dmp_id">
-                          <a target="_blank" className="has-new-window-popup-info" href="http://localhost:3000/dmps/10.48321/D1SP4H" title="dmp info">
-                            <em className="sr-only">(opens dmp info in a new window</em>
-                            <span className="new-window-popup-info">Opens in new window</span>
-                          </a>
-                        </td>
-                        <td
-                          className={"table-data-name status-" + dmp.status[0]}
-                          data-colname="status"
-                        >
-                          {dmp.status[1]}
-                        </td>
-                        <td
-                          className="table-data-name table-data-actions"
-                          data-colname="actions"
-                        >
-                          {dmp.status[1] === "Complete" ? (
-                            <Link
-                              className="edit-button"
-                              to={`/dashboard/dmp/${dmp.id}`}
-                            >
-                              Complete
-                            </Link>
-                          ) : (
-                            <Link
-                              className="edit-button"
-                              to={`/dashboard/dmp/${dmp.id}`}
-                            >
-                              Update
-                              <span className={"action-required hidden"}></span>
-                            </Link>
-                          )}
-                        </td>
-                      </tr>
-                    </Fragment>
-                  ))}
+                          </td>
+                          <td
+                            className="table-data-date"
+                            data-colname="last_edited"
+                          >
+                            {dmp?.modified ? dmp?.modified : dmp?.created}
+                          </td>
+                          <td className="table-data-date" data-colname="dmp_id">
+                            {dmp.landingPageUrl &&
+                              <a target="_blank" className="has-new-window-popup-info" href={dmp.landingPageUrl} title="dmp data">
+                                {dmpId}
+                                <em className="sr-only">(opens dmp data in a new window</em>
+                                <span className="new-window-popup-info">Opens in new window</span>
+                              </a>
+                            }
+                          </td>
+                          <td
+                            className={"table-data-name status-" + dmp.status[0]}
+                            data-colname="status"
+                          >
+                            {dmp.status[1]}
+                          </td>
+                          <td
+                            className="table-data-name table-data-actions"
+                            data-colname="actions"
+                          >
+                            {dmp.status[1] === "Complete" ? (
+                              <Link
+                                className="edit-button"
+                                to={`/dashboard/dmp/${dmp.id}`}
+                              >
+                                Complete
+                              </Link>
+                            ) : (
+                              <Link
+                                className="edit-button"
+                                to={`/dashboard/dmp/${dmp.id}`}
+                              >
+                                Update
+                                <span className={"action-required hidden"}></span>
+                              </Link>
+                            )}
+                          </td>
+                        </tr>
+                      </Fragment>
+                    )
+                  })}
                 </tbody>
               </table>
             ) : (

@@ -19,6 +19,7 @@ require 'securerandom'
 class Draft < ApplicationRecord
   include Dmptool::Registerable
 
+  DMP_ID_REGEX = %r{[0-9]{2}\.[0-9]{4,}/[a-zA-Z0-9/_.-]+}
   INVALID_JSON_MSG = 'must contain a top level :dmp and at least a :title. For example: `{ dmp: { title: \'Test\' } }`'
   INVALID_NARRATIVE_FORMAT = 'must be a PDF document.'
 
@@ -96,6 +97,8 @@ class Draft < ApplicationRecord
     return JSON.parse(data.to_json).to_json unless data['dmp'].present?
 
     data['dmp']['draft_data'] = {} unless data['dmp']['draft_data'].present?
+        # Add this line
+    data['dmp']['draft_data']['landing_page'] = landing_page_url if registered?
     data['dmp']['draft_data']['narrative'] = narrative_to_draft_data if narrative.attached?
 
     data['dmp']['dmp_id'] = { type: 'doi', identifier: dmp_id } if registered?
@@ -239,10 +242,20 @@ class Draft < ApplicationRecord
     JSON.parse({ file_name: narrative.blob.filename, url: safe_narrative_url }.to_json)
   end
 
+    # Returns the landing page URL or the DMP ID (aka DOI) when in production
+  def landing_page_url
+    return dmp_id if Rails.env.production?
+
+    id = dmp_id.match(DMP_ID_REGEX)
+    base_url = Rails.configuration.x.dmproadmap.dmphub_landing_page_url
+    id.nil? ? dmp_id : "#{base_url.end_with?('/') ? base_url : "#{base_url}/"}#{id}"
+  end
+
   def safe_narrative_url
-    url = Rails.application.routes.url_helpers.rails_blob_url(narrative, disposition: 'attachment')
+    url = Rails.application.routes.url_helpers.rails_blob_url(narrative)
     url = "#{Rails.configuration.x.dmproadmap.server_host}/#{url}" if url.start_with?('https://https/rails')
     url = "https://#{url}" unless url.start_with?('http')
+    url
   end
 
   def ensure_defaults(dmp:)
