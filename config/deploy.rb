@@ -33,7 +33,7 @@ namespace :bundler do
   desc 'Add x86_64-linux to Gemfile platforms'
   task :lock_x86 do
     on roles(:app), wait: 1 do
-      execute "cd #{release_path} bundle lock --add-platform x86_64-linux"
+      execute "cd #{release_path} && bundle lock --add-platform x86_64-linux"
     end
   end
 end
