@@ -15,7 +15,11 @@
       <button aria-label="search" type="submit"><i class="fas fa-search"></i></button>
     </div>
     <% search_msg = search.present? ? _('Showing results for "%<search_term>s"') % { search_term: sanitize(search) } : '' %>
-    <div id= "js-search-results-block" class="js-search-results c-search-results"><%= search_msg %></div>
+    <div id= "js-search-results-block" class="js-search-results c-search-results">
+      <span class="fineprint"><%= _('Please enter only letters and numbers.') %></span>
+      <br/>
+      <%= search_msg %>
+    </div>
     <button type="button" class="js-search-clear c-search-clear"><%= _('Clear Search') %></button>
   </section>
 
