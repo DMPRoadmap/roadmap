@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-14 14:33+0100\n"
-"PO-Revision-Date: 2024-03-14 14:33+0100\n"
+"POT-Creation-Date: 2024-03-15 11:40+0100\n"
+"PO-Revision-Date: 2024-03-15 11:40+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -112,7 +112,7 @@ msgid "added"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:79
-#: ../../app/controllers/dmpopidor/orgs_controller.rb:104
+#: ../../app/controllers/dmpopidor/orgs_controller.rb:105
 #: ../../app/controllers/dmpopidor/plans_controller.rb:136
 #: ../../app/controllers/dmpopidor/plans_controller.rb:139
 #: ../../app/controllers/guidance_groups_controller.rb:55
@@ -133,7 +133,7 @@ msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:81
 #: ../../app/controllers/dmpopidor/notes_controller.rb:205
-#: ../../app/controllers/dmpopidor/orgs_controller.rb:106
+#: ../../app/controllers/dmpopidor/orgs_controller.rb:107
 #: ../../app/controllers/dmpopidor/plans_controller.rb:145
 #: ../../app/controllers/dmpopidor/plans_controller.rb:148
 #: ../../app/controllers/dmpopidor/plans_controller.rb:152
@@ -958,53 +958,53 @@ msgstr ""
 msgid "Last 12 months"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:38
+#: ../../app/mailers/dmpopidor/user_mailer.rb:40
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:59 ../../app/models/user.rb:405
+#: ../../app/mailers/dmpopidor/user_mailer.rb:61 ../../app/models/user.rb:405
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:80
+#: ../../app/mailers/dmpopidor/user_mailer.rb:82
 #: ../../app/mailers/user_mailer.rb:82
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:97
+#: ../../app/mailers/dmpopidor/user_mailer.rb:99
 #: ../../app/mailers/user_mailer.rb:98
 msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:116
+#: ../../app/mailers/dmpopidor/user_mailer.rb:118
 #: ../../app/mailers/user_mailer.rb:117
 msgid "%{user_name} has requested feedback on a %{tool_name} plan"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:142
+#: ../../app/mailers/dmpopidor/user_mailer.rb:144
 #: ../../app/mailers/user_mailer.rb:143
 msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:162
+#: ../../app/mailers/dmpopidor/user_mailer.rb:164
 #: ../../app/mailers/user_mailer.rb:164
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:178
+#: ../../app/mailers/dmpopidor/user_mailer.rb:180
 #: ../../app/mailers/user_mailer.rb:217
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:195
+#: ../../app/mailers/dmpopidor/user_mailer.rb:197
 msgid "%{tool_name} API client created/updated"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:209
+#: ../../app/mailers/dmpopidor/user_mailer.rb:211
 msgid "Account expiration in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:218
+#: ../../app/mailers/dmpopidor/user_mailer.rb:220
 msgid "Account expired in %{tool_name}"
 msgstr ""
 
@@ -3679,6 +3679,23 @@ msgstr ""
 msgid ""
 "If you did not request access to the %{tool_name} API or did not request for y"
 "our credentials to be renewed, please contact us at %{helpdesk_email}"
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/feedback_complete.html.erb:6
+msgid ""
+"%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comm"
+"ents can be found in the 'Write plan' tab by clicking on the Comments icon."
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/feedback_complete.html.erb:7
+msgid ""
+"%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comm"
+"ents can be found in the 'Write plan' tab on the right side of the page (Guida"
+"nce/Comments)."
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/feedback_complete.html.erb:11
+msgid "Hello %{recipient_name}"
 msgstr ""
 
 #: ../../app/views/branded/user_mailer/feedback_notification.html.erb:2
