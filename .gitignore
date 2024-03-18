@@ -2,6 +2,7 @@
 # ----------------------
 # Ignore Dotenv file
 .env
+.en.*
 .*-env
 .set_env.sh
 # Ignore init Rake task used by Docker
