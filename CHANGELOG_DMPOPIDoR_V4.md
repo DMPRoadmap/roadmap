@@ -10,6 +10,7 @@
 - Correction des liens dans les notifications de nouveau commentaire et de cloture d'assistance conseil.
 - Correction du problème d'affichage des icônes de Scripts lors d'un changement de produit de recherche
 - Correction du problème d'affichage des recommandations appartenant à un même thème et un même organisme
+- Affichage des groupes de recommandations et affichage une seule et unique fois du thème
 
 ## 14/03/2024
 
