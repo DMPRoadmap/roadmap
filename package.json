@@ -6,7 +6,6 @@
   "scripts": {
     "lint": "yarn run eslint --ext .js app/javascript/**/*.js",
     "test": "karma start spec/karma/unit.js",
-    "pa11y-sitemap": "pa11y-ci --sitemap http://localhost:3000/sitemap.xml --sitemap-exclude \"/*.pdf\"",
     "build": "webpack --config ./config/webpack/webpack.config.js",
     "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
@@ -68,7 +67,6 @@
     "timeago.js": "^4.0.2",
     "tinymce": "^6.4.1",
     "web-vitals": "^3.3.2",
-    "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
   },
   "devDependencies": {
@@ -87,8 +85,7 @@
     "karma-jquery": "^0.2.4",
     "karma-json-fixtures-preprocessor": "^0.0.6",
     "karma-webpack": "^5.0.0",
-    "pa11y": "^6.2.3",
-    "pa11y-ci": "^3.0.1"
+    "webpack": "^5.90.3"
   },
   "resolutions": {
     "webpack": "^5.75.0"

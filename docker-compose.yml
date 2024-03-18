@@ -9,28 +9,46 @@ version: '3.4'
 
 services:
   db:
-    container_name: "mysql"
-    image: "mysql:8.0"
-    command: "--default-authentication-plugin=mysql_native_password"
+    restart: always
+    command: --default-authentication-plugin=caching_sha2_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    image: mysql/mysql-server:latest
+    container_name: mysql
+    ports:
+      - "3307:3306"
+    expose:
+      - "3307"
     environment:
-      MYSQL_ROOT_PASSWORD: 'secret'
+      MYSQL_DATABASE: 'dmp'
+      MYSQL_ROOT_PASSWORD: 'dockerSecret'
+      MYSQL_USER: 'dmpuser'
+      MYSQL_PASSWORD: 'abcdefghij'
     volumes:
-      - ./share/mysql:/var/lib/mysql
+      - "./docker/mysql:/var/lib/mysql"
 
   dmptool:
+    depends_on:
+      - db
     build:
       context: .
       dockerfile: Dockerfile.dev
-    env_file:
-      - .env.dev
     command: bash -c "rm -f ./tmp/pids/server.pid && rm -f ./tmp/pids/delayed_job.pid && ./bin/dev"
     user: "1000:1000"
+    links:
+      - db
     ports:
       - "3000:3000"
-    depends_on:
-      - db
+    expose:
+      - "3000"
+    environment:
+      - RAILS_ENV=development
+      # The first time you startup these docker containers, you will need to uncomment the
+      # following FIRST_TIME variable so the MySQL database is properly initialized.
+      #
+      #- FIRST_TIME=true
+    env_file:
+      - .env.dev
     volumes:
       - ./:/opt/app
       # The following is to prevent the mysql data folder to be mounted due
       # to the mount above.
-      - /opt/app/share/mysql
+      # - /opt/app/share/mysql
