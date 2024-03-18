@@ -2,12 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 15/03/2024
+## 18/03/2024
+
 - Ajout d'une vidéo tuto (temporaire) en page d'accueil
 - Correction du problème de sauvegarde des commentaires dans les plans en lecture seule
 - Amélioration du CSS des messages de notifications dans la bannière
 - Correction des liens dans les notifications de nouveau commentaire et de cloture d'assistance conseil.
 - Correction du problème d'affichage des icônes de Scripts lors d'un changement de produit de recherche
+- Correction du problème d'affichage des recommandations appartenant à un même thème et un même organisme
 
 ## 14/03/2024
 
