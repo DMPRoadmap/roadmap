@@ -284,6 +284,7 @@ orgs = [
    is_other: false, managed: true},
   {name: 'University of Exampleland',
    abbreviation: 'UOS',
+   v5_pilot: true,
    org_type: 1, links: {"org":[]},
    language: default_language, region: region,
    is_other: false, managed: true}

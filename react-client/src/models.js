@@ -505,6 +505,14 @@ export class DmpModel extends Model {
     return idStr.replace(/\//g, "_");
   }
 
+  get landingPageUrl() {
+    return this.getData("draft_data.landing_page", null)
+  }
+
+  get narrativeUrl() {
+    return this.getData("draft_data.narrative.url", null);
+  }
+
   get hasFunder() {
     if (this.project.funding.name === "None") return false;
     if (this.project.funding.name && this.funding.funderId) return true;
