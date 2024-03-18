@@ -238,7 +238,6 @@ class Draft < ApplicationRecord
   def narrative_to_draft_data
     return {} unless narrative.attached?
 
-
     JSON.parse({ file_name: narrative.blob.filename, url: safe_narrative_url }.to_json)
   end
 

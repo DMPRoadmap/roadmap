@@ -238,7 +238,7 @@ gem 'dotenv-rails'
 
 # A library that retrieves an citation for the specified DOI.
 # https://github.com/CDLUC3/uc3-citation
-# gem 'uc3-citation'
+gem 'uc3-citation'
 
 # Makes it easy to validate JSON attributes against a JSON schema.
 gem 'activerecord_json_validator'

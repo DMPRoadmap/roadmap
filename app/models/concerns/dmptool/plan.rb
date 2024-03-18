@@ -75,7 +75,7 @@ module Dmptool
         grant_ids = grant.present? ? Identifier.where('value LIKE ?', "%#{grant_id}%").pluck(:id) : []
 
         clause = []
-        clause << '(LOWER(title) LIKE :title OR LOWER(description) LIKE :title)' unless title.blank?
+        clause << '(REGEXP_REPLACE(LOWER(title), \'[^0-9a-zÀ-ÿ ]\', '') LIKE :title OR REGEXP_REPLACE(LOWER(description), \'[^0-9a-zÀ-ÿ ]\', '') LIKE :title)' unless title.blank?
         clause << '(funder_id IN :funder_ids)' unless funder_ids.empty?
         clause << '(grant_id IN :grant_ids)' unless grant_ids.empty?
         clause << visibility == 'public' ? '(visibility = 1)' : '(visibility != 1)' unless visibility.blank?
