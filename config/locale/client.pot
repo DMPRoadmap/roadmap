@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-15 11:40+0100\n"
-"PO-Revision-Date: 2024-03-15 11:40+0100\n"
+"POT-Creation-Date: 2024-03-19 15:29+0100\n"
+"PO-Revision-Date: 2024-03-19 15:29+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -618,7 +618,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/controllers/roles_controller.rb:107
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:55
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:56
 msgid "Access removed"
 msgstr ""
 
@@ -1008,6 +1008,11 @@ msgstr ""
 msgid "Account expired in %{tool_name}"
 msgstr ""
 
+#: ../../app/mailers/dmpopidor/user_mailer.rb:240
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:5
+msgid "%{username} has granted access to their Data Management Plan in %{tool_name}"
+msgstr ""
+
 #: ../../app/mailers/user_mailer.rb:18
 msgid "Query or feedback related to %{tool_name}"
 msgstr ""
@@ -1253,7 +1258,7 @@ msgstr ""
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:23
 #: ../../app/views/branded/plans/_share_form.html.erb:112
-#: ../../app/views/branded/plans/_share_third_party.html.erb:93
+#: ../../app/views/branded/plans/_share_third_party.html.erb:92
 #: ../../app/views/branded/research_outputs/_list.html.erb:82
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
@@ -3135,7 +3140,7 @@ msgstr ""
 #: ../../app/views/branded/plans/_share_form.html.erb:18
 #: ../../app/views/branded/plans/_share_form.html.erb:91
 #: ../../app/views/branded/plans/_share_third_party.html.erb:33
-#: ../../app/views/branded/plans/_share_third_party.html.erb:84
+#: ../../app/views/branded/plans/_share_third_party.html.erb:83
 msgid "Permissions"
 msgstr ""
 
@@ -3232,15 +3237,15 @@ msgstr ""
 msgid "Purpose"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:60
+#: ../../app/views/branded/plans/_share_third_party.html.erb:59
 msgid "Authorize third party applications"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:67
+#: ../../app/views/branded/plans/_share_third_party.html.erb:66
 msgid "Application"
 msgstr ""
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:89
+#: ../../app/views/branded/plans/_share_third_party.html.erb:88
 msgid "Read only: can read the content of the dmp"
 msgstr ""
 
@@ -3665,6 +3670,7 @@ msgid "Please use the following credentials when accessing the %{tool_name} API.
 msgstr ""
 
 #: ../../app/views/branded/user_mailer/api_credentials.html.erb:23
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:15
 msgid "Please refer to the API documentation at: %{api_documentation_url}"
 msgstr ""
 
@@ -3679,6 +3685,14 @@ msgstr ""
 msgid ""
 "If you did not request access to the %{tool_name} API or did not request for y"
 "our credentials to be renewed, please contact us at %{helpdesk_email}"
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:2
+msgid "Hello %{contact_name}"
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:11
+msgid "The DMP can be accessed through the API at the following url : %{link}"
 msgstr ""
 
 #: ../../app/views/branded/user_mailer/feedback_complete.html.erb:6
@@ -4065,19 +4079,19 @@ msgstr ""
 msgid "Plan is already shared with %{api_client}."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:22
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:23
 msgid "Plan shared with \"%{api_client}\" application successfully."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:25
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:26
 msgid "An error has occured while sharing the plan with \"%{api_client}\"."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:29
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:30
 msgid "Please select an application in the list"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:43
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:44
 msgid "Successfully changed the permissions for %{api_client}."
 msgstr ""
 

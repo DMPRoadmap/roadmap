@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-15 11:40+0100\n"
-"PO-Revision-Date: 2024-03-15 11:40+0100\n"
+"POT-Creation-Date: 2024-03-19 15:29+0100\n"
+"PO-Revision-Date: 2024-03-19 15:29+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -650,7 +650,7 @@ msgstr ""
 "ar mail"
 
 #: ../../app/controllers/roles_controller.rb:107
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:55
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:56
 msgid "Access removed"
 msgstr "Accès retiré"
 
@@ -1059,6 +1059,13 @@ msgstr "Expiration du compte dans %{tool_name}"
 msgid "Account expired in %{tool_name}"
 msgstr "Compte %{tool_name} expiré"
 
+#: ../../app/mailers/dmpopidor/user_mailer.rb:240
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:5
+msgid "%{username} has granted access to their Data Management Plan in %{tool_name}"
+msgstr ""
+"%{username} a accordé l'accès à son plan de gestion des données dans %{tool_na"
+"me}"
+
 #: ../../app/mailers/user_mailer.rb:18
 msgid "Query or feedback related to %{tool_name}"
 msgstr "Requête ou suggestion liée à %{tool_name}"
@@ -1308,7 +1315,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:23
 #: ../../app/views/branded/plans/_share_form.html.erb:112
-#: ../../app/views/branded/plans/_share_third_party.html.erb:93
+#: ../../app/views/branded/plans/_share_third_party.html.erb:92
 #: ../../app/views/branded/research_outputs/_list.html.erb:82
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
@@ -3348,7 +3355,7 @@ msgstr "Courriel"
 #: ../../app/views/branded/plans/_share_form.html.erb:18
 #: ../../app/views/branded/plans/_share_form.html.erb:91
 #: ../../app/views/branded/plans/_share_third_party.html.erb:33
-#: ../../app/views/branded/plans/_share_third_party.html.erb:84
+#: ../../app/views/branded/plans/_share_third_party.html.erb:83
 msgid "Permissions"
 msgstr "Permissions"
 
@@ -3464,15 +3471,15 @@ msgstr "Service externe"
 msgid "Purpose"
 msgstr "Finalité"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:60
+#: ../../app/views/branded/plans/_share_third_party.html.erb:59
 msgid "Authorize third party applications"
 msgstr "Autoriser des applications tierces"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:67
+#: ../../app/views/branded/plans/_share_third_party.html.erb:66
 msgid "Application"
 msgstr "Application"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:89
+#: ../../app/views/branded/plans/_share_third_party.html.erb:88
 msgid "Read only: can read the content of the dmp"
 msgstr "Lecture seule : peut lire le contenu du plan"
 
@@ -3950,6 +3957,7 @@ msgstr ""
 "API %{tool_name}."
 
 #: ../../app/views/branded/user_mailer/api_credentials.html.erb:23
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:15
 msgid "Please refer to the API documentation at: %{api_documentation_url}"
 msgstr ""
 "Veuillez consulter la documentation de l'API à l'adresse: %{api_documentation_"
@@ -3974,6 +3982,14 @@ msgstr ""
 "Si vous n'avez pas demandé l'accès à l'API %{tool_name} ou n'avez pas demandé "
 "le renouvellement de vos informations d'identification, veuillez nous contacte"
 "r à %{helpdesk_email}"
+
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:2
+msgid "Hello %{contact_name}"
+msgstr "Bonjour %{contact_name}"
+
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:11
+msgid "The DMP can be accessed through the API at the following url : %{link}"
+msgstr "Le plan est accessible via l'API à l'url suivante : %{link}"
 
 #: ../../app/views/branded/user_mailer/feedback_complete.html.erb:6
 msgid ""
@@ -4402,19 +4418,19 @@ msgstr "Référentiel introuvable"
 msgid "Plan is already shared with %{api_client}."
 msgstr "Le plan est déjà partagé avec %{api_client}."
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:22
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:23
 msgid "Plan shared with \"%{api_client}\" application successfully."
 msgstr "Plan partagé avec l'application \"%{api_client}\" avec succès."
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:25
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:26
 msgid "An error has occured while sharing the plan with \"%{api_client}\"."
 msgstr "Une erreur s'est produite lors du partage du plan avec \"%{api_client}\"."
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:29
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:30
 msgid "Please select an application in the list"
 msgstr "Veuillez sélectionner une application dans la liste"
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:43
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:44
 msgid "Successfully changed the permissions for %{api_client}."
 msgstr "Autorisations pour %{api_client} modifiées avec succès."
 
