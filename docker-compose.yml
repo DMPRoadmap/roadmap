@@ -71,6 +71,38 @@ services:
     networks:
       - dmpopidor_network
 
+  directus:
+    container_name: directus_app
+    image: directus/directus:${DIRECTUS_VERSION:-10.8.2}
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - ${DIRECTUS_PORT:-8055}:8055
+    environment:
+      - KEY=${DIRECTUS_KEY:-255d861b-5ea1-5996-9aa3-922530ec40b1}
+      - SECRET=${DIRECTUS_SECRET:-6116487b-cda1-52c2-b5b5-c8022c45e263}
+      - ADMIN_EMAIL=${DIRECTUS_ADMIN_EMAIL:-admin@example.com}
+      - ADMIN_PASSWORD=${DIRECTUS_ADMIN_PASSWORD:-changeme}
+      - DB_CLIENT=pg
+      - DB_HOST=${DB_HOST:-postgres}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_USER=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-changeme}
+      - DB_DATABASE=${DIRECTUS_DATABASE:-postgres}
+      - PUBLIC_URL=http://${DMP_SERVER_NAME:-localhost}:${NGINX_PORT:-8055}
+    volumes:
+      - ./data/directus/uploads:/directus/uploads
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8055/server/ping || exit 1" ]
+      interval: ${DIRECTUS_HEALTHCHECK_INTERVAL:-10s}
+      timeout: ${DIRECTUS_HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${DIRECTUS_HEALTHCHECK_RETRIES:-5}
+      start_period: ${DIRECTUS_HEALTHCHECK_START_PERIOD:-30s}
+    networks:
+      - dmpopidor_network
+
   nginx:
     image: nginx:1.25.4-alpine-slim
     ports:
@@ -103,7 +135,7 @@ services:
       - LC_CTYPE=fr_FR.utf8
       - LANG=fr_FR.utf8
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -q -U ${POSTGRES_USER:-postgres} -h localhost -p 5432"]
       interval: ${POSTGRES_HEALTHCHECK_INTERVAL:-30s}
