@@ -31,6 +31,7 @@ services:
       - RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
       - DOMAIN=${DOMAIN:-app}
       - ENABLE_SHIBBOLETH=${ENABLE_SHIBBOLETH:-false}
+      - ENABLE_THIRD_PARTY_FORM=${ENABLE_THIRD_PARTY_FORM:-false}
       - WEB_CONCURRENCY=${WEB_CONCURRENCY:-2}
       - RAILS_MAX_THREADS=${RAILS_MAX_THREADS:-5}
       - WICKED_PDF_PATH=${WICKED_PDF_PATH:-/usr/local/bin/wkhtmltopdf}
@@ -71,7 +72,7 @@ services:
       - dmpopidor_network
 
   nginx:
-    image: nginx:1.25.3-alpine-slim
+    image: nginx:1.25.4-alpine-slim
     ports:
       - ${NGINX_PORT:-8080}:80
     depends_on:
@@ -93,7 +94,7 @@ services:
       - dmpopidor_network
 
   postgres:
-    image: postgres:15.5-alpine3.19
+    image: postgres:15.6-alpine3.19
     environment:
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}

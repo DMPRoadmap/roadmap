@@ -55,7 +55,7 @@
       </table>
     <% end %>
 
-    <% if administerable  %>
+    <% if administerable && Rails.configuration.x.dmpopidor.enable_third_party_form %>
       <h2><%= _('Authorize third party applications') %></h2>
       <% new_client_role = ApiClientRole.new %>
       <% new_client_role.plan = @plan %>
