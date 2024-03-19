@@ -1,0 +1,19 @@
+<p>
+  <%= _('Hello %{contact_name}') %{ contact_name: @contact_name } %>
+</p>
+<p>
+  <%= _("%{username} has granted access to their Data Management Plan in %{tool_name}") % {
+      username: @user.name(false) + ' ( ' + @user.name(true) + " )" , tool_name: tool_name
+  } %>
+</p>
+
+<p>
+  <%= sanitize(_("The DMP can be accessed through the API at the following url : %{link}") % { link: @link }) %>
+</p>
+
+<p>
+  <%= (_("Please refer to the API documentation at: %{api_documentation_url}") % {
+    api_documentation_url: "<a href=\"#{@api_docs}\">#{@api_docs}</a>" }).html_safe
+   %>
+</p>
+<%= render partial: 'email_signature' %>
