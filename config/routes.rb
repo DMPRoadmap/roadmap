@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get 'login', to: 'home#login'
   get 'about_us', to: 'static/static_pages#show', name: 'about_us'
-  get 'help', to: 'static/static_pages#show', name: 'help'
+  get 'help', to: 'static/static_pages#help'
   get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
   get 'terms', to: 'static/static_pages#show', name: 'termsuse'
   get 'privacy', to: 'static/static_pages#show', name: 'privacy'
