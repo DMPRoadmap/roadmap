@@ -8,6 +8,10 @@ module Static
     # GET /static/:name
     def show; end
 
+    def help
+      render 'static_pages/help'
+    end
+
     private
 
     # Define static page to be rendered, 404 if needed
