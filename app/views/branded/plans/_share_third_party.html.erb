@@ -55,7 +55,6 @@
       </table>
     <% end %>
 
-    <% administerable = false # Deactivated this form for now %>
     <% if administerable  %>
       <h2><%= _('Authorize third party applications') %></h2>
       <% new_client_role = ApiClientRole.new %>
