@@ -6,6 +6,7 @@ import ContributorsTabLayout from './dmp_opidor_react/src/components/Contributor
 import GeneralInfoLayout from './dmp_opidor_react/src/components/GeneralInfo/GeneralInfoLayout.jsx';
 import PlanCreationLayout from './dmp_opidor_react/src/components/PlanCreation/PlanCreationLayout.jsx';
 import WritePlanLayout from './dmp_opidor_react/src/components/WritePlan/WritePlanLayout.jsx';
+import HelpLayout from './dmp_opidor_react/src/components/Help/HelpLayout.jsx';
 
 define({
   'dmp-news-page': NewsPageLayout,
@@ -14,4 +15,5 @@ define({
   'dmp-write-plan': WritePlanLayout,
   'dmp-comment': Comment,
   'dmp-contributors-tab': ContributorsTabLayout,
+  'dmp-help-page': HelpLayout,
 });
