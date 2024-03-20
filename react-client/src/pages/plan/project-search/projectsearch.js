@@ -230,7 +230,7 @@ function ProjectSearch() {
               <div className="dmpui-form-cols">
                 <div className="dmpui-form-col">
                   <TextInput
-                    label="Principle Investigator (PI)"
+                    label="Principal Investigator (PI)"
                     type="text"
                     required="required"
                     name="principle_investigator"

@@ -185,7 +185,7 @@ function Contributors() {
           </div>
           <p>
             Tell us about the project contributors for your project and, designate
-            the Primary Investigator (PI). You must specify a Primary Investigator
+            the Principal Investigator (PI). You must specify a Principal Investigator
             (PI) at minimum.
           </p>
 
