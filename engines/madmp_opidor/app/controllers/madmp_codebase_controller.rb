@@ -30,7 +30,7 @@ class MadmpCodebaseController < ApplicationController
     # }, status: 200
     # return
 
-    fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.include?('notifyer')
+    fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.downcase.include?('notifyer')
     begin
       response = fetch_run_data(fragment, script_name, script_owner, body: {
         data: fragment.data,
