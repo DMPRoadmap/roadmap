@@ -67,6 +67,7 @@
     "timeago.js": "^4.0.2",
     "tinymce": "^6.4.1",
     "web-vitals": "^3.3.2",
+    "webpack": "^5.90.3",
     "webpack-cli": "^5.0.1"
   },
   "devDependencies": {
@@ -84,8 +85,7 @@
     "karma-jasmine": "^5.1.0",
     "karma-jquery": "^0.2.4",
     "karma-json-fixtures-preprocessor": "^0.0.6",
-    "karma-webpack": "^5.0.0",
-    "webpack": "^5.90.3"
+    "karma-webpack": "^5.0.0"
   },
   "resolutions": {
     "webpack": "^5.75.0"
