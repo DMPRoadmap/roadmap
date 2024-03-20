@@ -559,7 +559,7 @@
     "StorageServices": {
         "path": "StorageServices.json"
     },
-    "ThesaurusInrae": {
-        "path": "ThesaurusInrae.json"
+    "Thésaurus INRAE": {
+        "path": "Thésaurus INRAE.json"
     }
 }
