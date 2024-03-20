@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 20/03/2024
+
+- Réactivation du formulaire de partage de plan à un client API
+- Ajout d'une notification mail envoyée lors d'un partage de plan à un client API. Ce mail est envoyé au contact déclaré lors de la création du client.
+
 ## 18/03/2024
 
 - Ajout d'une vidéo tuto (temporaire) en page d'accueil
