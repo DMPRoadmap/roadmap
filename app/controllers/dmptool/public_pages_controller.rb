@@ -55,10 +55,10 @@ puts sort_by
 
       # Build the facets list and retain the user's current search, sort and faceting selections
       @facets = cached_facet_options
-      build_facet(facet: :funders, ids: selected_facets[:funder_ids], plans: plan_ids, facet_pos_in_plans: 1)
-      build_facet(facet: :institutions, ids: selected_facets[:org_ids], plans: plan_ids, facet_pos_in_plans: 2)
-      build_facet(facet: :languages, ids: selected_facets[:lang_ids], plans: plan_ids, facet_pos_in_plans: 3)
-      build_facet(facet: :subjects, ids: selected_facets[:sub_ids], plans: plan_ids, facet_pos_in_plans: 4)
+      build_facet(facet: :funders, ids: selected_facets[:funder_ids], plans: plan_ids, facet_pos_in_plans: 2)
+      build_facet(facet: :institutions, ids: selected_facets[:org_ids], plans: plan_ids, facet_pos_in_plans: 3)
+      build_facet(facet: :languages, ids: selected_facets[:lang_ids], plans: plan_ids, facet_pos_in_plans: 6)
+      build_facet(facet: :subjects, ids: selected_facets[:sub_ids], plans: plan_ids, facet_pos_in_plans: 7)
       @facets = @facets.merge({ search: public_plans_params[:search], sort_by: public_plans_params[:sort_by] })
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

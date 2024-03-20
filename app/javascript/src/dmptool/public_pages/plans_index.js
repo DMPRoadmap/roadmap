@@ -29,10 +29,10 @@ $(() => {
       const searchField = form.find('#search');
 
       // Only allow Alphanumeric characters, space, shift, tab, enter/return and arrow keys in the search field
-      searchField.on('keydown', (e) => {
-        if ((e.which < 65 && ![9, 13, 32, 35, 36, 37, 39].includes(e.which) && e.which != 8) || e.which > 91 ) {
-          return false;
-        }
+      searchField.on('input', (e) => {
+        const currentValue = $(e.currentTarget).val();
+        const sanitizedValue = currentValue.replace(/[^a-zA-Z0-9\s]/g, '');
+        $(e.currentTarget).val(sanitizedValue);
       });
 
       // Display the spinner whenever the form is submitted to let the user know its working
