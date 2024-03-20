@@ -251,10 +251,8 @@ class Draft < ApplicationRecord
   end
 
   def safe_narrative_url
-    url = Rails.application.routes.url_helpers.rails_blob_url(narrative)
-    url = "#{Rails.configuration.x.dmproadmap.server_host}/#{url}" if url.start_with?('https://https/rails')
-    url = "https://#{url}" unless url.start_with?('http')
-    url
+    path = Rails.application.routes.url_helpers.rails_blob_path(narrative)
+    "#{Rails.configuration.x.dmproadmap.server_host}/#{path}"
   end
 
   def ensure_defaults(dmp:)
