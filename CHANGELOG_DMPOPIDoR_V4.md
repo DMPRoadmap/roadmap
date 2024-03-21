@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 21/03/2024
+
+- Corrections de textes diverses
+- L'icône de Commentaires n'est désormais plus affiché lorsque la question est fermée.
+
 ## 20/03/2024
 
 - Réactivation du formulaire de partage de plan à un client API
