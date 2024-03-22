@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 22/03/2024
+
+- Ajout du CMS Headless: Directus pour la page d'aide
+- Modification de la page d'aide pour la passer en ReactJS
+- Intérrogation Directus pour récupérer les informations de la page d'aide
+- Mise en place de l'inteface et utilisation des données de Directus
+
 ## 18/03/2024
 
 - Ajout d'une vidéo tuto (temporaire) en page d'accueil
