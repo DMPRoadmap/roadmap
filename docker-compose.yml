@@ -63,7 +63,7 @@ services:
     volumes:
       - ./log:/app/log
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -S -O - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
+      test: ["CMD-SHELL", "curl -s -v -o - http://localhost:3000 2>&1 | grep 'HTTP/1.1 200 OK'"]
       interval: ${DMPOPIDOR_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${DMPOPIDOR_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${DMPOPIDOR_HEALTHCHECK_RETRIES:-3}
@@ -73,7 +73,7 @@ services:
 
   directus:
     container_name: directus_app
-    image: directus/directus:${DIRECTUS_VERSION:-10.8.2}
+    image: directus/directus:${DIRECTUS_VERSION:-10.10.4}
     restart: always
     depends_on:
       postgres:
@@ -90,12 +90,12 @@ services:
       - DB_PORT=${DB_PORT:-5432}
       - DB_USER=${DB_USERNAME:-postgres}
       - DB_PASSWORD=${DB_PASSWORD:-changeme}
-      - DB_DATABASE=${DIRECTUS_DATABASE:-postgres}
-      - PUBLIC_URL=http://${DMP_SERVER_NAME:-localhost}:${NGINX_PORT:-8055}
+      - DB_DATABASE=${DIRECTUS_DATABASE:-directus}
+      - PUBLIC_URL=http://${DMP_SERVER_NAME:-0.0.0.0}:${NGINX_PORT:-8080}/directus
     volumes:
       - ./data/directus/uploads:/directus/uploads
     healthcheck:
-      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8055/server/ping || exit 1" ]
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8055/server/health || exit 1" ]
       interval: ${DIRECTUS_HEALTHCHECK_INTERVAL:-10s}
       timeout: ${DIRECTUS_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${DIRECTUS_HEALTHCHECK_RETRIES:-5}
@@ -117,11 +117,11 @@ services:
       - ./nginx/default.template:/etc/nginx/templates/default.conf.template:ro
       - ./public/:/var/www/html/public
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -S -O - http://localhost:80 2>&1 | grep 'HTTP/1.1 200 OK'"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:80/health || exit 1"]
       interval: ${NGINX_HEALTHCHECK_INTERVAL:-30s}
       timeout: ${NGINX_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${NGINX_HEALTHCHECK_RETRIES:-3}
-      start_period: ${POSTGRES_HEALTHCHECK_START_PERIOD:-0s}
+      start_period: ${NGINX_HEALTHCHECK_START_PERIOD:-0s}
     networks:
       - dmpopidor_network
 
