@@ -1,5 +1,9 @@
 # Changelog
 
+## V4.1.2 or V4.2.0
+
+### Fixed 
+- Fixed rubocop errors after V4.1.1 release 
 ## V4.1.1
 
 ### Added
