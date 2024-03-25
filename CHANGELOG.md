@@ -148,7 +148,7 @@ We sometimes use the button native Dom element to programmatically click, as the
     * `text-*` utilities do not add hover and focus states to links anymore. `link-*` helper classes can be used instead.
 
 ### Fixed 
-- Fixed rubocop errors after V4.1.1 release
+- Fixed rubocop errors after V4.1.1 release 
 
 ## V4.1.1
 
