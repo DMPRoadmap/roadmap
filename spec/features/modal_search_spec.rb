@@ -45,7 +45,6 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
     # Verify that the selection was added to the main page's dom
     expect(page).not_to have_text('Repository search')
     expect(page).to have_text(@model.description)
-    save_screenshot
     # Verify that we can remove the selection
     click_link 'Remove'
     expect(page).not_to have_text(@model.description)
