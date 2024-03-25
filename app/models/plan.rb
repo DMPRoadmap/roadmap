@@ -677,7 +677,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def shared?
-    roles.select(&:active).reject(&:creator).any?
+    roles.select(&:active).reject(&:creator).any? || api_client_roles.reject(&:creator).any?
   end
 
   alias shared shared?
