@@ -44,7 +44,7 @@ RSpec.feature 'Templates::Editing', type: :feature do
       click_button 'Save'
     end
     # Make sure annotation has been updated
-    expect(Question.find(template.question_ids.first).annotations.first.text).to eql('Foo bar')
+    expect(Question.find(template.question_ids.first).annotations.first.text).to eql('<p>Foo bar</p>')
     # Make sure blank records are not created for empty annotation form
     expect(Question.find(template.question_ids.first).annotations.count).to eql(1)
     expect(page).not_to have_errors
