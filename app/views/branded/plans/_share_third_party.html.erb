@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div id="api_client_roles" class="panel-collapse collapse plan-details-content" role="tabpanel" aria-labelledby="heading-api-client-roles">
+<div id="api_client_roles" class="panel-collapse collapse <%= 'in' if @plan_client_roles.any? %> plan-details-content" role="tabpanel" aria-labelledby="heading-api-client-roles">
   <div class="panel-body">
     <p><%= _('An "external service" can be provided by an organisation, a platform or a data infrastructure. These services are allowed (by DMP OPIDoR team) to automatically collect information that is being captured in data management plan, once you have given them the authorization, in order to offer you some services.') %></p>
     <% if @plan_client_roles.any? then %>
