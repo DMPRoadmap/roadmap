@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 25/03/2024
+
+- Correction d'un problème d'export PDF/DOCX des plans entité
+- Correction d'un problème d'enregistrement des champs texte multiples (mots clés non controlés)
+- Les plans du tableau de bord sont marqués comme Partagé quand un client a accès au plan.
+- La zone Services Externes est désormais ouverte quand un client a accès au plan
+
 ## 21/03/2024
 
 - Corrections de textes diverses

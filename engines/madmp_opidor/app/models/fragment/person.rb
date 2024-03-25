@@ -21,7 +21,7 @@
 module Fragment
   # Budget STI model
   class Person < MadmpFragment
-    NON_RO_CLASSES = %w[meta project].freeze
+    NON_RO_CLASSES = %w[meta project research_entity].freeze
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def roles(selected_research_outputs = nil)
