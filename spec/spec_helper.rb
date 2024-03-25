@@ -110,18 +110,7 @@ RSpec.configure do |config|
   end
 
   # Enable Capybara webmocks if we are testing a feature
-  config.before(:each) do |example|
-    if example.metadata[:type] == :feature
-      # Capybara::Webmock.start
-
-      # Allow Capybara to make localhost requests and also contact the
-      # google api chromedriver store
-      # WebMock.disable_net_connect!(
-      #   allow_localhost: true,
-      #   allow: %w[chromedriver.storage.googleapis.com]
-      # )
-    end
-
+  config.before(:each) do
     # Ensure that there is always a default Language
     create(:language, abbreviation: 'en', default_language: true) unless Language.default.present?
   end
