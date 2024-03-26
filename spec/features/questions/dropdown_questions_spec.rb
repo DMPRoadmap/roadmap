@@ -26,7 +26,7 @@ RSpec.describe 'Questions::Dropdown questions', type: :feature do
     # Expectations
     expect(current_path).to eql(edit_plan_path(@plan))
     # 4 sections x 3 questions
-    expect(page).to have_text('0/1 answered')
+    expect(page).to have_text('(0 / 1)')
 
     # Action
     find("#section-panel-#{@section.id}").click

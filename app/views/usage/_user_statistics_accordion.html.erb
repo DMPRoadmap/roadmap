@@ -1,29 +1,21 @@
 <%# locals: expanded %>
-
-<div class="panel panel-default">
-  <a href="#user_statistics" class="heading-button"
-     data-toggle="collapse" data-parent="usage-accordion"
-     data-target="#collapseUserStatistics"
-     aria-expanded="true" aria-controls="#collapseUserStatistics">
-
-    <div class="panel-heading" role="tab" id="headingUserStatistics">
-      <div class="panel-title pull-left">
+ <div class="accordion-item w-100 my-3">
+ <h2 class="accordion-header" id="headingUserStatistics">
+      <button href="#user_statistics" type="button"
+             class="accordion-button collapsed" data-bs-toggle="collapse" 
+             data-bs-target="#collapseUserStatistics" aria-expanded="false" aria-controls="collapseUserStatistics">
         <%= _('Statistics on your Users') %>
-      </div>
-      <div class="pull-right">
-        <i class="fas fa-<%= expanded ? 'minus' : 'plus' %> pull-right" aria-hidden="true"></i>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-  </a>
+      </button>
+    </h2>
+
+
   <div id="collapseUserStatistics"
-       class="panel-collapse collapse <%='in' if expanded %>"
-       role="tabpanel" aria-labled-by="headingUserStatistics">
-    <div class="panel-body">
-
+       class="card collapse"
+       role="tabpanel" 
+       aria-labelledby="headingUserStatistics"
+       data-bs-parent="#usage-accordion">
+    <div class="accordion-body card card-body">
       <%= render partial: 'usage/user_statistics' %>
-
     </div>
   </div>
-
 </div>

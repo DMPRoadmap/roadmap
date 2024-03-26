@@ -1,6 +1,6 @@
 // TODO: Refactor this. Instead of writing specific CSS rules for particular objects,
 // we should provide utility classes which can provide the desired style to this object
 .remove-org-link i {
-  margin-left: $grid-gutter-width / -2;
+  margin-left: calc($grid-gutter-width / -2);
   margin-top: $grid-gutter-width;
 }

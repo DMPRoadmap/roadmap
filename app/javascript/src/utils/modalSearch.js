@@ -16,8 +16,8 @@ $(() => {
 
           if (selectionsBlock.length > 0) {
             const clone = selectedBlock.clone();
-            clone.find('.modal-search-result-selector').addClass('hidden');
-            clone.find('.modal-search-result-unselector').removeClass('hidden');
+            clone.find('.modal-search-result-selector').addClass('d-none');
+            clone.find('.modal-search-result-unselector').removeClass('d-none');
             clone.find('.tags').remove();
             selectionsBlock.append(clone);
             selectedBlock.remove();

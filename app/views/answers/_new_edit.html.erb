@@ -65,17 +65,17 @@
     <% elsif question.question_format.date? %>
         <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, locking: locking, readonly: readonly }) %>
     <% end %>
-    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+    <%= f.button(_('Save'), class: "btn btn-secondary", type: "submit") %>
   </fieldset>
   <!--Example Answer area -->
   <% if template.present? && template.org.present? %>
     <% question.example_answers([base_template_org.id, template.org.id]).each do |annotation| %>
       <% if annotation.present? && annotation.org.present? && annotation.text.present? %>
-        <div class="panel panel-default">
-          <span class="label label-default">
+        <div class="card card-default">
+          <span class="badge bg-secondary">
             <%="#{annotation.org.abbreviation} "%><%=_('example answer')%>
           </span>
-          <div class="panel-body">
+          <div class="card-body">
             <div class="display-readonly-textarea-content"><%= sanitize annotation.text %></div>
           </div>
         </div>

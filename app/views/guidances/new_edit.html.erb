@@ -14,15 +14,15 @@ end
 <div class="row">
   <div class="col-xs-12">
     <h1><%= _('Guidance') %></h1>
-    <%= link_to _('View all guidance'), admin_index_guidance_path(current_user.org_id), class: 'btn btn-default pull-right' %>
+    <%= link_to _('View all guidance'), admin_index_guidance_path(current_user.org_id), class: 'btn btn-secondary float-end' %>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
     <%= form_for(@guidance, url: url, html: { method: method , id: 'new_edit_guidance'}) do |f| %>
-      <div class="form-group" data-toggle="tooltip" title="<%= guidance_text_tooltip %>">
+      <div class="form-control mb-3" data-toggle="tooltip" title="<%= guidance_text_tooltip %>">
         <em class="sr-only"><%= guidance_text_tooltip %></em>
-        <%= f.label :text, class: 'control-label' %>
+        <%= f.label :text, class: 'form-label' %>
         <%= f.text_area :text, rows: 10, class: "form-control", spellcheck: true,
                         aria: { required: true } %>
       </div>
@@ -30,13 +30,13 @@ end
                  locals: { f: f, all_themes: Theme.all.order("title"), as_radio: false, required: true,
                            in_error: @guidance.errors[:themes].present?,
                            popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags.') } %>
-      <div class="form-group">
-        <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'control-label' %>
+      <div class="form-control mb-3">
+        <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'form-label' %>
         <%= f.collection_select(:guidance_group_id,
                 GuidanceGroup.where(org_id: current_user.org_id).order("name ASC"),
                 :id, :name, {prompt: false}, {multiple: false, 'data-toggle': 'tooltip', title: _('Select which group this guidance relates to.'), class: 'form-control', 'aria-required': true})%>
       </div>
-      <div class="checkbox">
+      <div class="form-check">
         <%= f.label :published do %>
           <%= f.check_box :published,
                           as: :check_boxes,
@@ -45,7 +45,7 @@ end
           <%= _('Published?') %>
         <% end %>
       </div>
-      <div class="form-group clear-fix">
+      <div class="form-control mb-3 clear-fix">
         <%= f.submit _('Save'), name: "edit_guidance_submit", class: "btn btn-primary" %>
         <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>
       </div>

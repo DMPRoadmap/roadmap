@@ -1,12 +1,15 @@
 @use 'accessibility';
+@use 'accordion';
 @use 'alerts';
 @use 'autocomplete';
 @use 'buttons';
+@use 'cards';
 @use 'clearable_field';
 @use 'datepicker';
 @use 'display';
 @use 'dropdowns';
 @use 'font_awesomes';
+@use 'forms';
 @use 'footers';
 @use 'help_blocks';
 @use 'html';
@@ -23,7 +26,6 @@
 @use 'new_plans_form';
 @use 'new_window_popup';
 @use 'notification_areas';
-@use 'panels';
 @use 'profile_form';
 @use 'progress';
 @use 'project_details';

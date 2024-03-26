@@ -1,63 +1,71 @@
-<nav id="app-navbar" class="navbar navbar-inverse">
+<nav id="app-navbar" class="navbar navbar-expand-md navbar-branding">
   <div class="container-fluid" >
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-menu" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+    <div class="navbar-header d-sm-flex justify-content-sm-between">
+      <!-- Brand and toggle get grouped for better mobile display -->
       <%= link_to(image_tag("logo.png",
                             alt: "#{ApplicationService.application_name} #{_('logo')}",
-                            class: "app-logo",
+                            class: "app-logo me-sm-auto",
                             title: ApplicationService.application_name),
                   root_path) %>
     </div>
+   
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#app-navbar-menu" aria-controls="app-navbar-menu" 
+            aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+    </button>
+
 
     <!-- Collect the nav links, forms, and other content for toggling -->
+  
     <div class="collapse navbar-collapse" id="app-navbar-menu">
-      <ul class="nav navbar-nav">
+      <ul class="navbar-nav">
         <% if user_signed_in? %>
-          <li <%= 'class=active' if active_page?(plans_path, true)%>>
-            <%= link_to _('My Dashboard'), plans_path %>
+          <li class="nav-item <%= ' active' if active_page?(plans_path, true) %>">
+            <%= link_to _('My Dashboard'), plans_path, class: 'nav-link' %>
           </li>
-          <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
-            <%= link_to _('Create plans'), new_plan_path %>
+          <li class="nav-item <%= ' active' if active_page?(new_plan_path, true) %>">
+            <%= link_to _('Create plans'), new_plan_path, class: 'nav-link' %>
           </li>
-            <li class="dropdown <%= 'active' if active_page?(public_plans_path, true) || active_page?(public_templates_path, true) %>" id="reference-dropdown">
-              <a href="#" class="dropdown-toggle" role="button" id="reference-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-book" aria-hidden="true">&nbsp;</i>
-                <%= _("Reference") %>
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu inverse-dropdown" aria-labelledby="reference-menu">
-                <li <%= 'class=active' if active_page?(public_plans_path) %>>
-                  <%= link_to _('Public DMPs'), public_plans_path %>
-                </li>
-                <li <%= 'class=active' if active_page?(public_templates_path) %>>
-                  <%= link_to _('DMP Templates'), public_templates_path %>
-              </ul>
+          <li class="dropdown <%= ' active' if active_page?(public_plans_path, true) || active_page?(public_templates_path, true) %>" id="reference-dropdown">
+            <a href="#" class="dropdown-toggle nav-link" role="button" id="reference-menu" data-bs-toggle="dropdown" data-bs-display="static" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-book" aria-hidden="true">&nbsp;</i>
+              <%= _("Reference") %>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" 
+                data-bs-popper="static" aria-labelledby="reference-menu">
+              <li class="nav-item <%= ' active' if active_page?(public_plans_path) %>">
+                <%= link_to _('Public DMPs'), public_plans_path, class: 'dropdown-item  px-3' %>
+              </li>
+              <li class="nav-item <%= ' active' if active_page?(public_templates_path) %>">
+                <%= link_to _('DMP Templates'), public_templates_path, class: 'dropdown-item  px-3' %>
+              </li>
+            </ul>
           </li>
         <% else %>
-          <li <%= 'class=active' if active_page?(root_path, true) || active_page?(plans_path, true) %>>
-            <%= link_to _('Home'), root_path %>
+          <li class="nav-item <%= ' active' if active_page?(root_path, true) || active_page?(plans_path, true) %>">
+            <%= link_to _('Home'), root_path, class: 'nav-link' %>
           </li>
-          <li <%= 'class=active' if active_page?(public_plans_path, true) %>>
-            <%= link_to _('Public DMPs'), public_plans_path %>
+          <li class="nav-item <%= ' active' if active_page?(public_plans_path, true) %>">
+            <%= link_to _('Public DMPs'), public_plans_path, class: 'nav-link' %>
           </li>
-          <li <%= 'class=active' if active_page?(public_templates_path, true) %>>
-            <%= link_to _('DMP Templates'), public_templates_path %>
+          <li class="nav-item <%= ' active' if active_page?(public_templates_path, true) %>">
+            <%= link_to _('DMP Templates'), public_templates_path, class: 'nav-link' %>
           </li>
         <% end %>
         <!-- help page -->
-        <li <%= 'class=active' if active_page?(help_path, true) %>>
-          <%= link_to _('Help'), help_path %>
+        <li class="nav-item <%= ' active' if active_page?(help_path, true) %>">
+          <%= link_to _('Help'), help_path, class: 'nav-link' %>
         </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-          <%= render "layouts/signin_signout" %>
+
+      <ul class="navbar-nav ms-auto">
+        <%= render "layouts/signin_signout" %>
       </ul>
+      
+      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

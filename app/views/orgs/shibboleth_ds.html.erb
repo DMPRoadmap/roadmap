@@ -8,8 +8,8 @@
 <div class="row">
   <div class="col-md-12">
     <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, namespace: 'shib-ds', html: {id: 'shibboleth_ds'} do |f| %>
-      <div class="form-group col-xs-8">
-        <%= f.label(:org_name, _('Look up your organisation here'), class: "control-label") %>
+      <div class="form-control mb-3 col-xs-8">
+        <%= f.label(:org_name, _('Look up your organisation here'), class: "form-label") %>
 
         <% if @orgs.length <= 10 %>
           <select id="org_id" name="org_id">
@@ -27,7 +27,7 @@
                                classes: '' } %>
         <% end %>
 
-        <%= f.button(_('Go'), class: "btn btn-default", type: "submit") %>
+        <%= f.button(_('Go'), class: "btn btn-secondary", type: "submit") %>
 
         <% if @orgs.length > 10 %>
           <p class="centered">

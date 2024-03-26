@@ -10,7 +10,7 @@
         <%= _('If you would like to modify one of the templates below, you must first change your organisation affiliation.') %>
       </p>
     </div>
-    <div class="col-md-6">
+    <div class="form-control col-md-6">
       <%= form_for current_user, url: user_org_swaps_path(current_user),
                                  namespace: 'superadmin',
                                  method: "post",
@@ -22,7 +22,7 @@
                         orgs: @orgs,
                         required: false
                       } %>
-        <%= f.submit _('Change affiliation'), class: 'btn btn-default' %>
+        <%= f.submit _('Change affiliation'), class: 'btn btn-secondary' %>
       <% end %>
     </div>
   <% end %>
@@ -39,15 +39,15 @@
     <ul class="nav nav-tabs" role="tablist">
 
       <% if current_user.can_super_admin? %>
-        <li role="presentation" class="<%= action_name == 'index' ? 'active' : '' %>">
-          <%= link_to(_('All Templates'), org_admin_templates_path, { role: 'tab' }) %>
+        <li role="presentation" class="<%= action_name == 'index' ? 'nav-item active' : 'nav-item' %>">
+          <%= link_to(_('All Templates'), org_admin_templates_path, { class: 'nav-link' }) %>
         </li>
       <% end %>
 
       <li role="presentation"
-          class="<%= action_name == 'organisational' ? 'active' : '' %>">
+          class="<%= action_name == 'organisational' ? 'nav-item active' : 'nav-item' %>">
 
-        <%= link_to(organisational_org_admin_templates_path, { role: 'tab' }) do %>
+        <%= link_to(organisational_org_admin_templates_path, { class: 'nav-link' }) do %>
           <% if current_user.can_super_admin? %>
             <% _('%{org_name} Templates') % { org_name: current_user.org.name } %>
           <% else %>
@@ -59,17 +59,17 @@
 
       <% if !current_user.org.funder_only? %>
         <li role="presentation"
-            class="<%= action_name == 'customisable' ? 'active' : '' %>">
+            class="<%= action_name == 'customisable' ? 'nav-item active' : 'nav-item' %>">
           <%= link_to(_('Customisable Templates'),
-              customisable_org_admin_templates_path, { role: 'tab' }) %>
+              customisable_org_admin_templates_path, { class: 'nav-link' }) %>
         </li>
       <% end %>
     </ul>
 
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
-        <div class="panel panel-default">
-          <div class="panel-body template-scope">
+        <div class="card card-default">
+          <div class="card-body template-scope">
             <h2><%= @title %></h2>
             <div class="template-table-filters">
               <% filter_path = "/paginable/templates/#{action_name}/#{1}" %>

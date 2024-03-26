@@ -32,13 +32,14 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
       fill_in 'research_output_search_term',	with: @model.name
       click_button 'Apply filter(s)'
       expect(page).to have_text(@model.description)
-
       # Select the repository and make sure it no longer appears in the search results
       click_link 'Select'
       expect(page).not_to have_text(@model.description)
 
+      # Using JS to click on button, as click_button '.modal-header button.btn-close' did not work.
+      modal_close_button = find('.modal-header button.btn-close')
       # Close the modal
-      click_button 'Close'
+      execute_script('arguments[0].click();', modal_close_button)
     end
 
     # Verify that the selection was added to the main page's dom

@@ -27,9 +27,9 @@ RSpec.describe 'SuperAdmins Orgs', type: :feature, js: true do
     # Edit the first org in the table
     find('table .dropdown-toggle').click
     find('.dropdown-menu > li > a').click
-    nbr_links = all('.link').length
+    nbr_links = all('input[name="link_link"]').length
     add_link
-    expect(all('.link').length).to eql(nbr_links + 1)
+    expect(all('input[name="link_link"]').length).to eql(nbr_links + 1)
   end
 
   scenario 'Super admin removes links' do
@@ -39,8 +39,8 @@ RSpec.describe 'SuperAdmins Orgs', type: :feature, js: true do
     find('table .dropdown-toggle').click
     find('.dropdown-menu > li > a').click
     add_link
-    nbr_links = all('.link').length
+    nbr_links = all('input[name="link_link"]').length
     remove_link
-    expect(all('.link').length).to eql(nbr_links - 1)
+    expect(all('input[name="link_link"]').length).to eql(nbr_links - 1)
   end
 end

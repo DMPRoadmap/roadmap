@@ -24,15 +24,15 @@
                 class="btn btn-link dropdown-toggle"
                 type="button"
                 id="org-<%= org.id %>-actions"
-                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="true">
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="org-<%= org.id %>-actions">
-                <li><%= link_to _('Edit'), admin_edit_org_path(org) %></li>
+                <li class="nav-item"><%= link_to _('Edit'), admin_edit_org_path(org), class:'dropdown-item px-3' %></li>
                 <% unless org.user_count > 0 || org.template_count > 0 || org.contributors.length > 0 || org.plans.length > 0 %>
-                  <li><%= link_to _('Remove'), super_admin_org_path(org), data: {confirm: _("You are about to delete '%{org_name}'. Are you sure?") % { org_name: org.name}}, method: :delete %></li>
+                  <li class="nav-item"><%= link_to _('Remove'), super_admin_org_path(org), data: {confirm: _("You are about to delete '%{org_name}'. Are you sure?") % { org_name: org.name}}, method: :delete, class:'dropdown-item px-3' %></li>
                 <% end %>
               </ul>
             </div>

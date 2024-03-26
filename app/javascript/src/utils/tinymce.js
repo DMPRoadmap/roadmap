@@ -16,6 +16,7 @@ import 'tinymce/plugins/lists';
 import 'tinymce/plugins/autoresize';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/advlist';
+import 'tinymce/plugins/autolink';
 
 // Other dependencies
 import { isObject, isString, isUndefined } from './isType';
@@ -27,7 +28,7 @@ export const defaultOptions = {
   statusbar: true,
   menubar: false,
   toolbar: 'bold italic | bullist numlist | link | table',
-  plugins: 'table autoresize link advlist lists',
+  plugins: 'table autoresize link advlist lists autolink',
   browser_spellcheck: true,
   advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
   target_list: false,
@@ -37,7 +38,7 @@ export const defaultOptions = {
   autoresize_bottom_margin: 10,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
-  paste_as_text: true,
+  paste_as_text: false,
   paste_block_drop: true,
   paste_merge_formats: true,
   paste_tab_spaces: 4,

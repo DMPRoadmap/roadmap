@@ -1,7 +1,7 @@
 <fieldset class="annotation_fields" id="<%= unique_dom_id(f.object, "fields") %>">
-  <div class="form-group col-md-10">
+  <div class="form-control mb-3 col-md-10">
     <% lbl = f.object.type.humanize.downcase == 'example answer' ? _('Example answer') : _('Guidance') %>
-    <%= f.label(:type, lbl, class: "control-label") %>
+    <%= f.label(:type, lbl, class: "form-label") %>
     <div data-toggle="tooltip" title="<%= tooltip_for_annotation_text(f.object) %>">
       <em class="sr-only"><%= tooltip_for_annotation_text(f.object) %></em>
       <%= f.text_area(:text, class: 'question', spellcheck: true,

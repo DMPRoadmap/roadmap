@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1><%= @template.title %></h1>
-    <div class="pull-right">
+    <div class="float-end">
       <ul class="list-inline">
         <% if @template.latest? %>
           <% if @template.customization_of.present? %>
@@ -34,16 +34,16 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active">
-        <%= link_to _('Write plan'), '#', class: 'preview-tab' %>
+      <li role="presentation" class=" nav-item active">
+        <%= link_to _('Write plan'), '#', class: 'nav-link preview-tab' %>
       </li>
     </ul>
 
     <!-- render phase below -->
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card card-default">
+          <div class="card-body">
             <%= render partial: '/phases/edit_plan_answers',
                   locals: {
                     plan: nil,

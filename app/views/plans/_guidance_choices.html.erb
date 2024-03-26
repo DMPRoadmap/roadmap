@@ -1,7 +1,7 @@
 <%# locals: choices, current_selections %>
 <% choices.each do |org, groups| %>
   <% if groups && groups.size == 1 %>
-    <li class="checkbox">
+    <li class="form-check">
       <%= check_box_tag "guidance_group_ids[]",
                         groups[0].id,
                         current_selections.include?(groups[0].id),
@@ -10,11 +10,11 @@
       <%= org.name %>
     </li>
   <% elsif groups %>
-    <li class="checkbox">
+    <li class="form-check">
       <%= org.name %>
       <ul>
         <% groups.each do |group| %>
-          <li class="checkbox">
+          <li class="form-check">
             <span class="sublist">└─ </span>
             <%= check_box_tag "guidance_group_ids[]",
                               group.id,

@@ -22,7 +22,7 @@ args[:data] = { remote: true, url: plan_license_selection_path(research_output.p
 %>
 <div class="col-md-12">
   <span class="col-md-4">
-    <%= label_tag _("Initial license"), _("Initial license"), class: "control-label" %>
+    <%= label_tag _("Initial license"), _("Initial license"), class: "form-label" %>
     <%= select_tag "research_output[license_id]", options_for_select(options, selected), args %>
   </span>
   <span class="col-md-4">

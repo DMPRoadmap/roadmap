@@ -49,37 +49,39 @@
           <% if action_name != 'index' %>
             <td>
               <div class="dropdown">
-                <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <%= _('Actions') %><span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><%= link_to _('Edit'), edit_org_admin_template_path(template.id) %></li>
-                  <li><%= link_to _('History'), history_org_admin_template_path(template.id) %></li>
+                  <li><%= link_to _('Edit'), edit_org_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
+                  <li><%= link_to _('History'), history_org_admin_template_path(template.id), class: 'dropdown-item px-3' %></li>
                   <% if template.draft? || template.published? %>
-                    <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
+                    <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
                   <% end %>
                   <% if template.draft? %>
-                    <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template), 'data-method': 'patch' %></li>
+                    <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
                   <% elsif !template.published? %>
-                    <li><%= link_to _('Publish'), publish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
+                    <li><%= link_to _('Publish'), publish_org_admin_template_path(template.id), 'data-method': 'patch', class: 'dropdown-item px-3' %></li>
                   <% end %>
                   <li>
                     <%= link_to _('Copy'),
                         org_admin_template_copies_path(template.id),
-                        data: { method: 'post' }
+                        data: { method: 'post' },
+                        class: 'dropdown-item px-3'
                     %>
                   </li>
                   <% if template.removable? %>
                     <li>
                       <%= link_to _('Remove'), org_admin_template_path(id: template.id),
                                   'data-method': 'delete', rel: 'nofollow',
-                                  'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
+                                  'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title},
+                                  class: 'dropdown-item px-3' %>
                     </li>
                   <% end %>
                   <li><%= link_to template_export_org_admin_template_url(template, format: :pdf),
                                   title: export_as_pdf,
                                   target: '_blank',
-                                  class: 'has-new-window-popup-info' do %>
+                                  class: 'has-new-window-popup-info dropdown-item px-3' do %>
                           <%= export_as_pdf %>
                           <em class="sr-only"><%= _('(new window)') %></em>
                           <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
@@ -87,7 +89,7 @@
                   </li>
                   <li>
                     <%= direct_link(template, true) %>
-                    <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><%= _('Copy link') %></a>
+                    <a href="" class="copy-link dropdown-item px-3" data-bs-toggle="modal" data-bs-target="#link-modal"><%= _('Copy link') %></a>
                   </li>
                 </ul>
               </div>

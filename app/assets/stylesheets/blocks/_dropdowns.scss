@@ -40,3 +40,10 @@
 .nav-pills > li > a {
   border-radius: 0px;
 }
+
+/* custom styling for dropdown menus */
+.dropdown-menu {
+  border-radius: 0px;
+  border: 1px solid $color-border-default;
+  // box-shadow: 0px 0px 1px 1px $color-primary-background;
+}

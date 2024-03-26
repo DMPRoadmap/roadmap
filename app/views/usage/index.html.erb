@@ -14,7 +14,7 @@
 <% if @funder.present? %>
   <%= render partial: 'usage/template_statistics' %>
 <% else %>
-  <div class="panel-group usage-accordion" role="tablist" aria-multiselectable="true">
+  <div  id="usage-accordion" class="accordion" role="tablist" aria-multiselectable="true">
     <%= render partial: 'usage/user_statistics_accordion', locals: {expanded: true} %>
     <%= render partial: 'usage/template_statistics_accordion', locals: {expanded: false} %>
   </div>

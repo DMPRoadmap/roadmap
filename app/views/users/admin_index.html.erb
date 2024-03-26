@@ -19,7 +19,7 @@
   <div class="col-md-12">
     <%- # Only display Download Csv button for non super-admin users -%>
     <% if !current_user.can_super_admin? %>
-      <%= button_to _('Download users'), admin_index_users_path(format: 'csv'), class: 'btn btn-default pull-right', method: 'get' %>
+      <%= button_to _('Download users'), admin_index_users_path(format: 'csv'), class: 'btn btn-secondary float-end', method: 'get' %>
     <% end %>
     <div class="table-responsive">
       <%= paginable_renderise(

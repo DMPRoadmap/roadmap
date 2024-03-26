@@ -9,8 +9,8 @@
   <div class="col-md-12">
     <% if @feedback_plans.length > 0 %>
       <h2><%= _('Notifications') %></h2>
-      <div class="panel panel-default">
-        <div class="panel-body notifications">
+      <div class="card card-default">
+        <div class="card-body notifications">
           <table class="table">
             <thead>
               <th scope="col"><%= _('Plan') %></th>
@@ -41,7 +41,7 @@
                            tags: %w{ span em }),
                   org_admin_download_plans_path(format: :csv),
                   target: '_blank',
-                  class: 'btn btn-default pull-right has-new-window-popup-info' %>
+                  class: 'btn btn-secondary float-end has-new-window-popup-info' %>
       <% end %>
       <div class="table-responsive">
         <%= paginable_renderise(

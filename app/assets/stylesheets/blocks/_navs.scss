@@ -19,44 +19,58 @@ nav ul {
 }
 
 
-// Overrides Bootstrap 3.0's nav-tabs
+// Overrides Bootstrap 
 
 /* nav-tabs and nav-pills styling */
+
 .nav-tabs, .nav-pills {
   background-color: $color-primary-background;
   color: $color-primary-text;
-  border-bottom: 0px;
+  border-radius: 0px;
 }
-.nav-tabs > li > a, .nav-pills > li > a {
+
+.nav-tabs .nav-item .nav-link, .nav-pills .nav-item .nav-link {
+  border-radius: 0px;
+}
+
+.nav-link {
   color: $color-primary-text;
+  border-radius: 0px;
 }
-.nav-tabs > li > a:hover,
-.nav-tabs > li > a:focus,
-.nav-tabs > li > a.active,
-.nav-tabs > li > a.active:focus,
-.nav-tabs > li > a.active:hover {
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link.active:focus,
+.nav-tabs .nav-link.active:hover {
   background-color: $color-secondary-background;
   color: $color-secondary-text;
   border: 1px solid $color-border-default;
   border-bottom-color: transparent; /* Only nav-tabs have a transparent border-bottom */
 }
-.nav-pills > li > a:hover,
-.nav-pills > li > a:focus,
-.nav-pills > li > a.active,
-.nav-pills > li > a:focus.active,
-.nav-pills > li > a:hover.active {
+
+.nav-pills .nav-link:hover,
+.nav-pills .nav-link:focus,
+.nav-pills .nav-link.active,
+.nav-pills .nav-link:focus.active,
+.nav-pills .nav-link:hover.active {
   background-color: $color-secondary-background;
   color: $color-secondary-text;
   border: 1px solid $color-border-default;
 }
-.nav-pills > li:last-child > a:hover,
-.nav-pills > li:last-child > a:focus,
-.nav-pills > li:last-child > a.active,
-.nav-pills > li:last-child > a.active:focus,
-.nav-pills > li:last-child > a.active:hover {
+
+.nav-pills li:first-child .nav-link:hover,
+.nav-pills li:first-child .nav-link:focus,
+.nav-pills li:first-child .nav-link.active,
+.nav-pills li:first-child .nav-link.active:focus,
+.nav-pills li:first-child .nav-link.active:hover,
+.nav-pills li:last-child .nav-link:hover,
+.nav-pills li:last-child .nav-link:focus,
+.nav-pills li:last-child .nav-link.active,
+.nav-pills li:last-child .nav-link.active:focus,
+.nav-pills li:last-child .nav-link.active:hover {
   border-right: 0px;
+  background-color: $color-secondary-background;
+  color: $color-secondary-text;
 }
-.nav-tabs > li > a,
-.nav-pills > li > a {
-  border-radius: 0px;
-}
+

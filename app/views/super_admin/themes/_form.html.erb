@@ -1,21 +1,21 @@
 <% url = @theme.new_record? ? super_admin_themes_path : super_admin_theme_path(@theme) %>
 
  <%= form_for @theme, url: url, html: { class: 'theme' } do |f| %>
-   <div class="form-group">
-     <%= f.label(:title, _('Title'), class: 'control-label') %>
+   <div class="form-control mb-3">
+     <%= f.label(:title, _('Title'), class: 'form-label') %>
      <%= f.text_field(:title, class: "form-control", spellcheck: true, "aria-required": true) %>
    </div>
-   <div class="form-group">
+   <div class="form-control mb-3">
      <%= f.label(:description, _('Guidance')) %>
      <%= f.text_area(:description, class: "form-control", rows: 10, spellcheck: true) %>
    </div>
-   <div class="pull-right">
-     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+   <div class="float-end">
+     <%= f.button(_('Save'), class: "btn btn-secondary", type: "submit") %>
      <% unless @theme.new_record? %>
-       <%= link_to(_('Delete'), super_admin_theme_path(@theme), class: 'btn btn-default',
+       <%= link_to(_('Delete'), super_admin_theme_path(@theme), class: 'btn btn-secondary',
          rel: 'nofollow', 'data-method': 'delete',
          'data-confirm': _("Are you sure you want to delete the theme \"%{title}\"?") % { title: @theme.title }) %>
      <% end %>
-     <%= link_to(_('Cancel'), super_admin_themes_path, class: 'btn btn-default', role: 'button') %>
+     <%= link_to(_('Cancel'), super_admin_themes_path, class: 'btn btn-secondary', role: 'button') %>
    </div>
  <% end %>

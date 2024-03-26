@@ -1,9 +1,9 @@
 <%# locals: { f, question, answer } %>
 <% options = question.question_options.by_number %>
 <% if question.question_format.checkbox? || question.question_format.multiselectbox? %>
-    <%= f.label(:question_option_ids, sanitize(question.text), class: 'control-label') %>
+    <%= f.label(:question_option_ids, sanitize(question.text), class: 'form-label') %>
     <% options.each do |op| %>
-        <div class="checkbox">
+        <div class="form-check">
             <label>
                 <%= f.check_box(:question_option_ids, { multiple: true, checked: answer.options_selected?(op.id) || (answer.question_options.empty? && op.is_default?) }, op.id, nil) %>
                 <%= sanitize op.text %>
@@ -11,9 +11,9 @@
         </div>
     <% end %>
 <% elsif question.question_format.radiobuttons? %>
-    <%= f.label(:question_option_ids, sanitize(question.text), class: 'control-label') %>
+    <%= f.label(:question_option_ids, sanitize(question.text), class: 'form-label') %>
     <% options.each do |op| %>
-        <div class="radio">
+        <div class="form-check">
             <label>
                 <%= f.radio_button :question_option_ids, op.id, { checked: answer.options_selected?(op.id) || (answer.question_options.empty? && op.is_default?), id: "answer_option_ids_#{op.id}" } %>
                 <%= sanitize op.text %>
@@ -29,17 +29,17 @@
                 "<option value=#{op.id}>#{op.text}</option>"
         end
     %>
-    <%= f.label(:question_option_ids, sanitize(question.text), class: 'control-label') %>
+    <%= f.label(:question_option_ids, sanitize(question.text), class: 'form-label') %>
     <%= select_tag('answer[question_option_ids]',
         options_html.html_safe,
         { multiple: question.question_format.multiselectbox?,
           include_blank: question.question_format.dropdown?,
           class: 'form-control' }) %>
 <% end %>
-<div class="form-group">
+<div class="form-control mb-3">
 <% if question.option_comment_display %><!-- Comment text area for option_based questions -->
     <% text = question.question_format.rda_metadata? ? answer.answer_hash['text'] : answer.text %>
-    <%= label_tag('answer[text]', _('Additional Information'), class: 'control-label') %>
+    <%= label_tag('answer[text]', _('Additional Information'), class: 'form-label') %>
     <% if readonly %>
       <div class="display-readonly-textarea-content">
         <%= sanitize("<p>#{text}</p>") %>

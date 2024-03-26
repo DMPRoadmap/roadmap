@@ -27,8 +27,8 @@ orcid = IdentifierScheme.find_by(name: 'orcid')
           %>
           <tr>
             <td class="text-center"><%= category.capitalize %></td>
-            <td class="text-right"><%= to_entries.length %></td>
-            <td class="text-right"><%= to_entries.length + mergeable_entries.length %></td>
+            <td class="text-end"><%= to_entries.length %></td>
+            <td class="text-end"><%= to_entries.length + mergeable_entries.length %></td>
           </tr>
         <% end %>
       </<tbody>

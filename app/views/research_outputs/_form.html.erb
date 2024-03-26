@@ -9,14 +9,14 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
 %>
 
 <%= form_with model: @research_output, url: path, method: method, local: true do |f| %>
-  <div class="form-group row">
+  <div class="form-control mb-3 row">
     <div class="col-md-12">
-      <span class="col-md-3"><%= label(:output_type, _("Type"), class: "control-label") %></span>
-      <span class="col-md-5 output-type-description <%= research_output.other? ? "" : "hidden" %>">
-        <%= f.label(:output_type_description, _("Please describe the output type"), class: "control-label") %>
+      <span class="col-md-3"><%= label(:output_type, _("Type"), class: "form-label") %></span>
+      <span class="col-md-5 output-type-description <%= research_output.other? ? "" : "visually-hidden-focusable" %>">
+        <%= f.label(:output_type_description, _("Please describe the output type"), class: "form-label") %>
       </span>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-3">
       <span class="col-md-3">
         <%= f.select :output_type, options_for_select(presenter.selectable_output_types, f.object.output_type),
                      {
@@ -28,35 +28,35 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
                        data: { remote: true, url: plan_output_type_selection_path(plan), method: :get }
                      } %>
       </span>
-      <span class="col-md-5 output-type-description <%= research_output.other? ? "" : "hidden" %>">
+      <span class="col-md-3 output-type-description <%= research_output.other? ? "" : "visually-hidden-focusable" %>">
         <%= f.text_field :output_type_description, class: "form-control",
                                                    aria: { required: research_output.other? } %>
       </span>
     </div>
   </div>
 
-  <div class="form-group row">
-    <div class="col-md-12">
-      <span class="col-md-6">
-        <%= f.label(:title, _("Title"), class: "control-label") %>
+  <div class="form-control mb-3 row">
+    <div class="d-flex justify-content-start col-md-12">
+      <span class="col pe-md-6">
+        <%= f.label(:title, _("Title"), class: "form-label") %>
       </span>
-      <span class="col-md-6">
-        <%= f.label(:abbreviation, _("Abbreviation"), class: "control-label") %>
+      <span class="col px-md-3">
+        <%= f.label(:abbreviation, _("Abbreviation"), class: "form-label") %>
       </span>
     </div>
-    <div class="col-md-12">
-      <span class="col-md-6">
+    <div class="d-flex justify-content-start col-md-12">
+      <span class="col px-md-6">
         <%= f.text_field :title, class: "form-control", aria: { required: true } %>
       </span>
-      <span class="col-md-2">
+      <span class="col px-md-4">
         <%= f.text_field :abbreviation, class: "form-control", title: abbrev_tooltip,
                                         maxlength: 10, data: { toggle: "tooltip" } %>
       </span>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="form-control mb-3 row">
     <div class="col-md-12">
-      <span class="col-md-12"><%= f.label(:description, _("Description"), class: "control-label", id: 'research-output-description') %></span>
+      <span class="col-md-12"><%= f.label(:description, _("Description"), class: "form-label", id: 'research-output-description') %></span>
     </div>
     <div class="col-md-12">
       <span class="col-md-8">
@@ -65,15 +65,15 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
   </div>
 
-  <div class="form-group row">
-    <div class="col-md-12">
+  <div class="form-control mb-3 row">
+    <div class="d-flex col-md-12">
       <span class="col-md-4">
         <%= f.label :sensitive_data do %>
           <%= f.check_box :sensitive_data, data: { toggle: "tooltip" } %>
           <%= _('May contain sensitive data?') %>
         <% end %>
       </span>
-      <span class="col-md-4">
+      <span class="col-md-8">
         <%= f.label :personal_data do %>
           <%= f.check_box :personal_data, data: { toggle: "tooltip" },
                           title: personal_data_tooltip %>
@@ -84,7 +84,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   </div>
 
   <% if Rails.configuration.x.madmp.enable_repository_selection && Repository.all.any? %>
-    <div class="form-group row">
+    <div class="form-control mb-3 row">
       <div class="col-md-12">
         <span class="col-md-12">
           <h3><%= label_tag _("Intended repositories") %></h3>
@@ -92,7 +92,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
       </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-control mb-3 row">
       <%= render partial: "layouts/modal_search/selections",
                 locals: {
                   namespace: "repositories",
@@ -108,14 +108,14 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   <% end %>
 
   <% if Rails.configuration.x.madmp.enable_metadata_standard_selection && MetadataStandard.all.any? %>
-    <div class="form-group row">
+    <div class="form-control mb-3 row">
       <div class="col-md-12">
         <span class="col-md-12">
-          <h3><%= f.label(:metadata_standard, _("Metadata standards"), class: "control-label") %></h3>
+          <h3><%= f.label(:metadata_standard, _("Metadata standards"), class: "form-label") %></h3>
         </span>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-control mb-3 row">
       <%= render partial: "layouts/modal_search/selections",
                 locals: {
                   namespace: "metadata_standards",
@@ -130,14 +130,14 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
   <% end %>
 
-  <div class="form-group row">
-    <div class="col-md-12">
-      <span class="col-md-4">
-        <%= f.label(:release_date, _("Anticipated release date"), class: "control-label") %>
+  <div class="form-control mb-3 row">
+    <div class="d-flex col-md-12">
+      <span class="col pe-md-4">
+        <%= f.label(:release_date, _("Anticipated release date"), class: "form-label") %>
         <%= f.date_field :release_date, class: "form-control" %>
       </span>
-      <span class="col-md-4">
-        <%= f.label(:access, _("Initial access level"), class: "control-label") %>
+      <span class="col px-md-4">
+        <%= f.label(:access, _("Initial access level"), class: "form-label") %>
         <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
                               { selected: f.object.access },
                               { class: "form-control" } %>
@@ -146,19 +146,19 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   </div>
 
   <% if Rails.configuration.x.madmp.enable_license_selection && License.all.any? %>
-    <div class="form-group row license-selection">
+    <div class="form-control mb-3 row license-selection">
       <%= render partial: "research_outputs/licenses/form",
                 locals: { research_output: research_output, presenter: presenter } %>
     </div>
   <% end %>
 
-  <div class="form-group row file-details-section <%= presenter.byte_sizable? ? "" : "hidden" %>">
-    <div class="col-md-12">
+  <div class="form-control mb-3 row file-details-section <%= presenter.byte_sizable? ? "" : "d-none" %>">
+    <div class="d-flex col-md-12">
       <span class="col-md-3">
-        <%= f.label(:byte_size, _("Anticipated file size"), class: "control-label") %>
+        <%= f.label(:byte_size, _("Anticipated file size"), class: "form-label") %>
       </span>
     </div>
-    <div class="col-md-12">
+    <div class="d-flex justify-content-start col-md-12">
       <span class="col-md-2">
         <% file_size = presenter.converted_file_size(size: f.object.byte_size) %>
         <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size], class: "form-control", aria: { label: _("Anticipated file size") } %>
@@ -172,16 +172,16 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
   </div>
 
-  <div class="form-group row">
+  <div class="form-control mb-3 row">
     <div class="col-md-12">
       <div class="col-md-6">
-        <%= f.button(_("Save"), class: "btn btn-default", type: "submit") %>
+        <%= f.button(_("Save"), class: "btn btn-secondary", type: "submit") %>
         <% unless research_output.new_record? %>
           <%= link_to _("Remove"), plan_research_output_path(plan, research_output),
-                                   method: :delete, class: "btn btn-default" %>
+                                   method: :delete, class: "btn btn-secondary" %>
           <% end %>
           <%= link_to _("Cancel"), plan_research_outputs_path(plan),
-                                   class: "btn btn-default" %>
+                                   class: "btn btn-secondary" %>
       </div>
     </div>
   </div>

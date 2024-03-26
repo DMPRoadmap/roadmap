@@ -1,0 +1,55 @@
+@use '../variables/colours' as *;
+
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
+// Override Bootstrap 5 cards
+
+.card {
+  border-color: $color-border-default;
+  border-radius: 0rem;
+}
+.heading-button > .card-heading, .card > .card-heading {
+  background-color: $color-primary-background;
+  color: $color-primary-text;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.empty-section {
+  background-color: $color-muted-background !important;
+  cursor: 'auto' !important;
+}
+
+.card-title a {
+  display: block;
+  padding: 8px calc($grid-gutter-width / 2);
+  margin: -10px calc($grid-gutter-width / -2);
+  background-color: $color-primary-background;
+  color: $color-primary-text;
+}
+.card-title > a.reverse {
+  background-color: $color-secondary-background;
+  color: $color-secondary-text;
+}
+
+// Classes from Boostrap 3 panels (renamed card) - interim solution
+.card-default {
+  border-color: #ddd;
+  border-radius: 0rem;
+}
+.card-default > .card-heading {
+  color: #333333;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}
+.card-default > .card-heading + .card-collapse > .card-body {
+  border-top-color: #ddd;
+}
+.card-default > .card-heading .badge {
+  color: #f5f5f5;
+  background-color: #333333;
+}
+.card-default > .card-footer + .card-collapse > .card-body {
+  border-bottom-color: #ddd;
+}

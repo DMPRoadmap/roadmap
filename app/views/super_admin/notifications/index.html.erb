@@ -1,14 +1,15 @@
 <% title _('Notifications') %>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-sm-9">
     <h1 class="fontsize-h2"><%= _('Notifications') %></h1>
   </div>
+      <div class="col-sm-3">
+      <%= link_to _('+ Add New Notification'), new_super_admin_notification_path, class: 'btn btn-secondary float-end', role: 'button' %>
+    </div>
 </div>
+
 <div class="row">
   <div class="col-xs-12">
-    <div class="pull-right">
-      <%= link_to _('+ Add New Notification'), new_super_admin_notification_path, class: 'btn btn-default', role: 'button' %>
-    </div>
     <div class="table-responsive">
       <%= paginable_renderise(
         partial: '/paginable/notifications/index',

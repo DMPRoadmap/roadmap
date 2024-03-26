@@ -24,7 +24,7 @@ no_results_msg = _("No results matched your filter criteria.")
   <% if results.any? %>
     <div class="col-md-12 modal-search-results-pagination">
       <%= page_entries_info results %>
-      <span class="float-right">
+      <span class="float-end">
         <%= paginate results, remote: true, method: :post %>
       </span>
     </div>
@@ -49,7 +49,7 @@ no_results_msg = _("No results matched your filter criteria.")
 <% if results.any? && !selected %>
   <div class="col-md-9">&nbsp;</div>
   <div class="col-md-3">
-    <span class="float-right">
+    <span class="float-end">
       <%= paginate results, remote: true, method: :post %>
     </span>
   </div>

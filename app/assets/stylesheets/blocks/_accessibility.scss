@@ -38,7 +38,7 @@ div.skip a:focus {
 }
 
 /** Focus outline required for accessibility */
-a, input, select, .form-control {
+a, input, select, .form-control input, .form-control textarea {
   &:focus,
   &:hover,
   &:active {

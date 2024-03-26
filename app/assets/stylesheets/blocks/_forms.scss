@@ -1,0 +1,21 @@
+@use '../variables/colours' as *;
+
+.form-control {
+    border: 0px;
+}
+
+.form-control input, .form-control textarea, .form-control select{
+    border: 2px solid $color-border-light;
+}
+
+.form-check {
+    padding-left: 0rem;
+}
+
+.form-inline{
+    margin-bottom: 5px;
+}
+
+.form-check-label {
+    padding-left: 5px;
+}

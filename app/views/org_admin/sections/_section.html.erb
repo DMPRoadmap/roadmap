@@ -1,39 +1,30 @@
-<div class="panel panel-default section" data-section-id="<%= section.id %>">
+<div class="accordion-item w-100 my-3 section" data-section-id="<%= section.id %>">
+  <h2 class="accordion-header" role="tab" id="<%= "headingSection#{section.id}" %>">
+    <a
+      href="<%= header_path_for_section(section, phase, template) %>"
+      role="button"
+      data-remote="true"
+      class="accordion-button collapsed ajaxified-section"
+      data-bs-toggle="collapse"
+      data-bs-parent="<%= data_parent %>"
+      data-bs-target="#collapseSection<%= section.id %>"
+      aria-expanded="false"
+      aria-controls="#collapseSection<%= section.id %>">
+      <%= section.title %>
+    </a>
+    <% if local_assigns[:draggable] %>
+      <i class="fas fa-arrows-alt px-3" aria-hidden="true"
+         title="Drag to reposition">
+      </i>
+    <% end %>
+  </h2>
+ 
 
-  <a
-    href="<%= header_path_for_section(section, phase, template) %>"
-    data-remote="true"
-    class="heading-button ajaxified-section"
-    data-toggle="collapse"
-    data-parent="<%= data_parent %>"
-    data-target="#collapseSection<%= section.id %>"
-    aria-expanded="false"
-    aria-controls="#collapseSection<%= section.id %>">
-
-    <div class="panel-heading" role="tab" id="<%= "headingSection#{section.id}" %>">
-      <div class="panel-title pull-left">
-        <%= section.title %>
-      </div>
-      <div class="pull-right">
-        <% plussign = "fa-plus" %>
-        <% plussign = "fa-minus" if current_section.present? && section.id == current_section.id %>
-        <i class="fas <%= plussign %> pull-right" aria-hidden="true" title="Click to expand"></i>
-        <% if local_assigns[:draggable] %>
-          <i class="fas fa-up-down-left-right pull-right" aria-hidden="true"
-             title="Drag to reposition">
-          </i>
-        <% end %>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-  </a>
-
-  <div
-  id="<%= "collapseSection#{section.id}" %>"
-  class="panel-collapse collapse<%= " in" if current_section.present? && section.id == current_section.id %>"
-  role="tabpanel"
-  aria-labelledby="<%= "headingSection#{section.id}" %>">
-    <div class="panel-body" data-loaded="<%= current_section.present? && section.id == current_section.id %>">
+  <div id="<%= "collapseSection#{section.id}" %>"
+       class="accordion-collapse collapse <%= "show" if current_section.present? && section.id == current_section.id %>"
+      role="tabpanel"
+      aria-labelledby="<%= "headingSection#{section.id}" %>">
+    <div class="accordion-body card card-body" data-loaded="<%= current_section.present? && section.id == current_section.id %>">
       <%# This is AJAX loaded on demand unless section_id is specified in the URL %>
       <% if current_section.present? && section.id == current_section.id %>
         <% partial = "org_admin/sections/#{section.modifiable? ? 'edit' : 'show'}" %>

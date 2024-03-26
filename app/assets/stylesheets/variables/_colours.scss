@@ -25,10 +25,11 @@ $color-primary-background: $color-grey;
 $color-secondary-background: $color-white;
 $color-muted-background: $color-muted;
 $color-navbar-background: $color-grey-darkest;
-$color-navbar-background-active: darken($color-navbar-background, 10%) ;
+$color-navbar-background-active: shade-color($color-navbar-background, 10%) ;
 $color-footer-background: $color-navbar-background;
 $color-tooltip-background: $color-primary-background;
 $color-icon-bar-background: $color-white;
+
 
 // Text
 $color-primary-text: $color-white;
@@ -38,7 +39,7 @@ $color-navbar-text: $color-grey-light;
 $color-navbar-text-hover: $color-white;
 $color-navbar-text-disabled: $color-grey-darker;
 $color-link-text: $color-blue-alice-darkest;
-$color-navbar-link-text: lighten($color-navbar-text, 15%);
+$color-navbar-link-text: tint-color($color-navbar-text, 15%);
 $color-org-navbar-links: $color-grey-light;
 $color-org-navbar-links-hover: $color-grey-darker;
 $color-dropdown-inverse-text: $color-grey-lighter;
@@ -54,7 +55,7 @@ $color-text-black: $color-black;
 $color-border-default: $color-grey;
 $color-border-light: #ddd;
 $color-dropdown-inverse-border: #080808;
-$color-navbar-border: darken($color-navbar-background, 10%);
+$color-navbar-border: shade-color($color-navbar-background, 10%);
 
 // Shadow colors
 $color-shadow-dark: $color-black;
@@ -64,3 +65,11 @@ $color-fa: $color-grey;
 
 // Focus colors
 $color-focus-outline: $color-blue-alice-darkest;
+
+// Accordion colors
+$color-accordion-button: $color-primary-text;
+$color-accordion-button-icon: $color-primary-text;
+$color-accordion-button-bg: $color-primary-background;
+$color-accordion-button-active-bg:  shade-color($color-accordion-button-bg, 30%);
+
+

@@ -31,7 +31,7 @@
   <div class="more-info more-info-<%= result.id %>">
     <%= link_to _("More info"), "#", class: "more-info-link" %>
 
-    <div class="info hidden">
+    <div class="info d-none">
       <% info = result.info.with_indifferent_access %>
       <dl>
         <dt><%= _("Repository URL") %></dt>

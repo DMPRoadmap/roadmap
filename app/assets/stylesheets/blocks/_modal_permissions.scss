@@ -1,4 +1,6 @@
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
 /* Overrides ul list */
 #modal-permissions ul {
   list-style-type: none;
@@ -12,5 +14,5 @@
 /* Overrides list-group-item */
 #modal-permissions .list-group-item {
   height: 30px;
-  padding: 5px $grid-gutter-width / 2;
+  padding: 5px calc($grid-gutter-width / 2);
 }

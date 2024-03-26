@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="col-md-3 bold">
+  <div class="col-md-3 bold mb-2">
     <%= _('Order')%>
   </div>
-  <div class="col-md-3">
-    <%= f.label(:text, _('Text'), class: "control-label") %>
+  <div class="col-md-3 mb-2">
+    <%= f.label(:text, _('Text'), class: "form-label") %>
   </div>
-  <div class="col-md-3 bold">
+  <div class="col-md-3 bold mb-2">
     <%= _('Default')%>
   </div>
   <div class="col-md-3">
@@ -20,18 +20,18 @@
   <%= f.fields_for :question_options, options_q do |op| %>
     <% i = i + 1 %>
     <% options_q.number = i %>
-    <div class="row" data-attribute="question_option">
-      <div class="col-md-3">
+    <div class="row mb-2" data-attribute="question_option">
+      <div class="col-md-3 pe-2">
         <%= op.number_field :number, min: 1, class: 'form-control', readonly: true %>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 pe-2">
         <% if i == 1 %>
           <%= op.text_field :text, as: :string, class: 'form-control', spellcheck: true, 'aria-required': true %>
         <% else %>
           <%= op.text_field :text, as: :string, class: 'form-control', spellcheck: true %>
         <% end %>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 pe-2">
         <%= op.check_box :is_default %>
       </div>
       <% if i > 1 %>
@@ -44,7 +44,7 @@
   <% end %>
 <% end %>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 mt-2">
     <a href="#" class="new_question_option"><%= _('Add option') %></a>
   </div>
 </div>

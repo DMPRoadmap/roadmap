@@ -1,10 +1,6 @@
 @use '../variables/colours' as *;
 // Bootstrap overrides
 
-.btn {
-  border-radius: 0px;
-}
-
 /* primary button */
 .btn-primary,
 .btn-primary:hover,
@@ -17,33 +13,37 @@
   border-color: $color-border-default;
   color: $color-primary-text;
   outline: none;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  border-radius: 0rem;
+  margin-top: 4px;
+  margin-bottom: 5px;
 }
 
 /* default button */
-.btn-default,
-.btn-default:hover,
-.btn-default:focus,
-.btn-default:active,
-.btn-default:visited,
-.btn-default:active:hover,
-.btn-default.active:hover {
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary:visited,
+.btn-secondary:active:hover,
+.btn-secondary.active:hover {
   background-color: $color-primary-background;
   border-color: $color-border-default;
   color: $color-primary-text;
   outline: none;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0rem;
+  margin-top: 4px;
+  margin-bottom: 5px;
 }
 
 /* Popover button */
-.btn-default[data-toggle=tooltip],
-.btn-default:hover[data-toggle=tooltip],
-.btn-default:focus[data-toggle=tooltip],
-.btn-default:active[data-toggle=tooltip],
-.btn-default:visited[data-toggle=tooltip],
-.btn-default:active:hover[data-toggle=tooltip] {
+.btn-secondary[data-toggle=tooltip],
+.btn-secondary:hover[data-toggle=tooltip],
+.btn-secondary:focus[data-toggle=tooltip],
+.btn-secondary:active[data-toggle=tooltip],
+.btn-secondary:visited[data-toggle=tooltip],
+.btn-secondary:active:hover[data-toggle=tooltip] {
   color: $color-secondary-text;
   background-color: $color-secondary-background;
   border: none;
@@ -52,6 +52,13 @@
 }
 
 /* link button */
-.btn-link {
+.btn-link, .btn-close {
   color: $color-link-text;
+  border: $color-border-default;
+  border-radius: 0rem;
+}
+
+.btn:disabled {
+  background-color: tint-color($color-primary-background, 40%);
+  border: none;
 }

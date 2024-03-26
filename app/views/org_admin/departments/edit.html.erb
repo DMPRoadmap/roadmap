@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Edit the School/Department') %></h1>
-    <%= link_to _('View all departments'), departments_url, class: 'btn btn-default pull-right' %>
+    <%= link_to _('View all departments'), departments_url, class: 'btn btn-secondary float-end' %>
   </div>
 </div>
 
@@ -10,16 +10,16 @@
   <div class="col-md-12">
     <%= form_for :department, url: org_department_path(org_id: @org_id, id: @department.id), html: { method: :put, id: 'edit_department_form' } do |f| %>
         <%= f.hidden_field :org_id, value: @org_id %>
-        <div class="form-group col-xs-8">
-          <%= f.label _('Name'), for: :name, class: "control-label" %>
+        <div class="form-control mb-3 col-xs-8">
+          <%= f.label _('Name'), for: :name, class: "form-label" %>
           <%= f.text_field :name, as: :string, class: "form-control", spellcheck: true, 'aria-required': true, 'data-toggle': 'tooltip', title: _('Add the name of a school/department.') %>
         </div>
-        <div class="form-group col-xs-8">
-          <%= f.label _('Abbreviated name or code'), for: :code, class: "control-label" %>
+        <div class="form-control mb-3 col-xs-8">
+          <%= f.label _('Abbreviated name or code'), for: :code, class: "form-label" %>
           <%= f.text_field :code, as: :string, class: "form-control", 'aria-required': false, 'data-toggle': 'tooltip', title: _('Add the abbreviated name or code for the school/department.') %>
         </div>
         <!-- submit buttons -->
-        <div class="form-group col-xs-8">
+        <div class="form-control mb-3 col-xs-8">
           <%= f.submit _('Save'), name: "draft", class: "btn btn-primary" %>
           <%= link_to _('Cancel'), departments_url, class: "btn btn-primary", role: 'button' %>
         </div>

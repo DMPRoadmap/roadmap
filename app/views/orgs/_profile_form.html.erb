@@ -20,14 +20,14 @@
                } %>
   <% else %>
     <div class="row">
-      <div class="form-group col-xs-8">
-        <%= f.label :name, _('Organisation full name'), class: "control-label" %>
+      <div class="form-control mb-3 col-sm-8">
+        <%= f.label :name, _('Organisation full name'), class: "form-label" %>
         <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-xs-8">
-        <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "control-label" %>
+      <div class="form-control mb-3 col-sm-8">
+        <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "form-label" %>
         <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control" %>
       </div>
     </div>
@@ -35,7 +35,7 @@
 
   <% if current_user.can_super_admin? %>
     <div class="row">
-      <div class="form-group col-xs-8">
+      <div class="form-control mb-3 col-sm-8">
         <%= f.label :managed do %>
           <%= f.check_box :managed, id: "org_managed", "aria-required": true,
                 title: _("A managed Org is one that can have its own Guidance and/or Templates. An unmanaged Org is one that was automatically created by the system when a user entered/selected it.") %>
@@ -50,8 +50,8 @@
      end %>
 
   <div class="row">
-    <div class="form-group col-xs-8">
-      <%= f.label :logo, _('Organization logo'), class: "control-label"  %>
+    <div class="form-control mb-3 col-sm-8">
+      <%= f.label :logo, _('Organization logo'), class: "form-label"  %>
 
       <% if org.logo.present? %>
         <div class="clearfix"></div>
@@ -63,7 +63,7 @@
             <%= _('Remove logo') %>
           <% end %>
           <strong> - <%= _('or') %> - </strong>
-          <span class="btn btn-default btn-file"><%= f.file_field :logo %></span>
+          <span class="btn btn-secondary btn-file"><%= f.file_field :logo %></span>
         </div>
       <% else %>
         <%= f.file_field :logo %>
@@ -74,7 +74,7 @@
   <hr>
 
   <div class="row">
-    <div class="col-xs-8">
+    <div class="col-sm-8">
       <em class="sr-only"><%= shared_links_tooltip %></em>
       <%= render(partial: '/shared/links',
                  locals: {
@@ -90,13 +90,13 @@
   <hr>
 
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-control mb-3 col-sm-8">
       <h3><%= _("Help Desk email") %></h3>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-4">
-      <%= f.label :helpdesk_email, _('Help Desk email'), class: "control-label" %>
+    <div class="form-control mb-3 col-sm-4">
+      <%= f.label :helpdesk_email, _('Help Desk email'), class: "form-label" %>
       <%= f.email_field :helpdesk_email, class: "form-control" %>
     </div>
   </div>
@@ -104,31 +104,31 @@
   <hr>
 
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-control mb-3 col-sm-8">
       <h3><%= _("Administrator contact") %></h3>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-4">
-      <%= f.label :contact_email, _('Contact email'), class: "control-label" %>
+    <div class="form-control mb-3 col-sm-4">
+      <%= f.label :contact_email, _('Contact email'), class: "form-label" %>
       <%= f.email_field :contact_email, class: "form-control", aria: { required: true } %>
     </div>
-    <div class="form-group col-xs-4">
-      <%= f.label :contact_name, _('Link text'), class: "control-label" %>
+    <div class="form-control mb-3 col-sm-4">
+      <%= f.label :contact_name, _('Link text'), class: "form-label" %>
       <%= f.text_field :contact_name, class: "form-control", aria: { required: true } %>
     </div>
   </div>
 
   <hr>
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-control mb-3 col-sm-8">
       <h3><%= _("Google Analytics Tracker") %></h3>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-xs-4">
+    <div class="form-control mb-3 col-sm-4">
       <%= f.fields_for :tracker do |t| %>
-        <%= t.label :code, _('Tracker Code'), class: "control-label" %>
+        <%= t.label :code, _('Tracker Code'), class: "form-label" %>
         <%= t.text_field :code, class: "form-control", aria: { required: false } %>
       <% end %>
     </div>
@@ -138,7 +138,7 @@
 
   <div class="row">
     <% if current_user.can_super_admin? %>
-      <fieldset class="col-xs-8">
+      <fieldset class="col-sm-8">
         <legend>
           <%= _('Organisation Types') %>
             &nbsp; <a href="#" aria-label="<%= _('Text') %>" data-toggle="tooltip" data-placement="right" title="<%= org_types_tooltip %>">
@@ -146,19 +146,19 @@
             <em class="sr-only"></em>
           </a>
         </legend>
-        <div class="checkbox">
+        <div class="form-check">
           <%= f.label :funder do %>
             <%= f.check_box :funder, { class: 'org_types', value: org.funder? }, "true", "false" %>
             <%= _('Funder') %>
           <% end %>
         </div>
-        <div class="checkbox">
+        <div class="form-check">
           <%= f.label :institution do %>
             <%= f.check_box :institution, { class: 'org_types', value: org.institution? }, "true", "false" %>
             <%= _('Institution') %>
           <% end %>
         </div>
-        <div class="checkbox">
+        <div class="form-check">
           <%= f.label :organisation do %>
             <%= f.check_box :organisation, { class: 'org_types', value: org.organisation? }, "true", "false" %>
             <%= _('Organisation') %>
@@ -166,7 +166,7 @@
         </div>
       </fieldset>
     <% else %>
-      <div class="col-xs-8">
+      <div class="col-sm-8">
         <dl>
           <dt>
             <%= _('Organisation type(s)') %>
@@ -193,7 +193,7 @@
   <% end %>
 
   <div class="row">
-    <div class="form-group col-xs-8">
+    <div class="form-control mb-3 col-sm-8">
       <%= f.button(_('Save'), id:"save_org_details_submit", class: "btn btn-primary", type: "submit") %>
     </div>
   </div>

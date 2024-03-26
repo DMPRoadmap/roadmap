@@ -1,9 +1,7 @@
 <%# locals modifiable %>
-
 <!-- Accordion for sections -->
 <div class="row">
   <div class="col-md-12">
-
     <div class="draggable-sections" data-url="<%=
       sort_org_admin_template_phase_path(template, phase)
      %>">
@@ -14,7 +12,6 @@
                            current_section: current_section,
                            panel_id: "section-#{prefix_section.id}",
                            modifiable: modifiable } if prefix_section %>
-
       <%# If we are working with a modifiable phase then allow the core sections to be reordered %>
       <% if phase.modifiable? %>
         <% sections.each do |s| %>
@@ -27,7 +24,7 @@
                                modifiable: s.modifiable } %>
         <% end %>
       <% else %>
-          <%= render partial: "org_admin/sections/section_group",
+        <%= render partial: "org_admin/sections/section_group",
                      locals: { sections: sections,
                                phase: phase,
                                template: template,
@@ -35,8 +32,7 @@
                                panel_id: "baseline-sections",
                                modifiable: modifiable } %>
       <% end %>
-
-      <% suffix_sections.each do |s| %>
+         <% suffix_sections.each do |s| %>
         <%= render partial: "org_admin/sections/section_group",
                    locals: { sections: Array(s),
                              phase: phase,
@@ -45,39 +41,42 @@
                              current_section: current_section,
                              modifiable: true } %>
       <% end %>
-
-    </div>
-
-    <% if template.latest? && (modifiable || template.customization_of.present?) %>
-      <div class="panel panel-default">
-        <a href="#new_section" class="heading-button"
-           data-toggle="collapse" data-parent="sections-accordion"
-           data-target="#collapseSectionNew"
-           aria-expanded="false"
-           aria-controls="#collapseSectionNew">
-
-          <div class="panel-heading" role="tab" id="headingSectionNew">
-            <div class="panel-title pull-left">
-              <%= _('Add a new section') %>
-            </div>
-            <div class="pull-right">
-              <i class="fas fa-plus pull-right" aria-hidden="true"></i>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-        <div
-          id="collapseSectionNew" class="panel-collapse collapse" role="tabpanel"
+      </div>
+      <%# locals modifiable %>
+      <!-- Accordion for sections -->
+      <div class="row">
+        <div class="col-md-12">
+          <% if template.latest? && (modifiable || template.customization_of.present?) %>
+            <div class="accordion section-group sections_accordion"
+         data-modifiable="<%= modifiable %>"
+         role="tablist">
+              <div class="accordion-item w-100 my-3 section">
+                <h2 class="accordion-header" role="tab" id="headingSectionNew">
+                  <a href="#new_section" 
+                  class="accordion-button collapsed"
+                  role="button"
+                  data-bs-toggle="collapse" 
+                  data-bs-parent="sections_accordion"
+                  data-bs-target="#collapseSectionNew"
+                  aria-expanded="false"
+                  aria-controls="#collapseSectionNew">
+                    <%= _('Add a new section') %>
+                  </a>
+                </h2>
+                <div
+          id="collapseSectionNew" class="accordion-collapse collapse" role="tabpanel"
           aria-labelledby="<%= "headingSectionNew" %>">
-           <div class="panel-body">
-             <%= render partial: 'org_admin/sections/new',
+                  <div class="accordion-body card card-body">
+                    <%= render partial: 'org_admin/sections/new',
                         locals: {
                           template: template,
                           phase: phase } %>
-           </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-
-</div>

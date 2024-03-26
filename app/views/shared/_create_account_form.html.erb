@@ -1,18 +1,18 @@
 <%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
 
-  <div class="form-group">
-    <%= f.label(:firstname, _('First Name'), class: "control-label") %>
+  <div class="form-control mb-3">
+    <%= f.label(:firstname, _('First Name'), class: "form-label") %>
     <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-group">
-    <%= f.label(:surname, _('Last Name'), class: "control-label") %>
+  <div class="form-control mb-3">
+    <%= f.label(:surname, _('Last Name'), class: "form-label") %>
     <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-group">
-    <%= f.label(:email, _('Email'), class: "control-label") %>
+  <div class="form-control mb-3">
+    <%= f.label(:email, _('Email'), class: "form-label") %>
     <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-group" id="create-account-org-controls">
+  <div class="form-control mb-3" id="create-account-org-controls">
     <%= render partial: org_partial,
                locals: {
                  form: f,
@@ -21,19 +21,18 @@
                  required: true
                } %>
   </div>
-  <div class="form-group">
-    <%= f.label(:password, _('Password'), class: "control-label") %>
+  <div class="form-control mb-3">
+    <%= f.label(:password, _('Password'), class: "form-label") %>
     <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-group">
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
-      </label>
+  <div class="form-control mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" />
+        <%= label_tag('passwords_toggle_sign_up', _('Show password'), class: 'form-check-label') %>
     </div>
   </div>
-  <div class="form-group">
-    <div class="checkbox">
+  <div class="form-control mb-3">
+    <div class="form-check">
       <%= f.label(:accept_terms) do %>
         <%= f.check_box(:accept_terms, "aria-required": true) %>
         <%= _('I accept the') %>
@@ -42,10 +41,10 @@
     </div>
   </div>
   <% if Rails.configuration.x.recaptcha.enabled %>
-    <div class="form-group">
-      <%= label_tag(nil, _('Security check')) %>
+    <div class="form-control mb-3">
+      <%= label_tag(nil, _('Security check'), class: "form-label") %>
       <%= recaptcha_tags %>
     </div>
   <% end %>
-  <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
+  <%= f.button(_('Create account'), class: "btn btn-secondary", type: "submit") %>
 <% end %>

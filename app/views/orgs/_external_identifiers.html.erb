@@ -14,7 +14,7 @@
     end
     schemes.each do |scheme| %>
       <div class="row">
-        <div class="form-group col-xs-10">
+        <div class="form-control mb-3 col-xs-10">
           <% id = presenter.id_for_scheme(scheme: scheme) %>
           <span class="bold"><%= scheme.description %>:</span>
           <%= id_for_display(id: id) %>
@@ -31,10 +31,10 @@
     %>
       <br>
       <div class="row">
-        <div class="form-group col-xs-6">
+        <div class="form-control mb-3 col-xs-6">
           <%= form.fields_for :identifiers, shib_id do |ident_fields| %>
             <%= ident_fields.hidden_field :identifier_scheme_id %>
-            <%= ident_fields.label :value, "#{shib.description} - entityID", class: "control-label" %>
+            <%= ident_fields.label :value, "#{shib.description} - entityID", class: "form-label" %>
             <%= ident_fields.text_field :value, class: "form-control", placeholder: _("Please enter your Shibboleth Entity ID") %>
           <% end %>
         </div>
@@ -43,7 +43,7 @@
 
   <% else %>
     <div class="row">
-       <div id="org-details-org-controls" class="form-group col-xs-10">
+       <div id="org-details-org-controls" class="form-control mb-3 col-xs-10">
          <%= render partial: "shared/org_selectors/external_only",
                 locals: {
                   form: form,
@@ -59,7 +59,7 @@
 <% else %>
   <% presenter.schemes.each do |scheme| %>
     <div class="row">
-      <div class="form-group col-xs-10">
+      <div class="form-control mb-3 col-xs-10">
         <% id = presenter.id_for_scheme(scheme: scheme) %>
         <span class="bold"><%= scheme.description %>:</span>
         <%= id_for_display(id: id) %>

@@ -1,24 +1,27 @@
-<nav id="org-navbar" class="navbar navbar-default" role="navigation">
+<nav id="org-navbar" class="navbar navbar-expand-md navbar-light bg-light" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header" >
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#org-navbar-menu" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <% if user_signed_in? && !current_user.org.nil? %>
-        <% if current_user.org.logo.present? %>
+    <% if user_signed_in? && !current_user.org.nil? %>
+      <% if current_user.org.logo.present? %>
+        <div class="navbar-header d-sm-flex justify-content-sm-between">
           <%= image_tag(logo_url_for_org(current_user.org),
-                                alt: current_user.org.name,
-                                class: "org-logo",
-                                title: current_user.org.name) %>
+                        alt: current_user.org.name,
+                        class: "org-logo me-sm-auto",
+                        title: current_user.org.name) %>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                   data-bs-target="#org-navbar-menu" aria-controls="org-navbar-menu" 
+                   aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+        </button>
         <% else %>
+         <div class="navbar-header d-sm-flex justify-content-sm-between">
           <p id="banner-org-name" class="fontsize-h4"><%= current_user.org.name %></p>
+         </div>
         <% end %>
       <% end %>
-    </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="org-navbar-menu">
@@ -28,13 +31,13 @@
       i = 1
       %>
       <% if user_signed_in? && (links.any? || current_user.org.contact_email.present?) %>
-        <ul class="nav navbar-nav">
+        <ul class="navbar-nav me-auto">
           <% links.each do |link| %>
             <% if link.present? && i <= max_number_links %>
               <% if i.odd? %>
-                </li><li class="org-links">
+                </li><li class="org-links nav-item">
               <% end %>
-              <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info' do %>
+              <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info nav-link' do %>
                 <i class="fas fa-globe" aria-hidden="true">&nbsp;</i>
                 <%= link['text'].blank? ? link['link'] : link['text'] %>
                 <em class="sr-only"> (new window)</em>
@@ -44,10 +47,10 @@
             <% end %>
           <% end %>
           <% if i.odd? %>
-            </li><li class="org-links">
+            </li><li class="org-links nav-item">
           <% end %>
           <% if !current_user.org.contact_email.blank? %>
-            <%= mail_to current_user.org.contact_email, :class => 'org-a' do %>
+            <%= mail_to current_user.org.contact_email, :class => 'org-a nav-link' do %>
               <i class="fas fa-envelope" aria-hidden="true">&nbsp;</i>
               <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>
             <% end %>
@@ -56,64 +59,66 @@
       <% end %>
 
       <!-- Navigation for organisation admin -->
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="navbar-nav ms-auto">
         <!-- if org admin -->
         <% if current_user.can_org_admin? %>
-          <li class="dropdown navbar-default" id="admin-dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu" href="#">
+          <li class="dropdown" id="admin-dropdown">
+            <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" data-bs-display="static" 
+               role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu" href="#">
               <i class="fas fa-lock" aria-hidden="true">&nbsp;</i>
               <%= _('Admin') %>
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu" aria-labelledby="admin-menu">
+            <ul class="dropdown-menu dropdown-menu-end" 
+                data-bs-popper="static" aria-labelledby="admin-menu">
               <% if current_user.can_org_admin? %>
-                <li <%= 'class=active' if active_page?(org_admin_plans_path) %>>
-                  <%= link_to _('Plans'), org_admin_plans_path %>
+                <li class="nav-item <%= 'class=active' if active_page?(org_admin_plans_path) %>">
+                  <%= link_to _('Plans'), org_admin_plans_path, class: 'nav-link dropdown-item  px-3' %>
                 </li>
               <% end %>
               <% if current_user.can_modify_templates? %>
                 <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
-                  <li <%= 'class=active' if active_page?(template_path) %>>
-                    <%= link_to _('Templates'), template_path %>
+                  <li class="nav-item <%= 'class=active' if active_page?(template_path) %>">
+                    <%= link_to _('Templates'), template_path, class: 'nav-link dropdown-item  px-3' %>
                   </li>
               <% end %>
               <% if current_user.can_modify_guidance? %>
-                  <li <%= 'class=active' if active_page?(admin_index_guidance_path(current_user.org_id)) %>>
-                    <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
+                  <li class="nav-item <%= 'class=active' if active_page?(admin_index_guidance_path(current_user.org_id)) %>">
+                    <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id), class: 'nav-link dropdown-item  px-3' %>
                   </li>
               <% end %>
               <% if current_user.can_super_admin? %>
-                  <li <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>>
-                    <%= link_to _('Organisations'), super_admin_orgs_path %>
+                  <li class="nav-item <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>">
+                    <%= link_to _('Organisations'), super_admin_orgs_path, class: 'nav-link dropdown-item  px-3' %>
                   </li>
               <% else %>
                 <% if current_user.can_modify_org_details? %>
-                    <li <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>>
-                      <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %>
+                    <li class="nav-item <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>">
+                      <%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id), class: 'nav-link dropdown-item  px-3' %>
                     </li>
                 <% end %>
               <% end %>
               <% if current_user.can_grant_permissions? %>
-                  <li <%= 'class=active' if active_page?(admin_index_users_path) %>>
-                    <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
+                  <li class="nav-item <%= 'class=active' if active_page?(admin_index_users_path) %>">
+                    <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li nav-link dropdown-item  px-3' %>
                   </li>
               <% end %>
               <% if current_user.can_super_admin? %>
-                <li <%= 'class=active' if active_page?(super_admin_themes_path) %>>
-                  <%= link_to(_('Themes'), super_admin_themes_path) %>
+                <li class="nav-item <%= 'class=active' if active_page?(super_admin_themes_path) %>">
+                  <%= link_to _('Themes'), super_admin_themes_path, class: 'nav-link dropdown-item  px-3' %>
                 </li>
               <% end %>
               <% if current_user.can_org_admin? || current_user.can_super_admin? %>
-                <li <%= 'class=active' if active_page?(usage_index_path) %>>
-                  <%= link_to(_('Usage'), usage_index_path) %>
+                <li class="nav-item <%= 'class=active' if active_page?(usage_index_path) %>">
+                  <%= link_to _('Usage'), usage_index_path, class: 'nav-link dropdown-item  px-3' %>
                 </li>
               <% end %>
               <% if current_user.can_super_admin? %>
-                <li <%= 'class=active' if active_page?(super_admin_api_clients_path) %>>
-                  <%= link_to(_('Api Clients'), super_admin_api_clients_path) %>
+                <li class="nav-item <%= 'class=active' if active_page?(super_admin_api_clients_path) %>">
+                  <%= link_to _('Api Clients'), super_admin_api_clients_path, class: 'nav-link dropdown-item  px-3' %>
                 </li>
-                <li <%= 'class=active' if active_page?(super_admin_notifications_path) %>>
-                  <%= link_to _('Notifications'), super_admin_notifications_path %>
+               <li class="nav-item <%= 'class=active' if active_page?(super_admin_notifications_path) %>">
+                  <%= link_to _('Notifications'), super_admin_notifications_path, class: 'nav-link dropdown-item  px-3' %>
                 </li>
               <% end %>
             </ul>

@@ -10,23 +10,19 @@
 // NOTE: We need to stick to the !default format below, to ensure variables can be set in
 // other files for individual deployments.
 
-// Forms
-$input-border-radius: 0px !default;
-
-
-// Navbar
-$navbar-border-radius: 0px !default;
 
 // Buttons
-$btn-border-radius-base: 0px !default;
+$btn-border-radius-base: 0rem !default;
 
 $btn-primary-color: $color-primary-text !default;
 
-$btn-default-color: $color-primary-text !default;
+$btn-secondary-color: $color-primary-text !default;
 
 // Panels
-$panel-border-radius: 0px !default;
+$panel-border-radius: 0rem !default;
 
+// Links
+$link-decoration: none !default;
 
 // from colors:
 

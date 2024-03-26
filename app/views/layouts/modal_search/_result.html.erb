@@ -18,10 +18,10 @@ Locals:
     <%= result[item_name_attr] %>
 
     <%= link_to _("Select"), '#',
-                class: "modal-search-result-selector #{selected ? 'hidden' : ''}",
+                class: "modal-search-result-selector #{selected ? 'd-none' : ''}",
                 title: _("Click to select %{item_name}") % { item_name: title } %>
     <%= link_to _("Remove"), '#',
-                class: "modal-search-result-unselector #{selected ? '' : 'hidden'}",
+                class: "modal-search-result-unselector #{selected ? '' : 'd-none'}",
                 title: _("Click to remove %{item_name}") % { item_name: title } %>
   </div>
 

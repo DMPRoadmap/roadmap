@@ -1,9 +1,11 @@
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
 // TODO: Refactor this. Instead of writing specific CSS rules for particular objects,
 // we should provide utility classes which can provide the desired style to this object
 #new_plan {
   .create-plan-or {
-    padding: 5px 0 0 $grid-gutter-width / 2;
+    padding: 5px 0 0 calc($grid-gutter-width / 2);
   }
   .create-plan-checkbox {
     margin-left: -40px;

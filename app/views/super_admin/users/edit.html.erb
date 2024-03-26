@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <h1>
       <%= _('Editing profile for %{username}') % { username: @user.name(false) } %>
-      <%= link_to(_('View all users'), admin_index_users_path, class: 'btn btn-default pull-right', role: 'button') %>
+      <%= link_to(_('View all users'), admin_index_users_path, class: 'btn btn-secondary float-end', role: 'button') %>
     </h1>
   </div>
 </div>
@@ -11,22 +11,22 @@
 <div class="row">
   <div class="col-md-7">
     <%= form_for(@user, namespace: :superadmin, as: :user, url: super_admin_user_path(@user), html: {method: :put, id: 'super_admin_user_edit' }) do |f| %>
-      <div class="form-group col-xs-12">
-        <%= f.label(:email, _('Email'), class: 'control-label') %>
+      <div class="form-control mb-3 col-xs-12">
+        <%= f.label(:email, _('Email'), class: 'form-label') %>
         <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
       </div>
 
-      <div class="form-group col-xs-12">
-        <%= f.label(:firstname, _('First name'), class: 'control-label') %>
+      <div class="form-control mb-3 col-xs-12">
+        <%= f.label(:firstname, _('First name'), class: 'form-label') %>
         <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
       </div>
 
-      <div class="form-group col-xs-12">
-        <%= f.label(:surname, _('Last name'), class: 'control-label') %>
+      <div class="form-control mb-3 col-xs-12">
+        <%= f.label(:surname, _('Last name'), class: 'form-label') %>
         <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
       </div>
 
-      <div class="form-group col-xs-12" id="super-admin-user-org-controls">
+      <div class="form-control mb-3 col-xs-12" id="super-admin-user-org-controls">
         <%= render partial: "shared/org_selectors/combined",
                locals: {
                  form: f,
@@ -36,9 +36,9 @@
       </div>
 
       <% if @departments.any? %>
-      <div class="form-group col-xs-12">
+      <div class="form-control mb-3 col-xs-12">
         <% dept_id = @user.department.nil? ? -1 : @user.department.id  %>
-        <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
+        <%= f.label(:department_id, _('Department or school'), class: 'form-label') %>
         <%= select_tag(:department_id,
             options_from_collection_for_select(@departments, "id", "name", dept_id),
             include_blank: true,
@@ -48,21 +48,21 @@
       <% end %>
 
       <% if Language.many? %>
-        <div class="form-group col-xs-12">
+        <div class="form-control mb-3 col-xs-12">
           <% lang_id = @user.language.nil? ? Language.id_for(I18n.default_locale) : @user.language.id %>
-          <%= f.label(:language_id, _('Language'), class: 'control-label') %>
+          <%= f.label(:language_id, _('Language'), class: 'form-label') %>
           <%= select_tag(:super_admin_user_language_id,
               options_from_collection_for_select(Language.sorted_by_abbreviation, "id", "name", lang_id),
               class: "form-control", name: 'user[language_id]') %>
         </div>
       <% end %>
 
-      <div class="form-group col-xs-12">
-        <%= f.button(_('Save'), class: 'btn btn-default', type: "submit", id: "personal_details_registration_form_submit") %>
+      <div class="form-control mb-3 col-xs-12">
+        <%= f.button(_('Save'), class: 'btn btn-secondary', type: "submit", id: "personal_details_registration_form_submit") %>
 
         <%= link_to _('Archive'), archive_super_admin_user_path(id: @user.id),
             data: { method: :put, confirm: _("You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?") % {user_name: @user.name } },
-            class: 'btn btn-default', role: 'button' %>
+            class: 'btn btn-secondary', role: 'button' %>
       </div>
     <% end %>
 
@@ -75,8 +75,8 @@
     <% end %>
 
   </div>
-  <div class="col-xs-5">
-    <div class="row">
+  <div class="col-md-5">
+    <div class="row mx-3">
       <h2>
         <%= _('Merge Accounts') %>
       </h2>
@@ -85,15 +85,15 @@
           <%= sanitize _("First, search for a user by email, then select them from the list.") %>
         </p>
         <%= form_tag(search_super_admin_user_path(@user), method: 'get', remote: true, class: 'form-inline', id: 'merge_form') do %>
-          <div class="form-group">
+          <div class="form-control mb-3">
             <div class="input-group">
-              <span class="input-group-addon" id="search-addon">
+              <span class="input-group-text" id="search-addon">
                 <span class="fas fa-magnifying-glass" aria-hidden="true"></span>
               </span>
             <%= text_field_tag(:email, nil, class: "form-control", placeholder: _("Email")) %>
             </div>
           </div>
-          <%= submit_tag( _("Search"), class: 'btn btn-default', style: 'margin-top: 8px;') %>
+          <%= submit_tag( _("Search"), class: 'btn btn-secondary', style: 'margin-top: 8px;') %>
         <% end %>
       </div>
     </div>

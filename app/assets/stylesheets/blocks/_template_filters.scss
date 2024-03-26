@@ -1,6 +1,8 @@
 @use '../variables/colours' as *;
-@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as *;
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
 .template-table-filters .navbar-nav > li > a {
   color: $color-secondary-text;
-  padding: 5px ($grid-gutter-width / 2) 5px 5px;
+  padding: 5px calc($grid-gutter-width / 2) 5px 5px;
 }
