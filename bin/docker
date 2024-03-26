@@ -1,0 +1,75 @@
+#!/usr/bin/env ruby
+
+# path to your application root.
+APP_ROOT = File.expand_path('..', __dir__)
+
+def system!(*args)
+  system(*args) || abort("== Command #{args} failed ==")
+end
+
+params = ARGV[0].to_s.downcase.strip
+
+if params == 'db:setup'
+  puts '== Preparing database =='
+  system! 'bin/rails db:setup'
+
+  puts '== Seeding madmp opidor data =='
+  system! 'bin/rails madmpopidor:seed'
+
+  puts '== Removing old logs and tempfiles =='
+  system! 'bin/rails log:clear tmp:clear'
+
+  puts '== Restarting application server =='
+  system! 'bin/rails restart'
+
+  exit!
+end
+
+valid_db = ARGV.length > 0 && %w[mysql postgres].include?(params)
+
+unless valid_db
+  puts '== You MUST specify the type of DB you would like to use. Either mysql or postgres =='
+  puts '== For example: `ruby bin/docker postgres` =='
+  exit!
+end
+
+require 'fileutils'
+include FileUtils
+
+chdir APP_ROOT do
+  puts '== Copying sample files =='
+  cp 'config/database.yml.sample', 'config/database.yml'
+  cp 'config/initializers/contact_us.rb.example', 'config/initializers/contact_us.rb'
+  cp 'config/initializers/wicked_pdf.rb.example', 'config/initializers/wicked_pdf.rb'
+
+  puts '== Generate master.key file =='
+  require 'rails/generators/app_base'
+  require 'rails/generators/rails/credentials/credentials_generator'
+  master_key_generator = Rails::Generators::MasterKeyGenerator.new([], quiet: true)
+  master_key_generator.add_master_key_file_silently
+  master_key_generator.ignore_master_key_file_silently
+
+  puts '== Generate credentials file =='
+  db_username = {
+    "postgres" => 'postgres',
+    "mysql" => 'root'
+  }
+  regex = [
+    "s/^secret_key_base:(.*)$/\\secret_key_base:\s#{ENV["SECRET_KEY_BASE"] || 'my_secret_key'}/",
+    "s/^db_username:(.*)$/\db_username:\s#{ENV["DB_USERNAME"] || db_username[params] || db_username['postgres']}/",
+    "s/^db_password:(.*)$/\db_password:\s#{ENV["DB_PASSWORD"] || ''}/",
+    "s/^secret_key:(.*)$/\\secret_key:\s#{ENV["SECRET_KEY"] || 'my_secret_key'}/",
+    "s/^devise_pepper:(.*)$/\devise_pepper:\s#{ENV["DEVISE_PEPPER"] || 'my_pepper'}/",
+    "s/^dragonfly_secret:(.*)$/\dragonfly_secret:\s#{ENV["DRAGON_FLY_SECRET"] || 'my_secret_key'}/",
+    "s/^[\s]+site_key:(.*)$/\  site_key:\s#{ENV["RECAPTCHA_SITE_KEY"] || '11111'}/",
+    "s/^[\s]+secret_key:(.*)$/\  secret_key:\s#{ENV["RECAPTCHA_SECRET_KEY"] || '22222'}/",
+    "s/^[\s]+translation_api_key:(.*)$/\  translation_api_key:\s#{ENV["TRANSLATION_API_CLIENT"] || 'my_key'}/",
+  ].join(';')
+  credentials_data = `sed -E \"#{regex}\" config/credentials.yml.sample`
+
+  File.delete('config/credentials.yml.enc') if File.exist?('config/credentials.yml.enc')
+
+  require 'rails/generators/rails/encrypted_file/encrypted_file_generator'
+  encrypted_file_generator = Rails::Generators::EncryptedFileGenerator.new
+  encrypted_file_generator.add_encrypted_file_silently('config/credentials.yml.enc', 'config/master.key', credentials_data)
+end

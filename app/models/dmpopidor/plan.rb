@@ -4,7 +4,6 @@ module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
   # Customized code for Plan model
   module Plan
-    include DynamicFormHelper
 
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
     # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
@@ -94,7 +93,7 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           parent_id: nil,
-          madmp_schema: MadmpSchema.find_by(name: 'DMPCoordinator'),
+          madmp_schema: MadmpSchema.find_by(name: 'ContributorStandard'),
           additional_info: { property_name: 'contact' }
         )
 
@@ -140,7 +139,7 @@ module Dmpopidor
         },
         dmp_id: dmp_id,
         parent_id: nil,
-        madmp_schema: MadmpSchema.find_by(name: 'PrincipalInvestigator'),
+        madmp_schema: MadmpSchema.find_by(name: 'ContributorStandard'),
         additional_info: { property_name: 'principalInvestigator' }
       )
 

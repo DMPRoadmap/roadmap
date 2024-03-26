@@ -1,0 +1,68 @@
+{
+  "DMPLicenses": [
+    {
+      "label": {
+        "en_GB": "etalab-2.0",
+        "fr_FR": "etalab-2.0"
+      },
+      "licenseName": "Etalab Open License 2.0",
+      "licenseUrl": "http://spdx.org/licenses/etalab-2.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-4.0",
+        "fr_FR": "CC-BY-4.0"
+      },
+      "licenseName": "Creative Commons Attribution 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC0-1.0",
+        "fr_FR": "CC0-1.0"
+      },
+      "licenseName": "Creative Commons Zero v1.0 Universal",
+      "licenseUrl": "http://spdx.org/licenses/CC0-1.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-4.0",
+        "fr_FR": "CC-BY-NC-4.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-ND-4.0",
+        "fr_FR": "CC-BY-ND-4.0"
+      },
+      "licenseName": "Creative Commons Attribution No Derivatives 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-ND-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-SA-4.0",
+        "fr_FR": "CC-BY-SA-4.0"
+      },
+      "licenseName": "Creative Commons Attribution Share Alike 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-SA-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-ND-4.0",
+        "fr_FR": "CC-BY-NC-ND-4.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-ND-4.0.json"
+    },
+    {
+      "label": {
+        "en_GB": "CC-BY-NC-SA-4.0",
+        "fr_FR": "CC-BY-NC-SA-4.0"
+      },
+      "licenseName": "Creative Commons Attribution Non Commercial Share Alike 4.0 International",
+      "licenseUrl": "http://spdx.org/licenses/CC-BY-NC-SA-4.0.json"
+    }
+  ]
+}

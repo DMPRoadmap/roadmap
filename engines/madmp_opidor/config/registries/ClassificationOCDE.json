@@ -1,0 +1,298 @@
+{
+    "ClassificationOCDE": [
+        {
+            "label": {
+                "fr_FR": "1.1 Mathématiques",
+                "en_GB": "1.1 Mathematics"
+            },
+            "value": "1.1 Mathematics"
+        },
+        {
+            "label": {
+                "fr_FR": "1.2 Informatique et sciences de l'information",
+                "en_GB": "1.2 Computer and information sciences"
+            },
+            "value": "1.2 Computer and information sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "1.3 Sciences physiques",
+                "en_GB": "1.3 Physical sciences"
+            },
+            "value": "1.3 Physical sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "1.4 Sciences chimiques",
+                "en_GB": "1.4 Chemical sciences"
+            },
+            "value": "1.4 Chemical sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "1.5 Sciences de la terre et de l'environnement",
+                "en_GB": "1.5 Earth and related environmental sciences"
+            },
+            "value": "1.5 Earth and related environmental sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "1.6 Sciences biologiques",
+                "en_GB": "1.6 Biological sciences"
+            },
+            "value": "1.6 Biological sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "1.7 Autres sciences naturelles",
+                "en_GB": "1.7 Other natural sciences"
+            },
+            "value": "1.7 Other natural sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "2.1 Génie civil",
+                "en_GB": "2.1 Civil engineering"
+            },
+            "value": "2.1 Civil engineering"
+        },
+        {
+            "label": {
+                "fr_FR": "2.2 Génie électrique, électronique et informatique",
+                "en_GB": "2.2 Electrical engineering, electronic engineering, information engineering"
+            },
+            "value": "2.2 Electrical engineering, electronic engineering, information engineering"
+        },
+        {
+            "label": {
+                "fr_FR": "2.3 Mécanique",
+                "en_GB": "2.3 Mechanical engineering"
+            },
+            "value": "2.3 Mechanical engineering"
+        },
+        {
+            "label": {
+                "fr_FR": "2.4 Génie chimique",
+                "en_GB": "2.4 Chemical engineering"
+            },
+            "value": "2.4 Chemical engineering"
+        },
+        {
+            "label": {
+                "fr_FR": "2.5 Génie des matériaux",
+                "en_GB": "2.5 Materials engineering"
+            },
+            "value": "2.5 Materials engineering"
+        },
+        {
+            "label": {
+                "fr_FR": "2.6 Génie médical",
+                "en_GB": "2.6 Medical engineering"
+            },
+            "value": "2.6 Medical engineering"
+        },
+        {
+            "label": {
+                "fr_FR": "2.7 Génie de l'environnement",
+                "en_GB": "2.7 Environmental engineering"
+            },
+            "value": "2.7 Environmental engineering"
+        },
+        {
+            "label": {
+                "fr_FR": "2.8 Biotechnologie environnementale",
+                "en_GB": "2.8 Environmental biotechnology"
+            },
+            "value": "2.8 Environmental biotechnology"
+        },
+        {
+            "label": {
+                "fr_FR": "2.9 Biotechnologie industrielle",
+                "en_GB": "2.9 Industrial biotechnology"
+            },
+            "value": "2.9 Industrial biotechnology"
+        },
+        {
+            "label": {
+                "fr_FR": "2.10 Nanotechnologie",
+                "en_GB": "2.10 Nano-technology"
+            },
+            "value": "2.10 Nano-technology"
+        },
+         {
+            "label": {
+                "fr_FR": "2.11 Autres sciences de l'ingénieur et technologies",
+                "en_GB": "2.11 Other engineering and technologies"
+            },
+            "value": "2.11 Other engineering and technologies"
+        },
+        {
+            "label": {
+                "fr_FR": "3.1 Médecine fondamentale",
+                "en_GB": "3.1 Basic medicine"
+            },
+            "value": "3.1 Basic medicine"
+        },
+        {
+            "label": {
+                "fr_FR": "3.2 Médecine clinique",
+                "en_GB": "3.2 Clinical medicine"
+            },
+            "value": "3.2 Clinical medicine"
+        },
+        {
+            "label": {
+                "fr_FR": "3.3 Sciences de la santé",
+                "en_GB": "3.3 Health sciences"
+            },
+            "value": "3.3 Health sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "3.4 Biotechnologie médicale",
+                "en_GB": "3.4 Medical biotechnology"
+            },
+            "value": "3.4 Medical biotechnology"
+        },
+        {
+            "label": {
+                "fr_FR": "3.5 Autres sciences médicales",
+                "en_GB": "3.5 Other medical sciences"
+            },
+            "value": "3.5 Other medical sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "4.1 Agriculture, sylviculture et pêche",
+                "en_GB": "4.1 Agriculture, forestry, and fisheries"
+            },
+            "value": "4.1 Agriculture, forestry, and fisheries"
+        },
+        {
+            "label": {
+                "fr_FR": "4.2 Sciences de l'animal et du lait",
+                "en_GB": "4.2 Animal and dairy science"
+            },
+            "value": "4.2 Animal and dairy science"
+        },
+        {
+            "label": {
+                "fr_FR": "4.3 Science vétérinaire",
+                "en_GB": "4.3 Veterinary science"
+            },
+            "value": "4.3 Veterinary science"
+        },
+        {
+            "label": {
+                "fr_FR": "4.4 Biotechnologie agricole",
+                "en_GB": "4.4 Agricultural biotechnology"
+            },
+            "value": "4.4 Agricultural biotechnology"
+        },
+        {
+            "label": {
+                "fr_FR": "4.5 Autres sciences agricoles",
+                "en_GB": "4.5 Other agricultural sciences"
+            },
+            "value": "4.5 Other agricultural sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "5.1 Psychologie et sciences cognitives",
+                "en_GB": "5.1 Psychology and cognitive sciences"
+            },
+            "value": "5.1 Psychology and cognitive sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "5.2 Economie et commerce",
+                "en_GB": "5.2 Economics and business"
+            },
+            "value": "5.2 Economics and business"
+        },
+        {
+            "label": {
+                "fr_FR": "5.3 Education",
+                "en_GB": "5.3 Education"
+            },
+            "value": "5.3 Education"
+        },
+        {
+            "label": {
+                "fr_FR": "5.4 Sociologie",
+                "en_GB": "5.4 Sociology"
+            },
+            "value": "5.4 Sociology"
+        },
+        {
+            "label": {
+                "fr_FR": "5.5 Droit",
+                "en_GB": "5.5 Law"
+            },
+            "value": "5.5 Law"
+        },
+        {
+            "label": {
+                "fr_FR": "5.6 Science politique",
+                "en_GB": "5.6 Political science"
+            },
+            "value": "5.6 Political science"
+        },
+        {
+            "label": {
+                "fr_FR": "5.7 Géographie sociale et économique",
+                "en_GB": "5.7 Social and economic geography"
+            },
+            "value": "5.7 Social and economic geography"
+        },
+        {
+            "label": {
+                "fr_FR": "5.8 Médias et communications",
+                "en_GB": "5.8 Media and communications"
+            },
+            "value": "5.8 Media and communications"
+        },
+        {
+            "label": {
+                "fr_FR": "5.9 Autres sciences sociales",
+                "en_GB": "5.9 Other social sciences"
+            },
+            "value": "5.9 Other social sciences"
+        },
+        {
+            "label": {
+                "fr_FR": "6.1 Histoire et archéologie",
+                "en_GB": "6.1 History and archaeology"
+            },
+            "value": "6.1 History and archaeology"
+        },
+        {
+            "label": {
+                "fr_FR": "6.2 Langues et lettres",
+                "en_GB": "6.2 Languages and literature"
+            },
+            "value": "6.2 Languages and literature"
+        },
+        {
+            "label": {
+                "fr_FR": "6.3 Philosophie, éthique et religion",
+                "en_GB": "6.3 Philosophy, ethics and religion"
+            },
+            "value": "6.3 Philosophy, ethics and religion"
+        },
+        {
+            "label": {
+                "fr_FR": "6.4 Arts (arts plastiques, histoire de l'art, arts de la scène, musique)",
+                "en_GB": "6.4 Arts (arts, history of arts, performing arts, music)"
+            },
+            "value": "6.4 Arts (arts, history of arts, performing arts, music)"
+        },
+        {
+            "label": {
+                "fr_FR": "6.5 Autres sciences humaines",
+                "en_GB": "6.5 Other humanities"
+            },
+            "value": "6.5 Other humanities"
+        }
+    ]
+}

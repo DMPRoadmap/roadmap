@@ -4,40 +4,114 @@ module Dmpopidor
   # Customized code for PlansController
   # rubocop:disable Metrics/ModuleLength
   module PlansController
+    include Dmpopidor::ErrorHelper
+
     # CHANGES:
-    # - Added Active Flag on Org
-    # - Added Template Context support for filtering orgs
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # - Emptied method as logic is now handled by ReactJS
     def new
-      @plan = ::Plan.new
-      @template_context = Template.contexts[params[:context]] || 'research_project'
-      authorize @plan
-
-      # Get all of the available funders and non-funder orgs
-      @funders = ::Org.funder
-                      .includes(identifiers: :identifier_scheme)
-                      .joins(:templates)
-                      .where(templates: { published: true, context: @template_context }).uniq.sort_by(&:name)
-      orgs_with_context = ::Org.includes(identifiers: :identifier_scheme).joins(:templates)
-                               .managed.where(templates: { context: @template_context })
-      @orgs = (orgs_with_context.organisation + orgs_with_context.institution + orgs_with_context.default_orgs)
-      @orgs = @orgs.flatten
-                   .select { |org| org.active == true }
-                   .uniq.sort_by(&:name)
-
-      @plan.org_id = current_user.org&.id
-
-      # Get the default template
-      @default_template = ::Template.default
-
-      # TODO: is this still used? We cannot switch this to use the :plan_params
-      #       strong params because any calls that do not include `plan` in the
-      #       query string will fail
-      flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params.key?(:test)
-      @is_test = params[:test] ||= false
+      authorize ::Plan.new
       respond_to :html
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+
+    # POST /plans
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def create
+      @plan = ::Plan.new
+      authorize @plan
+      # If the template_id is blank then we need to look up the available templates and
+      # return JSON
+      if plan_params[:template_id].blank?
+        render json: {
+          message: _('Unable to identify a suitable template for your plan.')
+        }, status: 400
+      else
+        @plan.template = ::Template.find(plan_params[:template_id])
+        I18n.with_locale @plan.template.locale do
+          @plan.visibility = Rails.configuration.x.plans.default_visibility
+
+          @plan.template = ::Template.find(plan_params[:template_id])
+
+          @plan.org = current_user.org
+
+          @plan.title = if current_user.firstname.blank?
+                          format(_('My Plan (%{title})'), title: @plan.template.title)
+                        else
+                          format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
+                        end
+          if @plan.save
+            # pre-select org's guidance and the default org's guidance
+            ids = (::Org.default_orgs.pluck(:id) << current_user.org_id).flatten.uniq
+            ggs = ::GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
+
+            @plan.guidance_groups << ggs unless ggs.empty?
+
+            default = ::Template.default
+
+            msg = "#{success_message(@plan, _('created'))}<br />"
+
+            if !default.nil? && default == @plan.template
+              # We used the generic/default template
+              msg += " #{_('This plan is based on the default template.')}"
+
+            elsif !@plan.template.customization_of.nil?
+              # We used a customized version of the the funder template
+              # rubocop:disable Layout/LineLength
+              msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
+              # rubocop:enable Layout/LineLength
+            else
+              # We used the specified org's or funder's template
+              msg += format(_('This plan is based on the "%{template_title}" template provided by %{org_name}.'),
+                            template_title: @plan.template.title, org_name: @plan.template.org.name)
+            end
+
+            @plan.add_user!(current_user.id, :creator)
+            @plan.save
+            # Initialize Meta & Project
+            @plan.create_plan_fragments
+
+            # Add default research output if possible
+            created_ro = @plan.research_outputs.create!(
+              abbreviation: "#{_('RO')} 1",
+              title: "#{_('Research output')} 1",
+              is_default: true,
+              display_order: 1
+            )
+            created_ro.create_json_fragments
+
+            flash[:notice] = msg
+            render json: {
+              id: @plan.id
+            }, status: 200
+
+          else
+            # Something went wrong so report the issue to the user
+            render json: {
+              message: failure_message(@plan, _('create'))
+            }, status: 400
+          end
+        end
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    # CHANGES:
+    # - Kept only necessary code as logic is now handled by ReactJS
+    def show
+      @plan = ::Plan.includes(
+        template: [:phases]
+      ).find(params[:id])
+      authorize @plan
+
+      @visibility = if @plan.visibility.present?
+                      @plan.visibility.to_s
+                    else
+                      Rails.configuration.x.plans.default_visibility
+                    end
+
+      respond_to :html
+    end
 
     # PUT /plans/1
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -88,6 +162,23 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+    def structured_edit
+      plan = ::Plan.includes(
+        { template: :phases }
+      )
+                   .find(params[:id])
+      authorize plan
+      template = plan.template
+      render('/phases/edit', locals:
+        {
+          plan:,
+          template:,
+          locale: template.locale
+        })
+
+    end
+
+    # GET /plans/:id/budget
     def budget
       @plan = ::Plan.find(params[:id])
       dmp_fragment = @plan.json_fragment
@@ -96,12 +187,130 @@ module Dmpopidor
       render(:budget, locals: { plan: @plan, costs: @costs })
     end
 
+    def guidance_groups
+      @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+      render json: {
+        status: 200,
+        message: 'Guidance groups',
+        data: @all_ggs_grouped_by_org,
+      },status: :ok
+    end
+
+    def select_guidance_groups
+      begin
+        @plan = ::Plan.find(params[:id])
+        authorize @plan
+
+        body = JSON.parse(request.raw_post)
+
+        selected_ids = body["guidance_group_ids"]
+
+        guidance_group_ids = if selected_ids.blank?
+                                []
+                              else
+                                selected_ids.map(&:to_i).uniq
+                              end
+
+        @plan.guidance_groups = ::GuidanceGroup.where(id: guidance_group_ids)
+
+        guidance_presenter = ::GuidancePresenter.new(@plan)
+
+        if @plan.save
+          @all_ggs_grouped_by_org = get_guidances_groups(params[:id])
+          render json: {
+              status: 200,
+              message: "Guidances updated for plan [#{params[:id]}]",
+              guidance_groups: @all_ggs_grouped_by_org,
+              questions_with_guidance: @plan.template.questions.select do |q|
+                question = ::Question.find(q.id)
+                guidance_presenter.any?(question:)
+              end.pluck(:id)
+          }, status: :ok
+        else
+          Rails.logger.error("Plan [#{params[:id]}] not updated")
+          internal_server_error("Plan [#{params[:id]}] not updated")
+        end
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Plan [#{params[:id]}] not found")
+        not_found("Plan [#{params[:id]}] not found")
+      rescue JSON::ParserError, TypeError => e
+        Rails.logger.error("Bad request - Invalid JSON data")
+        bad_request("Bad request - Invalid JSON data")
+      rescue StandardError => e
+        Rails.logger.error("Internal server error - #{e.message}")
+        internal_server_error("Internal server error - #{e.message}")
+      end
+    end
+
+    def question_guidances
+      plan_id = params[:id]
+      unless plan_id && plan_id.to_i.positive?
+        bad_request("Plan [#{plan_id}] id, must be present or positive value")
+        return
+      end
+
+      question_id = params[:question]
+      unless question_id && question_id.to_i.positive?
+        bad_request("Question [#{question_id}] id, must be present or positive value")
+        return
+      end
+
+      begin
+        @plan = ::Plan.find(plan_id)
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Plan [#{plan_id}] not found")
+        Rails.logger.error(e.backtrace.join("\n"))
+        not_found('No plan found')
+        return
+      rescue StandardError => e
+        Rails.logger.error('An error occured during retriving plan data')
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error(e.message)
+        return
+      end
+
+      begin
+        authorize @plan
+      rescue Pundit::NotAuthorizedError => e
+        Rails.logger.error('An error occurred while checking authorisations')
+        Rails.logger.error(e.backtrace.join("\n"))
+        forbidden
+        return
+      end
+
+      begin
+        question = ::Question.find(question_id)
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Question [#{plan_id}] not found")
+        Rails.logger.error(e.backtrace.join("\n"))
+        not_found('No plan found')
+        return
+      rescue StandardError => e
+        Rails.logger.error('An error occured during retriving question data')
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error(e.message)
+        return
+      end
+
+      begin
+        guidance_presenter = ::GuidancePresenter.new(@plan)
+        guidances = guidance_presenter.tablist(question)
+      rescue StandardError => e
+        Rails.logger.error("Cannot create guidance presenter")
+        Rails.logger.error(e.backtrace.join("\n"))
+        internal_server_error('An error occured during guidance presenter creation')
+        return
+      end
+
+      render json: { status: 200, message: "Guidances for plan [#{plan_id}] and question [#{question_id}]", guidances: guidances }, status: :ok
+    end
+
     def import
       @plan = ::Plan.new
       authorize @plan
 
       @templates = ::Template.includes(:org)
-                             .where(type: 'structured', customization_of: nil)
+                             .where(type: 'structured', context: 'research_project', customization_of: nil)
                              .unarchived.published
     end
 
@@ -112,53 +321,116 @@ module Dmpopidor
       authorize @plan
       # rubocop:disable Metrics/BlockLength
       ::Plan.transaction do
-        respond_to do |format|
-          json_file = import_params[:json_file]
-          if json_file.respond_to?(:read)
-            json_data = JSON.parse(json_file.read)
-          elsif json_file.respond_to?(:path)
-            json_data = JSON.parse(File.read(json_file.path))
-          else
-            raise IOError
-          end
-          errs = Import::PlanImportService.validate(json_data, import_params[:format])
-          if errs.any?
-            format.html { redirect_to import_plans_path, alert: import_errors(errs) }
-          else
-            @plan.visibility = Rails.configuration.x.plans.default_visibility
-
-            @plan.template = ::Template.find(import_params[:template_id])
-
-            @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
-            @plan.org = current_user.org
-
-            if @plan.save
-              @plan.add_user!(current_user.id, :creator)
-              @plan.save
-              @plan.create_plan_fragments
-
-              Import::PlanImportService.import(@plan, json_data, import_params[:format])
-
-              format.html { redirect_to plan_path(@plan), notice: success_message(@plan, _('imported')) }
+        @plan.template = ::Template.find(import_params[:template_id])
+        I18n.with_locale @plan.template.locale do
+          respond_to do |format|
+            json_file = import_params[:json_file]
+            if json_file.respond_to?(:read)
+              json_data = JSON.parse(json_file.read)
+            elsif json_file.respond_to?(:path)
+              json_data = JSON.parse(File.read(json_file.path))
             else
-              format.html { redirect_to import_plans_path, alert: failure_message(@plan, _('create')) }
+              raise IOError
             end
+            errs = Import::PlanImportService.validate(json_data, import_params[:format], locale: @plan.template.locale)
+            if errs.any?
+              format.html { redirect_to import_plans_path, alert: import_errors(errs) }
+            else
+              @plan.visibility = Rails.configuration.x.plans.default_visibility
+
+
+              @plan.title = format(_("%{user_name}'s Plan"), user_name: current_user.firstname)
+              @plan.org = current_user.org
+
+              if @plan.save
+                @plan.add_user!(current_user.id, :creator)
+                @plan.save
+                @plan.create_plan_fragments
+
+                Import::PlanImportService.import(@plan, json_data, import_params[:format])
+
+                format.html { redirect_to plan_path(@plan), notice: success_message(@plan, _('imported')) }
+              else
+                format.html { redirect_to import_plans_path, alert: failure_message(@plan, _('create')) }
+              end
+            end
+          rescue IOError
+            format.html { redirect_to import_plans_path, alert: _('Unvalid file') }
+          rescue JSON::ParserError
+            msg = _('File should contain JSON')
+            format.html { redirect_to import_plans_path, alert: msg }
+          rescue StandardError => e
+            msg = "#{_('An error has occured: ')} #{e.message}"
+            Rails.logger.error e.backtrace
+            format.html { redirect_to import_plans_path, alert: msg }
           end
-        rescue IOError
-          format.html { redirect_to import_plans_path, alert: _('Unvalid file') }
-        rescue JSON::ParserError
-          msg = _('File should contain JSON')
-          format.html { redirect_to import_plans_path, alert: msg }
-        rescue StandardError => e
-          msg = "#{_('An error has occured: ')} #{e.message}"
-          Rails.logger.error e.backtrace
-          format.html { redirect_to import_plans_path, alert: msg }
         end
       end
       # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    def answers_data
+      plan = ::Plan.find(params[:id])
+      authorize plan
+
+      guidance_presenter = ::GuidancePresenter.new(plan)
+      render json: {
+        id: plan.id,
+        dmp_id: plan.json_fragment.id,
+        research_outputs: plan.research_outputs.order(:display_order).map do |ro|
+          {
+            id: ro.id,
+            abbreviation: ro.abbreviation,
+            title: ro.title,
+            order: ro.display_order,
+            type: ro.json_fragment.research_output_description['data']['type'] || nil,
+            hasPersonalData: ro.has_personal_data,
+            answers: ro.answers.map do |a|
+              {
+                answer_id: a.id,
+                question_id: a.question_id,
+                fragment_id: a.madmp_fragment.id,
+                madmp_schema_id: a.madmp_fragment.madmp_schema_id
+              }
+            end
+          }
+        end,
+        questions_with_guidance: plan.template.questions.select do |q|
+          question = ::Question.find(q.id)
+          guidance_presenter.any?(question:)
+        end.pluck(:id)
+      }
+    end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+    # GET AJAX /plans/:id/contributors_data
+    def contributors_data
+      plan = ::Plan.find(params[:id])
+      authorize plan
+
+      dmp_fragment = plan.json_fragment
+      contributors = dmp_fragment.persons.order(
+        Arel.sql("data->>'lastName', data->>'firstName'")
+      )
+      schema = MadmpSchema.find_by(name: "PersonStandard")
+      render json: {
+        dmp_id: plan.json_fragment.id,
+        contributors: contributors.map do |contributor|
+          {
+            id: contributor.id,
+            data: contributor.data,
+            roles: contributor.roles
+          }
+        end,
+        template: {
+          id: schema.id,
+          schema: schema.schema
+        }
+      } 
+    end
 
     private
 
@@ -200,6 +472,40 @@ module Dmpopidor
                answers: answers,
                guidance_presenter: GuidancePresenter.new(plan)
              })
+    end
+
+    def get_guidances_groups(id)
+      @plan = ::Plan.includes(
+        :guidance_groups, template: [:phases]
+      ).find(id)
+      authorize @plan
+
+      @visibility = if @plan.visibility.present?
+                      @plan.visibility.to_s
+                    else
+                      Rails.configuration.x.plans.default_visibility
+                    end
+
+      @all_guidance_groups = @plan.guidance_group_options
+      @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+      @selected_guidance_groups = @plan.guidance_groups.ids.to_set
+
+      @default_orgs = ::Org.default_orgs
+
+      @all_ggs_grouped_by_org.map do |key, group|
+        {
+          name: key.name,
+          id: key.id,
+          important: @default_orgs.include?(key) || group.any? { |item| @selected_guidance_groups.include?(item.id) },
+          guidance_groups: group.map do |item|
+            {
+              id: item.id,
+              name: item.name,
+              selected: @selected_guidance_groups.include?(item.id)
+            }
+          end
+        }
+      end
     end
   end
   # rubocop:enable Metrics/ModuleLength

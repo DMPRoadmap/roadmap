@@ -16,6 +16,7 @@ module Dmpopidor
         @show_coversheet         = export_params[:project_details].present?
         @show_sections_questions = export_params[:question_headings].present?
         @show_unanswered         = export_params[:unanswered_questions].present?
+        @show_complete_data      = export_params[:complete_data].present?
         @show_custom_sections    = export_params[:custom_sections].present?
         @show_research_outputs   = true
         @public_plan             = false
@@ -100,7 +101,7 @@ module Dmpopidor
 
     def export_params
       params.fetch(:export, {})
-            .permit(:form, :project_details, :question_headings, :unanswered_questions,
+            .permit(:form, :project_details, :question_headings, :unanswered_questions, :complete_data,
                     :custom_sections, :research_outputs, :research_output_mode, :selected_phases,
                     formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
     end

@@ -8,17 +8,111 @@
 
 DMP Roadmap is a Data Management Planning tool. Management and development of DMP Roadmap is jointly provided by the Digital Curation Centre (DCC), http://www.dcc.ac.uk/, and the University of California Curation Center (UC3), http://www.cdlib.org/services/uc3/.
 
-### Requis
+### Requirements
 
-- Ruby 2.4.x
-- Rails 4.2.x
+- Ruby 3.2.x
+- Rails 7.1.x
 - NodeJS LTS
-- PostgreSQL 9.x
+- PostgreSQL 12.x
 
 Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/releases/).
 
+#### Pre-requisites
+Roadmap is a Ruby on Rails application and you will need to have:
+- Ruby >= 3.1
+- Rails = 7.0
+- MySQL >= 5.0 OR PostgreSQL
+
+Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org.
+
+L'application se lance par défaut en mode développement.
+
+## Developpment
+
 #### Installation
 See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installation) on the Wiki.
+
+#### Docker
+
+#### Requirements
+- [Docker](https://www.docker.com/)
+- [Docker compose](https://docs.docker.com/compose/install/)
+
+#### Installation
+
+```bash
+# init submodule
+git submodule init && git submodule update
+
+```
+
+##### Directus
+
+Default credentials: ``admin@example.com`` / ``changeme``
+
+```bash
+# Create directus database
+docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} -c 'create database ${DIRECTUS_DATABASE:-directus};'"
+
+# Copy database dump file in postgres container
+docker compose cp ./directus/dump.sql postgres:/directus.sql
+
+# Apply dump in database
+docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} ${DIRECTUS_DATABASE:-directus} < directus.sql"
+```
+
+###### Backup
+
+```bash
+# Dump directus database
+docker compose exec -it postgres sh -c "pg_dump -U ${DB_USERNAME:-postgres} ${DIRECTUS_DATABASE:-directus}" > directus/dump.sql
+```
+
+##### Development mode
+
+```bash
+# build image
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev build dmpopidor
+
+# Configure database connection for postgres (change postgres by mysql)
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker postgres'
+
+# Setup database
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'bin/rails db:environment:set RAILS_ENV=development; ruby bin/docker db:setup'
+
+# Run all services
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev up -d
+```
+
+#### Production mode
+
+```bash
+# build image
+docker compose --profile prod build dmpopidor
+
+# Configure database connection for postgres (change postgres by mysql)
+docker compose --profile prod run --rm dmpopidor sh -c 'ruby bin/docker postgres'
+
+# Setup database
+docker compose --profile prod run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
+
+# Run all services
+docker compose --profile prod up -d
+```
+
+
+The rails server is launched via puma behind a niginx, it is accessible at the url ``http://localhost:8080``
+
+#### Tests & Swagger/OpenAPI
+The tests are run by [rswag](https://github.com/rswag/rswag), which generates OpenAPI documentation based on these tests.
+
+An **rswag** command is defined in the ``Procfile.dev`` file to generate the OpenAPI file.
+
+You can generate the OpenAPI file and run the tests with the following command:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev exec dmpopidor sh -c "RAILS_ENV=test rails rswag"
+```
 
 #### Troubleshooting
 See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the Wiki.
@@ -42,5 +136,3 @@ See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/blob/developm
 
 #### License
 The DMP Roadmap project uses the <a href="./LICENSE.md">MIT License</a>.
-
-foobar

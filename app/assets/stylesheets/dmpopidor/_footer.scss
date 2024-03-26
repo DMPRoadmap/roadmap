@@ -1,0 +1,289 @@
+@use './colours' as *;
+
+#dmpopidor-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  bottom: 0;
+  width: 100%;
+  color: $white;
+  background-color: $dark-blue;
+
+  a,
+  a:active,
+  a:focus,
+  a:visited {
+    color: $white;
+  }
+
+  img[|alt="DMP OPIDoR logo"] {
+    margin: 15px auto;
+  }
+
+  img {
+    height: 75px;
+  }
+
+  .footer-content,
+  .footer-cc {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    font-size: large;
+    padding-bottom: 10px;
+
+    @media (max-width: 767px) {
+      font-size: 12pt;
+    }
+  }
+
+  .footer-content {
+    display: flex;
+    max-width: 1440px;
+    padding: 20px 40px;
+
+    @media (max-width: 767px) {
+      padding: 20px;
+    }
+
+    .footer-col {
+      flex: 1;
+      align-items: left;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+      padding-right: 5%;
+      padding-left: 5%;
+
+      .footer-col-title {
+        font-weight: bold;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      span {
+        a {
+          padding: 4px 0;
+          display: block;
+        }
+      }
+
+      &:first-of-type {
+
+        img {
+          margin-bottom: 20px;
+        }
+
+        span {
+          text-align: justify;
+        }
+      }
+
+      &:not(:first-of-type) {
+        span {
+          text-align: left;
+          margin: 5px 0;
+          width: 100%;
+        }
+      }
+    }
+
+    @media (max-width: 1260px) {
+      flex-wrap: wrap;
+
+      .footer-col {
+        flex: 1 1 50%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .footer-cc {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #193155;
+    padding: 10px 0 10px 0;
+
+    @media (max-width: 575px) {
+      flex-direction: column;
+    }
+
+    .footer-infos {
+      align-items: center;
+      display: flex;
+      width: max-content;
+    }
+
+    .footer-sn {
+      font-size: 30px;
+
+      span {
+        a {
+          text-decoration: none;
+        }
+
+        img,
+        i {
+          font-size: 20px !important;
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+
+      img {
+        &:nth-of-type(1) {
+          height: 30px;
+
+          @media (max-width: 767px) {
+            height: 30px;
+          }
+        }
+      }
+
+      width: max-content;
+    }
+  }
+
+  div span a {
+    width: max-content;
+  }
+}
+
+@media (max-width: 1260px) {
+  #dmpopidor-footer {
+    .footer-content {
+      .footer-col {
+        span {
+          &:first-of-type {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+// .navbar-fixed-bottom {
+//   z-index: 50;
+// }
+
+// #dmpopidor-footer {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+
+//   bottom: 0;
+//   font-size: 15px;
+
+//   .footer-content {
+//     width: 100%;
+//     padding: 0px 100px;
+//     color: $white;
+//     background-color: $blue;
+
+//     .footer-links-logos {
+//       display: flex;
+
+//       .footer-links {
+//         flex: 9;
+//       }
+
+//       .footer-logos {
+//         flex: 1;
+//         padding: 5px;
+//         display: flex;
+//         align-items: center;
+
+//         img {
+//           max-height: 50px;
+//         }
+//       }
+//     }
+
+//     .footer-infos-sn {
+//       display: flex;
+//       border-top: 1px solid $white;
+
+//       .footer-infos {
+//         flex: 9;
+//       }
+
+//       .footer-sn {
+//         flex: 1;
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-around;
+//       }
+
+//     }
+
+//     span {
+//       line-height: 50px;
+//       padding-left: 15px;
+//       padding-right: 15px;
+//     }
+
+
+//     a {
+
+//       &:focus,
+//       &:active {
+//         outline-style: dotted !important;
+//         outline-color: white !important;
+//         outline-width: 1px !important;
+//       }
+
+//       &:hover {
+//         outline-style: none !important;
+//       }
+//     }
+//   }
+
+
+//   a,
+//   a:active,
+//   a:focus,
+//   a:visited {
+//     color: $white;
+//   }
+// }
+
+// @media (max-width: 1023px) {
+//   .footer-links-logos {
+//     flex-direction: column;
+//     align-items: center;
+
+//     .break-point {
+//       display: none;
+//     }
+
+//     .footer-links {
+//       display: flex;
+//       align-items: center;
+//       flex-direction: column;
+//     }
+//   }
+
+//   .footer-infos-sn {
+//     flex-direction: column;
+//     align-items: center;
+//   }
+
+//   .org-branding {
+//     padding-top: 175px;
+//   }
+
+// }
+
+// @media (max-width: 767px) {
+//   .org-branding {
+//     padding-top: 75px;
+//   }
+
+// }

@@ -1,0 +1,61 @@
+@use './colours' as *;
+
+/*
+    MAIN CONTENT
+*/
+
+#maincontent {
+  padding: 0 50px 50px 50px;
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 90%;
+
+  &> :first-child:not(#plan-navigation) {
+    padding-top: 50px;
+  }
+}
+
+@media (max-width: 575px) {
+
+  main#maincontent {
+    padding: 0 15px 15px 15px;
+  }
+}
+
+/*
+    FRONT PAGE
+*/
+
+.dmpopidor-front-page {
+
+  @media (max-width: 575px) {
+    margin-left: -10px;
+  }
+
+  .main-title {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+
+    @media (min-width: 576px) {
+      margin-bottom: -100px !important;
+    }
+
+    @media (max-width: 767px) {
+      margin: auto;
+    }
+
+    h1 {
+      @media (max-width: 767px) {
+        text-align: center;
+      }
+
+      @media (max-width: 575px) {
+        font-size: 24pt;
+      }
+    }
+  }
+}

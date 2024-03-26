@@ -1,0 +1,24 @@
+@use './colours' as *;
+
+a.has-new-window-popup-info,
+button.has-new-window-popup-info {
+  text-transform: none;
+  
+  & > span.new-window-popup-info {
+    text-transform: none;
+  }
+
+  z-index:4;
+  &:hover,
+  &:focus,
+  &:active {
+    & > span.new-window-popup-info {
+      width:15em;
+      border:1px solid $dark-blue;
+      background-color: $dark-blue;
+      color:white;
+    }
+    
+  }
+  
+}

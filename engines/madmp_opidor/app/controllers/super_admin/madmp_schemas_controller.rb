@@ -41,7 +41,7 @@ module SuperAdmin
       authorize(MadmpSchema)
       if @schema.update(permitted_params.except(:schema))
         json_schema = MadmpSchema.substitute_names(JSON.parse(permitted_params[:schema]))
-        @schema.update(schema: json_schema)
+        @schema.update_column(:schema, json_schema)
         flash.now[:notice] = success_message(@schema, _('updated'))
       else
         flash.now[:alert] = failure_message(@schema, _('update'))
@@ -57,7 +57,7 @@ module SuperAdmin
         redirect_to super_admin_madmp_schemas_path, notice: msg
       else
         flash.now[:alert] = failure_message(@schema, _('delete'))
-        redner :edit
+        render :edit
       end
     end
 

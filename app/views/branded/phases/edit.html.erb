@@ -1,14 +1,21 @@
 <% title "#{plan.title} - Write plan" %>
-<div class="row">
-  <div class="col-md-12">
-    <h1><%= plan.title %></h1> 
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-12">
+
+<% locale = LocaleService.to_gettext(locale: locale)%>
+
+<% content_for :plan_tab_body do %>
+  <% if plan.template.structured? %>
+    <dmp-write-plan props-json='{
+      "locale": "<%= locale %>",
+      "planId": <%= plan.id %>,
+      "templateId": <%= template.id %>,
+      "userId": <%= @current_user.id %>,
+      "currentOrgId": <%= current_user.org.id %>,
+      "currentOrgName": "<%= current_user.org.name %>",
+      "readonly": <%= !plan.editable_by?(current_user.id) %>
+    }'/>
+  <% else %>
     <%= render partial: 'phases/edit_plan_answers',
-              layout: 'plans/navigation',
               locals: {
                 plan: plan,
                 phase: phase,
@@ -17,5 +24,7 @@
                 base_template_org: base_template_org,
                 guidance_presenter: guidance_presenter,
               } %>
-  </div>
-</div>
+  <% end %>
+<% end %>
+
+<%= render partial: "plans/navigation", locals: { plan: plan } %>

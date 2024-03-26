@@ -6,7 +6,7 @@
     <% research_output_description = research_output&.json_fragment&.research_output_description %>
     <% research_output_data = research_output_description.data if research_output_description.present?%>
     <% contact = research_output_description.contact%>
-    <%= form_for research_output, url: plan_research_output_path(:id => research_output.id, :plan_id => plan.id), html: {method: :put, remote: true, id: nil } do |f| %>
+    <%= form_for research_output, url: update_remote_research_outputs_path(:id => research_output.id, :plan_id => plan.id), html: {method: :patch, remote: true, id: nil } do |f| %>
       <div class='research-output-element <%= index != 0 ? '' : 'inactive' %>'>
         <%= hidden_field_tag 'research-output-id', research_output.id, class: 'research-output-id' %>
         <div class='research-output-fields'>
@@ -28,77 +28,56 @@
                             "data-toggle": "tooltip", title: _('Research output title')   %>
             <span class="readonly"><%= research_output_data['title'] %></span>
           </div>
-          <% if plan.template.structured? %>
-            <% if Rails.configuration.x.dmpopidor.enable_research_outputs_uuid %>
-              <div class='research-output-field form-group research-output-uuid'>
-                <%= f.label :uuid,  class: 'control-label' do %>
-                  <%= _('UUID') %> 
-                  <i class="fas fa-circle-question action" 
-                    data-toggle="tooltip" 
-                    title="<%= _('Research output unique identifier')%>" ></i>
-                <% end %>
-                <%= f.text_field :uuid, value: research_output.uuid,
-                                class: 'form-control input edit',
-                                disabled: true,
-                                aria: { disabled: true, label: _('Research output unique identifier') },
-                                "data-toggle": "tooltip", title: _('Research output unique identifier')   %>
-                <span class="readonly">
-                  <%= research_output.uuid %>
-                  <i class="fas fa-copy action copy" 
-                    data-toggle="tooltip" 
-                    title="<%= _('Copy UUID to clipboard')%>" ></i>
-                </span>
-              </div>
-            <% end %>
-          <% else %>
-            <div class='research-output-field form-group research-output-type'>
-              <% registryValues = Registry.find_by(name:"ResearchDataType").registry_values %>
-              <%= f.label :output_type_description, _('Type'),  class: 'control-label' %>
-              <%= select_tag "research_output[output_type_description]",
-                          options_for_select(
-                              registryValues.map {|v| [ 
-                                      v.to_s(locale: template_locale), 
-                                      select_value(v, template_locale) 
-                                  ] 
-                              },
-                              selected: research_output_data['type']
-                          ),
-                          include_blank: true,
-                          "data-toggle": "tooltip",
-                          class: "form-control input edit",
-                          aria: { required: true, label: _('Research output type') },
-                          id: "output_type_description"  %>
-              <span class="readonly"><%= research_output_data['type'] %></span>
+          <div class='research-output-field form-group research-output-type'>
+            <% registryValues = Registry.find_by(name:"ResearchDataType").registry_values %>
+            <%= f.label :output_type_description, _('Type'),  class: 'control-label' %>
+            <%= select_tag "research_output[output_type_description]",
+                        options_for_select(
+                            registryValues.map {|v| [ 
+                                    v.to_s(locale: template_locale), 
+                                    v.to_s(locale: template_locale)
+                                ] 
+                            },
+                            selected: research_output_data['type']
+                        ),
+                        include_blank: true,
+                        "data-toggle": "tooltip",
+                        class: "form-control input edit",
+                        aria: { required: true, label: _('Research output type') },
+                        id: "output_type_description"  %>
+            <span class="readonly"><%= research_output_data['type'] %></span>
+          </div>
+          <div class='research-output-field form-group research-output-contact'>
+            <%= f.label "contact_id", _('Contact'),  class: 'control-label' %>
+            <div class="edit">
+              <%= select_tag "contact_id",
+                options_for_select(
+                  @persons.map {|p| [
+                      p.to_s, 
+                      p.id
+                    ] 
+                  },
+                  selected: contact&.person.present? ? contact.person.id : nil
+                ),
+                disabled: readonly,
+                include_blank: true,
+                aria: { label: _('Contact') },
+                class: "form-control" %>
+              <a href="<%= plan_contributors_path(@plan) %>" target="_blank"
+                 class="contributor-link"
+                 aria-hidden="true" data-toggle="tooltip" 
+                 data-original-title="<%= _('Add a person in the Contributors tab. Please save before clicking on +') %>">
+                  <i class="fas fa-plus"></i>
+              </a>
             </div>
-            <div class='research-output-field form-group research-output-contact'>
-              <% personsList = research_output_description.dmp.persons %>
-              <%= f.label "contact_id", _('Contact'),  class: 'control-label' %>
-              <span class="input edit">
-                <%= render(partial: 'dynamic_form/fields/fragment_select_field', locals: {
-                  f: f,
-                  selected_value: contact.person,
-                  readonly: false,
-                  parent_id: contact.id,
-                  dmp_id: research_output_description.dmp_id,
-                  schema: MadmpSchema.find_by(name: "PersonStandard"),
-                  required: true,
-                  template_locale: template_locale,
-                  property_name: nil,
-                  field_id: "contact_#{contact.id}_person", field_name: "contact_id",
-                  multiple: false,
-                  field_label: nil, ttip: nil, answer_id: nil 
-                  }
-                ) %>
-              </span>
-              <span class="readonly"><%= contact.person.to_s %></span>
-            </div>
-            <div class='research-output-field form-group research-output-pid'>
-              <%= f.label :pid, _('Persistent Identifier'),  class: 'control-label' %>
-              <%= f.text_field :pid, value: research_output_data['datasetId'], class: 'form-control input edit', "aria-required": true,
-                          'data-toggle': 'tooltip', title: _('If exists, please fill in the research output persistant identifier.')   %>
-              <span class="readonly"><%= research_output_data['datasetId'] %></span>
-            </div>
-          <% end %>
+            <span class="readonly"><%= contact&.person.present? ? contact.person.to_s : nil %></span>
+          </div>
+          <div class='research-output-field form-group research-output-pid'>
+            <%= f.label :pid, _('Persistent Identifier'),  class: 'control-label' %>
+            <%= f.text_field :pid, value: research_output_data['datasetId'], class: 'form-control input edit', "aria-required": true,
+                        'data-toggle': 'tooltip', title: _('If exists, please fill in the research output persistant identifier.')   %>
+            <span class="readonly"><%= research_output_data['datasetId'] %></span>
+          </div>
           <div class='research-output-actions pull-right' style="width:25%">
             <%= f.submit _('Save'), class: "btn btn-primary edit" %>
             <button type="button" class="btn btn-secondary cancel"><%= _('Cancel') %></button>
@@ -112,11 +91,11 @@
               <i class="fas fa-up-down-left-right handle" aria-hidden="true" data-toggle="tooltip" 
                       data-original-title="<%= _('Move research output') %>"></i>
                       
-              <%= link_to plan_research_output_url(plan, research_output), 
+              <%= link_to destroy_remote_research_outputs_url(plan_id: plan.id, id: research_output.id), 
                           target: "_self",
                           class: "fas fa-xmark delete",
                           data: {:confirm => _('Deleting this research output will remove the associated answers. Do you confirm ?')}, 
-                          :method => :delete  do %>
+                          :method => :delete do %>
                 <i aria-hidden="true" data-toggle="tooltip" 
                       data-original-title="<%= _('Delete research output') %>" %></i>
               <% end %>

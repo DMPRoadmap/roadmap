@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "SpecificDataStandard",
+    "description": "SpecificDataStandard template",
+    "type": "object",
+    "class": "SpecificDataStandard",
+    "properties": {},
+    "required": [],
+    "to_string": []
+}

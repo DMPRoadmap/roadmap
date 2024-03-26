@@ -60,8 +60,31 @@ module Dmpopidor
       end
 
       @templates = @templates.sort_by(&:title)
+      res = @templates.map do |template|
+        {
+          id: template.id,
+          locale: template.locale,
+          title: template.title,
+          description: template.description || '',
+          structured: template.structured?
+        }
+      end.as_json()
+      render json: res
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    def recommend
+      recommended_template = ::Template.recommend(context: params[:context], locale: params[:locale]) || ::Template.default
+      authorize ::Template.new, :template_options?
+
+      render json: {
+        id: recommended_template.id,
+        title: recommended_template.title,
+        locale: recommended_template.locale,
+        description: recommended_template.description || '',
+        structured: recommended_template.structured?
+      }
+    end
   end
 end

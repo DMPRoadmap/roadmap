@@ -1,0 +1,165 @@
+@use './colours' as *;
+
+@mixin dmpopidor-dropdown {
+  .dmpopidor-dropdown {
+    li a[rel="nofollow"][data-method="patch"] {
+
+      &:first-of-type,
+      &:last-of-type {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
+
+    li {
+      text-align: left;
+
+      &.delimiter {
+        padding: 0 10px;
+        font-size: xx-large;
+        margin: 0 10px 0 10px;
+      }
+
+      a {
+        padding: 5px 20px;
+        color: $dark-blue;
+      }
+
+      a:hover {
+        font-weight: bold;
+        background-color: white;
+      }
+    }
+
+    &>li>a {
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    li.active {
+
+      a,
+      a:active,
+      a:focus,
+      a:visited {
+        font-weight: bold;
+        color: white;
+      }
+    }
+
+    .dropdown-header {
+      color: $dark-blue;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+}
+
+/*
+    DROPDOWNS
+*/
+#admin-dropdown,
+.plan-actions {
+
+  .dmpopidor-dropdown {
+    background-color: $white;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
+
+    li {
+
+      a,
+      a:active,
+      a:focus,
+      a:visited {
+        color: $blue;
+
+      }
+
+      a:hover {
+        color: $white;
+        background-color: $blue;
+      }
+    }
+
+    li.active {
+
+      a,
+      a:active,
+      a:focus,
+      a:visited {
+        background-color: $blue;
+        color: $white;
+      }
+    }
+  }
+
+  .open {
+    a {
+      background-color: $white;
+    }
+  }
+}
+
+#admin-dropdown {
+  .dmpopidor-dropdown {
+    li.active {
+
+      a,
+      a:active,
+      a:focus,
+      a:visited {
+        background-color: $rust;
+        color: $white;
+      }
+    }
+  }
+}
+
+ul.nav li ul.dropdown-menu {
+  border-radius: 5px !important;
+
+  li {
+    a {
+      text-align: left;
+    }
+
+    a.dropdown-toggle {
+
+      &:focus,
+      &:active,
+      &:visited {
+        background-color: none;
+      }
+    }
+
+    &:first-child {
+      border-radius: 5px 5px 0 0;
+
+      @media (min-width: 768px) {
+        a {
+          border-radius: inherit;
+
+          &:hover {
+            border-radius: inherit;
+          }
+        }
+      }
+    }
+
+    &:last-child {
+      border-radius: 0 0 5px 5px;
+
+      a {
+        border-radius: inherit;
+
+        &:hover {
+          border-radius: inherit;
+        }
+      }
+    }
+  }
+}
+
+.delimiter {
+  padding: 0 10px;
+}

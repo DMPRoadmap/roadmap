@@ -11,26 +11,32 @@ Rails.application.routes.draw do
     resources :madmp_schemas, only: %i[index new create edit update destroy]
   end
 
-  resources :madmp_fragments, only: %i[create update destroy] do
-    get 'load_new_form', action: :load_form, on: :collection
-    get 'load_form/:id', action: :load_form, on: :collection
-    get 'change_form/:id', action: :change_form, on: :collection
-    get 'new_edit_linked', on: :collection, constraints: { format: [:js] }
-    get 'show_linked', on: :collection, constraints: { format: [:js] }
-    get 'create_from_registry', action: :create_from_registry_value, on: :collection
-    get 'create_contributor', action: :create_contributor, on: :collection
-    delete 'destroy_contributor', action: :destroy_contributor, on: :collection
+  resources :madmp_fragments, only: %i[show create update destroy] do
     get 'load_fragments', action: :load_fragments, on: :collection
+    get 'change_form/:id', action: :change_form, on: :collection, constraints: { format: [:json] }
+    delete 'destroy_contributor', action: :destroy_contributor, on: :collection, constraints: { format: [:json] }
   end
 
-  get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
-  get '/codebase/anr_search', to: 'madmp_codebase#anr_search', constraints: { format: [:json] }
+  resources :madmp_schemas, only: %i[index show]
 
-  resources :registries, only: [] do
+  get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
+  get '/codebase/project_search', to: 'madmp_codebase#project_search', constraints: { format: [:json] }
+
+  resources :guided_tour, only: %i[get_tour end_tour] do
+    get ':tour', action: :get_tour, on: :collection, constraints: { format: [:json] }
+    post ':tour', action: :end_tour, on: :collection, constraints: { format: [:json] }
+  end
+
+  resources :registries, only: %i[show] do
     get 'load_values', action: :load_values, on: :collection
+    get 'by_name/:name', action: :by_name, on: :collection
   end
 
   resources :api_client_roles, only: %i[create update destroy]
+
+  resources :templates, only: %i[show], constraints: { format: [:json] } do 
+    post 'set_recommended', action: :set_recommended
+  end
 
   namespace :api, defaults: { format: :json } do
     namespace :v0 do
@@ -54,6 +60,13 @@ Rails.application.routes.draw do
           collection do
             post :import
           end
+        end
+        resources :services do
+          resources :items, only: %i[ror orcid]
+          get 'ror', action: :ror, on: :collection, as: :ror
+          get 'orcid', action: :orcid, on: :collection, as: :orcid
+          get 'loterre/*path', action: :loterre, on: :collection, as: :loterre
+          get 'metadore', action: :metadore, on: :collection, as: :metadore
         end
       end
     end

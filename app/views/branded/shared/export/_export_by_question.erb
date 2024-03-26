@@ -51,7 +51,8 @@
           <% end %>
           <p><%= sanitize ah['text'] %></p>
           <br/>
-        <% elsif question[:format].structured? && fragment.present? %>
+        <% end %>
+        <% if @plan.template.structured? && fragment.present? %>
           <%= render partial: 'shared/export/display_madmp_fragment', 
                       locals: {
                           fragment: fragment,

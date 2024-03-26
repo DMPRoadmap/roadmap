@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
+  mount ActionCable.server => "/cable"
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -52,14 +53,15 @@ Rails.application.routes.draw do
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
 
   root to: 'home#index'
+  get 'login', to: 'home#login'
   get 'about_us', to: 'static/static_pages#show', name: 'about_us'
-  get 'help', to: 'static/static_pages#show', name: 'help'
   get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
   get 'terms', to: 'static/static_pages#show', name: 'termsuse'
   get 'privacy', to: 'static/static_pages#show', name: 'privacy'
   get 'research_output_types', to: 'static/static_pages#show', name: 'research_output_types'
   get 'about_registries', to: 'static/static_pages#show', name: 'about_registries'
 
+  get 'help', to: 'static_pages#help'
   get 'tutorials', to: 'static_pages#tutorials'
   get 'news_feed', to: 'static_pages#news_feed'
   get 'optout', to: 'static_pages#optout'
@@ -74,7 +76,9 @@ Rails.application.routes.draw do
 
   # AJAX call used to search for Orgs based on user input into autocompletes
   post 'orgs' => 'orgs#search', as: 'orgs_search'
-
+  resources :orgs, constraints: { format: [:json] } do
+    get 'list', on: :collection
+  end
   resources :orgs, path: 'org/admin', only: [] do
     member do
       get 'admin_edit'
@@ -122,6 +126,7 @@ Rails.application.routes.draw do
   resources :answers, only: [] do
     post 'create_or_update', on: :collection
     post 'set_answers_as_common', on: :collection
+    get 'notes', constraints: { format: [:json] }
   end
 
   # Question Formats controller, currently just the one action
@@ -129,7 +134,9 @@ Rails.application.routes.draw do
 
   resources :notes, only: %i[create update archive] do
     member do
-      patch 'archive'
+      post 'create', constraints: { format: [:json] }
+      patch 'archive', constraints: { format: [:json] }
+      put 'update', constraints: { format: [:json] }
     end
   end
 
@@ -145,11 +152,17 @@ Rails.application.routes.draw do
     resources :research_outputs, except: %i[show]
 
     member do
+      get 'structured_edit'
       get 'answer'
       get 'share'
       get 'request_feedback'
       get 'download'
       get 'budget'
+      get 'guidance_groups', constraints: { format: [:json] }
+      post 'guidance_groups', action: :select_guidance_groups, constraints: { format: [:json] }
+      get 'guidances', action: :question_guidances, constraints: { format: [:json] }
+      get 'answers_data', constraints: { format: [:json] }
+      get 'contributors_data', constraints: { format: [:json] }
       post 'duplicate'
       post 'visibility', constraints: { format: [:json] }
       post 'set_test', constraints: { format: [:json] }
@@ -158,8 +171,10 @@ Rails.application.routes.draw do
     resources :research_outputs, only: %i[index update destroy], controller: 'research_outputs'
   end
 
-  resources :research_outputs, only: [] do
+  resources :research_outputs, only: [:index, :create, :destroy, :update], constraints: { format: [:json] } do
     get 'create_remote', on: :collection
+    delete 'destroy_remote', on: :collection
+    patch 'update_remote', on: :collection
     post 'sort', on: :collection
   end
 
@@ -242,14 +257,6 @@ Rails.application.routes.draw do
         end
       end
     end
-
-    namespace :v1 do
-      get :heartbeat, controller: 'base_api'
-      post :authenticate, controller: 'authentication'
-
-      resources :plans, only: %i[create show index]
-      resources :templates, only: [:index]
-    end
   end
 
   namespace :paginable do
@@ -325,7 +332,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :template_options, only: [:index], constraints: { format: /json/ }
+  resources :template_options, only: [:index], constraints: { format: /json/ } do
+    get 'default', action: :default, on: :collection, as: :default
+    get 'recommend', action: :recommend, on: :collection, as: :recommend
+  end
 
   # ORG ADMIN specific pages
   namespace :org_admin do

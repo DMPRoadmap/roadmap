@@ -114,6 +114,7 @@ class User < ApplicationRecord
   # CHANGES : inverse relation for feecback_plans
   # --------------------------------
   has_many :feedback_plans, class_name: 'Plan', foreign_key: 'feedback_requestor_id'
+  has_many :guided_tours, dependent: :destroy
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------

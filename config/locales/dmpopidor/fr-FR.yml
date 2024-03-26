@@ -20,7 +20,7 @@ fr-FR:
         select-or-create: "Sélectionnez une valeur pour l'ajouter à votre plan ou saisissez une nouvelle."
     home:
       welcome: "Bienvenue !"
-      front-page-1: "%{tool_name} vous accompagne à travers l’élaboration et la mise  en pratique de plans de gestion de données et de logiciels."
+      front-page-1: "%{tool_name} vvous accompagne à travers l’élaboration et la mise en pratique de plans de gestion de données, logiciels et autres."
       front-page-2: "Accessible à la communauté scientifique de l’ESR et à ses partenaires français ou étrangers"
       front-page-3: "Personnalisable par tout organisme de recherche pour la mise en place de sa politique de données"
       front-page-4: "Enrichi par des exemples et des recommandations adaptés à l’environnement de recherche"

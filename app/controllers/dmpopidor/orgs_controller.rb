@@ -3,6 +3,32 @@
 module Dmpopidor
   # Customized code for OrgsController
   module OrgsController
+    # Returns a list of active orgs in json
+    # Removes current user's org from the list
+    # rubocop:disable Metrics/AbcSize
+    def list
+      orgs_with_context = ::Org.joins(:templates).managed
+                               .where(
+                                 active: true,
+                                 templates: { 
+                                    published: true,
+                                    archived: false,
+                                    is_recommended: false,
+                                    context: params[:context],
+                                    locale: params[:locale]  
+                                  }
+                               )
+      @orgs = if params[:type] == 'org'
+                (orgs_with_context.organisation + orgs_with_context.institution + orgs_with_context.default_orgs)
+              else
+                [orgs_with_context.funder]
+              end
+      @orgs = @orgs.flatten.uniq.sort_by(&:name)
+      authorize ::Org.new, :list?
+      render json: @orgs.as_json(only: %i[id name])
+    end
+    # rubocop:enable Metrics/AbcSize
+
     # CHANGE: ADDED BANNER TEXT and ACTIVE
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

@@ -1,0 +1,112 @@
+{
+  "Role": [
+	{
+      "en_GB": "Registration Agency",
+      "fr_FR": "Agence d'enregistrement"
+    },
+		{
+      "en_GB": "Registration Authority",
+      "fr_FR": "Autorité d'enregistrement"
+    },
+	{
+      "en_GB": "Project Leader",
+      "fr_FR": "Chef de projet"
+    },
+		{
+      "en_GB": "Researcher",
+      "fr_FR": "Chercheur"
+    },
+		{
+      "en_GB": "Work Package Leader",
+      "fr_FR": "Chef de groupe de travail"
+    },
+    {
+      "en_GB": "Data Collector",
+      "fr_FR": "Collecteur de données"
+    },
+	{
+      "en_GB": "Project Coordinator",
+      "fr_FR": "Coordinateur du projet"
+    },
+    {
+      "en_GB": "Data Curator",
+      "fr_FR": "Curateur de données"
+    },
+	{
+      "en_GB": "Data Protection Officer (from GDPR)",
+      "fr_FR": "Délégué de protection des données (selon RGPD)"
+    },
+	{
+      "en_GB": "Rights Holder",
+      "fr_FR": "Détenteur des droits"
+    },
+	{
+      "en_GB": "Distributor",
+      "fr_FR": "Distributeur"
+    },
+    {
+      "en_GB": "Editor",
+      "fr_FR": "Editeur"
+    },
+	{
+      "en_GB": "Research Group",
+      "fr_FR": "Equipe de recherche"
+    },
+    {
+      "en_GB": "Data Manager",
+      "fr_FR": "Gestionnaire de données"
+    },
+	{
+      "en_GB": "Project Manager",
+      "fr_FR": "Gestionnaire de projet"
+    },
+    {
+      "en_GB": "Hosting Institution",
+      "fr_FR": "Institution d'accueil"
+    },
+	    {
+      "en_GB": "Project Member",
+      "fr_FR": "Membre du projet"
+    },
+		{
+      "en_GB": "Related Person",
+      "fr_FR": "Personne associée"
+    },
+	{
+      "en_GB": "Contact Person",
+      "fr_FR": "Personne contact"
+    },
+	{
+      "en_GB": "Supervisor",
+      "fr_FR": "Responsable"
+    },
+	{
+      "en_GB": "Joint Data controller (from GDPR)",
+      "fr_FR": "Responsable conjoint du traitement (selon RGPD)"
+    },
+	{
+      "en_GB": "Entity's Manager",
+      "fr_FR": "Responsable de l'entité"
+    },
+	{
+      "en_GB": "Data Controller (from GDPR)",
+      "fr_FR": "Responsable de traitement des données (selon RGPD)"
+    },
+	{
+      "en_GB": "DMP Manager",
+      "fr_FR": "Responsable du plan"
+    },
+	{
+      "en_GB": "Data Processor (from GDPR)",
+      "fr_FR": "Sous-traitant (selon RGPD)"
+    },
+	{
+      "en_GB": "Sponsor",
+      "fr_FR": "Sponsor"
+    },
+	{
+      "en_GB": "Other",
+      "fr_FR": "Autre"
+    }
+  ]
+}

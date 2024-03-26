@@ -1,57 +1,27 @@
 <% title "#{@plan.title} - contributors" %>
 
-<div class="row">
-  <div class="col-md-12">
-    <!-- render the project title -->
-    <h1><%= @plan.title %></h1>
-  </div>
-</div>
+<% locale = @plan.template.locale %>
 
 <% content_for :plan_tab_body do %>
   <div class="row">
+    <% I18n.with_locale locale do %>
+      <div class="col-md-12">
+        <p>
+          <%= _("List of person responsible for research data management during a project and their roles.") %>
+        </p>
+        <p>
+          <%= _("Assigning a role to a person is done in the \"General information\" tab, in the \"Write Plan\" tab for the structured templates or in the \"Research Outputs\" tab for other templates.") %>
+        </p>
+      </div>
+    <% end %>
     <div class="col-md-12">
-      <p>
-        <%= _("List of person responsible for research data management during a project and their roles.") %>
-      </p>
-      <p>
-        <%= _("Assigning a role to a person is done in the \"General information\" tab, in the \"Write Plan\" tab for the structured templates or in the \"Research Outputs\" tab for other templates.") %>
-      </p>
-    </div>
-    <div class="col-md-12 madmp-fragment">
-      <% if @contributors.any? %>
-        <%= paginable_renderise partial: "/paginable/contributors/index",
-                                controller: "paginable/contributors",
-                                action: "index",
-                                remote: true,
-                                scope: @contributors,
-                                locals: { plan: @plan } %>
-      <% else %>
-        <p><%= _("No contributors have been defined.") %></p>
-      <% end %>
-    </div>
-    <div class="col-md-12">
-      <% if @plan.editable_by?(current_user.id) && @plan.template.structured? %>
-        <span data-toggle="modal" data-target="#modal-window">
-          <%= link_to _("Add a person"), new_edit_linked_madmp_fragments_url(
-                  nil, 
-                  :parent_id => @plan.json_fragment.id, 
-                  :schema_id => MadmpSchema.find_by(name: "PersonStandard").id, 
-                  :template_locale => LocaleService.to_gettext(locale: @plan.template.locale),
-                  :source => "list-modal",
-                  :property_name => nil,
-                  :query_id => "contributor"
-          ),  {
-            :remote => true, 
-            :target => "_self",
-            :class => "btn btn-primary",
-            'data-toggle' =>  "tooltip",
-            'data-original-title' => _("Click here to add a new item")
-          }  %>
-        </span>
-      <% end %>
+      <dmp-contributors-tab props-json='{
+        "locale": "<%= LocaleService.to_gettext(locale: locale) %>",
+        "planId": "<%= @plan.id %>",
+        "readonly": <%= !@plan.editable_by?(current_user.id) %>
+      }'/>
     </div>
   </div>
 <% end %>
 
 <%= render partial: "plans/navigation", locals: { plan: @plan } %>
-<div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-labelledby="linkedInformationsModal" aria-hidden="true"></div>

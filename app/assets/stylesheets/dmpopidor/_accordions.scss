@@ -1,0 +1,47 @@
+@use './colours' as *;
+
+@mixin dmpopidor-accordion-large {
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid $dark-blue;
+
+  .dmpopidor-accordion {
+    background-color: white;
+
+    .panel-title {
+      font-size: x-large;
+      font-weight: bold;
+      color: $rust;
+    }
+    i.fas,
+    span.icon {
+      font-size: xx-large;
+      font-weight: bold;
+      color: $rust;
+    }
+  }
+
+}
+@mixin dmpopidor-accordion {
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid $dark-blue;
+
+  .dmpopidor-accordion {
+    background-color: $white;
+    color: $dark-blue;
+
+    .panel-title {
+      color: $dark-blue;
+      font-size: 20px;
+    }
+
+    i.fas {
+      font-size: x-large;
+      font-weight: bold;
+      color: $rust
+    }
+  }
+}

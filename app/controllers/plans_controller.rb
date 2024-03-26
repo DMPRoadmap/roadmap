@@ -127,22 +127,6 @@ class PlansController < ApplicationController
         @plan.funder = org_from_params(params_in: attrs, allow_create: false)
       end
 
-      # bit of hackery here. There are 2 org selectors on the page
-      # and each is within its own specific context, plan.org or
-      # plan.funder which forces the hidden id hash to be :id
-      # so we need to convert it to :org_id so it works with the
-      # OrgSelectable and OrgSelection services
-      org_hash = plan_params[:org] || params[:org]
-      if org_hash[:id].present?
-        org_hash[:org_id] = org_hash[:id]
-        @plan.org = org_from_params(params_in: org_hash, allow_create: false)
-      end
-      funder_hash = plan_params[:funder] || params[:funder]
-      if funder_hash[:id].present?
-        funder_hash[:org_id] = funder_hash[:id]
-        @plan.funder = org_from_params(params_in: funder_hash, allow_create: false)
-      end
-
       if @plan.save
         # pre-select org's guidance and the default org's guidance
         ids = (Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq
@@ -180,32 +164,8 @@ class PlansController < ApplicationController
 
         # Set new identifier to plan id by default on create.
         # (This may be changed by user.)
-        # --------------------------------
-        # Start DMP OPIDoR Customization
-        # CHANGES : Commented line
-        # --------------------------------
-        # @plan.identifier = @plan.id.to_s
-        # --------------------------------
-        # End DMP OPIDoR Customization
-        # --------------------------------
+        @plan.identifier = @plan.id.to_s
         @plan.save
-
-        # --------------------------------
-        # Start DMP OPIDoR Customization
-        # CHANGES : Added default Research Output & Plan fragment creation
-        # --------------------------------
-        @plan.create_plan_fragments
-
-        # Add default research output if possible
-        @plan.research_outputs.create!(
-          abbreviation: 'Default',
-          title: 'Default research output',
-          is_default: true,
-          display_order: 1
-        )
-        # --------------------------------
-        # End DMP OPIDoR Customization
-        # --------------------------------
 
         respond_to do |format|
           flash[:notice] = msg
@@ -236,15 +196,6 @@ class PlansController < ApplicationController
       :guidance_groups, template: [:phases]
     ).find(params[:id])
     authorize @plan
-
-    # --------------------------------
-    # Start DMP OPIDoR Customization
-    # --------------------------------
-    @schemas = MadmpSchema.all
-    @research_outputs = @plan.research_outputs.order(:display_order)
-    # --------------------------------
-    # End DMP OPIDoR Customization
-    # --------------------------------
 
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
@@ -301,6 +252,10 @@ class PlansController < ApplicationController
   # End DMP OPIDoR Customization
   # --------------------------------
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # --------------------------------
   # TODO: This feels like it belongs on a phases controller, perhaps introducing
   #       a non-namespaces phases_controller woulld make sense here. Consider
   #       doing this when we refactor the Plan editing UI
@@ -308,17 +263,10 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def edit
     plan = Plan.includes(
-      # --------------------------------
-      # Start DMP OPIDoR Customization
-      # --------------------------------
-      :research_outputs,
-      # --------------------------------
-      # End DMP OPIDoR Customization
-      # --------------------------------
       { template: {
         phases: {
           sections: {
-            questions: %i[question_format annotations]
+            questions: %i[question_format annotations madmp_schema]
           }
         }
       } },
@@ -334,6 +282,9 @@ class PlansController < ApplicationController
     render_phases_edit(plan, phase, guidance_groups)
   end
   # rubcocop:enable Metrics/AbcSize
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # PUT /plans/1
   # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity

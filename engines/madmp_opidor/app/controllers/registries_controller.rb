@@ -3,7 +3,22 @@
 # Controller that handles registries interrogation on the user's side
 class RegistriesController < ApplicationController
   after_action :verify_authorized
-  include DynamicFormHelper
+
+  def show
+    registry = Registry.find(params[:id])
+    registry_values = registry.registry_values
+
+    skip_authorization
+    render json: registry_values.pluck(:data)
+  end
+
+  def by_name
+    registry = Registry.find_by(name: params[:name])
+    registry_values = params[:page] ? registry.registry_values.page(params[:page]) : registry.registry_values
+
+    skip_authorization
+    render json: registry_values.pluck(:data)
+  end
 
   # rubocop:disable Metrics/AbcSize
   def load_values

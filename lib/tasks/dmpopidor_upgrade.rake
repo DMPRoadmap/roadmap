@@ -67,8 +67,8 @@ namespace :dmpopidor_upgrade do
     Plan.all.each do |p|
       research_output = if p.research_outputs.empty?
                           p.research_outputs.create(
-                            abbreviation: 'Default',
-                            fullname: 'Default research output',
+                            abbreviation: "#{_('RO')} 1",
+                            title: "#{_('Research output')} 1",
                             is_default: true,
                             type: ResearchOutputType.find_by(label: 'Dataset'),
                             order: 1

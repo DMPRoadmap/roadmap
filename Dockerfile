@@ -1,72 +1,55 @@
-FROM phusion/passenger-ruby24:1.0.19
-
-LABEL maintainer="Benjamin FAURE benjamin.faure@inist.fr"
-
-# Setting some env vars
-ENV HOME=/root \
-    PASSENGER_DOWNLOAD_NATIVE_SUPPORT_BINARY=0 \
-    LANGUAGE=fr_FR.UTF-8 \
-    LANG=fr_FR.UTF-8 \
-    LC_ALL=fr_FR.UTF-8 \
-    RUBY_VERSION=2.4.10
-
-
-# Addin Yarn repo
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-# Installing package dependencies
-RUN apt-get -qqy update \
-    && apt-get install vim \
+FROM ruby:3.2.3-slim as base
+WORKDIR /app
+RUN apt update -y && apt install -y \
     build-essential \
-    git \
+    ca-certificates  \
     curl \
-    locales \
-    libreadline-dev \
-    libssl-dev \
-    libsqlite3-dev \
+    gnupg \
     wget \
+    libpq-dev \
+    wkhtmltopdf \
     imagemagick \
-    xz-utils \
-    libcurl4-gnutls-dev \
-    libxrender1 \
-    libfontconfig1 \
-    apt-transport-https \
     tzdata \
-    xfonts-base \
-    xfonts-75dpi \
-    yarn \
-    python \
-    ca-certificates -qqy \
-    && rm -rf /var/lib/apt/lists/*
+    gnupg2 && \
+  wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+  apt update -y && apt install -y yarn && \
+  apt clean && \
+  rm -rf /var/lib/apt/lists/* && \
+  ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
+  ln -sf /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf && \
+  chmod +x /usr/local/bin/wkhtmltopdf
 
-# Installing Node 10.x
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
-RUN apt install -y nodejs
+FROM base as dev
+COPY . .
+ENV NODE_MAJOR=20
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+  apt update -y && apt install -y \
+    nodejs && \
+  bundle config set --local without 'mysql' && \
+  bundle install && \
+  yarn install
 
-# Set locale to UTF8
-RUN locale-gen --no-purge fr_FR.UTF-8 \
-    && update-locale LANG=fr_FR.UTF-8 \
-    && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
+FROM dev as production-builder
+ARG DB_ADAPTER \
+  DB_USERNAME \
+  DB_PASSWORD
+RUN bin/docker ${DB_ADAPTER:-postgres} && \
+  RAILS_ENV=build DISABLE_SPRING=1 NODE_OPTIONS=--openssl-legacy-provider rails assets:precompile && \
+  rm -rf node_modules && \
+  bundle config set --local without 'mysql thin test ci aws development build' && \
+  bundle install
+RUN mkdir -p .ssl && \
+    openssl req -new -newkey rsa:2048 -sha1 -subj "/CN=`hostname`" -days 730 -nodes -x509 -keyout ./.ssl/cert.key -out ./.ssl/cert.crt
 
-# Copying project files
-COPY . /dmponline
-
-WORKDIR /dmponline
-
-# Installing Ruby and Node dependencies
-RUN echo $RUBY_VERSION > .ruby-version \
-    && gem install bundler -v 1.17.3 \
-    && echo 'gem "tzinfo-data"' >> Gemfile \
-    # && bundle install --without mysql puma thin
-    && bundle install --without mysql
-RUN yarn
-
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb \
-    && apt install ./wkhtmltox_0.12.6-1.focal_amd64.deb
-
-# Run the app using the rails.sh script
-COPY ./rails.sh /usr/local/bin/
-RUN chmod a+x /usr/local/bin/rails.sh
-# RUN mkdir -p /dmponline/public/system/dragonfly && chmod a+rw  -R /dmponline/public/system/dragonfly
-CMD ["rails.sh"]
+FROM base as production
+COPY . .
+COPY --from=production-builder /app/public ./public
+COPY --from=production-builder /app/config ./config
+COPY --from=production-builder /usr/local/bundle /usr/local/bundle
+COPY --from=production-builder /app/.ssl ./.ssl
+EXPOSE 3000
+RUN chmod a+x /app/bin/prod
+CMD [ "/app/bin/prod" ]

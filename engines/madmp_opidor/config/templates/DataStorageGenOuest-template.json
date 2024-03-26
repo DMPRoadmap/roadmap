@@ -1,0 +1,244 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataStorageGenOuest",
+    "description": "DataStorageGenOuest template",
+    "type": "object",
+    "class": "DataStorageGenOuest",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des besoins de stockage",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip": null,
+            "example@fr_FR": "Des demandes d'espaces de calcul, analyses sont soumises à la plateforme GenOuest ",
+            "example@en_GB": "Requests for computing spaces are submitted to GenOuest platform",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
+            "label@fr_FR": "Identification de la ressource",
+            "label@en_GB": "Resource identification",
+            "tooltip": null,
+            "isConst": true,
+            "form_label@fr_FR": "Identification de la ressource",
+            "form_label@en_GB": "Resource identification"
+        },
+        "backupPolicy": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "BackupPolicy",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "BackupPolicyStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy",
+            "tooltip": null,
+            "isConst": true,
+            "form_label@fr_FR": "Politique de sauvegarde",
+            "form_label@en_GB": "Backup policy"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures",
+            "tooltip": null,
+            "form_label@fr_FR": "Mesures de sécurité",
+            "form_label@en_GB": "Security measures"
+        },
+        "genOuestServiceRequest": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "SpecificData",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "GenOuestServiceRequest",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Informations requises pour une demande de ressources de stockage à GenOuest",
+            "label@fr_FR": "Demande de ressources à GenOuest",
+            "label@en_GB": "Request for GenOuest resources",
+            "tooltip": null,
+            "form_label@fr_FR": "Demande de ressources à GenOuest",
+            "form_label@en_GB": "Request for GenOuest resources"
+        },
+        "estimatedVolume": {
+            "type": "number",
+            "description": "Volume total des données stockées dans les différents centres gérés par le Genci",
+            "label@fr_FR": "Volume estimé des données",
+            "label@en_GB": "Estimated data volume ",
+            "tooltip": null,
+            "form_label@fr_FR": "Volume estimé des données",
+            "form_label@en_GB": "Estimated data volume "
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "inputType": "dropdown",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "registries": [
+                "VolumeUnit"
+            ],
+            "overridable": true,
+            "tooltip": null,
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coût total des données stockées dans les différents centres gérés par les services GenOuest",
+            "label@fr_FR": "Coût total de stockage",
+            "label@en_GB": "Total cost of storage",
+            "tooltip": null,
+            "isConst": true,
+            "form_label@fr_FR": "Coût total de stockage",
+            "form_label@en_GB": "Total cost of storage"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "label@fr_FR": "Personne en charge de la gestion du stockage des données",
+            "label@en_GB": "Person in charge of data storage management",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Personne en charge de la gestion du stockage des données",
+            "form_label@en_GB": "Person in charge of data storage management"
+        }
+    },
+    "required": [
+        "description",
+        "genOuestServiceRequest"
+    ],
+    "to_string": [],
+    "run": [
+        {
+            "script_id": 0,
+            "name": "Genouest_notifyer_v1",
+            "owner": "superadmin",
+            "label@fr_FR": "Notifier GenOuest",
+            "label@en_GB": "Notify GenOuest",
+            "tooltip@fr_FR": "Envoie à une adresse mail GenOuest une demande d'allocation d'espace de stockage",
+            "tooltip@en_GB": "Sends to the GenOuest facility a query for storage space",
+            "oneshot": true,
+            "params": {
+                "recipients": [
+                    "francoise.cosserat@inist.fr",
+                    "anne.busin@inist.fr"
+                ]
+            }
+        }
+    ],
+    "default": {
+        "fr_FR": {
+            "facility": [
+                {
+                    "title": "GenOuest",
+                    "technicalResourceId": "https://cat.opidor.fr/index.php/GenOuest",
+                    "idType": "URL",
+                    "serviceContact": "https://www.genouest.org/contact",
+                    "policyUrl": null
+                }
+            ],
+            "backupPolicy": [
+                {
+                    "description": "Des snapshots sont créés toutes les heures sur les « homes ». Ceux-ci sont conservés pendant 5 semaines. Sur les répertoires projets, des snapshots sont créés tous les jours et conservés pendant 5 semaines. Aucun snapshot n’est réalisé sur les espaces de calcul.",
+                    "backupFrequency": "Chaque heure",
+                    "backupType": "Complète",
+                    "storageType": [
+                        "Disque dur"
+                    ]
+                }
+            ]
+        },
+        "en_GB": {
+            "facility": [
+                {
+                    "title": "GenOuest",
+                    "technicalResourceId": "https://cat.opidor.fr/index.php/GenOuest",
+                    "idType": "URL",
+                    "serviceContact": "https://www.genouest.org/contact",
+                    "policyUrl": null
+                }
+            ],
+            "backupPolicy": [
+                {
+                    "description": "Home Snapshots are created every hour and preserved for 5 weeks. Snapshots of project directories are produced every day and preserved for 5 weeks. No snapshot of computing spaces are produced",
+                    "backupFrequency": "Hourly",
+                    "backupType": "Complete",
+                    "storageType": [
+                        "Hard drive"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -17,7 +17,8 @@
 #  index_static_page_contents_on_language_id     (language_id)
 #  index_static_page_contents_on_static_page_id  (static_page_id)
 #
-# StaticPageContent model
+
+# StaticPageContent model, describe the content of a static page
 class StaticPageContent < ApplicationRecord
   belongs_to :static_page, optional: true
   belongs_to :language

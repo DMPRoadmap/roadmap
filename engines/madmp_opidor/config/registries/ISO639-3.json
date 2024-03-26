@@ -1,0 +1,759 @@
+{
+    "ISO639-3": [
+        {
+            "label": {
+                "fr_FR": "anglais",
+                "en_GB": "english"
+            },
+            "value": "eng"
+        },
+        {
+            "label": {
+                "fr_FR": "français",
+                "en_GB": "french"
+            },
+            "value": "fra"
+        },
+        {
+            "label": {
+                "fr_FR": "allemand",
+                "en_GB": "german"
+            },
+            "value": "deu"
+        },
+        {
+            "label": {
+                "fr_FR": "italien",
+                "en_GB": "italian"
+            },
+            "value": "ita"
+        },
+        {
+            "label": {
+                "fr_FR": "espagnol",
+                "en_GB": "spanish"
+            },
+            "value": "spa"
+        },
+        {
+            "fr_FR": "aar",
+            "en_GB": "aar"
+        },
+        {
+            "fr_FR": "abk",
+            "en_GB": "abk"
+        },
+        {
+            "fr_FR": "afr",
+            "en_GB": "afr"
+        },
+        {
+            "fr_FR": "aka",
+            "en_GB": "aka"
+        },
+        {
+            "fr_FR": "amh",
+            "en_GB": "amh"
+        },
+        {
+            "fr_FR": "ara",
+            "en_GB": "ara"
+        },
+        {
+            "fr_FR": "arg",
+            "en_GB": "arg"
+        },
+        {
+            "fr_FR": "asm",
+            "en_GB": "asm"
+        },
+        {
+            "fr_FR": "ava",
+            "en_GB": "ava"
+        },
+        {
+            "fr_FR": "ave",
+            "en_GB": "ave"
+        },
+        {
+            "fr_FR": "aym",
+            "en_GB": "aym"
+        },
+        {
+            "fr_FR": "aze",
+            "en_GB": "aze"
+        },
+        {
+            "fr_FR": "bak",
+            "en_GB": "bak"
+        },
+        {
+            "fr_FR": "bam",
+            "en_GB": "bam"
+        },
+        {
+            "fr_FR": "bel",
+            "en_GB": "bel"
+        },
+        {
+            "fr_FR": "ben",
+            "en_GB": "ben"
+        },
+        {
+            "fr_FR": "bih",
+            "en_GB": "bih"
+        },
+        {
+            "fr_FR": "bis",
+            "en_GB": "bis"
+        },
+        {
+            "fr_FR": "bod",
+            "en_GB": "bod"
+        },
+        {
+            "fr_FR": "bos",
+            "en_GB": "bos"
+        },
+        {
+            "fr_FR": "bre",
+            "en_GB": "bre"
+        },
+        {
+            "fr_FR": "bul",
+            "en_GB": "bul"
+        },
+        {
+            "fr_FR": "cat",
+            "en_GB": "cat"
+        },
+        {
+            "fr_FR": "ces",
+            "en_GB": "ces"
+        },
+        {
+            "fr_FR": "cha",
+            "en_GB": "cha"
+        },
+        {
+            "fr_FR": "che",
+            "en_GB": "che"
+        },
+        {
+            "fr_FR": "chu",
+            "en_GB": "chu"
+        },
+        {
+            "fr_FR": "chv",
+            "en_GB": "chv"
+        },
+        {
+            "fr_FR": "cor",
+            "en_GB": "cor"
+        },
+        {
+            "fr_FR": "cos",
+            "en_GB": "cos"
+        },
+        {
+            "fr_FR": "cre",
+            "en_GB": "cre"
+        },
+        {
+            "fr_FR": "cym",
+            "en_GB": "cym"
+        },
+        {
+            "fr_FR": "dan",
+            "en_GB": "dan"
+        },
+        {
+            "fr_FR": "div",
+            "en_GB": "div"
+        },
+        {
+            "fr_FR": "dzo",
+            "en_GB": "dzo"
+        },
+        {
+            "fr_FR": "ell",
+            "en_GB": "ell"
+        },
+        {
+            "fr_FR": "epo",
+            "en_GB": "epo"
+        },
+        {
+            "fr_FR": "est",
+            "en_GB": "est"
+        },
+        {
+            "fr_FR": "eus",
+            "en_GB": "eus"
+        },
+        {
+            "fr_FR": "ewe",
+            "en_GB": "ewe"
+        },
+        {
+            "fr_FR": "fao",
+            "en_GB": "fao"
+        },
+        {
+            "fr_FR": "fas",
+            "en_GB": "fas"
+        },
+        {
+            "fr_FR": "fij",
+            "en_GB": "fij"
+        },
+        {
+            "fr_FR": "fin",
+            "en_GB": "fin"
+        },
+        {
+            "fr_FR": "fry",
+            "en_GB": "fry"
+        },
+        {
+            "fr_FR": "ful",
+            "en_GB": "ful"
+        },
+        {
+            "fr_FR": "gla",
+            "en_GB": "gla"
+        },
+        {
+            "fr_FR": "gle",
+            "en_GB": "gle"
+        },
+        {
+            "fr_FR": "glg",
+            "en_GB": "glg"
+        },
+        {
+            "fr_FR": "glv",
+            "en_GB": "glv"
+        },
+        {
+            "fr_FR": "grn",
+            "en_GB": "grn"
+        },
+        {
+            "fr_FR": "guj",
+            "en_GB": "guj"
+        },
+        {
+            "fr_FR": "hat",
+            "en_GB": "hat"
+        },
+        {
+            "fr_FR": "hau",
+            "en_GB": "hau"
+        },
+        {
+            "fr_FR": "hbs",
+            "en_GB": "hbs"
+        },
+        {
+            "fr_FR": "heb",
+            "en_GB": "heb"
+        },
+        {
+            "fr_FR": "her",
+            "en_GB": "her"
+        },
+        {
+            "fr_FR": "hin",
+            "en_GB": "hin"
+        },
+        {
+            "fr_FR": "hmo",
+            "en_GB": "hmo"
+        },
+        {
+            "fr_FR": "hrv",
+            "en_GB": "hrv"
+        },
+        {
+            "fr_FR": "hun",
+            "en_GB": "hun"
+        },
+        {
+            "fr_FR": "hye",
+            "en_GB": "hye"
+        },
+        {
+            "fr_FR": "ibo",
+            "en_GB": "ibo"
+        },
+        {
+            "fr_FR": "ido",
+            "en_GB": "ido"
+        },
+        {
+            "fr_FR": "iii",
+            "en_GB": "iii"
+        },
+        {
+            "fr_FR": "iku",
+            "en_GB": "iku"
+        },
+        {
+            "fr_FR": "ile",
+            "en_GB": "ile"
+        },
+        {
+            "fr_FR": "ina",
+            "en_GB": "ina"
+        },
+        {
+            "fr_FR": "ind",
+            "en_GB": "ind"
+        },
+        {
+            "fr_FR": "ipk",
+            "en_GB": "ipk"
+        },
+        {
+            "fr_FR": "isl",
+            "en_GB": "isl"
+        },
+        {
+            "fr_FR": "jav",
+            "en_GB": "jav"
+        },
+        {
+            "fr_FR": "jpn",
+            "en_GB": "jpn"
+        },
+        {
+            "fr_FR": "kal",
+            "en_GB": "kal"
+        },
+        {
+            "fr_FR": "kan",
+            "en_GB": "kan"
+        },
+        {
+            "fr_FR": "kas",
+            "en_GB": "kas"
+        },
+        {
+            "fr_FR": "kat",
+            "en_GB": "kat"
+        },
+        {
+            "fr_FR": "kau",
+            "en_GB": "kau"
+        },
+        {
+            "fr_FR": "kaz",
+            "en_GB": "kaz"
+        },
+        {
+            "fr_FR": "khm",
+            "en_GB": "khm"
+        },
+        {
+            "fr_FR": "kik",
+            "en_GB": "kik"
+        },
+        {
+            "fr_FR": "kin",
+            "en_GB": "kin"
+        },
+        {
+            "fr_FR": "kir",
+            "en_GB": "kir"
+        },
+        {
+            "fr_FR": "kom",
+            "en_GB": "kom"
+        },
+        {
+            "fr_FR": "kon",
+            "en_GB": "kon"
+        },
+        {
+            "fr_FR": "kor",
+            "en_GB": "kor"
+        },
+        {
+            "fr_FR": "kua",
+            "en_GB": "kua"
+        },
+        {
+            "fr_FR": "kur",
+            "en_GB": "kur"
+        },
+        {
+            "fr_FR": "lao",
+            "en_GB": "lao"
+        },
+        {
+            "fr_FR": "lat",
+            "en_GB": "lat"
+        },
+        {
+            "fr_FR": "lav",
+            "en_GB": "lav"
+        },
+        {
+            "fr_FR": "lim",
+            "en_GB": "lim"
+        },
+        {
+            "fr_FR": "lin",
+            "en_GB": "lin"
+        },
+        {
+            "fr_FR": "lit",
+            "en_GB": "lit"
+        },
+        {
+            "fr_FR": "ltz",
+            "en_GB": "ltz"
+        },
+        {
+            "fr_FR": "lub",
+            "en_GB": "lub"
+        },
+        {
+            "fr_FR": "lug",
+            "en_GB": "lug"
+        },
+        {
+            "fr_FR": "mah",
+            "en_GB": "mah"
+        },
+        {
+            "fr_FR": "mal",
+            "en_GB": "mal"
+        },
+        {
+            "fr_FR": "mar",
+            "en_GB": "mar"
+        },
+        {
+            "fr_FR": "mkd",
+            "en_GB": "mkd"
+        },
+        {
+            "fr_FR": "mlg",
+            "en_GB": "mlg"
+        },
+        {
+            "fr_FR": "mlt",
+            "en_GB": "mlt"
+        },
+        {
+            "fr_FR": "mon",
+            "en_GB": "mon"
+        },
+        {
+            "fr_FR": "mri",
+            "en_GB": "mri"
+        },
+        {
+            "fr_FR": "msa",
+            "en_GB": "msa"
+        },
+        {
+            "fr_FR": "mya",
+            "en_GB": "mya"
+        },
+        {
+            "fr_FR": "nau",
+            "en_GB": "nau"
+        },
+        {
+            "fr_FR": "nav",
+            "en_GB": "nav"
+        },
+        {
+            "fr_FR": "nbl",
+            "en_GB": "nbl"
+        },
+        {
+            "fr_FR": "nde",
+            "en_GB": "nde"
+        },
+        {
+            "fr_FR": "ndo",
+            "en_GB": "ndo"
+        },
+        {
+            "fr_FR": "nep",
+            "en_GB": "nep"
+        },
+        {
+            "fr_FR": "nld",
+            "en_GB": "nld"
+        },
+        {
+            "fr_FR": "nno",
+            "en_GB": "nno"
+        },
+        {
+            "fr_FR": "nob",
+            "en_GB": "nob"
+        },
+        {
+            "fr_FR": "nor",
+            "en_GB": "nor"
+        },
+        {
+            "fr_FR": "nya",
+            "en_GB": "nya"
+        },
+        {
+            "fr_FR": "oci",
+            "en_GB": "oci"
+        },
+        {
+            "fr_FR": "oji",
+            "en_GB": "oji"
+        },
+        {
+            "fr_FR": "ori",
+            "en_GB": "ori"
+        },
+        {
+            "fr_FR": "orm",
+            "en_GB": "orm"
+        },
+        {
+            "fr_FR": "oss",
+            "en_GB": "oss"
+        },
+        {
+            "fr_FR": "pan",
+            "en_GB": "pan"
+        },
+        {
+            "fr_FR": "pli",
+            "en_GB": "pli"
+        },
+        {
+            "fr_FR": "pol",
+            "en_GB": "pol"
+        },
+        {
+            "fr_FR": "por",
+            "en_GB": "por"
+        },
+        {
+            "fr_FR": "pus",
+            "en_GB": "pus"
+        },
+        {
+            "fr_FR": "que",
+            "en_GB": "que"
+        },
+        {
+            "fr_FR": "roh",
+            "en_GB": "roh"
+        },
+        {
+            "fr_FR": "ron",
+            "en_GB": "ron"
+        },
+        {
+            "fr_FR": "run",
+            "en_GB": "run"
+        },
+        {
+            "fr_FR": "rus",
+            "en_GB": "rus"
+        },
+        {
+            "fr_FR": "sag",
+            "en_GB": "sag"
+        },
+        {
+            "fr_FR": "san",
+            "en_GB": "san"
+        },
+        {
+            "fr_FR": "sin",
+            "en_GB": "sin"
+        },
+        {
+            "fr_FR": "slk",
+            "en_GB": "slk"
+        },
+        {
+            "fr_FR": "slv",
+            "en_GB": "slv"
+        },
+        {
+            "fr_FR": "sme",
+            "en_GB": "sme"
+        },
+        {
+            "fr_FR": "smo",
+            "en_GB": "smo"
+        },
+        {
+            "fr_FR": "sna",
+            "en_GB": "sna"
+        },
+        {
+            "fr_FR": "snd",
+            "en_GB": "snd"
+        },
+        {
+            "fr_FR": "som",
+            "en_GB": "som"
+        },
+        {
+            "fr_FR": "sot",
+            "en_GB": "sot"
+        },
+        {
+            "fr_FR": "sqi",
+            "en_GB": "sqi"
+        },
+        {
+            "fr_FR": "srd",
+            "en_GB": "srd"
+        },
+        {
+            "fr_FR": "srp",
+            "en_GB": "srp"
+        },
+        {
+            "fr_FR": "ssw",
+            "en_GB": "ssw"
+        },
+        {
+            "fr_FR": "sun",
+            "en_GB": "sun"
+        },
+        {
+            "fr_FR": "swa",
+            "en_GB": "swa"
+        },
+        {
+            "fr_FR": "swe",
+            "en_GB": "swe"
+        },
+        {
+            "fr_FR": "tah",
+            "en_GB": "tah"
+        },
+        {
+            "fr_FR": "tam",
+            "en_GB": "tam"
+        },
+        {
+            "fr_FR": "tat",
+            "en_GB": "tat"
+        },
+        {
+            "fr_FR": "tel",
+            "en_GB": "tel"
+        },
+        {
+            "fr_FR": "tgk",
+            "en_GB": "tgk"
+        },
+        {
+            "fr_FR": "tgl",
+            "en_GB": "tgl"
+        },
+        {
+            "fr_FR": "tha",
+            "en_GB": "tha"
+        },
+        {
+            "fr_FR": "tir",
+            "en_GB": "tir"
+        },
+        {
+            "fr_FR": "ton",
+            "en_GB": "ton"
+        },
+        {
+            "fr_FR": "tsn",
+            "en_GB": "tsn"
+        },
+        {
+            "fr_FR": "tso",
+            "en_GB": "tso"
+        },
+        {
+            "fr_FR": "tuk",
+            "en_GB": "tuk"
+        },
+        {
+            "fr_FR": "tur",
+            "en_GB": "tur"
+        },
+        {
+            "fr_FR": "twi",
+            "en_GB": "twi"
+        },
+        {
+            "fr_FR": "uig",
+            "en_GB": "uig"
+        },
+        {
+            "fr_FR": "ukr",
+            "en_GB": "ukr"
+        },
+        {
+            "fr_FR": "urd",
+            "en_GB": "urd"
+        },
+        {
+            "fr_FR": "uzb",
+            "en_GB": "uzb"
+        },
+        {
+            "fr_FR": "ven",
+            "en_GB": "ven"
+        },
+        {
+            "fr_FR": "vie",
+            "en_GB": "vie"
+        },
+        {
+            "fr_FR": "vol",
+            "en_GB": "vol"
+        },
+        {
+            "fr_FR": "wln",
+            "en_GB": "wln"
+        },
+        {
+            "fr_FR": "wol",
+            "en_GB": "wol"
+        },
+        {
+            "fr_FR": "xho",
+            "en_GB": "xho"
+        },
+        {
+            "fr_FR": "yid",
+            "en_GB": "yid"
+        },
+        {
+            "fr_FR": "yor",
+            "en_GB": "yor"
+        },
+        {
+            "fr_FR": "zha",
+            "en_GB": "zha"
+        },
+        {
+            "fr_FR": "zho",
+            "en_GB": "zho"
+        },
+        {
+            "fr_FR": "zul",
+            "en_GB": "zul"
+        }
+    ]
+}

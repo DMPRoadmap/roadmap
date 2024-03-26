@@ -8,8 +8,6 @@ $(() => {
   });
 
   $('body').on('click', '#copy-link-btn', () => {
-    $('#link').select();
-    // eslint-disable-next-line
-    document.execCommand('copy');
+    navigator.clipboard.writeText($('#link').val());
   });
 });

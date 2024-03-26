@@ -1,16 +1,28 @@
 <% title "#{@plan.title}" %>
-<div class="row">
-  <div class="col-md-12">
-    <!-- render the project title -->
-    <h1 id="plan-title"><%= @plan.title %></h1>
-  </div>
-</div>
 
-<% partial = @plan.editable_by?(current_user.id) ? "edit_details" : "show_details" %>
+<% dmp_fragment = @plan.json_fragment() %>
+<% meta_fragment = dmp_fragment.meta %>
+<% project_fragment = @plan.template.research_entity? ? dmp_fragment.research_entity : dmp_fragment.project %>
+<% project_schema = project_fragment.madmp_schema %>
+<% meta_schema = meta_fragment.madmp_schema %>
 
-<div class="row">
-  <div class="col-md-12">
-    <%= render partial: partial, layout: 'navigation',
-               locals: { plan: @plan, visibility: @visibility } %>
-  </div>
-</div>
+<% locale = LocaleService.to_gettext(locale: @plan.template.locale)%>
+
+<% content_for :plan_tab_body do %>
+<dmp-general-info props-json='{
+  "locale": "<%= locale %>",
+  "planId": <%= @plan.id %>,
+  "dmpId": <%= dmp_fragment.id %>,
+  "projectFragmentId": <%= project_fragment.id %>,
+  "metaFragmentId": <%= meta_fragment.id %>,
+  "researchContext": "<%= @plan.template.context %>",
+  "isTest": <%= @plan.is_test? %>,
+  "isClassic": <%= @plan.template.classic? %>,
+  "currentOrgId": <%= current_user.org.id %>,
+  "currentOrgName": "<%= current_user.org.name %>",
+  "readonly": <%= !@plan.editable_by?(current_user.id) %>
+}'/>
+<% end %>
+
+
+<%= render partial: "plans/navigation", locals: { plan: @plan } %>

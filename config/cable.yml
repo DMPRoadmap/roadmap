@@ -1,10 +1,12 @@
 development:
-  adapter: async
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://redis:6379/1" } %>
+  channel_prefix: dmp_opidor_dev
 
 test:
   adapter: async
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: dmp_roadmap_production
+  url: <%= ENV.fetch("REDIS_URL") { "redis://redis:6379/1" } %>
+  channel_prefix: dmp_opidor_production

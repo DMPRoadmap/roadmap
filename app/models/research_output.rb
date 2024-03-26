@@ -47,10 +47,8 @@ class ResearchOutput < ApplicationRecord
 
   attribute :uuid, :string, default: -> { unique_uuid(field_name: 'uuid') }
 
-  attr_accessor :skip_fragments_creation
 
   prepend Dmpopidor::ResearchOutput
-  after_create :create_json_fragments, unless: :skip_fragments_creation
   after_destroy :destroy_json_fragment
   # --------------------------------
   # End DMP OPIDoR Customization

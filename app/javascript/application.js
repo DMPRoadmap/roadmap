@@ -15,9 +15,6 @@ import 'bootstrap';
 import 'bootstrap-3-typeahead';
 import 'bootstrap-select';
 
-// Select2
-import 'select2';
-
 import Rails from '@rails/ujs';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -38,7 +35,7 @@ import './src/utils/popoverHelper';
 import './src/utils/requiredField';
 import './src/utils/tabHelper';
 import './src/utils/tooltipHelper';
-import './src/utils/dynamicFormHelper';
+// import './src/utils/cookiebanner';
 import './src/utils/autoNumericHelper';
 
 // Specific functions from the Utilities files that will be made available to
@@ -56,13 +53,10 @@ import './src/devise/passwords/edit';
 import './src/devise/registrations/edit';
 import './src/devise/registrations/new';
 import './src/guidances/newEdit';
-import './src/madmpFragments/edit';
-import './src/madmpFragments/run';
 import './src/notes/index';
 import './src/orgs/adminEdit';
 import './src/orgs/shibbolethDs';
 import './src/plans/download';
-import './src/plans/editDetails';
 import './src/plans/index.js.erb';
 import './src/plans/new';
 import './src/plans/import';
@@ -72,11 +66,11 @@ import './src/publicTemplates/show';
 import './src/researchOutputs/form';
 import './src/roles/edit';
 import './src/shared/createAccountForm';
-import './src/shared/dynamicForm';
 import './src/shared/signInForm';
 import './src/usage/index';
 import './src/users/adminGrantPermissions';
 import './src/users/notificationPreferences';
+import './src/dmpopidor/shared/navigation';
 
 // OrgAdmin view specific JS
 import './src/orgAdmin/conditions/updateConditions';
@@ -98,10 +92,7 @@ import './src/superAdmin/staticPages/edit';
 import './src/superAdmin/themes/newEdit';
 import './src/superAdmin/users/edit';
 
-// Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
-// and Turbo. ActiveStorage and ActionCable would also need to be in here
-// if we decide to implement either before Rails 6
-Rails.start();
+import './remount';
 
 // TODO: Disabled turbo for the time being because our custom JS is not
 //       properly setup to work with it. We should review the docs:
@@ -109,6 +100,11 @@ Rails.start();
 // import "@hotwired/turbo-rails".
 // require("@rails/activestorage").start()
 // require("@rails/actioncable").start()
+
+// Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
+// and Turbo. ActiveStorage and ActionCable would also need to be in here
+// if we decide to implement either before Rails 6
+Rails.start();
 
 // Setup JS functions/libraries so that they're available within the js.erb templates
 window.$ = jQuery;

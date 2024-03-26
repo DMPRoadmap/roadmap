@@ -1,0 +1,44 @@
+{
+  "project": {
+      "title": "Mettre le plan de gestion des données automatisé dans les mains des biologistes",
+      "acronym": "maDMP4LS",
+      "description": "L'Institut Français de Bioinformatique (IFB), avec ses deux infrastructures informatiques et ses 30 plates-formes, est une structure essentielle pour les Sciences de la Vie et ses applications (santé, agriculture, environnement), fournissant un environnement de production, d'analyse et de gestion de données pour les communautés d’usagers. Bien que ces communautés puissent être considérées comme bien dotées d'outils de structuration et de gestion des données, des problèmes subsistent pour mettre pleinement en œuvre les bonnes pratiques et gérer les données, de leur production à leur préservation, en assurant leur accessibilité, leur reproductibilité et leur réutilisation. Le Plan de Gestion des Données (PGD ou DMP pour Data Management Plan) est considéré comme un élément-clé qui facilitera la mise en œuvre des principes FAIR (Findable, Accessible, Interoperable, Reusable). Le DMP contient les éléments qui guident le processus de gestion des données tout au long de leur cycle de vie et fournissent également des traces de la provenance des données (inclus tous les résultats de recherche dérivés des données brutes). L’Inist-CNRS propose l’outil Web DMP-OPIDoR qui facilite la rédaction des DMP et contribue également à l'harmonisation des bonnes pratiques en fournissant conseils, exemples et modèles spécifiques de certaines institutions. L'évolution du DMP OPIDoR vers un DMP automatisable (« machine-actionable DMP ») est actuellement à l'étude sur la base des retours d'expérience des utilisateurs, des cas collectés et des travaux de RDA sur le DMP actif. L'outil DMP OPIDoR « machine actionable » sera conforme au modèle commun RDA DMP mais inclura également une extension afin de servir les différents acteurs et besoins disciplinaires validés par un large groupe d'utilisateurs.",
+      "startDate": "2019",
+      "funding": [
+          {
+              "funder": {
+                  "name": "Agence Nationale de la Recherche",
+                  "dataPolicy": {
+                      "title": "La politique science ouverte de l'ANR",
+                      "docIdentifier": "https://anr.fr/fr/lanr-et-la-recherche/engagements-et-valeurs/la-science-ouverte/",
+                      "idType": "URL"
+                  },
+                  "funderId": "http://doi.org/10.13039/501100001665",
+                  "idType": "Crossref funder ID"
+              },
+              "grantId": "ANR-19-DATA-0017",
+              "fundingStatus": "Approuvé"
+          }
+      ],
+      "partner": [
+          {
+              "name": "Institut de l'information scientifique et technique",
+              "rnsr": "198822446E"
+          }
+      ],
+      "principalInvestigator": {
+          "person": {
+              "lastName": "VAN HELDEN",
+              "firstName": "Jacques",
+              "nameType": "Personne",
+              "affiliationName": "Institut français de bioinformatique",
+              "affiliationId": "201321719F",
+              "affiliationIdType": "RNSR"
+          },
+          "role": "Coordinateur du projet"
+      }
+  },
+  "meta": {
+      "title": "DMP du projet \"Mettre le plan de gestion des données automatisé dans les mains des biologistes\""
+  }
+}

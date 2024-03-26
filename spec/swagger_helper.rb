@@ -16,15 +16,14 @@ RSpec.configure do |config|
   # the root example_group in your specs, e.g. describe '...', swagger_doc: 'v2/swagger.json'
   config.swagger_docs = {
     'v1/swagger.json' => {
-      swagger: '2.0',
+      openapi: '3.0.1',
       info: {
-        title: 'maDMP OPIDoR API',
+        title: 'maDMP OPIDoR API V1',
         # rubocop:disable Layout/LineLength
         description: 'Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the "Authorize" button',
         # rubocop:enable Layout/LineLength
         version: 'v1'
       },
-      paths: {},
       securityDefinitions: {
         Bearer: {
           description: 'JWT',
@@ -32,8 +31,29 @@ RSpec.configure do |config|
           name: 'Authorization',
           in: :header
         }
-      } # supportedSubmitMethods
-    }
+      },
+      paths: {}
+    },
+    'v0/swagger.json' => {
+      openapi: '3.0.1',
+      info: {
+        title: 'DMP OPIDoR API v0',
+        # rubocop:disable Layout/LineLength
+        description: 'Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the "Authorize" button',
+        # rubocop:enable Layout/LineLength
+        version: 'v0'
+      },
+      paths: {},
+      securityDefinitions: {
+        "ApiKeyAuth": {
+          description: 'JWT',
+          type: :apiKey,
+          name: 'Authorization',
+          in: :header
+        }
+      }
+
+
   }
 
   # Specify the format of the output Swagger file when running 'rswag:specs:swaggerize'.

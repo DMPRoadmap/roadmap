@@ -38,7 +38,7 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    def create_json_fragments
+    def create_json_fragments(configuration = {})
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale plan.template.locale do
         fragment = json_fragment
@@ -59,12 +59,17 @@ module Dmpopidor
             madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
             dmp_id: dmp_fragment.id,
             parent_id: dmp_fragment.id,
-            additional_info: { property_name: 'researchOutput' }
+            additional_info: {
+              property_name: 'researchOutput',
+              hasPersonalData: configuration[:hasPersonalData] || false
+            }
           )
           fragment_description = Fragment::ResearchOutputDescription.new(
             data: {
               'title' => title,
-              'datasetId' => pid
+              'datasetId' => pid,
+              'type' => output_type_description,
+              'containsPersonalData' => configuration[:hasPersonalData] ? _('Yes') : _('No')
             },
             madmp_schema: MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard'),
             dmp_id: dmp_fragment.id,
@@ -75,7 +80,7 @@ module Dmpopidor
           fragment_description.contact.update(
             data: {
               'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
-              'role' => _('Data contact')
+              'role' => _('Contact Person')
             }
           )
 
@@ -105,5 +110,20 @@ module Dmpopidor
       # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    def serialize_infobox_data
+      description_fragment = json_fragment.research_output_description
+      return {
+        abbreviation: abbreviation,
+        title: description_fragment.data['title'],
+        type: description_fragment.data['type'],
+        hasPersonalData: has_personal_data
+      }
+
+    end
+
+    def has_personal_data
+      json_fragment.additional_info['hasPersonalData'] || false
+    end
   end
 end

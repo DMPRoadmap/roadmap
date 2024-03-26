@@ -1,0 +1,17 @@
+<% 
+  # Override the default Rails route helper for the contact_us page IF an alternate contact_us url was defined
+  # in the dmproadmap.rb initializer
+  contact_us = Rails.configuration.x.organisation.contact_us_url || contact_us_path
+%>
+<div class="contact-icons">
+  <% if user_signed_in? && !current_user.org.contact_email.blank? %>
+    <%= mail_to current_user.org.contact_email, :class => 'contact-icon' do %>
+      <i class="fas fa-envelope"></i>
+      <span><%= _('Contact Us') %></span>
+    <% end %>
+  <% end %>
+  <a class="contact-icon" href="<%= contact_us+'#content' %>">
+    <i class="fas fa-wrench"></i>
+    <span><%= _('Technical Support') %></span>
+  </a>
+</div>

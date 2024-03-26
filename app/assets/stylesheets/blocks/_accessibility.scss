@@ -1,3 +1,4 @@
+@use '../dmpopidor/colours' as *;
 @use '../variables/colours' as *;
 @use '../variables/typography' as *;
 
@@ -38,34 +39,55 @@ div.skip a:focus {
 }
 
 /** Focus outline required for accessibility */
-a, input, select, .form-control {
-  &:focus,
-  &:hover,
-  &:active {
-    outline-style: solid !important;
-    outline-color: $color-focus-outline !important;
-    outline-width: 2px !important;
+// a, input, select, .form-control {
+//   &:focus,
+//   &:hover,
+//   &:active {
+//     outline-style: solid !important;
+//     outline-color: $color-focus-outline !important;
+//     outline-width: 2px !important;
+//   }
+// }
+
+ul.header-links li {
+  ul,
+  .divider {
+    padding: 0;
+    margin: 0;
+  }
+
+  &:not(.delimiter):not(.divider) {
+      padding: 0;
+  }
+}
+
+ul.header-links li {
+  a {
+    &:hover,
+    &:active {
+      background-color: $dark-blue;
+    }
   }
 }
   
   /** button outline-width increased for better visibility of outline */
-  button {
+  // button {
 
-    &:focus,
-    &:hover,
-    &:active {
-      outline-style: solid !important;
-      outline-color: $color-focus-outline !important;
-      outline-width: 3px !important;
-    }
-  }
+  //   &:focus,
+  //   &:hover,
+  //   &:active {
+  //     outline-style: solid !important;
+  //     outline-color: $color-focus-outline !important;
+  //     outline-width: 3px !important;
+  //   }
+  // }
   
   td {
     &:focus-within,
     &:focus,
     &:hover {
       outline-style: solid !important;
-      outline-color: $color-focus-outline !important;
+      outline-color: $white !important;
       outline-width: 2px !important;
     }
   }

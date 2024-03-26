@@ -142,11 +142,11 @@ class MadmpSchema < ApplicationRecord
     CLASSNAME_TO_PROPERTY[classname]
   end
 
-  def extract_run_parameters(script_id: nil)
-    return [] if schema['run'].nil?
-    return schema['run'] if script_id.nil?
+  def extract_run_parameters(script_name: nil)
+    return {} if schema['run'].nil?
+    return schema['run'] if script_name.nil?
 
-    schema['run'].find { |run| run['script_id'] == script_id.to_i } || {}
+    schema['run'].find { |run| run['name'] == script_name } || {}
   end
 
   def run_parameters?
@@ -171,10 +171,6 @@ class MadmpSchema < ApplicationRecord
     json_schema = JsonPath.for(json_schema).gsub('$..template_name') do |name|
       MadmpSchema.find_by!(name:).id
     end.to_json.gsub('template_name', 'schema_id')
-
-    json_schema = JsonPath.for(json_schema).gsub('$..registry_name') do |name|
-      Registry.find_by!(name:).id
-    end.to_json.gsub('registry_name', 'registry_id')
 
     JSON.parse(json_schema)
   end

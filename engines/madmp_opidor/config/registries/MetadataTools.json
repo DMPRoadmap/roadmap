@@ -1,0 +1,282 @@
+{"MetadataTools": [
+    {
+        "en_GB": "AgriMetamaker",
+        "fr_FR": "AgriMetamaker"
+    },
+    {
+        "en_GB": "aLTAG3D",
+        "fr_FR": "aLTAG3D"
+    },
+    {
+        "en_GB": "ANZ-MEST (Metadata Entry and Search Tool)",
+        "fr_FR": "ANZ-MEST (Metadata Entry and Search Tool)"
+    },
+    {
+        "en_GB": "Converis",
+        "fr_FR": "Converis"
+    },
+    {
+        "en_GB": "AVM Adobe Metadata Panels",
+        "fr_FR": "AVM Adobe Metadata Panels"
+    },
+    {
+        "en_GB": "AVM Web Tool",
+        "fr_FR": "AVM Web Tool"
+    },
+    {
+        "en_GB": "Bio-Formats",
+        "fr_FR": "Bio-Formats"
+    },
+    {
+        "en_GB": "CF Compliance Checker",
+        "fr_FR": "CF Compliance Checker"
+    },
+    {
+        "en_GB": "CIF2Cell",
+        "fr_FR": "CIF2Cell"
+    },
+    {
+        "en_GB": "CIM Comparator Tool",
+        "fr_FR": "CIM Comparator Tool"
+    },
+    {
+        "en_GB": "CIM Questionnaire Generator",
+        "fr_FR": "CIM Questionnaire Generator"
+    },
+    {
+        "en_GB": "CIM Viewer Tool",
+        "fr_FR": "CIM Viewer Tool"
+    },
+    {
+        "en_GB": "CKAN",
+        "fr_FR": "CKAN"
+    },
+    {
+        "en_GB": "CMOR (Climate Model Output Rewriter)",
+        "fr_FR": "CMOR (Climate Model Output Rewriter)"
+    },
+    {
+        "en_GB": "Darwin Core Archive Assistant",
+        "fr_FR": "Darwin Core Archive Assistant"
+    },
+    {
+        "en_GB": "Darwin Core Archive Validator",
+        "fr_FR": "Darwin Core Archive Validator"
+    },
+    {
+        "en_GB": "Data Package libraries",
+        "fr_FR": "Data Package libraries"
+    },
+    {
+        "en_GB": "Data Package Validator",
+        "fr_FR": "Data Package Validator"
+    },
+    {
+        "en_GB": "Data Package Viewer",
+        "fr_FR": "Data Package Viewer"
+    },
+    {
+        "en_GB": "Data Packagist",
+        "fr_FR": "Data Packagist"
+    },
+    {
+        "en_GB": "DataCite Metadata Store API",
+        "fr_FR": "DataCite Metadata Store API"
+    },
+    {
+        "en_GB": "DCMI Tools and Software",
+        "fr_FR": "DCMI Tools and Software"
+    },
+    {
+        "en_GB": "DDI Tools",
+        "fr_FR": "DDI Tools"
+    },
+    {
+        "en_GB": "DdiEditor",
+        "fr_FR": "DdiEditor"
+    },
+    {
+        "en_GB": "DDI on Rails",
+        "fr_FR": "DDI on Rails"
+    },
+    {
+        "en_GB": "Pure",
+        "fr_FR": "Pure"
+    },
+    {
+        "en_GB": "FGDC/CDSGM Tools",
+        "fr_FR": "FGDC/CDSGM Tools"
+    },
+    {
+        "en_GB": "Fiji",
+        "fr_FR": "Fiji"
+    },
+    {
+        "en_GB": "FISH Interoperability Toolkit",
+        "fr_FR": "FISH Interoperability Toolkit"
+    },
+    {
+        "en_GB": "FITS Image Software Packages",
+        "fr_FR": "FITS Image Software Packages"
+    },
+    {
+        "en_GB": "GAVO DaCHS - Data Center Helper Suite",
+        "fr_FR": "GAVO DaCHS - Data Center Helper Suite"
+    },
+    {
+        "en_GB": "Geodoc Metadata Editor",
+        "fr_FR": "Geodoc Metadata Editor"
+    },
+    {
+        "en_GB": "GeoNetwork",
+        "fr_FR": "GeoNetwork"
+    },
+    {
+        "en_GB": "Esri Geoportal Server",
+        "fr_FR": "Esri Geoportal Server"
+    },
+    {
+        "en_GB": "ICAT",
+        "fr_FR": "ICAT"
+    },
+    {
+        "en_GB": "ICATLite",
+        "fr_FR": "ICATLite"
+    },
+    {
+        "en_GB": "Integrated Publishing Toolkit",
+        "fr_FR": "Integrated Publishing Toolkit"
+    },
+    {
+        "en_GB": "ISA Software Suite",
+        "fr_FR": "ISA Software Suite"
+    },
+    {
+        "en_GB": "Istat SDMX Framework Project",
+        "fr_FR": "Istat SDMX Framework Project"
+    },
+    {
+        "en_GB": "IUCr checkCIF",
+        "fr_FR": "IUCr checkCIF"
+    },
+    {
+        "en_GB": "Linked Data Cubes Explorer",
+        "fr_FR": "Linked Data Cubes Explorer"
+    },
+    {
+        "en_GB": "M3Cat",
+        "fr_FR": "M3Cat"
+    },
+    {
+        "en_GB": "Metacat",
+        "fr_FR": "Metacat"
+    },
+    {
+        "en_GB": "MOLGENIS",
+        "fr_FR": "MOLGENIS"
+    },
+    {
+        "en_GB": "Morpho",
+        "fr_FR": "Morpho"
+    },
+    {
+        "en_GB": "ncISO",
+        "fr_FR": "ncISO"
+    },
+    {
+        "en_GB": "NetCDF",
+        "fr_FR": "NetCDF"
+    },
+    {
+        "en_GB": "OMERO",
+        "fr_FR": "OMERO"
+    },
+    {
+        "en_GB": "PATRIC Download Tool",
+        "fr_FR": "PATRIC Download Tool"
+    },
+    {
+        "en_GB": "PDBx/mmCIF Software Resources",
+        "fr_FR": "PDBx/mmCIF Software Resources"
+    },
+    {
+        "en_GB": "PIMMS (Portable Infrastructure for the Metafor Metadata System)",
+        "fr_FR": "PIMMS (Portable Infrastructure for the Metafor Metadata System)"
+    },
+    {
+        "en_GB": "ProteoRed Tools",
+        "fr_FR": "ProteoRed Tools"
+    },
+    {
+        "en_GB": "Saada",
+        "fr_FR": "Saada"
+    },
+    {
+        "en_GB": "SDAC Tools",
+        "fr_FR": "SDAC Tools"
+    },
+    {
+        "en_GB": "SDMX Editor",
+        "fr_FR": "SDMX Editor"
+    },
+    {
+        "en_GB": "SDMX Mapping Assistant",
+        "fr_FR": "SDMX Mapping Assistant"
+    },
+    {
+        "en_GB": "SDMX Tool Repository",
+        "fr_FR": "SDMX Tool Repository"
+    },
+    {
+        "en_GB": "SeaDataNet Software",
+        "fr_FR": "SeaDataNet Software"
+    },
+    {
+        "en_GB": "Software for CIF",
+        "fr_FR": "Software for CIF"
+    },
+    {
+        "en_GB": "SOS (Sensor Observation Service)",
+        "fr_FR": "SOS (Sensor Observation Service)"
+    },
+    {
+        "en_GB": "SPASE Metadata Editor",
+        "fr_FR": "SPASE Metadata Editor"
+    },
+    {
+        "en_GB": "SPASE Tools",
+        "fr_FR": "SPASE Tools"
+    },
+    {
+        "en_GB": "Stat/Transfer",
+        "fr_FR": "Stat/Transfer"
+    },
+    {
+        "en_GB": "Symplectic Elements",
+        "fr_FR": "Symplectic Elements"
+    },
+    {
+        "en_GB": "WiscLINC Metadata Tools Review",
+        "fr_FR": "WiscLINC Metadata Tools Review"
+    },
+    {
+        "en_GB": "OpenAIRE Validator",
+        "fr_FR": "OpenAIRE Validator"
+    },
+    {
+        "en_GB": "geometa",
+        "fr_FR": "geometa"
+    },
+    {
+        "en_GB": "Dataverse",
+        "fr_FR": "Dataverse"
+    },
+    {
+        "en_GB": "OpenAIRE PROVIDE Validator Service",
+        "fr_FR": "OpenAIRE PROVIDE Validator Service"
+    },
+    {
+        "en_GB": "ExtractIng",
+        "fr_FR": "ExtractIng"
+    }
+]}

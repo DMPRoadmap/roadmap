@@ -1,0 +1,51 @@
+{
+  "description": "<p>Mes besoins</p>",
+  "facility": [
+    {
+      "title": "Adonis",
+      "technicalResourceId": "https://cat.opidor.fr/index.php/Adonis",
+      "idType": "URL",
+      "serviceContact": "adonis@inra.fr"
+    },
+    {
+      "title": "ALTAG3D",
+      "technicalResourceId": "https://cat.opidor.fr/index.php/ALTAG3D",
+      "idType": "URL",
+      "serviceContact": "consortium3d-coordination@services.cnrs.fr"
+    }
+  ],
+  "backupPolicy": [
+    {
+      "description": "<p>Ma politique</p>",
+      "backupFrequency": "2",
+      "backupType": "Complète",
+      "storageType": [
+        "Disque dur",
+        "Clé USB"
+      ]
+    }
+  ],
+  "securityMeasures": "<p>Mes mesures</p>",
+  "contributor": [
+    {
+      "person": {
+        "nameType": "Personne",
+        "lastName": "User",
+        "firstName": "Organisational",
+        "mbox": "org_user@example.com"
+      },
+      "role": "Responsable du stockage des données"
+    }
+  ],
+  "cost": [
+    {
+      "costType": "Frais de personnel",
+      "amount": "530",
+      "currency": "EUR",
+      "title": "Mon cout",
+      "description": "<p>Mon cout</p>"
+    }
+  ],
+  "estimatedVolume": "1000",
+  "volumeUnit": "Octets"
+}

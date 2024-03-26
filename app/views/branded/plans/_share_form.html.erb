@@ -87,7 +87,7 @@
                       'data-toggle': 'tooltip',
                       'data-html': true,
                       title: permissions_tooltip,
-                      'data-placement':'right' do %>
+                      'data-placement':'bottom' do %>
         <%= content_tag :legend , _('Permissions'), class: 'legend-label' %>
         <div class="form-group">
           <div class="radio">
@@ -158,7 +158,7 @@
       </div>
     </fieldset>
   <% end %>
-  <% if @plan.template.structured? && @plan_client_roles.any? %>
+  <% if @plan.template.structured?  %>
     <%= render partial: 'plans/share_third_party',locals: { administerable: administerable } %>
   <% end %>
 </div>

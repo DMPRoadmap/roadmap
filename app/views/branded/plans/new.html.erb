@@ -1,5 +1,9 @@
 <% if current_user.org.active? %>
-  <%= render "form" %>
+  <dmp-plan-creation props-json='{
+    "locale": "<%= I18n.locale.to_s %>",
+    "currentOrgId": <%= current_user.org.id %>,
+    "currentOrgName": "<%= current_user.org.name %>"
+  }'/>
 <% else%>
 <div class="alert alert-danger">
   <span class="fas fa-exclamation-circle"></span>

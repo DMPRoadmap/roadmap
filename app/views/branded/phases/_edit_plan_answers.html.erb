@@ -1,7 +1,7 @@
 <% template = plan.template %>
 <% template_title = template.title %>
 <% template_title += " - #{_('Customized')}" if template.customization_of.present? %>
-<div class="tab-panels" role="tabpanel">
+<div class="tab-panels" role="tabpanel" style="width: 100%">
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active answering-phase" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="section-description">
       <div class="display-readonly-textarea-content">
@@ -69,7 +69,7 @@
             <% plan.research_outputs.each_with_index do |research_output, i| %>
               <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" 
                    class="panel research-output-panel tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
-                <% if research_output.main? && plan.research_outputs.count > 1 && !template.structured?%>
+                <% if research_output.main? && plan.research_outputs.count > 1 %>
                   <p>
                     <input type="checkbox" class="is_common_cb" 
                           data-target-url="<%= set_answers_as_common_answers_path %>"
@@ -86,7 +86,6 @@
                       answer = Answer.new({ plan: plan, question: question, research_output: research_output })
                     end
                     consolidated_id = "#{question.id}-research-output-#{research_output.id}"
-                    collapse_class = question.question_format.structured? ? "fragment-content" : "question-content"
                   %>
                   <div class="row question">
                     <div class="heading-button" role="button" data-toggle="collapse"
@@ -104,7 +103,7 @@
                       </div>
                     </div>
                     <div id="collapse-<%= consolidated_id %>" 
-                          class="panel-collapse collapse <%= collapse_class %>" 
+                          class="panel-collapse collapse question-content" 
                           role="tabpanel" 
                           aria-labelledby="heading-<%= consolidated_id %>">
                       <div class="panel-body question-body"><!-- accordion body -->
@@ -123,40 +122,14 @@
                             <div id="<%= "answer-locking-#{consolidated_id}" %>" 
                                 class="answer-locking"></div>
                             <div id="<%= "answer-form-#{consolidated_id}" %>" class="answer-form"> 
-                              <% if question.question_format.structured? %>
-                                <% fragment = answer.madmp_fragment unless answer.nil? %>
-                                <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
-                                <% dmp_id = plan.json_fragment.id %>
-                                <% parent_id = research_output.json_fragment.id %>
-                                <% if fragment.nil? %>
-                                  <%= render(partial: '/madmp_fragments/new',
-                                          locals: { template: template,
-                                                    question: question,
-                                                    answer: answer,
-                                                    madmp_schema: madmp_schema,
-                                                    research_output: research_output,
-                                                    dmp_id: dmp_id,
-                                                    parent_id: parent_id,
-                                                    readonly: readonly,
-                                                    locking: false }) %>
-                                <% else %>
-                                  <%= hidden_field_tag 'fragment-id', fragment.id, class: "fragment-id" %>
-                                  <div class="overlay" style="display:none;">
-                                    <div class="spinner"></div>
-                                    <br/>
-                                    <%= _('Loading...') %>
-                                  </div>
-                                <% end %>
-                              <% else %>
-                                <%= render(partial: '/answers/new_edit',
-                                        locals: { template: template,
-                                                  question: question,
-                                                  answer: answer,
-                                                  research_output: research_output,
-                                                  readonly: readonly,
-                                                  locking: false,
-                                                  base_template_org: base_template_org }) %>
-                              <% end %>
+                              <%= render(partial: '/answers/new_edit',
+                                      locals: { template: template,
+                                                question: question,
+                                                answer: answer,
+                                                research_output: research_output,
+                                                readonly: readonly,
+                                                locking: false,
+                                                base_template_org: base_template_org }) %>
                             </div>
                             <div id="<%= "answer-status-#{consolidated_id}" %>" class="mt-10">
                               <%= render(partial: '/answers/status',
@@ -167,25 +140,13 @@
                         <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
                         <div class="guidance-section" style="<%= style %>">
                           <!-- Guidances and notes partial view -->
-                          <% if template.structured? %>
-                            <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
-                            <%= render partial: '/phases/guidances_notes_runs', locals: {
-                              plan: plan,
-                              template: template,
-                              question: question,
-                              answer: answer,
-                              madmp_schema: madmp_schema,
-                              research_output: research_output,
-                              guidance_presenter: guidance_presenter } %>
-                          <% else %>
-                            <%= render partial: '/phases/guidances_notes', locals: {
-                              plan: plan,
-                              template: template,
-                              question: question,
-                              answer: answer,
-                              research_output: research_output,
-                              guidance_presenter: guidance_presenter } %>
-                          <% end %>
+                          <%= render partial: '/phases/guidances_notes', locals: {
+                            plan: plan,
+                            template: template,
+                            question: question,
+                            answer: answer,
+                            research_output: research_output,
+                            guidance_presenter: guidance_presenter } %>
                         </div>
                       </div>
                     </div> <!-- panel-collapse collapse question-content -->
@@ -204,5 +165,3 @@
     </div> <!-- panel-group -->
   </div> <!-- tab panel -->
 </div> <!-- tab panels -->
-
-<div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-labelledby="linkedInformationsModal" aria-hidden="true"></div>

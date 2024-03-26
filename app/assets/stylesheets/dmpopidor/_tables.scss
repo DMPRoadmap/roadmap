@@ -1,0 +1,237 @@
+@use './colours' as *;
+@use './dropdowns' as *;
+
+.dmpopidor-branding {
+
+  /*
+    TABLES
+  */
+  .table {
+    border: none;
+    border-collapse: separate;
+
+    // Header cells
+
+    thead>tr>th {
+      background-color: $dark-blue;
+      padding: 15px;
+      border: 1px solid $dark-blue;
+      border-bottom: none;
+      vertical-align: middle;
+      &:first-child {
+        border-top-left-radius: 20px;
+      }
+      &:last-child {
+        border-top-right-radius: 20px;
+      }
+      &:not(:last-child) {
+        border-right: 1px solid white;
+      }
+    }
+
+    // Cells and Cells borders
+    tbody>tr>td {
+      // width: 100%;
+      border: 1px solid $dark-blue;
+      border-top: none;
+
+      input.set_test_plan {
+        display: none;
+      }
+
+      &:not(:first-child) {
+        border-left: none;
+      }
+      &:not(:last-child) {
+        border-right: 1px solid white;
+      }
+
+      a,
+      i {
+        // links & fontawesome icons
+        color: $dark-blue;
+      }
+
+      &.actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    }
+    tbody>tr:first-child>td {
+      border-top: 1px solid $dark-blue;
+    }
+
+    tbody>tr:nth-child(odd) {
+      background: $very-light-blue;
+      color: $dark-blue;
+
+      a,
+      i {
+        color: $dark-blue;
+      }
+    }
+
+    tbody>tr:nth-child(even) {
+      background: #FFF;
+    }
+
+    // Cells hovering
+    &.table-hover tbody tr:hover td,
+    &.table-hover tbody tr:hover th {
+      color: white;
+      background-color: $dark-blue;
+
+      a,
+      span,
+      i {
+        // links & fontawesome icons
+        color: white;
+      }
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    &#my-plans {
+
+      // Every table header cell except the first two
+      thead>tr>th:not(:nth-child(-n + 2)) {
+        background-color: $dark-blue;
+      }
+
+      .plan-actions {
+        @include dmpopidor-dropdown;
+
+        button {
+          color: $dark-blue;
+          padding: 0;
+
+          span {
+            font-size: x-large;
+          }
+        }
+      }
+    }
+  }
+
+  .paginable {
+    .paginable-pagination a {
+      color: $blue;
+    }
+  }
+
+
+  /*
+    ADMIN AREA
+  */
+  &.org-admin {
+    .table {
+
+      // Cells borders
+      tbody>tr>td {
+        border: none;
+
+        &:not(:last-child) {
+          border-right: 1px solid $rust;
+        }
+      }
+
+      // Cells hovering
+      &.table-hover tbody tr:hover td,
+      &.table-hover tbody tr:hover th {
+        background-color: $rust;
+      }
+
+      // Header cells background
+      thead>tr>th {
+        background-color: $rust;
+        padding: 15px;
+        border: none;
+        color: white;
+        border-left: 1px solid $white;
+      }
+    }
+
+    .paginable {
+      .paginable-pagination a {
+        color: $rust;
+      }
+    }
+  }
+
+
+  /*
+      SUPER ADMIN
+    */
+  &.super-admin {
+
+    /*
+      TABLES
+      */
+    .table {
+
+      // Cells borders
+      tbody>tr>td {
+        border: none;
+        color: black;
+
+        &:not(:last-child) {
+          border-right: 1px solid $yellow;
+        }
+      }
+
+      // Cells hovering
+      &.table-hover tbody tr:hover td,
+      &.table-hover tbody tr:hover th {
+        background-color: $yellow;
+        color: black;
+
+        a,
+        span,
+        i {
+          // links & fontawesome icons
+          color: black;
+        }
+      }
+
+      // Header cells background
+      thead>tr>th {
+        background-color: $yellow;
+        padding: 15px;
+        border: none;
+        color: black;
+        border-left: 1px solid $white;
+      }
+
+    }
+  }
+
+  /*
+     All Users
+  */
+
+  .btn.dropdown-toggle {
+    color: black;
+  }
+
+  table {
+
+    ul.dropdown-menu {
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
+      z-index: 20;
+
+      li {
+
+        a,
+        a:hover,
+        a:visited,
+        a:focus {
+          color: $dark-blue !important;
+          background-color: $white !important;
+        }
+      }
+    }
+  }
+}

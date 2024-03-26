@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  dmpopidor:
+    build:
+      context: .
+      target: dev
+    profiles: ["dev"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    working_dir: /app
+    environment:
+      - RAILS_ENV=development
+      - RAKE_ENV=development
+      - NODE_ENV=development
+      - RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES:-false}
+    volumes:
+      - ./:/app
+    command:
+      - /bin/sh
+      - -c
+      - |
+        rm -f /app/tmp/pids/server.pid
+        bin/dev
+    networks:
+      - dmpopidor_network
+
+  postgres:
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+
+networks:
+  dmpopidor_network:
+    driver: "bridge"

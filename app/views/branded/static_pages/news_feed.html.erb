@@ -1,29 +1,8 @@
 <% title _('Latest news') %>
-<h1>
-  <%= _('Latest news'	)%>
-</h1>
 
-<div class="dmp_details_body static_page_content">
-	<% news_left = @news_feed.entries.count %>
-	<% @news_feed.entries.each do |entry| %>
-		<h2 class="fontsize-h3"><%= entry.title.sanitize %></h2>
-		<% summary = entry.summary.sanitize %>
-		<% summary = summary.gsub(/\A<img([^>])+>/, "") %>
-		<% summary = summary.gsub(/\A<div([^>])+>/, "") %>
-		<% name = summary[/\A[\s\w]*([^,])/].strip %>
-		<% summary = summary.gsub(/\A.*div>/, "") %>
-		<% summary = summary.gsub(/<p>.*\z/, "") %>
-		<% summary = summary.gsub /<a.*?href=\"([^\"]*)\">(.*)<\/a>/, '<a href="\1" target="_blank"> Voir l\'article complet ...</a>' %>
-		<p><%= raw summary.strip %></p>
-		<p>Par <strong><%= entry.author %></strong> le <%= entry.published.strftime("%d/%m/%Y") %></p>
-		<p>Voir plus sur le  <%= link_to "site OPIDoR", entry.url, :target => '_blank' %></p>
-		</br>
-		<!--verify how many news are left -->
-		<%if news_left.to_i > 1 then %>
-			<div class="two-column-clear question-divider"></div>
-		<%else%>
-			<div class="two-column-clear"></div>
-		<%end%>
-		<% news_left = news_left - 1 %>
-	<% end %>
+<div class="dmp_details_body static_page_content news_page">
+  <h2>
+    <%= _('Latest news'	)%>
+  </h2>
+  <dmp-news-page props-json='{ "locale": "<%= locale %>", "size": 12 } '/>
 </div>

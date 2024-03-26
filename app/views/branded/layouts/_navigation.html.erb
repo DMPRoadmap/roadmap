@@ -1,84 +1,107 @@
-<nav id="app-navbar" class="navbar navbar-dmpopidor">
-  <div class="container-fluid navbar-content" >
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-menu" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to(image_tag("logo.png",
-                            alt: "#{ApplicationService.application_name} #{_('logo')}",
-                            class: "app-logo",
-                            title: ApplicationService.application_name),
-                  root_path) %>
+<nav id="app-navbar" class="navbar navbar-default navbar-dmpopidor" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <div class="header-logo">
+      <%= link_to("http://www.cnrs.fr/", title: _("CNRS website") + " - " + _("Opens in new window"), target: '_blank')  do %>
+        <%= image_tag("cnrs.png", alt: 'CNRS logo (opens in a new window)', class: "app-logo navbar-brand") %>
+      <% end %>
+      <%= link_to(image_tag("logo.png", alt: "#{ApplicationService.application_name} #{_('logo')}" ,
+        class: "app-logo navbar-brand" , title: ApplicationService.application_name), root_path) %>
     </div>
+  </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="app-navbar-menu">
-      <ul class="nav navbar-nav">
-        <% if user_signed_in? %>
-          <li <%= 'class=active' if active_page?(plans_path, true)%>>
-            <%= link_to _('My Dashboard'), plans_path %>
-          </li>
-          <li>
-            <a href="#" class="dropdown-toggle" role="button" id="static-pages-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= _('Create/Import') %>
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu dmpopidor-dropdown">
-              <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
-                <%= link_to _('Create plan for a Research Project'), new_plan_path(context: 'research_project') %>
-              </li>
-              <% if Rails.configuration.x.dmpopidor.enable_research_entity_template %>
-                <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
-                  <%= link_to _('Create plan for a Research Entity'), new_plan_path(context: 'research_entity') %>
-                </li>
-                <li role="separator" class="divider"></li>
-              <% end %>
-              <li <%= 'class=active' if active_page?(import_plans_path, true)%>>
-                <%= link_to _('Import DMP'), import_plans_path %>
-              </li>
-            </ul>
-          </li>
-          <li <%= 'class=active' if active_page?(public_plans_path) %>>
-            <%= link_to _('Public DMPs'), public_plans_path %>
-          </li>
-          <li <%= 'class=active' if active_page?(public_templates_path) %>>
-            <%= link_to _('DMP Templates'), public_templates_path %>
-          </li> 
-        <% else %>
-          <li <%= 'class=active' if active_page?(public_plans_path, true) %>>
-            <%= link_to _('Public DMPs'), public_plans_path %>
-          </li>
-          <li <%= 'class=active' if active_page?(public_templates_path, true) %>>
-            <%= link_to _('DMP Templates'), public_templates_path %>
-          </li>
-        <% end %>
-        <!-- help page -->
-        <li <%= 'class=active' if active_page?(help_path, true) %>>
-          <%= link_to _('Help'), help_path %>
-        </li>
-        <% unless @nav_static_pages.empty? %>
-        <li>
-          <a href="#" class="dropdown-toggle" role="button" id="static-pages-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= _('More') %>
-            <span class="caret"></span>
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav delimiter-off">
+      <% if user_signed_in? %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" role="button" id="plans-options-menu" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <%= _('My plans') %> <i class="fa fa-chevron-down" aria-hidden="true"></i>
           </a>
-          <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="static-pages-menu">
-            <% @nav_static_pages.each do |sp| %>
-            <li <%= 'class=active' if active_page?(static_path(sp.url)) %>>
-              <%= link_to _("#{sp.localized_name(session[:locale])}"), static_path(sp.url) %>
+          <ul class="dropdown-menu dmpopidor-dropdown">
+            <li <%='class=active' if active_page?(plans_path, true) %>>
+              <%= link_to _('My Dashboard'), plans_path+"#content" %>
             </li>
-            <% end %>
+            <li role="separator" class="divider"></li>
+            <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
+              <%= link_to _('Create plan'), new_plan_path+"#content" %>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li <%='class=active' if active_page?(import_plans_path, true) %>>
+              <%= link_to _('Import DMP'), import_plans_path+"#content" %>
+            </li>
           </ul>
         </li>
+        <li class="delimiter">&#x25cf;</li>
         <% end %>
+    </ul>
+
+    <ul class="nav navbar-nav delimiter-off">
+      <li <%='class=active' if active_page?(help_path, true) %>>
+        <%= link_to _('Help'), help_path+"#content" %>
+      </li>
+      <li class="delimiter">&#x25cf;</li>
+    </ul>
+
+
+    <ul class="nav navbar-nav delimiter-off">
+
+      <li class="dropdown">
+
+        <a href="#" class="dropdown-toggle" role="button" id="public-plans-templates" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <%= _('Plans & Templates') %> <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </a>
+
+        <ul class="dropdown-menu dmpopidor-dropdown">
+          <li <%='class=active' if active_page?(public_plans_path) %>>
+            <%= link_to _('Public DMPs'), public_plans_path+"#content" %>
+          </li>
+
+          <li role="separator" class="divider"></li>
+
+          <li <%='class=active' if active_page?(public_templates_path) %>>
+            <%= link_to _('DMP Templates'), public_templates_path+"#content" %>
+          </li>
+        </ul>
+      </li>
+      <li class="delimiter">&#x25cf;</li>
+    </ul>
+
+    <% unless @nav_static_pages.empty? %>
+
+
+
+      <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" role="button" id="static-pages-menu" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <%= _('Learn more') %> <i class="fa fa-chevron-down" aria-hidden="true"></i>
+          </a>
+
+          <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="static-pages-menu">
+            <% @nav_static_pages.each do |sp| %>
+              <li <%='class=active' if active_page?(static_path(sp.url)) %>>
+                <%= link_to _("#{sp.localized_name(session[:locale])}"), static_path(sp.url)+"#content" %>
+              </li>
+              <li role="separator" class="divider"></li>
+              <% end %>
+          </ul>
+        </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+      <% end %>
+
+
+        <ul class="nav navbar-nav header-language-account">
           <%= render "layouts/signin_signout" %>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+        </ul>
+  </div><!-- /.navbar-collapse -->
 </nav>

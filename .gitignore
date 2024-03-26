@@ -8,16 +8,6 @@
 /log/*.log
 /tmp
 
-# Ignore public subdirectories
-public/apidocs/*
-public/assets/*
-public/fonts/*
-public/images/*
-public/javascripts/*
-public/stylesheets/*
-public/system/*
-public/videos/*
-
 # Ignore PO/POT backups
 *.po.bak
 *.pot.bak
@@ -26,7 +16,6 @@ public/videos/*
 #app/views/branded/*
 #app/assets
 #config/locales/static_pages/*.yml
-
 
 # Ignore db schema.rb
 # db/schema.rb
@@ -46,23 +35,6 @@ db/test.sqlite3-journal
 
 # Ignore the SimpleCov output
 coverage
-
-# Ignore database configuration and token secrets
-config/database.yml
-config/secrets.yml
-config/branding.yml
-
-# Ignore some of the initializers
-config/initializers/recaptcha.rb
-config/initializers/wicked_pdf.rb
-config/initializers/fingerprint.rb
-
-# Ignore enviroments settings
-#config/environments/development.rb
-#config/environments/production.rb
-#config/environments/test.rb
-
-#config/initializers/contact_us.rb
 
 # ignore IDE files
 .idea/*
@@ -88,33 +60,26 @@ config/locale/*/app.po.time_stamp
 lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
 .rspec
 
-yarn-error.log
-yarn-debug.log*
-
 .env
+.env.sample
 package-lock.json
 node_modules
 /public/packs
 /public/packs-test
+/public/tinymce
+/public/fonts
+/public/locales
 
 spec/examples.txt
 .postcssrc.yml
-/public/packs
-/public/packs-test
-/node_modules
-yarn-debug.log*
-.yarn-integrity
 reset.sh
-docker
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-#/config/credentials.yml.enc
+/config/credentials.yml.enc
+/config/database.yml
 
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
+yarn-error.log
 yarn-debug.log*
 .yarn-integrity
 /app/assets/builds/*
@@ -122,3 +87,14 @@ yarn-debug.log*
 
 # Ignore briley AWS cloud9 script to start the application
 cloud9-start.sh
+
+data
+
+# React submodule
+app/javascript/dmp_opidor_react/specifications
+app/javascript/dmp_opidor_react/.vscode
+app/javascript/dmp_opidor_react/node_modules
+app/javascript/dmp_opidor_react/src/__tests__
+app/javascript/dmp_opidor_react/src/data
+
+puma.pid

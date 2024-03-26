@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "BackupPolicyMesoUCA",
+    "description": "BackupPolicyMesoUCA template",
+    "type": "object",
+    "class": "BackupPolicyMesoUCA",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description de la politique de sauvegarde appliquée",
+            "label@fr_FR": "Politique de stockage et sauvegarde",
+            "label@en_GB": "Storage and backup policy",
+            "const@fr_FR": "Seuls les espaces de stockage en mode \"projet\" sont répliqués sur plusieurs serveurs. Le nombre de réplicats est défini avec le responsable du projet et est au maximum de 3. Les réplicats sont tous localisés physiquement dans le même datacentre. La gestion des versions des données est possible en utilisant l'API S3. L'espace utilisateur sur le cluster de calcul ($HOME) est un espace de travail non sauvegardé. L'accompagnement des utilisateurs se fait par le système de gestion de tickets Jira.  Une documentation est mise à disposition des utilisateurs et est mise à jour au fil de l'eau.",
+            "const@en_GB": "Only storage spaces in \"project\" mode are replicated on several servers. The number of replicates is defined with the project manager and is a maximum of 3. Data versioning is possible using the S3 API. The user space on the compute cluster ($HOME) is an unsaved workspace. The replicates are all physically located in the same datacentre. User support is done through the Jira ticket management system. Documentation is made available to the users and is updated on an ongoing basis.",
+            "form_label@fr_FR": "Description de la politique de stockage et sauvegarde",
+            "form_label@en_GB": "Storage and backup policy description"
+        },
+        "backupFrequency": {
+            "type": "string",
+            "description": "Fréquence de sauvegarde",
+            "label@fr_FR": "Fréquence des sauvegardes",
+            "label@en_GB": "Backup frequency",
+            "const@fr_FR": "Instantanée ?",
+            "const@en_GB": "Instantaneous",
+            "form_label@fr_FR": "Fréquence des sauvegardes",
+            "form_label@en_GB": "Backup frequency"
+        },
+        "backupType": {
+            "type": "string",
+            "description": "Mode de sauvegarde (incrémentale, différentielle, complète, miroir, …)",
+            "label@fr_FR": "Type de sauvegarde",
+            "label@en_GB": "Backup type",
+            "const@fr_FR": "Miroir",
+            "const@en_GB": "Mirror",
+            "form_label@fr_FR": "Type de sauvegarde",
+            "form_label@en_GB": "Backup type"
+        },
+        "storageType": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Support de stockage des données",
+            "label@fr_FR": "Supports de stockage",
+            "label@en_GB": "Storage types",
+            "const@fr_FR": "Cloud",
+            "const@en_GB": "Cloud",
+            "form_label@fr_FR": "Supports de stockage",
+            "form_label@en_GB": "Storage types"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": [
+        "$.description"
+    ]
+}

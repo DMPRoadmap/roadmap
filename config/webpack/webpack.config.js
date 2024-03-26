@@ -6,12 +6,31 @@ const mode = process.env.NODE_ENV === 'development' ? 'development' : 'productio
 
 module.exports = {
   mode,
+  devtool: mode === 'development' ? 'eval-cheap-module-source-map' : 'source-map',
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', {
+                targets: 'defaults',
+              }],
+              '@babel/preset-react',
+            ],
+          },
+        }],
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif|eot|woff2|woff|ttf|svg)$/i,
+        use: 'file-loader',
       },
       erbLoader,
     ],
@@ -36,6 +55,14 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       'global.jQuery': 'jquery',
+      React: 'react',
+      ReactDOM: 'react-dom',
     }),
   ],
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+    alias: {
+      react: path.resolve('./node_modules/react'),
+    },
+  },
 };

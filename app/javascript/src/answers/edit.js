@@ -4,7 +4,6 @@ import {
   isString,
 } from '../utils/isType';
 import { Tinymce } from '../utils/tinymce';
-import { formLoadingCallback } from '../utils/dynamicFormHelper';
 // import debounce from '../utils/debounce';
 import { updateSectionProgress, getQuestionDiv } from '../utils/sectionUpdate';
 import datePicker from '../utils/datePicker';
@@ -138,7 +137,6 @@ const submitHandler = (e) => {
     },
   }).done((data) => {
     doneCallback(data, target);
-    formLoadingCallback(data, target, 'write_plan');
   }).fail((error) => {
     failCallback(error, target);
   });
@@ -262,11 +260,11 @@ $(() => {
 
     // Enable or disable research outputs tabs depending on 'is_common' state
     if (targetState) {
-      sectionContent.find('.research_outputs_tabs').each((i, el) => {
+      sectionContent.find('.research-outputs-tab').each((i, el) => {
         $(el).addClass('disabled');
       });
     } else {
-      sectionContent.find('.research_outputs_tabs').each((i, el) => {
+      sectionContent.find('.research-outputs-tab').each((i, el) => {
         $(el).removeClass('disabled');
       });
     }
@@ -318,9 +316,9 @@ $(() => {
     });
   });
 
-  $('.research_outputs_tabs a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
+  $('.research-outputs-tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
     const researchOutputId = $(e.target).data('research-output');
-    const tabsList = $(`.research_outputs_tabs a[data-research-output="${researchOutputId}"]`);
+    const tabsList = $(`.research-outputs-tab a[data-research-output="${researchOutputId}"]`);
     tabsList.each((idx, tab) => {
       if (!$(tab).parent().hasClass('disabled')) {
         $(tab).tab('show');

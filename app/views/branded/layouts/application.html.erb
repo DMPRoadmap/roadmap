@@ -71,11 +71,12 @@
       data-likmsg="<%=_('Learn more') %>"
       ></script>
     <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="keywords" content="plan de gestion de données, PGD, data management plan, DMP, OPIDoR, H2020, Horizon2020, CNRS, INIST, ANR, software management plan, SMP, CNRS">
-    <meta name="description" content="DMP OPIDoR vous accompagne à travers l’élaboration et la mise en pratique de plans de gestion de données et de logiciels.">
+    <meta name="description" content="DDMP OPIDoR vous accompagne à travers l’élaboration et la mise en pratique de plans de gestion de données, logiciels et autres.">
 
   </head>
   <body>
@@ -86,11 +87,6 @@
       <header class="dmpopidor-branding">
         <%= render partial: "layouts/header" %>
       </header>
-
-      <%
-      has_alert = (alert || flash[:alert] || flash[:error])
-      has_notice = (notice || flash[:notice])
-      %>
 
       <!-- main page content rendering -->
       <% 
@@ -104,18 +100,7 @@
                             end 
       %>
       <main class="container dmpopidor-branding <%= user_access_class %>" id="maincontent">
-        <div id="notification-area"
-             class="notification-area alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
-                    <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
-             role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
-          <i class="fas <%= has_alert ? ' fa-circle-xmark' : ' fa-circle-check' %>" aria-hidden="true"></i>
-          <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
-          <span><%= sanitize (has_alert ? alert : notice) %></span>
-          <%= yield :errors %>
-        </div>
-        <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
         <%= yield %>
-
 
         <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class, so update when
             we upgrade to remove the img tag %>
@@ -124,12 +109,17 @@
           <%= image_tag("spinner.gif", alt: spinner_msg) %>
         </div>
 
+        <%= render "layouts/contact_icons" %>
       </main>
 
       <!-- footer rendering -->
       <footer id="dmpopidor-footer">
         <%= render "layouts/footer" %>
       </footer>
+
+      <div class="back-to-top-wrapper">
+        <a href="#" class="back-to-top-link" aria-label="Scroll to Top"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
+      </div>
 
       <!-- piwik -->
       <%= render "layouts/piwik" %>

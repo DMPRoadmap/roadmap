@@ -36,11 +36,17 @@ gem 'turbo-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
-# Provides Sprockets implementation for Rails 4.x (and beyond) Asset Pipeline.
-gem 'sprockets-rails'
+# Propshaft is an asset pipeline library for Rails. Read more: https://github.com/rails/propshaft
+gem 'propshaft'
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+# A Ruby client that tries to match Redis' API one-to-one, while still providing an idiomatic interface
+# (https://github.com/redis/redis-rb)
+gem "redis"
+
+# redis-actionpack provides a session store for ActionPack, specifically for ActionDispatch. 
+# (https://github.com/redis-store/redis-actionpack)
+gem 'redis-actionpack'
 # Use Active Model has_secure_password
 # gem "bcrypt", "~> 3.1.7"
 
@@ -138,6 +144,11 @@ gem 'recaptcha'
 # (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
 
+# Styling a SVG document with CSS for use on the web is most reliably achieved by
+# adding classes to the document and embedding it inline in the HTML.
+# (https://github.com/jamesmartin/inline_svg)
+gem 'inline_svg'
+
 group :aws do
   # Amazon AWS S3 data store for use with the Dragonfly gem.
   gem 'dragonfly-s3_data_store'
@@ -199,9 +210,6 @@ gem 'parallel'
 # Makes http fun again! Wrapper to simplify the native Net::HTTP libraries
 gem 'httparty'
 
-# A feed fetching and parsing library (http://feedjira.com)
-gem 'feedjira'
-
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem 'dotenv-rails'
 
@@ -213,7 +221,7 @@ gem 'json_schemer'
 # and manipulate or access it.
 gem 'jsonpath'
 
-gem 'activerecord_json_validator'
+# gem 'activerecord_json_validator'
 
 # Rswag extends rspec-rails "request specs" with a Swagger-based DSL for describing and testing API operations
 # https://github.com/rswag/rswag
@@ -359,7 +367,13 @@ group :development do
   gem 'yard-tomdoc'
 end
 
+gem 'net-smtp'
+
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
 gem 'madmp_opidor', path: 'engines/madmp_opidor' # , git: 'https://github.com/OPIDoR/madmp_opidor.git'
+
+group :build do
+  gem 'activerecord-nulldb-adapter'
+end

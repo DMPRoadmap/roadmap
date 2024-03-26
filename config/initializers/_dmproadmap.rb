@@ -70,7 +70,7 @@ module DMPRoadmap
     # Used throughout the system via ApplicationService.application_name
     config.x.application.name = 'DMP OPIDoR'
     # App version, displayed in the footer
-    config.x.application.version = 'V3.5.6'
+    config.x.application.version = 'V4.0.0'
     # App Github URL, displayed in the footer
     config.x.application.url = 'https://github.com/OPIDoR/DMPOPIDoR'
     config.x.application.release_notes_url = 'https://github.com/OPIDoR/DMPOPIDoR/wiki/Releases'
@@ -90,8 +90,8 @@ module DMPRoadmap
     config.x.application.api_max_page_size = 100
     # The link to the API documentation - used in emails about the API
     config.x.application.api_documentation_urls = {
-      v0: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation',
-      v1: 'https://github.com/OPIDoR/DMPOPIDoR/wiki/API-DMP-OPIDoR'
+      v0: '/api-docs/index.html?urls.primaryName=API%20V0%20Docs',
+      v1: '/api-docs/index.html?urls.primaryName=API%20V1%20Docs'
     }
     # The links that appear on the home page. Add any number of links
     # config.x.application.welcome_links = [
@@ -116,7 +116,7 @@ module DMPRoadmap
     config.x.application.preferences = {
       email: {
         users: {
-          new_comment: false,
+          new_comment: true,
           admin_privileges: true,
           added_as_coowner: true,
           feedback_requested: true,
@@ -144,7 +144,7 @@ module DMPRoadmap
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
     # See config/initializers/devise.rb
-    config.x.shibboleth.enabled = true
+    config.x.shibboleth.enabled = ENV.fetch('ENABLE_SHIBBOLETH', false) == 'true'
 
     # Relative path to Shibboleth SSO Logouts
     config.x.shibboleth.login_url = '/Shibboleth.sso/Login'
@@ -274,7 +274,7 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
-    config.x.dmpopidor.enable_research_entity_template = true
-    config.x.dmpopidor.enable_research_outputs_uuid = false
+    config.x.dmpopidor.enable_research_outputs_uuid = true
+    config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false)
   end
 end

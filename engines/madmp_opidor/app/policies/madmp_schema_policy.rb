@@ -3,7 +3,11 @@
 # Security rules for madmpschemas
 class MadmpSchemaPolicy < ApplicationPolicy
   def index?
-    @user.can_super_admin?
+    true
+  end
+
+  def show?
+    true
   end
 
   def new?

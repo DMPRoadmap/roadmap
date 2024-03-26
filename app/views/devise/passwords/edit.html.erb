@@ -27,8 +27,12 @@
       
       <% if Rails.configuration.x.recaptcha.enabled %>
         <div class="form-group">
-          <%= label_tag(nil, _('Security check')) %>
-          <%= recaptcha_tags %>
+          <% if @show_checkbox_recaptcha %>
+            <%= label_tag(nil, _('Security check')) %>
+            <%= recaptcha_tags %>
+          <% else %>
+            <%= recaptcha_v3(action: 'contact_us') %>
+          <% end %>
         </div>
       <% end %>
 
