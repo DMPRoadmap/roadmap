@@ -364,6 +364,13 @@
     li {
       flex: 1 1 15%;
       text-align: center;
+      &.disabled {
+        cursor: not-allowed;
+  
+        a {
+          pointer-events: none;
+        }
+      }
     }
   }
 

@@ -54,7 +54,7 @@
             <% section_has_common_answers = plan.research_outputs.first.common_answers?(section.id) %>
             <% plan.research_outputs.each_with_index do |research_output, i| %>
               <% research_output_fragment = research_output.json_fragment.research_output_description %>
-              <li class="research_outputs_tabs <%= 'active' if research_output.main? %> <%= 'disabled' if section_has_common_answers %>">
+              <li class="research-outputs-tab <%= 'active' if research_output.main? %> <%= 'disabled' if section_has_common_answers %>">
                 <a href="#section-panel-<%= section.id %>" data-toggle="tab" 
                                   data-research-output="<%= research_output.id %>" 
                                   data-target="#research_output_<%= research_output.id %>_section_<%= section.id %>"
