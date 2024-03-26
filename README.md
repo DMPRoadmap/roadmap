@@ -46,6 +46,28 @@ git submodule init && git submodule update
 
 ```
 
+##### Directus
+
+Default credentials: ``admin@example.com`` / ``changeme``
+
+```bash
+# Create directus database
+docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} -c 'create database ${DIRECTUS_DATABASE:-directus};'"
+
+# Copy database dump file in postgres container
+docker compose cp ./directus/dump.sql postgres:/directus.sql
+
+# Apply dump in database
+docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} ${DIRECTUS_DATABASE:-directus} < directus.sql"
+```
+
+###### Backup
+
+```bash
+# Dump directus database
+docker compose exec -it postgres sh -c "pg_dump -U ${DB_USERNAME:-postgres} ${DIRECTUS_DATABASE:-directus}" > directus/dump.sql
+```
+
 ##### Development mode
 
 ```bash

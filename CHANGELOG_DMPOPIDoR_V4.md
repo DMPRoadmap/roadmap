@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 26/03/2024
+
+- Ajout du CMS Headless: Directus pour la page d'aide
+- Modification de la page d'aide pour la passer en ReactJS
+- Intérrogation Directus pour récupérer les informations de la page d'aide
+- Mise en place de l'inteface et utilisation des données de Directus
+
 ## 25/03/2024
 
 - Correction d'un problème d'export PDF/DOCX des plans entité
