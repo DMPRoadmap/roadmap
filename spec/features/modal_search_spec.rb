@@ -39,7 +39,7 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
       # Using JS to click on button, as click_button '.modal-header button.btn-close' did not work.
       modal_close_button = find('.modal-header button.btn-close')
       # Close the modal
-      execute_script("arguments[0].click();", modal_close_button)
+      execute_script('arguments[0].click();', modal_close_button)
     end
 
     # Verify that the selection was added to the main page's dom
