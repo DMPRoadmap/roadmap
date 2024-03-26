@@ -64,13 +64,13 @@
     "to_string": [
         "$.name",
         " ",
-        "<a href:",
+        "<a href=\"",
         "$.orgId",
-        ">",
+        "\">",
         "$.orgId",
         "</a>"
     ],
     "unicity": [
-        "rnsr"
+        "orgId"
     ]
 }
