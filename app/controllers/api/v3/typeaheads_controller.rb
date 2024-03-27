@@ -21,6 +21,10 @@ module Api
         # Prepare the results
         matches = (ror_matches + local_matches).flatten.compact.uniq
         @items = process_results(term: term, matches: matches)
+        term_matched = @items.select { |it| it.name&.split(' (')&.first&.downcase&.strip == term.downcase.strip }.any?
+
+        # Add the search term if it was not included in the results already
+        @items.unshift(Org.new(name: term)) unless term_matched
         @use_funder_context = true
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
       rescue StandardError => e
@@ -39,6 +43,11 @@ module Api
         matches = (registry_orgs_search(term: term) + orgs_search(term: term)).flatten.compact.uniq
         # Prepare the results
         @items = process_results(term: term, matches: matches)
+        term_matched = @items.select { |it| it.name&.split(' (')&.first&.downcase&.strip == term.downcase.strip }.any?
+
+        # Add the search term if it was not included in the results already
+        @items.unshift(Org.new(name: term)) unless term_matched
+
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::TypeaheadsController.orgs #{e.message}"
@@ -53,6 +62,11 @@ module Api
         # Search the Repositories by type,
         matches = Repository.search(term)
         @items = process_results(term: term, matches: matches)
+        term_matched = @items.select { |it| it.name&.split(' (')&.first&.downcase&.strip == term.downcase.strip }.any?
+
+        # Add the search term if it was not included in the results already
+        @items.unshift(Org.new(name: term)) unless term_matched
+
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::TypeaheadsController.repositories #{e.message}"
@@ -92,7 +106,6 @@ module Api
       def process_results(term:, matches: [])
         results = deduplicate(term: term, list: matches)
         results.map(&:name).flatten.compact.uniq
-
         paginate_response(results: results)
       end
 
