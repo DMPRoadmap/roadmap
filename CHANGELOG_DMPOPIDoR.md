@@ -2,8 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
-## 26/03/2024
+## 27/03/2024
 
+- Les contributeurs uniques sont désormais supprimables (ex: PrincipalInvestigor, Contact ...)
+- Ajout d'une phrase indiquant de sélectionner le type du produit de recherche dans la modale de l'infobox des produits de recherche. (#9913)
+- Amélioration des notifications d'ajout de commentaires & d'attribution de droits administrateur  (#10402, #10438)
+- Plan classique : les noms et abbréviation par défaut des produits de recherche sont désormais traduits selon la langue du plan.
 - Correction du problème affectant la case à cocher des réponses communes sur les produits de recherche des plans classiques (#10394)
 - Correction du problème empêchant la création de fragments lorsque les propriétés d'unicité sont nulles (ex: création de partenaires sans orgId) (#10435)
 
