@@ -157,25 +157,27 @@ module Dmpopidor
     # DELETE AFTER V4 ?
 
     def create_remote
-      @plan = ::Plan.find(params[:plan_id])
-      @persons = @plan.json_fragment.persons
-      max_order = @plan.research_outputs.maximum('display_order') + 1
-      created_ro = @plan.research_outputs.create(
-        abbreviation: "RO #{max_order}",
-        title: "Research output #{max_order}",
-        is_default: false,
-        display_order: max_order
-      )
-      created_ro.create_json_fragments
+      @plan = ::Plan.includes(:template).find(params[:plan_id])
+      I18n.with_locale @plan.template.locale do
+        @persons = @plan.json_fragment.persons
+        max_order = @plan.research_outputs.maximum('display_order') + 1
+        created_ro = @plan.research_outputs.create(
+          abbreviation: "#{_('RO')} #{max_order}",
+          title: "#{_('Research output')} #{max_order}",
+          is_default: false,
+          display_order: max_order
+        )
+        created_ro.create_json_fragments
 
-      authorize @plan
-      render json: {
-        'html' => render_to_string(partial: 'research_outputs/list', locals: {
-                                     plan: @plan,
-                                     research_outputs: @plan.research_outputs,
-                                     readonly: false
-                                   })
-      }
+        authorize @plan
+        render json: {
+          'html' => render_to_string(partial: 'research_outputs/list', locals: {
+                                      plan: @plan,
+                                      research_outputs: @plan.research_outputs,
+                                      readonly: false
+                                    })
+        }
+      end
     end
 
     # rubocop:disable Metrics/AbcSize
