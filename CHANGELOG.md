@@ -150,6 +150,7 @@ We sometimes use the button native Dom element to programmatically click, as the
 ### Fixed 
 - Fixed rubocop errors after Bootstrap upgrade 
 - Fixed RSpec tests after Bootstrap upgrade  
+- Fix "undefined" Tooltip Messages [#3364](https://github.com/DMPRoadmap/roadmap/pull/3364)
 
 ## V4.1.1
 
