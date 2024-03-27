@@ -1,7 +1,7 @@
 import getConstant from './constants';
 import { isObject } from './isType';
 
-const asterisk = `<span class="red" title="${getConstant('REQUIRED_FIELD_TEXT')}">* </span>`;
+var asterisk;
 
 export const addAsterisk = (el) => {
   const target = $(el);
@@ -32,5 +32,6 @@ export const addAsterisks = (el) => {
 };
 
 $(() => {
+  asterisk = `<span class="red" title="${getConstant('REQUIRED_FIELD_TEXT')}">* </span>`;
   addAsterisks('body');
 });

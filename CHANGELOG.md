@@ -3,7 +3,9 @@
 ## V4.1.2 or V4.2.0
 
 ### Fixed 
-- Fixed rubocop errors after V4.1.1 release 
+- Fixed rubocop errors after V4.1.1 release
+- Fix "undefined" Tooltip Messages [#3364](https://github.com/DMPRoadmap/roadmap/pull/3364)
+
 ## V4.1.1
 
 ### Added
