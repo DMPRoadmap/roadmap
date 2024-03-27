@@ -155,6 +155,9 @@ function Contributors() {
     // errors
     if (!dmp.isValid()) {
       if (dmp.errors.has("contributors")) {
+      setDmp(prevState => {
+        return { ...prevState, ...dmp }
+      });
         setWorking(false);
         return
       }
@@ -176,7 +179,7 @@ function Contributors() {
       ) : (
         <div id="Contributors">
           <div className="dmpui-heading">
-            <h1>Contributors</h1>
+              <h1>Contributors</h1>
               {dmp.errors.get("contributors") && (
                 <div className="dmpui-field-error">
                   {dmp.errors.get("contributors")}
