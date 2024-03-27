@@ -1,3 +1,10 @@
+<% 
+  comment_location_message = @plan.template.structured? ?
+                         _("Comments can be found in the 'Write plan' tab by clicking on the Comments icon.") : 
+                         _("Comments can be found in the 'Write plan' tab on the right side of the page (Guidance/Comments).")
+
+%>
+
 <p>
   <%= _('Hello %{user_name}') % { user_name: @user_name } %>
 </p>
@@ -8,8 +15,7 @@
 </p>
 <p>
   <%=  _('Below the question, research output and section where the comment is located.') %>
-  <%= _('You can see the comments in the right-hand panel, '\
-    'adjacent to the guidance for each question.') %>
+  <%= comment_location_message %>
 </p>
 <p>
   <%= _('DMP: %{phase_link}') % { phase_link: @phase_link }  %>

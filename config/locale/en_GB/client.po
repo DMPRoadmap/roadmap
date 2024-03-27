@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-19 15:29+0100\n"
-"PO-Revision-Date: 2024-03-19 15:29+0100\n"
+"POT-Creation-Date: 2024-03-27 12:02+0100\n"
+"PO-Revision-Date: 2024-03-27 12:02+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -271,12 +271,14 @@ msgstr ""
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:75
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:26
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:165
 #: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:28
 msgid "RO"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:76
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:27
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:166
 msgid "Research output"
 msgstr ""
 
@@ -293,8 +295,8 @@ msgid "File should contain JSON"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:363
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:61
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:135
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:63
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:141
 msgid "An error has occured: "
 msgstr ""
 
@@ -334,7 +336,7 @@ msgid "No"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:151
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:192
 #: ../../app/controllers/guidance_groups_controller.rb:97
 #: ../../app/controllers/guidances_controller.rb:96
 #: ../../app/controllers/plans_controller.rb:405
@@ -344,7 +346,7 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:188
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
 #: ../../app/controllers/guidance_groups_controller.rb:95
 #: ../../app/controllers/guidances_controller.rb:94
 #: ../../app/controllers/plans_controller.rb:400
@@ -354,11 +356,11 @@ msgstr ""
 msgid "deleted"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:212
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:214
 msgid "Data contact"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:224
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:226
 #: ../../app/controllers/plans_controller.rb:486
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
@@ -3727,40 +3729,46 @@ msgstr ""
 msgid "Alternatively, you can click the link below:"
 msgstr ""
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:2
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:3
+msgid ""
+"Comments can be found in the 'Write plan' tab by clicking on the Comments icon"
+"."
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:4
+msgid ""
+"Comments can be found in the 'Write plan' tab on the right side of the page (G"
+"uidance/Comments)."
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:9
 msgid "Hello %{user_name}"
 msgstr ""
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:5
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:12
 msgid ""
 "%{commenter_name} has commented on your plan %{plan_title}. To view the commen"
 "ts, follow the link to the DMP below, or navigate to the plan via My Dashboard"
 " page in %{tool_name}."
 msgstr ""
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:10
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:17
 msgid "Below the question, research output and section where the comment is located."
 msgstr ""
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:11
-msgid ""
-"You can see the comments in the right-hand panel, adjacent to the guidance for"
-" each question."
-msgstr ""
-
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:15
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:21
 msgid "DMP: %{phase_link}"
 msgstr ""
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:18
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:24
 msgid "Section name: %{section_title}"
 msgstr ""
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:21
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:27
 msgid "Research output name: %{research_output_name}"
 msgstr ""
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:24
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:30
 msgid "Question: %{question_number}"
 msgstr ""
 
@@ -4095,11 +4103,11 @@ msgstr ""
 msgid "Successfully changed the permissions for %{api_client}."
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:47
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:49
 msgid "Notification has been sent"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:129
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:135
 msgid "Project data have successfully been imported."
 msgstr ""
 

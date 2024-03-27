@@ -16,7 +16,7 @@
 <p>
   <%= sanitize _('More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}.') % {
     tool_name: tool_name,
-    help_url: link_to(_('Github'), help_url) }
+    help_url: link_to(_('Github'), Rails.configuration.x.application.admin_doc) }
   %>
 </p>
 <%= render partial: 'email_signature' %>
