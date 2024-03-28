@@ -234,6 +234,11 @@ module Dmpopidor
     @link       = url_for(action: 'show', controller: '/api/v1/madmp/plans', id: @client_role.plan.id)
     @helpdesk_email = helpdesk_email(org: @api_client.org)
     @api_docs = Rails.configuration.x.application.api_documentation_urls[:v1]
+    @grant_id = nil
+
+    if @api_client.org&.funder?
+      @grant_id = @client_role.plan.grant_identifier
+    end
 
     I18n.with_locale I18n.default_locale do
       mail(to: @api_client.contact_email,

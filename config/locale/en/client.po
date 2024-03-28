@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-27 12:02+0100\n"
-"PO-Revision-Date: 2024-03-27 12:02+0100\n"
+"POT-Creation-Date: 2024-03-28 16:05+0100\n"
+"PO-Revision-Date: 2024-03-28 16:05+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -1053,7 +1053,7 @@ msgstr "Account expiration in %{tool_name}"
 msgid "Account expired in %{tool_name}"
 msgstr "Account expired in %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:240
+#: ../../app/mailers/dmpopidor/user_mailer.rb:244
 #: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:5
 msgid "%{username} has granted access to their Data Management Plan in %{tool_name}"
 msgstr "%{username} has granted access to their Data Management Plan in %{tool_name}"
@@ -3902,7 +3902,7 @@ msgid "Please use the following credentials when accessing the %{tool_name} API.
 msgstr "Please use the following credentials when accessing the %{tool_name} API."
 
 #: ../../app/views/branded/user_mailer/api_credentials.html.erb:23
-#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:15
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:21
 msgid "Please refer to the API documentation at: %{api_documentation_url}"
 msgstr "Please refer to the API documentation at: %{api_documentation_url}"
 
@@ -3931,6 +3931,10 @@ msgstr "Hello %{contact_name}"
 #: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:11
 msgid "The DMP can be accessed through the API at the following url : %{link}"
 msgstr "The DMP can be accessed through the API at the following url : %{link}"
+
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:16
+msgid "The following grant id has been added to the project description : %{grant_id}"
+msgstr "The following grant id has been added to the project description : %{grant_id}"
 
 #: ../../app/views/branded/user_mailer/feedback_complete.html.erb:6
 msgid ""
