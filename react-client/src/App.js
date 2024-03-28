@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -71,6 +71,11 @@ const router = createBrowserRouter([
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 function App() {
+  
+    useEffect(() => {
+      window.scrollTo(0,0)
+    }, [])
+  
   // If it is Safari, warn the user away
   if (isSafari) {
     return (

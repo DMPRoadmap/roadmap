@@ -23,6 +23,9 @@ function PlanOverview() {
 
   const [serverErrorMessage, setServerErrorMessage] = useState();
 
+    useEffect(() => {
+     window.scrollTo(0,0)
+    },[])
 
   useEffect(() => {
     getDmp(dmpId).then((initial) => {
