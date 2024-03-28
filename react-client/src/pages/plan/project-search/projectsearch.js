@@ -162,7 +162,7 @@ function ProjectSearch() {
         }
       });
 
-      if (item.contact) {
+      if (item.contact && item.contact.name.length !== 0) {
         let c = new Contributor(getValue(item, "contact"));
         c.contact = true;
         if (c.roles.length === 0)

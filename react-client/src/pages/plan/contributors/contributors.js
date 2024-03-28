@@ -155,6 +155,9 @@ function Contributors() {
     // errors
     if (!dmp.isValid()) {
       if (dmp.errors.has("contributors")) {
+      setDmp(prevState => {
+        return { ...prevState, ...dmp }
+      });
         setWorking(false);
         return
       }
