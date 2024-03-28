@@ -29,10 +29,6 @@ module Api
         end
 
         @items = process_results(term: term, matches: matches)
-        term_matched = @items.select { |it| it.name&.split(' (')&.first&.downcase&.strip == term.downcase.strip }.any?
-
-        # Add the search term if it was not included in the results already
-        @items.unshift(Org.new(name: term)) unless term_matched
         @use_funder_context = true
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
       rescue StandardError => e
@@ -59,11 +55,6 @@ module Api
 
         # Prepare the results
         @items = process_results(term: term, matches: matches)
-        term_matched = @items.select { |it| it.name&.split(' (')&.first&.downcase&.strip == term.downcase.strip }.any?
-
-        # Add the search term if it was not included in the results already
-        @items.unshift(Org.new(name: term)) unless term_matched
-
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::TypeaheadsController.orgs #{e.message}"
@@ -82,11 +73,6 @@ module Api
         matches = matches.sort { |a, b| b.research_outputs&.length <=> a.research_outputs&.length }
 
         @items = process_results(term: term, matches: matches)
-        term_matched = @items.select { |it| it.name&.split(' (')&.first&.downcase&.strip == term.downcase.strip }.any?
-
-        # Add the search term if it was not included in the results already
-        @items.unshift(Org.new(name: term)) unless term_matched
-
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::TypeaheadsController.repositories #{e.message}"
@@ -128,7 +114,6 @@ module Api
       def process_results(term:, matches: [])
         results = deduplicate(term: term, list: matches)
         results.map(&:name).flatten.compact.uniq
-<<<<<<< HEAD
         out = paginate_response(results: results)
 
         # Add the search term if it was not included in the results already
@@ -137,9 +122,6 @@ module Api
         end
         out.unshift(Org.new(name: term)) unless term_matched.any?
         out
-=======
-        paginate_response(results: results)
->>>>>>> 88f107ca4861d3665dd50b50f4d636dc9b503fd7
       end
 
       # Weighs the result. The greater the weight the closer the match, preferring Orgs already in use
