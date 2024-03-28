@@ -117,7 +117,7 @@ module Api
         out = paginate_response(results: results)
 
         # Add the search term if it was not included in the results already
-        term_matched = out.select do |it|
+        term_matched = results.select do |it|
           it.name&.split(' (')&.first&.downcase&.strip == term.split(' (')&.first&.downcase&.strip
         end
         out.unshift(Org.new(name: term)) unless term_matched.any?
