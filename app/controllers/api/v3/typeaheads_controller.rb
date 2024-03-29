@@ -22,9 +22,12 @@ module Api
         matches = (ror_matches + local_matches).flatten.compact.uniq
 
         # Sort the results
-        matches = matches.sort do |a, b|
-          side_a = [(b.is_a?(RegistryOrg) ? b.org&.funded_plans&.length : b.funded_plans&.length), a.org&.name]
-          side_b = [(a.is_a?(RegistryOrg) ? a.org&.funded_plans&.length : a.funded_plans&.length), b.org&.name]
+        matches = matches.compact.uniq.sort do |a, b|
+          a_plans = a.is_a?(RegistryOrg) ? a.org&.funded_plans : a.funded_plans
+          b_plans = b.is_a?(RegistryOrg) ? b.org&.funded_plans : b.funded_plans
+
+          side_a = [(b_plans.nil? ? 0 : b_plans.length), a.name]
+          side_b = [(a_plans.nil? ? 0 : a_plans.length), b.name]
           side_a <=> side_b
         end
 
@@ -47,9 +50,12 @@ module Api
         matches = (registry_orgs_search(term: term) + orgs_search(term: term)).flatten.compact.uniq
 
         # Sort the results
-        matches = matches.sort do |a, b|
-          side_a = [(b.is_a?(RegistryOrg) ? b.org&.users&.length : b.users&.length), a.name]
-          side_b = [(a.is_a?(RegistryOrg) ? a.org&.users&.length : a.users&.length), b.name]
+        matches = matches.compact.uniq.sort do |a, b|
+          a_plans = a.is_a?(RegistryOrg) ? a.org&.funded_plans : a.funded_plans
+          b_plans = b.is_a?(RegistryOrg) ? b.org&.funded_plans : b.funded_plans
+
+          side_a = [(b_plans.nil? ? 0 : b_plans.length), a.name]
+          side_b = [(a_plans.nil? ? 0 : a_plans.length), b.name]
           side_a <=> side_b
         end
 
@@ -70,7 +76,7 @@ module Api
         matches = Repository.includes(:research_outputs).search(term)
 
         # Sort based on prior use
-        matches = matches.sort { |a, b| b.research_outputs&.length <=> a.research_outputs&.length }
+        matches = matches.compact.uniq.sort { |a, b| b.research_outputs&.length <=> a.research_outputs&.length }
 
         @items = process_results(term: term, matches: matches)
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
