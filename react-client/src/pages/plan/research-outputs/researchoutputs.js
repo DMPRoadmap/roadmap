@@ -351,7 +351,7 @@ function ResearchOutputs() {
                     <TextInput
                       label="URL"
                       type="text"
-                      required=""
+                      required="required"
                       name="repository_url"
                       id="idRepositoryURL"
                       inputValue={dataObj.repository.url}
