@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-28 16:05+0100\n"
-"PO-Revision-Date: 2024-03-28 16:05+0100\n"
+"POT-Creation-Date: 2024-04-02 09:17+0200\n"
+"PO-Revision-Date: 2024-04-02 09:17+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -1010,7 +1010,7 @@ msgstr ""
 msgid "Account expired in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:244
+#: ../../app/mailers/dmpopidor/user_mailer.rb:245
 #: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:5
 msgid "%{username} has granted access to their Data Management Plan in %{tool_name}"
 msgstr ""
