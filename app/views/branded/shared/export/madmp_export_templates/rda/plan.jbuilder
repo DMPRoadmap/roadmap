@@ -21,15 +21,19 @@ json.dmp do
   json.title meta.data["title"]
 
   contact = meta.contact
-  json.contact do
-    json.contact_id do
-      json.identifier     contact.person.data["personId"]
-      json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(
-        contact.person.data["idType"], is_person: true
-      )
+  if contact.present?
+    json.contact do
+      json.contact_id do
+        json.identifier     contact.person.data["personId"]
+        json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(
+          contact.person.data["idType"], is_person: true
+        )
+      end
+      json.mbox   contact.person.data["mbox"]
+      json.name   contact.person.to_s
     end
-    json.mbox   contact.person.data["mbox"]
-    json.name   contact.person.to_s
+  else
+    json.contact({})
   end
   json.contributor dmp.persons do |person|
     roles = person.roles(selected_research_outputs)
