@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 02/04/2024
+
+- Changement du texte de la case à cocher Plan Test (#10462)
+- Changement du texte des notifications de nouveau commentaire & de cloture d'assistance conseil (#10438)
+- Ajout de la vérification de l'unicité pour tous les fragments éditables/ajoutables avec une fenêtre modale (ex: Partenaires ...)
+- Correction du problème d'export JSON RDA pour les plans sans Responsable de plan (#10461)
+
 ## 28/03/2024
 
 - Les contributeurs uniques sont désormais supprimables (ex: PrincipalInvestigor, Contact ...)
