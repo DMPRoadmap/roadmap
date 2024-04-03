@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 03/04/2024
+
+- Correction du problème de traduction du libellé de la visibilité dans la notificationde changement de visibilité (#10439)
+- Correction du problème de vérification de l'unicité lors de la création de plusieurs fragments par modale (#10465)
+- Correction du lien vers la doc API dans les notifications envoyées aux clients API (#10466)
+
 ## 02/04/2024
 
 - Changement du texte de la case à cocher Plan Test (#10462)
