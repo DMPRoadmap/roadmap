@@ -152,14 +152,14 @@ module Dmpopidor
     def plan_visibility(user, plan)
       return unless user.active?
 
-      @user            = user
-      @username        = @user.name
-      @plan            = plan
-      @plan_title      = @plan.title
-      @plan_visibility = ::Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
-      @helpdesk_email = helpdesk_email(org: @plan.org)
-
       I18n.with_locale current_locale(user) do
+        @user            = user
+        @username        = @user.name
+        @plan            = plan
+        @plan_title      = @plan.title
+        @plan_visibility = ::Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
+        @helpdesk_email = helpdesk_email(org: @plan.org)
+
         mail(to: @user.email,
              subject: format(_('DMP Visibility Changed: %{plan_title}'), plan_title: @plan.title))
       end
