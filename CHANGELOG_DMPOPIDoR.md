@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 04/04/2024
+
+- Correction du problème de rafraichissement du formulaire Projet après un import financeur (liste des financements non mise à jour).
+
 ## 03/04/2024
 
 - Correction du problème de traduction du libellé de la visibilité dans la notificationde changement de visibilité (#10439)
