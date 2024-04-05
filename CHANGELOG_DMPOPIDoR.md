@@ -2,13 +2,19 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 05/04/2024
+
+- Les liens vers la documentation API sont désormais plus visibles dans le profil utilisateur. (#10378)
+- La question concernant les données à caractères personnelles n'est désormais plus exportée si le produit de recherche est paramétré à "Non" (#10355)
+- Ajout d'une vérification du format des données utilisées lors de l'affichage d'un tableau de chaines de caractère (problème d'affichage de `documentationSoftware` dans `DocumentationQualityStandard` suite à une incompatibilité entre les schemas V3 et V4)
+
 ## 04/04/2024
 
 - Correction du problème de rafraichissement du formulaire Projet après un import financeur (liste des financements non mise à jour).
 
 ## 03/04/2024
 
-- Correction du problème de traduction du libellé de la visibilité dans la notificationde changement de visibilité (#10439)
+- Correction du problème de traduction du libellé de la visibilité dans la notification de changement de visibilité (#10439)
 - Correction du problème de vérification de l'unicité lors de la création de plusieurs fragments par modale (#10465)
 - Correction du lien vers la doc API dans les notifications envoyées aux clients API (#10466)
 
