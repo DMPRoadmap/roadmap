@@ -97,7 +97,8 @@ module ExportablePlan
           sctn[:questions] << {
             id: question.id,
             text: txt,
-            format: question.question_format
+            format: question.question_format,
+            madmp_schema: question.madmp_schema
           }
         end
         phs[:sections] << sctn

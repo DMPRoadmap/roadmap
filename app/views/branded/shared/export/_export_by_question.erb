@@ -3,6 +3,10 @@
   <div class="question">
     <% question_displayed = false %>
 
+    <% 
+      next if @plan.template.structured? && research_outputs.length === 1 && should_hide_question(question, research_outputs.first) 
+    %>
+
     <% research_outputs.each do |research_output| %>
       <% research_output_description = research_output.json_fragment.research_output_description %>
       <% section_has_common_answers = research_output.main().common_answers?(section[:id]) %>
@@ -28,7 +32,9 @@
         <br/>
         <% end %>
         <% question_displayed = true %>
-
+        <% 
+          next if @plan.template.structured? &&  should_hide_question(question, research_output) 
+        %>
         <% if !section_has_common_answers %>
           <h4><%= research_output_description.data['title'] %></h4>
         <% end %>

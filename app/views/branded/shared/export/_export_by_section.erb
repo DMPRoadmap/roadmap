@@ -19,6 +19,8 @@
     <% options = answer.present? ? answer.question_options : [] %>
     <% fragment = answer.present? ? answer.madmp_fragment : nil %>
 
+    <% next if  @plan.template.structured? && should_hide_question(question, research_output) %>
+
     <%  unless @show_unanswered == false && blank  %>
       <div class="question">
         <% if @show_sections_questions%>
