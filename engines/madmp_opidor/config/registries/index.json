@@ -174,17 +174,17 @@
         {
             "fr_FR": "Stockage inférieur à 100 To",
             "en_GB": "Storage less than 100 TB",
-            "cost": "55"
+            "cost": 55
         },
         {
             "fr_FR": "Stockage supérieur ou égal à 100 To",
             "en_GB": "Stockage greater than or equal to 100 TB",
-            "cost": "50"
+            "cost": 50
         },
         {
             "fr_FR": "Stockage associé au calcul Meso",
             "en_GB": "Storage associated with Meso compute",
-            "cost": "45"
+            "cost": 45
         }
     ],
     "MesoatLRStorageTime": [
@@ -523,6 +523,9 @@
     "MediaType": {
         "path": "MediaType.json"
     },
+    "MeSH Loterre": {
+        "path": "MeSH Loterre.json"
+    },
     "MesoUCACalculAgents": {
         "path": "MesoUCACalculAgents.json"
     },
@@ -538,8 +541,11 @@
     "MetadataTools": {
         "path": "MetadataTools.json"
     },
-    "Partners": {
-        "path": "Partners.json"
+    "Pactols Lieux": {
+        "path": "Pactols Lieux.json"
+    },
+    "Pactols Sujets": {
+        "path": "Pactols Sujets.json"
     },
     "ProcessingServices": {
         "path": "ProcessingServices.json"
@@ -558,6 +564,9 @@
     },
     "StorageServices": {
         "path": "StorageServices.json"
+    },
+    "Thésaurus Biodiversité Loterre": {
+        "path": "Thésaurus Biodiversité Loterre.json"
     },
     "Thésaurus INRAE": {
         "path": "Thésaurus INRAE.json"
