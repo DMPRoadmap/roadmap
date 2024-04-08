@@ -1,0 +1,117 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "MesoUCAStorageRequest_v2",
+    "description": "MesoUCAStorageRequest_v2 template",
+    "type": "object",
+    "class": "MesoUCAStorageRequest_v2",
+    "properties": {
+        "agentType": {
+            "type": "string",
+            "description": "Classification des utilisateurs du Mésocentre Clermont Auvergne",
+            "inputType": "dropdown",
+            "label@fr_FR": "Agents",
+            "label@en_GB": "Agents",
+            "registries": [
+                "MesoUCAStorageAgents"
+            ],
+            "tooltip": null,
+            "form_label@fr_FR": "Utilisateurs",
+            "form_label@en_GB": "Applicants"
+        },
+        "justification": {
+            "type": "string",
+            "description": "Justification du besoin",
+            "inputType": "textarea",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "justification",
+            "tooltip": null,
+            "example@fr_FR": "Demande d'espace de stockage de 10 To pour 3 ans",
+            "example@en_GB": "Request for 10 TB storage space for 3 years",
+            "form_label@fr_FR": "Justification de la demande de ressource",
+            "form_label@en_GB": "Justification for resource request"
+        },
+        "dataSize": {
+            "type": "number",
+            "description": "Volume des données pour le stockage",
+            "label@fr_FR": "Taille des données pour le stockage",
+            "label@en_GB": "Data size for storage",
+            "tooltip": null,
+            "form_label@fr_FR": "Volume de stockage (en To)",
+            "form_label@en_GB": "Storage volum (in Tb)"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "tooltip": null,
+            "hidden": true,
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        },
+        "storageTime": {
+            "type": "string",
+            "description": "Durée de stockage (en mois)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Durée de stockage en mois",
+            "label@en_GB": "Storage time (in months)",
+            "registries": [
+                "MesoUCAStorageTimes"
+            ],
+            "tooltip": null,
+            "form_label@fr_FR": "Durée de stockage (en mois)",
+            "form_label@en_GB": "Storage time (in months)"
+        },
+        "timeUnit": {
+            "type": "string",
+            "description": "Unité de temps",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "tooltip": null,
+            "hidden": true,
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        },
+        "endStorageDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de fin de stockage",
+            "label@fr_FR": "Date de fin du stockage",
+            "label@en_GB": "End date of storage",
+            "tooltip": null,
+            "form_label@fr_FR": "Date de fin du stockage",
+            "form_label@en_GB": "End date of storage"
+        }
+    },
+    "required": [
+        "agentType",
+        "justification",
+        "dataSize",
+        "volumeUnit",
+        "storageTime",
+        "timeUnit",
+        "endStorageDate"
+    ],
+    "to_string": [
+        "Stockage de ",
+        "$.dataSize",
+        " ",
+        "$.volumeUnit",
+        " (",
+        "Date de fin de stockage",
+        " : ",
+        "$.endStorageDate",
+        ")"
+    ],
+    "default": {
+        "fr_FR": {
+            "volumeUnit": "To",
+            "timeUnit": "mois"
+        },
+        "en_GB": {
+            "volumeUnit": "TB",
+            "timeUnit": "months"
+        }
+    }
+}

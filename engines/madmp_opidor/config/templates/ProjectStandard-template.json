@@ -135,16 +135,6 @@
         "principalInvestigator"
     ],
     "to_string": [],
-    "run": [
-        {
-            "script_id": 0,
-            "name": "Anr_data_fetcher_v2",
-            "owner": "superadmin",
-            "label@fr_FR": "Importer informations si projet ANR",
-            "label@en_GB": "Fill informations if ANR project ",
-            "tooltip": null
-        }
-    ],
     "default": {
         "fr_FR": {
             "principalInvestigator": {

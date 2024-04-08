@@ -78,8 +78,8 @@
         "securityMeasures": {
             "type": "string",
             "description": "Description des mesures prises pour assurer la sécurité des données",
-			"inputType": "textarea",
             "tooltip": null,
+            "inputType": "textarea",
             "isConst": true,
             "form_label@fr_FR": "Mesures de sécurité",
             "form_label@en_GB": "Security measures"
@@ -137,7 +137,7 @@
     "run": [
         {
             "script_id": 0,
-            "name": "mesoAtLR_storage_cost_computer_v1",
+            "name": "MesoAtLrStorageCostComputer",
             "owner": "superadmin",
             "label@fr_FR": "Calculer le coût de stockage",
             "label@en_GB": "Compute data storage cost",
@@ -146,7 +146,7 @@
         },
         {
             "script_id": 0,
-            "name": "mesoatlr_notifyer_v1",
+            "name": "MesoAtLrNotifyer",
             "owner": "superadmin",
             "label@fr_FR": "Notifier MESO@LR",
             "label@en_GB": "Notify MESO@LR",

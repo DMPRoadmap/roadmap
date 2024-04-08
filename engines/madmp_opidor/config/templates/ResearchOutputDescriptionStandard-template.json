@@ -24,7 +24,7 @@
             "tooltip@fr_FR": "Résumé décrivant l'objet et la portée du jeu de données",
             "tooltip@en_GB": "Summary describing the purpose and scope of the dataset",
             "form_label@fr_FR": "Décrire succinctement le produit de recherche",
-            "form_label@en_GB": "Briefly describe the research product"
+            "form_label@en_GB": "Briefly describe the research output"
         },
         "type": {
             "type": "string",
@@ -38,7 +38,7 @@
             "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.4.",
             "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.4. ",
             "form_label@fr_FR": "Type de produit de recherche",
-            "form_label@en_GB": "Research product type"
+            "form_label@en_GB": "Research output type"
         },
         "workPackage": {
             "type": "string",
@@ -50,7 +50,7 @@
             "example@fr_FR": "WP1, WP2",
             "example@en_GB": "WP1, WP2",
             "form_label@fr_FR": "Indiquer, si besoin, la tâche (ou workpackage) à laquelle est rattaché le produit de recherche",
-            "form_label@en_GB": "Indicate, if necessary, the task (or workpackage) to which the research product is attached "
+            "form_label@en_GB": "Indicate, if necessary, the task (or workpackage) to which the research ouput is attached "
         },
         "controlledKeyword": {
             "type": "array",
@@ -74,9 +74,11 @@
             "label@en_GB": "Keywords",
             "inputType": "dropdown",
             "registries": [
+                "GEMET",
+                "Pactols Lieux",
+                "Pactols Sujets",
                 "Thésaurus INRAE",
-                "Biodiversite",
-                "GEMET"
+                "Thésaurus Biodiversité Loterre"
             ],
             "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
             "tooltip@en_GB": "Key words describing important aspects of the dataset",
@@ -108,7 +110,7 @@
             ],
             "tooltip": null,
             "form_label@fr_FR": "Indiquer la langue dans laquelle est décrit le produit de recherche",
-            "form_label@en_GB": "Indicate the language in which the research product is described"
+            "form_label@en_GB": "Indicate the language in which the research output is described"
         },
         "contact": {
             "type": "object",
@@ -126,7 +128,7 @@
             "label@fr_FR": "Personne contact",
             "label@en_GB": "Contact Person",
             "tooltip@fr_FR": "Personne contact pour ce produit de recherche",
-            "tooltip@en_GB": "Person to contact about this research product",
+            "tooltip@en_GB": "Person to contact about this research output",
             "form_label@fr_FR": "Personne contact",
             "form_label@en_GB": "Contact Person"
         },
@@ -175,7 +177,7 @@
             ],
             "tooltip": null,
             "form_label@fr_FR": "Le produit de recherche contient-il des données personnelles ?",
-            "form_label@en_GB": "Does the research product contain personal data?"
+            "form_label@en_GB": "Does the research output contain personal data?"
         },
         "containsSensitiveData": {
             "type": "string",
@@ -188,7 +190,7 @@
             ],
             "tooltip": null,
             "form_label@fr_FR": "Le produit de recherche contient-il des données sensibles ?",
-            "form_label@en_GB": "Does the research product contain sensible data?"
+            "form_label@en_GB": "Does the research output contain sensitive data?"
         },
         "hasEthicalIssues": {
             "type": "string",
@@ -201,7 +203,7 @@
             ],
             "tooltip": null,
             "form_label@fr_FR": "Le contexte de production du produit de recherche prend-il en compte des aspects éthiques ?",
-            "form_label@en_GB": "Does the production context of the research product takes ethical issues into account?"
+            "form_label@en_GB": "Does the production context of the research output takes ethical issues into account?"
         }
     },
     "required": [

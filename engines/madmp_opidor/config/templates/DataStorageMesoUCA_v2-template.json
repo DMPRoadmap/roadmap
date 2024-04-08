@@ -51,7 +51,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "MesoUCAStorageRequest",
+                "template_name": "MesoUCAStorageRequest_v2",
                 "required": [
                     "dbid"
                 ]
@@ -90,6 +90,7 @@
         },
         "securityMeasures": {
             "type": "string",
+            "inputType": "textarea",
             "description": "Description des mesures prises pour assurer la sécurité des données",
             "label@fr_FR": "Mesures de sécurité",
             "label@en_GB": "Security measures",
@@ -156,19 +157,21 @@
     "run": [
         {
             "script_id": 0,
-            "name": "MesoUCA_storage_cost_v2",
+            "name": "MesoUcaStorageCostComputer",
             "owner": "superadmin",
             "label@fr_FR": "Calculer le coût de stockage",
             "label@en_GB": "Compute data storage cost",
-            "tooltip": null
+            "tooltip@fr_FR": "Calcule le coût de stockage",
+            "tooltip@en_GB": "Compute data storage cost"
         },
         {
             "script_id": 0,
-            "name": "MesoUCA_storage_notifyer_v2",
+            "name": "MesoUcaStorageNotifyer",
             "owner": "superadmin",
             "label@fr_FR": "Notifier Mésocentre Clermont Auvergne",
             "label@en_GB": "Notify Mesocentre Clermont Auvergne",
-            "tooltip": null,
+            "tooltip@fr_FR": "Envoie une demande d'espace de stockage au mésocentre Clermont Auvergne",
+            "tooltip@en_GB": "Send a request for storage space to the Clermont Auvergne mesocenter ",
             "params": {
                 "recipients": [
                     "francoise.cosserat@inist.fr",

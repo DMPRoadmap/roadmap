@@ -24,7 +24,7 @@
             "tooltip@fr_FR": "Indiquer l'origine des données réutilisées et les éventuelles contraintes d'accès et/ou réutilisation",
             "tooltip@en_GB": "Indicate the origin of the reused data and any constraints on access and/or reuse",
             "form_label@fr_FR": "Décrire succinctement le produit de recherche",
-            "form_label@en_GB": "Briefly describe the research product"
+            "form_label@en_GB": "Briefly describe the research output"
         },
         "datasetId": {
             "type": "string",

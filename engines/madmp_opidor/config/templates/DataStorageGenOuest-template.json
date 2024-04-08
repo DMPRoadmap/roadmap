@@ -182,7 +182,7 @@
     "run": [
         {
             "script_id": 0,
-            "name": "Genouest_notifyer_v1",
+            "name": "GenouestNotifyer",
             "owner": "superadmin",
             "label@fr_FR": "Notifier GenOuest",
             "label@en_GB": "Notify GenOuest",

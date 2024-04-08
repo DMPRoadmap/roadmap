@@ -146,19 +146,21 @@
     "run": [
         {
             "script_id": 0,
-            "name": "MesoUCA_computing_cost_v1",
+            "name": "MesoUcaComputingCostComputer",
             "owner": "superadmin",
             "label@fr_FR": "Calculer le coût de calcul",
             "label@en_GB": "Compute data computing cost",
-            "tooltip": null
+            "tooltip@fr_FR": "Calcule le coût de calcul",
+            "tooltip@en_GB": "Compute data computing cost"
         },
         {
             "script_id": 0,
-            "name": "MesoUCA_computing_notifyer_v1",
+            "name": "MesoUcaComputingNotifyer",
             "owner": "superadmin",
             "label@fr_FR": "Notifier Mésocentre Clermont Auvergne",
             "label@en_GB": "Notify Mesocentre Clermont Auvergne",
-            "tooltip": null,
+            "tooltip@fr_FR": "Envoie une demande d'heures de calcul au mésocentre Clermont Auvergne",
+            "tooltip@en_GB": "Send a request for computing hours to the Clermont Auvergne mesocenter ",
             "params": {
                 "recipients": [
                     "francoise.cosserat@inist.fr",

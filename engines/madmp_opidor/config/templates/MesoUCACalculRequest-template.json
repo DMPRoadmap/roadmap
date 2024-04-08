@@ -78,7 +78,7 @@
         " : ",
         "$.processTime",
         " ",
-        " $.timeUnit"
+        "$.timeUnit"
     ],
     "default": {
         "fr_FR": {
