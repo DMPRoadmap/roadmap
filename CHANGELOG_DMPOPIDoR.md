@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne.
 
+## 08/04/2024
+
+- Correction d'un plantage se produisant lorsqu'un formulaire ne possède pas de contrainte d'unicité (ajout de source de financement multiples)
+- Mise à jour des templates
+- Mise à jour des référentiels
+
 ## 05/04/2024
 
 - Les liens vers la documentation API sont désormais plus visibles dans le profil utilisateur. (#10378)
