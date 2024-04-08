@@ -1,9 +1,9 @@
 <% remove_filter_tooltip = _('Remove the filter') %>
 
-<div class="tablefilter form-group pull-right">
+<div class="tablefilter form-control mb-3 float-end">
   <form>
     <ul class="list-inline">
-      <li><%= label_tag :filter, _('Filter plans'), class: "sr-only" %></li>
+      <li><%= label_tag :filter, _('Filter plans'), class: "sr-only form-label" %></li>
       <li><%= search_field_tag(:filter, nil, placeholder: placeholder, class: "form-control filter") %></li>
       <li>
           <a

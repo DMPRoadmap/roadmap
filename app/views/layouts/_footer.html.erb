@@ -5,27 +5,27 @@
 %>
 
 <!-- footer container -->
-<div id="footer-navbar" class="navbar-inverse navbar-fixed-bottom" role="navigation">
+<div id="footer-navbar" class="navbar navbar-expand-md navbar-branding navbar-fixed-bottom" role="navigation">
   <div class="container-fluid">
-    <ul class="nav navbar-nav">
-      <li><%= link_to sanitize("&copy; 2004 - #{Time.now.year} #{Rails.configuration.x.organisation.name}"), "#{Rails.configuration.x.organisation.url}"%></li>
-      <li>•</li>
-      <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>
-      <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
-      <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
-      <li><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></li>
-      <li><a href="https://github.com/DMPRoadmap/roadmap"><%= _('GitHub') %></a></li>
+    <ul class="navbar-nav">
+      <li class="nav-item"><%= link_to sanitize("&copy; 2004 - #{Time.now.year} #{Rails.configuration.x.organisation.name}"), "#{Rails.configuration.x.organisation.url}", class: 'nav-link' %></li>
+      <li class="nav-item">•</li>
+      <li class="nav-item"><a class="nav-link" href="<%= about_us_path %>"><%= _('About') %></a></li>
+      <li class="nav-item"><a class="nav-link" href="<%= contact_us %>"><%= _('Contact us') %></a></li>
+      <li class="nav-item"><a class="nav-link" href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
+      <li class="nav-item"><a class="nav-link" href="<%= privacy_path %>"><%= _('Privacy statement') %></a></li>
+      <li class="nav-item"><a class="nav-link" href="https://github.com/DMPRoadmap/roadmap"><%= _('GitHub') %></a></li>
     </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        <%= link_to("http://www.cdlib.org/services/uc3/", title: "University of California Curation Center", target: '_blank', class: 'has-new-window-popup-info')  do %>
-          <%= image_tag("uc3_logo_white.png", class: "img-responsive", alt: 'University of California Curation Center (opens in a new window)') %>
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item">
+        <%= link_to("http://www.cdlib.org/services/uc3/", title: "University of California Curation Center", target: '_blank', class: 'nav-link has-new-window-popup-info')  do %>
+          <%= image_tag("uc3_logo_white.png", class: "img-fluid", alt: 'University of California Curation Center (opens in a new window)') %>
           <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         <% end %>
       </li>
-      <li>
-        <%= link_to("http://www.dcc.ac.uk/", title: "Digital Curation Centre", target: '_blank', class: 'has-new-window-popup-info')  do %>
-          <%= image_tag("dcc_logo_white.png", class: "img-responsive", alt: 'Digital Curation Centre (opens in a new window)') %>
+      <li class="nav-item">
+        <%= link_to("http://www.dcc.ac.uk/", title: "Digital Curation Centre", target: '_blank', class: 'nav-link has-new-window-popup-info')  do %>
+          <%= image_tag("dcc_logo_white.png", class: "img-fluid", alt: 'Digital Curation Centre (opens in a new window)') %>
           <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         <% end %>
       </li>

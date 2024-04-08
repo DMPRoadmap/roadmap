@@ -17,7 +17,7 @@ export const addAsterisk = (el) => {
 
     // Else place the asterisk before the corresponding label
     } else {
-      const label = target.closest('.form-group').find('label');
+      const label = target.prev();
       if (isObject(label)) {
         $(label[0]).before(asterisk);
       }
