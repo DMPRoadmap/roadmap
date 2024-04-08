@@ -19,10 +19,11 @@
         <%= f.label(:password_confirmation, _('Password confirmation'), class: 'form-label') %>
         <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true) %>
       </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="checkbox" id="passwords_toggle" class="passwords_toggle"/><%= _('Show passwords') %>
-        </label>
+      <div class="form-control mb-3 col-sm-8">
+          <div class="form-check">
+              <input type="checkbox" id="passwords_toggle" class="passwords_toggle"/>
+              <%= label_tag('passwords_toggle', _('Show passwords'), class: 'form-check-label') %>
+          </div>
       </div>
       
       <% if Rails.configuration.x.recaptcha.enabled %>

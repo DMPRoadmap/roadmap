@@ -106,8 +106,8 @@
     <div class="form-control mb-3 col-xs-6">
       <%= f.hidden_field :plan_id %>
       <%= f.fields_for :user, new_role.user do |user| %>
+       <em class="sr-only"><%= email_tooltip %></em>
         <%= user.label :email, _('Email'), class: 'form-label'%>
-         <em class="sr-only"><%= email_tooltip %></em>
         <%= user.email_field :email, class: "form-control", title: email_tooltip,
                                      aria: { required: true },
                                      required: true,
