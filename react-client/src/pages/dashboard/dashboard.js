@@ -12,7 +12,7 @@ import "./dashboard.scss";
 
 let DMP_ID_REGEX = /\/dmps\/([^/]+\/[^/]+)/; //For local development and stage
 
-if (window.location.hostname === 'dmptool.org' || (process.env.NODE_ENV && process.env.NODE_ENV !== 'development')) {
+if (window.location.hostname === 'dmptool.org' || (process.env.NODE_ENV && process.env.NODE_ENV === 'production')) {
   DMP_ID_REGEX = /[^/]+\/([^/]+\/[^/]+)/
 }
 
