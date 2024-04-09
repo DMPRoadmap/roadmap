@@ -192,10 +192,10 @@ class PlansController < ApplicationController
     end
     @default_orgs = Org.default_orgs
     @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if @default_orgs.include?(org)
-
-      # If this is one of the already selected guidance groups its important!
-      @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
+      # @default_orgs and already selected guidance groups are important.
+      if (@default_orgs.include?(org) || (ggs & @selected_guidance_groups).any?) && !@important_ggs.include?([org, ggs])
+        @important_ggs << [org, ggs]
+      end
     end
 
     # Sort the rest by org name for the accordion

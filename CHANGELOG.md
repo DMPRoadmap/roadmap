@@ -151,6 +151,14 @@ We sometimes use the button native Dom element to programmatically click, as the
 - Fixed rubocop errors after Bootstrap upgrade 
 - Fixed RSpec tests after Bootstrap upgrade  
 - Fix "undefined" Tooltip Messages [#3364](https://github.com/DMPRoadmap/roadmap/pull/3364)
+- Fixed rubocop errors after V4.1.1 release
+- Fixed MySQL and PostgreSQL GitHub Actions [PR #3376](https://github.com/DMPRoadmap/roadmap/pull/3376)
+  - Removed duplicate `node-version:` statements from the `mysql.yml` and `postgres.yml` workflows
+  - Replaced `webdrivers` gem with `selenium-webdriver` gem
+  - Disabled `rack-attack` gem from throttling `/users/sign_in` path in Rails test environment
+  - Addressed `Faker` deprecation warnings
+  - Made some small changes to fix some existing tests
+- Prevent Duplicate Options in 'Select Guidance' [PR #3365](https://github.com/DMPRoadmap/roadmap/pull/3365)
 
 ## V4.1.1
 
