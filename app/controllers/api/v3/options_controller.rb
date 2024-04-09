@@ -25,7 +25,7 @@ module Api
 
       # GET /api/v3/output_types
       def output_types
-        matches = ResearchOutput.output_types
+        matches = ResearchOutput.output_types.reject { |k, v| %w[event service text workflow].include?(k.downcase) }
         matches = matches.map do |key, val|
           {
             label: key.capitalize.gsub('_', ' '),
