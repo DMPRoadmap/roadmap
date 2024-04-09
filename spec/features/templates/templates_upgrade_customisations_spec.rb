@@ -52,7 +52,16 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
 
     # Move to the other funder Org's Templates
     choose_suggestion('superadmin_user_org_name', funder)
-    click_button('Change affiliation')
+
+    # rubocop:disable Layout/LineLength
+    # Using JS to click as click_button "Change affiliation" fails due to error like
+    # Selenium::WebDriver::Error::ElementClickInterceptedError: element click intercepted:
+    # Element <input type="submit" name="commit" value="Change affiliation" class="btn btn-secondary" data-disable-with="Change affiliation">
+    # is not clickable at point (101, 203). Other element would receive the click: <div id="ui-id-2" tabindex="-1" class="ui-menu-item-wrapper">...</div>
+    # So replacing click_button('Change affiliation')
+    # rubocop:enable Layout/LineLength
+    change_affiliation_input_button = find('input[value="Change affiliation"]')
+    execute_script('arguments[0].click();', change_affiliation_input_button)
 
     # Edit the original Template
     click_link "#{funder.name} Templates"
