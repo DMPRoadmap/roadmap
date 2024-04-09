@@ -76,14 +76,14 @@ class ResearchOutput < ApplicationRecord
 
   # Helper method to convert selected repository form params into Repository objects
   def repositories_attributes=(params)
-    params.each do |_i, repository_params|
+    params.each_value do |repository_params|
       repositories << Repository.find_by(id: repository_params[:id])
     end
   end
 
   # Helper method to convert selected metadata standard form params into MetadataStandard objects
   def metadata_standards_attributes=(params)
-    params.each do |_i, metadata_standard_params|
+    params.each_value do |metadata_standard_params|
       metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
     end
   end

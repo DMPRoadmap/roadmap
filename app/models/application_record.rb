@@ -35,7 +35,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   def sanitize_fields(*attrs)
     attrs.each do |attr|
-      send("#{attr}=", ActionController::Base.helpers.sanitize(send(attr)))
+      send(:"#{attr}=", ActionController::Base.helpers.sanitize(send(attr)))
     end
   end
 end
