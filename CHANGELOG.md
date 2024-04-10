@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.2.1
+
+### Changed
+- A minor change to search that removes extra empty sppaces between words to allow user search to work if there are more than one space between firstname and surname, e,g., "Jill Blogss" and "Jill   Bloggs" should return same results.
+
 ## v4.2.0
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
