@@ -145,6 +145,12 @@ class Draft < ApplicationRecord
 
       distros = dataset['distribution'].is_a?(Hash) ? dataset['distribution'].values : dataset['distribution']
       dataset['distribution'] = distros
+      dataset['distribution'].each do |distro|
+        next if distro['host'].nil? || !distro['host']['title'].nil?
+
+        repo = Repository.find_by(uri: distro['host']['url'])
+        distro['host']['title'] = repo.name
+      end
       dataset
     end
 
