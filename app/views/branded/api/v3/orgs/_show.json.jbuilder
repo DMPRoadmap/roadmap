@@ -29,7 +29,7 @@ if org.is_a?(RegistryOrg)
   else
     json.affiliation_id do
       json.type 'ror'
-      json.identifier "https://ror.org/#{org.ror_id}"
+      json.identifier org.ror_id.include?('ror.org') ? org.ror_id : "https://ror.org/#{org.ror_id}"
     end
   end
 
