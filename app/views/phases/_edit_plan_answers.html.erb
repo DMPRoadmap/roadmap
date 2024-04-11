@@ -5,16 +5,16 @@
         <div class="row">
           <div class="col-md-8">
             <div id="sections-accordion-controls">
-              <div class="accordion-controls" data-parent="sections-accordion">
+              <div class="accordion-controls px-1" data-parent="sections-accordion">
                 <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
                 <span>|</span>
                 <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
               </div>
             </div>
           </div>
+          <div class="col-md-4">
           <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
           </div>
-          <div class="col-md-4">
             <% if plan.present? && phase.present? %>
               <div class="progress">
                 <%= render partial: "/plans/progress",
@@ -25,19 +25,17 @@
         </div>
       </div>
     </div>
-    <div class="panel-group" id="sections-accordion" role="tablist"
+    <div class="accordion" id="sections-accordion" role="tablist"
          aria-multiselectable="true">
-    <% phase.sections.sort {|a,b| a.number <=> b.number }.each do |section| %>
-      <div class="panel panel-default">
-        <div class="heading-button" role="button" data-toggle="collapse"
+      <% phase.sections.sort {|a,b| a.number <=> b.number }.each do |section| %>
+      <div class="accordion-item w-100 my-3">
+        <h2 class="accordion-header" role="tab" id="heading-<%= section.id %>">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
              id="section-panel-<%= section.id %>"
-             data-parent="sections-accordion"
+             data-bs-parent="sections-accordion"
              href="#collapse-<%= section.id %>"
              aria-expanded="false"
              aria-controls="collapse-<%= section.id %>">
-
-          <div class="panel-heading" role="tab" id="heading-<%= section.id %>">
-            <div class="panel-title pull-left">
               <%= section.title %>
               <% if plan.present? %>
                   <span class="section-progress-<%= section.id %>">
@@ -45,13 +43,12 @@
                                locals: { section: section, plan: plan } %>
                   </span>
               <% end %>
-            </div>
-            <i class="fas fa-plus pull-right" aria-hidden="true"></i>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div id="collapse-<%= section.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= section.id %>">
-          <div class="panel-body"><!-- accordion body -->
+            </button>
+  
+        </h2>
+
+        <div id="collapse-<%= section.id %>" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= section.id %>">
+          <div class="accordion-body card card-body"><!-- accordion-body -->
             <div class="section-description">
               <div class="display-readonly-textarea-content">
                 <%= sanitize section.description %>
@@ -114,10 +111,10 @@
                   <hr />
                 <% end %>
               <% end %> <!-- section.questions.each do -->
-            </div> <!-- panel-body -->
-          </div> <!-- panel-collapse -->
-        </div> <!-- panel panel-default -->
+          </div> <!-- accordion-body -->
+        </div> <!-- accordion-collapse -->
+      </div> <!-- accordion-item -->
       <% end %>   <!-- phase.sections.sort {|a,b| a.number <=> b.number }.each do -->
-    </div>   <!-- panel-group -->
-  </div> <!-- tab panel -->
+    </div> <!-- accordion -->
+  </div> <!-- tab card -->
 </div> <!-- tab panels -->

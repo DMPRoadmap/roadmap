@@ -46,20 +46,20 @@
                   class="btn btn-link dropdown-toggle"
                   type="button"
                   id="guidance-<%= guidance.id %>-actions"
-                  data-toggle="dropdown"
+                  data-bs-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="true">
                   <%= _('Actions') %><span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="guidance-<%= guidance.id %>-actions">
-                  <li><%= link_to _('Edit'), admin_edit_guidance_path(guidance) %></li>
+                  <li class="nav-item"><%= link_to _('Edit'), admin_edit_guidance_path(guidance), class:'dropdown-item px-3' %></li>
                   <!-- If the guidance has never been published or it has changed -->
                   <% if guidance.published? %>
-                    <li><%= link_to _('Unpublish'), admin_unpublish_guidance_path(guidance), method: :put %></li>
+                    <li class="nav-item"><%= link_to _('Unpublish'), admin_unpublish_guidance_path(guidance), method: :put, class:'dropdown-item px-3' %></li>
                   <% else %>
-                    <li><%= link_to _('Publish'), admin_publish_guidance_path(guidance), method: :put %></li>
+                    <li class="nav-item"><%= link_to _('Publish'), admin_publish_guidance_path(guidance), method: :put, class:'dropdown-item px-3' %></li>
                   <% end %>
-                  <li><%= link_to _('Remove'), admin_destroy_guidance_path(guidance),
-                  data: {confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, method: :delete %>
+                  <li class="nav-item"><%= link_to _('Remove'), admin_destroy_guidance_path(guidance),
+                  data: {confirm: _("You are about to delete '%{guidance_summary}'. Are you sure?") % { :guidance_summary => truncate(sanitize(guidance.text,tags: %w(br a)), length: 20 , omission: _('... (continued)'))} }, method: :delete, class:'dropdown-item px-3' %>
                   </li>
                 </ul>
               </div>

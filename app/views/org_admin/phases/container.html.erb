@@ -4,7 +4,7 @@
   <div class="col-md-12">
     <h1><%= template.title %></h1>
     <% referrer = template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path %>
-    <%= link_to _('View all templates'), referrer, class: 'btn btn-default pull-right' %>
+    <%= link_to _('View all templates'), referrer, class: 'btn btn-secondary float-end' %>
   </div>
 </div>
 <div class="row">
@@ -14,16 +14,16 @@
                locals: local_assigns.merge({ modifiable: modifiable }) %>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card card-default">
+          <div class="card-body">
             <% # locals: { phase, template, edit, current_section } %>
-            <div class="pull-left">
+            <div class="float-start">
               <h2><%= _('Phase details')%></h2>
             </div>
-            <div class="pull-right">
+            <div class="float-end">
               <%= link_to(_('Preview'),
                           preview_org_admin_template_phase_path(template, phase),
-                          class: 'btn btn-default phase_preview_link', role: 'button') %>
+                          class: 'btn btn-secondary phase_preview_link', role: 'button') %>
             </div>
             <div class="clearfix"></div>
             <div class="row">
@@ -41,7 +41,7 @@
                   <div class="col-sm-6">
                     <% if phase.sections.many? %>
                       <div id="sections-accordion-controls">
-                        <div class="accordion-controls"
+                        <div class="accordion-controls px-1"
                              data-parent="sections_accordion">
                           <a href="#" data-toggle-direction="show">
                             <%= _('expand all') %>
@@ -56,7 +56,7 @@
                   </div>
 
                   <div class="col-sm-6">
-                    <div class='text-right text-muted'>
+                    <div class='text-end text-muted'>
                       <% if template.latest? && (modifiable || template.customization_of.present?) %>
                         <i class="fas fa-circle-info small"></i>
                         <%= _("Drag arrows to rearrange sections.") %>

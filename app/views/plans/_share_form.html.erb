@@ -12,25 +12,25 @@
     <legend>
       <p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.configuration.x.plans.default_percentage_answered } %></p>
     </legend>
-    <div class="form-group col-xs-8">
-      <div class="radio">
-        <%= label_tag :visibility_privately_visible do %>
+    <div class="form-control mb-3 col-xs-8">
+      <div class="form-check">
+        <%= label_tag :visibility_privately_visible, class:'form-check-label' do %>
           <%= f.radio_button :visibility, :privately_visible,
                              data: { url: visibility_plan_path(@plan),
                                      remote: true, method: :post } %>
           <%= _('Private: visible to me, specified collaborators and administrators at my organisation') %>
         <% end %>
       </div>
-      <div class="radio">
-        <%= label_tag :visibility_organisationally_visible do %>
+      <div class="form-check">
+        <%= label_tag :visibility_organisationally_visible, class:'form-check-label' do %>
           <%= f.radio_button :visibility, :organisationally_visible,
                              data: { url: visibility_plan_path(@plan),
                                      remote: true, method: :post } %>
           <%= _('Organisation: anyone at my organisation can view') %>
         <% end %>
       </div>
-      <div class="radio">
-        <%= label_tag :visibility_publicly_visible do %>
+      <div class="form-check">
+        <%= label_tag :visibility_publicly_visible, class:'form-check-label' do %>
           <%= f.radio_button :visibility, :publicly_visible,
                              data: { url: visibility_plan_path(@plan),
                                      remote: true, method: :post }  %>
@@ -63,7 +63,7 @@
                 <span><%= display_role(role) %></span>
             <% else %>
                 <% if administerable && role.user != current_user %>
-                  <div class="form-group col-xs-8">
+                  <div class="form-control mb-3 col-xs-8">
                     <%= fields_for role do |f| %>
                       <% options = [
                         ["#{display_role(administrator)}", administrator.access],
@@ -103,11 +103,11 @@
   <% new_role = Role.new %>
   <% new_role.plan = @plan %>
   <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
-    <div class="form-group col-xs-6">
+    <div class="form-control mb-3 col-xs-6">
       <%= f.hidden_field :plan_id %>
       <%= f.fields_for :user, new_role.user do |user| %>
-        <%= user.label :email, _('Email'), class: 'control-label'%>
-         <em class="sr-only"><%= email_tooltip %></em>
+       <em class="sr-only"><%= email_tooltip %></em>
+        <%= user.label :email, _('Email'), class: 'form-label'%>
         <%= user.email_field :email, class: "form-control", title: email_tooltip,
                                      aria: { required: true },
                                      required: true,
@@ -122,20 +122,20 @@
                     title: permissions_tooltip,
                     'data-placement':'right' do %>
       <%= content_tag :legend , _('Permissions') %>
-      <div class="form-group">
-        <div class="radio">
+      <div class="form-control mb-3">
+        <div class="form-check">
           <%= f.label :administrator_access do %>
             <%= f.radio_button :access, administrator.access, id: "role_administrator_access", "aria-required": true, required: true %>
             <%= _('Co-owner') %>
           <% end %>
         </div>
-        <div class="radio">
+        <div class="form-check">
           <%= f.label :editor_access do %>
             <%= f.radio_button :access, editor.access , id: "role_editor_access" %>
             <%= _('Editor') %>
           <% end %>
         </div>
-        <div class="radio">
+        <div class="form-check">
           <%= f.label :commenter_access do %>
             <%= f.radio_button :access, commenter.access, id: "role_commenter_access" %>
             <%= _('Read only') %>
@@ -144,7 +144,7 @@
       </div>
     <% end %>
     <div class="clearfix"></div>
-    <div class="form-group col-xs-2">
+    <div class="form-control mb-3 col-xs-2">
     <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
     </div>
   <% end %>

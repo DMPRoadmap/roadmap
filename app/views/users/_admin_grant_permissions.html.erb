@@ -2,18 +2,20 @@
   <div class="modal-content">
 
     <div class="modal-header">
-      <button type="button" class="close"
-              data-dismiss="modal"
+    <h2 class="modal-title"><%= _('Editing privileges for %{username}') % { username: user.name(false) } %></h2>
+      <button type="button" class="btn-close float-end"
+              data-bs-dismiss="modal"
               aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-      <h2 class="modal-title"><%= _('Editing privileges for %{username}') % { username: user.name(false) } %></h2>
+      </button>
     </div>
 
     <%= form_for user, url: admin_update_permissions_user_path(user), html: { method: :put, remote: true, class: 'admin_update_permissions' } do |f| %>
       <div class="modal-body" style="text-align: left">
         <ul class="list-group">
-         <input type="checkbox" name="org_admin_privileges" id="org_admin_privileges" />
-          <%= label_tag :organisational_admin_privileges %>
+          <div class="col-md-8">
+            <input type="checkbox" name="org_admin_privileges" id="org_admin_privileges" />
+              <%= label_tag :organisational_admin_privileges, _('Organisational Admin Privileges'), class: 'form-check-label' %>
+          </div>
           <% perms.each do |perm| %>
             <% case perm.name when 'grant_permissions' %>
               <li class="list-group-item" style="border: none" title="<%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
@@ -44,8 +46,10 @@
 
 
           <% if current_user.can_super_admin? %>
+          <div class="col-md-8">
             <input type="checkbox" name="super_admin_privileges" id="super_admin_privileges" />
-            <%= label_tag :super_admin_privileges %>
+            <%= label_tag :super_admin_privileges, _('Super Admin Privileges'), class: 'form-check-label' %>
+            </div>
             <% perms.each do |perm| %>
               <% case perm.name when 'add_organisations' %>
                 <li class="list-group-item" style="border: none" title="<%= _('Allows the user to create new organisations') %>">

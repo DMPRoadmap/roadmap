@@ -39,11 +39,9 @@ Dir[Rails.root.join('spec/mixins/*.rb')].each { |f| require f }
 # No need to run this during CI because we build the DB from the schema
 # ActiveRecord::Migration.maintain_test_schema!
 
-# Block all external HTTP requests except to the Google APIs URL so that WebDrivers can fetch
-# the latest Chromedrivers.
+# Block all external HTTP requests
 WebMock.disable_net_connect!(
-  allow_localhost: true,
-  allow: %w[chromedriver.storage.googleapis.com]
+  allow_localhost: true
 )
 
 # Configure RSpec
@@ -82,3 +80,21 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include Pundit::Matchers, type: :policy
 end
+
+Capybara.register_driver :headless_chrome do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument('--headless')
+  options.add_argument('--no-sandbox')
+  options.add_argument('--disable-dev-shm-usage')
+
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    options: options
+  )
+end
+
+Capybara.javascript_driver = :headless_chrome
+Capybara.default_driver = :headless_chrome
+# Configure Capybara to wait longer for elements to appear
+Capybara.default_max_wait_time = 20

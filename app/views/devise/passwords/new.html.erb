@@ -7,19 +7,19 @@
     
     <h1><%= _('Forgot your password?') %></h1>
 
-    <p class="left-indent"><%= _('Please enter your email below and we will send you instructions on how to reset your password.') %></p>
+    <p class="start-indent"><%= _('Please enter your email below and we will send you instructions on how to reset your password.') %></p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
     <%= form_for resource, as: 'user', url: user_password_path, html: {method: :post, id: "user_request_reset_password_form"} do |f| %>
-      <div class="form-group">
-        <%= f.label(:email, _('Email'), class: 'control-label') %>
+      <div class="form-control mb-3">
+        <%= f.label(:email, _('Email'), class: 'form-label') %>
         <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
       </div>
 
-      <%= f.button(_('Send'), class: "btn btn-default", type: "submit") %>
+      <%= f.button(_('Send'), class: "btn btn-secondary", type: "submit") %>
     <% end %>
   </div>
 </div>

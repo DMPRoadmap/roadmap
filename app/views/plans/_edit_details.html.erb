@@ -3,14 +3,14 @@
 <%= form_for plan, html: { method: :put,
                             class: 'form-horizontal edit_plan' } do |f| %>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-lg-8">
       <%= render partial: "plans/project_details",
                  locals: { form: f, plan: plan, orgs: orgs, org_partial: org_partial,
                            research_domains: @research_domains } %>
 
-      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+      <%= f.button(_('Save'), class: "btn btn-secondary", type: "submit") %>
     </div>
-    <div class="col-md-4">
+    <div class="col-lg-4">
       <h2><%= _('Select Guidance') %></h2>
       <%= render partial: "plans/guidance_selection",
                  locals: {

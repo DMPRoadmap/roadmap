@@ -8,11 +8,11 @@ if (outputTypeForm.length > 0) {
   var outputTypeDescription = outputTypeForm.find('#research_output_output_type_description');
 
   <% if @research_output.other? %>
-    outputTypeSpans.removeClass('hidden');
+    outputTypeSpans.removeClass('d-none');
     outputTypeDescription.attr('aria-required', 'true');
   <% else %>
     outputTypeDescription.attr('aria-required', 'false');
-    outputTypeSpans.addClass('hidden');
+    outputTypeSpans.addClass('d-none');
     var selected = outputTypeSpans.parent().find('option:selected');
     selected.removeAttr("selected");
   <% end %>
@@ -21,9 +21,9 @@ if (outputTypeForm.length > 0) {
   var fileDetailsSection = outputTypeForm.find('.file-details-section');
 
   <% if presenter.byte_sizable? %>
-    fileDetailsSection.removeClass('hidden');
+    fileDetailsSection.removeClass('d-none');
   <% else %>
-    fileDetailsSection.addClass('hidden');
+    fileDetailsSection.addClass('d-none');
     var selected = fileDetailsSection.find('option:selected');
     selected.removeAttr("selected");
     var sizeField = fileDetailsSection.find('#research_output_file_size');

@@ -74,10 +74,10 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
       within('.new-question-button') do
         click_link('Add Question')
       end
-      expect(page).to have_css('#new_question_new_question')
+
+      expect(page).to have_selector('#new_question_new_question')
       within('#new_question_new_question') do
-        expect(find('#new_question_question_text')).to be_present
-        fill_in :new_question_question_text, with: 'Text for this specific question'
+        tinymce_fill_in :new_question_question_text, with: 'Text for this specific question'
         expect { click_button('Save') }.to change { Question.count }.by(1)
       end
     end

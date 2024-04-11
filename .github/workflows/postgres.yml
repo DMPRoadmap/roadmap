@@ -44,9 +44,8 @@ jobs:
     # Install Node
     - uses: actions/setup-node@v3
       with:
-        node-version: '16.6.0'
+        node-version: 18
         cache: 'yarn'
-        node-version: 16
 
     # Install the Postgres developer packages
     - name: 'Install Postgresql Packages'

@@ -45,17 +45,19 @@
               <button class="btn btn-link dropdown-toggle"
                       type="button"
                       id="contributor-<%= contributor.id %>-actions"
-                      data-toggle="dropdown"
+                      data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="true">
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="contributor-<%= contributor.id %>-actions">
-                <li><%= link_to _('Edit'),
-                        edit_plan_contributor_path(plan_id: @plan.id, id: contributor) %></li>
-                <li><%= link_to _('Remove'),
+                <li class="nav-item"><%= link_to _('Edit'),
+                        edit_plan_contributor_path(plan_id: @plan.id, id: contributor),
+                        class: 'dropdown-item nav-link px-3' %></li>
+                <li class="nav-item"><%= link_to _('Remove'),
                                 plan_contributor_path(@plan.id, contributor),
                                 data: { confirm: _("You are about to delete '%{contributor_name}'. Are you sure?") % { contributor_name: contributor.name } },
-                                method: :delete %>
+                                method: :delete,
+                                class: 'dropdown-item nav-link px-3' %>
                 </li>
               </ul>
             </div>

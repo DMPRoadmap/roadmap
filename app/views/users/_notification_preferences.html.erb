@@ -8,42 +8,36 @@
     </p>
 
     <p class="form-control-static"><strong>All Users</strong></p>
-    <div class="checkbox">
-      <label>
-        <%= check_box_tag 'user[prefs][users][new_comment]', true, @prefs[:users][:new_comment] %><%= _('A new comment has been added to my DMP')  %>
-      </label>
+    <div class="form-check">
+      <%= check_box_tag 'user[prefs][users][new_comment]', true, @prefs[:users][:new_comment] %>
+      <%= label_tag('user[prefs][users][new_comment]', _('A new comment has been added to my DMP'), class: 'form-check-label') %>
     </div>
-    <div class="checkbox">
-      <label>
-        <%= check_box_tag 'user[prefs][users][added_as_coowner]', true, @prefs[:users][:added_as_coowner] %><%= _('A plan has been shared with me')  %>
-      </label>
+    <div class="form-check">
+      <%= check_box_tag 'user[prefs][users][added_as_coowner]', true, @prefs[:users][:added_as_coowner] %>
+      <%= label_tag('user[prefs][users][added_as_coowner]', _('A plan has been shared with me'), class: 'form-check-label') %>
     </div>
-    <div class="checkbox">
-      <label>
-        <%= check_box_tag 'user[prefs][users][admin_privileges]', true, @prefs[:users][:admin_privileges] %><%= _('Admin privileges granted to me')  %>
-      </label>
+    <div class="form-check">
+        <%= check_box_tag 'user[prefs][users][admin_privileges]', true, @prefs[:users][:admin_privileges] %>
+        <%= label_tag('user[prefs][users][admin_privileges]', _('Admin privileges granted to me'), class: 'form-check-label') %>
     </div>
     <% if @user.org.present? && @user.org.feedback_enabled %>
-      <div class="checkbox">
-        <label>
-          <%= check_box_tag 'user[prefs][users][feedback_requested]', true, @prefs[:users][:feedback_requested] %><%= _('Feedback has been requested for my DMP') %>
-        </label>
+      <div class="form-check">
+          <%= check_box_tag 'user[prefs][users][feedback_requested]', true, @prefs[:users][:feedback_requested] %>
+          <%= label_tag('user[prefs][users][feedback_requested]',  _('Feedback has been requested for my DMP'), class: 'form-check-label') %>
       </div>
-      <div class="checkbox">
-        <label>
-          <%= check_box_tag 'user[prefs][users][feedback_provided]', true, @prefs[:users][:feedback_provided] %><%= _('Feedback has been provided for my DMP')  %>
-        </label>
+      <div class="form-check">
+          <%= check_box_tag 'user[prefs][users][feedback_provided]', true, @prefs[:users][:feedback_provided] %>
+          <%= label_tag('user[prefs][users][feedback_provided]',  _('Feedback has been provided for my DMP') , class: 'form-check-label') %>
       </div>
     <% end %>
 
     <p class="form-control-static"><strong>DMP owners and co-owners</strong></p>
 
-    <div class="checkbox">
-      <label>
-        <%= check_box_tag 'user[prefs][owners_and_coowners][visibility_changed]', true, @prefs[:owners_and_coowners][:visibility_changed] %><%= _("My DMP's visibility has changed")  %>
-      </label>
+    <div class="form-check">
+        <%= check_box_tag 'user[prefs][owners_and_coowners][visibility_changed]', true, @prefs[:owners_and_coowners][:visibility_changed] %>
+        <%= label_tag('user[prefs][owners_and_coowners][visibility_changed]',  _("My DMP's visibility has changed"), class: 'form-check-label') %>
     </div>
 
-    <%= submit_tag _('Save'), class: 'btn btn-default' %>
+    <%= submit_tag _('Save'), class: 'btn btn-secondary' %>
   <% end %>
 <% end %>

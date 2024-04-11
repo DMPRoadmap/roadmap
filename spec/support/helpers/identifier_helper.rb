@@ -19,7 +19,7 @@ module IdentifierHelper
   end
 
   def append_prefix(scheme:, val:)
-    val = val.start_with?('/') ? val[1..val.length] : val
+    val = val[1..val.length] if val.start_with?('/')
     url = landing_page_for(scheme: scheme)
     val.start_with?(url) ? val : "#{url}#{val}"
   end

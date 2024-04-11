@@ -2,24 +2,24 @@
 
 <% api_wikis = Rails.configuration.x.application.api_documentation_urls %>
 <div id="api-token" class="col-xs-12">
-  <div class="form-group col-xs-8">
-    <%= label_tag(:api_token, _('Access token'), class: 'control-label') %>
+  <div class="form-control mb-3 col-xs-8">
+    <%= label_tag(:api_token, _('Access token'), class: 'form-label') %>
     <% if user.api_token.present? %>
       <%= user.api_token %>
     <% else %>
       <%= _("Click the button below to generate an API token") %>
     <% end %>
   </div>
-  <div class="form-group col-xs-12">
-    <%= label_tag(:api_information, _('Documentation'), class: 'control-label') %>
+  <div class="form-control mb-3 col-xs-12">
+    <%= label_tag(:api_information, _('Documentation'), class: 'form-label') %>
     <br>
     <%= _('See the <a href="%{api_v0_wiki}">documentation for v0</a> for more details on the original API which includes access to statistics, the full text of plans and the ability to connect users with departments.').html_safe % { api_v0_wiki: api_wikis[:v0] } %></a>
     <br><br>
     <%= _('See the <a href="%{api_v1_wiki}">documentation for v1</a> for more details on the API that supports the <a href="%{rda_standard_url}">RDA Common metadata standard for DMPs.</a>').html_safe % { api_v1_wiki: api_wikis[:v1], rda_standard_url: 'https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard' } %></a>
   </div>
-  <div class="form-group col-xs-8">
+  <div class="form-control mb-3 col-xs-8">
     <%= link_to _("Regenerate token"),
                 refresh_token_user_path(user),
-                class: "btn btn-default", remote: true %>
+                class: "btn btn-secondary", remote: true %>
   </div>
 </div>
