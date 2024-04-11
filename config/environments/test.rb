@@ -62,6 +62,9 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   config.i18n.enforce_available_locales = false
+
+  # Add config/routes_test.rb to routes
+  config.paths['config/routes.rb'] << Rails.root.join('config/routes_test.rb')
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
