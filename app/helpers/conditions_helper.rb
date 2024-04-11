@@ -107,11 +107,10 @@ module ConditionsHelper
   def sections_info(plan)
     return [] if plan.nil?
 
-    info = []
-    plan.sections.each do |section|
-      info.push(section_info(plan, section))
+    info = plan.sections.map do |section|
+      section_info(plan, section)
     end
-    info
+    info || []
   end
 
   def section_info(plan, section)
@@ -250,7 +249,7 @@ module ConditionsHelper
   def webhook_hash(conditions)
     web_hash = {}
     param_conditions = conditions_to_param_form(conditions)
-    param_conditions.each do |_title, params|
+    param_conditions.each_value do |params|
       web_hash.merge!(params[:number] => params[:webhook_data])
     end
     web_hash

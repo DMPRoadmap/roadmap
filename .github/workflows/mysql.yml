@@ -25,9 +25,8 @@ jobs:
     # Install Node
     - uses: actions/setup-node@v3
       with:
-        node-version: '16.6.0'
+        node-version: 18
         cache: 'yarn'
-        node-version: 16
 
     # Copy all of the example configs over
     - name: 'Setup the application'

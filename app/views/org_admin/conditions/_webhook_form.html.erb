@@ -1,44 +1,42 @@
 <div class="modal fade" id= "<%= condition_no %>modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold"><%= _('Send email') %></h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="<%= _('Close') %>"></button>
       </div>
       <div class="modal-body mx-3">
         <div class="md-form mb-5 prefix grey-text">
           <i class="fa-solid fa-user"></i>
-          <%= label_tag name_start + "[webhook-name]", _('Name'), {'data-error': 'wrong', 'data-success': 'right'} %>
+          <%= label_tag name_start + "[webhook-name]", _('Name'), {'data-error': 'wrong', 'data-success': 'right', class: 'form-label'} %>
           <%= text_field_tag name_start + "[webhook-name]", nil, class: 'form-control validate' %>
         </div>
 
         <div class="md-form mb-5 prefix grey-text">
         <i class="fa-solid fa-envelope"></i> <!-- mdbootstrap should have treatment for bad input for this -->
-          <%= label_tag name_start + "[webhook-email]", _('Email'), {'data-error': 'wrong', 'data-success': 'right'} %>
-          <%= email_field_tag name_start + "[webhook-email]", nil, placeholder: _('recipient_email@example.com'), class: 'form-control validate' %>
+          <%= label_tag name_start + "[webhook-email]", _('Email'), {'data-error': 'wrong', 'data-success': 'right', class: 'form-label'} %>
+          <%= email_field_tag name_start + "[webhook-email]", nil, { placeholder: _('recipient_email@example.com'), class: 'form-control validate'} %>
         </div>
 
         <div class="md-form mb-5 prefix grey-text">
           <i class="fa-solid fa-tag"></i>
-          <%= label_tag name_start + "[webhook-subject]", _('Subject'), {'data-error': 'wrong', 'data-success': 'right'} %>
+          <%= label_tag name_start + "[webhook-subject]", _('Subject'), {'data-error': 'wrong', 'data-success': 'right', class: 'form-label'} %>
           <%= text_field_tag name_start + "[webhook-subject]", nil, class: 'form-control validate' %>
         </div>
 
         <div class="md-form prefix grey-text">
           <i class="fa-solid fa-pencil"></i>
-          <%= label_tag name_start + "[webhook-message]", _('Message'), {'data-error': 'wrong', 'data-success': 'right'} %>
-          <%= text_area_tag name_start + "[webhook-message]", nil, placeholder: _('Email content'), class: 'form-control md-textarea', rows: 4 %>
+          <%= label_tag name_start + "[webhook-message]", _('Message'), {'data-error': 'wrong', 'data-success': 'right', class: 'form-label'} %>
+          <%= text_area_tag name_start + "[webhook-message]", nil, { placeholder: _('Email content'), class: 'form-control md-textarea', rows: 4 } %>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-default discard" data-dismiss="modal"><%= _('Discard ') %><i class="fa-solid fa-trash-can"></i></button>
-        <button class="btn btn-default" ><%= _('Save ') %><i class="fa-solid fa-paper-plane"></i></button>
+        <button class="btn btn-secondary discard" data-bs-dismiss="modal"><%= _('Discard ') %><i class="fa-solid fa-trash-can"></i></button>
+        <button class="btn btn-secondary" ><%= _('Save ') %><i class="fa-solid fa-paper-plane"></i></button>
       </div>
     </div>
   </div>
 </div>
 
-<a href="" class="pseudo-webhook-btn" data-toggle="modal" data-target="#<%= condition_no %>modalContactForm"></a>
+<a href="" class="pseudo-webhook-btn" data-bs-toggle="modal" data-bs-target="#<%= condition_no %>modalContactForm"></a>

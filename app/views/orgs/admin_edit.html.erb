@@ -6,7 +6,7 @@
       <%= _('Organisation details') %>
     </h1>
     <% if current_user.can_super_admin? %>
-      <%= link_to _('View all organisations'), super_admin_orgs_path, class: 'btn btn-default pull-right' %>
+      <%= link_to _('View all organisations'), super_admin_orgs_path, class: 'btn btn-secondary float-end' %>
     <% end %>
   </div>
 </div>
@@ -14,30 +14,30 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
-      <li role="profile" class="active">
-        <a href="#profile" role="tab" aria-controls="profile" data-toggle="tab"><%= _('Profile information') %></a>
+      <li role="profile" class="nav-item">
+        <a href="#profile" class="nav-link active" role="tab" aria-controls="profile" data-bs-toggle="tab"><%= _('Profile information') %></a>
       </li>
 
-      <li role="feedback">
-        <a href="#feedback" role="tab" aria-controls="feedback" data-toggle="tab"><%= _('Request feedback') %></a>
+      <li class="nav-item" role="feedback">
+        <a href="#feedback" class="nav-link" role="tab" aria-controls="feedback" data-bs-toggle="tab"><%= _('Request feedback') %></a>
       </li>
 
-      <li role="form">
-        <a href="#departments" role="tab" aria-controls="form" data-toggle="tab"><%= _('Schools/Departments') %></a>
+      <li class="nav-item" role="form">
+        <a href="#departments" class="nav-link" role="tab" aria-controls="form" data-bs-toggle="tab"><%= _('Schools/Departments') %></a>
       </li>
 
       <% if current_user.can_super_admin? %>
-        <li role="merge">
-          <a href="#merge" role="tab" aria-controls="form" data-toggle="tab"><%= _('Merge') %></a>
+        <li class="nav-item" role="merge">
+          <a href="#merge" class="nav-link" role="tab" aria-controls="form" data-bs-toggle="tab"><%= _('Merge') %></a>
         </li>
       <% end %>
     </ul>
 
     <!-- render navigation tabs for the template-->
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="profile">
-        <div class="panel panel-default">
-          <div class="panel-body">
+      <div role="tabpanel" class="tab-pane show active" id="profile">
+        <div class="card card-default">
+          <div class="card-body">
             <div class="px-2">
               <%= render partial: 'orgs/profile_form',
                          locals: { org: org, method: method, url: url } %>
@@ -47,8 +47,8 @@
       </div>
 
       <div role="tabpanel" class="tab-pane" id="feedback">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card card-default">
+          <div class="card-body">
             <div>
               <%= render partial: 'orgs/feedback_form',
                          locals: { org: org } %>
@@ -58,8 +58,8 @@
       </div>
 
       <div role="tabpanel" class="tab-pane" id="departments">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card card-default">
+          <div class="card-body">
             <div>
               <%= render partial: 'orgs/departments',
                          locals: { org: org } %>
@@ -70,8 +70,8 @@
 
       <% if current_user.can_super_admin? %>
         <div role="tabpanel" class="tab-pane" id="merge">
-          <div class="panel panel-default">
-            <div class="panel-body">
+          <div class="card card-default">
+            <div class="card-body">
               <div>
                 <%= render partial: 'orgs/merge_form', locals: { org: org, analysis: nil } %>
               </div>

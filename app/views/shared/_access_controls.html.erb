@@ -1,31 +1,30 @@
-<div class="sign-in">
+<div class="sign-in border border-1">
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active">
-      <a href="#sign-in-form" role="tab" aria-controls="sign-in-form" data-toggle="tab">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" href="#sign-in-form" role="tab" aria-controls="sign-in-form" data-bs-toggle="tab">
         <%= _('Sign in') %>
       </a>
     </li>
     <% unless active_page?(new_user_registration_path, true) %>
-      <li role="presentation">
-        <a href="#create-account-form" role="tab" aria-controls="create-account-form" data-toggle="tab">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" href="#create-account-form" role="tab" aria-controls="create-account-form" data-bs-toggle="tab">
           <%= _('Create account') %>
         </a>
       </li>
     <% end %>
   </ul>
-
   <div class="tab-content">
-    <div id="sign-in-form" role="tabpanel" class="tab-pane active">
-      <div class="panel panel-default">
-        <div class="panel-body">
+    <div id="sign-in-form" role="tabpanel" class="tab-pane show active">
+      <div class="card">
+        <div class="card-body">
           <%= render :partial => 'shared/sign_in_form' %>
         </div>
       </div>
     </div>
     <% unless active_page?(new_user_registration_path, true) %>
       <div id="create-account-form" role="tabpanel" class="tab-pane">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card">
+          <div class="card-body">
             <%= render :partial => 'shared/create_account_form', locals: {orgs: orgs, org_partial: org_partial} %>
           </div>
         </div>

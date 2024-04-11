@@ -1,5 +1,5 @@
 <%# locals: { f, question, answer } %>
-<div class="form-group">
-    <%= f.label(:text, sanitize(question.text), class: 'control-label') %>
+<div class="form-control mb-3">
+    <%= f.label(:text, sanitize(question.text), class: 'form-label') %>
     <%= date_field_tag('answer[text]', strip_tags(answer.text || question.default_value), class: 'form-control') %>
 </div>

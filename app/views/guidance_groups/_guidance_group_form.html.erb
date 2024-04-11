@@ -4,26 +4,26 @@ name_tip = _('Add an appropriate name for your guidance group. This name will te
 published_tip = _("Check this box when you are ready for guidance associated with this group to appear on user's plans.")
 subset_tip = _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.")
 %>
- <div class="form-group col-xs-8">
-  <%= form.label(:name, _('Name'), class: "control-label") %>
+ <div class="form-control mb-3 col-xs-8">
+  <%= form.label(:name, _('Name'), class: "form-label") %>
   <%= form.text_field :name, class: "form-control", spellcheck: true, aria: { required: true },
                              data: { toggle: 'tooltip' }, title: name_tip %>
 </div>
 
  <div class='form-input col-xs-8'>
   <%= form.check_box :published, data: { toggle: 'tooltip' }, title: published_tip %>
-  <%= form.label(:published, _("Published"), class: "control-label") %>
+  <%= form.label(:published, _("Published"), class: "form-label") %>
 </div>
 <%# Only display the optional subset flag if allowed. Otherwise default to 'false' %>
 <% if allow_subset_flag %>
   <div class='form-input col-xs-8'>
     <%= form.check_box :optional_subset, data: { toggle: 'tooltip' }, title: subset_tip %>
-    <%= form.label(:optional_subset, _("Optional subset"), class: "control-label") %><%= _(' (e.g. School/ Department) ') %>
+    <%= form.label(:optional_subset, _("Optional subset"), class: "form-label") %><%= _(' (e.g. School/ Department) ') %>
   </div>
 <% else %>
   <%= form.hidden_field :optional_subset, value: "0" %>
 <% end %>
-<div class="form-group col-xs-8">
+<div class="form-control mb-3 col-xs-8">
   <%= form.hidden_field :org_id %>
   <%= form.submit _('Save'), class: "btn btn-primary" %>
   <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>

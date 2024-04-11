@@ -14,12 +14,12 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <div class="pull-left">
+  <div class="col-md-6 pe-2">
+    <div class="float-start">
       <p class="bold fontsize-h4"><%= _('No. users joined during last year') %></p>
     </div>
-    <div class="pull-right">
-      <%= link_to usage_yearly_users_path(sep: ","), class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
+    <div class="float-end">
+      <%= link_to usage_yearly_users_path(sep: ","), class: 'stat btn btn-secondary', role: 'button', target: '_blank' do %>
         <%= _('Download') %> <i class="fas fa-download" aria-hidden="true"></i>
       <% end %>
     </div>
@@ -29,12 +29,12 @@
                  locals: { data: @users_per_month } %>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="pull-left">
+  <div class="col-md-6 ps-2">
+    <div class="float-start">
       <p class="bold fontsize-h4"><%= _('No. plans during last year') %></p>
     </div>
-    <div class="pull-right">
-      <%= link_to usage_yearly_plans_path(sep: ",", filtered: @filtered), class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
+    <div class="float-end">
+      <%= link_to usage_yearly_plans_path(sep: ",", filtered: @filtered), class: 'stat btn btn-secondary', role: 'button', target: '_blank' do %>
         <%= _('Download') %> <i class="fas fa-download" aria-hidden="true"></i>
       <% end %>
     </div>
@@ -52,18 +52,15 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-      <div class="col-md-6">
-        <div class="pull-left">
+      <div class="col-md-6 float-start">
           <p class="bold fontsize-h4"><%= _('No. plans by template') %></p>
-        </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="pull-right"">
+      <div class="col-md-6 float-end">
           <ul class="list-inline">
             <li>
               <%= form_for :usage, url: usage_plans_by_template_path, remote: true do |f| %>
-                <div class="form-group">
+                <div class="form-control mb-3">
                   <%= f.label :template_plans_range, _('Time period') %>
                   <ul class="list-inline">
                     <li>
@@ -73,21 +70,20 @@
                       <%= hidden_field_tag :filtered, @filtered %>
                     </li>
                     <li>
-                      <%= f.submit _('Go'), class: 'btn btn-default mt-25' %>
+                      <%= f.submit _('Go'), class: 'btn btn-secondary mt-25' %>
                     </li>
                   </ul>
                 </div>
               <% end %>
             </li>
             <li>
-              <div class="form-group">
-                <%= link_to usage_all_plans_by_template_path(sep: ",", filtered: @filtered), class: 'btn btn-default stat', role: 'button', target: '_blank' do %>
+              <div class="form-control mb-3">
+                <%= link_to usage_all_plans_by_template_path(sep: ",", filtered: @filtered), class: 'btn btn-secondary stat', role: 'button', target: '_blank' do %>
                   <%= _('Download all') %> <i class="fas fa-download" aria-hidden="true"></i>
                 <% end %>
              </div>
             </li>
           </ul>
-        </div>
       </div>
     </div>
   </div>

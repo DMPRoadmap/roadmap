@@ -1,44 +1,41 @@
 <!--this block displays all guidance related with the question. question is passed as an argument-->
-
 <div class="question-guidance">
   <div class="accordion" id="<%= question.id %>-guidance">
     <% if !question.guidance_annotation(current_user.org).nil? && question.guidance_annotation(current_user.org) != "" %>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= question.id%>">
+      <div class="accordion-item w-100 my-3">
+        <h2 class="accordion-header">
+          <a class="accordion-guidance-link" data-bs-toggle="collapse" data-bs-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= question.id%>">
             <div class="accordion_heading_text">
-            <%= question.section.phase.template.org.abbreviation %> <%= _('Guidance')%>
+              <%= question.section.phase.template.org.abbreviation %> <%= _('Guidance')%>
             </div>
-            <span class="plus-laranja"> </span></a>
-        </div>
-        <div id="collapse-guidance-<%= question.id%>" class="guidance-accordion-body collapse">
-          <div class="accordion-inner">
-            <div class="display-readonly-textarea-content">
-               <%= sanitize question.guidance_annotation(current_user.org).text %>
+          </h2>
+          <div id="collapse-guidance-<%= question.id%>" 
+                 class="guidance-accordion-body accordion-collapse collapse">
+            <div class="accordion-body card card-body">
+              <div class="display-readonly-textarea-content">
+                <%= sanitize question.guidance_annotation(current_user.org).text %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
-
-    <% question.guidance_for_org(current_user.org).each_pair do |title,guidance| %>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-guidance-link" data-toggle="collapse" data-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= guidance.id%>-<%= question.id %>">
-            <div class="accordion_heading_text">
-            <%= title %>
-            </div>
-            <span class="plus-laranja"> </span></a>
-        </div>
-        <div id="collapse-guidance-<%= guidance.id%>-<%= question.id %>" class="guidance-accordion-body collapse">
-          <div class="accordion-inner">
-            <div class="display-readonly-textarea-content">
-              <%= sanitize guidance.text %>
+      <% end %>
+      <% question.guidance_for_org(current_user.org).each_pair do |title,guidance| %>
+        <div class="accordion-item w-100 my-3">
+          <h2 class="accordion-header" role="tab">
+            <div class="accordion-guidance-link" data-bs-toggle="collapse" data-bs-parent="#<%= question.id %>-guidance" href="#collapse-guidance-<%= guidance.id%>-<%= question.id %>">
+              <div class="accordion_heading_text">
+                <%= title %>
+              </div>
+            </h2>
+            <div id="collapse-guidance-<%= guidance.id%>-<%= question.id %>" 
+        class="guidance-accordion-body accordion-collapse collapse">
+              <div class="accordion-body card card-body">
+                <div class="display-readonly-textarea-content">
+                  <%= sanitize guidance.text %>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-
-</div>
+    </div>

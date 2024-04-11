@@ -415,7 +415,7 @@ namespace :upgrade do
                 .where('customization_of IS NOT NULL')
                 .group(:customization_of, :org_id, :version, :id)
                 .order(customization_of: :asc, org_id: :asc, version: :asc, updated_at: :desc)
-    generate_compound_key = ->(customization_of, org_id) { return "#{customization_of}_#{org_id}" }
+    generate_compound_key = ->(customization_of, org_id) { "#{customization_of}_#{org_id}" }
     current = nil
     unique_versions = Set.new
     duplicates = []
@@ -924,7 +924,7 @@ namespace :upgrade do
 
         orgs.each do |org|
           # If the Org already has a ROR identifier skip it
-          next if org.identifiers.select { |id| id.identifier_scheme_id == ror.id }.any?
+          next if org.identifiers.any? { |id| id.identifier_scheme_id == ror.id }
 
           # The abbreviation sometimes causes weird results so strip it off
           # in this instance

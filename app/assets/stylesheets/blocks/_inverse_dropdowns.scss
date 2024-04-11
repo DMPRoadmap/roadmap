@@ -1,4 +1,5 @@
-@use '../variables/bootstrap' as *;
+ @use '../variables/bootstrap' as *;
+ 
 /* For dark (inverse) navbars */
 .inverse-dropdown {
   background-color: $dropdown-inverse-bg !important;

@@ -10,22 +10,26 @@ export default function updateConditions(id) {
   // display conditions already saved
   if (addLogicButton.length > 0) {
     if (addLogicButton.attr('data-loaded').toString() === 'true') {
-      addLogicButton.trigger('click');
+      // Get the native Dom element from the Jquery button element.
+      // We are getting native DOM element by applying get() from the Jquery element (cf., https://api.jquery.com/get/).
+      addLogicButton.get(0).click();
     }
   }
-
-  // set up selectpicker select boxes for condition options
+  // set up form-select select boxes for condition options
   const setSelectPicker = () => {
-    $('.selectpicker.narrow').selectpicker({ width: 120 });
-    $('.selectpicker.regular').selectpicker({ width: 150 });
+    // $('.form-select.narrow').selectpicker({ width: 120 });
+    // $('.form-select.regular').selectpicker({ width: 150 });
   };
 
   // test if a webhook is selected and set up if so
   const allowWebhook = (selectObject, webhook = false) => { // webhook false => new condition
     const condition = $(selectObject).closest('.condition-partial');
+
     if (webhook === false) {
       if ($(selectObject).val() === 'add_webhook') { // condition type is webhook
-        condition.find('.pseudo-webhook-btn').trigger('click');
+        // Retreive 'data-bs-target' for modal and create Jquery element
+        const associatedModal = $(condition.find('.pseudo-webhook-btn').attr('data-bs-target'));
+        associatedModal.modal('show');
       } else { // condition type is remove
         condition.find('.remove-dropdown').show();
         condition.find('.webhook-replacement').hide();
@@ -57,9 +61,11 @@ export default function updateConditions(id) {
       // display edit email section
       condition.find('.remove-dropdown').hide();
       condition.find('.webhook-replacement').show();
-      condition.find('.webhook-replacement').on('click', (event) => {
+      $(condition.find('.webhook-replacement')).on('click', (event) => {
         event.preventDefault();
-        condition.find('.pseudo-webhook-btn').trigger('click');
+        // Retreive 'data-bs-target' for modal and create Jquery element
+        const associatedModal1 = $(condition.find('.pseudo-webhook-btn').attr('data-bs-target'));
+        associatedModal1.modal('show');
       });
     }
   };
@@ -78,7 +84,7 @@ export default function updateConditions(id) {
   // webhook form
   const webhookForm = (webhooks = false, selectObject = false) => {
     if (selectObject === false) {
-      $('.selectpicker.action-type').each((idx, selectObject2) => {
+      $('.form-select.action-type').each((idx, selectObject2) => {
         webhookSelected(selectObject2, webhooks[idx]);
       });
     } else {
@@ -109,7 +115,7 @@ export default function updateConditions(id) {
       addDiv.html(e.detail[0].add_link);
       conditionList.attr('data-loaded', 'false');
       setSelectPicker();
-      const selectObject = conditionList.find('.selectpicker.action-type').last();
+      const selectObject = conditionList.find('.form-select.action-type').last();
       webhookForm(undefined, selectObject);
     }
   });
