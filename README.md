@@ -42,7 +42,7 @@ See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installa
 
 ```bash
 # init submodule
-git submodule init && git submodule update
+git clone https://github.com/OPIDoR/dmp_opidor_react.git app/javascript/dmp_opidor_react
 
 ```
 

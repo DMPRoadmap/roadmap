@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="row">
-    <dmp-news-page props-json='{ "locale": "<%= locale %>" } '/>
+    <%= react("NewsPageLayout", props: { locale: locale }) %>
   </div>
 </div>
 <div class="modal fade" id="dmpVisitModal" tabindex="-1" role="dialog" aria-labelledby="dmpVisitModal" aria-hidden="true">

@@ -5,15 +5,15 @@
 
 <% content_for :plan_tab_body do %>
   <% if plan.template.structured? %>
-    <dmp-write-plan props-json='{
-      "locale": "<%= locale %>",
-      "planId": <%= plan.id %>,
-      "templateId": <%= template.id %>,
-      "userId": <%= @current_user.id %>,
-      "currentOrgId": <%= current_user.org.id %>,
-      "currentOrgName": "<%= current_user.org.name %>",
-      "readonly": <%= !plan.editable_by?(current_user.id) %>
-    }'/>
+    <%= react("WritePlanLayout", props: { 
+      locale: locale,
+      planId: plan.id,
+      templateId: template.id,
+      userId: @current_user.id,
+      currentOrgId: current_user.org.id,
+      currentOrgName: current_user.org.name,
+      readonly: !plan.editable_by?(current_user.id)
+    }) %>
   <% else %>
     <%= render partial: 'phases/edit_plan_answers',
               locals: {

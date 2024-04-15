@@ -1,3 +1,3 @@
-<dmp-help-page props-json='{
-  "locale": "<%= LocaleService.to_gettext(locale: locale) %>"
-}'/>
+<%= react("HelpPage", props: { 
+  locale: <%= LocaleService.to_gettext(locale: locale) %>
+}) %>

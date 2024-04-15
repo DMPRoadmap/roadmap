@@ -9,19 +9,19 @@
 <% locale = LocaleService.to_gettext(locale: @plan.template.locale)%>
 
 <% content_for :plan_tab_body do %>
-<dmp-general-info props-json='{
-  "locale": "<%= locale %>",
-  "planId": <%= @plan.id %>,
-  "dmpId": <%= dmp_fragment.id %>,
-  "projectFragmentId": <%= project_fragment.id %>,
-  "metaFragmentId": <%= meta_fragment.id %>,
-  "researchContext": "<%= @plan.template.context %>",
-  "isTest": <%= @plan.is_test? %>,
-  "isClassic": <%= @plan.template.classic? %>,
-  "currentOrgId": <%= current_user.org.id %>,
-  "currentOrgName": "<%= current_user.org.name %>",
-  "readonly": <%= !@plan.editable_by?(current_user.id) %>
-}'/>
+  <%= react("GeneralInfoLayout", props: { 
+    locale: locale,
+    planId: @plan.id,
+    dmpId: dmp_fragment.id,
+    projectFragmentId: project_fragment.id,
+    metaFragmentId: meta_fragment.id,
+    researchContext: @plan.template.context,
+    isTest: @plan.is_test?,
+    isClassic: @plan.template.classic?,
+    currentOrgId: current_user.org.id,
+    currentOrgName: current_user.org.name,
+    readonly: !@plan.editable_by?(current_user.id)
+  }) %>
 <% end %>
 
 

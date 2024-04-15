@@ -91,10 +91,6 @@ cloud9-start.sh
 data
 
 # React submodule
-app/javascript/dmp_opidor_react/specifications
-app/javascript/dmp_opidor_react/.vscode
-app/javascript/dmp_opidor_react/node_modules
-app/javascript/dmp_opidor_react/src/__tests__
-app/javascript/dmp_opidor_react/src/data
+app/javascript/dmp_opidor_react
 
 puma.pid

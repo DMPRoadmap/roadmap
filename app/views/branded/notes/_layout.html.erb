@@ -5,14 +5,14 @@
     <% if plan.commentable_by?(current_user.id) %>
       <div class="row">
         <div class="col-md-12">
-          <dmp-comment props-json='{
-            "locale": "<%= locale %>",
-            "planId": "<%= plan.id %>",
-            "userId": "<%= @current_user.id %>",
-            "answerId":  "<%= answer.id %>",
-            "questionId": "<%= question.id %>",
-            "researchOutputId": "<%= research_output.id %>"
-          }'/>
+          <%= react("Comment", props: { 
+            locale: locale,
+            planId: plan.id,
+            userId: @current_user.id,
+            answerId:  answer.id,
+            questionId: question.id,
+            researchOutputId: research_output.id
+          }) %>
         </div>
       </div>
       <div class="row">
