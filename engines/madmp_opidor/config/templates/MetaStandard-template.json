@@ -34,8 +34,11 @@
             "inputType": "dropdown",
             "label@fr_FR": "Version",
             "label@en_GB": "Version",
-            "registry_name": "DMPVersion",
+            "registries": [
+                "DMPVersion"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Version du DMP",
             "form_label@en_GB": "DMP version"
         },
@@ -59,7 +62,10 @@
             "inputType": "dropdown",
             "label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
             "label@en_GB": "Fields of science and technology (from OECD classification)",
-            "registry_name": "ClassificationOCDE",
+            "registries": [
+                "ClassificationOCDE"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Domaines de recherche (selon classification de l'OCDE)",
             "form_label@en_GB": "Fields of science and technology (from OECD classification)"
         },
@@ -70,19 +76,22 @@
             "inputType": "dropdown",
             "label@fr_FR": "Langue",
             "label@en_GB": "Language",
-            "registry_name": "ISO639-3_fra_eng",
+            "registries": [
+                "ISO639-3_fra_eng"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Langue de rédaction du plan",
             "form_label@en_GB": "Language in which the plan is drafted"
         },
         "contact": {
             "type": "object",
-            "class": "ContributorStandard",
+            "class": "Contributor",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "DMPCoordinator",
+            "template_name": "ContributorStandard",
             "required": [
                 "dbid"
             ],
@@ -100,6 +109,7 @@
             "description": "Date de création du DMP",
             "label@fr_FR": "Date de création",
             "label@en_GB": "Creation date",
+            "tooltip": null,
             "hidden": true,
             "form_label@fr_FR": "Date de création",
             "form_label@en_GB": "Creation date"
@@ -110,6 +120,7 @@
             "description": "Date de dernière modification du DMP",
             "label@fr_FR": "Date de dernière modification",
             "label@en_GB": "Last modification date",
+            "tooltip": null,
             "hidden": true,
             "form_label@fr_FR": "Date de dernière modification",
             "form_label@en_GB": "Last modification date"
@@ -130,8 +141,11 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registry_name": "PIDSystem",
+            "registries": [
+                "PIDSystem"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant",
             "form_label@en_GB": "Identifier type"
         },
@@ -151,8 +165,11 @@
             "label@fr_FR": "Licence",
             "label@en_GB": "License",
             "inputType": "dropdown",
-            "registry_name": "DMPLicenses",
+            "registries": [
+                "DMPLicenses"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Licence du plan",
             "form_label@en_GB": "Plan license"
         },
@@ -212,5 +229,17 @@
         "creationDate",
         "lastModifiedDate"
     ],
-    "to_string": []
+    "to_string": [],
+    "default": {
+        "fr_FR": {
+            "contact": {
+                "role": "Responsable du plan"
+            }
+        },
+        "en_GB": {
+            "contact": {
+                "role": "DMP manager"
+            }
+        }
+    }
 }

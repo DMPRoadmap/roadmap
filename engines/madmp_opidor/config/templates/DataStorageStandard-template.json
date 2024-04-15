@@ -12,6 +12,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Besoins de stockage",
             "label@en_GB": "Storage needs",
+            "tooltip": null,
             "form_label@fr_FR": "Décrire les besoins de stockage",
             "form_label@en_GB": "Describe storage needs"
         },
@@ -20,6 +21,7 @@
             "description": "Volume estimé des données",
             "label@fr_FR": "Volume estimé des données",
             "label@en_GB": "Estimated volume of data",
+            "tooltip": null,
             "form_label@fr_FR": "Volume estimé des données",
             "form_label@en_GB": "Estimated volume of data"
         },
@@ -29,8 +31,11 @@
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
-            "registry_name": "VolumeUnit",
+            "registries": [
+                "VolumeUnit"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Unité",
             "form_label@en_GB": "Unit"
         },
@@ -54,8 +59,11 @@
             "label@fr_FR": "Equipements, plateaux techniques",
             "label@en_GB": "Equipments, technical platforms",
             "inputType": "dropdown",
-            "registry_name": "StorageServices",
+            "registries": [
+                "StorageServices"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour le stockage et sauvegarde des données",
             "form_label@en_GB": "Equipments, technical platforms used for data storage and backup"
         },
@@ -78,6 +86,7 @@
             "description": "Informations relatives à la politique de sauvegarde",
             "label@fr_FR": "Politique de sauvegarde",
             "label@en_GB": "Backup policy",
+            "tooltip": null,
             "form_label@fr_FR": "Politique de sauvegarde",
             "form_label@en_GB": "Backup policy"
         },
@@ -94,27 +103,27 @@
         },
         "contributor": {
             "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
-                "class": "ContributorStandard",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "DataStorageManager",
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
             },
             "description": "Personne(s) responsable(s) du suivi du stockage des données",
-            "label@fr_FR": "Responsables du stockage des données",
+            "label@fr_FR": "Personnes impliquées dans le stockage des données",
             "label@en_GB": "Persons in charge of storage",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department",
-            "form_label@fr_FR": "Responsables du stockage des données",
+            "form_label@fr_FR": "Personnes impliquées dans le stockage des données",
             "form_label@en_GB": "Persons in charge of storage"
         },
         "cost": {
@@ -137,6 +146,7 @@
             "description": "Coûts éventuels liés au stockage des données",
             "label@fr_FR": "Coûts",
             "label@en_GB": "Costs",
+            "tooltip": null,
             "form_label@fr_FR": "Coûts liés au stockage et à la sauvegarde des données",
             "form_label@en_GB": "Data storage and backup associated costs"
         }

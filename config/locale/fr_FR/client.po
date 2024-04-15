@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-03-08 09:13+0100\n"
-"PO-Revision-Date: 2024-03-08 09:13+0100\n"
+"POT-Creation-Date: 2024-04-02 09:17+0200\n"
+"PO-Revision-Date: 2024-04-02 09:17+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -117,7 +117,7 @@ msgid "added"
 msgstr "ajouté"
 
 #: ../../app/controllers/contributors_controller.rb:79
-#: ../../app/controllers/dmpopidor/orgs_controller.rb:104
+#: ../../app/controllers/dmpopidor/orgs_controller.rb:105
 #: ../../app/controllers/dmpopidor/plans_controller.rb:136
 #: ../../app/controllers/dmpopidor/plans_controller.rb:139
 #: ../../app/controllers/guidance_groups_controller.rb:55
@@ -138,7 +138,7 @@ msgstr "enregistré"
 
 #: ../../app/controllers/contributors_controller.rb:81
 #: ../../app/controllers/dmpopidor/notes_controller.rb:205
-#: ../../app/controllers/dmpopidor/orgs_controller.rb:106
+#: ../../app/controllers/dmpopidor/orgs_controller.rb:107
 #: ../../app/controllers/dmpopidor/plans_controller.rb:145
 #: ../../app/controllers/dmpopidor/plans_controller.rb:148
 #: ../../app/controllers/dmpopidor/plans_controller.rb:152
@@ -278,12 +278,14 @@ msgstr "Ce plan est basé sur le modèle  \"%{template_title}\" fourni par %{org
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:75
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:26
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:165
 #: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:28
 msgid "RO"
 msgstr "PR"
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:76
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:27
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:166
 msgid "Research output"
 msgstr "Produit de recherche"
 
@@ -300,8 +302,8 @@ msgid "File should contain JSON"
 msgstr "Le fichier doit contenir du JSON"
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:363
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:61
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:135
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:63
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:141
 msgid "An error has occured: "
 msgstr "Une erreur s'est produite :"
 
@@ -341,7 +343,7 @@ msgid "No"
 msgstr "Non"
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:151
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:192
 #: ../../app/controllers/guidance_groups_controller.rb:97
 #: ../../app/controllers/guidances_controller.rb:96
 #: ../../app/controllers/plans_controller.rb:405
@@ -351,7 +353,7 @@ msgstr "Non"
 msgid "delete"
 msgstr "effacer"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:188
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:190
 #: ../../app/controllers/guidance_groups_controller.rb:95
 #: ../../app/controllers/guidances_controller.rb:94
 #: ../../app/controllers/plans_controller.rb:400
@@ -361,11 +363,11 @@ msgstr "effacer"
 msgid "deleted"
 msgstr "supprimé"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:212
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:214
 msgid "Data contact"
 msgstr "Personne contact pour les données"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:224
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:226
 #: ../../app/controllers/plans_controller.rb:486
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
@@ -650,7 +652,7 @@ msgstr ""
 "ar mail"
 
 #: ../../app/controllers/roles_controller.rb:107
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:55
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:56
 msgid "Access removed"
 msgstr "Accès retiré"
 
@@ -1007,57 +1009,64 @@ msgstr "9 derniers mois"
 msgid "Last 12 months"
 msgstr "12 derniers mois"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:38
+#: ../../app/mailers/dmpopidor/user_mailer.rb:40
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: Un nouveau commentaire a été ajouté à %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:59 ../../app/models/user.rb:404
+#: ../../app/mailers/dmpopidor/user_mailer.rb:61 ../../app/models/user.rb:405
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr ""
 "%{user_name} a partagé un plan de gestion des données avec vous dans %{tool_na"
 "me}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:80
+#: ../../app/mailers/dmpopidor/user_mailer.rb:82
 #: ../../app/mailers/user_mailer.rb:82
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr "Modification des autorisations sur un plan de %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:97
+#: ../../app/mailers/dmpopidor/user_mailer.rb:99
 #: ../../app/mailers/user_mailer.rb:98
 msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr "Autorisations retirées d'un plan de %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:116
+#: ../../app/mailers/dmpopidor/user_mailer.rb:118
 #: ../../app/mailers/user_mailer.rb:117
 msgid "%{user_name} has requested feedback on a %{tool_name} plan"
 msgstr "%{user_name} a demandé une assistance conseil pour un plan %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:142
+#: ../../app/mailers/dmpopidor/user_mailer.rb:144
 #: ../../app/mailers/user_mailer.rb:143
 msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
 msgstr "%{tool_name} : Une assistance conseil a été fournie pour %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:162
+#: ../../app/mailers/dmpopidor/user_mailer.rb:164
 #: ../../app/mailers/user_mailer.rb:164
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "Changement de visibilité d'un plan : %{plan_title}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:178
+#: ../../app/mailers/dmpopidor/user_mailer.rb:180
 #: ../../app/mailers/user_mailer.rb:217
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr "Droits administrateur attribués dans %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:195
+#: ../../app/mailers/dmpopidor/user_mailer.rb:197
 msgid "%{tool_name} API client created/updated"
 msgstr "Création/Modification du client API %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:209
+#: ../../app/mailers/dmpopidor/user_mailer.rb:211
 msgid "Account expiration in %{tool_name}"
 msgstr "Expiration du compte dans %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:218
+#: ../../app/mailers/dmpopidor/user_mailer.rb:220
 msgid "Account expired in %{tool_name}"
 msgstr "Compte %{tool_name} expiré"
+
+#: ../../app/mailers/dmpopidor/user_mailer.rb:245
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:5
+msgid "%{username} has granted access to their Data Management Plan in %{tool_name}"
+msgstr ""
+"%{username} a accordé l'accès à son plan de gestion des données dans %{tool_na"
+"me}"
 
 #: ../../app/mailers/user_mailer.rb:18
 msgid "Query or feedback related to %{tool_name}"
@@ -1308,7 +1317,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_guidance_selection.html.erb:23
 #: ../../app/views/branded/plans/_share_form.html.erb:112
-#: ../../app/views/branded/plans/_share_third_party.html.erb:93
+#: ../../app/views/branded/plans/_share_third_party.html.erb:92
 #: ../../app/views/branded/research_outputs/_list.html.erb:82
 #: ../../app/views/branded/super_admin/api_clients/_form.html.erb:67
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
@@ -1730,6 +1739,14 @@ msgstr "Annuler"
 #: ../../app/views/branded/layouts/_footer.html.erb:21
 msgid "News"
 msgstr "Actualités"
+
+#: ../../app/views/branded/home/_welcome.html.erb:7
+msgid "First time visiting?"
+msgstr "Première visite chez nous ?"
+
+#: ../../app/views/branded/home/_welcome.html.erb:8
+msgid "Discover DMP OPIDoR in three minutes!"
+msgstr "Découvrez DMP OPIDoR en 180 secondes !"
 
 #: ../../app/views/branded/layouts/_contact_icons.html.erb:15
 msgid "Technical Support"
@@ -3340,7 +3357,7 @@ msgstr "Courriel"
 #: ../../app/views/branded/plans/_share_form.html.erb:18
 #: ../../app/views/branded/plans/_share_form.html.erb:91
 #: ../../app/views/branded/plans/_share_third_party.html.erb:33
-#: ../../app/views/branded/plans/_share_third_party.html.erb:84
+#: ../../app/views/branded/plans/_share_third_party.html.erb:83
 msgid "Permissions"
 msgstr "Permissions"
 
@@ -3456,15 +3473,15 @@ msgstr "Service externe"
 msgid "Purpose"
 msgstr "Finalité"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:60
+#: ../../app/views/branded/plans/_share_third_party.html.erb:59
 msgid "Authorize third party applications"
 msgstr "Autoriser des applications tierces"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:67
+#: ../../app/views/branded/plans/_share_third_party.html.erb:66
 msgid "Application"
 msgstr "Application"
 
-#: ../../app/views/branded/plans/_share_third_party.html.erb:89
+#: ../../app/views/branded/plans/_share_third_party.html.erb:88
 msgid "Read only: can read the content of the dmp"
 msgstr "Lecture seule : peut lire le contenu du plan"
 
@@ -3497,8 +3514,12 @@ msgid "General Budget"
 msgstr "Budget général"
 
 #: ../../app/views/branded/plans/import.html.erb:6
-msgid "This feature is only available for structured templates."
-msgstr "Cette fonctionnalité n'est disponible que pour les modèles structurés."
+msgid ""
+"This feature is currently only available for structured DMPs created in the co"
+"ntext of a research project."
+msgstr ""
+"Cette fonctionnalité n'est actuellement disponible que pour les plans de gesti"
+"on structurés créés dans le contexte d’un projet de recherche. \n"
 
 #: ../../app/views/branded/plans/import.html.erb:19
 msgid "Standard"
@@ -3938,6 +3959,7 @@ msgstr ""
 "API %{tool_name}."
 
 #: ../../app/views/branded/user_mailer/api_credentials.html.erb:23
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:21
 msgid "Please refer to the API documentation at: %{api_documentation_url}"
 msgstr ""
 "Veuillez consulter la documentation de l'API à l'adresse: %{api_documentation_"
@@ -3963,6 +3985,43 @@ msgstr ""
 "le renouvellement de vos informations d'identification, veuillez nous contacte"
 "r à %{helpdesk_email}"
 
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:2
+msgid "Hello %{contact_name}"
+msgstr "Bonjour %{contact_name}"
+
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:11
+msgid "The DMP can be accessed through the API at the following url : %{link}"
+msgstr "Le plan est accessible via l'API à l'url suivante : %{link}"
+
+#: ../../app/views/branded/user_mailer/client_sharing_notification.html.erb:16
+msgid "The following grant id has been added to the project description : %{grant_id}"
+msgstr ""
+"Le code de décision suivant a été ajouté à la description du projet : %{grant_"
+"id}"
+
+#: ../../app/views/branded/user_mailer/feedback_complete.html.erb:6
+msgid ""
+"%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comm"
+"ents can be found in the 'Write plan' tab by clicking on the Comments icon."
+msgstr ""
+"%{commenter} a clôturé la demande d'assistance conseil pour le plan \"%{link_ht"
+"ml}\". Les commentaires se trouvent dans l'onglet \"Rédiger\" en cliquant sur l'i"
+"cône Commentaires. "
+
+#: ../../app/views/branded/user_mailer/feedback_complete.html.erb:7
+msgid ""
+"%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comm"
+"ents can be found in the 'Write plan' tab on the right side of the page (Guida"
+"nce/Comments)."
+msgstr ""
+"%{commenter} a clôturé la demande d'assistance conseil pour le plan \"%{link_ht"
+"ml}\". Les commentaires se trouvent dans l'onglet \"Rédiger\" situé à droite de l"
+"a page (Recommandations / Commentaires)."
+
+#: ../../app/views/branded/user_mailer/feedback_complete.html.erb:11
+msgid "Hello %{recipient_name}"
+msgstr "Bonjour %{recipient_name}"
+
 #: ../../app/views/branded/user_mailer/feedback_notification.html.erb:2
 msgid "Hello %{user_name},"
 msgstr "Bonjour %{user_name},"
@@ -3981,11 +4040,27 @@ msgstr ""
 msgid "Alternatively, you can click the link below:"
 msgstr "Vous pouvez également cliquer sur le lien ci-dessous :"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:2
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:3
+msgid ""
+"Comments can be found in the 'Write plan' tab by clicking on the Comments icon"
+"."
+msgstr ""
+"Les commentaires se trouvent dans l'onglet \"Rédiger\" en cliquant sur l'icône C"
+"ommentaires."
+
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:4
+msgid ""
+"Comments can be found in the 'Write plan' tab on the right side of the page (G"
+"uidance/Comments)."
+msgstr ""
+"Les commentaires se trouvent dans l'onglet \"Rédiger\" situé à droite de la page"
+" (Recommandations / Commentaires)."
+
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:9
 msgid "Hello %{user_name}"
 msgstr "Bonjour %{user_name}"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:5
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:12
 msgid ""
 "%{commenter_name} has commented on your plan %{plan_title}. To view the commen"
 "ts, follow the link to the DMP below, or navigate to the plan via My Dashboard"
@@ -3995,33 +4070,25 @@ msgstr ""
 "ntaires, suivez le lien vers le DMP ci-dessous ou accédez au plan via la page "
 "Mon tableau de bord dans %{tool_name}."
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:10
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:17
 msgid "Below the question, research output and section where the comment is located."
 msgstr ""
 "Vous trouverez ci-dessous la question, le produit de recherche et la section o"
 "ù le commentaire se trouve."
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:11
-msgid ""
-"You can see the comments in the right-hand panel, adjacent to the guidance for"
-" each question."
-msgstr ""
-"Vous pouvez voir les commentaires dans le panneau de droite, à côté des recomm"
-"andations pour chaque question."
-
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:15
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:21
 msgid "DMP: %{phase_link}"
 msgstr "DMP: %{phase_link}"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:18
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:24
 msgid "Section name: %{section_title}"
 msgstr "Nom de section: %{section_title}"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:21
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:27
 msgid "Research output name: %{research_output_name}"
 msgstr "Nom du produit de recherche : %{research_output_name}"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:24
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:30
 msgid "Question: %{question_number}"
 msgstr "Question: %{question_number}"
 
@@ -4367,27 +4434,27 @@ msgstr "Référentiel introuvable"
 msgid "Plan is already shared with %{api_client}."
 msgstr "Le plan est déjà partagé avec %{api_client}."
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:22
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:23
 msgid "Plan shared with \"%{api_client}\" application successfully."
 msgstr "Plan partagé avec l'application \"%{api_client}\" avec succès."
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:25
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:26
 msgid "An error has occured while sharing the plan with \"%{api_client}\"."
 msgstr "Une erreur s'est produite lors du partage du plan avec \"%{api_client}\"."
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:29
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:30
 msgid "Please select an application in the list"
 msgstr "Veuillez sélectionner une application dans la liste"
 
-#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:43
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:44
 msgid "Successfully changed the permissions for %{api_client}."
 msgstr "Autorisations pour %{api_client} modifiées avec succès."
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:47
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:49
 msgid "Notification has been sent"
 msgstr "La notification a été envoyée"
 
-#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:129
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:135
 msgid "Project data have successfully been imported."
 msgstr "Les données concernant le projet ont été importées avec succès"
 

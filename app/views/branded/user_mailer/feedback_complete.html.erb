@@ -1,0 +1,21 @@
+<% plan_phase_url = @plan.template.structured? ? 
+                    url_for(action: 'structured_edit', controller: 'plans', id: @plan.id, phase_id: @phase.id, research_output: @plan.research_outputs.first.id) : 
+                    url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id) %>
+<% 
+  notification_message = @plan.template.structured? ?
+                         _("%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comments can be found in the 'Write plan' tab by clicking on the Comments icon.") : 
+                         _("%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comments can be found in the 'Write plan' tab on the right side of the page (Guidance/Comments).")
+
+%>
+<p>
+  <%= _('Hello %{recipient_name}') % { recipient_name: @recipient_name } %>
+</p>
+<p>
+  <%= notification_message.html_safe % {
+    commenter: @requestor_name,
+    link_html: link_to(@plan_name, plan_phase_url),
+    tool_name: tool_name
+  }%>
+</p>
+
+<%= render partial: 'email_signature' %>

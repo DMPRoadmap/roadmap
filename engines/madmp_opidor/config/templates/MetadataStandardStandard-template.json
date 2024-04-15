@@ -24,6 +24,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
+            "tooltip": null,
             "form_label@fr_FR": "Description",
             "form_label@en_GB": "Description"
         },
@@ -45,8 +46,11 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registry_name": "PIDSystem",
+            "registries": [
+                "PIDSystem"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant",
             "form_label@en_GB": "Identifier type"
         }

@@ -554,6 +554,7 @@ header.dmpopidor-branding {
     // #####################################################
 
     .notification {
+      display: flex;
       border-radius: 15px;
       font-size: large;
 
@@ -568,8 +569,8 @@ header.dmpopidor-branding {
       }
 
       &.alert-warning {
-        background-color: #5D4A27;
-        color: white;
+        background-color: #ddcf96;
+        color: #5D4A27;
 
         a {
           color: white;
@@ -585,6 +586,13 @@ header.dmpopidor-branding {
           color: white;
           text-decoration: underline;
         }
+      }
+      .fas {
+        align-self: center;
+        padding-right: 10px;
+      }
+      p {
+        margin: 0;
       }
     }
 

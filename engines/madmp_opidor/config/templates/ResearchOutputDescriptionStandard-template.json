@@ -11,6 +11,7 @@
             "description": "Titre du produit de recherche généré au cours du projet",
             "label@fr_FR": "Nom",
             "label@en_GB": "Name",
+            "tooltip": null,
             "form_label@fr_FR": "Nom  complet",
             "form_label@en_GB": "Full name"
         },
@@ -23,7 +24,7 @@
             "tooltip@fr_FR": "Résumé décrivant l'objet et la portée du jeu de données",
             "tooltip@en_GB": "Summary describing the purpose and scope of the dataset",
             "form_label@fr_FR": "Décrire succinctement le produit de recherche",
-            "form_label@en_GB": "Briefly describe the research product"
+            "form_label@en_GB": "Briefly describe the research output"
         },
         "type": {
             "type": "string",
@@ -31,11 +32,13 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type",
             "label@en_GB": "Type",
-            "registry_name": "ResearchDataType",
+            "registries": [
+                "ResearchDataType"
+            ],
             "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.4.",
             "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.4. ",
             "form_label@fr_FR": "Type de produit de recherche",
-            "form_label@en_GB": "Research product type"
+            "form_label@en_GB": "Research output type"
         },
         "workPackage": {
             "type": "string",
@@ -47,7 +50,7 @@
             "example@fr_FR": "WP1, WP2",
             "example@en_GB": "WP1, WP2",
             "form_label@fr_FR": "Indiquer, si besoin, la tâche (ou workpackage) à laquelle est rattaché le produit de recherche",
-            "form_label@en_GB": "Indicate, if necessary, the task (or workpackage) to which the research product is attached "
+            "form_label@en_GB": "Indicate, if necessary, the task (or workpackage) to which the research ouput is attached "
         },
         "controlledKeyword": {
             "type": "array",
@@ -69,6 +72,14 @@
             "description": "Mot(s)-clé(s) issu(s) de vocabulaire(s) contrôlé(s) ou d'ontologie(s)",
             "label@fr_FR": "Mots clés",
             "label@en_GB": "Keywords",
+            "inputType": "dropdown",
+            "registries": [
+                "GEMET",
+                "Pactols Lieux",
+                "Pactols Sujets",
+                "Thésaurus INRAE",
+                "Thésaurus Biodiversité Loterre"
+            ],
             "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
             "tooltip@en_GB": "Key words describing important aspects of the dataset",
             "form_label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
@@ -94,29 +105,32 @@
             "inputType": "dropdown",
             "label@fr_FR": "Langue",
             "label@en_GB": "Language",
-            "registry_name": "ISO639-3",
+            "registries": [
+                "ISO639-3"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Indiquer la langue dans laquelle est décrit le produit de recherche",
-            "form_label@en_GB": "Indicate the language in which the research product is described"
+            "form_label@en_GB": "Indicate the language in which the research output is described"
         },
         "contact": {
             "type": "object",
-            "class": "ContributorStandard",
+            "class": "Contributor",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "ResearchOutputContact",
+            "template_name": "ContributorStandard",
             "required": [
                 "dbid"
             ],
             "description": "Producteur ou titulaire des données",
             "label@fr_FR": "Personne contact",
-            "label@en_GB": "Contact",
+            "label@en_GB": "Contact Person",
             "tooltip@fr_FR": "Personne contact pour ce produit de recherche",
-            "tooltip@en_GB": "Person to contact about this research product",
+            "tooltip@en_GB": "Person to contact about this research output",
             "form_label@fr_FR": "Personne contact",
-            "form_label@en_GB": "Contact"
+            "form_label@en_GB": "Contact Person"
         },
         "issuedDate": {
             "type": "string",
@@ -124,6 +138,7 @@
             "description": "Date à laquelle les données sont publiées",
             "label@fr_FR": "Date de publication",
             "label@en_GB": "Issued Date",
+            "tooltip": null,
             "form_label@fr_FR": "Date de publication",
             "form_label@en_GB": "Issued Date"
         },
@@ -143,8 +158,11 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registry_name": "PIDSystem",
+            "registries": [
+                "PIDSystem"
+            ],
             "overridable": true,
+            "tooltip": null,
             "form_label@fr_FR": "Type d'identifiant du produit de recherche",
             "form_label@en_GB": "Reseach product identifier type"
         },
@@ -154,9 +172,12 @@
             "inputType": "dropdown",
             "label@fr_FR": "Contient des données personnelles ?",
             "label@en_GB": "May contain personal data?",
-            "registry_name": "YesNoUnknown",
+            "registries": [
+                "YesNoUnknown"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Le produit de recherche contient-il des données personnelles ?",
-            "form_label@en_GB": "Does the research product contain personal data?"
+            "form_label@en_GB": "Does the research output contain personal data?"
         },
         "containsSensitiveData": {
             "type": "string",
@@ -164,9 +185,12 @@
             "inputType": "dropdown",
             "label@fr_FR": "Contient des données sensibles ?",
             "label@en_GB": "May contain sensible data?",
-            "registry_name": "YesNoUnknown",
+            "registries": [
+                "YesNoUnknown"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Le produit de recherche contient-il des données sensibles ?",
-            "form_label@en_GB": "Does the research product contain sensible data?"
+            "form_label@en_GB": "Does the research output contain sensitive data?"
         },
         "hasEthicalIssues": {
             "type": "string",
@@ -174,9 +198,12 @@
             "inputType": "dropdown",
             "label@fr_FR": "Prend en compte des aspects éthiques ?",
             "label@en_GB": "May take ethical issues into account?",
-            "registry_name": "YesNoUnknown",
+            "registries": [
+                "YesNoUnknown"
+            ],
+            "tooltip": null,
             "form_label@fr_FR": "Le contexte de production du produit de recherche prend-il en compte des aspects éthiques ?",
-            "form_label@en_GB": "Does the production context of the research product takes ethical issues into account?"
+            "form_label@en_GB": "Does the production context of the research output takes ethical issues into account?"
         }
     },
     "required": [
@@ -189,5 +216,17 @@
         "containsSensitiveData",
         "hasEthicalIssues"
     ],
-    "to_string": []
+    "to_string": [],
+    "default": {
+        "fr_FR": {
+            "contact": {
+                "role": "Personne contact"
+            }
+        },
+        "en_GB": {
+            "contact": {
+                "role": "Contact Person"
+            }
+        }
+    }
 }

@@ -1,0 +1,14 @@
+{
+  "MesoUCAStorageAgents": [
+    {
+      "fr_FR": "Laboratoires UCA et associés",
+      "en_GB": "UCA laboratory and associates",
+      "costFactor": 72
+    },
+    {
+      "fr_FR": "Extérieurs",
+      "en_GB": "External persons or services",
+      "costFactor": 90
+    }
+  ]
+}

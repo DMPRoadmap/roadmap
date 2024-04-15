@@ -206,6 +206,10 @@ module Dmpopidor
         api_client_id: api_client.id
       )
     end
+    
+    def grant_identifier
+      json_fragment.project.fundings.pluck(Arel.sql("data->'grantId'")).join(', ')
+    end
   end
   # rubocop:enable Metrics/ModuleLength
 end

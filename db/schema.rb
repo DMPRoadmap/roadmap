@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_09_135011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -139,6 +139,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "published"
     t.index ["guidance_group_id"], name: "guidances_guidance_group_id_idx"
+  end
+
+  create_table "guided_tours", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "tour"
+    t.boolean "ended", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_guided_tours_on_user_id"
   end
 
   create_table "homepage_messages", id: :serial, force: :cascade do |t|
@@ -677,6 +686,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_152636) do
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs", deferrable: :deferred
   add_foreign_key "guidances", "guidance_groups", deferrable: :deferred
+  add_foreign_key "guided_tours", "users"
   add_foreign_key "madmp_fragments", "answers"
   add_foreign_key "madmp_fragments", "madmp_schemas"
   add_foreign_key "madmp_schemas", "api_clients"

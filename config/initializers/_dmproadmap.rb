@@ -90,8 +90,8 @@ module DMPRoadmap
     config.x.application.api_max_page_size = 100
     # The link to the API documentation - used in emails about the API
     config.x.application.api_documentation_urls = {
-      v0: '/api-docs/index.html?urls.primaryName=API%20VO%20Docs',
-      v1: '/api-docs/index.html?urls.primaryName=API%20V1%20Docs'
+      v0: "https://#{ENV.fetch('server_url', 'dmp.opidor.fr')}/api-docs/index.html?urls.primaryName=API%20V0%20Docs",
+      v1: "https://#{ENV.fetch('server_url', 'dmp.opidor.fr')}/api-docs/index.html?urls.primaryName=API%20V1%20Docs"
     }
     # The links that appear on the home page. Add any number of links
     # config.x.application.welcome_links = [
@@ -116,7 +116,7 @@ module DMPRoadmap
     config.x.application.preferences = {
       email: {
         users: {
-          new_comment: false,
+          new_comment: true,
           admin_privileges: true,
           added_as_coowner: true,
           feedback_requested: true,
@@ -275,5 +275,6 @@ module DMPRoadmap
     # DMP OPIDoR Features #
     # --------------------------------------------------- #
     config.x.dmpopidor.enable_research_outputs_uuid = true
+    config.x.dmpopidor.enable_third_party_form = ENV.fetch('ENABLE_THIRD_PARTY_FORM', false)
   end
 end

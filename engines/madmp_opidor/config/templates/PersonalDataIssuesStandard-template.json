@@ -12,6 +12,7 @@
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
+            "tooltip": null,
             "form_label@fr_FR": "Décrire les mesures",
             "form_label@en_GB": "Describe the measures"
         },
@@ -41,27 +42,27 @@
         },
         "contributor": {
             "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
-                "class": "ContributorStandard",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "DataProtectionManager",
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
             },
             "description": "Personne(s) en charge d'assurer la protection des données personnelles",
-            "label@fr_FR": "Responsables de la protection des données",
+            "label@fr_FR": "Personnes impliquées dans la protection des données personnelles",
             "label@en_GB": "Persons in charge of data protection",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department",
-            "form_label@fr_FR": "Responsables de la protection des données",
+            "form_label@fr_FR": "Personnes impliquées dans la protection des données personnelles",
             "form_label@en_GB": "Persons in charge of data protection"
         }
     },

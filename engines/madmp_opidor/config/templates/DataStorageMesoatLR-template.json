@@ -10,6 +10,7 @@
             "type": "string",
             "description": "Description des besoins de stockage",
             "inputType": "textarea",
+            "tooltip": null,
             "form_label@fr_FR": "Description",
             "form_label@en_GB": "Description"
         },
@@ -30,6 +31,8 @@
                 ]
             },
             "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
+            "tooltip": null,
+            "isConst": true,
             "form_label@fr_FR": "Identification de MESO@LR",
             "form_label@en_GB": "MESO@LR identification"
         },
@@ -46,6 +49,7 @@
                 "dbid"
             ],
             "description": "Informations requises pour une demande de ressources de stockage et calcul auprès du MESO@LR",
+            "tooltip": null,
             "form_label@fr_FR": "Demande de ressources de stockage et calcul à MESO@LR (en To)",
             "form_label@en_GB": "Request for storage and compute resources from MESO@LR (in TB)"
         },
@@ -66,14 +70,17 @@
                 ]
             },
             "description": "Informations relatives à la politique de sauvegarde",
+            "tooltip": null,
+            "isConst": true,
             "form_label@fr_FR": "Politique de sauvegarde de MESO@LR",
             "form_label@en_GB": "MESO@LR backup policy"
         },
         "securityMeasures": {
             "type": "string",
             "description": "Description des mesures prises pour assurer la sécurité des données",
-            "const@fr_FR": "L’offre de service propose la réplication des données, cette copie conforme se situe dans une salle distance du stockage primaire. Complémentaire à cette réplication, la possibilité d’avoir des snapshots selon la politique choisie offre une excellente protection contre les ransomwares. La connexion se fait selon votre solution d’authentification souhaitée : Active Directory ou LDAP, sinon par le LDAP de Meso. Le Mésocentre n'est pas encore habilité à recevoir des données de santé.",
-            "const@en_GB": "The service offers data replication, this exact copy is located in a room remote from the primary storage. Complementary to this replication, the possibility of having snapshots according to the chosen policy offers excellent protection against ransomware. The connection is made according to your desired authentication solution: Active Directory or LDAP, otherwise by Meso's LDAP. The Mesocentre is not yet authorized to receive health data.",
+            "tooltip": null,
+            "inputType": "textarea",
+            "isConst": true,
             "form_label@fr_FR": "Mesures de sécurité",
             "form_label@en_GB": "Security measures"
         },
@@ -95,27 +102,29 @@
                 ]
             },
             "description": "Coût total des données stockées à MESO@LR",
+            "tooltip": null,
             "form_label@fr_FR": "Coût total de stockage (coût calculé automatiquement)",
             "form_label@en_GB": "Total cost of storage (Automatic calculation)"
         },
         "contributor": {
             "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
+            "table_header@fr_FR": "Nom",
+            "table_header@en_GB": "Name",
             "items": {
                 "type": "object",
-                "class": "ContributorStandard",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "DataStorageManager",
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
             },
             "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "tooltip": null,
             "form_label@fr_FR": "Personne en charge de la gestion du stockage des données",
             "form_label@en_GB": "Person in charge of  data storage management"
         }
@@ -124,5 +133,77 @@
         "description",
         "mesoatLRServiceRequest"
     ],
-    "to_string": []
+    "to_string": [],
+    "run": [
+        {
+            "script_id": 0,
+            "name": "MesoAtLrStorageCostComputer",
+            "owner": "superadmin",
+            "label@fr_FR": "Calculer le coût de stockage",
+            "label@en_GB": "Compute data storage cost",
+            "tooltip@fr_FR": "Les tarifs de stockage (en HT) du mésocentre sont soumis aux conditions générales de vente de l'Université de Montpellier : https://meso-lr.umontpellier.fr/wp-content/uploads/2019/04/CGV_UM-FR_201904.pdf",
+            "tooltip@en_GB": "The storage prices (excluding VAT) of the mesocentre are subject to the general conditions of sale of the University of Montpellier : https://meso-lr.umontpellier.fr/wp-content/uploads/2019/04/CGV_UM-FR_201904.pdf"
+        },
+        {
+            "script_id": 0,
+            "name": "MesoAtLrNotifyer",
+            "owner": "superadmin",
+            "label@fr_FR": "Notifier MESO@LR",
+            "label@en_GB": "Notify MESO@LR",
+            "tooltip@fr_FR": "Envoie une demande d'espace de stockage par mail au contact de MESO@LR",
+            "tooltip@en_GB": "Sends a request for storage space by email to the MESO@LR contact",
+            "params": {
+                "recipients": [
+                    "francoise.cosserat@inist.fr",
+                    "anne.busin@inist.fr"
+                ]
+            }
+        }
+    ],
+    "default": {
+        "fr_FR": {
+            "securityMeasures": "L'offre de service propose la réplication des données, cette copie conforme se situe dans une salle distance du stockage primaire. Complémentaire à cette réplication, la possibilité d'avoir des snapshots selon la politique choisie offre une excellente protection contre les ransomwares. La connexion se fait selon votre solution d'authentification souhaitée : Active Directory ou LDAP, sinon par le LDAP de Meso. Le Mésocentre n'est pas encore habilité à recevoir des données de santé.",
+            "facility": [
+                {
+                    "title": "MESO@LR",
+                    "technicalResourceId": "https://cat.opidor.fr/index.php/MESO@LR",
+                    "idType": "URL",
+                    "serviceContact": "meso-lr@umontpellier.fr",
+                    "policyUrl": null
+                }
+            ],
+            "backupPolicy": [
+                {
+                    "description": "Politique de sauvegarde de MESO@LR : Votre espace est sauvegardé par snapshots et réplication. Les snapshots sont des copies des données à des moments réguliers et prédéfinis, permettant de revenir en arrière en cas de fausse manipulation sur un fichier. Les snapshots ne vont stocker que les différences sur les fichiers modifiés depuis le dernier snapshot. La réplication permet une sauvegarde complète des données. Cette copie des données se fait dans une salle physiquement distante du stockage initial. Elle permet une récupération des données lorsque toutes les données sont détruites",
+                    "backupFrequency": "Paramétrable",
+                    "backupType": "Miroir",
+                    "storageType": [
+                        "Serveur NAS"
+                    ]
+                }
+            ]
+        },
+        "en_GB": {
+            "securityMeasures": "The service offers data replication, this exact copy is located in a room remote from the primary storage. Complementary to this replication, the possibility of having snapshots according to the chosen policy offers excellent protection against ransomware. The connection is made according to your desired authentication solution: Active Directory or LDAP, otherwise by Meso's LDAP. The Mesocentre is not yet authorized to receive health data.",
+            "facility": [
+                {
+                    "title": "MESO@LR",
+                    "technicalResourceId": "https://cat.opidor.fr/index.php/MESO@LR",
+                    "idType": "URL",
+                    "serviceContact": "meso-lr@umontpellier.fr",
+                    "policyUrl": null
+                }
+            ],
+            "backupPolicy": [
+                {
+                    "description": "MESO@LR backup policy : Your space is backed up by snapshots and replication. Snapshots are copies of data at regular and predefined times, allowing to go back in case of false manipulation on a file. Snapshots will only store differences on files modified since the last snapshot. Replication allows full backup of data. This copy of the data is made in a room physically remote from the initial storage. It allows data recovery when all data is destroyed",
+                    "backupFrequency": "Parametrable",
+                    "backupType": "Mirror",
+                    "storageType": [
+                        "NAS server"
+                    ]
+                }
+            ]
+        }
+    }
 }

@@ -1,0 +1,14 @@
+{
+  "MesoUCACalculAgents": [
+    {
+      "fr_FR": "Laboratoires UCA et associés",
+      "en_GB": "UCA laboratory and associates",
+      "costFactorType": "costInt"
+    },
+    {
+      "fr_FR": "Extérieurs",
+      "en_GB": "External persons or services",
+      "costFactorType": "costExt"
+    }
+  ]
+}

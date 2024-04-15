@@ -4,8 +4,9 @@ module Dmpopidor
   # Customized code for StaticPagesController
   module StaticPagesController
     # Changed News feed
-    def news_feed
-    end
+    def news_feed; end
+
+    def help; end
 
     # Added Tutorials Page
     def tutorials; end

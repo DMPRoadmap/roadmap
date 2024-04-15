@@ -46,6 +46,28 @@ git clone https://github.com/OPIDoR/dmp_opidor_react.git app/javascript/dmp_opid
 
 ```
 
+##### Directus
+
+Default credentials: ``admin@example.com`` / ``changeme``
+
+```bash
+# Create directus database
+docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} -c 'create database ${DIRECTUS_DATABASE:-directus};'"
+
+# Copy database dump file in postgres container
+docker compose cp ./directus/dump.sql postgres:/directus.sql
+
+# Apply dump in database
+docker compose exec -it postgres sh -c "psql -U ${DB_USERNAME:-postgres} ${DIRECTUS_DATABASE:-directus} < directus.sql"
+```
+
+###### Backup
+
+```bash
+# Dump directus database
+docker compose exec -it postgres sh -c "pg_dump -U ${DB_USERNAME:-postgres} ${DIRECTUS_DATABASE:-directus}" > directus/dump.sql
+```
+
 ##### Development mode
 
 ```bash
@@ -56,7 +78,7 @@ docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev bui
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker postgres'
 
 # Setup database
-docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'ruby bin/docker db:setup'
+docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev run --rm dmpopidor sh -c 'bin/rails db:environment:set RAILS_ENV=development; ruby bin/docker db:setup'
 
 # Run all services
 docker compose -f docker-compose.yml -f docker-compose-dev.yml --profile dev up -d

@@ -4,4 +4,9 @@
   .profile-form {
     @include dmpopidor-accordion-large;
   }
+  #api-token {
+    a {
+      text-decoration: underline;
+    }
+  }
 }
