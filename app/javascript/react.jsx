@@ -40,4 +40,5 @@ mount({
   WritePlanLayout,
   Comment,
   ContributorsTabLayout,
+  HelpLayout,
 });
