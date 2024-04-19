@@ -17,7 +17,9 @@ Rails.application.routes.draw do
     delete 'destroy_contributor', action: :destroy_contributor, on: :collection, constraints: { format: [:json] }
   end
 
-  resources :madmp_schemas, only: %i[index show]
+  resources :madmp_schemas, only: %i[index show] do
+    get 'by_name/:name', action: :by_name, on: :collection
+  end
 
   get '/codebase/run', to: 'madmp_codebase#run', constraints: { format: [:json] }
   get '/codebase/project_search', to: 'madmp_codebase#project_search', constraints: { format: [:json] }

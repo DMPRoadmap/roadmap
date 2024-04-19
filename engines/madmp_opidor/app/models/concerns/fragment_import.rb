@@ -19,8 +19,8 @@ module FragmentImport
       next if schema_prop&.dig('type').nil?
 
       if schema_prop['type'].eql?('object') &&
-         schema_prop['schema_id'].present?
-        sub_schema = MadmpSchema.find(schema_prop['schema_id'])
+         schema_prop['template_name'].present?
+        sub_schema = MadmpSchema.find_by(name: schema_prop['template_name'])
         # For persons, we need to check if the person exists and set manually
         # the dbid in the parent fragment
         if schema_prop['inputType'].eql?('pickOrCreate') || sub_schema.classname.eql?('person')
@@ -60,7 +60,7 @@ module FragmentImport
         sub_fragment.raw_import(sub_data, sub_schema, sub_fragment.id)
 
       elsif schema_prop['type'].eql?('array') &&
-            schema_prop['items']['schema_id'].present?
+            schema_prop['items']['template_name'].present?
         ####################################
         # ARRAY FIELDS
         ####################################
@@ -69,7 +69,7 @@ module FragmentImport
         fragment_list = [fragment_list] unless fragment_list.is_a?(Array)
 
         fragment_list.each do |sub_fragment_data|
-          sub_schema = MadmpSchema.find(schema_prop['items']['schema_id'])
+          sub_schema = MadmpSchema.find_by(name: schema_prop['items']['template_name'])
           sub_fragment = MadmpFragment.fragment_exists?(sub_fragment_data, sub_schema, dmp.id, parent_id)
           if sub_fragment.eql?(false)
             sub_fragment = MadmpFragment.new(
@@ -114,8 +114,8 @@ module FragmentImport
       next if schema_prop&.dig('type').nil?
 
       if schema_prop['type'].eql?('object') &&
-         schema_prop['schema_id'].present?
-        sub_schema = MadmpSchema.find(schema_prop['schema_id'])
+         schema_prop['template_name'].present?
+        sub_schema = MadmpSchema.find_by(name: schema_prop['template_name'])
 
         if sub_data['id'].present?
           api_fragment = MadmpFragment.find(sub_data['id'])
@@ -137,14 +137,14 @@ module FragmentImport
           #   fragmented_data[prop] = { 'dbid' => created_frag.id } if sub_schema.classname.eql?('person')
         end
       elsif schema_prop['type'].eql?('array') &&
-            schema_prop['items']['schema_id'].present?
+            schema_prop['items']['template_name'].present?
         ####################################
         # ARRAY FIELDS
         ####################################
         # Seems like sending empty arrays through the API set them as nil so we need to initialize them
         fragment_list = sub_data || []
         fragment_list.each do |sub_fragment_data|
-          sub_schema = MadmpSchema.find(schema_prop['items']['schema_id'])
+          sub_schema = MadmpSchema.find_by(name: schema_prop['items']['template_name'])
 
           if sub_fragment_data['id'].present?
             api_fragment = MadmpFragment.find(sub_fragment_data['id'])
@@ -191,7 +191,7 @@ module FragmentImport
       next if schema_prop&.dig('type').nil?
 
       if schema_prop['type'].eql?('object') &&
-         schema_prop['schema_id'].present?
+         schema_prop['template_name'].present?
         ####################################
         # OBJECT FIELDS
         ####################################
@@ -199,7 +199,7 @@ module FragmentImport
 
         sub_fragment_id = sub_data['dbid'] || sub_data['id']
         sub_fragment_data = sub_data['data'] || sub_data
-        sub_schema = MadmpSchema.find(schema_prop['schema_id'])
+        sub_schema = MadmpSchema.find_by(name: schema_prop['template_name'])
 
         if sub_data['action'].eql?('create')
           next if MadmpFragment.fragment_exists?(sub_fragment_data, sub_schema, dmp.id, id)
@@ -224,7 +224,7 @@ module FragmentImport
         # and update_references function is not triggered
         fragmented_data[prop] = { 'dbid' => sub_fragment.id } if sub_schema.classname.eql?('person')
       elsif schema_prop['type'].eql?('array') &&
-            schema_prop['items']['schema_id'].present?
+            schema_prop['items']['template_name'].present?
         ####################################
         # ARRAY FIELDS
         ####################################
@@ -234,7 +234,7 @@ module FragmentImport
 
           sub_fragment_id = cb_data['dbid'] || cb_data['id']
           sub_data = cb_data['data'] || cb_data
-          sub_schema = MadmpSchema.find(schema_prop['items']['schema_id'])
+          sub_schema = MadmpSchema.find_by(name: schema_prop['items']['template_name'])
           if cb_data['action'].eql?('create')
             next if MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, id)
 

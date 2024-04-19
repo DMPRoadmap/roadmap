@@ -10,6 +10,10 @@ class MadmpSchemaPolicy < ApplicationPolicy
     true
   end
 
+  def by_name?
+    true
+  end
+
   def new?
     @user.can_super_admin?
   end

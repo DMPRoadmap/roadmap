@@ -15,10 +15,10 @@
           <td class="property-value"><%= value ? _('Yes') : _('No') %></td>
         </tr>
       <% when 'array' %>
-        <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
-          <% next if MadmpSchema.find(prop['items']['schema_id']).classname.eql?("contributor") %>
+        <% if prop['items']['type'] == 'object' && prop['items']['template_name'].present? %>
+          <% next if MadmpSchema.find_by(name: prop['items']['template_name']).classname.eql?("contributor") %>
           <%
-            sub_schema = sub_schemas[prop['items']['schema_id']]
+            sub_schema = sub_schemas[prop['items']['template_name']]
             table_header = prop["table_header@#{locale}"] ? prop["table_header@#{locale}"] : prop["table_header"]
             values = []
             if value.present?

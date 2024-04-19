@@ -64,7 +64,7 @@ module Import
 
           if research_output_fragment.data[prop].nil?
             # Fetch the associated question
-            associated_question = plan.questions.joins(:madmp_schema).find_by(madmp_schema_id: schema_prop['schema_id'])
+            associated_question = plan.questions.joins(:madmp_schema).find_by(madmp_schema: { name: schema_prop['template_name'] })
             next if associated_question.nil?
 
             fragment = MadmpFragment.new(

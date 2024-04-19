@@ -204,16 +204,6 @@ namespace :madmpopidor do
         p "ERROR: template #{title} is invalid (model validations)"
       end
     end
-
-    # Replace all 'template_name' key/values with 'schema_id' equivalent in loaded schemas
-    MadmpSchema.all.each do |schema|
-      p 'Substituting template_name...'
-      schema.update(schema: MadmpSchema.substitute_names(schema.schema))
-      p 'Done.'
-    rescue ActiveRecord::RecordNotFound => e
-      p "ERROR: template name substitution failed in #{schema.name}: #{e.message}"
-      next
-    end
     p 'maDMP Templates loaded.'
   end
 
