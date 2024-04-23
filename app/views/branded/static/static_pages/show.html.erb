@@ -1,7 +1,4 @@
-<h1>
-  <%= @static_page.localized_name(session[:locale]).html_safe %>
-</h1>
-
-<div class="dmp_details_body static_page_content">
-  <%= @static_page.localized_content(session[:locale]).html_safe %>
-</div>
+<%= react("StaticPagesLayout", props: { 
+  locale: LocaleService.to_gettext(locale: locale),
+  page: @page
+}) %>
