@@ -36,6 +36,7 @@ namespace :data_migration do
       p 'Cleaning empty metadataStandard in Host'
       p '------------------------------------------------------------------------'
       Fragment::Host.all.each do |h|
+        updated_data = h.data.clone
         metadata_standard_id = h.data.dig("metadataStandard", "dbid")
         next if metadata_standard_id.nil?
 
@@ -43,12 +44,13 @@ namespace :data_migration do
         metadata_standard_name = nil
         if metadata_standard.data.empty?
           metadata_standard.destroy
+          updated_data.delete("metadataStandard")
         else
-          metadata_standard_name = metadata_standard.data['name']
           metadata_standard.destroy
+          updated_data.merge('metadataStandard' =>  metadata_standard.data['name'])
         end
 
-        h.update_column(:data, h.data.merge('metadataStandard' => metadata_standard_name)) if metadata_standard_name.present?
+        h.update_column(:data, updated_data)
       end
       p '------------------------------------------------------------------------'
       p 'Done'
