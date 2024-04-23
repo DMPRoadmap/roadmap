@@ -5,9 +5,9 @@
 # Table name: static_pages
 #
 #  id            :integer          not null, primary key
+#  in_navigation :boolean          default(TRUE)
 #  name          :string           not null
 #  url           :string           not null
-#  in_navigation :boolean          default("true")
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #

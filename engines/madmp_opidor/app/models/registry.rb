@@ -2,16 +2,24 @@
 
 # == Schema Information
 #
-# Table name: registry_values
+# Table name: registries
 #
-#  id         :integer          not null, primary key
-#  name       :string           not null
-#  description       :string
-#  uri        :string
-#  version    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  org_id :integer
+#  id          :integer          not null, primary key
+#  description :string
+#  name        :string           not null
+#  uri         :string
+#  version     :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  org_id      :integer
+#
+# Indexes
+#
+#  index_registries_on_org_id  (org_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (org_id => orgs.id)
 #
 
 # Object that represents a registry

@@ -4,11 +4,20 @@
 #
 # Table name: registry_values
 #
-#  id         :integer          not null, primary key
-#  data       :json
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  data        :json
+#  order       :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #  registry_id :integer
+#
+# Indexes
+#
+#  index_registry_values_on_registry_id  (registry_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (registry_id => registries.id)
 #
 
 # Object that represents a registry value

@@ -51,9 +51,10 @@
             </tr>
           <% end %>
         <% else %>
+          <% tab_value = value.is_a?(String) ? [value] : value %>
           <tr class="fragment-property">
             <td class="property-label"><%= label %></td>
-            <td class="property-value"><%=  value.join(", ") %></td>
+            <td class="property-value"><%=  tab_value.join(", ") %></td>
           </tr>
         <% end %>
       <% when 'object' %>

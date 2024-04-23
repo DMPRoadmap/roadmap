@@ -25,7 +25,7 @@
             <% scope.each do |plan| %>
               <tr>
                 <td>
-                  <%= truncate plan.title, length: 40 %>
+                  <%= truncate plan.title, length: 100 %>
                 </td>
                 <td><%= plan.template.title %></td>
                 <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>

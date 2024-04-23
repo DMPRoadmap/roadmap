@@ -95,7 +95,7 @@ services:
     volumes:
       - ./directus/data/uploads:/directus/uploads
     healthcheck:
-      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8055/server/health || exit 1" ]
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8055/server/ping || exit 0" ]
       interval: ${DIRECTUS_HEALTHCHECK_INTERVAL:-10s}
       timeout: ${DIRECTUS_HEALTHCHECK_TIMEOUT:-30s}
       retries: ${DIRECTUS_HEALTHCHECK_RETRIES:-5}

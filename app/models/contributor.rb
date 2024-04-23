@@ -4,27 +4,23 @@
 #
 # Table name: contributors
 #
-#  id           :integer          not null, primary key
-#  firstname    :string
-#  surname      :string
-#  email        :string
-#  phone        :string
-#  roles        :integer
-#  org_id       :integer
-#  plan_id      :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id         :integer          not null, primary key
+#  email      :string
+#  name       :string
+#  phone      :string
+#  roles      :integer          not null
+#  created_at :datetime
+#  updated_at :datetime
+#  org_id     :integer
+#  plan_id    :integer          not null
 #
 # Indexes
 #
-#  index_contributors_on_id      (id)
-#  index_contributors_on_email   (email)
-#  index_contributors_on_org_id  (org_id)
+#  index_contributors_on_email    (email)
+#  index_contributors_on_org_id   (org_id)
+#  index_contributors_on_plan_id  (plan_id)
+#  index_contributors_on_roles    (roles)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (org_id => orgs.id)
-#  fk_rails_...  (plan_id => plans.id)
 
 # Object that represents a contributor to a plan
 class Contributor < ApplicationRecord

@@ -4,23 +4,22 @@
 #
 # Table name: repositories
 #
-#  id          :bigint           not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  contact     :string
 #  description :text             not null
+#  homepage    :string
 #  info        :json
 #  name        :string           not null
-#  homepage    :string
+#  uri         :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  uri         :string           not null
 #
 # Indexes
 #
-#  index_repositories_on_name     (name)
-#  index_repositories_on_homepage (homepage)
-#  index_repositories_on_uri      (uri)
+#  index_repositories_on_homepage  (homepage)
+#  index_repositories_on_name      (name)
+#  index_repositories_on_uri       (uri)
 #
-# Object that represents a research output repository (e.g. GitHub or Zenodo)
 class Repository < ApplicationRecord
   # =============
   # = Constants =

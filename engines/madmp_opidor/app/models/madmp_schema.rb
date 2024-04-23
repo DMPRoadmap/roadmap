@@ -4,19 +4,26 @@
 #
 # Table name: madmp_schemas
 #
-#  id         :integer          not null, primary key
-#  label      :string
-#  name       :string
-#  version    :integer
-#  schema     :json
-#  org_id     :integer
-#  classname  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :integer          not null, primary key
+#  classname     :string
+#  label         :string
+#  name          :string
+#  schema        :json
+#  version       :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  api_client_id :bigint(8)
+#  org_id        :integer
 #
 # Indexes
 #
-#  index_madmp_schemas_on_org_id  (org_id)
+#  index_madmp_schemas_on_api_client_id  (api_client_id)
+#  index_madmp_schemas_on_org_id         (org_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (api_client_id => api_clients.id)
+#  fk_rails_...  (org_id => orgs.id)
 #
 
 # Object that represents a madmp_schema

@@ -19,7 +19,7 @@
       <% scope.each do |plan| %>
         <tr id="<%= dom_id(plan) %>">
           <td>
-            <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}",
+            <%= link_to "#{plan.title.length > 100 ? "#{plan.title[0..99]} ..." : plan.title}",
                 plan_path(plan) %>
           </td>
           <td><%= plan.template.title %></td>

@@ -13,7 +13,7 @@
 #
 # Indexes
 #
-#  index_guidances_on_guidance_group_id  (guidance_group_id)
+#  guidances_guidance_group_id_idx  (guidance_group_id)
 #
 # Foreign Keys
 #

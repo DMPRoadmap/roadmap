@@ -15,8 +15,8 @@
 #
 # Indexes
 #
-#  fk_rails_7f2323ad43       (user_id)
-#  index_notes_on_answer_id  (answer_id)
+#  notes_answer_id_idx  (answer_id)
+#  notes_user_id_idx    (user_id)
 #
 # Foreign Keys
 #

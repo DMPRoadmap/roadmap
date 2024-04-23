@@ -16,8 +16,8 @@
 #
 # Indexes
 #
-#  index_phases_on_template_id     (template_id)
 #  index_phases_on_versionable_id  (versionable_id)
+#  phases_template_id_idx          (template_id)
 #
 # Foreign Keys
 #

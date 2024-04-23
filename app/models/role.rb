@@ -14,8 +14,8 @@
 #
 # Indexes
 #
-#  index_roles_on_plan_id  (plan_id)
-#  index_roles_on_user_id  (user_id)
+#  roles_plan_id_idx  (plan_id)
+#  roles_user_id_idx  (user_id)
 #
 # Foreign Keys
 #

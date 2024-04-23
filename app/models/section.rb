@@ -16,8 +16,8 @@
 #
 # Indexes
 #
-#  index_sections_on_phase_id        (phase_id)
 #  index_sections_on_versionable_id  (versionable_id)
+#  sections_phase_id_idx             (phase_id)
 #
 # Foreign Keys
 #

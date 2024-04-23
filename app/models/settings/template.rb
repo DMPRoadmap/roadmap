@@ -12,6 +12,10 @@
 #  updated_at  :datetime         not null
 #  target_id   :integer          not null
 #
+# Indexes
+#
+#  settings_target_type_target_id_var_key  (target_type,target_id,var) UNIQUE
+#
 
 module Settings
   # Records export settings for a Plan and defaults for the template

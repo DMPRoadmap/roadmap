@@ -6,12 +6,12 @@
 #
 #  id           :integer          not null, primary key
 #  description  :text
-#  formattype   :integer          default(0)
+#  formattype   :integer          default("textarea")
 #  option_based :boolean          default(FALSE)
+#  structured   :boolean          default(FALSE), not null
 #  title        :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  structured   :boolean          default("false"), not null
 #
 
 # Object that represents a question type

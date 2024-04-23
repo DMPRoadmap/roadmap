@@ -1,5 +1,23 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: api_client_roles
+#
+#  id                 :bigint(8)        not null, primary key
+#  access             :integer          default(0), not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  api_client_id      :bigint(8)        not null
+#  plan_id            :bigint(8)        not null
+#  research_output_id :bigint(8)
+#
+# Indexes
+#
+#  index_api_client_roles_on_api_client_id       (api_client_id)
+#  index_api_client_roles_on_plan_id             (plan_id)
+#  index_api_client_roles_on_research_output_id  (research_output_id)
+#
 # Object that represents an api_client_role
 class ApiClientRole < ApplicationRecord
   include FlagShihTzu

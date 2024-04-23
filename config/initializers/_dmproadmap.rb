@@ -70,7 +70,7 @@ module DMPRoadmap
     # Used throughout the system via ApplicationService.application_name
     config.x.application.name = 'DMP OPIDoR'
     # App version, displayed in the footer
-    config.x.application.version = 'V4.0.0'
+    config.x.application.version = 'V4.0.2'
     # App Github URL, displayed in the footer
     config.x.application.url = 'https://github.com/OPIDoR/DMPOPIDoR'
     config.x.application.release_notes_url = 'https://github.com/OPIDoR/DMPOPIDoR/wiki/Releases'
@@ -131,7 +131,7 @@ module DMPRoadmap
       }
     }
     # Setting to only take orgs from local and not allow on-the-fly creation
-    config.x.application.restrict_orgs = false
+    config.x.application.restrict_orgs = true
 
     # Defines if Guidances/Comments in toggleable & if it's opened by default
     config.x.application.guidance_comments_toggleable = true

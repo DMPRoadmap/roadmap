@@ -4,31 +4,29 @@
 #
 # Table name: answers
 #
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0)
-#  text         :text
-#  created_at   :datetime
-#  updated_at   :datetime
-#  label_id     :string
-#  plan_id      :integer
-#  question_id  :integer
-#  user_id      :integer
-#  is_common          :boolean          default("false")
+#  id                 :integer          not null, primary key
+#  is_common          :boolean          default(FALSE)
+#  lock_version       :integer          default(0)
+#  text               :text
+#  created_at         :datetime
+#  updated_at         :datetime
+#  plan_id            :integer
+#  question_id        :integer
 #  research_output_id :integer
+#  user_id            :integer
 #
 # Indexes
 #
-#  fk_rails_3d5ed4418f           (question_id)
-#  fk_rails_584be190c2           (user_id)
-#  fk_rails_84a6005a3e           (plan_id)
-#  index_answers_on_plan_id      (plan_id)
-#  index_answers_on_question_id  (question_id)
+#  answers_plan_id_idx                  (plan_id)
+#  answers_question_id_idx              (question_id)
+#  answers_user_id_idx                  (user_id)
 #  index_answers_on_research_output_id  (research_output_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (plan_id => plans.id)
 #  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (research_output_id => research_outputs.id)
 #  fk_rails_...  (user_id => users.id)
 #
 

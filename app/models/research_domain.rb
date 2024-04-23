@@ -4,12 +4,12 @@
 #
 # Table name: research_domains
 #
-#  id         :bigint        not null, primary key
-#  identifier :string        not null
-#  label      :string        not null
-#  created_at :datetime      not null
-#  updated_at :datetime      not null
-#  parent_id  :bigint
+#  id         :bigint(8)        not null, primary key
+#  identifier :string           not null
+#  label      :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  parent_id  :bigint(8)
 #
 # Indexes
 #

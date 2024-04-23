@@ -6,7 +6,7 @@
 #
 #  id              :integer          not null, primary key
 #  name            :string
-#  optional_subset :boolean          default(FALSE), not null
+#  optional_subset :boolean          default(TRUE), not null
 #  published       :boolean          default(FALSE), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -14,7 +14,7 @@
 #
 # Indexes
 #
-#  index_guidance_groups_on_org_id  (org_id)
+#  guidance_groups_org_id_idx  (org_id)
 #
 # Foreign Keys
 #

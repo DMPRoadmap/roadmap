@@ -6,7 +6,7 @@ domain = ENV.fetch('DMPROADMAP_HOST', 'dmp.opidor.fr')
 
 Rails.application.config.session_store :redis_store, 
                                        servers: ENV['REDIS_URL'],
-                                       expire_after: 90.minutes,
+                                       expire_after: 1.day,
                                        key: '_dmp_opidor_session',
                                        threadsafe: false,
                                        secure: secure
