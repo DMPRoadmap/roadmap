@@ -301,6 +301,10 @@ class Org < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
+  def owned_plans
+    Plan.where(id: owned_plan_ids)
+  end
+
   def grant_api!(token_permission_type)
     token_permission_types << token_permission_type unless
       token_permission_types.include? token_permission_type
@@ -411,6 +415,13 @@ class Org < ApplicationRecord
     Rails.cache.fetch("org[#{id}].plans", expires_in: 2.seconds) do
       Role.administrator.where(user_id: users.pluck(:id), active: true)
           .pluck(:plan_id).uniq
+    end
+  end
+
+  def owned_plan_ids
+    Rails.cache.fetch("org[#{id}].owned_plans", expires_in: 2.seconds) do
+      Role.creator.where(user_id: users.pluck(:id), active: true)
+          .pluck(:plan_id)
     end
   end
 
