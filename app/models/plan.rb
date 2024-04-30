@@ -170,15 +170,16 @@ class Plan < ApplicationRecord
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, lambda { |user|
     user.org.owned_plans
-    .includes(:template, roles: :user)
-      .where(complete: true, visibility: [
-               visibilities[:organisationally_visible],
-               visibilities[:publicly_visible]
-             ])
-      .where(
-        'NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)',
-        user.id
-      ).distinct
+        .includes(:template, roles: :user)
+        .where(complete: true,
+               visibility: [
+                 visibilities[:organisationally_visible],
+                 visibilities[:publicly_visible]
+               ])
+        .where(
+          'NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)',
+          user.id
+        ).distinct
   }
 
   scope :search, lambda { |term|
