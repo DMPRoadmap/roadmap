@@ -22,8 +22,6 @@ class ApplicationController < ActionController::Base
   # When we are in production reroute Record Not Found errors to the branded 404 page
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   private
 
   def current_org
