@@ -3,7 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 
 import { DmpApi } from "../../api.js";
 import { truncateText } from "../../utils.js";
-import { DmpModel } from "../../models.js";
+import { DmpModel, getDmp } from "../../models.js";
+
+
 
 import TextInput from "../../components/text-input/textInput.js";
 import LookupField from "../../components/lookup-field.js";
@@ -38,11 +40,25 @@ function Dashboard() {
   }
 
   function handleQuickViewOpen(id) {
+    setWorking(true);
     console.log("Open Modal; Api Load data: ", id);
-    setShow(true);
-    setPreviewDmp(projects.find((dmp) => dmp.draftId === id));
-    console.log("Load DMP");
-    console.log(previewDmp);
+
+    const selectedProject = projects.find(project => project.id === id);
+    if (selectedProject) {
+      //setPreviewDmp(selectedProject);
+      setShow(true);
+      getDmp(selectedProject.id).then((initial) => {
+        console.log("DMP Data: ", initial);
+        setPreviewDmp(initial);
+        setWorking(false);
+      });
+
+
+    }
+
+
+
+
     return false;
   }
 
@@ -212,36 +228,27 @@ function Dashboard() {
                             {truncateText(dmp.title, 50)}
                           </Link>
 
-                          {/*
-                        <a
-                          href="#"
-                          title={dmp.title}
-                          value={dmp.draftId}
-                           onClick={() => handleQuickViewOpen(dmp.draftId)}
-                        >
-                          {truncateText(dmp.title, 50)}
-                        </a>
-
-                        <a
-                          href="#"
-                          class="preview-button"
-                          aria-label="Open plan preview"
-                          onClick={() => handleQuickViewOpen(dmp.draftId)}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="18"
-                            style={{ top: "3px", position: "relative" }}
-                            viewBox="0 -960 960 960"
-                            width="18"
-                          >
-                            <path d="M433-344v-272L297-480l136 136ZM180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm453-60h147v-600H633v600Zm-60 0v-600H180v600h393Zm60 0h147-147Z" />
-                          </svg>
-                          <span className="screen-reader-text">
-                            Open Plan Preview
-                          </span>
-                        </a>
-*/}
+                          {
+                            <a
+                              href="#"
+                              className="preview-button"
+                              aria-label="Open plan preview"
+                              onClick={() => handleQuickViewOpen(dmp.id)}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="18"
+                                style={{ top: "3px", position: "relative" }}
+                                viewBox="0 -960 960 960"
+                                width="18"
+                              >
+                                <path d="M433-344v-272L297-480l136 136ZM180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm453-60h147v-600H633v600Zm-60 0v-600H180v600h393Zm60 0h147-147Z" />
+                              </svg>
+                              <span className="screen-reader-text">
+                                Open Plan Preview
+                              </span>
+                            </a>
+                          }
                           <div className="d-block table-data-pi">
                             {dmp.contributors
                               ? dmp.contributors.items.map((item, index) => (
@@ -338,35 +345,116 @@ function Dashboard() {
         <div id="quick-view-backdrop">
           <div id="quick-view-view">
             <div className="quick-view-text-cont">
-              <h3 className="h2">DMP TITLE</h3>
+              {working ? (
+                <Spinner isActive={working} message="Loading preview ..." className="empty-list" />
+              ) : previewDmp ? (
+                <div>
 
-              <h4>Funder</h4>
-              <p>National Institute for Health (NIH)</p>
-              <h4>GrantID</h4>
-              <p>123456-A</p>
-              <h4> DMP ID </h4>
-              <p>Not set</p>
-              <h4>Dates</h4>
-              <p>01-05-2020 - 04-04-2021</p>
-              <h4>Lead PI(s)</h4>
-              <p>John Smith, Robert Edwards, Joe Svensson</p>
+                  <h3 className="h2">
+                    {previewDmp.title}
+                  </h3>
 
-              <div className="action-required-validation">
-                <h4>Related Works(DOIs)</h4>
-                <p>8 related works</p>
-                <p>2 Unverified</p>
-              </div>
 
-              <h4>Repositories</h4>
-              <p>Github</p>
-              <h4>Is Public</h4>
-              <p>Yes</p>
-              <h4>Is Featured</h4>
-              <p>No</p>
+                  <h4>Visibility</h4>
+                  <p>
+                    {previewDmp.privacy === "public" ? "Public" :
+                      previewDmp.privacy === "private" ? "Private" :
+                        "Not Set"}
+                  </p>
+
+
+                  <h4>Created</h4>
+                  <p>
+                    {previewDmp.created}
+                  </p>
+
+                  <h4>Last Updated</h4>
+                  <p>
+                    {previewDmp.modified}
+                  </p>
+
+
+                  <h4>Funder</h4>
+                  {previewDmp && previewDmp.funding && previewDmp.funding.name ? (
+                    <p>{previewDmp.funding.name}</p>
+                  ) : (
+                    <p>None</p>
+                  )}
+
+
+
+                  <h4> DMP ID </h4>
+                  {previewDmp && previewDmp.dmp_id && previewDmp.dmp_id.identifier ? (
+                    <p>{previewDmp.dmp_id.identifier}</p>
+                  ) : (
+                    <p>Not Set</p>
+                  )}
+
+
+
+                  <h4>Project Dates</h4>
+                  {previewDmp && previewDmp.project && previewDmp.project.length > 0 && (previewDmp.project.start || previewDmp.project.end) ? (
+                    <p>
+                      {previewDmp.project.start ? `Start: ${previewDmp.project.start}` : ""}
+                      {previewDmp.project.start && previewDmp.project.end ? " - " : ""}
+                      {previewDmp.project.end ? `End: ${previewDmp.project.end}` : ""}
+                    </p>
+                  ) : (
+                    <p>Not Set</p>
+                  )}
+
+
+
+                  <h4>Lead PI(s)</h4>
+                  {previewDmp && previewDmp.contributors && previewDmp.contributors.items.length > 0 ? (
+                    <p>
+                      {previewDmp.contributors.items.reduce((acc, item) => {
+                        if (item.roles && item.roles.some(role => role.includes("investigation"))) {
+                          acc.push(truncateText(item.name, 80)); // Push the name if it matches the role
+                        }
+                        return acc;
+                      }, []).join(", ") || "Not Set"}
+                    </p>
+                  ) : (
+                    <p>Not Set</p>
+                  )}
+
+
+                  {previewDmp && previewDmp.project && previewDmp.funding.length > 0 && previewDmp.funding.opportunityNumber ? (
+                    <>
+                      <h4>Funding Opportunity Number</h4>
+                      <p>{previewDmp.funding.opportunityNumber || "Not Set"}</p>
+
+
+                    </>
+                  ) : null}
+
+                  {previewDmp && previewDmp.funding && previewDmp.funding.length > 0 && previewDmp.funding.projectNumber ? (
+                    <>
+
+                      <h4>Project Number</h4>
+                      <p>{previewDmp.funding.projectNumber || "Not Set"}</p>
+                    </>
+                  ) : null}
+
+                  {previewDmp && previewDmp.project && previewDmp.project.length > 0 && previewDmp.project.description ? (
+                    <>
+                      <h4>Project description</h4>
+                      <p>{previewDmp.project.description || "Not Set"}</p>
+                    </>
+                  ) : null}
+
+                </div>
+
+              ) : "Could not load..."}
+
+
             </div>
 
             <div className="form-actions ">
-              <button type="submit" className="primary">
+
+
+              <button type="button" className="primary" onClick={() => navigate(`/dashboard/dmp/${previewDmp.id}`)}>
                 Update
               </button>
               <button type="button" onClick={() => setShow(false)}>
@@ -375,7 +463,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-      </div>
+      </div >
 
       <dialog
         id="filter-modal"
@@ -464,7 +552,7 @@ function Dashboard() {
           </div>
         </div>
       </dialog>
-    </div>
+    </div >
   );
 }
 
