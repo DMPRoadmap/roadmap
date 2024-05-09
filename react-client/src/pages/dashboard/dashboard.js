@@ -228,6 +228,7 @@ function Dashboard() {
                             {truncateText(dmp.title, 50)}
                           </Link>
 
+
                           {
                             <a
                               href="#"
@@ -263,9 +264,9 @@ function Dashboard() {
                               ))
                               : ""}
 
-                            {dmp.id && dmp.id == "XXX" && (
+                            {dmp.relatedWorks && dmp.relatedWorks && dmp.relatedWorks.items.length > 0 && (
                               <span className={"action-required-text"}>
-                                X works need verification
+                                Works need verification
                               </span>
                             )}
                           </div>
@@ -404,7 +405,21 @@ function Dashboard() {
                   )}
 
 
-                  {previewDmp && previewDmp.project && previewDmp.funding.length > 0 && previewDmp.funding.opportunityNumber ? (
+
+                  {previewDmp && previewDmp.dataset && previewDmp.dataset.items ? (
+                    <>
+                      <h4>Repositories</h4>
+                      <p>
+                        {previewDmp.dataset.items.map(item => item.repository.title).join(", ") || "Not Set"}
+                      </p>
+                    </>
+
+                  ) : (
+                    <></>
+                  )}
+
+
+                  {previewDmp && previewDmp.funding && previewDmp.funding.length > 0 && previewDmp.funding.opportunityNumber ? (
                     <>
                       <h4>Funding Opportunity Number</h4>
                       <p>{previewDmp.funding.opportunityNumber || "Not Set"}</p>
