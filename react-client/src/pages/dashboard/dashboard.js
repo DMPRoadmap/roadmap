@@ -339,39 +339,22 @@ function Dashboard() {
       <div
         id="quick-view-modal"
         className={show ? "show" : ""}
-        title="Add Contributor"
+
         onClose={() => setShow(false)}
       >
         <div id="quick-view-backdrop">
           <div id="quick-view-view">
             <div className="quick-view-text-cont">
               {working ? (
-                <Spinner isActive={working} message="Loading preview ..." className="empty-list" />
+                <div className="quick-view-loader text-center">
+                  <Spinner isActive={working} message="Loading preview ..." className="empty-list" />
+                </div>
               ) : previewDmp ? (
                 <div>
 
                   <h3 className="h2">
                     {previewDmp.title}
                   </h3>
-
-
-                  <h4>Visibility</h4>
-                  <p>
-                    {previewDmp.privacy === "public" ? "Public" :
-                      previewDmp.privacy === "private" ? "Private" :
-                        "Not Set"}
-                  </p>
-
-
-                  <h4>Created</h4>
-                  <p>
-                    {previewDmp.created}
-                  </p>
-
-                  <h4>Last Updated</h4>
-                  <p>
-                    {previewDmp.modified}
-                  </p>
 
 
                   <h4>Funder</h4>
@@ -382,26 +365,27 @@ function Dashboard() {
                   )}
 
 
-
                   <h4> DMP ID </h4>
-                  {previewDmp && previewDmp.dmp_id && previewDmp.dmp_id.identifier ? (
-                    <p>{previewDmp.dmp_id.identifier}</p>
+                  {previewDmp && previewDmp.id && previewDmp.id ? (
+                    <p>{previewDmp.id}</p>
                   ) : (
                     <p>Not Set</p>
                   )}
 
 
 
-                  <h4>Project Dates</h4>
                   {previewDmp && previewDmp.project && previewDmp.project.length > 0 && (previewDmp.project.start || previewDmp.project.end) ? (
-                    <p>
-                      {previewDmp.project.start ? `Start: ${previewDmp.project.start}` : ""}
-                      {previewDmp.project.start && previewDmp.project.end ? " - " : ""}
-                      {previewDmp.project.end ? `End: ${previewDmp.project.end}` : ""}
-                    </p>
-                  ) : (
-                    <p>Not Set</p>
-                  )}
+                    <>
+                      <h4>Project Dates</h4>
+                      <p>
+                        {previewDmp.project.start}
+                        {previewDmp.project.start ? `Start: ${previewDmp.project.start}` : ""}
+                        {previewDmp.project.start && previewDmp.project.end ? " - " : ""}
+                        {previewDmp.project.end ? `End: ${previewDmp.project.end}` : ""}
+                      </p>
+                    </>
+
+                  ) : <></>}
 
 
 
@@ -437,12 +421,20 @@ function Dashboard() {
                     </>
                   ) : null}
 
-                  {previewDmp && previewDmp.project && previewDmp.project.length > 0 && previewDmp.project.description ? (
-                    <>
-                      <h4>Project description</h4>
-                      <p>{previewDmp.project.description || "Not Set"}</p>
-                    </>
-                  ) : null}
+
+
+
+                  <h4>Last Updated</h4>
+                  <p>
+                    {previewDmp.modified}
+                  </p>
+
+                  <h4>Is Public?</h4>
+                  <p>
+                    {previewDmp.privacy === "public" ? "Yes" : "No"}
+                  </p>
+
+
 
                 </div>
 
@@ -451,16 +443,25 @@ function Dashboard() {
 
             </div>
 
-            <div className="form-actions ">
 
 
-              <button type="button" className="primary" onClick={() => navigate(`/dashboard/dmp/${previewDmp.id}`)}>
-                Update
-              </button>
-              <button type="button" onClick={() => setShow(false)}>
-                Close
-              </button>
-            </div>
+            {working ? (
+              <div></div>
+            ) : previewDmp ? (
+              <div className="form-actions ">
+                <button type="button" className="primary" onClick={() => navigate(`/dashboard/dmp/${previewDmp.id}`)}>
+                  Update
+                </button>
+                <button type="button" onClick={() => setShow(false)}>
+                  Close
+                </button>
+              </div>
+            ) : null}
+
+
+
+
+
           </div>
         </div>
       </div >
