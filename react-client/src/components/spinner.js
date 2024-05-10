@@ -7,7 +7,8 @@ function Spinner(props) {
       {props?.isActive && (
         <div
           id={(props.id ? props.id : "spinner")}
-          tabIndex="0"
+          tabIndex={props.tabIndex}
+          aria-hidden="true"
           className={"spinner " + (props.className ? props.className : "")}>
           <svg
             className="graphic"

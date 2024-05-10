@@ -54,6 +54,7 @@ function TextInput(props) {
             placeholder={props?.placeholder}
             autoComplete={props?.autocomplete ? props.autocomplete : "off"}
             className="dmpui-field-input-text"
+            autoFocus={props.autoFocus}
             disabled={props.disabled}
             {...(props.help && { "aria-describedby": `${props.id}-description` })}
           />

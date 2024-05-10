@@ -74,6 +74,9 @@ function LookupField(props) {
     errorMsg = errorMsg;
   }
 
+  function handleTestClick(e) {
+    console.log(e.target.value);
+  }
 
   function handleChange(ev) {
     const { name, value } = ev.target;
@@ -118,9 +121,6 @@ function LookupField(props) {
               className={`dmpui-field-input-text ${showSuggestionSpinner ? "show-spinner" : ""
                 }`}
               disabled={props.disabled}
-              {...(props.help && { "aria-describedby": `${props.id}-description` })}
-
-
             />
             <Spinner className="dmpui-field-input-spinner"
               message="Searching…"
