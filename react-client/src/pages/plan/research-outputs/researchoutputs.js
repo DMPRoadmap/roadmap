@@ -360,7 +360,7 @@ function ResearchOutputs() {
                       disabled={dataObj.repository.isLocked}
                       hidden={dataObj.repository.isLocked}
                     />
-                    <p class="dmpui-field-help">(e.g., "https://dataverse.org/")</p>
+                    <p class="dmpui-field-help" hidden={dataObj.repository.isLocked}>(e.g., "https://dataverse.org/")</p>
                   </div>
                 </div>
 
