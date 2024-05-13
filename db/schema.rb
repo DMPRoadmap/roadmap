@@ -847,6 +847,7 @@ ActiveRecord::Schema.define(version: 2023_12_19_175429) do
     t.index ["user_id"], name: "index_users_perms_on_user_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"

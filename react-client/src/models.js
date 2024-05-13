@@ -324,7 +324,7 @@ export class DataRepository extends Model {
   set title(val) { this.setData("host.title", val); }
 
   get url() { return this.getData("host.url", ""); }
-  set url(val) { this.setData("host.url", val); }
+  set url(val) { this.setData("host.url", val?.trim()); }
 
   get description() { return this.getData("host.description", ""); }
   set description(val) { this.setData("host.description", val); }
