@@ -1,9 +1,9 @@
-<% title "#{@plan.title} - research outputs" %>
+<% title sanitize(_("%{plan_title} - research outputs") % {plan_title: @plan.title}) %>
 
 <div class="row">
   <div class="col-md-12">
     <!-- render the project title -->
-    <h1><%= @plan.title %></h1>
+    <h1><%= sanitize(@plan.title) %></h1>
   </div>
 </div>
 
