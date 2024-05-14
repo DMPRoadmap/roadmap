@@ -375,14 +375,14 @@ function Dashboard() {
 
 
 
-                  {previewDmp && previewDmp.project && previewDmp.project.length > 0 && (previewDmp.project.start || previewDmp.project.end) ? (
+                  {previewDmp && previewDmp.project && (previewDmp.project.start || previewDmp.project.end) ? (
                     <>
                       <h4>Project Dates</h4>
                       <p>
-                        {previewDmp.project.start}
-                        {previewDmp.project.start ? `Start: ${previewDmp.project.start}` : ""}
-                        {previewDmp.project.start && previewDmp.project.end ? " - " : ""}
-                        {previewDmp.project.end ? `End: ${previewDmp.project.end}` : ""}
+
+                        {previewDmp.project.start.format("YYYY-MM-DD") ? `Start: ${previewDmp.project.start.format("YYYY-MM-DD")}` : ""}
+                        {previewDmp.project.start.format("YYYY-MM-DD") && previewDmp.project.end.format("YYYY-MM-DD") ? " - " : ""}
+                        {previewDmp.project.end.format("YYYY-MM-DD") ? `End: ${previewDmp.project.end.format("YYYY-MM-DD")}` : ""}
                       </p>
                     </>
 
@@ -406,6 +406,16 @@ function Dashboard() {
 
 
 
+
+                  {previewDmp && previewDmp.relatedWorks && previewDmp.relatedWorks && previewDmp.relatedWorks.items.length > 0 && (
+                    <>
+                      <h4>Related Works</h4>
+                      <p>
+                        {previewDmp.relatedWorks.items.length} related works
+                      </p>
+                    </>
+                  )}
+
                   {previewDmp && previewDmp.dataset && previewDmp.dataset.items ? (
                     <>
                       <h4>Repositories</h4>
@@ -419,7 +429,7 @@ function Dashboard() {
                   )}
 
 
-                  {previewDmp && previewDmp.funding && previewDmp.funding.length > 0 && previewDmp.funding.opportunityNumber ? (
+                  {previewDmp && previewDmp.funding && previewDmp.funding.opportunityNumber ? (
                     <>
                       <h4>Funding Opportunity Number</h4>
                       <p>{previewDmp.funding.opportunityNumber || "Not Set"}</p>
