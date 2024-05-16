@@ -3,12 +3,12 @@
   }
 
   input[type='file'] {
-    opacity:0    
+    opacity:0;
   }
   
   .autocomplete__container {
     position: relative;
-    margin-top: "0.8rem";
+    margin-top: 0.8rem;
     width: 100%;
   }
 
@@ -19,7 +19,7 @@
 
   .autocomplete__results.fixed {
     position: fixed;
-    top:40px;
+    top: 40px;
   }
   
   .autocomplete__input {
@@ -87,6 +87,6 @@
     background: hsl(212, 10%, 70%);
   }
 
-.dmpui-field-group input[type=text] {
-  position: relative;
-}
+  .dmpui-field-group input[type=text] {
+    position: relative;
+  }

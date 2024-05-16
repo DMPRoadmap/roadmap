@@ -20,7 +20,6 @@ import TextInput from "../../../components/text-input/textInput.js";
 import TextArea from "../../../components/textarea/textArea.js";
 import Select from "../../../components/select/select.js";
 import RadioButton from "../../../components/radio/radio";
-import LookupField from "../../../components/lookup-field.js";
 import SizeInput from "../../../components/size-input.js";
 import Spinner from "../../../components/spinner";
 
