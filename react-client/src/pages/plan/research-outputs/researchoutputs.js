@@ -15,7 +15,6 @@ import {
 } from "../../../models.js";
 import { fileSizeUnits } from "../../../utils.js";
 
-import TypeAhead from "../../../components/TypeAhead.jsx";
 import TextInput from "../../../components/text-input/textInput.js";
 import TextArea from "../../../components/textarea/textArea.js";
 import Select from "../../../components/select/select.js";
@@ -38,7 +37,6 @@ function ResearchOutputs() {
   const [editIndex, setEditIndex] = useState(null);
   const [dataObj, setDataObj] = useState(new DataObject({}));
   const [working, setWorking] = useState(false);
-  const [otherField, setOtherField] = useState(false);
 
 
   useEffect(() => {
@@ -54,61 +52,6 @@ function ResearchOutputs() {
 
   function handleChange(ev) {
     const { name, value } = ev.target;
-
-    switch (name) {
-      case "data_type":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.type = value;
-        setDataObj(newObj);
-        break;
-
-      case "personal_info":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.personal = value;
-        setDataObj(newObj);
-        break;
-
-      case "sensitive_data":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.sensitive = value;
-        setDataObj(newObj);
-        break;
-
-      case "repository":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.repository = new DataRepository(dataObj.repository.getData());
-
-        if (ev.data) {
-          newObj.repository = new DataRepository(dataObj.repository.getData());
-          newObj.repository.host = ev.data;
-          setDataObj(newObj);
-        } else {
-          newObj.repository.title = value;
-
-          // Reset the host data if the repo was previously locked, but keep
-          // other fields intact
-          if (newObj.repository.isLocked) {
-            newObj.repository.host = {};
-          }
-        }
-        setDataObj(newObj);
-        break;
-
-      case "repository_description":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.repository.description = value;
-        setDataObj(newObj);
-        break;
-
-      case "repository_url":
-        var newObj = new DataObject(dataObj.getData());
-        newObj.repository.url = value;
-        setDataObj(newObj);
-        break;
-    }
-  }
-
-  function handleInputChange(ev, name, value) {
 
     switch (name) {
       case "data_type":
@@ -225,7 +168,6 @@ function ResearchOutputs() {
   function closeModal(ev) {
     if (ev) ev.preventDefault();
     setDataObj(new DataObject({}));
-    setOtherField(false);
     document.getElementById("outputsModal").close();
   }
 
@@ -252,6 +194,7 @@ function ResearchOutputs() {
       setWorking(false);
     });
   }
+
 
   return (
     <>
@@ -383,8 +326,7 @@ function ResearchOutputs() {
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
                     <h3>Repository</h3>
-
-                    <TypeAhead
+                    <LookupField
                       label="Name"
                       name="repository"
                       id="idRepository"
@@ -392,58 +334,35 @@ function ResearchOutputs() {
                       placeholder="Search ..."
                       help="Search for the repository."
                       inputValue={dataObj.repository.title}
-                      onChange={handleInputChange}
-                      setOtherField={setOtherField}
-
-
+                      onChange={handleChange}
                     />
+
+                    <TextArea
+                      label="Repository description"
+                      type="text"
+                      inputValue={dataObj.repository.description}
+                      onChange={handleChange}
+                      name="repository_description"
+                      id="idRepositoryDescription"
+                      disabled={dataObj.repository.isLocked}
+                      hidden={dataObj.repository.isLocked}
+                    />
+
+                    <TextInput
+                      label="Repository URL"
+                      type="text"
+                      required="required"
+                      name="repository_url"
+                      id="idRepositoryURL"
+                      inputValue={dataObj.repository.url}
+                      onChange={handleChange}
+                      error={dataObj.errors.get("repo")}
+                      disabled={dataObj.repository.isLocked}
+                      hidden={dataObj.repository.isLocked}
+                    />
+                    <p class="dmpui-field-help" hidden={dataObj.repository.isLocked}>(e.g., "https://dataverse.org/")</p>
                   </div>
                 </div>
-                <div className="dmpui-form-cols">
-                  <div className="dmpui-form-col">
-                    {otherField && (
-                      <>
-                        <TextInput
-                          label="Other Repository Name"
-                          type="text"
-                          name="repository_other"
-                          id="idRepositoryOther"
-                          onChange={handleChange}
-                          error={dataObj.errors.get("repo")}
-                          disabled={dataObj.repository.isLocked}
-                          hidden={dataObj.repository.isLocked}
-                          autoFocus={otherField}
-                        />
-
-                        <TextArea
-                          label="Other Repository description"
-                          type="text"
-                          inputValue={dataObj.repository.description}
-                          onChange={handleChange}
-                          name="repository_description"
-                          id="idRepositoryDescription"
-                          disabled={dataObj.repository.isLocked}
-                          hidden={dataObj.repository.isLocked}
-                        />
-
-                        <TextInput
-                          label="Other Repository URL"
-                          type="text"
-                          required="required"
-                          name="repository_url"
-                          id="idRepositoryURL"
-                          inputValue={dataObj.repository.url}
-                          onChange={handleChange}
-                          error={dataObj.errors.get("repo")}
-                          disabled={dataObj.repository.isLocked}
-                          hidden={dataObj.repository.isLocked}
-                        />
-                        <p className="dmpui-field-help">(e.g., "https://dataverse.org/")</p>
-                      </>
-                    )
-
-                    }
-                  </div></div>
 
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
