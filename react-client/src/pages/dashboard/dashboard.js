@@ -263,6 +263,15 @@ function Dashboard() {
                                 </Fragment>
                               ))
                               : ""}
+
+                            {previewDmp && previewDmp.modifications && previewDmp.modifications.length > 0 && (
+                              <>
+                                <span>
+                                  {previewDmp.modifications.length} related work{previewDmp.modifications.length > 1 ? 's' : ''}
+                                </span>
+                              </>
+                            )}
+
                           </div>
                         </td>
                         <td className="table-data-name" data-colname="funder">
@@ -367,29 +376,33 @@ function Dashboard() {
                     <p>Not Set</p>
                   )}
 
-                  {previewDmp && previewDmp.funding && previewDmp.funding.grantId ? (
+
+                  {previewDmp && previewDmp.funding && previewDmp.funding.grantId && previewDmp.funding.grantId.identifier ? (
                     <>
                       <h4>Grant ID</h4>
-                      <p>{previewDmp.funding.grantId}</p>
+                      <p>{previewDmp.funding.grantId.identifier}</p>
                     </>
-
                   ) : <></>}
 
 
 
+                  {previewDmp &&
+                    previewDmp.project &&
+                    (previewDmp.project.start && previewDmp.project.start.isValid()
+                      ||
+                      previewDmp.project.end && previewDmp.project.end.isValid()
+                    )
+                    ? (
+                      <>
+                        <h4>Project Dates</h4>
+                        <p>
+                          {previewDmp.project.start && previewDmp.project.start.isValid() ? `Start: ${previewDmp.project.start.format("L")}` : ""}
+                          {previewDmp.project.start && previewDmp.project.start.isValid() && previewDmp.project.end && previewDmp.project.end.isValid() ? " - " : ""}
+                          {previewDmp.project.end && previewDmp.project.end.isValid() ? `End: ${previewDmp.project.end.format("L")}` : ""}
+                        </p>
+                      </>
+                    ) : null}
 
-                  {previewDmp && previewDmp.project && (previewDmp.project.start || previewDmp.project.end) ? (
-                    <>
-                      <h4>Project Dates</h4>
-                      <p>
-
-                        {previewDmp.project.start.format("YYYY-MM-DD") ? `Start: ${previewDmp.project.start.format("YYYY-MM-DD")}` : ""}
-                        {previewDmp.project.start.format("YYYY-MM-DD") && previewDmp.project.end.format("YYYY-MM-DD") ? " - " : ""}
-                        {previewDmp.project.end.format("YYYY-MM-DD") ? `End: ${previewDmp.project.end.format("YYYY-MM-DD")}` : ""}
-                      </p>
-                    </>
-
-                  ) : <></>}
 
 
 
@@ -410,11 +423,11 @@ function Dashboard() {
 
 
 
-                  {previewDmp && previewDmp.relatedWorks && previewDmp.relatedWorks && previewDmp.relatedWorks.items.length > 0 && (
+                  {previewDmp && previewDmp.modifications && previewDmp.modifications && previewDmp.modifications.length > 0 && (
                     <>
                       <h4>Related Works</h4>
                       <p>
-                        {previewDmp.relatedWorks.items.length} related works
+                        {previewDmp.modifications.length} related work{previewDmp.modifications.length > 1 ? 's' : ''}
                       </p>
                     </>
                   )}
