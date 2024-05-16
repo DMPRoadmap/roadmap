@@ -263,12 +263,6 @@ function Dashboard() {
                                 </Fragment>
                               ))
                               : ""}
-
-                            {dmp.relatedWorks && dmp.relatedWorks && dmp.relatedWorks.items.length > 0 && (
-                              <span className={"action-required-text"}>
-                                Works need verification
-                              </span>
-                            )}
                           </div>
                         </td>
                         <td className="table-data-name" data-colname="funder">
@@ -373,6 +367,15 @@ function Dashboard() {
                     <p>Not Set</p>
                   )}
 
+                  {previewDmp && previewDmp.funding && previewDmp.funding.grantId ? (
+                    <>
+                      <h4>Grant ID</h4>
+                      <p>{previewDmp.funding.grantId}</p>
+                    </>
+
+                  ) : <></>}
+
+
 
 
                   {previewDmp && previewDmp.project && (previewDmp.project.start || previewDmp.project.end) ? (
@@ -429,36 +432,15 @@ function Dashboard() {
                   )}
 
 
-                  {previewDmp && previewDmp.funding && previewDmp.funding.opportunityNumber ? (
-                    <>
-                      <h4>Funding Opportunity Number</h4>
-                      <p>{previewDmp.funding.opportunityNumber || "Not Set"}</p>
-
-
-                    </>
-                  ) : null}
-
-                  {previewDmp && previewDmp.funding && previewDmp.funding.length > 0 && previewDmp.funding.projectNumber ? (
-                    <>
-
-                      <h4>Project Number</h4>
-                      <p>{previewDmp.funding.projectNumber || "Not Set"}</p>
-                    </>
-                  ) : null}
-
-
-
-
-                  <h4>Last Updated</h4>
-                  <p>
-                    {previewDmp.modified}
-                  </p>
-
                   <h4>Is Public?</h4>
                   <p>
                     {previewDmp.privacy === "public" ? "Yes" : "No"}
                   </p>
 
+                  <h4>Last Updated</h4>
+                  <p>
+                    {previewDmp.modified}
+                  </p>
 
 
                 </div>
