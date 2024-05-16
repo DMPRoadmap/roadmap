@@ -29,7 +29,9 @@ if org.is_a?(RegistryOrg)
   else
     json.affiliation_id do
       json.type 'ror'
-      json.identifier "https://ror.org/#{org.ror_id}"
+      ror_id = org.ror_id.gsub(%r{https?://}, '').gsub('ror.org', '')
+      ror_id = ror_id.start_with?('/') ? ror_id : "/#{ror_id}"
+      json.identifier "https://ror.org#{ror_id}"
     end
   end
 

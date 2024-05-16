@@ -8,7 +8,9 @@ require "rails/all"
 require_relative '../lib/ssm_config_loader'
 
 # Check for the SSM_ROOT_PATH before we try to startup because the Uc3SsmResolver needs it immediately!
-raise StandardError, 'No ENV[\'SSM_ROOT_PATH\'] defined!' if !Rails.env.development? && !ENV.key?('SSM_ROOT_PATH')
+invalid_ssm_settings = 'No ENV[\'SSM_ROOT_PATH\'] defined! If you want to skip SSM please set ENV[\'SSM_SKIP_RESOLUTION\']'
+raise StandardError, invalid_ssm_settings if !Rails.env.development? && !ENV.key?('SSM_ROOT_PATH') &&
+                                             !ENV.key?('SSM_SKIP_RESOLUTION')
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

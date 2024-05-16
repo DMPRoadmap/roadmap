@@ -20,6 +20,17 @@ module Api
 
         # Prepare the results
         matches = (ror_matches + local_matches).flatten.compact.uniq
+
+        # Sort the results
+        matches = matches.compact.uniq.sort do |a, b|
+          a_plans = a.is_a?(RegistryOrg) ? a.org&.funded_plans : a.funded_plans
+          b_plans = b.is_a?(RegistryOrg) ? b.org&.funded_plans : b.funded_plans
+
+          side_a = [(b_plans.nil? ? 0 : b_plans.length), a.name]
+          side_b = [(a_plans.nil? ? 0 : a_plans.length), b.name]
+          side_a <=> side_b
+        end
+
         @items = process_results(term: term, matches: matches)
         @use_funder_context = true
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
@@ -37,6 +48,17 @@ module Api
         # alternate names, URLs, etc.)
         # Then search the Orgs table for Orgs that are not connected to a ROR yet
         matches = (registry_orgs_search(term: term) + orgs_search(term: term)).flatten.compact.uniq
+
+        # Sort the results
+        matches = matches.compact.uniq.sort do |a, b|
+          a_plans = a.is_a?(RegistryOrg) ? a.org&.funded_plans : a.funded_plans
+          b_plans = b.is_a?(RegistryOrg) ? b.org&.funded_plans : b.funded_plans
+
+          side_a = [(b_plans.nil? ? 0 : b_plans.length), a.name]
+          side_b = [(a_plans.nil? ? 0 : a_plans.length), b.name]
+          side_a <=> side_b
+        end
+
         # Prepare the results
         @items = process_results(term: term, matches: matches)
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
@@ -51,7 +73,11 @@ module Api
         render_error(errors: MSG_INVALID_SEARCH, status: :bad_request) and return if term.blank? || term.length < 3
 
         # Search the Repositories by type,
-        matches = Repository.search(term)
+        matches = Repository.includes(:research_outputs).search(term)
+
+        # Sort based on prior use
+        matches = matches.compact.uniq.sort { |a, b| b.research_outputs&.length <=> a.research_outputs&.length }
+
         @items = process_results(term: term, matches: matches)
         render json: render_to_string(template: '/api/v3/typeaheads/index'), status: :ok
       rescue StandardError => e
@@ -68,7 +94,8 @@ module Api
       # Search RegistryOrgs
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def registry_orgs_search(term:, funder_only: false)
-        matches = RegistryOrg.includes(org: :users).search(term)
+        matches = funder_only ? RegistryOrg.includes(org: :funded_plans) : RegistryOrg.includes(org: :users)
+        matches = matches.search(term)
 
         # If we're filtering by funder status
         return matches.where.not(fundref_id: [nil, '']) if funder_only
@@ -80,7 +107,8 @@ module Api
       # rubocop:disable Metrics/CyclomaticComplexity
       def orgs_search(term:, funder_only: false)
         known_rors = RegistryOrg.where.not(org_id: nil).pluck(:org_id)
-        matches = Org.includes(:users).where.not(id: known_rors).search(term)
+        matches = funder_only ? Org.includes(:funded_plans) : Org.includes(:users)
+        matches = matches.where.not(id: known_rors).search(term)
 
         # If we're filtering by funder status
         return matches.select(&:funder?) if funder_only
@@ -92,8 +120,7 @@ module Api
       def process_results(term:, matches: [])
         results = deduplicate(term: term, list: matches)
         results.map(&:name).flatten.compact.uniq
-
-        paginate_response(results: results)
+        out = paginate_response(results: results)
       end
 
       # Weighs the result. The greater the weight the closer the match, preferring Orgs already in use

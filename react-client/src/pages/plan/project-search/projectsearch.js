@@ -162,7 +162,7 @@ function ProjectSearch() {
         }
       });
 
-      if (item.contact) {
+      if (item.contact && item.contact.name.length !== 0) {
         let c = new Contributor(getValue(item, "contact"));
         c.contact = true;
         if (c.roles.length === 0)
@@ -230,7 +230,7 @@ function ProjectSearch() {
               <div className="dmpui-form-cols">
                 <div className="dmpui-form-col">
                   <TextInput
-                    label="Principle Investigator (PI)"
+                    label="Principal Investigator (PI)"
                     type="text"
                     required="required"
                     name="principle_investigator"

@@ -83,7 +83,7 @@ gem 'rollbar', group: :rollbar, require: false
 
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
-gem 'mysql2', group: :mysql, require: false
+gem 'mysql2', '0.5.5', group: :mysql, require: false
 
 # Pg is the Ruby interface to the {PostgreSQL
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
@@ -287,6 +287,15 @@ group :ci, :development do
   gem 'capistrano-git-with-submodules'
 
   gem 'capistrano-rails'
+
+  # cap errors on ssh if these not installed (ag)
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
+
+  # Fixes cap deploy errors on AL2023 (ag)
+  gem 'net-smtp'
+  gem 'net-imap'
+  gem 'net-pop'
 
   # RuboCop is a Ruby code style checking and code formatting tool. It aims to enforce
   # the community-driven Ruby Style Guide.

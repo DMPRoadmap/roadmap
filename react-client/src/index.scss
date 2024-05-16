@@ -494,3 +494,9 @@ dialog {
     text-decoration-thickness: 2px;
     text-decoration-skip-ink: auto;
   }
+
+  #App p.dmpui-field-help {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: -10px;
+  }

@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, useState, Fragment, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
@@ -27,7 +27,16 @@ function Contributors() {
   const [editIndex, setEditIndex] = useState(null);
   const [contributor, setContributor] = useState(new Contributor({}));
   const [working, setWorking] = useState(false);
+  //This is to handle Contributors errors to display at top of page
+  const [errors, setErrors] = useState([]);
+  const scrollToErrorRef = useRef(null);
 
+  // Want to scroll users to top of page when the arrive
+  // TODO: Add a wrapper to pages to make sure we scroll to top of page when page is loaded
+    useEffect(() => {
+      window.scrollTo(0,0)
+    }, [])
+  
   useEffect(() => {
     getDmp(dmpId).then((initial) => {
       // Force the validation to run silently, so that we can detect contribuor
@@ -147,6 +156,17 @@ function Contributors() {
     }
   }
 
+  /**
+   * Takes dmp.errors map and returns the "contributors" error
+   * @param {*} map 
+   * @returns {string}
+   */
+  const findContributorsError = (map) => {
+    const entriesArray = Array.from(map.entries());
+    const entry = entriesArray.find(([key, value]) => key === "contributors");
+    return entry ? entry[1] : '';
+  }
+
   function handleSave(ev) {
     ev.preventDefault();
     setWorking(true);
@@ -155,6 +175,16 @@ function Contributors() {
     // errors
     if (!dmp.isValid()) {
       if (dmp.errors.has("contributors")) {
+        // We set a separate Errors state that will trigger a re-render of the body
+        // when there are errors, without triggring an update to the dmp state. Otherwise, the
+        // list of Contributors is empty when there are errors.
+        const contributorsErrors = findContributorsError(dmp.errors);
+        if (contributorsErrors.length > 0) {
+          setErrors(prevErrors => [...prevErrors, contributorsErrors]);
+          setWorking(false);
+          if (scrollToErrorRef.current.scrollIntoView({ behavior: 'smooth' }));
+          return;
+        }
         setWorking(false);
         return
       }
@@ -174,18 +204,18 @@ function Contributors() {
       {!dmp ? (
         <Spinner isActive={true} message="Fetching contributors…" className="page-loader" />
       ) : (
-        <div id="Contributors">
+        <div id="Contributors" ref={scrollToErrorRef}>
           <div className="dmpui-heading">
             <h1>Contributors</h1>
-              {dmp.errors.get("contributors") && (
-                <div className="dmpui-field-error">
-                  {dmp.errors.get("contributors")}
-                </div>
-              )}
+              {errors && errors.map(err => {
+                return (
+                  <div key={err} className="dmpui-field-error">{err}</div>
+                )
+              })}
           </div>
           <p>
             Tell us about the project contributors for your project and, designate
-            the Primary Investigator (PI). You must specify a Primary Investigator
+            the Principal Investigator (PI). You must specify a Principal Investigator
             (PI) at minimum.
           </p>
 

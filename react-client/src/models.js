@@ -324,7 +324,7 @@ export class DataRepository extends Model {
   set title(val) { this.setData("host.title", val); }
 
   get url() { return this.getData("host.url", ""); }
-  set url(val) { this.setData("host.url", val); }
+  set url(val) { this.setData("host.url", val.trim()); }
 
   get description() { return this.getData("host.description", ""); }
   set description(val) { this.setData("host.description", val); }
@@ -503,6 +503,14 @@ export class DmpModel extends Model {
     let idpath = new URL(uri);
     let idStr = idpath.hostname + idpath.pathname;
     return idStr.replace(/\//g, "_");
+  }
+
+  get landingPageUrl() {
+    return this.getData("draft_data.landing_page", null)
+  }
+
+  get narrativeUrl() {
+    return this.getData("draft_data.narrative.url", null);
   }
 
   get hasFunder() {

@@ -6,7 +6,6 @@
   "scripts": {
     "lint": "yarn run eslint --ext .js app/javascript/**/*.js",
     "test": "karma start spec/karma/unit.js",
-    "pa11y-sitemap": "pa11y-ci --sitemap http://localhost:3000/sitemap.xml --sitemap-exclude \"/*.pdf\"",
     "build": "webpack --config ./config/webpack/webpack.config.js",
     "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
@@ -68,27 +67,14 @@
     "timeago.js": "^4.0.2",
     "tinymce": "^6.4.1",
     "web-vitals": "^3.3.2",
-    "webpack": "^5.75.0",
+    "webpack": "^5.90.3",
     "webpack-cli": "^5.0.1"
   },
   "devDependencies": {
     "eslint": "^8.18.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-webpack-plugin": "^2.6.0",
-    "jasmine": "^4.2.1",
-    "jasmine-core": "^4.2.0",
-    "karma": "^6.3.14",
-    "karma-babel-preprocessor": "^8.0.1",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-fixture": "^0.2.6",
-    "karma-html2js-preprocessor": "^1.1.0",
-    "karma-jasmine": "^5.1.0",
-    "karma-jquery": "^0.2.4",
-    "karma-json-fixtures-preprocessor": "^0.0.6",
-    "karma-webpack": "^5.0.0",
-    "pa11y": "^6.2.3",
-    "pa11y-ci": "^3.0.1"
+    "eslint-webpack-plugin": "^2.6.0"
   },
   "resolutions": {
     "webpack": "^5.75.0"

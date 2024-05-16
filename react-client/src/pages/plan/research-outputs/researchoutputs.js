@@ -218,7 +218,7 @@ function ResearchOutputs() {
 
           <div className="dmpdui-list dmpdui-list-research ">
             <div className="data-heading" data-colname="title">
-              Title
+              Proposed Output
             </div>
             <div className="data-heading" data-colname="personal">
               Personal information?
@@ -282,7 +282,7 @@ function ResearchOutputs() {
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
                     <TextInput
-                      label="Title"
+                      label="Proposed Output"
                       type="text"
                       required="required"
                       name="title"
@@ -312,7 +312,7 @@ function ResearchOutputs() {
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
                     <SizeInput
-                      label="Repository Size"
+                      label="Estimated size of data"
                       name="size"
                       id="id_size"
                       unitOptions={sizeUnits}
@@ -338,7 +338,7 @@ function ResearchOutputs() {
                     />
 
                     <TextArea
-                      label="Description"
+                      label="Repository description"
                       type="text"
                       inputValue={dataObj.repository.description}
                       onChange={handleChange}
@@ -349,9 +349,9 @@ function ResearchOutputs() {
                     />
 
                     <TextInput
-                      label="URL"
+                      label="Repository URL"
                       type="text"
-                      required=""
+                      required="required"
                       name="repository_url"
                       id="idRepositoryURL"
                       inputValue={dataObj.repository.url}
@@ -360,6 +360,7 @@ function ResearchOutputs() {
                       disabled={dataObj.repository.isLocked}
                       hidden={dataObj.repository.isLocked}
                     />
+                    <p class="dmpui-field-help" hidden={dataObj.repository.isLocked}>(e.g., "https://dataverse.org/")</p>
                   </div>
                 </div>
 
