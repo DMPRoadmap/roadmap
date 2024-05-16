@@ -1,5 +1,3 @@
-version: '3.4'
-
 # NOTE::
 #
 # The services, settings and environment setup in this compose file is

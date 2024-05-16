@@ -121,13 +121,6 @@ module Api
         results = deduplicate(term: term, list: matches)
         results.map(&:name).flatten.compact.uniq
         out = paginate_response(results: results)
-
-        # Add the search term if it was not included in the results already
-        # term_matched = results.select do |it|
-        #   it.name&.split(' (')&.first&.downcase&.strip == term.split(' (')&.first&.downcase&.strip
-        # end
-        # out.unshift(Org.new(name: term)) unless term_matched.any?
-        # out
       end
 
       # Weighs the result. The greater the weight the closer the match, preferring Orgs already in use
