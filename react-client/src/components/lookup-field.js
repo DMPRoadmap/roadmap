@@ -74,10 +74,6 @@ function LookupField(props) {
     errorMsg = errorMsg;
   }
 
-  function handleTestClick(e) {
-    console.log(e.target.value);
-  }
-
   function handleChange(ev) {
     const { name, value } = ev.target;
     document.querySelectorAll(`#${resultsId} option`).forEach(el => {
