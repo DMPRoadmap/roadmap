@@ -7,7 +7,7 @@ function Spinner(props) {
       {props?.isActive && (
         <div
           id={(props.id ? props.id : "spinner")}
-          tabIndex={props.tabIndex}
+          tabIndex="-1"
           aria-hidden="true"
           className={"spinner " + (props.className ? props.className : "")}>
           <svg
@@ -31,7 +31,7 @@ function Spinner(props) {
             </g>
           </svg>
           {props?.message && (
-            <p aria-live='polite' role="status" > {props.message} </p>
+            <p aria-live='polite' role="status" tabIndex="-1" > {props.message} </p>
           )}
         </div>
       )}

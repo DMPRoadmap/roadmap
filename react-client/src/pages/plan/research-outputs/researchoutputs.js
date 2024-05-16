@@ -397,22 +397,14 @@ function ResearchOutputs() {
 
 
                     />
-                    {/* <LookupField
-                      label="Name"
-                      name="repository"
-                      id="idRepository"
-                      endpoint="repositories"
-                      placeholder="Search ..."
-                      help="Search for the repository."
-                      inputValue={dataObj.repository.title}
-                      onChange={handleChange}
-                    /> */}
-
+                  </div>
+                </div>
+                <div className="dmpui-form-cols">
+                  <div className="dmpui-form-col">
                     {otherField && (
-                      <fieldset>
-                        <legend>Other Repository Fields</legend>
+                      <>
                         <TextInput
-                          label="Other Repository"
+                          label="Other Repository Name"
                           type="text"
                           name="repository_other"
                           id="idRepositoryOther"
@@ -424,7 +416,7 @@ function ResearchOutputs() {
                         />
 
                         <TextArea
-                          label="Repository description"
+                          label="Other Repository description"
                           type="text"
                           inputValue={dataObj.repository.description}
                           onChange={handleChange}
@@ -435,7 +427,7 @@ function ResearchOutputs() {
                         />
 
                         <TextInput
-                          label="Repository URL"
+                          label="Other Repository URL"
                           type="text"
                           required="required"
                           name="repository_url"
@@ -445,16 +437,13 @@ function ResearchOutputs() {
                           error={dataObj.errors.get("repo")}
                           disabled={dataObj.repository.isLocked}
                           hidden={dataObj.repository.isLocked}
-                          />
-                           <p className="dmpui-field-help">(e.g., "https://dataverse.org/")</p>
-                        </fieldset>
-                        
+                        />
+                        <p className="dmpui-field-help">(e.g., "https://dataverse.org/")</p>
+                      </>
                     )
 
                     }
-
-                  </div>
-                </div>
+                  </div></div>
 
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
