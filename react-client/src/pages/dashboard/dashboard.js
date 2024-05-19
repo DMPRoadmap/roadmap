@@ -167,31 +167,6 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* <div className="plan-step">
-        <div className="filter-container">
-          <div className="filter-status">
-            <p className="filter-heading">Status</p>
-            <div className="filter-quicklinks">
-              <a href="/?status=all">All</a>
-              <a href="/?status=registered">Registered</a>
-              <a href="/?status=incomplete">Incomplete</a>
-            </div>
-          </div>
-          <div className="filter-edited">
-            <p className="filter-heading">Edited</p>
-            <div className="filter-quicklinks">
-              <a href="/?status=all">All</a>
-              <a href="/?status=lastweek">Last week</a>
-              <a href="/?status=lastmonth">Last Month</a>
-            </div>
-          </div>
-          <div className="filter-tags">
-            <p className="filter-heading">Filter DMPs</p>
-            <button className="button filter-button">Filter</button>
-          </div>
-          <div className="xcont"></div>
-          </div>
-          */}
 
         <div className="table-container">
           <div className="table-wrapper">
@@ -249,54 +224,53 @@ function Dashboard() {
                             </Link>
 
 
-                          {
-                            <a
-                              href="#"
-                              className="preview-button"
-                              aria-label="Open plan preview"
-                              onClick={() => handleQuickViewOpen(dmp.id)}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="18"
-                                style={{ top: "3px", position: "relative" }}
-                                viewBox="0 -960 960 960"
-                                width="18"
+                            {
+                              <a
+                                href={`/dashboard/dmp/${dmp.id}`}
+                                className="preview-button"
+                                title={"Preview plan " + dmp.title}
+                                aria-label={"Preview plan " + dmp.title}
+                                onClick={() => handleQuickViewOpen(dmp.id)}
                               >
-                                <path d="M433-344v-272L297-480l136 136ZM180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm453-60h147v-600H633v600Zm-60 0v-600H180v600h393Zm60 0h147-147Z" />
-                              </svg>
-                              <span className="screen-reader-text">
-                                Open Plan Preview
-                              </span>
-                            </a>
-                          }
-                          <div className="d-block table-data-pi">
-                            {dmp.contributors
-                              ? dmp.contributors.items.map((item, index) => (
-                                <Fragment key={index}>
-                                  {item.roles &&
-                                    item.roles.filter(str => str.includes("investigation")) && (
-                                      <span>
-                                        PI: {truncateText(item.name, 80)}
-                                      </span>
-                                    )}
-                                </Fragment>
-                              ))
-                              : ""}
-
-                            {previewDmp && previewDmp.modifications && previewDmp.modifications.length > 0 && (
-                              <>
-                                <span>
-                                  {previewDmp.modifications.length} related work{previewDmp.modifications.length > 1 ? 's' : ''}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  height="18"
+                                  style={{ top: "3px", position: "relative" }}
+                                  viewBox="0 -960 960 960"
+                                  width="18"
+                                >
+                                  <path d="M433-344v-272L297-480l136 136ZM180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm453-60h147v-600H633v600Zm-60 0v-600H180v600h393Zm60 0h147-147Z" />
+                                </svg>
+                                <span className="screen-reader-text">
+                                  Open Plan Preview
                                 </span>
-                              </>
-                            )}
+                              </a>
+                            }
+                            <div className="d-block table-data-pi">
+                              {dmp.contributors
+                                ? dmp.contributors.items.map((item, index) => (
+                                  <Fragment key={index}>
+                                    {item.roles &&
+                                      item.roles.filter(str => str.includes("investigation")) && (
+                                        <span>
+                                          PI: {truncateText(item.name, 80)}
+                                        </span>
+                                      )}
+                                  </Fragment>
+                                ))
+                                : ""}
 
-                          </div>
-                        </td>
+                              {dmp?.modifications?.length > 0 && (
+                                <span>
+                                  {dmp.modifications.length} related work{dmp.modifications.length > 1 ? 's' : ''}
+                                </span>
+                              )}
+
+                            </div>
+                          </td>
 
 
-                        <td className="table-data-name text-center" data-colname="pdf">
+                          <td className="table-data-name text-center" data-colname="pdf">
                             {dmp.narrativeUrl &&
                               <a target="_blank" className="has-new-window-popup-info" href={dmp.narrativeUrl}>
                                 <i className="fas fa-file-pdf" aria-hidden="true"></i>
@@ -307,18 +281,18 @@ function Dashboard() {
                           </td>
 
 
-                        <td className="table-data-name" data-colname="funder">
-                          {dmp.funding.acronym ? (
-                            <span title={dmp.funding.name}>
-                              {dmp.funding.acronym}
-                            </span>
-                          ) : dmp.funding.name ? (
-                            <span title={dmp.funding.name}>
-                              {truncateText(dmp.funding.name, 50)}
-                            </span>
-                          ) : (
-                            "None"
-                          )}
+                          <td className="table-data-name" data-colname="funder">
+                            {dmp.funding.acronym ? (
+                              <span title={dmp.funding.name}>
+                                {dmp.funding.acronym}
+                              </span>
+                            ) : dmp.funding.name ? (
+                              <span title={dmp.funding.name}>
+                                {truncateText(dmp.funding.name, 50)}
+                              </span>
+                            ) : (
+                              "None"
+                            )}
 
 
                           </td>
@@ -386,7 +360,9 @@ function Dashboard() {
       <div
         id="quick-view-modal"
         className={show ? "show" : ""}
-
+        aria-modal="true"
+        role="dialog"
+        aria-labelledby="preview-heading"
         onClose={() => setShow(false)}
       >
         <div id="quick-view-backdrop">
@@ -399,61 +375,41 @@ function Dashboard() {
               ) : previewDmp ? (
                 <div>
 
-                  <h3 className="h2">
+                  <h3 className="h2" id="preview-heading">
                     {previewDmp.title}
                   </h3>
 
 
                   <h4>Funder</h4>
-                  {previewDmp && previewDmp.funding && previewDmp.funding.name ? (
-                    <p>{previewDmp.funding.name}</p>
-                  ) : (
-                    <p>None</p>
-                  )}
+                  {previewDmp?.funding?.name ? <p>{previewDmp.funding.name}</p> : <p>None</p>}
 
 
-                  <h4> DMP ID </h4>
-                  {previewDmp && previewDmp.id && previewDmp.id ? (
-                    <p>{previewDmp.id}</p>
-                  ) : (
-                    <p>Not Set</p>
-                  )}
+                  <h4>DMP ID</h4>
+                  {previewDmp?.id ? <p>{previewDmp.id}</p> : <p>Not Set</p>}
 
-
-                  {previewDmp && previewDmp.funding && previewDmp.funding.grantId && previewDmp.funding.grantId.identifier ? (
+                  {previewDmp?.funding?.grantId && (
                     <>
                       <h4>Grant ID</h4>
-                      <p>{previewDmp.funding.grantId.identifier}</p>
+                      <p>{previewDmp.funding.grantId}</p>
                     </>
-                  ) : <></>}
+                  )}
 
-
-
-                  {previewDmp &&
-                    previewDmp.project &&
-                    (previewDmp.project.start && previewDmp.project.start.isValid()
-                      ||
-                      previewDmp.project.end && previewDmp.project.end.isValid()
-                    )
-                    ? (
-                      <>
-                        <h4>Project Dates</h4>
-                        <p>
-                          {previewDmp.project.start && previewDmp.project.start.isValid() ? `Start: ${previewDmp.project.start.format("L")}` : ""}
-                          {previewDmp.project.start && previewDmp.project.start.isValid() && previewDmp.project.end && previewDmp.project.end.isValid() ? " - " : ""}
-                          {previewDmp.project.end && previewDmp.project.end.isValid() ? `End: ${previewDmp.project.end.format("L")}` : ""}
-                        </p>
-                      </>
-                    ) : null}
-
-
-
+                  {previewDmp?.project && (previewDmp.project.start || previewDmp.project.end) && (
+                    <>
+                      <h4>Project Dates</h4>
+                      <p>
+                        {previewDmp.project.start?.format("YYYY-MM-DD") && `Start: ${previewDmp.project.start.format("YYYY-MM-DD")}`}
+                        {previewDmp.project.start?.format("YYYY-MM-DD") && previewDmp.project.end?.format("YYYY-MM-DD") && " - "}
+                        {previewDmp.project.end?.format("YYYY-MM-DD") && `End: ${previewDmp.project.end.format("YYYY-MM-DD")}`}
+                      </p>
+                    </>
+                  )}
 
                   <h4>Lead PI(s)</h4>
-                  {previewDmp && previewDmp.contributors && previewDmp.contributors.items.length > 0 ? (
+                  {previewDmp?.contributors?.items?.length > 0 ? (
                     <p>
                       {previewDmp.contributors.items.reduce((acc, item) => {
-                        if (item.roles && item.roles.some(role => role.includes("investigation"))) {
+                        if (item.roles?.some(role => role.includes("investigation"))) {
                           acc.push(truncateText(item.name, 80)); // Push the name if it matches the role
                         }
                         return acc;
@@ -463,28 +419,23 @@ function Dashboard() {
                     <p>Not Set</p>
                   )}
 
+                  {previewDmp?.relatedWorks?.items?.length > 0 && (
 
-
-
-                  {previewDmp && previewDmp.modifications && previewDmp.modifications && previewDmp.modifications.length > 0 && (
                     <>
                       <h4>Related Works</h4>
                       <p>
-                        {previewDmp.modifications.length} related work{previewDmp.modifications.length > 1 ? 's' : ''}
+                        {previewDmp.relatedWorks.items.length} related works
                       </p>
                     </>
                   )}
 
-                  {previewDmp && previewDmp.dataset && previewDmp.dataset.items ? (
+                  {previewDmp?.dataset?.items?.length > 0 && (
                     <>
                       <h4>Repositories</h4>
                       <p>
                         {previewDmp.dataset.items.map(item => item.repository.title).join(", ") || "Not Set"}
                       </p>
                     </>
-
-                  ) : (
-                    <></>
                   )}
 
 
@@ -520,8 +471,6 @@ function Dashboard() {
                 </button>
               </div>
             ) : null}
-
-
 
 
 
