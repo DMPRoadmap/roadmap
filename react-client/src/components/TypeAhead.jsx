@@ -305,7 +305,7 @@ const TypeAhead = ({
                     onClick={() => setOpen(true)}
                     onKeyDown={handleKeyboardEvents}
                     onChange={handleInputChange}
-                    value={inputValue ? selected : ""}
+                    value={inputValue}
                     name={name || "lookup_query"}
                     placeholder={placeholder}
                     autoComplete={autocomplete || "off"}
