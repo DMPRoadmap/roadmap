@@ -296,7 +296,19 @@
 }
 
 .no-dmp-message {
+
   margin: 2rem 0;
   padding: 2rem 2rem;
   background-color: #fcfcfc;
+}
+#quick-view-backdrop{
+      background: rgb(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.quick-view-loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
