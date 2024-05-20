@@ -15,11 +15,11 @@ import {
 } from "../../../models.js";
 import { fileSizeUnits } from "../../../utils.js";
 
+import TypeAhead from "../../../components/TypeAhead.jsx";
 import TextInput from "../../../components/text-input/textInput.js";
 import TextArea from "../../../components/textarea/textArea.js";
 import Select from "../../../components/select/select.js";
 import RadioButton from "../../../components/radio/radio";
-import LookupField from "../../../components/lookup-field.js";
 import SizeInput from "../../../components/size-input.js";
 import Spinner from "../../../components/spinner";
 
@@ -37,7 +37,7 @@ function ResearchOutputs() {
   const [editIndex, setEditIndex] = useState(null);
   const [dataObj, setDataObj] = useState(new DataObject({}));
   const [working, setWorking] = useState(false);
-
+  const [otherField, setOtherField] = useState(false);
 
   useEffect(() => {
     getDmp(dmpId).then(initial => {
@@ -47,11 +47,20 @@ function ResearchOutputs() {
     getOutputTypes().then((data) => {
       setOutputTypes(data);
     });
+
   }, [dmpId]);
 
 
-  function handleChange(ev) {
-    const { name, value } = ev.target;
+  function handleChange(ev, n, v) {
+    let name;
+    let value;
+    if (n === undefined && v === undefined) {
+      name = ev.target.name;
+      value = ev.target.value;
+    } else {
+      name = n;
+      value = v;
+    }
 
     switch (name) {
       case "data_type":
@@ -92,6 +101,15 @@ function ResearchOutputs() {
         setDataObj(newObj);
         break;
 
+      case "repository_other":
+        var newObj = new DataObject(dataObj.getData());
+        newObj.repository = new DataRepository(dataObj.repository.getData());
+
+        newObj.repository.title = ev.currentTarget.value;
+
+        setDataObj(newObj);
+        break;
+
       case "repository_description":
         var newObj = new DataObject(dataObj.getData());
         newObj.repository.description = value;
@@ -105,7 +123,6 @@ function ResearchOutputs() {
         break;
     }
   }
-
 
   function handleSizeChanged(data) {
     var newObj = new DataObject(dataObj.getData());
@@ -168,6 +185,7 @@ function ResearchOutputs() {
   function closeModal(ev) {
     if (ev) ev.preventDefault();
     setDataObj(new DataObject({}));
+    setOtherField(false);
     document.getElementById("outputsModal").close();
   }
 
@@ -326,43 +344,67 @@ function ResearchOutputs() {
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
                     <h3>Repository</h3>
-                    <LookupField
+                    {console.log('TESTING', dataObj.repository)}
+                    <TypeAhead
                       label="Name"
                       name="repository"
                       id="idRepository"
                       endpoint="repositories"
                       placeholder="Search ..."
                       help="Search for the repository."
-                      inputValue={dataObj.repository.title}
+                      inputValue={otherField ? '' : dataObj.repository.title}
                       onChange={handleChange}
+                      setOtherField={setOtherField}
                     />
-
-                    <TextArea
-                      label="Repository description"
-                      type="text"
-                      inputValue={dataObj.repository.description}
-                      onChange={handleChange}
-                      name="repository_description"
-                      id="idRepositoryDescription"
-                      disabled={dataObj.repository.isLocked}
-                      hidden={dataObj.repository.isLocked}
-                    />
-
-                    <TextInput
-                      label="Repository URL"
-                      type="text"
-                      required="required"
-                      name="repository_url"
-                      id="idRepositoryURL"
-                      inputValue={dataObj.repository.url}
-                      onChange={handleChange}
-                      error={dataObj.errors.get("repo")}
-                      disabled={dataObj.repository.isLocked}
-                      hidden={dataObj.repository.isLocked}
-                    />
-                    <p class="dmpui-field-help" hidden={dataObj.repository.isLocked}>(e.g., "https://dataverse.org/")</p>
                   </div>
                 </div>
+                <div className="dmpui-form-cols">
+                  <div className="dmpui-form-col">
+                    {otherField && (
+                      <>
+                        <TextInput
+                          label="Other Repository Name"
+                          type="text"
+                          name="repository_other"
+                          id="idRepositoryOther"
+                          inputValue={otherField ? '' : dataObj.repository.title}
+                          onChange={(e) => handleChange(e, 'repository_other', otherField)}
+                          error={dataObj.errors.get("repo")}
+                          required="required"
+                          disabled={dataObj.repository.isLocked}
+                          hidden={dataObj.repository.isLocked}
+                          autoFocus={otherField}
+                        />
+
+                        <TextArea
+                          label="Other Repository description"
+                          type="text"
+                          inputValue={dataObj.repository.description}
+                          onChange={handleChange}
+                          name="repository_description"
+                          id="idRepositoryDescription"
+                          disabled={dataObj.repository.isLocked}
+                          hidden={dataObj.repository.isLocked}
+                        />
+
+                        <TextInput
+                          label="Other Repository URL"
+                          type="text"
+                          required="required"
+                          name="repository_url"
+                          id="idRepositoryURL"
+                          inputValue={dataObj.repository.url}
+                          onChange={handleChange}
+                          error={dataObj.errors.get("repo")}
+                          disabled={dataObj.repository.isLocked}
+                          hidden={dataObj.repository.isLocked}
+                        />
+                        <p className="dmpui-field-help">(e.g., "https://dataverse.org/")</p>
+                      </>
+                    )
+
+                    }
+                  </div></div>
 
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
