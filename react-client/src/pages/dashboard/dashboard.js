@@ -59,13 +59,7 @@ function Dashboard() {
         setPreviewDmp(initial);
         setWorking(false);
       });
-
-
     }
-
-
-
-
     return false;
   }
 
@@ -223,29 +217,26 @@ function Dashboard() {
                               {truncateText(dmp.title, 50)}
                             </Link>
 
-
-                            {
-                              <a
-                                href={`/dashboard/dmp/${dmp.id}`}
-                                className="preview-button"
-                                title={"Preview plan " + dmp.title}
-                                aria-label={"Preview plan " + dmp.title}
-                                onClick={() => handleQuickViewOpen(dmp.id)}
+                            <a
+                              className="preview-button"
+                              title={"Preview plan " + dmp.title}
+                              aria-label={"Preview plan " + dmp.title}
+                              onClick={(e) => handleQuickViewOpen(dmp.id) }
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="18"
+                                style={{ top: "3px", position: "relative" }}
+                                viewBox="0 -960 960 960"
+                                width="18"
                               >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  height="18"
-                                  style={{ top: "3px", position: "relative" }}
-                                  viewBox="0 -960 960 960"
-                                  width="18"
-                                >
-                                  <path d="M433-344v-272L297-480l136 136ZM180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm453-60h147v-600H633v600Zm-60 0v-600H180v600h393Zm60 0h147-147Z" />
-                                </svg>
-                                <span className="screen-reader-text">
-                                  Open Plan Preview
-                                </span>
-                              </a>
-                            }
+                                <path d="M433-344v-272L297-480l136 136ZM180-120q-24.75 0-42.375-17.625T120-180v-600q0-24.75 17.625-42.375T180-840h600q24.75 0 42.375 17.625T840-780v600q0 24.75-17.625 42.375T780-120H180Zm453-60h147v-600H633v600Zm-60 0v-600H180v600h393Zm60 0h147-147Z" />
+                              </svg>
+                              <span className="screen-reader-text">
+                                Open Plan Preview
+                              </span>
+                            </a>
+
                             <div className="d-block table-data-pi">
                               {dmp.contributors
                                 ? dmp.contributors.items.map((item, index) => (
