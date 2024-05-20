@@ -16,8 +16,12 @@ module Api
         records = Draft.includes(narrative_attachment: [:blob])
                        .search(user: current_user, params: index_params)
 
+        records = _fetch_modifications(records: records)
+
+pp records
+
                        # Paginate the results
-        @drafts = paginate_response(results: process_sort(records: records.to_a))
+        @drafts = paginate_response(results: process_sort(records: records))
       rescue StandardError => e
         Rails.logger.error "Failure in Api::V3::DraftsController.index #{e.message}"
         Rails.logger.error e.backtrace
@@ -190,6 +194,22 @@ module Api
           metadata = JSON.parse({ dmp: JSON.parse(json) }.to_json)
           Draft.new(metadata: metadata, dmp_id: plan.dmp_id)
         end
+      end
+
+      # The drafts table doesn't have the related_works discovered by our harvesters, so
+      # fetch them
+      def _fetch_modifications(records:)
+        out = []
+        records.each do |rec|
+          unless rec.dmp_id.nil?
+            dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
+            unless dmp.nil? || dmp.fetch('dmp', {}).fetch('dmphub_modifications', []).empty?
+              rec.metadata['dmp']['dmphub_modifications'] = dmp['dmp']['dmphub_modifications']
+            end
+          end
+          out << rec
+        end
+        out
       end
     end
   end
