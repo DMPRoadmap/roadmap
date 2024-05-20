@@ -381,7 +381,7 @@ function Dashboard() {
                   {previewDmp?.funding?.grantId && (
                     <>
                       <h4>Grant ID</h4>
-                      <p>{previewDmp.funding.grantId}</p>
+                      <p>{previewDmp.funding?.grantId?.identifier}</p>
                     </>
                   )}
 
