@@ -74,7 +74,6 @@ function LookupField(props) {
     errorMsg = errorMsg;
   }
 
-
   function handleChange(ev) {
     const { name, value } = ev.target;
     document.querySelectorAll(`#${resultsId} option`).forEach(el => {
@@ -118,9 +117,6 @@ function LookupField(props) {
               className={`dmpui-field-input-text ${showSuggestionSpinner ? "show-spinner" : ""
                 }`}
               disabled={props.disabled}
-              {...(props.help && { "aria-describedby": `${props.id}-description` })}
-
-
             />
             <Spinner className="dmpui-field-input-spinner"
               message="Searching…"
