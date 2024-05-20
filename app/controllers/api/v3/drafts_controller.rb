@@ -18,8 +18,6 @@ module Api
 
         records = _fetch_modifications(records: records)
 
-pp records
-
                        # Paginate the results
         @drafts = paginate_response(results: process_sort(records: records))
       rescue StandardError => e
