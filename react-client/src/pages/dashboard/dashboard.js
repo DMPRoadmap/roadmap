@@ -251,7 +251,6 @@ function Dashboard() {
                                 ))
                                 : ""}
 
-                              {console.log(dmp)}
                               {dmp?.modifications?.items?.length > 0 && (
                                 <span class="related-works-details">
                                   {dmp.modifications.items.length} related work{dmp.modifications.items.length > 1 ? 's' : ''}

@@ -200,7 +200,7 @@ module Api
         out = []
         records.each do |rec|
           unless rec.dmp_id.nil?
-            dmp = DmpIdService.fetch_dmp_id(dmp_id: params[:id])
+            dmp = DmpIdService.fetch_dmp_id(dmp_id: rec.dmp_id)
             unless dmp.nil? || dmp.fetch('dmp', {}).fetch('dmphub_modifications', []).empty?
               rec.metadata['dmp']['dmphub_modifications'] = dmp['dmp']['dmphub_modifications']
             end
