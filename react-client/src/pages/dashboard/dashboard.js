@@ -251,9 +251,9 @@ function Dashboard() {
                                 ))
                                 : ""}
 
-                              {dmp?.modifications?.length > 0 && (
-                                <span>
-                                  {dmp.modifications.length} related work{dmp.modifications.length > 1 ? 's' : ''}
+                              {dmp?.modifications?.items?.length > 0 && (
+                                <span class="related-works-details">
+                                  {dmp.modifications.items[0]?.relatedWorks?.items?.length} related work{dmp.modifications.items[0]?.relatedWorks?.items?.length > 1 ? 's' : ''}
                                 </span>
                               )}
 
@@ -410,12 +410,12 @@ function Dashboard() {
                     <p>Not Set</p>
                   )}
 
-                  {previewDmp?.relatedWorks?.items?.length > 0 && (
+                  {previewDmp?.modifications?.items?.length > 0 && (
 
                     <>
                       <h4>Related Works</h4>
                       <p>
-                        {previewDmp.relatedWorks.items.length} related works
+                        {previewDmp.modifications.items[0]?.relatedWorks?.items?.length} related works
                       </p>
                     </>
                   )}
