@@ -253,7 +253,7 @@ function Dashboard() {
 
                               {dmp?.modifications?.items?.length > 0 && (
                                 <span class="related-works-details">
-                                  {dmp.modifications.items[0]?.relatedWorks?.items?.length} related work{dmp.modifications.items[0]?.relatedWorks?.items?.length > 1 ? 's' : ''}
+                                  {dmp.modifications.items?.length} related work{dmp.modifications.items?.length > 1 ? 's' : ''}
                                 </span>
                               )}
 
@@ -415,7 +415,7 @@ function Dashboard() {
                     <>
                       <h4>Related Works</h4>
                       <p>
-                        {previewDmp.modifications.items[0]?.relatedWorks?.items?.length} related works
+                        {previewDmp.modifications.items?.length} related works
                       </p>
                     </>
                   )}
