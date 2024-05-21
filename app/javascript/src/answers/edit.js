@@ -6,7 +6,7 @@ import {
 import debounce from '../utils/debounce';
 import { updateSectionProgress, getQuestionDiv } from '../utils/sectionUpdate';
 import datePicker from '../utils/datePicker';
-import TimeagoFactory from '../utils/timeagoFactory.js.erb';
+import TimeagoFactory from '../utils/timeagoFactory';
 
 $(() => {
   if ($('form.form-answer').length > 0) {
