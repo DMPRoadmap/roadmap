@@ -20,7 +20,11 @@
                          placement: 'right' }%>
     <div class="form-check">
       <%= f.label(:visibility) do %>
-        <%= f.check_box(:visibility, checked: f.object.visibility == 'organisationally_visible') %>
+        <%= f.check_box(:visibility,
+                        {},
+                        f.object.class.visibilities[:organisationally_visible],
+                        f.object.class.visibilities[:publicly_visible])
+                        %>
 
         <%= _('for internal %{org_name} use only') % { org_name: f.object.org.name } %>
       <% end %>
