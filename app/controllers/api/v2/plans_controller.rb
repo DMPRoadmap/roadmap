@@ -48,6 +48,9 @@ module Api
         @plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, 'both').resolve
                                            .find { |plan| plan.id.to_s == params[:id] }
 
+        # See if it's a Draft if the Plan was not found
+        @plan = Draft.find_by(id: params[:id].gsub('d_', '')) if @plan.nil? &&
+                                                                 @client&.user&.org&.v5_pilot?
         if @plan.present?
           respond_to do |format|
             format.pdf do
