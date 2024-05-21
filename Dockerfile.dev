@@ -1,7 +1,6 @@
-FROM ruby:3.0.4
+FROM ruby:3.2-slim-bookworm
 
 RUN groupadd -g 1000 dmpt && useradd -u 1000 -g 1000 dmpt
-
 
 # Install packages needed to run your application (not build deps):
 # We need to recreate the /usr/share/man/man{1..8} directories first because
@@ -12,12 +11,15 @@ RUN set -ex \
         mtr \
         autoconf \
         automake \
+        build-essential \
         gawk \
         g++ \
         git \
+        curl \
         imagemagick \
         libffi-dev \
         libgdbm-dev \
+        libmariadb-dev \
         libreadline-dev \
         libssl-dev \
         libtool \
@@ -28,9 +30,8 @@ RUN set -ex \
     && apt-get update && apt-get install -y --no-install-recommends $RUN_DEPS \
     && rm -rf /var/lib/apt/lists/*
 
-
 # Install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
 
 # Install yarn
@@ -50,10 +51,9 @@ WORKDIR $INSTALL_PATH
 ENV RAILS_ENV development
 RUN rm -rf node_modules vendor
 
-RUN gem install bundler -v 2.4
-RUN gem install rails
+RUN gem install bundler -v 2.5
 RUN gem install foreman
-
+RUN bundle config without pgsql rollbar
 RUN bundle install
 RUN yarn install
 
