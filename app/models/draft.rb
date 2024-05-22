@@ -51,6 +51,12 @@ class Draft < ApplicationRecord
   validates :narrative, size: { less_than: 250.kilobytes , message: 'PDF too large, must be less than 350KB' },
                         content_type: { in: ['application/pdf'], message: 'must be a PDF document' }
 
+  def self.by_org(org_id:)
+    return [] if org_id.nil?
+
+    includes(:user).joins(:user).where(user: { org_id: org_id })
+  end
+
   # Support for filtering and search
   def self.search(user:, params: {})
     return [] unless user.is_a?(User) && !user.org_id.nil?
