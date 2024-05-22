@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2024-01-10 07:59-0800\n"
-"PO-Revision-Date: 2024-01-10 17:00+0100\n"
+"POT-Creation-Date: 2024-05-22 15:18-0700\n"
+"PO-Revision-Date: 2024-05-23 00:18+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -75,7 +75,7 @@ msgid "Email"
 msgstr "Email"
 
 #: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:22
-#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:32
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:36
 msgid "Subject"
 msgstr "Assunto"
 
@@ -169,8 +169,8 @@ msgid "Get Started"
 msgstr "Iniciar"
 
 #: ../../app/views/branded/home/index.html.erb:30
-msgid "Cusomization tools for reseachers and institutions"
-msgstr "Ferramentas de personalização para pesquisadores e instituições"
+msgid "Customization tools for researchers and institutions"
+msgstr "Ferramentas de customização para pesquisadores e instituições"
 
 #: ../../app/views/branded/home/index.html.erb:31
 msgid "A mechanism for registering a DMP ID"
@@ -246,7 +246,7 @@ msgid "Funders"
 msgstr "Financiadores"
 
 #: ../../app/views/branded/home/index.html.erb:86
-msgid "Promote best practices in research data managment and sharing"
+msgid "Promote best practices in research data management and sharing"
 msgstr "Promover as melhores práticas na gestão e partilha de dados de investigação"
 
 #: ../../app/views/branded/home/index.html.erb:87
@@ -319,7 +319,7 @@ msgstr "Junte-se como parceiro"
 
 #: ../../app/views/branded/home/index.html.erb:121
 #: ../../app/views/branded/layouts/_header.html.erb:47
-#: ../../app/views/branded/layouts/_header.html.erb:150
+#: ../../app/views/branded/layouts/_header.html.erb:152
 msgid "Users"
 msgstr "Usuários"
 
@@ -331,7 +331,7 @@ msgstr "Instituições Participantes"
 
 #: ../../app/views/branded/home/index.html.erb:123
 #: ../../app/views/branded/layouts/_header.html.erb:49
-#: ../../app/views/branded/layouts/_header.html.erb:153
+#: ../../app/views/branded/layouts/_header.html.erb:155
 msgid "Plans"
 msgstr "Planos"
 
@@ -405,7 +405,7 @@ msgstr "Links Rápidos"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:16
 #: ../../app/views/branded/layouts/_header.html.erb:21
-#: ../../app/views/branded/layouts/_header.html.erb:124
+#: ../../app/views/branded/layouts/_header.html.erb:126
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:53
 #: ../../app/views/branded/public_pages/template_index.html.erb:4
 msgid "Funder Requirements"
@@ -413,7 +413,7 @@ msgstr "Requisitos do Financiador"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:17
 #: ../../app/views/branded/layouts/_header.html.erb:20
-#: ../../app/views/branded/layouts/_header.html.erb:123
+#: ../../app/views/branded/layouts/_header.html.erb:125
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:54
 #: ../../app/views/branded/public_pages/plan_index.html.erb:3
 msgid "Public Plans"
@@ -472,130 +472,130 @@ msgid "© 2024 The Regents of the University of California"
 msgstr "© 2024 Os Regentes da Universidade da Califórnia"
 
 #: ../../app/views/branded/layouts/_header.html.erb:12
-#: ../../app/views/branded/layouts/_header.html.erb:116
+#: ../../app/views/branded/layouts/_header.html.erb:118
 msgid "Dashboard"
 msgstr "Painel"
 
 #: ../../app/views/branded/layouts/_header.html.erb:14
-#: ../../app/views/branded/layouts/_header.html.erb:118
+#: ../../app/views/branded/layouts/_header.html.erb:120
 msgid "Upload Plan"
 msgstr "Carregar plano"
 
 #: ../../app/views/branded/layouts/_header.html.erb:16
-#: ../../app/views/branded/layouts/_header.html.erb:120
+#: ../../app/views/branded/layouts/_header.html.erb:122
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:51
 msgid "Create Plan"
 msgstr "Criar plano"
 
 #: ../../app/views/branded/layouts/_header.html.erb:25
-#: ../../app/views/branded/layouts/_header.html.erb:128
+#: ../../app/views/branded/layouts/_header.html.erb:130
 #: ../../app/views/branded/public_pages/orgs.html.erb:4
 #: ../../app/views/branded/static_pages/about_us.html.erb:2
 msgid "About"
 msgstr "Sobre"
 
 #: ../../app/views/branded/layouts/_header.html.erb:27
-#: ../../app/views/branded/layouts/_header.html.erb:130
+#: ../../app/views/branded/layouts/_header.html.erb:132
 msgid "Learn more"
 msgstr "Saber mais"
 
 #: ../../app/views/branded/layouts/_header.html.erb:28
-#: ../../app/views/branded/layouts/_header.html.erb:131
+#: ../../app/views/branded/layouts/_header.html.erb:133
 msgid "Institutional membership"
 msgstr "Associação institucional"
 
 #: ../../app/views/branded/layouts/_header.html.erb:29
-#: ../../app/views/branded/layouts/_header.html.erb:132
+#: ../../app/views/branded/layouts/_header.html.erb:134
 msgid "FAQs"
 msgstr "Perguntas frequentes"
 
 #: ../../app/views/branded/layouts/_header.html.erb:30
-#: ../../app/views/branded/layouts/_header.html.erb:133
+#: ../../app/views/branded/layouts/_header.html.erb:135
 #: ../../app/views/branded/static_pages/about_us.html.erb:32
 #: ../../app/views/branded/static_pages/editorial_board.html.erb:2
 msgid "Editorial Board"
 msgstr "Conselho Editorial"
 
 #: ../../app/views/branded/layouts/_header.html.erb:31
-#: ../../app/views/branded/layouts/_header.html.erb:134
+#: ../../app/views/branded/layouts/_header.html.erb:136
 msgid "DMP Tool Logos"
 msgstr "Logotipos de ferramentas DMP"
 
 #: ../../app/views/branded/layouts/_header.html.erb:39
-#: ../../app/views/branded/layouts/_header.html.erb:142
+#: ../../app/views/branded/layouts/_header.html.erb:144
 msgid "Admin"
 msgstr "Administrador"
 
 #: ../../app/views/branded/layouts/_header.html.erb:42
-#: ../../app/views/branded/layouts/_header.html.erb:145
+#: ../../app/views/branded/layouts/_header.html.erb:147
 msgid "Organisations"
 msgstr "Organizações"
 
 #: ../../app/views/branded/layouts/_header.html.erb:44
-#: ../../app/views/branded/layouts/_header.html.erb:147
+#: ../../app/views/branded/layouts/_header.html.erb:149
 msgid "Organisation details"
 msgstr "Detalhes da organização"
 
 #: ../../app/views/branded/layouts/_header.html.erb:50
-#: ../../app/views/branded/layouts/_header.html.erb:156
+#: ../../app/views/branded/layouts/_header.html.erb:158
 msgid "Usage"
 msgstr "Uso"
 
 #: ../../app/views/branded/layouts/_header.html.erb:53
-#: ../../app/views/branded/layouts/_header.html.erb:160
+#: ../../app/views/branded/layouts/_header.html.erb:162
 msgid "Templates"
 msgstr "Modelos"
 
 #: ../../app/views/branded/layouts/_header.html.erb:56
-#: ../../app/views/branded/layouts/_header.html.erb:163
+#: ../../app/views/branded/layouts/_header.html.erb:165
 msgid "Guidance"
 msgstr "Instruções"
 
 #: ../../app/views/branded/layouts/_header.html.erb:59
-#: ../../app/views/branded/layouts/_header.html.erb:166
+#: ../../app/views/branded/layouts/_header.html.erb:168
 msgid "Themes"
 msgstr "Temas"
 
 #: ../../app/views/branded/layouts/_header.html.erb:62
-#: ../../app/views/branded/layouts/_header.html.erb:169
+#: ../../app/views/branded/layouts/_header.html.erb:171
 msgid "Api Clients"
 msgstr "Clientes Api"
 
 #: ../../app/views/branded/layouts/_header.html.erb:63
-#: ../../app/views/branded/layouts/_header.html.erb:170
+#: ../../app/views/branded/layouts/_header.html.erb:172
 msgid "Api Logs"
 msgstr "Registros de API"
 
 #: ../../app/views/branded/layouts/_header.html.erb:66
-#: ../../app/views/branded/layouts/_header.html.erb:173
+#: ../../app/views/branded/layouts/_header.html.erb:175
 msgid "Notifications"
 msgstr "Notificações"
 
-#: ../../app/views/branded/layouts/_header.html.erb:76
-#: ../../app/views/branded/layouts/_header.html.erb:183
+#: ../../app/views/branded/layouts/_header.html.erb:78
+#: ../../app/views/branded/layouts/_header.html.erb:188
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:21
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: ../../app/views/branded/layouts/_header.html.erb:77
-#: ../../app/views/branded/layouts/_header.html.erb:184
+#: ../../app/views/branded/layouts/_header.html.erb:79
+#: ../../app/views/branded/layouts/_header.html.erb:189
 msgid "3rd party apps"
 msgstr "Aplicativos de terceiros"
 
-#: ../../app/views/branded/layouts/_header.html.erb:78
-#: ../../app/views/branded/layouts/_header.html.erb:185
+#: ../../app/views/branded/layouts/_header.html.erb:80
+#: ../../app/views/branded/layouts/_header.html.erb:190
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:23
 msgid "Developer tools"
 msgstr "Ferramentas de desenvolvimento"
 
-#: ../../app/views/branded/layouts/_header.html.erb:96
-#: ../../app/views/branded/layouts/_header.html.erb:203
+#: ../../app/views/branded/layouts/_header.html.erb:98
+#: ../../app/views/branded/layouts/_header.html.erb:208
 msgid "Logout"
 msgstr "Sair"
 
-#: ../../app/views/branded/layouts/_header.html.erb:193
+#: ../../app/views/branded/layouts/_header.html.erb:198
 #: ../../app/views/branded/layouts/_header_reactapp.html.erb:33
-#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:29
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:33
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:47
 #: ../../app/views/branded/users/registrations/_profile_form.html.erb:47
 msgid "Language"
@@ -759,17 +759,17 @@ msgstr ""
 "nte com teclado."
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:49
-#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:42
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:46
 msgid "No filters applied"
 msgstr "Nenhum filtro aplicado"
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:50
-#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:44
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:48
 msgid "1 filter applied"
 msgstr "1 filtro aplicado"
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:51
-#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:46
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:50
 msgid "%<nbr>s filters applied"
 msgstr "%<nbr>s filtros aplicados"
 
@@ -1327,13 +1327,13 @@ msgstr "Tipos de Organização"
 #: ../../app/views/branded/plans/_project_details.html.erb:134
 #: ../../app/views/branded/plans/_show_details.html.erb:12
 #: ../../app/views/branded/plans/new.html.erb:85
-#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:23
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:27
 msgid "Funder"
 msgstr "Órgão Financiador"
 
 #: ../../app/views/branded/orgs/_profile_form.html.erb:169
 #: ../../app/views/branded/paginable/orgs/_public.html.erb:5
-#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:26
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:30
 #: ../../app/views/branded/users/registrations/_form.html.erb:70
 #: ../../app/views/branded/users/registrations/_profile_form.html.erb:29
 msgid "Institution"
@@ -1859,40 +1859,42 @@ msgstr "IDs DMP"
 msgid "This DMP has been registered."
 msgstr "Este DMP foi registrado."
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:35
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:31
 msgid "When referencing this DMP in other systems, please use the DMP ID: "
 msgstr "Ao fazer referência a este PGD em outros sistemas, use o ID do PGD:"
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:37
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:33
 msgid "When citing this DMP use:"
 msgstr "Ao citar esta PGD use:"
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:42
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:38
 msgid "In order to register your plan you must have completed the following:"
 msgstr "Para registrar seu plano, você deve ter concluído o seguinte:"
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:46
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:42
 msgid "only the creator of the plan may register a DMP ID."
 msgstr "somente o idealizador do plano poderá cadastrar um DMP ID."
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:50
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:46
 #: ../../app/views/branded/plans/_visibility_form.html.erb:20
-msgid "answered at least %{percentage}%% of questions on the %{write_plan_link} panel"
+msgid ""
+"have answered at least %{percentage}%% of questions on the %{write_plan_link} "
+"panel"
 msgstr ""
-"respondeu pelo menos %{percentage}%% das perguntas no painel %{write_plan_link"
-"}"
+"responderam pelo menos %{percentage}%% das perguntas do painel %{write_plan_li"
+"nk}"
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:50
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:46
 #: ../../app/views/branded/plans/_navigation.html.erb:27
 #: ../../app/views/branded/plans/_visibility_form.html.erb:20
 msgid "Write Plan"
 msgstr "Escrever Plano"
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:54
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:50
 msgid "identified your funder on the %{project_details_link} panel"
 msgstr "identificou seu financiador no painel %{project_details_link}"
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:60
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:56
 msgid ""
 "authorized DMP Tool to add works to your ORCID record via the %{link_to_third_"
 "part_page}"
@@ -1900,23 +1902,25 @@ msgstr ""
 "Ferramenta DMP autorizada para adicionar obras ao seu ORCID registro através d"
 "o %{link_to_third_part_page}"
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:60
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:62
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:56
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:58
 msgid "Third party applications page"
 msgstr "Página de aplicativos de terceiros"
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:62
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:58
 msgid "linked your DMP Tool account to your ORCID via your"
 msgstr "vinculou sua conta da ferramenta DMP ao seu ORCID através do seu"
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:68
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:64
 #: ../../app/views/branded/plans/_visibility_form.html.erb:24
-msgid "plan is not flagged as a mock project on the %{project_details_link} panel"
+msgid ""
+"make sure the plan is not flagged as a mock project on the %{project_details_l"
+"ink} panel"
 msgstr ""
-"plano não é sinalizado como um projeto fictício no painel %{project_details_li"
-"nk}"
+"certifique-se de que o plano não esteja sinalizado como um projeto simulado no"
+" painel %{project_details_link}"
 
-#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:74
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:70
 msgid "Register plan"
 msgstr "Registrar plano"
 
@@ -2207,8 +2211,8 @@ msgid "Public or organisational visibility is intended for finished plans."
 msgstr "A visibilidade pública ou organizacional destina-se a planos concluídos."
 
 #: ../../app/views/branded/plans/_visibility_form.html.erb:16
-msgid "In order to make your plan visible you must have completed the following:"
-msgstr "Para tornar seu plano visível, você deve ter concluído o seguinte:"
+msgid "In order to make your plan visible you must:"
+msgstr "Para tornar seu plano visível você deve:"
 
 #: ../../app/views/branded/plans/_visibility_form.html.erb:33
 msgid ""
@@ -2388,10 +2392,14 @@ msgid "Showing results for \"%<search_term>s\""
 msgstr "Mostrando resultados para \"%<search_term>s\""
 
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:19
+msgid "Please enter only letters and numbers."
+msgstr "Por favor digite apenas letras e números."
+
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:23
 msgid "Clear Search"
 msgstr "Limpar pesquisa"
 
-#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:50
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:54
 msgid "Clear Filters"
 msgstr "Filtros claros"
 
@@ -5615,6 +5623,7 @@ msgid "Sign up as a participating organization."
 msgstr "Inscreva-se como uma organização participante."
 
 #: ../../app/views/branded/static_pages/privacy.html.erb:2
+#: ../../app/views/branded/static_pages/termsuse.html.erb:14
 msgid "Privacy statement"
 msgstr "Política de privacidade"
 
@@ -6207,10 +6216,6 @@ msgstr ""
 " fins legítimos do CDL. Não venderemos, alugaremos ou comercializaremos qualqu"
 "er informação pessoal que você nos fornecer."
 
-#: ../../app/views/branded/static_pages/termsuse.html.erb:14
-msgid "Privacy policy"
-msgstr "Política de Privacidade"
-
 #: ../../app/views/branded/static_pages/termsuse.html.erb:15
 msgid ""
 "The information you enter into this system can be seen by you, people you have"
@@ -6223,24 +6228,24 @@ msgid ""
 "titutional requirements, to calculate storage requirements, or to assess deman"
 "d for data management services across disciplines. For a detailed description "
 "of what information (other than the plans) we collect from visitors to this we"
-"bsite and how it is used and managed, please see the CDL Privacy Statement and Ba"
-"seline Supporting Practices listed at <a href=\"%{policies_url}\">%{policies_url"
-"}</a>"
+"bsite and how it is used and managed, please see the CDL Privacy Statement and"
+" Baseline Supporting Practices listed at <a href=\"%{policies_url}\">%{policies_"
+"url}</a>"
 msgstr ""
-"As informações que você insere neste sistema podem ser vistas por você, as pes"
-"soas com as quais você escolheu compartilhar o acesso e - apenas para fins de "
-"manutenção do serviço - os administradores do sistema no CDL. Compilamos infor"
-"mações anônimas, automatizadas e agregadas de planos, mas não acessaremos, usa"
-"remos ou compartilharemos diretamente seu conteúdo com ninguém além do CDL e s"
-"ua instituição de origem sem sua permissão. Os usuários autorizados em sua ins"
-"tituição de origem podem acessar seus planos para fins específicos - por exemp"
-"lo, para rastrear a conformidade com os requisitos do financiador / institucio"
-"nais, para calcular os requisitos de armazenamento ou para avaliar a demanda p"
-"or serviços de gerenciamento de dados entre disciplinas. Para obter uma descri"
-"ção detalhada de quais informações (além dos planos) coletamos dos visitantes "
-"deste site e como são usadas e gerenciadas, consulte a Política de Privacidade"
-" da CDL e as Práticas de Suporte <a href=\"%{policies_url}\">Básico listadas em "
-"%{policies_url}</a>"
+"As informações que você insere neste sistema podem ser vistas por você, pelas "
+"pessoas com quem você escolheu compartilhar o acesso e - apenas para fins de m"
+"anutenção do serviço - pelos administradores do sistema no CDL. Compilamos inf"
+"ormações anônimas, automatizadas e agregadas dos planos, mas não acessaremos, "
+"utilizaremos ou compartilharemos diretamente seu conteúdo com ninguém além da "
+"CDL e de sua instituição de origem sem sua permissão. Os usuários autorizados "
+"em sua instituição de origem podem acessar seus planos para fins específicos –"
+" por exemplo, para monitorar a conformidade com os requisitos do financiador/i"
+"nstitucional, para calcular os requisitos de armazenamento ou para avaliar a d"
+"emanda por serviços de gerenciamento de dados em todas as disciplinas. Para ob"
+"ter uma descrição detalhada de quais informações (além dos planos) coletamos d"
+"os visitantes deste site e como elas são usadas e gerenciadas, consulte a Decl"
+"aração de Privacidade e Práticas de Base de Apoio da CDL listadas em <a href=\""
+"%{policies_url}\">%{policies_url}</a>"
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:18
 msgid "Freedom of Information"
@@ -6276,52 +6281,53 @@ msgstr ""
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:24
 msgid ""
-"<stroong>Users who choose to use the DMP Tool to create a DOI (Digital Object "
-"Identifier aka DMP ID) for their plans</strong> grant the California Digital L"
-"ibrary on behalf of The Regents of the University of California a non-exclusiv"
-"e, irrevocable, royalty-free right to publish, reproduce, publicly display, ad"
-"apt, and distribute portions of their plans in perpetuity, worldwide, by any m"
-"ethod or media now known or later developed. The portions that will be publish"
-"ed are those necessary to provide sufficient information about the plan associ"
-"ated with the DOI, including the project description and descriptions of plann"
-"ed outputs, but does not include the full text of the plan unless the user has"
-" chosen public visibility for the plan."
+"<strong>Users who choose to use the DMP Tool to create a DOI (Digital Object I"
+"dentifier aka DMP ID) for their plans</strong> grant the California Digital Li"
+"brary on behalf of The Regents of the University of California a non-exclusive"
+", irrevocable, royalty-free right to publish, reproduce, publicly display, ada"
+"pt, and distribute portions of their plans in perpetuity, worldwide, by any me"
+"thod or media now known or later developed. The portions that will be publishe"
+"d are those necessary to provide sufficient information about the plan associa"
+"ted with the DOI, including the project description and descriptions of planne"
+"d outputs, but does not include the full text of the plan unless the user has "
+"chosen public visibility for the plan."
 msgstr ""
-"<stroong>Os usuários que optam por usar a ferramenta DMP para criar um DOI (Di"
-"gital Object Identifier, também conhecido como DMP ID) para seus planos conced"
-"em à Biblioteca Digital da Califórnia, em nome dos Regentes da Universidade da"
-" Califórnia, um direito não exclusivo, irrevogável e isento de royalties para "
-"publicar, reproduzir, exibir publicamente, adaptar e distribuir partes de seus"
-" planos perpetuamente, em todo o mundo, por qualquer método ou mídia agora con"
-"hecido ou desenvolvido posteriormente. As partes que serão publicadas são aque"
-"las necessárias para fornecer informações suficientes sobre o plano associado "
-"ao DOI, incluindo a descrição do projeto e as descrições dos resultados planej"
-"ados, mas não incluem o texto completo do plano, a menos que o usuário tenha e"
-"scolhido a visibilidade pública para o plano."
+"<strong>Os usuários que optam por usar a ferramenta DMP para criar um DOI (Dig"
+"ital Object Identifier, também conhecido como DMP ID) para seus planos</strong"
+"> concedem à Biblioteca Digital da Califórnia, em nome dos Regentes da Univers"
+"idade da Califórnia, um direito não exclusivo, irrevogável e isento de royalti"
+"es para publicar, reproduzir, exibir publicamente, adaptar e distribuir partes"
+" de seus planos perpetuamente, em todo o mundo, por qualquer método ou mídia a"
+"gora conhecido ou desenvolvido posteriormente. As partes que serão publicadas "
+"são aquelas necessárias para fornecer informações suficientes sobre o plano as"
+"sociado ao DOI, incluindo a descrição do projeto e as descrições dos resultado"
+"s planejados, mas não incluem o texto completo do plano, a menos que o usuário"
+" tenha escolhido a visibilidade pública para o plano."
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:25
 msgid ""
-"<strong>All users</strong grant the California Digital Library on behalf of Th"
-"e Regents of the University of California permission to: 1) <strong>preserve</"
-"strong> the material they provide to the DMP Tool and to perform any copying o"
-"r distribution that is appropriate in order to maintain that material, includi"
-"ng but not limited to format migration and adaptations necessary for accessibi"
-"lity remediation; 2) <strong>distribute</strong> their plan to administrators "
-"or others at their organization as directed by the user-defined plan visibilit"
-"y; and 3) <strong>use their material in research</strong> regarding improvemen"
-"ts to the DMP Tool or data management practices, including use in artificial i"
-"ntelligence training within California Digital Library's local environment."
+"<strong>All users</strong> grant the California Digital Library on behalf of T"
+"he Regents of the University of California permission to: 1) <strong>preserve<"
+"/strong> the material they provide to the DMP Tool and to perform any copying "
+"or distribution that is appropriate in order to maintain that material, includ"
+"ing but not limited to format migration and adaptations necessary for accessib"
+"ility remediation; 2) <strong>distribute</strong> their plan to administrators"
+" or others at their organization as directed by the user-defined plan visibili"
+"ty; and 3) <strong>use their material in research</strong> regarding improveme"
+"nts to the DMP Tool or data management practices, including use in artificial "
+"intelligence training within California Digital Library's local environment."
 msgstr ""
-"<strong>Todos os usuários</strong> preservam o material que fornecem à Ferrame"
-"nta DMP e realizam qualquer cópia ou distribuição que seja apropriada para man"
-"ter esse material, incluindo, mas não se limitando à migração de formato e ada"
-"ptações necessárias para remediação de acessibilidade; 2) <strong>distribuir</"
-"strong> seu plano para administradores ou outras pessoas em sua organização co"
-"nforme orientado pela visibilidade do plano definida pelo usuário; e 3) <stron"
-"g>usar seu material em pesquisas</strong> relacionadas a melhorias na ferramen"
-"ta DMP ou nas práticas de gerenciamento de dados, incluindo o uso em treinamen"
-"to de inteligência artificial no ambiente local da Biblioteca Digital da Calif"
-"órnia."
+"<strong>Todos os usuários</strong> concedem à Biblioteca Digital da Califórnia"
+", em nome dos Regentes da Universidade da Califórnia, permissão para: 1) <stro"
+"ng>preservar</strong> o material que fornecem à Ferramenta DMP e realizar qual"
+"quer cópia ou distribuição que seja apropriada para manter esse material, incl"
+"uindo, mas não se limitando à migração de formatos e adaptações necessárias pa"
+"ra remediação de acessibilidade; 2) <strong>distribuir</strong> seu plano para"
+" administradores ou outras pessoas em sua organização conforme orientado pela "
+"visibilidade do plano definida pelo usuário; e 3) <strong>usar seu material em"
+" pesquisas</strong> relacionadas a melhorias na ferramenta DMP ou nas práticas"
+" de gerenciamento de dados, incluindo o uso em treinamento de inteligência art"
+"ificial no ambiente local da Biblioteca Digital da Califórnia."
 
 #: ../../app/views/branded/static_pages/termsuse.html.erb:28
 msgid "Passwords"
