@@ -367,21 +367,25 @@ function Dashboard() {
                 <div>
 
                   <h3 className="h2" id="preview-heading">
-                    {previewDmp.title}
-                  </h3>
+                    <div>{previewDmp.title}</div>
 
+                    <div className="form-actions">
+                      <button type="button" aria-label="Close" onClick={() => setShow(false)}>
+                        X
+                      </button>
+                    </div>
+                  </h3>
 
                   <h4>Funder</h4>
                   {previewDmp?.funding?.name ? <p>{previewDmp.funding.name}</p> : <p>None</p>}
 
-
                   <h4>DMP ID</h4>
-                  {previewDmp?.id ? <p>{previewDmp.id}</p> : <p>Not Set</p>}
+                  {previewDmp?.draftId !== previewDmp?.id ? <p>{previewDmp.id?.replace(/_/g, '/')}</p> : <p>Not Set</p>}
 
-                  {previewDmp?.funding?.grantId && (
+                  {previewDmp?.funding?.grantId?.identifier && (
                     <>
                       <h4>Grant ID</h4>
-                      <p>{previewDmp.funding?.grantId?.identifier}</p>
+                      <p class="preview-grant">{previewDmp.funding?.grantId?.identifier}</p>
                     </>
                   )}
 
@@ -389,9 +393,8 @@ function Dashboard() {
                     <>
                       <h4>Project Dates</h4>
                       <p>
-                        {previewDmp.project.start?.format("YYYY-MM-DD") && `Start: ${previewDmp.project.start.format("YYYY-MM-DD")}`}
-                        {previewDmp.project.start?.format("YYYY-MM-DD") && previewDmp.project.end?.format("YYYY-MM-DD") && " - "}
-                        {previewDmp.project.end?.format("YYYY-MM-DD") && `End: ${previewDmp.project.end.format("YYYY-MM-DD")}`}
+                        {`Start: ${previewDmp.project.start?.format("YYYY-MM-DD") !== 'Invalid date' ? previewDmp.project.start.format("YYYY-MM-DD") : 'Not set'}, `}
+                        {`End: ${previewDmp.project.end?.format("YYYY-MM-DD") !== 'Invalid date' ? previewDmp.project.end.format("YYYY-MM-DD ") : 'Not set '}`}
                       </p>
                     </>
                   )}
@@ -435,7 +438,7 @@ function Dashboard() {
                     {previewDmp.privacy === "public" ? "Yes" : "No"}
                   </p>
 
-                  <h4>Last Updated</h4>
+                  <h4>Last Edited</h4>
                   <p>
                     {previewDmp.modified}
                   </p>

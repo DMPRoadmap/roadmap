@@ -259,6 +259,30 @@
   }
 }
 
+#quick-view-view h3 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+#quick-view-view h3 .form-actions {
+  margin-top: 0;
+  padding-top: 0;
+  padding-left: 0;
+}
+
+#quick-view-view h3 .form-actions button {
+  margin-top: 0;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+}
+
+#quick-view-view p.preview-grant {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
 .filter-tags {
   margin-bottom: 1rem;
 }
