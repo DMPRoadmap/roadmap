@@ -35,6 +35,12 @@ const TypeAhead = ({
     const inputRef = useRef(null);
     const listRef = useRef(null);
 
+
+    const handleInputClick = () => {
+        setOpen(true);
+        setOtherField(false);
+    }
+
     const handleSelection = (e) => {
         setOpen(false);
         const item = e.target.innerText || e.target.value;
@@ -121,7 +127,6 @@ const TypeAhead = ({
                     setCurrentListItemFocused(-1);
                     setOpen(false);
                     setActiveDescendentId("");
-                    setOtherField(false);
                     setOtherSelected(false);
                     if (inputRef && inputRef.current) {
                         inputRef.current.focus();
@@ -152,6 +157,7 @@ const TypeAhead = ({
             default:
                 setCurrentListItemFocused(-1);
                 setOtherSelected(false);
+                setOtherField(false);
                 if (/([a-zA-Z0-9_]|ArrowLeft|ArrowRight)/.test(e.key)) {
                     // If list item is focused and user presses an alphanumeric key, or left or right
                     // Focus on the input instead
@@ -302,7 +308,7 @@ const TypeAhead = ({
                     aria-activedescendant={activeDescendentId}
                     className={`dmpui-field-input-text autocomplete__input ${showSuggestionSpinner ? "show-spinner" : ""
                         }`}
-                    onClick={() => setOpen(true)}
+                    onClick={handleInputClick}
                     onKeyDown={handleKeyboardEvents}
                     onChange={handleInputChange}
                     value={inputValue}
@@ -381,3 +387,4 @@ const TypeAhead = ({
 }
 
 export default memo(TypeAhead);
+

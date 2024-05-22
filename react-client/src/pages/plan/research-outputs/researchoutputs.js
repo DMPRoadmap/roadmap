@@ -344,7 +344,6 @@ function ResearchOutputs() {
                 <div className="dmpui-form-cols">
                   <div className="dmpui-form-col">
                     <h3>Repository</h3>
-                    {console.log('TESTING', dataObj.repository)}
                     <TypeAhead
                       label="Name"
                       name="repository"
