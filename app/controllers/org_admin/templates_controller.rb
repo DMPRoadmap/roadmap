@@ -16,7 +16,8 @@ module OrgAdmin
     def index
       authorize Template
       templates = Template.latest_version.where(customization_of: nil)
-      published = templates.count { |t| t.published? || t.draft? }
+      published_family_ids = Template.published.select(:family_id)
+      published = templates.count { |t| t.published? || published_family_ids.include?(t.family_id) }
 
       @orgs              = Org.includes(identifiers: :identifier_scheme).managed
       @title             = _('All Templates')
@@ -41,7 +42,8 @@ module OrgAdmin
       authorize Template
       templates = Template.latest_version_per_org(current_user.org.id)
                           .where(customization_of: nil, org_id: current_user.org.id)
-      published = templates.count { |t| t.published? || t.draft? }
+      published_family_ids = Template.published.select(:family_id)
+      published = templates.count { |t| t.published? || published_family_ids.include?(t.family_id) }
 
       @orgs  = current_user.can_super_admin? ? Org.includes(identifiers: :identifier_scheme).all : nil
       @title = if current_user.can_super_admin?
@@ -79,7 +81,8 @@ module OrgAdmin
       customizations = customizations.select do |t|
         funder_template_families.include?(t.customization_of)
       end
-      published = customizations.count { |t| t.published? || t.draft? }
+      published_family_ids = Template.published.select(:family_id)
+      published = customizations.count { |t| t.published? || published_family_ids.include?(t.family_id) }
 
       @orgs = current_user.can_super_admin? ? Org.includes(identifiers: :identifier_scheme).all : []
       @title = _('Customizable Templates')
