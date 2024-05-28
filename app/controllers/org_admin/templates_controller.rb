@@ -15,20 +15,20 @@ module OrgAdmin
     # rubocop:disable Metrics/AbcSize
     def index
       authorize Template
-      templates = Template.latest_version.where(customization_of: nil)
+      templates = Template.latest_version.where(customization_of: nil).includes(:org)
       published_family_ids = Template.published.select(:family_id)
-      published = templates.count { |t| t.published? || published_family_ids.include?(t.family_id) }
+      published = templates.where(published: true).or(templates.where(family_id: published_family_ids)).size
 
       @orgs              = Org.includes(identifiers: :identifier_scheme).managed
       @title             = _('All Templates')
-      @templates         = templates.includes(:org).page(1)
+      @templates         = templates.page(1)
       @query_params      = { sort_field: 'templates.title', sort_direction: 'asc' }
-      @all_count         = templates.length
+      @all_count         = templates.size
       @published_count   = published.present? ? published : 0
       @unpublished_count = if published.present?
-                             (templates.length - published)
+                             (@all_count - published)
                            else
-                             templates.length
+                             @all_count
                            end
       render :index
     end
@@ -40,10 +40,10 @@ module OrgAdmin
     # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
     def organisational
       authorize Template
-      templates = Template.latest_version_per_org(current_user.org.id)
+      templates = Template.latest_version_per_org(current_user.org.id).includes(:org)
                           .where(customization_of: nil, org_id: current_user.org.id)
       published_family_ids = Template.published.select(:family_id)
-      published = templates.count { |t| t.published? || published_family_ids.include?(t.family_id) }
+      published = templates.where(published: true).or(templates.where(family_id: published_family_ids)).size
 
       @orgs  = current_user.can_super_admin? ? Org.includes(identifiers: :identifier_scheme).all : nil
       @title = if current_user.can_super_admin?
@@ -53,12 +53,12 @@ module OrgAdmin
                end
       @templates = templates.page(1)
       @query_params = { sort_field: 'templates.title', sort_direction: 'asc' }
-      @all_count = templates.length
+      @all_count = templates.size
       @published_count = published.present? ? published : 0
       @unpublished_count = if published.present?
-                             templates.length - published
+                             @all_count - published
                            else
-                             templates.length
+                             @all_count
                            end
       render :index
     end
@@ -71,32 +71,31 @@ module OrgAdmin
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def customisable
       authorize Template
-      customizations = Template.latest_customized_version_per_org(current_user.org.id)
-                               .where(org_id: current_user.org.id)
       funder_templates = Template.latest_customizable.includes(:org)
       # We use this to validate the counts below in the event that a template was
       # customized but the base template org is no longer a funder
-      funder_template_families = funder_templates.collect(&:family_id)
+      funder_template_families = funder_templates.select(:family_id)
       # filter only customizations of valid(published) funder templates
-      customizations = customizations.select do |t|
-        funder_template_families.include?(t.customization_of)
-      end
+      customizations = Template.latest_customized_version_per_org(current_user.org.id)
+                               .where(org_id: current_user.org.id)
+                               .where(customization_of: funder_template_families)
       published_family_ids = Template.published.select(:family_id)
-      published = customizations.count { |t| t.published? || published_family_ids.include?(t.family_id) }
+      published = customizations.where(published: true).or(customizations.where(family_id: published_family_ids)).size
+      customizations_count = customizations.size
 
       @orgs = current_user.can_super_admin? ? Org.includes(identifiers: :identifier_scheme).all : []
       @title = _('Customizable Templates')
       @templates = funder_templates
       @customizations = customizations
       @query_params = { sort_field: 'templates.title', sort_direction: 'asc' }
-      @all_count = funder_templates.length
+      @all_count = funder_templates.size
       @published_count = published.present? ? published : 0
       @unpublished_count = if published.present?
-                             (customizations.length - published)
+                             (customizations_count - published)
                            else
-                             customizations.length
+                             customizations_count
                            end
-      @not_customized_count = funder_templates.length - customizations.length
+      @not_customized_count = @all_count - customizations_count
 
       render :index
     end
