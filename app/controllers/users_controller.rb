@@ -21,10 +21,10 @@ class UsersController < ApplicationController
         @filter_admin = false
 
         @users = if current_user.can_super_admin?
-                   User.includes(:department, :org, :perms, :roles, :identifiers).page(1)
+                   User.includes(:department, :org, :perms, :roles, identifiers: :identifier_scheme).page(1)
                  else
                    current_user.org.users
-                               .includes(:department, :org, :perms, :roles, :identifiers)
+                               .includes(:department, :perms, :roles, identifiers: :identifier_scheme)
                                .page(1)
                  end
       end
