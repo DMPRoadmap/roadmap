@@ -22,5 +22,6 @@ if defined?(Bullet)
     # config.slack = {
     #   webhook_url: 'http://some.slack.url', channel: '#default', username: 'notifier'
     # }
+    config.add_safelist type: :unused_eager_loading, class_name: 'User', association: :perms_users
   end
 end
