@@ -1,7 +1,7 @@
 <%
 url = @api_client.new_record? ? super_admin_api_clients_path : super_admin_api_client_path(@api_client)
 method = @api_client.new_record? ? :post : :put
-orgs = Org.where(is_other: false)
+orgs = Org.includes(identifiers: :identifier_scheme).where(is_other: false)
 %>
 
 <%= form_for @api_client, url: url, method: method,
