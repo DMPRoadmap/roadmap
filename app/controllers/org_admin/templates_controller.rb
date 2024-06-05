@@ -25,11 +25,7 @@ module OrgAdmin
       @query_params      = { sort_field: 'templates.title', sort_direction: 'asc' }
       @all_count         = templates.size
       @published_count   = published.present? ? published : 0
-      @unpublished_count = if published.present?
-                             (@all_count - published)
-                           else
-                             @all_count
-                           end
+      @unpublished_count = @all_count - @published_count
       render :index
     end
     # rubocop:enable Metrics/AbcSize
@@ -55,11 +51,7 @@ module OrgAdmin
       @query_params = { sort_field: 'templates.title', sort_direction: 'asc' }
       @all_count = templates.size
       @published_count = published.present? ? published : 0
-      @unpublished_count = if published.present?
-                             @all_count - published
-                           else
-                             @all_count
-                           end
+      @unpublished_count = @all_count - @published_count
       render :index
     end
     # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -90,11 +82,7 @@ module OrgAdmin
       @query_params = { sort_field: 'templates.title', sort_direction: 'asc' }
       @all_count = funder_templates.size
       @published_count = published.present? ? published : 0
-      @unpublished_count = if published.present?
-                             (customizations_count - published)
-                           else
-                             customizations_count
-                           end
+      @unpublished_count = customizations_count - @published_count
       @not_customized_count = @all_count - customizations_count
 
       render :index
