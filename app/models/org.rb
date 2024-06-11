@@ -201,9 +201,9 @@ class Org < ApplicationRecord
       .group('orgs.id')
       .select("orgs.*,
               count(distinct templates.family_id) as template_count,
-              EXISTS (SELECT 1 FROM users WHERE users.org_id = orgs.id) AS has_users,
-              EXISTS (SELECT 1 FROM contributors WHERE contributors.org_id = orgs.id) AS has_contributors,
-              EXISTS (SELECT 1 FROM plans WHERE plans.org_id = orgs.id) as has_plans")
+              EXISTS (SELECT 1 FROM users WHERE users.org_id = orgs.id) OR
+              EXISTS (SELECT 1 FROM contributors WHERE contributors.org_id = orgs.id) OR
+              EXISTS (SELECT 1 FROM plans WHERE plans.org_id = orgs.id) as has_associations")
   }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
