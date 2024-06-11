@@ -196,8 +196,8 @@ class Org < ApplicationRecord
   }
 
   # Scope used in several controllers
-  scope :with_template_and_user_counts, lambda {
-    joins('LEFT OUTER JOIN templates ON orgs.id = templates.org_id')
+  scope :with_template_count_and_associations_check, lambda {
+    left_outer_joins(:templates)
       .group('orgs.id')
       .select("orgs.*,
               count(distinct templates.family_id) as template_count,
