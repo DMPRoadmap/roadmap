@@ -198,11 +198,12 @@ class Org < ApplicationRecord
   # Scope used in several controllers
   scope :with_template_and_user_counts, lambda {
     joins('LEFT OUTER JOIN templates ON orgs.id = templates.org_id')
-      .joins('LEFT OUTER JOIN users ON orgs.id = users.org_id')
       .group('orgs.id')
       .select("orgs.*,
               count(distinct templates.family_id) as template_count,
-              count(users.id) as user_count")
+              EXISTS (SELECT 1 FROM users WHERE users.org_id = orgs.id) AS has_users,
+              EXISTS (SELECT 1 FROM contributors WHERE contributors.org_id = orgs.id) AS has_contributors,
+              EXISTS (SELECT 1 FROM plans WHERE plans.org_id = orgs.id) as has_plans")
   }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW

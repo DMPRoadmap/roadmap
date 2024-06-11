@@ -11,7 +11,7 @@ module SuperAdmin
     def index
       authorize Org
       render 'index', locals: {
-        orgs: Org.with_template_and_user_counts.page(1).includes(:contributors, :plans)
+        orgs: Org.with_template_and_user_counts.page(1)
       }
     end
 
