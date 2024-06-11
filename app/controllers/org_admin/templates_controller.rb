@@ -2,7 +2,6 @@
 
 module OrgAdmin
   # Controller that handles templates
-  # rubocop:disable Metrics/ClassLength
   class TemplatesController < ApplicationController
     include Paginable
     include Versionable
@@ -33,7 +32,7 @@ module OrgAdmin
     # A version of index that displays only templates that belong to the user's org
     # GET /org_admin/templates/organisational
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize
     def organisational
       authorize Template
       templates = Template.latest_version_per_org(current_user.org.id).includes(:org)
@@ -54,13 +53,12 @@ module OrgAdmin
       @unpublished_count = @all_count - @published_count
       render :index
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize
 
     # A version of index that displays only templates that are customizable
     # GET /org_admin/templates/customisable
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize
     def customisable
       authorize Template
       funder_templates = Template.latest_customizable.includes(:org)
@@ -87,9 +85,8 @@ module OrgAdmin
 
       render :index
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+    # rubocop:enable Metrics/AbcSize
     # GET /org_admin/templates/[:id]
     def show
       template = Template.find(params[:id])
@@ -405,5 +402,4 @@ module OrgAdmin
       end
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end
