@@ -86,14 +86,8 @@ class AnswersController < ApplicationController
     #      check should probably happen on create/update
     # rubocop:disable Style/GuardClause
     if @answer.present?
-      @plan = Plan.includes(
-        sections: {
-          questions: %i[
-            answers
-            question_format
-          ]
-        }
-      ).find(p_params[:plan_id])
+      @plan = Plan.includes(answers: { question: [:question_format] })
+                  .find(p_params[:plan_id])
       @question = @answer.question
       @section = @plan.sections.find_by(id: @question.section_id)
       template = @section.phase.template
