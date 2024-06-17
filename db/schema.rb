@@ -505,6 +505,7 @@ ActiveRecord::Schema.define(version: 2022_03_15_104737) do
     t.string "target_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["target_id", "target_type"], name: "settings_target"
   end
 
   create_table "stats", id: :integer, force: :cascade do |t|
