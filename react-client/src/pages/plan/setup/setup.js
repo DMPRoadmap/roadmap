@@ -14,7 +14,7 @@ import "./setup.scss";
 function DmpSetup() {
   let navigate = useNavigate();
 
-  const {dmpId} = useParams();
+  const { dmpId } = useParams();
   const [dmp, setDmp] = useState(new DmpModel({}));
   const [errors, setErrors] = useState(new Map());
   const [working, setWorking] = useState(false);
@@ -31,9 +31,9 @@ function DmpSetup() {
   function isValid(fdata) {
     let err = new Map();
 
-    const sizeLimit = 1000000;
+    const sizeLimit = 2000000;
     if (fdata.get("narrative").size > sizeLimit) {
-      err.set("narrative", "File size cannot exceed 1 Mb");
+      err.set("narrative", "File size cannot exceed 2 Mb");
     }
 
     if (!fdata.get("title")) {
@@ -141,10 +141,10 @@ function DmpSetup() {
           <div className="dmpui-form-cols">
             <div className="dmpui-form-col">
               <div className={"dmpui-field-group"}>
-                <label className="dmpui-field-label" for="dmpNarrative">Upload DMP</label>
+                <label className="dmpui-field-label" htmlFor="dmpNarrative">Upload DMP</label>
                 <p className="dmpui-field-help">
                   Only PDFs may be uploaded, and files should be no more than
-                  1MB.
+                  2MB.
                 </p>
                 {errors.get("narrative") && (
                   <p className="dmpui-field-error"> {errors.get("narrative")} </p>
