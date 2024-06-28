@@ -138,17 +138,17 @@ class User < ApplicationRecord
     if date_range?(term: term)
       by_date_range(:created_at, term)
     else
-      search_pattern = "%#{term}%".squish!
+      search_pattern = "%#{term.strip.squish}%"
       # MySQL does not support standard string concatenation and since concat_ws
       # or concat functions do not exist for sqlite, we have to come up with this
       # conditional
       if mysql_db?
-        where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " \
+        where("lower(concat_ws(' ', trim(firstname), trim(surname))) LIKE lower(?) OR " \
               'lower(email) LIKE lower(?)',
               search_pattern, search_pattern)
       else
         joins(:org)
-          .where("lower(firstname || ' ' || surname) LIKE lower(:search_pattern)
+          .where("lower(trim(firstname) || ' ' || trim(surname)) LIKE lower(:search_pattern)
                     OR lower(email) LIKE lower(:search_pattern)
                     OR lower(orgs.name) LIKE lower (:search_pattern)
                     OR lower(orgs.abbreviation) LIKE lower (:search_pattern) ",
