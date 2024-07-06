@@ -65,7 +65,7 @@ jobs:
     - name: 'Setup Credentials'
       run: |
         # generate a default credential file and key
-        EDITOR='echo "$(cat config/credentials.yml.postgresql)" >' bundle exec rails credentials:edit
+        EDITOR="sh -c 'echo \"$(cat config/credentials.yml.postgresql)\" > \$1' --" bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'

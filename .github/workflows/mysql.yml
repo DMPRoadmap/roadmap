@@ -38,7 +38,7 @@ jobs:
 
     # Stub out the Rails credentials file so that we can start the Rails app
     - name: 'Setup Credentials'
-      run: EDITOR='echo "$(cat config/credentials.yml.mysql2)" >' bundle exec rails credentials:edit
+      run: EDITOR="sh -c 'echo \"$(cat config/credentials.yml.mysql2)\" > \$1' --" bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
