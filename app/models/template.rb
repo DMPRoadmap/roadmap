@@ -109,7 +109,7 @@ class Template < ApplicationRecord
   # overwriting the accessors.  We want to ensure this template is published
   # before we remove the published_version
   # That being said, there's a potential race_condition where we have multiple-published-versions
-  after_update :reconcile_published, if: lambda(&:published?)
+  after_update :reconcile_published, if: ->(template) { template.published? }
 
   # ==========
   # = Scopes =
