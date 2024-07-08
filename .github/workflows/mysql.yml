@@ -54,8 +54,8 @@ jobs:
 
     - name: 'Build out the test database'
       run: |
-        bundle exec rails db:create RAILS_ENV=test
-        bundle exec rails db:schema:load RAILS_ENV=test
+        DISABLE_SPRING=1 bundle exec rails db:create RAILS_ENV=test
+        DISABLE_SPRING=1 bundle exec rails db:schema:load RAILS_ENV=test
 
     - name: 'Run any pending database migrations'
       run: bin/rails db:migrate RAILS_ENV=test
