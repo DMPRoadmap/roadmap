@@ -29,8 +29,10 @@
         <p><%= _("No contributors have been defined.") %></p>
       <% end %>
 
-      <%= link_to _("Add a contributor"), new_plan_contributor_path(@plan),
-                                          class: "btn btn-primary" %>
+      <% if @plan.editable_by?(current_user.id) %>
+        <%= link_to _("Add a contributor"), new_plan_contributor_path(@plan),
+                                            class: "btn btn-primary" %>
+      <% end %>
     </div>
   </div>
 <% end %>
