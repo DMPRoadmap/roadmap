@@ -254,7 +254,12 @@ class Plan < ApplicationRecord
     plan_copy = plan.dup
     plan_copy.title = "Copy of #{plan.title}"
     plan_copy.feedback_requested = false
+    # Don't copy the identifier as it will be regenerated
+    plan_copy.identifier = nil
     plan_copy.save!
+    # Copy newly generated Id to the identifier
+    plan_copy.identifier = plan_copy.id
+    plan.save!
     plan.answers.each do |answer|
       answer_copy = Answer.deep_copy(answer)
       answer_copy.plan_id = plan_copy.id
