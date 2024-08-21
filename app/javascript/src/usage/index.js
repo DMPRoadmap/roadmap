@@ -46,10 +46,10 @@ $(() => {
         const segment = points[0];
         if (!isUndefined(segment)) {
           const target = $('#users_click_target').val();
-          /* eslint-disable no-underscore-dangle, no-restricted-globals */
+          /* eslint-disable no-restricted-globals */
           const label = chart.data.labels[segment.index];
           $(location).attr('href', `${target}?${labelToUrl(label)}`);
-          /* eslint-enable no-underscore-dangle, no-restricted-globals */
+          /* eslint-enable no-restricted-globals */
         }
       });
     }
@@ -64,10 +64,10 @@ $(() => {
         const segment = points[0];
         if (!isUndefined(segment)) {
           const target = $('#plans_click_target').val();
-          /* eslint-disable no-underscore-dangle, no-restricted-globals */
+          /* eslint-disable no-restricted-globals */
           const label = chart.data.labels[segment.index];
           $(location).attr('href', `${target}?${labelToUrl(label)}`);
-          /* eslint-enable no-underscore-dangle, no-restricted-globals */
+          /* eslint-enable no-restricted-globals */
         }
       });
     }
