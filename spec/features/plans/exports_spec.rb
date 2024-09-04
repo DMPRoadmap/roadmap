@@ -45,7 +45,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     select('html')
     new_window = window_opened_by { click_button 'Download Plan' }
     within_window new_window do
-      expect(page.source).to have_text(plan.title)
+      expect(page.title).to have_text(plan.title)
     end
   end
 
@@ -60,7 +60,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     select('html')
     new_window = window_opened_by { click_button 'Download Plan' }
     within_window new_window do
-      expect(page.source).to have_text(plan.title)
+      expect(page.title).to have_text(plan.title)
     end
   end
 
@@ -91,7 +91,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
         click_button 'Download Plan'
       end
       within_window new_window do
-        expect(page.source).to have_text(plan.title)
+        expect(page.title).to have_text(plan.title)
         plan.phases.each do |phase|
           expect(page.source).to have_text(phase.title)
         end
@@ -101,7 +101,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
         click_button 'Download Plan'
       end
       within_window new_window do
-        expect(page.source).to have_text(plan.title)
+        expect(page.title).to have_text(plan.title)
         expect(page.source).to have_text(plan.phases[1].title)
         expect(page.source).not_to have_text(plan.phases[2].title) if plan.phases.length > 2
       end
@@ -173,18 +173,18 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
         click_button 'Download Plan'
       end
       within_window new_window do
-        expect(page.source).to have_text(plan.title)
+        expect(page.title).to have_text(plan.title)
       end
     else
       click_button 'Download Plan'
-      expect(page.source).to have_text(plan.title)
+      expect(page.title).to have_text(plan.title)
     end
   end
 
   def _all_phase_download
     _select_option('phase_id', 'All')
     click_button 'Download Plan'
-    expect(page.source).to have_text(plan.title)
+    expect(page.title).to have_text(plan.title)
     plan.phases.each do |phase| # All phase titles should be included in output
       expect(page.source).to have_text(phase.title)
     end
@@ -193,7 +193,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
   def _single_phase_download
     _select_option('phase_id', plan.phases[1].id)
     click_button 'Download Plan'
-    expect(page.source).to have_text(plan.title)
+    expect(page.title).to have_text(plan.title)
     expect(page.source).to have_text(plan.phases[1].title)
     expect(page.source).not_to have_text(plan.phases[2].title) if plan.phases.length > 2
   end
