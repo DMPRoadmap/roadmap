@@ -1,5 +1,8 @@
 # Changelog
 
+- Fix for bug in Conditional questions functionality. In the case of a conditional question with answers that removed questions, any answers of removed questions was not removed. Nor were the removed answers deleted in the database. The Rspec tests were also updated to reflect this change.
+
+
 ## v4.2.0
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
