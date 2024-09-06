@@ -26,7 +26,22 @@
 
 FactoryBot.define do
   factory :condition do
-    option_list { nil }
-    remove_data { nil }
+    option_list { [] }
+    remove_data { [] }
+    action_type { nil }
+    # the webhook_data is a Json string of form:
+    # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
+    trait :webhook do
+      action_type { 'add_webhook' }
+      webhook_data do
+        #  Generates string from hash
+        JSON.generate({
+                        name: Faker::Name.name,
+                        email: Faker::Internet.email,
+                        subject: Faker::Lorem.sentence(word_count: 4),
+                        message: Faker::Lorem.paragraph(sentence_count: 2)
+                      })
+      end
+    end
   end
 end
