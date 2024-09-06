@@ -99,8 +99,15 @@ class AnswersController < ApplicationController
       template = @section.phase.template
 
       remove_list_after = remove_list(@plan)
-
       all_question_ids = @plan.questions.pluck(:id)
+
+      # Destroy all answers for removed questions
+      remove_list_after.each do |id|
+        Answer.where(question_id: id, plan: @plan).each do |a|
+          Answer.destroy(a.id)
+        end
+      end
+
       # rubocop pointed out that these variable is not used
       # all_answers = @plan.answers
       qn_data = {

@@ -27,7 +27,7 @@ module ConditionsHelper
       opts = cond.option_list.map(&:to_i).sort
       action = cond.action_type
       chosen = answer.question_option_ids.sort
-      if chosen == opts
+      if !opts.empty? && !chosen.empty? && !(chosen & opts).empty?
         if action == 'remove'
           rems = cond.remove_data.map(&:to_i)
           id_list += rems

@@ -48,6 +48,7 @@ WebMock.disable_net_connect!(
 RSpec.configure do |config|
   config.include(AutoCompleteHelper, type: :feature)
   config.include(CapybaraHelper, type: :feature)
+  config.include(LinksHelper, type: :feature)
   config.include(SessionsHelper, type: :feature)
   config.include(TinyMceHelper,  type: :feature)
 
