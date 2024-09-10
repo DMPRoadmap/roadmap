@@ -9,7 +9,7 @@ ruby '>= 3.0'
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.1'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -46,6 +46,14 @@ gem 'jbuilder'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
+
+# The ultimate text progress bar library for Ruby!
+# (https://github.com/jfelchner/ruby-progressbar)
+gem 'ruby-progressbar'
+
+# Provides Sprockets implementation for Rails 4.x (and beyond) Asset Pipeline.
+# https://github.com/rails/sprockets-rails
+gem 'sprockets-rails'
 
 # ============== #
 # ERROR HANDLING #

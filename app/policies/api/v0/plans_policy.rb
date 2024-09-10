@@ -11,7 +11,7 @@ module Api
           raise Pundit::NotAuthorizedError, _('must have access to plans api')
         end
 
-        super(user, plan)
+        super
       end
 
       ##

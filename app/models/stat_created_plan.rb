@@ -19,7 +19,7 @@ require 'set'
 
 # Object that represents a Nbr of Plans created usage statistic
 class StatCreatedPlan < Stat
-  serialize :details, JSON
+  serialize :details, coder: JSON
 
   def by_template
     parse_details.fetch('by_template', [])

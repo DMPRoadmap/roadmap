@@ -79,7 +79,7 @@ class Identifier < ApplicationRecord
       base += '/' unless base.ends_with?('/')
       super("#{base}#{val.to_s.strip}")
     else
-      super(val)
+      super
     end
   end
   # rubocop:enable Metrics/AbcSize

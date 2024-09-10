@@ -53,7 +53,7 @@ class Template < ApplicationRecord
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
   attribute :links, :text, default: { funder: [], sample_plan: [] }
-  serialize :links, JSON
+  serialize :links, coder: JSON
 
   attribute :published, :boolean, default: false
   attribute :archived, :boolean, default: false
@@ -109,7 +109,7 @@ class Template < ApplicationRecord
   # overwriting the accessors.  We want to ensure this template is published
   # before we remove the published_version
   # That being said, there's a potential race_condition where we have multiple-published-versions
-  after_update :reconcile_published, if: ->(template) { template.published? }
+  after_update :reconcile_published, if: -> { published? }
 
   # ==========
   # = Scopes =

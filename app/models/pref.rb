@@ -13,7 +13,7 @@
 class Pref < ApplicationRecord
   ##
   # Serialize prefs to JSON
-  serialize :settings, JSON
+  serialize :settings, coder: JSON
 
   # ================
   # = Associations =
