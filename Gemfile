@@ -109,6 +109,7 @@ gem 'jwt'
 gem 'pundit'
 
 # Gem for throttling malicious attacks
+gem 'dalli', '~> 3.2', '>= 3.2.8'
 gem 'rack-attack', '~> 6.6', '>= 6.6.1'
 
 # ========== #

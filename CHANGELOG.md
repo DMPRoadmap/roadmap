@@ -1,5 +1,7 @@
 # Changelog
 
+- Updated Rack Attack configuration to address vulnerabilities in password updates.
+
 ## v4.2.0
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
