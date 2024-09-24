@@ -16,11 +16,17 @@ end
 
 # Throttle attempts to a particular path. 2 POSTs to /users/password every 30 seconds
 Rack::Attack.throttle "password_resets/ip", limit: 2, period: 30.seconds do |req|
-  req.post? && req.path == "/users/password" && req.ip
+  req.ip if req.post? && req.path == "/users/password"
 end
 
 # Throttle attempts to a particular path. 4 POSTs to /users/sign_in every 30 seconds
 Rack::Attack.throttle "logins/ip", limit: 4, period: 30.seconds do |req|
   # Don't apply sign-in rate-limiting to test environment
-  req.post? && req.path == "/users/sign_in" && req.ip unless Rails.env.test?
+  (req.ip if req.post? && req.path == "/users/sign_in") unless Rails.env.test?
+end
+
+# Throttle attempts to a particular path. 2 POST or PUTS to /users every 30 seconds
+# This includes password updates.
+Rack::Attack.throttle "profile_updates/ip", limit: 2, period: 30.seconds do |req|
+  req.ip if (req.put? || req.post?) && req.path == "/users"
 end
