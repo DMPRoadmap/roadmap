@@ -65,7 +65,7 @@ class User < ApplicationRecord
   #   :token_authenticatable, :confirmable,
   #   :lockable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :validatable, :omniauthable, :timeoutable,
+         :rememberable, :trackable, :validatable, :omniauthable, :timeoutable, :confirmable,
          omniauth_providers: %i[shibboleth orcid]
 
   # default user language to the default language
