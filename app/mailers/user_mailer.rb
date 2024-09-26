@@ -48,7 +48,7 @@ class UserMailer < ActionMailer::Base
   end
   # rubocop:enable Metrics/AbcSize
 
-  def sharing_notification(role, user, inviter:)
+  def sharing_notification(role, user, inviter)
     @role       = role
     @user       = user
     @user_email = @user.email
