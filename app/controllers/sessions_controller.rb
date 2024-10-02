@@ -13,6 +13,11 @@ class SessionsController < Devise::SessionsController
     existing_user = User.find_by(email: params[:user][:email])
     unless existing_user.nil?
 
+      unless existing_user.confirmation_instructions_handled?
+        handle_confirmation_instructions(existing_user)
+        return
+      end
+
       # Until ORCID login is supported
       unless session['devise.shibboleth_data'].nil?
         args = {
@@ -44,4 +49,12 @@ class SessionsController < Devise::SessionsController
     # Method defined at controllers/application_controller.rb
     set_locale
   end
+end
+
+private
+
+def handle_confirmation_instructions(user)
+  user.send_confirmation_instructions
+  flash[:notice] = _('A confirmation email has been sent to you. Please check your inbox to confirm your account.')
+  redirect_to root_path
 end
