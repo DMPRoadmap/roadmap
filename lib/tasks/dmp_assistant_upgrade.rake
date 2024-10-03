@@ -2,6 +2,7 @@
 
 # File for DMP Assistant upgrade tasks, beginning with release 4.1.1+portage-4.2.3
 
+# rubocop:disable Naming/VariableNumber
 namespace :dmp_assistant_upgrade do
   desc 'Upgrade to DMP Assistant 4.1.1+portage-4.2.3'
   task v4_2_3: :environment do
@@ -9,6 +10,7 @@ namespace :dmp_assistant_upgrade do
     p 'Beginning task 1: Handle email confirmation statuses of existing users'
     p '------------------------------------------------------------------------'
     handle_email_confirmation_statuses
+    p 'All tasks completed successfully'
   end
 
   private
@@ -22,7 +24,7 @@ namespace :dmp_assistant_upgrade do
 
   # Fetches users where 'confirmed_at IS NULL AND confirmation_token IS NOT NULL'
   # Sets confirmation_token = NULL AND confirmation_sent_at = NULL for the aforementioned users
-  # `confirmation_sent_at` dates corresponding to these particular users are quite old (the most recent is 2021-02-22 15:18:24)
+  # `confirmation_sent_at` dates for these users are quite old (the most recent is 2021-02-22 15:18:24)
   # With respect to confirming their email addresses, these db changes will improve the UX flow for these users
   # (For more insight regarding this improved UX flow,
   # refer to def handle_missing_confirmation_instructions(user) in app/controllers/sessions_controller.rb)
@@ -40,7 +42,7 @@ namespace :dmp_assistant_upgrade do
     p 'Setting confirmation_token = NULL AND confirmation_sent_at = NULL for all of these unconfirmed users'
     p '------------------------------------------------------------------------'
     unconfirmed_users.update_all(confirmation_token: nil, confirmation_sent_at: nil)
-    p '------------------------------------------------------------------------'
     p 'Task 1a completed successfully'
   end
 end
+# rubocop:enable Naming/VariableNumber

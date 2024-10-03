@@ -8,7 +8,7 @@ class SessionsController < Devise::SessionsController
 
   # Capture the user's shibboleth id if they're coming in from an IDP
   # ---------------------------------------------------------------------
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     existing_user = User.find_by(email: params[:user][:email])
     unless existing_user.nil?
@@ -41,7 +41,7 @@ class SessionsController < Devise::SessionsController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def destroy
     super
