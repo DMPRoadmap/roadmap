@@ -26,9 +26,9 @@ RSpec.describe 'Registrations', type: :feature do
     click_button 'Create account'
 
     # Expectations
-    expect(current_path).to eql(plans_path)
-    expect(page).to have_text(user_attributes[:firstname])
-    expect(page).to have_text(user_attributes[:surname])
+    expect(current_path).to eql(root_path)
+    expect(page).to have_text('A message with a confirmation link has been sent to your email address.')
+    expect(User.count).to eq(1)
   end
 
   scenario 'User attempts to create a new acccount with invalid atts', :js do
