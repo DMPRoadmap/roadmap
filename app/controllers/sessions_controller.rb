@@ -55,6 +55,6 @@ private
 
 def handle_confirmation_instructions(user)
   user.send_confirmation_instructions
-  flash[:notice] = _('A confirmation email has been sent to you. Please check your inbox to confirm your account.')
+  flash[:notice] = I18n.t('devise.registrations.signed_up_but_unconfirmed')
   redirect_to root_path
 end
