@@ -40,9 +40,11 @@ class StatExportedPlan
             .uniq
       end
 
+      # Exclude plans harvested by robots, by excluding plans that have a user_id nil.
       def exported_plans(start_date:, end_date:, org_id:, filtered:)
         ExportedPlan.where(plan_id: org_plan_ids(org_id: org_id, filtered: filtered))
                     .where(created_at: start_date..end_date)
+                    .where.not(user_id: nil)
                     .count
       end
     end
