@@ -1,5 +1,8 @@
 # Changelog
 
+### Fix
+- Fix for removing from statistics the count of the download of plans that lack an user id in exported_plans table. Most of such downloads will have been associated with robots harvesting.
+
 ## v4.2.0
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
