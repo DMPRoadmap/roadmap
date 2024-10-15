@@ -382,11 +382,7 @@ class User < ApplicationRecord
     )
   end
 
-  # If this method returns false, then one of the following two scenarios must be true:
-  # 1) The user was created while the app wasn't using Devise :confirmable (a confirmation_token was never generated)
-  # 2) An outdated confirmation_token existed, but was set to nil via `rake dmp_assistant_upgrade:v4_2_3`
-  #    (see `def handle_email_confirmations_for_existing_users`` in `lib/tasks/dmp_assistant_upgrade.rake`)
-  def confirmation_instructions_handled?
+  def confirmed_or_has_confirmation_token?
     confirmed? || confirmation_token.present?
   end
 

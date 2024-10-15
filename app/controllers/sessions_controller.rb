@@ -10,15 +10,12 @@ class SessionsController < Devise::SessionsController
 
   # Capture the user's shibboleth id if they're coming in from an IDP
   # ---------------------------------------------------------------------
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def create
     existing_user = User.find_by(email: params[:user][:email])
     unless existing_user.nil?
 
-      unless existing_user.confirmation_instructions_handled?
-        handle_confirmation_instructions(existing_user)
-        return
-      end
+      return if missing_confirmation_instructions_handled?(existing_user)
 
       # Until ORCID login is supported
       unless session['devise.shibboleth_data'].nil?
@@ -43,7 +40,7 @@ class SessionsController < Devise::SessionsController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def destroy
     super
