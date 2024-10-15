@@ -2,6 +2,8 @@
 
 # Controller that handles user login and logout
 class SessionsController < Devise::SessionsController
+  include EmailConfirmationHandler
+
   def new
     redirect_to(root_path)
   end
@@ -49,12 +51,4 @@ class SessionsController < Devise::SessionsController
     # Method defined at controllers/application_controller.rb
     set_locale
   end
-end
-
-private
-
-def handle_confirmation_instructions(user)
-  user.send_confirmation_instructions
-  flash[:notice] = I18n.t('devise.registrations.signed_up_but_unconfirmed')
-  redirect_to root_path
 end
