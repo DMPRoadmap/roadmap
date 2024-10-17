@@ -15,7 +15,8 @@ class SessionsController < Devise::SessionsController
     existing_user = User.find_by(email: params[:user][:email])
     unless existing_user.nil?
 
-      return if missing_confirmation_instructions_handled?(existing_user)
+      # See app/controllers/concerns/email_confirmation_handler.rb
+      return if confirmation_instructions_missing_and_handled?(existing_user)
 
       # Until ORCID login is supported
       unless session['devise.shibboleth_data'].nil?

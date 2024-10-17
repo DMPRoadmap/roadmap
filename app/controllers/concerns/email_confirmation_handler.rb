@@ -10,15 +10,19 @@
 module EmailConfirmationHandler
   extend ActiveSupport::Concern
 
-  # confirmation instructions are "missing" if the user is both unconfirmed AND has no outstanding confirmation_token
-  def missing_confirmation_instructions_handled?(user)
-    return false if user.confirmed_or_has_confirmation_token?
+  def confirmation_instructions_missing_and_handled?(user)
+    #  A user's "confirmation instructions are missing" if they're both unconfirmed and have no confirmation_token
+    return false if user_confirmed_or_has_confirmation_token?(user)
 
     handle_missing_confirmation_instructions(user)
     true
   end
 
   private
+
+  def user_confirmed_or_has_confirmation_token?(user)
+    user.confirmed? || user.confirmation_token.present?
+  end
 
   def handle_missing_confirmation_instructions(user)
     user.send_confirmation_instructions
