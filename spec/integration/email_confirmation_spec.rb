@@ -79,7 +79,7 @@ RSpec.describe 'Email Confirmation', type: :feature do
   end
 
   def expect_request_new_confirmation_link_message
-    msg = 'You have to confirm your account before continuing. ' \
+    msg = 'You need to confirm your account before continuing. ' \
           '(Click to request a new confirmation email)'
     expect(page.text).to have_text(msg)
   end
