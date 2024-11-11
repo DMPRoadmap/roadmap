@@ -1,5 +1,6 @@
 # Changelog
 
+- Fix for bug in Conditional questions functionality. In the case of a conditional question with answers that removed questions, any answers of removed questions was not removed. Nor were the removed answers deleted in the database. The Rspec tests were also updated to reflect this change.
 - Fixed a bug in the deep copy of plans where the old identifier was being copied into the new plan. We now copy the generated id of the new plan to the identifier field.
 - Fixed bar chart click function in the Usage dashboard (GitHub issue #3443)
 
