@@ -42,13 +42,14 @@ $(() => {
     const usersData = JSON.parse($('#users_joined').val());
     if (isObject(usersData)) {
       const chart = createChart('#yearly_users', usersData, '', (event) => {
-        const segment = chart.getElementAtEvent(event)[0];
+        const points = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+        const segment = points[0];
         if (!isUndefined(segment)) {
           const target = $('#users_click_target').val();
-          /* eslint-disable no-underscore-dangle, no-restricted-globals */
-          const label = chart.data.labels[segment._index];
+          /* eslint-disable no-restricted-globals */
+          const label = chart.data.labels[segment.index];
           $(location).attr('href', `${target}?${labelToUrl(label)}`);
-          /* eslint-enable no-underscore-dangle, no-restricted-globals */
+          /* eslint-enable no-restricted-globals */
         }
       });
     }
@@ -59,13 +60,14 @@ $(() => {
     const plansData = JSON.parse($('#plans_created').val());
     if (isObject(plansData)) {
       const chart = createChart('#yearly_plans', plansData, '', (event) => {
-        const segment = chart.getElementAtEvent(event)[0];
+        const points = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+        const segment = points[0];
         if (!isUndefined(segment)) {
           const target = $('#plans_click_target').val();
-          /* eslint-disable no-underscore-dangle, no-restricted-globals */
-          const label = chart.data.labels[segment._index];
+          /* eslint-disable no-restricted-globals */
+          const label = chart.data.labels[segment.index];
           $(location).attr('href', `${target}?${labelToUrl(label)}`);
-          /* eslint-enable no-underscore-dangle, no-restricted-globals */
+          /* eslint-enable no-restricted-globals */
         }
       });
     }

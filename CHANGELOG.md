@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.2.1
+
+### Fixed
+- Fixed bar chart click function in the Usage dashboard (GitHub issue #3443)
 ## v4.2.0
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
