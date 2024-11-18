@@ -330,7 +330,6 @@ namespace :migrate do
 
         scheme = IdentifierScheme.find_by(name: 'shibboleth')
 
-        # rubocop:disable Metrics/BlockNesting
         unless scheme.nil?
           users.each do |u|
             schemes = u.user_identifiers.collect(&:identifier_scheme_id)
@@ -341,7 +340,6 @@ namespace :migrate do
             #                                    identifier: u.orcid_id.gsub('orcid.org/', ''))
           end
         end
-        # rubocop:enable Metrics/BlockNesting
       end
     end
   end

@@ -55,7 +55,7 @@ class Language < ApplicationRecord
     value = '' if value.nil?
     value = value.downcase
     if value.blank? || value =~ /\A[a-z]{2}\Z/i
-      super(value)
+      super
     else
       super(LocaleService.to_i18n(locale: value).to_s)
     end

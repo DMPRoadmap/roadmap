@@ -65,7 +65,7 @@ jobs:
     - name: 'Setup Credentials'
       run: |
         # generate a default credential file and key
-        EDITOR='echo "$(cat config/credentials.yml.postgresql)" >' bundle exec rails credentials:edit
+        EDITOR="sh -c 'echo \"$(cat config/credentials.yml.postgresql)\" > \$1' --" bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
@@ -79,7 +79,7 @@ jobs:
     # Initialize the DB
     - name: 'Setup Test DB'
       run: |
-        bundle exec rails db:setup RAILS_ENV=test
+        DISABLE_SPRING=1 bundle exec rails db:setup RAILS_ENV=test
         bundle exec rails db:migrate RAILS_ENV=test
 
     # Prebuild the CSS, JS and image assets
