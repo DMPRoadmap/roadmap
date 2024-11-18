@@ -68,7 +68,7 @@ class Section < ApplicationRecord
   def phase_id=(value)
     phase = Phase.where(id: value).first
     self.number = (phase.sections.where.not(id: id).maximum(:number).to_i + 1) if phase.present?
-    super(value)
+    super
   end
 
   # =====================

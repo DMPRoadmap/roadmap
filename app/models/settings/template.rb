@@ -49,7 +49,7 @@ module Settings
       title: ''
     }.freeze
 
-    # rubocop:disable Metrics/BlockLength, Metrics/BlockNesting
+    # rubocop:disable Metrics/BlockLength
     validate do
       formatting = value['formatting']
       max_pages  = value['max_pages']
@@ -99,7 +99,7 @@ module Settings
         errors.add(:max_pages, _('Invalid maximum pages'))
       end
     end
-    # rubocop:enable Metrics/BlockLength, Metrics/BlockNesting
+    # rubocop:enable Metrics/BlockLength
 
     before_validation do
       formatting[:font_size] = formatting[:font_size].to_i if formatting[:font_size].present?
