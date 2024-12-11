@@ -257,7 +257,6 @@ class Plan < ApplicationRecord
     plan_copy.save!
     # Copy newly generated Id to the identifier
     plan_copy.identifier = plan_copy.id.to_s
-    plan.save!
     plan.answers.each do |answer|
       answer_copy = Answer.deep_copy(answer)
       answer_copy.plan_id = plan_copy.id
