@@ -77,7 +77,7 @@ module DMPRoadmap
     # The link to the API documentation - used in emails about the API
     config.x.application.api_documentation_urls = {
       v0: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation',
-      v1: 'https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V1'
+      v1: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V1-Documentation'
     }
     # The links that appear on the home page. Add any number of links
     config.x.application.welcome_links = [
