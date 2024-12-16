@@ -1,8 +1,11 @@
 # Changelog
 
+- Updated app to rails 7 [#3426](https://github.com/DMPRoadmap/roadmap/pull/3426)
+- Address Some Bullet Warnings / Optimise Mean Request Times [#3440](https://github.com/DMPRoadmap/roadmap/pull/3440)
+- Fix Flaky Tests / Optimize Checking of plan.title Within spec/features/plans/exports_spec.rb [#3451](https://github.com/DMPRoadmap/roadmap/pull/3451)
 - Refactor Plan.deep_copy(plan) [#3469](https://github.com/DMPRoadmap/roadmap/pull/3469)
-- Fixed a bug in the deep copy of plans where the old identifier was being copied into the new plan. We now copy the generated id of the new plan to the identifier field.
-- Fixed bar chart click function in the Usage dashboard (GitHub issue #3443)
+- Fixed a bug in the deep copy of plans where the old identifier was being copied into the new plan. We now copy the generated id of the new plan to the identifier field. [#3441](https://github.com/DMPRoadmap/roadmap/pull/3441)
+- Fixed bar chart click function in the Usage dashboard [#3444](https://github.com/DMPRoadmap/roadmap/pull/3444)
 
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
