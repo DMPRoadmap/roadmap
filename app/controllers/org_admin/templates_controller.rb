@@ -104,11 +104,7 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template
       # Load the info needed for the overview section if the authorization check passes!
-      phases = template.phases
-                       .includes(sections: { questions: :question_options })
-                       .order('phases.number', 'sections.number', 'questions.number',
-                              'question_options.number')
-                       .select(:title, :description, :modifiable)
+      phases = fetch_template_phases(template)
       unless template.latest?
         # rubocop:disable Layout/LineLength
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
@@ -123,17 +119,11 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/:id/edit
-    # rubocop:disable Metrics/AbcSize
     def edit
       template = Template.includes(:org, :phases).find(params[:id])
       authorize template
       # Load the info needed for the overview section if the authorization check passes!
-      phases = template.phases.includes(sections: { questions: :question_options })
-                       .order('phases.number',
-                              'sections.number',
-                              'questions.number',
-                              'question_options.number')
-                       .select(:title, :description, :modifiable)
+      phases = fetch_template_phases(template)
       if template.latest?
         render 'container', locals: {
           partial_path: 'edit',
@@ -145,7 +135,6 @@ module OrgAdmin
         redirect_to org_admin_template_path(id: template.id)
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/new
     def new
@@ -357,6 +346,16 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     private
+
+    def fetch_template_phases(template)
+      template.phases
+              .includes(sections: { questions: :question_options })
+              .order('phases.number',
+                     'sections.number',
+                     'questions.number',
+                     'question_options.number')
+              .select(:title, :description, :modifiable)
+    end
 
     def template_params
       # TODO: For some reason the sample plans and funder links are sent outside
