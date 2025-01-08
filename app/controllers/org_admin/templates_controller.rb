@@ -2,7 +2,6 @@
 
 module OrgAdmin
   # Controller that handles templates
-  # rubocop:disable Metrics/ClassLength
   class TemplatesController < ApplicationController
     include Paginable
     include Versionable
@@ -109,8 +108,7 @@ module OrgAdmin
                        .includes(sections: { questions: :question_options })
                        .order('phases.number', 'sections.number', 'questions.number',
                               'question_options.number')
-                       .select('phases.title', 'phases.description', 'phases.modifiable',
-                               'sections.title', 'questions.text', 'question_options.text')
+                       .select(:title, :description, :modifiable)
       unless template.latest?
         # rubocop:disable Layout/LineLength
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
@@ -125,7 +123,7 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/:id/edit
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def edit
       template = Template.includes(:org, :phases).find(params[:id])
       authorize template
@@ -135,12 +133,7 @@ module OrgAdmin
                               'sections.number',
                               'questions.number',
                               'question_options.number')
-                       .select('phases.title',
-                               'phases.description',
-                               'phases.modifiable',
-                               'sections.title',
-                               'questions.text',
-                               'question_options.text')
+                       .select(:title, :description, :modifiable)
       if template.latest?
         render 'container', locals: {
           partial_path: 'edit',
@@ -152,7 +145,7 @@ module OrgAdmin
         redirect_to org_admin_template_path(id: template.id)
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/new
     def new
@@ -415,5 +408,4 @@ module OrgAdmin
       end
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end
