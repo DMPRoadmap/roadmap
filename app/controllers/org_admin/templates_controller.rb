@@ -350,11 +350,7 @@ module OrgAdmin
     def fetch_template_phases(template)
       template.phases
               .includes(sections: { questions: :question_options })
-              .order('phases.number',
-                     'sections.number',
-                     'questions.number',
-                     'question_options.number')
-              .select(:title, :description, :modifiable)
+              .select(:id, :title, :description, :modifiable)
     end
 
     def template_params
