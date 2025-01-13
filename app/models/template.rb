@@ -136,6 +136,10 @@ class Template < ApplicationRecord
                   AND current.family_id = templates.family_id
                 INNER JOIN orgs ON orgs.id = templates.org_id
               SQL
+              # `SELECT "templates.*"` is this scope's default behavior, but it must be explicitly
+              # specified to prevent `PG::AmbiguousColumn` errors when `.distinct.total_count` is used
+              # (e.g. in `app/views/layouts/_paginable.html.erb`)
+              .select('templates.*')
   }
 
   # Retrieves the latest customized versions, i.e. those with maximum version
