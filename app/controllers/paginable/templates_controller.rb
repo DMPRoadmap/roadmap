@@ -25,7 +25,7 @@ module Paginable
       paginable_renderise(
         partial: 'index',
         scope: templates,
-        query_params: { sort_field: 'templates.title', sort_direction: :asc },
+        query_params: { sort_field: 'templates.title', sort_direction: :asc, f: params[:f] },
         locals: { action: 'index' },
         format: :json
       )
@@ -50,7 +50,7 @@ module Paginable
       paginable_renderise(
         partial: 'organisational',
         scope: templates,
-        query_params: { sort_field: 'templates.title', sort_direction: :asc },
+        query_params: { sort_field: 'templates.title', sort_direction: :asc, f: params[:f] },
         locals: { action: 'organisational' },
         format: :json
       )
@@ -78,7 +78,7 @@ module Paginable
       paginable_renderise(
         partial: 'customisable',
         scope: templates.joins(:org).includes(:org),
-        query_params: { sort_field: 'templates.title', sort_direction: :asc },
+        query_params: { sort_field: 'templates.title', sort_direction: :asc, f: params[:f] },
         locals: { action: 'customisable', customizations: customizations },
         format: :json
       )

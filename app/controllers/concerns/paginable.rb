@@ -99,6 +99,8 @@ module Paginable
       action: @args[:action],
       page: page
     )
+    # Retain :f if paginable/templates controller is using it to filter templates
+    url_params[:f] = @args[:f] if @args[:f].present? && @args[:controller] == 'paginable/templates'
     url_for(url_params)
   end
 
