@@ -17,6 +17,8 @@
         <%= label_tag(:filter_admin, _('Only Show Admins'), class: 'form-check-label') %>
       </div>
     <% end %>
+    <%# :f corresponds to the "Published" vs "Unpublished" etc. filters defined on the org_admin/templates pages %>
+    <%= hidden_field_tag :f, params[:f] if params[:f].present? %>
       <%= submit_tag(_('Search'), class: 'btn btn-secondary ms-2') %>
     </div>
   </div>

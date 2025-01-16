@@ -3,6 +3,7 @@
 - Refactor Plan.deep_copy(plan) [#3469](https://github.com/DMPRoadmap/roadmap/pull/3469)
 - Fixed a bug in the deep copy of plans where the old identifier was being copied into the new plan. We now copy the generated id of the new plan to the identifier field.
 - Fixed bar chart click function in the Usage dashboard (GitHub issue #3443)
+- Retain "Published" etc. Filter Setting When Applying Search or "View All" on `/org_admin/templates/` Pages [#3475](https://github.com/DMPRoadmap/roadmap/pull/3475)
 
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
