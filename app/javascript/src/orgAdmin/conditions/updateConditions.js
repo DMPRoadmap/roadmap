@@ -15,11 +15,6 @@ export default function updateConditions(id) {
       addLogicButton.get(0).click();
     }
   }
-  // set up form-select select boxes for condition options
-  const setSelectPicker = () => {
-    // $('.form-select.narrow').selectpicker({ width: 120 });
-    // $('.form-select.regular').selectpicker({ width: 150 });
-  };
 
   // test if a webhook is selected and set up if so
   const allowWebhook = (selectObject, webhook = false) => { // webhook false => new condition
@@ -30,8 +25,10 @@ export default function updateConditions(id) {
         // Retreive 'data-bs-target' for modal and create Jquery element
         const associatedModal = $(condition.find('.pseudo-webhook-btn').attr('data-bs-target'));
         associatedModal.modal('show');
+        condition.find('.display-if-action-remove').hide();
       } else { // condition type is remove
         condition.find('.remove-dropdown').show();
+        condition.find('.display-if-action-remove').show();
         condition.find('.webhook-replacement').hide();
       }
     } else { // loading already saved conditions
@@ -97,11 +94,10 @@ export default function updateConditions(id) {
     addLogicButton.attr('data-loaded', 'true');
     addLogicButton.addClass('disabled');
     addLogicButton.blur();
-    addLogicButton.text('Conditions');
+    addLogicButton.text('Edit Conditions');
     if (isObject(content)) {
       content.html(e.detail[0].container);
     }
-    setSelectPicker();
     webhookForm(e.detail[0].webhooks, undefined);
   });
 
@@ -114,7 +110,6 @@ export default function updateConditions(id) {
       conditionList.append(e.detail[0].attachment_partial);
       addDiv.html(e.detail[0].add_link);
       conditionList.attr('data-loaded', 'false');
-      setSelectPicker();
       const selectObject = conditionList.find('.form-select.action-type').last();
       webhookForm(undefined, selectObject);
     }

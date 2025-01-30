@@ -4,7 +4,7 @@
 - Fixed a bug in the deep copy of plans where the old identifier was being copied into the new plan. We now copy the generated id of the new plan to the identifier field.
 - Fixed bar chart click function in the Usage dashboard (GitHub issue #3443)
 - Fixed broken link for the V1 API documentation.
-
+- Fixed issues with Conditional Question serialization offered by @briri from PR https://github.com/CDLUC3/dmptool/pull/667 for DMPTool. There is a migration file with code for MySQL and Postgres to update the Conditions table to convert JSON Arrays in string format records in the conditions table so that they are JSON Arrays.
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
 
