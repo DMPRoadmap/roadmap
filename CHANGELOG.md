@@ -4,6 +4,7 @@
 - Fixed a bug in the deep copy of plans where the old identifier was being copied into the new plan. We now copy the generated id of the new plan to the identifier field.
 - Fixed bar chart click function in the Usage dashboard (GitHub issue #3443)
 - Fixed broken link for the V1 API documentation.
+- Only Render Plan's "Add a Contributor" Button For Users With Sufficient Permissions [#3442](https://github.com/DMPRoadmap/roadmap/pull/3442)
 
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
