@@ -70,6 +70,15 @@ class ResearchOutput < ApplicationRecord
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
 
+  # ==========
+  # = Scopes =
+  # ==========
+
+  scope :search, lambda { |term|
+                   search_pattern = "%#{term}%"
+                   where('lower(title) LIKE lower(?)', search_pattern)
+                 }
+
   # ====================
   # = Instance methods =
   # ====================
