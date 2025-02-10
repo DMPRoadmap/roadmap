@@ -36,9 +36,17 @@ RSpec.describe SuperAdmin::UsersController, type: :controller do
         # (usec: 0) removes mircoseconds to better enable comparison
         user.update(confirmed_at: Time.current.change(usec: 0))
         original_confirmed_at = user.confirmed_at
-        patch :update, params: { id: user.id, user: { firstname: 'NewName', confirmed_at: '1' } }
+        put :update, params: { id: user.id, user: { firstname: 'NewName', confirmed_at: '1' } }
         user.reload
         expect(user.confirmed_at).to eq(original_confirmed_at)
+      end
+    end
+
+    context 'when attempting to set a super_admin to unconfirmed' do
+      it 'does not update confirmed_at value to nil' do
+        put :update, params: { id: super_admin.id, user: { confirmed_at: '0' } }
+        super_admin.reload
+        expect(super_admin.confirmed_at).not_to be_nil
       end
     end
   end
