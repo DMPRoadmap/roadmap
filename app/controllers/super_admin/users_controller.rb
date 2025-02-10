@@ -143,8 +143,8 @@ module SuperAdmin
       # if an unconfirmed email is now being confirmed
       if !@user.confirmed? && attrs[:confirmed_at] == '1'
         attrs[:confirmed_at] = Time.current
-      # elsif a confirmed email is now being unconfirmed
-      elsif @user.confirmed? && attrs[:confirmed_at] == '0'
+      # elsif a confirmed email is now being unconfirmed and the user is not a super admin
+      elsif @user.confirmed? && attrs[:confirmed_at] == '0' && !@user.can_super_admin?
         attrs[:confirmed_at] = nil
       else
         # else delete the param
