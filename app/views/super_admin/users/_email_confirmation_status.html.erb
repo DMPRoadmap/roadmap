@@ -1,7 +1,9 @@
 <div class="form-group col-xs-12">
     <%= f.label(:confirmed_at, _('Email Confirmation Status'), class: 'control-label') %>
     <br>
-    <%= f.check_box(:confirmed_at, checked: @user.confirmed? ) %>
+    <%= f.check_box(:confirmed_at, { checked: @user.confirmed?, 
+                                     style: 'vertical-align: middle;
+                                             margin-top: -2px;' }) %>
     <%= @user.confirmed? ? _("Confirmed.") : _("Unconfirmed.") %>
     <small><%= _("(Use checkbox to change status.)") %></small>
 </div>
