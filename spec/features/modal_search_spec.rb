@@ -61,8 +61,8 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
       fill_in 'research_output_search_term', with: @model.name
       click_button 'Apply filter(s)'
       click_link 'Select'
-      modal_close_button = find('.modal-header button.btn-close')
-      execute_script('arguments[0].click();', modal_close_button)
+      # (execute_script('arguments[0].click();', modal_close_button) works locally here, but not as GitHub Action)
+      find('[data-bs-dismiss="modal"]').click
     end
 
     click_button 'Save'
