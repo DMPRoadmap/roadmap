@@ -49,4 +49,35 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
     click_link 'Remove'
     expect(page).not_to have_text(@model.description)
   end
+
+  it 'saves research output and selected repository association', :js do
+    # Fill in required fields
+    fill_in 'Title', with: 'Test Output'
+    select 'Audiovisual', from: 'research_output_output_type'
+
+    # Open the modal and select repository
+    click_button 'Add a repository'
+    within('#modal-search-repositories') do
+      fill_in 'research_output_search_term', with: @model.name
+      click_button 'Apply filter(s)'
+      click_link 'Select'
+      modal_close_button = find('.modal-header button.btn-close')
+      execute_script('arguments[0].click();', modal_close_button)
+    end
+
+    click_button 'Save'
+
+    # Verify UI changes
+    expect(page).to have_css('.fas.fa-circle-check + span + span',
+                             text: 'Successfully added the researchoutput.')
+    expect(page).to have_content('Test Output')
+    expect(page).to have_content(@model.name)
+
+    # Verify DB changes
+    research_output = ResearchOutput.last
+    expect(research_output.title).to eq('Test Output')
+    expect(research_output.output_type).to eq('audiovisual')
+    expect(research_output.repositories).to include(@model)
+    expect(research_output.plan).to eq(@plan)
+  end
 end
