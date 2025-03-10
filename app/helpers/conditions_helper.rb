@@ -27,7 +27,12 @@ module ConditionsHelper
       opts = cond.option_list.map(&:to_i).sort
       action = cond.action_type
       chosen = answer.question_option_ids.sort
-      if chosen == opts
+
+      # If the chosen (options) include the opts (options list) in the condition,
+      # then we apply the action.
+      # Currently, the Template edit through the UI only allows an action to be added to a single
+      # option at a time, so the opts array is always length 0 or 1.
+      if !opts.empty? && !chosen.empty? && (chosen & opts) == opts
         if action == 'remove'
           rems = cond.remove_data.map(&:to_i)
           id_list += rems

@@ -5,7 +5,7 @@ import {
 } from '../utils/isType';
 import { Tinymce } from '../utils/tinymce.js';
 import debounce from '../utils/debounce';
-import { updateSectionProgress, getQuestionDiv } from '../utils/sectionUpdate';
+import { updateSectionProgress, getQuestionDiv , deleteAllAnswersForQuestion } from '../utils/sectionUpdate';
 import datePicker from '../utils/datePicker';
 import TimeagoFactory from '../utils/timeagoFactory.js.erb';
 
@@ -23,7 +23,9 @@ $(() => {
         updateSectionProgress(section.sec_id, section.no_ans, section.no_qns);
       });
       data.qn_data.to_hide.forEach((questionid) => {
+        deleteAllAnswersForQuestion(questionid);
         getQuestionDiv(questionid).slideUp();
+
       });
       data.qn_data.to_show.forEach((questionid) => {
         getQuestionDiv(questionid).slideDown();
@@ -99,11 +101,6 @@ $(() => {
       const target = $(e.target);
       const form = target.closest('form');
       const id = questionId(target);
-
-console.log('SUBMITTING');
-console.log(target);
-console.log(form);
-console.log(id);
 
       if (debounceMap[id]) {
         // Cancels the delated execution of autoSaving
