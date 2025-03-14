@@ -5,6 +5,7 @@
 - Fixed bar chart click function in the Usage dashboard (GitHub issue #3443)
 - Fixed broken link for the V1 API documentation.
 - Fix `hidden_field_tag` Nested Attributes Format For Rails 7 Upgrade and Add Test Coverage [#3479](https://github.com/DMPRoadmap/roadmap/pull/3479)
+- Add pdf handling in `render_respond_to_format_with_error_message` [#3482](https://github.com/DMPRoadmap/roadmap/pull/3482)
 
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
