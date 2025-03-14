@@ -290,6 +290,13 @@
     "@babel/helper-plugin-utils" "^7.20.2"
     "@babel/plugin-syntax-private-property-in-object" "^7.14.5"
 
+"@babel/plugin-syntax-dynamic-import@^7.8.3":
+  version "7.8.3"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-dynamic-import/-/plugin-syntax-dynamic-import-7.8.3.tgz#62bf98b2da3cd21d626154fc96ee5b3cb68eacb3"
+  integrity sha512-5gdGbFon+PszYzqs83S3E5mpi7/y/8M9eC90MRTZfduQOYW76ig6SOSPNe41IG5LoP3FGBn2N0RjVDSQiS94kQ==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.0"
+
 "@babel/plugin-syntax-import-assertions@^7.26.0":
   version "7.26.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-import-assertions/-/plugin-syntax-import-assertions-7.26.0.tgz#620412405058efa56e4a564903b79355020f445f"
