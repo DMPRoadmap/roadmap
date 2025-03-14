@@ -27,6 +27,7 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
+      DISABLE_SPRING: 1
 
     steps:
     # Checkout the repo
@@ -91,8 +92,8 @@ jobs:
     # Initialize the DB
     - name: 'Setup Test DB'
       run: |
-        DISABLE_SPRING=1 bundle exec rails db:setup RAILS_ENV=test
-        bundle exec rails db:migrate RAILS_ENV=test
+        bundle exec rails db:setup
+        bundle exec rails db:migrate
 
     # Prebuild the CSS, JS and image assets
     - name: 'Compile Assets'
