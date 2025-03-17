@@ -7,11 +7,11 @@ Capybara.server = :puma, { Silent: true }
 Capybara.default_driver = :rack_test
 
 # Create a custom driver based on Capybara's :selenium_chrome_headless driver
-# This resolves a ElementClickInterceptedError when executing `click_button 'Sign in'` with DMP Assistant
 Capybara.register_driver :selenium_chrome_headless_add_window_size do |app|
   # Get a copy of the default options for Capybara's :selenium_chrome_headless driver
   options = Capybara.drivers[:selenium_chrome_headless].call.options[:options].dup
   options.add_argument('--window-size=1920,1080') # default window-size is only (800x600)
+  options.add_argument('--no-sandbox')
   # Create a new Selenium driver with the customised options
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
