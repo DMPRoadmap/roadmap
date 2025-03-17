@@ -12,6 +12,7 @@ Capybara.register_driver :selenium_chrome_headless_add_window_size do |app|
   options = Capybara.drivers[:selenium_chrome_headless].call.options[:options].dup
   options.add_argument('--window-size=1920,1080') # default window-size is only (800x600)
   options.add_argument('--no-sandbox')
+  options.add_argument('--disable-backgrounding-occluded-windows')
   # Create a new Selenium driver with the customised options
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
