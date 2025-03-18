@@ -26,10 +26,14 @@ RSpec.feature 'Templates::Editing', type: :feature do
 
   scenario "Admin edits a Template's existing question", :js do
     click_link 'Customisable Templates'
+    expect(page).to have_current_path(customisable_org_admin_templates_path)
     within("#template_#{template.id}") do
       click_button 'Actions'
     end
     click_link 'Customise'
+    # `org_admin_template_path(Template.last)` would be preferred over %r{#{org_admin_templates_path}/\d+}
+    # However, the test is currently evaluating Template.count prior to the new Template being created
+    expect(page).to have_current_path(%r{#{org_admin_templates_path}/\d+})
     # New template created
     template = Template.last
     within("#phase_#{template.phase_ids.first}") do

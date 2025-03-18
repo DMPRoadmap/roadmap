@@ -45,6 +45,7 @@ RSpec.describe 'Plans', type: :feature do
     click_button 'Create plan'
 
     # Expectations
+    expect(page).to have_content('Successfully created the plan.')
     expect(@user.plans).to be_one
     @plan = Plan.last
     expect(current_path).to eql(plan_path(@plan))

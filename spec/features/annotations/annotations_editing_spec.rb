@@ -37,6 +37,9 @@ RSpec.feature 'Annotations::Editing', type: :feature do
     end
     expect do
       click_link 'Customise'
+      # `org_admin_template_path(Template.last)` would be preferred over %r{#{org_admin_templates_path}/\d+}
+      # However, the test is currently evaluating Template.count prior to the new Template being created
+      expect(page).to have_current_path(%r{#{org_admin_templates_path}/\d+})
     end.to change { Template.count }.by(1)
 
     # New Template created
@@ -53,7 +56,13 @@ RSpec.feature 'Annotations::Editing', type: :feature do
     # NOTE: This is question 2, since Annotation was copied upon clicking "Customise"
     within("#edit_question_#{template.question_ids.last}") do
       # Expect it to destroy the newly cleared Annotation
-      expect { click_button 'Save' }.not_to change { Annotation.count }
+      expect do
+        click_button 'Save'
+        current_path = org_admin_template_phase_path(template,
+                                                     template.phases.first) +
+                       "?section=#{template.phases.first.sections.first.id}"
+        expect(page).to have_current_path(current_path)
+      end.not_to change { Annotation.count }
     end
     expect(annotation.text).to eql('Foo bar')
     expect(Annotation.order('created_at').last.text).to eql('<p>Noo bar</p>')
@@ -67,6 +76,9 @@ RSpec.feature 'Annotations::Editing', type: :feature do
     end
     expect do
       click_link 'Customise'
+      # `org_admin_template_path(Template.last)` would be preferred over %r{#{org_admin_templates_path}/\d+}
+      # However, the test is currently evaluating Template.count prior to the new Template being created
+      expect(page).to have_current_path(%r{#{org_admin_templates_path}/\d+})
     end.to change { Template.count }.by(1)
     template = Template.last
     click_link 'Customise phase'
@@ -79,7 +91,13 @@ RSpec.feature 'Annotations::Editing', type: :feature do
     # NOTE: This is question 2, since Annotation was copied upon clicking "Customise"
     within("#edit_question_#{template.question_ids.last}") do
       # Expect it to destroy the newly cleared Annotation
-      expect { click_button 'Save' }.to change { Annotation.count }.by(-1)
+      expect do
+        click_button 'Save'
+        current_path = org_admin_template_phase_path(template,
+                                                     template.phases.first) +
+                       "?section=#{template.phases.first.sections.first.id}"
+        expect(page).to have_current_path(current_path)
+      end.to change { Annotation.count }.by(-1)
     end
     expect(page).not_to have_errors
   end

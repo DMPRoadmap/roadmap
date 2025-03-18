@@ -26,6 +26,7 @@ RSpec.describe 'Registrations', type: :feature do
     click_button 'Create account'
 
     # Expectations
+    expect(page).to have_text('Welcome! You have signed up successfully.')
     expect(current_path).to eql(plans_path)
     expect(page).to have_text(user_attributes[:firstname])
     expect(page).to have_text(user_attributes[:surname])

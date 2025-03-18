@@ -40,6 +40,7 @@ RSpec.describe 'FeedbackRequests', type: :feature do
     end
 
     # Expectations
+    expect(page).to have_content('Feedback has been requested.')
     expect(plan.reload).to be_feedback_requested
     expect(ActionMailer::Base.deliveries).to have_exactly(1).item
   end

@@ -34,6 +34,7 @@ RSpec.feature 'Templates::Copying', type: :feature do
     end
 
     # Expectations
+    expect(page).to have_content('Template was successfully copied.')
     expect(Template.count).to eql(2)
     new_template = Template.last
     expect(new_template.title).to include(parent_template.title)
