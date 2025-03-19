@@ -29,5 +29,19 @@ RSpec.configure do |config|
   # Use the Selenium headless Chrome driver for feature tests
   config.before(:each, type: :feature, js: true) do
     Capybara.current_driver = :selenium_chrome_headless_custom
+    add_invalid_element_error
+  end
+end
+
+# Mitigate the following error by having Capybara retry an action when it occurs:
+# - Selenium::WebDriver::Error::UnknownError:
+# - unknown error: unhandled inspector error:
+# - {"code":-32000,"message":"Node with given id does not belong to the document"}
+# Source: https://github.com/teamcapybara/capybara/issues/2800#issuecomment-2728801284
+def add_invalid_element_error
+  return unless page.driver.respond_to?(:invalid_element_errors)
+
+  page.driver.invalid_element_errors.tap do |errors|
+    errors << Selenium::WebDriver::Error::UnknownError unless errors.include?(Selenium::WebDriver::Error::UnknownError)
   end
 end
