@@ -46,6 +46,10 @@ RSpec.feature 'Templates::Editing', type: :feature do
       tinymce_fill_in(:"question_annotations_attributes_annotation_#{$1}_text", with: 'Foo bar')
       # rubocop:enable Lint/UselessAssignment, Style/PerlBackrefs
       click_button 'Save'
+      current_path = org_admin_template_phase_path(template,
+                                                   template.phases.first) +
+                     "?section=#{template.phases.first.sections.first.id}"
+      expect(page).to have_current_path(current_path)
     end
     # Make sure annotation has been updated
     expect(Question.find(template.question_ids.first).annotations.first.text).to eql('<p>Foo bar</p>')
