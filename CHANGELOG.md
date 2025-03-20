@@ -5,7 +5,7 @@
 - Fixed bar chart click function in the Usage dashboard (GitHub issue #3443)
 - Fixed broken link for the V1 API documentation.
 - Fix `hidden_field_tag` Nested Attributes Format For Rails 7 Upgrade and Add Test Coverage [#3479](https://github.com/DMPRoadmap/roadmap/pull/3479)
-
+- Lower PostgreSQL GitHub Action Chrome Version to Address Breaking Changes Between Latest Chrome Version (134) and `/features` Tests [#3491](https://github.com/DMPRoadmap/roadmap/pull/3491)
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
 
