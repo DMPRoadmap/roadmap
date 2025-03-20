@@ -23,6 +23,39 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
   end
 
   it 'Modal search opens and closes and allows user to search, select and remove items', :js do
+    perform_modal_actions
+    # Verify that we can remove the selection
+    click_link 'Remove'
+    expect(page).not_to have_text(@model.description)
+  end
+
+  it 'saves research output and selected repository association', :js do
+    # Fill in required fields
+    fill_in 'Title', with: 'Test Output'
+    select 'Audiovisual', from: 'research_output_output_type'
+
+    perform_modal_actions
+
+    click_button 'Save'
+
+    # Verify UI changes
+    expect(page).to have_css('.fas.fa-circle-check + span + span',
+                             text: 'Successfully added the researchoutput.')
+    expect(page).to have_content('Test Output')
+    expect(page).to have_content(@model.name)
+
+    # Verify DB changes
+    research_output = ResearchOutput.last
+    expect(research_output.title).to eq('Test Output')
+    expect(research_output.output_type).to eq('audiovisual')
+    expect(research_output.repositories).to include(@model)
+    expect(research_output.plan).to eq(@plan)
+  end
+
+  private
+
+  # handles opening + closing of the modal, as well as the actions performed within the modal
+  def perform_modal_actions
     # Open the modal
     click_button 'Add a repository'
     expect(page).to have_text('Repository search')
@@ -41,43 +74,8 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
       # Close the modal
       execute_script('arguments[0].click();', modal_close_button)
     end
-
     # Verify that the selection was added to the main page's dom
     expect(page).not_to have_text('Repository search')
     expect(page).to have_text(@model.description)
-    # Verify that we can remove the selection
-    click_link 'Remove'
-    expect(page).not_to have_text(@model.description)
-  end
-
-  it 'saves research output and selected repository association', :js do
-    # Fill in required fields
-    fill_in 'Title', with: 'Test Output'
-    select 'Audiovisual', from: 'research_output_output_type'
-
-    # Open the modal and select repository
-    click_button 'Add a repository'
-    within('#modal-search-repositories') do
-      fill_in 'research_output_search_term', with: @model.name
-      click_button 'Apply filter(s)'
-      click_link 'Select'
-      # (execute_script('arguments[0].click();', modal_close_button) works locally here, but not as GitHub Action)
-      find('[data-bs-dismiss="modal"]').click
-    end
-
-    click_button 'Save'
-
-    # Verify UI changes
-    expect(page).to have_css('.fas.fa-circle-check + span + span',
-                             text: 'Successfully added the researchoutput.')
-    expect(page).to have_content('Test Output')
-    expect(page).to have_content(@model.name)
-
-    # Verify DB changes
-    research_output = ResearchOutput.last
-    expect(research_output.title).to eq('Test Output')
-    expect(research_output.output_type).to eq('audiovisual')
-    expect(research_output.repositories).to include(@model)
-    expect(research_output.plan).to eq(@plan)
   end
 end
