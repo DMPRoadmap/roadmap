@@ -65,8 +65,10 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
       find('[data-bs-dismiss="modal"]').click
     end
 
+    # TODO: This expect check with `wait: 10` is a temporary workaround
+    # - Its removal should be tested when the `/features` test are working with the latest Chrome version
     # Ensure the modal is closed
-    expect(page).not_to have_css('#modal-search-repositories')
+    expect(page).not_to have_css('#modal-search-repositories', wait: 10)
     click_button 'Save'
 
     # Verify UI changes
