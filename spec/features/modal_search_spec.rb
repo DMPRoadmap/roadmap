@@ -56,26 +56,37 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
 
   # handles opening + closing of the modal, as well as the actions performed within the modal
   def perform_modal_actions
-    # Open the modal
-    click_button 'Add a repository'
-    expect(page).to have_text('Repository search')
+    open_modal
 
     within('#modal-search-repositories') do
-      # Search for the Repository
-      fill_in 'research_output_search_term',	with: @model.name
-      click_button 'Apply filter(s)'
-      expect(page).to have_text(@model.description)
-      # Select the repository and make sure it no longer appears in the search results
-      click_link 'Select'
-      expect(page).not_to have_text(@model.description)
-
-      # Using JS to click on button, as click_button '.modal-header button.btn-close' did not work.
-      modal_close_button = find('.modal-header button.btn-close')
-      # Close the modal
-      execute_script('arguments[0].click();', modal_close_button)
+      search_and_select_repository_within_modal
+      close_modal
     end
     # Verify that the selection was added to the main page's dom
     expect(page).not_to have_text('Repository search')
     expect(page).to have_text(@model.description)
+  end
+
+  def open_modal
+    # Open the modal
+    click_button 'Add a repository'
+    expect(page).to have_text('Repository search')
+  end
+
+  def search_and_select_repository_within_modal
+    # Search for the Repository
+    fill_in 'research_output_search_term',	with: @model.name
+    click_button 'Apply filter(s)'
+    expect(page).to have_text(@model.description)
+    # Select the repository and make sure it no longer appears in the search results
+    click_link 'Select'
+    expect(page).not_to have_text(@model.description)
+  end
+
+  def close_modal
+    # Using JS to click on button, as click_button '.modal-header button.btn-close' did not work.
+    modal_close_button = find('.modal-header button.btn-close')
+    # Close the modal
+    execute_script('arguments[0].click();', modal_close_button)
   end
 end
