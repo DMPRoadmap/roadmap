@@ -65,6 +65,8 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
       find('[data-bs-dismiss="modal"]').click
     end
 
+    # Ensure the modal is closed
+    expect(page).not_to have_css('#modal-search-repositories')
     click_button 'Save'
 
     # Verify UI changes
