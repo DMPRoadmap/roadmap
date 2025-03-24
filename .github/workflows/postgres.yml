@@ -52,6 +52,11 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install libpq-dev
+    
+    # Install ImageMagick (for `identify` command)
+    - name: 'Install ImageMagick'
+      run: |
+        sudo apt-get install -y imagemagick
 
     # Copy all of the example configs over
     - name: 'Setup Default Configuration'
