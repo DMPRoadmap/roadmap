@@ -15,6 +15,7 @@ RSpec.feature 'Sessions', type: :feature do
     click_button 'Sign in'
 
     # Expectation
+    expect(page).to have_content('Signed in successfully.')
     expect(current_path).to eql(plans_path)
     expect(page).to have_text(user.firstname)
     expect(page).to have_text(user.surname)

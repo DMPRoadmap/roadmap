@@ -26,10 +26,14 @@ RSpec.feature 'Templates::Editing', type: :feature do
 
   scenario "Admin edits a Template's existing question", :js do
     click_link 'Customisable Templates'
+    expect(page).to have_current_path(customisable_org_admin_templates_path)
     within("#template_#{template.id}") do
       click_button 'Actions'
     end
     click_link 'Customise'
+    # `org_admin_template_path(Template.last)` would be preferred over %r{#{org_admin_templates_path}/\d+}
+    # However, the test is currently evaluating Template.count prior to the new Template being created
+    expect(page).to have_current_path(%r{#{org_admin_templates_path}/\d+})
     # New template created
     template = Template.last
     within("#phase_#{template.phase_ids.first}") do
@@ -42,6 +46,10 @@ RSpec.feature 'Templates::Editing', type: :feature do
       tinymce_fill_in(:"question_annotations_attributes_annotation_#{$1}_text", with: 'Foo bar')
       # rubocop:enable Lint/UselessAssignment, Style/PerlBackrefs
       click_button 'Save'
+      current_path = org_admin_template_phase_path(template,
+                                                   template.phases.first) +
+                     "?section=#{template.phases.first.sections.first.id}"
+      expect(page).to have_current_path(current_path)
     end
     # Make sure annotation has been updated
     expect(Question.find(template.question_ids.first).annotations.first.text).to eql('<p>Foo bar</p>')

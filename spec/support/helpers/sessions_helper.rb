@@ -20,5 +20,6 @@ module SessionsHelper
       fill_in 'Password', with: user.password.presence || 'password'
       click_button 'Sign in'
     end
+    expect(page).to have_content('Signed in successfully.')
   end
 end
