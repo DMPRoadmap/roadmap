@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :assets do
   desc 'Copy Bootstrap glyphicons and TinyMCE skins to the public directory'
   task :copy do
