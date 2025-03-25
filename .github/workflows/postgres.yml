@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   postgresql:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     services:
       # Postgres installation
@@ -52,6 +52,11 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install libpq-dev
+    
+    # Install ImageMagick (for `identify` command)
+    - name: 'Install ImageMagick'
+      run: |
+        sudo apt-get install -y imagemagick
 
     # Copy all of the example configs over
     - name: 'Setup Default Configuration'
