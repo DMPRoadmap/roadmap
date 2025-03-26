@@ -25,7 +25,7 @@ module Paginable
       paginable_renderise(
         partial: 'index',
         scope: scope,
-        query_params: { sort_field: 'users.surname', sort_direction: :asc },
+        query_params: { sort_field: 'users.surname', sort_direction: :asc, filter_admin: params[:filter_admin] },
         format: :json,
         view_all: !current_user.can_super_admin?
       )
