@@ -53,9 +53,9 @@
                       <% section.questions.each do |question| %>
                         <li>
                           <%= sanitize question.text %>
-                          <% if question.question_options.length > 0 %>
+                          <% if question.question_options.any? %>
                             <ul>
-                              <% question.question_options.each do |option| %>
+                              <% question.question_options.by_number.each do |option| %>
                                 <li><%= option.text %></li>
                               <% end %>
                             </ul>

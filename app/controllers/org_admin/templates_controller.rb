@@ -2,7 +2,6 @@
 
 module OrgAdmin
   # Controller that handles templates
-  # rubocop:disable Metrics/ClassLength
   class TemplatesController < ApplicationController
     include Paginable
     include Versionable
@@ -105,12 +104,7 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template
       # Load the info needed for the overview section if the authorization check passes!
-      phases = template.phases
-                       .includes(sections: { questions: :question_options })
-                       .order('phases.number', 'sections.number', 'questions.number',
-                              'question_options.number')
-                       .select('phases.title', 'phases.description', 'phases.modifiable',
-                               'sections.title', 'questions.text', 'question_options.text')
+      phases = fetch_template_phases(template)
       unless template.latest?
         # rubocop:disable Layout/LineLength
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
@@ -125,22 +119,11 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/:id/edit
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def edit
       template = Template.includes(:org, :phases).find(params[:id])
       authorize template
       # Load the info needed for the overview section if the authorization check passes!
-      phases = template.phases.includes(sections: { questions: :question_options })
-                       .order('phases.number',
-                              'sections.number',
-                              'questions.number',
-                              'question_options.number')
-                       .select('phases.title',
-                               'phases.description',
-                               'phases.modifiable',
-                               'sections.title',
-                               'questions.text',
-                               'question_options.text')
+      phases = fetch_template_phases(template)
       if template.latest?
         render 'container', locals: {
           partial_path: 'edit',
@@ -152,7 +135,6 @@ module OrgAdmin
         redirect_to org_admin_template_path(id: template.id)
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # GET /org_admin/templates/new
     def new
@@ -365,6 +347,12 @@ module OrgAdmin
 
     private
 
+    def fetch_template_phases(template)
+      template.phases
+              .includes(sections: { questions: :question_options })
+              .select(:id, :title, :description, :modifiable)
+    end
+
     def template_params
       # TODO: For some reason the sample plans and funder links are sent outside
       #       the context of the form as :template-links like this:
@@ -415,5 +403,4 @@ module OrgAdmin
       end
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end
