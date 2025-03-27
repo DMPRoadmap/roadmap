@@ -1,7 +1,10 @@
+<% condition = condition ||= nil %>
+
 <div class="row condition-partial mb-3">
   <%
-   action_type_arr = [["removes", :remove], ["adds notification", :add_webhook]]
-   name_start = "conditions[]condition_" + condition_no.to_s
+    action_type_arr = [["removes", :remove], ["adds notification", :add_webhook]]
+    # name_start = "conditions[]condition_" + condition_no.to_s
+    name_start = "conditions[#{condition_no.to_s}]"
     remove_question_collection = later_question_list(question)
     condition_exists = local_assigns.has_key? :condition
     type_default = condition_exists ? (condition[:action_type] == "remove" ? :remove : :add_webhook) : :remove
@@ -9,27 +12,77 @@
       grouped_options_for_select(remove_question_collection, condition[:remove_question_id]) :
       grouped_options_for_select(remove_question_collection)
     multiple = (question.question_format.multiselectbox? || question.question_format.checkbox?)
+    view_email_content_info = _("Hover over the email address to view email content. To change email details you need to remove and add the condition again.")
   %>
-  <div class="col-md-3 pe-2">
-    <%= select_tag(:question_option, options_from_collection_for_select(question.question_options.sort_by(&:number), "id", "text",
-        condition_exists ? condition[:question_option_id] : question.question_options.sort_by(&:number)[0]), {class: 'form-select regular', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3', name: name_start + "[question_option][]"}) %>
-  </div>
-  <div class="col-md-3 pe-2">
-    <%= select_tag(:action_type, options_for_select(action_type_arr, type_default), {name: name_start + "[action_type]", class: 'action-type form-select narrow', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3'}) %>
-  </div>
-  <div class="col-md-3 pe-2">
-    <div class="remove-dropdown">
-      <%= select_tag(:remove_question_id, remove_question_group, {name: name_start + "[remove_question_id][]", class: 'form-select regular', multiple: true, 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3'}) %>
+  
+  <%# If this is a new condition then display the interactive controls. otherwise just display the logic %>
+  <% if condition.nil? %>
+  <div class="form-label bold">Add condition</div>
+  <div class="row  mb-3">
+    <div class="col-md-9 pe-2">
+      <div class="form-label bold"><%= _('Option') %></div>
+      <%= select_tag(:question_option, options_from_collection_for_select(question.question_options.sort_by(&:number), "id", "text",
+          condition_exists ? condition[:question_option_id] : question.question_options.sort_by(&:number)[0]), {class: 'form-select regular', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3', name: name_start + "[question_option][]"}) %>
     </div>
-    <div class="webhook-replacement display-off my-auto text-center">
-      <%= link_to _('Edit email'), '#' %>
+    <div class="col-md-3 pe-2">
+      <div class="form-label bold"><%= _('Action') %></div>
+      <%= select_tag(:action_type, options_for_select(action_type_arr, type_default), {name: name_start + "[action_type]", class: 'action-type form-select narrow', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3'}) %>
     </div>
   </div>
-  <%= hidden_field_tag(name_start + "[number]", condition_no) %>
-
-  <div class="col-md-3">
-    <a href="#anotherurl" class="delete-condition"><%= _('Remove') %></a>
+  <div class="row d-flex mb-3">
+    <div class="col-md-10 pe-2">
+      <div class="form-label bold display-if-action-remove"><%= _('Target') %></div>
+      <div class="remove-dropdown">
+        <%= select_tag(:remove_question_id, remove_question_group, {name: name_start + "[remove_question_id][]", class: 'form-select regular', multiple: true, 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3'}) %>
+      </div>
+      <div class="webhook-replacement display-off my-auto text-center">
+        <%= link_to _('Edit email'), '#' %>
+      </div>
+      <%= hidden_field_tag(name_start + "[number]", condition_no) %>
+    </div>
+    <div class="col-md-2 align-self-center">
+      <a href="#anotherurl" class="delete-condition btn btn-primary"><%= _('Remove') %></a>
+    </div>
+    <%= render partial: 'org_admin/conditions/webhook_form', locals: {name_start: name_start, condition_no: condition_no} %>
   </div>
+  <% else %>
+    <%
+    qopt = condition[:question_option_id].any? ? QuestionOption.find_by(id: condition[:question_option_id].first): nil
+    rquesArray = condition[:remove_question_id].any? ? Question.where(id: condition[:remove_question_id]) : nil
+    %>
+    <div class="col-md-3 pe-2">
+      <%= qopt[:text]&.slice(0, 25) %>
+      <%= hidden_field_tag(name_start + "[question_option][]", condition[:question_option_id]) %>
+    </div>
+    <div class="col-md-3 pe-2">
+      <%= condition[:action_type] == 'remove' ? 'Remove' : 'Email' %>
+      <%= hidden_field_tag(name_start + "[action_type]", condition[:action_type]) %>
+    </div>
+    <div class="col-md-3 pe-2">
+      <% if !rquesArray.nil? %>
+        <% rquesArray.each do |rques| %>
+           Question <%= rques[:number] %>: <%= rques.text.gsub(%r{</?p>}, '').slice(0, 50) %>
+           <%= '...' if rques.text.gsub(%r{</?p>}, '').length > 50 %>
+           <br>
+        <% end %>
+        <%= hidden_field_tag(name_start + "[remove_question_id][]", condition[:remove_question_id]) %>
+      <% else %>
+        <%
+        hook_tip = "Name: #{condition[:webhook_data]['name']}\nEmail: #{condition[:webhook_data]['email']}\n"
+        hook_tip += "Subject: #{condition[:webhook_data]['subject']}\nMessage: #{condition[:webhook_data]['message']}"
+        %>
+        <span title="<%= hook_tip %>"><%= condition[:webhook_data]['email'] %></span>
+        <br>(<%= view_email_content_info %>)
 
-  <%= render partial: 'org_admin/conditions/webhook_form', locals: {name_start: name_start, condition_no: condition_no} %>
+        <%= hidden_field_tag(name_start + "[webhook-email]", condition[:webhook_data]['email']) %>
+        <%= hidden_field_tag(name_start + "[webhook-name]", condition[:webhook_data]['name']) %>
+        <%= hidden_field_tag(name_start + "[webhook-subject]", condition[:webhook_data]['subject']) %>
+        <%= hidden_field_tag(name_start + "[webhook-message]", condition[:webhook_data]['message']) %>
+      <% end %>
+      <%= hidden_field_tag(name_start + "[number]", condition_no) %>
+    </div>
+    <div class="col-md-3">
+      <a href="#anotherurl" class="delete-condition"><%= _('Remove') %></a>
+    </div>
+  <% end %>
 </div>
