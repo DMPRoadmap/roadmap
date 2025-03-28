@@ -12,6 +12,7 @@
 - Add pdf handling in `render_respond_to_format_with_error_message` [#3482](https://github.com/DMPRoadmap/roadmap/pull/3482)
 - Lower PostgreSQL GitHub Action Chrome Version to Address Breaking Changes Between Latest Chrome Version (134) and `/features` Tests [#3491](https://github.com/DMPRoadmap/roadmap/pull/3491)
 - Bumped dependencies via `bundle update && yarn upgrade` [#3483](https://github.com/DMPRoadmap/roadmap/pull/3483)
+- Pin `spring` gem to v4.2.1 [#3499](https://github.com/DMPRoadmap/roadmap/pull/3499)
 
 ## v4.2.0
 
