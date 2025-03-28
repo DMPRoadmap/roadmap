@@ -304,7 +304,8 @@ group :development do
   gem 'web-console'
   # Spring speeds up development by keeping your application running in the background.
   # Read more: https://github.com/rails/spring
-  gem 'spring'
+  # Pinning Spring to version v4.2.1 due to the following issue: https://github.com/DMPRoadmap/roadmap/issues/3498
+  gem 'spring', '4.2.1'
   gem 'spring-watcher-listen'
 
   # Simple Progress Bar for output to a terminal

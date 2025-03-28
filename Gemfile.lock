@@ -552,7 +552,7 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    spring (4.3.0)
+    spring (4.2.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     spring-watcher-listen (2.1.0)
@@ -681,7 +681,7 @@ DEPENDENCIES
   ruby-progressbar
   selenium-webdriver
   shoulda
-  spring
+  spring (= 4.2.1)
   spring-commands-rspec
   spring-watcher-listen
   sprockets-rails
