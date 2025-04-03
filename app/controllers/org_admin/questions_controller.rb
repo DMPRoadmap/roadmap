@@ -211,17 +211,21 @@ module OrgAdmin
 
     private
 
-    # param_conditions looks like:
-    #   [
-    #     {
-    #       "conditions_N" => {
-    #         name: ...
-    #         subject ...
-    #         ...
-    #       }
-    #       ...
-    #     }
-    #   ]
+    # param_conditions is a hash of a hash like this (example where
+    # action_types is "remove" and "add_webhook" respectively):
+    # Parameters:
+    # {"0"=>{"question_option"=>["212159"],
+    #        "action_type"=>"remove",
+    #        "remove_question_id"=>["191471 191472"],
+    #        "number"=>"0"},
+    # "1"=>{"question_option"=>["212160"],
+    #       "action_type"=>"add_webhook",
+    #        "number"=>"1",
+    #        "webhook-name"=>"DMP Admin",
+    #        "webhook-email"=>"dmp-admin@example.com",
+    #        "webhook-subject"=>"Woodcote cillum quis elit consectetur epsom",
+    #        "webhook-message"=>"Labore ut epsom downs exercitation ...."}
+    #  }
     def sanitize_hash(param_conditions)
       return {} if param_conditions.nil?
       return {} if param_conditions.empty?
