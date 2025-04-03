@@ -47,7 +47,7 @@
       </div>
     
       <% if question.id != nil && question.question_options[0].text != nil %>
-        <% cond_lbl = (!conditions.nil? && conditions.any?) ? 'Edit Conditions' : 'Add Conditions' %>
+        <% cond_lbl = conditions&.any? ? 'Edit Conditions' : 'Add Conditions' %>
         <%= link_to cond_lbl, org_admin_question_open_conditions_path(question_id: question.id, conditions: conditions), class: "add-logic btn btn-secondary", 'data-loaded': (conditions.size > 0).to_s, remote: true %>
         <div id="content" class="col-md-offset-2">
           <p>
