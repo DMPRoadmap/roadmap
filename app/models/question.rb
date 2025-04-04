@@ -214,14 +214,13 @@ class Question < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def save_condition(value, opt_map, question_id_map)
     c = conditions.build
     c.action_type = value['action_type']
     c.number = value['number']
+
     # question options may have changed so rewrite them
-    c.option_list = value['question_option']
-    c.option_list = c.option_list.map { |qopt| opt_map[qopt] } if opt_map.present?
+    c.option_list = handle_option_list(value, opt_map)
     # Do not save the condition if the option_list is empty
     if c.option_list.empty?
       c.destroy
@@ -229,8 +228,7 @@ class Question < ApplicationRecord
     end
 
     if value['action_type'] == 'remove'
-      c.remove_data = value['remove_question_id']
-      c.remove_data = c.remove_data.map { |qid| question_id_map[qid] } if question_id_map.present?
+      c.remove_data = handle_remove_data(value, question_id_map)
       # Do not save the condition if remove_data is empty
       if c.remove_data.empty?
         c.destroy
@@ -246,7 +244,6 @@ class Question < ApplicationRecord
     end
     c.save
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize
 
   private
@@ -274,6 +271,22 @@ class Question < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  def handle_option_list(value, opt_map)
+    if opt_map.present?
+      value['question_option'].map { |qopt| opt_map[qopt] }
+    else
+      value['question_option']
+    end
+  end
+
+  def handle_remove_data(value, question_id_map)
+    if question_id_map.present?
+      value['remove_question_id'].map { |qid| question_id_map[qid] }
+    else
+      value['remove_question_id']
+    end
+  end
 
   def handle_webhook_data(value)
     # return nil if any of the webhook fields are blank
