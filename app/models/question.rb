@@ -213,7 +213,7 @@ class Question < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def save_condition(value, opt_map, question_id_map)
     c = conditions.build
@@ -233,19 +233,10 @@ class Question < ApplicationRecord
         return
       end
     else
-      c.webhook_data = {
-        name: value['webhook-name'],
-        email: value['webhook-email'],
-        subject: value['webhook-subject'],
-        message: value['webhook-message']
-      }
+      c.webhook_data = handle_webhook_data(value)
 
-      # Do not save the condition if the option_list or if any webhook_data fields is empty
-      if c.option_list.empty? ||
-         c.webhook_data['name'].blank? ||
-         c.webhook_data['email'].blank? ||
-         c.webhook_data['subject'].blank? ||
-         c.webhook_data['message'].blank?
+      # Do not save the condition if the option_list is empty or webhook_data is nil
+      if c.option_list.empty? || c.webhook_data.nil?
         c.destroy
         return
       end
@@ -253,7 +244,7 @@ class Question < ApplicationRecord
     c.save
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -280,4 +271,17 @@ class Question < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  def handle_webhook_data(value)
+    # return nil if any of the webhook fields are blank
+    return if %w[webhook-name webhook-email webhook-subject webhook-message].any? { |key| value[key].blank? }
+
+    # else return the constructed webhook_data hash
+    {
+      name: value['webhook-name'],
+      email: value['webhook-email'],
+      subject: value['webhook-subject'],
+      message: value['webhook-message']
+    }
+  end
 end
