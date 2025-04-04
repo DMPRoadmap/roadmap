@@ -222,21 +222,24 @@ class Question < ApplicationRecord
     # question options may have changed so rewrite them
     c.option_list = value['question_option']
     c.option_list = c.option_list.map { |qopt| opt_map[qopt] } if opt_map.present?
+    # Do not save the condition if the option_list is empty
+    if c.option_list.empty?
+      c.destroy
+      return
+    end
 
     if value['action_type'] == 'remove'
       c.remove_data = value['remove_question_id']
       c.remove_data = c.remove_data.map { |qid| question_id_map[qid] } if question_id_map.present?
-
-      # Do not save the condition if the option_list or remove_data is empty
-      if c.option_list.empty? || c.remove_data.empty?
+      # Do not save the condition if remove_data is empty
+      if c.remove_data.empty?
         c.destroy
         return
       end
     else
       c.webhook_data = handle_webhook_data(value)
-
-      # Do not save the condition if the option_list is empty or webhook_data is nil
-      if c.option_list.empty? || c.webhook_data.nil?
+      # Do not save the condition if webhook_data is nil
+      if c.webhook_data.nil?
         c.destroy
         return
       end
