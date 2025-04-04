@@ -221,24 +221,11 @@ class Question < ApplicationRecord
     c.number = value['number']
     # question options may have changed so rewrite them
     c.option_list = value['question_option']
-
-    if opt_map.present?
-      new_question_options = []
-      c.option_list.map do |qopt|
-        new_question_options << opt_map[qopt]
-      end
-      c.option_list = new_question_options
-    end
+    c.option_list = c.option_list.map { |qopt| opt_map[qopt] } if opt_map.present?
 
     if value['action_type'] == 'remove'
       c.remove_data = value['remove_question_id']
-      if question_id_map.present?
-        new_question_ids = []
-        c.remove_data.map do |qid|
-          new_question_ids << question_id_map[qid]
-        end
-        c.remove_data = new_question_ids
-      end
+      c.remove_data = c.remove_data.map { |qid| question_id_map[qid] } if question_id_map.present?
 
       # Do not save the condition if the option_list or remove_data is empty
       if c.option_list.empty? || c.remove_data.empty?
