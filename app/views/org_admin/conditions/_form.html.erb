@@ -23,7 +23,7 @@
     <div class="col-md-9 pe-2">
       <div class="form-label bold"><%= _('Option') %></div>
       <%= select_tag(:question_option, options_from_collection_for_select(question.question_options.sort_by(&:number), "id", "text",
-          condition.present? ? condition[:question_option_id] : question.question_options.sort_by(&:number)[0]), {class: 'form-select regular', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3', name: name_start + "[question_option][]"}) %>
+          question.question_options.sort_by(&:number)[0]), {class: 'form-select regular', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3', name: name_start + "[question_option][]"}) %>
     </div>
     <div class="col-md-3 pe-2">
       <div class="form-label bold"><%= _('Action') %></div>
