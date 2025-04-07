@@ -10,7 +10,6 @@
     action_type_arr = [["removes", :remove], ["adds notification", :add_webhook]]
     name_start = "conditions[#{condition_no.to_s}]"
     remove_question_collection = later_question_list(question)
-    type_default = condition.present? ? (condition[:action_type] == "remove" ? :remove : :add_webhook) : :remove
     remove_question_group = condition.present? ?
       grouped_options_for_select(remove_question_collection, condition[:remove_question_id]) :
       grouped_options_for_select(remove_question_collection)
@@ -28,7 +27,7 @@
     </div>
     <div class="col-md-3 pe-2">
       <div class="form-label bold"><%= _('Action') %></div>
-      <%= select_tag(:action_type, options_for_select(action_type_arr, type_default), {name: name_start + "[action_type]", class: 'action-type form-select narrow', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3'}) %>
+      <%= select_tag(:action_type, options_for_select(action_type_arr, :remove), {name: name_start + "[action_type]", class: 'action-type form-select narrow', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3'}) %>
     </div>
   </div>
   <div class="row d-flex mb-3">
