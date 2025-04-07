@@ -15,7 +15,6 @@
     remove_question_group = condition_exists ?
       grouped_options_for_select(remove_question_collection, condition[:remove_question_id]) :
       grouped_options_for_select(remove_question_collection)
-    multiple = (question.question_format.multiselectbox? || question.question_format.checkbox?)
     view_email_content_info = _("Hover over the email address to view email content. To change email details you need to remove and add the condition again.")
   %>
   
