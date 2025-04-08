@@ -10,9 +10,7 @@
     action_type_arr = [["removes", :remove], ["adds notification", :add_webhook]]
     name_start = "conditions[#{condition_no.to_s}]"
     remove_question_collection = later_question_list(question)
-    remove_question_group = condition.present? ?
-      grouped_options_for_select(remove_question_collection, condition[:remove_question_id]) :
-      grouped_options_for_select(remove_question_collection)
+    remove_question_group = grouped_options_for_select(remove_question_collection)
     view_email_content_info = _("Hover over the email address to view email content. To change email details you need to remove and add the condition again.")
   %>
   
