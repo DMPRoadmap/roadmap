@@ -3,40 +3,29 @@
     - app/views/org_admin/conditions/_container.html.erb
     %>
 
-<% condition ||= nil %>
-
 <div class="row condition-partial mb-3">
   <%
-    action_type_arr = [["removes", :remove], ["adds notification", :add_webhook]]
+    condition ||= nil
     name_start = "conditions[#{condition_no.to_s}]"
-    remove_question_collection = later_question_list(question)
-    remove_question_group = grouped_options_for_select(remove_question_collection)
-    view_email_content_info = _("Hover over the email address to view email content. To change email details you need to remove and add the condition again.")
   %>
   
   <%# If this is a new condition then display the interactive controls. otherwise just display the logic %>
   <% if condition.nil? %>
     <%= render partial: 'org_admin/conditions/new_condition_form',
-                locals: { action_type_arr: action_type_arr,
-                          condition_no: condition_no,
-                          question: question,
+                locals: { condition_no: condition_no,
                           name_start: name_start,
-                          remove_question_group: remove_question_group,
-                          view_email_content_info: view_email_content_info
+                          question: question
                         }
       %>
 
   <% else %>
-  <%= render partial: 'org_admin/conditions/existing_condition_display',
-              locals: { action_type_arr: action_type_arr,
-                        condition: condition,
-                        condition_no: condition_no,
-                        name_start: name_start,
-                        question: question,
-                        remove_question_group: remove_question_group,
-                        view_email_content_info: view_email_content_info
-                      }
-    %>
+    <%= render partial: 'org_admin/conditions/existing_condition_display',
+                locals: { condition: condition,
+                          condition_no: condition_no,
+                          name_start: name_start,
+                          question: question
+                        }
+      %>
 
   <% end %>
 </div>

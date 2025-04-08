@@ -1,6 +1,7 @@
     <%
     qopt = condition[:question_option_id].any? ? QuestionOption.find_by(id: condition[:question_option_id].first): nil
     rquesArray = condition[:remove_question_id].any? ? Question.where(id: condition[:remove_question_id]) : nil
+    view_email_content_info = _("Hover over the email address to view email content. To change email details you need to remove and add the condition again.")
     %>
     <div class="col-md-3 pe-2">
       <%= qopt[:text]&.slice(0, 25) %>
