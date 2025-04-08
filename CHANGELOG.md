@@ -1,5 +1,7 @@
 # Changelog
 
+- Fix failing eslint workflow / upgrade `actions/checkout` & `actions/setup-node` to v3 [#3503](https://github.com/DMPRoadmap/roadmap/pull/3503)
+
 ## v5.0.0
 
 - Updated app to Rails 7 [#3426](https://github.com/DMPRoadmap/roadmap/pull/3426), [#3496](https://github.com/DMPRoadmap/roadmap/pull/3496)
