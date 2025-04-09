@@ -8,7 +8,7 @@
       <%= hidden_field_tag(name_start + "[question_option][]", condition[:question_option_id]) %>
     </div>
     <div class="col-md-3 pe-2">
-      <%= condition[:action_type] == 'remove' ? 'Remove' : 'Email' %>
+      <%= condition[:action_type] == 'remove' ? _('Remove') : _('Email') %>
       <%= hidden_field_tag(name_start + "[action_type]", condition[:action_type]) %>
     </div>
     <div class="col-md-3 pe-2">
@@ -21,8 +21,10 @@
         <%= hidden_field_tag(name_start + "[remove_question_id][]", condition[:remove_question_id]) %>
       <% else %>
         <%
-        hook_tip = "Name: #{condition[:webhook_data]['name']}\nEmail: #{condition[:webhook_data]['email']}\n"
-        hook_tip += "Subject: #{condition[:webhook_data]['subject']}\nMessage: #{condition[:webhook_data]['message']}"
+          hook_tip = "#{_('Name')}: #{condition[:webhook_data]['name']}\n"
+          hook_tip += "#{_('Email')}: #{condition[:webhook_data]['email']}\n"
+          hook_tip += "#{_('Subject')}: #{condition[:webhook_data]['subject']}\n"
+          hook_tip += "#{_('Message')}: #{condition[:webhook_data]['message']}"
         %>
         <span title="<%= hook_tip %>"><%= condition[:webhook_data]['email'] %></span>
         <br>(<%= view_email_content_info %>)
