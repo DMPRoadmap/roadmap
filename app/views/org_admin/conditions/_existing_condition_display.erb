@@ -1,0 +1,41 @@
+    <%
+    qopt = condition[:question_option_id].any? ? QuestionOption.find_by(id: condition[:question_option_id].first): nil
+    rquesArray = condition[:remove_question_id].any? ? Question.where(id: condition[:remove_question_id]) : nil
+    view_email_content_info = _("Hover over the email address to view email content. To change email details you need to remove and add the condition again.")
+    %>
+    <div class="col-md-3 pe-2">
+      <%= qopt[:text]&.slice(0, 25) %>
+      <%= hidden_field_tag(name_start + "[question_option][]", condition[:question_option_id]) %>
+    </div>
+    <div class="col-md-3 pe-2">
+      <%= condition[:action_type] == 'remove' ? _('Remove') : _('Email') %>
+      <%= hidden_field_tag(name_start + "[action_type]", condition[:action_type]) %>
+    </div>
+    <div class="col-md-3 pe-2">
+      <% if !rquesArray.nil? %>
+        <% rquesArray.each do |rques| %>
+           Question <%= rques[:number] %>: <%= rques.text.gsub(%r{</?p>}, '').slice(0, 50) %>
+           <%= '...' if rques.text.gsub(%r{</?p>}, '').length > 50 %>
+           <br>
+        <% end %>
+        <%= hidden_field_tag(name_start + "[remove_question_id][]", condition[:remove_question_id]) %>
+      <% else %>
+        <%
+          hook_tip = "#{_('Name')}: #{condition[:webhook_data]['name']}\n"
+          hook_tip += "#{_('Email')}: #{condition[:webhook_data]['email']}\n"
+          hook_tip += "#{_('Subject')}: #{condition[:webhook_data]['subject']}\n"
+          hook_tip += "#{_('Message')}: #{condition[:webhook_data]['message']}"
+        %>
+        <span title="<%= hook_tip %>"><%= condition[:webhook_data]['email'] %></span>
+        <br>(<%= view_email_content_info %>)
+
+        <%= hidden_field_tag(name_start + "[webhook-email]", condition[:webhook_data]['email']) %>
+        <%= hidden_field_tag(name_start + "[webhook-name]", condition[:webhook_data]['name']) %>
+        <%= hidden_field_tag(name_start + "[webhook-subject]", condition[:webhook_data]['subject']) %>
+        <%= hidden_field_tag(name_start + "[webhook-message]", condition[:webhook_data]['message']) %>
+      <% end %>
+      <%= hidden_field_tag(name_start + "[number]", condition_no) %>
+    </div>
+    <div class="col-md-3">
+      <a href="#anotherurl" class="delete-condition"><%= _('Remove') %></a>
+    </div>
