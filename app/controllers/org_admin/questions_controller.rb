@@ -211,30 +211,32 @@ module OrgAdmin
 
     private
 
-    # param_conditions looks like:
-    #   [
-    #     {
-    #       "conditions_N" => {
-    #         name: ...
-    #         subject ...
-    #         ...
-    #       }
-    #       ...
-    #     }
-    #   ]
+    # param_conditions is a hash of a hash like this (example where
+    # action_types is "remove" and "add_webhook" respectively):
+    # Parameters:
+    # {"0"=>{"question_option"=>["212159"],
+    #        "action_type"=>"remove",
+    #        "remove_question_id"=>["191471 191472"],
+    #        "number"=>"0"},
+    # "1"=>{"question_option"=>["212160"],
+    #       "action_type"=>"add_webhook",
+    #        "number"=>"1",
+    #        "webhook-name"=>"DMP Admin",
+    #        "webhook-email"=>"dmp-admin@example.com",
+    #        "webhook-subject"=>"Woodcote cillum quis elit consectetur epsom",
+    #        "webhook-message"=>"Labore ut epsom downs exercitation ...."}
+    #  }
     def sanitize_hash(param_conditions)
       return {} if param_conditions.nil?
       return {} if param_conditions.empty?
 
       res = {}
-      hash_of_hashes = param_conditions[0]
-      hash_of_hashes.each do |cond_name, cond_hash|
+      param_conditions.each do |cond_id, cond_hash|
         sanitized_hash = {}
         cond_hash.each do |k, v|
-          v = ActionController::Base.helpers.sanitize(v) if k.start_with?('webhook')
-          sanitized_hash[k] = v
+          sanitized_hash[k] = k.start_with?('webhook') ? ActionController::Base.helpers.sanitize(v) : v
         end
-        res[cond_name] = sanitized_hash
+        res[cond_id] = sanitized_hash
       end
       res
     end
