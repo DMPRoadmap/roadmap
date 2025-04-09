@@ -213,60 +213,38 @@ class Question < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def save_condition(value, opt_map, question_id_map)
     c = conditions.build
     c.action_type = value['action_type']
     c.number = value['number']
-    # question options may have changed so rewrite them
-    c.option_list = value['question_option']
 
-    if opt_map.present?
-      new_question_options = []
-      c.option_list.map do |qopt|
-        new_question_options << opt_map[qopt]
-      end
-      c.option_list = new_question_options
+    # question options may have changed so rewrite them
+    c.option_list = handle_option_list(value, opt_map)
+    # Do not save the condition if the option_list is empty
+    if c.option_list.empty?
+      c.destroy
+      return
     end
 
     if value['action_type'] == 'remove'
-      c.remove_data = value['remove_question_id']
-      if question_id_map.present?
-        new_question_ids = []
-        c.remove_data.map do |qid|
-          new_question_ids << question_id_map[qid]
-        end
-        c.remove_data = new_question_ids
-      end
-
-      # Do not save the condition if the option_list or remove_data is empty
-      if c.option_list.empty? || c.remove_data.empty?
+      c.remove_data = handle_remove_data(value, question_id_map)
+      # Do not save the condition if remove_data is empty
+      if c.remove_data.empty?
         c.destroy
         return
       end
     else
-      c.webhook_data = {
-        name: value['webhook-name'],
-        email: value['webhook-email'],
-        subject: value['webhook-subject'],
-        message: value['webhook-message']
-      }
-
-      # Do not save the condition if the option_list or if any webhook_data fields is empty
-      if c.option_list.empty? ||
-         c.webhook_data['name'].blank? ||
-         c.webhook_data['email'].blank? ||
-         c.webhook_data['subject'].blank? ||
-         c.webhook_data['message'].blank?
+      c.webhook_data = handle_webhook_data(value)
+      # Do not save the condition if webhook_data is nil
+      if c.webhook_data.nil?
         c.destroy
         return
       end
     end
     c.save
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
@@ -293,4 +271,33 @@ class Question < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  def handle_option_list(value, opt_map)
+    if opt_map.present?
+      value['question_option'].map { |qopt| opt_map[qopt] }
+    else
+      value['question_option']
+    end
+  end
+
+  def handle_remove_data(value, question_id_map)
+    if question_id_map.present?
+      value['remove_question_id'].map { |qid| question_id_map[qid] }
+    else
+      value['remove_question_id']
+    end
+  end
+
+  def handle_webhook_data(value)
+    # return nil if any of the webhook fields are blank
+    return if %w[webhook-name webhook-email webhook-subject webhook-message].any? { |key| value[key].blank? }
+
+    # else return the constructed webhook_data hash
+    {
+      name: value['webhook-name'],
+      email: value['webhook-email'],
+      subject: value['webhook-subject'],
+      message: value['webhook-message']
+    }
+  end
 end
