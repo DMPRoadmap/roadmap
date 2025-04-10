@@ -1,6 +1,6 @@
 # Changelog
 
-- Updated app to Rails 7 [#3426](https://github.com/DMPRoadmap/roadmap/pull/3426)
+- Updated app to Rails 7 [#3426](https://github.com/DMPRoadmap/roadmap/pull/3426), [#3496](https://github.com/DMPRoadmap/roadmap/pull/3496)
 - Address Some Bullet Warnings / Optimise Mean Request Times [#3440](https://github.com/DMPRoadmap/roadmap/pull/3440)
 - Fix Flaky Tests / Optimize Checking of `plan.title` Within `spec/features/plans/exports_spec.rb` [#3451](https://github.com/DMPRoadmap/roadmap/pull/3451)
 - Refactor Plan.deep_copy(plan) [#3469](https://github.com/DMPRoadmap/roadmap/pull/3469)
