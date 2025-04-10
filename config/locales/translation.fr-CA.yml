@@ -67,6 +67,7 @@ fr-CA:
           tb: To
           pb: Po
           eb: Eo
+          zb:
       decimal_units:
         units:
           thousand: Millier
@@ -116,6 +117,8 @@ fr-CA:
       not_saved:
         one: '1 erreur a empêché l’enregistrement de %{resource} :'
         other: "%{count} erreurs  ont empêché l’enregistrement de %{resource} : "
+      password_too_long:
+      in:
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
