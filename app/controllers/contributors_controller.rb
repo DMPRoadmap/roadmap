@@ -75,7 +75,6 @@ class ContributorsController < ApplicationController
       render :edit
     end
   end
-  # rubocop:enable
 
   # DELETE /plans/:plan_id/contributors/:id
   def destroy

@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   mysql:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     # Define environment variables for MySQL and Rails
     env:
@@ -38,7 +38,7 @@ jobs:
 
     # Stub out the Rails credentials file so that we can start the Rails app
     - name: 'Setup Credentials'
-      run: EDITOR='echo "$(cat config/credentials.yml.mysql2)" >' bundle exec rails credentials:edit
+      run: EDITOR="sh -c 'echo \"$(cat config/credentials.yml.mysql2)\" > \$1' --" bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
@@ -54,8 +54,8 @@ jobs:
 
     - name: 'Build out the test database'
       run: |
-        bundle exec rails db:create RAILS_ENV=test
-        bundle exec rails db:schema:load RAILS_ENV=test
+        DISABLE_SPRING=1 bundle exec rails db:create RAILS_ENV=test
+        DISABLE_SPRING=1 bundle exec rails db:schema:load RAILS_ENV=test
 
     - name: 'Run any pending database migrations'
       run: bin/rails db:migrate RAILS_ENV=test

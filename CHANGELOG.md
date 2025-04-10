@@ -1,5 +1,21 @@
 # Changelog
 
+- Updated app to Rails 7 [#3426](https://github.com/DMPRoadmap/roadmap/pull/3426), [#3496](https://github.com/DMPRoadmap/roadmap/pull/3496)
+- Address Some Bullet Warnings / Optimise Mean Request Times [#3440](https://github.com/DMPRoadmap/roadmap/pull/3440)
+- Fix Flaky Tests / Optimize Checking of `plan.title` Within `spec/features/plans/exports_spec.rb` [#3451](https://github.com/DMPRoadmap/roadmap/pull/3451)
+- Refactor Plan.deep_copy(plan) [#3469](https://github.com/DMPRoadmap/roadmap/pull/3469)
+- Fixed a bug in the deep copy of plans where the old identifier was being copied into the new plan. We now copy the generated id of the new plan to the identifier field.
+- Fixed bar chart click function in the Usage dashboard (GitHub issue #3443)
+- Fixed broken link for the V1 API documentation.
+- Fix `hidden_field_tag` Nested Attributes Format For Rails 7 Upgrade and Add Test Coverage [#3479](https://github.com/DMPRoadmap/roadmap/pull/3479)
+- Update all workflows to `runs-on: ubuntu-24.04` and Consolidate Capybara Config [#3487](https://github.com/DMPRoadmap/roadmap/pull/3487)
+- Add pdf handling in `render_respond_to_format_with_error_message` [#3482](https://github.com/DMPRoadmap/roadmap/pull/3482)
+- Lower PostgreSQL GitHub Action Chrome Version to Address Breaking Changes Between Latest Chrome Version (134) and `/features` Tests [#3491](https://github.com/DMPRoadmap/roadmap/pull/3491)
+- Bumped dependencies via `bundle update && yarn upgrade` [#3483](https://github.com/DMPRoadmap/roadmap/pull/3483)
+- Fixed issues with Conditional Question serialization offered by @briri from PR https://github.com/CDLUC3/dmptool/pull/667 for DMPTool. There is a migration file with code for MySQL and Postgres to update the Conditions table to convert JSON Arrays in string format records in the conditions table so that they are JSON Arrays.
+- Refactor `org_admin/conditions/_form.html.erb` [#3502](https://github.com/DMPRoadmap/roadmap/pull/3502)
+- Refactor `Question.save_condition` [#3501](https://github.com/DMPRoadmap/roadmap/pull/3501)
+
 ## v4.2.0
 
 **Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 

@@ -23,7 +23,7 @@
 #
 # Try to place any new Cops under their relevant section and in alphabetical order
 
-require:
+plugins:
 #   - rubocop-rails
 #   - rubocop-rspec
   - rubocop-performance

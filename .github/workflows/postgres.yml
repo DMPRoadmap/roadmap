@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   postgresql:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     services:
       # Postgres installation
@@ -27,6 +27,7 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
+      DISABLE_SPRING: 1
 
     steps:
     # Checkout the repo
@@ -52,6 +53,11 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install libpq-dev
+    
+    # Install ImageMagick (for `identify` command)
+    - name: 'Install ImageMagick'
+      run: |
+        sudo apt-get install -y imagemagick
 
     # Copy all of the example configs over
     - name: 'Setup Default Configuration'
@@ -65,7 +71,7 @@ jobs:
     - name: 'Setup Credentials'
       run: |
         # generate a default credential file and key
-        EDITOR='echo "$(cat config/credentials.yml.postgresql)" >' bundle exec rails credentials:edit
+        EDITOR="sh -c 'echo \"$(cat config/credentials.yml.postgresql)\" > \$1' --" bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
@@ -75,12 +81,24 @@ jobs:
     - name: 'Yarn Install'
       run: |
         yarn install
+    
+    # TEMPORARY WORKAROUND FOR THE FOLLOWING ISSUE: https://github.com/DMPRoadmap/roadmap/issues/3485
+    # Remove this once our tests are compatible with the new version of Chrome
+    # Source: https://github.com/teamcapybara/capybara/issues/2800#issuecomment-2731100953
+    - name: Remove image-bundled Chrome
+      run: sudo apt-get purge google-chrome-stable
+    - name: Setup stable Chrome
+      uses: browser-actions/setup-chrome@v1
+      with:
+        chrome-version: 128
+        install-chromedriver: true
+        install-dependencies: true
 
     # Initialize the DB
     - name: 'Setup Test DB'
       run: |
-        bundle exec rails db:setup RAILS_ENV=test
-        bundle exec rails db:migrate RAILS_ENV=test
+        bundle exec rails db:setup
+        bundle exec rails db:migrate
 
     # Prebuild the CSS, JS and image assets
     - name: 'Compile Assets'

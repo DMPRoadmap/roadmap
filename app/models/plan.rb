@@ -255,10 +255,11 @@ class Plan < ApplicationRecord
     plan_copy.title = "Copy of #{plan.title}"
     plan_copy.feedback_requested = false
     plan_copy.save!
+    # Copy newly generated Id to the identifier
+    plan_copy.identifier = plan_copy.id.to_s
     plan.answers.each do |answer|
       answer_copy = Answer.deep_copy(answer)
-      answer_copy.plan_id = plan_copy.id
-      answer_copy.save!
+      plan_copy.answers << answer_copy
     end
     plan.guidance_groups.each do |guidance_group|
       plan_copy.guidance_groups << guidance_group if guidance_group.present?

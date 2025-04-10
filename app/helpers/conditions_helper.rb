@@ -10,7 +10,7 @@ module ConditionsHelper
     id_list = []
     plan_answers = object.answers if object.is_a?(Plan)
     plan_answers = object[:answers] if object.is_a?(Hash)
-    return [] unless plan_answers.present?
+    return [] if plan_answers.blank?
 
     plan_answers.each { |answer| id_list += answer_remove_list(answer) }
     id_list
@@ -32,7 +32,7 @@ module ConditionsHelper
           rems = cond.remove_data.map(&:to_i)
           id_list += rems
         elsif !user.nil?
-          UserMailer.question_answered(JSON.parse(cond.webhook_data), user, answer,
+          UserMailer.question_answered(cond.webhook_data, user, answer,
                                        chosen.join(' and ')).deliver_now
         end
       end
@@ -57,7 +57,7 @@ module ConditionsHelper
       chosen = answer.question_option_ids.sort
       next unless chosen == opts
 
-      email_list << JSON.parse(cond.webhook_data)['email'] if action == 'add_webhook'
+      email_list << cond.webhook_data['email'] if action == 'add_webhook'
     end
     # uniq because could get same remove id from diff conds
     email_list.uniq.join(',')
@@ -70,7 +70,7 @@ module ConditionsHelper
     plan_remove_list = remove_list(plan)
     plan.answers.each do |answer|
       next unless answer.question.section_id == section.id &&
-                  !plan_remove_list.include?(answer.question_id) &&
+                  plan_remove_list.exclude?(answer.question_id) &&
                   section.question_ids.include?(answer.question_id) &&
                   answer.answered?
 
@@ -107,10 +107,9 @@ module ConditionsHelper
   def sections_info(plan)
     return [] if plan.nil?
 
-    info = plan.sections.map do |section|
+    plan.sections.map do |section|
       section_info(plan, section)
     end
-    info || []
   end
 
   def section_info(plan, section)
@@ -190,7 +189,7 @@ module ConditionsHelper
       return_string += "<dd>#{_('Answering')} "
       return_string += opts.join(' and ')
       if cond.action_type == 'add_webhook'
-        subject_string = text_formatted(JSON.parse(cond.webhook_data)['subject'])
+        subject_string = text_formatted(cond.webhook_data['subject'])
         return_string += format(_(' will <b>send an email</b> with subject %{subject_name}'),
                                 subject_name: subject_string)
       else
@@ -209,7 +208,7 @@ module ConditionsHelper
   def text_formatted(object)
     text = Question.find(object).text if object.is_a?(Integer)
     text = object if object.is_a?(String)
-    return 'type error' unless text.present?
+    return 'type error' if text.blank?
 
     cleaned_text = text
     text = ActionController::Base.helpers.truncate(cleaned_text, length: DISPLAY_LENGTH,
@@ -231,7 +230,7 @@ module ConditionsHelper
                           webhook_data: condition.webhook_data } }
       if param_conditions.key?(title)
         param_conditions[title].merge!(condition_hash[title]) do |_key, val1, val2|
-          if val1.is_a?(Array) && !val1.include?(val2[0])
+          if val1.is_a?(Array) && val1.exclude?(val2[0])
             val1 + val2
           else
             val1
