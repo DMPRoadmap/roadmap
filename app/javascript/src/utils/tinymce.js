@@ -25,6 +25,7 @@ import { isObject, isString, isUndefined } from './isType';
 // // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
 export const defaultOptions = {
   selector: '.tinymce',
+  license_key: 'gpl',
   statusbar: true,
   menubar: false,
   toolbar: 'bold italic | bullist numlist | link | table',

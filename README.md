@@ -42,5 +42,3 @@ See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/blob/developm
 
 #### License
 The DMP Roadmap project uses the <a href="./LICENSE.md">MIT License</a>.
-
-foobar

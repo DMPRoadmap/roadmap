@@ -74,6 +74,7 @@ tr-TR:
           tb: TB
           pb: PB
           eb: EB
+          zb:
       decimal_units:
         units:
           thousand: Bin
@@ -123,6 +124,8 @@ tr-TR:
       not_saved:
         one: '1 hata bu %{resource} dosyasının kaydedilmesini engelledi:'
         other: "%{count} hata bu %{resource} dosyasının kaydedilmesini engelledi:"
+      password_too_long:
+      in:
     template:
       body: 'Lütfen aşağıdaki hataları düzeltiniz:'
       header:

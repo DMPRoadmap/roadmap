@@ -1,5 +1,7 @@
 # Changelog
 
+## v5.0.0
+
 - Updated app to Rails 7 [#3426](https://github.com/DMPRoadmap/roadmap/pull/3426), [#3496](https://github.com/DMPRoadmap/roadmap/pull/3496)
 - Address Some Bullet Warnings / Optimise Mean Request Times [#3440](https://github.com/DMPRoadmap/roadmap/pull/3440)
 - Fix Flaky Tests / Optimize Checking of `plan.title` Within `spec/features/plans/exports_spec.rb` [#3451](https://github.com/DMPRoadmap/roadmap/pull/3451)
@@ -15,6 +17,7 @@
 - Fixed issues with Conditional Question serialization offered by @briri from PR https://github.com/CDLUC3/dmptool/pull/667 for DMPTool. There is a migration file with code for MySQL and Postgres to update the Conditions table to convert JSON Arrays in string format records in the conditions table so that they are JSON Arrays.
 - Refactor `org_admin/conditions/_form.html.erb` [#3502](https://github.com/DMPRoadmap/roadmap/pull/3502)
 - Refactor `Question.save_condition` [#3501](https://github.com/DMPRoadmap/roadmap/pull/3501)
+- Bump tinymce from 6.8.5 to 7.2.0 [#3505](https://github.com/DMPRoadmap/roadmap/pull/3505)
 
 ## v4.2.0
 

@@ -67,6 +67,7 @@ en-US:
           tb: TB
           pb: PB
           eb: EB
+          zb:
       decimal_units:
         units:
           thousand: Thousand
@@ -116,6 +117,8 @@ en-US:
         other: "%{count} errors prohibited this %{resource} from being saved:"
       model_invalid: 'Validation failed: %{errors}'
       required: must exist
+      password_too_long:
+      in:
     unavailable_session:
     unacceptable_request:
     connection_refused:
