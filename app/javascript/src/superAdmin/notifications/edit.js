@@ -5,7 +5,7 @@ import { paginableSelector } from '../../utils/paginable';
 import * as notifier from '../../utils/notificationHelper';
 
 $(() => {
-  Tinymce.init({ selector: '#notification_body', forced_root_block: '' });
+  Tinymce.init({ selector: '#notification_body' });
 
   $(paginableSelector).on('click, change', '.enable_notification input[type="checkbox"]', (e) => {
     const form = $(e.target).closest('form');
