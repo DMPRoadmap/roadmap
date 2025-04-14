@@ -67,6 +67,7 @@ pt-BR:
           tb: TB
           pb: PB
           eb: EB
+          zb:
       decimal_units:
         units:
           thousand: mil
@@ -116,6 +117,8 @@ pt-BR:
         other: "%{count} erros proibiram que esse %{resource} fosse salvo:"
       model_invalid: 'A validação falhou: %{errors}'
       required: é obrigatório(a)
+      password_too_long:
+      in:
     unavailable_session: |
       A sessão %{id} não está mais disponível na memória.
 
