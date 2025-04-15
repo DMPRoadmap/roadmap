@@ -2,7 +2,6 @@
  download_coversheet_tickbox_checked = Rails.configuration.x.plans.download_coversheet_tickbox_checked || false
 %>
 <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
-
   <h2><%= _('Format') %></h2>
   <div class="row">
     <div class="form-control mb-3 col-sm-2">
@@ -10,57 +9,63 @@
                      class: 'form-select', "aria-labelledby": "format" %>
     </div>
   </div>
-
   <div id="download-settings">
-    <h2><%= _("Download settings") %></h2>
-    <%= hidden_field_tag 'export[form]', true %>
-    <% if @phase_options.length > 1 %>
-      <div class="form-control mb-5">
-        <%= label_tag(:phase_id, _("Select phase to download"), class: 'form-label') %>
-        <%= select_tag(:phase_id, options_for_select(@phase_options, @phase_options[0]), class: 'form-select') %>
+    <div class="row">
+      <div class="col-12">
+        <h2><%= _("Download settings") %></h2>
       </div>
-    <% else %>
-      <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
-    <% end %>
-    <fieldset>
-      <legend><%= _("Optional plan components") %></legend>
-      <div class="form-check">
-        <%= label_tag 'export[project_details]', class:'form-check-label' do %>
-          <%= check_box_tag 'export[project_details]', true, download_coversheet_tickbox_checked %>
-          <%= _('project details coversheet') %>
-        <% end %>
-      </div>
-      <div class="form-check">
-        <%= label_tag 'export[question_headings]', class:'form-check-label' do %>
-          <%= check_box_tag 'export[question_headings]', true, true %>
-          <%= _('question text and section headings') %>
-        <% end %>
-      </div>
-      <div class="form-check">
-        <%= label_tag 'export[unanswered_questions]', class:'form-check-label' do %>
-          <%= check_box_tag 'export[unanswered_questions]', true, true %>
-          <%= _('unanswered questions') %>
-        <% end %>
-      </div>
-      <% if @plan.research_outputs.any? %>
-        <div class="form-check">
-          <%= label_tag 'export[research_outputs]', class:'form-check-label' do %>
-            <%= check_box_tag 'export[research_outputs]', true, true %>
-            <%= _('research outputs') %>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-6">
+        <fieldset>
+          <legend><%= _("Optional plan components") %></legend>
+          <div class="form-check">
+            <%= label_tag 'export[project_details]', class:'form-check-label' do %>
+              <%= check_box_tag 'export[project_details]', true, download_coversheet_tickbox_checked %>
+              <%= _('project details coversheet') %>
+            <% end %>
+          </div>
+          <div class="form-check">
+            <%= label_tag 'export[question_headings]', class:'form-check-label' do %>
+              <%= check_box_tag 'export[question_headings]', true, true %>
+              <%= _('question text and section headings') %>
+            <% end %>
+          </div>
+          <div class="form-check">
+            <%= label_tag 'export[unanswered_questions]', class:'form-check-label' do %>
+              <%= check_box_tag 'export[unanswered_questions]', true, true %>
+              <%= _('unanswered questions') %>
+            <% end %>
+          </div>
+          <% if @plan.research_outputs.any? %>
+            <div class="form-check">
+              <%= label_tag 'export[research_outputs]', class:'form-check-label' do %>
+                <%= check_box_tag 'export[research_outputs]', true, true %>
+                <%= _('research outputs') %>
+              <% end %>
+            </div>
           <% end %>
-        </div>
-      <% end %>
-      <% if @plan.template.customization_of.present? %>
-        <div class="form-check">
-          <%= label_tag 'export[custom_sections]', class:'form-check-label' do %>
-            <%= check_box_tag 'export[custom_sections]', true, false %>
-            <%= _('supplementary section(s) not requested by funding organisation') %>
+          <% if @plan.template.customization_of.present? %>
+            <div class="form-check">
+              <%= label_tag 'export[custom_sections]', class:'form-check-label' do %>
+                <%= check_box_tag 'export[custom_sections]', true, false %>
+                <%= _('supplementary section(s) not requested by funding organisation') %>
+              <% end %>
+            </div>
           <% end %>
+        </fieldset>
+      </div>
+      <%= hidden_field_tag 'export[form]', true %>
+      <% if @phase_options.length > 1 %>
+        <div class="form-control col-sm-12 col-lg-6">
+          <%= label_tag(:phase_id, _("Select phase to download"), class: 'form-label') %>
+          <%= select_tag(:phase_id, options_for_select(@phase_options, @phase_options[0]), class: 'form-select') %>
         </div>
+      <% else %>
+        <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
       <% end %>
-    </fieldset>
+    </div>
   </div>
-
   <div id="pdf-formatting" class="py-3">
     <h2><%= _('PDF formatting') %></h2>
     <div class="d-flex flex-row">
@@ -87,7 +92,6 @@
             class: 'form-select',
             "data-default": @plan.template.settings(:export).formatting[:font_size] %>
       </div>
-
       <div class="form-control mb-3 px-2 col-sm-1">
         <%= label_tag "export[formatting][margin][top]", _('Top'),
                       class: 'form-label' %>
@@ -126,7 +130,6 @@
       </div>
     </div>
   </div>
-
   <%= button_tag(sanitize(_("Download Plan <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span>") % { open_in_new_window_text: _('Opens in new window') },
         tags: %w{ span em }),
       class: "btn btn-primary has-new-window-popup-info",
