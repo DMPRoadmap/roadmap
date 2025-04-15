@@ -8,7 +8,7 @@
       <span class="input-group-text" id="search-addon">
         <span class="fas fa-magnifying-glass" aria-hidden="true"></span>
       </span>
-    <%= select_tag(:merge_id, options_from_collection_for_select(@users, "id", "email"), class: "form-control") %>
+    <%= select_tag(:merge_id, options_from_collection_for_select(@users, "id", "email"), class: "form-select") %>
     </div>
   </div>
   <%= submit_tag( _("Merge"), class: 'btn btn-secondary', style: 'margin-top: 8px;', data: { confirm: "placeholder" }) %>
