@@ -2,6 +2,8 @@
 
 # Controller that handles user login and logout
 class SessionsController < Devise::SessionsController
+  include EmailConfirmationHandler
+
   def new
     redirect_to(root_path)
   end
@@ -12,6 +14,9 @@ class SessionsController < Devise::SessionsController
   def create
     existing_user = User.find_by(email: params[:user][:email])
     unless existing_user.nil?
+
+      # See app/controllers/concerns/email_confirmation_handler.rb
+      return if confirmation_instructions_missing_and_handled?(existing_user)
 
       # Until ORCID login is supported
       unless session['devise.shibboleth_data'].nil?
