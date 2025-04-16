@@ -11,7 +11,7 @@ class SessionsController < Devise::SessionsController
   # rubocop:disable Metrics/AbcSize
   def create
     existing_user = User.find_by(email: params[:user][:email])
-    unless existing_user.nil?
+    if existing_user.present?
 
       unless existing_user.confirmed_or_has_confirmation_token?
         handle_missing_confirmation_instructions(existing_user)
@@ -27,9 +27,8 @@ class SessionsController < Devise::SessionsController
 
     super do
       if !@ui.nil? && @ui.save
-        # rubocop:disable Layout/LineLength
-        flash[:notice] = _('Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.')
-        # rubocop:enable Layout/LineLength
+        flash[:notice] = _('Your account has been successfully linked to your institutional credentials. ' \
+                           'You will now be able to sign in with them.')
       end
     end
   end
