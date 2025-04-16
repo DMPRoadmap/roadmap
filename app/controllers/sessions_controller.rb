@@ -19,15 +19,7 @@ class SessionsController < Devise::SessionsController
       end
 
       # Until ORCID login is supported
-      unless session['devise.shibboleth_data'].nil?
-        args = {
-          identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth'),
-          value: session['devise.shibboleth_data']['uid'],
-          identifiable: existing_user,
-          attrs: session['devise.shibboleth_data']
-        }
-        @ui = Identifier.new(args)
-      end
+      @ui = create_shibboleth_identifier(existing_user) unless session['devise.shibboleth_data'].nil?
       session[:locale] = existing_user.locale unless existing_user.locale.nil?
       # Method defined at controllers/application_controller.rb
       set_locale
@@ -52,6 +44,16 @@ class SessionsController < Devise::SessionsController
 end
 
 private
+
+def create_shibboleth_identifier(user)
+  args = {
+    identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth'),
+    value: session['devise.shibboleth_data']['uid'],
+    identifiable: user,
+    attrs: session['devise.shibboleth_data']
+  }
+  Identifier.new(args)
+end
 
 def handle_missing_confirmation_instructions(user)
   # Generate a confirmation_token and email confirmation instructions to the user
