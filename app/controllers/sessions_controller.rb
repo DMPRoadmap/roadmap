@@ -13,6 +13,11 @@ class SessionsController < Devise::SessionsController
     existing_user = User.find_by(email: params[:user][:email])
     unless existing_user.nil?
 
+      unless existing_user.confirmed_or_has_confirmation_token?
+        handle_missing_confirmation_instructions(existing_user)
+        return
+      end
+
       # Until ORCID login is supported
       unless session['devise.shibboleth_data'].nil?
         args = {
@@ -44,4 +49,14 @@ class SessionsController < Devise::SessionsController
     # Method defined at controllers/application_controller.rb
     set_locale
   end
+end
+
+private
+
+def handle_missing_confirmation_instructions(user)
+  # Generate a confirmation_token and email confirmation instructions to the user
+  user.send_confirmation_instructions
+  # Notify the user they are unconfirmed but confirmation instructions have been sent
+  flash[:notice] = I18n.t('devise.registrations.signed_up_but_unconfirmed')
+  redirect_to root_path
 end
