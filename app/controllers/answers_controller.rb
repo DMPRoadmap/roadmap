@@ -98,14 +98,32 @@ class AnswersController < ApplicationController
       @section = @plan.sections.find_by(id: @question.section_id)
       template = @section.phase.template
 
-      remove_list_after = remove_list(@plan)
-
+      # Get list of questions to be removed from the plan based on any conditional questions.
+      questions_remove_list_before_destroying_answers = remove_list(@plan)
       all_question_ids = @plan.questions.pluck(:id)
-      # rubocop pointed out that these variable is not used
-      # all_answers = @plan.answers
+
+      # Destroy all answers for removed questions
+      questions_remove_list_before_destroying_answers.each do |id|
+        Answer.where(question_id: id, plan: @plan).each do |a|
+          Answer.destroy(a.id)
+        end
+      end
+      # Now update @plan after removing answers of questions removed from the plan.
+      @plan = Plan.includes(
+        sections: {
+          questions: %i[
+            answers
+            question_format
+          ]
+        }
+      ).find(p_params[:plan_id])
+
+      # Now get list of question ids to remove based on remaining answers.
+      remove_list_question_ids = remove_list(@plan)
+
       qn_data = {
-        to_show: all_question_ids - remove_list_after,
-        to_hide: remove_list_after
+        to_show: all_question_ids - remove_list_question_ids,
+        to_hide: remove_list_question_ids
       }
 
       section_data = []

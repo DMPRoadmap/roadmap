@@ -1,5 +1,8 @@
 # Changelog
 
+- Fix for bug in Conditional questions functionality. In the case of a conditional question with answers that removed questions, any answers of removed questions was not removed. Nor were the removed answers deleted in the database. The Rspec tests were also updated to reflect this change.
+
+
 ## v5.0.0
 
 - Updated app to Rails 7 [#3426](https://github.com/DMPRoadmap/roadmap/pull/3426), [#3496](https://github.com/DMPRoadmap/roadmap/pull/3496)
