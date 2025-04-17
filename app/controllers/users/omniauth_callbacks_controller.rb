@@ -3,6 +3,7 @@
 module Users
   # Controller that handles callbacks from OmniAuth integrations (e.g. Shibboleth and ORCID)
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+    include EmailConfirmationHandler
     ##
     # Dynamically build a handler for each omniauth provider
     # -------------------------------------------------------------
@@ -40,10 +41,10 @@ module Users
         # Otherwise sign them in
         elsif scheme.name == 'shibboleth'
           # Until ORCID becomes supported as a login method
-          unless existing_user.confirmed_or_has_confirmation_token?
-            handle_missing_confirmation_instructions(existing_user)
-            return
-          end
+
+          # (see app/models/concerns/email_confirmation_handler.rb)
+          return if confirmation_instructions_missing_and_handled?(user)
+
           set_flash_message(:notice, :success, kind: scheme.description) if is_navigational_format?
           sign_in_and_redirect user, event: :authentication
         else
@@ -86,15 +87,5 @@ module Users
     def failure
       redirect_to root_path
     end
-  end
-
-  private
-
-  def handle_missing_confirmation_instructions(user)
-    # Generate a confirmation_token and email confirmation instructions to the user
-    user.send_confirmation_instructions
-    # Notify the user they are unconfirmed but confirmation instructions have been sent
-    flash[:notice] = I18n.t('devise.registrations.signed_up_but_unconfirmed')
-    redirect_to root_path
   end
 end
