@@ -44,6 +44,7 @@ module Users
 
     private
 
+    # rubocop:disable Metrics/AbcSize
     def handle_omniauth_for_signed_in_user(user, scheme)
       # If the user could not be found by that uid then attach it to their record
       if user.nil?
@@ -69,7 +70,9 @@ module Users
       # Redirect to the User Profile page
       redirect_to edit_user_registration_path
     end
+    # rubocop:enable Metrics/AbcSize
 
+    # rubocop:disable Metrics/AbcSize
     def handle_omniauth_for_signed_out_user(user, scheme)
       # If the uid didn't have a match in the system send them to register
       if user.nil?
@@ -90,5 +93,6 @@ module Users
         redirect_to new_user_registration_url
       end
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end
