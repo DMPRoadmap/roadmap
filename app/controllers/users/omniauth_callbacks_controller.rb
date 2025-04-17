@@ -51,9 +51,8 @@ module Users
                              value: request.env['omniauth.auth'].uid,
                              attrs: request.env['omniauth.auth'],
                              identifiable: current_user)
-          flash[:notice] =
-            format(_('Your account has been successfully linked to %{scheme}.'),
-                   scheme: scheme.description)
+          flash[:notice] = format(_('Your account has been successfully linked to %{scheme}.'),
+                                  scheme: scheme.description)
 
         else
           flash[:alert] = format(_('Unable to link your account to %{scheme}.'),
@@ -63,9 +62,8 @@ module Users
       elsif user.id != current_user.id
         # If a user was found but does NOT match the current user then the identifier has
         # already been attached to another account (likely the user has 2 accounts)
-        # rubocop:disable Layout/LineLength
-        flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
-        # rubocop:enable Layout/LineLength
+        flash[:alert] = _("The current #{scheme.description} iD has been already linked " \
+                          "to a user with email #{identifier.user.email}")
       end
 
       # Redirect to the User Profile page
