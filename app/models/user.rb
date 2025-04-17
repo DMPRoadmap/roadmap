@@ -382,10 +382,6 @@ class User < ApplicationRecord
     )
   end
 
-  def confirmed_or_has_confirmation_token?
-    confirmed? || confirmation_token.present?
-  end
-
   # Case insensitive search over User model
   #
   # field - The name of the field being queried
