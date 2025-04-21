@@ -53,7 +53,7 @@ namespace :templates do
               versionable_id: section_version
             )
 
-            section.questions.select { |ques| ques.versionable_id.nil? }.each do |question|
+            section.questions.select { |ques| ques.versionable_id.nil? }.each do |question|  # codespell:ignore
               question_version = SecureRandom.uuid
               p "        Updating versionable_id for Question: #{question.id} to #{question_version}"
               question.update_columns(versionable_id: question_version)
