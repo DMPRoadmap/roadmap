@@ -50,7 +50,7 @@ RSpec.describe Api::V1::ConversionService do
                                                value: Faker::Lorem.word)
       expect(expected.identifier_scheme.name).to eql(context)
     end
-    it "returns an Identifier asssociated with the 'grant' scheme" do
+    it "returns an Identifier associated with the 'grant' scheme" do
       value = Faker::Lorem.word
       expected = described_class.to_identifier(context: Faker::Lorem.word,
                                                value: value)

@@ -34,7 +34,7 @@ $(() => {
     * form with class form-answer. The key represents a question id and the value holds
     * the debounced function for a given input, textarea or select. Note, this map is
     * populated on demand, i.e. the first time a change is made at a given input, textarea
-    * or select within the form, a new key-value should be created. Succesive times, the
+    * or select within the form, a new key-value should be created. Successive times, the
     * debounced function should be retrieved instead.
     */
     const debounceMap = {};

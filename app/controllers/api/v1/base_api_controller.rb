@@ -109,7 +109,7 @@ module Api
       end
 
       # =========================
-      # PERMIITTED PARAMS HEPERS
+      # PERMIITTED PARAMS HELPERS
       # =========================
       def plan_permitted_params
         %i[created title description language ethical_issues_exist

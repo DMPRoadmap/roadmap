@@ -49,7 +49,7 @@
         <% if remove_list(@plan).include?(question[:id]) %>
           <% next %>
         <% end %>
-        <%# text in this case is an array to accomodate for option_based %>
+        <%# text in this case is an array to accommodate for option_based %>
         <% if @show_sections_questions %>
           <% answer = @plan.answer(question[:id], false) %>
           <% if @show_unanswered %>

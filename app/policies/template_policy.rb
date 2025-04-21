@@ -76,7 +76,7 @@ class TemplatePolicy < ApplicationPolicy
   #  - The template which they are modifying belongs to their org
   ##
 
-  # Anyone with an account should be able to get templates for the sepecified research_org + funder
+  # Anyone with an account should be able to get templates for the specified research_org + funder
   # This policy is applicable to the Create Plan page
   def template_options?
     @user.present?

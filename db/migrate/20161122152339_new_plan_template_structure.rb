@@ -147,7 +147,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration[4.2]
           puts ""
           puts "beginning number #{proj_number}"
           proj_number +=1
-          if project.dmptemplate.nil?               # one of the templates dosent exist
+          if project.dmptemplate.nil?               # one of the templates doesn't exist
             next
           end
           new_plan = initNewPlan(project)           # copy data from project to NewPlan object
@@ -230,7 +230,7 @@ class NewPlanTemplateStructure < ActiveRecord::Migration[4.2]
           # template/phases/sections/questions/question_options/question_themes
           # now need to init answers, notes, answers_options
           #new_plan.template.new_phases.each do |new_phase|
-          puts "transfering plan data"
+          puts "transferring plan data"
           project.project_groups.each do |group|
             role = initRole(group, new_plan)
             role.save!

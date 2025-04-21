@@ -1,0 +1,6 @@
+[codespell]
+# Ref: https://github.com/codespell-project/codespell#using-a-config-file
+skip = .git*,*.pdf,*.svg,locale,vendor,*.lock,*.css,*.min.*,.codespellrc,locales,language_presenter.rb
+check-hidden = true
+# ignore-regex = 
+ignore-words-list = ans,rememberable,requestor,reord

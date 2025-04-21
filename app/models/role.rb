@@ -71,7 +71,7 @@ class Role < ApplicationRecord
   # Return ActiveRecord::Relation
   scope :with_access_flags, lambda { |*flags|
     bad_flag = flags.detect { |flag| !flag.in?(flag_mapping['access'].keys) }
-    raise ArgumentError, "Unkown access flag '#{bad_flag}'" if bad_flag
+    raise ArgumentError, "Unknown access flag '#{bad_flag}'" if bad_flag
 
     access_values = flags.map { |flag| sql_in_for_flag(flag.to_sym, 'access') }
                          .flatten
@@ -124,7 +124,7 @@ end
 # 03 - creator + administrator
 # 04 - editor
 # 05 - creator + editor
-# 06 - administraor + editor
+# 06 - administrator + editor
 # 07 - creator + editor + administrator
 # 08 - commenter
 # 09 - creator + commenter
@@ -140,7 +140,7 @@ end
 # 19 - creator + administrator + reviewer
 # 20 - editor + reviewer
 # 21 - creator + editor + reviewer
-# 22 - administraor + editor + reviewer
+# 22 - administrator + editor + reviewer
 # 23 - creator + editor + administrator + reviewer
 # 24 - commenter + reviewer
 # 25 - creator + commenter + reviewer

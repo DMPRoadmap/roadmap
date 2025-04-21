@@ -269,7 +269,7 @@ class RegistrationsController < Devise::RegistrationsController
     elsif args[:password_confirmation].blank?
       message = _('Please enter a password confirmation')
     elsif args[:password] != args[:password_confirmation]
-      message = _('Password and comfirmation must match')
+      message = _('Password and confirmation must match')
     else
       successfully_updated = current_user.update_with_password(args)
     end

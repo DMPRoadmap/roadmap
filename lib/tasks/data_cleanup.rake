@@ -209,7 +209,7 @@ namespace :data_cleanup do
     ids = []
     if filter.options[:with].present?
       filter.attributes.each do |attr|
-        # skip password validaton since the field is encrypted through Devise
+        # skip password validation since the field is encrypted through Devise
         unless attr == :password
           # If this is the users.email field send it to the EmailValidator. Devise has its own Regex
           # but running a Regex query gets messy between different DB types

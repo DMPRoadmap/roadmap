@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This helper method xslt_path prepends the htmltoword method,
-# to allow us to overide the numbering.xslt styleheet with one
+# to allow us to override the numbering.xslt styleheet with one
 # with fix in https://github.com/karnov/htmltoword/issues/73
 # We applied this gem gem htmltoword-1.1.0.
 

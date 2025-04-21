@@ -7,7 +7,7 @@ module Api
       # NOTE: @user is either a User or an ApiClient
 
       # A helper method that takes the current client and returns the plans they
-      # have acess to
+      # have access to
       class Scope
         ## return the visible plans (via the API) to a given client
         # ALL can view: public

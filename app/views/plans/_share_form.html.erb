@@ -2,7 +2,7 @@
 <% editor = Role.new(editor: true, commenter: true) %>
 <% commenter = Role.new(commenter: true) %>
 <% administerable = @plan.administerable_by?(current_user.id) %>
-<% email_tooltip = _("Enter the email address of your collaborator: If they are already using #{ApplicationService.application_name}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{ApplicationService.application_name}, they will recieve an email inviting them to the tool so they can collaborate on your plan.") %>
+<% email_tooltip = _("Enter the email address of your collaborator: If they are already using #{ApplicationService.application_name}, they will see this plan on their dashboard, and receive an email. If they are not currently using #{ApplicationService.application_name}, they will receive an email inviting them to the tool so they can collaborate on your plan.") %>
 <% permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)') %>
 
 <h2><%= _('Set plan visibility') %></h2>

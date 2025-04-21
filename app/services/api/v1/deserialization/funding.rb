@@ -3,7 +3,7 @@
 module Api
   module V1
     module Deserialization
-      # Logic to deserialize RDA common standard to a Plan funder and grant infor
+      # Logic to deserialize RDA common standard to a Plan funder and grant info
       class Funding
         class << self
           # Convert the funding information and attach to the Plan

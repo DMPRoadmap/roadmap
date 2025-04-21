@@ -104,7 +104,7 @@ RSpec.describe ExternalApis::BaseService do
         result = described_class.send(:options)
         expect(result[:headers][:Accept]).to eql('*/*')
       end
-      it 'merges additonal headers into the :headers option' do
+      it 'merges additional headers into the :headers option' do
         result = described_class.send(:options, additional_headers: { foo: 'bar' })
         expect(result[:headers][:Accept]).to eql('*/*')
         expect(result[:headers][:foo]).to eql('bar')

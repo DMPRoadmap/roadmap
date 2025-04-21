@@ -9,7 +9,7 @@
  *      <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
  *    </div>
  *
- * Your accordion should follow the Boostrap 5.x layout:
+ * Your accordion should follow the Bootstrap 5.x layout:
  * ------------------------------------------------------------
 n*
  *  <div class="accordion" id="accordionDefault">

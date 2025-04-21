@@ -4,7 +4,7 @@
 module Versionable
   private
 
-  # Takes in a Template, phase, Section, Question, or Annotaion
+  # Takes in a Template, phase, Section, Question, or Annotation
   # IF the template is published, generates a new template
   # finds the passed object in the new template
   #

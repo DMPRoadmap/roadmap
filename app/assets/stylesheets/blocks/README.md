@@ -1,6 +1,6 @@
 # CSS Blocks
 
-Blocks refer to reusable units within the CSS files. Where practicable, we should always try to define a general block or UX concept, rather than styling indivudual elements.
+Blocks refer to reusable units within the CSS files. Where practicable, we should always try to define a general block or UX concept, rather than styling individual elements.
 
 Example:
 

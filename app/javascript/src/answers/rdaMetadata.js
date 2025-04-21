@@ -139,7 +139,7 @@ $(() => {
 
   function waitAndUpdate() {
     if (noWaiting > 0) {
-      // if we are waiting on api responces, call this function in 1 seccond
+      // if we are waiting on api responses, call this function in 1 second
       setTimeout(waitAndUpdate, 1000);
     } else {
       // update all the dropdowns/ standards explore box (calling on subject
@@ -183,7 +183,7 @@ $(() => {
       // update the standards display selector
       $('.rda_metadata .sub-subject select').change();
     } else {
-      // show the sub-subject incase it was previously hidden
+      // show the sub-subject in case it was previously hidden
       subSubject.closest('div').show();
       // update the sub-subject display selector
       subSubject.find('option').remove();

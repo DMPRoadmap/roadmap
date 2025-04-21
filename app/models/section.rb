@@ -128,7 +128,7 @@ class Section < ApplicationRecord
     copy
   end
 
-  # Can't be modified as it was duplicatd over from another Phase.
+  # Can't be modified as it was duplicated over from another Phase.
   def unmodifiable?
     !modifiable?
   end

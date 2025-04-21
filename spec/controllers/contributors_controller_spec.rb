@@ -73,7 +73,7 @@ RSpec.describe ContributorsController, type: :controller do
       expect(contrib.email).to eql(params[:email])
       expect(contrib.phone).to eql(params[:phone].to_s)
 
-      # Verify that the corrrect roles were assigned
+      # Verify that the correct roles were assigned
       contrib.all_roles.each do |role|
         expect(contrib.send(:"#{role}?")).to eql(params[:"#{role}"] == '1')
       end
@@ -99,7 +99,7 @@ RSpec.describe ContributorsController, type: :controller do
       expect(@contributor.email).to eql(params[:email])
       expect(@contributor.phone).to eql(params[:phone].to_s)
 
-      # Verify that the corrrect roles were assigned
+      # Verify that the correct roles were assigned
       @contributor.all_roles.each do |role|
         expect(@contributor.send(:"#{role}?")).to eql(params[:"#{role}"] == '1')
       end

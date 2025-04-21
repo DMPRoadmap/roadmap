@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# statements fix Circular dependancy errors due to threading
+# statements fix Circular dependency errors due to threading
 # see: https://github.com/grosser/parallel#nameerror-uninitialized-constant
 OrgDateRangeable.class
 StatJoinedUser.class

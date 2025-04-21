@@ -31,7 +31,7 @@ RSpec.describe 'Registrations', type: :feature do
     expect(page).to have_text(user_attributes[:surname])
   end
 
-  scenario 'User attempts to create a new acccount with invalid atts', :js do
+  scenario 'User attempts to create a new account with invalid atts', :js do
     # Setup
     visit root_path
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # New with Rails 6+, we need to define the list of locales outside the context of
-# the Database since thiss runs during startup. Trying to access the DB causes
+# the Database since this runs during startup. Trying to access the DB causes
 # issues with autoloading; 'DEPRECATION WARNING: Initialization autoloaded the constants ... Language'
 #
 # Note that the entries here must have a corresponding directory in config/locale, a

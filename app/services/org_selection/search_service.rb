@@ -117,7 +117,7 @@ module OrgSelection
       #     - Example College
       #     - Example University
       #     - University of Example
-      #     - Universidade de Examplar
+      #     - Universidade de Exemplar
       #     - Another College that ROR has a matching alias for
       #
       def sort(array:)

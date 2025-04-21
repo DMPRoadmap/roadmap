@@ -1,6 +1,6 @@
 class AddForeignKeys < ActiveRecord::Migration[4.2]
     # this migraiton modifies data in tables, and thus depends on being at a specific
-    # point in the history of the codebase.  Specificly the models must reflect the
+    # point in the history of the codebase.  Specifically the models must reflect the
     # relationships expected within this code
   def change
     # remove broken references

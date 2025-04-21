@@ -291,7 +291,7 @@ class Plan < ApplicationRecord
   # none exists.
   #
   # qid               - The id for the question to find the answer for
-  # create_if_missing - If true, will genereate a default answer
+  # create_if_missing - If true, will generate a default answer
   #                     to the question (defaults: true).
   #
   # Returns Answer
