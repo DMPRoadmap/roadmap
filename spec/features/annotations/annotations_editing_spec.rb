@@ -47,7 +47,7 @@ RSpec.feature 'Annotations::Editing', type: :feature do
 
     within("fieldset#fields_annotation_#{template.annotation_ids.last}") do
       id = "question_annotations_attributes_annotation_#{template.annotation_ids.last}_text"
-      tinymce_fill_in(id, with: 'Noo bar')
+      tinymce_fill_in(id, with: 'Noo bar')  # codespell:ignore
     end
 
     # NOTE: This is question 2, since Annotation was copied upon clicking "Customise"
@@ -56,7 +56,7 @@ RSpec.feature 'Annotations::Editing', type: :feature do
       expect { click_button 'Save' }.not_to change { Annotation.count }
     end
     expect(annotation.text).to eql('Foo bar')
-    expect(Annotation.order('created_at').last.text).to eql('<p>Noo bar</p>')
+    expect(Annotation.order('created_at').last.text).to eql('<p>Noo bar</p>')  # codespell:ignore
     expect(page).not_to have_errors
   end
 
