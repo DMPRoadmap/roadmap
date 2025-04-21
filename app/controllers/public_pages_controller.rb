@@ -29,7 +29,7 @@ class PublicPagesController < ApplicationController
     # only export live templates, id passed is family_id
     @template = Template.live(params[:id])
     # covers authorization for this action.
-    # Pundit dosent support passing objects into scoped policies
+    # Pundit doesn't support passing objects into scoped policies
     unless PublicPagePolicy.new(current_user, @template).template_export?
       msg = 'You are not authorized to export that template'
       redirect_to public_templates_path, notice: msg and return

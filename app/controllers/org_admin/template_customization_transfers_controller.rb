@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OrgAdmin
-  # Controller that handles transfering parent template changes to a customized template
+  # Controller that handles transferring parent template changes to a customized template
   class TemplateCustomizationTransfersController < ApplicationController
     include Versionable
 

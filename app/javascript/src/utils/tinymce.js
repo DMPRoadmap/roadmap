@@ -157,7 +157,7 @@ export const Tinymce = {
   },
   /*
     Destroy an editor instance whose target element/textarea has HTML id passed. This method
-    executes tinymce.Editor.destroy (e.g. https://www.tinymce.com/docs/api/tinymce/tinymce.editor/#destroy) for a successfull id found.
+    executes tinymce.Editor.destroy (e.g. https://www.tinymce.com/docs/api/tinymce/tinymce.editor/#destroy) for a successful id found.
     @return undefined
   */
   destroyEditorById(id) {

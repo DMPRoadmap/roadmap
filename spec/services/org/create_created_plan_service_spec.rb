@@ -151,7 +151,7 @@ RSpec.describe Org::CreateCreatedPlanService do
         expect(counts).to eq([2, 1, 2, 0])
       end
 
-      it 'generates montly counts by template for each org since their creation' do
+      it 'generates monthly counts by template for each org since their creation' do
         Org.stubs(:all).returns([org])
 
         described_class.call

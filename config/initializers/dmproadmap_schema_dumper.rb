@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ActiveRecord
-  # The Rails 5.x SchemaDumper includes an `options:` arrgument on table definitions
+  # The Rails 5.x SchemaDumper includes an `options:` argument on table definitions
   # that is not DB agnostic. This Monkey Patch comments out the `options:` section.
   #
   # TODO: Determine if this is still necessary in Rails 6.x+

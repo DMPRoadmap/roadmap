@@ -48,7 +48,7 @@ RSpec.describe ExternalApis::SpdxService do
         described_class.expects(:log_error)
         expect(described_class.send(:query_spdx)).to eql([])
       end
-      it 'returns an empty array if the response conatins no license' do
+      it 'returns an empty array if the response contains no license' do
         JSON.expects(:parse).returns({})
         expect(described_class.send(:query_spdx)).to eql([])
       end

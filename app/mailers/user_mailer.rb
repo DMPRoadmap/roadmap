@@ -70,12 +70,12 @@ class UserMailer < ActionMailer::Base
     @role       = role
     @plan_title = @role.plan.title
     @user       = user
-    @recepient = @role.user
+    @recipient = @role.user
     @messaging = role_text(@role)
     @helpdesk_email = helpdesk_email(org: @user.org)
 
     I18n.with_locale I18n.default_locale do
-      mail(to: @recepient.email,
+      mail(to: @recipient.email,
            subject: format(_('Changed permissions on a Data Management Plan in %{tool_name}'),
                            tool_name: tool_name))
     end

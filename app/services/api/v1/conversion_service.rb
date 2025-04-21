@@ -23,7 +23,7 @@ module Api
           false
         end
 
-        # Converts the context and value into an Identifier with a psuedo
+        # Converts the context and value into an Identifier with a pseudo
         # IdentifierScheme for display in JSON partials. Which will result in:
         #   { type: 'context', identifier: 'value' }
         def to_identifier(context:, value:)

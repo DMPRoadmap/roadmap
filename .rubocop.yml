@@ -131,7 +131,7 @@ Metrics/MethodLength:
   Max: 20
 
 # mnicholson Oct. 6th 2021
-# Default lenght for block is 25 lines, which it would be very restrictive for
+# Default length for block is 25 lines, which it would be very restrictive for
 # the Rspec views methods. So I'll just exclude some files.
 Metrics/BlockLength:
   Exclude:

@@ -398,7 +398,7 @@ class PlansController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-  # TODO: This should probablly just be merged with the update route
+  # TODO: This should probably just be merged with the update route
   # POST /plans/:id/visibility
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def visibility
@@ -433,7 +433,7 @@ class PlansController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # TODO: This should probablly just be merged with the update route
+  # TODO: This should probably just be merged with the update route
   # POST /plans/:id/set_test
   def set_test
     plan = Plan.find(params[:id])

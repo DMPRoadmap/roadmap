@@ -19,7 +19,7 @@ $(() => {
   };
 
   // attach listener to separator select menu
-  // on change look for "stat" elements and chnage their query param
+  // on change look for "stat" elements and change their query param
   const fieldSep = document.getElementById('csv-field-sep');
   if (fieldSep !== null) {
     fieldSep.addEventListener('click', (e) => {
