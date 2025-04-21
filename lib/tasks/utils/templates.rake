@@ -30,7 +30,7 @@ namespace :templates do
       funder_template.phases.select { |phase| phase.versionable_id.nil? }.each do |phase|
         p "Processing Template: #{funder_template.id} - #{funder_template.title}"
 
-        # Run all of this within a transation so that it rolls back if there is an issue!
+        # Run all of this within a transaction so that it rolls back if there is an issue!
         phase.transaction do
           phase_version = SecureRandom.uuid
           p "  Updating versionable_id for Phase: #{phase.id} to #{phase_version}"
