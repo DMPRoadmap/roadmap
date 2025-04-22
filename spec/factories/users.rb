@@ -82,5 +82,14 @@ FactoryBot.define do
         end
       end
     end
+
+    trait :unconfirmed_and_no_confirmation_token do
+      confirmed_at { nil }
+      # When using :confirmable, a confirmation_token is generated at the time of user creation
+      # Setting it to nil allows us to duplicate the attributes of some existing users
+      after(:create) do |user|
+        user.update(confirmation_token: nil)
+      end
+    end
   end
 end
