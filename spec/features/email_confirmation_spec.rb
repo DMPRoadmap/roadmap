@@ -26,34 +26,42 @@ RSpec.describe 'Email Confirmation', type: :feature do
     expect(page).to have_current_path(plans_path)
   end
 
-  scenario 'A user attempts to sign in via the "Sign in with your institutional credentials"
-            button. The email is linked to a user account, however the account is
-            unconfirmed and has no confirmation token.', :js do
-    user = create(:user, :unconfirmed_and_no_confirmation_token)
-    scheme = create(:identifier_scheme, :shibboleth)
-    # Mock the OmniAuth authentication hash for Shibboleth via OmniAuthHelper
-    OmniAuth.config.mock_auth[:shibboleth] = mock_auth_hash(user, scheme)
-    # Create a Shibboleth-related Identifier for the user
-    Identifier.create(identifier_scheme: scheme,
-                      value: OmniAuth.config.mock_auth[:shibboleth].uid,
-                      attrs: OmniAuth.config.mock_auth[:shibboleth],
-                      identifiable: user)
+  describe 'Initial setup for shibboleth sign-in' do
+    before do
+      # Set up the user and identifier scheme
+      @user = create(:user, :unconfirmed_and_no_confirmation_token)
+      scheme = create(:identifier_scheme, :shibboleth)
+      # Mock OmniAuth authentication hash for Shibboleth via OmniAuthHelper
+      OmniAuth.config.mock_auth[:shibboleth] = mock_auth_hash(@user, scheme)
+      # Explicitly define a Users::OmniauthCallbacksController action for the scheme
+      define_omniauth_callback_for(scheme)
 
-    visit root_path
-    # Sign-in attempt #1 (user is unconfirmed and has no confirmation_token)
-    click_link SSO_SIGN_IN_BUTTON_TEXT
-    expectations_for_unconfirmed_user_with_no_confirmation_token_after_sign_in_attempt(user)
+      # Create the identifier for the user
+      Identifier.create(identifier_scheme: scheme,
+                        value: OmniAuth.config.mock_auth[:shibboleth].uid,
+                        attrs: OmniAuth.config.mock_auth[:shibboleth],
+                        identifiable: @user)
+    end
 
-    visit root_path
-    # Sign-in attempt #2 (user still unconfirmed but has a confirmation_token)
-    click_link SSO_SIGN_IN_BUTTON_TEXT
-    expectations_for_unconfirmed_user_with_confirmation_token_after_sign_in_attempt
+    scenario 'A user attempts to sign in via the "Sign in with your institutional credentials"
+              button. The email is linked to a user account, however the account is
+              unconfirmed and has no confirmation token.', :js do
+      visit root_path
+      # Sign-in attempt #1 (user is unconfirmed and has no confirmation_token)
+      click_link SSO_SIGN_IN_BUTTON_TEXT
+      expectations_for_unconfirmed_user_with_no_confirmation_token_after_sign_in_attempt(@user)
 
-    # Sign-in attempt #3 (user is now confirmed)
-    user.confirm
-    click_link SSO_SIGN_IN_BUTTON_TEXT
-    # The user is signed in
-    expect(page).to have_current_path(plans_path)
+      visit root_path
+      # Sign-in attempt #2 (user still unconfirmed but has a confirmation_token)
+      click_link SSO_SIGN_IN_BUTTON_TEXT
+      expectations_for_unconfirmed_user_with_confirmation_token_after_sign_in_attempt
+
+      # Sign-in attempt #3 (user is now confirmed)
+      @user.confirm
+      click_link SSO_SIGN_IN_BUTTON_TEXT
+      # The user is signed in
+      expect(page).to have_current_path(plans_path)
+    end
   end
 
   scenario 'A user is unconfirmed but has no confirmation token.
