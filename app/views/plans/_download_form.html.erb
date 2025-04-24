@@ -16,9 +16,9 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 col-lg-6">
+      <div class="form-control col-sm-12 col-lg-6">
         <fieldset>
-          <legend><%= _("Optional plan components") %></legend>
+          <%= label_tag('', _("Optional plan components"), class: 'form-label') %>
           <div class="form-check">
             <%= label_tag 'export[project_details]', class:'form-check-label' do %>
               <%= check_box_tag 'export[project_details]', true, download_coversheet_tickbox_checked %>
