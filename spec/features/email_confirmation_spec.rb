@@ -64,9 +64,10 @@ RSpec.describe 'Email Confirmation', type: :feature do
     end
   end
 
-  scenario 'A user is unconfirmed but has no confirmation token.
+  scenario 'A user has a confirmation token but is unconfirmed.
             There sign in attempt fails, and a custom flash message
             is rendered that can be used to navigate to the confirmation page.', :js do
+    # Create a user with a confirmation token but make them unconfirmed
     user = create(:user, confirmed_at: nil)
     # Attempt to sign in the unconfirmed user
     sign_in(user)
