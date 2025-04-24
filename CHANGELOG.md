@@ -2,6 +2,7 @@
 
 - Fix failing eslint workflow / upgrade `actions/checkout` & `actions/setup-node` to v3 [#3503](https://github.com/DMPRoadmap/roadmap/pull/3503)
 - Fix rendering of `confirm_merge` partial [#3515](https://github.com/DMPRoadmap/roadmap/pull/3515)
+- Re-implement email confirmation [#3507](https://github.com/DMPRoadmap/roadmap/pull/3507)
 
 ## v5.0.0
 
