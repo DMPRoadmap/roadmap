@@ -5,6 +5,8 @@
 - Fix failing eslint workflow / upgrade `actions/checkout` & `actions/setup-node` to v3 [#3503](https://github.com/DMPRoadmap/roadmap/pull/3503)
 - Fix rendering of `confirm_merge` partial [#3515](https://github.com/DMPRoadmap/roadmap/pull/3515)
 - Remove Auto-Generated TinyMCE Skins and Add `public/tinymce/skins/` to `.gitignore` [#3466](https://github.com/DMPRoadmap/roadmap/pull/3466)
+- Re-implement email confirmation [#3507](https://github.com/DMPRoadmap/roadmap/pull/3507)
+- Update `spec/support/faker.rb` to use `I18n.default_locale` [#3507](https://github.com/DMPRoadmap/roadmap/pull/3507)
 
 ## v5.0.0
 
