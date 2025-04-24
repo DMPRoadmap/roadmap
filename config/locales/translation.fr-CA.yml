@@ -242,7 +242,8 @@ fr-CA:
       not_found_in_database: "%{authentication_keys} ou mot de passe incorrect."
       timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
-      unconfirmed: Vous devez confirmer votre adresse courriel pour continuer.
+      unconfirmed: Vous devez confirmer votre compte avant de continuer. <a href="/users/confirmation/new"
+        class="a-orange">(cliquez pour demander un nouveau courriel de confirmation)</a>
       invited: Vous avez une invitation en attente. Acceptez-la pour terminer la création
         de votre compte.
     mailer:

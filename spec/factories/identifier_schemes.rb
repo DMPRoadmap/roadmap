@@ -27,6 +27,16 @@ FactoryBot.define do
       context_count { 1 }
     end
 
+    # Add a trait for Shibboleth
+    trait :shibboleth do
+      name { 'shibboleth' }
+      context { 11 }
+      description { 'Institutional Sign In (Shibboleth)' }
+      logo_url { nil }
+      identifier_prefix { nil }
+      active { true }
+    end
+
     after(:create) do |identifier_scheme, evaluator|
       (0..evaluator.context_count - 1).each do |idx|
         identifier_scheme.update("#{identifier_scheme.all_context[idx]}": true)
