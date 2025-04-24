@@ -21,7 +21,7 @@ RSpec.describe 'Questions::Dropdown questions', type: :feature do
     visit overview_plan_path(@plan)
 
     # Action
-    click_link 'Write plan'
+    click_link 'Write Plan'
 
     # Expectations
     expect(current_path).to eql(edit_plan_path(@plan))

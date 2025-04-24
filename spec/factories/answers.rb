@@ -34,5 +34,11 @@ FactoryBot.define do
     plan
     user
     question
+    trait :question_options do
+      question_options { [create(:question_option)] }
+    end
+    trait :lock_version do
+      lock_version { 0 }
+    end
   end
 end
