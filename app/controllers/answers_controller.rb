@@ -80,100 +80,97 @@ class AnswersController < ApplicationController
     end
     # rubocop:enable Metrics/BlockLength
 
-    # TODO: Seems really strange to do this check. If its false it returns an
+    # TODO: Seems really strange to do this check. If it's true it returns a
     #      200 with an empty body. We should update to send back some JSON. The
     #      check should probably happen on create/update
-    # rubocop:disable Style/GuardClause
-    if @answer.present?
-      @plan = Plan.includes(
-        sections: {
-          questions: %i[
-            answers
-            question_format
-          ]
-        }
-      ).find(p_params[:plan_id])
-      @question = @answer.question
-      @section = @plan.sections.find_by(id: @question.section_id)
-      template = @section.phase.template
+    return unless @answer.present?
 
-      # Get list of questions to be removed from the plan based on any conditional questions.
-      questions_remove_list_before_destroying_answers = remove_list(@plan)
-      all_question_ids = @plan.questions.pluck(:id)
-
-      # Destroy all answers for removed questions
-      questions_remove_list_before_destroying_answers.each do |id|
-        Answer.where(question_id: id, plan: @plan).each do |a|
-          Answer.destroy(a.id)
-        end
-      end
-      # Now update @plan after removing answers of questions removed from the plan.
-      @plan = Plan.includes(
-        sections: {
-          questions: %i[
-            answers
-            question_format
-          ]
-        }
-      ).find(p_params[:plan_id])
-
-      # Now get list of question ids to remove based on remaining answers.
-      remove_list_question_ids = remove_list(@plan)
-
-      qn_data = {
-        to_show: all_question_ids - remove_list_question_ids,
-        to_hide: remove_list_question_ids
+    @plan = Plan.includes(
+      sections: {
+        questions: %i[
+          answers
+          question_format
+        ]
       }
+    ).find(p_params[:plan_id])
+    @question = @answer.question
+    @section = @plan.sections.find_by(id: @question.section_id)
+    template = @section.phase.template
 
-      section_data = []
-      @plan.sections.each do |section|
-        next if section.number < @section.number
+    # Get list of questions to be removed from the plan based on any conditional questions.
+    questions_remove_list_before_destroying_answers = remove_list(@plan)
+    all_question_ids = @plan.questions.pluck(:id)
 
-        this_section_info = {
-          sec_id: section.id,
-          no_qns: num_section_questions(@plan, section),
-          no_ans: num_section_answers(@plan, section)
-        }
-        section_data << this_section_info
+    # Destroy all answers for removed questions
+    questions_remove_list_before_destroying_answers.each do |id|
+      Answer.where(question_id: id, plan: @plan).each do |a|
+        Answer.destroy(a.id)
       end
-
-      send_webhooks(current_user, @answer)
-      render json: {
-        qn_data: qn_data,
-        section_data: section_data,
-        'question' => {
-          'id' => @question.id,
-          'answer_lock_version' => @answer.lock_version,
-          'locking' => if @stale_answer
-                         render_to_string(partial: 'answers/locking', locals: {
-                                            question: @question,
-                                            answer: @stale_answer,
-                                            user: @answer.user
-                                          }, formats: [:html])
-                       end,
-          'form' => render_to_string(partial: 'answers/new_edit', locals: {
-                                       template: template,
-                                       question: @question,
-                                       answer: @answer,
-                                       readonly: false,
-                                       locking: false,
-                                       base_template_org: template.base_org
-                                     }, formats: [:html]),
-          'answer_status' => render_to_string(partial: 'answers/status', locals: {
-                                                answer: @answer
-                                              }, formats: [:html])
-        },
-        'plan' => {
-          'id' => @plan.id,
-          'progress' => render_to_string(partial: 'plans/progress', locals: {
-                                           plan: @plan,
-                                           current_phase: @section.phase
-                                         }, formats: [:html])
-        }
-      }.to_json
-
     end
-    # rubocop:enable Style/GuardClause
+    # Now update @plan after removing answers of questions removed from the plan.
+    @plan = Plan.includes(
+      sections: {
+        questions: %i[
+          answers
+          question_format
+        ]
+      }
+    ).find(p_params[:plan_id])
+
+    # Now get list of question ids to remove based on remaining answers.
+    remove_list_question_ids = remove_list(@plan)
+
+    qn_data = {
+      to_show: all_question_ids - remove_list_question_ids,
+      to_hide: remove_list_question_ids
+    }
+
+    section_data = []
+    @plan.sections.each do |section|
+      next if section.number < @section.number
+
+      this_section_info = {
+        sec_id: section.id,
+        no_qns: num_section_questions(@plan, section),
+        no_ans: num_section_answers(@plan, section)
+      }
+      section_data << this_section_info
+    end
+
+    send_webhooks(current_user, @answer)
+    render json: {
+      qn_data: qn_data,
+      section_data: section_data,
+      'question' => {
+        'id' => @question.id,
+        'answer_lock_version' => @answer.lock_version,
+        'locking' => if @stale_answer
+                       render_to_string(partial: 'answers/locking', locals: {
+                                          question: @question,
+                                          answer: @stale_answer,
+                                          user: @answer.user
+                                        }, formats: [:html])
+                     end,
+        'form' => render_to_string(partial: 'answers/new_edit', locals: {
+                                     template: template,
+                                     question: @question,
+                                     answer: @answer,
+                                     readonly: false,
+                                     locking: false,
+                                     base_template_org: template.base_org
+                                   }, formats: [:html]),
+        'answer_status' => render_to_string(partial: 'answers/status', locals: {
+                                              answer: @answer
+                                            }, formats: [:html])
+      },
+      'plan' => {
+        'id' => @plan.id,
+        'progress' => render_to_string(partial: 'plans/progress', locals: {
+                                         plan: @plan,
+                                         current_phase: @section.phase
+                                       }, formats: [:html])
+      }
+    }.to_json
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
