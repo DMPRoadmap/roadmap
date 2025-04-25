@@ -20,19 +20,18 @@ class AnswersController < ApplicationController
     begin
       p = Plan.find(p_params[:plan_id])
       unless p.question_exists?(p_params[:question_id])
-        # rubocop:disable Layout/LineLength
         render(status: :not_found, json: {
-                 msg: format(_('There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer'), question_id: p_params[:question_id], plan_id: p_params[:plan_id])
+                 msg: format(_('There is no question with id %{question_id} associated to ' \
+                               'plan id %{plan_id} for which to create or update an answer'),
+                             question_id: p_params[:question_id], plan_id: p_params[:plan_id])
                })
-        # rubocop:enable Layout/LineLength
         return
       end
     rescue ActiveRecord::RecordNotFound
-      # rubocop:disable Layout/LineLength
       render(status: :not_found, json: {
-               msg: format(_('There is no plan with id %{id} for which to create or update an answer'), id: p_params[:plan_id])
+               msg: format(_('There is no plan with id %{id} for which to create or update an answer'),
+                           id: p_params[:plan_id])
              })
-      # rubocop:enable Layout/LineLength
       return
     end
     q = Question.find(p_params[:question_id])
@@ -130,8 +129,6 @@ class AnswersController < ApplicationController
       @plan.sections.each do |section|
         next if section.number < @section.number
 
-        # rubocop pointed out that these variables are not used
-        # n_qs, n_ans = check_answered(section, qn_data[:to_show], all_answers)
         this_section_info = {
           sec_id: section.id,
           no_qns: num_section_questions(@plan, section),
