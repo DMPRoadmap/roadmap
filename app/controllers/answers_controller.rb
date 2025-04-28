@@ -122,7 +122,7 @@ class AnswersController < ApplicationController
 
   private
 
-  def handle_answer_transaction(p_params, q)
+  def handle_answer_transaction(p_params, question)
     Answer.transaction do
       args = p_params
       # Answer model does not understand :standards so remove it from the params
@@ -133,19 +133,19 @@ class AnswersController < ApplicationController
         plan_id: args[:plan_id],
         question_id: args[:question_id]
       )
-      update_answer(args, q, standards)
+      update_answer(args, question, standards)
     rescue ActiveRecord::RecordNotFound
-      create_answer(args, q, standards)
+      create_answer(args, question, standards)
     rescue ActiveRecord::StaleObjectError
       handle_stale_answer_error(args)
     end
   end
 
-  def create_answer(args, q, standards)
+  def create_answer(args, question, standards)
     @answer = Answer.new(args.merge(user_id: current_user.id))
     @answer.lock_version = 1
     authorize @answer
-    if q.question_format.rda_metadata?
+    if question.question_format.rda_metadata?
       @answer.update_answer_hash(
         JSON.parse(standards.to_json), args[:text]
       )
@@ -153,7 +153,7 @@ class AnswersController < ApplicationController
     @answer.save!
   end
 
-  def update_answer(args, q, standards)
+  def update_answer(args, question, standards)
     authorize @answer
 
     @answer.update(args.merge(user_id: current_user.id))
@@ -162,7 +162,7 @@ class AnswersController < ApplicationController
       # Needed if only answer.question_options is updated
       @answer.touch
     end
-    return unless q.question_format.rda_metadata?
+    return unless question.question_format.rda_metadata?
 
     @answer.update_answer_hash(
       JSON.parse(standards.to_json), args[:text]
