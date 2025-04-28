@@ -12,7 +12,6 @@ class AnswersController < ApplicationController
   #       `remote: true` in the <form> tag and just send back the ERB.
   #       Consider using ActionCable for the progress bar(s)
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create_or_update
     p_params = permitted_params
 
@@ -48,17 +47,11 @@ class AnswersController < ApplicationController
     @question = @answer.question
     @section = @plan.sections.find_by(id: @question.section_id)
     template = @section.phase.template
-
-    # Get list of questions to be removed from the plan based on any conditional questions.
-    questions_remove_list_before_destroying_answers = remove_list(@plan)
     all_question_ids = @plan.questions.pluck(:id)
 
     # Destroy all answers for removed questions
-    questions_remove_list_before_destroying_answers.each do |id|
-      Answer.where(question_id: id, plan: @plan).each do |a|
-        Answer.destroy(a.id)
-      end
-    end
+    # - remove_list(@plan) returns a list of question to be removed from the plan based on any conditional questions.
+    Answer.where(question_id: remove_list(@plan), plan: @plan).destroy_all
     # Now update @plan after removing answers of questions removed from the plan.
     @plan = fetch_plan_with_associations(p_params[:plan_id])
 
@@ -118,7 +111,6 @@ class AnswersController < ApplicationController
     }.to_json
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
