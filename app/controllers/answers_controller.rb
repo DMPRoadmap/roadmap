@@ -36,49 +36,8 @@ class AnswersController < ApplicationController
     end
     q = Question.find(p_params[:question_id])
 
-    # rubocop:disable Metrics/BlockLength
-    Answer.transaction do
-      args = p_params
-      # Answer model does not understand :standards so remove it from the params
-      standards = args[:standards]
-      args.delete(:standards)
-
-      @answer = Answer.find_by!(
-        plan_id: args[:plan_id],
-        question_id: args[:question_id]
-      )
-      authorize @answer
-
-      @answer.update(args.merge(user_id: current_user.id))
-      if args[:question_option_ids].present?
-        # Saves the record with the updated_at set to the current time.
-        # Needed if only answer.question_options is updated
-        @answer.touch
-      end
-      if q.question_format.rda_metadata?
-        @answer.update_answer_hash(
-          JSON.parse(standards.to_json), args[:text]
-        )
-        @answer.save!
-      end
-    rescue ActiveRecord::RecordNotFound
-      @answer = Answer.new(args.merge(user_id: current_user.id))
-      @answer.lock_version = 1
-      authorize @answer
-      if q.question_format.rda_metadata?
-        @answer.update_answer_hash(
-          JSON.parse(standards.to_json), args[:text]
-        )
-      end
-      @answer.save!
-    rescue ActiveRecord::StaleObjectError
-      @stale_answer = @answer
-      @answer = Answer.find_by(
-        plan_id: args[:plan_id],
-        question_id: args[:question_id]
-      )
-    end
-    # rubocop:enable Metrics/BlockLength
+    # Execute transaction block to create, update, or handle stale answer object
+    handle_answer_transaction(p_params, q)
 
     # TODO: Seems really strange to do this check. If it's true it returns a
     #      200 with an empty body. We should update to send back some JSON. The
@@ -162,6 +121,52 @@ class AnswersController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
+
+  def handle_answer_transaction(p_params, q)
+    # rubocop:disable Metrics/BlockLength
+    Answer.transaction do
+      args = p_params
+      # Answer model does not understand :standards so remove it from the params
+      standards = args[:standards]
+      args.delete(:standards)
+
+      @answer = Answer.find_by!(
+        plan_id: args[:plan_id],
+        question_id: args[:question_id]
+      )
+      authorize @answer
+
+      @answer.update(args.merge(user_id: current_user.id))
+      if args[:question_option_ids].present?
+        # Saves the record with the updated_at set to the current time.
+        # Needed if only answer.question_options is updated
+        @answer.touch
+      end
+      if q.question_format.rda_metadata?
+        @answer.update_answer_hash(
+          JSON.parse(standards.to_json), args[:text]
+        )
+        @answer.save!
+      end
+    rescue ActiveRecord::RecordNotFound
+      @answer = Answer.new(args.merge(user_id: current_user.id))
+      @answer.lock_version = 1
+      authorize @answer
+      if q.question_format.rda_metadata?
+        @answer.update_answer_hash(
+          JSON.parse(standards.to_json), args[:text]
+        )
+      end
+      @answer.save!
+    rescue ActiveRecord::StaleObjectError
+      @stale_answer = @answer
+      @answer = Answer.find_by(
+        plan_id: args[:plan_id],
+        question_id: args[:question_id]
+      )
+    end
+    # rubocop:enable Metrics/BlockLength
+  end
 
   # rubocop:disable Metrics/AbcSize
   def permitted_params
