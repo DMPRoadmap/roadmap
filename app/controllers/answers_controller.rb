@@ -123,7 +123,6 @@ class AnswersController < ApplicationController
   private
 
   def handle_answer_transaction(p_params, q)
-    # rubocop:disable Metrics/BlockLength
     Answer.transaction do
       args = p_params
       # Answer model does not understand :standards so remove it from the params
@@ -134,38 +133,49 @@ class AnswersController < ApplicationController
         plan_id: args[:plan_id],
         question_id: args[:question_id]
       )
-      authorize @answer
-
-      @answer.update(args.merge(user_id: current_user.id))
-      if args[:question_option_ids].present?
-        # Saves the record with the updated_at set to the current time.
-        # Needed if only answer.question_options is updated
-        @answer.touch
-      end
-      if q.question_format.rda_metadata?
-        @answer.update_answer_hash(
-          JSON.parse(standards.to_json), args[:text]
-        )
-        @answer.save!
-      end
+      update_answer(args, q, standards)
     rescue ActiveRecord::RecordNotFound
-      @answer = Answer.new(args.merge(user_id: current_user.id))
-      @answer.lock_version = 1
-      authorize @answer
-      if q.question_format.rda_metadata?
-        @answer.update_answer_hash(
-          JSON.parse(standards.to_json), args[:text]
-        )
-      end
-      @answer.save!
+      create_answer(args, q, standards)
     rescue ActiveRecord::StaleObjectError
-      @stale_answer = @answer
-      @answer = Answer.find_by(
-        plan_id: args[:plan_id],
-        question_id: args[:question_id]
+      handle_stale_answer_error(args)
+    end
+  end
+
+  def create_answer(args, q, standards)
+    @answer = Answer.new(args.merge(user_id: current_user.id))
+    @answer.lock_version = 1
+    authorize @answer
+    if q.question_format.rda_metadata?
+      @answer.update_answer_hash(
+        JSON.parse(standards.to_json), args[:text]
       )
     end
-    # rubocop:enable Metrics/BlockLength
+    @answer.save!
+  end
+
+  def update_answer(args, q, standards)
+    authorize @answer
+
+    @answer.update(args.merge(user_id: current_user.id))
+    if args[:question_option_ids].present?
+      # Saves the record with the updated_at set to the current time.
+      # Needed if only answer.question_options is updated
+      @answer.touch
+    end
+    return unless q.question_format.rda_metadata?
+
+    @answer.update_answer_hash(
+      JSON.parse(standards.to_json), args[:text]
+    )
+    @answer.save!
+  end
+
+  def handle_stale_answer_error(args)
+    @stale_answer = @answer
+    @answer = Answer.find_by(
+      plan_id: args[:plan_id],
+      question_id: args[:question_id]
+    )
   end
 
   # rubocop:disable Metrics/AbcSize
