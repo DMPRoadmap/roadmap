@@ -85,14 +85,7 @@ class AnswersController < ApplicationController
     #      check should probably happen on create/update
     return unless @answer.present?
 
-    @plan = Plan.includes(
-      sections: {
-        questions: %i[
-          answers
-          question_format
-        ]
-      }
-    ).find(p_params[:plan_id])
+    @plan = fetch_plan_with_associations(p_params[:plan_id])
     @question = @answer.question
     @section = @plan.sections.find_by(id: @question.section_id)
     template = @section.phase.template
@@ -108,14 +101,7 @@ class AnswersController < ApplicationController
       end
     end
     # Now update @plan after removing answers of questions removed from the plan.
-    @plan = Plan.includes(
-      sections: {
-        questions: %i[
-          answers
-          question_format
-        ]
-      }
-    ).find(p_params[:plan_id])
+    @plan = fetch_plan_with_associations(p_params[:plan_id])
 
     # Now get list of question ids to remove based on remaining answers.
     remove_list_question_ids = remove_list(@plan)
@@ -195,6 +181,17 @@ class AnswersController < ApplicationController
     permitted
   end
   # rubocop:enable Metrics/AbcSize
+
+  def fetch_plan_with_associations(plan_id)
+    Plan.includes(
+      sections: {
+        questions: %i[
+          answers
+          question_format
+        ]
+      }
+    ).find(plan_id)
+  end
 
   def check_answered(section, q_array, all_answers)
     n_qs = section.questions.count { |question| q_array.include?(question.id) }
