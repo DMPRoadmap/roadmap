@@ -4,6 +4,7 @@
 - Fix failing eslint workflow / upgrade `actions/checkout` & `actions/setup-node` to v3 [#3503](https://github.com/DMPRoadmap/roadmap/pull/3503)
 - Fix rendering of `confirm_merge` partial [#3515](https://github.com/DMPRoadmap/roadmap/pull/3515)
 - Remove Auto-Generated TinyMCE Skins and Add `public/tinymce/skins/` to `.gitignore` [#3466](https://github.com/DMPRoadmap/roadmap/pull/3466)
+- Refactor `AnswersController#create_or_update` [#3519](https://github.com/DMPRoadmap/roadmap/pull/3519)
 
 ## v5.0.0
 
