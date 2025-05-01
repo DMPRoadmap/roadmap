@@ -34,7 +34,7 @@ end
         <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'form-label' %>
         <%= f.collection_select(:guidance_group_id,
                 GuidanceGroup.where(org_id: current_user.org_id).order("name ASC"),
-                :id, :name, {prompt: false}, {multiple: false, 'data-toggle': 'tooltip', title: _('Select which group this guidance relates to.'), class: 'form-control', 'aria-required': true})%>
+                :id, :name, {prompt: false}, {multiple: false, 'data-toggle': 'tooltip', title: _('Select which group this guidance relates to.'), class: 'form-select', 'aria-required': true})%>
       </div>
       <div class="form-check">
         <%= f.label :published do %>
