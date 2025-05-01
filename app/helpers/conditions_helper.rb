@@ -23,10 +23,11 @@ module ConditionsHelper
     id_list = []
     return id_list unless answer.question.option_based?
 
+    chosen = answer.question_option_ids.sort
+
     answer.question.conditions.each do |cond|
       opts = cond.option_list.map(&:to_i).sort
       action = cond.action_type
-      chosen = answer.question_option_ids.sort
 
       # If the chosen (options) include the opts (options list) in the condition,
       # then we apply the action.
