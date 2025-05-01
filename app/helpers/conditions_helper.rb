@@ -23,11 +23,19 @@ module ConditionsHelper
     id_list = []
     return id_list unless answer.question.option_based?
 
+    chosen = answer.question_option_ids.sort
+
     answer.question.conditions.each do |cond|
       opts = cond.option_list.map(&:to_i).sort
       action = cond.action_type
-      chosen = answer.question_option_ids.sort
-      if chosen == opts
+
+      # If the chosen (options) include the opts (options list) in the condition,
+      # then we apply the action.
+      # Currently, the Template edit through the UI only allows an action to be
+      # added to a single option at a time,
+      # so the opts array is always length 0 or 1.
+      # This if checks that all elements in opts are also in chosen.
+      if !opts.empty? && !chosen.empty? && opts.intersection(chosen) == opts
         if action == 'remove'
           rems = cond.remove_data.map(&:to_i)
           id_list += rems

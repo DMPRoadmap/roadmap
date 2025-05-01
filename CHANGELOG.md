@@ -1,5 +1,6 @@
 # Changelog
 
+- Fix for bug in Conditional questions functionality. In the case of a conditional question with answers that removed questions, any answers of removed questions was not removed. Nor were the removed answers deleted in the database. The Rspec tests were also updated to reflect this change.
 - Fix failing eslint workflow / upgrade `actions/checkout` & `actions/setup-node` to v3 [#3503](https://github.com/DMPRoadmap/roadmap/pull/3503)
 - Fix rendering of `confirm_merge` partial [#3515](https://github.com/DMPRoadmap/roadmap/pull/3515)
 - Remove Auto-Generated TinyMCE Skins and Add `public/tinymce/skins/` to `.gitignore` [#3466](https://github.com/DMPRoadmap/roadmap/pull/3466)
