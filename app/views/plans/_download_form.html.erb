@@ -18,7 +18,7 @@
     <div class="row">
       <div class="form-control col-sm-12 col-lg-6">
         <fieldset>
-          <%= label_tag('', _("Optional plan components"), class: 'form-label') %>
+          <legend class="col-form-label"><%= _("Optional plan components") %></legend>
           <div class="form-check">
             <%= label_tag 'export[project_details]', class:'form-check-label' do %>
               <%= check_box_tag 'export[project_details]', true, download_coversheet_tickbox_checked %>
@@ -58,7 +58,7 @@
       <%= hidden_field_tag 'export[form]', true %>
       <% if @phase_options.length > 1 %>
         <div class="form-control col-sm-12 col-lg-6">
-          <%= label_tag(:phase_id, _("Select phase to download"), class: 'form-label') %>
+          <%= label_tag(:phase_id, _("Select phase to download"), class: 'col-form-label') %>
           <%= select_tag(:phase_id, options_for_select(@phase_options, @phase_options[0]), class: 'form-select') %>
         </div>
       <% else %>
