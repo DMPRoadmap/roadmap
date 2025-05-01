@@ -1,5 +1,6 @@
 # Changelog
 
+- Adjustments to style of select tags and plan download layout [#3509](https://github.com/DMPRoadmap/roadmap/pull/3509)
 - Fix failing eslint workflow / upgrade `actions/checkout` & `actions/setup-node` to v3 [#3503](https://github.com/DMPRoadmap/roadmap/pull/3503)
 - Fix rendering of `confirm_merge` partial [#3515](https://github.com/DMPRoadmap/roadmap/pull/3515)
 
