@@ -23,7 +23,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
                        include_blank: _("- Please select one -"),
                        selected: (research_output.output_type.present? ? research_output.output_type : "" )
                      }, {
-                       class: "form-control",
+                       class: "form-select",
                        aria: { required: true, label: _("Research output type") },
                        data: { remote: true, url: plan_output_type_selection_path(plan), method: :get }
                      } %>
@@ -140,7 +140,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
         <%= f.label(:access, _("Initial access level"), class: "form-label") %>
         <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
                               { selected: f.object.access },
-                              { class: "form-control" } %>
+                              { class: "form-select" } %>
       </span>
     </div>
   </div>
