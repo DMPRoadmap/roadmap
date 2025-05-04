@@ -10,7 +10,7 @@ module Paginable
       authorize(Org)
       paginable_renderise(
         partial: 'index',
-        scope: Org.with_template_and_user_counts,
+        scope: Org.with_template_count_and_associations_check,
         query_params: { sort_field: 'orgs.name', sort_direction: :asc },
         format: :json
       )
