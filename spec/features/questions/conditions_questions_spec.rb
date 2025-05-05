@@ -101,18 +101,12 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         create(:condition, question: @conditional_questions[:checkbox],
                            option_list: [@conditional_questions[:checkbox].question_options[1].id],
                            action_type: 'remove',
-                           remove_data: [@non_conditional_questions[:textarea][2].id, @non_conditional_questions[:textfield][2].id,
-                                         @non_conditional_questions[:date][2].id, @non_conditional_questions[:rda_metadata][2].id,
-                                         @non_conditional_questions[:checkbox][2].id, @non_conditional_questions[:dropdown][2].id,
-                                         @non_conditional_questions[:multiselectbox][2].id])
+                           remove_data: non_conditional_questions_ids_by_index(2))
 
         create(:condition, question: @conditional_questions[:checkbox],
                            option_list: [@conditional_questions[:checkbox].question_options[4].id],
                            action_type: 'remove',
-                           remove_data: [@non_conditional_questions[:textarea][0].id, @non_conditional_questions[:textfield][0].id,
-                                         @non_conditional_questions[:date][0].id, @non_conditional_questions[:rda_metadata][0].id,
-                                         @non_conditional_questions[:checkbox][0].id, @non_conditional_questions[:dropdown][0].id,
-                                         @non_conditional_questions[:multiselectbox][0].id])
+                           remove_data: non_conditional_questions_ids_by_index(0))
 
         # We choose an option that is not in the option_list of the conditions defined above.
         visit overview_plan_path(@plan)
@@ -205,18 +199,12 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         create(:condition, question: @conditional_questions[:radiobutton],
                            option_list: [@conditional_questions[:radiobutton].question_options[1].id],
                            action_type: 'remove',
-                           remove_data: [@non_conditional_questions[:textarea][2].id, @non_conditional_questions[:textfield][2].id,
-                                         @non_conditional_questions[:date][2].id, @non_conditional_questions[:rda_metadata][2].id,
-                                         @non_conditional_questions[:checkbox][2].id, @non_conditional_questions[:dropdown][2].id,
-                                         @non_conditional_questions[:multiselectbox][2].id])
+                           remove_data: non_conditional_questions_ids_by_index(2))
 
         create(:condition, question: @conditional_questions[:radiobutton],
                            option_list: [@conditional_questions[:radiobutton].question_options[4].id],
                            action_type: 'remove',
-                           remove_data: [@non_conditional_questions[:textarea][0].id, @non_conditional_questions[:textfield][0].id,
-                                         @non_conditional_questions[:date][0].id, @non_conditional_questions[:rda_metadata][0].id,
-                                         @non_conditional_questions[:checkbox][0].id, @non_conditional_questions[:dropdown][0].id,
-                                         @non_conditional_questions[:multiselectbox][0].id])
+                           remove_data: non_conditional_questions_ids_by_index(0))
 
         # We choose an option that is not in the option_list of the conditions defined above.
         visit overview_plan_path(@plan)
@@ -307,18 +295,12 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         create(:condition, question: @conditional_questions[:dropdown],
                            option_list: [@conditional_questions[:dropdown].question_options[1].id],
                            action_type: 'remove',
-                           remove_data: [@non_conditional_questions[:textarea][2].id, @non_conditional_questions[:textfield][2].id,
-                                         @non_conditional_questions[:date][2].id, @non_conditional_questions[:rda_metadata][2].id,
-                                         @non_conditional_questions[:checkbox][2].id, @non_conditional_questions[:dropdown][2].id,
-                                         @non_conditional_questions[:multiselectbox][2].id])
+                           remove_data: non_conditional_questions_ids_by_index(2))
 
         create(:condition, question: @conditional_questions[:dropdown],
                            option_list: [@conditional_questions[:dropdown].question_options[4].id],
                            action_type: 'remove',
-                           remove_data: [@non_conditional_questions[:textarea][0].id, @non_conditional_questions[:textfield][0].id,
-                                         @non_conditional_questions[:date][0].id, @non_conditional_questions[:rda_metadata][0].id,
-                                         @non_conditional_questions[:checkbox][0].id, @non_conditional_questions[:dropdown][0].id,
-                                         @non_conditional_questions[:multiselectbox][0].id])
+                           remove_data: non_conditional_questions_ids_by_index(0))
         visit overview_plan_path(@plan)
 
         click_link 'Write Plan'
@@ -512,5 +494,9 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         end
       end
     end
+  end
+
+  def non_conditional_questions_ids_by_index(index)
+    @non_conditional_questions.map { |_, questions| questions[index].id }
   end
 end

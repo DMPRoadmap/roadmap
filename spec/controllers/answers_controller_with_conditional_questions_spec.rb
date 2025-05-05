@@ -43,10 +43,7 @@ RSpec.describe AnswersController, type: :controller do
           condition = create(:condition, question: @conditional_questions[:checkbox],
                                          option_list: [@conditional_questions[:checkbox].question_options[2].id],
                                          action_type: 'remove',
-                                         remove_data: [@non_conditional_questions[:textarea][5].id, @non_conditional_questions[:textfield][5].id,
-                                                       @non_conditional_questions[:date][5].id, @non_conditional_questions[:rda_metadata][5].id,
-                                                       @non_conditional_questions[:checkbox][5].id, @non_conditional_questions[:radiobutton][5].id,
-                                                       @non_conditional_questions[:dropdown][5].id, @non_conditional_questions[:multiselectbox][5].id])
+                                         remove_data: non_conditional_questions_ids_by_index(5))
 
           #  We chose an option that is in the option_list of the condition defined above. Note that
           # the text sent by UI is an empty string.
@@ -72,9 +69,7 @@ RSpec.describe AnswersController, type: :controller do
           #  Check Answers in database (persisted). Expect removed answers to be destroyed.
           # Answers destroyed eare easier checked using array of ids rather than individually as in example
           # expect(Answer.exists?(@answers[:textarea][5].id)).to be_falsey.
-          removed_answers = [@answers[:textarea][5].id, @answers[:textfield][5].id,
-                             @answers[:date][5].id, @answers[:rda_metadata][5].id, @answers[:checkbox][5].id,
-                             @answers[:radiobutton][5].id, @answers[:dropdown][5].id, @answers[:multiselectbox][5].id]
+          removed_answers = @answers.map { |_, answers| answers[5].id }
           expect(Answer.where(id: removed_answers).pluck(:id)).to be_empty
           # Answers left
           expect(Answer.where(id: @all_answers_ids).pluck(:id)).to match_array(
@@ -85,18 +80,12 @@ RSpec.describe AnswersController, type: :controller do
           create(:condition, question: @conditional_questions[:checkbox],
                              option_list: [@conditional_questions[:checkbox].question_options[1].id],
                              action_type: 'remove',
-                             remove_data: [@non_conditional_questions[:textarea][3].id, @non_conditional_questions[:textfield][3].id,
-                                           @non_conditional_questions[:date][3].id, @non_conditional_questions[:rda_metadata][3].id,
-                                           @non_conditional_questions[:checkbox][3].id, @non_conditional_questions[:dropdown][3].id,
-                                           @non_conditional_questions[:multiselectbox][3].id])
+                             remove_data: non_conditional_questions_ids_by_index(3))
 
           create(:condition, question: @conditional_questions[:checkbox],
                              option_list: [@conditional_questions[:checkbox].question_options[4].id],
                              action_type: 'remove',
-                             remove_data: [@non_conditional_questions[:textarea][0].id, @non_conditional_questions[:textfield][0].id,
-                                           @non_conditional_questions[:date][0].id, @non_conditional_questions[:rda_metadata][0].id,
-                                           @non_conditional_questions[:checkbox][0].id, @non_conditional_questions[:dropdown][0].id,
-                                           @non_conditional_questions[:multiselectbox][0].id])
+                             remove_data: non_conditional_questions_ids_by_index(0))
 
           # We choose an option that is not in the option_list of the conditions defined above.
           args = {
@@ -119,18 +108,12 @@ RSpec.describe AnswersController, type: :controller do
           condition1 = create(:condition, question: @conditional_questions[:checkbox],
                                           option_list: [@conditional_questions[:checkbox].question_options[2].id],
                                           action_type: 'remove',
-                                          remove_data: [@non_conditional_questions[:textarea][0].id, @non_conditional_questions[:textfield][0].id,
-                                                        @non_conditional_questions[:date][0].id, @non_conditional_questions[:rda_metadata][0].id,
-                                                        @non_conditional_questions[:checkbox][0].id, @non_conditional_questions[:dropdown][0].id,
-                                                        @non_conditional_questions[:multiselectbox][0].id])
+                                          remove_data: non_conditional_questions_ids_by_index(0))
 
           condition2 = create(:condition, question: @conditional_questions[:checkbox],
                                           option_list: [@conditional_questions[:checkbox].question_options[4].id],
                                           action_type: 'remove',
-                                          remove_data: [@non_conditional_questions[:textarea][3].id, @non_conditional_questions[:textfield][3].id,
-                                                        @non_conditional_questions[:date][3].id, @non_conditional_questions[:rda_metadata][3].id,
-                                                        @non_conditional_questions[:checkbox][3].id, @non_conditional_questions[:dropdown][3].id,
-                                                        @non_conditional_questions[:multiselectbox][3].id])
+                                          remove_data: non_conditional_questions_ids_by_index(3))
 
           # We choose options that is in the option_list of the conditions defined above as well as an option
           # with no condition defined.
@@ -160,10 +143,7 @@ RSpec.describe AnswersController, type: :controller do
           condition = create(:condition, question: @conditional_questions[:radiobutton],
                                          option_list: [@conditional_questions[:radiobutton].question_options[2].id],
                                          action_type: 'remove',
-                                         remove_data: [@non_conditional_questions[:textarea][5].id, @non_conditional_questions[:textfield][5].id,
-                                                       @non_conditional_questions[:date][5].id, @non_conditional_questions[:rda_metadata][5].id,
-                                                       @non_conditional_questions[:checkbox][5].id, @non_conditional_questions[:radiobutton][5].id,
-                                                       @non_conditional_questions[:dropdown][5].id, @non_conditional_questions[:multiselectbox][5].id])
+                                         remove_data: non_conditional_questions_ids_by_index(5))
 
           # We choose an option that is in the option_list of the condition defined above.
           args = {
@@ -187,18 +167,12 @@ RSpec.describe AnswersController, type: :controller do
           create(:condition, question: @conditional_questions[:radiobutton],
                              option_list: [@conditional_questions[:radiobutton].question_options[1].id],
                              action_type: 'remove',
-                             remove_data: [@non_conditional_questions[:textarea][3].id, @non_conditional_questions[:textfield][3].id,
-                                           @non_conditional_questions[:date][3].id, @non_conditional_questions[:rda_metadata][3].id,
-                                           @non_conditional_questions[:checkbox][3].id, @non_conditional_questions[:dropdown][3].id,
-                                           @non_conditional_questions[:multiselectbox][3].id])
+                             remove_data: non_conditional_questions_ids_by_index(3))
 
           create(:condition, question: @conditional_questions[:radiobutton],
                              option_list: [@conditional_questions[:radiobutton].question_options[4].id],
                              action_type: 'remove',
-                             remove_data: [@non_conditional_questions[:textarea][0].id, @non_conditional_questions[:textfield][0].id,
-                                           @non_conditional_questions[:date][0].id, @non_conditional_questions[:rda_metadata][0].id,
-                                           @non_conditional_questions[:checkbox][0].id, @non_conditional_questions[:dropdown][0].id,
-                                           @non_conditional_questions[:multiselectbox][0].id])
+                             remove_data: non_conditional_questions_ids_by_index(0))
 
           # We choose an option that is not in the option_list of the conditions defined above.
           args = {
@@ -224,10 +198,7 @@ RSpec.describe AnswersController, type: :controller do
           condition = create(:condition, question: @conditional_questions[:dropdown],
                                          option_list: [@conditional_questions[:dropdown].question_options[2].id],
                                          action_type: 'remove',
-                                         remove_data: [@non_conditional_questions[:textarea][5].id, @non_conditional_questions[:textfield][5].id,
-                                                       @non_conditional_questions[:date][5].id, @non_conditional_questions[:rda_metadata][5].id,
-                                                       @non_conditional_questions[:checkbox][5].id, @non_conditional_questions[:radiobutton][5].id,
-                                                       @non_conditional_questions[:dropdown][5].id, @non_conditional_questions[:multiselectbox][5].id])
+                                         remove_data: non_conditional_questions_ids_by_index(5))
 
           #  We chose an option that is in the option_list of the condition defined above.
           args = {
@@ -251,18 +222,12 @@ RSpec.describe AnswersController, type: :controller do
           create(:condition, question: @conditional_questions[:dropdown],
                              option_list: [@conditional_questions[:dropdown].question_options[1].id],
                              action_type: 'remove',
-                             remove_data: [@non_conditional_questions[:textarea][3].id, @non_conditional_questions[:textfield][3].id,
-                                           @non_conditional_questions[:date][3].id, @non_conditional_questions[:rda_metadata][3].id,
-                                           @non_conditional_questions[:checkbox][3].id, @non_conditional_questions[:dropdown][3].id,
-                                           @non_conditional_questions[:multiselectbox][3].id])
+                             remove_data: non_conditional_questions_ids_by_index(3))
 
           create(:condition, question: @conditional_questions[:dropdown],
                              option_list: [@conditional_questions[:dropdown].question_options[4].id],
                              action_type: 'remove',
-                             remove_data: [@non_conditional_questions[:textarea][0].id, @non_conditional_questions[:textfield][0].id,
-                                           @non_conditional_questions[:date][0].id, @non_conditional_questions[:rda_metadata][0].id,
-                                           @non_conditional_questions[:checkbox][0].id, @non_conditional_questions[:dropdown][0].id,
-                                           @non_conditional_questions[:multiselectbox][0].id])
+                             remove_data: non_conditional_questions_ids_by_index(0))
 
           # We choose an option that is not in the option_list of the conditions defined above.
           args = {
@@ -345,10 +310,7 @@ RSpec.describe AnswersController, type: :controller do
         condition2 = create(:condition, question: @conditional_questions[:checkbox],
                                         option_list: [@conditional_questions[:checkbox].question_options[4].id],
                                         action_type: 'remove',
-                                        remove_data: [@non_conditional_questions[:textarea][3].id, @non_conditional_questions[:textfield][3].id,
-                                                      @non_conditional_questions[:date][3].id, @non_conditional_questions[:rda_metadata][3].id,
-                                                      @non_conditional_questions[:checkbox][3].id, @non_conditional_questions[:dropdown][3].id,
-                                                      @non_conditional_questions[:multiselectbox][3].id])
+                                        remove_data: non_conditional_questions_ids_by_index(3))
 
         #  We chose an option that is in the option_list of the condition defined above. Note that
         # the text sent by UI is an empty string.
@@ -508,6 +470,10 @@ RSpec.describe AnswersController, type: :controller do
       dropdown: create_list(:question, 7, :dropdown, section: @section1, options: 3),
       multiselectbox: create_list(:question, 7, :multiselectbox, section: @section2, options: 3)
     }
+  end
+
+  def non_conditional_questions_ids_by_index(index)
+    @non_conditional_questions.map { |_, questions| questions[index].id }
   end
 
   def create_answers
