@@ -37,46 +37,16 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
     @all_questions_ids = (@conditional_questions.values + @non_conditional_questions.values.flatten).map(&:id)
 
     # Answer the non-conditional questions
-    @textarea_answers = @non_conditional_questions[:textarea].each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
+    @non_conditional_questions.each do |question_type, questions|
+      questions.map do |question|
+        if %i[textarea textfield date rda_metadata].include?(question_type)
+          create(:answer, plan: @plan, question: question, user: @user)
+        else
+          create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]],
+                          user: @user)
+        end
+      end
     end
-
-    @all_non_conditional_question_answers_ids = @textarea_answers.map(&:id)
-
-    @textfield_answers = @non_conditional_questions[:textfield].each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @textfield_answers.map(&:id)
-
-    @date_answers = @non_conditional_questions[:date].each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @date_answers.map(&:id)
-
-    @rda_metadata_answers = @non_conditional_questions[:rda_metadata].each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @rda_metadata_answers.map(&:id)
-
-    @checkbox_answers = @non_conditional_questions[:checkbox].each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @checkbox_answers.map(&:id)
-
-    @radiobuttons_answers = @non_conditional_questions[:radiobutton].each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @radiobuttons_answers.map(&:id)
-
-    @dropdown_answers = @non_conditional_questions[:dropdown].each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @dropdown_answers.map(&:id)
-
-    @multiselectbox_answers = @non_conditional_questions[:multiselectbox].each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @multiselectbox_answers.map(&:id)
 
     sign_in(@user)
 

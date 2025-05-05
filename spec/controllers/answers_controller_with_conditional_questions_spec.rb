@@ -33,44 +33,20 @@ RSpec.describe AnswersController, type: :controller do
     @user = @plan.owner
 
     # Answer the questions in List2
-    @textarea_answers = @non_conditional_questions[:textarea].each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-
-    @textfield_answers = @non_conditional_questions[:textfield].each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-
-    @date_answers = @non_conditional_questions[:date].each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-
-    @rda_metadata_answers = @non_conditional_questions[:rda_metadata].each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-
-    @checkbox_answers = @non_conditional_questions[:checkbox].each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-
-    @radiobuttons_answers = @non_conditional_questions[:radiobutton].each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-
-    @dropdown_answers = @non_conditional_questions[:dropdown].each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-
-    @multiselectbox_answers = @non_conditional_questions[:multiselectbox].each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
+    @answers = {}
+    @non_conditional_questions.each do |question_type, questions|
+      @answers[question_type] = questions.map do |question|
+        if %i[textarea textfield date rda_metadata].include?(question_type)
+          create(:answer, plan: @plan, question: question, user: @user)
+        else
+          create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
+        end
+      end
     end
 
     @all_questions_ids = (@conditional_questions.values + @non_conditional_questions.values.flatten).map(&:id)
 
-    @all_answers_ids = (@textarea_answers + @textfield_answers +
-                        @date_answers + @rda_metadata_answers +
-                        @checkbox_answers + @radiobuttons_answers +
-                        @dropdown_answers + @multiselectbox_answers).map(&:id)
+    @all_answers_ids = @answers.values.flatten.map(&:id)
 
     sign_in(@user)
   end
@@ -118,10 +94,10 @@ RSpec.describe AnswersController, type: :controller do
 
           #  Check Answers in database (persisted). Expect removed answers to be destroyed.
           # Answers destroyed eare easier checked using array of ids rather than individually as in example
-          # expect(Answer.exists?(@textarea_answers[5].id)).to be_falsey.
-          removed_answers = [@textarea_answers[5].id, @textfield_answers[5].id,
-                             @date_answers[5].id, @rda_metadata_answers[5].id, @checkbox_answers[5].id,
-                             @radiobuttons_answers[5].id, @dropdown_answers[5].id, @multiselectbox_answers[5].id]
+          # expect(Answer.exists?(@answers[:textarea][5].id)).to be_falsey.
+          removed_answers = [@answers[:textarea][5].id, @answers[:textfield][5].id,
+                             @answers[:date][5].id, @answers[:rda_metadata][5].id, @answers[:checkbox][5].id,
+                             @answers[:radiobutton][5].id, @answers[:dropdown][5].id, @answers[:multiselectbox][5].id]
           expect(Answer.where(id: removed_answers).pluck(:id)).to be_empty
           # Answers left
           expect(Answer.where(id: @all_answers_ids).pluck(:id)).to match_array(
