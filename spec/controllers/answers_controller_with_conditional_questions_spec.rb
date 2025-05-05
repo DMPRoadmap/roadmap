@@ -8,9 +8,7 @@ RSpec.describe AnswersController, type: :controller do
   before(:each) do
     template = create(:template, phases: 1, sections: 3)
     # 3 sections for ensuring that conditions involve questions in different sections.
-    @section1 = template.sections[0]
-    @section2 = template.sections[1]
-    @section3 = template.sections[2]
+    @section1, @section2, @section3 = template.sections
 
     # Different types of questions (than can have conditional options)
     @checkbox_conditional_question = create(:question, :checkbox, section: @section1, options: 5)
