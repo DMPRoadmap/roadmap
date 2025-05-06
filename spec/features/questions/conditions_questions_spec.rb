@@ -363,8 +363,10 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
     end
 
     scenario 'User answers chooses radiobutton option with a condition (with action_type: add_webhook)', :js do
-      condition = create(:condition, :webhook, question: @conditional_questions[:radiobutton],
-                                               option_list: [@conditional_questions[:radiobutton].question_options[0].id])
+      condition = create(:condition,
+                         :webhook,
+                         question: @conditional_questions[:radiobutton],
+                         option_list: [@conditional_questions[:radiobutton].question_options[0].id])
 
       visit overview_plan_path(@plan)
 

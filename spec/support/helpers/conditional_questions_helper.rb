@@ -28,7 +28,11 @@ module ConditionalQuestionsHelper
     @non_conditional_questions.each do |question_type, questions|
       answers[question_type] = questions.map do |question|
         if question_types_with_question_options.include?(question_type)
-          create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
+          create(:answer,
+                 plan: @plan,
+                 question: question,
+                 question_options: [question.question_options[2]],
+                 user: @user)
         else
           create(:answer, plan: @plan, question: question, user: @user)
         end
@@ -46,6 +50,7 @@ module ConditionalQuestionsHelper
     expect(json[:qn_data][:to_hide]).to match_array(question_ids_to_hide)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def check_delivered_mail_for_webhook_data_and_question_data(webhook_data, question_type)
     ActionMailer::Base.deliveries.first do |mail|
       expect(mail.to).to eq([webhook_data['email']])
@@ -59,4 +64,5 @@ module ConditionalQuestionsHelper
       expect(mail.body.encoded).to include(@conditional_questions[question_type].text)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
