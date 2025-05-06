@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   include RolesHelper
+  include ConditionalQuestionsHelper
 
   before(:each) do
     template = create(:template, phases: 1, sections: 3)
@@ -11,10 +12,10 @@ RSpec.describe AnswersController, type: :controller do
     @section1, @section2, @section3 = template.sections
 
     # Different types of questions (than can have conditional options)
-    @conditional_questions = create_conditional_questions
+    @conditional_questions = create_conditional_questions(5)
 
     # Questions that do not have conditional options for adding or removing
-    @non_conditional_questions = create_non_conditional_questions
+    @non_conditional_questions = create_non_conditional_questions(7, 3)
 
     @plan = create(:plan, :creator, template: template)
     @user = @plan.owner
@@ -375,66 +376,5 @@ RSpec.describe AnswersController, type: :controller do
         check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :radiobutton)
       end
     end
-  end
-
-  private
-
-  def create_conditional_questions
-    {
-      checkbox: create(:question, :checkbox, section: @section1, options: 5),
-      radiobutton: create(:question, :radiobuttons, section: @section2, options: 5),
-      dropdown: create(:question, :dropdown, section: @section3, options: 5)
-    }
-  end
-
-  def create_non_conditional_questions
-    {
-      textarea: create_list(:question, 7, :textarea, section: @section1),
-      textfield: create_list(:question, 7, :textfield, section: @section2),
-      date: create_list(:question, 7, :date, section: @section3),
-      rda_metadata: create_list(:question, 7, :rda_metadata, section: @section1, options: 3),
-      checkbox: create_list(:question, 7, :checkbox, section: @section2, options: 3),
-      radiobutton: create_list(:question, 7, :radiobuttons, section: @section3, options: 3),
-      dropdown: create_list(:question, 7, :dropdown, section: @section1, options: 3),
-      multiselectbox: create_list(:question, 7, :multiselectbox, section: @section2, options: 3)
-    }
-  end
-
-  def non_conditional_questions_ids_by_index(index)
-    @non_conditional_questions.map { |_, questions| questions[index].id }
-  end
-
-  def create_answers
-    question_types_with_question_options = %i[checkbox radiobutton dropdown multiselectbox]
-    answers = {}
-    @non_conditional_questions.each do |question_type, questions|
-      answers[question_type] = questions.map do |question|
-        if question_types_with_question_options.include?(question_type)
-          create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-        else
-          create(:answer, plan: @plan, question: question, user: @user)
-        end
-      end
-    end
-    answers
-  end
-
-  def check_delivered_mail_for_webhook_data_and_question_data(webhook_data, question_type)
-    ActionMailer::Base.deliveries.first do |mail|
-      expect(mail.to).to eq([webhook_data['email']])
-      expect(mail.subject).to eq(webhook_data['subject'])
-      expect(mail.body.encoded).to include(webhook_data['message'])
-      # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-
-      # Message should have @user.name, chosen option text and question text.
-      expect(mail.body.encoded).to include(@user.name)
-      expect(mail.body.encoded).to include(@conditional_questions[question_type].question_options[2].text)
-      expect(mail.body.encoded).to include(@conditional_questions[question_type].text)
-    end
-  end
-
-  def check_question_ids_to_show_and_hide(json, question_ids_to_hide = [])
-    expect(json[:qn_data][:to_show]).to match_array(@all_questions_ids - question_ids_to_hide)
-    expect(json[:qn_data][:to_hide]).to match_array(question_ids_to_hide)
   end
 end
