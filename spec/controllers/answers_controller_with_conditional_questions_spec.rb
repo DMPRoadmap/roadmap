@@ -61,10 +61,7 @@ RSpec.describe AnswersController, type: :controller do
           json = JSON.parse(response.body).with_indifferent_access
 
           # Check hide/show questions lists sent to frontend.
-          expected_to_show_question_ids = @all_questions_ids - condition.remove_data
-          expected_to_hide_question_ids = condition.remove_data
-          expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-          expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+          check_question_ids_to_show_and_hide(json, condition.remove_data)
 
           #  Check Answers in database (persisted). Expect removed answers to be destroyed.
           # Answers destroyed eare easier checked using array of ids rather than individually as in example
@@ -100,8 +97,7 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:qn_data][:to_show]).to match_array(@all_questions_ids)
-          expect(json[:qn_data][:to_hide]).to match_array([])
+          check_question_ids_to_show_and_hide(json)
         end
 
         it 'handles multiple options (some with conditions) in option_list' do
@@ -130,11 +126,8 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-
-          expected_to_show_question_ids = @all_questions_ids - condition1.remove_data - condition2.remove_data
-          expected_to_hide_question_ids = condition1.remove_data + condition2.remove_data
-          expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-          expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+          remove_data = condition1.remove_data + condition2.remove_data
+          check_question_ids_to_show_and_hide(json, remove_data)
         end
       end
       #  Note: radiobuttons only allow single selection.
@@ -158,10 +151,7 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-          expected_to_show_question_ids = @all_questions_ids - condition.remove_data
-          expected_to_hide_question_ids = condition.remove_data
-          expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-          expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+          check_question_ids_to_show_and_hide(json, condition.remove_data)
         end
         it 'handles single option (without condition) in option_list' do
           create(:condition, question: @conditional_questions[:radiobutton],
@@ -187,8 +177,7 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:qn_data][:to_show]).to match_array(@all_questions_ids)
-          expect(json[:qn_data][:to_hide]).to match_array([])
+          check_question_ids_to_show_and_hide(json)
         end
       end
 
@@ -213,10 +202,7 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-          expected_to_show_question_ids = @all_questions_ids - condition.remove_data
-          expected_to_hide_question_ids = condition.remove_data
-          expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-          expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+          check_question_ids_to_show_and_hide(json, condition.remove_data)
         end
         it 'handles single option (without condition) in option_list' do
           create(:condition, question: @conditional_questions[:dropdown],
@@ -242,8 +228,7 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:qn_data][:to_show]).to match_array(@all_questions_ids)
-          expect(json[:qn_data][:to_hide]).to match_array([])
+          check_question_ids_to_show_and_hide(json)
         end
       end
     end
@@ -276,19 +261,14 @@ RSpec.describe AnswersController, type: :controller do
         post :create_or_update, params: { answer: args }
 
         json = JSON.parse(response.body).with_indifferent_access
-
         # Check hide/show questions lists sent to frontend.
-        expected_to_show_question_ids = @all_questions_ids - add_webhook_condition.remove_data
-        expected_to_hide_question_ids = add_webhook_condition.remove_data
-        expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-        expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+        check_question_ids_to_show_and_hide(json, add_webhook_condition.remove_data)
 
         # An email should have been sent to the configured recipient in the webhook.
         # The webhook_data is a Json string of form:
         # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
         expect(ActionMailer::Base.deliveries.count).to eq(1)
         webhook_data = JSON.parse(add_webhook_condition.webhook_data)
-
         check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :checkbox)
       end
       it 'handles multiple checkbox options (one of which is add_webhook condition)' do
@@ -320,18 +300,14 @@ RSpec.describe AnswersController, type: :controller do
         json = JSON.parse(response.body).with_indifferent_access
 
         # Check hide/show questions lists sent to frontend.
-        removed_data = add_webhook_condition.remove_data + condition2.remove_data
-        expected_to_show_question_ids = @all_questions_ids - removed_data
-        expected_to_hide_question_ids = add_webhook_condition.remove_data + condition2.remove_data
-        expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-        expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+        remove_data = add_webhook_condition.remove_data + condition2.remove_data
+        check_question_ids_to_show_and_hide(json, remove_data)
 
         # An email should have been sent to the configured recipient in the webhook.
         # The webhook_data is a Json string of form:
         # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
         expect(ActionMailer::Base.deliveries.count).to eq(1)
         webhook_data = JSON.parse(add_webhook_condition.webhook_data)
-
         check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :checkbox)
       end
 
@@ -357,17 +333,13 @@ RSpec.describe AnswersController, type: :controller do
         json = JSON.parse(response.body).with_indifferent_access
 
         # Check hide/show questions lists sent to frontend.
-        expected_to_show_question_ids = @all_questions_ids - add_webhook_condition.remove_data
-        expected_to_hide_question_ids = add_webhook_condition.remove_data
-        expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-        expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+        check_question_ids_to_show_and_hide(json, add_webhook_condition.remove_data)
 
         # An email should have been sent to the configured recipient in the webhook.
         # The webhook_data is a Json string of form:
         # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
         expect(ActionMailer::Base.deliveries.count).to eq(1)
         webhook_data = JSON.parse(add_webhook_condition.webhook_data)
-
         check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :dropdown)
       end
 
@@ -393,17 +365,13 @@ RSpec.describe AnswersController, type: :controller do
         json = JSON.parse(response.body).with_indifferent_access
 
         # Check hide/show questions lists sent to frontend.
-        expected_to_show_question_ids = @all_questions_ids - add_webhook_condition.remove_data
-        expected_to_hide_question_ids = add_webhook_condition.remove_data
-        expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-        expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+        check_question_ids_to_show_and_hide(json, add_webhook_condition.remove_data)
 
         # An email should have been sent to the configured recipient in the webhook.
         # The webhook_data is a Json string of form:
         # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
         expect(ActionMailer::Base.deliveries.count).to eq(1)
         webhook_data = JSON.parse(add_webhook_condition.webhook_data)
-
         check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :radiobutton)
       end
     end
@@ -463,5 +431,10 @@ RSpec.describe AnswersController, type: :controller do
       expect(mail.body.encoded).to include(@conditional_questions[question_type].question_options[2].text)
       expect(mail.body.encoded).to include(@conditional_questions[question_type].text)
     end
+  end
+
+  def check_question_ids_to_show_and_hide(json, question_ids_to_hide = [])
+    expect(json[:qn_data][:to_show]).to match_array(@all_questions_ids - question_ids_to_hide)
+    expect(json[:qn_data][:to_hide]).to match_array(question_ids_to_hide)
   end
 end
