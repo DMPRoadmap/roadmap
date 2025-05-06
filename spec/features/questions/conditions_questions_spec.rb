@@ -14,39 +14,17 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
     @section3 = create(:section, phase: @phase)
 
     # Different types of questions (than can have conditional options)
-    @conditional_questions = {
-      checkbox: create(:question, :checkbox, section: @section1, options: 5),
-      radiobutton: create(:question, :radiobuttons, section: @section2, options: 5),
-      dropdown: create(:question, :dropdown, section: @section3, options: 5)
-    }
+    @conditional_questions = create_conditional_questions
 
     # Questions that do not have conditional options for adding or removing
-    @non_conditional_questions = {
-      textarea: create_list(:question, 3, :textarea, section: @section1),
-      textfield: create_list(:question, 3, :textfield, section: @section2),
-      date: create_list(:question, 3, :date, section: @section3),
-      rda_metadata: create_list(:question, 3, :rda_metadata, section: @section1, options: 5),
-      checkbox: create_list(:question, 3, :checkbox, section: @section2, options: 5),
-      radiobutton: create_list(:question, 3, :radiobuttons, section: @section3, options: 5),
-      dropdown: create_list(:question, 3, :dropdown, section: @section1, options: 5),
-      multiselectbox: create_list(:question, 3, :multiselectbox, section: @section2, options: 5)
-    }
+    @non_conditional_questions = create_non_conditional_questions
 
     create(:role, :creator, :editor, :commenter, user: @user, plan: @plan)
 
     @all_questions_ids = (@conditional_questions.values + @non_conditional_questions.values.flatten).map(&:id)
 
     # Answer the non-conditional questions
-    @non_conditional_questions.each do |question_type, questions|
-      questions.map do |question|
-        if %i[textarea textfield date rda_metadata].include?(question_type)
-          create(:answer, plan: @plan, question: question, user: @user)
-        else
-          create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]],
-                          user: @user)
-        end
-      end
-    end
+    create_answers
 
     sign_in(@user)
 
@@ -496,6 +474,42 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         expect(mail.body.encoded).to include(@user.name)
         expect(mail.body.encoded).to include(@conditional_questions[:dropdown].question_options[2].text)
         expect(mail.body.encoded).to include(@conditional_questions[:dropdown].text)
+      end
+    end
+  end
+
+  private
+
+  def create_conditional_questions
+    {
+      checkbox: create(:question, :checkbox, section: @section1, options: 5),
+      radiobutton: create(:question, :radiobuttons, section: @section2, options: 5),
+      dropdown: create(:question, :dropdown, section: @section3, options: 5)
+    }
+  end
+
+  def create_non_conditional_questions
+    {
+      textarea: create_list(:question, 3, :textarea, section: @section1),
+      textfield: create_list(:question, 3, :textfield, section: @section2),
+      date: create_list(:question, 3, :date, section: @section3),
+      rda_metadata: create_list(:question, 3, :rda_metadata, section: @section1, options: 5),
+      checkbox: create_list(:question, 3, :checkbox, section: @section2, options: 5),
+      radiobutton: create_list(:question, 3, :radiobuttons, section: @section3, options: 5),
+      dropdown: create_list(:question, 3, :dropdown, section: @section1, options: 5),
+      multiselectbox: create_list(:question, 3, :multiselectbox, section: @section2, options: 5)
+    }
+  end
+
+  def create_answers
+    @non_conditional_questions.each do |question_type, questions|
+      questions.map do |question|
+        if %i[textarea textfield date rda_metadata].include?(question_type)
+          create(:answer, plan: @plan, question: question, user: @user)
+        else
+          create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]],
+                          user: @user)
+        end
       end
     end
   end
