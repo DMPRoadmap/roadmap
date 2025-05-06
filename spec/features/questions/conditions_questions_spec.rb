@@ -358,16 +358,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       webhook_data = JSON.parse(condition.webhook_data)
 
-      ActionMailer::Base.deliveries.last do |mail|
-        expect(mail.to).to eq([webhook_data['email']])
-        expect(mail.subject).to eq(webhook_data['subject'])
-        expect(mail.body.encoded).to include(webhook_data['message'])
-        # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-        # Message should have @user.name, chosen option text and question text.
-        expect(mail.body.encoded).to include(@user.name)
-        expect(mail.body.encoded).to include(@conditional_questions[:checkbox].question_options[2].text)
-        expect(mail.body.encoded).to include(@conditional_questions[:checkbox].text)
-      end
+      check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :checkbox)
     end
 
     scenario 'User answers chooses radiobutton option with a condition (with action_type: add_webhook)', :js do
@@ -403,16 +394,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       webhook_data = JSON.parse(condition.webhook_data)
 
-      ActionMailer::Base.deliveries.last do |mail|
-        expect(mail.to).to eq([webhook_data['email']])
-        expect(mail.subject).to eq(webhook_data['subject'])
-        expect(mail.body.encoded).to include(webhook_data['message'])
-        # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-        # Message should have @user.name, chosen option text and question text.
-        expect(mail.body.encoded).to include(@user.name)
-        expect(mail.body.encoded).to include(@conditional_questions[:radiobutton].question_options[0].text)
-        expect(mail.body.encoded).to include(@conditional_questions[:radiobutton].text)
-      end
+      check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :radiobutton)
     end
 
     scenario 'User answers chooses dropdown option with a condition (with action_type: add_webhook)', :js do
@@ -447,16 +429,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       webhook_data = JSON.parse(condition.webhook_data)
 
-      ActionMailer::Base.deliveries.last do |mail|
-        expect(mail.to).to eq([webhook_data['email']])
-        expect(mail.subject).to eq(webhook_data['subject'])
-        expect(mail.body.encoded).to include(webhook_data['message'])
-        # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-        # Message should have @user.name, chosen option text and question text.
-        expect(mail.body.encoded).to include(@user.name)
-        expect(mail.body.encoded).to include(@conditional_questions[:dropdown].question_options[2].text)
-        expect(mail.body.encoded).to include(@conditional_questions[:dropdown].text)
-      end
+      check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :dropdown)
     end
   end
 
@@ -498,5 +471,19 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
 
   def non_conditional_questions_ids_by_index(index)
     @non_conditional_questions.map { |_, questions| questions[index].id }
+  end
+
+  def check_delivered_mail_for_webhook_data_and_question_data(webhook_data, question_type)
+    ActionMailer::Base.deliveries.first do |mail|
+      expect(mail.to).to eq([webhook_data['email']])
+      expect(mail.subject).to eq(webhook_data['subject'])
+      expect(mail.body.encoded).to include(webhook_data['message'])
+      # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
+
+      # Message should have @user.name, chosen option text and question text.
+      expect(mail.body.encoded).to include(@user.name)
+      expect(mail.body.encoded).to include(@conditional_questions[question_type].question_options[2].text)
+      expect(mail.body.encoded).to include(@conditional_questions[question_type].text)
+    end
   end
 end
