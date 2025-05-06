@@ -12,7 +12,6 @@ class AnswersController < ApplicationController
   #       `remote: true` in the <form> tag and just send back the ERB.
   #       Consider using ActionCable for the progress bar(s)
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create_or_update
     p_params = permitted_params
 
@@ -20,24 +19,102 @@ class AnswersController < ApplicationController
     begin
       p = Plan.find(p_params[:plan_id])
       unless p.question_exists?(p_params[:question_id])
-        # rubocop:disable Layout/LineLength
         render(status: :not_found, json: {
-                 msg: format(_('There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer'), question_id: p_params[:question_id], plan_id: p_params[:plan_id])
+                 msg: format(_('There is no question with id %{question_id} associated to ' \
+                               'plan id %{plan_id} for which to create or update an answer'),
+                             question_id: p_params[:question_id], plan_id: p_params[:plan_id])
                })
-        # rubocop:enable Layout/LineLength
         return
       end
     rescue ActiveRecord::RecordNotFound
-      # rubocop:disable Layout/LineLength
       render(status: :not_found, json: {
-               msg: format(_('There is no plan with id %{id} for which to create or update an answer'), id: p_params[:plan_id])
+               msg: format(_('There is no plan with id %{id} for which to create or update an answer'),
+                           id: p_params[:plan_id])
              })
-      # rubocop:enable Layout/LineLength
       return
     end
     q = Question.find(p_params[:question_id])
 
-    # rubocop:disable Metrics/BlockLength
+    # Execute transaction block to create, update, or handle stale answer object
+    handle_answer_transaction(p_params, q)
+
+    # TODO: Seems really strange to do this check. If it's true it returns a
+    #      200 with an empty body. We should update to send back some JSON. The
+    #      check should probably happen on create/update
+    return unless @answer.present?
+
+    @plan = fetch_plan_with_associations(p_params[:plan_id])
+    @question = @answer.question
+    @section = @plan.sections.find_by(id: @question.section_id)
+    template = @section.phase.template
+    all_question_ids = @plan.questions.pluck(:id)
+
+    # Destroy all answers for removed questions
+    # - remove_list(@plan) returns a list of question to be removed from the plan based on any conditional questions.
+    Answer.where(question_id: remove_list(@plan), plan: @plan).destroy_all
+    # Now update @plan after removing answers of questions removed from the plan.
+    @plan = fetch_plan_with_associations(p_params[:plan_id])
+
+    # Now get list of question ids to remove based on remaining answers.
+    remove_list_question_ids = remove_list(@plan)
+
+    qn_data = {
+      to_show: all_question_ids - remove_list_question_ids,
+      to_hide: remove_list_question_ids
+    }
+
+    section_data = []
+    @plan.sections.each do |section|
+      next if section.number < @section.number
+
+      this_section_info = {
+        sec_id: section.id,
+        no_qns: num_section_questions(@plan, section),
+        no_ans: num_section_answers(@plan, section)
+      }
+      section_data << this_section_info
+    end
+
+    send_webhooks(current_user, @answer)
+    render json: {
+      qn_data: qn_data,
+      section_data: section_data,
+      'question' => {
+        'id' => @question.id,
+        'answer_lock_version' => @answer.lock_version,
+        'locking' => if @stale_answer
+                       render_to_string(partial: 'answers/locking', locals: {
+                                          question: @question,
+                                          answer: @stale_answer,
+                                          user: @answer.user
+                                        }, formats: [:html])
+                     end,
+        'form' => render_to_string(partial: 'answers/new_edit', locals: {
+                                     template: template,
+                                     question: @question,
+                                     answer: @answer,
+                                     readonly: false,
+                                     locking: false,
+                                     base_template_org: template.base_org
+                                   }, formats: [:html]),
+        'answer_status' => render_to_string(partial: 'answers/status', locals: {
+                                              answer: @answer
+                                            }, formats: [:html])
+      },
+      'plan' => {
+        'id' => @plan.id,
+        'progress' => render_to_string(partial: 'plans/progress', locals: {
+                                         plan: @plan,
+                                         current_phase: @section.phase
+                                       }, formats: [:html])
+      }
+    }.to_json
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  private
+
+  def handle_answer_transaction(p_params, question)
     Answer.transaction do
       args = p_params
       # Answer model does not understand :standards so remove it from the params
@@ -48,140 +125,50 @@ class AnswersController < ApplicationController
         plan_id: args[:plan_id],
         question_id: args[:question_id]
       )
-      authorize @answer
-
-      @answer.update(args.merge(user_id: current_user.id))
-      if args[:question_option_ids].present?
-        # Saves the record with the updated_at set to the current time.
-        # Needed if only answer.question_options is updated
-        @answer.touch
-      end
-      if q.question_format.rda_metadata?
-        @answer.update_answer_hash(
-          JSON.parse(standards.to_json), args[:text]
-        )
-        @answer.save!
-      end
+      update_answer(args, question, standards)
     rescue ActiveRecord::RecordNotFound
-      @answer = Answer.new(args.merge(user_id: current_user.id))
-      @answer.lock_version = 1
-      authorize @answer
-      if q.question_format.rda_metadata?
-        @answer.update_answer_hash(
-          JSON.parse(standards.to_json), args[:text]
-        )
-      end
-      @answer.save!
+      create_answer(args, question, standards)
     rescue ActiveRecord::StaleObjectError
-      @stale_answer = @answer
-      @answer = Answer.find_by(
-        plan_id: args[:plan_id],
-        question_id: args[:question_id]
+      handle_stale_answer_error(args)
+    end
+  end
+
+  def create_answer(args, question, standards)
+    @answer = Answer.new(args.merge(user_id: current_user.id))
+    @answer.lock_version = 1
+    authorize @answer
+    if question.question_format.rda_metadata?
+      @answer.update_answer_hash(
+        JSON.parse(standards.to_json), args[:text]
       )
     end
-    # rubocop:enable Metrics/BlockLength
-
-    # TODO: Seems really strange to do this check. If its false it returns an
-    #      200 with an empty body. We should update to send back some JSON. The
-    #      check should probably happen on create/update
-    # rubocop:disable Style/GuardClause
-    if @answer.present?
-      @plan = Plan.includes(
-        sections: {
-          questions: %i[
-            answers
-            question_format
-          ]
-        }
-      ).find(p_params[:plan_id])
-      @question = @answer.question
-      @section = @plan.sections.find_by(id: @question.section_id)
-      template = @section.phase.template
-
-      # Get list of questions to be removed from the plan based on any conditional questions.
-      questions_remove_list_before_destroying_answers = remove_list(@plan)
-      all_question_ids = @plan.questions.pluck(:id)
-
-      # Destroy all answers for removed questions
-      questions_remove_list_before_destroying_answers.each do |id|
-        Answer.where(question_id: id, plan: @plan).each do |a|
-          Answer.destroy(a.id)
-        end
-      end
-      # Now update @plan after removing answers of questions removed from the plan.
-      @plan = Plan.includes(
-        sections: {
-          questions: %i[
-            answers
-            question_format
-          ]
-        }
-      ).find(p_params[:plan_id])
-
-      # Now get list of question ids to remove based on remaining answers.
-      remove_list_question_ids = remove_list(@plan)
-
-      qn_data = {
-        to_show: all_question_ids - remove_list_question_ids,
-        to_hide: remove_list_question_ids
-      }
-
-      section_data = []
-      @plan.sections.each do |section|
-        next if section.number < @section.number
-
-        # rubocop pointed out that these variables are not used
-        # n_qs, n_ans = check_answered(section, qn_data[:to_show], all_answers)
-        this_section_info = {
-          sec_id: section.id,
-          no_qns: num_section_questions(@plan, section),
-          no_ans: num_section_answers(@plan, section)
-        }
-        section_data << this_section_info
-      end
-
-      send_webhooks(current_user, @answer)
-      render json: {
-        qn_data: qn_data,
-        section_data: section_data,
-        'question' => {
-          'id' => @question.id,
-          'answer_lock_version' => @answer.lock_version,
-          'locking' => if @stale_answer
-                         render_to_string(partial: 'answers/locking', locals: {
-                                            question: @question,
-                                            answer: @stale_answer,
-                                            user: @answer.user
-                                          }, formats: [:html])
-                       end,
-          'form' => render_to_string(partial: 'answers/new_edit', locals: {
-                                       template: template,
-                                       question: @question,
-                                       answer: @answer,
-                                       readonly: false,
-                                       locking: false,
-                                       base_template_org: template.base_org
-                                     }, formats: [:html]),
-          'answer_status' => render_to_string(partial: 'answers/status', locals: {
-                                                answer: @answer
-                                              }, formats: [:html])
-        },
-        'plan' => {
-          'id' => @plan.id,
-          'progress' => render_to_string(partial: 'plans/progress', locals: {
-                                           plan: @plan,
-                                           current_phase: @section.phase
-                                         }, formats: [:html])
-        }
-      }.to_json
-
-    end
-    # rubocop:enable Style/GuardClause
+    @answer.save!
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  private
+  def update_answer(args, question, standards)
+    authorize @answer
+
+    @answer.update(args.merge(user_id: current_user.id))
+    if args[:question_option_ids].present?
+      # Saves the record with the updated_at set to the current time.
+      # Needed if only answer.question_options is updated
+      @answer.touch
+    end
+    return unless question.question_format.rda_metadata?
+
+    @answer.update_answer_hash(
+      JSON.parse(standards.to_json), args[:text]
+    )
+    @answer.save!
+  end
+
+  def handle_stale_answer_error(args)
+    @stale_answer = @answer
+    @answer = Answer.find_by(
+      plan_id: args[:plan_id],
+      question_id: args[:question_id]
+    )
+  end
 
   # rubocop:disable Metrics/AbcSize
   def permitted_params
@@ -201,6 +188,17 @@ class AnswersController < ApplicationController
     permitted
   end
   # rubocop:enable Metrics/AbcSize
+
+  def fetch_plan_with_associations(plan_id)
+    Plan.includes(
+      sections: {
+        questions: %i[
+          answers
+          question_format
+        ]
+      }
+    ).find(plan_id)
+  end
 
   def check_answered(section, q_array, all_answers)
     n_qs = section.questions.count { |question| q_array.include?(question.id) }

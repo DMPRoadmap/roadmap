@@ -12,7 +12,6 @@ export const getQuestionDiv = (id) => $(`#answer-form-${id}`).closest('.question
 
 // Clear an answers for a given question id.
 export const deleteAllAnswersForQuestion = (questionid) => {
-  const answerFormDiv = $(`#answer-form-${questionid}`);
   const editAnswerForm = $(`#answer-form-${questionid}`).find('.form-answer');
 
   editAnswerForm.find('input:checkbox').prop('checked', false);
