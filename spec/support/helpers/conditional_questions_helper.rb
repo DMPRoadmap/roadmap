@@ -52,6 +52,11 @@ module ConditionalQuestionsHelper
 
   # rubocop:disable Metrics/AbcSize
   def check_delivered_mail_for_webhook_data_and_question_data(webhook_data, question_type)
+    # An email should have been sent to the configured recipient in the webhook.
+    # The webhook_data is a Json string of form:
+    # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
+    expect(ActionMailer::Base.deliveries.count).to eq(1)
+
     ActionMailer::Base.deliveries.first do |mail|
       expect(mail.to).to eq([webhook_data['email']])
       expect(mail.subject).to eq(webhook_data['subject'])

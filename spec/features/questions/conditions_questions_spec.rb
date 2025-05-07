@@ -289,13 +289,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       # Expect one extra answer to be added.
       expect(page).to have_text('25/27 answered')
 
-      # An email should have been sent to the configured recipient in the webhook.
-      # The webhook_data is a Json string of form:
-      # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
-      webhook_data = JSON.parse(condition.webhook_data)
-
-      check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :checkbox)
+      check_delivered_mail_for_webhook_data_and_question_data(JSON.parse(condition.webhook_data), :checkbox)
     end
 
     scenario 'User answers chooses radiobutton option with a condition (with action_type: add_webhook)', :js do
@@ -318,13 +312,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       # Expect one extra answer to be added.
       expect(page).to have_text('25/27 answered')
 
-      # An email should have been sent to the configured recipient in the webhook.
-      # The webhook_data is a Json string of form:
-      # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
-      webhook_data = JSON.parse(condition.webhook_data)
-
-      check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :radiobutton)
+      check_delivered_mail_for_webhook_data_and_question_data(JSON.parse(condition.webhook_data), :radiobutton)
     end
 
     scenario 'User answers chooses dropdown option with a condition (with action_type: add_webhook)', :js do
@@ -344,13 +332,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       # Expect one extra answer to be added.
       expect(page).to have_text('25/27 answered')
 
-      # An email should have been sent to the configured recipient in the webhook.
-      # The webhook_data is a Json string of form:
-      # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
-      webhook_data = JSON.parse(condition.webhook_data)
-
-      check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :dropdown)
+      check_delivered_mail_for_webhook_data_and_question_data(JSON.parse(condition.webhook_data), :dropdown)
     end
   end
 
