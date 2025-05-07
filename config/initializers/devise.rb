@@ -259,7 +259,7 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
-  OmniAuth.config.full_host = 'https://my_service.hostname'
+  OmniAuth.config.full_host = 'http://localhost:3000'
   OmniAuth.config.allowed_request_methods = [:post]
 
   config.omniauth :orcid,
@@ -270,13 +270,14 @@ Devise.setup do |config|
 
   config.omniauth :shibboleth,
                   {
-                    # debug: true,
-                    # uid_field:                 "HTTP_REMOTE_USER",
-                    # shib_application_id_field: "HTTP_SHIB_APPLICATION_ID",
-                    # shib_session_id_field:     "HTTP_SHIB_SESSION_ID",
+                    uid_field: "HTTP_REMOTE_USER",
+                    shib_application_id_field: "HTTP_SHIB_APPLICATION_ID",
+                    shib_session_id_field: "HTTP_SHIB_SESSION_ID",
                     fields: [],
                     info_fields: {
-                      # affiliation: "HTTP_AFFILIATION",
+                      email: "HTTP_MAIL",
+                      name: "HTTP_DISPLAYNAME"
+                      # Add other attributes you need
                     },
                     extra_fields: []
                   }

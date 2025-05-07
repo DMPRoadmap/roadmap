@@ -347,4 +347,7 @@ group :development do
 
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem 'yard-tomdoc'
+
+  # IDP testing
+  gem 'rack-cors'
 end
