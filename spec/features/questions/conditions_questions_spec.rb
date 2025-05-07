@@ -53,16 +53,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
                                                      @non_conditional_questions[:dropdown][0].id,
                                                      @non_conditional_questions[:multiselectbox][1].id])
 
-        visit overview_plan_path(@plan)
-
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
+        go_to_write_plan_page_and_verify_answered
 
         # Answer the checkbox_conditional_question.
         within("#answer-form-#{@conditional_questions[:checkbox].id}") do
@@ -109,17 +100,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
                            action_type: 'remove',
                            remove_data: non_conditional_questions_ids_by_index(0))
 
-        # We choose an option that is not in the option_list of the conditions defined above.
-        visit overview_plan_path(@plan)
-
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
+        go_to_write_plan_page_and_verify_answered
 
         # Answer the checkbox_conditional_question
         within("#answer-form-#{@conditional_questions[:checkbox].id}") do
@@ -148,16 +129,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
                                                      @non_conditional_questions[:dropdown][0].id,
                                                      @non_conditional_questions[:multiselectbox][1].id])
 
-        visit overview_plan_path(@plan)
-
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
+        go_to_write_plan_page_and_verify_answered
 
         # Answer the radiobutton_conditional_question.
         within("#answer-form-#{@conditional_questions[:radiobutton].id}") do
@@ -207,17 +179,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
                            action_type: 'remove',
                            remove_data: non_conditional_questions_ids_by_index(0))
 
-        # We choose an option that is not in the option_list of the conditions defined above.
-        visit overview_plan_path(@plan)
-
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
+        go_to_write_plan_page_and_verify_answered
 
         # Answer the radiobutton_conditional_question.
         within("#answer-form-#{@conditional_questions[:radiobutton].id}") do
@@ -246,16 +208,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
                                                      @non_conditional_questions[:dropdown][0].id,
                                                      @non_conditional_questions[:multiselectbox][1].id])
 
-        visit overview_plan_path(@plan)
-
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
+        go_to_write_plan_page_and_verify_answered
 
         # Answer the dropdown_conditional_question
         within("#answer-form-#{@conditional_questions[:dropdown].id}") do
@@ -302,16 +255,8 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
                            option_list: [@conditional_questions[:dropdown].question_options[4].id],
                            action_type: 'remove',
                            remove_data: non_conditional_questions_ids_by_index(0))
-        visit overview_plan_path(@plan)
 
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
+        go_to_write_plan_page_and_verify_answered
 
         # Answer the dropdown_conditional_question.
         within("#answer-form-#{@conditional_questions[:dropdown].id}") do
@@ -331,16 +276,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       condition = create(:condition, :webhook, question: @conditional_questions[:checkbox],
                                                option_list: [@conditional_questions[:checkbox].question_options[2].id])
 
-      visit overview_plan_path(@plan)
-
-      click_link 'Write Plan'
-
-      # Expand all sections
-      find('a[data-toggle-direction=show]').click
-
-      # Check questions answered in progress bar.
-      # 24 non-conditional questions in total  answered.
-      expect(page).to have_text('24/27 answered')
+      go_to_write_plan_page_and_verify_answered
 
       # Answer the checkbox_conditional_question.
       within("#answer-form-#{@conditional_questions[:checkbox].id}") do
@@ -368,16 +304,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
                          question: @conditional_questions[:radiobutton],
                          option_list: [@conditional_questions[:radiobutton].question_options[0].id])
 
-      visit overview_plan_path(@plan)
-
-      click_link 'Write Plan'
-
-      # Expand all sections
-      find('a[data-toggle-direction=show]').click
-
-      # Check questions answered in progress bar.
-      # 24 non-conditional questions in total  answered.
-      expect(page).to have_text('24/27 answered')
+      go_to_write_plan_page_and_verify_answered
 
       # Now for radiobutton_conditional_question answer, there in no unchoose option,
       # so we switch options to a different option without any conditions.
@@ -404,16 +331,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       condition = create(:condition, :webhook, question: @conditional_questions[:dropdown],
                                                option_list: [@conditional_questions[:dropdown].question_options[2].id])
 
-      visit overview_plan_path(@plan)
-
-      click_link 'Write Plan'
-
-      # Expand all sections
-      find('a[data-toggle-direction=show]').click
-
-      # Check questions answered in progress bar.
-      # 24 non-conditional questions in total  answered.
-      expect(page).to have_text('24/27 answered')
+      go_to_write_plan_page_and_verify_answered
 
       # Answer the dropdown_conditional_question
       within("#answer-form-#{@conditional_questions[:dropdown].id}") do
@@ -434,5 +352,20 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
 
       check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :dropdown)
     end
+  end
+
+  private
+
+  def go_to_write_plan_page_and_verify_answered
+    visit overview_plan_path(@plan)
+
+    click_link 'Write Plan'
+
+    # Expand all sections
+    find('a[data-toggle-direction=show]').click
+
+    # Check questions answered in progress bar.
+    # 24 non-conditional questions in total  answered.
+    expect(page).to have_text('24/27 answered')
   end
 end
