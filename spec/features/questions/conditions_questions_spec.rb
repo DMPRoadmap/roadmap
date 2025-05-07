@@ -67,15 +67,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         # 27 - 8 = 19 (Questions left)
         expect(page).to have_text('17/19 answered')
 
-        condition.remove_data.each.map do |question_id|
-          expect(page).to have_no_selector("#answer-form-#{question_id}")
-        end
-
-        expected_remaining_question_ids = @all_questions_ids - condition.remove_data
-
-        expected_remaining_question_ids.each.map do |question_id|
-          expect(page).to have_selector("#answer-form-#{question_id}")
-        end
+        check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
 
         # Now uncheck checkbox_conditional_question answer.
         within("#answer-form-#{@conditional_questions[:checkbox].id}") do
@@ -144,15 +136,8 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         # 24 -8 + 1 = 17 (Answers left)
         # 27 - 8 = 19 (Questions left)
         expect(page).to have_text('17/19 answered')
-        condition.remove_data.each.map do |question_id|
-          expect(page).to have_no_selector("#answer-form-#{question_id}")
-        end
 
-        expected_remaining_question_ids = @all_questions_ids - condition.remove_data
-
-        expected_remaining_question_ids.each.map do |question_id|
-          expect(page).to have_selector("#answer-form-#{question_id}")
-        end
+        check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
 
         # Now for radiobutton_conditional_question answer, there in no unchoose option,
         # so we switch options to a different option without any conditions.
@@ -223,15 +208,8 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         # 24 -8 + 1 = 17 (Answers left)
         # 27 - 8 = 19 (Questions left)
         expect(page).to have_text('17/19 answered')
-        condition.remove_data.each.map do |question_id|
-          expect(page).to have_no_selector("#answer-form-#{question_id}")
-        end
 
-        expected_remaining_question_ids = @all_questions_ids - condition.remove_data
-
-        expected_remaining_question_ids.each.map do |question_id|
-          expect(page).to have_selector("#answer-form-#{question_id}")
-        end
+        check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
 
         # Now select another option for dropdown_conditional_question.
         within("#answer-form-#{@conditional_questions[:dropdown].id}") do
@@ -349,5 +327,15 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
     # Check questions answered in progress bar.
     # 24 non-conditional questions in total  answered.
     expect(page).to have_text('24/27 answered')
+  end
+
+  def check_remove_data_effect_on_answer_form_selectors(remove_data)
+    @all_questions_ids.each do |question_id|
+      if remove_data.include?(question_id)
+        expect(page).to have_no_selector("#answer-form-#{question_id}")
+      else
+        expect(page).to have_selector("#answer-form-#{question_id}")
+      end
+    end
   end
 end
