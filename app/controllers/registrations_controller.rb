@@ -318,4 +318,9 @@ class RegistrationsController < Devise::RegistrationsController
     attrs[:org_id] = org.id
     attrs
   end
+
+  # Override the default Devise after_sign_up_path_for method
+  def after_sign_up_path_for(_resource)
+    '/registrations/registration_success'
+  end
 end

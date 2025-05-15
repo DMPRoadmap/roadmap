@@ -9,9 +9,15 @@ Rails.application.routes.draw do
                passwords: 'passwords',
                sessions: 'sessions',
                omniauth_callbacks: 'users/omniauth_callbacks',
-               invitations: 'users/invitations'
+               invitations: 'users/invitations',
+               confirmations: 'devise/confirmations'
              }) do
     get '/users/sign_out', to: 'devise/sessions#destroy'
+  end
+
+  # Then add the custom route in a devise_scope block
+  devise_scope :user do
+    get '/registrations/registration_success', to: 'registrations#registration_success'
   end
 
   delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
