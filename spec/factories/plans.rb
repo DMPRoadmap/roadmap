@@ -62,13 +62,13 @@ FactoryBot.define do
       guidance_groups { 0 }
     end
     trait :creator do
-      after(:create) do |obj|
-        obj.roles << create(:role, :creator, user: create(:user, org: create(:org)))
+      after(:create) do |plan|
+        plan.roles << create(:role, :creator, user: create(:user, org: create(:org)), plan: plan)
       end
     end
     trait :commenter do
-      after(:create) do |obj|
-        obj.roles << create(:role, :commenter, user: create(:user, org: create(:org)))
+      after(:create) do |plan|
+        plan.roles << create(:role, :commenter, user: create(:user, org: create(:org)), plan: plan)
       end
     end
     trait :organisationally_visible do
