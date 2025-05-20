@@ -41,6 +41,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
   describe 'conditions with action_type remove' do
     feature 'User answers a checkboxes question with a condition' do
       scenario 'User answers chooses checkbox option with a condition', :js do
+        answer_id = @conditional_questions[:checkbox].id
         condition = create(:condition, question: @conditional_questions[:checkbox],
                                        option_list: [@conditional_questions[:checkbox].question_options[2].id],
                                        action_type: 'remove',
@@ -56,12 +57,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         go_to_write_plan_page_and_verify_answered
 
         # Answer the checkbox_conditional_question.
-        within("#answer-form-#{@conditional_questions[:checkbox].id}") do
+        within("#answer-form-#{answer_id}") do
           check @conditional_questions[:checkbox].question_options[2].text
-          click_button 'Save'
         end
 
-        expect(page).to have_text('Answered just now')
+        check_answer_save_statuses(answer_id)
         # Expect 8 questions and answers that have ids in condition.remove_data to be removed, and 1 new answer added:
         # 24 -8 + 1 = 17 (Answers left)
         # 27 - 8 = 19 (Questions left)
@@ -70,11 +70,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
 
         # Now uncheck checkbox_conditional_question answer.
-        within("#answer-form-#{@conditional_questions[:checkbox].id}") do
+        within("#answer-form-#{answer_id}") do
           uncheck @conditional_questions[:checkbox].question_options[2].text
-          click_button 'Save'
         end
 
+        check_answer_save_statuses(answer_id)
         # Expect 27 questions to appear again, but the 8 answers that were removed should not be there.
         # Also 1 answer should be removed as we unchecked  @conditional_questions[:checkbox].question_options[2].text
         # 17 (from previous check) - 1 = 16
@@ -82,6 +82,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       end
 
       scenario 'User answers chooses checkbox option without a condition', :js do
+        answer_id = @conditional_questions[:checkbox].id
         create(:condition, question: @conditional_questions[:checkbox],
                            option_list: [@conditional_questions[:checkbox].question_options[1].id],
                            action_type: 'remove',
@@ -95,12 +96,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         go_to_write_plan_page_and_verify_answered
 
         # Answer the checkbox_conditional_question
-        within("#answer-form-#{@conditional_questions[:checkbox].id}") do
+        within("#answer-form-#{answer_id}") do
           check @conditional_questions[:checkbox].question_options[0].text
-          click_button 'Save'
         end
 
-        expect(page).to have_text('Answered just now')
+        check_answer_save_statuses(answer_id)
 
         # Check questions answered in progress bar.
         expect(page).to have_text('25/27 answered')
@@ -109,6 +109,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
 
     feature 'User answers a radiobutton question with a condition' do
       scenario 'User answers selects radiobutton option with a condition', :js do
+        answer_id = @conditional_questions[:radiobutton].id
         condition = create(:condition, question: @conditional_questions[:radiobutton],
                                        option_list: [@conditional_questions[:radiobutton].question_options[2].id],
                                        action_type: 'remove',
@@ -124,12 +125,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         go_to_write_plan_page_and_verify_answered
 
         # Answer the radiobutton_conditional_question.
-        within("#answer-form-#{@conditional_questions[:radiobutton].id}") do
+        within("#answer-form-#{answer_id}") do
           choose @conditional_questions[:radiobutton].question_options[2].text
-          click_button 'Save'
         end
 
-        expect(page).to have_text('Answered just now')
+        check_answer_save_statuses(answer_id)
 
         # Check questions answered in progress bar.
         # Expect 8 questions and answers that have ids in condition.remove_data to be removed, and 1 new answer added:
@@ -141,11 +141,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
 
         # Now for radiobutton_conditional_question answer, there in no unchoose option,
         # so we switch options to a different option without any conditions.
-        within("#answer-form-#{@conditional_questions[:radiobutton].id}") do
+        within("#answer-form-#{answer_id}") do
           choose @conditional_questions[:radiobutton].question_options[0].text
-          click_button 'Save'
         end
 
+        check_answer_save_statuses(answer_id)
         # Check questions answered in progress bar.
         # Expect 27 questions to appear again, but the 8 answers that were removed should not be there.
         # Also 1 answer should be removed as we unchecked  @conditional_questions[:radiobutton].question_options[2].text
@@ -154,6 +154,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       end
 
       scenario 'User answers selects radiobutton option without a condition', :js do
+        answer_id = @conditional_questions[:radiobutton].id
         create(:condition, question: @conditional_questions[:radiobutton],
                            option_list: [@conditional_questions[:radiobutton].question_options[1].id],
                            action_type: 'remove',
@@ -167,12 +168,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         go_to_write_plan_page_and_verify_answered
 
         # Answer the radiobutton_conditional_question.
-        within("#answer-form-#{@conditional_questions[:radiobutton].id}") do
+        within("#answer-form-#{answer_id}") do
           choose @conditional_questions[:radiobutton].question_options[0].text
-          click_button 'Save'
         end
 
-        expect(page).to have_text('Answered just now')
+        check_answer_save_statuses(answer_id)
 
         # Check questions answered in progress bar.
         expect(page).to have_text('25/27 answered')
@@ -181,6 +181,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
 
     feature 'User answers a dropdown question with a condition' do
       scenario 'User answers chooses dropdown option with a condition', :js do
+        answer_id = @conditional_questions[:dropdown].id
         condition = create(:condition, question: @conditional_questions[:dropdown],
                                        option_list: [@conditional_questions[:dropdown].question_options[2].id],
                                        action_type: 'remove',
@@ -196,12 +197,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         go_to_write_plan_page_and_verify_answered
 
         # Answer the dropdown_conditional_question
-        within("#answer-form-#{@conditional_questions[:dropdown].id}") do
+        within("#answer-form-#{answer_id}") do
           select(@conditional_questions[:dropdown].question_options[2].text, from: 'answer_question_option_ids')
-          click_button 'Save'
         end
 
-        expect(page).to have_text('Answered just now')
+        check_answer_save_statuses(answer_id)
 
         # Check questions answered in progress bar.
         # Expect 8 questions and answers that have ids in condition.remove_data to be removed, and 1 new answer added:
@@ -212,11 +212,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
 
         # Now select another option for dropdown_conditional_question.
-        within("#answer-form-#{@conditional_questions[:dropdown].id}") do
+        within("#answer-form-#{answer_id}") do
           select(@conditional_questions[:dropdown].question_options[1].text, from: 'answer_question_option_ids')
-          click_button 'Save'
         end
 
+        check_answer_save_statuses(answer_id)
         # Check questions answered in progress bar.
         # Expect 27 questions to appear again, but the 8 answers that were removed should not be there.
         # 17 (from previous check as we switched answer from same dropdown)
@@ -224,6 +224,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       end
 
       scenario 'User answers select dropdown option without a condition', :js do
+        answer_id = @conditional_questions[:dropdown].id
         create(:condition, question: @conditional_questions[:dropdown],
                            option_list: [@conditional_questions[:dropdown].question_options[1].id],
                            action_type: 'remove',
@@ -237,12 +238,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         go_to_write_plan_page_and_verify_answered
 
         # Answer the dropdown_conditional_question.
-        within("#answer-form-#{@conditional_questions[:dropdown].id}") do
+        within("#answer-form-#{answer_id}") do
           select(@conditional_questions[:dropdown].question_options[0].text, from: 'answer_question_option_ids')
-          click_button 'Save'
         end
 
-        expect(page).to have_text('Answered just now')
+        check_answer_save_statuses(answer_id)
 
         # Check questions answered in progress bar.
         expect(page).to have_text('25/27 answered')
@@ -251,17 +251,18 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
   end
   describe 'conditions with action_type add_webhook' do
     scenario 'User answers chooses checkbox option with a condition (with action_type: add_webhook)', :js do
+      answer_id = @conditional_questions[:checkbox].id
       condition = create(:condition, :webhook, question: @conditional_questions[:checkbox],
                                                option_list: [@conditional_questions[:checkbox].question_options[2].id])
 
       go_to_write_plan_page_and_verify_answered
 
       # Answer the checkbox_conditional_question.
-      within("#answer-form-#{@conditional_questions[:checkbox].id}") do
+      within("#answer-form-#{answer_id}") do
         check @conditional_questions[:checkbox].question_options[2].text
       end
 
-      expect(page).to have_text('Answered just now')
+      check_answer_save_statuses(answer_id)
 
       # Check questions answered in progress bar.
       # Expect one extra answer to be added.
@@ -271,6 +272,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
     end
 
     scenario 'User answers chooses radiobutton option with a condition (with action_type: add_webhook)', :js do
+      answer_id = @conditional_questions[:radiobutton].id
       condition = create(:condition,
                          :webhook,
                          question: @conditional_questions[:radiobutton],
@@ -280,11 +282,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
 
       # Now for radiobutton_conditional_question answer, there in no unchoose option,
       # so we switch options to a different option without any conditions.
-      within("#answer-form-#{@conditional_questions[:radiobutton].id}") do
+      within("#answer-form-#{answer_id}") do
         choose @conditional_questions[:radiobutton].question_options[0].text
       end
 
-      expect(page).to have_text('Answered just now')
+      check_answer_save_statuses(answer_id)
 
       # Check questions answered in progress bar.
       # Expect one extra answer to be added.
@@ -294,17 +296,18 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
     end
 
     scenario 'User answers chooses dropdown option with a condition (with action_type: add_webhook)', :js do
+      answer_id = @conditional_questions[:dropdown].id
       condition = create(:condition, :webhook, question: @conditional_questions[:dropdown],
                                                option_list: [@conditional_questions[:dropdown].question_options[2].id])
 
       go_to_write_plan_page_and_verify_answered
 
       # Answer the dropdown_conditional_question
-      within("#answer-form-#{@conditional_questions[:dropdown].id}") do
+      within("#answer-form-#{answer_id}") do
         select(@conditional_questions[:dropdown].question_options[2].text, from: 'answer_question_option_ids')
       end
 
-      expect(page).to have_text('Answered just now')
+      check_answer_save_statuses(answer_id)
 
       # Check questions answered in progress bar.
       # Expect one extra answer to be added.
@@ -336,6 +339,17 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       else
         expect(page).to have_selector("#answer-form-#{question_id}")
       end
+    end
+  end
+
+  # Checks for 'Saving' and 'Answered just now' messages
+  def check_answer_save_statuses(answer_id)
+    within("#answer-status-#{answer_id}") do
+      saving_span = find('span.status[data-status="saving"]')
+      expect(saving_span.text).to include('Saving')
+      # We use `first()` because there are multiple span elements with `saved-at` status
+      saved_span = first('span.status[data-status="saved-at"]')
+      expect(saved_span.text).to include('Answered just now')
     end
   end
 end
