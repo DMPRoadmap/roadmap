@@ -7,7 +7,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
   before(:each) do
     @user = create(:user)
     @template = create(:template, :default, :published)
-    @plan = create(:plan, :creator, template: @template)
+    @plan = create(:plan, template: @template)
     @phase = create(:phase, template: @template)
     # 3 sections for ensuring that conditions involve questions in different sections.
     @section1 = create(:section, phase: @phase)
