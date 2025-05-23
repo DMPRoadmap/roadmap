@@ -23,9 +23,11 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
     create(:role, :creator, :editor, :commenter, user: @user, plan: @plan)
 
     @all_questions_ids = (@conditional_questions.values + @non_conditional_questions.values.flatten).map(&:id)
+    @total_initial_questions = @all_questions_ids.count
 
     # Answer the non-conditional questions
-    create_answers
+    answers = create_answers
+    @total_initial_answers = answers.values.flatten.count
 
     sign_in(@user)
 
@@ -62,11 +64,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         end
 
         check_answer_save_statuses(answer_id)
-        # Expect 8 questions and answers that have ids in condition.remove_data to be removed, and 1 new answer added:
-        # 24 -8 + 1 = 17 (Answers left)
-        # 27 - 8 = 19 (Questions left)
-        expect(page).to have_text('17/19 answered')
-
+        check_question_and_answer_counts_for_plan(condition.remove_data)
         check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
 
         # Now uncheck checkbox_conditional_question answer.
@@ -75,10 +73,10 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         end
 
         check_answer_save_statuses(answer_id)
-        # Expect 27 questions to appear again, but the 8 answers that were removed should not be there.
-        # Also 1 answer should be removed as we unchecked  @conditional_questions[:checkbox].question_options[2].text
-        # 17 (from previous check) - 1 = 16
-        expect(page).to have_text('16/27 answered')
+        num_questions, num_answers = question_and_answer_counts_for_plan
+        # Unchecking the conditional question should unhide all of the `remove_data` questions
+        # `- 1` from num_answers to account for now unchecked conditional question
+        expect(page).to have_text("#{num_answers - 1}/#{num_questions} answered")
       end
 
       scenario 'User answers chooses checkbox option without a condition', :js do
@@ -101,9 +99,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         end
 
         check_answer_save_statuses(answer_id)
-
-        # Check questions answered in progress bar.
-        expect(page).to have_text('25/27 answered')
+        check_question_and_answer_counts_for_plan
       end
     end
 
@@ -130,13 +126,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         end
 
         check_answer_save_statuses(answer_id)
-
-        # Check questions answered in progress bar.
-        # Expect 8 questions and answers that have ids in condition.remove_data to be removed, and 1 new answer added:
-        # 24 -8 + 1 = 17 (Answers left)
-        # 27 - 8 = 19 (Questions left)
-        expect(page).to have_text('17/19 answered')
-
+        check_question_and_answer_counts_for_plan(condition.remove_data)
         check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
 
         # Now for radiobutton_conditional_question answer, there in no unchoose option,
@@ -146,11 +136,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         end
 
         check_answer_save_statuses(answer_id)
-        # Check questions answered in progress bar.
-        # Expect 27 questions to appear again, but the 8 answers that were removed should not be there.
-        # Also 1 answer should be removed as we unchecked  @conditional_questions[:radiobutton].question_options[2].text
-        # 17 (from previous check) - 1 = 16
-        expect(page).to have_text('17/27 answered')
+        check_question_and_answer_counts_for_plan
       end
 
       scenario 'User answers selects radiobutton option without a condition', :js do
@@ -173,9 +159,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         end
 
         check_answer_save_statuses(answer_id)
-
-        # Check questions answered in progress bar.
-        expect(page).to have_text('25/27 answered')
+        check_question_and_answer_counts_for_plan
       end
     end
 
@@ -202,13 +186,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         end
 
         check_answer_save_statuses(answer_id)
-
-        # Check questions answered in progress bar.
-        # Expect 8 questions and answers that have ids in condition.remove_data to be removed, and 1 new answer added:
-        # 24 -8 + 1 = 17 (Answers left)
-        # 27 - 8 = 19 (Questions left)
-        expect(page).to have_text('17/19 answered')
-
+        check_question_and_answer_counts_for_plan(condition.remove_data)
         check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
 
         # Now select another option for dropdown_conditional_question.
@@ -217,10 +195,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         end
 
         check_answer_save_statuses(answer_id)
-        # Check questions answered in progress bar.
-        # Expect 27 questions to appear again, but the 8 answers that were removed should not be there.
-        # 17 (from previous check as we switched answer from same dropdown)
-        expect(page).to have_text('17/27 answered')
+        check_question_and_answer_counts_for_plan
       end
 
       scenario 'User answers select dropdown option without a condition', :js do
@@ -243,9 +218,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
         end
 
         check_answer_save_statuses(answer_id)
-
-        # Check questions answered in progress bar.
-        expect(page).to have_text('25/27 answered')
+        check_question_and_answer_counts_for_plan
       end
     end
   end
@@ -263,10 +236,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       end
 
       check_answer_save_statuses(answer_id)
-
-      # Check questions answered in progress bar.
-      # Expect one extra answer to be added.
-      expect(page).to have_text('25/27 answered')
+      check_question_and_answer_counts_for_plan
 
       check_delivered_mail_for_webhook_data_and_question_data(JSON.parse(condition.webhook_data), :checkbox)
     end
@@ -287,10 +257,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       end
 
       check_answer_save_statuses(answer_id)
-
-      # Check questions answered in progress bar.
-      # Expect one extra answer to be added.
-      expect(page).to have_text('25/27 answered')
+      check_question_and_answer_counts_for_plan
 
       check_delivered_mail_for_webhook_data_and_question_data(JSON.parse(condition.webhook_data), :radiobutton)
     end
@@ -308,16 +275,42 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       end
 
       check_answer_save_statuses(answer_id)
-
-      # Check questions answered in progress bar.
-      # Expect one extra answer to be added.
-      expect(page).to have_text('25/27 answered')
+      check_question_and_answer_counts_for_plan
 
       check_delivered_mail_for_webhook_data_and_question_data(JSON.parse(condition.webhook_data), :dropdown)
     end
   end
 
   private
+
+  def check_question_and_answer_counts_for_plan(condition_remove_data = nil)
+    if condition_remove_data
+      check_condition_remove_data_effect_on_plan(condition_remove_data.count)
+    else
+      # This is either a :webhook type conditional question, or a non-conditional question
+      num_questions, num_answers = question_and_answer_counts_for_plan
+      expect(page).to have_text("#{num_answers}/#{num_questions} answered")
+    end
+  end
+
+  def check_condition_remove_data_effect_on_plan(num_removed_answers)
+    num_questions, num_answers = question_and_answer_counts_for_plan
+    # The number of plan questions has not changed in the db
+    expect(num_questions).to eql(@total_initial_questions)
+    # The number of plan answers in the db has changed:
+    # - We subract num_removed_answers (i.e. `condition.remove_data.count`)
+    # - We also `+ 1` to account for the answer saved for the conditional question in the process
+    expected_num_answers = @total_initial_answers - num_removed_answers + 1
+    expect(num_answers).to eql(expected_num_answers)
+    # Check questions answered in progress bar:
+    # - `@total_initial_questions - num_removed_answers` accounts for the now hidden (but not deleted) questions
+    expect(page).to have_text("#{expected_num_answers}/#{@total_initial_questions - num_removed_answers} answered")
+  end
+
+  def question_and_answer_counts_for_plan
+    plan = Plan.includes(:questions, :answers).first
+    [plan.questions.count, plan.answers.count]
+  end
 
   def go_to_write_plan_page_and_verify_answered
     visit overview_plan_path(@plan)
@@ -328,8 +321,8 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
     find('a[data-toggle-direction=show]').click
 
     # Check questions answered in progress bar.
-    # 24 non-conditional questions in total  answered.
-    expect(page).to have_text('24/27 answered')
+    num_questions, num_answers = question_and_answer_counts_for_plan
+    expect(page).to have_text("#{num_answers}/#{num_questions} answered")
   end
 
   def check_remove_data_effect_on_answer_form_selectors(remove_data)
