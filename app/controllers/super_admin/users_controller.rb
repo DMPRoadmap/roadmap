@@ -140,6 +140,11 @@ module SuperAdmin
     end
 
     def handle_confirmed_at_param(attrs)
+      # NOTE: The :confirmed_at param is controlled by a check_box in the form
+      # `app/views/super_admin/users/_email_confirmation_status.html.erb`.
+      # When the checkbox is checked, Rails submits the string '1' (indicating "confirmed").
+      # When unchecked, it submits the string '0' (indicating "unconfirmed").
+
       # if an unconfirmed email is now being confirmed
       if !@user.confirmed? && attrs[:confirmed_at] == '1'
         attrs[:confirmed_at] = Time.current
