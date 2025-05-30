@@ -44,7 +44,7 @@ class OrgsController < ApplicationController
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
       identifiers = []
-      attrs[:managed] = attrs[:managed] == '1'
+      attrs = handle_managed_flag(attrs)
 
       # Handle Shibboleth identifier if that is enabled
       if Rails.configuration.x.shibboleth.use_filtered_discovery_service
@@ -234,6 +234,15 @@ class OrgsController < ApplicationController
 
   def search_params
     params.require(:org).permit(:name, :type)
+  end
+
+  def handle_managed_flag(attrs)
+    # NOTE: The :managed param is controlled by a check_box in the form
+    #       `app/views/orgs/_profile_form.html.erb`.
+    # NOTE: :managed is not present when a super admin updates an org
+    #       by clicking "Save" while on the "Request feedback" tab
+    attrs[:managed] = (attrs[:managed] == '1') if attrs.key?(:managed)
+    attrs
   end
 
   def shib_login_url
