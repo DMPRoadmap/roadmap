@@ -15,10 +15,10 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
     @section3 = create(:section, phase: @phase)
 
     # Different types of questions (than can have conditional options)
-    @conditional_questions = create_conditional_questions(5)
+    @conditional_questions = create_conditional_questions(3)
 
     # Questions that do not have conditional options for adding or removing
-    @non_conditional_questions = create_non_conditional_questions(3, 5)
+    @non_conditional_questions = create_non_conditional_questions(3, 3)
 
     create(:role, :creator, :editor, :commenter, user: @user, plan: @plan)
 
@@ -87,7 +87,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
                            remove_data: non_conditional_questions_ids_by_index(2))
 
         create(:condition, question: @conditional_questions[:checkbox],
-                           option_list: [@conditional_questions[:checkbox].question_options[4].id],
+                           option_list: [@conditional_questions[:checkbox].question_options[2].id],
                            action_type: 'remove',
                            remove_data: non_conditional_questions_ids_by_index(0))
 
@@ -147,7 +147,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
                            remove_data: non_conditional_questions_ids_by_index(2))
 
         create(:condition, question: @conditional_questions[:radiobutton],
-                           option_list: [@conditional_questions[:radiobutton].question_options[4].id],
+                           option_list: [@conditional_questions[:radiobutton].question_options[2].id],
                            action_type: 'remove',
                            remove_data: non_conditional_questions_ids_by_index(0))
 
@@ -206,7 +206,7 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
                            remove_data: non_conditional_questions_ids_by_index(2))
 
         create(:condition, question: @conditional_questions[:dropdown],
-                           option_list: [@conditional_questions[:dropdown].question_options[4].id],
+                           option_list: [@conditional_questions[:dropdown].question_options[2].id],
                            action_type: 'remove',
                            remove_data: non_conditional_questions_ids_by_index(0))
 

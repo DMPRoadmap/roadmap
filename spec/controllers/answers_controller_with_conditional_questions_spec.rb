@@ -12,10 +12,10 @@ RSpec.describe AnswersController, type: :controller do
     @section1, @section2, @section3 = template.sections
 
     # Different types of questions (than can have conditional options)
-    @conditional_questions = create_conditional_questions(5)
+    @conditional_questions = create_conditional_questions(3)
 
     # Questions that do not have conditional options for adding or removing
-    @non_conditional_questions = create_non_conditional_questions(7, 3)
+    @non_conditional_questions = create_non_conditional_questions(3, 3)
 
     @plan = create(:plan, :creator, template: template)
     @user = @plan.owner
@@ -41,10 +41,11 @@ RSpec.describe AnswersController, type: :controller do
       # NOTE: Checkboxes allow for multiple options to be selected.
       context 'with conditional checkbox question' do
         it 'handles single option (with condition) in option_list ' do
+          non_conditional_question_index = 0
           condition = create(:condition, question: @conditional_questions[:checkbox],
                                          option_list: [@conditional_questions[:checkbox].question_options[2].id],
                                          action_type: 'remove',
-                                         remove_data: non_conditional_questions_ids_by_index(5))
+                                         remove_data: non_conditional_questions_ids_by_index(non_conditional_question_index))
 
           #  We chose an option that is in the option_list of the condition defined above. Note that
           # the text sent by UI is an empty string.
@@ -64,10 +65,11 @@ RSpec.describe AnswersController, type: :controller do
           # Check hide/show questions lists sent to frontend.
           check_question_ids_to_show_and_hide(json, condition.remove_data)
 
-          #  Check Answers in database (persisted). Expect removed answers to be destroyed.
-          # Answers destroyed eare easier checked using array of ids rather than individually as in example
-          # expect(Answer.exists?(@answers[:textarea][5].id)).to be_falsey.
-          removed_answers = @answers.map { |_, answers| answers[5].id }
+          # Verify that answers for the `removed_data` questions were deleted from the DB.
+          # NOTE: `@answers` contains only answers to non-conditional questions.
+          #       So we use `non_conditional_question_index` to locate the corresponding answer
+          #       for each type of non-conditional question.
+          removed_answers = @answers.map { |_, answers| answers[non_conditional_question_index].id }
           expect(Answer.where(id: removed_answers).pluck(:id)).to be_empty
           # Answers left
           expect(Answer.where(id: @all_answers_ids).pluck(:id)).to match_array(
@@ -78,10 +80,10 @@ RSpec.describe AnswersController, type: :controller do
           create(:condition, question: @conditional_questions[:checkbox],
                              option_list: [@conditional_questions[:checkbox].question_options[1].id],
                              action_type: 'remove',
-                             remove_data: non_conditional_questions_ids_by_index(3))
+                             remove_data: non_conditional_questions_ids_by_index(2))
 
           create(:condition, question: @conditional_questions[:checkbox],
-                             option_list: [@conditional_questions[:checkbox].question_options[4].id],
+                             option_list: [@conditional_questions[:checkbox].question_options[2].id],
                              action_type: 'remove',
                              remove_data: non_conditional_questions_ids_by_index(0))
 
@@ -103,21 +105,21 @@ RSpec.describe AnswersController, type: :controller do
 
         it 'handles multiple options (some with conditions) in option_list' do
           condition1 = create(:condition, question: @conditional_questions[:checkbox],
-                                          option_list: [@conditional_questions[:checkbox].question_options[2].id],
+                                          option_list: [@conditional_questions[:checkbox].question_options[1].id],
                                           action_type: 'remove',
                                           remove_data: non_conditional_questions_ids_by_index(0))
 
           condition2 = create(:condition, question: @conditional_questions[:checkbox],
-                                          option_list: [@conditional_questions[:checkbox].question_options[4].id],
+                                          option_list: [@conditional_questions[:checkbox].question_options[2].id],
                                           action_type: 'remove',
-                                          remove_data: non_conditional_questions_ids_by_index(3))
+                                          remove_data: non_conditional_questions_ids_by_index(2))
 
           # We choose options that is in the option_list of the conditions defined above as well as an option
           # with no condition defined.
           args = {
-            question_option_ids: [@conditional_questions[:checkbox].question_options[1].id,
-                                  @conditional_questions[:checkbox].question_options[2].id,
-                                  @conditional_questions[:checkbox].question_options[4].id],
+            question_option_ids: [@conditional_questions[:checkbox].question_options[0].id,
+                                  @conditional_questions[:checkbox].question_options[1].id,
+                                  @conditional_questions[:checkbox].question_options[2].id],
             user_id: @user.id,
             question_id: @conditional_questions[:checkbox].id,
             plan_id: @plan.id,
@@ -137,7 +139,7 @@ RSpec.describe AnswersController, type: :controller do
           condition = create(:condition, question: @conditional_questions[:radiobutton],
                                          option_list: [@conditional_questions[:radiobutton].question_options[2].id],
                                          action_type: 'remove',
-                                         remove_data: non_conditional_questions_ids_by_index(5))
+                                         remove_data: non_conditional_questions_ids_by_index(2))
 
           # We choose an option that is in the option_list of the condition defined above.
           args = {
@@ -158,10 +160,10 @@ RSpec.describe AnswersController, type: :controller do
           create(:condition, question: @conditional_questions[:radiobutton],
                              option_list: [@conditional_questions[:radiobutton].question_options[1].id],
                              action_type: 'remove',
-                             remove_data: non_conditional_questions_ids_by_index(3))
+                             remove_data: non_conditional_questions_ids_by_index(2))
 
           create(:condition, question: @conditional_questions[:radiobutton],
-                             option_list: [@conditional_questions[:radiobutton].question_options[4].id],
+                             option_list: [@conditional_questions[:radiobutton].question_options[2].id],
                              action_type: 'remove',
                              remove_data: non_conditional_questions_ids_by_index(0))
 
@@ -188,7 +190,7 @@ RSpec.describe AnswersController, type: :controller do
           condition = create(:condition, question: @conditional_questions[:dropdown],
                                          option_list: [@conditional_questions[:dropdown].question_options[2].id],
                                          action_type: 'remove',
-                                         remove_data: non_conditional_questions_ids_by_index(5))
+                                         remove_data: non_conditional_questions_ids_by_index(2))
 
           #  We chose an option that is in the option_list of the condition defined above.
           args = {
@@ -209,10 +211,10 @@ RSpec.describe AnswersController, type: :controller do
           create(:condition, question: @conditional_questions[:dropdown],
                              option_list: [@conditional_questions[:dropdown].question_options[1].id],
                              action_type: 'remove',
-                             remove_data: non_conditional_questions_ids_by_index(3))
+                             remove_data: non_conditional_questions_ids_by_index(2))
 
           create(:condition, question: @conditional_questions[:dropdown],
-                             option_list: [@conditional_questions[:dropdown].question_options[4].id],
+                             option_list: [@conditional_questions[:dropdown].question_options[2].id],
                              action_type: 'remove',
                              remove_data: non_conditional_questions_ids_by_index(0))
 
@@ -276,20 +278,20 @@ RSpec.describe AnswersController, type: :controller do
         add_webhook_condition = create(:condition,
                                        :webhook,
                                        question: @conditional_questions[:checkbox],
-                                       option_list: [@conditional_questions[:checkbox].question_options[2].id])
+                                       option_list: [@conditional_questions[:checkbox].question_options[1].id])
 
         condition2 = create(:condition, question: @conditional_questions[:checkbox],
-                                        option_list: [@conditional_questions[:checkbox].question_options[4].id],
+                                        option_list: [@conditional_questions[:checkbox].question_options[2].id],
                                         action_type: 'remove',
-                                        remove_data: non_conditional_questions_ids_by_index(3))
+                                        remove_data: non_conditional_questions_ids_by_index(2))
 
         #  We chose an option that is in the option_list of the condition defined above. Note that
         # the text sent by UI is an empty string.
         args = {
           text: '',
-          question_option_ids: [@conditional_questions[:checkbox].question_options[2].id,
-                                @conditional_questions[:checkbox].question_options[4].id,
-                                @conditional_questions[:checkbox].question_options[1].id],
+          question_option_ids: [@conditional_questions[:checkbox].question_options[0].id,
+                                @conditional_questions[:checkbox].question_options[1].id,
+                                @conditional_questions[:checkbox].question_options[2].id],
           user_id: @user.id,
           question_id: @conditional_questions[:checkbox].id,
           plan_id: @plan.id,
