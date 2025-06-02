@@ -230,6 +230,7 @@ class OrgsController < ApplicationController
   end
 
   # Updates the @org's Shibboleth identifier(s) if the required conditions are met
+  # rubocop:disable Metrics/AbcSize
   def handle_shibboleth_identifier(attrs)
     return attrs unless Rails.configuration.x.shibboleth.use_filtered_discovery_service
 
@@ -251,6 +252,7 @@ class OrgsController < ApplicationController
     attrs.delete(:identifiers_attributes)
     attrs
   end
+  # rubocop:enable Metrics/AbcSize
 
   def shib_login_url
     shib_login = Rails.configuration.x.shibboleth.login_url
