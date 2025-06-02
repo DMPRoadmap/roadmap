@@ -33,41 +33,17 @@ class OrgsController < ApplicationController
     @org = Org.find(params[:id])
     authorize @org
 
-    # If a new logo was supplied then use it, otherwise retain the existing one
-    attrs[:logo] = attrs[:logo].present? ? attrs[:logo] : @org.logo
-    # Remove the logo if the user checked the box
-    attrs[:logo] = nil if attrs[:remove_logo] == '1'
+    attrs = handle_logo(attrs)
 
     tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
     @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
 
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
-      identifiers = []
       attrs = handle_managed_flag(attrs)
+      attrs = handle_shibboleth_identifier(attrs)
 
-      # Handle Shibboleth identifier if that is enabled
-      if Rails.configuration.x.shibboleth.use_filtered_discovery_service
-        shib = IdentifierScheme.by_name('shibboleth').first
-
-        if shib.present? && attrs[:identifiers_attributes].present?
-          key = attrs[:identifiers_attributes].keys.first
-          entity_id = attrs[:identifiers_attributes][:"#{key}"][:value]
-          # rubocop:disable Metrics/BlockNesting
-          if entity_id.present?
-            identifier = Identifier.find_or_initialize_by(
-              identifiable: @org, identifier_scheme: shib, value: entity_id
-            )
-            @org = process_identifier_change(org: @org, identifier: identifier)
-          else
-            # The user blanked out the entityID so delete the record
-            @org.identifier_for_scheme(scheme: shib)&.destroy
-          end
-          # rubocop:enable Metrics/BlockNesting
-        end
-        attrs.delete(:identifiers_attributes)
-      end
-
+      identifiers = []
       # See if the user selected a new Org via the Org Lookup and
       # convert it into an Org
       lookup = org_from_params(params_in: attrs)
@@ -236,12 +212,43 @@ class OrgsController < ApplicationController
     params.require(:org).permit(:name, :type)
   end
 
+  def handle_logo(attrs)
+    # If a new logo was supplied then use it, otherwise retain the existing one
+    attrs[:logo] = attrs[:logo].present? ? attrs[:logo] : @org.logo
+    # Remove the logo if the user checked the box
+    attrs[:logo] = nil if attrs[:remove_logo] == '1'
+    attrs
+  end
+
   def handle_managed_flag(attrs)
     # NOTE: The :managed param is controlled by a check_box in the form
     #       `app/views/orgs/_profile_form.html.erb`.
     # NOTE: :managed is not present when a super admin updates an org
     #       by clicking "Save" while on the "Request feedback" tab
     attrs[:managed] = (attrs[:managed] == '1') if attrs.key?(:managed)
+    attrs
+  end
+
+  # Updates the @org's Shibboleth identifier(s) if the required conditions are met
+  def handle_shibboleth_identifier(attrs)
+    return attrs unless Rails.configuration.x.shibboleth.use_filtered_discovery_service
+
+    shib = IdentifierScheme.by_name('shibboleth').first
+
+    if shib.present? && attrs[:identifiers_attributes].present?
+      key = attrs[:identifiers_attributes].keys.first
+      entity_id = attrs[:identifiers_attributes][:"#{key}"][:value]
+      if entity_id.present?
+        identifier = Identifier.find_or_initialize_by(
+          identifiable: @org, identifier_scheme: shib, value: entity_id
+        )
+        @org = process_identifier_change(org: @org, identifier: identifier)
+      else
+        # The user blanked out the entityID so delete the record
+        @org.identifier_for_scheme(scheme: shib)&.destroy
+      end
+    end
+    attrs.delete(:identifiers_attributes)
     attrs
   end
 
