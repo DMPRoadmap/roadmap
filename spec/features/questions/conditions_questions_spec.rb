@@ -41,11 +41,16 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
   #  So all Conditions are created with option_list with a single option id.
 
   describe 'conditions with action_type remove' do
-    feature 'User answers a checkboxes question with a condition' do
-      scenario 'User answers chooses checkbox option with a condition', :js do
-        answer_id = @conditional_questions[:checkbox].id
-        condition = create(:condition, question: @conditional_questions[:checkbox],
-                                       option_list: [@conditional_questions[:checkbox].question_options[2].id],
+    feature 'User answers a question with a condition' do
+      scenario 'User answers chooses an option with a condition', :js do
+        # Choose a conditional question at random (may be of type :checkbox, :radiobutton, or :dropdown)
+        question_type = @conditional_questions.keys.sample
+        conditional_question = @conditional_questions[question_type]
+        conditional_question_remove_option = conditional_question.question_options[0]
+        conditional_question_other_option = conditional_question.question_options[1]
+        answer_id = conditional_question.id
+        condition = create(:condition, question: conditional_question,
+                                       option_list: [conditional_question_remove_option.id],
                                        action_type: 'remove',
                                        remove_data: [@non_conditional_questions[:textarea][0].id,
                                                      @non_conditional_questions[:textfield][1].id,
@@ -58,163 +63,54 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
 
         go_to_write_plan_page_and_verify_answered
 
-        # Answer the checkbox_conditional_question.
+        # Answer the conditional_question
         within("#answer-form-#{answer_id}") do
-          check @conditional_questions[:checkbox].question_options[2].text
+          answer_conditional_question(conditional_question_remove_option, question_type)
         end
 
         check_answer_save_statuses(answer_id)
         check_question_and_answer_counts_for_plan(condition.remove_data)
         check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
 
-        # Now uncheck checkbox_conditional_question answer.
+        question_option = determine_question_option(conditional_question_remove_option,
+                                                    conditional_question_other_option, question_type)
+        # If :checkbox, uncheck the previously checked option
+        # Else, select a different :dropdown/:radiobutton option
         within("#answer-form-#{answer_id}") do
-          uncheck @conditional_questions[:checkbox].question_options[2].text
+          answer_conditional_question(question_option, question_type, 'uncheck')
         end
 
         check_answer_save_statuses(answer_id)
         num_questions, num_answers = question_and_answer_counts_for_plan
-        # Unchecking the conditional question should unhide all of the `remove_data` questions
-        # `- 1` from num_answers to account for now unchecked conditional question
-        expect(page).to have_text("#{num_answers - 1}/#{num_questions} answered")
+
+        # Undoing the conditional question should unhide all of the `remove_data` questions
+        # `-= 1` is needed for :checkbox because unchecking removes an answer
+        # (:dropdown and :radiobutton simply select a different answer)
+        num_answers -= 1 if question_type == :checkbox
+        expect(page).to have_text("#{num_answers}/#{num_questions} answered")
       end
 
-      scenario 'User answers chooses checkbox option without a condition', :js do
-        answer_id = @conditional_questions[:checkbox].id
-        create(:condition, question: @conditional_questions[:checkbox],
-                           option_list: [@conditional_questions[:checkbox].question_options[1].id],
+      scenario 'User answers chooses an option without a condition', :js do
+        # Choose a conditional question at random (may be of type :checkbox, :radiobutton, or :dropdown)
+        question_type = @conditional_questions.keys.sample
+        conditional_question = @conditional_questions[question_type]
+        conditional_question_other_option = conditional_question.question_options[0]
+        answer_id = conditional_question.id
+        create(:condition, question: conditional_question,
+                           option_list: [conditional_question.question_options[1].id],
                            action_type: 'remove',
                            remove_data: non_conditional_questions_ids_by_index(2))
 
-        create(:condition, question: @conditional_questions[:checkbox],
-                           option_list: [@conditional_questions[:checkbox].question_options[2].id],
+        create(:condition, question: conditional_question,
+                           option_list: [conditional_question.question_options[2].id],
                            action_type: 'remove',
                            remove_data: non_conditional_questions_ids_by_index(0))
 
         go_to_write_plan_page_and_verify_answered
 
-        # Answer the checkbox_conditional_question
+        # Answer the conditional_question
         within("#answer-form-#{answer_id}") do
-          check @conditional_questions[:checkbox].question_options[0].text
-        end
-
-        check_answer_save_statuses(answer_id)
-        check_question_and_answer_counts_for_plan
-      end
-    end
-
-    feature 'User answers a radiobutton question with a condition' do
-      scenario 'User answers selects radiobutton option with a condition', :js do
-        answer_id = @conditional_questions[:radiobutton].id
-        condition = create(:condition, question: @conditional_questions[:radiobutton],
-                                       option_list: [@conditional_questions[:radiobutton].question_options[2].id],
-                                       action_type: 'remove',
-                                       remove_data: [@non_conditional_questions[:textarea][0].id,
-                                                     @non_conditional_questions[:textfield][1].id,
-                                                     @non_conditional_questions[:date][2].id,
-                                                     @non_conditional_questions[:rda_metadata][0].id,
-                                                     @non_conditional_questions[:checkbox][1].id,
-                                                     @non_conditional_questions[:radiobutton][2].id,
-                                                     @non_conditional_questions[:dropdown][0].id,
-                                                     @non_conditional_questions[:multiselectbox][1].id])
-
-        go_to_write_plan_page_and_verify_answered
-
-        # Answer the radiobutton_conditional_question.
-        within("#answer-form-#{answer_id}") do
-          choose @conditional_questions[:radiobutton].question_options[2].text
-        end
-
-        check_answer_save_statuses(answer_id)
-        check_question_and_answer_counts_for_plan(condition.remove_data)
-        check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
-
-        # Now for radiobutton_conditional_question answer, there in no unchoose option,
-        # so we switch options to a different option without any conditions.
-        within("#answer-form-#{answer_id}") do
-          choose @conditional_questions[:radiobutton].question_options[0].text
-        end
-
-        check_answer_save_statuses(answer_id)
-        check_question_and_answer_counts_for_plan
-      end
-
-      scenario 'User answers selects radiobutton option without a condition', :js do
-        answer_id = @conditional_questions[:radiobutton].id
-        create(:condition, question: @conditional_questions[:radiobutton],
-                           option_list: [@conditional_questions[:radiobutton].question_options[1].id],
-                           action_type: 'remove',
-                           remove_data: non_conditional_questions_ids_by_index(2))
-
-        create(:condition, question: @conditional_questions[:radiobutton],
-                           option_list: [@conditional_questions[:radiobutton].question_options[2].id],
-                           action_type: 'remove',
-                           remove_data: non_conditional_questions_ids_by_index(0))
-
-        go_to_write_plan_page_and_verify_answered
-
-        # Answer the radiobutton_conditional_question.
-        within("#answer-form-#{answer_id}") do
-          choose @conditional_questions[:radiobutton].question_options[0].text
-        end
-
-        check_answer_save_statuses(answer_id)
-        check_question_and_answer_counts_for_plan
-      end
-    end
-
-    feature 'User answers a dropdown question with a condition' do
-      scenario 'User answers chooses dropdown option with a condition', :js do
-        answer_id = @conditional_questions[:dropdown].id
-        condition = create(:condition, question: @conditional_questions[:dropdown],
-                                       option_list: [@conditional_questions[:dropdown].question_options[2].id],
-                                       action_type: 'remove',
-                                       remove_data: [@non_conditional_questions[:textarea][0].id,
-                                                     @non_conditional_questions[:textfield][1].id,
-                                                     @non_conditional_questions[:date][2].id,
-                                                     @non_conditional_questions[:rda_metadata][0].id,
-                                                     @non_conditional_questions[:checkbox][1].id,
-                                                     @non_conditional_questions[:radiobutton][2].id,
-                                                     @non_conditional_questions[:dropdown][0].id,
-                                                     @non_conditional_questions[:multiselectbox][1].id])
-
-        go_to_write_plan_page_and_verify_answered
-
-        # Answer the dropdown_conditional_question
-        within("#answer-form-#{answer_id}") do
-          select(@conditional_questions[:dropdown].question_options[2].text, from: 'answer_question_option_ids')
-        end
-
-        check_answer_save_statuses(answer_id)
-        check_question_and_answer_counts_for_plan(condition.remove_data)
-        check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
-
-        # Now select another option for dropdown_conditional_question.
-        within("#answer-form-#{answer_id}") do
-          select(@conditional_questions[:dropdown].question_options[1].text, from: 'answer_question_option_ids')
-        end
-
-        check_answer_save_statuses(answer_id)
-        check_question_and_answer_counts_for_plan
-      end
-
-      scenario 'User answers select dropdown option without a condition', :js do
-        answer_id = @conditional_questions[:dropdown].id
-        create(:condition, question: @conditional_questions[:dropdown],
-                           option_list: [@conditional_questions[:dropdown].question_options[1].id],
-                           action_type: 'remove',
-                           remove_data: non_conditional_questions_ids_by_index(2))
-
-        create(:condition, question: @conditional_questions[:dropdown],
-                           option_list: [@conditional_questions[:dropdown].question_options[2].id],
-                           action_type: 'remove',
-                           remove_data: non_conditional_questions_ids_by_index(0))
-
-        go_to_write_plan_page_and_verify_answered
-
-        # Answer the dropdown_conditional_question.
-        within("#answer-form-#{answer_id}") do
-          select(@conditional_questions[:dropdown].question_options[0].text, from: 'answer_question_option_ids')
+          answer_conditional_question(conditional_question_other_option, question_type)
         end
 
         check_answer_save_statuses(answer_id)
@@ -222,62 +118,28 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       end
     end
   end
+
   describe 'conditions with action_type add_webhook' do
-    scenario 'User answers chooses checkbox option with a condition (with action_type: add_webhook)', :js do
-      answer_id = @conditional_questions[:checkbox].id
-      condition = create(:condition, :webhook, question: @conditional_questions[:checkbox],
-                                               option_list: [@conditional_questions[:checkbox].question_options[2].id])
+    scenario 'User answers chooses an option with a condition (with action_type: add_webhook)', :js do
+      # Choose a conditional question at random (may be of type :checkbox, :radiobutton, or :dropdown)
+      question_type = @conditional_questions.keys.sample
+      conditional_question = @conditional_questions[question_type]
+      conditional_question_webhook_option = conditional_question.question_options[2]
+      answer_id = conditional_question.id
+      condition = create(:condition, :webhook, question: conditional_question,
+                                               option_list: [conditional_question_webhook_option.id])
 
       go_to_write_plan_page_and_verify_answered
 
-      # Answer the checkbox_conditional_question.
+      # Answer the conditional_question
       within("#answer-form-#{answer_id}") do
-        check @conditional_questions[:checkbox].question_options[2].text
+        answer_conditional_question(conditional_question_webhook_option, question_type)
       end
 
       check_answer_save_statuses(answer_id)
       check_question_and_answer_counts_for_plan
 
       check_delivered_mail_for_webhook_data_and_question_data(JSON.parse(condition.webhook_data), :checkbox)
-    end
-
-    scenario 'User answers chooses radiobutton option with a condition (with action_type: add_webhook)', :js do
-      answer_id = @conditional_questions[:radiobutton].id
-      condition = create(:condition,
-                         :webhook,
-                         question: @conditional_questions[:radiobutton],
-                         option_list: [@conditional_questions[:radiobutton].question_options[0].id])
-
-      go_to_write_plan_page_and_verify_answered
-
-      # Now for radiobutton_conditional_question answer, there in no unchoose option,
-      # so we switch options to a different option without any conditions.
-      within("#answer-form-#{answer_id}") do
-        choose @conditional_questions[:radiobutton].question_options[0].text
-      end
-
-      check_answer_save_statuses(answer_id)
-      check_question_and_answer_counts_for_plan
-
-      check_delivered_mail_for_webhook_data_and_question_data(JSON.parse(condition.webhook_data), :radiobutton)
-    end
-
-    scenario 'User answers chooses dropdown option with a condition (with action_type: add_webhook)', :js do
-      answer_id = @conditional_questions[:dropdown].id
-      condition = create(:condition, :webhook, question: @conditional_questions[:dropdown],
-                                               option_list: [@conditional_questions[:dropdown].question_options[2].id])
-
-      go_to_write_plan_page_and_verify_answered
-
-      # Answer the dropdown_conditional_question
-      within("#answer-form-#{answer_id}") do
-        select(@conditional_questions[:dropdown].question_options[2].text, from: 'answer_question_option_ids')
-      end
-
-      check_answer_save_statuses(answer_id)
-      check_question_and_answer_counts_for_plan
-
-      check_delivered_mail_for_webhook_data_and_question_data(JSON.parse(condition.webhook_data), :dropdown)
     end
   end
 
@@ -344,5 +206,29 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
       saved_span = first('span.status[data-status="saved-at"]')
       expect(saved_span.text).to include('Answered just now')
     end
+  end
+
+  def answer_conditional_question(question_option, question_type, check_type = 'check')
+    case question_type
+    when :checkbox
+      # if it is a checkbox question, we need to know check_type as well ('check' vs 'uncheck')
+      if check_type == 'check'
+        check question_option.text
+      else
+        uncheck question_option.text
+      end
+    when :radiobutton
+      choose question_option.text
+    when :dropdown
+      select(question_option.text, from: 'answer_question_option_ids')
+    end
+  end
+
+  def determine_question_option(original_question, new_question, question_type)
+    # If :checkbox question, we want to return the original question to be unchecked
+    return original_question if question_type == :checkbox
+
+    # Else we want to return a different question to be selected via :radiobutton or :dropdown
+    new_question
   end
 end
