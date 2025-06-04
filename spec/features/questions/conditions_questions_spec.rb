@@ -3,10 +3,11 @@
 require 'rails_helper'
 
 RSpec.feature 'Question::Conditions questions', type: :feature do
+  include ConditionalQuestionsHelper
   before(:each) do
     @user = create(:user)
     @template = create(:template, :default, :published)
-    @plan = create(:plan, :creator, template: @template)
+    @plan = create(:plan, template: @template)
     @phase = create(:phase, template: @template)
     # 3 sections for ensuring that conditions involve questions in different sections.
     @section1 = create(:section, phase: @phase)
@@ -14,71 +15,19 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
     @section3 = create(:section, phase: @phase)
 
     # Different types of questions (than can have conditional options)
-    @checkbox_conditional_question = create(:question, :checkbox, section: @section1, options: 5)
-    @radiobutton_conditional_question = create(:question, :radiobuttons, section: @section2, options: 5)
-    @dropdown_conditional_question = create(:question, :dropdown, section: @section3, options: 5)
-
-    @conditional_questions = [@checkbox_conditional_question, @radiobutton_conditional_question,
-                              @dropdown_conditional_question]
+    @conditional_questions = create_conditional_questions(3)
 
     # Questions that do not have conditional options for adding or removing
-    @textarea_questions = create_list(:question, 3, :textarea, section: @section1)
-    @textfield_questions = create_list(:question, 3, :textfield, section: @section2)
-    @date_questions = create_list(:question, 3, :date, section: @section3)
-    @rda_metadata_questions = create_list(:question, 3, :rda_metadata, section: @section1, options: 5)
-    @checkbox_questions = create_list(:question, 3, :checkbox, section: @section2, options: 5)
-    @radiobuttons_questions = create_list(:question, 3, :radiobuttons, section: @section3, options: 5)
-    @dropdown_questions = create_list(:question, 3, :dropdown, section: @section1, options: 5)
-    @multiselectbox_questions = create_list(:question, 3, :multiselectbox, section: @section2, options: 5)
+    @non_conditional_questions = create_non_conditional_questions(3, 3)
 
     create(:role, :creator, :editor, :commenter, user: @user, plan: @plan)
 
-    @all_questions_ids = (@conditional_questions + @textarea_questions + @textfield_questions +
-                          @date_questions + @rda_metadata_questions +
-                          @checkbox_questions + @radiobuttons_questions +
-                          @dropdown_questions + @multiselectbox_questions).map(&:id)
+    @all_questions_ids = (@conditional_questions.values + @non_conditional_questions.values.flatten).map(&:id)
+    @total_initial_questions = @all_questions_ids.count
 
     # Answer the non-conditional questions
-    @textarea_answers = @textarea_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-
-    @all_non_conditional_question_answers_ids = @textarea_answers.map(&:id)
-
-    @textfield_answers = @textfield_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @textfield_answers.map(&:id)
-
-    @date_answers = @date_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @date_answers.map(&:id)
-
-    @rda_metadata_answers = @rda_metadata_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @rda_metadata_answers.map(&:id)
-
-    @checkbox_answers = @checkbox_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @checkbox_answers.map(&:id)
-
-    @radiobuttons_answers = @radiobuttons_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @radiobuttons_answers.map(&:id)
-
-    @dropdown_answers = @dropdown_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @dropdown_answers.map(&:id)
-
-    @multiselectbox_answers = @multiselectbox_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-    @all_non_conditional_question_answers_ids += @multiselectbox_answers.map(&:id)
+    answers = create_answers
+    @total_initial_answers = answers.values.flatten.count
 
     sign_in(@user)
 
@@ -92,443 +41,194 @@ RSpec.feature 'Question::Conditions questions', type: :feature do
   #  So all Conditions are created with option_list with a single option id.
 
   describe 'conditions with action_type remove' do
-    feature 'User answers a checkboxes question with a condition' do
-      scenario 'User answers chooses checkbox option with a condition', :js do
-        condition = create(:condition, question: @checkbox_conditional_question,
-                                       option_list: [@checkbox_conditional_question.question_options[2].id],
+    feature 'User answers a question with a condition' do
+      scenario 'User answers chooses an option with a condition', :js do
+        # Choose a conditional question at random (may be of type :checkbox, :radiobutton, or :dropdown)
+        question_type = @conditional_questions.keys.sample
+        conditional_question = @conditional_questions[question_type]
+        conditional_question_remove_option = conditional_question.question_options[0]
+        conditional_question_other_option = conditional_question.question_options[1]
+        answer_id = conditional_question.id
+        condition = create(:condition, question: conditional_question,
+                                       option_list: [conditional_question_remove_option.id],
                                        action_type: 'remove',
-                                       remove_data: [@textarea_questions[0].id,
-                                                     @textfield_questions[1].id,
-                                                     @date_questions[2].id,
-                                                     @rda_metadata_questions[0].id,
-                                                     @checkbox_questions[1].id,
-                                                     @radiobuttons_questions[2].id,
-                                                     @dropdown_questions[0].id,
-                                                     @multiselectbox_questions[1].id])
+                                       remove_data: [@non_conditional_questions[:textarea][0].id,
+                                                     @non_conditional_questions[:textfield][1].id,
+                                                     @non_conditional_questions[:date][2].id,
+                                                     @non_conditional_questions[:rda_metadata][0].id,
+                                                     @non_conditional_questions[:checkbox][1].id,
+                                                     @non_conditional_questions[:radiobutton][2].id,
+                                                     @non_conditional_questions[:dropdown][0].id,
+                                                     @non_conditional_questions[:multiselectbox][1].id])
 
-        visit overview_plan_path(@plan)
+        go_to_write_plan_page_and_verify_answered
 
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
-
-        # Answer the checkbox_conditional_question.
-        within("#answer-form-#{@checkbox_conditional_question.id}") do
-          check @checkbox_conditional_question.question_options[2].text
-          click_button 'Save'
+        # Answer the conditional_question
+        within("#answer-form-#{answer_id}") do
+          answer_conditional_question(conditional_question_remove_option, question_type)
         end
 
-        expect(page).to have_text('Answered just now')
-        # Expect 8 questions and answers that have ids in condition.remove_data to be removed, and 1 new answer added:
-        # 24 -8 + 1 = 17 (Answers left)
-        # 27 - 8 = 19 (Questions left)
-        expect(page).to have_text('17/19 answered')
+        check_answer_save_statuses(answer_id)
+        check_question_and_answer_counts_for_plan(condition.remove_data)
+        check_remove_data_effect_on_answer_form_selectors(condition.remove_data)
 
-        condition.remove_data.each.map do |question_id|
-          expect(page).to have_no_selector("#answer-form-#{question_id}")
+        question_option = determine_question_option(conditional_question_remove_option,
+                                                    conditional_question_other_option, question_type)
+        # If :checkbox, uncheck the previously checked option
+        # Else, select a different :dropdown/:radiobutton option
+        within("#answer-form-#{answer_id}") do
+          answer_conditional_question(question_option, question_type, 'uncheck')
         end
 
-        expected_remaining_question_ids = @all_questions_ids - condition.remove_data
+        check_answer_save_statuses(answer_id)
+        num_questions, num_answers = question_and_answer_counts_for_plan
 
-        expected_remaining_question_ids.each.map do |question_id|
-          expect(page).to have_selector("#answer-form-#{question_id}")
-        end
-
-        # Now uncheck checkbox_conditional_question answer.
-        within("#answer-form-#{@checkbox_conditional_question.id}") do
-          uncheck @checkbox_conditional_question.question_options[2].text
-          click_button 'Save'
-        end
-
-        # Expect 27 questions to appear again, but the 8 answers that were removed should not be there.
-        # Also 1 answer should be removed as we unchecked  @checkbox_conditional_question.question_options[2].text
-        # 17 (from previous check) - 1 = 16
-        expect(page).to have_text('16/27 answered')
+        # Undoing the conditional question should unhide all of the `remove_data` questions
+        # `-= 1` is needed for :checkbox because unchecking removes an answer
+        # (:dropdown and :radiobutton simply select a different answer)
+        num_answers -= 1 if question_type == :checkbox
+        expect(page).to have_text("#{num_answers}/#{num_questions} answered")
       end
 
-      scenario 'User answers chooses checkbox option without a condition', :js do
-        create(:condition, question: @checkbox_conditional_question,
-                           option_list: [@checkbox_conditional_question.question_options[1].id],
+      scenario 'User answers chooses an option without a condition', :js do
+        # Choose a conditional question at random (may be of type :checkbox, :radiobutton, or :dropdown)
+        question_type = @conditional_questions.keys.sample
+        conditional_question = @conditional_questions[question_type]
+        conditional_question_other_option = conditional_question.question_options[0]
+        answer_id = conditional_question.id
+        create(:condition, question: conditional_question,
+                           option_list: [conditional_question.question_options[1].id],
                            action_type: 'remove',
-                           remove_data: [@textarea_questions[2].id, @textfield_questions[2].id,
-                                         @date_questions[2].id, @rda_metadata_questions[2].id,
-                                         @checkbox_questions[2].id, @dropdown_questions[2].id,
-                                         @multiselectbox_questions[2].id])
+                           remove_data: non_conditional_questions_ids_by_index(2))
 
-        create(:condition, question: @checkbox_conditional_question,
-                           option_list: [@checkbox_conditional_question.question_options[4].id],
+        create(:condition, question: conditional_question,
+                           option_list: [conditional_question.question_options[2].id],
                            action_type: 'remove',
-                           remove_data: [@textarea_questions[0].id, @textfield_questions[0].id,
-                                         @date_questions[0].id, @rda_metadata_questions[0].id,
-                                         @checkbox_questions[0].id, @dropdown_questions[0].id,
-                                         @multiselectbox_questions[0].id])
+                           remove_data: non_conditional_questions_ids_by_index(0))
 
-        # We choose an option that is not in the option_list of the conditions defined above.
-        visit overview_plan_path(@plan)
+        go_to_write_plan_page_and_verify_answered
 
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
-
-        # Answer the checkbox_conditional_question
-        within("#answer-form-#{@checkbox_conditional_question.id}") do
-          check @checkbox_conditional_question.question_options[0].text
-          click_button 'Save'
+        # Answer the conditional_question
+        within("#answer-form-#{answer_id}") do
+          answer_conditional_question(conditional_question_other_option, question_type)
         end
 
-        expect(page).to have_text('Answered just now')
-
-        # Check questions answered in progress bar.
-        expect(page).to have_text('25/27 answered')
-      end
-    end
-
-    feature 'User answers a radiobutton question with a condition' do
-      scenario 'User answers selects radiobutton option with a condition', :js do
-        condition = create(:condition, question: @radiobutton_conditional_question,
-                                       option_list: [@radiobutton_conditional_question.question_options[2].id],
-                                       action_type: 'remove',
-                                       remove_data: [@textarea_questions[0].id,
-                                                     @textfield_questions[1].id,
-                                                     @date_questions[2].id,
-                                                     @rda_metadata_questions[0].id,
-                                                     @checkbox_questions[1].id,
-                                                     @radiobuttons_questions[2].id,
-                                                     @dropdown_questions[0].id,
-                                                     @multiselectbox_questions[1].id])
-
-        visit overview_plan_path(@plan)
-
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
-
-        # Answer the radiobutton_conditional_question.
-        within("#answer-form-#{@radiobutton_conditional_question.id}") do
-          choose @radiobutton_conditional_question.question_options[2].text
-          click_button 'Save'
-        end
-
-        expect(page).to have_text('Answered just now')
-
-        # Check questions answered in progress bar.
-        # Expect 8 questions and answers that have ids in condition.remove_data to be removed, and 1 new answer added:
-        # 24 -8 + 1 = 17 (Answers left)
-        # 27 - 8 = 19 (Questions left)
-        expect(page).to have_text('17/19 answered')
-        condition.remove_data.each.map do |question_id|
-          expect(page).to have_no_selector("#answer-form-#{question_id}")
-        end
-
-        expected_remaining_question_ids = @all_questions_ids - condition.remove_data
-
-        expected_remaining_question_ids.each.map do |question_id|
-          expect(page).to have_selector("#answer-form-#{question_id}")
-        end
-
-        # Now for radiobutton_conditional_question answer, there in no unchoose option,
-        # so we switch options to a different option without any conditions.
-        within("#answer-form-#{@radiobutton_conditional_question.id}") do
-          choose @radiobutton_conditional_question.question_options[0].text
-          click_button 'Save'
-        end
-
-        # Check questions answered in progress bar.
-        # Expect 27 questions to appear again, but the 8 answers that were removed should not be there.
-        # Also 1 answer should be removed as we unchecked  @radiobutton_conditional_question.question_options[2].text
-        # 17 (from previous check) - 1 = 16
-        expect(page).to have_text('17/27 answered')
-      end
-
-      scenario 'User answers selects radiobutton option without a condition', :js do
-        create(:condition, question: @radiobutton_conditional_question,
-                           option_list: [@radiobutton_conditional_question.question_options[1].id],
-                           action_type: 'remove',
-                           remove_data: [@textarea_questions[2].id, @textfield_questions[2].id,
-                                         @date_questions[2].id, @rda_metadata_questions[2].id,
-                                         @checkbox_questions[2].id, @dropdown_questions[2].id,
-                                         @multiselectbox_questions[2].id])
-
-        create(:condition, question: @radiobutton_conditional_question,
-                           option_list: [@radiobutton_conditional_question.question_options[4].id],
-                           action_type: 'remove',
-                           remove_data: [@textarea_questions[0].id, @textfield_questions[0].id,
-                                         @date_questions[0].id, @rda_metadata_questions[0].id,
-                                         @checkbox_questions[0].id, @dropdown_questions[0].id,
-                                         @multiselectbox_questions[0].id])
-
-        # We choose an option that is not in the option_list of the conditions defined above.
-        visit overview_plan_path(@plan)
-
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
-
-        # Answer the radiobutton_conditional_question.
-        within("#answer-form-#{@radiobutton_conditional_question.id}") do
-          choose @radiobutton_conditional_question.question_options[0].text
-          click_button 'Save'
-        end
-
-        expect(page).to have_text('Answered just now')
-
-        # Check questions answered in progress bar.
-        expect(page).to have_text('25/27 answered')
-      end
-    end
-
-    feature 'User answers a dropdown question with a condition' do
-      scenario 'User answers chooses dropdown option with a condition', :js do
-        condition = create(:condition, question: @dropdown_conditional_question,
-                                       option_list: [@dropdown_conditional_question.question_options[2].id],
-                                       action_type: 'remove',
-                                       remove_data: [@textarea_questions[0].id,
-                                                     @textfield_questions[1].id,
-                                                     @date_questions[2].id,
-                                                     @rda_metadata_questions[0].id,
-                                                     @checkbox_questions[1].id,
-                                                     @radiobuttons_questions[2].id,
-                                                     @dropdown_questions[0].id,
-                                                     @multiselectbox_questions[1].id])
-
-        visit overview_plan_path(@plan)
-
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
-
-        # Answer the dropdown_conditional_question
-        within("#answer-form-#{@dropdown_conditional_question.id}") do
-          select(@dropdown_conditional_question.question_options[2].text, from: 'answer_question_option_ids')
-          click_button 'Save'
-        end
-
-        expect(page).to have_text('Answered just now')
-
-        # Check questions answered in progress bar.
-        # Expect 8 questions and answers that have ids in condition.remove_data to be removed, and 1 new answer added:
-        # 24 -8 + 1 = 17 (Answers left)
-        # 27 - 8 = 19 (Questions left)
-        expect(page).to have_text('17/19 answered')
-        condition.remove_data.each.map do |question_id|
-          expect(page).to have_no_selector("#answer-form-#{question_id}")
-        end
-
-        expected_remaining_question_ids = @all_questions_ids - condition.remove_data
-
-        expected_remaining_question_ids.each.map do |question_id|
-          expect(page).to have_selector("#answer-form-#{question_id}")
-        end
-
-        # Now select another option for dropdown_conditional_question.
-        within("#answer-form-#{@dropdown_conditional_question.id}") do
-          select(@dropdown_conditional_question.question_options[1].text, from: 'answer_question_option_ids')
-          click_button 'Save'
-        end
-
-        # Check questions answered in progress bar.
-        # Expect 27 questions to appear again, but the 8 answers that were removed should not be there.
-        # 17 (from previous check as we switched answer from same dropdown)
-        expect(page).to have_text('17/27 answered')
-      end
-
-      scenario 'User answers select dropdown option without a condition', :js do
-        create(:condition, question: @dropdown_conditional_question,
-                           option_list: [@dropdown_conditional_question.question_options[1].id],
-                           action_type: 'remove',
-                           remove_data: [@textarea_questions[2].id, @textfield_questions[2].id,
-                                         @date_questions[2].id, @rda_metadata_questions[2].id,
-                                         @checkbox_questions[2].id, @dropdown_questions[2].id,
-                                         @multiselectbox_questions[2].id])
-
-        create(:condition, question: @dropdown_conditional_question,
-                           option_list: [@dropdown_conditional_question.question_options[4].id],
-                           action_type: 'remove',
-                           remove_data: [@textarea_questions[0].id, @textfield_questions[0].id,
-                                         @date_questions[0].id, @rda_metadata_questions[0].id,
-                                         @checkbox_questions[0].id, @dropdown_questions[0].id,
-                                         @multiselectbox_questions[0].id])
-        visit overview_plan_path(@plan)
-
-        click_link 'Write Plan'
-
-        # Expand all sections
-        find('a[data-toggle-direction=show]').click
-
-        # Check questions answered in progress bar.
-        # 24 non-conditional questions in total  answered.
-        expect(page).to have_text('24/27 answered')
-
-        # Answer the dropdown_conditional_question.
-        within("#answer-form-#{@dropdown_conditional_question.id}") do
-          select(@dropdown_conditional_question.question_options[0].text, from: 'answer_question_option_ids')
-          click_button 'Save'
-        end
-
-        expect(page).to have_text('Answered just now')
-
-        # Check questions answered in progress bar.
-        expect(page).to have_text('25/27 answered')
+        check_answer_save_statuses(answer_id)
+        check_question_and_answer_counts_for_plan
       end
     end
   end
+
   describe 'conditions with action_type add_webhook' do
-    scenario 'User answers chooses checkbox option with a condition (with action_type: add_webhook)', :js do
-      condition = create(:condition, :webhook, question: @checkbox_conditional_question,
-                                               option_list: [@checkbox_conditional_question.question_options[2].id])
+    scenario 'User answers chooses an option with a condition (with action_type: add_webhook)', :js do
+      # Choose a conditional question at random (may be of type :checkbox, :radiobutton, or :dropdown)
+      question_type = @conditional_questions.keys.sample
+      conditional_question = @conditional_questions[question_type]
+      conditional_question_webhook_option = conditional_question.question_options[2]
+      answer_id = conditional_question.id
+      condition = create(:condition, :webhook, question: conditional_question,
+                                               option_list: [conditional_question_webhook_option.id])
 
-      visit overview_plan_path(@plan)
+      go_to_write_plan_page_and_verify_answered
 
-      click_link 'Write Plan'
-
-      # Expand all sections
-      find('a[data-toggle-direction=show]').click
-
-      # Check questions answered in progress bar.
-      # 24 non-conditional questions in total  answered.
-      expect(page).to have_text('24/27 answered')
-
-      # Answer the checkbox_conditional_question.
-      within("#answer-form-#{@checkbox_conditional_question.id}") do
-        check @checkbox_conditional_question.question_options[2].text
+      # Answer the conditional_question
+      within("#answer-form-#{answer_id}") do
+        answer_conditional_question(conditional_question_webhook_option, question_type)
       end
 
-      expect(page).to have_text('Answered just now')
+      check_answer_save_statuses(answer_id)
+      check_question_and_answer_counts_for_plan
 
-      # Check questions answered in progress bar.
-      # Expect one extra answer to be added.
-      expect(page).to have_text('25/27 answered')
+      check_delivered_mail_for_webhook_data_and_question_data(JSON.parse(condition.webhook_data), :checkbox)
+    end
+  end
 
-      # An email should have been sent to the configured recipient in the webhook.
-      # The webhook_data is a Json string of form:
-      # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
-      webhook_data = JSON.parse(condition.webhook_data)
+  private
 
-      ActionMailer::Base.deliveries.last do |mail|
-        expect(mail.to).to eq([webhook_data['email']])
-        expect(mail.subject).to eq(webhook_data['subject'])
-        expect(mail.body.encoded).to include(webhook_data['message'])
-        # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-        # Message should have @user.name, chosen option text and question text.
-        expect(mail.body.encoded).to include(@user.name)
-        expect(mail.body.encoded).to include(@checkbox_conditional_question.question_options[2].text)
-        expect(mail.body.encoded).to include(@checkbox_conditional_question.text)
+  def check_question_and_answer_counts_for_plan(condition_remove_data = nil)
+    if condition_remove_data
+      check_condition_remove_data_effect_on_plan(condition_remove_data.count)
+    else
+      # This is either a :webhook type conditional question, or a non-conditional question
+      num_questions, num_answers = question_and_answer_counts_for_plan
+      expect(page).to have_text("#{num_answers}/#{num_questions} answered")
+    end
+  end
+
+  def check_condition_remove_data_effect_on_plan(num_removed_answers)
+    num_questions, num_answers = question_and_answer_counts_for_plan
+    # The number of plan questions has not changed in the db
+    expect(num_questions).to eql(@total_initial_questions)
+    # The number of plan answers in the db has changed:
+    # - We subract num_removed_answers (i.e. `condition.remove_data.count`)
+    # - We also `+ 1` to account for the answer saved for the conditional question in the process
+    expected_num_answers = @total_initial_answers - num_removed_answers + 1
+    expect(num_answers).to eql(expected_num_answers)
+    # Check questions answered in progress bar:
+    # - `@total_initial_questions - num_removed_answers` accounts for the now hidden (but not deleted) questions
+    expect(page).to have_text("#{expected_num_answers}/#{@total_initial_questions - num_removed_answers} answered")
+  end
+
+  def question_and_answer_counts_for_plan
+    plan = Plan.includes(:questions, :answers).first
+    [plan.questions.count, plan.answers.count]
+  end
+
+  def go_to_write_plan_page_and_verify_answered
+    visit overview_plan_path(@plan)
+
+    click_link 'Write Plan'
+
+    # Expand all sections
+    find('a[data-toggle-direction=show]').click
+
+    # Check questions answered in progress bar.
+    num_questions, num_answers = question_and_answer_counts_for_plan
+    expect(page).to have_text("#{num_answers}/#{num_questions} answered")
+  end
+
+  def check_remove_data_effect_on_answer_form_selectors(remove_data)
+    @all_questions_ids.each do |question_id|
+      if remove_data.include?(question_id)
+        expect(page).to have_no_selector("#answer-form-#{question_id}")
+      else
+        expect(page).to have_selector("#answer-form-#{question_id}")
       end
     end
+  end
 
-    scenario 'User answers chooses radiobutton option with a condition (with action_type: add_webhook)', :js do
-      condition = create(:condition, :webhook, question: @radiobutton_conditional_question,
-                                               option_list: [@radiobutton_conditional_question.question_options[0].id])
-
-      visit overview_plan_path(@plan)
-
-      click_link 'Write Plan'
-
-      # Expand all sections
-      find('a[data-toggle-direction=show]').click
-
-      # Check questions answered in progress bar.
-      # 24 non-conditional questions in total  answered.
-      expect(page).to have_text('24/27 answered')
-
-      # Now for radiobutton_conditional_question answer, there in no unchoose option,
-      # so we switch options to a different option without any conditions.
-      within("#answer-form-#{@radiobutton_conditional_question.id}") do
-        choose @radiobutton_conditional_question.question_options[0].text
-      end
-
-      expect(page).to have_text('Answered just now')
-
-      # Check questions answered in progress bar.
-      # Expect one extra answer to be added.
-      expect(page).to have_text('25/27 answered')
-
-      # An email should have been sent to the configured recipient in the webhook.
-      # The webhook_data is a Json string of form:
-      # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
-      webhook_data = JSON.parse(condition.webhook_data)
-
-      ActionMailer::Base.deliveries.last do |mail|
-        expect(mail.to).to eq([webhook_data['email']])
-        expect(mail.subject).to eq(webhook_data['subject'])
-        expect(mail.body.encoded).to include(webhook_data['message'])
-        # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-        # Message should have @user.name, chosen option text and question text.
-        expect(mail.body.encoded).to include(@user.name)
-        expect(mail.body.encoded).to include(@radiobutton_conditional_question.question_options[0].text)
-        expect(mail.body.encoded).to include(@radiobutton_conditional_question.text)
-      end
+  # Checks for 'Saving' and 'Answered just now' messages
+  def check_answer_save_statuses(answer_id)
+    within("#answer-status-#{answer_id}") do
+      saving_span = find('span.status[data-status="saving"]')
+      expect(saving_span.text).to include('Saving')
+      # We use `first()` because there are multiple span elements with `saved-at` status
+      saved_span = first('span.status[data-status="saved-at"]')
+      expect(saved_span.text).to include('Answered just now')
     end
+  end
 
-    scenario 'User answers chooses dropdown option with a condition (with action_type: add_webhook)', :js do
-      condition = create(:condition, :webhook, question: @dropdown_conditional_question,
-                                               option_list: [@dropdown_conditional_question.question_options[2].id])
-
-      visit overview_plan_path(@plan)
-
-      click_link 'Write Plan'
-
-      # Expand all sections
-      find('a[data-toggle-direction=show]').click
-
-      # Check questions answered in progress bar.
-      # 24 non-conditional questions in total  answered.
-      expect(page).to have_text('24/27 answered')
-
-      # Answer the dropdown_conditional_question
-      within("#answer-form-#{@dropdown_conditional_question.id}") do
-        select(@dropdown_conditional_question.question_options[2].text, from: 'answer_question_option_ids')
+  def answer_conditional_question(question_option, question_type, check_type = 'check')
+    case question_type
+    when :checkbox
+      # if it is a checkbox question, we need to know check_type as well ('check' vs 'uncheck')
+      if check_type == 'check'
+        check question_option.text
+      else
+        uncheck question_option.text
       end
-
-      expect(page).to have_text('Answered just now')
-
-      # Check questions answered in progress bar.
-      # Expect one extra answer to be added.
-      expect(page).to have_text('25/27 answered')
-
-      # An email should have been sent to the configured recipient in the webhook.
-      # The webhook_data is a Json string of form:
-      # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
-      webhook_data = JSON.parse(condition.webhook_data)
-
-      ActionMailer::Base.deliveries.last do |mail|
-        expect(mail.to).to eq([webhook_data['email']])
-        expect(mail.subject).to eq(webhook_data['subject'])
-        expect(mail.body.encoded).to include(webhook_data['message'])
-        # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-        # Message should have @user.name, chosen option text and question text.
-        expect(mail.body.encoded).to include(@user.name)
-        expect(mail.body.encoded).to include(@dropdown_conditional_question.question_options[2].text)
-        expect(mail.body.encoded).to include(@dropdown_conditional_question.text)
-      end
+    when :radiobutton
+      choose question_option.text
+    when :dropdown
+      select(question_option.text, from: 'answer_question_option_ids')
     end
+  end
+
+  def determine_question_option(original_question, new_question, question_type)
+    # If :checkbox question, we want to return the original question to be unchecked
+    return original_question if question_type == :checkbox
+
+    # Else we want to return a different question to be selected via :radiobutton or :dropdown
+    new_question
   end
 end

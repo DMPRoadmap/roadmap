@@ -4,77 +4,27 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   include RolesHelper
+  include ConditionalQuestionsHelper
 
   before(:each) do
     template = create(:template, phases: 1, sections: 3)
     # 3 sections for ensuring that conditions involve questions in different sections.
-    @section1 = template.sections[0]
-    @section2 = template.sections[1]
-    @section3 = template.sections[2]
+    @section1, @section2, @section3 = template.sections
 
     # Different types of questions (than can have conditional options)
-    @checkbox_conditional_question = create(:question, :checkbox, section: @section1, options: 5)
-    @radiobutton_conditional_question = create(:question, :radiobuttons, section: @section2, options: 5)
-    @dropdown_conditional_question = create(:question, :dropdown, section: @section3, options: 5)
-
-    @conditional_questions = [@checkbox_conditional_question, @radiobutton_conditional_question,
-                              @dropdown_conditional_question]
+    @conditional_questions = create_conditional_questions(3)
 
     # Questions that do not have conditional options for adding or removing
-    @textarea_questions = create_list(:question, 7, :textarea, section: @section1)
-    @textfield_questions = create_list(:question, 7, :textfield, section: @section2)
-    @date_questions = create_list(:question, 7, :date, section: @section3)
-    @rda_metadata_questions = create_list(:question, 7, :rda_metadata, section: @section1, options: 3)
-    @checkbox_questions = create_list(:question, 7, :checkbox, section: @section2, options: 3)
-    @radiobuttons_questions = create_list(:question, 7, :radiobuttons, section: @section3, options: 3)
-    @dropdown_questions = create_list(:question, 7, :dropdown, section: @section1, options: 3)
-    @multiselectbox_questions = create_list(:question, 7, :multiselectbox, section: @section2, options: 3)
+    @non_conditional_questions = create_non_conditional_questions(3, 3)
 
     @plan = create(:plan, :creator, template: template)
     @user = @plan.owner
 
     # Answer the questions in List2
-    @textarea_answers = @textarea_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
+    @answers = create_answers
 
-    @textfield_answers = @textfield_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-
-    @date_answers = @date_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-
-    @rda_metadata_answers = @rda_metadata_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, user: @user)
-    end
-
-    @checkbox_answers = @checkbox_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-
-    @radiobuttons_answers = @radiobuttons_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-
-    @dropdown_answers = @dropdown_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-
-    @multiselectbox_answers = @multiselectbox_questions.each.map do |question|
-      create(:answer, plan: @plan, question: question, question_options: [question.question_options[2]], user: @user)
-    end
-
-    @all_questions_ids = (@conditional_questions + @textarea_questions + @textfield_questions +
-                          @date_questions + @rda_metadata_questions +
-                          @checkbox_questions + @radiobuttons_questions +
-                          @dropdown_questions + @multiselectbox_questions).map(&:id)
-
-    @all_answers_ids = (@textarea_answers + @textfield_answers +
-                        @date_answers + @rda_metadata_answers +
-                        @checkbox_answers + @radiobuttons_answers +
-                        @dropdown_answers + @multiselectbox_answers).map(&:id)
+    @all_questions_ids = (@conditional_questions.values + @non_conditional_questions.values.flatten).map(&:id)
+    @all_answers_ids = @answers.values.flatten.map(&:id)
 
     sign_in(@user)
   end
@@ -91,21 +41,19 @@ RSpec.describe AnswersController, type: :controller do
       # NOTE: Checkboxes allow for multiple options to be selected.
       context 'with conditional checkbox question' do
         it 'handles single option (with condition) in option_list ' do
-          condition = create(:condition, question: @checkbox_conditional_question,
-                                         option_list: [@checkbox_conditional_question.question_options[2].id],
+          non_conditional_question_index = 0
+          condition = create(:condition, question: @conditional_questions[:checkbox],
+                                         option_list: [@conditional_questions[:checkbox].question_options[2].id],
                                          action_type: 'remove',
-                                         remove_data: [@textarea_questions[5].id, @textfield_questions[5].id,
-                                                       @date_questions[5].id, @rda_metadata_questions[5].id,
-                                                       @checkbox_questions[5].id, @radiobuttons_questions[5].id,
-                                                       @dropdown_questions[5].id, @multiselectbox_questions[5].id])
+                                         remove_data: non_conditional_questions_ids_by_index(non_conditional_question_index))
 
           #  We chose an option that is in the option_list of the condition defined above. Note that
           # the text sent by UI is an empty string.
           args = {
             text: '',
-            question_option_ids: [@checkbox_conditional_question.question_options[2].id],
+            question_option_ids: [@conditional_questions[:checkbox].question_options[2].id],
             user_id: @user.id,
-            question_id: @checkbox_conditional_question.id,
+            question_id: @conditional_questions[:checkbox].id,
             plan_id: @plan.id,
             lock_version: 0
           }
@@ -115,17 +63,13 @@ RSpec.describe AnswersController, type: :controller do
           json = JSON.parse(response.body).with_indifferent_access
 
           # Check hide/show questions lists sent to frontend.
-          expected_to_show_question_ids = @all_questions_ids - condition.remove_data
-          expected_to_hide_question_ids = condition.remove_data
-          expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-          expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+          check_question_ids_to_show_and_hide(json, condition.remove_data)
 
-          #  Check Answers in database (persisted). Expect removed answers to be destroyed.
-          # Answers destroyed eare easier checked using array of ids rather than individually as in example
-          # expect(Answer.exists?(@textarea_answers[5].id)).to be_falsey.
-          removed_answers = [@textarea_answers[5].id, @textfield_answers[5].id,
-                             @date_answers[5].id, @rda_metadata_answers[5].id, @checkbox_answers[5].id,
-                             @radiobuttons_answers[5].id, @dropdown_answers[5].id, @multiselectbox_answers[5].id]
+          # Verify that answers for the `removed_data` questions were deleted from the DB.
+          # NOTE: `@answers` contains only answers to non-conditional questions.
+          #       So we use `non_conditional_question_index` to locate the corresponding answer
+          #       for each type of non-conditional question.
+          removed_answers = @answers.map { |_, answers| answers[non_conditional_question_index].id }
           expect(Answer.where(id: removed_answers).pluck(:id)).to be_empty
           # Answers left
           expect(Answer.where(id: @all_answers_ids).pluck(:id)).to match_array(
@@ -133,28 +77,22 @@ RSpec.describe AnswersController, type: :controller do
           )
         end
         it 'handles single option (without condition) in option_list' do
-          create(:condition, question: @checkbox_conditional_question,
-                             option_list: [@checkbox_conditional_question.question_options[1].id],
+          create(:condition, question: @conditional_questions[:checkbox],
+                             option_list: [@conditional_questions[:checkbox].question_options[1].id],
                              action_type: 'remove',
-                             remove_data: [@textarea_questions[3].id, @textfield_questions[3].id,
-                                           @date_questions[3].id, @rda_metadata_questions[3].id,
-                                           @checkbox_questions[3].id, @dropdown_questions[3].id,
-                                           @multiselectbox_questions[3].id])
+                             remove_data: non_conditional_questions_ids_by_index(2))
 
-          create(:condition, question: @checkbox_conditional_question,
-                             option_list: [@checkbox_conditional_question.question_options[4].id],
+          create(:condition, question: @conditional_questions[:checkbox],
+                             option_list: [@conditional_questions[:checkbox].question_options[2].id],
                              action_type: 'remove',
-                             remove_data: [@textarea_questions[0].id, @textfield_questions[0].id,
-                                           @date_questions[0].id, @rda_metadata_questions[0].id,
-                                           @checkbox_questions[0].id, @dropdown_questions[0].id,
-                                           @multiselectbox_questions[0].id])
+                             remove_data: non_conditional_questions_ids_by_index(0))
 
           # We choose an option that is not in the option_list of the conditions defined above.
           args = {
             text: '',
-            question_option_ids: [@checkbox_conditional_question.question_options[0].id],
+            question_option_ids: [@conditional_questions[:checkbox].question_options[0].id],
             user_id: @user.id,
-            question_id: @checkbox_conditional_question.id,
+            question_id: @conditional_questions[:checkbox].id,
             plan_id: @plan.id,
             lock_version: 0
           }
@@ -162,35 +100,28 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:qn_data][:to_show]).to match_array(@all_questions_ids)
-          expect(json[:qn_data][:to_hide]).to match_array([])
+          check_question_ids_to_show_and_hide(json)
         end
 
         it 'handles multiple options (some with conditions) in option_list' do
-          condition1 = create(:condition, question: @checkbox_conditional_question,
-                                          option_list: [@checkbox_conditional_question.question_options[2].id],
+          condition1 = create(:condition, question: @conditional_questions[:checkbox],
+                                          option_list: [@conditional_questions[:checkbox].question_options[1].id],
                                           action_type: 'remove',
-                                          remove_data: [@textarea_questions[0].id, @textfield_questions[0].id,
-                                                        @date_questions[0].id, @rda_metadata_questions[0].id,
-                                                        @checkbox_questions[0].id, @dropdown_questions[0].id,
-                                                        @multiselectbox_questions[0].id])
+                                          remove_data: non_conditional_questions_ids_by_index(0))
 
-          condition2 = create(:condition, question: @checkbox_conditional_question,
-                                          option_list: [@checkbox_conditional_question.question_options[4].id],
+          condition2 = create(:condition, question: @conditional_questions[:checkbox],
+                                          option_list: [@conditional_questions[:checkbox].question_options[2].id],
                                           action_type: 'remove',
-                                          remove_data: [@textarea_questions[3].id, @textfield_questions[3].id,
-                                                        @date_questions[3].id, @rda_metadata_questions[3].id,
-                                                        @checkbox_questions[3].id, @dropdown_questions[3].id,
-                                                        @multiselectbox_questions[3].id])
+                                          remove_data: non_conditional_questions_ids_by_index(2))
 
           # We choose options that is in the option_list of the conditions defined above as well as an option
           # with no condition defined.
           args = {
-            question_option_ids: [@checkbox_conditional_question.question_options[1].id,
-                                  @checkbox_conditional_question.question_options[2].id,
-                                  @checkbox_conditional_question.question_options[4].id],
+            question_option_ids: [@conditional_questions[:checkbox].question_options[0].id,
+                                  @conditional_questions[:checkbox].question_options[1].id,
+                                  @conditional_questions[:checkbox].question_options[2].id],
             user_id: @user.id,
-            question_id: @checkbox_conditional_question.id,
+            question_id: @conditional_questions[:checkbox].id,
             plan_id: @plan.id,
             lock_version: 0
           }
@@ -198,30 +129,24 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-
-          expected_to_show_question_ids = @all_questions_ids - condition1.remove_data - condition2.remove_data
-          expected_to_hide_question_ids = condition1.remove_data + condition2.remove_data
-          expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-          expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+          remove_data = condition1.remove_data + condition2.remove_data
+          check_question_ids_to_show_and_hide(json, remove_data)
         end
       end
       #  Note: radiobuttons only allow single selection.
       context 'with conditional radiobuttons question' do
         it 'handles single option (with condition) in option_list ' do
-          condition = create(:condition, question: @radiobutton_conditional_question,
-                                         option_list: [@radiobutton_conditional_question.question_options[2].id],
+          condition = create(:condition, question: @conditional_questions[:radiobutton],
+                                         option_list: [@conditional_questions[:radiobutton].question_options[2].id],
                                          action_type: 'remove',
-                                         remove_data: [@textarea_questions[5].id, @textfield_questions[5].id,
-                                                       @date_questions[5].id, @rda_metadata_questions[5].id,
-                                                       @checkbox_questions[5].id, @radiobuttons_questions[5].id,
-                                                       @dropdown_questions[5].id, @multiselectbox_questions[5].id])
+                                         remove_data: non_conditional_questions_ids_by_index(2))
 
           # We choose an option that is in the option_list of the condition defined above.
           args = {
             text: '',
-            question_option_ids: [@radiobutton_conditional_question.question_options[2].id],
+            question_option_ids: [@conditional_questions[:radiobutton].question_options[2].id],
             user_id: @user.id,
-            question_id: @radiobutton_conditional_question.id,
+            question_id: @conditional_questions[:radiobutton].id,
             plan_id: @plan.id,
             lock_version: 0
           }
@@ -229,34 +154,25 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-          expected_to_show_question_ids = @all_questions_ids - condition.remove_data
-          expected_to_hide_question_ids = condition.remove_data
-          expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-          expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+          check_question_ids_to_show_and_hide(json, condition.remove_data)
         end
         it 'handles single option (without condition) in option_list' do
-          create(:condition, question: @radiobutton_conditional_question,
-                             option_list: [@radiobutton_conditional_question.question_options[1].id],
+          create(:condition, question: @conditional_questions[:radiobutton],
+                             option_list: [@conditional_questions[:radiobutton].question_options[1].id],
                              action_type: 'remove',
-                             remove_data: [@textarea_questions[3].id, @textfield_questions[3].id,
-                                           @date_questions[3].id, @rda_metadata_questions[3].id,
-                                           @checkbox_questions[3].id, @dropdown_questions[3].id,
-                                           @multiselectbox_questions[3].id])
+                             remove_data: non_conditional_questions_ids_by_index(2))
 
-          create(:condition, question: @radiobutton_conditional_question,
-                             option_list: [@radiobutton_conditional_question.question_options[4].id],
+          create(:condition, question: @conditional_questions[:radiobutton],
+                             option_list: [@conditional_questions[:radiobutton].question_options[2].id],
                              action_type: 'remove',
-                             remove_data: [@textarea_questions[0].id, @textfield_questions[0].id,
-                                           @date_questions[0].id, @rda_metadata_questions[0].id,
-                                           @checkbox_questions[0].id, @dropdown_questions[0].id,
-                                           @multiselectbox_questions[0].id])
+                             remove_data: non_conditional_questions_ids_by_index(0))
 
           # We choose an option that is not in the option_list of the conditions defined above.
           args = {
             text: '',
-            question_option_ids: [@radiobutton_conditional_question.question_options[0].id],
+            question_option_ids: [@conditional_questions[:radiobutton].question_options[0].id],
             user_id: @user.id,
-            question_id: @radiobutton_conditional_question.id,
+            question_id: @conditional_questions[:radiobutton].id,
             plan_id: @plan.id,
             lock_version: 0
           }
@@ -264,28 +180,24 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:qn_data][:to_show]).to match_array(@all_questions_ids)
-          expect(json[:qn_data][:to_hide]).to match_array([])
+          check_question_ids_to_show_and_hide(json)
         end
       end
 
       # NOTE: dropdowns only allow single selection.
       context 'with conditional dropdown question' do
         it 'handles single option (with condition) in option_list ' do
-          condition = create(:condition, question: @dropdown_conditional_question,
-                                         option_list: [@dropdown_conditional_question.question_options[2].id],
+          condition = create(:condition, question: @conditional_questions[:dropdown],
+                                         option_list: [@conditional_questions[:dropdown].question_options[2].id],
                                          action_type: 'remove',
-                                         remove_data: [@textarea_questions[5].id, @textfield_questions[5].id,
-                                                       @date_questions[5].id, @rda_metadata_questions[5].id,
-                                                       @checkbox_questions[5].id, @radiobuttons_questions[5].id,
-                                                       @dropdown_questions[5].id, @multiselectbox_questions[5].id])
+                                         remove_data: non_conditional_questions_ids_by_index(2))
 
           #  We chose an option that is in the option_list of the condition defined above.
           args = {
-            text: @dropdown_conditional_question.question_options[2].text,
-            question_option_ids: [@dropdown_conditional_question.question_options[2].id],
+            text: @conditional_questions[:dropdown].question_options[2].text,
+            question_option_ids: [@conditional_questions[:dropdown].question_options[2].id],
             user_id: @user.id,
-            question_id: @dropdown_conditional_question.id,
+            question_id: @conditional_questions[:dropdown].id,
             plan_id: @plan.id,
             lock_version: 0
           }
@@ -293,34 +205,25 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-          expected_to_show_question_ids = @all_questions_ids - condition.remove_data
-          expected_to_hide_question_ids = condition.remove_data
-          expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-          expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+          check_question_ids_to_show_and_hide(json, condition.remove_data)
         end
         it 'handles single option (without condition) in option_list' do
-          create(:condition, question: @dropdown_conditional_question,
-                             option_list: [@dropdown_conditional_question.question_options[1].id],
+          create(:condition, question: @conditional_questions[:dropdown],
+                             option_list: [@conditional_questions[:dropdown].question_options[1].id],
                              action_type: 'remove',
-                             remove_data: [@textarea_questions[3].id, @textfield_questions[3].id,
-                                           @date_questions[3].id, @rda_metadata_questions[3].id,
-                                           @checkbox_questions[3].id, @dropdown_questions[3].id,
-                                           @multiselectbox_questions[3].id])
+                             remove_data: non_conditional_questions_ids_by_index(2))
 
-          create(:condition, question: @dropdown_conditional_question,
-                             option_list: [@dropdown_conditional_question.question_options[4].id],
+          create(:condition, question: @conditional_questions[:dropdown],
+                             option_list: [@conditional_questions[:dropdown].question_options[2].id],
                              action_type: 'remove',
-                             remove_data: [@textarea_questions[0].id, @textfield_questions[0].id,
-                                           @date_questions[0].id, @rda_metadata_questions[0].id,
-                                           @checkbox_questions[0].id, @dropdown_questions[0].id,
-                                           @multiselectbox_questions[0].id])
+                             remove_data: non_conditional_questions_ids_by_index(0))
 
           # We choose an option that is not in the option_list of the conditions defined above.
           args = {
             text: '',
-            question_option_ids: [@dropdown_conditional_question.question_options[0].id],
+            question_option_ids: [@conditional_questions[:dropdown].question_options[0].id],
             user_id: @user.id,
-            question_id: @dropdown_conditional_question.id,
+            question_id: @conditional_questions[:dropdown].id,
             plan_id: @plan.id,
             lock_version: 0
           }
@@ -328,8 +231,7 @@ RSpec.describe AnswersController, type: :controller do
           post :create_or_update, params: { answer: args }
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:qn_data][:to_show]).to match_array(@all_questions_ids)
-          expect(json[:qn_data][:to_hide]).to match_array([])
+          check_question_ids_to_show_and_hide(json)
         end
       end
     end
@@ -345,16 +247,16 @@ RSpec.describe AnswersController, type: :controller do
       it 'handles a checkbox option (with add_webhook condition)' do
         add_webhook_condition = create(
           :condition, :webhook,
-          question: @checkbox_conditional_question,
-          option_list: [@checkbox_conditional_question.question_options[2].id]
+          question: @conditional_questions[:checkbox],
+          option_list: [@conditional_questions[:checkbox].question_options[2].id]
         )
         #  We chose an option that is in the option_list of the condition defined above. Note that
         # the text sent by UI is an empty string.
         args = {
           text: '',
-          question_option_ids: [@checkbox_conditional_question.question_options[2].id],
+          question_option_ids: [@conditional_questions[:checkbox].question_options[2].id],
           user_id: @user.id,
-          question_id: @checkbox_conditional_question.id,
+          question_id: @conditional_questions[:checkbox].id,
           plan_id: @plan.id,
           lock_version: 0
         }
@@ -362,54 +264,36 @@ RSpec.describe AnswersController, type: :controller do
         post :create_or_update, params: { answer: args }
 
         json = JSON.parse(response.body).with_indifferent_access
-
         # Check hide/show questions lists sent to frontend.
-        expected_to_show_question_ids = @all_questions_ids - add_webhook_condition.remove_data
-        expected_to_hide_question_ids = add_webhook_condition.remove_data
-        expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-        expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+        check_question_ids_to_show_and_hide(json, add_webhook_condition.remove_data)
 
         # An email should have been sent to the configured recipient in the webhook.
         # The webhook_data is a Json string of form:
         # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
         expect(ActionMailer::Base.deliveries.count).to eq(1)
         webhook_data = JSON.parse(add_webhook_condition.webhook_data)
-
-        ActionMailer::Base.deliveries.first do |mail|
-          expect(mail.to).to eq([webhook_data['email']])
-          expect(mail.subject).to eq(webhook_data['subject'])
-          expect(mail.body.encoded).to include(webhook_data['message'])
-          # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-
-          # Message should have @user.name, chosen option text and question text.
-          expect(mail.body.encoded).to include(@user.name)
-          expect(mail.body.encoded).to include(@checkbox_conditional_question.question_options[2].text)
-          expect(mail.body.encoded).to include(@checkbox_conditional_question.text)
-        end
+        check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :checkbox)
       end
       it 'handles multiple checkbox options (one of which is add_webhook condition)' do
         add_webhook_condition = create(:condition,
                                        :webhook,
-                                       question: @checkbox_conditional_question,
-                                       option_list: [@checkbox_conditional_question.question_options[2].id])
+                                       question: @conditional_questions[:checkbox],
+                                       option_list: [@conditional_questions[:checkbox].question_options[1].id])
 
-        condition2 = create(:condition, question: @checkbox_conditional_question,
-                                        option_list: [@checkbox_conditional_question.question_options[4].id],
+        condition2 = create(:condition, question: @conditional_questions[:checkbox],
+                                        option_list: [@conditional_questions[:checkbox].question_options[2].id],
                                         action_type: 'remove',
-                                        remove_data: [@textarea_questions[3].id, @textfield_questions[3].id,
-                                                      @date_questions[3].id, @rda_metadata_questions[3].id,
-                                                      @checkbox_questions[3].id, @dropdown_questions[3].id,
-                                                      @multiselectbox_questions[3].id])
+                                        remove_data: non_conditional_questions_ids_by_index(2))
 
         #  We chose an option that is in the option_list of the condition defined above. Note that
         # the text sent by UI is an empty string.
         args = {
           text: '',
-          question_option_ids: [@checkbox_conditional_question.question_options[2].id,
-                                @checkbox_conditional_question.question_options[4].id,
-                                @checkbox_conditional_question.question_options[1].id],
+          question_option_ids: [@conditional_questions[:checkbox].question_options[0].id,
+                                @conditional_questions[:checkbox].question_options[1].id,
+                                @conditional_questions[:checkbox].question_options[2].id],
           user_id: @user.id,
-          question_id: @checkbox_conditional_question.id,
+          question_id: @conditional_questions[:checkbox].id,
           plan_id: @plan.id,
           lock_version: 0
         }
@@ -419,44 +303,30 @@ RSpec.describe AnswersController, type: :controller do
         json = JSON.parse(response.body).with_indifferent_access
 
         # Check hide/show questions lists sent to frontend.
-        removed_data = add_webhook_condition.remove_data + condition2.remove_data
-        expected_to_show_question_ids = @all_questions_ids - removed_data
-        expected_to_hide_question_ids = add_webhook_condition.remove_data + condition2.remove_data
-        expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-        expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+        remove_data = add_webhook_condition.remove_data + condition2.remove_data
+        check_question_ids_to_show_and_hide(json, remove_data)
 
         # An email should have been sent to the configured recipient in the webhook.
         # The webhook_data is a Json string of form:
         # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
         expect(ActionMailer::Base.deliveries.count).to eq(1)
         webhook_data = JSON.parse(add_webhook_condition.webhook_data)
-
-        ActionMailer::Base.deliveries.first do |mail|
-          expect(mail.to).to eq([webhook_data['email']])
-          expect(mail.subject).to eq(webhook_data['subject'])
-          expect(mail.body.encoded).to include(webhook_data['message'])
-          # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-
-          # Message should have @user.name, chosen option text and question text.
-          expect(mail.body.encoded).to include(@user.name)
-          expect(mail.body.encoded).to include(@checkbox_conditional_question.question_options[2].text)
-          expect(mail.body.encoded).to include(@checkbox_conditional_question.text)
-        end
+        check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :checkbox)
       end
 
       it 'handles selection of a dropdown option (with add_webhook condition)' do
         add_webhook_condition = create(:condition,
                                        :webhook,
-                                       question: @dropdown_conditional_question,
-                                       option_list: [@dropdown_conditional_question.question_options[2].id])
+                                       question: @conditional_questions[:dropdown],
+                                       option_list: [@conditional_questions[:dropdown].question_options[2].id])
 
         #  We chose an option that is in the option_list of the condition defined above. Note that
         # the text sent by UI is an empty string.
         args = {
           text: '',
-          question_option_ids: [@dropdown_conditional_question.question_options[2].id],
+          question_option_ids: [@conditional_questions[:dropdown].question_options[2].id],
           user_id: @user.id,
-          question_id: @dropdown_conditional_question.id,
+          question_id: @conditional_questions[:dropdown].id,
           plan_id: @plan.id,
           lock_version: 0
         }
@@ -466,43 +336,29 @@ RSpec.describe AnswersController, type: :controller do
         json = JSON.parse(response.body).with_indifferent_access
 
         # Check hide/show questions lists sent to frontend.
-        expected_to_show_question_ids = @all_questions_ids - add_webhook_condition.remove_data
-        expected_to_hide_question_ids = add_webhook_condition.remove_data
-        expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-        expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+        check_question_ids_to_show_and_hide(json, add_webhook_condition.remove_data)
 
         # An email should have been sent to the configured recipient in the webhook.
         # The webhook_data is a Json string of form:
         # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
         expect(ActionMailer::Base.deliveries.count).to eq(1)
         webhook_data = JSON.parse(add_webhook_condition.webhook_data)
-
-        ActionMailer::Base.deliveries.first do |mail|
-          expect(mail.to).to eq([webhook_data['email']])
-          expect(mail.subject).to eq(webhook_data['subject'])
-          expect(mail.body.encoded).to include(webhook_data['message'])
-          # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-
-          # Message should have @user.name, chosen option text and question text.
-          expect(mail.body.encoded).to include(@user.name)
-          expect(mail.body.encoded).to include(@dropdown_conditional_question.question_options[2].text)
-          expect(mail.body.encoded).to include(@dropdown_conditional_question.text)
-        end
+        check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :dropdown)
       end
 
       it 'handles selection of a radiobutton option (with add_webhook condition)' do
         add_webhook_condition = create(:condition,
                                        :webhook,
-                                       question: @radiobutton_conditional_question,
-                                       option_list: [@radiobutton_conditional_question.question_options[2].id])
+                                       question: @conditional_questions[:radiobutton],
+                                       option_list: [@conditional_questions[:radiobutton].question_options[2].id])
 
         #  We chose an option that is in the option_list of the condition defined above. Note that
         # the text sent by UI is an empty string.
         args = {
           text: '',
-          question_option_ids: [@radiobutton_conditional_question.question_options[2].id],
+          question_option_ids: [@conditional_questions[:radiobutton].question_options[2].id],
           user_id: @user.id,
-          question_id: @radiobutton_conditional_question.id,
+          question_id: @conditional_questions[:radiobutton].id,
           plan_id: @plan.id,
           lock_version: 0
         }
@@ -512,28 +368,14 @@ RSpec.describe AnswersController, type: :controller do
         json = JSON.parse(response.body).with_indifferent_access
 
         # Check hide/show questions lists sent to frontend.
-        expected_to_show_question_ids = @all_questions_ids - add_webhook_condition.remove_data
-        expected_to_hide_question_ids = add_webhook_condition.remove_data
-        expect(json[:qn_data][:to_show]).to match_array(expected_to_show_question_ids)
-        expect(json[:qn_data][:to_hide]).to match_array(expected_to_hide_question_ids)
+        check_question_ids_to_show_and_hide(json, add_webhook_condition.remove_data)
 
         # An email should have been sent to the configured recipient in the webhook.
         # The webhook_data is a Json string of form:
         # '{"name":"Joe Bloggs","email":"joe.bloggs@example.com","subject":"Large data volume","message":"A message."}'
         expect(ActionMailer::Base.deliveries.count).to eq(1)
         webhook_data = JSON.parse(add_webhook_condition.webhook_data)
-
-        ActionMailer::Base.deliveries.first do |mail|
-          expect(mail.to).to eq([webhook_data['email']])
-          expect(mail.subject).to eq(webhook_data['subject'])
-          expect(mail.body.encoded).to include(webhook_data['message'])
-          # To see structure of email sent see app/views/user_mailer/question_answered.html.erb.
-
-          # Message should have @user.name, chosen option text and question text.
-          expect(mail.body.encoded).to include(@user.name)
-          expect(mail.body.encoded).to include(@radiobutton_conditional_question.question_options[2].text)
-          expect(mail.body.encoded).to include(@radiobutton_conditional_question.text)
-        end
+        check_delivered_mail_for_webhook_data_and_question_data(webhook_data, :radiobutton)
       end
     end
   end
