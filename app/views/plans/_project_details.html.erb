@@ -15,7 +15,8 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     <%= form.label(:title, _('Project title'), class: 'form-label') %>
     <%= form.text_field(:title, class: "form-control", "aria-required": true,
                                 'data-toggle': 'tooltip', spellcheck: true,
-                                title: project_title_tooltip) %>
+                                title: project_title_tooltip,
+                                value: sanitize(plan.title)) %>
   </div>
   <div class="col-lg-8">
     <div class="form-check">
