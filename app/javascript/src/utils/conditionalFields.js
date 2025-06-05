@@ -15,14 +15,6 @@ export default function toggleConditionalFields(context, showThem) {
   if (container.length > 0) {
     if (showThem === true) {
       container.find('.toggleable-field').show();
-
-      // Resize any TinyMCE editors
-      container.find('.toggleable-field').find('.tinymce').each((_idx, el) => {
-        const tinymceEditor = Tinymce.findEditorById($(el).attr('id'));
-        if (tinymceEditor) {
-          $(tinymceEditor.iframeElement).height(tinymceEditor.settings.autoresize_min_height);
-        }
-      });
     } else {
       // Clear the contents of any textarea select boxes or input fields
       container.find('.toggleable-field').find('input, textarea, select').val('').change();
