@@ -5,6 +5,8 @@
 <%
 # Whether or not the org selection is required
 required = required || false
+# Whether or not the org selection is disabled
+disabled = disabled || false
 # Whether or not to restrict the Orgs to funders
 funder_only = funder_only || false
 # The label to use
@@ -20,6 +22,7 @@ placeholder = _("Begin typing to see a list of suggestions.")
                             placeholder: placeholder,
                             value: presenter.name,
                             spellcheck: true,
+                            disabled: disabled,
                             aria: {
                               label: placeholder,
                               autocomplete: "list",
