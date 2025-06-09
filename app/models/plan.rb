@@ -257,9 +257,11 @@ class Plan < ApplicationRecord
     plan_copy.save!
     # Copy newly generated Id to the identifier
     plan_copy.identifier = plan_copy.id.to_s
+    plan.save!
     plan.answers.each do |answer|
       answer_copy = Answer.deep_copy(answer)
-      plan_copy.answers << answer_copy
+      answer_copy.plan_id = plan_copy.id
+      answer_copy.save!
     end
     plan.guidance_groups.each do |guidance_group|
       plan_copy.guidance_groups << guidance_group if guidance_group.present?
@@ -376,7 +378,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def editable_by?(user_id)
-    roles.any? { |r| r.user_id == user_id && r.active && r.editor }
+    roles.select { |r| r.user_id == user_id && r.active && r.editor }.any?
   end
 
   ##
@@ -410,7 +412,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    roles.any? { |r| r.user_id == user_id && r.active && r.commenter } ||
+    roles.select { |r| r.user_id == user_id && r.active && r.commenter }.any? ||
       reviewable_by?(user_id)
   end
 
@@ -420,7 +422,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def administerable_by?(user_id)
-    roles.any? { |r| r.user_id == user_id && r.active && r.administrator }
+    roles.select { |r| r.user_id == user_id && r.active && r.administrator }.any?
   end
 
   # determines if the plan is reviewable by the specified user
@@ -540,7 +542,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def visibility_allowed?
-    !is_test? && phases.any? { |phase| phase.visibility_allowed?(self) }
+    !is_test? && phases.select { |phase| phase.visibility_allowed?(self) }.any?
   end
 
   # Determines whether or not a question (given its id) exists for the self plan
