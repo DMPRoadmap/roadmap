@@ -4,27 +4,26 @@
 #
 # Table name: orgs
 #
-#  id                     :integer          not null, primary key
-#  abbreviation           :string
-#  contact_email          :string
-#  contact_name           :string
-#  feedback_msg           :text
-#  feedback_enabled       :boolean          default(FALSE)
-#  is_other :boolean default(FALSE), not null
-#  links                  :text
-#  logo_name              :string
-#  logo_uid               :string
-#  managed                :boolean          default(FALSE), not null
-#  name                   :string
-#  org_type               :integer          default(0), not null
-#  sort_name              :string
-#  target_url             :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  language_id            :integer
-#  region_id              :integer
-#  managed                :boolean          default(false), not null
-#  helpdesk_email         :string
+#  id                      :integer          not null, primary key
+#  abbreviation            :string
+#  contact_email           :string
+#  contact_name            :string
+#  feedback_msg            :text
+#  feedback_enabled        :boolean          default(FALSE)
+#  is_other                :boolean          default(FALSE), not null
+#  links                   :text
+#  logo_name               :string
+#  logo_uid                :string
+#  name                    :string
+#  org_type                :integer          default(0), not null
+#  sort_name               :string
+#  target_url              :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  language_id             :integer
+#  region_id               :integer
+#  managed                 :boolean          default(false), not null
+#  helpdesk_email          :string
 #  add_question_identifiers :boolean         default(false), not null
 #
 # Foreign Keys
@@ -55,7 +54,7 @@ class Org < ApplicationRecord
   # The links are validated against custom validator allocated at
   # validators/template_links_validator.rb
   attribute :links, :text, default: { org: [] }
-  serialize :links, coder: JSON
+  serialize :links, JSON
 
   # ================
   # = Associations =
@@ -145,7 +144,7 @@ class Org < ApplicationRecord
   before_validation :check_for_missing_logo_file
 
   # This gives all managed orgs api access whenever saved or updated.
-  before_save :ensure_api_access, if: -> { managed? }
+  before_save :ensure_api_access, if: ->(org) { org.managed? }
 
   # If the physical logo file is no longer on disk we do not want it to prevent the
   # model from saving. This typically happens when you copy the database to another
@@ -187,7 +186,7 @@ class Org < ApplicationRecord
   end
 
   # The managed flag is set by a Super Admin. A managed org typically has
-  # at least one Org Admini and can have associated Guidance and Templates
+  # at least one Org Admin and can have associated Guidance and Templates
   scope :managed, -> { where(managed: true) }
   # An un-managed Org is one created on the fly by the system
   scope :unmanaged, -> { where(managed: false) }
@@ -436,4 +435,6 @@ class Org < ApplicationRecord
       token_permission_types << perm unless token_permission_types.include?(perm)
     end
   end
+
+  
 end
