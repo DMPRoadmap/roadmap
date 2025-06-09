@@ -1,0 +1,54 @@
+<div class="col-md-3 bold">
+    <%= _('Question Identifiers')%>
+</div>
+
+<div class="row">
+    <div class="col-md-3 bold mb-2">
+        <%= _('Value')%>
+    </div>
+    <div class="col-md-3 bold mb-2">
+        <%= _('Name')%>
+    </div>
+    <div class="col-md-3">
+    </div>
+</div> 
+
+<% if q.question_identifiers.count == 0 %>
+    <% q.question_identifiers.build %>
+    <% q.question_identifiers.each {|qopt| qopt.id=0} %> 
+<% end %>
+
+<% q.question_identifiers.to_a.each do |q_identifiers| %>
+    <%= f.fields_for :question_identifiers, q_identifiers do |op| %>  
+        <div class="row mb-2" data-attribute="question_identifier">
+            <div class="col-md-3 pe-2">
+                <%= op.text_field :value, as: :string, class: 'form-control', spellcheck: true %>
+            </div>
+            <div class="col-md-3 pe-2">
+                <%= op.text_field :name, as: :string, class: 'form-control', spellcheck: true %>
+            </div>
+            <div class="col-md-3">
+                <%= op.hidden_field :_destroy, class: 'destroy-question-identifier' %>
+                <%= link_to _('Remove'), org_admin_question_identifier_path(q_identifiers), method: :delete %>
+            </div>   
+        </div>      
+    <% end %>      
+<% end %>  
+
+<!-- block responsible to add a new pair of Question Identifiers -->
+<div class="row">
+    <div class="col-md-3 mb-2">
+        <a href="#" class="new_question_identifier"><%= _('Add new Question Identifier') %></a>
+    </div>
+</div>   
+<% if q.question_identifiers.count > 0 %>
+    <div class="row">     
+       <div class="col-md-3 mb-2">
+            <button type="button" class="btn btn-primary" id="link_to_question_identifiers_list" data-bs-toggle="modal" data-bs-target="#questionIdentifiersListModal" data-remote="true" data-template-id="<%= q.section.phase.template_id %>"><%= _('Question Identifiers List')%></button>
+            <%= render "/org_admin/question_identifiers/question_identifiers_list" %>
+       </div>
+    </div> 
+<% end %> 
+ 
+
+
