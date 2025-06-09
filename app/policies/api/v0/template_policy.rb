@@ -9,7 +9,7 @@ module Api
           raise Pundit::NotAuthorizedError, _('must have access to templates api')
         end
 
-        super
+        super(user, template)
       end
 
       ##
