@@ -167,7 +167,7 @@ class UsersController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-   # PUT /users/:id/confirm_user
+  # PUT /users/:id/confirm_user
   # -----------------------------------------------------
   # rubocop:disable Metrics/AbcSize
   def confirm_user
