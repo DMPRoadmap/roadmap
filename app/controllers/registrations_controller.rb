@@ -291,7 +291,7 @@ class RegistrationsController < Devise::RegistrationsController
   # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation,
+    params.require(:user).permit(:email, :email_confirmation, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
                                  :accept_terms, :org_id, :org_name,
                                  :org_crosswalk, :language_id)
