@@ -34,7 +34,7 @@
         </div>
       </div>
     <% end %>
-    <% if @plans.any?  %>
+    <% if @plans.length > 0  %>
       <% unless @super_admin %>
         <%= link_to sanitize(_('Download plans <em class="sr-only">(new window)</em><span class="new-window-popup-info">%{open_in_new_window_text}</span>') %
                            { open_in_new_window_text: _('Opens in new window') },
