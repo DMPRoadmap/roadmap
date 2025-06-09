@@ -19,6 +19,7 @@
 #  updated_at       :datetime
 #  family_id        :integer
 #  org_id           :integer
+#  api_server_id       :integer
 #
 # Indexes
 #
@@ -69,6 +70,8 @@ class Template < ApplicationRecord
 
   belongs_to :org
 
+  belongs_to :api_server, optional: true
+
   has_many :plans
 
   has_many :phases, dependent: :destroy
@@ -80,6 +83,8 @@ class Template < ApplicationRecord
   has_many :annotations, through: :questions
 
   has_many :question_options, through: :questions
+
+  has_many :question_identifiers, through: :questions
 
   has_many :conditions, through: :questions
 
@@ -483,6 +488,160 @@ class Template < ApplicationRecord
       break random unless Template.exists?(family_id: random)
     end
   end
+
+  # Check if template has question Identifiers
+  def template_has_any_question_identifiers(template_id)
+    template = Template.find(template_id)
+    phases = template.phases
+    for phase in phases do
+      sections = phase.sections
+      for section in sections do 
+        questions = section.questions
+        for question in questions do
+          if question.question_identifiers.exists? 
+            for qid in question.question_identifiers do
+              if !qid.value.blank? && !qid.name.blank? 
+                  return true 
+                  break
+              end    
+            end  
+          end  
+        end
+      end      
+    end
+  end
+  
+  # This method is reponsible to generate the Question Identifiers list 
+  # for one template. It returns a html formated list.
+  def html_question_identifiers_list(template_id)
+    #Get the template
+    template = Template.find(template_id)
+    phases = template.phases
+    
+    html = "<div>"
+    for phase in phases do
+      sections = phase.sections
+
+
+      html += "<div>
+                <h4 class=\"modal-title\">Phase - %{phase_title} </h4><hr/>" % { phase_title: phase.title }
+
+      for section in sections do 
+        questions = section.questions
+
+        # to verify if there is a question identifier in the section
+        for question in questions do
+            for qid in question.question_identifiers do
+              if !qid.value.blank? && !qid.name.blank? 
+                html += "<div>
+                  <h5 class=\"modal-title\">Section - %{section_title}</h5>" % { section_title: section.title }
+              end   
+              break   
+            end    
+          break
+        end      
+
+        # to display the question text and the question identifiers
+        for question in questions do
+          if question.question_identifiers.exists? 
+            html += "<ul>"
+            
+            for qid in question.question_identifiers do
+              if !qid.value.blank? && !qid.name.blank? 
+                clean_question_text = question.text.gsub(/<p>(.*?)<\/p>/, "\\1")
+                html += "<div class=\"col-md-8\">
+                  <label>Question %{question_number} - %{question_text}</label></div>" % { question_number: question.number, question_text: clean_question_text }
+              end   
+              break   
+            end    
+                  
+            for qid in question.question_identifiers do
+              if !qid.value.blank? && !qid.name.blank? 
+                html += "<li class=\"list-group-item\" style=\"border: none\">Identifier Value: %{identifier_value}</li>" % { identifier_value: qid.value }
+                html += "<li class=\"list-group-item\" style=\"border: none\">Identifier Name: %{identifier_name}</li>" % { identifier_name: qid.name }
+              end  
+            end
+            html += "</ul>"
+            
+          end
+                
+        end
+        html += "<hr/></div>" 
+      end
+      html += "<hr/></div>" 
+    end 
+
+    html += "</div>" 
+  end   
+
+
+  # This method is reponsible to generate the Question Identifiers list 
+  # for one template. It returns a html formated list.
+  def export_question_identifiers_list(template_id)
+    #Get the template
+    template = Template.find(template_id)
+    phases = template.phases
+    
+    html = "<html>  
+              <head>
+                <title>%{template_title}</title>
+              </head>
+              <body>" % { template_title: template.title }
+
+    for phase in phases do
+      sections = phase.sections
+
+      html += "<h2>Phase - %{phase_title}</h2>" % { phase_title: phase.title }
+
+      for section in sections do 
+        questions = section.questions
+
+        # to verify if there is a question identifier in the section
+        for question in questions do
+            for qid in question.question_identifiers do
+              if !qid.value.blank? && !qid.name.blank? 
+                html += "<h3>Section - %{section_title}</h3>" % { section_title: section.title }
+              end   
+              break   
+            end    
+          break
+        end      
+
+        # to display the question text and the question identifiers
+        for question in questions do
+          if question.question_identifiers.exists? 
+            html += "<ul>"
+            
+            for qid in question.question_identifiers do
+              if !qid.value.blank? && !qid.name.blank? 
+                clean_question_text = question.text.gsub(/<p>(.*?)<\/p>/, "\\1")
+                html += "
+                  <p>Question %{question_number} - %{question_text}</p>" % { question_number: question.number, question_text: clean_question_text }
+              end   
+              break   
+            end    
+                  
+            for qid in question.question_identifiers do
+              if !qid.value.blank? && !qid.name.blank? 
+                html += "<li>Identifier Value: %{identifier_value}</li>" % { identifier_value: qid.value }
+                html += "<li>Identifier Name: %{identifier_name}</li>" % { identifier_name: qid.name }
+              end  
+            end
+            html += "</ul><br>"
+            
+          end
+                
+        end
+        html += "<br>" 
+      end
+    end 
+
+    html += "</body>
+    </html>" 
+  end   
+
+  
+
 
   private
 
