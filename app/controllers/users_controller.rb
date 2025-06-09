@@ -94,8 +94,14 @@ class UsersController < ApplicationController
 
     if @user.save
       if privileges_changed
-        deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
-          UserMailer.admin_privileges(r).deliver_now
+        if @user.perms.size > 0
+          deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
+            UserMailer.admin_privileges_granted(r).deliver_now
+          end
+        else
+          deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
+            UserMailer.admin_privileges_removed(r).deliver_now
+          end
         end
       end
       render(json: {
@@ -161,6 +167,38 @@ class UsersController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+   # PUT /users/:id/confirm_user
+  # -----------------------------------------------------
+  # rubocop:disable Metrics/AbcSize
+  def confirm_user
+    authorize current_user
+  
+    user = User.find(params[:id])
+    unless user.present?
+      render json: { code: 0, msg: _('User not found') }
+      return
+    end
+  
+    begin
+      user.confirmed_at = Time.current
+      user.save!
+  
+      render json: {
+        code: 1,
+        msg: format(_("Successfully confirmed %{username}'s account."), username: user.name(false))
+      }
+    rescue StandardError => e
+      # Log the error for debugging
+      Rails.logger.error "Failed to confirm user: #{e.message}"
+  
+      render json: {
+        code: 0,
+        msg: format(_('Unable to confirm %{username}'), username: user.name(false))
+      }
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+
   # POST /users/acknowledge_notification
   def acknowledge_notification
     authorize current_user
@@ -192,7 +230,8 @@ class UsersController < ApplicationController
       prefs: [
         users: %i[new_comment
                   added_as_coowner
-                  admin_privileges
+                  admin_privileges_granted
+                  admin_privileges_removed
                   feedback_requested
                   feedback_provided],
         owners_and_coowners: %i[visibility_changed]
