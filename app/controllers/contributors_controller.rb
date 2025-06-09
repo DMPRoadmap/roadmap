@@ -11,7 +11,7 @@ class ContributorsController < ApplicationController
 
   # GET /plans/:plan_id/contributors
   def index
-    authorize @plan
+    authorize @plan, :show?
     @contributors = @plan.contributors
   end
 
@@ -75,6 +75,7 @@ class ContributorsController < ApplicationController
       render :edit
     end
   end
+  # rubocop:enable
 
   # DELETE /plans/:plan_id/contributors/:id
   def destroy
