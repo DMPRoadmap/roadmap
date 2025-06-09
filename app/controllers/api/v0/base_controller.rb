@@ -56,7 +56,7 @@ module Api
       #
       # Returns Object
       def retrieve_resource
-        instance_variable_get(:"@#{resource_name}")
+        instance_variable_get("@#{resource_name}")
       end
 
       # The allowed parameters for searching. Override this method in each API
@@ -98,13 +98,13 @@ module Api
       # the method "#{resource_name}_params" to limit permitted
       # parameters for the individual model.
       def resource_params
-        @resource_params ||= send(:"#{resource_name}_params")
+        @resource_params ||= send("#{resource_name}_params")
       end
 
       # Use callbacks to share common setup or constraints between actions.
       def define_resource(resource = nil)
         resource ||= resource_class.find(params[:id])
-        instance_variable_set(:"@#{resource_name}", resource)
+        instance_variable_set("@#{resource_name}", resource)
       end
 
       def authenticate
