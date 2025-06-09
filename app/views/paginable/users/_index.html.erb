@@ -19,13 +19,14 @@
           <tr>
               <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('users.firstname') %></th>
               <th scope="col"><%= _('Email') %>&nbsp;<%= paginable_sort_link('users.email') %></th>
-              <th scope="col"><%= _('School or Department') %>&nbsp;<%= paginable_sort_link('departments.name') %></th>
+              <th scope="col"><%= _('School or department') %>&nbsp;<%= paginable_sort_link('departments.name') %></th>
               <th scope="col"><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
               <th scope="col" class="text-center date-column"><%= _('Created date') %>&nbsp;<%= paginable_sort_link('users.created_at') %></th>
               <th scope="col" class="text-center date-column"><%= _('Last activity') %>&nbsp;<%= paginable_sort_link('users.last_sign_in_at') %></th>
               <th scope="col" class="text-center sorter-false"><%= _('Plans') %></th>
-              <th scope="col" class="text-center sorter-false"><%= _('Current Privileges') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Current privileges') %></th>
               <th scope="col" class="text-center"><%= _('Active') %></th>
+              <th scope="col" class="text-center"><%= _('Confirmed') %></th>
               <th scope="col" class="text-center sorter-false"><%= _('Identifiers') %></th>
           </tr>
         </thead>
@@ -43,7 +44,7 @@
                           <%= user.name(false) %>
                          <% end %>
                       <% else %>
-                          <%= is_super_admin ? link_to(_('Edit Profile'), edit_user_registration_path(user)) : '' %>
+                          <%= is_super_admin ? link_to(_('Edit profile'), edit_user_registration_path(user)) : '' %>
                       <% end %>
                   </td>
                   <td><%= user.email %></td>
@@ -90,6 +91,14 @@
                                                           url: activate_user_path(user) } %>
                     <% else %>
                       <%= user.active? ? _('Yes') : _('No') %>
+                    <% end %>
+                  </td>
+                  <td class="text-center user-status">
+                    <% if user.confirmed_at %>
+                      <%= 'Yes' %>
+                    <% else %>
+                      <%= check_box_tag "confirmed_#{user.id}", "confirmed", false, disabled: false, authenticity_token: true, class: "confirm-user", 
+                      data: {remote: true, method: :put, url: confirm_user_path(user)} %>
                     <% end %>
                   </td>
                   <td class="text-center">
