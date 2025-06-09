@@ -1,6 +1,9 @@
 <% title _('My Dashboard') %>
 <div class="row">
   <div class="col-md-12">
+    <div class="btn-grp">
+        <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary float-end" %>
+    </div>
     <h1><%= _('My Dashboard') %></h1>
     <!-- if the user has projects -->
     <p>
@@ -14,7 +17,8 @@
     </p>
   </div>
 </div>
-<div class="row">
+
+<div class="row-mb-20">
   <div class="col-md-12">
     <%= paginable_renderise(
       partial: '/paginable/plans/privately_visible',
@@ -24,11 +28,7 @@
       query_params: { sort_field: 'plans.updated_at', sort_direction: 'desc' }) %>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary" %>
-  </div>
-</div>
+
 <div class="row">
   <div class="col-md-12">
     <% if @organisationally_or_publicly_visible.any? && !current_user.org.is_other? %>
