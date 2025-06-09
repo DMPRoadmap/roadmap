@@ -10,6 +10,7 @@
 #  byte_size               :bigint
 #  description             :text
 #  display_order           :integer
+#  doi_url                 :string
 #  is_default              :boolean
 #  output_type             :integer          default("dataset"), not null
 #  output_type_description :string
@@ -37,9 +38,11 @@ class ResearchOutput < ApplicationRecord
   include Identifiable
   include ValidationMessages
 
-  enum output_type: %i[audiovisual collection data_paper dataset event image
-                       interactive_resource model_representation physical_object
-                       service software sound text workflow other]
+  enum output_type: %i[audiovisual book book_chapter collection computational_notebook conference_paper
+                       conference_proceeding data_paper dataset dissertation event image 
+                       interactive_resource instrument journal journal_article model_representation 
+                       output_management_plan peer_review physical_object preprint publication report 
+                       research_data service software sound standard study_registration text workflow other]
 
   enum access: %i[open embargoed restricted closed]
 
@@ -76,14 +79,14 @@ class ResearchOutput < ApplicationRecord
 
   # Helper method to convert selected repository form params into Repository objects
   def repositories_attributes=(params)
-    params.each_value do |repository_params|
+    params.each do |_i, repository_params|
       repositories << Repository.find_by(id: repository_params[:id])
     end
   end
 
   # Helper method to convert selected metadata standard form params into MetadataStandard objects
   def metadata_standards_attributes=(params)
-    params.each_value do |metadata_standard_params|
+    params.each do |_i, metadata_standard_params|
       metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
     end
   end
