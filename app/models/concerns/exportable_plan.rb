@@ -152,19 +152,37 @@ module ExportablePlan
       presenter = ResearchOutputPresenter.new(research_output: research_output)
       size_hash = presenter.converted_file_size(size: research_output.byte_size)
 
-      {
+      research_output_hash = {
         title: research_output.title,
         description: research_output.description,
         type: presenter.display_type,
-        anticipated_release_date: presenter.display_release,
-        initial_access_level: presenter.display_access,
-        intended_repositories: presenter.display_repository&.join(', '),
-        anticipated_file_size: "#{size_hash[:size]} #{size_hash[:unit]&.upcase}",
-        initial_license: presenter.display_license,
+        release_date: presenter.display_release,
+        access_level: presenter.display_access,
+        repositories: presenter.display_repository&.join(', '),
+        file_size: "#{size_hash[:size]} #{size_hash[:unit]&.upcase}",
+        license: presenter.display_license,
         metadata_standards: presenter.display_metadata_standard&.join(', '),
         may_contain_sensitive_data: presenter.display_boolean(value: research_output.sensitive_data),
         may_contain_pii: presenter.display_boolean(value: research_output.personal_data)
       }
+
+      if Rails.configuration.x.open_aire.active
+        # Convert the hash to a 2D array
+        data = research_output_hash.to_a
+        
+        # Define the new key-value pair
+        new_key = :doi
+        new_value = research_output.doi_url
+        position = 2 
+  
+        # Insert the new key-value pair at the desired position
+        data.insert(position, [new_key, new_value])
+  
+        # Convert the array back to a hash
+        research_output_hash = data.to_h
+      end
+
+      research_output_hash
     end
   end
   # rubocop:enable Metrics/AbcSize
