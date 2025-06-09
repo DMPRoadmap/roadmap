@@ -2,27 +2,27 @@
 <div class="row" id="<%= dom_id(phase) %>">
   <div class="col-md-12">
     <div>
-      <div class="float-end">
-        <!-- Question identifiers list button -->
-        <% org = Org.find(template.org_id)%>
-        <% if org.can_add_question_identifiers? %>
-          <% if template.template_has_any_question_identifiers(template.id) == true %>
-            <%= link_to _('Download question identifiers list'), download_pdf_list_org_admin_question_identifier_path(), class: "btn btn-primary", id: "download_pdf_list_link" %>
-          <% end %> 
-        <% end %>
-        <% if template.customization_of.present? && template.latest? %>
-          <%= link_to _('Customise phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-secondary", role: 'button' } %>
-        <% elsif modifiable %>
-          <%= link_to _('Edit phase'), edit_org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-secondary", role: 'button' } %>
-        <% else %>
-          <%= link_to _('Show phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-secondary", role: 'button' } %>
-        <% end %>
-        <% if template.latest? && phase.modifiable %>
-          <%= link_to _('Delete phase'), org_admin_template_phase_path(template.id, phase.id),
-                      data: { confirm: _("You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?") % { phase_title: phase.title },
-                              length: 20, omission: _('... (continued)') }, method: :delete, class: 'btn btn-secondary', role: 'button' %>
-        <% end %>
-      </div>
+        <div class="float-end">
+          <!-- Question identifiers list button -->
+          <% org = Org.find(template.org_id)%>
+          <% if org.can_add_question_identifiers? %>
+            <% if template.template_has_any_question_identifiers(template.id) == true %>
+              <%= link_to _('Download question identifiers list'), download_pdf_list_org_admin_question_identifier_path(), class: "btn btn-primary", id: "download_pdf_list_link" %>
+            <% end %> 
+          <% end %>
+          <% if template.customization_of.present? && template.latest? %>
+            <%= link_to _('Customise phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-secondary", role: 'button' } %>
+          <% elsif modifiable %>
+            <%= link_to _('Edit phase'), edit_org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-secondary", role: 'button' } %>
+          <% else %>
+            <%= link_to _('Show phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-secondary", role: 'button' } %>
+          <% end %>
+          <% if template.latest? && phase.modifiable %>
+            <%= link_to _('Delete phase'), org_admin_template_phase_path(template.id, phase.id),
+                        data: { confirm: _("You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?") % { phase_title: phase.title },
+                                length: 20, omission: _('... (continued)') }, method: :delete, class: 'btn btn-secondary', role: 'button' %>
+          <% end %>
+        </div>
       <p class="float-start">
         <div class="display-readonly-textarea-content">
           <%= sanitize phase.description %>
