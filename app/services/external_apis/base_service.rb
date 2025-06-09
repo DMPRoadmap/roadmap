@@ -65,7 +65,7 @@ module ExternalApis
 
       # Logs the results of a failed HTTP response
       def handle_uri_failure(method:, uri:)
-        msg = "received an invalid uri: '#{uri}'!"
+        msg = "received an invalid uri: '#{uri&.to_s}'!"
         log_error(method: method, error: ExternalApiError.new(msg))
       end
 
