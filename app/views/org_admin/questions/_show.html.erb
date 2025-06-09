@@ -211,6 +211,13 @@
                   phase_id: question.section.phase.id,
                   section_id: question.section.id,
                   id: question.id)) do |f| %>
+                  <!--Question Identifiers block - This verifies if org has permission to add question Identifiers-->
+                    <% org = Org.find(question.section.phase.template.org_id)%>
+                    <% if org.can_add_question_identifiers? %>
+                      <div class="form-control mb-3 col-md-10" data-attribute="question_identifier">
+                          <%= render "/org_admin/question_identifiers/question_identifier_block", f: f, q: question %>
+                      </div> 
+                    <% end %>
                 <%# example_answer and guidance annotations as nested fields %>
                 <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
                   <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
