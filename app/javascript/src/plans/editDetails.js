@@ -4,8 +4,6 @@ import toggleConditionalFields from '../utils/conditionalFields';
 import getConstant from '../utils/constants';
 
 $(() => {
-  const grantIdField = $('.grant-id-typeahead');
-  const grantIdHidden = $('input#plan_grant_value');
 
   const form = $('form.edit_plan');
 
@@ -70,56 +68,6 @@ $(() => {
       toggleCheckboxes(selections);
     };
 
-    const grantNumberInfo = (grantId) => `Grant number: ${grantId}`;
-
-    const setInitialGrantProjectName = () => {
-      const grantId = grantIdHidden.val();
-      const researchProjects = window.researchProjects;
-      const researchProject = researchProjects.find((datum) => datum.grant_id === grantId);
-      if (researchProject) {
-        grantIdField.val(researchProject.description);
-      }
-    };
-
-    const setUpTypeahead = () => {
-      if ($('.edit_plan').length) {
-        // TODO: Convert this over so that it just loads in the controller?
-        //       Follow this pattern:
-        // if ($('#org-details-org-controls').length > 0) {
-        //   initAutocomplete('#org-details-org-controls .autocomplete');
-        // }
-
-        $.get('/research_projects.json', (data) => {
-          window.researchProjects = data;
-          const descriptionData = $.map((dataIn, datum) => datum.description);
-          grantIdField.typeahead({ source: descriptionData });
-        }).then(() => { setInitialGrantProjectName(); });
-
-        grantIdField.on('change', () => {
-          const current = grantIdField.typeahead('getActive');
-          if (current) {
-            // match or partial match found
-            const currentResearchProject = window.researchProjects.find((datum) => {
-              const fixString = (string) => String(string).toLowerCase();
-              return fixString(datum.description) === fixString(current);
-            });
-            if (currentResearchProject) {
-              const grantId = currentResearchProject.grant_id;
-              $('#grant_number_info').html(grantNumberInfo(grantId));
-              if (grantId.length > 0) {
-                grantIdHidden.val(grantId);
-              } else {
-                grantIdHidden.val(grantIdField.val());
-              }
-            }
-          } else {
-            $('#grant_number_info').html(grantNumberInfo(''));
-            grantIdHidden.val(grantIdField.val());
-          }
-        });
-      }
-    };
-
     $('#other-guidance-orgs').find('input[type="checkbox"]').click((e) => {
       const checkbox = $(e.target);
       // Since this is the modal window, copy any selections over to the priority list
@@ -149,6 +97,5 @@ $(() => {
 
     toggleCheckboxes($('#priority-guidance-orgs input[type="checkbox"]:checked').map((i, el) => $(el).val()).get());
 
-    setUpTypeahead();
   }
 });
