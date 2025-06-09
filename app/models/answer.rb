@@ -105,7 +105,7 @@ class Answer < ApplicationRecord
   #
   # Returns Array
   def non_archived_notes
-    notes.select { |n| n.archived.blank? }.sort_by!(&:created_at)
+    notes.select { |n| n.archived.blank? }.sort! { |x, y| x.created_at <=> y.created_at }
   end
 
   # The parsed JSON hash for the current answer object. Generates a new hash if none
