@@ -4,14 +4,13 @@
       <div class="col-md-3 mb-2 bold">
         <%= label(:text, _('Option'), class: "control-label")%>
       </div>
-      <div class="col-md-3 mb-2 bold">
+      <div class="col-md-3 mb-2">
         <%= label(:text, _('Action'), class: "control-label") %>
       </div>
       <div class="col-md-3 mb-2 bold">
-        <%= label(:text, _('Target'), class: "control-label") %>
+        <%= _('Remove')%>
       </div>
-      <div class="col-md-3 mb-2 bold">
-        <%= label(:text, _('Remove'), class: "control-label") %>
+      <div class="col-md-3">
       </div>
     </div>
     <% conditions_params =  conditions_to_param_form(conditions).sort_by { |key| key }.to_h %>
