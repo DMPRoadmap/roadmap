@@ -73,7 +73,11 @@ class ApplicationController < ActionController::Base
 
   # rubocop:disable Metrics/AbcSize
   def after_sign_in_path_for(_resource)
-
+    # ensure oauth2 authorization flow is not interrupted
+    if user_is_in_oauth_flow
+      return session[:user_return_to]
+    end
+    
     referer_path = URI(request.referer).path unless request.referer.nil?
     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
        referer_path.eql?(new_user_registration_path) ||
@@ -86,6 +90,11 @@ class ApplicationController < ActionController::Base
   # rubocop:enable Metrics/AbcSize
 
   def after_sign_up_path_for(_resource)
+    # ensure oauth2 authorization flow is not interrupted
+    if user_is_in_oauth_flow
+      return session[:user_return_to]
+    end
+    
     referer_path = URI(request.referer).path unless request.referer.nil?
     if from_external_domain? ||
        referer_path.eql?(new_user_session_path) ||
@@ -198,12 +207,16 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       # Redirect use to the path and display the error message
-      format.any(:html, :pdf) { redirect_to url_or_path, alert: msg }
+      format.html { redirect_to url_or_path, alert: msg }
       # Render the JSON error message (using API V1)
       format.json do
         @payload = { errors: [msg] }
         render '/api/v1/error', status: http_status
       end
     end
+  end
+
+  def user_is_in_oauth_flow
+    session[:user_return_to].present? && session[:user_return_to].include?('/oauth/authorize')
   end
 end
