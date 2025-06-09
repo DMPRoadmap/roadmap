@@ -130,7 +130,7 @@ module OrgAdmin
       template = Template.includes(:org, :phases).find(params[:id])
       authorize template
       # Load the info needed for the overview section if the authorization check passes!
-      phases = template.phases.includes(sections: { questions: :question_options })
+      phases = template.phases.includes(sections: { questions: [:question_options, :question_identifiers] })
                        .order('phases.number',
                               'sections.number',
                               'questions.number',
@@ -140,6 +140,7 @@ module OrgAdmin
                                'phases.modifiable',
                                'sections.title',
                                'questions.text',
+                               'question_identifiers.value',
                                'question_options.text')
       if template.latest?
         render 'container', locals: {
@@ -171,6 +172,8 @@ module OrgAdmin
       args = template_params
       # Swap in the appropriate visibility enum value for the checkbox value
       args[:visibility] = parse_visibility(args, current_user.org)
+      # set api_server if one is associated with this template and its plans
+      args[:api_server_id] = params[:api_server_id]
 
       # creates a new template with version 0 and new family_id
       @template = Template.new(args)
@@ -201,6 +204,9 @@ module OrgAdmin
         args = template_params
         # Swap in the appropriate visibility enum value for the checkbox value
         args[:visibility] = parse_visibility(args, current_user.org)
+
+        # set api_server if one is associated with this template and its plans
+        args[:api_server_id] = params[:api_server_id]
 
         template.assign_attributes(args)
         template.links = ActiveSupport::JSON.decode(params['template-links']) if params['template-links'].present?
