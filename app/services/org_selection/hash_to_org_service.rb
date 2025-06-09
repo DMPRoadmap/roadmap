@@ -40,15 +40,16 @@ module OrgSelection
         allow_create ? initialize_org(hash: hash) : nil
       end
 
+      # rubocop:disable Metrics/AbcSize
       def to_identifiers(hash:)
         return [] unless hash.present?
 
         out = []
         # Process each of the identifiers
         hash = hash.with_indifferent_access
-        idents = hash.slice(*identifier_keys)
+        idents = hash.select { |k, _v| identifier_keys.include?(k) }
         idents.each do |key, value|
-          attrs = hash.slice(*attr_keys(hash: hash))
+          attrs = hash.select { |k, _v| attr_keys(hash: hash).include?(k) }
           attrs = {} unless attrs.present?
           out << Identifier.new(
             identifier_scheme_id: IdentifierScheme.by_name(key).first&.id,
@@ -58,6 +59,7 @@ module OrgSelection
         end
         out
       end
+      # rubocop:enable Metrics/AbcSize
 
       private
 
@@ -69,7 +71,7 @@ module OrgSelection
 
       # Lookup the Org by its :identifiers and return if the name matches the search
       def lookup_org_by_identifiers(hash:)
-        identifiers = hash.slice(*identifier_keys)
+        identifiers = hash.select { |k, _v| identifier_keys.include?(k) }
         ids = identifiers.map { |k, v| { name: k, value: v } }
         org = Org.from_identifiers(array: ids) if ids.any?
         exact_match?(rec: org, name2: hash[:name]) ? org : nil
