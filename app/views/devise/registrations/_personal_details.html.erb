@@ -6,10 +6,12 @@
   <p class="form-control-static"><%= _('You can edit any of the details below.') %></p>
   <%= hidden_field_tag :unlink_flag, "false", id: 'unlink_flag' %>
 
+
   <div class="form-control mb-3 col-sm-8">
     <%= f.label(:email, _('Email'), class: 'form-label') %>
-    <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email) %>
-    <%= hidden_field_tag :original_email, @user.email %>
+    <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email, disabled: !current_user.can_super_admin?) %>
+    <%= f.hidden_field :email, value: @user.email if !current_user.can_super_admin? %>
+    <%= hidden_field_tag :original_email, @user.email if current_user.can_super_admin? %>
   </div>
 
   <div class="form-control mb-3 col-sm-8">
@@ -29,7 +31,8 @@
                  form: f,
                  orgs: orgs,
                  default_org: current_user.org,
-                 required: true
+                 required: true,
+                 disabled: !current_user.can_super_admin?
                } %>
   </div>
   <% if org_admin %>
@@ -43,8 +46,8 @@
       <%= f.label(:department_id, _('Department or school'), class: 'form-label') %>
       <%= select_tag("user[department_id]",
           options_from_collection_for_select(departments, "id", "name", dept_id),
-          include_blank: true,
-          disabled: departments.count === 0,
+          prompt: _("--Select--"),
+          disabled: departments.count === 0 || !current_user.can_super_admin?,
           class: "form-select") %>
     </div>
     <% end %>
@@ -55,7 +58,9 @@
       <%= f.label(:language_id, _('Language'), class: 'form-label') %>
       <%= select_tag("user[language_id]",
           options_from_collection_for_select(@languages, "id", "name", lang_id),
-          class: "form-select") %>
+          prompt: _("--Select--"),
+          class: "form-select",
+          "aria-required": true) %>
     </div>
   <% end %>
 
