@@ -7,9 +7,10 @@
   %>
 
   <span class="col-md-5">
+    <%= label_tag :"research_output[subject_filter]", _('- Select a subject area -'), class: 'form-label' %>
     <%= select_tag :"research_output[subject_filter]",
                    options_for_select(ResearchOutputPresenter.selectable_subjects),
-                   include_blank: _("- Select a subject area -"),
+                   include_blank: _("--Select--"),
                    class: "form-select",
                    aria: { label: _('Select a subject area') },
                    title: by_subject_tooltip,
@@ -17,9 +18,10 @@
   </span>
 
   <span class="col-md-5">
+    <%= label_tag :"research_output[subject_filter]", _('- Select a repository type -'), class: 'form-label' %>
     <%= select_tag :"research_output[type_filter]",
                    options_for_select(ResearchOutputPresenter.selectable_repository_types),
-                   include_blank: _("- Select a repository type -"),
+                   include_blank: _("--Select--"),
                    class: "form-select",
                    aria: { label: _('Select a repository type') },
                    title: by_type_tooltip,
