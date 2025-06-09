@@ -17,11 +17,7 @@ module OrgAdmin
 
       @super_admin = current_user.can_super_admin?
       @clicked_through = params[:click_through].present?
-      @plans = if @super_admin
-                 Plan.all.page(1).includes(:template, roles: { user: :org })
-               else
-                 current_user.org.org_admin_plans.page(1)
-               end
+      @plans = @super_admin ? Plan.all.page(1) : current_user.org.org_admin_plans.page(1)
     end
     # rubocop:enable Metrics/AbcSize
 
