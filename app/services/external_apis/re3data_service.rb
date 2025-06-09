@@ -51,18 +51,34 @@ module ExternalApis
       def fetch
         xml_list = query_re3data
         return [] unless xml_list.present?
+        
+        active_repo_ids = []
+        xml_list.xpath('/list/repository').each do |repo_node|
 
-        xml_list.xpath('/list/repository/id').each do |node|
-          next unless node.present? && node.text.present?
-
-          xml = query_re3data_repository(repo_id: node.text)
-          next unless xml.present?
-
-          process_repository(id: node.text, node: xml.xpath('//r3d:re3data//r3d:repository').first)
+          repo_id = repo_node.xpath('./id').text.strip
+          if repo_id.present?
+            # Fetch additional data for the repository
+            xml = query_re3data_repository(repo_id: repo_id)
+            
+            # Only process repositories that don't have an endDate node i.e. active 
+            if xml.xpath('.//r3d:endDate', 'r3d' => 'http://www.re3data.org/schema/2-2').empty?
+              process_repository(id: repo_id, node: xml.xpath('//r3d:re3data//r3d:repository').first)
+              
+              # Add repository ID to list of active repositories
+              active_repo_ids << repo_id 
+            end       
+          end
         end
+        
+        clear_inactive_repositories(active_repo_ids)
       end
-
+      
       private
+
+      # Method to clear repositories that were not identified as active
+      def clear_inactive_repositories(active_ids)
+        Repository.where.not(uri: active_ids).destroy_all
+      end
 
       # Queries the re3data API for the full list of repositories
       def query_re3data
