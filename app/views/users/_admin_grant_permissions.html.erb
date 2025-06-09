@@ -14,7 +14,7 @@
         <ul class="list-group">
           <div class="col-md-8">
             <input type="checkbox" name="org_admin_privileges" id="org_admin_privileges" />
-              <%= label_tag :organisational_admin_privileges, _('Organisational Admin Privileges'), class: 'form-check-label' %>
+              <%= label_tag :organisational_admin_privileges, _('Organisational Admin privileges'), class: 'form-check-label-bold' %>
           </div>
           <% perms.each do |perm| %>
             <% case perm.name when 'grant_permissions' %>
@@ -48,7 +48,7 @@
           <% if current_user.can_super_admin? %>
           <div class="col-md-8">
             <input type="checkbox" name="super_admin_privileges" id="super_admin_privileges" />
-            <%= label_tag :super_admin_privileges, _('Super Admin Privileges'), class: 'form-check-label' %>
+            <%= label_tag :super_admin_privileges, _('Super Admin privileges'), class: 'form-check-label-bold' %>
             </div>
             <% perms.each do |perm| %>
               <% case perm.name when 'add_organisations' %>
