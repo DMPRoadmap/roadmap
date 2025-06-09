@@ -94,13 +94,13 @@
                     <% end %>
                   </td>
                   <td class="text-center user-status">
-                    <% if user.confirmed_at %>
-                      <%= 'Yes' %>
-                    <% else %>
-                      <%= check_box_tag "confirmed_#{user.id}", "confirmed", false, disabled: false, authenticity_token: true, class: "confirm-user", 
-                      data: {remote: true, method: :put, url: confirm_user_path(user)} %>
-                    <% end %>
-                  </td>
+                  <% if user.confirmed_at %>
+                    <%= 'Yes' %>
+                  <% else %>
+                    <%= check_box_tag "confirmed_#{user.id}", "confirmed", false, disabled: false, authenticity_token: true, class: "confirm-user", 
+                    data: {remote: true, method: :put, url: confirm_user_path(user)} %>
+                  <% end %>
+                </td>
                   <td class="text-center">
                     <% presenter = IdentifierPresenter.new(identifiable: user) %>
                     <% presenter.identifiers.each do |identifier| %>
