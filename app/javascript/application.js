@@ -54,6 +54,7 @@ import './src/plans/editDetails';
 import './src/plans/index';
 import './src/plans/new';
 import './src/plans/share';
+import './src/plans/call_research_fi_service';
 import './src/publicTemplates/show';
 import './src/researchOutputs/form';
 import './src/roles/edit';
@@ -83,11 +84,10 @@ import './src/superAdmin/notifications/edit';
 import './src/superAdmin/themes/newEdit';
 import './src/superAdmin/users/edit';
 
-// We need to startup Rails' Unobtrusive JS and Turbo.
-// ActiveStorage and ActionCable would also need
-// to be in here if we decide to implement either.
-import Rails from "@rails/ujs";
-Rails.start();
+// Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
+// and Turbo. ActiveStorage and ActionCable would also need to be in here
+// if we decide to implement either before Rails 6
+require('@rails/ujs').start();
 
 // TODO: Disabled turbo for the time being because our custom JS is not
 //       properly setup to work with it. We should review the docs:
