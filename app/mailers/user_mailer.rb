@@ -185,7 +185,7 @@ class UserMailer < ActionMailer::Base
   end
   # rubocop:enable Metrics/AbcSize
 
-  def admin_privileges(user)
+  def admin_privileges_granted(user)
     return unless user.active?
 
     @user      = user
@@ -196,6 +196,21 @@ class UserMailer < ActionMailer::Base
     I18n.with_locale I18n.default_locale do
       mail(to: user.email,
            subject: format(_('Administrator privileges granted in %{tool_name}'),
+                           tool_name: tool_name))
+    end
+  end
+
+  def admin_privileges_removed(user)
+    return unless user.active?
+
+    @user      = user
+    @username  = @user.name
+    @ul_list   = privileges_list(@user)
+    @helpdesk_email = helpdesk_email(org: @user.org)
+
+    I18n.with_locale I18n.default_locale do
+      mail(to: user.email,
+           subject: format(_('Administrator privileges removed in %{tool_name}'),
                            tool_name: tool_name))
     end
   end
