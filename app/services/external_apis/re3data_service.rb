@@ -41,13 +41,15 @@ module ExternalApis
 
       # Retrieves the full list of repositories from the re3data API as XML.
       # For example:
-      #   <list>
-      #     <repository>
-      #       <id>r3d100000001</id>
-      #       <name>Odum Institute Archive Dataverse</name>
-      #       <link href="/api/v1/repository/r3d100000001" rel="self"/>
-      #     </repository>
-      #   </list>
+        # <list>
+        #   <repository>
+        #     <id>r3d100000001</id>
+        #     <name>Odum Institute Archive Dataverse</name>
+        #     <link href="/api/v1/repository/r3d100000001" rel="self"/>
+        #   </repository>
+        # </list>
+
+
       def fetch
         xml_list = query_re3data
         return [] unless xml_list.present?
