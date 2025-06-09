@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
+  before_action :set_no_cache_headers, if: :user_signed_in?
+
   after_action :store_location
 
   include GlobalHelpers
@@ -54,17 +56,24 @@ class ApplicationController < ActionController::Base
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last
     # visited.
-    # don't store ajax calls
     unless ['/users/sign_in',
             '/users/sign_up',
             '/users/password',
-            '/users/invitation/accept'].any? { |ur| request.fullpath.include?(ur) } || request.xhr?
+            '/users/invitation/accept'].any? { |ur| request.fullpath.include?(ur) } \
+    || request.xhr? # don't store ajax calls
       session[:previous_url] = request.fullpath
     end
   end
 
+  def set_no_cache_headers
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, private"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+  end
+
   # rubocop:disable Metrics/AbcSize
   def after_sign_in_path_for(_resource)
+
     referer_path = URI(request.referer).path unless request.referer.nil?
     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
        referer_path.eql?(new_user_registration_path) ||
@@ -132,7 +141,8 @@ class ApplicationController < ActionController::Base
       Perm: _('permission'),
       Pref: _('preferences'),
       User: obj == current_user ? _('profile') : _('user'),
-      QuestionOption: _('question option')
+      QuestionOption: _('question option'),
+      ResearchOutput: _('research output')
     }
     if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
       display_name[:Template] = 'customization'
