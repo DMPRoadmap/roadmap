@@ -11,7 +11,7 @@ module Api
           raise Pundit::NotAuthorizedError, _('must have access to guidances api')
         end
 
-        super
+        super(user, guidance_group)
       end
 
       ##
