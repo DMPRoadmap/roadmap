@@ -33,7 +33,7 @@
     <%= select_tag('answer[question_option_ids]',
         options_html.html_safe,
         { multiple: question.question_format.multiselectbox?,
-          include_blank: question.question_format.dropdown?,
+          prompt: "--Select--",
           class: 'form-select' }) %>
 <% end %>
 <div class="form-control mb-3">
