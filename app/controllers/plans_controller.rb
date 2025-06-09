@@ -176,7 +176,7 @@ class PlansController < ApplicationController
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
-    @editing = !params[:editing].nil? && @plan.administerable_by?(current_user.id)
+    @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get all Guidance Groups applicable for the plan and group them by org
     @all_guidance_groups = @plan.guidance_group_options
@@ -192,10 +192,10 @@ class PlansController < ApplicationController
     end
     @default_orgs = Org.default_orgs
     @all_ggs_grouped_by_org.each do |org, ggs|
-      # @default_orgs and already selected guidance groups are important.
-      if (@default_orgs.include?(org) || (ggs & @selected_guidance_groups).any?) && !@important_ggs.include?([org, ggs])
-        @important_ggs << [org, ggs]
-      end
+      @important_ggs << [org, ggs] if @default_orgs.include?(org)
+
+      # If this is one of the already selected guidance groups its important!
+      @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
     end
 
     # Sort the rest by org name for the accordion
