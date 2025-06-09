@@ -15,7 +15,7 @@
       <%= f.label :level, _('Level'), class: 'form-label' %>
       <%= f.select :level,
           Notification.levels.keys.map { |l| [l.humanize, l] },
-          { value: @notification.level },
+          { include_blank: _("--Select--"), selected: @notification.level},
           { class: 'form-select',
             data: { toggle: 'tooltip', html: true }, title: _('<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red') } %>
     </div>
