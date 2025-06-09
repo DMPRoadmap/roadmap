@@ -8,7 +8,7 @@ module ActsAsSortable
   class_methods do
     def update_numbers!(ids, parent:)
       # Ensure only records belonging to this parent are included.
-      ids = ids.map(&:to_i) & parent.public_send(:"#{model_name.singular}_ids")
+      ids = ids.map(&:to_i) & parent.public_send("#{model_name.singular}_ids")
       return if ids.empty?
 
       update_numbers_postgresql!(ids) if ApplicationRecord.postgres_db?
