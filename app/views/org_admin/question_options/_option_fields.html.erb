@@ -1,10 +1,19 @@
+<!-- Get the org owner of the template -->
+<% org = Org.find(q.section.phase.template.org_id)%>
+
 <div class="row">
   <div class="col-md-3 bold mb-2">
     <%= _('Order')%>
   </div>
   <div class="col-md-3 mb-2">
-    <%= f.label(:text, _('Text'), class: "form-label") %>
+    <%= f.label(:text, _('Text'), class: "control-label") %>
   </div>
+  <!--answer indentifier block-->
+  <% if org.can_add_question_identifiers? %>
+    <div class="col-md-3 bold mb-2">
+      <%= _('Answer Identifier')%>
+    </div>
+  <%end%>
   <div class="col-md-3 bold mb-2">
     <%= _('Default')%>
   </div>
@@ -22,7 +31,7 @@
     <% options_q.number = i %>
     <div class="row mb-2" data-attribute="question_option">
       <div class="col-md-3 pe-2">
-        <%= op.number_field :number, min: 1, class: 'form-control', readonly: true %>
+        <%= op.number_field :number, min: 1, class: 'form-control' %>
       </div>
       <div class="col-md-3 pe-2">
         <% if i == 1 %>
@@ -31,6 +40,12 @@
           <%= op.text_field :text, as: :string, class: 'form-control', spellcheck: true %>
         <% end %>
       </div>
+      <!--answer indentifier block-->
+      <% if org.can_add_question_identifiers? %>
+        <div class="col-md-3 pe-2">
+          <%= op.text_field :answer_identifier, as: :string, class: 'form-control', spellcheck: true %>
+        </div>
+      <% end %>
       <div class="col-md-3 pe-2">
         <%= op.check_box :is_default %>
       </div>
