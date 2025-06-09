@@ -59,6 +59,6 @@
 }
 
 .btn:disabled {
-  background-color: tint-color($color-primary-background, 40%);
+  background-color: lighten($color-primary-background, 40%);
   border: none;
 }
