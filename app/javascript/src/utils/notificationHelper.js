@@ -7,7 +7,7 @@ import { isString, isObject } from './isType';
 
 export function hideNotifications() {
   $('#notification-area')
-    .addClass('hide')
+    .addClass('d-none')
     .removeClass('notification-area--floating');
 }
 
@@ -15,13 +15,18 @@ function renderMessage(options = {}) {
   const notificationArea = $('#notification-area');
 
   if (isString(options.message) && isObject(notificationArea)) {
-    notificationArea
-      .removeClass('alert-info', 'alert-warning')
-      .addClass(options.className);
 
     if (options.floating) {
       notificationArea.addClass('notification-area--floating');
     }
+    
+    // Remove class
+    if (options.removeClass) {
+      notificationArea.removeClass('alert-info');
+      notificationArea.removeClass('alert-warning');
+    }
+
+    notificationArea.addClass(options.className);
 
     notificationArea.find('i, span').remove();
     notificationArea.append(`
@@ -29,7 +34,7 @@ function renderMessage(options = {}) {
       <span>${options.message}</span>
     `);
 
-    notificationArea.removeClass('hide');
+    notificationArea.removeClass('d-none');
 
     if (options.autoDismiss) {
       setTimeout(() => { hideNotifications(); }, 5000);
@@ -42,6 +47,7 @@ export function renderNotice(msg, options = {}) {
     message: msg,
     icon: 'circle-check',
     className: 'alert-info',
+    removeClass: true,
     floating: options.floating === true,
     autoDismiss: options.autoDismiss === true,
   });
@@ -52,6 +58,7 @@ export function renderAlert(msg, options = {}) {
     message: msg,
     icon: 'circle-xmark',
     className: 'alert-warning',
+    removeClass: true,
     floating: options.floating === true,
     autoDismiss: options.autoDismiss === true,
   });
