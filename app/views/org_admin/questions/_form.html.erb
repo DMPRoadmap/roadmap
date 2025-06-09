@@ -23,6 +23,14 @@
       <%= f.text_area(:text, class: "question", spellcheck: true, "aria-required": true) %>
     </div>
 
+    <!--Question Identifiers block - This verifies if org has permission to add question Identifiers-->
+    <% org = Org.find(question.section.phase.template.org_id)%>
+    <% if org.can_add_question_identifiers? %>
+      <div class="form-control mb-3 col-md-10" data-attribute="question_identifier">
+          <%= render "/org_admin/question_identifiers/question_identifier_block", f: f, q: question %>
+      </div> 
+    <% end %>
+
     <!-- Question format -->
     <div class="form-control mb-3 col-md-4">
       <%= f.label(:question_format_id, _('Answer format'), class: "form-label") %>
@@ -31,11 +39,12 @@
           :id,
           :title,
           question.question_format_id),
-          {},
-          class: "form-select question_format",
+          { include_blank: _("--Select--") },
+          { class: "form-select question_format",
           'data-toggle': 'tooltip',
           'data-html': true,
           title: _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>")
+          }
         %>
     </div>
 
@@ -47,8 +56,7 @@
       </div>
     
       <% if question.id != nil && question.question_options[0].text != nil %>
-        <% cond_lbl = conditions&.any? ? 'Edit Conditions' : 'Add Conditions' %>
-        <%= link_to cond_lbl, org_admin_question_open_conditions_path(question_id: question.id, conditions: conditions), class: "add-logic btn btn-secondary", 'data-loaded': (conditions.size > 0).to_s, remote: true %>
+        <%= link_to _('Add Conditions'), org_admin_question_open_conditions_path(question_id: question.id, conditions: conditions), class: "add-logic btn btn-secondary", 'data-loaded': (conditions.size > 0).to_s, remote: true %>
         <div id="content" class="col-md-offset-2">
           <p>
             <%= render partial: 'org_admin/conditions/container', locals: { f: f, question: question, conditions: conditions } %>
@@ -56,7 +64,7 @@
         </div>
       <% else %>
         <div class="form-control mb-3" data-toggle="tooltip", title="<%= _('Save this question before adding conditions.') %>" >
-          <%= link_to _('Edit Conditions'), '#', class: "add-logic btn btn-secondary disabled" %>
+          <%= link_to _('Add Conditions'), '#', class: "add-logic btn btn-secondary disabled" %>
         </div>
       <% end %>
     </div>
@@ -90,12 +98,12 @@
       <% end %>
     <% end %>
     <!-- Themes -->
-    <div class="form-control mb-3 col-md-10">
+    <div class="form-group mb-3 col-md-10">
       <%= render partial: 'org_admin/shared/theme_selector',
                  locals: { f: f, all_themes: Theme.all.order("title"), as_radio: false,
                            popover_message: _('Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question.') } %>
     </div>
-    <div class="form-control mb-3 col-md-10">
+    <div class="form-group mb-3 col-md-10">
       <div class="float-end">
         <%= f.submit _('Save'), class: "btn btn-secondary", role:'button' %>
         <% if question.id.present? %>
