@@ -30,6 +30,10 @@ class UserPolicy < ApplicationPolicy
     @user.can_super_admin?
   end
 
+  def confirm_user?
+    @user.can_super_admin? || @user.can_org_admin?
+  end
+
   def edit?
     @user.can_super_admin? || @user.can_org_admin?
   end
