@@ -2,11 +2,11 @@
 
 <div class="row">
     <div class="col-md-2">
-      <i class="fas fa-users f-large"></i>
+      <i class="fa-solid fa-users"></i>
       <p class="fontsize-h4"><%= user_count.to_i %> <%= _('Total users') %></p>
     </div>
     <div class="col-md-2 pe-1">
-      <i class="fas fa-files f-large"></i>
+      <i class="fa-regular fa-file-lines"></i>
       <p class="fontsize-h4"><%= plan_count.to_i %> <%= _( 'Total plans') %></p>
       <%= form_tag('/usage', method: :get, id: :filter_plans_form) do |f| %>
         <%= label_tag :filtered, class: 'form-label' do %>
@@ -23,10 +23,8 @@
   <% end %>
   <div class="col-md-2">
     <form class="form-inline float-end">
-      <label for="csv-field-sep form-label">
-        <%= _('csv download field separator') %>:
-      </label>
-      <%= select_tag "csv-field-sep", options_for_select(separators, separators[0]), {class: "single-char-select"} %>
+      <label for="csv-field-sep form-label"><%= _('csv download field separator') %>: </label>
+      <%= select_tag "csv-field-sep", options_for_select(separators), {prompt: _("--Select--"), class: "single-char-select"} %>
     </form>
   </div>
   <% if current_user.can_super_admin? %>
