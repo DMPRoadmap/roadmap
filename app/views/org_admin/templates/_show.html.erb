@@ -31,7 +31,7 @@
     <!-- If the Org is a funder and another org type then allow then to set the visibility -->
     <dt><%= _('Visibility') %></dt>
     <dd>
-      <% if template.organisationally_visible? %>
+      <% if template.visibility == 'organisationally_visible' %>
         <%= _('for internal %{org_name} use only') % {org_name: template.org.name} %>
       <% else %>
         <%=  _('available to the public') + (template.published? ? '' : ' (once published)') %>
