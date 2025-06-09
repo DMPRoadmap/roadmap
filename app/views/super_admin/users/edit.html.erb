@@ -41,7 +41,7 @@
         <%= f.label(:department_id, _('Department or school'), class: 'form-label') %>
         <%= select_tag(:department_id,
             options_from_collection_for_select(@departments, "id", "name", dept_id),
-            include_blank: true,
+            prompt: _("--Select--"),
             class: "form-select",
             name: 'user[department_id]') %>
       </div>
@@ -53,7 +53,8 @@
           <%= f.label(:language_id, _('Language'), class: 'form-label') %>
           <%= select_tag(:super_admin_user_language_id,
               options_from_collection_for_select(Language.sorted_by_abbreviation, "id", "name", lang_id),
-              class: "form-select", name: 'user[language_id]') %>
+              prompt: _("--Select--"),
+              class: "form-select", name: 'user[language_id]', "aria-required": true) %>
         </div>
       <% end %>
 
