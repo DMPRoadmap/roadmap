@@ -4,13 +4,13 @@
 #
 # Table name: question_options
 #
-#  id          :integer          not null, primary key
-#  is_default  :boolean
-#  number      :integer
-#  text        :string
-#  created_at  :datetime
-#  updated_at  :datetime
-#  question_id :integer
+#  id               :integer          not null, primary key
+#  is_default       :boolean
+#  number           :integer
+#  text             :string
+#  created_at       :datetime
+#  updated_at       :datetime
+#  question_id      :integer
 #  answer_identifier :string
 #
 # Indexes
