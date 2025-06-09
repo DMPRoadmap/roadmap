@@ -19,7 +19,7 @@ class ResearchOutputsController < ApplicationController
 
   # GET /plans/:plan_id/research_outputs/new
   def new
-    @research_output = ResearchOutput.new(plan_id: @plan.id, output_type: '')
+    @research_output = ResearchOutput.new(plan_id: @plan.id, output_type: '', access: '')
     authorize @research_output
   end
 
@@ -146,7 +146,7 @@ class ResearchOutputsController < ApplicationController
 
   def output_params
     params.require(:research_output)
-          .permit(%i[title abbreviation description output_type output_type_description
+          .permit(%i[title abbreviation doi_url description output_type output_type_description
                      sensitive_data personal_data file_size file_size_unit mime_type_id
                      release_date access coverage_start coverage_end coverage_region
                      mandatory_attribution license_id],
