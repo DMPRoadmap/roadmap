@@ -65,7 +65,7 @@
             <% end %>
           </dd>
           <br>
-          
+
           <!-- question conditions -->
           <% if conditions.count > 0 %>
             <dt><%= _('Question conditions') %></dt>
@@ -211,7 +211,7 @@
                   phase_id: question.section.phase.id,
                   section_id: question.section.id,
                   id: question.id)) do |f| %>
-                  <!--Question Identifiers block - This verifies if org has permission to add question Identifiers-->
+                   <!--Question Identifiers block - This verifies if org has permission to add question Identifiers-->
                     <% org = Org.find(question.section.phase.template.org_id)%>
                     <% if org.can_add_question_identifiers? %>
                       <div class="form-control mb-3 col-md-10" data-attribute="question_identifier">
