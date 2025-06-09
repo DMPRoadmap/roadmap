@@ -36,6 +36,7 @@ class SessionsController < Devise::SessionsController
 
   def destroy
     super
+    reset_session
     session[:locale] = nil
     # Method defined at controllers/application_controller.rb
     set_locale
