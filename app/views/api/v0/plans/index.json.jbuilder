@@ -53,7 +53,7 @@ json.array! @plans.each do |plan|
         json.text       question.text
         json.number     question.number
         json.format     question.question_format.title
-
+       
         # Validation to check if org can add question identifiers
         org = plan.template.org
         if org.can_add_question_identifiers?
