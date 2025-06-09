@@ -214,6 +214,7 @@ module Paginable
   def stringify_query_params(page: 1, search: @args[:search],
                              sort_field: @args[:sort_field],
                              sort_direction: nil)
+
     query_string = { page: page }
     query_string['search'] = search if search.present?
     if sort_field.present?
