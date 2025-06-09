@@ -23,10 +23,7 @@
       <ul class="navbar-nav">
         <% if user_signed_in? %>
           <li class="nav-item <%= ' active' if active_page?(plans_path, true) %>">
-            <%= link_to _('My Dashboard'), plans_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item <%= ' active' if active_page?(new_plan_path, true) %>">
-            <%= link_to _('Create plans'), new_plan_path, class: 'nav-link' %>
+            <%= link_to _('My dashboard'), plans_path, class: 'nav-link' %>
           </li>
           <li class="dropdown <%= ' active' if active_page?(public_plans_path, true) || active_page?(public_templates_path, true) %>" id="reference-dropdown">
             <a href="#" class="dropdown-toggle nav-link" role="button" id="reference-menu" data-bs-toggle="dropdown" data-bs-display="static" aria-haspopup="true" aria-expanded="false">
@@ -40,7 +37,7 @@
                 <%= link_to _('Public DMPs'), public_plans_path, class: 'dropdown-item  px-3' %>
               </li>
               <li class="nav-item <%= ' active' if active_page?(public_templates_path) %>">
-                <%= link_to _('DMP Templates'), public_templates_path, class: 'dropdown-item  px-3' %>
+                <%= link_to _('DMP templates'), public_templates_path, class: 'dropdown-item  px-3' %>
               </li>
             </ul>
           </li>
@@ -52,7 +49,7 @@
             <%= link_to _('Public DMPs'), public_plans_path, class: 'nav-link' %>
           </li>
           <li class="nav-item <%= ' active' if active_page?(public_templates_path, true) %>">
-            <%= link_to _('DMP Templates'), public_templates_path, class: 'nav-link' %>
+            <%= link_to _('DMP templates'), public_templates_path, class: 'nav-link' %>
           </li>
         <% end %>
         <!-- help page -->
