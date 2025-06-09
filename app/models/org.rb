@@ -25,6 +25,7 @@
 #  region_id              :integer
 #  managed                :boolean          default(false), not null
 #  helpdesk_email         :string
+#  add_question_identifiers :boolean         default(false), not null
 #
 # Foreign Keys
 #
@@ -117,6 +118,9 @@ class Org < ApplicationRecord
                                        if: :feedback_enabled }
 
   validates :managed, inclusion: { in: BOOLEAN_VALUES,
+                                   message: INCLUSION_MESSAGE }
+  
+  validates :add_question_identifiers, inclusion: { in: BOOLEAN_VALUES,
                                    message: INCLUSION_MESSAGE }
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
@@ -348,6 +352,12 @@ class Org < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
+  # Verify if org has permission to add Question Identifiers
+  def can_add_question_identifiers?
+    add_question_identifiers?
+  end  
+
+
   private
 
   ##
@@ -372,6 +382,8 @@ class Org < ApplicationRecord
     self.contact_name = to_be_merged.contact_name unless contact_name.present?
     self.feedback_enabled = to_be_merged.feedback_enabled unless feedback_enabled?
     self.feedback_msg = to_be_merged.feedback_msg unless feedback_msg.present?
+    self.add_question_identifiers = true if !add_question_identifiers? && to_be_merged.add_question_identifiers?
+    
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
