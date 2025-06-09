@@ -11,4 +11,6 @@ class StaticPagesController < ApplicationController
   def termsuse; end
 
   def help; end
+
+  def accessibility; end
 end
