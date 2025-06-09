@@ -3,7 +3,7 @@
 %>
 
 <% if result.present? %>
-  <%= hidden_field_tag "research_output[repositories_attributes][#{result.id}][id]", result.id %>
+  <%= hidden_field_tag "research_output[repositories_attributes[#{result.id}][id]]", result.id %>
 
   <p><%= result.description %></p>
 
