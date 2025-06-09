@@ -52,12 +52,12 @@
               <ul class="dropdown-menu" aria-labelledby="contributor-<%= contributor.id %>-actions">
                 <li class="nav-item"><%= link_to _('Edit'),
                         edit_plan_contributor_path(plan_id: @plan.id, id: contributor),
-                        class: 'dropdown-item nav-link px-3' %></li>
+                        class: 'dropdown-item px-3' %></li>
                 <li class="nav-item"><%= link_to _('Remove'),
                                 plan_contributor_path(@plan.id, contributor),
                                 data: { confirm: _("You are about to delete '%{contributor_name}'. Are you sure?") % { contributor_name: contributor.name } },
                                 method: :delete,
-                                class: 'dropdown-item nav-link px-3' %>
+                                class: 'dropdown-item px-3' %>
                 </li>
               </ul>
             </div>
