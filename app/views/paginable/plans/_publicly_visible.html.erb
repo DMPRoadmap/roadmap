@@ -2,7 +2,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col"><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
+        <th scope="col"><%= _('Project title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
         <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th scope="col"><%= _('Organisation') %></th>
         <th scope="col"><%= _('Owner') %></th>
@@ -14,7 +14,7 @@
         <tr class="table-data">
           <td><%= plan.title %></td>
           <td><%= plan.template.title %></td>
-          <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
+          <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not applicable') : plan.owner.org.name) %></td>
           <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
           <td class="text-center">
             <%= link_to plan_export_path(plan, format: :pdf, export: { question_headings: true }),
