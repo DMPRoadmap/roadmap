@@ -65,7 +65,7 @@ class User < ApplicationRecord
   #   :token_authenticatable, :confirmable,
   #   :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :validatable, :omniauthable, :confirmable,
+         :rememberable, :trackable, :validatable, :confirmable, :omniauthable,
          omniauth_providers: %i[shibboleth orcid]
 
   ##
