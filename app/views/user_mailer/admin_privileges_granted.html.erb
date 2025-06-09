@@ -1,0 +1,16 @@
+<p>
+  <%= _('Hello %{username}') %{ username: @username } %>
+</p>
+  <p>
+    <%= _('You have been granted administrator privileges in %{tool_name}:') %{ tool_name: tool_name } %>
+  </p>
+  <p>
+    <%= sanitize(@ul_list) %>
+  </p>
+<p>
+  <%= sanitize _('More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}.') % {
+    tool_name: tool_name,
+    help_url: link_to('help for administrators page', help_url) }
+  %>
+</p>
+<%= render partial: 'email_signature' %>
