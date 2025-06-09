@@ -7,6 +7,7 @@ if output.is_a?(ResearchOutput)
 
   json.type output.output_type
   json.title output.title
+  json.doi_url output.doi_url
   json.description output.description
   json.personal_data Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: output.personal_data)
   json.sensitive_data Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: output.sensitive_data)
