@@ -1,31 +1,35 @@
-<%# This partial is called from the following files:
-    - app/controllers/org_admin/conditions_controller.rb
-    - app/views/org_admin/conditions/_container.html.erb
-    %>
-
 <div class="row condition-partial mb-3">
   <%
-    condition ||= nil
-    name_start = "conditions[#{condition_no.to_s}]"
+   action_type_arr = [["removes", :remove], ["adds notification", :add_webhook]]
+    name_start = "conditions[]condition_" + condition_no.to_s
+    remove_question_collection = later_question_list(question)
+    condition_exists = local_assigns.has_key? :condition
+    type_default = condition_exists ? (condition[:action_type] == "remove" ? :remove : :add_webhook) : :remove
+    remove_question_group = condition_exists ?
+      grouped_options_for_select(remove_question_collection, condition[:remove_question_id]) :
+      grouped_options_for_select(remove_question_collection)
+    multiple = (question.question_format.multiselectbox? || question.question_format.checkbox?)
   %>
-  
-  <%# If this is a new condition then display the interactive controls. otherwise just display the logic %>
-  <% if condition.nil? %>
-    <%= render partial: 'org_admin/conditions/new_condition_form',
-                locals: { condition_no: condition_no,
-                          name_start: name_start,
-                          question: question
-                        }
-      %>
+  <div class="col-md-3 pe-2">
+    <%= select_tag(:question_option, options_from_collection_for_select(question.question_options.sort_by(&:number), "id", "text",
+        condition_exists ? condition[:question_option_id] : question.question_options.sort_by(&:number)[0]), {class: 'form-select regular', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3', name: name_start + "[question_option][]", prompt: "--Select--"}) %>
+  </div>
+  <div class="col-md-3 pe-2">
+    <%= select_tag(:action_type, options_for_select(action_type_arr, selected: nil ? "--Select--" : type_default),{name: name_start + "[action_type]",class: 'action-type form-select narrow', 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3'}) %>
+  </div>
+  <div class="col-md-3 pe-2">
+    <div class="remove-dropdown">
+      <%= select_tag(:remove_question_id, remove_question_group, {name: name_start + "[remove_question_id][]", class: 'form-select regular', multiple: true, 'data-bs-style': 'dropdown-toggle bg-white px-4 py-3'}) %>
+    </div>
+    <div class="webhook-replacement display-off my-auto text-center">
+      <%= link_to _('Edit email'), '#' %>
+    </div>
+  </div>
+  <%= hidden_field_tag(name_start + "[number]", condition_no) %>
 
-  <% else %>
-    <%= render partial: 'org_admin/conditions/existing_condition_display',
-                locals: { condition: condition,
-                          condition_no: condition_no,
-                          name_start: name_start,
-                          question: question
-                        }
-      %>
+  <div class="col-md-3">
+    <a href="#anotherurl" class="delete-condition"><%= _('Remove') %></a>
+  </div>
 
-  <% end %>
+  <%= render partial: 'org_admin/conditions/webhook_form', locals: {name_start: name_start, condition_no: condition_no} %>
 </div>
