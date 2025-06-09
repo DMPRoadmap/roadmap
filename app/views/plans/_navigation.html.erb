@@ -2,7 +2,7 @@
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="nav-item <%= (active_page?(plan_path(plan), true) ? 'active' : '') %>">
     <a href="<%= plan_path(plan) %>" role="tab" 
-    class="nav-link" aria-controls="content"><%= _('Project Details') %></a>
+    class="nav-link" aria-controls="content"><%= _('Project details') %></a>
   </li>
   <li role="contributors" class="nav-item <%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
     <%= link_to _("Contributors"), plan_contributors_path(plan), role: "tab",
@@ -21,7 +21,7 @@
   <% end %>
   <% if Rails.configuration.x.madmp.enable_research_outputs %>
     <li role="research_outputs" class="nav-item <%= (active_page?(plan_research_outputs_path(plan)) ? "active" : "") %>">
-      <%= link_to _("Research Outputs"), plan_research_outputs_path(plan), role: "tab",
+      <%= link_to _("Research outputs"), plan_research_outputs_path(plan), role: "tab",
                   aria: { controls: "content" }, class: 'nav-link' %>
     </li>
   <% end %>
