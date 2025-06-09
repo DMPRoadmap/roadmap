@@ -29,6 +29,7 @@ $(() => {
         && isArray(data.templates)) {
       // Display the available_templates section
       if (data.templates.length > 0) {
+        $('#plan_template_id').append(`<option value="">--Select--</option>`);
         data.templates.forEach((t) => {
           $('#plan_template_id').append(`<option value="${t.id}">${t.title}</option>`);
         });
