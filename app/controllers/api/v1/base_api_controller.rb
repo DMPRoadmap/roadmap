@@ -153,7 +153,7 @@ module Api
       end
 
       def dataset_permitted_params
-        %i[title description type issued language personal_data sensitive_data
+        %i[title description type doi_url issued language personal_data sensitive_data
            keywords data_quality_assurance preservation_statement] +
           [dataset_ids: identifier_permitted_params,
            metadata: metadatum_permitted_params,
