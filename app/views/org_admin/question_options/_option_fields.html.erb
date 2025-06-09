@@ -20,6 +20,8 @@
   <div class="col-md-3">
   </div>
 </div>
+
+    
 <% if q.question_options.count == 0 %>
   <% 2.times { q.question_options.build } %>
   <% q.question_options.each {|qopt| qopt.id=0} %>
