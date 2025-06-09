@@ -16,13 +16,13 @@ show_preferred = selected.nil? || (selected != 0 && preferred_licenses.map { |ar
 options = show_preferred ? preferred_licenses : presenter.complete_licenses
 guidance = show_preferred ? preferred_guidance : default_guidance
 
-args = { include_blank: _("- Please select one -"), selected: selected, class: "form-select",
-         aria: { label: _('Initial license') } }
+args = { include_blank: _("--Select--"), selected: selected, class: "form-select",
+         aria: { label: _('License') } }
 args[:data] = { remote: true, url: plan_license_selection_path(research_output.plan), method: :get } if show_preferred
 %>
 <div class="col-md-12">
   <span class="col-md-4">
-    <%= label_tag _("Initial license"), _("Initial license"), class: "form-label" %>
+    <%= label_tag _("License"), _("License"), class: "form-label" %>
     <%= select_tag "research_output[license_id]", options_for_select(options, selected), args %>
   </span>
   <span class="col-md-4">
