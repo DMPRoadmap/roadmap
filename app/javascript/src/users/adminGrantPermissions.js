@@ -16,6 +16,25 @@ $(() => {
     renderAlert('Unexpected error');
   });
 
+  // Confirm user account
+  $('body').on('ajax:success', '.confirm-user', function (e) {
+    const data = e.detail[0]; // Get data from event detail
+    if (data.code === 1) {
+      renderNotice(data.msg); // Function to display success message
+      scrollTo('#notification-area');
+    } else {
+      renderAlert(data.msg); // Function to display failure message
+      scrollTo('#notification-area');
+    }
+    // Disabling the checkbox after successful operation
+    $(this).prop('disabled', true);
+  });
+
+  $('body').on('ajax:error', '.confirm-user', function (e) {
+    renderAlert('Unexpected error occurred while trying to confirm user.'); // Function to display error message
+    scrollTo('#notification-area');
+  });
+  
   let currentPrivileges = null;
   $('body').on('click', 'a[href$="admin_grant_permissions"]', (e) => {
     e.preventDefault();
