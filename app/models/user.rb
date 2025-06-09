@@ -68,6 +68,10 @@ class User < ApplicationRecord
          :rememberable, :trackable, :validatable, :omniauthable, :confirmable,
          omniauth_providers: %i[shibboleth orcid]
 
+  ##
+  # User Notification Preferences
+  serialize :prefs, Hash
+
   # default user language to the default language
   attribute :language_id, :integer, default: -> { Language.default&.id }
 
@@ -98,6 +102,10 @@ class User < ApplicationRecord
   has_and_belongs_to_many :notifications, dependent: :destroy,
                                           join_table: 'notification_acknowledgements'
 
+  has_many :access_grants, class_name: 'Doorkeeper::AccessGrant', foreign_key: :resource_owner_id, dependent: :delete_all 
+  
+  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken', foreign_key: :resource_owner_id, dependent: :delete_all 
+  
   # ===============
   # = Validations =
   # ===============
@@ -109,6 +117,9 @@ class User < ApplicationRecord
   validates :surname, presence: { message: PRESENCE_MESSAGE }
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
+
+  attr_accessor :email_confirmation
+  validates :email, confirmation: { case_sensitive: false, message: "text field does not match" }
 
   # ==========
   # = Scopes =
