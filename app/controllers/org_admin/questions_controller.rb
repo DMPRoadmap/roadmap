@@ -87,7 +87,7 @@ module OrgAdmin
     # rubocop:disable Metrics/AbcSize
     def create
       question = Question.new(question_params.merge(section_id: params[:section_id]))
-
+      
       authorize question
       begin
         question = get_new(question)
@@ -98,7 +98,7 @@ module OrgAdmin
         else
           flash[:alert] = failure_message(question, _('create'))
         end
-
+        
       rescue StandardError => e
         Rails.logger.error "Unable to save template - #{e.message}"
         flash[:alert] = _('Unable to create a new version of this template.')
@@ -169,7 +169,7 @@ module OrgAdmin
 
       attrs = question_params
       # rewrite the question_option ids so they match the new
-      # version of the question
+      # version of the question 
       attrs = update_option_ids(attrs, old_to_new_opts) if new_version && !attrs['question_options_attributes'].nil?
 
       # rewrite the question_identifiers ids so they match the new
@@ -185,9 +185,9 @@ module OrgAdmin
       attrs[:theme_ids] = [] if attrs[:theme_ids].blank? && attrs[:number].present?
       if question.update(attrs)
         if question.update_conditions(sanitize_hash(params['conditions']),
-                                      old_to_new_opts, question_id_map)
+          old_to_new_opts, question_id_map)
         end
-          flash[:notice] = success_message(question, _('updated'))
+        flash[:notice] = success_message(question, _('updated'))
       else
         flash[:alert] = flash[:alert] = failure_message(question, _('update'))
       end
@@ -234,32 +234,30 @@ module OrgAdmin
 
     private
 
-    # param_conditions is a hash of a hash like this (example where
-    # action_types is "remove" and "add_webhook" respectively):
-    # Parameters:
-    # {"0"=>{"question_option"=>["212159"],
-    #        "action_type"=>"remove",
-    #        "remove_question_id"=>["191471 191472"],
-    #        "number"=>"0"},
-    # "1"=>{"question_option"=>["212160"],
-    #       "action_type"=>"add_webhook",
-    #        "number"=>"1",
-    #        "webhook-name"=>"DMP Admin",
-    #        "webhook-email"=>"dmp-admin@example.com",
-    #        "webhook-subject"=>"Woodcote cillum quis elit consectetur epsom",
-    #        "webhook-message"=>"Labore ut epsom downs exercitation ...."}
-    #  }
+    # param_conditions looks like:
+    #   [
+    #     {
+    #       "conditions_N" => {
+    #         name: ...
+    #         subject ...
+    #         ...
+    #       }
+    #       ...
+    #     }
+    #   ]
     def sanitize_hash(param_conditions)
       return {} if param_conditions.nil?
       return {} if param_conditions.empty?
 
       res = {}
-      param_conditions.each do |cond_id, cond_hash|
+      hash_of_hashes = param_conditions[0]
+      hash_of_hashes.each do |cond_name, cond_hash|
         sanitized_hash = {}
         cond_hash.each do |k, v|
-          sanitized_hash[k] = k.start_with?('webhook') ? ActionController::Base.helpers.sanitize(v) : v
+          v = ActionController::Base.helpers.sanitize(v) if k.start_with?('webhook')
+          sanitized_hash[k] = v
         end
-        res[cond_id] = sanitized_hash
+        res[cond_name] = sanitized_hash
       end
       res
     end
@@ -269,7 +267,7 @@ module OrgAdmin
     #       the context of :question. The forms are fragile right now though so
     #       recommend holding off until we rework this page in the future.
     def question_params
-      params.require(:question)
+    params.require(:question)
             .permit(:number, :text, :question_format_id, :option_comment_display,
                     :default_value,
                     question_identifiers_attributes: %i[id question_id value name _destroy],
