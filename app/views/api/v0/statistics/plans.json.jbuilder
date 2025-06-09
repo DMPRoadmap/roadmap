@@ -20,6 +20,7 @@ json.plans @org_plans.each do |plan|
 
   json.principal_investigator do
     json.name         plan.contributors.investigation.first&.name
+    json.email        plan.contributors.investigation.first&.email.present? ? plan.contributors.investigation.first&.email : ""
   end
 
   json.owner do
