@@ -30,7 +30,7 @@ if valid_db
     cp ".env.#{db_adapter}", '.env'
 
     puts "\n== Preparing credentials file =="
-    system!("EDITOR=\"sh -c 'echo \\\"$(cat config/credentials.yml.#{db_adapter})\\\" > \\\"\\\$1\\\"' --\" bin/rails credentials:edit")
+    system! "EDITOR='echo \"$(cat config/credentials.yml.#{db_adapter})\" >' bin/rails credentials:edit"
 
     # Set the editor based on the platform
     ENV['EDITOR'] = Gem.win_platform? ? 'code --wait' : 'vim'
