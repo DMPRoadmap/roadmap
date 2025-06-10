@@ -103,7 +103,7 @@ class RegistrationsController < Devise::RegistrationsController
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
-          UserMailer.welcome_notification(current_user).deliver_now
+          UserMailer.with(host: request.host, protocol: request.protocol).welcome_notification(current_user).deliver_now
           if !oauth.nil? && !(oauth['provider'].nil? || oauth['uid'].nil?)
             prov = IdentifierScheme.find_by(name: oauth['provider'].downcase)
             # Until we enable ORCID signups
