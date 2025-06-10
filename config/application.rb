@@ -1,20 +1,23 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
-require 'csv'
+require "csv"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module DMPRoadmap
-  # DMPRoadmap application
+
   class Application < Rails::Application
+    # Set dmp_core version here
+    config.x.app_version = "2025.11" 
+
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.1
+    config.load_defaults 5.2
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -24,15 +27,24 @@ module DMPRoadmap
     # --------------------------------- #
     # OVERRIDES TO DEFAULT RAILS CONFIG #
     # --------------------------------- #
-    config.autoload_lib(ignore: %w[tasks])
 
-    # CVE-2022-32224: add some compatibility with YAML.safe_load
-    # Rails 5,6,7 are using YAML.safe_load as the default YAML deserializer
-    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol, Date, Time]
+    # Rails 6+ adds middleware to prevent DNS rebinding attacks:
+    #    https://guides.rubyonrails.org/configuring.html#actiondispatch-hostauthorization
+    #
+    # This allows us to define the hostname and add it to the whitelist. If you attempt
+    # to access the site and receive a 'Blocked host' error then you will need to
+    # set this environment variable
+    # config.hosts << '.lvh.me'
+    # hosts.each { |host| config.hosts << host }
 
-    # Have Zeitwerk skip generators because the generator templates are
-    # incompatible with the Rails module/class naming conventions
-    Rails.autoloaders.main.ignore(config.root.join('lib/generators'))
+    # config.hosts << ENV['DMPROADMAP_HOST'] if ENV['DMPROADMAP_HOST'].present?
+
+    hosts = ENV.fetch('DMPROADMAP_HOSTS').split(',')
+    hosts.each { |host| Rails.application.config.hosts << host }
+
+    config.logger = ActiveSupport::Logger.new("log/#{Rails.env}.log", "daily")
+
+    config.autoload_paths += %W[#{config.root}/lib]
 
     # HTML tags that are allowed to pass through `sanitize`.
     config.action_view.sanitized_allowed_tags = %w[
@@ -52,6 +64,22 @@ module DMPRoadmap
     config.action_controller.include_all_helpers = true
 
     # Set the default host for mailer URLs
-    config.action_mailer.default_url_options = { host: Socket.gethostname.to_s }
+    #config.action_mailer.default_url_options = { host: Socket.gethostname.to_s }
+    # config.action_mailer.default_url_options = { host: "https://dmp_core.dcc.ac.uk" }
+    config.action_mailer.default_url_options = { host: ENV["HOST_URL"] }
+
+
+    Rails.application.config.assets.configure do |env|
+      env.export_concurrent = false
+    end
+
+    # apply application styling to doorkeeper views
+    config.to_prepare do 
+      Doorkeeper::ApplicationsController.layout "application"
+      Doorkeeper::AuthorizationsController.layout "application"
+      Doorkeeper::AuthorizedApplicationsController.layout "application"
+    end
+
   end
+
 end
