@@ -83,7 +83,7 @@ class RolesController < ApplicationController
 
     if @role.update(access: role_params[:access])
       deliver_if(recipients: @role.user, key: 'users.added_as_coowner') do |_r|
-        UserMailer.permissions_change_notification(@role, current_user).deliver_now
+        UserMailer.with(host: request.host, protocol: request.protocol).permissions_change_notification(@role, current_user).deliver_now
       end
       render json: {
         code: 1,
@@ -106,7 +106,7 @@ class RolesController < ApplicationController
     @role.destroy
     flash[:notice] = _('Access removed')
     deliver_if(recipients: user, key: 'users.added_as_coowner') do |_r|
-      UserMailer.plan_access_removed(user, plan, current_user).deliver_now
+      UserMailer.with(host: request.host, protocol: request.protocol).plan_access_removed(user, plan, current_user).deliver_now
     end
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end
