@@ -2,14 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 3.0'
+ruby '>= 3.3'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.1'
+gem 'rails', '~> 8.0.1'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
@@ -54,6 +54,11 @@ gem 'ruby-progressbar'
 # Provides Sprockets implementation for Rails 4.x (and beyond) Asset Pipeline.
 # https://github.com/rails/sprockets-rails
 gem 'sprockets-rails'
+
+gem 'activerecord-session_store'
+
+# Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
+gem 'dotenv-rails'
 
 # ============== #
 # ERROR HANDLING #
@@ -208,11 +213,16 @@ gem 'activerecord_json_validator'
 # We need to freeze the mail gem version as the recently released 2.8.0 triggers an exception
 # We will need to check if it's fixed when we migrate to Ruby 3.0/3.1
 # See : https://github.com/DMPRoadmap/roadmap/issues/3254
-gem 'mail', '2.7.1'
+gem 'mail'
 
 # This library provides functionality to send internet mail via SMTP, the Simple Mail Transfer Protocol.
 # https://github.com/ruby/net-smtp
 gem 'net-smtp'
+# required for 'rails db:migrate' to work
+gem 'rss'
+
+# required for rake tasks
+gem 'rake', '~> 13.0.6'
 
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
@@ -260,8 +270,8 @@ group :test do
   gem 'capybara'
 
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'selenium-webdriver'
-
+  gem 'webdrivers'
+  
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.
   gem 'rspec-collection_matchers'
