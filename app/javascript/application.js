@@ -54,7 +54,6 @@ import './src/plans/editDetails';
 import './src/plans/index';
 import './src/plans/new';
 import './src/plans/share';
-import './src/plans/call_research_fi_service';
 import './src/publicTemplates/show';
 import './src/researchOutputs/form';
 import './src/roles/edit';
