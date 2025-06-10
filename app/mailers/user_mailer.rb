@@ -10,6 +10,11 @@ class UserMailer < ActionMailer::Base
 
   default from: Rails.configuration.x.organisation.email
 
+  def default_url_options
+    { host: params[:host] || Rails.application.config.action_mailer.default_url_options[:host],
+      protocol: params[:protocol] || 'https' }
+  end
+  
   # rubocop:disable Metrics/AbcSize
   def welcome_notification(user)
     @user           = user
