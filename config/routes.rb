@@ -9,7 +9,8 @@ Rails.application.routes.draw do
                passwords: 'passwords',
                sessions: 'sessions',
                omniauth_callbacks: 'users/omniauth_callbacks',
-               invitations: 'users/invitations'
+               invitations: 'users/invitations',
+               confirmations: 'devise/confirmations'
              }) do
     get '/users/sign_out', to: 'devise/sessions#destroy'
   end
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
       get 'admin_grant_permissions'
       put 'admin_update_permissions'
       put 'activate'
+      put 'confirm_user', as: :confirm
     end
   end
 
@@ -286,6 +288,16 @@ Rails.application.routes.draw do
 
     resources :question_options, only: [:destroy], controller: 'question_options'
 
+    #This is to allow the fields to be delete and list all Question Identifiers
+    resources :question_identifiers, only: [], controller: 'question_identifiers' do
+      member do
+        get 'list'
+        get 'export_pdf_list', action: :export_pdf_list 
+        get 'download_pdf_list', action: :download_pdf_list 
+        delete 'destroy'
+      end
+    end
+
     resources :questions, only: [] do
       get 'open_conditions'
       resources :conditions, only: %i[new show]
@@ -375,5 +387,11 @@ Rails.application.routes.draw do
   get 'research_projects/(:type)', action: 'index',
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
+
+  # accessibility statement
+  get "accessibility" => 'static_pages#accessibility'
+
+  # route for DOI integration
+  get '/open_aire_service/search_proxy/:doi', controller: 'open_aire_service', action: 'search_proxy', constraints: { doi: /.+/ }
 end
 # rubocop:enable Metrics/BlockLength
