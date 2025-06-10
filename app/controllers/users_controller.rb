@@ -96,11 +96,11 @@ class UsersController < ApplicationController
       if privileges_changed
         if @user.perms.size > 0
           deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
-            UserMailer.admin_privileges_granted(r).deliver_now
+            UserMailer.with(host: request.host, protocol: request.protocol).admin_privileges_granted(r).deliver_now
           end
         else
           deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
-            UserMailer.admin_privileges_removed(r).deliver_now
+            UserMailer.with(host: request.host, protocol: request.protocol).admin_privileges_removed(r).deliver_now
           end
         end
       end
