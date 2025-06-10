@@ -67,7 +67,6 @@ fr-CA:
           tb: To
           pb: Po
           eb: Eo
-          zb:
       decimal_units:
         units:
           thousand: Millier
@@ -117,8 +116,6 @@ fr-CA:
       not_saved:
         one: '1 erreur a empêché l’enregistrement de %{resource} :'
         other: "%{count} erreurs  ont empêché l’enregistrement de %{resource} : "
-      password_too_long:
-      in:
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
@@ -242,8 +239,7 @@ fr-CA:
       not_found_in_database: "%{authentication_keys} ou mot de passe incorrect."
       timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
-      unconfirmed: Vous devez confirmer votre compte avant de continuer. <a href="/users/confirmation/new"
-        class="a-orange">(cliquez pour demander un nouveau courriel de confirmation)</a>
+      unconfirmed: Vous devez confirmer votre adresse courriel pour continuer.
       invited: Vous avez une invitation en attente. Acceptez-la pour terminer la création
         de votre compte.
     mailer:

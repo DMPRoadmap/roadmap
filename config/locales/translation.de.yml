@@ -67,7 +67,6 @@ de:
           tb: TB
           pb: PB
           eb: EB
-          zb:
       decimal_units:
         units:
           thousand: Tausend
@@ -118,8 +117,6 @@ de:
           konnte:"
       model_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
       required: muss ausgefüllt werden
-      password_too_long:
-      in:
     unavailable_session: "Session %{id} ist nicht mehr im Arbeitsspeicher verfügbar.
       \n\nSollte Ihr System auf einem Multi-Process-Server (wie Unicorn oder Puma)
       laufen, dann speichert der Prozess, den diese Anfrage ansteuert, keine %{id}

@@ -67,7 +67,6 @@ en-GB:
           tb: TB
           pb: PB
           eb: EB
-          zb:
       decimal_units:
         units:
           thousand: Thousand
@@ -117,8 +116,6 @@ en-GB:
         other: "%{count} errors prohibited this %{resource} from being saved:"
       model_invalid: 'Validation failed: %{errors}'
       required: must exist
-      password_too_long:
-      in:
     unavailable_session:
     unacceptable_request:
     connection_refused:
@@ -227,8 +224,7 @@ en-GB:
       not_found_in_database: Invalid email or password.
       timeout: Your session expired, please sign in again to continue.
       unauthenticated: You need to sign in or sign up before continuing.
-      unconfirmed: You have to confirm your account before continuing. <a href="/users/confirmation/new"
-        class="a-orange">(Click to request a new confirmation email)</a>
+      unconfirmed: You have to confirm your account before continuing.
       invited: You have a pending invitation, accept it to finish creating your account.
     mailer:
       confirmation_instructions:

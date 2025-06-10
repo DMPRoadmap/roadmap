@@ -67,7 +67,6 @@ sv-FI:
           tb: TB
           pb: PB
           eb: EB
-          zb:
       decimal_units:
         units:
           thousand: Tusen
@@ -117,8 +116,6 @@ sv-FI:
         other: "%{count} fel hindrade detta %{resource} från att sparas:"
       model_invalid: 'Validering misslyckades: %{errors}'
       required: måste finnas
-      password_too_long:
-      in:
     unavailable_session: |-
       Session %{id} är inte längre tillgänglig i minnet.
 

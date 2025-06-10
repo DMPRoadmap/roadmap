@@ -67,7 +67,6 @@ fr-FR:
           tb: To
           pb: Po
           eb: Eo
-          zb:
       decimal_units:
         units:
           thousand: millier
@@ -117,8 +116,6 @@ fr-FR:
         other: "%{count} erreurs ont empêché d’enregistrer ce(tte) %{resource} :"
       model_invalid: 'Validation échouée : %{errors}'
       required: doit exister
-      password_too_long:
-      in:
     unavailable_session: |-
       La session %{id} n'est plus disponible en mémoire.
 

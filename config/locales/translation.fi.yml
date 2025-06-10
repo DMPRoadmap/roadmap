@@ -67,7 +67,6 @@ fi:
           tb: Tt
           pb: PB
           eb: EB
-          zb:
       decimal_units:
         units:
           thousand: tuhatta
@@ -116,8 +115,6 @@ fi:
         other: "%{count} virhettä estivät kohteen %{resource} tallennuksen:"
       model_invalid: 'Validointi epäonnistui: %{errors}'
       required: täytyy olla
-      password_too_long:
-      in:
     unavailable_session: Istunnon %{id} ei ole enää saatavilla muistissa. Jos satut
       ajaa usean prosessin palvelimen (kuten Unicorn tai Puma) prosessi. Tämä pyyntö
       osuma ei tallenna %{id} muistiin. Tarkastellaan kääntämällä määrä prosessit
@@ -133,8 +130,7 @@ fi:
   activerecord:
     errors:
       messages:
-        record_invalid: 'Vahvistus epäonnistui: %{errors}You can find out more about
-          us on our website'
+        record_invalid: 'Vahvistus epäonnistui: %{errors}'
         restrict_dependent_destroy:
           has_one: Ei voida poistaa mallia koska tästä riippuvainen %{record} löytyy
           has_many: Ei voida poistaa mallia koska tästä riippuvaisia %{record} löytyy
