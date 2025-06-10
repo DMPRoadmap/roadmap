@@ -525,8 +525,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_15_102816) do
     t.integer "family_id"
     t.boolean "archived"
     t.text "links"
-    t.bigint "api_server_id"
-    t.index ["api_server_id"], name: "index_templates_on_api_server_id"
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
