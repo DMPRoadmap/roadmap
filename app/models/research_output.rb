@@ -38,13 +38,13 @@ class ResearchOutput < ApplicationRecord
   include Identifiable
   include ValidationMessages
 
-  enum output_type: %i[audiovisual book book_chapter collection computational_notebook conference_paper
-                       conference_proceeding data_paper dataset dissertation event image 
-                       interactive_resource instrument journal journal_article model_representation 
-                       output_management_plan peer_review physical_object preprint publication report 
-                       research_data service software sound standard study_registration text workflow other]
+  enum :output_type, [:audiovisual, :book, :book_chapter, :collection, :computational_notebook, :conference_paper,
+                       :conference_proceeding, :data_paper, :dataset, :dissertation, :event, :image, 
+                       :interactive_resource, :instrument, :journal, :journal_article, :model_representation, 
+                       :output_management_plan, :peer_review, :physical_object, :preprint, :publication, :report, 
+                       :research_data, :service, :software, :sound, :standard, :study_registration, :text, :workflow, :other]
 
-  enum access: %i[open embargoed restricted closed]
+  enum :access, [:open, :embargoed, :restricted, :closed]
 
   # ================
   # = Associations =

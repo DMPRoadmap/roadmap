@@ -51,7 +51,7 @@ class Repository < ApplicationRecord
       },
       'access' => {
         'type' => 'string',
-        'enum' => %w[open restricted closed]
+        'enum' => [open: "open", restricted: "restricted", closed: "closed"]
       },
       'provider_types' => {
         'type' => 'array',

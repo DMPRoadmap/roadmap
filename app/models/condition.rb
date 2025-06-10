@@ -27,10 +27,10 @@
 # Object that represents a condition of a conditional question
 class Condition < ApplicationRecord
   belongs_to :question
-  enum action_type: %i[remove add_webhook]
-  serialize :option_list, Array
-  serialize :remove_data, Array
-  serialize :webhook_data, JSON
+  enum :action_type, [:remove, :add_webhook]
+  serialize :option_list, coder: JSON, type: Array
+  serialize :remove_data, coder: JSON, type: Array
+  serialize :webhook_data, coder: JSON
 
   # Sort order: Number ASC
   default_scope { order(number: :asc) }

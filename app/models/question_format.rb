@@ -17,14 +17,16 @@
 class QuestionFormat < ApplicationRecord
   ##
   #
-  FORMAT_TYPES = %i[textarea textfield radiobuttons checkbox dropdown
-                    multiselectbox date rda_metadata].freeze
+  # FORMAT_TYPES = %i[textarea textfield radiobuttons checkbox dropdown
+  #                   multiselectbox date rda_metadata].freeze
 
   # ==============
   # = Attributes =
   # ==============
 
-  enum formattype: FORMAT_TYPES
+  # enum formattype: FORMAT_TYPES
+
+  enum :formattype, textarea: 0, textfield: 1, radiobuttons: 2, checkbox: 3, dropdown: 4, multiselectbox: 5, date: 6, rda_metadata: 7
 
   alias_attribute :to_s, :title
 

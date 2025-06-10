@@ -70,7 +70,7 @@ class User < ApplicationRecord
 
   ##
   # User Notification Preferences
-  serialize :prefs, Hash
+  serialize :prefs, coder: JSON, type: Hash
 
   # default user language to the default language
   attribute :language_id, :integer, default: -> { Language.default&.id }
@@ -119,8 +119,11 @@ class User < ApplicationRecord
   validates :org, presence: { message: PRESENCE_MESSAGE }
 
   attr_accessor :email_confirmation
+  
   validates :email, confirmation: { case_sensitive: false, message: "text field does not match" }
 
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  
   # ==========
   # = Scopes =
   # ==========

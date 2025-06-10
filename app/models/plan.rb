@@ -76,10 +76,10 @@ class Plan < ApplicationRecord
   # ==============
 
   # public is a Ruby keyword so using publicly
-  enum visibility: %i[organisationally_visible publicly_visible
-                      is_test privately_visible]
+  enum :visibility, [:organisationally_visible, :publicly_visible,
+                      :is_test, :privately_visible]
 
-  enum funding_status: %i[planned funded denied]
+  enum :funding_status, [:planned, :funded, :denied]
 
   alias_attribute :name, :title
 
@@ -337,8 +337,8 @@ class Plan < ApplicationRecord
       if user.org.contact_email.present?
         contact = User.new(email: user.org.contact_email,
                            firstname: user.org.contact_name)
-        UserMailer.feedback_notification(contact, self, user).deliver_now
-      end
+                           UserMailer.with(host: request.host, protocol: request.protocol).feedback_notification(contact, self, user).deliver_now
+                          end
       true
     rescue StandardError => e
       Rails.logger.error e
@@ -358,7 +358,7 @@ class Plan < ApplicationRecord
       # Send an email confirmation to the owners and co-owners
       deliver_if(recipients: owner_and_coowners,
                  key: 'users.feedback_provided') do |r|
-        UserMailer.feedback_complete(
+      UserMailer.with(host: request.host, protocol: request.protocol).feedback_complete(
           r,
           self,
           org_admin
