@@ -6,7 +6,7 @@
 #
 # Note that the entries here must have a corresponding directory in config/locale, a
 # YAML file in config/locales and should also have an entry in the DB's languages table
-SUPPORTED_LOCALES = %w[de en-CA en-GB en-US es fi fr-CA fr-FR pt-BR sv-FI tr-TR].freeze
+SUPPORTED_LOCALES = %w[en de en-CA en-GB en-US es fi fr-CA fr-FR pt-BR sv-FI tr-TR].freeze
 # You can define a subset of the locales for your instance's version of Translation.io if applicable
 CLIENT_LOCALES = %w[de en-CA en-GB en-US es fi fr-CA fr-FR pt-BR sv-FI tr-TR].freeze
 DEFAULT_LOCALE = 'en-GB'
