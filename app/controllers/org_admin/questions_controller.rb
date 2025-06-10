@@ -250,14 +250,12 @@ module OrgAdmin
       return {} if param_conditions.empty?
 
       res = {}
-      hash_of_hashes = param_conditions[0]
-      hash_of_hashes.each do |cond_name, cond_hash|
+      param_conditions.each do |cond_id, cond_hash|
         sanitized_hash = {}
         cond_hash.each do |k, v|
-          v = ActionController::Base.helpers.sanitize(v) if k.start_with?('webhook')
-          sanitized_hash[k] = v
+          sanitized_hash[k] = k.start_with?('webhook') ? ActionController::Base.helpers.sanitize(v) : v
         end
-        res[cond_name] = sanitized_hash
+        res[cond_id] = sanitized_hash
       end
       res
     end
