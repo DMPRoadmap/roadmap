@@ -15,7 +15,6 @@ if defined?(Bullet)
     # config.honeybadger = true
     # config.bugsnag = true
     # config.airbrake = true
-    # config.rollbar = true
     config.add_footer = true
     # config.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
     # config.stacktrace_excludes = [ 'their_gem', 'their_middleware' ]
