@@ -8,7 +8,8 @@
   <div id="dual_columns" class="container" style="display:table">
     <% unless session["devise.shibboleth_data"].nil? %>
         <% cookies[:show_shib_link] = { value: 'show_shib_link',
-                                        expires: 3.hours.from_now } %>
+                                        expires: 3.hours.from_now,
+                                        httponly: true } %>
 
         <div class="col-md-6" style="border-top:1px solid black; border-bottom:1px solid black; border-left:1px solid black; display:table-cell; float:none">
             <p class="text-center">
