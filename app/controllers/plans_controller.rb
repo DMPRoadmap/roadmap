@@ -410,8 +410,8 @@ class PlansController < ApplicationController
         if plan.save
           deliver_if(recipients: plan.owner_and_coowners,
                      key: 'owners_and_coowners.visibility_changed') do |r|
-            UserMailer.plan_visibility(r, plan).deliver_now
-          end
+                      UserMailer.with(host: request.host, protocol: request.protocol).plan_visibility(r, plan).deliver_now
+                    end
           render status: :ok,
                  json: { msg: success_message(plan, _('updated')) }
         else
