@@ -44,7 +44,11 @@ export default function updateConditions(id) {
         if (idx === 3) {
           inputType = 'textarea';
         }
-        condition.find(`${inputType}[name="${nameStart}[webhook-${field}]"]`).val(JSON.parse(webhook)[`${field}`]);
+        try {
+          condition.find(`${inputType}[name="${nameStart}[webhook-${field}]"]`).val(webhook[`${field}`]);
+      } catch (error) {
+          console.error("Failed to parse JSON:", error.message);
+      }
       });
       $(selectObject).on('change', () => {
         allowWebhook(selectObject, undefined);
