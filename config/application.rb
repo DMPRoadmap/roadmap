@@ -352,6 +352,17 @@ module DMPRoadmap
     config.action_mailer.perform_caching = ENV["ACTION_MAILER_PERFORM_CACHING"]
     config.active_support.deprecation = ENV["ACTIVE_SUPPORT_DEPRECATION"].to_sym
     config.i18n.enforce_available_locales = ENV["I18N_ENFORCE_AVAILABLE_LOCALES"]
+    config.require_master_key = ENV["REQUIRE_MASTER_KEY"]
+    config.assets.compile = ENV["ASSETS_COMPILE"]
+    config.log_tags = ENV["LOG_TAGS"]
+    config.i18n.fallbacks = ENV["I18N_FALLBACKS"]
+    config.log_formatter = Logger::Formatter.new
+    if ENV['RAILS_LOG_TO_STDOUT'] == "true"
+      logger = ActiveSupport::Logger.new($stdout)
+      logger.formatter = config.log_formatter
+      config.logger = ActiveSupport::TaggedLogging.new(logger)
+    end
+    config.active_record.dump_schema_after_migration = ENV["ACTIVE_RECORD_DUMP_SCHEMA_AFTER_MIGRATION"]
   end
 
 end
