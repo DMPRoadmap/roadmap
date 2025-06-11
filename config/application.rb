@@ -123,65 +123,65 @@ module DMPRoadmap
     # -------------------- #
 
     # Used throughout the system via ApplicationService.application_name
-    config.x.application.name = 'DMPRoadmap'
+    config.x.application.name = ENV['APPLICATION_NAME']
     # Used as the default domain when 'archiving' (aka anonymizing) a user account
     # for example `jane.doe@uni.edu` becomes `1234@removed_accounts-example.org`
-    config.x.application.archived_accounts_email_suffix = '@removed_accounts-example.org'
+    config.x.application.archived_accounts_email_suffix = ENV['APPLICATION_ARCHIVED_ACCOUNTS_EMAIL_SUFFIX']
     # Available CSV separators, the default is ','
     config.x.application.csv_separators = [',', '|', '#']
     # The largest page size allowed in requests to the API (all versions)
-    config.x.application.api_max_page_size = 100
+    config.x.application.api_max_page_size = ENV['APPLICATION_API_MAX_PAGE_SIZE']
     # The link to the API documentation - used in emails about the API
     config.x.application.api_documentation_urls = {
-      v0: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation',
-      v1: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V1-Documentation'
+      v0: ENV['APPLICATION_API_DOCUMENTATION_URLS_VO'],
+      v1: ENV['APPLICATION_API_DOCUMENTATION_URLS_V1']
     }
     # The links that appear on the home page. Add any number of links
     config.x.application.welcome_links = [
       {
-        title: 'Digital Curation Centre',
-        url: 'https://dcc.ac.uk/'
+        title: ENV['APPLICATION_WELCOME_LINK_TITLE_1'],
+        url: ENV['APPLICATION_WELCOME_LINK_URL_1']
       }, {
-        title: 'UC3: University of California Curation Center',
-        url: 'https://www.cdlib.org/uc3/'
+        title: ENV['APPLICATION_WELCOME_LINK_TITLE_2'],
+        url: ENV['APPLICATION_WELCOME_LINK_URL_2']
       }, {
-        title: 'UK funder requirements for Data Management Plans',
-        url: 'http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements'
+        title: ENV['APPLICATION_WELCOME_LINK_TITLE_3'],
+        url: ENV['APPLICATION_WELCOME_LINK_URL_3']
       }, {
-        title: 'US funder requirements for Data Management Plans',
-        url: 'https://dmptool.org/guidance'
+        title: ENV['APPLICATION_WELCOME_LINK_TITLE_4'],
+        url: ENV['APPLICATION_WELCOME_LINK_URL_4']
       }, {
-        title: 'DCC Checklist for a Data Management Plan',
-        url: 'https://dmponline.dcc.ac.uk/files/DMP_Checklist_2013.pdf'
+        title: ENV['APPLICATION_WELCOME_LINK_TITLE_5'],
+        url: ENV['APPLICATION_WELCOME_LINK_URL_5']
       }
     ]
     # The default user email preferences used when a new account is created
     config.x.application.preferences = {
       email: {
         users: {
-          new_comment: false,
-          admin_privileges: true,
-          added_as_coowner: true,
-          feedback_requested: true,
-          feedback_provided: true
+          new_comment: ENV['APPLICATION_PREFERENCES_NEW_COMMENT'],
+          admin_privileges: ENV['APPLICATION_PREFERENCES_ADMIN_PRIVILEGES'],
+          added_as_coowner: ENV['APPLICATION_PREFERENCES_ADDED_AS_COOWNER'],
+          feedback_requested: ENV['APPLICATION_PREFERENCES_FEEDBACK_REQUESTED'],
+          feedback_provided: ENV['APPLICATION_PREFERENCES_FEEDBACK_PROVIDED']
         },
         owners_and_coowners: {
-          visibility_changed: true
+          visibility_changed: ENV['APPLICATION_PREFERENCES_VISIBILITY_CHANGED']
         }
       }
     }
     # Setting to only take orgs from local and not allow on-the-fly creation
-    config.x.application.restrict_orgs = false
+    config.x.application.restrict_orgs = ENV['APPLICATION_RESTRICT_ORGS']
     # Setting to display phone number in contributor form
-    config.x.application.display_contributor_phone_number = false
+    config.x.application.display_contributor_phone_number = ENV['APPLICATION_DISPLAY_CONTRIBUTOR_PHONE_NUMBER']
 
     # Setting require contributor requirement of contributor name and email
-    config.x.application.require_contributor_name = false
-    config.x.application.require_contributor_email = false
+    config.x.application.require_contributor_name = ENV['APPLICATION_REQUIRE_CONTRIBUTOR_NAME']
+    config.x.application.require_contributor_email = ENV['APPLICATION_REQUIRE_CONTRIBUTOR_EMAIL']
 
     # Defines if Guidances/Comments in toggleable & if it's opened by default
-    config.x.application.guidance_comments_toggleable = true
-    config.x.application.guidance_comments_opened_by_default = true
+    config.x.application.guidance_comments_toggleable = ENV['APPLICATION_GUIDANCE_COMMENTS_TOGGLEABLE']
+    config.x.application.guidance_comments_opened_by_default = ENV['APPLICATION_GUIDANCE_COMMENTS_OPENED_BY_DEFAULT']
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
