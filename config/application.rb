@@ -316,6 +316,15 @@ module DMPRoadmap
     # Link to external guidance about selecting one of the preferred licenses. A default
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
     config.x.madmp.preferred_licenses_guidance_url = 'https://creativecommons.org/about/cclicenses/'
+
+
+    # don adding environment variables from ./config/environments/* files
+    config.cache_classes = ENV["CACHE_CLASSES"]
+    config.eager_load = ENV["EAGER_LOAD"]
+    config.consider_all_requests_local = ENV["CONSIDER_ALL_REQUESTS_LOCAL"]
+    config.action_controller.perform_caching = ENV["PERFORM_CACHING"]
+    config.cache_store = ENV["CACHE_STORE"].to_sym
+
   end
 
 end
