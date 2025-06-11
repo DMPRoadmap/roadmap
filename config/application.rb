@@ -324,7 +324,19 @@ module DMPRoadmap
     config.consider_all_requests_local = ENV["CONSIDER_ALL_REQUESTS_LOCAL"]
     config.action_controller.perform_caching = ENV["PERFORM_CACHING"]
     config.cache_store = ENV["CACHE_STORE"].to_sym
-
+    config.active_storage.service = ENV["ACTIVE_STORAGE_SERVICE"].to_sym
+    config.action_mailer.raise_delivery_errors = ENV["ACTION_MAILER_RAISE_DELIVERY_ERRORS"]
+    config.action_mailer.delivery_method = ENV["ACTION_MAILER_DELIVERY_METHOD"].to_sym
+    config.action_mailer.smtp_settings = { address: ENV["ACTION_MAILER_SMTP_SETTINGS_ADDRESS"], port: ENV["ACTION_MAILER_SMTP_SETTINGS_PORT"] }
+    config.log_level = ENV["LOG_LEVEL"]
+    config.active_support.disallowed_deprecation = ENV["ACTIVE_SUPPORT_DISALLOWED_DEPRECATION"].to_sym
+    config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV["ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS"])
+    config.active_record.migration_error = ENV["ACTIVE_RECORD_MIGRATION_ERROR"].to_sym
+    config.active_record.verbose_query_logs = ENV["ACTIVE_RECORD_VERBOSE_QUERY_LOGS"]
+    config.assets.debug = ENV["ASSETS_DEBUG"]
+    config.assets.quiet = ENV["ASSETS_QUIET"]
+    config.file_watcher = ENV["FILE_WATCHER"] != "" ? ENV["FILE_WATCHER"].constantize : nil
+    config.routes.default_url_options[:host] = JSON.parse(ENV["DMPROADMAP_HOSTS"]).first
   end
 
 end
