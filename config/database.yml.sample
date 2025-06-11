@@ -11,5 +11,5 @@ defaults: &defaults
 development:
   <<: *defaults
 
-test:
+staging:
   <<: *defaults
