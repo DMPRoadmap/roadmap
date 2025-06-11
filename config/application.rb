@@ -337,6 +337,21 @@ module DMPRoadmap
     config.assets.quiet = ENV["ASSETS_QUIET"]
     config.file_watcher = ENV["FILE_WATCHER"] != "" ? ENV["FILE_WATCHER"].constantize : nil
     config.routes.default_url_options[:host] = JSON.parse(ENV["DMPROADMAP_HOSTS"]).first
+
+    config.action_view.cache_template_loading = ENV["ACTION_VIEW_CACHE_TEMPLATE_LOADING"]
+    config.public_file_server.enabled = ENV["PUBLIC_FILE_SERVER_ENABLED"]
+    config.public_file_server.headers = {
+      "Cache-Control" => [
+        "public",
+        "max-age=#{ENV["PUBLIC_FILE_SERVER_CACHE_SECONDS"]}",
+        ENV["PUBLIC_FILE_SERVER_CACHE_EXTRA"].presence
+      ].compact.join(", ")
+    }
+    config.action_dispatch.show_exceptions = ENV["ACTION_DISPACTH_SHOW_EXCEPTIONS"]
+    config.action_controller.allow_forgery_protection = ENV["ACTION_CONTROLLER_ALLOW_FORGERY_PROTECTION"]
+    config.action_mailer.perform_caching = ENV["ACTION_MAILER_PERFORM_CACHING"]
+    config.active_support.deprecation = ENV["ACTIVE_SUPPORT_DEPRECATION"].to_sym
+    config.i18n.enforce_available_locales = ENV["I18N_ENFORCE_AVAILABLE_LOCALES"]
   end
 
 end
