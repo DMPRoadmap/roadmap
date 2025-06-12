@@ -51,7 +51,6 @@ module DMPRoadmap
       config.cache_store = ENV["CACHE_STORE"].to_sym
       config.active_storage.service = ENV["ACTIVE_STORAGE_SERVICE"].to_sym
 
-      config.action_mailer.default_url_options = { host: ENV["HOST_URL"] }
       config.action_mailer.raise_delivery_errors = ENV["ACTION_MAILER_RAISE_DELIVERY_ERRORS"] == "true"
       config.action_mailer.delivery_method = ENV["ACTION_MAILER_DELIVERY_METHOD"].to_sym
       config.action_mailer.smtp_settings = {
@@ -93,8 +92,6 @@ module DMPRoadmap
       config.require_master_key = ENV["REQUIRE_MASTER_KEY"] == "true"
       config.i18n.enforce_available_locales = ENV["I18N_ENFORCE_AVAILABLE_LOCALES"] == "true"
       config.i18n.fallbacks = ENV["I18N_FALLBACKS"] == "true"
-
-      config.routes.default_url_options[:host] = JSON.parse(ENV["DMPROADMAP_HOSTS"]).first
 
       if ENV["RAILS_LOG_TO_STDOUT"] == "true"
         logger = ActiveSupport::Logger.new($stdout)
