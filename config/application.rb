@@ -157,9 +157,11 @@ module DMPRoadmap
 
     # The default locale (use the i18n format!)
     config.x.locales.default = 'en-GB'
+    
     # The character that separates a locale's ISO code for i18n. (e.g. `en-GB` or `en`)
     # Changing this value is not recommended!
     config.x.locales.i18n_join_character = '-'
+
     # The character that separates a locale's ISO code for Gettext. (e.g. `en_GB` or `en`)
     # Changing this value is not recommended!
     config.x.locales.gettext_join_character = '_'
@@ -170,11 +172,14 @@ module DMPRoadmap
 
     # Determines the number of links a funder is allowed to add to their template
     config.x.max_number_links_funder = 5
+
     # Determines the number of links a funder can add for sample plans for their template
     config.x.max_number_links_sample_plan = 5
+
     # Determines the maximum number of themes to display per column when an org admin
     # updates a template question or guidance
     config.x.max_number_themes_per_column = 5
+
     # default results per page
     config.x.results_per_page = 10
 
@@ -209,6 +214,7 @@ module DMPRoadmap
 
     # Determines how long to cache results for OrgSelection::SearchService
     config.x.cache.org_selection_expiration = 86_400
+
     # Determines how long to cache results for the ResearchProjectsController
     config.x.cache.research_projects_expiration = 86_400
 
@@ -353,7 +359,7 @@ module DMPRoadmap
     end
 
     config.active_record.dump_schema_after_migration = ENV["ACTIVE_RECORD_DUMP_SCHEMA_AFTER_MIGRATION"]
-    
+
   end
 
 end
