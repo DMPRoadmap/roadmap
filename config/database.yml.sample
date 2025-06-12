@@ -5,11 +5,11 @@ defaults: &defaults
   host: <%= ENV.fetch('DB_HOST', 'localhost') %>
   port: <%= ENV.fetch('DB_PORT', '5432') %>
   database: <%= ENV.fetch('DB_NAME', 'roadmap') %>
-  username: <%= ENV.fetch('DB_USERNAME', Rails.application.credentials.db_username) %>
-  password: <%= ENV.fetch('DB_PASSWORD', Rails.application.credentials.db_password) %>
+  username: <%= Rails.application.credentials.dig(:database, :username) %>
+  password: <%= Rails.application.credentials.dig(:database, :password) %>
 
 development:
   <<: *defaults
 
-staging:
+test:
   <<: *defaults

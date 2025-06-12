@@ -21,7 +21,7 @@ DEFAULT_LOCALE = 'en-GB'
 # domain specified in order to generate both sets of translation keys.
 if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   TranslationIO.configure do |config|
-    config.api_key              = ENV.fetch('TRANSLATION_API_ROADMAP', nil)
+    config.api_key              = Rails.application.credentials.dig(:translation_api_key).presence
     config.source_locale        = 'en'
     config.target_locales       = SUPPORTED_LOCALES
     config.text_domain          = 'app'
@@ -31,7 +31,7 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   end
 elsif ENV['DOMAIN'] == 'client'
   TranslationIO.configure do |config|
-    config.api_key              = ENV.fetch('TRANSLATION_API_CLIENT', nil)
+    config.api_key              = Rails.application.credentials.dig(:translation_api_client_key).presence
     config.source_locale        = 'en'
     config.target_locales       = CLIENT_LOCALES
     config.text_domain          = 'client'
