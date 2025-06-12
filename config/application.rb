@@ -6,8 +6,6 @@ require "rails/all"
 
 require "csv"
 
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module DMPRoadmap
@@ -78,21 +76,19 @@ module DMPRoadmap
     # APPLICATION SETTINGS #
     # -------------------- #
 
-    # Used throughout the system via ApplicationService.application_name
     config.x.application.name = ENV['APPLICATION_NAME']
-    # Used as the default domain when 'archiving' (aka anonymizing) a user account
-    # for example `jane.doe@uni.edu` becomes `1234@removed_accounts-example.org`
+
     config.x.application.archived_accounts_email_suffix = ENV['APPLICATION_ARCHIVED_ACCOUNTS_EMAIL_SUFFIX']
-    # Available CSV separators, the default is ','
+
     config.x.application.csv_separators = [',', '|', '#']
-    # The largest page size allowed in requests to the API (all versions)
+
     config.x.application.api_max_page_size = ENV['APPLICATION_API_MAX_PAGE_SIZE']
-    # The link to the API documentation - used in emails about the API
+
     config.x.application.api_documentation_urls = {
       v0: ENV['APPLICATION_API_DOCUMENTATION_URLS_VO'],
       v1: ENV['APPLICATION_API_DOCUMENTATION_URLS_V1']
     }
-    # The links that appear on the home page. Add any number of links
+
     config.x.application.welcome_links = [
       {
         title: ENV['APPLICATION_WELCOME_LINK_TITLE_1'],
@@ -126,37 +122,33 @@ module DMPRoadmap
         }
       }
     }
-    # Setting to only take orgs from local and not allow on-the-fly creation
+    # only take orgs from local and not allow on-the-fly creation
     config.x.application.restrict_orgs = ENV['APPLICATION_RESTRICT_ORGS']
-    # Setting to display phone number in contributor form
+
     config.x.application.display_contributor_phone_number = ENV['APPLICATION_DISPLAY_CONTRIBUTOR_PHONE_NUMBER']
 
-    # Setting require contributor requirement of contributor name and email
     config.x.application.require_contributor_name = ENV['APPLICATION_REQUIRE_CONTRIBUTOR_NAME']
+
     config.x.application.require_contributor_email = ENV['APPLICATION_REQUIRE_CONTRIBUTOR_EMAIL']
 
-    # Defines if Guidances/Comments in toggleable & if it's opened by default
     config.x.application.guidance_comments_toggleable = ENV['APPLICATION_GUIDANCE_COMMENTS_TOGGLEABLE']
+
     config.x.application.guidance_comments_opened_by_default = ENV['APPLICATION_GUIDANCE_COMMENTS_OPENED_BY_DEFAULT']
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
     # ------------------- #
 
-    # Enable shibboleth as an alternative authentication method
-    # Requires server configuration and omniauth shibboleth provider configuration
-    # See config/initializers/devise.rb
     config.x.shibboleth.enabled = true
 
-    # Relative path to Shibboleth SSO Logouts
     config.x.shibboleth.login_url = '/Shibboleth.sso/Login'
+
     config.x.shibboleth.logout_url = '/Shibboleth.sso/Logout?return='
 
     # If this value is set to true your users will be presented with a list of orgs that have a
-    # shibboleth identifier in the orgs_identifiers table. If it is set to false (default), the user
+    # shibboleth identifier in the orgs_identifiers table (and a super admin will also be able 
+    # to associate orgs with their shibboleth entityIds). If it is set to false (default), the user
     # will be driven out to your federation's discovery service
-    #
-    # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
     config.x.shibboleth.use_filtered_discovery_service = false
 
     # ------- #
@@ -200,11 +192,12 @@ module DMPRoadmap
     # plan can be submitted for feedback
     config.x.plans.default_percentage_answered = 50
 
-    # Whether or not Super adminis can read all of the user's plans regardless of
-    # the plans visibility and whether or not the plan has been shared
-    config.x.plans.org_admins_read_all = true
     # Whether or not Organisational administrators can read all of the user's plans
     # regardless of the plans visibility and whether or not the plan has been shared
+    config.x.plans.org_admins_read_all = true
+
+    # Whether or not super admins can read all of the user's plans regardless of
+    # the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = true
 
     # Check download of a plan coversheet tickbox
@@ -225,9 +218,9 @@ module DMPRoadmap
     # this is the abbreviation for the installation's root org as set in the org table
     config.x.google_analytics.tracker_root = ''
 
-    # ------------------------------------------------------------------------ #
-    # reCAPTCHA - recaptcha appears on the create account and contact us forms #
-    # ------------------------------------------------------------------------ #
+    # --------- #
+    # reCAPTCHA #
+    # --------- #
     config.x.recaptcha.enabled = false
 
     # --------------------------------------------------- #
@@ -235,20 +228,26 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # Enable/disable functionality on the Project Details tab
     config.x.madmp.enable_ethical_issues = true
+
     config.x.madmp.enable_research_domain = true
 
     # This flag will enable/disable the entire Research Outputs tab. The others below will
     # just enable/disable specific functionality on the Research Outputs tab
     config.x.madmp.enable_research_outputs = true
+
     config.x.madmp.enable_license_selection = true
+
     config.x.madmp.enable_metadata_standard_selection = true
+
     config.x.madmp.enable_repository_selection = true
 
     # The following flags will allow the system to include the question and answer in the JSON output
     #   - questions with a theme equal to 'Preservation'
     config.x.madmp.extract_preservation_statements_from_themed_questions = false
+
     #   - questions with a theme equal to 'Data Collection'
     config.x.madmp.extract_data_quality_statements_from_themed_questions = false
+
     #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
     config.x.madmp.extract_security_privacy_statements_from_themed_questions = false
 
@@ -269,6 +268,7 @@ module DMPRoadmap
       'CC-BY-NC-ND-%{latest}',
       'CC0-%{latest}'
     ]
+
     # Link to external guidance about selecting one of the preferred licenses. A default
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
     config.x.madmp.preferred_licenses_guidance_url = 'https://creativecommons.org/about/cclicenses/'
@@ -276,26 +276,48 @@ module DMPRoadmap
 
     # don adding environment variables from ./config/environments/* files
     config.cache_classes = ENV["CACHE_CLASSES"]
+
     config.eager_load = ENV["EAGER_LOAD"]
+
     config.consider_all_requests_local = ENV["CONSIDER_ALL_REQUESTS_LOCAL"]
+
     config.action_controller.perform_caching = ENV["PERFORM_CACHING"]
+
     config.cache_store = ENV["CACHE_STORE"].to_sym
+
     config.active_storage.service = ENV["ACTIVE_STORAGE_SERVICE"].to_sym
+
     config.action_mailer.raise_delivery_errors = ENV["ACTION_MAILER_RAISE_DELIVERY_ERRORS"]
+
     config.action_mailer.delivery_method = ENV["ACTION_MAILER_DELIVERY_METHOD"].to_sym
-    config.action_mailer.smtp_settings = { address: ENV["ACTION_MAILER_SMTP_SETTINGS_ADDRESS"], port: ENV["ACTION_MAILER_SMTP_SETTINGS_PORT"] }
+
+    config.action_mailer.smtp_settings = { 
+      address: ENV["ACTION_MAILER_SMTP_SETTINGS_ADDRESS"], 
+      port: ENV["ACTION_MAILER_SMTP_SETTINGS_PORT"] 
+    }
+
     config.log_level = ENV["LOG_LEVEL"]
+
     config.active_support.disallowed_deprecation = ENV["ACTIVE_SUPPORT_DISALLOWED_DEPRECATION"].to_sym
+
     config.active_support.disallowed_deprecation_warnings = JSON.parse(ENV["ACTIVE_SUPPORT_DISALLOWED_DEPRECATION_WARNINGS"])
+
     config.active_record.migration_error = ENV["ACTIVE_RECORD_MIGRATION_ERROR"].to_sym
+
     config.active_record.verbose_query_logs = ENV["ACTIVE_RECORD_VERBOSE_QUERY_LOGS"]
+
     config.assets.debug = ENV["ASSETS_DEBUG"]
+
     config.assets.quiet = ENV["ASSETS_QUIET"]
+
     config.file_watcher = ENV["FILE_WATCHER"] != "" ? ENV["FILE_WATCHER"].constantize : nil
+
     config.routes.default_url_options[:host] = JSON.parse(ENV["DMPROADMAP_HOSTS"]).first
 
     config.action_view.cache_template_loading = ENV["ACTION_VIEW_CACHE_TEMPLATE_LOADING"]
+
     config.public_file_server.enabled = ENV["PUBLIC_FILE_SERVER_ENABLED"]
+
     config.public_file_server.headers = {
       "Cache-Control" => [
         "public",
@@ -303,22 +325,35 @@ module DMPRoadmap
         ENV["PUBLIC_FILE_SERVER_CACHE_EXTRA"].presence
       ].compact.join(", ")
     }
+
     config.action_dispatch.show_exceptions = ENV["ACTION_DISPACTH_SHOW_EXCEPTIONS"]
+
     config.action_controller.allow_forgery_protection = ENV["ACTION_CONTROLLER_ALLOW_FORGERY_PROTECTION"]
+
     config.action_mailer.perform_caching = ENV["ACTION_MAILER_PERFORM_CACHING"]
+
     config.active_support.deprecation = ENV["ACTIVE_SUPPORT_DEPRECATION"].to_sym
+
     config.i18n.enforce_available_locales = ENV["I18N_ENFORCE_AVAILABLE_LOCALES"]
+
     config.require_master_key = ENV["REQUIRE_MASTER_KEY"]
+
     config.assets.compile = ENV["ASSETS_COMPILE"]
+
     config.log_tags = ENV["LOG_TAGS"]
+
     config.i18n.fallbacks = ENV["I18N_FALLBACKS"]
+
     config.log_formatter = Logger::Formatter.new
+
     if ENV['RAILS_LOG_TO_STDOUT'] == "true"
       logger = ActiveSupport::Logger.new($stdout)
       logger.formatter = config.log_formatter
       config.logger = ActiveSupport::TaggedLogging.new(logger)
     end
+
     config.active_record.dump_schema_after_migration = ENV["ACTIVE_RECORD_DUMP_SCHEMA_AFTER_MIGRATION"]
+    
   end
 
 end
