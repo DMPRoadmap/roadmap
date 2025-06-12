@@ -11,7 +11,9 @@ Bundler.require(*Rails.groups)
 module DMPRoadmap
 
   class Application < Rails::Application
-    config.load_defaults 5.2
+    # use default behaviours of rails 8
+    config.load_defaults 8.0
+    
     config.x.app_version = "2025.11"
 
     # ------------------------------------------ #
