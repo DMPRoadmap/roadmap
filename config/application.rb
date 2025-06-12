@@ -168,6 +168,7 @@ module DMPRoadmap
       config.x.application.guidance_comments_toggleable = ENV['APPLICATION_GUIDANCE_COMMENTS_TOGGLEABLE']
       config.x.application.guidance_comments_opened_by_default = ENV['APPLICATION_GUIDANCE_COMMENTS_OPENED_BY_DEFAULT']
     end
+
     # -------------------- #
     # SHIBBOLETH SETTINGS  #
     # -------------------- #
@@ -257,6 +258,7 @@ module DMPRoadmap
 
       config.x.madmp.preferred_licenses_guidance_url = 'https://creativecommons.org/about/cclicenses/'
     end
+    
   end
 
 end
