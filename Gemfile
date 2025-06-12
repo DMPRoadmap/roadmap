@@ -205,9 +205,6 @@ gem 'parallel'
 # Makes http fun again! Wrapper to simplify the native Net::HTTP libraries
 gem 'httparty'
 
-# Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
-gem 'dotenv-rails'
-
 gem 'activerecord_json_validator'
 
 # We need to freeze the mail gem version as the recently released 2.8.0 triggers an exception
