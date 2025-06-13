@@ -43,10 +43,10 @@ module DMPRoadmap
     # ENVIRONMENT CONFIGURATION   #
     # ---------------------------- #
     begin
-      config.cache_classes = ENV["CACHE_CLASSES"] == "true"
-      config.eager_load = ENV["EAGER_LOAD"] == "true"
-      config.consider_all_requests_local = ENV["CONSIDER_ALL_REQUESTS_LOCAL"] == "true"
-      config.action_controller.perform_caching = ENV["PERFORM_CACHING"] == "true"
+      config.cache_classes = ENV["CACHE_CLASSES"]
+      config.eager_load = ENV["EAGER_LOAD"]
+      config.consider_all_requests_local = ENV["CONSIDER_ALL_REQUESTS_LOCAL"]
+      config.action_controller.perform_caching = ENV["PERFORM_CACHING"]
 
       config.cache_store = ENV["CACHE_STORE"].to_sym
       config.active_storage.service = ENV["ACTIVE_STORAGE_SERVICE"].to_sym
@@ -146,14 +146,14 @@ module DMPRoadmap
       config.x.application.preferences = {
         email: {
           users: {
-            new_comment: ENV['APPLICATION_PREFERENCES_NEW_COMMENT'],
-            admin_privileges: ENV['APPLICATION_PREFERENCES_ADMIN_PRIVILEGES'],
-            added_as_coowner: ENV['APPLICATION_PREFERENCES_ADDED_AS_COOWNER'],
-            feedback_requested: ENV['APPLICATION_PREFERENCES_FEEDBACK_REQUESTED'],
-            feedback_provided: ENV['APPLICATION_PREFERENCES_FEEDBACK_PROVIDED']
+            new_comment: ENV['APPLICATION_PREFERENCES_EMAIL_USERS_NEW_COMMENT'],
+            admin_privileges: ENV['APPLICATION_PREFERENCES_EMAIL_USERS_ADMIN_PRIVILEGES'],
+            added_as_coowner: ENV['APPLICATION_PREFERENCES_EMAIL_USERS_ADDED_AS_COOWNER'],
+            feedback_requested: ENV['APPLICATION_PREFERENCES_EMAIL_USERS_FEEDBACK_REQUESTED'],
+            feedback_provided: ENV['APPLICATION_PREFERENCES_EMAIL_USERS_FEEDBACK_PROVIDED']
           },
           owners_and_coowners: {
-            visibility_changed: ENV['APPLICATION_PREFERENCES_VISIBILITY_CHANGED']
+            visibility_changed: ENV['APPLICATION_PREFERENCES_OWNERS_AND_COOWNERS_VISIBILITY_CHANGED']
           }
         }
       }
