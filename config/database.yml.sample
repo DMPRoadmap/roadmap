@@ -1,15 +1,24 @@
-defaults: &defaults
-  adapter: <%= ENV.fetch('DB_ADAPTER', 'postgresql') %>
-  encoding: <%= ENV.fetch('DB_ADAPTER', 'postgresql') == 'mysql2' ? 'utf8mb4' : '' %>
-  pool: <%= ENV.fetch('DB_POOL_SIZE', 16) %>
-  host: <%= ENV.fetch('DB_HOST', 'localhost') %>
-  port: <%= ENV.fetch('DB_PORT', '5432') %>
-  database: <%= ENV.fetch('DB_NAME', 'roadmap') %>
-  username: <%= Rails.application.credentials.dig(:database, :username) %>
-  password: <%= Rails.application.credentials.dig(:database, :password) %>
-
+production:
+  adapter: postgresql
+  encoding: utf8
+  host: db
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  pool: <%= ENV['DB_POOL'] %>
+staging:
+  adapter: postgresql
+  encoding: utf8
+  host: db
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  pool: <%= ENV['DB_POOL'] %>
 development:
-  <<: *defaults
-
-test:
-  <<: *defaults
+  adapter: postgresql
+  encoding: utf8
+  host: db
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  pool: <%= ENV['DB_POOL'] %>
