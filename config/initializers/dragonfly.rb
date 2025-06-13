@@ -7,7 +7,7 @@ Dragonfly.app.configure do
   plugin :imagemagick
 
   # set in credentials file
-  secret Rails.application.credentials.dragonfly_secret
+  secret ENV["DRAGONFLY_SECRET"]
 
   url_format '/media/:job/:name'
 
@@ -16,12 +16,10 @@ Dragonfly.app.configure do
   if ENV['DRAGONFLY_AWS'] == 'true'
     require 'dragonfly/s3_data_store'
     datastore(:s3, {
-                bucket_name: ENV.fetch('AWS_BUCKET_NAME', nil),
-                access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID',
-                                         Rails.application.credentials.aws.access_key_id),
-                secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY',
-                                             Rails.application.credentials.aws.secret_access_key),
-                region: ENV.fetch('AWS_REGION', nil),
+                bucket_name: ENV['AWS_BUCKET_NAME'].presence,
+                access_key_id: ENV['AWS_ACCESS_KEY_ID'].presence,
+                secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'].presence,
+                region: ENV['AWS_REGION'].presence,
                 root_path: Rails.env,
                 url_scheme: 'https'
               })
