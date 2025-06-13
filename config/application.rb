@@ -136,7 +136,7 @@ module DMPRoadmap
         v1: ENV['APPLICATION_API_DOCUMENTATION_URLS_V1']
       }
 
-      config.x.application.welcome_links = (1..5).map do |i|
+      config.x.application.welcome_links = (1..3).map do |i|
         {
           title: ENV["APPLICATION_WELCOME_LINK_TITLE_#{i}"],
           url: ENV["APPLICATION_WELCOME_LINK_URL_#{i}"]
