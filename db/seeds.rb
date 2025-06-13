@@ -33,7 +33,7 @@ identifier_schemes = [
     description: 'Your institutional credentials',
     active: true,
     context: 11
-  }
+  },
 ]
 identifier_schemes.each { |is| IdentifierScheme.find_or_create_by(is) }
 
@@ -92,54 +92,18 @@ languages = [
    description: '',
    name: 'English (GB)',
    default_language: true},
-  {abbreviation: 'en-US',
-   description: '',
-   name: 'English (US)',
-   default_language: false},
-  {abbreviation: 'fr-FR',
-   description: '',
-   name: 'Français (FR)',
-   default_language: false},
-   {abbreviation: 'fr-CA',
+  {abbreviation: 'fr-CA',
     description: '',
     name: 'Français (CA)',
     default_language: false},
   {abbreviation: 'de',
    description: '',
    name: 'Deutsch',
-   default_language: false},
-  {abbreviation: 'es',
-   description: '',
-   name: 'Español',
-   default_language: false},
-  {abbreviation: 'pt-BR',
-   description: '',
-   name: 'Português (Brasil)',
-   default_language: false},
-  {abbreviation: 'tr-TR',
-   description: '',
-   name: 'Türk',
    default_language: false}
 ]
 languages.each { |l| Language.find_or_create_by(l) }
 default_language = Language.find_by(abbreviation: default_locale)
 
-# # Scan through the locale files and add an entry if a file is present but
-# # not defined in this seed file
-# Dir.entries("#{Rails.root.join("config", "locales").to_s}").each do |f|
-#   if f[-4..-1] == '.yml'
-#     lang = f.gsub('.yml', '')
-#
-#     if Language.where(abbreviation: lang).empty?
-#       Language.create!({
-#         abbreviation: lang,
-#         description: lang,
-#         name: lang,
-#         default_language: false
-#       })
-#     end
-#   end
-# end
 
 # Regions (create the super regions first and then create the rest)
 # -------------------------------------------------------
@@ -157,14 +121,8 @@ regions = [
       name: 'DE'},
      {abbreviation: 'fr',
       description: 'France',
-      name: 'FR'},
-     {abbreviation: 'es',
-      description: 'Spain',
-      name: 'ES'}
-  ]},
-  {abbreviation: 'us',
-   description: 'United States of America',
-   name: 'US'}
+      name: 'FR'}
+  ]}
 ]
 
 # Create the region. If it has subregions create them and then connect them
@@ -252,6 +210,16 @@ orgs = [
    abbreviation: 'UOS',
    org_type: 1, links: {"org":[]},
    language: default_language, region: region,
+   is_other: false, managed: true},
+   {name: 'Organisation 1',
+   abbreviation: 'Org1',
+   org_type: 1, links: {"org":[]},
+   language: default_language, region: region,
+   is_other: false, managed: true},
+   {name: 'Organisation 2',
+   abbreviation: 'Org2',
+   org_type: 1, links: {"org":[]},
+   language: default_language, region: region,
    is_other: false, managed: true}
 ]
 orgs.each { |o| Org.create!(o) unless Org.find_by(name: o[:name]).present? }
@@ -271,17 +239,6 @@ users = [
    accept_terms: true,
    api_token: 'abcd1234',
    confirmed_at: Time.zone.now},
-  {email: "funder_admin@example.com",
-   firstname: "Funder",
-   surname: "Admin",
-   password: "password123",
-   password_confirmation: "password123",
-   org: Org.find_by(abbreviation: 'GA'),
-   language: default_language,
-   perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
-   accept_terms: true,
-   api_token: 'efgh5678',
-   confirmed_at: Time.zone.now},
   {email: "org_admin@example.com",
    firstname: "Organisational",
    surname: "Admin",
@@ -293,7 +250,7 @@ users = [
    accept_terms: true,
    api_token: 'ijkl9012',
    confirmed_at: Time.zone.now},
-  {email: "org_user@example.com",
+  {email: "user@example.com",
    firstname: "Organisational",
    surname: "User",
    password: "password123",
@@ -832,3 +789,86 @@ annotations = [
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
 annotations.each{ |s| Annotation.find_or_create_by(s) if Annotation.find_by(text: s[:text]).nil? }
+
+
+puts "Seeding the database with example Repository..."
+
+repos_data = [
+  {
+    uri: "r3d100014525", # Ensure you have a unique identifier for find_or_create_by
+    name: "DIGITUM",
+    description: "Digitum is the Institutional Repository of the University of Murcia.\nIts objective is to allow free access to the scientific and academic production of the University of Murcia in order to increase the visibility of its contents and guarantee the preservation of these digital archives.",
+    homepage: "https://digitum.um.es/digitum/",
+    contact: "digitum@um.eshttps://digitum.um.es/digitum/feedback",
+    info: {
+      "types" => ["institutional"],
+      "subjects" => [],
+      "provider_types" => ["dataProvider"],
+      "keywords" => ["multidisciplinary"],
+      "pid_system" => "hdl",
+      "policies" => [{"name" => "Política Institucional UM Acceso Abierto", "url" => "https://digitum.um.es/digitum/docs/acceso-abierto.pdf"}],
+      "upload_types" => [{"type" => "restricted", "restriction" => "institutional membership"}]
+    }
+  },
+  {
+    uri: "r3d100099999", # Fictional unique URI
+    name: "Starlight Data Archive",
+    description: "The Starlight Data Archive is a specialized repository for astronomical observation data, focusing on long-term preservation and open access to stellar photometry and spectroscopy. It supports researchers worldwide in the study of stellar evolution and galactic structure.",
+    homepage: "https://starlightdata.org/archive",
+    contact: "support@starlightdata.org",
+    info: {
+      "types" => ["disciplinary"],
+      "subjects" => ["Astronomy", "Astrophysics", "Physics"],
+      "provider_types" => ["dataProvider", "archive"],
+      "keywords" => [
+        "astronomy",
+        "stellar data",
+        "photometry",
+        "spectroscopy",
+        "open science",
+        "long-term preservation",
+        "celestial objects"
+      ],
+      "access" => "open",
+      "pid_system" => "DOI",
+      "policies" => [
+        {"name" => "Starlight Data Access Policy", "url" => "https://starlightdata.org/policies/access"},
+        {"name" => "Data Submission Guidelines", "url" => "https://starlightdata.org/policies/submission"}
+      ],
+      "upload_types" => [
+        {"type" => "open", "restriction" => "registration required"},
+        {"type" => "mediated", "restriction" => "approval by curation team"}
+      ],
+      "data_licenses" => ["CC BY 4.0", "CC0"],
+      "software" => ["Custom Platform", "DSpace"]
+    }
+  }
+  # Add more repository hashes to this array if needed
+]
+
+repos_data.each do |repo_attrs|
+  Repository.find_or_create_by(uri: repo_attrs[:uri]) do |repo| # Using :uri as the lookup key
+    repo.assign_attributes(repo_attrs.except(:uri)) # Assign all other attributes
+    puts "Created or found '#{repo.name}'."
+  end
+end
+
+
+# lib/tasks/db.rake
+puts "Loading data from external APIs..."
+namespace :db do 
+  namespace :utils do
+    namespace :external_api do
+      puts "Loading SPDX licenses..."
+      Rake::Task['external_api:load_spdx_licenses'].invoke
+
+      puts "Loading Fields of R&D classification..."
+      Rake::Task['external_api:add_field_of_science_to_research_domains'].invoke
+
+      puts "Loading RDAMSC metadata standards..."
+      Rake::Task['external_api:load_rdamsc_standards'].invoke
+
+    end
+    puts "External API data loading completed."
+  end
+end
