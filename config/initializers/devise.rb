@@ -3,7 +3,7 @@
 # rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
   # general configurations
-  config.secret_key = Rails.application.credentials.secret_key
+  config.secret_key = ENV["DEVISE_SECRET_KEY"]
   config.mailer_sender = 'do-not-reply@dcc.ac.uk'
   require 'devise/orm/active_record'
 
@@ -17,7 +17,7 @@ Devise.setup do |config|
 
   # password settings
   config.stretches = Rails.env.test? ? 1 : 10
-  config.pepper = Rails.application.credentials.devise_pepper
+  config.pepper = ENV["DEVISE_PASSWORD_PEPPER"]
   config.password_length = 8..128
 
   # email reconfirmation
