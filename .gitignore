@@ -11,6 +11,9 @@ docker-compose.yml
 # Ignore custom gem file
 Gemfile.custom
 
+# Ignore custom routes file
+config/routes_custom.rb
+
 # Ignore all logfiles, tempfiles, public assets,
 /log/*.log
 /logs/*
