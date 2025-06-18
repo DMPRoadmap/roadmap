@@ -60,6 +60,11 @@ gem 'activerecord-session_store'
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem 'dotenv-rails'
 
+# =========== #
+# LOAD CUSTOM GEMS #
+# =========== #
+eval_gemfile 'Gemfile.custom' if File.exist?('Gemfile.custom')
+
 # ============== #
 # ERROR HANDLING #
 # ============== #
