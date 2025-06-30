@@ -1,6 +1,10 @@
 # Ignore rbenv files
 .ruby-version
 
+# Ignore docker files
+Dockerfile
+docker-compose.yml
+
 # Ignore bundler config
 /.bundle
 
