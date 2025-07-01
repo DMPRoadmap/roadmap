@@ -52,7 +52,7 @@ module Api
 
     # Using Strong Parameters ensure only domain is permitted
     def search_params
-      params.permit(:domain)
+      params.permit(:domain, :format)
     end
   end
 end
