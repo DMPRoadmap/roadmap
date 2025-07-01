@@ -70,13 +70,13 @@ class PlansController < ApplicationController
     
     # create templates-grouped hash
     @templates_grouped = {
-      _("Funder Templates") => @funder_templates.map { 
+      _("Your Organisation's Templates") => @user_org_templates.map {
         |t| [t.title, t.id]
       },
       _("Global Templates") => @global_templates.map {
         |t| [t.title, t.id]
       },
-      _("Your Organisation's Templates") => @user_org_templates.map {
+      _("Funder Templates") => @funder_templates.map { 
         |t| [t.title, t.id]
       }
     }
