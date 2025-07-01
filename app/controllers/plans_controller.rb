@@ -53,30 +53,30 @@ class PlansController < ApplicationController
     # @is_test = params[:test] ||= false
 
     # get funder templates
-    @funder_templates = Template.published
+    funder_templates = Template.published
                                 .joins(:org)
                                 .merge(Org.funder)
                                 .distinct
 
     # get global templates
-    @global_templates = Template.published
+    global_templates = Template.published
                                 .where(is_default: true)
                                 .distinct
 
     # get templates of user's org
-    @user_org_templates = Template.published
+    user_org_templates = Template.published
                                   .where(org: current_user.org)
                                   .distinct
     
     # create templates-grouped hash
     @templates_grouped = {
-      _("Your Organisation's Templates") => @user_org_templates.map {
+      _("Your Organisation's Templates") => user_org_templates.map {
         |t| [t.title, t.id]
       },
-      _("Global Templates") => @global_templates.map {
+      _("Global Templates") => global_templates.map {
         |t| [t.title, t.id]
       },
-      _("Funder Templates") => @funder_templates.map { 
+      _("Funder Templates") => funder_templates.map { 
         |t| [t.title, t.id]
       }
     }
