@@ -35,22 +35,52 @@ class PlansController < ApplicationController
     authorize @plan
 
     # Get all of the available funders and non-funder orgs
-    @funders = Org.funder
-                  .includes(identifiers: :identifier_scheme)
-                  .joins(:templates)
-                  .where(templates: { published: true }).uniq.sort_by(&:name)
-    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
-             Org.includes(identifiers: :identifier_scheme).institution +
-             Org.includes(identifiers: :identifier_scheme).default_orgs)
-    @orgs = @orgs.flatten.uniq.sort_by(&:name)
+    # @funders = Org.funder
+    #               .includes(identifiers: :identifier_scheme)
+    #               .joins(:templates)
+    #               .where(templates: { published: true }).uniq.sort_by(&:name)
+    # @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
+    #          Org.includes(identifiers: :identifier_scheme).institution +
+    #          Org.includes(identifiers: :identifier_scheme).default_orgs)
+    # @orgs = @orgs.flatten.uniq.sort_by(&:name)
 
     @plan.org_id = current_user.org&.id
 
     # TODO: is this still used? We cannot switch this to use the :plan_params
     #       strong params because any calls that do not include `plan` in the
     #       query string will fail
-    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params.key?(:test)
-    @is_test = params[:test] ||= false
+    # flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params.key?(:test)
+    # @is_test = params[:test] ||= false
+
+    # get funder templates
+    @funder_templates = Template.published
+                                .joins(:org)
+                                .merge(Org.funder)
+                                .distinct
+
+    # get global templates
+    @global_templates = Template.published
+                                .where(is_default: true)
+                                .distinct
+
+    # get templates of user's org
+    @user_org_templates = Template.published
+                                  .where(org: current_user.org)
+                                  .distinct
+    
+    # create templates-grouped hash
+    @templates_grouped = {
+      _("Funder Templates") => @funder_templates.map { 
+        |t| [t.title, t.id]
+      },
+      _("Global Templates") => @global_templates.map {
+        |t| [t.title, t.id]
+      },
+      _("Your Organisation's Templates") => @user_org_templates.map {
+        |t| [t.title, t.id]
+      }
+    }
+
     respond_to :html
   end
   # rubocop:enable Metrics/AbcSize
