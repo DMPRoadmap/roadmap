@@ -10,6 +10,7 @@ docker-compose.yml
 
 # Ignore all logfiles, tempfiles, public assets,
 /log/*.log
+/logs/
 /tmp
 
 # Ignore public subdirectories
@@ -21,6 +22,7 @@ public/javascripts/*
 public/stylesheets/*
 public/system/*
 public/videos/*
+public/tinymce/*
 
 # Ignore PO/POT backups
 *.po.bak
