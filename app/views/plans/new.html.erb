@@ -20,7 +20,9 @@
   <div class="col-md-12">
     <%= form_for Plan.new, url: plans_path do |f| %>
       <!-- Plan name section -->
-      <h2 id="project-title"><span class="red" title="<%= required_project_title_tooltip %>">*<em class="sr-only"><%= required_project_title_tooltip %></em> </span><%= _('Enter project title') %></h2>
+      <h2 id="project-title">
+        <span class="red" title="<%= required_project_title_tooltip %>">*<em class="sr-only"><%= required_project_title_tooltip %></em> </span><%= _('Enter project title') %>
+      </h2>
       <div class="row">
         <div class="form-control mb-3 col-md-8">
           <%= f.text_field(:title, class: 'form-control', 'aria-labelledby': 'project-title', 'aria-required': 'true', 'aria-label': 'project-title',
@@ -39,7 +41,18 @@
         </div>
       </div>
 
-      <div>ds_stub</div>
+      <!-- Template selection -->
+      <h2>
+        <span class="red">*<em class="sr-only"></em> </span><%= _('Select a DMP template') %>
+      </h2>
+      <div class="row">
+        <div class="form-control mb-3 col-md-8">
+          <%= f.text_field(:title, class: 'form-control', 'aria-labelledby': 'template-selection', 'aria-required': 'true', 'aria-label': 'template-selection',
+                'data-toggle': 'tooltip',
+                'data-placement': 'bottom',
+                spellcheck: true) %>
+        </div>
+      </div>
 
       <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.configuration.x.plans.default_visibility) %>
       <%= f.button(_('Create'), class: "btn btn-primary", type: "submit") %>
