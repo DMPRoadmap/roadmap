@@ -203,6 +203,8 @@ Rails.application.routes.draw do
       resources :plans, only: %i[create show index]
       resources :templates, only: [:index]
     end
+
+    get 'get-orgs-by-domain', to: 'orgs_by_domain#index'
   end
 
   namespace :paginable do
