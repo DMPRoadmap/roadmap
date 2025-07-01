@@ -62,7 +62,7 @@ class PlansController < ApplicationController
       _("Funder Templates:") => funder_templates.map { 
         |t| [t.title, t.id]
       }
-    }
+    }.reject { |_, val| val.empty? }
 
     respond_to :html
   end
