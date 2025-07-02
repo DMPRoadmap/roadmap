@@ -1,9 +1,5 @@
 @use '../variables/colours' as *;
 
-.form-control {
-    border: 0px;
-}
-
 .form-control input, .form-control textarea, .form-control select{
     border: 2px solid $color-border-light;
 }
