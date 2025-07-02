@@ -1,16 +1,22 @@
-<div class="row">
+<style >
+  .roadmap-form {
+    border: 10px solid red;
+  }
+</style>
+
+    <form action="<%= plans_path %>" method="post" class="roadmap-form">
+<div class="row form-row">
   <div class="col-md-12">
     <h1><%= _('Create a new plan') %></h1>
 
-    <p class="start-indent">
+    <p>
       <%= _("Before you get started, we need some information about your research project to set you up with the best DMP template for your needs.") %>
     </p>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-12">
-    <form action="<%= plans_path %>" method="post">
+<div class="row form-row">
+  <div class="col-6">
       <!-- Rails form authenticity token -->
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
@@ -42,7 +48,8 @@
           </div>
         </div>
       </div>
-
+            </div>
+<div class="col-6">
       <!-- Template selection -->
       <div>
         <label for="template_id" id="dmp-template" class="form-label">
@@ -72,6 +79,7 @@
         <%= _('Create') %>
       </button>
       <%= link_to _('Cancel'), plans_path, class: 'btn btn-secondary' %>
-    </form>
   </div>
 </div>
+
+    </form>
