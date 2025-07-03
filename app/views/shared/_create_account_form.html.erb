@@ -1,31 +1,31 @@
 <%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
-   <div class="form-control mb-3">
+   <div class="mb-3">
     <%= f.label(:email, _('Email'), class: "form-label") %>
     <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-control mb-3">
+  <div class="mb-3">
     <%= f.label(:firstname, _('First Name'), class: "form-label") %>
     <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-control mb-3">
+  <div class="mb-3">
     <%= f.label(:surname, _('Last Name'), class: "form-label") %>
     <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-control mb-3" id="create-account-org-controls">
+  <div class="mb-3" id="create-account-org-controls">
     <%= f.label(:org_name, _('Organisation'), class: "form-label") %>
     <%= f.select(:org_id, [], { prompt: _('Select an organisation') }, { class: "form-control" }) %>
   </div>
-  <div class="form-control mb-3">
+  <div class="mb-3">
     <%= f.label(:password, _('Password'), class: "form-label") %>
     <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-control mb-3">
+  <div class="mb-3">
     <div class="form-check">
         <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" />
         <%= label_tag('passwords_toggle_sign_up', _('Show password'), class: 'form-check-label') %>
     </div>
   </div>
-  <div class="form-control mb-3">
+  <div class="mb-3">
     <div class="form-check">
       <%= f.label(:accept_terms) do %>
         <%= f.check_box(:accept_terms, "aria-required": true) %>
@@ -35,7 +35,7 @@
     </div>
   </div>
   <% if Rails.configuration.x.recaptcha.enabled %>
-    <div class="form-control mb-3">
+    <div class="mb-3">
       <%= label_tag(nil, _('Security check'), class: "form-label") %>
       <%= recaptcha_tags %>
     </div>
