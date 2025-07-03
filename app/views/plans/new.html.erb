@@ -1,67 +1,57 @@
-<style >
-  .roadmap-form {
-    border: 10px solid red;
-  }
-</style>
-
-    <form action="<%= plans_path %>" method="post" class="roadmap-form">
-<div class="row form-row">
-  <div class="col-md-12">
-    <h1><%= _('Create a new plan') %></h1>
-
-    <p>
-      <%= _("Before you get started, we need some information about your research project to set you up with the best DMP template for your needs.") %>
-    </p>
+<form action="<%= plans_path %>" method="post" class="roadmap-form">
+  <div class="row form-row">
+    <div class="col-md-12">
+      <h1><%= _('Create a new plan') %></h1>
+      <p>
+        <%= _("Before you get started, we need some information about your research project to set you up with the best DMP template for your needs.") %>
+      </p>
+    </div>
   </div>
-</div>
 
-<div class="row form-row">
-  <div class="col-6">
+  <div class="row form-row">
+    <div class="col-6">
       <!-- Rails form authenticity token -->
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-
-      <!-- Plan name section -->
-      <div>
-        <label for="plan_title" id="project-title" class="form-label">
-          <%= _('Enter project title') %>
+      <label for="plan_title" id="project-title" class="form-label">
+        <%= _('Enter project title') %>
+      </label>
+      <input type="text"
+            id="plan_title"
+            name="plan[title]"
+            class="form-control"
+            required
+            aria-labelledby="project-title"
+            aria-required="true"
+            aria-label="project-title"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            spellcheck="true">
+    </div>
+  <div class="row form-row">
+    <div class="col-12">
+      <div class="form-check">
+        <input type="checkbox"
+               class="form-check-input"
+               id="is_test"
+               value="1">
+        <label class="form-check-label" for="is_test">
+          <%= _('Mock project for testing, practice, or educational purposes') %>
         </label>
-        <input type="text"
-              id="plan_title"
-              name="plan[title]"
-              class="form-control"
-              aria-labelledby="project-title"
+      </div>
+    </div>
+  </div>
+  <div class="row form-row">
+    <div class="col-12">
+      <label for="template_id" id="dmp-template" class="form-label">
+        <%= _('Select a DMP template') %>
+      </label>
+      <select id="template_id"
+              name="plan[template_id]"
+              class="form-select"
+              aria-labelledby="template-selection"
               aria-required="true"
-              aria-label="project-title"
               data-toggle="tooltip"
-              data-placement="bottom"
-              spellcheck="true">
-      </div>
-      <!-- Is-test checkbox -->
-      <div>
-        <div class="form-check">
-          <input type="checkbox"
-                 class="form-check-input"
-                 id="is_test"
-                 value="1">
-          <label class="form-check-label" for="is_test">
-            <%= _('Mock project for testing, practice, or educational purposes') %>
-          </div>
-        </div>
-      </div>
-            </div>
-<div class="col-6">
-      <!-- Template selection -->
-      <div>
-        <label for="template_id" id="dmp-template" class="form-label">
-          <%= _('Select a DMP template') %>
-        </label>
-        <select id="template_id"
-                name="plan[template_id]"
-                class="form-select"
-                aria-labelledby="template-selection"
-                aria-required="true"
-                data-toggle="tooltip"
-                data-placement="bottom">
+              data-placement="bottom">
         <option value=""><%= _('--Select--') %></option>
         <% @templates_grouped.each do |group_label, group_templates| %>
           <optgroup label="<%= group_label %>">
@@ -72,14 +62,16 @@
             <% end %>
           </optgroup>
         <% end %>
-      </div>
-
-      <!-- Submit and Cancel buttons -->
-      <button type="submit" class="btn btn-primary">
-        <%= _('Create') %>
-      </button>
-      <%= link_to _('Cancel'), plans_path, class: 'btn btn-secondary' %>
+      </select>
+    </div>
   </div>
-</div>
+  <div class="row form-row">
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">
+          <%= _('Create') %>
+        </button>
+        <%= link_to _('Cancel'), plans_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
 
-    </form>
+</form>

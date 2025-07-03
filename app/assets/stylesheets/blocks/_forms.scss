@@ -16,16 +16,19 @@
 //     padding-left: 5px;
 // }
 
-// .roadmap-form {
-//   .form-group {
-//     margin-bottom: 1.5rem;
-//   }
 
-//   .form-check {
-//     margin-top: 0.5rem;
-//   }
-// }
 
 .roadmap-form {
-  border: 2px solid blue;
+  padding: 1rem;
 }
+
+.roadmap-form label {
+}
+.form-row {
+  margin-bottom: 1.5rem;
+}
+
+// label:has(+ input:required):after {
+//   content: ' (*)';
+//   color: red;
+// }
