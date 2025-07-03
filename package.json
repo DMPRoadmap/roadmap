@@ -1,13 +1,15 @@
 {
   "name": "DMPRoadmap",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "DMPRoadmap javascript dependencies",
   "main": "null",
   "scripts": {
     "lint": "yarn run eslint --ext .js app/javascript/**/*.js",
     "test": "karma start spec/karma/unit.js",
     "build": "webpack --config ./config/webpack/webpack.config.js",
-    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:js:watch": "webpack ---config ./config/webpack/webpack.config.js -watch",
+    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "build:css:watch": "sass --watch --poll ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "babel": {
     "presets": [
