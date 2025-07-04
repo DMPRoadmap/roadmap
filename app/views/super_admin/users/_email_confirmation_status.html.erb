@@ -1,0 +1,12 @@
+<div class="form-group col-xs-12">
+    <%= f.label(:confirmed_at, _('Email status: '), class: 'control-label') %>
+    <%= @user.confirmed? ? _("Confirmed.") : _("Unconfirmed.") %>
+    <br>
+    <% is_checkbox_disabled = @user.can_super_admin? && @user.confirmed_at.present? %>
+    <%= f.check_box(:confirmed_at, { checked: @user.confirmed?,
+                                     disabled: is_checkbox_disabled,             
+                                     style: 'vertical-align: middle;
+                                             margin-top: -2px;' }) %>
+    <% checkbox_helper_text = @user.confirmed? ? _('(Uncheck to unconfirm email)') : _('(Check to confirm email)') %>
+    <%= content_tag(:small, checkbox_helper_text) unless is_checkbox_disabled %>
+</div>

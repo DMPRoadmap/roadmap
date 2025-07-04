@@ -38,6 +38,7 @@ module SuperAdmin
 
       # Remove the extraneous Org Selector hidden fields
       attrs = remove_org_selection_params(params_in: attrs)
+      attrs = handle_confirmed_at_param(attrs)
 
       if @user.update(attrs)
         # If its a new Org create it
@@ -125,7 +126,8 @@ module SuperAdmin
                                    :org_id, :org_name, :org_crosswalk,
                                    :department_id,
                                    :language_id,
-                                   :other_organisation)
+                                   :other_organisation,
+                                   :confirmed_at)
     end
 
     def merge_accounts
@@ -135,6 +137,26 @@ module SuperAdmin
       else
         flash.now[:alert] = failure_message(@user, _('merge'))
       end
+    end
+
+    def handle_confirmed_at_param(attrs)
+      # NOTE: The :confirmed_at param is controlled by a check_box in the form
+      # `app/views/super_admin/users/_email_confirmation_status.html.erb`.
+      # When the checkbox is checked, Rails submits the string '1' (indicating "confirmed").
+      # When unchecked, it submits the string '0' (indicating "unconfirmed").
+
+      # if an unconfirmed email is now being confirmed
+      if !@user.confirmed? && attrs[:confirmed_at] == '1'
+        attrs[:confirmed_at] = Time.current
+      # elsif a confirmed email is now being unconfirmed and the user is not a super admin
+      elsif @user.confirmed? && attrs[:confirmed_at] == '0' && !@user.can_super_admin?
+        attrs[:confirmed_at] = nil
+      else
+        # else delete the param
+        # (keeps value nil for unconfirmed user and maintains previous Time value for confirmed user)
+        attrs.delete(:confirmed_at)
+      end
+      attrs
     end
   end
 end
