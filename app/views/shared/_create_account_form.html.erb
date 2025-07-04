@@ -1,43 +1,62 @@
 <%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
-   <div class="mb-3">
-    <%= f.label(:email, _('Email'), class: "form-label") %>
-    <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
-  </div>
-  <div class="mb-3">
-    <%= f.label(:firstname, _('First Name'), class: "form-label") %>
-    <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
-  </div>
-  <div class="mb-3">
-    <%= f.label(:surname, _('Last Name'), class: "form-label") %>
-    <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
-  </div>
-  <div class="mb-3" id="create-account-org-controls">
-    <%= f.label(:org_name, _('Organisation'), class: "form-label") %>
-    <%= f.select(:org_id, [], { prompt: _('Select an organisation') }, { class: "form-control" }) %>
-  </div>
-  <div class="mb-3">
-    <%= f.label(:password, _('Password'), class: "form-label") %>
-    <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
-  </div>
-  <div class="mb-3">
-    <div class="form-check">
-        <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" />
-        <%= label_tag('passwords_toggle_sign_up', _('Show password'), class: 'form-check-label') %>
+  <div class="form rm-form-row">
+    <div class="col-12">
+      <%= f.label(:email, _('Email'), class: "form-label") %>
+      <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
     </div>
   </div>
-  <div class="mb-3">
-    <div class="form-check">
-      <%= f.label(:accept_terms) do %>
-        <%= f.check_box(:accept_terms, "aria-required": true) %>
-        <%= _('I accept the') %>
-        <%= link_to _('terms and conditions'), terms_path %>
+
+  <div class="form rm-form-row">
+    <div class="col-12">
+      <%= f.label(:firstname, _('First Name'), class: "form-label") %>
+      <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
+    </div>
+  </div>
+
+  <div class="form rm-form-row">
+    <div class="col-12">
+      <%= f.label(:surname, _('Last Name'), class: "form-label") %>
+      <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
+    </div>
+  </div>
+
+  <div class="form rm-form-row">
+    <div class="col-12" id="create-account-org-controls">
+      <%= f.label(:org_name, _('Organisation'), class: "form-label") %>
+      <%= f.select(:org_id, [], { prompt: _('Select an organisation') }, { class: "form-control" }) %>
+    </div>
+  </div>
+
+  <div class="form rm-form-row">
+    <div class="col-12">
+      <%= f.label(:password, _('Password'), class: "form-label") %>
+      <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
+    </div>
+  </div>
+
+  <div class="form rm-form-row">
+    <div class="col-12 form-check">
+      <input class="form-check-input passwords_toggle" type="checkbox" id="passwords_toggle_sign_up" />
+      <%= label_tag('passwords_toggle_sign_up', _('Show password'), class: 'form-check-label') %>
+    </div>
+  </div>
+
+  <div class="form rm-form-row">
+    <div class="col-12 form-check">
+      <%= f.label(:accept_terms, class: 'form-check-label') do %>
+      <%= f.check_box(:accept_terms, "aria-required": true, class: "form-check-input") %>
+      <%= _('I accept the') %>
+      <%= link_to _('terms and conditions'), terms_path %>
       <% end %>
     </div>
   </div>
+
   <% if Rails.configuration.x.recaptcha.enabled %>
-    <div class="mb-3">
-      <%= label_tag(nil, _('Security check'), class: "form-label") %>
-      <%= recaptcha_tags %>
+    <div class="form rm-form-row">
+      <div class="col-12 form-check">
+        <%= label_tag(nil, _('Security check'), class: "form-label") %>
+        <%= recaptcha_tags %>
+      </div>
     </div>
   <% end %>
   <%= f.button(_('Create account'), class: "btn btn-secondary", type: "submit") %>
@@ -46,37 +65,37 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const createAccountForm = document.getElementById('create_account_form');
-  
+
   if (!createAccountForm) {
     return;
   }
-  
+
   const emailField = createAccountForm.querySelector('input[type="email"]');
   const orgSelect = createAccountForm.querySelector('select[name*="org"]');
-  
+
   if (!emailField || !orgSelect) {
     return;
   }
-  
+
   let currentDomain = '';
   let debounceTimer = null;
-  
+
   // Handle email input changes
   emailField.addEventListener('input', function() {
     const email = this.value;
-    
+
     if (email && email.includes('@')) {
       const domain = email.split('@')[1];
-      
+
       // Only fetch if domain has changed
       if (domain && domain !== currentDomain) {
         currentDomain = domain;
-        
+
         // Clear previous timer
         if (debounceTimer) {
           clearTimeout(debounceTimer);
         }
-        
+
         // Debounce API calls to avoid too many requests
         debounceTimer = setTimeout(() => {
           fetchOrganizations(domain);
@@ -88,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
       resetOrgSelect();
     }
   });
-  
+
   function fetchOrganizations(domain) {
     fetch(`/api/get-orgs-by-domain?domain=${encodeURIComponent(domain)}`)
       .then(response => response.json())
@@ -100,17 +119,17 @@ document.addEventListener('DOMContentLoaded', function() {
         resetOrgSelect();
       });
   }
-  
+
   function populateOrgSelect(orgs) {
     // Clear existing options
     orgSelect.innerHTML = '';
-    
+
     // Add prompt option
     const promptOption = document.createElement('option');
     promptOption.value = '';
     promptOption.textContent = 'Select an organisation';
     orgSelect.appendChild(promptOption);
-    
+
     // Add organization options
     orgs.forEach(function(org) {
       const option = document.createElement('option');
@@ -119,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
       orgSelect.appendChild(option);
     });
   }
-  
+
   function resetOrgSelect() {
     orgSelect.innerHTML = '<option value="">Select an organisation</option>';
   }
