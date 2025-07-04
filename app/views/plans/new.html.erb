@@ -56,8 +56,8 @@
         <% @templates_grouped.each do |group_label, group_templates| %>
           <optgroup label="<%= group_label %>">
             <% group_templates.each do |template_title, template_id| %>
-              <option value="<%= template_title %>">
-                <%= template_id %>
+              <option value="<%= template_id %>">
+                <%= template_title %>
               </option>
             <% end %>
           </optgroup>
