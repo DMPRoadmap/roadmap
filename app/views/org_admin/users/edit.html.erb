@@ -32,7 +32,7 @@
         <%= select_tag(:department_id,
             options_from_collection_for_select(@departments, "id", "name", dept_id),
             include_blank: true,
-            class: "form-control",
+            class: "form-select",
             name: 'user[department_id]') %>
       </div>
       <% end %>
@@ -44,7 +44,7 @@
           <%= select_tag(:org_admin_user_language_id,
               options_from_collection_for_select(Language.sorted_by_abbreviation, "id", "name", lang_id),
               disabled: true,
-              class: "form-control", name: 'org_admin_user[language_id]') %>
+              class: "form-select", name: 'org_admin_user[language_id]') %>
         </div>
       <% end %>
 
