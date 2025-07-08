@@ -24,6 +24,7 @@
 # Try to place any new Cops under their relevant section and in alphabetical order
 
 AllCops:
+  TargetRubyVersion: 3.3
   # Show the name of the cops being voilated in the feedback
   DisplayCopNames: true
   DisplayStyleGuide: true
