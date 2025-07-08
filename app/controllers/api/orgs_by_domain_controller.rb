@@ -5,7 +5,8 @@ module Api
   class OrgsByDomainController < ApplicationController
     # GET /api/get-orgs-by-domain?domain=berkeley.edu
     def index
-      domain_param = search_params[:domain]
+      email_param = search_params[:email]
+      email_domain = email_param.split('@').last if email_param.present? && email_param.include?('@')
 
       dummy_orgs = [
         {
@@ -26,8 +27,8 @@ module Api
       ]
 
       # Filter orgs by domain if domain parameter is provided
-      if domain_param.present?
-        filtered_orgs = dummy_orgs.select { |org| org[:domain] == domain_param }
+      if email_param.present?
+        filtered_orgs = dummy_orgs.select { |org| org[:domain] == email_domain }
 
         # If no matches found, return the "OTHER" org
         if filtered_orgs.empty?
@@ -52,7 +53,7 @@ module Api
 
     # Using Strong Parameters ensure only domain is permitted
     def search_params
-      params.permit(:domain, :format)
+      params.permit(:email, :format)
     end
   end
 end

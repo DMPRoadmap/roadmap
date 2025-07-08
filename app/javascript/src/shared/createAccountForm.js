@@ -12,7 +12,7 @@ $(() => {
     return;
   }
 
-  let currentDomain = '';
+  let currentEmail = '';
   let debounceTimer = null;
 
   // Handle email input changes
@@ -20,12 +20,9 @@ $(() => {
     const email = this.value;
 
     if (email && email.includes('@')) {
-      const domain = email.split('@')[1];
-
-      // Only fetch if domain has changed
-      if (domain && domain !== currentDomain) {
-        currentDomain = domain;
-
+      if (email !== currentEmail) {
+        currentEmail = email;
+        
         // Clear previous timer
         if (debounceTimer) {
           clearTimeout(debounceTimer);
@@ -33,18 +30,18 @@ $(() => {
 
         // Debounce API calls to avoid too many requests
         debounceTimer = setTimeout(() => {
-          fetchOrganizations(domain);
+          fetchOrganizations(email);
         }, 500);
       }
     } else {
       // Clear organizations if email is invalid
-      currentDomain = '';
+      currentEmail = '';
       resetOrgSelect();
     }
   });
 
-  function fetchOrganizations(domain) {
-    fetch(`/api/get-orgs-by-domain?domain=${encodeURIComponent(domain)}`)
+  function fetchOrganizations(email) {
+    fetch(`/api/get-orgs-by-domain?email=${encodeURIComponent(email)}`)
       .then(response => response.json())
       .then(data => {
         populateOrgSelect(data);
