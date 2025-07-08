@@ -832,3 +832,68 @@ annotations = [
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
 annotations.each{ |s| Annotation.find_or_create_by(s) if Annotation.find_by(text: s[:text]).nil? }
+
+#------------------------------------------------------------
+
+org_domains = [
+  { 
+    org: Org.find_by(abbreviation: 'CC'),
+    domain: 'cc.org' 
+  },
+  { 
+    org: Org.find_by(abbreviation: 'CC'),
+    domain: 'cc.edu'
+  },
+  { 
+    org: Org.find_by(abbreviation: 'CC'),
+    domain: 'cc.com'
+  },
+   { 
+    org: Org.find_by(abbreviation: 'GA'),
+    domain: 'ga.gov' 
+  },
+  { 
+    org: Org.find_by(abbreviation: 'UOS'),
+    domain: 'example.edu'
+  },
+  { 
+    org: Org.find_by(abbreviation: 'UOS'),
+    domain: 'example.ac.ex'
+  }
+]
+org_domains.each{ |s| OrgDomain.find_or_create_by(s) }
+
+#--------------------------------------------------------------
+org_rors = [
+  { 
+    org: Org.find_by(abbreviation: 'CC'),
+    ror_id: 'r12345x' 
+  },
+  { 
+    org: Org.find_by(abbreviation: 'CC'),
+    ror_id: 'r987654y'
+  },
+  { 
+    org: Org.find_by(abbreviation: 'CC'),
+    ror_id: 'r556789x'
+  },
+   { 
+    org: Org.find_by(abbreviation: 'GA'),
+    ror_id: 'r567890y'
+  },
+  { 
+    org: Org.find_by(abbreviation: 'UOS'),
+    ror_id: 'r45678f'
+  },
+  { 
+    org: Org.find_by(abbreviation: 'UOS'),
+    ror_id: 'r7890uy'
+  },
+  { 
+    org: Org.find_by(abbreviation: 'UOS'),
+    ror_id: 'r98970y'
+  },
+]
+
+org_rors.each{ |s| OrgRor.find_or_create_by(s) }
+#---------------------------------------------------------

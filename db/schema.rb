@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_08_102008) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admin_users", id: :serial, force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.integer "sign_in_count", default: 0
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
 
   create_table "annotations", id: :serial, force: :cascade do |t|
     t.integer "question_id"
@@ -42,6 +57,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.index ["user_id"], name: "fk_rails_584be190c2"
   end
 
+  create_table "answers_options", id: false, force: :cascade do |t|
+    t.integer "answer_id", null: false
+    t.integer "option_id", null: false
+    t.index ["answer_id", "option_id"], name: "index_answers_options_on_answer_id_and_option_id"
+  end
+
   create_table "answers_question_options", id: false, force: :cascade do |t|
     t.integer "answer_id", null: false
     t.integer "question_option_id", null: false
@@ -67,6 +88,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.integer "callback_method"
     t.string "callback_uri"
     t.index ["name"], name: "index_oauth_applications_on_name"
+  end
+
+  create_table "api_servers", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "conditions", id: :serial, force: :cascade do |t|
@@ -106,6 +134,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.index ["org_id"], name: "index_departments_on_org_id"
   end
 
+  create_table "dmptemplates", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.boolean "published"
+    t.integer "user_id"
+    t.integer "organisation_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "locale"
+    t.boolean "is_default"
+  end
+
   create_table "exported_plans", id: :serial, force: :cascade do |t|
     t.integer "plan_id"
     t.integer "user_id"
@@ -130,6 +170,37 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.index ["user_id"], name: "index_external_api_access_tokens_on_user_id"
   end
 
+  create_table "file_types", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "icon_name"
+    t.integer "icon_size"
+    t.string "icon_location"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "file_uploads", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.text "description"
+    t.integer "size"
+    t.boolean "published"
+    t.string "location"
+    t.integer "file_type_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 40
+    t.datetime "created_at", precision: nil
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
   create_table "guidance_groups", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "org_id"
@@ -138,6 +209,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.boolean "optional_subset", default: false, null: false
     t.boolean "published", default: false, null: false
     t.index ["org_id"], name: "index_guidance_groups_on_org_id"
+  end
+
+  create_table "guidance_in_group", id: false, force: :cascade do |t|
+    t.integer "guidance_id", null: false
+    t.integer "guidance_group_id", null: false
+    t.index ["guidance_id", "guidance_group_id"], name: "index_guidance_in_group_on_guidance_id_and_guidance_group_id"
   end
 
   create_table "guidances", id: :serial, force: :cascade do |t|
@@ -246,6 +323,81 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.boolean "enabled", default: true
   end
 
+  create_table "oauth_access_grants", force: :cascade do |t|
+    t.bigint "resource_owner_id", null: false
+    t.bigint "application_id", null: false
+    t.string "token", null: false
+    t.integer "expires_in", null: false
+    t.text "redirect_uri", null: false
+    t.string "scopes", default: "", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "revoked_at", precision: nil
+    t.index ["application_id"], name: "index_oauth_access_grants_on_application_id"
+    t.index ["resource_owner_id"], name: "index_oauth_access_grants_on_resource_owner_id"
+    t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
+  end
+
+  create_table "oauth_access_tokens", force: :cascade do |t|
+    t.bigint "resource_owner_id"
+    t.bigint "application_id", null: false
+    t.string "token", null: false
+    t.string "refresh_token"
+    t.integer "expires_in"
+    t.string "scopes"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "revoked_at", precision: nil
+    t.string "previous_refresh_token", default: "", null: false
+    t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id"
+    t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
+    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
+    t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
+  end
+
+  create_table "oauth_applications", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "uid", null: false
+    t.string "secret", null: false
+    t.text "redirect_uri", null: false
+    t.string "scopes", default: "", null: false
+    t.boolean "confidential", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
+  end
+
+  create_table "option_warnings", id: :serial, force: :cascade do |t|
+    t.integer "organisation_id"
+    t.integer "option_id"
+    t.text "text"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "options", id: :serial, force: :cascade do |t|
+    t.integer "question_id"
+    t.string "text"
+    t.integer "number"
+    t.boolean "is_default"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "org_domains", force: :cascade do |t|
+    t.bigint "org_id", null: false
+    t.text "domain", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_id"], name: "index_org_domains_on_org_id"
+  end
+
+  create_table "org_rors", force: :cascade do |t|
+    t.bigint "org_id", null: false
+    t.text "ror_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_id"], name: "index_org_rors_on_org_id"
+  end
+
   create_table "org_token_permissions", id: :serial, force: :cascade do |t|
     t.integer "org_id"
     t.integer "token_permission_type_id"
@@ -253,6 +405,30 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.datetime "updated_at", precision: nil
     t.index ["org_id"], name: "index_org_token_permissions_on_org_id"
     t.index ["token_permission_type_id"], name: "fk_rails_2aa265f538"
+  end
+
+  create_table "organisation_types", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "organisations", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "abbreviation"
+    t.text "description"
+    t.string "target_url"
+    t.integer "logo_file_id"
+    t.integer "banner_file_id"
+    t.integer "organisation_type_id"
+    t.string "domain"
+    t.integer "wayfless_entity"
+    t.integer "stylesheet_file_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.integer "parent_id"
+    t.boolean "is_other"
   end
 
   create_table "orgs", id: :serial, force: :cascade do |t|
@@ -280,6 +456,20 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
   end
 
+  create_table "pages", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "body_text"
+    t.string "slug"
+    t.integer "menu"
+    t.integer "menu_position"
+    t.string "target_url"
+    t.string "location"
+    t.boolean "public"
+    t.integer "organisation_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
   create_table "perms", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
@@ -297,6 +487,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.string "versionable_id", limit: 36
     t.index ["template_id"], name: "index_phases_on_template_id"
     t.index ["versionable_id"], name: "index_phases_on_versionable_id"
+  end
+
+  create_table "plan_sections", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "section_id"
+    t.integer "plan_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "release_time", precision: nil
   end
 
   create_table "plans", id: :serial, force: :cascade do |t|
@@ -341,6 +540,40 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.integer "user_id"
   end
 
+  create_table "project_groups", id: :serial, force: :cascade do |t|
+    t.boolean "project_creator"
+    t.boolean "project_editor"
+    t.integer "user_id"
+    t.integer "project_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.boolean "project_administrator"
+  end
+
+  create_table "project_guidance", id: false, force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "guidance_group_id", null: false
+    t.index ["project_id", "guidance_group_id"], name: "index_project_guidance_on_project_id_and_guidance_group_id"
+  end
+
+  create_table "projects", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "note"
+    t.boolean "locked"
+    t.integer "dmptemplate_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "slug"
+    t.integer "organisation_id"
+    t.string "grant_number"
+    t.string "identifier"
+    t.string "description"
+    t.string "principal_investigator"
+    t.string "principal_investigator_identifier"
+    t.string "data_contact"
+    t.index ["slug"], name: "index_projects_on_slug", unique: true
+  end
+
   create_table "question_format_labels", id: false, force: :cascade do |t|
     t.integer "id"
     t.string "description"
@@ -357,6 +590,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "option_based", default: false
     t.integer "formattype", default: 0
+  end
+
+  create_table "question_identifiers", force: :cascade do |t|
+    t.integer "question_id"
+    t.string "value"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "versionable_id", limit: 36
+    t.index ["versionable_id"], name: "index_question_identifiers_on_versionable_id"
   end
 
   create_table "question_options", id: :serial, force: :cascade do |t|
@@ -533,6 +776,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
   end
 
+  create_table "suggested_answers", id: :serial, force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "organisation_id"
+    t.text "text"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
   create_table "templates", id: :serial, force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -584,6 +835,35 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.index ["org_id"], name: "index_trackers_on_org_id"
   end
 
+  create_table "user_org_roles", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "organisation_id"
+    t.integer "user_role_type_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "user_role_types", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "user_statuses", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
+  create_table "user_types", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "firstname"
     t.string "surname"
@@ -632,6 +912,23 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.index ["user_id"], name: "index_users_perms_on_user_id"
   end
 
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  end
+
+  create_table "versions", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "published"
+    t.integer "number"
+    t.integer "phase_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.index ["phase_id"], name: "index_versions_on_phase_id"
+  end
+
   add_foreign_key "annotations", "orgs"
   add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
@@ -644,6 +941,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
   add_foreign_key "notes", "users"
   add_foreign_key "notification_acknowledgements", "notifications"
   add_foreign_key "notification_acknowledgements", "users"
+  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "org_domains", "orgs"
+  add_foreign_key "org_rors", "orgs"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"
