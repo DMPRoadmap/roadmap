@@ -112,6 +112,9 @@ yarn-debug.log*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+/app/assets/builds/*
+!/app/assets/builds/.keep
+!/app/assets/builds/.gitkeep
 
 # Ignore briley AWS cloud9 script to start the application
 cloud9-start.sh

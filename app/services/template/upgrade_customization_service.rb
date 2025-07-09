@@ -49,9 +49,8 @@ class Template
 
       @original_funder_template = Template.published(@source_template.customization_of).first
 
-      @copy_of_original_customizations = @source_template.deep_copy(
-        attributes: { version: @source_template.version + 1, published: false }
-      )
+      args = { attributes: { version: @source_template.version + 1, published: false } }
+      @copy_of_original_customizations = @source_template.deep_copy(**args)
 
       @updated_template = init_updated_template
     end
@@ -101,7 +100,7 @@ class Template
     #
     # Returns {Template}
     def init_updated_template
-      @updated_template = @original_funder_template&.deep_copy(
+      args = {
         attributes: {
           version: @copy_of_original_customizations.version,
           published: @copy_of_original_customizations.published,
@@ -111,7 +110,8 @@ class Template
           visibility: Template.visibilities[:organisationally_visible],
           is_default: false
         }, modifiable: false, save: true
-      )
+      }
+      @updated_template = @original_funder_template&.deep_copy(**args)
     end
 
     # Find an item within collection that has the same versionable_id as record

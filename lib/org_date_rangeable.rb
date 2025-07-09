@@ -22,15 +22,10 @@ module OrgDateRangeable
     def split_months_from_creation(org, &block)
       starts_at = org.created_at
       ends_at = starts_at.end_of_month
-      callable = if block.nil?
-                   proc {}
-                 else
-                   ->(start_date, end_date) { block.call(start_date, end_date) }
-                 end
       enumerable = []
 
       until starts_at.future? || ends_at.future?
-        callable.call(starts_at, ends_at)
+        yield(starts_at, ends_at) if block
         enumerable << { start_date: starts_at, end_date: ends_at }
         starts_at = starts_at.next_month.beginning_of_month
         ends_at = starts_at.end_of_month

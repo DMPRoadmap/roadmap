@@ -1,4 +1,6 @@
-/* For sticky footer */
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+
 #footer-navbar {
   margin-bottom: 0px;
   position: absolute;
@@ -7,6 +9,6 @@
   border-radius:0px;
   z-index: 1;
   ul {
-    padding-right: $grid-gutter-width / 2;
+    padding-right: calc($grid-gutter-width / 2);
   }
 }

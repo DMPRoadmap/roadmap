@@ -3,7 +3,7 @@
 %>
 
 <% if result.present? %>
-  <%= hidden_field_tag "research_output[repositories_attributes[#{result.id}][id]]", result.id %>
+  <%= hidden_field_tag "research_output[repositories_attributes][#{result.id}][id]", result.id %>
 
   <p><%= result.description %></p>
 
@@ -31,7 +31,7 @@
   <div class="more-info more-info-<%= result.id %>">
     <%= link_to _("More info"), "#", class: "more-info-link" %>
 
-    <div class="info hidden">
+    <div class="info d-none">
       <% info = result.info.with_indifferent_access %>
       <dl>
         <dt><%= _("Repository URL") %></dt>

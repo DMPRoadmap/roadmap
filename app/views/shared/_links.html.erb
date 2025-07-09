@@ -3,7 +3,7 @@
                    data-max-number-links="<%= max_number_links %>"
                    data-turbo="false">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <h3><%= title.present? ? title : _('Links') %>&nbsp;
         <small>(<%= _('Up to ') %>
           <span class="max-number-links">
@@ -12,35 +12,35 @@
         </small>&nbsp;
         <a href="#" aria-label="<%= _('Text') %>" data-toggle="tooltip"
            data-placement="right" title="<%= tooltip %>">
-          <i class="fas fa-question-circle fa-reverse" aria-hidden="true"></i>
+          <i class="fas fa-circle-question fa-reverse" aria-hidden="true"></i>
           <em class="sr-only"><%= tooltip %></em>
         </a>
       </h3>
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <% links = [{ "link" => "", "text" => "" }] if links.length == 0 %>
       <% links.each_with_index do |l, i| %>
         <div class="link row">
-          <div class="col-xs-5">
-            <div class="form-group link-input">
-              <%= label_tag "link_link#{i}", _('URL'), class: "control-label" %>
+          <div class="col-sm-5">
+            <div class="form-control mb-3 link-input">
+              <%= label_tag "link_link#{i}", _('URL'), class: "form-label" %>
               <%= text_field_tag 'link_link', l['link'], class: "form-control",
                                                          id: "#{context}_link_link#{i}" %>
             </div>
           </div>
-          <div class="col-xs-5">
-            <div class="form-group link-input">
-              <%= label_tag "link_text#{i}", _('Link text'), class: "control-label" %>
+          <div class="col-sm-5">
+            <div class="form-control mb-3 link-input">
+              <%= label_tag "link_text#{i}", _('Link text'), class: "form-label" %>
               <%= text_field_tag 'link_text', l['text'], class: "form-control",
                                                          id: "#{context}link_text#{i}" %>
             </div>
           </div>
-          <div class="col-xs-2">
-            <div class="form-group">
+          <div class="col-sm-2">
+            <div class="form-control mb-3">
               <a href="#" class="delete" aria-label="<%= _('Remove this link') %>">
-                <i class="fas fa-times-circle fa-reverse" aria-hidden="true"></i>
+                <i class="fas fa-circle-xmark fa-reverse" aria-hidden="true"></i>
               </a>
             </div>
           </div>
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <a href="#" class="new<%= links.length >= max_number_links ? ' hide' : '' %>"><%= _('+ Add an additional URL') %></a>
     </div>
   </div>

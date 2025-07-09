@@ -121,8 +121,8 @@ class GuidancePresenter
 
     return {} unless hashified_guidance_groups.key?(org)
 
-    hashified_guidance_groups[org].each_key.each_with_object({}) do |gg, acc|
-      filtered_gg = hashified_guidance_groups[org][gg].each_key.each_with_object({}) do |theme, ac|
+    hashified_guidance_groups[org].each_key.with_object({}) do |gg, acc|
+      filtered_gg = hashified_guidance_groups[org][gg].each_key.with_object({}) do |theme, ac|
         next unless question.themes.include?(theme)
 
         ac[theme] = hashified_guidance_groups[org][gg][theme]

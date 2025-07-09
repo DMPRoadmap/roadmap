@@ -7,15 +7,15 @@
   rather cumbersome. As such, this workaround, simplifies the logic when a stale answer is found by rendering the html of the answer directly
   within a paragraph.
 %>
-<div class="form-group allow-break-words">
-    <div class="display-readonly-textarea-content">
-      <%= f.label(:text, sanitize(question.text), class: 'control-label') %>
+<div class="form-control mb-3 allow-break-words">
+    <div class="display-readonly-textarea-content" id="question-text-<%= question.id %>">
+      <label for="answer-text-<%= question.id %>"><%= sanitize(question.text) %></label>
     </div>
     <% if locking || readonly %>
       <div class="display-readonly-textarea-content">
         <%= sanitize("<p>#{answer.text || question.default_value}</p>") %>
       </div>
     <% else %>
-      <%= text_area_tag('answer[text]', answer.text || question.default_value, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
+      <%= text_area_tag('answer[text]', answer.text || question.default_value, id: "answer-text-#{question.id}", class: "form-control tinymce_answer", aria: { labelledby: "question-text-#{question.id}" }) %>
     <% end %>
 </div>

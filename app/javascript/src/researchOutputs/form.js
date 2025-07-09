@@ -1,6 +1,6 @@
 import getConstant from '../utils/constants';
 import { isUndefined, isObject } from '../utils/isType';
-import { Tinymce } from '../utils/tinymce.js.erb';
+import { Tinymce } from '../utils/tinymce.js';
 
 $(() => {
   const form = $('.research_output_form');
@@ -18,11 +18,11 @@ $(() => {
       const info = $(link).siblings('div.info');
 
       if (info.length > 0) {
-        if (info.hasClass('hidden')) {
-          info.removeClass('hidden');
+        if (info.hasClass('d-none')) {
+          info.removeClass('d-none');
           link.text(`${getConstant('LESS_INFO')}`);
         } else {
-          info.addClass('hidden');
+          info.addClass('d-none');
           link.text(`${getConstant('MORE_INFO')}`);
         }
       }

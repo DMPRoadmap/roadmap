@@ -77,7 +77,7 @@ module DMPRoadmap
     # The link to the API documentation - used in emails about the API
     config.x.application.api_documentation_urls = {
       v0: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation',
-      v1: 'https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V1'
+      v1: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V1-Documentation'
     }
     # The links that appear on the home page. Add any number of links
     config.x.application.welcome_links = [
@@ -221,15 +221,15 @@ module DMPRoadmap
     # Machine Actionable / Networked DMP Features (maDMP) #
     # --------------------------------------------------- #
     # Enable/disable functionality on the Project Details tab
-    config.x.madmp.enable_ethical_issues = false
-    config.x.madmp.enable_research_domain = false
+    config.x.madmp.enable_ethical_issues = true
+    config.x.madmp.enable_research_domain = true
 
     # This flag will enable/disable the entire Research Outputs tab. The others below will
     # just enable/disable specific functionality on the Research Outputs tab
-    config.x.madmp.enable_research_outputs = false
-    config.x.madmp.enable_license_selection = false
-    config.x.madmp.enable_metadata_standard_selection = false
-    config.x.madmp.enable_repository_selection = false
+    config.x.madmp.enable_research_outputs = true
+    config.x.madmp.enable_license_selection = true
+    config.x.madmp.enable_metadata_standard_selection = true
+    config.x.madmp.enable_repository_selection = true
 
     # The following flags will allow the system to include the question and answer in the JSON output
     #   - questions with a theme equal to 'Preservation'

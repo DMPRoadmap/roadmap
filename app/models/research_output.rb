@@ -64,6 +64,9 @@ class ResearchOutput < ApplicationRecord
                                            allow_nil: true, allow_blank: true,
                                            message: UNIQUENESS_MESSAGE }
 
+  validates_numericality_of :byte_size, greater_than: 0, less_than_or_equal_to: 2**63,
+                                        allow_blank: true,
+                                        message: '(Anticipated file size) is too large. Please enter a smaller value.'
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
 
@@ -73,14 +76,14 @@ class ResearchOutput < ApplicationRecord
 
   # Helper method to convert selected repository form params into Repository objects
   def repositories_attributes=(params)
-    params.each do |_i, repository_params|
+    params.each_value do |repository_params|
       repositories << Repository.find_by(id: repository_params[:id])
     end
   end
 
   # Helper method to convert selected metadata standard form params into MetadataStandard objects
   def metadata_standards_attributes=(params)
-    params.each do |_i, metadata_standard_params|
+    params.each_value do |metadata_standard_params|
       metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
     end
   end

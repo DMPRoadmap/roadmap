@@ -1,10 +1,9 @@
-.spinner-border {
-  position: fixed;
-  top: 48%;
-  left: 43%;
-}
 
-.spinner-border img {
-  height: 80px;
-  width: 80px;
+.spinner-border {
+  animation: spinner-border 1.5s linear infinite !important;
+  position: fixed !important;
+  top: 48% !important;
+  left: 43%  !important;
+  width: 2rem !important;
+  height: 2rem !important;
 }

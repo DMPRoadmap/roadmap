@@ -23,6 +23,11 @@
 #
 # Try to place any new Cops under their relevant section and in alphabetical order
 
+plugins:
+#   - rubocop-rails
+#   - rubocop-rspec
+  - rubocop-performance
+
 AllCops:
   TargetRubyVersion: 3.3
   # Show the name of the cops being voilated in the feedback
@@ -105,6 +110,12 @@ Lint/UnexpectedBlockArity: # new in 1.5
   Enabled: true
 Lint/UnmodifiedReduceAccumulator: # new in 1.1
   Enabled: true
+Lint/Debugger: # new in 1.45.0
+  Description: 'Check for debugger calls.'
+  Enabled: true
+  Exclude:
+    - 'lib/tasks/**/*'
+
 
 # -----------
 # - METRICS -

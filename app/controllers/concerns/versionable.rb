@@ -72,7 +72,7 @@ module Versionable
       else
         found = find_in_space(obj.send(belongs), new_template.phases)
         obj = obj.send(:deep_copy)
-        obj.send("#{belongs}=", found)
+        obj.send(:"#{belongs}=", found)
       end
     end
     obj

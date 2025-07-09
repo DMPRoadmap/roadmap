@@ -1,4 +1,4 @@
-import 'jquery-ui/sortable';
+import 'jquery-ui/ui/widgets/sortable';
 import { renderAlert } from '../../utils/notificationHelper';
 
 $(() => {

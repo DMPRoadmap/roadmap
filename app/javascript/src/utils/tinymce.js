@@ -1,30 +1,35 @@
 // Import TinyMCE
 import tinymce from 'tinymce/tinymce';
-// Import TinyMCE theme
-import 'tinymce/themes/silver/theme';
+
+// TinyMCE DOM helpers
+import 'tinymce/models/dom/';
+
+// TinyMCE toolbar icons
 import 'tinymce/icons/default';
-// Plugins
+
+// TinyMCE theme
+import 'tinymce/themes/silver';
+
+// TinyMCE Plugins
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/lists';
 import 'tinymce/plugins/autoresize';
 import 'tinymce/plugins/link';
-import 'tinymce/plugins/paste';
 import 'tinymce/plugins/advlist';
+import 'tinymce/plugins/autolink';
 
 // Other dependencies
-import { isObject, isString } from './isType';
-
-// Pull in the rails helper functions
-<% helpers = ActionController::Base.helpers %>
+import { isObject, isString, isUndefined } from './isType';
 
 // // Configuration extracted from
 // // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
 export const defaultOptions = {
   selector: '.tinymce',
+  license_key: 'gpl',
   statusbar: true,
   menubar: false,
   toolbar: 'bold italic | bullist numlist | link | table',
-  plugins: 'table autoresize link paste advlist lists',
+  plugins: 'table autoresize link advlist lists autolink',
   browser_spellcheck: true,
   advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
   target_list: false,
@@ -34,12 +39,14 @@ export const defaultOptions = {
   autoresize_bottom_margin: 10,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
-  paste_auto_cleanup_on_paste: true,
-  paste_remove_styles: true,
-  paste_convert_middot_lists: true,
+  paste_as_text: false,
+  paste_block_drop: true,
+  paste_merge_formats: true,
+  paste_tab_spaces: 4,
+  smart_paste: true,
+  paste_data_images: true,
   paste_remove_styles_if_webkit: true,
-  paste_remove_spans: true,
-  paste_strip_class_attributes: 'all',
+  paste_webkit_styles: 'none',
   table_default_attributes: {
     border: 1,
   },
@@ -48,17 +55,16 @@ export const defaultOptions = {
   skin_url: '/tinymce/skins/oxide',
   content_css: ['/tinymce/tinymce.css'],
 };
+
 /*
-  This function is invoked anytime a new editor is initialised (e.g. Tinymce.init())
-  and shrinks a tinymce editor to the minimum height specified at autoresize_min_height
-  editor's settings. Since there are cases that tinymce editor is loaded in the DOM
-  but has display:none style, the iframe associated gets the height of the screen's device
-  and using this function there is no need to wait until the tinymce gains focus to be autoresized.
-*/
-const resizeEditors = (editors) => {
-  editors.forEach((editor) => {
-    $(editor.iframeElement).height(editor.settings.autoresize_min_height);
-  });
+ This function determines whether or not the editor is a TinyMCE editor
+ */
+const isTinymceEditor = (editor) => {
+  if (isObject(editor)) {
+    return editor.hasOwnProperty('id') && typeof editor.getContainer === 'function';
+  } else {
+    return false;
+  }
 };
 
 /*
@@ -67,16 +73,14 @@ const resizeEditors = (editors) => {
   behind the scenes) to the Tinymce iframe so that screen readers read the correct
   label when the tinymce iframe receives focus.
  */
-const attachLabelToIframe = (tinymceContext, hiddenFieldSelector) => {
-  const iframe = $(tinymceContext).siblings('.mce-container').find('iframe');
-  const hiddenField = $(hiddenFieldSelector);
+const attachLabelToIframe = (editor) => {
+  if (isTinymceEditor(editor)) {
+    const iframe = editor.getContainer().querySelector('iframe');
+    const lbl = document.querySelector(`label[for="${editor.id}"]`);
 
-  if (isObject(iframe) && isObject(hiddenField)) {
-    const id = hiddenField.attr('id');
-    const lbl = iframe.closest('form').find(`label[for="${id}"]`);
-    if (isObject(lbl)) {
-      // Connect the label to the iframe
-      lbl.attr('for', iframe.attr('id'));
+    // If the iframe and label could be found, then set the label's 'for' attribute to the id of the iframe
+    if (isObject(iframe) && isObject(lbl)) {
+      lbl.setAttribute('for', iframe.getAttribute('id'));
     }
   }
 };
@@ -88,17 +92,23 @@ export const Tinymce = {
     @param options - An object with tinyMCE properties
   */
   init(options = {}) {
-    if (isObject(options)) {
-      tinymce.init($.extend(true, defaultOptions, options)).then(resizeEditors);
-    } else {
-      tinymce.init(defaultOptions).then(resizeEditors);
-    }
+    // If any options were specified, merge them with the default options.
+    let opts = {
+      ...defaultOptions,
+      ...options
+    };
 
-    // Connect the label to the Tinymce iframe
-    $(options.selector).each((idx, el) => {
-      attachLabelToIframe(el, options.selector);
+    tinymce.init(opts).then((editors) => {
+      if (editors.length > 0) {
+        for (const editor of editors) {
+          // auto-resize the editor and connect the form label to the TinyMCE iframe
+          editor.execCommand('mceAutoResize');
+          attachLabelToIframe(editor, editor.id);
+        }
+      }
     });
   },
+
   /*
     Finds any tinyMCE editor whose target element/textarea has the className passed
     @param className - A string representing the class name of the tinyMCE editor
@@ -107,12 +117,11 @@ export const Tinymce = {
   */
   findEditorsByClassName(className) {
     if (isString(className)) {
-      return tinymce.editors.reduce((acc, e) => {
-        if ($(e.getElement()).hasClass(className)) {
-          return acc.concat([e]);
-        }
-        return acc;
-      }, []);
+      const elements = Array.from(document.getElementsByClassName(className));
+      // Fetch the textarea elements and then return the TinyMCE editors associated with the element ids
+      return elements.map((el) => {
+        return Tinymce.findEditorById(el.getAttribute('id'));
+      });
     }
     return [];
   },
@@ -124,7 +133,7 @@ export const Tinymce = {
   */
   findEditorById(id) {
     if (isString(id)) {
-      return tinymce.editors.find(el => el.id === id);
+      return tinymce.get(id);
     }
     return undefined;
   },
@@ -137,7 +146,14 @@ export const Tinymce = {
   */
   destroyEditorsByClassName(className) {
     const editors = this.findEditorsByClassName(className);
-    editors.forEach(ed => ed.destroy(false));
+    if (editors.length > 0) {
+      /* editors.forEach(ed => ed.destroy(false)); */
+      for (const editor of editors) {
+        if (isTinymceEditor(editor)) {
+          editor.destroy(false);
+        }
+      }
+    }
   },
   /*
     Destroy an editor instance whose target element/textarea has HTML id passed. This method
@@ -146,7 +162,7 @@ export const Tinymce = {
   */
   destroyEditorById(id) {
     const editor = this.findEditorById(id);
-    if (editor) {
+    if (isTinymceEditor(editor)) {
       editor.destroy(false);
     }
   },

@@ -1,3 +1,6 @@
+@use '../variables/colours' as *;
+@use '../variables/typography' as *;
+
 /* Setting font-family for improving screen legibility */
 body, .tooltip, .popover {
   font-family: $font-family;
@@ -35,7 +38,7 @@ div.skip a:focus {
 }
 
 /** Focus outline required for accessibility */
-a, input, select, .form-control {
+a, input, select, .form-control input, .form-control textarea {
   &:focus,
   &:hover,
   &:active {

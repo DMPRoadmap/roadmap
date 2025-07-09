@@ -68,7 +68,7 @@ class Section < ApplicationRecord
   def phase_id=(value)
     phase = Phase.where(id: value).first
     self.number = (phase.sections.where.not(id: id).maximum(:number).to_i + 1) if phase.present?
-    super(value)
+    super
   end
 
   # =====================
@@ -124,7 +124,7 @@ class Section < ApplicationRecord
     copy.phase_id = options.fetch(:phase_id, nil)
     copy.save!(validate: false) if options.fetch(:save, false)
     options[:section_id] = copy.id
-    questions.map { |question| copy.questions << question.deep_copy(options) }
+    questions.map { |question| copy.questions << question.deep_copy(**options) }
     copy
   end
 

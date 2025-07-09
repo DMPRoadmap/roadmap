@@ -398,6 +398,10 @@ describe Plan do
       expect(subject.title).to include(plan.title)
     end
 
+    it "copies the new plan's id to its identifer" do
+      expect(subject.identifier).to eql(subject.id.to_s)
+    end
+
     it 'persists the record' do
       expect(subject).to be_persisted
     end
@@ -592,7 +596,7 @@ describe Plan do
 
     context 'when org contact_email present' do
       before do
-        org.update!(contact_email: Faker::Internet.safe_email)
+        org.update!(contact_email: Faker::Internet.email)
       end
 
       it 'emails the admins' do

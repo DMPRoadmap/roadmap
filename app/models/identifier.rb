@@ -79,7 +79,7 @@ class Identifier < ApplicationRecord
       base += '/' unless base.ends_with?('/')
       super("#{base}#{val.to_s.strip}")
     else
-      super(val)
+      super
     end
   end
   # rubocop:enable Metrics/AbcSize
@@ -96,7 +96,7 @@ class Identifier < ApplicationRecord
     return 'ark' if value.include?('ark:')
 
     doi_regex = %r{(doi:)?[0-9]{2}\.[0-9]+/.}
-    return 'doi' if value =~ doi_regex
+    return 'doi' if value.match?(doi_regex)
 
     return 'url' if value.starts_with?('http')
 

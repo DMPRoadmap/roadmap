@@ -17,8 +17,10 @@ Dragonfly.app.configure do
     require 'dragonfly/s3_data_store'
     datastore(:s3, {
                 bucket_name: ENV.fetch('AWS_BUCKET_NAME', nil),
-                access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID', nil),
-                secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY', nil),
+                access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID',
+                                         Rails.application.credentials.aws.access_key_id),
+                secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY',
+                                             Rails.application.credentials.aws.secret_access_key),
                 region: ENV.fetch('AWS_REGION', nil),
                 root_path: Rails.env,
                 url_scheme: 'https'

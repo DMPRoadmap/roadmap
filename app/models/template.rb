@@ -53,7 +53,7 @@ class Template < ApplicationRecord
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
   attribute :links, :text, default: { funder: [], sample_plan: [] }
-  serialize :links, JSON
+  serialize :links, coder: JSON
 
   attribute :published, :boolean, default: false
   attribute :archived, :boolean, default: false
@@ -109,7 +109,7 @@ class Template < ApplicationRecord
   # overwriting the accessors.  We want to ensure this template is published
   # before we remove the published_version
   # That being said, there's a potential race_condition where we have multiple-published-versions
-  after_update :reconcile_published, if: ->(template) { template.published? }
+  after_update :reconcile_published, if: -> { published? }
 
   # ==========
   # = Scopes =
@@ -284,12 +284,12 @@ class Template < ApplicationRecord
     copy = dup
     if attributes.respond_to?(:each_pair)
       attributes.each_pair do |attribute, value|
-        copy.send("#{attribute}=".to_sym, value) if copy.respond_to?("#{attribute}=".to_sym)
+        copy.send(:"#{attribute}=", value) if copy.respond_to?(:"#{attribute}=")
       end
     end
     copy.save! if options.fetch(:save, false)
     options[:template_id] = copy.id
-    phases.each { |phase| copy.phases << phase.deep_copy(options) }
+    phases.each { |phase| copy.phases << phase.deep_copy(**options) }
     # transfer the conditions to the new template
     #  done here as the new questions are not accessible when the conditions deep copy
     copy.conditions.each do |cond|
@@ -374,7 +374,7 @@ class Template < ApplicationRecord
     # Assume customizing_org is persisted
     raise _('generate_copy! requires an organisation target') unless org.is_a?(Org)
 
-    deep_copy(
+    args = {
       attributes: {
         version: 0,
         published: false,
@@ -383,20 +383,22 @@ class Template < ApplicationRecord
         is_default: false,
         title: format(_('Copy of %{template}'), template: title)
       }, modifiable: true, save: true
-    )
+    }
+    deep_copy(**args)
   end
 
   # Generates a new copy of self with an incremented version number
   def generate_version!
     raise _('generate_version! requires a published template') unless published
 
-    deep_copy(
+    args = {
       attributes: {
         version: version + 1,
         published: false,
         org: org
       }, save: true
-    )
+    }
+    deep_copy(**args)
   end
 
   # Generates a new copy of self for the specified customizing_org
@@ -407,7 +409,7 @@ class Template < ApplicationRecord
     # Assume self has org associated
     raise ArgumentError, _('customize! requires a template from a funder') if !org.funder_only? && !is_default
 
-    deep_copy(
+    args = {
       attributes: {
         version: 0,
         published: false,
@@ -417,7 +419,8 @@ class Template < ApplicationRecord
         visibility: Template.visibilities[:organisationally_visible],
         is_default: false
       }, modifiable: false, save: true
-    )
+    }
+    deep_copy(**args)
   end
 
   # Generates a new copy of self including latest changes from the funder this

@@ -88,7 +88,7 @@ module Api
         if params['updated_after'].present? || params['updated_before'].present?
           @plans = @plans.where(updated_at: dates_to_range(params, 'updated_after', 'updated_before'))
         end
-        if params['remove_tests'].present? && params['remove_tests'].downcase == 'true'
+        if params['remove_tests'].present? && params['remove_tests'].casecmp('true').zero?
           @plans = @plans.where.not(visibility: Plan.visibilities[:is_test])
         end
         # filter on funder (dmptemplate_id)
@@ -98,7 +98,11 @@ module Api
         plan_ids = extract_param_list(params, 'plan')
         @plans = @plans.where(id: plan_ids) if plan_ids.present?
         # apply pagination after filtering
-        @args = { per_page: params[:per_page], page: params[:page] }
+        max_per_page = Rails.configuration.x.application.api_max_page_size
+        page = params.fetch('page', 1).to_i
+        per_page = params.fetch('per_page', max_per_page).to_i
+        per_page = max_per_page if per_page > max_per_page
+        @args = { per_page: per_page, page: page }
         @plans = refine_query(@plans)
         respond_with @plans
       end

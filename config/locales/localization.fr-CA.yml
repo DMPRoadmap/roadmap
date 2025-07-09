@@ -85,7 +85,7 @@ fr-CA:
         ù: u
         û: u
         ü: u
-        ÿ: y
+        ÿ: "y"
         œ: oe
   spree:
     date_picker:

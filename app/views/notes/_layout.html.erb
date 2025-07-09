@@ -1,7 +1,7 @@
 <%# locals: { plan, question, answer } %>
 <% notes = answer.non_archived_notes %>
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="card card-default">
+  <div class="card-body">
     <div class="row">
       <div class="col-md-12">
         <%= render partial: "/notes/list", locals: { question_id: question.id, notes: notes, plan: plan }, formats: [:html] %>
@@ -17,8 +17,8 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="pull-right">
-            <%= link_to(_('Add Comment'), "#note_new#{question.id}", class: "btn btn-default note_new_link", role: "button", style: "visibility: hidden") %>
+          <div class="float-end">
+            <%= link_to(_('Add Comment'), "#note_new#{question.id}", class: "btn btn-secondary note_new_link", role: "button", style: "visibility: hidden") %>
           </div>
         </div>
       </div>

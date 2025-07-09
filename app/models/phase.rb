@@ -102,7 +102,7 @@ class Phase < ApplicationRecord
     copy.template_id = options.fetch(:template_id, nil)
     copy.save!(validate: false) if options.fetch(:save, false)
     options[:phase_id] = copy.id
-    sections.each { |section| copy.sections << section.deep_copy(options) }
+    sections.each { |section| copy.sections << section.deep_copy(**options) }
     copy
   end
 

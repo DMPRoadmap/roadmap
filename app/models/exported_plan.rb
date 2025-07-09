@@ -67,7 +67,7 @@ class ExportedPlan < ApplicationRecord
   end
 
   def owner
-    plan.roles.to_a.select(&:creator?).first.user
+    plan.roles.to_a.find(&:creator?)&.user
   end
 
   def funder
@@ -182,7 +182,7 @@ class ExportedPlan < ApplicationRecord
         next if answer.nil? && !unanswered_questions
 
         if question_headings
-          qtext = sanitize_text(question.text.gsub(/<li>/, '  * '))
+          qtext = sanitize_text(question.text.gsub('<li>', '  * '))
           output += "\n* #{qtext}"
         end
         if answer.nil?
@@ -206,7 +206,6 @@ class ExportedPlan < ApplicationRecord
   private
 
   # Returns an Array of question_ids for the exported settings stored for a plan
-  # rubocop:disable Style/CaseLikeIf
   def questions
     question_settings = settings(:export).fields[:questions]
     @questions ||= if question_settings.present?
@@ -221,7 +220,6 @@ class ExportedPlan < ApplicationRecord
                      []
                    end
   end
-  # rubocop:enable Style/CaseLikeIf
 
   def sanitize_text(text)
     ActionView::Base.full_sanitizer.sanitize(text.gsub(/&nbsp;/i, '')) unless text.nil?

@@ -66,7 +66,7 @@ RSpec.describe Phase, type: :model do
 
     let!(:options) { {} }
 
-    subject { phase.deep_copy(options) }
+    subject { phase.deep_copy(**options) }
 
     context 'when no options are provided' do
       before do

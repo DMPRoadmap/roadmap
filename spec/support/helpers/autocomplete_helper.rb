@@ -8,7 +8,7 @@ module AutoCompleteHelper
 
     # The controllers are expecting the org_id though, so lets
     # populate it
-    hidden_id = autocomplete_id.gsub('_name', '_id').gsub('#', '')
+    hidden_id = autocomplete_id.gsub('_name', '_id').delete('#')
     hash = { id: org.id, name: org.name }.to_json
 
     js = "document.getElementById('#{hidden_id}').value = '#{hash}'"
@@ -24,7 +24,7 @@ module AutoCompleteHelper
     # and the Super Admin merge orgs tab
     id = id.gsub('org_org_', 'org_').gsub('funder_org_', 'funder_')
     # Excape any single quotes so it doesn't blow up our JS
-    hash = { id: org.id, name: org.name.gsub("'", '') }
+    hash = { id: org.id, name: org.name.delete("'") }
     # Capybara/Selenium can't interact with a hidden field because the user can't,
     # so use some JS to set the value
     page.execute_script "document.getElementById('#{id}').value = '#{hash.to_json}';"

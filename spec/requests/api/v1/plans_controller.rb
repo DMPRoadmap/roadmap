@@ -126,7 +126,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
           end
           it 'set the Template id' do
             app = ApplicationService.application_name.split('-').first
-            tmplt = @original[:extension].select { |i| i[app].present? }.first
+            tmplt = @original[:extension].find { |i| i[app].present? }
             expected = tmplt[app][:template][:id]
             expect(@plan.template_id).to eql(expected)
           end
@@ -325,7 +325,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
 
           it 'set the Template id' do
             app = ApplicationService.application_name.split('-').first
-            tmplt = @original[:extension].select { |i| i[app].present? }.first
+            tmplt = @original[:extension].find { |i| i[app].present? }
             expected = tmplt[app][:template][:id]
             expect(@plan.template_id).to eql(expected)
           end

@@ -18,11 +18,11 @@ module Settings
   class Template < RailsSettings::SettingObject
     VALID_FONT_FACES = [
       '"Times New Roman", Times, Serif',
-      'Arial, Helvetica, Sans-Serif'
+      'Roboto, Arial, Sans-Serif'
     ].freeze
 
-    VALID_FONT_SIZE_RANGE = (8..14).freeze
-    VALID_MARGIN_RANGE = (5..25).freeze
+    VALID_FONT_SIZE_RANGE = (8..14)
+    VALID_MARGIN_RANGE = (5..25)
 
     VALID_ADMIN_FIELDS = %w[project_name project_identifier grant_title
                             principal_investigator project_data_contact
@@ -38,7 +38,7 @@ module Settings
           left: 12,
           right: 12
         },
-        font_face: 'Arial, Helvetica, Sans-Serif',
+        font_face: 'Roboto, Arial, Sans-Serif',
         font_size: 10 # pt
       },
       max_pages: 3,
@@ -49,7 +49,7 @@ module Settings
       title: ''
     }.freeze
 
-    # rubocop:disable Metrics/BlockLength, Metrics/BlockNesting
+    # rubocop:disable Metrics/BlockLength
     validate do
       formatting = value['formatting']
       max_pages  = value['max_pages']
@@ -99,7 +99,7 @@ module Settings
         errors.add(:max_pages, _('Invalid maximum pages'))
       end
     end
-    # rubocop:enable Metrics/BlockLength, Metrics/BlockNesting
+    # rubocop:enable Metrics/BlockLength
 
     before_validation do
       formatting[:font_size] = formatting[:font_size].to_i if formatting[:font_size].present?

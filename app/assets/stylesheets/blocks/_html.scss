@@ -1,8 +1,11 @@
+@use '../variables/colours' as *;
 // This file sets styles for main HTML elements.
 // If it starts to get too large, it would be a good idea to break it into component
 // blocks.
 
 html {
+  font-size: 0.9rem;
+  font-weight: 300;
   position: relative;
   min-height: 100%;
 }
@@ -10,6 +13,7 @@ html {
 /* For sticky footer */
 main {
   margin-bottom: 100px;
+  margin-top: 30px;
   @media (max-width: 768px) {
     margin-bottom: 420px;
   }
@@ -20,6 +24,15 @@ main {
 
 body{
   padding-bottom: 50px;
+
+  hr {
+    border-top: 1px solid #eeeeee;
+  }
+
+  .row {
+    --bs-gutter-x: 0rem;
+  }
+  
 }
 
 /* footer */
@@ -50,7 +63,7 @@ fieldset {
 
 legend {
   border: none;
-  font-size: 14px;
+  font-size: 14px; 
   font-weight: bold;
   margin-bottom: 5px;
   text-transform: capitalize;
@@ -64,3 +77,20 @@ h1, h2, h3, h4, h5, h6 {
   /* font-family: "GillSansLight"; */
   color: $color-heading-text;
 }
+
+
+.fas:not(.small) {
+  font-size: 1rem;
+}
+
+/** Added as Bootstrap 5.2 has dropped  .text-justify class. 
+So we added this based on comment 
+https://github.com/twbs/bootstrap/pull/29793#issuecomment-1814683346
+*/
+.text-justify {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+
+

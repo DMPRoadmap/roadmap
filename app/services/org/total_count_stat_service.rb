@@ -30,7 +30,7 @@ class Org
         else
           args = { org_name: org_name }
           args[key_target] = count
-          acc[org_name] = build_model(args)
+          acc[org_name] = build_model(**args)
         end
 
         acc

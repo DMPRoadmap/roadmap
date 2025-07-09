@@ -68,10 +68,6 @@ class User < ApplicationRecord
          :rememberable, :trackable, :validatable, :omniauthable,
          omniauth_providers: %i[shibboleth orcid]
 
-  ##
-  # User Notification Preferences
-  serialize :prefs, Hash
-
   # default user language to the default language
   attribute :language_id, :integer, default: -> { Language.default&.id }
 

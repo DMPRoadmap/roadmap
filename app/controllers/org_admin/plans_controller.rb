@@ -17,7 +17,11 @@ module OrgAdmin
 
       @super_admin = current_user.can_super_admin?
       @clicked_through = params[:click_through].present?
-      @plans = @super_admin ? Plan.all.page(1) : current_user.org.org_admin_plans.page(1)
+      @plans = if @super_admin
+                 Plan.all.page(1).includes(:template, roles: { user: :org })
+               else
+                 current_user.org.org_admin_plans.page(1)
+               end
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -50,7 +54,7 @@ module OrgAdmin
       raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
 
       org = current_user.org
-      file_name = org.name.gsub(/ /, '_')
+      file_name = org.name.tr(' ', '_')
                      .gsub(/[.;,]/, '')
       header_cols = [
         _('Project title').to_s,

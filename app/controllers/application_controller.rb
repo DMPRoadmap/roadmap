@@ -54,11 +54,11 @@ class ApplicationController < ActionController::Base
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last
     # visited.
+    # don't store ajax calls
     unless ['/users/sign_in',
             '/users/sign_up',
             '/users/password',
-            '/users/invitation/accept'].any? { |ur| request.fullpath.include?(ur) } \
-    || request.xhr? # don't store ajax calls
+            '/users/invitation/accept'].any? { |ur| request.fullpath.include?(ur) } || request.xhr?
       session[:previous_url] = request.fullpath
     end
   end
@@ -188,7 +188,7 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       # Redirect use to the path and display the error message
-      format.html { redirect_to url_or_path, alert: msg }
+      format.any(:html, :pdf) { redirect_to url_or_path, alert: msg }
       # Render the JSON error message (using API V1)
       format.json do
         @payload = { errors: [msg] }

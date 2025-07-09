@@ -1,48 +1,32 @@
 # frozen_string_literal: true
 
-require 'webdrivers/chromedriver'
-require_relative 'helpers/capybara_helper'
-require_relative 'helpers/sessions_helper'
-require_relative 'helpers/tiny_mce_helper'
-require_relative 'helpers/autocomplete_helper'
+# Use Puma as the webserver for feature tests
+Capybara.server = :puma, { Silent: true }
 
-Capybara.default_driver = :rack_test
-
-# Cache for one hour
-Webdrivers.cache_time = 3600
-# This is a customisation of the default :selenium_chrome_headless config in:
-# https://github.com/teamcapybara/capybara/blob/master/lib/capybara.rb
-#
-# This adds the --no-sandbox flag to fix TravisCI as described here:
-# https://docs.travis-ci.com/user/chrome#sandboxing
-Capybara.register_driver :selenium_chrome_headless do |app|
-  Capybara::Selenium::Driver.load_selenium
-  browser_options = ::Selenium::WebDriver::Chrome::Options.new
-  browser_options.args << '--headless'
-  browser_options.args << '--no-sandbox'
-  browser_options.args << '--disable-gpu' if Gem.win_platform?
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+# Create a custom driver based on Capybara's :selenium_chrome_headless driver
+Capybara.register_driver :selenium_chrome_headless_custom do |app|
+  # Get a copy of the default options for Capybara's :selenium_chrome_headless driver
+  options = Capybara.drivers[:selenium_chrome_headless].call.options[:options].dup
+  # Resolves ElementClickInterceptedError (default window-size is only (800x600))
+  options.add_argument('--window-size=1920,1080')
+  options.add_argument('--no-sandbox')
+  options.add_argument('--disable-dev-shm-usage')
+  # Create a new Selenium driver with the customised options
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
+
+# Use the fast rack_test driver for non-feature tests by default
+Capybara.default_driver = :rack_test
+Capybara.javascript_driver = :selenium_chrome_headless_custom
+Capybara.default_max_wait_time = 20
 
 RSpec.configure do |config|
   config.before(:each, type: :feature, js: false) do
     Capybara.use_default_driver
   end
 
+  # Use the Selenium headless Chrome driver for feature tests
   config.before(:each, type: :feature, js: true) do
-    Capybara.current_driver = :selenium_chrome_headless
+    Capybara.current_driver = :selenium_chrome_headless_custom
   end
-end
-
-Capybara.configure do |config|
-  config.default_max_wait_time = 5 # seconds
-  config.server                = :webrick
-  config.raise_server_errors   = true
-end
-
-RSpec.configure do |config|
-  config.include(CapybaraHelper, type: :feature)
-  config.include(SessionsHelper, type: :feature)
-  config.include(TinyMceHelper,  type: :feature)
-  config.include(AutoCompleteHelper, type: :feature)
 end

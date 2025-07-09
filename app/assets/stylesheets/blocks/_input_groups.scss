@@ -1,4 +1,14 @@
-.input-group-addon {
-  border-radius: 0px;
+@use '../variables/colours' as *;
+.input-group-text {
+  border-radius: 0rem;
   background-color: $color-primary-background;
+  padding: 0.5rem;
+}
+
+.form-control {
+  border-radius: 0rem;
+}
+
+.input-group .form-control {
+  border: 2px solid $color-border-light;
 }

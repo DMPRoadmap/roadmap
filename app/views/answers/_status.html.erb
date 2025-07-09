@@ -2,22 +2,38 @@
 <!--
   Partial for handling the answer status (e.g. saving, error-saving, data-status)
 -->
-<span class="label label-info status" style="display:none;" data-status="saving"><%= _('Saving...') %></span>
-<span class="label label-warning status" style="display: none;" data-status="error-saving"></span>
+<%
+  helpdesk_email = Rails.configuration.x.organisation.helpdesk_email
+  email_subject = _('Plan writing error related to %{tool_name}') %{ :tool_name => tool_name }
+%>
+<span class="badge bg-warning text-dark status" style="display:none;" data-status="saving">
+  <%= _("Saving...Please do not refresh or go to another page!") %>
+  <br><br>
+  <%= sanitize(_("If you stuck on this message, please save your plan to a separate file and contact us at %{helpdesk_email} .") % {
+      helpdesk_email: mail_to(helpdesk_email, helpdesk_email,subject: email_subject)
+    }) %>
+</span>
+<span class="badge bg-danger status" style="display: none;" data-status="error-saving">
+<%= sanitize(_("Sorry, we had trouble saving your data. Please contact us at %{helpdesk_email} .") % {
+      helpdesk_email: mail_to(helpdesk_email, helpdesk_email,subject: email_subject)
+    }) %>
+<br><br>
+<%= _("Save your plan content to a separate file now. You will LOSE them after refreshing or closing this page.") %>
+</span>
 <% if answer.answered? %>
-    <span class="label label-info status" data-status="saved-at">
+    <span class="badge bg-info status" data-status="saved-at">
       <%= _('Answered')%> <time class="timeago" datetime="<%= answer.updated_at.iso8601 %>"></time>
       <%= _(' by %{user_name}') %{ :user_name => answer.user.name } if answer.user.present? %>
     </span><br>
     <% n_question_to_remove = answer_remove_list(answer).size %>
     <% if n_question_to_remove > 0 %>
-      <span class="label label-info status" data-status="saved-at">
+      <span class="badge bg-info status" data-status="saved-at">
         <%= _('This answer removes ') + n_question_to_remove.to_s + _(' questions from your plan.') %>
       </span>
     <% end %>
     <% email_list = email_trigger_list(answer) %>
     <% unless email_list.blank? %>
-      <span class="label label-info status" data-status="saved-at">
+      <span class="badge bg-info status" data-status="saved-at">
         <%= _('This answer triggers email(s) to ') + email_list %>
       </span>
     <% end %>

@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   mysql:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     # Define environment variables for MySQL and Rails
     env:
@@ -14,7 +14,7 @@ jobs:
 
     steps:
     # Checkout the repo
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
@@ -23,20 +23,22 @@ jobs:
         bundler-cache: true
 
     # Install Node
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v3
       with:
+        node-version: 18
         cache: 'yarn'
 
     # Copy all of the example configs over
-    - name: 'Setup Default Configuration'
+    - name: 'Setup the application'
       run: |
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+        cp .env.mysql2 .env
 
     # Stub out the Rails credentials file so that we can start the Rails app
     - name: 'Setup Credentials'
-      run: EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
+      run: EDITOR="sh -c 'echo \"$(cat config/credentials.yml.mysql2)\" > \$1' --" bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
@@ -52,8 +54,8 @@ jobs:
 
     - name: 'Build out the test database'
       run: |
-        bundle exec rails db:create RAILS_ENV=test
-        bundle exec rails db:schema:load RAILS_ENV=test
+        DISABLE_SPRING=1 bundle exec rails db:create RAILS_ENV=test
+        DISABLE_SPRING=1 bundle exec rails db:schema:load RAILS_ENV=test
 
     - name: 'Run any pending database migrations'
       run: bin/rails db:migrate RAILS_ENV=test

@@ -178,7 +178,7 @@ namespace :data_cleanup do
   # rubocop:disable Metrics/AbcSize
   def check_uniqueness(klass, filter)
     instance = klass.new
-    group = [filter.attributes.map { |a| instance.respond_to?("#{a}_id") ? "#{a}_id".to_sym : a }]
+    group = [filter.attributes.map { |a| instance.respond_to?(:"#{a}_id") ? :"#{a}_id" : a }]
 
     group << filter.options[:scope] if filter.options[:scope].present?
     group = group.flatten.uniq
@@ -230,8 +230,9 @@ namespace :data_cleanup do
   def check_length(klass, filter)
     ids = []
     shoulda = ''
+    skippable = %i[password logo]
     filter.attributes.each do |attr|
-      next if %i[password logo].include?(attr)
+      next if skippable.include?(attr)
 
       qry = ''
       if filter.options[:minimum].present?
@@ -280,9 +281,7 @@ namespace :data_cleanup do
 
       ids = klass.where(qry).pluck(:id)
       msg = "  #{ids.count} records that are an invalid #{filter.attributes} because it should #{shoulda}"
-      # rubocop:disable Lint/Void
       [ids, msg]
-      # rubocop:enable Lint/Void
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

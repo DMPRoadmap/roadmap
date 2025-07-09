@@ -1,6 +1,8 @@
+@use '../variables/colours' as *;
+
 .ui-datepicker-header {
-  background: $color-seccondary-background;
-  color: $color-seccondary-text;
+  background: $color-secondary-background;
+  color: $color-secondary-text;
   border: none;
 }
 .ui-datepicker-prev,

@@ -19,7 +19,7 @@ class Language < ApplicationRecord
 
   ABBREVIATION_MAXIMUM_LENGTH = 5
 
-  ABBREVIATION_FORMAT = /\A[a-z]{2}(-[A-Z]{2})?\Z/.freeze
+  ABBREVIATION_FORMAT = /\A[a-z]{2}(-[A-Z]{2})?\Z/
 
   NAME_MAXIMUM_LENGTH = 20
 
@@ -55,7 +55,7 @@ class Language < ApplicationRecord
     value = '' if value.nil?
     value = value.downcase
     if value.blank? || value =~ /\A[a-z]{2}\Z/i
-      super(value)
+      super
     else
       super(LocaleService.to_i18n(locale: value).to_s)
     end

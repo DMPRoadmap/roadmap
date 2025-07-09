@@ -217,7 +217,7 @@ namespace :upgrade do
               puts "\t adding option answers.last.question_options.first.text"
             end
           end
-          answers.reverse.each do |answer|
+          answers.reverse_each do |answer|
             if num_text.zero? && answer.text.present? # case first present text
               new_answer.text = answer.text
               num_text += 1
@@ -415,7 +415,7 @@ namespace :upgrade do
                 .where('customization_of IS NOT NULL')
                 .group(:customization_of, :org_id, :version, :id)
                 .order(customization_of: :asc, org_id: :asc, version: :asc, updated_at: :desc)
-    generate_compound_key = ->(customization_of, org_id) { return "#{customization_of}_#{org_id}" }
+    generate_compound_key = ->(customization_of, org_id) { "#{customization_of}_#{org_id}" }
     current = nil
     unique_versions = Set.new
     duplicates = []
@@ -832,9 +832,9 @@ namespace :upgrade do
 
     Parallel.map(identifiers, in_threads: 8) do |ui|
       # Parallel has trouble with ActiveRecord lazy loading
-      require 'org' unless Object.const_defined?('Org')
-      require 'identifier' unless Object.const_defined?('Identifier')
-      require 'identifier_scheme' unless Object.const_defined?('IdentifierScheme')
+      require 'org' unless Object.const_defined?(:Org)
+      require 'identifier' unless Object.const_defined?(:Identifier)
+      require 'identifier_scheme' unless Object.const_defined?(:IdentifierScheme)
       @reconnected ||= Identifier.connection.reconnect! || true
 
       lookup = Identifier.where(identifiable_id: ui.user_id,
@@ -870,9 +870,9 @@ namespace :upgrade do
 
     Parallel.map(identifiers, in_threads: 8) do |oi|
       # Parallel has trouble with ActiveRecord lazy loading
-      require 'org' unless Object.const_defined?('Org')
-      require 'identifier' unless Object.const_defined?('Identifier')
-      require 'identifier_scheme' unless Object.const_defined?('IdentifierScheme')
+      require 'org' unless Object.const_defined?(:Org)
+      require 'identifier' unless Object.const_defined?(:Identifier)
+      require 'identifier_scheme' unless Object.const_defined?(:IdentifierScheme)
       @reconnected ||= Identifier.connection.reconnect! || true
 
       lookup = Identifier.where(identifiable_id: oi.org_id,
@@ -924,7 +924,7 @@ namespace :upgrade do
 
         orgs.each do |org|
           # If the Org already has a ROR identifier skip it
-          next if org.identifiers.select { |id| id.identifier_scheme_id == ror.id }.any?
+          next if org.identifiers.any? { |id| id.identifier_scheme_id == ror.id }
 
           # The abbreviation sometimes causes weird results so strip it off
           # in this instance
@@ -933,7 +933,7 @@ namespace :upgrade do
           next unless rslts.any?
 
           # Just use the first match that contains the search term
-          rslt = rslts.select { |r| r[:weight] <= 1 }.first
+          rslt = rslts.find { |r| r[:weight] <= 1 }
           next unless rslt.present?
 
           ror_id = rslt[:ror]
@@ -986,11 +986,12 @@ namespace :upgrade do
 
     # Unfortunately can't use the Parallel gem here because we can have collisions
     # when creating Orgs
+    common_domains = %w[gmail.com yahoo.com msn.com]
     users.each do |user|
       # First lookup by email domain
       term = user.email.split('@').last
 
-      unless %w[gmail.com yahoo.com msn.com].include?(term)
+      unless common_domains.include?(term)
         # Search the local Org table by its URL
         matches = Org.where('orgs.target_url LIKE ?', "%#{term}%")
         org = matches.first if matches.any?
@@ -1116,10 +1117,10 @@ namespace :upgrade do
       next if plan.org_id.present?
 
       # Parallel has trouble with ActiveRecord lazy loading
-      require 'plan' unless Object.const_defined?('Plan')
-      require 'role' unless Object.const_defined?('Role')
-      require 'perm' unless Object.const_defined?('Perm')
-      require 'user' unless Object.const_defined?('User')
+      require 'plan' unless Object.const_defined?(:Plan)
+      require 'role' unless Object.const_defined?(:Role)
+      require 'perm' unless Object.const_defined?(:Perm)
+      require 'user' unless Object.const_defined?(:User)
       @reconnected ||= Plan.connection.reconnect! || true
 
       next unless plan.owner.present? && plan.owner.org.present?
@@ -1132,9 +1133,9 @@ namespace :upgrade do
       next if plan.funder_id.present?
 
       # Parallel has trouble with ActiveRecord lazy loading
-      require 'plan' unless Object.const_defined?('Plan')
-      require 'template' unless Object.const_defined?('Template')
-      require 'org' unless Object.const_defined?('Org')
+      require 'plan' unless Object.const_defined?(:Plan)
+      require 'template' unless Object.const_defined?(:Template)
+      require 'org' unless Object.const_defined?(:Org)
       @reconnected ||= Plan.connection.reconnect! || true
 
       next unless plan.funder_name.present? || plan.template.org.funder?
@@ -1166,7 +1167,7 @@ namespace :upgrade do
     # Parallel.map(plans, in_threads: 8) do |plan|
     plans.each do |plan|
       # Parallel has trouble with ActiveRecord lazy loading
-      require 'plan' unless Object.const_defined?('Plan')
+      require 'plan' unless Object.const_defined?(:Plan)
       @reconnected ||= Plan.connection.reconnect! || true
 
       identifier = Identifier.find_or_create_by(
@@ -1299,7 +1300,7 @@ namespace :upgrade do
       org = user.org_id unless org.present?
 
       unless identifier.present?
-        ident = user.identifiers.select { |i| i.identifier_scheme == orcid }.first
+        ident = user.identifiers.find { |i| i.identifier_scheme == orcid }
         identifier = ident.value if ident.present?
       end
     end

@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   postgresql:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     services:
       # Postgres installation
@@ -27,10 +27,11 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
+      DISABLE_SPRING: 1
 
     steps:
     # Checkout the repo
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
@@ -38,9 +39,13 @@ jobs:
         ruby-version: 3.3.8
         bundler-cache: true
 
+    ## - run: echo 'NODE_OPTIONS="--openssl-legacy-provider"' >> $GITHUB_ENV
+    ## /home/runner/runners/2.301.1/externals/node12/bin/node: --openssl-legacy-provider is not allowed in NODE_OPTIONS
+
     # Install Node
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v3
       with:
+        node-version: 18
         cache: 'yarn'
 
     # Install the Postgres developer packages
@@ -49,18 +54,24 @@ jobs:
         sudo apt-get update
         sudo apt-get install libpq-dev
 
+    # Install ImageMagick (for `identify` command)
+    - name: 'Install ImageMagick'
+      run: |
+        sudo apt-get install -y imagemagick
+
     # Copy all of the example configs over
     - name: 'Setup Default Configuration'
       run: |
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+        cp .env.postgresql .env
 
     # Stub out the Rails credentials file so that we can start the Rails app
     - name: 'Setup Credentials'
       run: |
         # generate a default credential file and key
-        EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
+        EDITOR="sh -c 'echo \"$(cat config/credentials.yml.postgresql)\" > \$1' --" bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
@@ -71,11 +82,23 @@ jobs:
       run: |
         yarn install
 
+    # TEMPORARY WORKAROUND FOR THE FOLLOWING ISSUE: https://github.com/DMPRoadmap/roadmap/issues/3485
+    # Remove this once our tests are compatible with the new version of Chrome
+    # Source: https://github.com/teamcapybara/capybara/issues/2800#issuecomment-2731100953
+    - name: Remove image-bundled Chrome
+      run: sudo apt-get purge google-chrome-stable
+    - name: Setup stable Chrome
+      uses: browser-actions/setup-chrome@v1
+      with:
+        chrome-version: 128
+        install-chromedriver: true
+        install-dependencies: true
+
     # Initialize the DB
     - name: 'Setup Test DB'
       run: |
-        bundle exec rails db:setup RAILS_ENV=test
-        bundle exec rails db:migrate RAILS_ENV=test
+        bundle exec rails db:setup
+        bundle exec rails db:migrate
 
     # Prebuild the CSS, JS and image assets
     - name: 'Compile Assets'

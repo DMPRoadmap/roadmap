@@ -61,11 +61,12 @@
     <![endif]-->
 
     <%= stylesheet_link_tag(stylesheet_manifest_file) %>
-    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
   <body>
       <div class="skip">
@@ -85,9 +86,9 @@
       <main class="container" id="maincontent">
         <div id="notification-area"
              class="notification-area alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
-                    <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
+                    <%= (has_alert or has_notice) ? 'd-block' : 'd-none' %>"
              role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
-          <i class="fas <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
+          <i class="fas <%= has_alert ? ' fa-circle-xmark' : ' fa-circle-check' %>" aria-hidden="true"></i>
           <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
           <span><%= sanitize (has_alert ? alert : notice) %></span>
           <%= yield :errors %>
@@ -96,12 +97,9 @@
         <%= yield %>
 
 
-        <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class, so update when
-            we upgrade to remove the img tag %>
-        <div class="spinner-border hidden" role="status">
-          <%spinner_msg = _("Loading...") %>
-          <%= image_tag("spinner.gif", alt: spinner_msg) %>
-          <span class="sr-only"><%= spinner_msg %></span>
+        <%# Updated with Bootstrap 5 built in spinner %>
+        <div class="spinner-border d-none" role="status">
+          <span class="visually-hidden"><%spinner_msg = _("Loading...") %></span>
         </div>
 
       </main>
@@ -120,6 +118,7 @@
       MAX_NUMBER_GUIDANCE_SELECTIONS: 6,
 
       REQUIRED_FIELD_TEXT: _('This field is required.'),
+      VALIDATION_MESSAGE_PASSWORDS_MATCH: _('The passwords must match.'),
 
       SHOW_PASSWORD_MESSAGE: _('Show password'),
       SHOW_SELECT_ORG_MESSAGE: _('Select an organisation from the list.'),
@@ -144,7 +143,10 @@
       AUTOCOMPLETE_ARIA_HELPER_EMPTY: _("No results are available for your entry."),
       AUTOCOMPLETE_SEARCHING: _("Searching ..."),
 
-      CURRENT_LOCALE: LocaleService.to_gettext(locale: @current_locale.to_s)
+      CURRENT_LOCALE: LocaleService.to_gettext(locale: @current_locale.to_s),
+
+      MORE_INFO: _("More info"),
+      LESS_INFO: _("Less info")
     }.to_json
     %>
 

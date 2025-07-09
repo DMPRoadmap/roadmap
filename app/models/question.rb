@@ -118,14 +118,14 @@ class Question < ApplicationRecord
     copy = dup
     copy.modifiable = options.fetch(:modifiable, modifiable)
     copy.section_id = options.fetch(:section_id, nil)
-    copy.save!(validate: false)  if options.fetch(:save, false)
+    copy.save!(validate: false) if options.fetch(:save, false)
     options[:question_id] = copy.id
-    question_options.each { |qo| copy.question_options << qo.deep_copy(options) }
+    question_options.each { |qo| copy.question_options << qo.deep_copy(**options) }
     annotations.each do |annotation|
-      copy.annotations << annotation.deep_copy(options)
+      copy.annotations << annotation.deep_copy(**options)
     end
     themes.each { |theme| copy.themes << theme }
-    conditions.each { |condition| copy.conditions << condition.deep_copy(options) }
+    conditions.each { |condition| copy.conditions << condition.deep_copy(**options) }
     copy.conditions = copy.conditions.sort_by(&:number)
     copy
   end
@@ -145,7 +145,7 @@ class Question < ApplicationRecord
     guidances = {}
     if theme_ids.any?
       GuidanceGroup.includes(guidances: :themes)
-                   .where(org_id: org.id).each do |group|
+                   .where(org_id: org.id).find_each do |group|
         group.guidances.each do |g|
           g.themes.each do |theme|
             guidances["#{group.name} " + _('guidance on') + " #{theme.title}"] = g if theme_ids.include? theme.id
@@ -167,7 +167,7 @@ class Question < ApplicationRecord
     org_ids = Array(org_ids)
     annotations.select { |a| org_ids.include?(a.org_id) }
                .select(&:example_answer?)
-               .sort { |a, b| a.created_at <=> b.created_at }
+               .sort_by(&:created_at)
   end
 
   alias get_example_answers example_answers
@@ -183,8 +183,7 @@ class Question < ApplicationRecord
   # Returns Annotation
   def guidance_annotation(org_id)
     annotations.select { |a| a.org_id == org_id }
-               .select(&:guidance?)
-               .first
+               .find(&:guidance?)
   end
 
   alias get_guidance_annotation guidance_annotation
@@ -197,8 +196,8 @@ class Question < ApplicationRecord
                                          type: Annotation.types[:example_answer])
     guidance = annotations.find_by(org_id: org_id,
                                    type: Annotation.types[:guidance])
-    example_answer = annotations.build(type: :example_answer, text: '', org_id: org_id) unless example_answer.present?
-    guidance = annotations.build(type: :guidance, text: '', org_id: org_id) unless guidance.present?
+    example_answer = annotations.build(type: :example_answer, text: '', org_id: org_id) if example_answer.blank?
+    guidance = annotations.build(type: :guidance, text: '', org_id: org_id) if guidance.blank?
     [example_answer, guidance]
   end
 
@@ -207,48 +206,45 @@ class Question < ApplicationRecord
   # after versioning
   def update_conditions(param_conditions, old_to_new_opts, question_id_map)
     conditions.destroy_all
-    return unless param_conditions.present?
+    return if param_conditions.blank?
 
-    param_conditions.each do |_key, value|
+    param_conditions.each_value do |value|
       save_condition(value, old_to_new_opts, question_id_map)
     end
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def save_condition(value, opt_map, question_id_map)
     c = conditions.build
     c.action_type = value['action_type']
     c.number = value['number']
+
     # question options may have changed so rewrite them
-    c.option_list = value['question_option']
-    unless opt_map.blank?
-      new_question_options = []
-      c.option_list.each do |qopt|
-        new_question_options << opt_map[qopt]
-      end
-      c.option_list = new_question_options
+    c.option_list = handle_option_list(value, opt_map)
+    # Do not save the condition if the option_list is empty
+    if c.option_list.empty?
+      c.destroy
+      return
     end
 
     if value['action_type'] == 'remove'
-      c.remove_data = value['remove_question_id']
-      unless question_id_map.blank?
-        new_question_ids = []
-        c.remove_data.each do |qid|
-          new_question_ids << question_id_map[qid]
-        end
-        c.remove_data = new_question_ids
+      c.remove_data = handle_remove_data(value, question_id_map)
+      # Do not save the condition if remove_data is empty
+      if c.remove_data.empty?
+        c.destroy
+        return
       end
     else
-      c.webhook_data = {
-        name: value['webhook-name'],
-        email: value['webhook-email'],
-        subject: value['webhook-subject'],
-        message: value['webhook-message']
-      }.to_json
+      c.webhook_data = handle_webhook_data(value)
+      # Do not save the condition if webhook_data is nil
+      if c.webhook_data.nil?
+        c.destroy
+        return
+      end
     end
     c.save
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
@@ -275,4 +271,33 @@ class Question < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  def handle_option_list(value, opt_map)
+    if opt_map.present?
+      value['question_option'].map { |qopt| opt_map[qopt] }
+    else
+      value['question_option']
+    end
+  end
+
+  def handle_remove_data(value, question_id_map)
+    if question_id_map.present?
+      value['remove_question_id'].map { |qid| question_id_map[qid] }
+    else
+      value['remove_question_id']
+    end
+  end
+
+  def handle_webhook_data(value)
+    # return nil if any of the webhook fields are blank
+    return if %w[webhook-name webhook-email webhook-subject webhook-message].any? { |key| value[key].blank? }
+
+    # else return the constructed webhook_data hash
+    {
+      name: value['webhook-name'],
+      email: value['webhook-email'],
+      subject: value['webhook-subject'],
+      message: value['webhook-message']
+    }
+  end
 end

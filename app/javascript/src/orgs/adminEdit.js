@@ -1,7 +1,7 @@
 // TODO: we need to be able to swap in the appropriate locale here
 import 'number-to-text/converters/en-us';
 import { isObject } from '../utils/isType';
-import { Tinymce } from '../utils/tinymce.js.erb';
+import { Tinymce } from '../utils/tinymce.js';
 import { eachLinks } from '../utils/links';
 import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../utils/autoComplete';
 
@@ -10,9 +10,9 @@ $(() => {
     const editor = Tinymce.findEditorById('org_feedback_msg');
     if (isObject(editor)) {
       if ($('#org_feedback_enabled_true').is(':checked')) {
-        editor.setMode('code');
+        editor.mode.set('design');
       } else {
-        editor.setMode('readonly');
+        editor.mode.set('readonly');
       }
     }
   };

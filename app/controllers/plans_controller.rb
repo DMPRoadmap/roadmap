@@ -176,7 +176,7 @@ class PlansController < ApplicationController
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
-    @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
+    @editing = !params[:editing].nil? && @plan.administerable_by?(current_user.id)
 
     # Get all Guidance Groups applicable for the plan and group them by org
     @all_guidance_groups = @plan.guidance_group_options
@@ -192,10 +192,10 @@ class PlansController < ApplicationController
     end
     @default_orgs = Org.default_orgs
     @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if @default_orgs.include?(org)
-
-      # If this is one of the already selected guidance groups its important!
-      @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
+      # @default_orgs and already selected guidance groups are important.
+      if (@default_orgs.include?(org) || (ggs & @selected_guidance_groups).any?) && !@important_ggs.include?([org, ggs])
+        @important_ggs << [org, ggs]
+      end
     end
 
     # Sort the rest by org name for the accordion
@@ -237,7 +237,7 @@ class PlansController < ApplicationController
                .find(params[:id])
     authorize plan
     phase_id = params[:phase_id].to_i
-    phase = plan.template.phases.select { |p| p.id == phase_id }.first
+    phase = plan.template.phases.find { |p| p.id == phase_id }
     raise ActiveRecord::RecordNotFound if phase.nil?
 
     guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
@@ -376,6 +376,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+    @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
     @export_settings = @plan.settings(:export)
     render 'download'
   end
@@ -524,7 +525,7 @@ class PlansController < ApplicationController
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a; }
+    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a }
     render('/phases/edit', locals: {
              base_template_org: phase.template.base_org,
              plan: plan,

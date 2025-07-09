@@ -4,16 +4,22 @@
   <div class="col-xs-12">
     <% if plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
       <h2><%= _('Request expert feedback') %></h2>
-      <p><%= _("Click below to give data management staff at #{plan.owner.org.name}, the Plan Owner's org, access to read and comment on your plan.") %></p>
-      <div class="well well-sm">
+      <p>
+       <%= 
+       _("Click below to give data management staff at %{owner_org}, the Plan Owner's org, access to read and comment on your plan.") % {
+         owner_org: plan.owner.org.name,
+       }
+       %>
+       </p>
+      <div class="card bg-light mb-3 p-2">
         <%= sanitize plan.owner.org.feedback_msg.to_s % { user_name: current_user.name(false), plan_name: plan.title, organisation_email: current_user.org.contact_email } %>
       </div>
       <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
-      <div class="form-group col-xs-8">
+      <div class="form-control mb-3 col-xs-8">
         <%= link_to _('Request feedback'),
                      feedback_requests_path(plan_id: @plan.id),
                      data: { method: 'post' },
-                     class: "btn btn-default#{' disabled' if @plan.feedback_requested?}" %>
+                     class: "btn btn-secondary#{' disabled' if @plan.feedback_requested?}" %>
         <span><%= _("Feedback has been requested.") if @plan.feedback_requested? %></span>
       </div>
     <% end %>

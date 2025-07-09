@@ -1,3 +1,6 @@
+@use '../variables/colours' as *;
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
 // Override FontAwesome icons
 
 /* FONTAWESOME STYLING */
@@ -5,19 +8,19 @@
   font-size: 1.7rem;
 }
 .fa-reverse {
-  color: $color-seccondary-text;
+  color: $color-secondary-text;
 }
 .fa-sort, .fa-sort-up, .fa-sort-down {
   color: $color-primary-text;
 }
 
 /* change color of search icon */
-.fa-search {
+.fa-magnifying-glass {
   color: $color-primary-text;
 }
 
 /* adjust the position of the 'remove - X' button for links */
-.link .fa-times-circle {
+.link .fa-circle-xmark {
   margin-top: $grid-gutter-width;
 }
 
