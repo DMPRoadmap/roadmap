@@ -27,9 +27,6 @@ gem 'jsbundling-rails'
 # Use Tailwind CSS, Bootstrap, Bulma, PostCSS, or Dart Sass to bundle and process your CSS
 # Read more: https://github.com/rails/cssbundling-rails
 gem 'cssbundling-rails'
-# Use Tailwind CSS, Bootstrap, Bulma, PostCSS, or Dart Sass to bundle and process your CSS
-# Read more: https://github.com/rails/cssbundling-rails
-gem 'cssbundling-rails'
 
 # Turbo gives you the speed of a single-page web application without having to write any JavaScript..
 # Read more: https://github.com/hotwired/turbo-rails
@@ -50,13 +47,6 @@ gem 'jbuilder'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-# The ultimate text progress bar library for Ruby!
-# (https://github.com/jfelchner/ruby-progressbar)
-gem 'ruby-progressbar'
-
-# Provides Sprockets implementation for Rails 4.x (and beyond) Asset Pipeline.
-# https://github.com/rails/sprockets-rails
-gem 'sprockets-rails'
 # The ultimate text progress bar library for Ruby!
 # (https://github.com/jfelchner/ruby-progressbar)
 gem 'ruby-progressbar'
@@ -125,9 +115,6 @@ gem 'jwt'
 # Gems for repository integration
 # OO authorization for Rails (https://github.com/elabs/pundit)
 gem 'pundit'
-
-# Gem for throttling malicious attacks
-gem 'rack-attack', '~> 6.6', '>= 6.6.1'
 
 # Gem for throttling malicious attacks
 gem 'rack-attack', '~> 6.6', '>= 6.6.1'
@@ -227,15 +214,6 @@ gem 'mail', '2.7.1'
 # https://github.com/ruby/net-smtp
 gem 'net-smtp'
 
-# We need to freeze the mail gem version as the recently released 2.8.0 triggers an exception
-# We will need to check if it's fixed when we migrate to Ruby 3.0/3.1
-# See : https://github.com/DMPRoadmap/roadmap/issues/3254
-gem 'mail', '2.7.1'
-
-# This library provides functionality to send internet mail via SMTP, the Simple Mail Transfer Protocol.
-# https://github.com/ruby/net-smtp
-gem 'net-smtp'
-
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
@@ -281,9 +259,7 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
 
-
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'selenium-webdriver'
   gem 'selenium-webdriver'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
@@ -296,9 +272,6 @@ group :test do
   # This gem brings back assigns to your controller tests as well as assert_template
   # to both controller and integration tests.
   gem 'rails-controller-testing'
-
-  # automating code review
-  gem 'danger'
 
   # automating code review
   gem 'danger'
@@ -321,8 +294,6 @@ group :ci, :development do
   # (gettext and rails-i18n)
   gem 'rubocop-i18n'
 
-  # Performance checks by Rubocop
-  gem 'rubocop-performance', require: false
   # Performance checks by Rubocop
   gem 'rubocop-performance', require: false
 end
