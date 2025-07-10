@@ -12,6 +12,11 @@ module Api
       if email_param.present?
         # filtered_orgs = dummy_orgs.select { |org| org[:domain] == email_domain }
         org_results = OrgDomain.search_with_org_info(email_domain)
+
+        # Call OrionService to search by domain
+        orion_response = ::ExternalApis::OrionService.search_by_domain(email_domain)
+        puts orion_response
+
         result = org_results.map { |record|
           {
             id: record.id,
