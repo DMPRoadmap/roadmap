@@ -1,0 +1,40 @@
+name: ERB Format Check
+
+on:
+  pull_request:
+    paths:
+      - 'app/views/**/*.erb'
+
+jobs:
+  erb_format:
+    runs-on: ubuntu-24.04
+
+    steps:
+    # Checkout the repo
+    - uses: actions/checkout@v2
+
+    # Install Ruby and run bundler
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+        bundler-cache: true
+
+    # Gather names of all files within 'app/views/**/*.erb' that have been changed within this PR
+    # Store those changed files in the `FILES` ENV variable
+    - name: Get list of changed `app/views/**/*.erb` files
+      run: |
+        FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- 'app/views/**/*.erb')
+
+        echo "FILES<<EOF" >> $GITHUB_ENV
+        echo "$FILES" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
+    # Check formatting of changed .erb files using erb-format.
+    # If any file is not properly formatted, this step will fail.
+    - name: Execute erb-format against all changed `app/views/**/*.erb` files
+      run: |
+        if [ -n "$FILES" ]; then
+        echo "$FILES" | xargs bundle exec erb-format --check
+        else
+        echo "No changed files within `app/views/**/*.erb`"
+        fi
