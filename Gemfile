@@ -286,6 +286,10 @@ group :ci, :development do
   # (http://github.com/stewartmckee/bundle-audit)
   gem 'bundle-audit'
 
+  # ERB formatting tool
+  # https://github.com/nebulab/erb-formatter
+  gem 'erb-formatter', require: false
+
   # RuboCop is a Ruby code style checking and code formatting tool. It aims to enforce
   # the community-driven Ruby Style Guide.
   gem 'rubocop'
