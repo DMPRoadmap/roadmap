@@ -1,0 +1,72 @@
+name: ERB Format Check
+
+on:
+  pull_request:
+    paths:
+      - 'app/views/**/*.erb'
+
+jobs:
+  erb_format:
+    runs-on: ubuntu-24.04
+
+    steps:
+    # Checkout the repo
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    # Install Ruby and run bundler
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+        bundler-cache: true
+
+    # Fetch base branch so we can get diff of changed 'app/views/**/*.erb' files
+    - name: Fetch base branch
+      run: git fetch origin ${{ github.base_ref }}
+
+    # Gather names of all files within 'app/views/**/*.erb' that have been changed within this PR
+    # Store those changed files in the `FILES` ENV variable
+    - name: Get list of changed `app/views/**/*.erb` files
+      run: |
+        FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- 'app/views/**/*.erb')
+
+        echo "FILES<<EOF" >> $GITHUB_ENV
+        echo "$FILES" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
+    # Check formatting of all changed `app/views/**/*.erb` files using erb-format.
+    # - If any files encounter errors or require formatting,
+    #   then output these file names and exit with code 1
+    # - Else output that all files are correctly formatted
+    - name: Execute erb-format against all changed `app/views/**/*.erb` files
+      run: |
+        unformatted_files=""
+        error_files=""
+
+        IFS=$'\n'
+        for file in $FILES; do
+          if ! bundle exec erb-format "$file" > /dev/null 2>&1; then
+            error_files="${error_files}${file}"$'\n'
+          else
+            formatted=$(bundle exec erb-format "$file")
+            if ! diff -q <(echo "$formatted") "$file" > /dev/null; then
+              unformatted_files="${unformatted_files}${file}"$'\n'
+            fi
+          fi
+        done
+        unset IFS
+
+        if [ -n "$error_files" ] || [ -n "$unformatted_files" ]; then
+          if [ -n "$error_files" ]; then
+            echo "⚠️ erb-format encountered errors."
+            printf "Please fix the following files so formatting can be validated (Use \`erb-format \${file}\` to view errors):\n%s\n" "$error_files"
+          fi
+          if [ -n "$unformatted_files" ]; then
+            echo "❌ Some files are not correctly formatted."
+            printf "Please run \`erb-format \${file} --write\` on the following files:\n%s\n" "$unformatted_files"
+          fi
+          exit 1
+        else
+          echo "✅ All changed .erb files are correctly formatted."
+        fi
