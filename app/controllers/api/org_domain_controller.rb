@@ -8,44 +8,32 @@ module Api
       email_param = search_params[:email]
       email_domain = email_param.split('@').last if email_param.present? && email_param.include?('@')
 
-      dummy_orgs = [
-        {
-          id: 'abc123def',
-          org_name: 'University of California',
-          domain: 'berkeley.edu'
-        },
-        {
-          id: 'xyz789ghi',
-          org_name: 'Massachusetts Institute of Technology',
-          domain: 'mit.edu'
-        },
-        {
-          id: 'mno456pqr',
-          org_name: 'Stanford University',
-          domain: 'stanford.edu'
-        }
-      ]
-
       # Filter orgs by domain if domain parameter is provided
       if email_param.present?
-        filtered_orgs = dummy_orgs.select { |org| org[:domain] == email_domain }
+        # filtered_orgs = dummy_orgs.select { |org| org[:domain] == email_domain }
+        org_results = OrgDomain.search_with_org_info(email_domain)
+        result = org_results.map { |record|
+          {
+            id: record.id,
+            org_name: record.org_name,
+            domain: record.domain
+          }
+        }
 
-        # If no matches found, return the "OTHER" org
-        if filtered_orgs.empty?
-          other_org = [
+        if result.empty?
+          pattern = "Other"
+          other_org = Org.where("LOWER(orgs.name) = ?", pattern.downcase)
+          result = other_org.map {|record|
             {
-              ror_id: 'OTHER',
-              org_name: 'OTHER',
-              domain: 'OTHER'
+              id: record.id,
+              org_name: record.name,
+              domain: ""
             }
-          ]
-          render json: other_org
-        else
-          render json: filtered_orgs
+          }
         end
+          render json: result
       else
-        # If no domain parameter provided, return all dummy orgs
-        render json: other_org
+          render json: [], status: :ok
       end
     end
 

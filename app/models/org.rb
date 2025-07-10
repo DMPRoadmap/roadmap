@@ -88,6 +88,8 @@ class Org < ApplicationRecord
 
   has_many :departments
 
+  has_many :org_domains
+
   # ===============
   # = Validations =
   # ===============
@@ -175,7 +177,6 @@ class Org < ApplicationRecord
             6 => :school,
             column: 'org_type',
             check_for_column: !Rails.env.test?
-
   # The default Org is the one whose guidance is auto-attached to
   # plans when a plan is created
   def self.default_orgs

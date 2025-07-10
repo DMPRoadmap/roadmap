@@ -21,4 +21,11 @@
 class OrgDomain < ApplicationRecord
   belongs_to :org
   
+  def self.search_with_org_info(domain)
+    pattern = "#{domain.downcase}"
+    joins(:org)
+      .where("LOWER(org_domains.domain) = ?", pattern)
+      .select("orgs.id AS id, orgs.name AS org_name, org_domains.domain")
+  end
+
 end
