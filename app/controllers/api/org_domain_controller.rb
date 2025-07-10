@@ -13,10 +13,6 @@ module Api
         # filtered_orgs = dummy_orgs.select { |org| org[:domain] == email_domain }
         org_results = OrgDomain.search_with_org_info(email_domain)
 
-        # Call OrionService to search by domain
-        orion_response = ::ExternalApis::OrionService.search_by_domain(email_domain)
-        puts orion_response
-
         result = org_results.map { |record|
           {
             id: record.id,
@@ -26,15 +22,30 @@ module Api
         }
 
         if result.empty?
-          pattern = "Other"
-          other_org = Org.where("LOWER(orgs.name) = ?", pattern.downcase)
-          result = other_org.map {|record|
-            {
-              id: record.id,
-              org_name: record.name,
-              domain: ""
-            }
+        #---------Call OrionService to search by domain
+        ror_id = ::ExternalApis::OrionService.search_by_domain(email_domain)
+        full_org_json = ::ExternalApis::OrionService.search_by_ror_id(ror_id[0])
+        # Extract the value for "Digital Curation Centre"
+        result = full_org_json.map do |org|
+          next unless org.is_a?(Hash)
+        
+          # Find title from names
+          title = org["names"]&.find { |n| n["types"]&.include?("label") }&.dig("value")
+        
+          # Use org id as-is
+          id = org["id"].split("/").last
+        
+          # Get first domain, if any
+          domain = org["domains"]&.first
+        
+          # Return structured hash
+          {
+            id: id,
+            org_name: title,
+            domain: domain || ""
           }
+        end.compact   
+        #---------Orion service code end
         end
           render json: result
       else

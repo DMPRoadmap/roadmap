@@ -38,7 +38,7 @@ module ExternalApis
         payload.to_json,
         { "Content-Type" => "application/json" }
       )
-
+            
       JSON.parse(response.body)
     rescue JSON::ParserError
       { error: 'Invalid response from Orion' }
