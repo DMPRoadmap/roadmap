@@ -16,13 +16,13 @@ $(() => {
   let debounceTimer = null;
 
   // Handle email input changes
-  emailField.addEventListener('input', function() {
+  emailField.addEventListener('input', function () {
     const email = this.value;
 
     if (email && email.includes('@')) {
       if (email !== currentEmail) {
         currentEmail = email;
-        
+
         // Clear previous timer
         if (debounceTimer) {
           clearTimeout(debounceTimer);
@@ -56,23 +56,29 @@ $(() => {
     // Clear existing options
     orgSelect.innerHTML = '';
 
-    // Add prompt option
-    const promptOption = document.createElement('option');
-    promptOption.value = '';
-    promptOption.textContent = 'Select an organisation';
-    orgSelect.appendChild(promptOption);
+    if (orgs.length > 1) {
+      // Add prompt option
+      const promptOption = document.createElement('option');
+      promptOption.value = '';
+      promptOption.textContent = 'Select an organisation';
+      orgSelect.appendChild(promptOption);
+    }
 
     // Add organization options
-    orgs.forEach(function(org) {
+    orgs.forEach(function (org) {
       const option = document.createElement('option');
       option.value = org.id || org.ror_id;
       option.textContent = org.org_name;
       orgSelect.appendChild(option);
     });
+    // Only select option if only one
+    if (orgs.length === 1) {
+      orgSelect.selectedIndex = 0;
+    }
   }
 
   function resetOrgSelect() {
-    orgSelect.innerHTML = '<option value="">Select an organisation</option>';
+    orgSelect.innerHTML = '';
   }
 });
 
