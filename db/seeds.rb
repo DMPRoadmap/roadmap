@@ -252,7 +252,12 @@ orgs = [
    abbreviation: 'UOS',
    org_type: 1, links: {"org":[]},
    language: default_language, region: region,
-   is_other: false, managed: true}
+   is_other: false, managed: true},
+   {name: 'Other',
+   abbreviation: 'Other',
+   org_type: 3, links: {"org":[]},
+   language: default_language, region: region,
+   is_other: true, managed: false}
 ]
 orgs.each { |o| Org.create!(o) unless Org.find_by(name: o[:name]).present? }
 
