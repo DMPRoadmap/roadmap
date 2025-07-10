@@ -2,7 +2,7 @@
 
 module Api
   # Controller for API routes that return orgs by domain.
-  class OrgsByDomainController < ApplicationController
+  class OrgDomainController < ApplicationController
     # GET /api/get-orgs-by-domain?domain=berkeley.edu
     def index
       email_param = search_params[:email]
