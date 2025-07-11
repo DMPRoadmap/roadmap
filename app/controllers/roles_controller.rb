@@ -30,8 +30,7 @@ class RolesController < ApplicationController
         user = User.where_case_insensitive('email', role_params[:user][:email]).first
         if user.present? &&
            Role.where(plan: @role.plan, user: user, active: true)
-               .count
-               .positive? # role already exists
+               .any? # role already exists
 
           flash[:notice] = format(_('Plan is already shared with %{email}.'),
                                   email: role_params[:user][:email])
