@@ -28,7 +28,7 @@ FactoryBot.define do
     end
 
     after(:create) do |identifier_scheme, evaluator|
-      (0..evaluator.context_count - 1).each do |idx|
+      (0..(evaluator.context_count - 1)).each do |idx|
         identifier_scheme.update("#{identifier_scheme.all_context[idx]}": true)
       end
     end

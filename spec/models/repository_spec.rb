@@ -86,14 +86,14 @@ describe Repository do
         expect(results.include?(@by_facet)).to eql(true)
       end
       it 'returns repositories with subjects like the search term' do
-        results = described_class.search(@by_subject.name[1..@by_subject.name.length - 1])
+        results = described_class.search(@by_subject.name[1..(@by_subject.name.length - 1)])
         expect(results.include?(@never_found)).to eql(false)
         expect(results.include?(@by_type)).to eql(false)
         expect(results.include?(@by_subject)).to eql(true)
       end
       it 'returns repositories with name like the search term' do
         repo = create(:repository, name: [Faker::Lorem.word, @by_subject.name].join(' '))
-        results = described_class.search(@by_subject.name[1..@by_subject.name.length - 1])
+        results = described_class.search(@by_subject.name[1..(@by_subject.name.length - 1)])
         expect(results.include?(@never_found)).to eql(false)
         expect(results.include?(repo)).to eql(true)
       end
