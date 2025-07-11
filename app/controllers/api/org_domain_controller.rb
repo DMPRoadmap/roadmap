@@ -23,28 +23,17 @@ module Api
 
         if result.empty?
         #---------Call OrionService to search by domain
-        ror_id = ::ExternalApis::OrionService.search_by_domain(email_domain)
-        full_org_json = ::ExternalApis::OrionService.search_by_ror_id(ror_id[0])
+        full_org_json = ::ExternalApis::OrionService.search_by_domain(email_domain)
         # Extract the value for "Digital Curation Centre"
-        result = full_org_json.map do |org|
-          next unless org.is_a?(Hash)
-        
-          # Find title from names
-          title = org["names"]&.find { |n| n["types"]&.include?("label") }&.dig("value")
-        
-          # Use org id as-is
-          id = org["id"].split("/").last
-        
-          # Get first domain, if any
-          domain = org["domains"]&.first
-        
-          # Return structured hash
-          {
-            id: id,
-            org_name: title,
-            domain: domain || ""
+        result = full_org_json["orgs"].map do |org|
+            title = org["names"].find { |n| n["types"].include?("ror_display") }
+          
+            {
+              id: org["id"].split('/').last,
+              org_name: title ? title["value"] : "Name not found",
+              domain: ""
           }
-        end.compact   
+        end
         #---------Orion service code end
         end
           render json: result
