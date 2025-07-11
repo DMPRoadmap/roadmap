@@ -14,8 +14,8 @@ module OrgAdmin
       authorize Section.new
       phase = Phase.includes(:template, :sections).find(params[:phase_id])
       edit = phase.template.latest? &&
-             (current_user.can_modify_templates? &&
-             (phase.template.org_id == current_user.org_id))
+             current_user.can_modify_templates? &&
+             phase.template.org_id == current_user.org_id
       render partial: 'index',
              locals: {
                template: phase.template,
