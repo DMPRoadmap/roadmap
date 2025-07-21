@@ -204,7 +204,7 @@ Rails.application.routes.draw do
       resources :templates, only: [:index]
     end
 
-    get 'get-orgs-by-domain', to: 'org_domain#index'
+    post 'orgs-by-domain', to: 'org_domain#index'
   end
 
   namespace :paginable do

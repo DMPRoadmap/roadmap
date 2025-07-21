@@ -41,14 +41,37 @@ $(() => {
   });
 
   function fetchOrganizations(email) {
-    fetch(`/api/get-orgs-by-domain?email=${encodeURIComponent(email)}`)
+    // fetch(`/api/orgs-by-domain?email=${encodeURIComponent(email)}`)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     populateOrgSelect(data);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error fetching organizations:', error);
+    //     resetOrgSelect();
+    //   });
+    // Prepare header and body information for a POST request
+    // Retrieve CSRF token stored in <meta> tag
+    const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const requestOptions = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            // Add X-CSRF-Token header for protection against CRSF attacks.
+            'X-CSRF-Token': csrftoken,
+        },
+        body: JSON.stringify({ email })
+    };
+
+    // Use Fetch API with POST configuration included in requestOptions
+    fetch('/api/orgs-by-domain', requestOptions)
       .then(response => response.json())
       .then(data => {
-        populateOrgSelect(data);
+          populateOrgSelect(data);
       })
       .catch(error => {
-        console.error('Error fetching organizations:', error);
-        resetOrgSelect();
+          console.error('Error fetching organizations:', error);
+          resetOrgSelect();
       });
   }
 
