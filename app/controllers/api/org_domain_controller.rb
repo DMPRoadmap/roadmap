@@ -35,7 +35,12 @@ module Api
 
         unless full_org_json&.key?('orgs')
           puts 'Invalid response or no orgs key found'
-          render json: [], status: :ok
+          result = [{
+            id: 12345,
+            org_name: 'Other',
+            domain: ''
+          }]
+          render json: result, status: :ok
           return
         end
 
@@ -49,7 +54,16 @@ module Api
           }
         rescue => e
           puts "Failed request: #{e.message}"
-          render json: [], status: :ok
+          result = []
+        end
+
+        # Fallback if still no results
+        if result.blank?
+          result = [{
+            id: 12345,
+            org_name: 'Other',
+            domain: ''
+          }]
         end
       end
       render json: result, status: :ok
