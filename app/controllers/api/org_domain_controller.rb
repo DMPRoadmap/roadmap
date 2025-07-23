@@ -35,9 +35,10 @@ module Api
 
         unless full_org_json&.key?('orgs')
           puts 'Invalid response or no orgs key found'
+          other_org = Org.find_other_org
           result = [{
-            id: 12345,
-            org_name: 'Other',
+            id: other_org.id,
+            org_name: other_org.name,
             domain: ''
           }]
           render json: result, status: :ok
@@ -59,9 +60,10 @@ module Api
 
         # Fallback if still no results
         if result.blank?
+          other_org = Org.find_other_org
           result = [{
-            id: 12345,
-            org_name: 'Other',
+            id: other_org.id,
+            org_name: other_org.name,
             domain: ''
           }]
         end

@@ -183,6 +183,11 @@ class Org < ApplicationRecord
     where(abbreviation: Rails.configuration.x.organisation.abbreviation)
   end
 
+  # Returns the Org record with the name 'Other'
+  def self.find_other_org
+    where("LOWER(name) = ?", 'other').first
+  end
+
   # The managed flag is set by a Super Admin. A managed org typically has
   # at least one Org Admini and can have associated Guidance and Templates
   scope :managed, -> { where(managed: true) }
