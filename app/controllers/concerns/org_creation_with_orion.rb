@@ -73,10 +73,8 @@ module OrgCreationWithOrion
       hash = org_hash_from_params(params_in: params_in)
       return nil unless hash.present?
 
-      #todo: need to create a function to create org hash
-      org = {"name": "University of Stanford (uofa.edu)"}
-      # org = OrgSelection::HashToOrgService.to_org(hash: hash,
-                                                  # allow_create: allow_create)
+      org = OrgSelection::HashToOrgService.to_org(hash: hash,
+                                                  allow_create: allow_create)
       allow_create ? create_org(org: org, params_in: params_in) : org
     end
 
@@ -89,8 +87,7 @@ module OrgCreationWithOrion
       hash = org_hash_from_params(params_in: params_in)
       return [] unless hash.present?
 
-      #todo: need to create a function to create org hash
-      # OrgSelection::HashToOrgService.to_identifiers(hash: hash)
+      OrgSelection::HashToOrgService.to_identifiers(hash: hash)
     end
 
     # Remove the extraneous Org Selector hidden fields so that they don't get
