@@ -2,7 +2,8 @@
 
 # Controller that handles user account creation and changes from the edit profile page
 class RegistrationsController < Devise::RegistrationsController
-  include OrgSelectable
+  # include OrgSelectable
+  include OrgCreationWithOrion
 
   def edit
     @user = current_user

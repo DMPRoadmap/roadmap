@@ -45,7 +45,7 @@ module Api
           return
         end
 
-        # Extract the value for "Digital Curation Centre"
+        # Extract the value
         result = full_org_json['orgs'].map do |org|
           title = org['names'].find { |n| n['types'].include?('ror_display') }
           {
