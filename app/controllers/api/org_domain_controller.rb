@@ -38,7 +38,7 @@ module Api
         unless full_org_json&.key?('orgs')
           puts 'Invalid response or no orgs key found'
           other_org = Org.find_other_org
-          org_id_new_format = {id: other_org.id, name: other_org.org_name}.to_json
+          org_id_new_format = {id: other_org.id, name: other_org.name}.to_json
           result = [{
             id: org_id_new_format,
             org_name: other_org.name,

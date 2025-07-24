@@ -6,7 +6,7 @@ require 'json'
 
 module ExternalApis
   class OrionService
-    ORION_URL = "http://74.220.18.40:8080/submit"
+    ORION_URL = "http://srv01.screco.org:8080/submit"
 
     def self.search_by_ror_id(ror_id)
       return { error: 'Missing ROR ID' } if ror_id.blank?
@@ -38,7 +38,8 @@ module ExternalApis
         payload.to_json,
         { "Content-Type" => "application/json" }
       )
-            
+      
+      # puts ">>>>>>>:#{response.body}"
       JSON.parse(response.body)
     rescue JSON::ParserError
       { error: 'Invalid response from Orion' }
