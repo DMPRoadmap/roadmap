@@ -58,7 +58,6 @@ module OrgCreationWithOrion
 
   # rubocop:disable Metrics/BlockLength
   included do
-
     private
 
     # Converts the incoming params_into an Org by either locating it
@@ -73,9 +72,12 @@ module OrgCreationWithOrion
       hash = org_hash_from_params(params_in: params_in)
       return nil unless hash.present?
 
-      org = OrgSelection::HashToOrgService.to_org(hash: hash,
-                                                  allow_create: allow_create)
-      allow_create ? create_org(org: org, params_in: params_in) : org
+      org_from_hash = OrgSelection::HashToOrgService.to_org(hash: hash,
+                                                            allow_create: allow_create)
+      org_does_not_exist = Org.where(id: org_from_hash.id).empty?
+      org = allow_create ? create_org(org: org_from_hash, params_in: params_in) : org_from_hash
+      create_org_domain(org: org, params_in: params_in) if org_does_not_exist
+      org
     end
 
     # Converts the incoming params_into an array of Identifiers
@@ -124,5 +126,21 @@ module OrgCreationWithOrion
       org.reload
     end
   end
-  # rubocop:enable Metrics/BlockLength
+
+  # Creates an OrgDomain record if it does not already exist
+  # rubocop:disable Metrics/AbcSize
+  def create_org_domain(org:, params_in:)
+    return unless org.present? && params_in[:email].present?
+
+    domain = params_in[:email].split("@", 2)[1].downcase.strip
+    puts domain
+    return if domain.blank?
+    return if org.org_domains.exists?(domain: domain)
+
+    org.org_domains.create(domain: domain)
+  rescue StandardError => e
+    Rails.logger.error "Error creating OrgDomain for #{org.name} with domain #{domain}: #{e.message}"
+  end
+
+  # rubocop:enable Metrics/AbcSize, Metrics/BlockLength
 end
