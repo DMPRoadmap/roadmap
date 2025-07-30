@@ -74,9 +74,9 @@ module OrgCreationWithOrion
 
       org_from_hash = OrgSelection::HashToOrgService.to_org(hash: hash,
                                                             allow_create: allow_create)
-      org_does_not_exist = Org.where(id: org_from_hash.id).empty?
       org = allow_create ? create_org(org: org_from_hash, params_in: params_in) : org_from_hash
-      create_org_domain(org: org, params_in: params_in) if org_does_not_exist
+      # No longer creating domain as it could have issues with cases where multiple ROR orgs have same domain.
+      # create_org_domain_if_absent(org: org, params_in: params_in) # No longer creating domain as it could have issues with case
       org
     end
 
@@ -129,18 +129,18 @@ module OrgCreationWithOrion
 
   # Creates an OrgDomain record if it does not already exist
   # rubocop:disable Metrics/AbcSize
-  def create_org_domain(org:, params_in:)
-    return unless org.present? && params_in[:email].present?
+  # def create_org_domain_if_absent(org:, params_in:)
+  #   return unless org.present? && params_in[:email].present?
 
-    domain = params_in[:email].split("@", 2)[1].downcase.strip
-    puts domain
-    return if domain.blank?
-    return if org.org_domains.exists?(domain: domain)
+  #   domain = params_in[:email].split('@', 2)[1].downcase.strip
+  #   puts domain
+  #   return if domain.blank?
+  #   return if org.org_domains.exists?(domain: domain)
 
-    org.org_domains.create(domain: domain)
-  rescue StandardError => e
-    Rails.logger.error "Error creating OrgDomain for #{org.name} with domain #{domain}: #{e.message}"
-  end
+  #   org.org_domains.create(domain: domain)
+  # rescue StandardError => e
+  #   Rails.logger.error "Error creating OrgDomain for #{org.name} with domain #{domain}: #{e.message}"
+  # end
 
   # rubocop:enable Metrics/AbcSize, Metrics/BlockLength
 end
