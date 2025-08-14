@@ -64,7 +64,7 @@ $(() => {
     };
 
     // Use Fetch API with POST configuration included in requestOptions
-    fetch('/api/orgs-by-domain', requestOptions)
+    fetch('/orgs-by-domain', requestOptions)
       .then(response => response.json())
       .then(data => {
           populateOrgSelect(data);

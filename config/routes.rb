@@ -204,8 +204,10 @@ Rails.application.routes.draw do
       resources :templates, only: [:index]
     end
 
-    post 'orgs-by-domain', to: 'org_domain#index'
   end
+
+  post 'orgs-by-domain', to: 'org_domain#index'
+
 
   namespace :paginable do
     resources :orgs, only: [] do

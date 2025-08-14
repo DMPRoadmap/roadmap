@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-module Api
   # Controller for API routes that return orgs by domain.
   class OrgDomainController < ApplicationController
 
@@ -85,4 +84,4 @@ module Api
       params.permit(:email, :format, :org_domain)
     end
   end
-end
+
