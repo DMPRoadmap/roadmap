@@ -1,0 +1,13 @@
+<h1>Add New Domain</h1>
+
+<%= form_with model: @org_domain, url: org_domain_index_path, method: :post, local: true do |form| %>
+  <div>
+    <%= form.label :domain %><br>
+    <%= form.text_field :domain %>
+  </div>
+
+  <br>
+  <%= form.submit "Create Domain" %>
+<% end %>
+
+<%= link_to "Back", org_domain_show_path %>

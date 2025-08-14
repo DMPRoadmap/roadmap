@@ -1,0 +1,32 @@
+<h1>Org Domains</h1>
+<div class="table-responsive">
+<% if @org_domains.any? %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Domain</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @org_domains.each do |domain| %>
+        <tr>
+          <td><%= domain.domain %></td>
+          <td><%= domain.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          <td><%= domain.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          <td>
+            <%= link_to 'Edit', edit_org_domain_path(domain), class: "btn btn-primary" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No domains found.</p>
+<% end %>
+
+<br>
+<%= link_to 'Add New Domain', new_org_domain_path, class: "btn btn-success" %>
+</div>
