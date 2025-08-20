@@ -76,7 +76,15 @@ class OrgDomainController < ApplicationController
   end
 
   def create
-    @org_domain = OrgDomain.new(org_domain_params)
+    domain_input = params[:org_domain][:domain].to_s.downcase.gsub(/\s+/, '')
+
+    if domain_input.blank?
+      flash.now[:alert] = "Domain can't be blank."
+      @org_domain = OrgDomain.new
+      render :new and return
+    end
+
+    @org_domain = OrgDomain.new(domain: domain_input, org_id: current_user.org_id)
     @org_domain.org_id = current_user.org_id
 
     if @org_domain.save
