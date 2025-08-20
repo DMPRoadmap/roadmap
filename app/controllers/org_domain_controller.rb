@@ -24,11 +24,13 @@ class OrgDomainController < ApplicationController
     }
 
     unless result.empty?
+      # Add Other org to end of array
+      result << other_org_json
       puts "result: #{result}"
       render json: result, status: :ok
       return
     end
-  
+
     # if org doesn't exist already call Orion API by passing domain
     begin
       full_org_json = ::ExternalApis::OrionService.search_by_domain(email_domain)
@@ -36,19 +38,14 @@ class OrgDomainController < ApplicationController
 
       unless full_org_json&.key?('orgs')
         puts 'Invalid response or no orgs key found'
-        other_org = Org.find_other_org
-        org_id_new_format = {id: other_org.id, name: other_org.name}.to_json
-        result = [{
-          id: org_id_new_format,
-          org_name: other_org.name,
-          domain: ''
-        }]
+        # Add Other org
+        result = [other_org_json]
         render json: result, status: :ok
         return
       end
 
       # Extract the values from API result
-      result = full_org_json['orgs'].map do |org|
+      result = full_org_json['orgs'].map do |org| 
         title = org['names'].find { |n| n['types'].include?('ror_display') }
         # ror_id_formatted = org['id'].split('/').last
         org_id_new_format = {name: title['value']}.to_json
@@ -59,19 +56,12 @@ class OrgDomainController < ApplicationController
         }
       rescue => e
         puts "Failed request: #{e.message}"
+        # If the request fails, log the error and return an empty array
         result = []
       end
 
-      # if no org exists - assign to org called 'Other'
-      if result.blank?
-        other_org = Org.find_other_org
-        org_id_new_format = {id: other_org.id, name: other_org.org_name}.to_json
-        result = [{
-          id: org_id_new_format,
-          org_name: other_org.name,
-          domain: ''
-        }]
-      end
+      # Add Other org to end of array.
+      result << other_org_json
     end
     render json: result, status: :ok
   end
@@ -121,6 +111,16 @@ class OrgDomainController < ApplicationController
 
   def org_domain_params
     params.require(:org_domain).permit(:domain)
+  end
+
+  def other_org_json
+    other_org = Org.find_other_org
+    org_id_new_format = { id: other_org.id, name: other_org.name }.to_json
+    {
+      id: org_id_new_format,
+      org_name: other_org.name,
+      domain: "",
+    }
   end
 end
 
