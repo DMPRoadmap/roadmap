@@ -120,7 +120,21 @@ class OrgDomainController < ApplicationController
     end
   end
   
-
+  def destroy
+    @org_domain = OrgDomain.find(params[:id])
+  
+    if @org_domain.org_id != current_user.org_id
+      redirect_to org_domain_show_path, alert: "Unauthorized"
+      return
+    end
+  
+    if @org_domain.destroy
+      redirect_to org_domain_show_path, notice: "Domain deleted successfully."
+    else
+      redirect_to org_domain_show_path, alert: "Failed to delete domain."
+    end
+  end
+  
 
   private
 

@@ -208,7 +208,7 @@ Rails.application.routes.draw do
 
   post 'orgs-by-domain', to: 'org_domain#index'
   get 'org_domain/show', to: 'org_domain#show', as: 'org_domain_show'
-  resources :org_domain, only: [:edit, :update, :new, :create]
+  resources :org_domain, only: [:edit, :update, :new, :create, :destroy]
 
 
   namespace :paginable do
