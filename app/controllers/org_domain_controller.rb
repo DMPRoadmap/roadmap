@@ -101,14 +101,26 @@ class OrgDomainController < ApplicationController
 
   def update
     @org_domain = OrgDomain.find(params[:id])
+  
     if @org_domain.org_id != current_user.org_id
       redirect_to org_domain_show_path, alert: "Unauthorized"
-    elsif @org_domain.update(org_domain_params)
-      redirect_to org_domain_show_path, notice: "Domain updated successfully."
     else
-      render :edit
+      domain_input = params[:org_domain][:domain].to_s.downcase.gsub(/\s+/, '')
+  
+      if domain_input.blank?
+        flash.now[:alert] = "Domain can't be blank."
+        render :edit and return
+      end
+  
+      if @org_domain.update(domain: domain_input)
+        redirect_to org_domain_show_path, notice: "Domain updated successfully."
+      else
+        render :edit
+      end
     end
   end
+  
+
 
   private
 
