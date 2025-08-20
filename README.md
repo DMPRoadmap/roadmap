@@ -1,6 +1,6 @@
 ## DMP Roadmap
 
-[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Brakeman/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
+[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Brakeman/badge.svg?branch=main)](https://github.com/DMPRoadmap/roadmap/actions/workflows/brakeman.yml)
 [![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Rubocop/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
 [![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/ESLint/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
 [![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Tests%20-%20PostgreSQL/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
