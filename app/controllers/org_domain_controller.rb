@@ -46,12 +46,35 @@ class OrgDomainController < ApplicationController
 
       # Extract the values from API result
       result = full_org_json['orgs'].map do |org| 
-        title = org['names'].find { |n| n['types'].include?('ror_display') }
+        puts "org: #{org}"
+        # NOTE: lang value in a names array is not always present and can be null,
+        # e.g.,  {
+        #   "lang": null,
+        #   "types": [
+        #     "acronym"
+        #   ],
+        #   "value": "XYZ"
+        # },
+
+        #  The ror_display value will be in the language of the country, and should always be present.
+        ror_display_name_json = org['names'].find { |n| n['lang'] && n['types']&.include?('ror_display') }
+        puts "ror_display_name_json: #{ror_display_name_json}"
+        org_name = ror_display_name_json ? ror_display_name_json['value'] : nil
+        puts "org_name: #{org_name}"
+        # We really want the name in English, so we look for the name with lang 'en' and type 'label'
+        # If not found, we use the org_name as a fallback
+        en_label_name_json = org['names'].find { |n| n['lang']&.include?('en') && n['types']&.include?('label') }
+        puts "en_label_name_json: #{en_label_name_json}"
+        display_name = en_label_name_json ? en_label_name_json['value'] : org_name
+        puts "display_name: #{display_name}"
+        # If display_name is nil, skip this org
+        break if display_name.nil?
+
         # ror_id_formatted = org['id'].split('/').last
-        org_id_new_format = {name: title['value']}.to_json
+        org_id_new_format = { name: display_name }.to_json
         {
           id: org_id_new_format,
-          org_name: title ? title['value'] : 'Name not found',
+          org_name: display_name,
           domain: '',
         }
       rescue => e
