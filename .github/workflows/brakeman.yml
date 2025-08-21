@@ -2,7 +2,9 @@ name: Brakeman
 
 on:
   push:
-    branches: main
+    branches:
+      - main
+      - next-release/*
 
 jobs:
   brakeman:
