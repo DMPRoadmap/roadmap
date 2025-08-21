@@ -1,10 +1,12 @@
 ## DMP Roadmap
 
 [![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Brakeman/badge.svg?branch=main)](https://github.com/DMPRoadmap/roadmap/actions/workflows/brakeman.yml)
-[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Rubocop/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
-[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/ESLint/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
-[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Tests%20-%20PostgreSQL/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
-[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Tests%20-%20MySQL/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
+[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Rubocop/badge.svg?branch=main)](https://github.com/DMPRoadmap/roadmap/actions/workflows/rubocop.yml)
+[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/ESLint/badge.svg?branch=main)](https://github.com/DMPRoadmap/roadmap/actions/workflows/eslint.yml)
+[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Tests%20-%20PostgreSQL/badge.svg?branch=main)](https://github.com/DMPRoadmap/roadmap/actions/workflows/postgres.yml)
+[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Danger/badge.svg?branch=main)](https://github.com/DMPRoadmap/roadmap/actions/workflows/danger.yml)
+
+<!-- [![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Tests%20-%20MySQL/badge.svg?branch=main)](https://github.com/DMPRoadmap/roadmap/actions) -->
 
 DMP Roadmap is a Data Management Planning tool. Management and development of DMP Roadmap is jointly provided by the Digital Curation Centre (DCC), http://www.dcc.ac.uk/, and the University of California Curation Center (UC3), http://www.cdlib.org/services/uc3/.
 
