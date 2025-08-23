@@ -25,15 +25,15 @@ identifier_schemes = [
     description: 'ORCID',
     active: true,
     logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
-    identifier_prefix:'https://orcid.org'
+    identifier_prefix:'https://orcid.org',
+    context: 25
   },
   {
     name: 'shibboleth',
     description: 'Your institutional credentials',
     active: true,
-    logo_url: 'http://newsite.shibboleth.net/wp-content/uploads/2017/01/Shibboleth-logo_2000x1200-1.png',
-    identifier_prefix: "https://example.com"
-  },
+    context: 11
+  }
 ]
 identifier_schemes.each { |is| IdentifierScheme.find_or_create_by(is) }
 

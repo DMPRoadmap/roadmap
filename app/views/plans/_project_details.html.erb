@@ -50,7 +50,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
                               include_blank: _("- Please select one -"),
                               selected: form.object.research_domain_id
                             },
-                            { class: "form-control" } %>
+                            { class: "form-select" } %>
     </div>
   </div>
 <% end %>
@@ -171,7 +171,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
                               include_blank: _("- Please select one -"),
                               selected: form.object.funding_status
                             },
-                            { class: "form-control" } %>
+                            { class: "form-select" } %>
     </div>
     <%= form.fields_for :grant, plan.grant do |grant_fields| %>
       <div class="col-lg-12">

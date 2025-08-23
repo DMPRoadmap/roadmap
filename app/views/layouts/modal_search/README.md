@@ -138,7 +138,7 @@ Example definition of the :filters content:
     <%= select_tag :"research_output[subject_filter]",
                    options_for_select(ResearchOutputPresenter.selectable_subjects),
                    include_blank: _("- Select a subject area -"),
-                   class: "form-control",
+                   class: "form-select",
                    title: by_subject_tooltip,
                    data: { toggle: "tooltip", placement: "bottom" } %>
   </span>
@@ -147,7 +147,7 @@ Example definition of the :filters content:
     <%= select_tag :"research_output[type_filter]",
                    options_for_select(ResearchOutputPresenter.selectable_repository_types),
                    include_blank: _("- Select a repository type -"),
-                   class: "form-control",
+                   class: "form-select",
                    title: by_type_tooltip,
                    data: { toggle: "tooltip", placement: "bottom" } %>
   </span>

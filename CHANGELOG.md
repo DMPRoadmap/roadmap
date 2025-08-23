@@ -1,5 +1,11 @@
 # Changelog
 
+## v5.0.1
+- Updated seeds.rb file for identifier_schemes to include context value and removed logo_url and idenitifier_prefix for Shibboleth (as it was causing issues with SSO). [#3525](https://github.com/DMPRoadmap/roadmap/pull/3525)
+- Adjustments to style of select tags and plan download layout [#3509](https://github.com/DMPRoadmap/roadmap/pull/3509)
+- Fix failing eslint workflow / upgrade `actions/checkout` & `actions/setup-node` to v3 [#3503](https://github.com/DMPRoadmap/roadmap/pull/3503)
+- Remove Auto-Generated TinyMCE Skins and Add `public/tinymce/skins/` to `.gitignore` [#3466](https://github.com/DMPRoadmap/roadmap/pull/3466)
+
 ## v5.0.0
 
 - Updated app to Rails 7 [#3426](https://github.com/DMPRoadmap/roadmap/pull/3426), [#3496](https://github.com/DMPRoadmap/roadmap/pull/3496)
@@ -21,9 +27,9 @@
 
 ## v4.2.0
 
-**Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.** 
+**Note this upgrade is mainly a migration from Bootstrap 3 to Bootstrap 5.**
 
-Note that this will have a significant impact on any scss and html customizations you may have made to your fork of this project. 
+Note that this will have a significant impact on any scss and html customizations you may have made to your fork of this project.
 
 The following links will be helpful:
 
@@ -36,9 +42,9 @@ The following links will be helpful:
 [What happened to $grid-float-breakpoint in Bootstrap 4. And screen size breakpoint shift from 3 -> 4](
 https://bibwild.wordpress.com/2019/06/10/what-happened-to-grid-float-breakpoint-in-bootstrap-4-and-screen-size-breakpoint-shift-from-3-4/)<br>
 [What are media queries in Bootstrap 4?](https://www.educative.io/answers/what-are-media-queries-in-bootstrap-4)<br>
-   
+
 ### Key changes
-    
+
 - Node  package changes:
   * Changed version of `bootstrap "^3.4.1"` --> `"^5.2.3"`
   * Added  `@popperjs/core.`
@@ -56,7 +62,7 @@ https://bibwild.wordpress.com/2019/06/10/what-happened-to-grid-float-breakpoint-
       + `@use "../../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss" as * ;`<br>
          with <br>
          `@use "../../../../node_modules/bootstrap/scss/bootstrap" as *;`
-    + Enclosed all division calculations using symbol `/` with `calc()` function,<br> 
+    + Enclosed all division calculations using symbol `/` with `calc()` function,<br>
       e.g., replaced<br>
          `padding-right: $grid-gutter-width / 2;`<br>
       with<br>
@@ -65,7 +71,7 @@ https://bibwild.wordpress.com/2019/06/10/what-happened-to-grid-float-breakpoint-
       - `@media (max-width: $grid-float-breakpoint-max) {}`<br>
         with<br>
         `@include media-breakpoint-down(md){}`
-    
+
       - `@media (max-width: $grid-float-breakpoint-max) {}`<br>
         with<br>
         `@include media-breakpoint-down(md) {}`
@@ -86,7 +92,7 @@ When we use a native DOM element in Javascript, we obtain it by applying get() t
 We sometimes use the button native Dom element to programmatically click, as the Jquery button element with trigger('click') won't work because the trigger() function cannot be used to mimic native browser events, such as clicking (cf., https://learn.jquery.com/events/triggering-event-handlers/ )
 
 + Accordion & spinners
-  - Bespoke versions replaced by Bootstrap 5 accordion and spinner now. 
+  - Bespoke versions replaced by Bootstrap 5 accordion and spinner now.
   - Accordion
     * Changed the default Bootstrap arrow icon for the accordion to use the fontawesome icons plus and minus icons. Created a several accordion specific colour variables:
        <br>// Accordion colors
@@ -102,7 +108,7 @@ We sometimes use the button native Dom element to programmatically click, as the
   - Bootstrap dropped `btn-block` class for utilities. So we removed any styling using it.
   - Close Buttons: Renamed `close` to`btn-close`.
   - Renamed `btn-default` to `btn-secondary` and variable `$btn-default-color` changed to `$btn-secondary-color`.
-+ Dropdowns 
++ Dropdowns
     - Dropdown list items with class `dropdown` have class `dropdown-item` added usually with`px-3` for positioning.
     - Added new `dropdown-menu-dark` variant and associated variables for on-demand dark dropdowns.
     - Data attributes changes required by Bootstrap 5 (as used by accordion and dropdown buttons):
@@ -111,7 +117,7 @@ We sometimes use the button native Dom element to programmatically click, as the
        * `data-target` --> `data-bs-target`
        * `data-toggle` --> `data-bs-toggle`
     - Bootstrap 5 Popover added to some dropdown-menu items by adding attribute `data-bs-toggle="popover"`
-+ Form 
++ Form
   - `form-group` class replaced with `form-control`.
   - Form labels now require `form-label` or `form-check-label` to go with `form-control` and `form-check` respectively. So all obsolete `control-label` replaced by `form-label` and missing ones added.
   - Dropped form-specific layout classes for our grid system. Use Bootstrap grid and utilities instead of `form-group`, `form-row`, or `form-inline`.
@@ -138,7 +144,7 @@ We sometimes use the button native Dom element to programmatically click, as the
   - Bootstrap rewrote component with flexbox. Dropped nearly all > selectors for simpler styling via un-nested classes.
     Instead of HTML-specific selectors like .nav > li > a, we use separate classes for `navs, nav-items, and nav-links`. (Note because the `nav-link` class has not always been added as it comes with styles not appropriate for our styling for links.)
     This makes your HTML more flexible while bringing along increased extensibility. So we have dropped  HTML-specific selectors and css in `_navs.scss`
-    e.g., 
+    e.g.,
     <br>`.nav-tabs > li > a:hover` --> `nav-tabs nav-link:hover`,
     <br>`.nav-pills > li > a:hover` -->`nav-pills .nav-link:hover`.
     - Pages with css classes `nav` and`navbar` updated to work with Bootstrap 5. So `app/assets/stylesheets/blocks/_navbars.scss` and `app/assets/stylesheets/blocks/_navs.scss` updated.
@@ -150,8 +156,8 @@ We sometimes use the button native Dom element to programmatically click, as the
 + Notifications
     - Notifications now use classes `d-block` and `d-none` to show and hide respectively.
 + Panels, thumbnails & wells (replacements)
-  - Bootstrap 5 dropped panels, thumbnails and wells. So pages with them updated with Bootstrap 5 replacements. 
-    * All views with css classes`panel, panel-body, panel-*` Have panel replaced by card to give `card, card_body, card-*`, etc. 
+  - Bootstrap 5 dropped panels, thumbnails and wells. So pages with them updated with Bootstrap 5 replacements.
+    * All views with css classes`panel, panel-body, panel-*` Have panel replaced by card to give `card, card_body, card-*`, etc.
     * As `panel-default` and some otherpanel css classes don't have card equivalents with same suffixes we have added these classes temporarily in `_cards.sccs`, e.g.,`.card-default`, etc.
 + Utilities
   - Bootstrap renamed several utilities to use logical property names instead of directional names with the addition of RTL support:
@@ -166,9 +172,9 @@ We sometimes use the button native Dom element to programmatically click, as the
     * As Bootstrap 5.2 dropped class `text-justify` we have created a custom version based on comment https://github.com/twbs/bootstrap/pull/29793#issuecomment-1814683346
     * `text-*` utilities do not add hover and focus states to links anymore. `link-*` helper classes can be used instead.
 
-### Fixed 
-- Fixed rubocop errors after Bootstrap upgrade 
-- Fixed RSpec tests after Bootstrap upgrade  
+### Fixed
+- Fixed rubocop errors after Bootstrap upgrade
+- Fixed RSpec tests after Bootstrap upgrade
 - Fix "undefined" Tooltip Messages [#3364](https://github.com/DMPRoadmap/roadmap/pull/3364)
 - Fixed rubocop errors after V4.1.1 release
 - Fixed MySQL and PostgreSQL GitHub Actions [PR #3376](https://github.com/DMPRoadmap/roadmap/pull/3376)
