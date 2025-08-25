@@ -286,6 +286,16 @@ Rails.application.routes.draw do
 
     resources :question_options, only: [:destroy], controller: 'question_options'
 
+    # This is to allow the fields to be deleted and list all Question Identifiers
+    resources :question_identifiers, only: [], controller: 'question_identifiers' do
+      member do
+        get 'list'
+        get 'export_pdf_list', action: :export_pdf_list
+        get 'download_pdf_list', action: :download_pdf_list
+        delete 'destroy'
+      end
+    end
+
     resources :questions, only: [] do
       get 'open_conditions'
       resources :conditions, only: %i[new show]
