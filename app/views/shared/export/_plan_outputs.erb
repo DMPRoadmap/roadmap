@@ -16,11 +16,14 @@
 <table>
   <thead>
     <th><%= _("Title") %></th>
+    <% if Rails.configuration.x.open_aire.active %>
+        <th><%= _("DOI") %></th>
+    <% end %>
     <th><%= _("Type") %></th>
-    <th><%= _("Anticipated release date") %></th>
-    <th><%= _("Initial access level") %></th>
-    <th><%= _("Intended repository(ies)") %></th>
-    <th><%= _("Anticipated file size") %></th>
+    <th><%= _("Release date") %></th>
+    <th><%= _("Access level") %></th>
+    <th><%= _("Repository(ies)") %></th>
+    <th><%= _("File size") %></th>
     <th><%= _("License") %></th>
     <th><%= _("Metadata standard(s)") %></th>
     <th><%= _("May contain sensitive data?") %></th>
@@ -32,6 +35,9 @@
       <% size_hash = presenter.converted_file_size(size: output.byte_size) %>
       <tr>
         <td><%= presenter.display_name %></td>
+        <% if Rails.configuration.x.open_aire.active %>
+            <td><%= presenter.display_doi_url %></td>
+        <% end %>
         <td><%= presenter.display_type %></td>
         <td><%= presenter.display_release %></td>
         <td><%= presenter.display_access %></td>

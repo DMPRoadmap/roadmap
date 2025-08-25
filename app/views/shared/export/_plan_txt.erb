@@ -78,5 +78,28 @@
     <% end %>
   <% end %>
 <% end %>
+
+<%= "----------------------------------------------------------\n" %>
+<% if @show_research_outputs %>
+  <% if @hash[:research_outputs].present? %>
+    <%= "Research Outputs:\n" %>
+    <% @hash[:research_outputs].each do |output| %>
+      <%= "-- #{output[:title]} --\n" %>
+      <%= "Type: #{output[:type]}\n" %>
+      <%= "DOI: #{output[:doi]}\n" if output[:doi].present? %>
+      <%= "Description: #{output[:description]}\n" %>
+      <%= "Release Date: #{output[:release_date]}\n" %>
+      <%= "Access Level: #{output[:access_level]}\n" %>
+      <%= "Repositories: #{output[:repositories]}\n" %>
+      <%= "File size: #{output[:file_size]}\n" %>
+      <%= "License: #{output[:license]}\n" %>
+      <%= "Metadata standards: #{output[:metadata_standards]}\n" %>
+      <%= "Sensitive data? #{output[:may_contain_sensitive_data]}\n" %>
+      <%= "Personally identifiable information? #{output[:may_contain_pii]}\n" %>
+      <%= "\n" %>
+    <% end %>
+  <% end %>
+<% end %>
+
 <%= "----------------------------------------------------------" %>
 <%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %>

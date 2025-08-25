@@ -105,6 +105,14 @@ class ResearchOutputPresenter
     @research_output.title
   end
 
+  # Returns the truncated DOI if it is greater than 50 characters
+  def display_doi_url
+    return '' unless @research_output.is_a?(ResearchOutput)
+    return "#{@research_output.doi_url[0..49]} ..." if @research_output.doi_url.present?
+
+    @research_output.doi_url
+  end
+
   # Returns the humanized version of the output_type enum variable
   def display_type
     return '' unless @research_output.is_a?(ResearchOutput)
