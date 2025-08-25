@@ -14,6 +14,7 @@ module OrgAdmin
     def show
       question = Question.includes(:annotations,
                                    :question_options,
+                                   :question_identifiers,
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
@@ -44,6 +45,7 @@ module OrgAdmin
     def edit
       question = Question.includes(:annotations,
                                    :question_options,
+                                   :question_identifiers,
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
@@ -86,6 +88,7 @@ module OrgAdmin
     # rubocop:disable Metrics/AbcSize
     def create
       question = Question.new(question_params.merge(section_id: params[:section_id]))
+      
       authorize question
       begin
         question = get_new(question)
@@ -95,7 +98,9 @@ module OrgAdmin
         else
           flash[:alert] = failure_message(question, _('create'))
         end
-      rescue StandardError
+        
+      rescue StandardError => e
+        Rails.logger.error "Unable to save template - #{e.message}"
         flash[:alert] = _('Unable to create a new version of this template.')
       end
       redirect_to edit_org_admin_template_phase_path(
@@ -123,10 +128,17 @@ module OrgAdmin
           old_number_to_id[opt.number] = opt.id
         end
 
+        # question_identifiers get a map from versionable_id field to the old id
+        old_question_identifier_ids = {}
+        question.question_identifiers.each do |qid|
+          old_question_identifier_ids[qid.versionable_id] = qid.id
+        end  
+
         # get a map from question versionable id to old id
         question.template.questions.each do |q|
           old_question_ids[q.versionable_id] = q.id
         end
+
       end
 
       question = get_modifiable(question)
@@ -142,19 +154,29 @@ module OrgAdmin
           old_to_new_opts[old_id.to_s] = opt.id.to_s
         end
 
+        # question_identifiers get a map from versionable_id field to the new id
+        old_to_new_question_identifiers = {}
+        question.question_identifiers.each do |qid|
+          old_id = old_question_identifier_ids[qid.versionable_id] 
+          old_to_new_question_identifiers[old_id.to_s] = qid.id.to_s
+        end  
+
         question.template.questions.each do |q|
           question_id_map[old_question_ids[q.versionable_id].to_s] = q.id.to_s
         end
       end
 
-      # rewrite the question_option ids so they match the new
-      # version of the question
-      # and also rewrite the remove_data question ids
       attrs = question_params
+      # rewrite the question_option ids so they match the new
+      # version of the question 
       attrs = update_option_ids(attrs, old_to_new_opts) if new_version && !attrs['question_options_attributes'].nil?
+
+      # rewrite the question_identifiers ids so they match the new
+      attrs = update_question_identifiers_ids(attrs, old_to_new_question_identifiers) if new_version && !attrs['question_identifiers_attributes'].nil?
 
       # Need to reattach the incoming annotation's and question_options to the
       # modifiable (versioned) question
+      # and also rewrite the remove_data question ids
       attrs = transfer_associations(attrs, question) if new_version
 
       # If the user unchecked all of the themes set the association to an empty array
@@ -162,9 +184,9 @@ module OrgAdmin
       attrs[:theme_ids] = [] if attrs[:theme_ids].blank? && attrs[:number].present?
       if question.update(attrs)
         if question.update_conditions(sanitize_hash(params['conditions']),
-                                      old_to_new_opts, question_id_map)
-          flash[:notice] = success_message(question, _('updated'))
+          old_to_new_opts, question_id_map)
         end
+        flash[:notice] = success_message(question, _('updated'))
       else
         flash[:alert] = flash[:alert] = failure_message(question, _('update'))
       end
@@ -246,10 +268,11 @@ module OrgAdmin
     #       the context of :question. The forms are fragile right now though so
     #       recommend holding off until we rework this page in the future.
     def question_params
-      params.require(:question)
+    params.require(:question)
             .permit(:number, :text, :question_format_id, :option_comment_display,
                     :default_value,
-                    question_options_attributes: %i[id number text is_default _destroy],
+                    question_identifiers_attributes: %i[id question_id value name _destroy],
+                    question_options_attributes: %i[id number text answer_identifier is_default _destroy],
                     annotations_attributes: %i[id text org_id org type _destroy],
                     theme_ids: [])
     end
@@ -257,14 +280,28 @@ module OrgAdmin
     # when a template gets versioned while saving the question
     # options are now out of sync with the params.
     # This sorts that out.
-    def update_option_ids(attrs_in, opt_map)
-      qopts = attrs_in['question_options_attributes']
+    def update_option_ids(attrs, opt_map)
+      qopts = attrs['question_options_attributes']
       qopts.each_pair do |_, attr_hash|
         old_id = attr_hash['id']
         new_id = opt_map[old_id]
         attr_hash['id'] = new_id
       end
-      attrs_in
+      attrs
+    end
+
+    # when a template gets versioned while saving the question
+    # identifiers are now out of sync with the params.
+    # This sorts that out.
+    # This method is call above in line 177
+    def update_question_identifiers_ids(attrs, question_identifier_map)
+      qopts = attrs['question_identifiers_attributes']
+      qopts.each_pair do |_, attr_hash|
+        old_id = attr_hash['id']
+        new_id = question_identifier_map[old_id]
+        attr_hash['id'] = new_id
+      end
+      attrs
     end
 
     # When a template gets versioned by changes to one of its questions we need to loop
