@@ -5,7 +5,7 @@
 /.bundle
 
 # Ignore all logfiles, tempfiles, public assets,
-/log/*.log
+/log/*.log*
 /tmp
 
 # Ignore public subdirectories
