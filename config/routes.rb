@@ -375,5 +375,8 @@ Rails.application.routes.draw do
   get 'research_projects/(:type)', action: 'index',
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
+
+  # route for DOI integration
+  get '/open_aire_service/search_proxy/:doi', controller: 'open_aire_service', action: 'search_proxy', constraints: { doi: /.+/ }
 end
 # rubocop:enable Metrics/BlockLength
