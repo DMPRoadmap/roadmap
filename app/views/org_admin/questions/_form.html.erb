@@ -22,7 +22,15 @@
       <%= f.label(:text, _('Question text'), class: "form-label") %>
       <%= f.text_area(:text, class: "question", spellcheck: true, "aria-required": true) %>
     </div>
-
+    <!--Question Identifiers block - This verifies if org has permission to add question Identifiers-->
+    <% org = Org.find(question.section.phase.template.org_id)%>
+    <% if org.can_add_question_identifiers? %>
+      <div class="row form-row" data-attribute="question_identifier">
+          <div class="col">
+            <%= render "/org_admin/question_identifiers/question_identifier_block", f: f, q: question %>
+          </div>
+      </div>
+    <% end %>
     <!-- Question format -->
     <div class="form-control mb-3 col-md-4">
       <%= f.label(:question_format_id, _('Answer format'), class: "form-label") %>
@@ -45,7 +53,7 @@
         <%= render "/org_admin/question_options/option_fields", f: f, q: question %>
         <!--display for selecting comment box when multiple choice is being used-->
       </div>
-    
+
       <% if question.id != nil && question.question_options[0].text != nil %>
         <% cond_lbl = conditions&.any? ? 'Edit Conditions' : 'Add Conditions' %>
         <%= link_to cond_lbl, org_admin_question_open_conditions_path(question_id: question.id, conditions: conditions), class: "add-logic btn btn-secondary", 'data-loaded': (conditions.size > 0).to_s, remote: true %>
