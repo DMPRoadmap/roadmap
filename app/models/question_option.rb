@@ -4,13 +4,14 @@
 #
 # Table name: question_options
 #
-#  id          :integer          not null, primary key
-#  is_default  :boolean
-#  number      :integer
-#  text        :string
-#  created_at  :datetime
-#  updated_at  :datetime
-#  question_id :integer
+#  id               :integer          not null, primary key
+#  is_default       :boolean
+#  number           :integer
+#  text             :string
+#  created_at       :datetime
+#  updated_at       :datetime
+#  question_id      :integer
+#  answer_identifier :string
 #
 # Indexes
 #
@@ -51,6 +52,9 @@ class QuestionOption < ApplicationRecord
 
   validates :is_default, inclusion: { in: BOOLEAN_VALUES,
                                       message: INCLUSION_MESSAGE }
+  
+  validates :answer_identifier, presence: true, allow_blank: true
+
 
   # =============
   # = Callbacks =
