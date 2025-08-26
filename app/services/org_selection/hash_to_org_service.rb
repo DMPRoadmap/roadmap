@@ -91,7 +91,7 @@ module OrgSelection
           links: links_from_hash(name: hash[:name], website: hash[:url]),
           language: language_from_hash(hash: hash),
           target_url: hash[:url],
-          institution: true,
+          organisation: true,
           is_other: false,
           abbreviation: abbreviation_from_hash(hash: hash)
         )
