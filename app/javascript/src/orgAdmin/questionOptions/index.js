@@ -7,6 +7,7 @@ export default (context) => {
     source.remove();
     // $(source).closest('[data-attribute="question_option"]').remove();
   });
+  
   $(`#${context} .new_question_option`).on('click', (e) => {
     e.preventDefault();
     const source = e.target;
@@ -17,8 +18,9 @@ export default (context) => {
     if (array) {
       const index = Number(array[0].replace(/_/g, ''));
       // Reset values for the new cloned inputs
-      cloned.find('[id$="_number"]').val(index + 2);
+      cloned.find('[id$="_number"]').val('array + 2');
       cloned.find('[id$="_text"]').val('');
+      cloned.find('[id$="_answer_identifier"]').val('');
       cloned.find('[id$="_is_default"]').prop('checked', false);
       cloned.find('[id$="__destroy"]').val(false);
       cloned.find('input').each((i, el) => {
