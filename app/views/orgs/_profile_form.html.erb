@@ -182,7 +182,25 @@
   </div>
 
   <hr>
-
+  <%# Organisation Permissions block where super admin can add:
+    -  Question Identifiers
+  %>
+  <div class="row">
+    <% if current_user.can_super_admin? %>
+      <fieldset class="col-sm-8">
+        <h3>
+          <%= _('Organisation Permissions') %>
+        </h3>
+        <div class="checkbox">
+          <%= f.label :add_question_identifiers do %>
+            <%= f.check_box :add_question_identifiers, { class: 'org_types', value: org.add_question_identifiers?  }, "true", "false" %>
+            <%= _('Question Identifiers - Permission to add identifiers to a new/published template. Which will be displayed when APIv0 is called') %>
+          <% end %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+  <hr>
   <% if !org.new_record? %>
     <%= render partial: "orgs/external_identifiers",
                locals: {
