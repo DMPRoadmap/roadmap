@@ -126,7 +126,7 @@
                       <% theme_guidances.each do |guidance| %>
                         <div class="accordion my-1 card card-default">
                           <div class="accordion-item w-100">
-                              <h2 class="accordion-header" 
+                              <h2 class="accordion-header"
                                   id="#headingGuidance-<%= guidance.id%>-<%= question.id %>">
                                 <button class="accordion-button collapsed"
                                      type="button"
@@ -140,7 +140,7 @@
                                     <% end %>
                                 </button>
                               </h2>
-                            
+
                               <div id="collapseGuidance-<%= guidance.id%>-<%= question.id %>"
                                  class="accordion-collapse collapse"
                                  role="tabpanel"
@@ -194,6 +194,15 @@
                   phase_id: question.section.phase.id,
                   section_id: question.section.id,
                   id: question.id)) do |f| %>
+                <!--Question Identifiers block - This verifies if org has permission to add question Identifiers-->
+                <% org = Org.find(question.section.phase.template.org_id)%>
+                <% if org.can_add_question_identifiers? %>
+                  <div class="row form-row" data-attribute="question_identifier">
+                    <div class="col-10">
+                      <%= render "/org_admin/question_identifiers/question_identifier_block", f: f, q: question %>
+                    </div>
+                  </div>
+                <% end %>
                 <%# example_answer and guidance annotations as nested fields %>
                 <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
                   <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
