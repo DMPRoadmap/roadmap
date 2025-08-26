@@ -53,6 +53,8 @@ class Question < ApplicationRecord
   # inverse_of needed for nested forms
   has_many :question_options, dependent: :destroy, inverse_of: :question
 
+  has_many :question_identifiers, dependent: :destroy
+
   has_many :annotations, dependent: :destroy, inverse_of: :question
 
   has_and_belongs_to_many :themes, join_table: 'questions_themes'
@@ -100,7 +102,9 @@ class Question < ApplicationRecord
                                           allow_destroy: true
 
   accepts_nested_attributes_for :question_options, allow_destroy: true,
-                                                   reject_if: ->(a) { a[:text].blank? }
+                                                   reject_if: ->(a) { a[:text].blank? }                                                    
+
+  accepts_nested_attributes_for :question_identifiers, allow_destroy: true                                             
 
   accepts_nested_attributes_for :annotations, allow_destroy: true,
                                               reject_if: proc { |a| a[:text].blank? && a[:id].blank? }
@@ -121,6 +125,8 @@ class Question < ApplicationRecord
     copy.save!(validate: false) if options.fetch(:save, false)
     options[:question_id] = copy.id
     question_options.each { |qo| copy.question_options << qo.deep_copy(**options) }
+    # question_identifiers deep_copy bit
+    question_identifiers.each { |qi| copy.question_identifiers << qi.deep_copy(**options) }
     annotations.each do |annotation|
       copy.annotations << annotation.deep_copy(**options)
     end
@@ -204,6 +210,7 @@ class Question < ApplicationRecord
   # upon saving of question update conditions (via a delete and create) from params
   # the old_to_new_opts map allows us to rewrite the question_option ids which may be out of sync
   # after versioning
+  # This method is called in questions_controller.rb line 188
   def update_conditions(param_conditions, old_to_new_opts, question_id_map)
     conditions.destroy_all
     return if param_conditions.blank?
