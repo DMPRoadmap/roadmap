@@ -7,6 +7,7 @@ import { addAsterisks } from '../../utils/requiredField';
 import onChangeQuestionFormat from '../questions/sharedEventHandlers';
 import initQuestionOption from '../questionOptions/index';
 import updateConditions from '../conditions/updateConditions';
+import initQuestionIdentifiers from '../questionIdentifiers/index';
 
 $(() => {
   Tinymce.init({ selector: '#phase_description' });
@@ -37,7 +38,9 @@ $(() => {
       $(`#${context} select.question_format`).change((e) => {
         onChangeQuestionFormat(e);
       });
+      initQuestionIdentifiers(context);
     }
+   
   };
 
   $('.question_container').each((i, element) => {
@@ -80,6 +83,7 @@ $(() => {
           });
         },
       });
+      
 
       const questionForm = $(`#${selector}`).find('.question_form');
       if (questionForm.length > 0) {
