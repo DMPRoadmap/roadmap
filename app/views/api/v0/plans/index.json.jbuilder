@@ -53,6 +53,15 @@ json.array! @plans.each do |plan|
         json.text       question.text
         json.number     question.number
         json.format     question.question_format.title
+       
+        # Validation to check if org can add question identifiers
+        org = plan.template.org
+        if org.can_add_question_identifiers?
+          json.question_identifiers question.question_identifiers do |question_identifier|
+            json.value  question_identifier.value
+            json.name   question_identifier.name
+          end  
+        end 
         json.option_based question.question_format.option_based
         json.themes question.themes.each do |theme|
           json.theme theme.title
@@ -65,6 +74,9 @@ json.array! @plans.each do |plan|
             if answer.question_options.present?
               json.options answer.question_options.each do |option|
                 json.text option.text
+                if org.can_add_question_identifiers?
+                  json.answer_identifier option.answer_identifier
+                end  
               end
             end
           end
