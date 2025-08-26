@@ -4,27 +4,27 @@
 #
 # Table name: orgs
 #
-#  id                     :integer          not null, primary key
-#  abbreviation           :string
-#  contact_email          :string
-#  contact_name           :string
-#  feedback_msg           :text
-#  feedback_enabled       :boolean          default(FALSE)
-#  is_other :boolean default(FALSE), not null
-#  links                  :text
-#  logo_name              :string
-#  logo_uid               :string
-#  managed                :boolean          default(FALSE), not null
-#  name                   :string
-#  org_type               :integer          default(0), not null
-#  sort_name              :string
-#  target_url             :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  language_id            :integer
-#  region_id              :integer
-#  managed                :boolean          default(false), not null
-#  helpdesk_email         :string
+#  id                      :integer          not null, primary key
+#  abbreviation            :string
+#  contact_email           :string
+#  contact_name            :string
+#  feedback_msg            :text
+#  feedback_enabled        :boolean          default(FALSE)
+#  is_other                :boolean          default(FALSE), not null
+#  links                   :text
+#  logo_name               :string
+#  logo_uid                :string
+#  name                    :string
+#  org_type                :integer          default(0), not null
+#  sort_name               :string
+#  target_url              :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  language_id             :integer
+#  region_id               :integer
+#  managed                 :boolean          default(false), not null
+#  helpdesk_email          :string
+#  add_question_identifiers :boolean         default(false), not null
 #
 # Foreign Keys
 #
@@ -118,6 +118,9 @@ class Org < ApplicationRecord
 
   validates :managed, inclusion: { in: BOOLEAN_VALUES,
                                    message: INCLUSION_MESSAGE }
+  
+  validates :add_question_identifiers, inclusion: { in: BOOLEAN_VALUES,
+                                   message: INCLUSION_MESSAGE }
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
                               message: _('must be one of the following formats: ' \
@@ -183,7 +186,7 @@ class Org < ApplicationRecord
   end
 
   # The managed flag is set by a Super Admin. A managed org typically has
-  # at least one Org Admini and can have associated Guidance and Templates
+  # at least one Org Admin and can have associated Guidance and Templates
   scope :managed, -> { where(managed: true) }
   # An un-managed Org is one created on the fly by the system
   scope :unmanaged, -> { where(managed: false) }
@@ -348,6 +351,12 @@ class Org < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
+  # Verify if org has permission to add Question Identifiers
+  def can_add_question_identifiers?
+    add_question_identifiers?
+  end  
+
+
   private
 
   ##
@@ -372,6 +381,8 @@ class Org < ApplicationRecord
     self.contact_name = to_be_merged.contact_name unless contact_name.present?
     self.feedback_enabled = to_be_merged.feedback_enabled unless feedback_enabled?
     self.feedback_msg = to_be_merged.feedback_msg unless feedback_msg.present?
+    self.add_question_identifiers = true if !add_question_identifiers? && to_be_merged.add_question_identifiers?
+    
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
@@ -424,4 +435,6 @@ class Org < ApplicationRecord
       token_permission_types << perm unless token_permission_types.include?(perm)
     end
   end
+
+  
 end
