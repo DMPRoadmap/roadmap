@@ -75,7 +75,8 @@ class OrgDomainController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
   def show
-    @org_domains = OrgDomain.where(org_id: current_user.org_id).order(created_at: :desc)
+    @org_domains = OrgDomain.where(org_id: current_user.org_id).order(:domain)
+
   end
 
   def new
