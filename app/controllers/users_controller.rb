@@ -134,21 +134,21 @@ class UsersController < ApplicationController
 
   # PUT /users/:id/activate
   # -----------------------------------------------------
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def activate
     authorize current_user
-
     user = User.find(params[:id])
     return unless user.present?
 
     begin
       user.active = !user.active
       user.save!
-
-      # Add logging statement here
       action = user.active ? 'activated' : 'deactivated'
-      Rails.logger.info "User '#{user.name(false)}' (user_id: #{user.id}) was #{action} by #{current_user.name(false)} (admin_id: #{current_user.id}, admin_email: #{current_user.email}, IP: #{request.remote_ip}) at #{Time.current}"
-      
+      Rails.logger.info(
+        "User '#{user.name(false)}' (user_id: #{user.id}) was #{action} by " \
+        "#{current_user.name(false)} (admin_id: #{current_user.id}, admin_email: #{current_user.email}, " \
+        "IP: #{request.remote_ip}) at #{Time.current}"
+      )
       render json: {
         code: 1,
         msg: format(_("Successfully %{action} %{username}'s account."),
@@ -164,7 +164,7 @@ class UsersController < ApplicationController
       }
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # POST /users/acknowledge_notification
   def acknowledge_notification
