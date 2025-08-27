@@ -144,6 +144,11 @@ class UsersController < ApplicationController
     begin
       user.active = !user.active
       user.save!
+
+      # Add logging statement here
+      action = user.active ? 'activated' : 'deactivated'
+      Rails.logger.info "User '#{user.name(false)}' (user_id: #{user.id}) was #{action} by #{current_user.name(false)} (admin_id: #{current_user.id}, admin_email: #{current_user.email}, IP: #{request.remote_ip}) at #{Time.current}"
+      
       render json: {
         code: 1,
         msg: format(_("Successfully %{action} %{username}'s account."),

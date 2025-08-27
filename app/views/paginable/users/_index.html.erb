@@ -82,7 +82,7 @@
                     <% end %>
                   </td>
                   <td class="text-center user-status">
-                    <% if is_super_admin %>
+                    <% if is_super_admin || is_org_admin %>
                       <%= check_box_tag :is_test, "1", user.active,
                                                   class: "activate-user",
                                                   authenticity_token: true,

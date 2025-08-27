@@ -27,7 +27,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def activate?
-    @user.can_super_admin?
+    @user.can_super_admin? || @user.can_org_admin?
   end
 
   def edit?
