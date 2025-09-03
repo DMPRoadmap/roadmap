@@ -52,7 +52,7 @@ class OrgDomainController < ApplicationController
         org_name = ror_display_name_json ? ror_display_name_json['value'] : nil
         puts "org_name: #{org_name}"
 
-        # # If org_name is nil, skip this org
+        # If org_name is nil, skip this org
         break if org_name.nil?
 
         org_id_new_format = { name: org_name }.to_json
@@ -157,12 +157,17 @@ class OrgDomainController < ApplicationController
 
   def other_org_json
     other_org = Org.find_other_org
-    org_id_new_format = { id: other_org.id, name: other_org.name }.to_json
-    {
-      id: org_id_new_format,
-      org_name: other_org.name,
-      domain: "",
-    }
+    #add if condition here to check if other_org is nil or present
+    if other_org.present?
+      org_id_new_format = { id: other_org.id, name: other_org.name }.to_json
+    else
+      org_id_new_format = { name: "Other" }.to_json
+    end
+      {
+        id: org_id_new_format,
+        org_name: other_org ? other_org.name : "Other",
+        domain: "",
+      }
   end
 end
 
