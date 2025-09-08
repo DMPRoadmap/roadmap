@@ -151,9 +151,14 @@ class UsageController < ApplicationController
     params[:filtered].present? && params[:filtered] == 'true'
   end
 
-  # set the csv separator or default to comma
+  # This sets the csv separator
+  # Ensures separator is either a comma or a safe separator
   def sep_param
-    params['sep'] || ','
+    safe_csv_separators = Rails.configuration.x.application.csv_separators
+    sep = params['sep'].to_s
+    return sep if safe_csv_separators.include?(sep)
+
+    ','
   end
 
   def min_max_dates(args:)
