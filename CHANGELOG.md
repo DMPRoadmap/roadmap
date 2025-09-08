@@ -7,6 +7,7 @@
 - Remove Auto-Generated TinyMCE Skins and Add `public/tinymce/skins/` to `.gitignore` [#3466](https://github.com/DMPRoadmap/roadmap/pull/3466)
 - Re-implement email confirmation [#3507](https://github.com/DMPRoadmap/roadmap/pull/3507)
 - Update `spec/support/faker.rb` to use `I18n.default_locale` [#3507](https://github.com/DMPRoadmap/roadmap/pull/3507)
+- Properly validate CSV Separator [#3557](https://github.com/DMPRoadmap/roadmap/pull/3557)
 
 ## v5.0.0
 
