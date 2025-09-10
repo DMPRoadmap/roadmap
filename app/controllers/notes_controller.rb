@@ -3,6 +3,7 @@
 # Controller for the Comments section of the Write Plan page
 class NotesController < ApplicationController
   include ConditionalUserMailer
+
   after_action :verify_authorized
   respond_to :html
 
