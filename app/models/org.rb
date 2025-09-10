@@ -34,10 +34,11 @@
 # Object that represents an Organization/Institution/Funder
 class Org < ApplicationRecord
   extend FeedbacksHelper
+  extend Dragonfly::Model::Validations
+
   include FlagShihTzu
   include Identifiable
 
-  extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
 
   LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
