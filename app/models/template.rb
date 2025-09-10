@@ -504,6 +504,7 @@ class Template < ApplicationRecord
             .update_all(published: false)
   end
 
+  # rubocop:disable Naming/PredicateMethod
   def invalid_condition_order
     questions.each do |question|
       next unless question.option_based?
@@ -519,6 +520,7 @@ class Template < ApplicationRecord
     end
     false
   end
+  # rubocop:enable Naming/PredicateMethod
 
   def before(question1, question2)
     question1.section.number < question2.section.number ||

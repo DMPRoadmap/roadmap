@@ -42,12 +42,14 @@ module ExternalApis
       # Ping the ROR API to determine if it is online
       #
       # @return true/false
+      # rubocop:disable Naming/PredicateMethod
       def ping
         return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
         resp.present? && resp.code == 200
       end
+      # rubocop:enable Naming/PredicateMethod
 
       # Search the ROR API for the given string.
       #

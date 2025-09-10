@@ -37,20 +37,24 @@ module ExternalApis
       # Ping the DOI API to determine if it is online
       #
       # @return true/false
+      # rubocop:disable Naming/PredicateMethod
       def ping
         return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
         resp.is_a?(Net::HTTPSuccess)
       end
+      # rubocop:enable Naming/PredicateMethod
 
       # Implement the authentication for the DOI API
+      # rubocop:disable Naming/PredicateMethod
       def auth
         true
 
         # You should implement any necessary authentication step required by the
         # DOI API
       end
+      # rubocop:enable Naming/PredicateMethod
 
       # Implement the call to retrieve/mint a new DOI
       # rubocop:disable Lint/UnusedMethodArgument

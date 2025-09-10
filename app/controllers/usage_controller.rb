@@ -147,9 +147,11 @@ class UsageController < ApplicationController
     }
   end
 
+  # rubocop:disable Naming/PredicateMethod
   def parse_filtered
     params[:filtered].present? && params[:filtered] == 'true'
   end
+  # rubocop:enable Naming/PredicateMethod
 
   # set the csv separator or default to comma
   def sep_param

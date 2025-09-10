@@ -101,6 +101,7 @@ class Role < ApplicationRecord
 
   # Set the roles.active flag to false and deactivates the plan
   # if there are no other authors
+  # rubocop:disable Naming/PredicateMethod
   def deactivate!
     self.active = false
     if save!
@@ -114,6 +115,8 @@ class Role < ApplicationRecord
       false
     end
   end
+  # rubocop:enable Naming/PredicateMethod
+
 end
 
 # -----------------------------------------------------

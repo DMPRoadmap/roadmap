@@ -58,6 +58,7 @@ module Identifiable
     end
 
     # Combines the existing identifiers with the new ones
+    # rubocop:disable Naming/PredicateMethod
     def consolidate_identifiers!(array:)
       return false unless array.present? && array.any?
 
@@ -75,5 +76,6 @@ module Identifiable
       true
     end
   end
+  # rubocop:enable Naming/PredicateMethod
   # rubocop:enable Metrics/BlockLength
 end

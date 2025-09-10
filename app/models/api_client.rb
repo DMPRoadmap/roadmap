@@ -77,9 +77,11 @@ class ApiClient < ApplicationRecord
   end
 
   # Verify that the incoming secret matches
+  # rubocop:disable Naming/PredicateMethod
   def authenticate(secret:)
     client_secret == secret
   end
+  # rubocop:enable Naming/PredicateMethod
 
   # Generate UUIDs for the client_id and client_secret
   def generate_credentials

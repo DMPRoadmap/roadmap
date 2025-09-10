@@ -79,11 +79,13 @@ class GuidancePresenter
     @orgs
   end
 
+  # rubocop:disable Naming/PredicateMethod
   def org_found(orgs, org)
     orgs.find do |lookup_org|
       lookup_org.id == org.id
     end.present?
   end
+  # rubocop:enable Naming/PredicateMethod
 
   # Returns true if exists any guidance_group applicable to the org and question passed
   def guidance_groups_by_theme?(org: nil, question: nil)

@@ -2,6 +2,8 @@
 
 # Determines whether or not the user has enabled/disabled the email notification
 # before sending it out
+
+# rubocop:disable Naming/PredicateMethod
 module ConditionalUserMailer
   # Executes a given block passed if the recipient user has the preference
   # email key enabled
@@ -25,3 +27,4 @@ module ConditionalUserMailer
     true
   end
 end
+# rubocop:enable Naming/PredicateMethod
