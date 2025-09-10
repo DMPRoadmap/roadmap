@@ -45,7 +45,7 @@ module Api
           headers: request.headers
         )
         @client = auth_svc.call
-        log_access if @client.present?
+        log_access? if @client.present?
         return true if @client.present?
 
         render_error(errors: auth_svc.errors, status: :unauthorized)
@@ -85,7 +85,7 @@ module Api
 
       # ==========================
 
-      def log_access
+      def log_access?
         obj = client
         return false unless obj.present?
 
