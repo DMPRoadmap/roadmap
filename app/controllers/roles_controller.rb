@@ -3,6 +3,7 @@
 # Controller that handles adding/updating/removing collaborators from a plan
 class RolesController < ApplicationController
   include ConditionalUserMailer
+
   respond_to :html
 
   after_action :verify_authorized
