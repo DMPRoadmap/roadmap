@@ -4,6 +4,7 @@
 # rubocop:disable Metrics/ModuleLength
 module Paginable
   extend ActiveSupport::Concern
+
   require 'sort_direction'
 
   ##
