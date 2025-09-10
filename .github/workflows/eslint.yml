@@ -15,7 +15,7 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         cache: 'yarn'
-        node-version: 18
+        node-version: 22
 
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'
