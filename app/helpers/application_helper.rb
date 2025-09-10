@@ -30,7 +30,9 @@ module ApplicationHelper
   end
   # rubocop:enable Style/OptionalBooleanParameter
 
+  # rubocop:disable Naming/MethodName
   alias isActivePage active_page?
+  # rubocop:enable Naming/MethodName
 
   deprecate :isActivePage, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
 
