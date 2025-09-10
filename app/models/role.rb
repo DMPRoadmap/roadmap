@@ -116,7 +116,6 @@ class Role < ApplicationRecord
     end
   end
   # rubocop:enable Naming/PredicateMethod
-
 end
 
 # -----------------------------------------------------
