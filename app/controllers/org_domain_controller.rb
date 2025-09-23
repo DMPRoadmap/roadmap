@@ -63,10 +63,10 @@ class OrgDomainController < ApplicationController
         }
       rescue => e
         puts "Failed request: #{e.message}"
-        # If the request fails, log the error and return an empty array
-        result = []
       end
 
+      # In case result is ni, we need to set it to an empty array
+      result = [] if result.nil?
       # Add Other org to end of array.
       result << other_org_json
     end
