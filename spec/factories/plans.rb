@@ -66,9 +66,24 @@ FactoryBot.define do
         obj.roles << create(:role, :creator, user: create(:user, org: create(:org)))
       end
     end
+    trait :administrator do
+      after(:create) do |obj|
+        obj.roles << create(:role, :administrator, user: create(:user, org: create(:org)))
+      end
+    end
+    trait :editor do
+      after(:create) do |obj|
+        obj.roles << create(:role, :editor, user: create(:user, org: create(:org)))
+      end
+    end
     trait :commenter do
       after(:create) do |obj|
         obj.roles << create(:role, :commenter, user: create(:user, org: create(:org)))
+      end
+    end
+    trait :reviewer do
+      after(:create) do |obj|
+        obj.roles << create(:role, :reviewer, user: create(:user, org: create(:org)))
       end
     end
     trait :organisationally_visible do

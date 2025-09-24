@@ -344,79 +344,124 @@ RSpec.describe Org, type: :model do
 
   describe '#org_admin_plans' do
     Rails.configuration.x.plans.org_admins_read_all = true
-    let!(:org) { create(:org) }
-    let!(:plan) { create(:plan, org: org, visibility: 'publicly_visible') }
-    let!(:user) { create(:user, org: org) }
+    # Two Orgs
+    let!(:org1) { create(:org) }
+    let!(:org2) { create(:org) }
 
-    subject { org.org_admin_plans }
+    # Plans for org1
+    let!(:org1plan1) { create(:plan, :creator, :organisationally_visible, org: org1) }
+    let!(:org1plan2) { create(:plan, :creator, :privately_visible, org: org1) }
+    let!(:org1plan3) { create(:plan, :creator, :publicly_visible, org: org1) }
+    let!(:org1plan4) { create(:plan, :creator, :organisationally_visible, org: org1) }
+
+    # Plans for org2
+    let!(:org2plan1) { create(:plan, :creator, :organisationally_visible, org: org2) }
+
+    subject { org1.org_admin_plans }
 
     context 'when user belongs to Org and plan owner with role :creator' do
       before do
-        create(:role, :creator, user: user, plan: plan)
-        plan.add_user!(user.id, :creator)
+        Rails.configuration.x.plans.org_admins_read_all = true
       end
-
-      it { is_expected.to include(plan) }
+      it { is_expected.to include(org1plan1, org1plan2, org1plan3, org1plan4) }
+      it { is_expected.not_to include(org2plan1) }
     end
 
-    context 'when user belongs to Org and plan user with role :administrator' do
+    context 'when user belongs to Org and a plan removed by creator assuming there are no coowners' do
       before do
-        plan.add_user!(user.id, :administrator)
+        Rails.configuration.x.plans.org_admins_read_all = true
+        org1plan4.roles.map { |r| r.update(active: false) if r.user_id == org1plan4.owner.id }
+      end
+
+      it { is_expected.to include(org1plan1, org1plan2, org1plan3) }
+      it { is_expected.not_to include(org1plan4) }
+    end
+
+    context 'when user belongs to Org and a plan removed by creator, but cowner still active.' do
+      before do
+        Rails.configuration.x.plans.org_admins_read_all = true
+        coowner = create(:user, org: org1)
+        org1plan4.add_user!(coowner.id, :coowner)
+        owner_id = org1plan4.owner.id
+        org1plan4.roles.map { |r| r.update(active: false) if r.user_id == owner_id }
+      end
+
+      it { is_expected.to include(org1plan1, org1plan2, org1plan3) }
+      it { is_expected.not_to include(org1plan4) }
+    end
+
+    context 'when user belongs to Org, plan user with role :administrator, but plan creator from a different Org' do
+      before do
+        Rails.configuration.x.plans.org_admins_read_all = true
+        # Creator belongs to different org
+        @plan = create(:plan, :creator, :organisationally_visible, org: create(:org))
+        @plan.add_user!(create(:user, org: org1).id, :administrator)
       end
 
       it {
-        is_expected.to include(plan)
+        is_expected.to include(org1plan1, org1plan2, org1plan3, org1plan4, @plan)
       }
     end
 
     context 'user belongs to Org and plan user with role :editor, but not :creator and :admin' do
       before do
-        plan.add_user!(user.id, :editor)
+        Rails.configuration.x.plans.org_admins_read_all = true
+        # Creator and admin belongs to different orgs
+        @plan = create(:plan, :creator, :organisationally_visible, org: create(:org))
+        @plan.add_user!(create(:org).id, :administrator)
+        # Editor belongs to org1
+        @plan.add_user!(create(:user, org: org1).id, :editor)
       end
 
-      it { is_expected.to include(plan) }
+      it { is_expected.not_to include(@plan) }
     end
 
     context 'user belongs to Org and plan user with role :commenter, but not :creator and :admin' do
       before do
-        plan.add_user!(user.id, :commenter)
+        Rails.configuration.x.plans.org_admins_read_all = true
+        # Creator and admin belongs to different orgs
+        @plan = create(:plan, :creator, :organisationally_visible, org: create(:org))
+        @plan.add_user!(create(:org).id, :administrator)
+        # Commenter belongs to org1
+        @plan.add_user!(create(:user, org: org1).id, :commentor)
       end
 
-      it { is_expected.to include(plan) }
+      it { is_expected.not_to include(@plan) }
     end
 
     context 'user belongs to Org and plan user with role :reviewer, but not :creator and :admin' do
       before do
-        plan.add_user!(user.id, :reviewer)
+        Rails.configuration.x.plans.org_admins_read_all = true
+        # Creator and admin belongs to different orgs
+        @plan = create(:plan, :creator, :organisationally_visible, org: create(:org))
+        @plan.add_user!(create(:org).id, :administrator)
+        # Reviewer belongs to org1
+        @plan.add_user!(create(:user, org: org1).id, :reviewer)
       end
 
-      it { is_expected.to include(plan) }
+      it { is_expected.not_to include(@plan) }
     end
 
     context 'read_all is false, visibility private and user org_admin' do
       before do
         Rails.configuration.x.plans.org_admins_read_all = false
-        @perm = build(:perm)
-        @perm.name = 'grant_permissions'
-        user.perms << @perm
-        plan.add_user!(user.id, :reviewer)
-        plan.privately_visible!
+        @user = create(:user, :org_admin, org: org1)
+        @plan = create(:plan, :creator, :privately_visible, org: org1)
+        @plan.add_user!(@user.id, :reviewer)
       end
 
-      it { is_expected.not_to include(plan) }
+      it { is_expected.not_to include(@plan) }
     end
 
     context 'read_all is false, visibility public and user org_admin' do
       before do
         Rails.configuration.x.plans.org_admins_read_all = false
-        @perm = build(:perm)
-        @perm.name = 'grant_permissions'
-        user.perms << @perm
-        plan.add_user!(user.id, :reviewer)
-        plan.publicly_visible!
+        @user = create(:user, :org_admin, org: org1)
+        @plan = create(:plan, :creator, :publicly_visible, org: org1)
+        @plan.add_user!(@user.id, :reviewer)
       end
 
-      it { is_expected.to include(plan) }
+      it { is_expected.to include(@plan) }
     end
   end
 
