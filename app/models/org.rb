@@ -292,11 +292,13 @@ class Org < ApplicationRecord
     if Rails.configuration.x.plans.org_admins_read_all
       Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
           .where(roles: { active: true })
+          .where(Role.creator_condition)
     else
       Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
           .where.not(visibility: Plan.visibilities[:privately_visible])
           .where.not(visibility: Plan.visibilities[:is_test])
           .where(roles: { active: true })
+          .where(Role.creator_condition)
     end
   end
   # rubocop:enable Metrics/AbcSize
