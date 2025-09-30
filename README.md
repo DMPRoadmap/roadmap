@@ -38,7 +38,8 @@ If you would like to contribute to the project. Please follow these steps to sub
 * Then create a new Pull Request (PR) from your branch to this project's '_**development**_' branch in GitHub
 * The project team will then review your PR and communicate with you to convey any additional changes that would ensure that your work adheres to our guidelines.
 
-See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/blob/development/CONTRIBUTING.md) on the Wiki for more details.
+See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap?tab=contributing-ov-file) on the Wiki for more details.
 
 #### License
 The DMP Roadmap project uses the <a href="./LICENSE.md">MIT License</a>.
+
