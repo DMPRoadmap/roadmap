@@ -1,6 +1,3 @@
-# Ignore rbenv files
-.ruby-version
-
 # Ignore bundler config
 /.bundle
 
