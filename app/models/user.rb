@@ -63,9 +63,9 @@ class User < ApplicationRecord
   # Devise
   #   Include default devise modules. Others available are:
   #   :token_authenticatable, :confirmable,
-  #   :lockable, :timeoutable and :omniauthable
+  #   :lockable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :validatable, :omniauthable,
+         :rememberable, :trackable, :validatable, :omniauthable, :timeoutable,
          omniauth_providers: %i[shibboleth orcid]
 
   # default user language to the default language
