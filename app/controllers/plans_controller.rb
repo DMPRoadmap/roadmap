@@ -193,7 +193,8 @@ class PlansController < ApplicationController
     @default_orgs = Org.default_orgs
     @all_ggs_grouped_by_org.each do |org, ggs|
       # @default_orgs and already selected guidance groups are important.
-      if (@default_orgs.include?(org) || (ggs & @selected_guidance_groups).any?) && !@important_ggs.include?([org, ggs])
+      if (@default_orgs.include?(org) || ggs.intersect?(@selected_guidance_groups)) && !@important_ggs.include?([org,
+                                                                                                                 ggs])
         @important_ggs << [org, ggs]
       end
     end
