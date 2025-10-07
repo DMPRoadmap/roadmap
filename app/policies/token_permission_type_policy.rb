@@ -6,6 +6,6 @@ class TokenPermissionTypePolicy < ApplicationPolicy
   # NOTE: @user is the signed_in_user
 
   def index?
-    @user.can_use_api? && @user.org.token_permission_types.count.positive?
+    @user.can_use_api? && @user.org.token_permission_types.any?
   end
 end

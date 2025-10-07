@@ -38,6 +38,7 @@ class Org < ApplicationRecord
   include Identifiable
 
   extend Dragonfly::Model::Validations
+
   validates_with OrgLinksValidator
 
   LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze

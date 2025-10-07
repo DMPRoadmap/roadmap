@@ -37,7 +37,7 @@ FactoryBot.define do
     end
 
     before(:create) do |contributor, evaluator|
-      (0..evaluator.roles_count - 1).each do |idx|
+      (0..(evaluator.roles_count - 1)).each do |idx|
         contributor.send(:"#{contributor.all_roles[idx]}=", true)
       end
     end

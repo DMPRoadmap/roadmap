@@ -457,12 +457,12 @@ class Template < ApplicationRecord
       publishable = false
       # all phases must have atleast 1 section
     end
-    unless phases.map { |p| p.sections.count.positive? }.reduce(true) { |fin, val| fin && val }
+    unless phases.map { |p| p.sections.any? }.reduce(true) { |fin, val| fin && val }
       error += _('You can not publish a template without sections in a phase.  ')
       publishable = false
       # all sections must have atleast one question
     end
-    unless sections.map { |s| s.questions.count.positive? }.reduce(true) { |fin, val| fin && val }
+    unless sections.map { |s| s.questions.any? }.reduce(true) { |fin, val| fin && val }
       error += _('You can not publish a template without questions in a section.  ')
       publishable = false
     end
