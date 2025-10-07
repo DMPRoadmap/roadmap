@@ -18,7 +18,6 @@ jobs:
     - name: 'Install Ruby'
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ env.RUBY_VERSION }}
 
     - name: 'Bundle Install'
       run: |
