@@ -5,6 +5,7 @@
 - Enable session timeout after 90 minutes of inactivity [#3568](https://github.com/DMPRoadmap/roadmap/pull/3568)
 - Validate CSV Separator [#3569](https://github.com/DMPRoadmap/roadmap/pull/3569)
 - Fix rendering of `confirm_merge` partial [#3567](https://github.com/DMPRoadmap/roadmap/pull/3567)
+- Improve CI configuration [#3551](https://github.com/DMPRoadmap/roadmap/issues/3551)
 
 ## v5.0.1
 - Updated seeds.rb file for identifier_schemes to include context value and removed logo_url and idenitifier_prefix for Shibboleth (as it was causing issues with SSO). [#3525](https://github.com/DMPRoadmap/roadmap/pull/3525)
