@@ -98,11 +98,11 @@
                     </li>
                 <% end %>
               <% end %>
-              <% if current_user.can_org_admin? && !current_user.can_super_admin? %>   
+              <% if current_user.can_org_admin? || current_user.can_super_admin? %>   
                     <li class="nav-item <%= 'class=active' if active_page?(org_domain_show_path) %>">
                       <%= link_to _('Organisation domains'), org_domain_show_path, class: 'nav-link dropdown-item  px-3' %>
                     </li>
-                <% end %>
+              <% end %>
               <% if current_user.can_grant_permissions? %>
                   <li class="nav-item <%= 'class=active' if active_page?(admin_index_users_path) %>">
                     <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li nav-link dropdown-item  px-3' %>
