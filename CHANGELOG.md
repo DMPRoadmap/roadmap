@@ -12,6 +12,7 @@
 - Bump net-imap from 0.4.19 to 0.4.20 [#3518](https://github.com/DMPRoadmap/roadmap/pull/3518)
 - Bump rexml from 3.4.1 to 3.4.2 [#3562](https://github.com/DMPRoadmap/roadmap/pull/3562)
 - Bump tmp from 0.2.3 to 0.2.4 [#3548](https://github.com/DMPRoadmap/roadmap/pull/3548)
+- Update Gems and Address New Rubocop Offences [#3572](https://github.com/DMPRoadmap/roadmap/pull/3572)
 
 ## v5.0.1
 - Updated seeds.rb file for identifier_schemes to include context value and removed logo_url and idenitifier_prefix for Shibboleth (as it was causing issues with SSO). [#3525](https://github.com/DMPRoadmap/roadmap/pull/3525)
