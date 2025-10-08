@@ -17,7 +17,6 @@ jobs:
     # Install Ruby - using the version found in the Gemfile.lock
     - name: 'Install Ruby'
       uses: ruby/setup-ruby@v1
-      with:
 
     - name: 'Bundle Install'
       run: |
