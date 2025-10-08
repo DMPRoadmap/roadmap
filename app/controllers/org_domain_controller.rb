@@ -77,7 +77,7 @@ class OrgDomainController < ApplicationController
         puts "Failed request: #{e.message}"
       end
 
-      # In case result is ni, we need to set it to an empty array
+      # In case result is nil, we need to set it to an empty array
       result = [] if result.nil?
       # Add Other org to end of array.
       result << other_org_json
@@ -88,15 +88,18 @@ class OrgDomainController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
   def show
+    redirect_to root_path, alert: "You are not authorized to view this page." unless current_user.can_org_admin? || current_user.can_super_admin?
     @org_domains = OrgDomain.where(org_id: current_user.org_id).order(:domain)
   end
 
   def new
+    redirect_to root_path, alert: "You are not authorized to view this page." unless current_user.can_org_admin? || current_user.can_super_admin?
     @org_domain = OrgDomain.new
   end
 
   # rubocop:disable Metrics/AbcSize
   def create
+    redirect_to root_path, alert: "You are not authorized to view this page." unless current_user.can_org_admin? || current_user.can_super_admin?
     domain_input = params[:org_domain][:domain].to_s.downcase.gsub(/\s+/, '')
 
     if domain_input.blank?
@@ -117,12 +120,14 @@ class OrgDomainController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def edit
+    redirect_to root_path, alert: "You are not authorized to view this page." unless current_user.can_org_admin? || current_user.can_super_admin?
     @org_domain = OrgDomain.find(params[:id])
     redirect_to org_domain_show_path, alert: 'Unauthorized' unless @org_domain.org_id == current_user.org_id
   end
 
   # rubocop:disable Metrics/AbcSize
   def update
+    redirect_to root_path, alert: "You are not authorized to view this page." unless current_user.can_org_admin? || current_user.can_super_admin?
     @org_domain = OrgDomain.find(params[:id])
 
     if @org_domain.org_id == current_user.org_id
@@ -145,6 +150,7 @@ class OrgDomainController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def destroy
+    redirect_to root_path, alert: "You are not authorized to view this page." unless current_user.can_org_admin? || current_user.can_super_admin?
     @org_domain = OrgDomain.find(params[:id])
 
     if @org_domain.org_id != current_user.org_id
