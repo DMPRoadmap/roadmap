@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
 
   include GlobalHelpers
   include Pundit::Authorization
+
   helper_method GlobalHelpers.instance_methods
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized

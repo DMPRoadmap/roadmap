@@ -5,6 +5,7 @@ module OrgAdmin
   class TemplateCustomizationsController < ApplicationController
     include Paginable
     include Versionable
+
     after_action :verify_authorized
 
     # POST /org_admin/templates/:id/customize

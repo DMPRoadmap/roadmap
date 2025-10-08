@@ -5,6 +5,7 @@ class UserMailer < ActionMailer::Base
   prepend_view_path 'app/views/branded/'
 
   include MailerHelper
+
   helper MailerHelper
   helper FeedbacksHelper
 

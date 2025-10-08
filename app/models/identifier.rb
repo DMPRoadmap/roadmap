@@ -61,7 +61,7 @@ class Identifier < ApplicationRecord
   # Ensure that the value of attrs is a hash
   # TODO: evaluate this vs the Serialize approach in condition.rb
   def attrs=(hash)
-    super(hash.is_a?(Hash) ? hash.to_json.to_s : '{}')
+    super(hash.is_a?(Hash) ? hash.to_json : '{}')
   end
 
   # Appends the identifier scheme's prefix to the identifier if necessary

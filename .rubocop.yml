@@ -141,6 +141,16 @@ Metrics/BlockLength:
 
   AllowedMethods: ['describe', 'context', 'task', 'namespace']
 
+# ----------
+# - NAMING -
+# ----------
+# TODO: Temporarily disabled for release v5.0.2
+Naming/MethodName:
+  Enabled: false
+# TODO: Temporarily disabled for release v5.0.2
+Naming/PredicateMethod:
+  Enabled: false
+
 # ------------
 # - SECURITY -
 # ------------

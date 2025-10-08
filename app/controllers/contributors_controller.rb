@@ -3,6 +3,7 @@
 # Controller for the Contributors page
 class ContributorsController < ApplicationController
   include OrgSelectable
+
   helper PaginableHelper
 
   before_action :fetch_plan
