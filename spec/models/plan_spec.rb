@@ -398,7 +398,7 @@ describe Plan do
       expect(subject.title).to include(plan.title)
     end
 
-    it "copies the new plan's id to its identifer" do
+    it "copies the new plan's id to its identifier" do
       expect(subject.identifier).to eql(subject.id.to_s)
     end
 

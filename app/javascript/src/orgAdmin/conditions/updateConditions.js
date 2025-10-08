@@ -22,7 +22,7 @@ export default function updateConditions(id) {
 
     if (webhook === false) {
       if ($(selectObject).val() === 'add_webhook') { // condition type is webhook
-        // Retreive 'data-bs-target' for modal and create Jquery element
+        // Retrieve 'data-bs-target' for modal and create Jquery element
         const associatedModal = $(condition.find('.pseudo-webhook-btn').attr('data-bs-target'));
         associatedModal.modal('show');
         condition.find('.display-if-action-remove').hide();
@@ -60,7 +60,7 @@ export default function updateConditions(id) {
       condition.find('.webhook-replacement').show();
       $(condition.find('.webhook-replacement')).on('click', (event) => {
         event.preventDefault();
-        // Retreive 'data-bs-target' for modal and create Jquery element
+        // Retrieve 'data-bs-target' for modal and create Jquery element
         const associatedModal1 = $(condition.find('.pseudo-webhook-btn').attr('data-bs-target'));
         associatedModal1.modal('show');
       });

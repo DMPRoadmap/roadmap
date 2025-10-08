@@ -77,7 +77,7 @@ module ExternalApis
 
       private
 
-      # Queries the ROR API for the sepcified name and page
+      # Queries the ROR API for the specified name and page
       def query_ror(term:, page: 1, filters: [])
         return [] unless term.present?
 

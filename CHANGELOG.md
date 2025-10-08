@@ -255,7 +255,7 @@ As Webpacker is no longer maintained by the Rails community, we have replaced it
 - Removed `font-awesome-sass` gem and used `@fortawesome/fontawesome-free` npm package
 - Issue with `@import 'font-awesome-sprockets';` line in `app/assets/stylesheets/application.scss`. Removed that line after referring to the latest font-awesome install/setup guide which no longer includes it.
 
-With the removal of Webpacker, the Javascript/SASS code is no longer automaticaly compiled when using the `rails server` command. It has been replaced by the `bin/dev` command that launch the rails server and the processes that watch for changes in the SASS and Javascript code.
+With the removal of Webpacker, the Javascript/SASS code is no longer automatically compiled when using the `rails server` command. It has been replaced by the `bin/dev` command that launch the rails server and the processes that watch for changes in the SASS and Javascript code.
 
 #### SASS update : removal of the `@import` keyword
 
@@ -309,7 +309,7 @@ For more detailed explanation, please refer to this video : https://www.youtube.
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
 - Updated the CSV export so that it now includes research outputs
 - Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
-- Fixed discrepencies with default/max per_page values for API and UI pagination
+- Fixed discrepancies with default/max per_page values for API and UI pagination
 - Updated JS that used to call the TinyMCE `setMode()` function so that it now calls `mode.set()` because the former is now deprecated.
 - Patched an issue that was causing a template's visibility to change to 'organizationally_visible' when saving on the template details page.
 - Fixed an issue with the Rails 6 keyword arguments change that was causing the `paginable_sort_link` to fail

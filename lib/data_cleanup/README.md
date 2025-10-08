@@ -65,7 +65,7 @@ These are defined in `lib/data_cleanup/rules`.
 
 ### Creating a new rule
 
-You can create a new rule by running the following genrator:
+You can create a new rule by running the following generator:
 
 ``` bash
 $ rails g data_cleanup_rule user/fix_missing_emails
@@ -73,7 +73,7 @@ $ rails g data_cleanup_rule user/fix_missing_emails
 
 This will create a file `lib/data_cleanup/rules/user/fix_missing_emails.rb` which contains the rules for updating users with missing emails.
 
-Feel free to add your own rules where neccesary to fix your own data.
+Feel free to add your own rules where necessary to fix your own data.
 
 ## Logging output
 

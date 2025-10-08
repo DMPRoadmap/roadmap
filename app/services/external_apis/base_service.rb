@@ -40,7 +40,7 @@ module ExternalApis
       end
 
       # The standard headers to be used when communicating with an external API.
-      # These headers can be overriden or added to when calling an external API
+      # These headers can be overridden or added to when calling an external API
       # by sending your changes in the `additional_headers` attribute of
       # `http_get`
       def headers

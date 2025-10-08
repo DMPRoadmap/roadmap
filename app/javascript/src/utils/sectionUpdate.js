@@ -23,5 +23,5 @@ export const updateSectionProgress = (id, numSecAnswers, numSecQuestions) => {
 };
 
 // given a question id find the containing div
-// used inconditional questions
+// used unconditional questions
 export const getQuestionDiv = (id) => $(`#answer-form-${id}`).closest('.question-body');

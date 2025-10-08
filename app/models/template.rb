@@ -450,17 +450,17 @@ class Template < ApplicationRecord
     unless latest?
       error += _('You can not publish a historical version of this template.  ')
       publishable = false
-      # all templates have atleast one phase
+      # all templates have at least one phase
     end
     if phases.count <= 0
       error += _('You can not publish a template without phases.  ')
       publishable = false
-      # all phases must have atleast 1 section
+      # all phases must have at least 1 section
     end
     unless phases.map { |p| p.sections.any? }.reduce(true) { |fin, val| fin && val }
       error += _('You can not publish a template without sections in a phase.  ')
       publishable = false
-      # all sections must have atleast one question
+      # all sections must have at least one question
     end
     unless sections.map { |s| s.questions.any? }.reduce(true) { |fin, val| fin && val }
       error += _('You can not publish a template without questions in a section.  ')

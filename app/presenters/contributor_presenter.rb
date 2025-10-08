@@ -53,7 +53,7 @@ class ContributorPresenter
     def role_tooltip(symbol:)
       case symbol
       when :data_curation
-        _('Management activities to annotate (produce metadata), scrub data and maintain research data (including software code, where it is necessary for interpreting the data itself) for initial use and later re-use.')
+        _('Management activities to annotate (produce metadata), scrub data and maintain research data (including software code, where it is necessary for interpreting the data itself) for initial use and later reuse.')
       when :investigation
         _('Conducting a research and investigation process, specifically performing the experiments, or data/evidence collection.')
       when :project_administration

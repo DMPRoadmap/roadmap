@@ -21,7 +21,7 @@ module DMPRoadmap
     # ORGANISATION SETTINGS #
     # --------------------- #
 
-    # Your organisation name, used in various places throught the application
+    # Your organisation name, used in various places throughout the application
     config.x.organisation.name = 'Curation Center'
     # Your organisation's abbreviation
     config.x.organisation.abbreviation = 'CC'

@@ -23,7 +23,7 @@ module AutoCompleteHelper
     # Some unfortunate hacks to deal with naming inconsistencies on the create plan page
     # and the Super Admin merge orgs tab
     id = id.gsub('org_org_', 'org_').gsub('funder_org_', 'funder_')
-    # Excape any single quotes so it doesn't blow up our JS
+    # Escape any single quotes so it doesn't blow up our JS
     hash = { id: org.id, name: org.name.delete("'") }
     # Capybara/Selenium can't interact with a hidden field because the user can't,
     # so use some JS to set the value

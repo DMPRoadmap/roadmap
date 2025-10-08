@@ -54,7 +54,7 @@ RSpec.describe Language, type: :model do
   describe '.default' do
     subject { Language.default }
 
-    context 'when langauge is default_language' do
+    context 'when language is default_language' do
       let!(:language) { create(:language, abbreviation: 'foo', default_language: true) }
 
       it { is_expected.to eql(language) }

@@ -11,7 +11,7 @@ RSpec.describe IdentifierPresenter do
   end
 
   describe '#identifiers' do
-    it "returns the identiable object's identifiers" do
+    it "returns the identifiable object's identifiers" do
       id = build(:identifier)
       @user.identifiers << id
       @user.org.identifiers << build(:identifier)

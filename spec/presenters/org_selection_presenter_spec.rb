@@ -41,7 +41,7 @@ RSpec.describe OrgSelectionPresenter do
     it 'return an empty hash if the value does not have a match in crosswalk' do
       expect(@presenter.crosswalk_entry_from_org_id(value: '999')).to eql('{}')
     end
-    it 'return ther correct crosswalk entry' do
+    it 'return the correct crosswalk entry' do
       rslt = @presenter.crosswalk_entry_from_org_id(value: @org.id.to_s)
       expected = OrgSelection::OrgToHashService.to_hash(org: @org).to_json
       expect(rslt).to eql(expected)

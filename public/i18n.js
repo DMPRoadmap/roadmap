@@ -38,7 +38,7 @@
     return ("0" + number.toString()).substr(-2);
   };
 
-  // Improved toFixed number rounding function with support for unprecise floating points
+  // Improved toFixed number rounding function with support for imprecise floating points
   // JavaScript's standard toFixed function does not round certain numbers correctly (for example 0.105 with precision 2).
   var toFixed = function(number, precision) {
     return decimalAdjust('round', number, -precision).toFixed(precision);
@@ -364,7 +364,7 @@
     }
   };
 
-  // Merge serveral hash options, checking if value is set before
+  // Merge several hash options, checking if value is set before
   // overwriting any value. The precedence is from left to right.
   //
   //     I18n.prepareOptions({name: "John Doe"}, {name: "Mary Doe", role: "user"});

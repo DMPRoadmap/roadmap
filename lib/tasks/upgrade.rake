@@ -847,7 +847,7 @@ namespace :upgrade do
     end
 
     count = Identifier.where(identifiable_type: 'User').length
-    p "Transfer complete. Orginal user_identifier count #{identifiers.length}, new identifiers count #{count}"
+    p "Transfer complete. Original user_identifier count #{identifiers.length}, new identifiers count #{count}"
     if identifiers.length > count
       p ''
       p "#{identifiers.length - count} records could not be transferred."
@@ -884,7 +884,7 @@ namespace :upgrade do
                         identifiable: oi.org, value: oi.identifier)
     end
     count = Identifier.where(identifiable_type: 'Org').length
-    p "Transfer complete. Orginal org_identifier count #{identifiers.length}, new identifiers count #{count}"
+    p "Transfer complete. Original org_identifier count #{identifiers.length}, new identifiers count #{count}"
     # rubocop:disable Layout/LineLength
     if identifiers.length > count
       p ''
@@ -1203,7 +1203,7 @@ namespace :upgrade do
     p ''
     p "    Assigned #{number_with_delimiter(rors_added)} ROR identifiers to your Orgs"
     p "    Assigned #{number_with_delimiter(fundrefs_added)} Crossref Funder identifiers to your Orgs"
-    p '      NOTE: Please refer to the tmp/ror_fundref_ids.csv file to see how the assigment worked.'
+    p '      NOTE: Please refer to the tmp/ror_fundref_ids.csv file to see how the assignment worked.'
     p '            You should make any adjustments BEFORE running part 2 of the upgrade scripts!'
     p '            For example ROR sometimes incorrectly matches Orgs. For example:'
     p "               'University of Somewhere' may match to 'Univerity of Somewhere - Medical Center'"

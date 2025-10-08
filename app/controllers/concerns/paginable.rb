@@ -138,7 +138,7 @@ module Paginable
 
       # Can raise ActiveRecord::StatementInvalid (e.g. column does not
       # exist, ambiguity on column, etc)
-      # how we contruct scope depends on whether sort field is in the
+      # how we construct scope depends on whether sort field is in the
       # main table or in a related table
       scope_table = scope.klass.name.underscore
       parts = @args[:sort_field].partition('.')

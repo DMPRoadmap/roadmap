@@ -64,7 +64,7 @@ module Api
 
             # TODO: Handle ethical issues when the Question is in place
 
-            # Process Project, Contributors and Data Contact and Datsets
+            # Process Project, Contributors and Data Contact and Datasets
             plan = deserialize_project(plan: plan, json: json)
             plan = deserialize_contact(plan: plan, json: json)
             plan = deserialize_contributors(plan: plan, json: json)
