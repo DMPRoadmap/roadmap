@@ -380,7 +380,7 @@ module OrgAdmin
       #         }
       # While this is working as-is we should consider folding these into
       # the template: :links context.
-      params.require(:template).permit(:title, :description, :visibility, :links)
+      params.require(:template).permit(:title, :description, :visibility, :links, :hide_ethical_issues_question)
     end
 
     def parse_visibility(args, org)

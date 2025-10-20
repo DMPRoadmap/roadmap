@@ -224,6 +224,14 @@ module DMPRoadmap
     config.x.madmp.enable_ethical_issues = true
     config.x.madmp.enable_research_domain = true
 
+    # If enable_ethical_issues is true, this flag hide_ethical_issues_question_per_template comes into play.
+    # It will determine if the ethical_issues question is hidden/shown based on the template selected for the plan.
+    # If the template has the hide_ethical_issues attribute set to true, then the question will be hidden.
+    # If the template has the hide_ethical_issues is set to false, then the question will be shown.
+    # If enable_ethical_issues is false, this flag has no effect.
+    # config.x.madmp.enable_hide_ethical_issues_per_template  = true
+    config.x.madmp.enable_hide_ethical_issues_per_template = false
+
     # This flag will enable/disable the entire Research Outputs tab. The others below will
     # just enable/disable specific functionality on the Research Outputs tab
     config.x.madmp.enable_research_outputs = true

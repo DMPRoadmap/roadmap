@@ -19,6 +19,7 @@
 #  updated_at       :datetime
 #  family_id        :integer
 #  org_id           :integer
+#  hide_ethical_issues_question :boolean
 #
 # Indexes
 #
@@ -62,6 +63,7 @@ class Template < ApplicationRecord
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
   attribute :visibility, default: Template.visibilities[:organisationally_visible]
+  attribute :hide_ethical_issues_question, :boolean, default: false
 
   # ================
   # = Associations =

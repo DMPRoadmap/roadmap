@@ -1,4 +1,5 @@
 <% description_tooltip = _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>
+<% hide_ethics_tooltip = _('If checked, the question about ethical issues will be hidden when creating a plan using this template. This setting only applies if the global setting to enable ethical issues is also enabled.') %>
 
 <div class="form-control mb-3 col-xs-8">
   <%= f.label(:title, _('Title'), class: "form-label") %>
@@ -10,6 +11,22 @@
   <%= f.label(:description, _('Description'), class: "form-label") %>
   <%= f.text_area(:description, class: "template", spellcheck: true) %>
 </div>
+
+<% if Rails.configuration.x.madmp.enable_ethical_issues &&  Rails.configuration.x.madmp.enable_hide_ethical_issues_per_template %>
+  <!-- Show the ethical issues question if the global flag is enabled and either the per-template flag is disabled
+       or if the per-template flag is enabled and the current template does not have the hide_ethical_issues_question set to true -->
+  <div class="form-control mb-3">
+    <div class="col-lg-8">
+      <div class="form-check">
+        <%= f.label(:hide_ethical_issues_question, class: 'form-label', title: hide_ethics_tooltip) do %>
+          <%= f.check_box(:hide_ethical_issues_question, {},
+                          true, false) %>
+          <%= _('Hide question about ethical issues') %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <% if current_user.org.funder? && !current_user.org.funder_only? %>
   <!-- If the Org is a funder and another org type then allow then to set the visibility -->

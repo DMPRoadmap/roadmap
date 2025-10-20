@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_16_134521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -548,6 +548,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.integer "family_id"
     t.boolean "archived"
     t.text "links"
+    t.boolean "hide_ethical_issues_question"
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"

@@ -102,7 +102,11 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   </div>
 <% end %>
 
-<% if Rails.configuration.x.madmp.enable_ethical_issues %>
+<!-- This condition allows the existing functionality of displaying the Ethical Issues fragment with new feature proposed in 
+ https://github.com/DMPRoadmap/roadmap/issues/3555 -->
+<% if Rails.configuration.x.madmp.enable_ethical_issues && 
+      (!Rails.configuration.x.madmp.enable_hide_ethical_issues_per_template  || 
+       (Rails.configuration.x.madmp.enable_hide_ethical_issues_per_template  && plan.template.present?  && !plan.template.hide_ethical_issues_question)) %>
   <conditional>
     <div class="form-control mb-3">
       <div class="col-lg-8">
