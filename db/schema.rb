@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_16_134521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -276,6 +276,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_102816) do
     t.string "api_create_plan_email_subject"
     t.text "api_create_plan_email_body"
     t.string "helpdesk_email"
+    t.boolean "add_ro_ethical_concerns", default: true, null: false
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
   end

@@ -102,7 +102,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   </div>
 <% end %>
 
-<% if Rails.configuration.x.madmp.enable_ethical_issues %>
+<% ethical_issues_block = capture do %>
   <conditional>
     <div class="form-control mb-3">
       <div class="col-lg-8">
@@ -141,6 +141,16 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
       </div>
     </div>
   </conditional>
+<% end %>
+
+<% if Rails.configuration.x.madmp.enable_ethical_issues %>
+    <% if plan.ethical_issues == true %>
+      <%= ethical_issues_block %>
+    <% else %>
+      <% if current_user.org.add_ro_ethical_concerns? %>
+        <%= ethical_issues_block %>
+      <% end %>
+    <% end %>
 <% end %>
 
 <conditional>
