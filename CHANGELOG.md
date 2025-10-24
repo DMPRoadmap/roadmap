@@ -1,5 +1,7 @@
 # Changelog
 
+- Redesigned plan-creation page to enforce template access rules and simplify UI [#3534](https://github.com/DMPRoadmap/roadmap/issues/3534)
+
 ## v5.0.2
 - Bump Ruby to v3.1.4 and use `.ruby-version` in CI
   - [#3566](https://github.com/DMPRoadmap/roadmap/pull/3566)

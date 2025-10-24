@@ -29,31 +29,43 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # GET /plans/new
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def new
     @plan = Plan.new
     authorize @plan
 
-    # Get all of the available funders and non-funder orgs
-    @funders = Org.funder
-                  .includes(identifiers: :identifier_scheme)
-                  .joins(:templates)
-                  .where(templates: { published: true }).uniq.sort_by(&:name)
-    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
-             Org.includes(identifiers: :identifier_scheme).institution +
-             Org.includes(identifiers: :identifier_scheme).default_orgs)
-    @orgs = @orgs.flatten.uniq.sort_by(&:name)
+    # get funder templates
+    funder_templates = Template.published
+                               .joins(:org)
+                               .merge(Org.funder)
+                               .distinct
 
-    @plan.org_id = current_user.org&.id
+    # get global templates
+    global_templates = Template.published
+                               .where(is_default: true)
+                               .distinct
 
-    # TODO: is this still used? We cannot switch this to use the :plan_params
-    #       strong params because any calls that do not include `plan` in the
-    #       query string will fail
-    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params.key?(:test)
-    @is_test = params[:test] ||= false
+    # get templates of user's org
+    user_org_templates = Template.published
+                                 .where(org: current_user.org)
+                                 .distinct
+
+    # create templates-grouped hash
+    @templates_grouped = {
+      _("Your Organisation's Templates:") => user_org_templates.map do |t|
+        [t.title, t.id]
+      end,
+      _('Global Templates:') => global_templates.map do |t|
+        [t.title, t.id]
+      end,
+      _('Funder Templates:') => funder_templates.map do |t|
+        [t.title, t.id]
+      end
+    }.reject { |_, val| val.empty? }
+
     respond_to :html
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # POST /plans
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

@@ -451,8 +451,18 @@ templates = [
    is_default: false, locale: default_locale,
    version: 0,
    visibility: Template.visibilities[:organisationally_visible],
+   links: {"funder":[],"sample_plan":[]}},
+   
+  {title: "UOS Organizational DMP Template",
+   published: true,
+   description: "Template for internal UOS organizational use",
+   org: Org.find_by(abbreviation: 'UOS'),
+   is_default: false, locale: default_locale,
+   version: 0,
+   visibility: Template.visibilities[:organisationally_visible],
    links: {"funder":[],"sample_plan":[]}}
-]
+  ]
+
 # Template creation calls defaults handler which sets is_default and
 # published to false automatically, so update them after creation
 templates.each { |atts| Template.find_or_create_by(atts) }
@@ -477,13 +487,19 @@ phases = [
   {title: "Detailed Overview",
    number: 2,
    modifiable: false,
-   template: Template.find_by(title: "Department of Testing Award")}
+   template: Template.find_by(title: "Department of Testing Award")},
+
+   {title: "UOS Organizational DMP Phase 1",
+    number: 1,
+    modifiable: true,
+    template: Template.find_by(title: "UOS Organizational DMP Template")}
 ]
 phases.each{ |p| Phase.find_or_create_by(p) }
 
 generic_template_phase_1 = Phase.find_by(title: "Generic Data Management Planning Template")
 funder_template_phase_1  = Phase.find_by(title: "Preliminary Statement of Work")
 funder_template_phase_2  = Phase.find_by(title: "Detailed Overview")
+organizational_template_phase_1 = Phase.find_by(title: "UOS Organizational DMP Phase 1")
 
 # Create sections for the 2 templates and their phases
 # -------------------------------------------------------
@@ -558,7 +574,28 @@ sections = [
     number: 5,
     modifiable: false,
     phase: funder_template_phase_2
+  },
+
+  # Section for UOS organizational DMP Template
+  {
+    title: "Project Information",
+    number: 1,
+    modifiable: true,
+    phase: organizational_template_phase_1
+  },
+  {
+    title: "Project Data Description",
+    number: 2, 
+    modifiable: true,
+    phase: organizational_template_phase_1
+  },
+  {
+    title: "Storage and Security",
+    number: 3,
+    modifiable: true,
+    phase: organizational_template_phase_1
   }
+
 ]
 sections.each{ |s| Section.find_or_create_by(s) }
 
@@ -714,9 +751,67 @@ questions = [
    section: Section.find_by(title: "Preservation and Reuse Policies"),
    question_format: text_area,
    modifiable: false,
-   themes: [Theme.find_by(title: "Preservation"), Theme.find_by(title: "Data Sharing")]}
+   themes: [Theme.find_by(title: "Preservation"), Theme.find_by(title: "Data Sharing")]},
+
+  # Questions for UOS Organizational DMP Template
+   {
+    text: "What is the purpose of the data collection/generation and its relation to the objectives of the project?",
+    number: 1,
+    section: Section.find_by(title: "Project Information"),
+    question_format: QuestionFormat.find_by(title: "Text area"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
+  },
+  {
+    text: "What types of data will you collect and in what formats?",
+    number: 1, 
+    section: Section.find_by(title: "Project Data Description"),
+    question_format: QuestionFormat.find_by(title: "Text area"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Format")]
+  },
+  {
+    text: "Where and how will the data be stored during the project?",
+    number: 1,
+    section: Section.find_by(title: "Storage and Security"), 
+    question_format: QuestionFormat.find_by(title: "Text area"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Storage & Security")]
+  }
 ]
 questions.each{ |q| Question.create!(q) unless Question.find_by(section: q[:section], text: q[:text]) }
+
+# Create guidance
+guidance_group = GuidanceGroup.create!(
+  name: "Organizational Template Guidance",
+  org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
+  optional_subset: false,
+  published: true
+)
+
+guidances = [
+  {
+    text: "Clearly describe the purpose of data collection and how it relates to project goals",
+    guidance_group: guidance_group,
+    published: true,
+    themes: [Theme.find_by(title: "Data Description")]
+  },
+  {
+    text: "List file formats and explain why they were chosen",
+    guidance_group: guidance_group, 
+    published: true,
+    themes: [Theme.find_by(title: "Data Format")]
+  },
+  {
+    text: "Detail storage location, backup procedures and access controls",
+    guidance_group: guidance_group,
+    published: true, 
+    themes: [Theme.find_by(title: "Storage & Security")]
+  }
+]
+
+guidances.each { |g| Guidance.create!(g) }
+
 
 radio_button = Question.new(
     text: "Please select the appropriate formats.",
