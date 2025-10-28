@@ -200,18 +200,15 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <% if current_user.can_super_admin? %>
+  <% if current_user.can_org_admin? %>
+     <div class="row">
       <fieldset class="col-sm-8">
         <%= org_perms_header_block %>
         <%= add_ro_ethical_concerns_block %>
       </fieldset>
-    <% elsif current_user.can_org_admin? %>
-      <%= org_perms_header_block %>
-      <%= add_ro_ethical_concerns_block %>
-    <% end %>
-  </div>
-  <hr>
+    </div>
+    <hr>
+  <% end %>
 
   <% if !org.new_record? %>
     <%= render partial: "orgs/external_identifiers",
