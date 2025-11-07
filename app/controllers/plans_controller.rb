@@ -45,7 +45,8 @@ class PlansController < ApplicationController
                                      .uniq.sort_by(&:title)
 
     # get templates of user's customised org
-    user_org_custom_templates = Template.latest_customizable.where(family_id: customization_ids)
+    user_org_custom_templates = Template.latest_customized_version_per_org(@plan.org_id)
+                                        .published
                                         .uniq.sort_by(&:title)
 
     # get funder templates no customised templates
