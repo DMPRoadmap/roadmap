@@ -29,43 +29,61 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # GET /plans/new
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def new
     @plan = Plan.new
     authorize @plan
+    @plan.org_id = current_user.org&.id
+    # looks into the list of families of templates
+    customizations = Template.latest_customized_version_per_org(@plan.org_id)
+    customization_ids = customizations.select(&:published?).collect(&:customization_of)
 
-    # get funder templates
-    funder_templates = Template.published
-                               .joins(:org)
-                               .merge(Org.funder)
-                               .distinct
+    # get templates of user's own org
+    user_org_own_templates = Template.organisationally_visible
+                                     .where(org_id: @plan.org_id, customization_of: nil)
+                                     .published
+                                     .uniq.sort_by(&:title)
+
+    # get templates of user's customised org
+    user_org_custom_templates = Template.latest_customizable.where(family_id: customization_ids)
+                                        .uniq.sort_by(&:title)
+
+    # get funder templates no customised templates
+    funder_non_customised_templates = Template.published
+                                              .joins(:org)
+                                              .where(orgs: { org_type: Org.org_type_values_for(:funder) })
+                                              # The next line removes templates that belong to a family that
+                                              # has customised templates
+                                              .where.not(family_id: customization_ids)
+                                              .uniq.sort_by(&:title)
 
     # get global templates
     global_templates = Template.published
                                .where(is_default: true)
-                               .distinct
-
-    # get templates of user's org
-    user_org_templates = Template.published
-                                 .where(org: current_user.org)
-                                 .distinct
+                               # The next line removes templates that belong to a family that
+                               # has customised templates
+                               .where.not(family_id: customization_ids)
+                               .uniq.sort_by(&:title)
 
     # create templates-grouped hash
     @templates_grouped = {
-      _("Your Organisation's Templates:") => user_org_templates.map do |t|
+      _("Your Organisation's Templates:") => user_org_own_templates.map do |t|
+        [t.title, t.id]
+      end,
+      _("Your Organisation's Customised Templates:") => user_org_custom_templates.map do |t|
         [t.title, t.id]
       end,
       _('Global Templates:') => global_templates.map do |t|
         [t.title, t.id]
       end,
-      _('Funder Templates:') => funder_templates.map do |t|
+      _('Funder Templates:') => funder_non_customised_templates.map do |t|
         [t.title, t.id]
       end
     }.reject { |_, val| val.empty? }
 
     respond_to :html
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # POST /plans
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
