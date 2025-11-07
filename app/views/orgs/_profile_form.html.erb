@@ -180,8 +180,35 @@
       </div>
     <% end %>
   </div>
-
   <hr>
+  <%# Organisation Permissions block where super admin can add:
+    "Project details" tab in a plan
+  %>
+
+  <% org_perms_header_block = capture do %>
+    <h3>
+      <%= _('Organisation Permissions') %>
+    </h3>
+  <% end %>
+
+  <% add_ro_ethical_concerns_block = capture do %>
+    <div class="checkbox">
+      <%= f.label :add_ro_ethical_concerns do %>
+        <%= f.check_box :add_ro_ethical_concerns, { class: 'org_types', value: org.add_ro_ethical_concerns?  }, "true", "false" %>
+        <%= _('Add "Research outputs may have ethical concerns" field to "Project details" tab in plans') %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if current_user.can_org_admin? %>
+     <div class="row">
+      <fieldset class="col-sm-8">
+        <%= org_perms_header_block %>
+        <%= add_ro_ethical_concerns_block %>
+      </fieldset>
+    </div>
+    <hr>
+  <% end %>
 
   <% if !org.new_record? %>
     <%= render partial: "orgs/external_identifiers",

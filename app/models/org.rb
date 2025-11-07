@@ -25,6 +25,7 @@
 #  region_id              :integer
 #  managed                :boolean          default(false), not null
 #  helpdesk_email         :string
+#  add_ro_ethical_concerns  :boolean        default(true), not null
 #
 # Foreign Keys
 #

@@ -222,6 +222,7 @@ class OrgsController < ApplicationController
           .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
                   :remove_logo, :managed, :feedback_enabled, :org_links,
                   :funder, :institution, :organisation,
+                  :add_ro_ethical_concerns,
                   :feedback_msg, :org_id, :org_name, :org_crosswalk,
                   :helpdesk_email,
                   identifiers_attributes: %i[identifier_scheme_id value],
