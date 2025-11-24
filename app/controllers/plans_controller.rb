@@ -29,62 +29,15 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # GET /plans/new
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def new
     @plan = Plan.new
     authorize @plan
-    @plan.org_id = current_user.org&.id
-    # looks into the list of families of templates
-    customizations = Template.latest_customized_version_per_org(@plan.org_id)
-    customization_ids = customizations.select(&:published?).collect(&:customization_of)
+    org_id = current_user.org&.id
 
-    # get templates of user's own org
-    user_org_own_templates = Template.organisationally_visible
-                                     .where(org_id: @plan.org_id, customization_of: nil)
-                                     .published
-                                     .uniq.sort_by(&:title)
-
-    # get templates of user's customised org
-    user_org_custom_templates = Template.latest_customized_version_per_org(@plan.org_id)
-                                        .published
-                                        .uniq.sort_by(&:title)
-
-    # get funder templates no customised templates
-    funder_non_customised_templates = Template.published
-                                              .joins(:org)
-                                              .where(orgs: { org_type: Org.org_type_values_for(:funder) })
-                                              # The next line removes templates that belong to a family that
-                                              # has customised templates
-                                              .where.not(family_id: customization_ids)
-                                              .uniq.sort_by(&:title)
-
-    # get global templates
-    global_templates = Template.published
-                               .where(is_default: true)
-                               # The next line removes templates that belong to a family that
-                               # has customised templates
-                               .where.not(family_id: customization_ids)
-                               .uniq.sort_by(&:title)
-
-    # create templates-grouped hash
-    @templates_grouped = {
-      _("Your Organisation's Templates:") => user_org_own_templates.map do |t|
-        [t.title, t.id]
-      end,
-      _("Your Organisation's Customised Templates:") => user_org_custom_templates.map do |t|
-        [t.title, t.id]
-      end,
-      _('Global Templates:') => global_templates.map do |t|
-        [t.title, t.id]
-      end,
-      _('Funder Templates:') => funder_non_customised_templates.map do |t|
-        [t.title, t.id]
-      end
-    }.reject { |_, val| val.empty? }
-
+    # Get templates grouped hash
+    @templates_grouped = templates_available_to_org_user(org_id)
     respond_to :html
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # POST /plans
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -102,6 +55,15 @@ class PlansController < ApplicationController
         format.html { redirect_to new_plan_path }
       end
     else
+      template_id = plan_params[:template_id].to_i
+      unless validate_template_available_to_org_user?(template_id, current_user.org_id)
+        respond_to do |format|
+          flash[:alert] = _('The selected template is not available to your organisation.')
+          format.html { redirect_to new_plan_path }
+        end
+        return
+      end
+
       @plan.visibility = if plan_params['visibility'].blank?
                            Rails.configuration.x.plans.default_visibility
                          else
@@ -567,6 +529,68 @@ class PlansController < ApplicationController
              answers: answers,
              guidance_presenter: GuidancePresenter.new(plan)
            })
+  end
+
+  # Get templates available to org users
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def templates_available_to_org_user(org_id)
+    # looks into the list of families of templates
+    customizations = Template.latest_customized_version_per_org(org_id)
+    customization_ids = customizations.select(&:published?).collect(&:customization_of)
+
+    # get templates of user's own org
+    user_org_own_templates = Template.organisationally_visible
+                                     .where(org_id: org_id, customization_of: nil)
+                                     .published
+                                     .uniq.sort_by(&:title)
+
+    # get templates of user's customised org
+    user_org_custom_templates = Template.latest_customized_version_per_org(org_id)
+                                        .published
+                                        .uniq.sort_by(&:title)
+
+    # get funder templates no customised templates
+    funder_non_customised_templates = Template.published
+                                              .joins(:org)
+                                              .where(orgs: { org_type: Org.org_type_values_for(:funder) })
+                                              # The next line removes templates that belong to a family that
+                                              # has customised templates
+                                              .where.not(family_id: customization_ids)
+                                              .uniq.sort_by(&:title)
+
+    # get global templates
+    global_templates = Template.published
+                               .where(is_default: true)
+                               # The next line removes templates that belong to a family that
+                               # has customised templates
+                               .where.not(family_id: customization_ids)
+                               .uniq.sort_by(&:title)
+
+    # create templates-grouped hash
+    @templates_grouped = {
+      _("Your Organisation's Templates:") => user_org_own_templates.map do |t|
+        [t.title, t.id]
+      end,
+      _("Your Organisation's Customised Templates:") => user_org_custom_templates.map do |t|
+        [t.title, t.id]
+      end,
+      _('Global Templates:') => global_templates.map do |t|
+        [t.title, t.id]
+      end,
+      _('Funder Templates:') => funder_non_customised_templates.map do |t|
+        [t.title, t.id]
+      end
+    }.reject { |_, val| val.empty? }
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  # Validate that a template_id is available to the org user
+  def validate_template_available_to_org_user?(template_id, org_id)
+    return false if template_id.blank? || org_id.blank?
+
+    available_templates = templates_available_to_org_user(org_id)
+    available_template_ids = available_templates.values.flat_map { |group| group.map(&:last) }
+    available_template_ids.include?(template_id.to_i)
   end
 end
 # rubocop:enable Metrics/ClassLength
