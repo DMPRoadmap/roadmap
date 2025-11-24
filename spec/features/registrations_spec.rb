@@ -26,9 +26,9 @@ RSpec.describe 'Registrations', type: :feature do
     click_button 'Create account'
 
     # Expectations
-    expect(current_path).to eql(plans_path)
-    expect(page).to have_text(user_attributes[:firstname])
-    expect(page).to have_text(user_attributes[:surname])
+    expect(current_path).to eql(root_path)
+    expect(page).to have_text(I18n.t('devise.registrations.signed_up_but_unconfirmed'))
+    expect(User.count).to eq(1)
   end
 
   scenario 'User attempts to create a new acccount with invalid atts', :js do

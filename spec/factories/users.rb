@@ -60,6 +60,7 @@ FactoryBot.define do
     email        { Faker::Internet.unique.email }
     password     { 'password' }
     accept_terms { true }
+    confirmed_at { Time.current }
 
     trait :org_admin do
       after(:create) do |user, _evaluator|
@@ -79,6 +80,15 @@ FactoryBot.define do
            modify_templates modify_guidance].each do |perm_name|
           user.perms << Perm.find_or_create_by(name: perm_name)
         end
+      end
+    end
+
+    trait :unconfirmed_and_no_confirmation_token do
+      confirmed_at { nil }
+      # When using :confirmable, a confirmation_token is generated at the time of user creation
+      # Setting it to nil allows us to duplicate the attributes of some existing users
+      after(:create) do |user|
+        user.update(confirmation_token: nil)
       end
     end
   end
