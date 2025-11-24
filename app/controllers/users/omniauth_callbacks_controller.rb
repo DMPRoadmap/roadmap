@@ -4,6 +4,7 @@ module Users
   # Controller that handles callbacks from OmniAuth integrations (e.g. Shibboleth and ORCID)
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     include EmailConfirmationHandler
+
     ##
     # Dynamically build a handler for each omniauth provider
     # -------------------------------------------------------------

@@ -40,16 +40,16 @@ class SessionsController < Devise::SessionsController
     # Method defined at controllers/application_controller.rb
     set_locale
   end
-end
 
-private
+  private
 
-def create_shibboleth_identifier(user)
-  args = {
-    identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth'),
-    value: session['devise.shibboleth_data']['uid'],
-    identifiable: user,
-    attrs: session['devise.shibboleth_data']
-  }
-  Identifier.new(args)
+  def create_shibboleth_identifier(user)
+    args = {
+      identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth'),
+      value: session['devise.shibboleth_data']['uid'],
+      identifiable: user,
+      attrs: session['devise.shibboleth_data']
+    }
+    Identifier.new(args)
+  end
 end
