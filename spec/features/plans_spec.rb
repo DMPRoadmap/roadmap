@@ -6,13 +6,15 @@ RSpec.describe 'Plans', type: :feature do
   include Webmocks
 
   before do
-    @default_template = create(:template, :default, :published)
+    # @default_template = create(:template, :default, :published)
     @org = create(:org)
-    @research_org = create(:org, :organisation, :research_institute,
-                           name: 'Test Research Org', templates: 1)
-    @funding_org  = create(:org, :funder, name: 'Test Funder Org', templates: 1)
-    @template     = create(:template, org: @org)
-    @user         = create(:user, org: @org)
+    @funding_org1  = create(:org, :funder, name: 'Test Funder Org1', templates: 1)
+    @funding_org2  = create(:org, :funder, name: 'Test Funder Org2', templates: 1)
+
+    @global_template = create(:template, :default, :published)
+    @org_template = create(:template, :published, org: @org)
+
+    @user = create(:user, org: @org)
     sign_in(@user)
 
     stub_openaire
@@ -33,16 +35,39 @@ RSpec.describe 'Plans', type: :feature do
   end
 
   it 'User creates a new Plan', :js do
-    # TODO: Revisit this after we start refactoring/building out or tests for
-    #       the new create plan workflow. For some reason the plans/new.js isn't
-    #       firing here but works fine in the UI with manual testing
-    # Action
     click_link 'Create plan'
-    fill_in :plan_title, with: 'My test plan'
-    choose_suggestion('plan_org_org_name', @research_org)
 
-    choose_suggestion('plan_funder_org_name', @funding_org)
-    click_button 'Create plan'
+    # Expect to have 4 templates available
+    within(:xpath, "//fieldset[./legend[contains(., 'Select a DMP template')]]") do
+      expect(page).to have_css('.form-check-input', count: 4)
+      expect(page).to have_content(@global_template.title)
+      expect(page).to have_content(@org_template.title)
+
+      within(:xpath,
+             ".//div[contains(@class,'form-label')][contains(., 'Global Templates:')]/following-sibling::div[1]") do
+        expect(page).to have_css('.form-check-input', count: 1)
+      end
+      # Expect 1 template under form-label 'Your Organisation's Templates:'
+      # rubocop:disable Layout/LineLength
+      within(:xpath,
+             ".//div[contains(@class,'form-label')][contains(., \"Your Organisation's Templates:\")]/following-sibling::div[1]") do
+        expect(page).to have_css('.form-check-input', count: 1)
+      end
+      # rubocop:enable Layout/LineLength
+      # Expect 2 template under form-label 'Funder Templates:'
+      within(:xpath,
+             ".//div[contains(@class,'form-label')][contains(., \"Funder Templates:\")]/following-sibling::div[1]") do
+        expect(page).to have_css('.form-check-input', count: 1)
+      end
+    end
+
+    fill_in 'plan[title]', with: 'My test plan'
+
+    within(:xpath, "//fieldset[./legend[contains(., 'Select a DMP template')]]") do
+      find('.form-check-input', match: :first).click
+    end
+
+    click_button 'Create'
 
     # Expectations
     expect(@user.plans).to be_one
@@ -50,7 +75,5 @@ RSpec.describe 'Plans', type: :feature do
     expect(current_path).to eql(plan_path(@plan))
     expect(page).to have_css("input[type=text][value='#{@plan.title}']")
     expect(@plan.title).to eql('My test plan')
-    expect(@plan.org_id).to eql(@research_org.id)
-    expect(@plan.funder_id).to eql(@funding_org.id)
   end
 end

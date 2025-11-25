@@ -1,21 +1,55 @@
 @use '../variables/colours' as *;
 
-.form-control {
-    border: 0px;
-}
 
-.form-control input, .form-control textarea, .form-control select{
-    border: 2px solid $color-border-light;
+
+.form-control input,
+.form-control textarea,
+.form-control select {
+  border: 2px solid $color-border-light;
 }
 
 .form-check {
-    padding-left: 0rem;
+  padding-left: 0rem;
 }
 
-.form-inline{
-    margin-bottom: 5px;
+.form-inline {
+  margin-bottom: 5px;
 }
 
 .form-check-label {
-    padding-left: 5px;
+  padding-left: 5px;
+}
+
+// Added for new plan create page app/views/plans/new.html.erb
+.roadmap-form {
+  margin-bottom: 1rem;
+
+  legend {
+    padding-inline: 2px;
+    float: none;
+    width: auto;
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: $color-primary-background;
+    color: $color-primary-text;
+  }
+
+  fieldset {
+    border: 2px solid #555555;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-row {
+    margin-bottom: 1rem;
+  }
+
+  .form-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .form-check .form-check-input {
+    float: left;
+    margin-left: 0.5rem;
+  }
 }
