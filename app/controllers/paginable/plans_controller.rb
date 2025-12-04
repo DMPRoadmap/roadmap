@@ -46,13 +46,8 @@ module Paginable
       @super_admin = current_user.can_super_admin?
       @clicked_through = params[:click_through].present?
 
-      plans = if @super_admin
-                Plan.all.joins(:template, roles: [user: :org])
-                    .where(Role.creator_condition)
-              else
-                current_user.org.org_admin_plans
-                            .joins(:template, roles: [user: :org])
-              end
+      plans = @super_admin ? Plan.where(Role.creator_condition) : current_user.org.org_admin_plans
+      plans = plans.joins(:template, roles: [user: :org])
 
       paginable_renderise(
         partial: 'org_admin',
