@@ -377,11 +377,12 @@ RSpec.describe Org, type: :model do
       it { is_expected.not_to include(org1plan4) }
     end
 
-    context 'when user belongs to Org and a plan removed by creator, but cowner still active.' do
+    context 'when user belongs to Org and a plan removed by creator, but coowner still active.' do
       before do
         Rails.configuration.x.plans.org_admins_read_all = true
         coowner = create(:user, org: org1)
-        org1plan4.add_user!(coowner.id, :coowner)
+        #  Add coowner to the plan by giving user the role administrator
+        org1plan4.add_user!(coowner.id, :administrator)
         owner_id = org1plan4.owner.id
         org1plan4.roles.map { |r| r.update(active: false) if r.user_id == owner_id }
       end
