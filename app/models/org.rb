@@ -288,17 +288,17 @@ class Org < ApplicationRecord
   # This replaces the old plans method. We now use the native plans method and this.
   # rubocop:disable Metrics/AbcSize
   def org_admin_plans
-    combined_plan_ids = (native_plan_ids + affiliated_plan_ids).flatten.uniq
+    scope = Plan.includes(:template, :phases, :roles, :users)
+                .where(id: (native_plan_ids + affiliated_plan_ids).uniq)
+                .where(roles: { active: true })
+                .where(Role.creator_condition)
 
-    if Rails.configuration.x.plans.org_admins_read_all
-      Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
-          .where(roles: { active: true })
-    else
-      Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
-          .where.not(visibility: Plan.visibilities[:privately_visible])
-          .where.not(visibility: Plan.visibilities[:is_test])
-          .where(roles: { active: true })
+    unless Rails.configuration.x.plans.org_admins_read_all
+      scope = scope.where.not(visibility: Plan.visibilities[:privately_visible])
+                   .where.not(visibility: Plan.visibilities[:is_test])
     end
+
+    scope
   end
   # rubocop:enable Metrics/AbcSize
 

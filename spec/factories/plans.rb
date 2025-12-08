@@ -61,37 +61,20 @@ FactoryBot.define do
       answers { 0 }
       guidance_groups { 0 }
     end
-    trait :creator do
-      after(:create) do |obj|
-        obj.roles << create(:role, :creator, user: create(:user, org: create(:org)))
-      end
-    end
-    trait :commenter do
-      after(:create) do |obj|
-        obj.roles << create(:role, :commenter, user: create(:user, org: create(:org)))
-      end
-    end
-    trait :organisationally_visible do
-      after(:create) do |plan|
-        plan.update(visibility: Plan.visibilities[:organisationally_visible])
+
+    %i[creator administrator editor commenter reviewer].each do |role|
+      trait role do
+        after(:create) do |obj|
+          obj.roles << create(:role, role, user: create(:user, org: create(:org)))
+        end
       end
     end
 
-    trait :publicly_visible do
-      after(:create) do |plan|
-        plan.update(visibility: Plan.visibilities[:publicly_visible])
-      end
-    end
-
-    trait :is_test do
-      after(:create) do |plan|
-        plan.update(visibility: Plan.visibilities[:is_test])
-      end
-    end
-
-    trait :privately_visible do
-      after(:create) do |plan|
-        plan.update(visibility: Plan.visibilities[:privately_visible])
+    %i[organisationally_visible publicly_visible is_test privately_visible].each do |visibility|
+      trait visibility do
+        after(:create) do |obj|
+          obj.update(visibility: Plan.visibilities[visibility])
+        end
       end
     end
 
