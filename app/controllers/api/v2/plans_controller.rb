@@ -17,6 +17,8 @@ module Api
         raise Pundit::NotAuthorizedError unless plans_policy.show?
 
         @items = [@plan]
+        @question_and_answer = ActiveModel::Type::Boolean.new.cast(params[:question_and_answer])
+
         render '/api/v2/plans/index', status: :ok
       end
 
@@ -26,6 +28,8 @@ module Api
 
         @plans = PlansPolicy::Scope.new(@resource_owner).resolve
         @items = paginate_response(results: @plans)
+        @question_and_answer = ActiveModel::Type::Boolean.new.cast(params[:question_and_answer])
+
         render '/api/v2/plans/index', status: :ok
       end
     end
