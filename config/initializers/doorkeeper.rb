@@ -58,14 +58,4 @@ Doorkeeper.configure do # rubocop:todo Metrics/BlockLength
   # enable ssl requirement for redirect url
   force_ssl_in_redirect_uri true
 end
-
-# add support for dmp_multi_tenancy if available
-Rails.application.config.to_prepare do
-  if defined?(Roadmap::Extension::TenantLookup)
-    [Doorkeeper::ApplicationsController,
-     Doorkeeper::AuthorizationsController,
-     Doorkeeper::AuthorizedApplicationsController].each do |controller|
-      controller.include Roadmap::Extension::TenantLookup
-    end
-  end
 end
