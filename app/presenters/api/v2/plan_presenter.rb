@@ -35,6 +35,22 @@ module Api
         Identifier.new(value: Rails.application.routes.url_helpers.api_v2_plan_url(@plan))
       end
 
+      # Fetch all questions and answers from a plan, regardless of theme
+      def fetch_all_q_and_a(plan:) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
+        return [] unless plan&.questions.present?
+
+        plan.questions.filter_map do |q|
+          a = plan.answers.find { |ans| ans.question_id == q.id }
+          next unless a.present? && !a.blank?
+
+          {
+            title: "Question #{q.number || q.id}",
+            question: q.text.to_s,
+            answer: a.text.to_s
+          }
+        end
+      end
+
       private
 
       # Retrieve the answers that have the Budget theme

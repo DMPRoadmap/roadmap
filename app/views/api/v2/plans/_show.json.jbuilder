@@ -57,24 +57,6 @@ unless @minimal
 
   outputs = plan.research_outputs.any? ? plan.research_outputs : [plan]
 
-  if @question_and_answer
-    json.questions_and_answers do
-      outputs.each do |output|
-        presenter = Api::V2::ResearchOutputPresenter.new(output: output)
-        q_and_a = presenter.send(:fetch_all_q_and_a, plan: plan)
-        next if q_and_a.blank?
-
-        json.set! output.id.to_s do
-          json.array! q_and_a do |item|
-            json.title item[:title]
-            json.question item[:question]
-            json.answer item[:answer]
-          end
-        end
-      end
-    end
-  end
-
   json.dataset outputs do |output|
     json.partial! "api/v2/datasets/show", output: output
   end
@@ -84,6 +66,23 @@ unless @minimal
       json.template do
         json.id template.id
         json.title template.title
+      end
+    end
+
+    if @question_and_answer
+      json.questions_and_answers do
+        outputs.each do |output|
+          q_and_a = presenter.send(:fetch_all_q_and_a, plan: plan)
+          next if q_and_a.blank?
+
+          json.set! output.id.to_s do
+            json.array! q_and_a do |item|
+              json.title item[:title]
+              json.question item[:question]
+              json.answer item[:answer]
+            end
+          end
+        end
       end
     end
   end

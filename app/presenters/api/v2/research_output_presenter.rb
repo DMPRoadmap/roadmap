@@ -71,22 +71,6 @@ module Api
         end
         ret.select { |item| item[:description].present? }
       end
-
-      # Fetch all questions and answers from a plan, regardless of theme
-      def fetch_all_q_and_a(plan:)
-        return [] unless plan&.questions.present?
-
-        plan.questions.filter_map do |q|
-          a = plan.answers.find { |ans| ans.question_id == q.id }
-          next unless a.present? && !a.blank?
-
-          {
-            title: "Question #{q.number || q.id}",
-            question: q.text.to_s,
-            answer: a.text.to_s
-          }
-        end
-      end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     end
   end
