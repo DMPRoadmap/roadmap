@@ -15,7 +15,7 @@ json.ignore_nil!
 json.server @server
 json.source "#{request.method} #{request.path}"
 json.time Time.now.to_formatted_s(:iso8601)
-json.client @client.name
+json.client @client.name if @client.present?
 json.code response.status
 json.message Rack::Utils::HTTP_STATUS_CODES[response.status]
 

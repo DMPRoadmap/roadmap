@@ -36,18 +36,15 @@ module Api
       # define instance variable json and associated getter and setter methods
       attr_accessor :json
 
-      def get_client_and_server_details # rubocop:todo Naming/AccessorMethodName
-        @server = ApplicationService.application_name
-        @client = OauthApplication.find(doorkeeper_token.application_id) if doorkeeper_token
-        @scopes = doorkeeper_token.scopes.to_a if doorkeeper_token
-        return unless doorkeeper_token&.resource_owner_id
-
-        @resource_owner = User.find(doorkeeper_token.resource_owner_id)
+      def get_client_and_server_details
+        @application = ApplicationService.application_name
+        @caller = request.remote_ip if @client.blank?
+        @caller = @client.is_a?(User) ? @client.name(false) : @client.name if @client.present?
       end
 
       def log_access
-        Rails.logger.info "Client (OAuth) application name: #{@client.name}"
-        Rails.logger.info "Client (OAuth) application uid: #{@client.uid}"
+        Rails.logger.info "Client (OAuth) application name: #{@client.name}" if @client.present?
+        Rails.logger.info "Client (OAuth) application uid: #{@client.uid}"  if @client.present?
         Rails.logger.info "Resource owner id: #{@resource_owner.id}" if @resource_owner
       end
 
