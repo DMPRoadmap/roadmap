@@ -9,7 +9,7 @@ module Api
       # call doorkeeper to authorize the request
       before_action :doorkeeper_authorize!, except: %i[heartbeat]
       # get details of server (e.g. DMPonline) and client app
-      before_action :get_client_and_server_details
+      before_action :base_response_content
 
       before_action :log_access
 
@@ -36,15 +36,17 @@ module Api
       # define instance variable json and associated getter and setter methods
       attr_accessor :json
 
-      def get_client_and_server_details
+      def base_response_content
         @application = ApplicationService.application_name
         @caller = request.remote_ip if @client.blank?
         @caller = @client.is_a?(User) ? @client.name(false) : @client.name if @client.present?
       end
 
       def log_access
-        Rails.logger.info "Client (OAuth) application name: #{@client.name}" if @client.present?
-        Rails.logger.info "Client (OAuth) application uid: #{@client.uid}"  if @client.present?
+        if @client.present?
+          Rails.logger.info "Client (OAuth) application name: #{@client.name}"
+          Rails.logger.info "Client (OAuth) application uid: #{@client.uid}"
+        end
         Rails.logger.info "Resource owner id: #{@resource_owner.id}" if @resource_owner
       end
 

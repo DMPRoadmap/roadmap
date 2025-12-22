@@ -58,4 +58,3 @@ Doorkeeper.configure do # rubocop:todo Metrics/BlockLength
   # enable ssl requirement for redirect url
   force_ssl_in_redirect_uri true
 end
-end
