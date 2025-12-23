@@ -12,10 +12,10 @@ paginator = Api::V2::PaginationPresenter.new(current_url: request.path,
 json.prettify!
 json.ignore_nil!
 
-json.server @server
+json.application @application
 json.source "#{request.method} #{request.path}"
 json.time Time.now.to_formatted_s(:iso8601)
-json.client @client.name if @client.present?
+json.caller @caller
 json.code response.status
 json.message Rack::Utils::HTTP_STATUS_CODES[response.status]
 
