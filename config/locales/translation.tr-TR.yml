@@ -146,6 +146,22 @@ tr-TR:
         restrict_dependent_destroy:
           has_one: Bağlı bir %{record} bulunduğu için kayıt silinemiyor
           has_many: Bağlı %{record} bulunduğu için kayıt silinemiyor
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present:
+              invalid_uri:
+              unspecified_scheme:
+              relative_uri:
+              secured_uri:
+              forbidden_uri:
+            scopes:
+              not_match_configured:
+    attributes:
+      doorkeeper/application:
+        name: isim
+        redirect_uri:
   datetime:
     distance_in_words:
       half_a_minute: yarım dakika
@@ -351,3 +367,123 @@ tr-TR:
     notices:
       error: Her iki alanı da doldurmalısınız.
       success: İletişim e-postası başarıyla gönderildi.
+  doorkeeper:
+    applications:
+      confirmations:
+        destroy: Emin misiniz?
+      buttons:
+        edit: Düzenle
+        destroy:
+        submit: Gönder
+        cancel: İptal
+        authorize:
+      form:
+        error:
+      help:
+        confidential:
+        redirect_uri:
+        blank_redirect_uri:
+        scopes:
+      edit:
+        title:
+      index:
+        title:
+        new:
+        name: isim
+        callback_url:
+        confidential:
+        actions: Eylemler
+        confidentiality:
+          'yes': Evet
+          'no': Yok
+      new:
+        title:
+      show:
+        title:
+        application_id:
+        secret:
+        secret_hashed:
+        scopes:
+        confidential:
+        callback_urls:
+        actions: Eylemler
+        not_defined:
+    authorizations:
+      buttons:
+        authorize:
+        deny:
+      error:
+        title:
+      new:
+        title:
+        prompt:
+        able_to:
+      show:
+        title:
+      form_post:
+        title:
+    authorized_applications:
+      confirmations:
+        revoke: Emin misiniz?
+      buttons:
+        revoke:
+      index:
+        title:
+        application:
+        created_at:
+        date_format:
+    pre_authorization:
+      status:
+    errors:
+      messages:
+        invalid_request:
+          unknown:
+          missing_param:
+          request_not_authorized:
+          invalid_code_challenge:
+        invalid_redirect_uri:
+        unauthorized_client:
+        access_denied:
+        invalid_scope:
+        invalid_code_challenge_method:
+          zero:
+          one:
+          other:
+        server_error:
+        temporarily_unavailable:
+        credential_flow_not_configured:
+        resource_owner_authenticator_not_configured:
+        admin_authenticator_not_configured:
+        unsupported_response_type:
+        unsupported_response_mode:
+        invalid_client:
+        invalid_grant:
+        unsupported_grant_type:
+        invalid_token:
+          revoked:
+          expired:
+          unknown:
+        revoke:
+          unauthorized:
+        forbidden_token:
+          missing_scope:
+    flash:
+      applications:
+        create:
+          notice:
+        destroy:
+          notice:
+        update:
+          notice:
+      authorized_applications:
+        destroy:
+          notice:
+    layouts:
+      admin:
+        title:
+        nav:
+          oauth2_provider:
+          applications:
+          home: Ana sayfa
+      application:
+        title:

@@ -141,6 +141,22 @@ sv-FI:
         restrict_dependent_destroy:
           has_one: Kan inte ta bort post då beroende %{record} finns
           has_many: Kan inte ta bort poster då beroende %{record} finns
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present:
+              invalid_uri:
+              unspecified_scheme:
+              relative_uri:
+              secured_uri:
+              forbidden_uri:
+            scopes:
+              not_match_configured:
+    attributes:
+      doorkeeper/application:
+        name: Namn
+        redirect_uri:
   datetime:
     distance_in_words:
       half_a_minute: en halv minut
@@ -351,3 +367,123 @@ sv-FI:
       verification_failed: verifiering av reCAPTCHA misslyckades, försök igen.
       recaptcha_unreachable: Oj, vi kunde inte validera ditt reCAPTCHA-svar. Var god
         försök igen.
+  doorkeeper:
+    applications:
+      confirmations:
+        destroy: Är du säker?
+      buttons:
+        edit: Redigera
+        destroy:
+        submit: Skicka
+        cancel: Annullera
+        authorize:
+      form:
+        error:
+      help:
+        confidential:
+        redirect_uri:
+        blank_redirect_uri:
+        scopes:
+      edit:
+        title:
+      index:
+        title:
+        new:
+        name: Namn
+        callback_url:
+        confidential:
+        actions: Åtgärder
+        confidentiality:
+          'yes': Ja
+          'no': Nej
+      new:
+        title:
+      show:
+        title:
+        application_id:
+        secret:
+        secret_hashed:
+        scopes:
+        confidential:
+        callback_urls:
+        actions: Åtgärder
+        not_defined:
+    authorizations:
+      buttons:
+        authorize:
+        deny:
+      error:
+        title:
+      new:
+        title:
+        prompt:
+        able_to:
+      show:
+        title:
+      form_post:
+        title:
+    authorized_applications:
+      confirmations:
+        revoke: Är du säker?
+      buttons:
+        revoke:
+      index:
+        title:
+        application:
+        created_at:
+        date_format:
+    pre_authorization:
+      status:
+    errors:
+      messages:
+        invalid_request:
+          unknown:
+          missing_param:
+          request_not_authorized:
+          invalid_code_challenge:
+        invalid_redirect_uri:
+        unauthorized_client:
+        access_denied:
+        invalid_scope:
+        invalid_code_challenge_method:
+          zero:
+          one:
+          other:
+        server_error:
+        temporarily_unavailable:
+        credential_flow_not_configured:
+        resource_owner_authenticator_not_configured:
+        admin_authenticator_not_configured:
+        unsupported_response_type:
+        unsupported_response_mode:
+        invalid_client:
+        invalid_grant:
+        unsupported_grant_type:
+        invalid_token:
+          revoked:
+          expired:
+          unknown:
+        revoke:
+          unauthorized:
+        forbidden_token:
+          missing_scope:
+    flash:
+      applications:
+        create:
+          notice:
+        destroy:
+          notice:
+        update:
+          notice:
+      authorized_applications:
+        destroy:
+          notice:
+    layouts:
+      admin:
+        title:
+        nav:
+          oauth2_provider:
+          applications:
+          home: Hem
+      application:
+        title:

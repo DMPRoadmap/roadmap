@@ -141,6 +141,22 @@ es:
         restrict_dependent_destroy:
           has_one: No se puede eliminar el registro porque existe un %{record} dependiente
           has_many: No se puede eliminar el registro porque existen %{record} dependientes
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present: no puede contener un fragmento.
+              invalid_uri: debe ser una URI válida.
+              unspecified_scheme: debe especificar un esquema.
+              relative_uri: debe ser una URI absoluta.
+              secured_uri: debe ser una URI HTTPS/SSL.
+              forbidden_uri: está prohibido por el servidor.
+            scopes:
+              not_match_configured: doesn't match configured on the server.
+    attributes:
+      doorkeeper/application:
+        name: Nombre
+        redirect_uri: URI de redirección
   datetime:
     distance_in_words:
       half_a_minute: medio minuto
@@ -353,3 +369,144 @@ es:
       verification_failed: La verificación reCAPTCHA falló, por favor intente nuevamente.
       recaptcha_unreachable: Vaya, no hemos podido validar su respuesta reCAPTCHA.
         Inténtalo de nuevo.
+  doorkeeper:
+    applications:
+      confirmations:
+        destroy: "¿Estás seguro?"
+      buttons:
+        edit: Editar
+        destroy: Eliminar
+        submit: Enviar
+        cancel: Cancelar
+        authorize: Autorizar
+      form:
+        error: Ups! Verifica tu formulario por posibles errores
+      help:
+        confidential: Application will be used where the client secret can be kept
+          confidential. Native mobile apps and Single Page Apps are considered non-confidential.
+        redirect_uri: Usa una linea por URI
+        blank_redirect_uri: Leave it blank if you configured your provider to use
+          Client Credentials, Resource Owner Password Credentials or any other grant
+          type that doesn't require redirect URI.
+        scopes: Separa los ámbitos con espacios. Deja en blanco para usar los ámbitos
+          predeterminados.
+      edit:
+        title: Editar aplicación
+      index:
+        title: Tus aplicaciones
+        new: Nueva aplicación
+        name: Nombre
+        callback_url: Callback URL
+        confidential: Confidential?
+        actions: Actions
+        confidentiality:
+          'yes': Sí
+          'no': 'No'
+      new:
+        title: Nueva aplicación
+      show:
+        title: 'Aplicación: %{name}'
+        application_id: Identificador de aplicación
+        secret: Secret
+        secret_hashed:
+        scopes: Ámbitos
+        confidential: Confidential
+        callback_urls: Callback urls
+        actions: Acciones
+        not_defined:
+    authorizations:
+      buttons:
+        authorize: Autorizar
+        deny: Denegar
+      error:
+        title: Ha ocurrido un error
+      new:
+        title: Autorización requerida
+        prompt: "¿Autorizas a %{client_name} para usar tu cuenta?"
+        able_to: Está aplicación tendrá permisos para
+      show:
+        title: Código de autorización
+      form_post:
+        title:
+    authorized_applications:
+      confirmations:
+        revoke: "¿Estás seguro?"
+      buttons:
+        revoke: Revocar
+      index:
+        title: Tus aplicaciones autorizadas
+        application: Aplicación
+        created_at: Creada el
+        date_format: "%d/%m/%Y %H:%M:%S"
+    pre_authorization:
+      status: Pre-authorization
+    errors:
+      messages:
+        invalid_request:
+          unknown: La petición no tiene un parámetro obligatorio, incluye un valor
+            de parámetro incompatible, o tiene un formato incorrecto.
+          missing_param: 'Missing required parameter: %{value}.'
+          request_not_authorized: Request need to be authorized. Required parameter
+            for authorizing request is missing or invalid.
+          invalid_code_challenge:
+        invalid_redirect_uri: La uri de redirección no es valida.
+        unauthorized_client: El cliente no tiene autorización para realizar esta petición
+          utilizando este método.
+        access_denied: El propietario del recurso o el servidor de autorización han
+          denegado la petición.
+        invalid_scope: El scope solicitado no es válido, es desconocido, o tiene un
+          formato incorrecto.
+        invalid_code_challenge_method:
+          zero:
+          one:
+          other:
+        server_error: El servidor de autorización ha encontrado una condición inesperada
+          que le ha impedido completar la petición.
+        temporarily_unavailable: El servidor de autorización no ha podido manejar
+          la petición por una sobrecarga temporal o por mantenimiento del servidor.
+        credential_flow_not_configured: El flujo de credenciales del propietario del
+          recurso ha fallado porque Doorkeeper.configure.resource_owner_from_credentials
+          no está configurado.
+        resource_owner_authenticator_not_configured: La búsqueda del propietario del
+          recurso ha fallado porque Doorkeeper.configure.resource_owner_authenticator
+          no está configurado.
+        admin_authenticator_not_configured: Access to admin panel is forbidden due
+          to Doorkeeper.configure.admin_authenticator being unconfigured.
+        unsupported_response_type: El servidor de autorización no soporta este tipo
+          de respuesta.
+        unsupported_response_mode:
+        invalid_client: La autenticación del cliente ha fallado por cliente desconocido,
+          cliente no autenticado, o método de autenticación incompatible.
+        invalid_grant: La autorización proporcionada no es válida, ha expirado, se
+          ha revocado, no coincide con la URI de redirección utilizada en la petición
+          de autorización, o ha sido solicitada por otro cliente.
+        unsupported_grant_type: El tipo de autorización no está soportada por el servidor
+          de autorización.
+        invalid_token:
+          revoked: El token de acceso ha sido revocado
+          expired: El token de acceso ha expirado
+          unknown: El token de acceso es inválido
+        revoke:
+          unauthorized: No tiene autorización para revocar este token
+        forbidden_token:
+          missing_scope:
+    flash:
+      applications:
+        create:
+          notice: Aplicación creada.
+        destroy:
+          notice: Aplicación eliminada.
+        update:
+          notice: Aplicación actualizada.
+      authorized_applications:
+        destroy:
+          notice: Aplicación revocada.
+    layouts:
+      admin:
+        title: Doorkeeper
+        nav:
+          oauth2_provider: Proveedor OAuth2
+          applications: Aplicaciones
+          home: Home
+      application:
+        title: Autorización OAuth requerida
