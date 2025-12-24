@@ -72,7 +72,7 @@ unless @minimal
     if @question_and_answer
       json.questions_and_answers do
         outputs.each do |output|
-          q_and_a = presenter.send(:fetch_all_q_and_a, plan: plan)
+          q_and_a = presenter.send(:fetch_all_q_and_a)
           next if q_and_a.blank?
 
           json.set! output.id.to_s do

@@ -36,11 +36,11 @@ module Api
       end
 
       # Fetch all questions and answers from a plan, regardless of theme
-      def fetch_all_q_and_a(plan:) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
-        return [] unless plan&.questions.present?
+      def fetch_all_q_and_a # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
+        return [] unless @plan&.questions.present?
 
-        plan.questions.filter_map do |q|
-          a = plan.answers.find { |ans| ans.question_id == q.id }
+        @plan.questions.filter_map do |q|
+          a = @plan.answers.find { |ans| ans.question_id == q.id }
           next unless a.present? && !a.blank?
 
           {
