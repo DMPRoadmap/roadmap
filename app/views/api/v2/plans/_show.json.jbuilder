@@ -69,8 +69,8 @@ unless @minimal
       end
     end
 
-    if @question_and_answer
-      json.questions_and_answers do
+    if @complete
+      json.complete_plan do
         q_and_a = presenter.send(:fetch_all_q_and_a)
         next if q_and_a.blank?
 
