@@ -4,6 +4,7 @@ module Api
   module V2
     class PlansController < BaseApiController # rubocop:todo Style/Documentation
       respond_to :json
+      before_action :set_complete_param, only: %i[show index]
 
       # GET /api/v2/plans/:id
       def show
@@ -17,7 +18,6 @@ module Api
         raise Pundit::NotAuthorizedError unless plans_policy.show?
 
         @items = [@plan]
-        @complete = ActiveModel::Type::Boolean.new.cast(params[:complete])
 
         render '/api/v2/plans/index', status: :ok
       end
@@ -28,9 +28,12 @@ module Api
 
         @plans = PlansPolicy::Scope.new(@resource_owner).resolve
         @items = paginate_response(results: @plans)
-        @complete = ActiveModel::Type::Boolean.new.cast(params[:complete])
 
         render '/api/v2/plans/index', status: :ok
+      end
+
+      def set_complete_param
+        @complete = params[:complete].to_s.downcase == 'true'
       end
     end
   end
