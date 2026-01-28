@@ -4,9 +4,9 @@ module Api
   module V2
     # Helper class for the API V2 project / DMP
     class PlanPresenter
-      attr_reader :data_contact, :contributors, :costs
+      attr_reader :data_contact, :contributors, :costs, :complete_plan_data
 
-      def initialize(plan:)
+      def initialize(plan:, complete: false)
         @contributors = []
         return unless plan.present?
 
@@ -22,6 +22,8 @@ module Api
         end
 
         @costs = plan_costs(plan: @plan)
+
+        @complete_plan_data = fetch_all_q_and_a if complete
       end
 
       # Extract the ARK or DOI for the DMP OR use its URL if none exists
@@ -34,6 +36,8 @@ module Api
         # if no DOI then use the URL for the API's 'show' method
         Identifier.new(value: Rails.application.routes.url_helpers.api_v2_plan_url(@plan))
       end
+
+      private
 
       # Fetch all questions and answers from a plan, regardless of theme
       def fetch_all_q_and_a
@@ -50,8 +54,6 @@ module Api
           }
         end
       end
-
-      private
 
       # Retrieve the answers that have the Budget theme
       def plan_costs(plan:)
