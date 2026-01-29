@@ -4,9 +4,9 @@ module Api
   module V2
     # Helper class for the API V2 project / DMP
     class PlanPresenter
-      attr_reader :data_contact, :contributors, :costs
+      attr_reader :data_contact, :contributors, :costs, :complete_plan_data
 
-      def initialize(plan:)
+      def initialize(plan:, complete: false)
         @contributors = []
         return unless plan.present?
 
@@ -22,6 +22,8 @@ module Api
         end
 
         @costs = plan_costs(plan: @plan)
+
+        @complete_plan_data = fetch_all_q_and_a if complete
       end
 
       # Extract the ARK or DOI for the DMP OR use its URL if none exists
@@ -52,6 +54,22 @@ module Api
           # TODO: Investigate whether question level guidance should be the description
           { title: answer.question.text, description: nil,
             currency_code: 'usd', value: answer.text }
+        end
+      end
+
+      # Fetch all questions and answers from a plan, regardless of theme
+      def fetch_all_q_and_a
+        return [] unless @plan.questions.present?
+
+        @plan.questions.filter_map do |q|
+          a = @plan.answers.find { |ans| ans.question_id == q.id }
+          next unless a.present?
+
+          {
+            title: "Question #{q.number || q.id}",
+            question: q.text.to_s,
+            answer: a.text.to_s
+          }
         end
       end
     end
