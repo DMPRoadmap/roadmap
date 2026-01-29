@@ -4,6 +4,7 @@ module Api
   module V2
     class PlansController < BaseApiController # rubocop:todo Style/Documentation
       respond_to :json
+      before_action :set_complete_param, only: %i[show index]
 
       # GET /api/v2/plans/:id
       def show
@@ -27,6 +28,10 @@ module Api
         @plans = PlansPolicy::Scope.new(@resource_owner).resolve
         @items = paginate_response(results: @plans)
         render '/api/v2/plans/index', status: :ok
+      end
+
+      def set_complete_param
+        @complete = params[:complete].to_s.downcase == 'true'
       end
     end
   end
