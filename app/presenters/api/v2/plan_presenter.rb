@@ -60,16 +60,17 @@ module Api
 
       # Fetch all questions and answers from a plan, regardless of theme
       def fetch_all_q_and_a
-        return [] unless @plan.questions.present?
+        answers = @plan.answers.includes(:question)
+        return [] unless answers.present?
 
-        @plan.questions.filter_map do |q|
-          a = @plan.answers.find { |ans| ans.question_id == q.id }
-          next unless a.present?
+        answers.filter_map do |answer|
+          q = answer.question
+          next unless q.present?
 
           {
             title: "Question #{q.number || q.id}",
             question: q.text.to_s,
-            answer: a.text.to_s
+            answer: answer.text.to_s
           }
         end
       end
