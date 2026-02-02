@@ -10,7 +10,7 @@ module Api
       def show
         raise Pundit::NotAuthorizedError unless @scopes.include?('read')
 
-        @plan = Plan.includes(roles: :user).find(params[:id])
+        @plan = Plan.includes(roles: :user).find_by(id: params[:id])
 
         raise Pundit::NotAuthorizedError unless @plan.present?
 
