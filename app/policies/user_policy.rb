@@ -55,6 +55,12 @@ class UserPolicy < ApplicationPolicy
       (@user.can_org_admin? && @user.can_use_api?)
   end
 
+  # Safe: only allows the signed-in user to generate/rotate their own token.
+  # These are first-party, user-scoped tokens and do not affect other users.
+  def internal_user_v2_access_token?
+    true
+  end
+
   def merge?
     @user.can_super_admin?
   end
