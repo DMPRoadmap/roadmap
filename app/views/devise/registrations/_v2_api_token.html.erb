@@ -1,0 +1,21 @@
+<%# locals: user %>
+
+<% token = Api::V2::InternalUserAccessTokenService.for_user(user) %>
+<div id="v2-api-token" class="col-xs-12">
+  <div class="form-control mb-3 col-xs-8">
+    <%= label_tag(:api_token, _('Access token'), class: 'form-label') %>
+    <% if token.present? %>
+      <code><%= token.token %></code>
+    <% else %>
+      <%= _("Click the button below to generate an API token") %>
+    <% end %>
+  </div>
+
+  <div class="form-control mb-3 col-xs-8">
+    <%= link_to _("Regenerate token"),
+                api_v2_internal_user_access_token_path(format: :js),
+                method: :post,
+                class: 'btn btn-secondary',
+                remote: true %>
+  </div>
+</div>
