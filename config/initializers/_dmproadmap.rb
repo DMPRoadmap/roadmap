@@ -67,6 +67,8 @@ module DMPRoadmap
 
     # Used throughout the system via ApplicationService.application_name
     config.x.application.name = 'DMPRoadmap'
+    # Name of the internal Doorkeeper OAuth application for v2 API access tokens
+    config.x.application.internal_oauth_app_name = 'Internal v2 API Client'
     # Used as the default domain when 'archiving' (aka anonymizing) a user account
     # for example `jane.doe@uni.edu` becomes `1234@removed_accounts-example.org`
     config.x.application.archived_accounts_email_suffix = '@removed_accounts-example.org'
