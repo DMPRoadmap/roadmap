@@ -21,9 +21,7 @@ module Api
     # This service does NOT support third-party OAuth clients or delegated consent flows.
     class InternalUserAccessTokenService
       READ_SCOPE = 'read'
-      APPLICATION = Doorkeeper::Application.find_by(
-        name: Rails.application.config.x.application.internal_oauth_app_name
-      )
+      INTERNAL_OAUTH_APP_NAME = Rails.application.config.x.application.internal_oauth_app_name
 
       class << self
         def for_user(user)
@@ -46,7 +44,26 @@ module Api
           )
         end
 
+        # Used by views (e.g. devise/registrations/_v2_api_token.html.erb) to safely
+        # gate token UI if the internal OAuth application is missing.
+        def application_present?
+          application!
+          true
+        rescue StandardError => e
+          Rails.logger.error(e.message)
+          false
+        end
+
         private
+
+        def application!
+          Doorkeeper::Application.find_by(name: INTERNAL_OAUTH_APP_NAME) ||
+            raise(
+              StandardError,
+              "Required Doorkeeper application '#{INTERNAL_OAUTH_APP_NAME}' not found. " \
+              'Please ensure the application exists in the database.'
+            )
+        end
 
         def revoke_existing!(user)
           Doorkeeper::AccessToken.revoke_all_for(application!.id, user)
