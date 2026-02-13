@@ -211,7 +211,7 @@ Rails.application.routes.draw do
 
       resources :plans, only: %i[index show]
       resources :templates, only: :index
-      resource :internal_user_access_token, only: :create
+      resource :internal_user_access_token, only: :create, defaults: { format: :js }
     end
   end
 

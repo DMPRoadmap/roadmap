@@ -13,7 +13,7 @@ RSpec.describe 'devise/registrations/_v2_api_token.html.erb' do
       render partial: 'devise/registrations/v2_api_token', locals: { user: user }
 
       expect(rendered).to have_link('Regenerate token',
-                                    href: api_v2_internal_user_access_token_path(format: :js))
+                                    href: api_v2_internal_user_access_token_path)
     end
 
     context 'when user has a token' do

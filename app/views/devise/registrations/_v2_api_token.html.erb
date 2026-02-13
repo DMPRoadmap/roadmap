@@ -18,7 +18,7 @@
 
       <div class="form-control mb-3 col-xs-8">
         <%= link_to _("Regenerate token"),
-                    api_v2_internal_user_access_token_path(format: :js),
+                    api_v2_internal_user_access_token_path,
                     method: :post,
                     class: 'btn btn-secondary',
                     remote: true %>

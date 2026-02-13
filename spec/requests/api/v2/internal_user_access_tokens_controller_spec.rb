@@ -9,7 +9,7 @@ RSpec.describe Api::V2::InternalUserAccessTokensController do
 
   describe 'POST #create' do
     def post_create_token
-      post api_v2_internal_user_access_token_path(format: :js)
+      post api_v2_internal_user_access_token_path
     end
 
     context 'when user is not authenticated' do
