@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_19_131055) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_19_185224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -280,7 +280,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_19_131055) do
     t.string "name", null: false
     t.string "uid", null: false
     t.string "secret", null: false
-    t.text "redirect_uri", null: false
+    t.text "redirect_uri"
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true, null: false
     t.datetime "created_at", null: false

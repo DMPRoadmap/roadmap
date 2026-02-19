@@ -4,7 +4,7 @@
 
 json.schema 'https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0'
 
-presenter = Api::V2::PlanPresenter.new(plan: plan)
+presenter = Api::V2::PlanPresenter.new(plan: plan, complete: @complete)
 
 # Note the symbol of the dmproadmap json object
 # nested in extensions which is the container for the json template object, etc.
@@ -66,6 +66,21 @@ unless @minimal
       json.template do
         json.id template.id
         json.title template.title
+      end
+    end
+
+    if @complete
+      json.complete_plan do
+        q_and_a = presenter.complete_plan_data
+        next if q_and_a.blank?
+
+        json.array! q_and_a do |item|
+          json.question_id item[:id]
+          json.title item[:title]
+          json.section item[:section]
+          json.question item[:question]
+          json.answer item[:answer]
+        end
       end
     end
   end

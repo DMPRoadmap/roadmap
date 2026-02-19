@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Add complete plan flag to V2 API [#3595](https://github.com/DMPRoadmap/roadmap/pull/3595)
+
 ## v5.0.2
 - Bump Ruby to v3.1.4 and use `.ruby-version` in CI
   - [#3566](https://github.com/DMPRoadmap/roadmap/pull/3566)
