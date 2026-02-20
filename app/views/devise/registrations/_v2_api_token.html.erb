@@ -23,11 +23,11 @@
       </div>
 
       <div class="form-control mb-3 col-xs-8">
-        <%= link_to _("Regenerate token"),
-                    api_v2_internal_user_access_token_path,
-                    method: :post,
-                    class: 'btn btn-secondary',
-                    remote: true %>
+        <%= button_tag _("Regenerate token"),
+              type: :submit,
+              class: 'btn btn-secondary',
+              disabled: token.present?,
+              data: { remote: true, url: api_v2_internal_user_access_token_path, method: :post } %>
       </div>
     <% else %>
       <div class="alert alert-warning">
