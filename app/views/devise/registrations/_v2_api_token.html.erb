@@ -1,4 +1,4 @@
-<%# locals: user %>
+<%# locals: user, token %>
 
 <div id="v2-api-token" class="card mb-4">
   <div class="card-heading">
@@ -6,13 +6,19 @@
   </div>
   <div class="card-body">
     <% if Api::V2::InternalUserAccessTokenService.application_present? %>
-      <% token = Api::V2::InternalUserAccessTokenService.for_user(user) %>
       <div class="form-control mb-3 col-xs-8">
         <%= label_tag(:api_token, _('Access token'), class: 'form-label') %>
         <% if token.present? %>
-          <code><%= token.token %></code>
+          <code><%= token %></code>
+          <div class="alert alert-warning">
+            <%= _( "Please copy this token now and store it somewhere safely." ) %><br>
+            <%= _( "It will disappear after you leave or refresh this page." ) %>
+          </div>
         <% else %>
-          <%= _("Click the button below to generate an API token") %>
+          <%= _( "Click the button below to generate an API token" ) %><br>
+          <div class="alert alert-warning">
+            <%= _("If you previously generated and saved a token, please continue using that token.") %>
+          </div>
         <% end %>
       </div>
 

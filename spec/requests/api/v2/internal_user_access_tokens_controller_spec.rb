@@ -41,11 +41,11 @@ RSpec.describe Api::V2::InternalUserAccessTokensController do
         end.to change { Doorkeeper::AccessToken.count }.by(1)
       end
 
-      it 'assigns the token' do
+      it 'assigns the plaintext token' do
         post_create_token
 
-        expect(assigns(:token)).to be_a(Doorkeeper::AccessToken)
-        expect(assigns(:token).resource_owner_id).to eq(user.id)
+        expect(assigns(:v2_token)).to be_a(String)
+        expect(assigns(:v2_token)).not_to be_blank
       end
 
       it 'renders the refresh_token template' do

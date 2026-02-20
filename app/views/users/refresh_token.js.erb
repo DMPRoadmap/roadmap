@@ -1,6 +1,8 @@
+// This view is called by both InternalUserAccessTokensController#create (provides @v2_token)
+// and UsersController#refresh_token (does not provide @v2_token).
 var msg = '<%= @success ? _("Successfully regenerated your API token.") : _("Unable to regenerate your API token.") %>';
 
 var context = $('#api-tokens');
-context.html('<%= escape_javascript(render partial: "/devise/registrations/api_token", locals: { user: current_user }) %>');
+context.html('<%= escape_javascript(render partial: "/devise/registrations/api_token", locals: { user: current_user, v2_token: @v2_token }) %>');
 renderNotice(msg);
 toggleSpinner(false);

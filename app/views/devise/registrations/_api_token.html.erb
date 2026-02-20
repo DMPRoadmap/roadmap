@@ -1,8 +1,9 @@
 <%# locals: user %>
+<% v2_token ||= nil %>
 
 <div id="api-tokens">
   <%# v2 API token %>
-  <%= render partial: "devise/registrations/v2_api_token", locals: { user: user } %>
+  <%= render partial: "devise/registrations/v2_api_token", locals: { user: user, token: v2_token } %>
 
   <% if user.can_use_api? %>
     <%# v0/v1 API token %>

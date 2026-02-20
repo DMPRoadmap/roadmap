@@ -11,56 +11,46 @@ RSpec.describe Api::V2::InternalUserAccessTokenService do
     create(:oauth_access_token, application: oauth_app, resource_owner_id: user.id, scopes: 'read')
   end
 
-  describe '#for_user' do
-    context 'when a token exists for the user' do
-      let!(:access_token) do
-        create_internal_user_access_token
-      end
-
-      it 'returns the access token' do
-        token = described_class.for_user(user)
-        expect(token).to be_present
-        expect(token.resource_owner_id).to eq(user.id)
-      end
-    end
-
-    context 'when no token exists for the user' do
-      it 'returns nil' do
-        token = described_class.for_user(user)
-        expect(token).to be_nil
-      end
-    end
-  end
-
   describe '#rotate!' do
-    def rotate_token_expectations(new_token, old_token = nil) # rubocop:disable Metrics/AbcSize
-      expect(new_token).to be_persisted
+    def rotate_token_expectations(plaintext_token, old_token = nil) # rubocop:disable Metrics/AbcSize
+      # Doorkeeper hashes token via Digest::SHA256
+      hashed = Digest::SHA256.hexdigest(plaintext_token)
+      new_token = Doorkeeper::AccessToken.find_by!(token: hashed)
+      expect(new_token).to be_present
       expect(new_token.resource_owner_id).to eq(user.id)
       expect(new_token.revoked_at).to be_nil
       expect(new_token.scopes.to_s).to include('read')
-      return unless old_token
+      expect(old_token.revoked_at).not_to be_nil if old_token
+    end
 
-      expect(new_token).not_to eq(old_token)
-      expect(old_token.revoked_at).not_to be_nil
+    shared_examples 'token rotation' do |has_old_token|
+      it "#{if has_old_token
+              'revokes the old token and creates a new one'
+            else
+              'creates a new token'
+            end}
+      (returns plaintext)" do
+        plaintext_token = nil
+        # Ensure .rotate!(user) creates a new AccessToken db entry for user
+        expect { plaintext_token = described_class.rotate!(user) }
+          .to change { Doorkeeper::AccessToken.where(resource_owner_id: user.id).count }
+          .by(1)
+        if has_old_token
+          old_token.reload
+          rotate_token_expectations(plaintext_token, old_token)
+        else
+          rotate_token_expectations(plaintext_token)
+        end
+      end
     end
 
     context 'when a token already exists' do
-      let!(:old_token) do
-        create_internal_user_access_token
-      end
-
-      it 'revokes the old token and creates a new one' do
-        new_token = described_class.rotate!(user)
-        old_token.reload
-        rotate_token_expectations(new_token, old_token)
-      end
+      let!(:old_token) { create_internal_user_access_token }
+      include_examples 'token rotation', true
     end
 
     context 'when no token exists' do
-      it 'creates a new token' do
-        token = described_class.rotate!(user)
-        rotate_token_expectations(token)
-      end
+      include_examples 'token rotation', false
     end
   end
 

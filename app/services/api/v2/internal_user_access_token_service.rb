@@ -24,24 +24,16 @@ module Api
       INTERNAL_OAUTH_APP_NAME = Rails.application.config.x.application.internal_oauth_app_name
 
       class << self
-        def for_user(user)
-          Doorkeeper::AccessToken.find_by(
-            application_id: application!.id,
-            resource_owner_id: user.id,
-            scopes: READ_SCOPE,
-            revoked_at: nil
-          )
-        end
-
         def rotate!(user)
           revoke_existing!(user)
 
-          Doorkeeper::AccessToken.create!(
+          token = Doorkeeper::AccessToken.create!(
             application_id: application!.id,
             resource_owner_id: user.id,
             scopes: READ_SCOPE,
             expires_in: nil # Overrides Doorkeeper's `access_token_expires_in`
           )
+          token.plaintext_token
         end
 
         # Used by views (e.g. devise/registrations/_v2_api_token.html.erb) to safely

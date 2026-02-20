@@ -9,7 +9,7 @@ module Api
       # POST "/api/v2/internal_user_access_token"
       def create
         authorize current_user, :internal_user_v2_access_token?
-        @token = Api::V2::InternalUserAccessTokenService.rotate!(current_user)
+        @v2_token = Api::V2::InternalUserAccessTokenService.rotate!(current_user)
         @success = true
         respond_to do |format|
           format.js { render 'users/refresh_token' }

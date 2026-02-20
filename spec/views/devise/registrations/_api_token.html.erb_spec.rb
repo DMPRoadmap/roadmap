@@ -6,11 +6,6 @@ RSpec.describe 'devise/registrations/_api_token.html.erb' do
   let(:app_name) { Rails.application.config.x.application.internal_oauth_app_name }
   let!(:oauth_app) { create(:oauth_application, name: app_name) }
 
-  before do
-    # Clear memoization between tests
-    Api::V2::InternalUserAccessTokenService.instance_variable_set(:@application, nil)
-  end
-
   context 'When a user has the `use_api` permission' do
     it 'renders both the v2 and legacy API token sections' do
       user = create(:user, :org_admin)
