@@ -23,7 +23,7 @@ RSpec.describe 'devise/registrations/_v2_api_token.html.erb' do
 
       it 'displays the token and disables the regenerate button' do
         render_token_partial(token: plaintext_token)
-        expect(rendered).to have_selector('code', text: plaintext_token)
+        expect(rendered).to have_selector('#api-token-val')
         expect(rendered).not_to have_content('Click the button below to generate an API token')
         expect(rendered).to have_selector('button[disabled]', text: 'Regenerate token')
       end
@@ -33,7 +33,7 @@ RSpec.describe 'devise/registrations/_v2_api_token.html.erb' do
       it 'displays the generate message' do
         render_token_partial(token: nil)
         expect(rendered).to have_content('Click the button below to generate an API token')
-        expect(rendered).not_to have_selector('code')
+        expect(rendered).not_to have_selector('#api-token-val')
       end
     end
   end
