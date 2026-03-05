@@ -1,4 +1,5 @@
 <%# locals: user, token %>
+<% api_wikis = Rails.configuration.x.application.api_documentation_urls %>
 
 <div id="v2-api-token" class="card mb-4">
   <div class="card-heading">
@@ -42,6 +43,14 @@
               class: 'btn btn-secondary',
               disabled: token.present?,
               data: { remote: true, url: api_v2_internal_user_access_token_path, method: :post } %>
+      </div>
+      <div class="form-group mb-3 col-xs-12">
+        <%= label_tag(:api_information, _('Documentation'), class: 'form-label') %>
+        <br>
+        <%= sanitize(_('See the <a href="%{api_v2_wiki}">documentation for v2</a> for more details on the API.') %
+          { api_v2_wiki: api_wikis[:v2] },
+          attributes: %w[href]
+        )%>
       </div>
     <% else %>
       <div class="alert alert-warning">
