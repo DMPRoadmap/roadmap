@@ -13,6 +13,7 @@ module Api
 
       before_action :log_access
 
+      before_action :require_read_scope, except: %i[heartbeat me]
       # controller can respond to json format requests
       respond_to :json
 
@@ -43,7 +44,6 @@ module Api
         @application = ApplicationService.application_name
         @client = doorkeeper_token&.application
         @caller = @client&.name || request.remote_ip
-        @scopes = doorkeeper_token.scopes.to_a if doorkeeper_token
         return unless doorkeeper_token&.resource_owner_id
 
         @resource_owner = User.find(doorkeeper_token.resource_owner_id)
@@ -94,6 +94,10 @@ module Api
         results = results.page(@page).per(@per_page)
         @total_items = results.total_count
         results
+      end
+
+      def require_read_scope
+        raise Pundit::NotAuthorizedError unless doorkeeper_token.scopes.include?('read')
       end
     end
   end

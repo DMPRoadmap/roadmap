@@ -8,8 +8,6 @@ module Api
 
       # GET /api/v2/plans/:id
       def show
-        raise Pundit::NotAuthorizedError unless @scopes.include?('read')
-
         @plan = Plan.includes(roles: :user).find_by(id: params[:id])
 
         raise Pundit::NotAuthorizedError unless @plan.present?
@@ -23,8 +21,6 @@ module Api
 
       # GET /api/v2/plans
       def index
-        raise Pundit::NotAuthorizedError unless @scopes.include?('read')
-
         @plans = PlansPolicy::Scope.new(@resource_owner).resolve
         @plans = @plans.includes(answers: { question: :section }) if @complete
         @items = paginate_response(results: @plans)

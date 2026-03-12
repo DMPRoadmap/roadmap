@@ -36,7 +36,6 @@ Doorkeeper.configure do
 
   # set the token endpoint configurations
   access_token_expires_in 2.hours
-  reuse_access_token
 
   # enable refresh tokens of duration 90 days
   use_refresh_token expiry: 90.days
@@ -44,4 +43,7 @@ Doorkeeper.configure do
   # enable ssl requirement for redirect url
   # - Allow HTTP in test and development environments
   force_ssl_in_redirect_uri !(Rails.env.test? || Rails.env.development?)
+
+  hash_application_secrets
+  hash_token_secrets
 end

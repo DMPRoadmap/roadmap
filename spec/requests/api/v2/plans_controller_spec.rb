@@ -12,7 +12,7 @@ RSpec.describe Api::V2::PlansController do
     before do
       @user = create(:user)
       @client = create(:oauth_application)
-      token = mock_authorization_code_token(oauth_application: @client, user: @user).token
+      token = mock_authorization_code_token(oauth_application: @client, user: @user).plaintext_token
 
       @headers = {
         Accept: 'application/json',
