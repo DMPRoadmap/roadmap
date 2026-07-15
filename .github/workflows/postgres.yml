@@ -31,7 +31,7 @@ jobs:
 
     steps:
       # Checkout the repo
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       # Install Ruby and run bundler
       - uses: ruby/setup-ruby@v1
@@ -42,9 +42,9 @@ jobs:
       ## /home/runner/runners/2.301.1/externals/node12/bin/node: --openssl-legacy-provider is not allowed in NODE_OPTIONS
 
       # Install Node
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: "yarn"
 
       # Install the Postgres developer packages
