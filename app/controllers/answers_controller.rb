@@ -87,9 +87,9 @@ class AnswersController < ApplicationController
     # rubocop:disable Style/GuardClause
     if @answer.present?
       @plan = Plan.includes(
+        :answers,
         sections: {
           questions: %i[
-            answers
             question_format
           ]
         }
