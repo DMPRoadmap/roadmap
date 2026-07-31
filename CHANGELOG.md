@@ -1,5 +1,8 @@
 # Changelog
 
+## v5.0.3
+- Patch API token auth to check user's status
+
 ## v5.0.2
 - Bump Ruby to v3.1.4 and use `.ruby-version` in CI
   - [#3566](https://github.com/DMPRoadmap/roadmap/pull/3566)
