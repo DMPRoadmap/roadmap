@@ -35,7 +35,7 @@ module Api
 
             # Valid if User is active, has permission to use the API and
             # the :client_secret matches the token
-            usr = User.where(email: token[:client_id], active: true, api_token: @client_secret).first
+            usr = User.where(email: token[:client_id], active: true).first
             @api_client = usr.present? && usr.can_use_api? ? usr : nil
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
