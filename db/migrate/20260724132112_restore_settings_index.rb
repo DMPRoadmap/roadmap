@@ -1,4 +1,4 @@
-class RestoreSettingsIndex < ActiveRecord::Migration[6.1]
+class RestoreSettingsIndex < ActiveRecord::Migration[7.1]
   disable_ddl_transaction!
 
   def up
