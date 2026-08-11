@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_19_185224) do
+ActiveRecord::Schema[7.1].define(version: 2026_07_24_132112) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -549,6 +549,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_19_185224) do
     t.string "target_type"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.index ["target_type", "target_id"], name: "index_settings_on_target_type_and_target_id"
   end
 
   create_table "stats", id: :serial, force: :cascade do |t|
