@@ -1,4 +1,4 @@
-<%= "#{@plan.title}" %>
+<%= "#{@plan.title}".gsub(/&amp;/,'&') %>
 <%= "----------------------------------------------------------\n" %>
 <% if @show_coversheet %>
 <%= Array(@hash[:attribution]).many? ? _("Creators: ") + Array(@hash[:attribution]).join(", ")  : _('Creator:') + @hash[:attribution] %>
@@ -28,7 +28,7 @@
   <% end %>
   <% if @plan.description.present? %>
 <%= _("Project abstract: ") %>
-<%= "\t" + strip_tags(@plan.description) + "\n" %>
+<%= "\t" + strip_tags(@plan.description).gsub(/&amp;/,'&') + "\n" %>
   <% end %>
 <%= _("Last modified: ") + l(@plan.updated_at.to_date, formats: :short) %>
 <%= _("Copyright information:") %>
