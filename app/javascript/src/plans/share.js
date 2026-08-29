@@ -20,7 +20,7 @@ $(() => {
   $('.toggle-existing-user-access')
     .on('ajax:success', (e) => {
       const data = e.detail[0];
-      notifier.renderNotice(`foo: ${data.msg}`);
+      notifier.renderNotice(data.msg);
     })
     .on('ajax:error', (e) => {
       const xhr = e.detail[2];
