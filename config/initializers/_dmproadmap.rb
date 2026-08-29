@@ -67,6 +67,8 @@ module DMPRoadmap
 
     # Used throughout the system via ApplicationService.application_name
     config.x.application.name = 'DMPRoadmap'
+    # Name of the internal Doorkeeper OAuth application for v2 API access tokens
+    config.x.application.internal_oauth_app_name = 'Internal v2 API Client'
     # Used as the default domain when 'archiving' (aka anonymizing) a user account
     # for example `jane.doe@uni.edu` becomes `1234@removed_accounts-example.org`
     config.x.application.archived_accounts_email_suffix = '@removed_accounts-example.org'
@@ -77,7 +79,8 @@ module DMPRoadmap
     # The link to the API documentation - used in emails about the API
     config.x.application.api_documentation_urls = {
       v0: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation',
-      v1: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V1-Documentation'
+      v1: 'https://github.com/DMPRoadmap/roadmap/wiki/API-v1-Documentation',
+      v2: 'https://github.com/DMPRoadmap/roadmap/wiki/API-v2-Documentation'
     }
     # The links that appear on the home page. Add any number of links
     config.x.application.welcome_links = [

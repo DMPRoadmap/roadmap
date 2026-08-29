@@ -23,6 +23,7 @@ import 'bootstrap-select';
 // Utilities
 import './src/utils/accordion';
 import './src/utils/autoComplete';
+import './src/utils/copyToken.js';
 import './src/utils/externalLink';
 import './src/utils/modalSearch';
 import './src/utils/outOfFocus';

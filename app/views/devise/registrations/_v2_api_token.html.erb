@@ -1,0 +1,62 @@
+<%# locals: user, token %>
+<% api_wikis = Rails.configuration.x.application.api_documentation_urls %>
+
+<div id="v2-api-token" class="card mb-4">
+  <div class="card-heading">
+    <%= _('V2 API') %>
+  </div>
+  <div class="card-body">
+    <% if Api::V2::InternalUserAccessTokenService.application_present? %>
+      <div class="form-control mb-3 col-xs-8">
+        <%= label_tag(:api_token, _('Access token'), class: 'form-label') %>
+        <% if token.present? %>
+          <%= text_field_tag(
+                :api_token_val,
+                token,
+                id: 'api-token-val',
+                class: 'form-control',
+                style: 'width: auto;',
+                readonly: true
+          ) %>
+
+          <%= button_tag(
+                _('Copy'),
+                id: 'copy-token-btn',
+                type: 'button',
+                class: 'btn btn-secondary'
+          ) %>
+          <div class="alert alert-warning">
+            <%= _( "Please copy this token now and store it somewhere safely." ) %><br>
+            <%= _( "It will disappear after you leave or refresh this page." ) %>
+          </div>
+        <% else %>
+          <%= _( "Click the button below to generate an API token" ) %><br>
+          <div class="alert alert-warning">
+            <%= _("If you previously generated and saved a token, please continue using that token.") %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form-control mb-3 col-xs-8">
+        <%= button_tag _("Regenerate token"),
+              type: :submit,
+              class: 'btn btn-secondary',
+              disabled: token.present?,
+              data: { remote: true, url: api_v2_internal_user_access_token_path, method: :post } %>
+      </div>
+      <div class="form-group mb-3 col-xs-12">
+        <%= label_tag(:api_information, _('Documentation'), class: 'form-label') %>
+        <br>
+        <%= sanitize(_('See the <a href="%{api_v2_wiki}">documentation for v2</a> for more details on the API.') %
+          { api_v2_wiki: api_wikis[:v2] },
+          attributes: %w[href]
+        )%>
+      </div>
+    <% else %>
+      <div class="alert alert-warning">
+        <%= _("V2 API token service is currently unavailable. Please contact us for help.") %>
+        <%= mail_to Rails.application.config.x.organisation.helpdesk_email %>
+      </div>
+    <% end %>
+  </div>
+</div>
