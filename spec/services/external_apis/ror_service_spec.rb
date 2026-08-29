@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ExternalApis::RorService do
+  Rails.configuration.x.ror.active = true # Override actual config value for duration of tests
   describe '#ping' do
     before(:each) do
       @headers = described_class.headers
