@@ -12,13 +12,13 @@ class ContributorsController < ApplicationController
 
   # GET /plans/:plan_id/contributors
   def index
-    authorize @plan
+    authorize @plan, :show?
     @contributors = @plan.contributors
   end
 
   # GET /plans/:plan_id/contributors/new
   def new
-    authorize @plan
+    authorize @plan, :edit?
     default_org = @plan.org.present? ? @plan.org : current_user.org
     @contributor = Contributor.new(plan: @plan, org: default_org)
   end
