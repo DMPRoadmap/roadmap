@@ -20,8 +20,7 @@ module Api
           private
 
           # Lookup the Client based on the client_id embedded in the JWT
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-          def client
+          def client # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
             return @api_client if @api_client.present?
 
             token = decoded_auth_token
@@ -38,7 +37,6 @@ module Api
             usr = User.where(email: token[:client_id], active: true).first
             @api_client = usr.present? && usr.can_use_api? ? usr : nil
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
           def decoded_auth_token
             return @token if @token.present?
