@@ -1,7 +1,8 @@
 # Changelog
 
 ## v5.0.3
-- Patch API token auth to check user's status
+- Patch API token auth to check user's status [#3606](https://github.com/DMPRoadmap/roadmap/pull/3606)
+- fix(policy): harden authorization for plan resources [#3613](https://github.com/DMPRoadmap/roadmap/pull/3613)
 
 ## v5.0.2
 - Bump Ruby to v3.1.4 and use `.ruby-version` in CI

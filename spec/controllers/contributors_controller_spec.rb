@@ -7,6 +7,7 @@ RSpec.describe ContributorsController, type: :controller do
     @scheme = create(:identifier_scheme, name: 'orcid')
     @org = create(:org, managed: true)
     @plan = create(:plan, :creator, org: @org)
+    @unauthorized_plan = create(:plan)
     @user = @plan.owner
     @contributor = create(:contributor, plan: @plan, org: @org)
 
@@ -36,20 +37,46 @@ RSpec.describe ContributorsController, type: :controller do
       sign_in(@user)
     end
 
-    it 'GET plans/:plan_id/contributors (:index)' do
-      get :index, params: { plan_id: @plan.id }
-      expect(response).to render_template(:index)
-      expect(assigns(:plan)).to eql(@plan)
-      expect(assigns(:contributors).length).to eql(1)
-      expect(assigns(:contributors).first).to eql(@contributor)
+    describe 'GET plans/:plan_id/contributors (:index)' do
+      it 'renders the index' do
+        get :index, params: { plan_id: @plan.id }
+        expect(response).to render_template(:index)
+        expect(assigns(:plan)).to eql(@plan)
+        expect(assigns(:contributors).length).to eql(1)
+        expect(assigns(:contributors).first).to eql(@contributor)
+      end
+
+      it 'denies access to an unauthorized plan' do
+        get :index, params: { plan_id: @unauthorized_plan.id }
+
+        expect(response).not_to render_template(:index)
+        expect(assigns(:contributors)).to eql(nil)
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(plans_url)
+        expect(flash[:alert]).to eq('You are not authorized to perform this action.')
+      end
     end
 
-    it 'GET plans/:plan_id/contributors/new (:new)' do
-      get :new, params: { plan_id: @plan.id }
-      expect(response).to render_template(:new)
-      expect(assigns(:plan)).to eql(@plan)
-      expect(assigns(:contributor).new_record?).to eql(true)
-      expect(assigns(:contributor).plan).to eql(@plan)
+    describe 'GET plans/:plan_id/contributors/new (:new)' do
+      it 'renders the new form' do
+        get :new, params: { plan_id: @plan.id }
+        expect(response).to render_template(:new)
+        expect(assigns(:plan)).to eql(@plan)
+        expect(assigns(:contributor).new_record?).to eql(true)
+        expect(assigns(:contributor).plan).to eql(@plan)
+      end
+
+      it 'denies access to an unauthorized plan' do
+        get :new, params: { plan_id: @unauthorized_plan.id }
+
+        expect(response).not_to render_template(:new)
+        expect(assigns(:contributor)).to eql(nil)
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(plans_url)
+        expect(flash[:alert]).to eq('You are not authorized to perform this action.')
+      end
     end
 
     it 'GET plans/:plan_id/contributors/:id/edit (:edit)' do
