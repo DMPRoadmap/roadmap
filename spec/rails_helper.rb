@@ -79,4 +79,9 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include Pundit::Matchers, type: :policy
+
+  # Enable test mode for OmniAuth
+  OmniAuth.config.test_mode = true
+  # Set the full host to nil to avoid URL generation issues in tests
+  OmniAuth.config.full_host = nil
 end
