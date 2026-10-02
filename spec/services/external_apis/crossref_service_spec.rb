@@ -45,24 +45,6 @@ RSpec.describe ExternalApis::CrossrefService, type: :service do
   end
 
   describe 'description extraction helpers' do
-    context 'when the abstract contains XML/HTML markup tags' do
-      let(:markup_json) do
-        {
-          message: {
-            title: ['Markup Title'],
-            abstract: '<jats:p>Clean abstract text without tags.</jats:p>',
-            type: 'journal-article'
-          }
-        }.to_json
-      end
-
-      it 'preserves the abstract value returned by Crossref' do
-        result = described_class.parse_attributes(markup_json, doi)
-
-        expect(result[:description]).to eq('<jats:p>Clean abstract text without tags.</jats:p>')
-      end
-    end
-
     context 'when the abstract field is empty or nil' do
       let(:empty_desc_json) do
         {

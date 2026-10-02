@@ -148,4 +148,52 @@ RSpec.describe ExternalApis::DoiResolutionService, type: :service do
       end
     end
   end
+
+  describe '.sanitize_and_normalize_description' do
+    it 'preserves supported formatting tags and attributes' do
+      raw_html = '<p>This is <strong>bold</strong> and a <a href="https://my.org" title="Link">link</a>.</p>'
+      result = described_class.sanitize_and_normalize_description(raw_html)
+
+      expect(result).to eq('<p>This is <strong>bold</strong> and a <a href="https://my.org" title="Link">link</a>.</p>')
+    end
+
+    it 'converts known JATS XML elements into supported HTML' do
+      jats_xml =
+        '<jats:p>Abstract text with <jats:bold>bold</jats:bold> and <jats:italic>emphasis</jats:italic>.</jats:p>'
+      result = described_class.sanitize_and_normalize_description(jats_xml)
+
+      expect(result).to eq('<p>Abstract text with <strong>bold</strong> and <em>emphasis</em>.</p>')
+    end
+
+    it 'removes unknown/unsupported elements while retaining their text' do
+      unsupported_markup = '<custom-tag>Header</custom-tag><p>Paragraph <unknown>inner text</unknown></p>'
+      result = described_class.sanitize_and_normalize_description(unsupported_markup)
+
+      expect(result).to eq('Header<p>Paragraph inner text</p>')
+    end
+
+    it 'strips scripts, event-handler attributes, and unsafe URLs' do
+      malicious_input = <<~HTML
+        <p>Safe text</p>
+        <script>alert('XSS');</script>
+        <a href="javascript:alert('XSS')" onclick="doEvil()">Bad Link</a>
+        <img src="x" onerror="alert('XSS')">
+      HTML
+
+      result = described_class.sanitize_and_normalize_description(malicious_input)
+
+      expect(result).not_to include('<script>')
+      expect(result).not_to include('onclick')
+      expect(result).not_to include('onerror')
+      expect(result).not_to include('javascript:')
+      expect(result).to eq("<p>Safe text</p>\n\n<a>Bad Link</a>")
+    end
+
+    it 'leaves plain-text descriptions unchanged' do
+      plain_text = 'This is a simple plain text description without any HTML.'
+      result = described_class.sanitize_and_normalize_description(plain_text)
+
+      expect(result).to eq(plain_text)
+    end
+  end
 end

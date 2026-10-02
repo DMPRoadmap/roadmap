@@ -21,7 +21,9 @@ module ExternalApis
 
         # If an abstract hash was found, extract its text content.
         # Otherwise, fall back to the very first text item in the array
-        abstract ? abstract[:description] : descriptions.dig(0, :description)
+        target_description = abstract&.dig(:description) || descriptions.first&.dig(:description)
+
+        ExternalApis::DoiResolutionService.sanitize_and_normalize_description(target_description)
       end
 
       def execute_api_get(clean_doi)

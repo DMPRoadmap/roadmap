@@ -41,7 +41,8 @@ module ExternalApis
 
         {
           title: work.dig(:title, 0),
-          description: work[:abstract], # Crossref uses 'abstract' for its description field
+          # Crossref uses 'abstract' for its description field
+          description: ExternalApis::DoiResolutionService.sanitize_and_normalize_description(work[:abstract]),
           output_type: map_crossref_type(work[:type]),
           release_date: release_date,
           doi: clean_doi

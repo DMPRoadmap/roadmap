@@ -6,7 +6,11 @@ module ExternalApis
     SERVICES = [
       [ExternalApis::DataciteService, 'datacite'],
       [ExternalApis::CrossrefService, 'crossref']
-    ]
+    ].freeze
+
+    ALLOWED_TAGS = %w[p br strong em ul ol li blockquote a].freeze
+    ALLOWED_ATTRIBUTES = %w[href title].freeze
+
     class << self
       # Matches ~99% of modern Crossref DOIs
       MODERN_DOI_REGEX = %r{\A10\.\d{4,9}/[-._;()/:A-Z0-9]+\z}i
@@ -16,6 +20,25 @@ module ExternalApis
 
       def active?
         Rails.configuration.x.datacite&.active || Rails.configuration.x.crossref&.active
+      end
+
+      # Sanitizes and normalizes provider description markup server-side
+      def sanitize_and_normalize_description(description)
+        return nil if description.blank?
+
+        normalized = normalize_jats(description)
+
+        # Parse fragment and remove script/style tags along with their inner contents
+        doc = Nokogiri::HTML::DocumentFragment.parse(normalized)
+        doc.css('script, style').remove
+
+        sanitized = ActionController::Base.helpers.sanitize(
+          doc.to_html,
+          tags: ALLOWED_TAGS,
+          attributes: ALLOWED_ATTRIBUTES
+        )
+
+        sanitized&.strip
       end
 
       # Main function for the "Add Research Output by DOI" feature
@@ -97,6 +120,21 @@ module ExternalApis
       def cacheable_result?(result)
         result.is_a?(Hash) || result == :not_found
       end
+
+      def normalize_jats(text)
+        string = text.dup
+        # Replace JATS tags with equivalent standard HTML tags
+        string.gsub!(/<jats:p(?:\s+[^>]*)?>/, '<p>')
+        string.gsub!('</jats:p>', '</p>')
+        string.gsub!(/<jats:italic(?:\s+[^>]*)?>/, '<em>')
+        string.gsub!('</jats:italic>', '</em>')
+        string.gsub!(/<jats:bold(?:\s+[^>]*)?>/, '<strong>')
+        string.gsub!('</jats:bold>', '</strong>')
+        string.gsub!(/<jats:list-item(?:\s+[^>]*)?>/, '<li>')
+        string.gsub!('</jats:list-item>', '</li>')
+        string.gsub!(/<jats:list(?:\s+[^>]*)?>/, '<ul>')
+        string.gsub!('</jats:list>', '</ul>')
+        string
       end
     end
   end
