@@ -7,12 +7,12 @@
 #  id                :integer          not null, primary key
 #  body              :text
 #  dismissable       :boolean
+#  enabled           :boolean          default(TRUE)
 #  expires_at        :date
 #  level             :integer
 #  notification_type :integer
 #  starts_at         :date
 #  title             :string
-#  enable            :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #

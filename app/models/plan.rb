@@ -7,39 +7,41 @@
 #
 # Table name: plans
 #
-#  id                                :integer          not null, primary key
-#  complete                          :boolean          default(FALSE)
-#  description                       :text
-#  feedback_requested                :boolean          default(FALSE)
-#  identifier                        :string
-#  title                             :string
-#  visibility                        :integer          default(3), not null
-#  created_at                        :datetime
-#  updated_at                        :datetime
-#  template_id                       :integer
-#  org_id                            :integer
-#  funder_id                         :integer
-#  grant_id                          :integer
-#  api_client_id                     :integer
-#  research_domain_id                :bigint
-#  funding_status                    :integer
-#  ethical_issues                    :boolean
-#  ethical_issues_description        :text
-#  ethical_issues_report             :string
+#  id                         :integer          not null, primary key
+#  complete                   :boolean          default(FALSE)
+#  description                :text
+#  end_date                   :datetime
+#  ethical_issues             :boolean
+#  ethical_issues_description :text
+#  ethical_issues_report      :string
+#  feedback_requested         :boolean          default(FALSE)
+#  funding_status             :integer
+#  identifier                 :string
+#  start_date                 :datetime
+#  title                      :string
+#  visibility                 :integer          default(3), not null
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  api_client_id              :integer
+#  funder_id                  :integer
+#  grant_id                   :integer
+#  org_id                     :integer
+#  research_domain_id         :bigint(8)
+#  template_id                :integer
 #
 # Indexes
 #
-#  index_plans_on_template_id   (template_id)
-#  index_plans_on_funder_id     (funder_id)
-#  index_plans_on_grant_id      (grant_id)
-#  index_plans_on_api_client_id (api_client_id)
+#  index_plans_on_api_client_id  (api_client_id)
+#  index_plans_on_fos_id         (research_domain_id)
+#  index_plans_on_funder_id      (funder_id)
+#  index_plans_on_grant_id       (grant_id)
+#  index_plans_on_org_id         (org_id)
+#  index_plans_on_template_id    (template_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
-#  fk_rails_...  (api_client_id => api_clients.id)
-#  fk_rails_...  (research_domain_id => research_domains.id)
+#  fk_rails_...  (template_id => templates.id)
 #
 
 # Object that represents an DMP
