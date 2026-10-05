@@ -30,7 +30,7 @@ jobs:
 
     steps:
       # Checkout the repo
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # Install Ruby and run bundler
       - uses: ruby/setup-ruby@v1
@@ -41,7 +41,7 @@ jobs:
       ## /home/runner/runners/2.301.1/externals/node12/bin/node: --openssl-legacy-provider is not allowed in NODE_OPTIONS
 
       # Install Node
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: "yarn"
@@ -87,7 +87,7 @@ jobs:
         run: sudo apt-get purge google-chrome-stable
       - name: Setup Chrome 128
         id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: 128
           install-chromedriver: true

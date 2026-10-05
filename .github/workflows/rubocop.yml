@@ -8,7 +8,7 @@ jobs:
 
     steps:
     # Checkout the repo
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
