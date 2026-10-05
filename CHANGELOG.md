@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+- Upgrade the existing Roadmap application to Ruby 3.4 and Rails 8.1, with
+  compatible dependencies and no new product features.
+- Keep PostgreSQL as the source of the shared schema while supporting MySQL
+  development and test migrations; add a PostgreSQL schema drift check to CI.
+- Preserve existing DOCX and API behavior with focused regression checks,
+  and replace the Ruby 3.4-incompatible model annotation tool.
+
 ## v5.0.3
 - Patch API token auth to check user's status [#3606](https://github.com/DMPRoadmap/roadmap/pull/3606)
 - fix(policy): harden authorization for plan resources [#3613](https://github.com/DMPRoadmap/roadmap/pull/3613)

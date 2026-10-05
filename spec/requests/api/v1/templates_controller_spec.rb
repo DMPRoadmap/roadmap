@@ -11,6 +11,14 @@ RSpec.describe Api::V1::TemplatesController, type: :request do
     end
 
     describe 'GET /api/v1/templates - index' do
+      it 'keeps the existing pagination header contract' do
+        create_list(:template, 2, :publicly_visible, :published, customization_of: nil)
+        get api_v1_templates_path, params: { per_page: 1 }
+
+        expect(response).to have_http_status(:ok)
+        expect(response.headers.keys).not_to include('Link', 'X-Total', 'X-Per-Page')
+      end
+
       it 'returns a even if there are no public templates' do
         get api_v1_templates_path
         expect(response.code).to eql('200')

@@ -343,7 +343,7 @@ RSpec.describe ExternalApis::RorService do
 
     describe '#fundref_id' do
       before(:each) do
-        @hash = { 'external_ids' => {} }
+        @hash = { external_ids: {} }
       end
       it 'returns a blank if no external_ids are present' do
         json = JSON.parse(@hash.to_json)

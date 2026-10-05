@@ -9,7 +9,7 @@ jobs:
 
     steps:
     # Checkout the repo
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     # Install Node
     - uses: actions/setup-node@v4

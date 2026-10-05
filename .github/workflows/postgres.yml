@@ -30,7 +30,7 @@ jobs:
 
     steps:
       # Checkout the repo
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Install Ruby and run bundler
       - uses: ruby/setup-ruby@v1
@@ -97,6 +97,12 @@ jobs:
         run: |
           bundle exec rails db:setup
           bundle exec rails db:migrate
+
+      # PostgreSQL is the canonical source of the shared schema.rb.
+      - name: "Check schema drift"
+        run: |
+          bundle exec rails db:schema:dump
+          git diff --exit-code -- db/schema.rb
 
       # Prebuild the CSS, JS and image assets
       - name: "Compile Assets"

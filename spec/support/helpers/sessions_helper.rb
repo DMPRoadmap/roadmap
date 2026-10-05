@@ -20,6 +20,6 @@ module SessionsHelper
       fill_in 'Password', with: user.password.presence || 'password'
       click_button 'Sign in'
     end
-    expect(page).to have_current_path(plans_path)
+    expect(page).to have_css("a[href='#{destroy_user_session_path}']", visible: :all)
   end
 end

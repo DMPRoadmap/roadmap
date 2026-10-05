@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 
 ruby '~> 3.4.0'
 
+# Ruby 3.4 ships CSV separately; exports and statistics require it directly.
+gem 'csv'
+
 # ===========#
 # CORE RAILS #
 # ===========#
@@ -312,9 +315,8 @@ group :development do
   # Profiles loading speed for rack applications. (http://miniprofiler.com)
   gem 'rack-mini-profiler'
 
-  # Annotates Rails Models, routes, fixtures, and others based on the
-  # database schema. (http://github.com/ctran/annotate_models)
-  gem 'annotate', '< 3'
+  # Annotates models from the database schema under Rails 8.
+  gem 'annotaterb', '~> 4.24.0'
 
   # Add comments to your Gemfile with each dependency's description.
   # (https://github.com/ivantsepp/annotate_gem)

@@ -9,9 +9,9 @@ Rails.application.configure do
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
-  # Keep one set of model/service classes for the whole suite. Rails 8 reloads
-  # classes between feature requests otherwise, invalidating loaded instances.
-  config.cache_classes = true
+  # Keep one set of model/service classes for the whole suite. Reloading
+  # between browser requests invalidates references held by examples.
+  config.enable_reloading = false
   config.action_view.cache_template_loading = true
 
   # The checked-in schema is generated with PostgreSQL and loaded by both CI

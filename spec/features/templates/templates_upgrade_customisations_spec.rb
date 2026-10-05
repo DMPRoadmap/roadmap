@@ -68,11 +68,14 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     click_link(funder_template.phases.first.title)
 
     click_link 'Add a new section'
+    section_count = Section.count
     within('#new_section_new_section') do
       fill_in :new_section_section_title, with: 'Cool New section title'
       tinymce_fill_in :new_section_section_description, with: 'New section Description'
-      expect { click_button('Save') }.to change { Section.count }.by(3)
+      click_button 'Save'
     end
+    expect(page).to have_no_css('#new_section_new_section')
+    expect(Section.count).to eq(section_count + 3)
 
     within("#section-#{Section.last.id}") do
       within('.new-question-button') do
@@ -80,10 +83,13 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
       end
 
       expect(page).to have_selector('#new_question_new_question')
+      question_count = Question.count
       within('#new_question_new_question') do
         tinymce_fill_in :new_question_question_text, with: 'Text for this specific question'
-        expect { click_button('Save') }.to change { Question.count }.by(1)
+        click_button 'Save'
       end
+      expect(page).to have_no_css('#new_question_new_question')
+      expect(Question.count).to eq(question_count + 1)
     end
 
     new_funder_template = Template.last

@@ -67,6 +67,11 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  # PostgreSQL owns the shared schema.rb. MySQL table options and column types
+  # are adapter-specific, so a MySQL development migration must not rewrite it.
+  database_url_is_mysql = ENV['DATABASE_URL']&.match?(/\Amysql(?:2)?:/)
+  config.active_record.dump_schema_after_migration = false if ENV['DB_ADAPTER'] == 'mysql2' || database_url_is_mysql
+
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
