@@ -36,7 +36,10 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     click_link('Customisable Templates')
 
     click_button 'Actions'
-    expect { click_link 'Customise' }.to change { Template.count }.by(1)
+    template_count = Template.count
+    click_link 'Customise'
+    expect(page).to have_current_path(%r{\A/org_admin/templates/\d+\z})
+    expect(Template.count).to eq(template_count + 1)
 
     customized_template = Template.last
 
@@ -48,6 +51,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     # Publish our customisation
     click_button 'Actions'
     click_link 'Publish'
+    expect(page).to have_css("#template_#{funder_template.id} td:nth-child(3)", text: 'Published')
     expect(customized_template.reload.published?).to eql(true)
 
     # Move to the other funder Org's Templates
@@ -88,6 +92,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
 
     click_button 'Actions'
     click_link 'Publish changes'
+    expect(page).to have_text('has been published and is now available to users.')
     expect(new_funder_template.reload.published?).to eql(true)
 
     # Go back to the original Org...

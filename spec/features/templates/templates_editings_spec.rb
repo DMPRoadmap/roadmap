@@ -30,6 +30,7 @@ RSpec.feature 'Templates::Editing', type: :feature do
       click_button 'Actions'
     end
     click_link 'Customise'
+    expect(page).to have_current_path(%r{\A/org_admin/templates/\d+\z})
     # New template created
     template = Template.last
     within("#phase_#{template.phase_ids.first}") do

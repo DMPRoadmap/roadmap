@@ -2,20 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '3.1.4'
+ruby '~> 3.4.0'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 7.1'
-
-# TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
-#       an MIT license but was using some incompatible GPL license code.
-#       Versions of mimemagic that were yanked: https://rubygems.org/gems/mimemagic/versions
-#       Analysis of the issue: https://www.theregister.com/2021/03/25/ruby_rails_code/
-gem 'mimemagic'
+gem 'rails', '~> 8.1.0'
 
 # Use Puma as the app server
 gem 'puma', group: :puma, require: false
@@ -31,10 +25,10 @@ gem 'cssbundling-rails'
 # Turbo gives you the speed of a single-page web application without having to write any JavaScript..
 # Read more: https://github.com/hotwired/turbo-rails
 #            https://github.com/hotwired/turbo-rails/blob/main/UPGRADING.md
-gem 'turbo-rails'
+gem 'turbo-rails', '~> 2.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
+gem 'jbuilder', '~> 2.15'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
@@ -46,10 +40,6 @@ gem 'jbuilder'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
-
-# The ultimate text progress bar library for Ruby!
-# (https://github.com/jfelchner/ruby-progressbar)
-gem 'ruby-progressbar'
 
 # Provides Sprockets implementation for Rails 4.x (and beyond) Asset Pipeline.
 # https://github.com/rails/sprockets-rails
@@ -85,7 +75,7 @@ gem 'flag_shih_tzu' # , "~> 0.3.23"
 
 # Flexible authentication solution for Rails with Warden
 # (https://github.com/plataformatec/devise)
-gem 'devise'
+gem 'devise', '~> 5.0'
 
 # An invitation strategy for Devise (https://github.com/scambra/devise_invitable)
 gem 'devise_invitable'
@@ -205,14 +195,15 @@ gem 'dotenv-rails'
 
 gem 'activerecord_json_validator'
 
-# We need to freeze the mail gem version as the recently released 2.8.0 triggers an exception
-# We will need to check if it's fixed when we migrate to Ruby 3.0/3.1
-# See : https://github.com/DMPRoadmap/roadmap/issues/3254
-gem 'mail', '2.7.1'
+gem 'logger', '~> 1.7'
+gem 'mail'
 
 # This library provides functionality to send internet mail via SMTP, the Simple Mail Transfer Protocol.
 # https://github.com/ruby/net-smtp
-gem 'net-smtp'
+gem 'net-imap', '~> 0.5'
+gem 'net-pop', '~> 0.1'
+gem 'net-smtp', '~> 0.5'
+gem 'rake', '~> 13.4'
 
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
@@ -220,12 +211,12 @@ gem 'net-smtp'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', platforms: %i[mri windows]
 end
 
 group :test do
   # RSpec for Rails (https://github.com/rspec/rspec-rails)
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 8.0'
 
   # factory_bot_rails provides integration between factory_bot and rails 3
   # or newer (http://github.com/thoughtbot/factory_bot_rails)
@@ -260,7 +251,7 @@ group :test do
   gem 'capybara'
 
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 4.25'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.
@@ -288,25 +279,21 @@ group :ci, :development do
 
   # RuboCop is a Ruby code style checking and code formatting tool. It aims to enforce
   # the community-driven Ruby Style Guide.
-  gem 'rubocop'
+  # Keep Roadmap's established lint rules during the runtime upgrade.
+  gem 'rubocop', '~> 1.81.0'
 
   # RuboCop rules for detecting and autocorrecting undecorated strings for i18n
   # (gettext and rails-i18n)
   gem 'rubocop-i18n'
 
   # Performance checks by Rubocop
-  gem 'rubocop-performance', require: false
+  gem 'rubocop-performance', '~> 1.26.0', require: false
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen'
   gem 'web-console'
-  # Spring speeds up development by keeping your application running in the background.
-  # Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen'
-
   # Simple Progress Bar for output to a terminal
   # (http://github.com/paul/progress_bar)
   gem 'progress_bar', require: false
@@ -322,16 +309,12 @@ group :development do
   # even further up the stack. (http://github.com/banister/binding_of_caller)
   gem 'binding_of_caller'
 
-  # rspec command for spring
-  # (https://github.com/jonleighton/spring-commands-rspec)
-  gem 'spring-commands-rspec'
-
   # Profiles loading speed for rack applications. (http://miniprofiler.com)
   gem 'rack-mini-profiler'
 
   # Annotates Rails Models, routes, fixtures, and others based on the
   # database schema. (http://github.com/ctran/annotate_models)
-  gem 'annotate'
+  gem 'annotate', '< 3'
 
   # Add comments to your Gemfile with each dependency's description.
   # (https://github.com/ivantsepp/annotate_gem)

@@ -19,8 +19,8 @@
 
 # Object that represents a global notification
 class Notification < ApplicationRecord
-  enum level: %i[info warning danger]
-  enum notification_type: %i[global]
+  enum :level, %i[info warning danger]
+  enum :notification_type, %i[global]
 
   # ================
   # = Associations =

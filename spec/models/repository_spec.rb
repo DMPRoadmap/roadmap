@@ -39,7 +39,8 @@ describe Repository do
       @by_type = create(:repository, info: { types: [@types.first],
                                              subjects: [@subjects.last],
                                              keywords: [@keywords.last] })
-      @by_subject = create(:repository, info: { types: [@types.last],
+      @by_subject = create(:repository, name: 'UniqueSubjectRepository',
+                                        info: { types: [@types.last],
                                                 subjects: [@subjects.first],
                                                 keywords: [@keywords.last] })
       @by_facet = create(:repository, info: { types: [@types.last],

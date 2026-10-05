@@ -2,8 +2,6 @@
 
 # Upgrade tasks for versions < 3.0. See https://github.com/DMPRoadmap/roadmap/releases for information
 # on how and when to run each task.
-require 'set'
-
 # rubocop:disable Naming/VariableNumber
 namespace :upgrade do
   desc 'upgrade to Rails 5, rename task after naming release'

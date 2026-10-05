@@ -37,11 +37,11 @@ class ResearchOutput < ApplicationRecord
   include Identifiable
   include ValidationMessages
 
-  enum output_type: %i[audiovisual collection data_paper dataset event image
-                       interactive_resource model_representation physical_object
-                       service software sound text workflow other]
+  enum :output_type, %i[audiovisual collection data_paper dataset event image
+                        interactive_resource model_representation physical_object
+                        service software sound text workflow other]
 
-  enum access: %i[open embargoed restricted closed]
+  enum :access, %i[open embargoed restricted closed]
 
   # ================
   # = Associations =

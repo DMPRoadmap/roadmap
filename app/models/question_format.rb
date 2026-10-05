@@ -24,7 +24,7 @@ class QuestionFormat < ApplicationRecord
   # = Attributes =
   # ==============
 
-  enum formattype: FORMAT_TYPES
+  enum :formattype, FORMAT_TYPES
 
   alias_attribute :to_s, :title
 

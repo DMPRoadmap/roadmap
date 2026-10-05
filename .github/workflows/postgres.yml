@@ -9,7 +9,7 @@ jobs:
     services:
       # Postgres installation
       db:
-        image: postgres
+        image: postgres:16
         env:
           # Latest version of Postgres has increased security. We can use the default
           # user/password in this testing scenario though so use the following env
@@ -27,7 +27,6 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
-      DISABLE_SPRING: 1
 
     steps:
       # Checkout the repo
@@ -42,9 +41,9 @@ jobs:
       ## /home/runner/runners/2.301.1/externals/node12/bin/node: --openssl-legacy-provider is not allowed in NODE_OPTIONS
 
       # Install Node
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 24
           cache: "yarn"
 
       # Install the Postgres developer packages
@@ -79,7 +78,7 @@ jobs:
       # Run yarn install for JS dependencies
       - name: "Yarn Install"
         run: |
-          yarn install
+          yarn install --frozen-lockfile
 
       # TEMPORARY WORKAROUND FOR THE FOLLOWING ISSUE: https://github.com/DMPRoadmap/roadmap/issues/3485
       # Remove this once our tests are compatible with the new version of Chrome
