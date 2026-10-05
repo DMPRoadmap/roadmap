@@ -85,7 +85,8 @@ jobs:
       # Source: https://github.com/teamcapybara/capybara/issues/2800#issuecomment-2731100953
       - name: Remove image-bundled Chrome
         run: sudo apt-get purge google-chrome-stable
-      - name: Setup stable Chrome
+      - name: Setup Chrome 128
+        id: setup-chrome
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: 128
@@ -117,4 +118,9 @@ jobs:
 
       # Run the time consuming integration tests (using Chrome headless browser)
       - name: "Run Integration Tests"
-        run: bundle exec rspec spec/features/
+        env:
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+        run: |
+          "$CHROME_BIN" --version
+          chromedriver --version
+          bundle exec rspec spec/features/
