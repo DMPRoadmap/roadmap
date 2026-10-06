@@ -4,15 +4,15 @@
 #
 # Table name: metadata_standards
 #
-#  id                  :bigint           not null, primary key
-#  description         :text
-#  locations           :json
-#  related_entities    :json
-#  title               :string
-#  uri                 :string
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  rdamsc_id           :string
+#  id               :bigint(8)        not null, primary key
+#  description      :text
+#  locations        :json
+#  related_entities :json
+#  title            :string
+#  uri              :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  rdamsc_id        :string
 #
 FactoryBot.define do
   factory :metadata_standard do

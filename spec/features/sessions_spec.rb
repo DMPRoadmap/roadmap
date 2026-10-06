@@ -15,7 +15,7 @@ RSpec.feature 'Sessions', type: :feature do
     click_button 'Sign in'
 
     # Expectation
-    expect(current_path).to eql(plans_path)
+    expect(page).to have_current_path(plans_path)
     expect(page).to have_text(user.firstname)
     expect(page).to have_text(user.surname)
   end
@@ -30,7 +30,7 @@ RSpec.feature 'Sessions', type: :feature do
     click_button 'Sign in'
 
     # Expectation
-    expect(current_path).to eql(root_path)
+    expect(page).to have_current_path(root_path)
     expect(page).not_to have_text(user.firstname)
     expect(page).not_to have_text(user.surname)
     expect(page).to have_text('Error')

@@ -9,8 +9,14 @@ Rails.application.configure do
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
-  config.cache_classes = false
+  # Keep one set of model/service classes for the whole suite. Reloading
+  # between browser requests invalidates references held by examples.
+  config.enable_reloading = false
   config.action_view.cache_template_loading = true
+
+  # The checked-in schema is generated with PostgreSQL and loaded by both CI
+  # adapters; a MySQL migration must not rewrite it with MySQL table options.
+  config.active_record.dump_schema_after_migration = false
 
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that

@@ -21,9 +21,12 @@
 #  invitation_sent_at     :datetime
 #  invitation_token       :string
 #  invited_by_type        :string
+#  last_api_access        :datetime
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
-#  other_organisation :string
+#  ldap_password          :string
+#  ldap_username          :string
+#  other_organisation     :string
 #  recovery_email         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime

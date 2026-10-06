@@ -1,19 +1,21 @@
-import initAutoComplete from '../../app/javascript/src/utils/autoComplete';
+import { initAutocomplete } from '../../app/javascript/src/utils/autoComplete';
 
-describe('autoComplete test suite', () => {
-  beforeAll(() => fixture.setBase('./spec/javascripts/fixtures'));
+describe('autocomplete', () => {
+  afterEach(() => $('body').empty());
 
-  beforeEach(() => {
-    $('body').html(fixture.load('autoComplete.html'));
-    initAutoComplete();
-    // Override the form submission, we are just going to validate the ariatisation of the form
-    $('form').trigger('submit', (e) => { e.preventDefault(); });
-  });
+  it('keeps the selected organisation record in the hidden field', () => {
+    $('body').append(`
+      <form>
+        <input id="org_name" value="Example University">
+        <input id="org_crosswalk" value='[{"name":"Example University","id":42}]'>
+        <input id="org_sources" value='["Example University"]'>
+        <input class="autocomplete-result" type="hidden">
+        <div id="org_ui-front"></div>
+      </form>
+    `);
 
-  // TODO : Needs fixing, tests need to have at least one it() in a describe()
+    initAutocomplete('#org_name');
 
-  afterEach(() => {
-    fixture.cleanup();
-    $('body').html('');
+    expect($('.autocomplete-result').val()).toBe('{"name":"Example University","id":42}');
   });
 });

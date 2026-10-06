@@ -1,5 +1,16 @@
 # Changelog
 
+## v6.0.0
+
+- Upgrade the required runtime from Ruby 3.1/Rails 7.1 to Ruby 3.4/Rails 8.1
+  and update compatible gems. This release adds no product features or API
+  versions.
+- Adapt existing authentication, enums, routes, exports, and schema dumping
+  for the new framework versions. Continue to support PostgreSQL and MySQL.
+- Update CI for Node 24, asset builds, and PostgreSQL schema drift checks;
+  add regression coverage for API headers, DOCX exports, and permission flags.
+- Replace the Ruby 3.4-incompatible model annotation tool and remove Spring.
+
 ## v5.0.3
 - Patch API token auth to check user's status [#3606](https://github.com/DMPRoadmap/roadmap/pull/3606)
 - fix(policy): harden authorization for plan resources [#3613](https://github.com/DMPRoadmap/roadmap/pull/3613)

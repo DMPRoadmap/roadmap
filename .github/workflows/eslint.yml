@@ -9,17 +9,23 @@ jobs:
 
     steps:
     # Checkout the repo
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
 
     # Install Node
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v5
       with:
         cache: 'yarn'
-        node-version: 18
+        node-version: 24
 
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'
-      run: yarn install
+      run: yarn install --frozen-lockfile
 
     - name: 'Run ESLint'
-      run: yarn run eslint app/javascript/**/*.js --ext .js
+      run: yarn lint
+
+    - name: 'Run JavaScript tests'
+      run: yarn test --reporters dots
+
+    - name: 'Build CSS'
+      run: yarn build:css

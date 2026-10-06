@@ -15,8 +15,6 @@
 #  org_id     :integer
 #
 
-require 'set'
-
 # Object that represents a Nbr of Plans created usage statistic
 class StatCreatedPlan < Stat
   serialize :details, coder: JSON

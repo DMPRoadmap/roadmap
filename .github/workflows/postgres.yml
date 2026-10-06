@@ -9,7 +9,7 @@ jobs:
     services:
       # Postgres installation
       db:
-        image: postgres
+        image: postgres:16
         env:
           # Latest version of Postgres has increased security. We can use the default
           # user/password in this testing scenario though so use the following env
@@ -27,11 +27,10 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
-      DISABLE_SPRING: 1
 
     steps:
       # Checkout the repo
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       # Install Ruby and run bundler
       - uses: ruby/setup-ruby@v1
@@ -42,9 +41,9 @@ jobs:
       ## /home/runner/runners/2.301.1/externals/node12/bin/node: --openssl-legacy-provider is not allowed in NODE_OPTIONS
 
       # Install Node
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v5
         with:
-          node-version: 18
+          node-version: 24
           cache: "yarn"
 
       # Install the Postgres developer packages
@@ -79,15 +78,16 @@ jobs:
       # Run yarn install for JS dependencies
       - name: "Yarn Install"
         run: |
-          yarn install
+          yarn install --frozen-lockfile
 
       # TEMPORARY WORKAROUND FOR THE FOLLOWING ISSUE: https://github.com/DMPRoadmap/roadmap/issues/3485
       # Remove this once our tests are compatible with the new version of Chrome
       # Source: https://github.com/teamcapybara/capybara/issues/2800#issuecomment-2731100953
       - name: Remove image-bundled Chrome
         run: sudo apt-get purge google-chrome-stable
-      - name: Setup stable Chrome
-        uses: browser-actions/setup-chrome@v1
+      - name: Setup Chrome 128
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: 128
           install-chromedriver: true
@@ -98,6 +98,12 @@ jobs:
         run: |
           bundle exec rails db:setup
           bundle exec rails db:migrate
+
+      # PostgreSQL is the canonical source of the shared schema.rb.
+      - name: "Check schema drift"
+        run: |
+          bundle exec rails db:schema:dump
+          git diff --exit-code -- db/schema.rb
 
       # Prebuild the CSS, JS and image assets
       - name: "Compile Assets"
@@ -112,4 +118,9 @@ jobs:
 
       # Run the time consuming integration tests (using Chrome headless browser)
       - name: "Run Integration Tests"
-        run: bundle exec rspec spec/features/
+        env:
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+        run: |
+          "$CHROME_BIN" --version
+          chromedriver --version
+          bundle exec rspec spec/features/
