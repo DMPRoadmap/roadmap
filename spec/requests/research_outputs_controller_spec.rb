@@ -36,47 +36,36 @@ RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
   end
 
   describe 'GET /plans/:plan_id/research_outputs/new with DOI prefill' do
-    it 'does not resolve the DOI again after successful verification' do
+    it 'resolves the DOI once and pre-fills the form' do
       datacite_request = stub_datacite_request(
         body: datacite_json,
         headers: { 'Content-Type' => 'application/json' }
       )
 
-      get fetch_doi_plan_research_outputs_path(plan, doi: doi)
-      expect(response).to have_http_status(:ok)
-
-      get new_plan_research_output_path(plan, prefill_doi: doi),
-          headers: { 'Turbo-Frame' => 'research-output-form' }
+      get new_plan_research_output_path(plan, prefill_doi: doi)
 
       expect(response).to have_http_status(:ok)
       expect(response.body).to include('Example dataset')
       expect(datacite_request).to have_been_requested.once
     end
 
-    it 'retains the verified metadata when a repeated provider lookup would fail' do
-      stub_request(:get, "#{datacite_base_url}/dois/#{CGI.escape(doi)}")
-        .with(headers: { 'Accept' => 'application/vnd.api+json' })
-        .to_return(
-          {
-            status: 200,
-            body: datacite_json,
-            headers: { 'Content-Type' => 'application/json' }
-          },
-          { status: 500 }
-        )
-      stub_crossref_request(status: 500)
+    it 'supports metadata larger than the cookie session limit' do
+      large_description = "A long abstract #{'content ' * 800}"
+      large_datacite_json = JSON.parse(datacite_json)
+      large_datacite_json['data']['attributes']['descriptions'][0]['description'] = large_description
+      stub_datacite_request(
+        body: large_datacite_json.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
 
-      get fetch_doi_plan_research_outputs_path(plan, doi: doi)
-      expect(response).to have_http_status(:ok)
-
-      get new_plan_research_output_path(plan, prefill_doi: doi),
-          headers: { 'Turbo-Frame' => 'research-output-form' }
+      get new_plan_research_output_path(plan, prefill_doi: doi)
 
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include('Example dataset')
+      expect(response.body).to include('A long abstract')
+      expect(session[:doi_prefill_data]).to be_nil
     end
 
-    context 'when navigating directly without calling fetch_doi first' do
+    context 'when resolving the DOI' do
       it 'pre-fills metadata directly if provider lookup succeeds' do
         stub_datacite_request(body: datacite_json, headers: { 'Content-Type' => 'application/json' })
 
@@ -113,6 +102,7 @@ RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
         expect(json_response['title']).to eq('Example dataset')
         expect(json_response['output_type']).to eq('dataset')
         expect(json_response['release_date']).to eq('2021-05-12')
+        expect(session[:doi_prefill_data]).to be_nil
       end
     end
 

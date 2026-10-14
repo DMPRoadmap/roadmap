@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+ - Resolve DOI metadata once when pre-filling research outputs [#1427](https://github.com/portagenetwork/roadmap/pull/1427)
+
 ### Dependency Updates
 
  - chore(deps): bump docker/login-action from 4.4.0 to 4.6.0 [#1396](https://github.com/portagenetwork/roadmap/pull/1396)

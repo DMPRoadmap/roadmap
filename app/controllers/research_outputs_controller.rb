@@ -25,7 +25,7 @@ class ResearchOutputsController < ApplicationController
     # Check if a DOI parameter was carried over in the redirect URL query string
     return unless params[:prefill_doi].present?
 
-    prefill_metadata = find_prefill_metadata(params[:prefill_doi])
+    prefill_metadata = resolve_prefill_metadata(params[:prefill_doi])
 
     if prefill_metadata.present?
       @research_output.assign_attributes(
@@ -159,40 +159,16 @@ class ResearchOutputsController < ApplicationController
     authorize ResearchOutput.new(plan_id: params[:plan_id])
 
     result = ExternalApis::DoiResolutionService.fetch_metadata(doi: params[:doi])
-    return store_and_render_doi(result[:metadata]) if result[:status] == :ok
+    return render json: result[:metadata] if result[:status] == :ok
 
     render_doi_error(result[:status])
   end
 
   private
 
-  def find_prefill_metadata(doi_param)
-    clean_doi = clean_doi_str(doi_param)
-
-    session_metadata = extract_session_prefill_metadata(clean_doi)
-    return session_metadata if session_metadata.present?
-
-    result = ExternalApis::DoiResolutionService.fetch_metadata(doi: doi_param)
-    result[:status] == :ok ? result[:metadata] : nil
-  end
-
-  def store_and_render_doi(metadata)
-    session[:doi_prefill_data] = {
-      'doi' => clean_doi_str(params[:doi]),
-      'metadata' => metadata
-    }
-    render json: metadata
-  end
-
-  def extract_session_prefill_metadata(clean_doi)
-    session_data = session[:doi_prefill_data]
-    return nil unless session_data.is_a?(Hash) && session_data['doi'] == clean_doi && session_data['metadata'].present?
-
-    session.delete(:doi_prefill_data)['metadata'].symbolize_keys
-  end
-
-  def clean_doi_str(doi_param)
-    doi_param.to_s.strip.downcase.gsub(%r{^https?://doi.org/}, '')
+  def resolve_prefill_metadata(doi)
+    result = ExternalApis::DoiResolutionService.fetch_metadata(doi: doi)
+    result[:metadata] if result[:status] == :ok
   end
 
   def render_doi_error(status)

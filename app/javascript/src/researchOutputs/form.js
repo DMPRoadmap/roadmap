@@ -23,7 +23,8 @@ $(() => {
     }
   });
 
-  // DOI Verification & Redirect to New Form
+  // Resolve and prefill the DOI in the new form request. Keeping resolution in
+  // one request avoids storing arbitrary provider metadata in the cookie session.
   $('body').on('click', '#btn_fetch_doi', (e) => {
     e.preventDefault();
     const button = $(e.currentTarget);
@@ -32,7 +33,6 @@ $(() => {
     
     const doi = inputField.val().trim();
     
-    const fetchDoiPath = button.data('fetch-doi-path');
     const newResearchOutputPath = button.data('new-research-output-path');
 
     // Helper for DRY-ing state updates
@@ -48,22 +48,7 @@ $(() => {
     button.prop('disabled', true).text(getConstant('DOI_VALIDATION_VERIFYING'));
     setLookupStatus('text-muted', getConstant('DOI_VALIDATION_FETCHING'));
 
-    $.ajax({
-      url: fetchDoiPath,
-      method: 'GET',
-      data: { doi },
-      dataType: 'json'
-    }).done(() => {
-      setLookupStatus('text-success', getConstant('DOI_VALIDATION_SUCCESS'));
-      
-      // Dynamic browser redirection to the standard "New" view layout route
-      window.location.href = `${newResearchOutputPath}?prefill_doi=${encodeURIComponent(doi)}`;
-    }).fail((xhr) => {
-      button.prop('disabled', false).text(getConstant('DOI_BUTTON_TEXT_DEFAULT'));
-      const response = xhr.responseJSON;
-      const errorMsg = response && response.error ? response.error : getConstant('DOI_VALIDATION_FALLBACK_ERROR');
-      setLookupStatus('text-danger', errorMsg);
-    });
+    window.location.href = `${newResearchOutputPath}?prefill_doi=${encodeURIComponent(doi)}`;
   });
 
 
