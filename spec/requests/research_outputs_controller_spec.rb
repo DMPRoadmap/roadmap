@@ -65,80 +65,26 @@ RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
       expect(session[:doi_prefill_data]).to be_nil
     end
 
-    context 'when resolving the DOI' do
-      it 'pre-fills metadata directly if provider lookup succeeds' do
-        stub_datacite_request(body: datacite_json, headers: { 'Content-Type' => 'application/json' })
-
-        get new_plan_research_output_path(plan, prefill_doi: doi)
-
-        expect(response).to have_http_status(:ok)
-        expect(response.body).to include('Example dataset')
-        expect(flash[:alert]).to be_nil
-      end
-
-      it 'displays a flash alert warning if direct lookup fails' do
+    context 'when resolving the DOI fails' do
+      it 'tells the user when providers are unavailable' do
         stub_datacite_request(status: 500)
         stub_crossref_request(status: 500)
 
         get new_plan_research_output_path(plan, prefill_doi: doi)
 
         expect(response).to have_http_status(:ok)
-        expect(flash.now[:alert]).to eq('Unable to fetch metadata for the provided DOI. Showing empty form.')
-      end
-    end
-  end
-
-  describe 'GET /plans/:plan_id/research_outputs/fetch_doi' do
-    context 'with a valid DOI' do
-      it 'returns a successful 200 OK JSON response' do
-        stub_datacite_request(body: datacite_json, headers: { 'Content-Type' => 'application/json' })
-
-        get fetch_doi_plan_research_outputs_path(plan, doi: doi)
-
-        expect(response.code).to eql('200')
-        expect(response.content_type).to include('application/json')
-
-        json_response = JSON.parse(response.body)
-        expect(json_response['title']).to eq('Example dataset')
-        expect(json_response['output_type']).to eq('dataset')
-        expect(json_response['release_date']).to eq('2021-05-12')
-        expect(session[:doi_prefill_data]).to be_nil
-      end
-    end
-
-    context 'when DOI parameter is missing' do
-      it 'returns a 400 Bad Request JSON response' do
-        get fetch_doi_plan_research_outputs_path(plan, doi: '')
-
-        expect(response.code).to eql('400')
-        expect(JSON.parse(response.body)['error']).to eq('DOI is required.')
-      end
-    end
-
-    context 'when the service cannot find the DOI' do
-      before do
-        # stub both services to return 404
-        stub_datacite_request(target_doi: '10.5281/not-found', status: 404, body: '')
-        stub_crossref_request(target_doi: '10.5281/not-found', status: 404, body: '')
+        expect(response.body).to include('DOI lookup service is currently unavailable')
       end
 
-      it 'returns a 404 Not Found JSON response' do
-        get fetch_doi_plan_research_outputs_path(plan, doi: '10.5281/not-found')
-        expect(response.code).to eql('404')
-      end
-    end
+      it 'tells the user when metadata cannot be found' do
+        missing_doi = '10.5281/not-found'
+        stub_datacite_request(target_doi: missing_doi, status: 404)
+        stub_crossref_request(target_doi: missing_doi, status: 404)
 
-    context 'when providers encounter a timeout or outage' do
-      before do
-        stub_datacite_request(status: 500)
-        stub_crossref_request(status: 500)
-      end
+        get new_plan_research_output_path(plan, prefill_doi: missing_doi)
 
-      it 'returns a 503 Service Unavailable status' do
-        get fetch_doi_plan_research_outputs_path(plan, doi: doi)
-
-        expect(response.code).to eql('503')
-        expect(JSON.parse(response.body)['error']).to include('service is currently unavailable')
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('Could not find metadata for the provided DOI.')
       end
     end
   end

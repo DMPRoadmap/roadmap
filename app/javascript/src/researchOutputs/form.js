@@ -23,8 +23,7 @@ $(() => {
     }
   });
 
-  // Resolve and prefill the DOI in the new form request. Keeping resolution in
-  // one request avoids storing arbitrary provider metadata in the cookie session.
+  // Resolve the DOI in the new form request to avoid a second provider lookup.
   $('body').on('click', '#btn_fetch_doi', (e) => {
     e.preventDefault();
     const button = $(e.currentTarget);
@@ -44,9 +43,6 @@ $(() => {
       setLookupStatus('text-danger', getConstant('DOI_VALIDATION_EMPTY'));
       return;
     }
-
-    button.prop('disabled', true).text(getConstant('DOI_VALIDATION_VERIFYING'));
-    setLookupStatus('text-muted', getConstant('DOI_VALIDATION_FETCHING'));
 
     window.location.href = `${newResearchOutputPath}?prefill_doi=${encodeURIComponent(doi)}`;
   });

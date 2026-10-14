@@ -25,15 +25,7 @@ class ResearchOutputsController < ApplicationController
     # Check if a DOI parameter was carried over in the redirect URL query string
     return unless params[:prefill_doi].present?
 
-    prefill_metadata = resolve_prefill_metadata(params[:prefill_doi])
-
-    if prefill_metadata.present?
-      @research_output.assign_attributes(
-        prefill_metadata.slice(:title, :description, :output_type, :release_date)
-      )
-    else
-      flash.now[:alert] = _('Unable to fetch metadata for the provided DOI. Showing empty form.')
-    end
+    prefill_from_doi(params[:prefill_doi])
   end
 
   # GET /plans/:plan_id/research_outputs/:id/edit
@@ -155,38 +147,32 @@ class ResearchOutputsController < ApplicationController
                                       .page(params[:page])
   end
 
-  def fetch_doi
-    authorize ResearchOutput.new(plan_id: params[:plan_id])
-
-    result = ExternalApis::DoiResolutionService.fetch_metadata(doi: params[:doi])
-    return render json: result[:metadata] if result[:status] == :ok
-
-    render_doi_error(result[:status])
-  end
-
   private
 
-  def resolve_prefill_metadata(doi)
+  def prefill_from_doi(doi)
     result = ExternalApis::DoiResolutionService.fetch_metadata(doi: doi)
-    result[:metadata] if result[:status] == :ok
+    if result[:status] == :ok
+      @research_output.assign_attributes(
+        result[:metadata].slice(:title, :description, :output_type, :release_date)
+      )
+    else
+      flash.now[:alert] = doi_error_message(result[:status])
+    end
   end
 
-  def render_doi_error(status)
-    message, http_status = case status
-                           when :blank
-                             [_('DOI is required.'), :bad_request]
-                           when :invalid
-                             [_('Does not appear to be a valid DOI.'), :bad_request]
-                           when :not_found
-                             [_('Could not find metadata for the provided DOI.'), :not_found]
-                           when :service_unavailable
-                             [_('DOI lookup service is currently unavailable. Please enter details manually.'),
-                              :service_unavailable]
-                           else
-                             [_('An unexpected error occurred.'), :internal_server_error]
-                           end
-
-    render json: { error: message }, status: http_status
+  def doi_error_message(status)
+    case status
+    when :blank
+      _('DOI is required.')
+    when :invalid
+      _('Does not appear to be a valid DOI.')
+    when :not_found
+      _('Could not find metadata for the provided DOI.')
+    when :service_unavailable
+      _('DOI lookup service is currently unavailable. Please enter details manually.')
+    else
+      _('An unexpected error occurred.')
+    end
   end
 
   def output_params
