@@ -24,7 +24,7 @@ $(() => {
   });
 
   // Resolve the DOI in the new form request to avoid a second provider lookup.
-  $('body').on('click', '#btn_fetch_doi', (e) => {
+  $('body').on('click', '#btn_prefill_doi', (e) => {
     e.preventDefault();
     const button = $(e.currentTarget);
     const inputField = $('#doi_lookup_input');

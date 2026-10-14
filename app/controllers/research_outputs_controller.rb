@@ -22,7 +22,7 @@ class ResearchOutputsController < ApplicationController
     @research_output = ResearchOutput.new(plan_id: @plan.id, output_type: nil)
     authorize @research_output
 
-    # Check if a DOI parameter was carried over in the redirect URL query string
+    # Pre-fill from a DOI supplied in the query string
     return unless params[:prefill_doi].present?
 
     prefill_from_doi(params[:prefill_doi])

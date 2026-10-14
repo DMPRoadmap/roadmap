@@ -46,6 +46,10 @@ RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
 
       expect(response).to have_http_status(:ok)
       expect(response.body).to include('Example dataset')
+      document = Nokogiri::HTML(response.body)
+      expect(document.at_css('#research_output_output_type option[selected]')['value']).to eq('dataset')
+      expect(document.at_css('#research_output_release_date')['value']).to eq('2021-05-12')
+      expect(flash[:alert]).to be_nil
       expect(datacite_request).to have_been_requested.once
     end
 
@@ -63,6 +67,18 @@ RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.body).to include('A long abstract')
       expect(session[:doi_prefill_data]).to be_nil
+    end
+
+    it 'rejects an invalid DOI without calling providers' do
+      datacite_request = stub_request(:get, /api\.datacite\.org/)
+      crossref_request = stub_request(:get, /api\.crossref\.org/)
+
+      get new_plan_research_output_path(plan, prefill_doi: 'xxxx 10.1234/example')
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include('Does not appear to be a valid DOI.')
+      expect(datacite_request).not_to have_been_requested
+      expect(crossref_request).not_to have_been_requested
     end
 
     context 'when resolving the DOI fails' do
