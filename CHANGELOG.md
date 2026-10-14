@@ -4,7 +4,7 @@
 
 ### Fixed
 
- - Resolve DOI metadata once when pre-filling research outputs [#1427](https://github.com/portagenetwork/roadmap/pull/1427)
+ - Resolve DOI metadata once when pre-filling research outputs, with specific lookup errors and retry [#1427](https://github.com/portagenetwork/roadmap/pull/1427)
 
 ### Dependency Updates
 
