@@ -1,6 +1,6 @@
 import getConstant from '../utils/constants';
 import { isUndefined, isObject } from '../utils/isType';
-import { Tinymce } from '../utils/tinymce.js';
+import { Tinymce } from '../utils/tinymce';
 
 const STATUS_CLASSES = 'd-none text-muted text-danger text-success';
 
@@ -27,7 +27,7 @@ $(() => {
     const panel = $('#doi_lookup_panel');
 
     panel.toggleClass('d-none');
-    
+
     if (!panel.hasClass('d-none')) {
       $('#doi_lookup_input').focus();
     }
@@ -39,9 +39,10 @@ $(() => {
     const button = $(e.currentTarget);
     const inputField = $('#doi_lookup_input');
     const statusText = $('#doi_lookup_status');
-    
+
     const doi = inputField.val().trim();
-    
+    const cleanDoi = doi.replace(/^https?:\/\/doi\.org\//i, '');
+
     const newResearchOutputPath = button.data('new-research-output-path');
 
     // Helper for DRY-ing state updates
@@ -54,10 +55,17 @@ $(() => {
       return;
     }
 
+    const modernDoiPattern = new RegExp(`^(?:${getConstant('DOI_MODERN_PATTERN')})$`, 'i');
+    const oldDoiPattern = new RegExp(`^(?:${getConstant('DOI_OLD_PATTERN')})$`, 'i');
+
+    if (!modernDoiPattern.test(cleanDoi) && !oldDoiPattern.test(cleanDoi)) {
+      setLookupStatus('text-danger', getConstant('DOI_VALIDATION_INVALID'));
+      return;
+    }
+
     button.prop('disabled', true).text(getConstant('DOI_VALIDATION_VERIFYING'));
     window.location.href = `${newResearchOutputPath}?prefill_doi=${encodeURIComponent(doi)}`;
   });
-
 
   // Expands/Collapses the search results 'More info'/'Less info' section
   $('body').on('click', '.modal-search-result .more-info a.more-info-link', (e) => {

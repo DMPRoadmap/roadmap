@@ -155,6 +155,9 @@ class ResearchOutputsController < ApplicationController
       @research_output.assign_attributes(
         result[:metadata].slice(:title, :description, :output_type, :release_date)
       )
+    elsif %i[invalid not_found].include?(result[:status])
+      redirect_to plan_research_outputs_path(@plan, prefill_doi: doi),
+                  alert: doi_error_message(result[:status])
     else
       flash.now[:alert] = doi_error_message(result[:status])
     end
@@ -167,7 +170,7 @@ class ResearchOutputsController < ApplicationController
     when :invalid
       _('Does not appear to be a valid DOI.')
     when :not_found
-      _('Could not find metadata for the provided DOI.')
+      _('Could not find metadata for the provided DOI. Please check the DOI and try again, or enter details manually.')
     when :service_unavailable
       _('DOI lookup service is currently unavailable. Please enter details manually.')
     else

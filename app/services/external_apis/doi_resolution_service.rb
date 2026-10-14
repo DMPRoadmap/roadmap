@@ -11,13 +11,17 @@ module ExternalApis
     ALLOWED_TAGS = %w[p br strong em ul ol li blockquote a].freeze
     ALLOWED_ATTRIBUTES = %w[href title].freeze
 
+    # Browser-compatible patterns shared with the client-side validation.
+    MODERN_DOI_PATTERN = '10\.\d{4,9}/[-._;()/:A-Z0-9]+'
+    OLD_DOI_PATTERN = '10\.1002/[^\s]+'
+
+    # Matches ~99% of modern Crossref DOIs
+    MODERN_DOI_REGEX = /\A#{MODERN_DOI_PATTERN}\z/i
+
+    # Catch-all for early DOIs with complex/opaque formatting
+    OLD_DOI_REGEX = /\A#{OLD_DOI_PATTERN}\z/i
+
     class << self
-      # Matches ~99% of modern Crossref DOIs
-      MODERN_DOI_REGEX = %r{\A10\.\d{4,9}/[-._;()/:A-Z0-9]+\z}i
-
-      # Catch-all for early DOIs with complex/opaque formatting
-      OLD_DOI_REGEX = %r{\A10\.1002/[^\s]+\z}i
-
       def active?
         Rails.configuration.x.datacite&.active || Rails.configuration.x.crossref&.active
       end

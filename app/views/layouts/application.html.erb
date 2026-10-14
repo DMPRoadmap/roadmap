@@ -171,8 +171,11 @@
       OTHER_TEMPLATES: _('Additional Alliance Templates'),
 
       DOI_VALIDATION_EMPTY: _('Please enter a DOI string.'),
+      DOI_VALIDATION_INVALID: _('Does not appear to be a valid DOI.'),
       DOI_VALIDATION_VERIFYING: _('Verifying...'),
       DOI_BUTTON_TEXT_DEFAULT: _('Fetch & Add'),
+      DOI_MODERN_PATTERN: ExternalApis::DoiResolutionService::MODERN_DOI_PATTERN,
+      DOI_OLD_PATTERN: ExternalApis::DoiResolutionService::OLD_DOI_PATTERN,
     }.to_json
     %>
 

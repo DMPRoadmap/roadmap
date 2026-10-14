@@ -70,15 +70,20 @@ RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
     end
 
     it 'rejects an invalid DOI without calling providers' do
+      invalid_doi = 'xxxx 10.1234/example'
       datacite_request = stub_request(:get, /api\.datacite\.org/)
       crossref_request = stub_request(:get, /api\.crossref\.org/)
 
-      get new_plan_research_output_path(plan, prefill_doi: 'xxxx 10.1234/example')
+      get new_plan_research_output_path(plan, prefill_doi: invalid_doi)
 
-      expect(response).to have_http_status(:ok)
-      expect(response.body).to include('Does not appear to be a valid DOI.')
+      expect(response).to redirect_to(plan_research_outputs_path(plan, prefill_doi: invalid_doi))
       expect(datacite_request).not_to have_been_requested
       expect(crossref_request).not_to have_been_requested
+
+      follow_redirect!
+
+      expect(response.body).to include('Does not appear to be a valid DOI.')
+      expect_doi_retry_panel(invalid_doi)
     end
 
     context 'when resolving the DOI fails' do
@@ -99,13 +104,23 @@ RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
 
         get new_plan_research_output_path(plan, prefill_doi: missing_doi)
 
-        expect(response).to have_http_status(:ok)
+        expect(response).to redirect_to(plan_research_outputs_path(plan, prefill_doi: missing_doi))
+
+        follow_redirect!
+
         expect(response.body).to include('Could not find metadata for the provided DOI.')
+        expect_doi_retry_panel(missing_doi)
       end
     end
   end
 
   private
+
+  def expect_doi_retry_panel(expected_doi)
+    document = Nokogiri::HTML(response.body)
+    expect(document.at_css('#doi_lookup_panel')['class']).not_to include('d-none')
+    expect(document.at_css('#doi_lookup_input')['value']).to eq(expected_doi)
+  end
 
   def stub_datacite_request(target_doi: doi, status: 200, body: '', headers: {})
     escaped_path = CGI.escape(target_doi)
