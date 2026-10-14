@@ -11,6 +11,16 @@ $(() => {
     Tinymce.init({ selector: '#research_output_description' });
   }
 
+  // Browsers can preserve the disabled button when restoring this page from
+  // the back-forward cache, so reset it when the page is shown again.
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      $('#btn_prefill_doi')
+        .prop('disabled', false)
+        .text(getConstant('DOI_BUTTON_TEXT_DEFAULT'));
+    }
+  });
+
   // Toggle DOI form visibility
   $('body').on('click', '#btn_toggle_doi_form', (e) => {
     e.preventDefault();
@@ -44,6 +54,7 @@ $(() => {
       return;
     }
 
+    button.prop('disabled', true).text(getConstant('DOI_VALIDATION_VERIFYING'));
     window.location.href = `${newResearchOutputPath}?prefill_doi=${encodeURIComponent(doi)}`;
   });
 
