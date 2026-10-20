@@ -43,7 +43,7 @@ $(() => {
     const doi = inputField.val().trim();
     const cleanDoi = doi.replace(/^https?:\/\/doi\.org\//i, '');
 
-    const newResearchOutputPath = button.data('new-research-output-path');
+    const prefillPath = button.data('prefill-path');
 
     // Helper for DRY-ing state updates
     const setLookupStatus = (type, message) => {
@@ -64,7 +64,7 @@ $(() => {
     }
 
     button.prop('disabled', true).text(getConstant('DOI_VALIDATION_VERIFYING'));
-    window.location.href = `${newResearchOutputPath}?prefill_doi=${encodeURIComponent(doi)}`;
+    window.location.href = `${prefillPath}?prefill_doi=${encodeURIComponent(doi)}`;
   });
 
   // Expands/Collapses the search results 'More info'/'Less info' section

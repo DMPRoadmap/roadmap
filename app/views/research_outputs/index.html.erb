@@ -1,7 +1,4 @@
 <% title sanitize(_("%{plan_title} - research outputs") % {plan_title: @plan.title}) %>
-
-
-
 <div class="row">
   <div class="col-md-12">
     <!-- render the project title -->
@@ -32,43 +29,7 @@
         <div class="mb-3">
           <%= link_to _("Add a research output"), new_plan_research_output_path(@plan),
                                               class: "btn btn-primary" %>
-          <% if ExternalApis::DoiResolutionService.active? %>
-            <button id="btn_toggle_doi_form" type="button" class="btn btn-secondary">
-                <%= _("Add from DOI") %>
-            </button>
-          <% end %>
         </div>
-
-        <% if ExternalApis::DoiResolutionService.active? %>
-          <div id="doi_lookup_panel" class="card <%= 'd-none' unless params[:prefill_doi].present? %> my-3">
-            <div class="card-body">
-              <div class="mb-0">
-                <label for="doi_lookup_input" class="form-label fw-bold">
-                  <%= _("Pre-fill with DOI") %>
-                </label>
-                <p class="form-label mt-0 mb-2">
-                  <%= _("Enter a DOI (e.g., 10.5281/zenodo.4884775) to automatically import its metadata into a new form.") %>
-                </p>
-                
-                <div class="input-group">
-                  <input type="text" 
-                         id="doi_lookup_input" 
-                         class="form-control" 
-                         placeholder="10.xxxx/xxxxxx"
-                         value="<%= params[:prefill_doi] %>">
-                  <button id="btn_prefill_doi"
-                          class="btn" 
-                          type="button"
-                          data-new-research-output-path="<%= new_plan_research_output_path(@plan) %>">
-                    <%= _("Fetch & Add") %>
-                  </button>
-                </div>
-                
-                <span id="doi_lookup_status" class="form-text d-none mt-2 mb-0"></span>
-              </div>
-            </div>
-          </div>
-        <% end %>
       <% end %>
     </div>
   </div>

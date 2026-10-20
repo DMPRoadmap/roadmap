@@ -5,6 +5,9 @@ require 'rails_helper'
 RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
   let(:user) { create(:user) }
   let(:plan) { create(:plan) }
+  let!(:doi_scheme) do
+    create(:identifier_scheme, name: 'doi', identifier_prefix: 'https://doi.org', active: true)
+  end
   let(:doi) { '10.5281/zenodo.4884775' }
   let(:datacite_base_url) { 'https://api.datacite.org' }
   let(:crossref_base_url) { 'https://api.crossref.org' }
@@ -47,6 +50,7 @@ RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.body).to include('Example dataset')
       document = Nokogiri::HTML(response.body)
+      expect(document.at_css('#doi_lookup_input')['value']).to eq(doi)
       expect(document.at_css('#research_output_output_type option[selected]')['value']).to eq('dataset')
       expect(document.at_css('#research_output_release_date')['value']).to eq('2021-05-12')
       expect(flash[:alert]).to be_nil
@@ -83,7 +87,6 @@ RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
       follow_redirect!
 
       expect(response.body).to include('Does not appear to be a valid DOI.')
-      expect_doi_retry_panel(invalid_doi)
     end
 
     context 'when resolving the DOI fails' do
@@ -109,18 +112,112 @@ RSpec.describe 'ResearchOutputs DOI Fetching', type: :request do
         follow_redirect!
 
         expect(response.body).to include('Could not find metadata for the provided DOI.')
-        expect_doi_retry_panel(missing_doi)
       end
     end
   end
 
-  private
+  describe 'DOI persistence on research outputs' do
+    let(:research_output_params) do
+      {
+        title: 'Output with DOI',
+        output_type: 'dataset',
+        access: 'open',
+        prefill_doi: doi
+      }
+    end
 
-  def expect_doi_retry_panel(expected_doi)
-    document = Nokogiri::HTML(response.body)
-    expect(document.at_css('#doi_lookup_panel')['class']).not_to include('d-none')
-    expect(document.at_css('#doi_lookup_input')['value']).to eq(expected_doi)
+    it 'persists the DOI identifier when creating a research output' do
+      post plan_research_outputs_path(plan), params: { prefill_doi: doi, research_output: research_output_params }
+
+      expect(response).to redirect_to(plan_research_outputs_path(plan))
+
+      research_output = ResearchOutput.order(:id).last
+      identifier = research_output.identifier_for_scheme(scheme: 'doi')
+      expect(identifier).to be_present
+      expect(identifier.value_without_scheme_prefix).to eq(doi)
+    end
+
+    it 'replaces the DOI identifier when updating a research output' do
+      research_output = create(:research_output, plan: plan, repositories_count: 0, metadata_standards_count: 0)
+      research_output.identifiers.create!(identifier_scheme: doi_scheme, value: '10.1111/original-doi')
+
+      patch plan_research_output_path(plan, research_output), params: {
+        prefill_doi: doi,
+        research_output: {
+          title: research_output.title,
+          output_type: research_output.output_type,
+          access: research_output.access
+        }
+      }
+
+      expect(response).to redirect_to(plan_research_outputs_path(plan))
+
+      research_output.reload
+      identifier = research_output.identifier_for_scheme(scheme: 'doi')
+      expect(research_output.identifiers.where(identifier_scheme: doi_scheme).count).to eq(1)
+      expect(identifier.value_without_scheme_prefix).to eq(doi)
+    end
+
+    it 'shows the persisted DOI on the edit form when no prefill param is supplied' do
+      research_output = create(:research_output, plan: plan, repositories_count: 0, metadata_standards_count: 0)
+      research_output.identifiers.create!(identifier_scheme: doi_scheme, value: doi)
+
+      get edit_plan_research_output_path(plan, research_output)
+
+      expect(response).to have_http_status(:ok)
+      document = Nokogiri::HTML(response.body)
+      expect(document.at_css('#doi_lookup_input')['value']).to eq(doi)
+    end
+
+    it 'updates the existing research output from DOI prefill without creating a new record' do
+      research_output = create(
+        :research_output,
+        plan: plan,
+        title: 'Original title',
+        description: 'Original description',
+        output_type: 'text',
+        release_date: '2020-01-01'
+      )
+
+      datacite_request = stub_datacite_request(
+        body: datacite_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+
+      get edit_plan_research_output_path(plan, research_output, prefill_doi: doi)
+
+      expect(response).to have_http_status(:ok)
+      document = Nokogiri::HTML(response.body)
+      expect(document.at_css('#research_output_title')['value']).to eq('Example dataset')
+      expect(document.at_css('#research_output_release_date')['value']).to eq('2021-05-12')
+
+      original_count = ResearchOutput.count
+
+      patch plan_research_output_path(plan, research_output), params: {
+        prefill_doi: doi,
+        research_output: {
+          title: 'Example dataset',
+          description: 'Abstract description text...',
+          output_type: 'dataset',
+          access: research_output.access,
+          release_date: '2021-05-12'
+        }
+      }
+
+      expect(response).to redirect_to(plan_research_outputs_path(plan))
+      expect(datacite_request).to have_been_requested.once
+      expect(ResearchOutput.count).to eq(original_count)
+
+      research_output.reload
+      expect(research_output.title).to eq('Example dataset')
+      expect(research_output.description).to include('Abstract description text...')
+      expect(research_output.output_type).to eq('dataset')
+      expect(research_output.release_date.to_date).to eq(Date.parse('2021-05-12'))
+      expect(research_output.identifier_for_scheme(scheme: 'doi')&.value_without_scheme_prefix).to eq(doi)
+    end
   end
+
+  private
 
   def stub_datacite_request(target_doi: doi, status: 200, body: '', headers: {})
     escaped_path = CGI.escape(target_doi)

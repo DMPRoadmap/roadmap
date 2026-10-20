@@ -24,13 +24,17 @@ class ResearchOutputsController < ApplicationController
 
     # Pre-fill from a DOI supplied in the query string
     return unless params[:prefill_doi].present?
-
+    @prefill_doi = params[:prefill_doi].presence
+    
     prefill_from_doi(params[:prefill_doi])
   end
 
   # GET /plans/:plan_id/research_outputs/:id/edit
   def edit
     authorize @research_output
+    @prefill_doi = params[:prefill_doi].presence ||
+                 @research_output.identifier_for_scheme(scheme: 'doi')&.value_without_scheme_prefix
+    prefill_from_doi(params[:prefill_doi]) if params[:prefill_doi].present?
   end
 
   # POST /plans/:plan_id/research_outputs
@@ -41,6 +45,7 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
 
     if @research_output.save
+      persist_doi_identifier
       redirect_to plan_research_outputs_path(@plan),
                   notice: success_message(@research_output, _('added'))
     else
@@ -61,6 +66,7 @@ class ResearchOutputsController < ApplicationController
     @research_output.metadata_standards.clear
 
     if @research_output.update(args)
+      persist_doi_identifier
       redirect_to plan_research_outputs_path(@plan),
                   notice: success_message(@research_output, _('saved'))
     else
@@ -81,6 +87,19 @@ class ResearchOutputsController < ApplicationController
       redirect_to plan_research_outputs_path(@plan),
                   alert: failure_message(@research_output, _('remove'))
     end
+  end
+
+  def persist_doi_identifier
+    doi = @prefill_doi.presence || params[:prefill_doi].presence
+    return if doi.blank?
+
+    scheme = IdentifierScheme.by_name('doi').first
+    return if scheme.blank?
+
+    identifier = @research_output.identifier_for_scheme(scheme: scheme) ||
+                @research_output.identifiers.build(identifier_scheme: scheme)
+    identifier.value = doi
+    identifier.save!
   end
 
   # ============================

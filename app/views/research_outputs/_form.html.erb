@@ -9,6 +9,37 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
 %>
 
 <%= form_with model: @research_output, url: path, method: method, local: true do |f| %>
+<% if ExternalApis::DoiResolutionService.active? %>
+  <div id="doi_lookup_panel" class="card my-3">
+    <div class="card-body">
+      <div class="mb-0">
+        <label for="doi_lookup_input" class="form-label fw-bold">
+          <%= _("Pre-fill with DOI") %>
+        </label>
+        <p class="form-label mt-0 mb-2">
+          <%= _("Enter a DOI (e.g., 10.5281/zenodo.4884775) to automatically import its metadata into a new form.") %>
+        </p>
+
+        <div class="input-group">
+          <input type="text"
+                 id="doi_lookup_input"
+                 name="prefill_doi"
+                 class="form-control"
+                 placeholder="10.xxxx/xxxxxx"
+                 value="<%= @prefill_doi %>">
+          <button id="btn_prefill_doi"
+                  class="btn"
+                  type="button"
+                  data-prefill-path="<%= research_output.new_record? ? new_plan_research_output_path(plan) : edit_plan_research_output_path(plan, research_output) %>">
+            <%= _("Fetch & Add") %>
+          </button>
+        </div>
+
+        <span id="doi_lookup_status" class="form-text d-none mt-2 mb-0"></span>
+      </div>
+    </div>
+  </div>
+<% end %>
   <div class="form-control mb-3 row">
     <div class="col-md-12">
       <span class="col-md-3"><%= label(:output_type, _("Type"), class: "form-label") %></span>
