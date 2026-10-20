@@ -24,8 +24,9 @@ class ResearchOutputsController < ApplicationController
 
     # Pre-fill from a DOI supplied in the query string
     return unless params[:prefill_doi].present?
+
     @prefill_doi = params[:prefill_doi].presence
-    
+
     prefill_from_doi(params[:prefill_doi])
   end
 
@@ -33,7 +34,7 @@ class ResearchOutputsController < ApplicationController
   def edit
     authorize @research_output
     @prefill_doi = params[:prefill_doi].presence ||
-                 @research_output.identifier_for_scheme(scheme: 'doi')&.value_without_scheme_prefix
+                   @research_output.identifier_for_scheme(scheme: 'doi')&.value_without_scheme_prefix
     prefill_from_doi(params[:prefill_doi]) if params[:prefill_doi].present?
   end
 
@@ -97,7 +98,7 @@ class ResearchOutputsController < ApplicationController
     return if scheme.blank?
 
     identifier = @research_output.identifier_for_scheme(scheme: scheme) ||
-                @research_output.identifiers.build(identifier_scheme: scheme)
+                 @research_output.identifiers.build(identifier_scheme: scheme)
     identifier.value = doi
     identifier.save!
   end
