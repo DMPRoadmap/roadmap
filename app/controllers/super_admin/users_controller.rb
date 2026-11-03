@@ -42,6 +42,7 @@ module SuperAdmin
 
       if @user.update(attrs)
         # If its a new Org create it
+        # TODO: Confirm this fallback is still reachable; org_from_params may already save new orgs and identifiers.
         if lookup.present? && lookup.new_record?
           lookup.save
           identifiers.each do |identifier|
