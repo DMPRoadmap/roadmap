@@ -10,7 +10,7 @@ module SuperAdmin
     # GET /super_admin/users/:id/edit
     def edit
       @user = User.find(params[:id])
-      authorize @user
+      authorize @user, :super_admin_edit?
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
       render 'super_admin/users/edit',
@@ -24,40 +24,27 @@ module SuperAdmin
     end
 
     # PUT /super_admin/users/:id
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def update
       @user = User.find(params[:id])
-      authorize @user
-      @departments = @user.org.departments.order(:name)
+      authorize @user, :super_admin_update?
       @plans = Plan.active(@user).page(1)
-      # See if the user selected a new Org via the Org Lookup and
-      # convert it into an Org
+      # OrgSelectable resolves existing organizations and persists new ones,
+      # including their identifiers, before returning the selected record.
       attrs = user_params
       lookup = org_from_params(params_in: attrs)
-      identifiers = identifiers_from_params(params_in: attrs)
-
-      # Remove the extraneous Org Selector hidden fields
       attrs = remove_org_selection_params(params_in: attrs)
+      attrs[:org_id] = lookup.id if lookup.present?
 
       if @user.update(attrs)
-        # If its a new Org create it
-        if lookup.present? && lookup.new_record?
-          lookup.save
-          identifiers.each do |identifier|
-            identifier.identifiable = lookup
-            identifier.save
-          end
-          lookup.reload
-        end
-        @user.update(org_id: lookup.id) if lookup.present?
-
         flash.now[:notice] = success_message(@user, _('updated'))
       else
         flash.now[:alert] = failure_message(@user, _('update'))
       end
-      render :edit
+      @departments = @user.org.departments.order(:name)
+      render :edit, status: @user.errors.any? ? :unprocessable_content : :ok
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
 
     # PUT /super_admin/users/:id/merge
     # rubocop:disable Metrics/AbcSize
