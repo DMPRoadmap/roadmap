@@ -1,5 +1,11 @@
 # Changelog
 
+## v6.0.1
+
+Security and maintenance release with regression coverage and compatibility
+updates. No database migration is required. Detailed advisories and disclosure
+credits will be published separately after the release is available.
+
 ## v6.0.0
 
 - Upgrade the required runtime from Ruby 3.1/Rails 7.1 to Ruby 3.4/Rails 8.1

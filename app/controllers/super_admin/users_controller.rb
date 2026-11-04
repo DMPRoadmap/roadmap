@@ -10,7 +10,7 @@ module SuperAdmin
     # GET /super_admin/users/:id/edit
     def edit
       @user = User.find(params[:id])
-      authorize @user
+      authorize @user, :super_admin_edit?
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
       render 'super_admin/users/edit',
@@ -27,7 +27,7 @@ module SuperAdmin
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
       @user = User.find(params[:id])
-      authorize @user
+      authorize @user, :super_admin_update?
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
       # See if the user selected a new Org via the Org Lookup and
