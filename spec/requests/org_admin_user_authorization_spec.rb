@@ -244,6 +244,23 @@ RSpec.describe 'Organization admin user authorization', type: :request do
       expect(target.department).to be_nil
     end
 
+    it 'allows super admins to change organization and department together' do
+      new_org = create(:org)
+      new_department = create(:department, org: new_org)
+
+      put "/super_admin/users/#{target.id}",
+          params: {
+            user: {
+              org_id: { id: new_org.id, name: new_org.name }.to_json,
+              department_id: new_department.id
+            }
+          }
+
+      expect(response).to have_http_status(:ok)
+      expect(target.reload.org).to eq(new_org)
+      expect(target.department).to eq(new_department)
+    end
+
     it 'allows super-admin profile updates across organizations' do
       put "/super_admin/users/#{target.id}", params: { user: { email: 'changed@example.test' } }
 
