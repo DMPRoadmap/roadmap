@@ -46,7 +46,7 @@ end
 # Note, all prefixes of the directory you want to translate must be defined here
 def ignore_paths
   Dir.glob('**/*').select { |f| File.directory? f }
-                  .collect { |name| "#{name}/" }
+     .collect { |name| "#{name}/" }
   - ['app/',
      'node_modules/',
      'app/views/',
