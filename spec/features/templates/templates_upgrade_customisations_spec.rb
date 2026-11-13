@@ -36,7 +36,10 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     click_link('Customisable Templates')
 
     click_button 'Actions'
-    expect { click_link 'Customise' }.to change { Template.count }.by(1)
+    template_count = Template.count
+    click_link 'Customise'
+    expect(page).to have_current_path(%r{\A/org_admin/templates/\d+\z})
+    expect(Template.count).to eq(template_count + 1)
 
     customized_template = Template.last
 
@@ -48,6 +51,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     # Publish our customisation
     click_button 'Actions'
     click_link 'Publish'
+    expect(page).to have_css("#template_#{funder_template.id} td:nth-child(3)", text: 'Published')
     expect(customized_template.reload.published?).to eql(true)
 
     # Move to the other funder Org's Templates
@@ -64,11 +68,14 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     click_link(funder_template.phases.first.title)
 
     click_link 'Add a new section'
+    section_count = Section.count
     within('#new_section_new_section') do
       fill_in :new_section_section_title, with: 'Cool New section title'
       tinymce_fill_in :new_section_section_description, with: 'New section Description'
-      expect { click_button('Save') }.to change { Section.count }.by(3)
+      click_button 'Save'
     end
+    expect(page).to have_no_css('#new_section_new_section')
+    expect(Section.count).to eq(section_count + 3)
 
     within("#section-#{Section.last.id}") do
       within('.new-question-button') do
@@ -76,10 +83,13 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
       end
 
       expect(page).to have_selector('#new_question_new_question')
+      question_count = Question.count
       within('#new_question_new_question') do
         tinymce_fill_in :new_question_question_text, with: 'Text for this specific question'
-        expect { click_button('Save') }.to change { Question.count }.by(1)
+        click_button 'Save'
       end
+      expect(page).to have_no_css('#new_question_new_question')
+      expect(Question.count).to eq(question_count + 1)
     end
 
     new_funder_template = Template.last
@@ -88,6 +98,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
 
     click_button 'Actions'
     click_link 'Publish changes'
+    expect(page).to have_text('has been published and is now available to users.')
     expect(new_funder_template.reload.published?).to eql(true)
 
     # Go back to the original Org...

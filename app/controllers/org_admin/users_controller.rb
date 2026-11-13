@@ -31,7 +31,7 @@ module OrgAdmin
       else
         flash.now[:alert] = failure_message(@user, _('update'))
       end
-      render :edit
+      render :edit, status: @user.errors.any? ? :unprocessable_content : :ok
     end
     # rubocop:enable Metrics/AbcSize
 

@@ -21,9 +21,12 @@
 #  invitation_sent_at     :datetime
 #  invitation_token       :string
 #  invited_by_type        :string
+#  last_api_access        :datetime
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
-#  other_organisation :string
+#  ldap_password          :string
+#  ldap_username          :string
+#  other_organisation     :string
 #  recovery_email         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -116,6 +119,9 @@ class User < ApplicationRecord
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
 
+  validate :department_belongs_to_org,
+           if: -> { will_save_change_to_department_id? || will_save_change_to_org_id? }
+
   # ==========
   # = Scopes =
   # ==========
@@ -166,7 +172,9 @@ class User < ApplicationRecord
   # sanitise html tags from fields
   before_validation ->(data) { data.sanitize_fields(:firstname, :surname) }
 
-  after_update :clear_department_id, if: :saved_change_to_org_id?
+  before_validation :clear_department_id, if: :will_save_change_to_org_id?
+  # Maintenance saves may skip validation while still running save callbacks.
+  before_save :clear_department_id, if: :will_save_change_to_org_id?
 
   after_update :delete_perms!, if: :saved_change_to_org_id?, unless: :can_change_org?
 
@@ -466,6 +474,12 @@ class User < ApplicationRecord
   end
 
   def clear_department_id
-    self.department_id = nil
+    self.department = nil unless will_save_change_to_department_id?
+  end
+
+  def department_belongs_to_org
+    return if department_id.blank? || (department.present? && department.org_id == org_id)
+
+    errors.add(:department, _('must belong to the same organization as the user'))
   end
 end

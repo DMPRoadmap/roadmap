@@ -29,6 +29,7 @@ plugins:
   - rubocop-performance
 
 AllCops:
+  TargetRubyVersion: 3.4
   # Show the name of the cops being voilated in the feedback
   DisplayCopNames: true
   DisplayStyleGuide: true

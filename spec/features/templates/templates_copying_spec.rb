@@ -34,6 +34,7 @@ RSpec.feature 'Templates::Copying', type: :feature do
     end
 
     # Expectations
+    expect(page).to have_current_path(%r{\A/org_admin/templates/\d+/edit\z})
     expect(Template.count).to eql(2)
     new_template = Template.last
     expect(new_template.title).to include(parent_template.title)

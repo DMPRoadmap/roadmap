@@ -45,10 +45,10 @@ RSpec.describe 'Plans', type: :feature do
     click_button 'Create plan'
 
     # Expectations
+    expect(page).to have_css("input[type=text][value='My test plan']")
     expect(@user.plans).to be_one
     @plan = Plan.last
-    expect(current_path).to eql(plan_path(@plan))
-    expect(page).to have_css("input[type=text][value='#{@plan.title}']")
+    expect(page).to have_current_path(plan_path(@plan))
     expect(@plan.title).to eql('My test plan')
     expect(@plan.org_id).to eql(@research_org.id)
     expect(@plan.funder_id).to eql(@funding_org.id)

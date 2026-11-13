@@ -61,8 +61,7 @@ module Paginable
     # GET /paginable/users/:id/plans
     def index
       @user = User.find(params[:id])
-      authorize @user
-      raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin? && @user.present?
+      authorize @user, :user_plans?
 
       paginable_renderise(
         partial: 'index',
