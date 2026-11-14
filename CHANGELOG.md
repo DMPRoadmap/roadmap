@@ -1,13 +1,12 @@
 # Changelog
 
-<<<<<<< HEAD
 ## Unreleased
 - Add API V2 from DMPonline [#3587](https://github.com/DMPRoadmap/roadmap/pull/3587)
   - Add complete plan flag to V2 API [#3595](https://github.com/DMPRoadmap/roadmap/pull/3595)
 - chore(deps): `bundle update && yarn upgrade` and bump `node-version` in workflows [#3601](https://github.com/DMPRoadmap/roadmap/pull/3601)
 - Update `database.yml.sample`: add separate test db [#3521](https://github.com/DMPRoadmap/roadmap/pull/3521)
 - Patch inactive user issue in V2 API [#3610](https://github.com/DMPRoadmap/roadmap/pull/3610)
-=======
+
 ## v6.0.1
 
 Security and maintenance release with regression coverage and compatibility
@@ -28,7 +27,6 @@ credits will be published separately after the release is available.
 ## v5.0.3
 - Patch API token auth to check user's status [#3606](https://github.com/DMPRoadmap/roadmap/pull/3606)
 - fix(policy): harden authorization for plan resources [#3613](https://github.com/DMPRoadmap/roadmap/pull/3613)
->>>>>>> main
 
 ## v5.0.2
 - Bump Ruby to v3.1.4 and use `.ruby-version` in CI

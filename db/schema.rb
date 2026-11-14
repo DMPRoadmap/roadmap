@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema[7.1].define(version: 2026_02_19_185224) do
-=======
-ActiveRecord::Schema[8.1].define(version: 2025_01_15_102816) do
->>>>>>> main
+ActiveRecord::Schema[8.1].define(version: 2026_02_19_185224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -250,7 +246,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_15_102816) do
     t.boolean "enabled", default: true
   end
 
-<<<<<<< HEAD
   create_table "oauth_access_grants", force: :cascade do |t|
     t.bigint "resource_owner_id", null: false
     t.bigint "application_id", null: false
@@ -293,10 +288,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_15_102816) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
-  create_table "org_token_permissions", id: :serial, force: :cascade do |t|
-=======
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
->>>>>>> main
     t.integer "org_id"
     t.integer "token_permission_type_id"
     t.datetime "created_at", precision: nil

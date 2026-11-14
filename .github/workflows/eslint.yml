@@ -15,10 +15,7 @@ jobs:
     - uses: actions/setup-node@v5
       with:
         cache: 'yarn'
-<<<<<<< HEAD
-=======
         node-version: 24
->>>>>>> main
 
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'

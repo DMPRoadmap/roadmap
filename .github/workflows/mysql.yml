@@ -24,10 +24,7 @@ jobs:
     # Install Node
     - uses: actions/setup-node@v5
       with:
-<<<<<<< HEAD
-=======
         node-version: 24
->>>>>>> main
         cache: 'yarn'
 
     # Copy all of the example configs over
