@@ -7,6 +7,27 @@
 - Update `database.yml.sample`: add separate test db [#3521](https://github.com/DMPRoadmap/roadmap/pull/3521)
 - Patch inactive user issue in V2 API [#3610](https://github.com/DMPRoadmap/roadmap/pull/3610)
 
+## v6.0.1
+
+Security and maintenance release with regression coverage and compatibility
+updates. No database migration is required. Detailed advisories and disclosure
+credits will be published separately after the release is available.
+
+## v6.0.0
+
+- Upgrade the required runtime from Ruby 3.1/Rails 7.1 to Ruby 3.4/Rails 8.1
+  and update compatible gems. This release adds no product features or API
+  versions.
+- Adapt existing authentication, enums, routes, exports, and schema dumping
+  for the new framework versions. Continue to support PostgreSQL and MySQL.
+- Update CI for Node 24, asset builds, and PostgreSQL schema drift checks;
+  add regression coverage for API headers, DOCX exports, and permission flags.
+- Replace the Ruby 3.4-incompatible model annotation tool and remove Spring.
+
+## v5.0.3
+- Patch API token auth to check user's status [#3606](https://github.com/DMPRoadmap/roadmap/pull/3606)
+- fix(policy): harden authorization for plan resources [#3613](https://github.com/DMPRoadmap/roadmap/pull/3613)
+
 ## v5.0.2
 - Bump Ruby to v3.1.4 and use `.ruby-version` in CI
   - [#3566](https://github.com/DMPRoadmap/roadmap/pull/3566)

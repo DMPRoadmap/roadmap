@@ -119,9 +119,8 @@ export const Tinymce = {
     if (isString(className)) {
       const elements = Array.from(document.getElementsByClassName(className));
       // Fetch the textarea elements and then return the TinyMCE editors associated with the element ids
-      return elements.map((el) => {
-        return Tinymce.findEditorById(el.getAttribute('id'));
-      });
+      return elements.map((el) => Tinymce.findEditorById(el.getAttribute('id')))
+        .filter((editor) => isTinymceEditor(editor));
     }
     return [];
   },
@@ -133,7 +132,7 @@ export const Tinymce = {
   */
   findEditorById(id) {
     if (isString(id)) {
-      return tinymce.get(id);
+      return tinymce.get(id) || undefined;
     }
     return undefined;
   },

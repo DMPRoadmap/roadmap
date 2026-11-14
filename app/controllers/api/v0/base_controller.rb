@@ -119,8 +119,7 @@ module Api
           else
             @token = token
             @user = User.find_by(api_token: token)
-            # if no user found, return false, otherwise true
-            !@user.nil? && @user.can_use_api?
+            @user.present? && @user.active? && @user.can_use_api?
           end
         end
       end

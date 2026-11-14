@@ -4,25 +4,29 @@
 #
 # Table name: api_clients
 #
-#  id             :integer          not null, primary key
-#  name           :string,          not null
-#  homepage       :string
-#  contact_name   :string
-#  contact_email  :string,          not null
-#  client_id      :string,          not null
-#  client_secret  :string,          not null
-#  last_access    :datetime
-#  created_at     :datetime
-#  updated_at     :datetime
-#  org_id         :integer
+#  id              :integer          not null, primary key
+#  callback_method :integer
+#  callback_uri    :string
+#  client_secret   :string           not null
+#  confidential    :boolean          default(TRUE)
+#  contact_email   :string
+#  contact_name    :string
+#  description     :string
+#  homepage        :string
+#  last_access     :datetime
+#  name            :string           not null
+#  redirect_uri    :text
+#  scopes          :string           default(""), not null
+#  trusted         :boolean          default(FALSE)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  client_id       :string           not null
+#  org_id          :integer
 #
 # Indexes
 #
-#  index_api_clients_on_name     (name)
+#  index_oauth_applications_on_name  (name)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (org_id => orgs.id)
 
 # Object that represents an external system
 class ApiClient < ApplicationRecord
