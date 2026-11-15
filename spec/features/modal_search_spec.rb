@@ -63,7 +63,7 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
       close_modal
     end
     # Verify that the selection was added to the main page's dom
-    expect(page).not_to have_text('Repository search')
+    expect(page).to have_no_css('#modal-search-repositories', visible: true)
     expect(page).to have_text(@model.description)
   end
 
@@ -84,9 +84,6 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
   end
 
   def close_modal
-    # Using JS to click on button, as click_button '.modal-header button.btn-close' did not work.
-    modal_close_button = find('.modal-header button.btn-close')
-    # Close the modal
-    execute_script('arguments[0].click();', modal_close_button)
+    find('.modal-header button.btn-close').click
   end
 end

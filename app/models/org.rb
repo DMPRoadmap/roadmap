@@ -4,31 +4,37 @@
 #
 # Table name: orgs
 #
-#  id                     :integer          not null, primary key
-#  abbreviation           :string
-#  contact_email          :string
-#  contact_name           :string
-#  feedback_msg           :text
-#  feedback_enabled       :boolean          default(FALSE)
-#  is_other :boolean default(FALSE), not null
-#  links                  :text
-#  logo_name              :string
-#  logo_uid               :string
-#  managed                :boolean          default(FALSE), not null
-#  name                   :string
-#  org_type               :integer          default(0), not null
-#  sort_name              :string
-#  target_url             :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  language_id            :integer
-#  region_id              :integer
-#  managed                :boolean          default(false), not null
-#  helpdesk_email         :string
+#  id                            :integer          not null, primary key
+#  abbreviation                  :string
+#  api_create_plan_email_body    :text
+#  api_create_plan_email_subject :string
+#  contact_email                 :string
+#  contact_name                  :string
+#  feedback_enabled              :boolean          default(FALSE)
+#  feedback_msg                  :text
+#  helpdesk_email                :string
+#  is_other                      :boolean          default(FALSE), not null
+#  links                         :text
+#  logo_name                     :string
+#  logo_uid                      :string
+#  managed                       :boolean          default(FALSE), not null
+#  name                          :string
+#  org_type                      :integer          default(0), not null
+#  target_url                    :string
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  language_id                   :integer
+#  region_id                     :integer
+#
+# Indexes
+#
+#  fk_rails_5640112cab  (language_id)
+#  fk_rails_5a6adf6bab  (region_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (region_id => regions.id)
 #
 
 # Object that represents an Organization/Institution/Funder

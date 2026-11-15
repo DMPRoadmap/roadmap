@@ -6,11 +6,12 @@
 #
 #  id                :integer          not null, primary key
 #  active            :boolean
-#  description       :string
 #  context           :integer
-#  logo_url          :text
-#  name              :string
+#  description       :string
+#  external_service  :string
 #  identifier_prefix :string
+#  logo_url          :string
+#  name              :string
 #  created_at        :datetime
 #  updated_at        :datetime
 #

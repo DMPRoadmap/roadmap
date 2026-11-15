@@ -12,13 +12,12 @@ class UserPolicy < ApplicationPolicy
   end
 
   def admin_grant_permissions?
-    (@user.can_grant_permissions? && user.org_id == @user.org_id) ||
+    (@user.can_grant_permissions? && same_org?) ||
       @user.can_super_admin?
   end
 
   def admin_update_permissions?
-    (@user.can_grant_permissions? && user.org_id == @user.org_id) ||
-      @user.can_super_admin?
+    admin_grant_permissions?
   end
 
   # Allows the user to swap their org affiliation on the fly
@@ -31,15 +30,23 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.can_super_admin? || @user.can_org_admin?
+    @user.can_super_admin? || (@user.can_org_admin? && same_org?)
   end
 
   def update?
-    @user.can_super_admin? || @user.can_org_admin?
+    edit?
   end
 
   def user_plans?
-    @user.can_super_admin? || @user.can_org_admin?
+    edit?
+  end
+
+  def super_admin_edit?
+    @user.can_super_admin?
+  end
+
+  def super_admin_update?
+    super_admin_edit?
   end
 
   def update_email_preferences?
@@ -68,7 +75,13 @@ class UserPolicy < ApplicationPolicy
   end
 
   def org_admin_other_user?
-    @user.can_super_admin? || @user.can_org_admin?
+    edit?
+  end
+
+  private
+
+  def same_org?
+    @record.is_a?(User) && @user.org_id.present? && @record.org_id == @user.org_id
   end
 
   # returns the users for the org

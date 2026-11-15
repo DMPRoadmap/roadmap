@@ -4,7 +4,7 @@
 #
 # Table name: licenses
 #
-#  id           :bigint           not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  deprecated   :boolean          default(FALSE)
 #  identifier   :string           not null
 #  name         :string           not null

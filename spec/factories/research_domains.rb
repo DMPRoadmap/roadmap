@@ -5,15 +5,15 @@
 # Table name: research_domains
 #
 #  id         :bigint(8)        not null, primary key
-#  identifier :string(255)      not null
-#  label      :string(255)      not null
+#  identifier :string           not null
+#  label      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  parent_id  :bigint(8)
 #
 # Indexes
 #
-#  index_research_domain_on_parent_id  (parent_id)
+#  index_research_domains_on_parent_id  (parent_id)
 #
 # Foreign Keys
 #

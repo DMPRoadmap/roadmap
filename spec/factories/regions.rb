@@ -4,12 +4,11 @@
 #
 # Table name: regions
 #
-#  id           :integer          not null, primary key
-#  abbreviation :string
-#  description  :string
-#  name         :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id              :integer          not null, primary key
+#  abbreviation    :string
+#  description     :string
+#  name            :string
+#  super_region_id :integer
 #
 
 FactoryBot.define do

@@ -24,7 +24,7 @@ RSpec.describe 'Questions::Dropdown questions', type: :feature do
     click_link 'Write plan'
 
     # Expectations
-    expect(current_path).to eql(edit_plan_path(@plan))
+    expect(page).to have_current_path(edit_plan_path(@plan), ignore_query: true)
     # 4 sections x 3 questions
     expect(page).to have_text('(0 / 1)')
 
