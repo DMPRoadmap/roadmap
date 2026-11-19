@@ -1,5 +1,9 @@
 # Changelog
 
+## v6.0.2
+
+- fix(ruby): bump ruby to secure v3.4.13 [#3629](https://github.com/DMPRoadmap/roadmap/pull/3629)
+
 ## v6.0.1
 
 Security and maintenance release with regression coverage and compatibility
