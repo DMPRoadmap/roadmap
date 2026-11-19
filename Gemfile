@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '~> 3.4.0'
+ruby '~> 3.4.13'
 
 # Ruby 3.4 ships CSV separately; exports and statistics require it directly.
 gem 'csv'
