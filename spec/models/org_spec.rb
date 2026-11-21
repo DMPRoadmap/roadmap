@@ -343,80 +343,103 @@ RSpec.describe Org, type: :model do
   end
 
   describe '#org_admin_plans' do
-    Rails.configuration.x.plans.org_admins_read_all = true
-    let!(:org) { create(:org) }
-    let!(:plan) { create(:plan, org: org, visibility: 'publicly_visible') }
-    let!(:user) { create(:user, org: org) }
-
-    subject { org.org_admin_plans }
-
-    context 'when user belongs to Org and plan owner with role :creator' do
-      before do
-        create(:role, :creator, user: user, plan: plan)
-        plan.add_user!(user.id, :creator)
-      end
-
-      it { is_expected.to include(plan) }
+    # Helper for returning all plans from the `plans` hash
+    def all_plans
+      plans.values.flat_map(&:values)
     end
 
-    context 'when user belongs to Org and plan user with role :administrator' do
-      before do
-        plan.add_user!(user.id, :administrator)
-      end
+    # Helper for deactivating roles (creator or administrator) from plans
+    def deactivate_roles_for_plans(plans, role_condition)
+      Role.where(plan_id: plans.map(&:id)).where(role_condition).update_all(active: false)
+    end
 
-      it {
-        is_expected.to include(plan)
+    def create_plans_for(org)
+      {
+        public: create(:plan, :creator, :publicly_visible, org: org),
+        org: create(:plan, :creator, :organisationally_visible, org: org),
+        private: create(:plan, :creator, :privately_visible, org: org),
+        test: create(:plan, :creator, :is_test, org: org)
       }
     end
 
-    context 'user belongs to Org and plan user with role :editor, but not :creator and :admin' do
-      before do
-        plan.add_user!(user.id, :editor)
-      end
+    let!(:org) { create(:org) }
+    let!(:org_user) { create(:user, org: org) }
+    let!(:other_org) { create(:org) }
 
-      it { is_expected.to include(plan) }
+    # org_admin_plans consists of "native" and "affiliated" plans
+    # - native plans have plan.org == org
+    # - affiliated plans have an active administrator role for a user where user.org == org
+    let!(:plans) do
+      {
+        native: create_plans_for(org),
+        affiliated: create_plans_for(other_org)
+      }.tap do |hash|
+        # Add the required administrator role for the `affiliated` plans
+        hash[:affiliated].each_value do |plan|
+          plan.add_user!(org_user.id, :administrator)
+        end
+      end
     end
 
-    context 'user belongs to Org and plan user with role :commenter, but not :creator and :admin' do
+    let!(:other_org_plan) { create(:plan, :creator, :publicly_visible, org: other_org) }
+
+    subject { org.org_admin_plans }
+
+    shared_examples 'org_admin_plans expectations' do |org_admins_read_all: true|
       before do
-        plan.add_user!(user.id, :commenter)
+        Rails.configuration.x.plans.org_admins_read_all = org_admins_read_all
       end
 
-      it { is_expected.to include(plan) }
+      it 'includes/excludes the expected plans' do
+        expect(subject).to include(*Array(included))
+        expect(subject).not_to include(*Array(excluded))
+      end
     end
 
-    context 'user belongs to Org and plan user with role :reviewer, but not :creator and :admin' do
-      before do
-        plan.add_user!(user.id, :reviewer)
+    context 'default context with org_admins_read_all = true' do
+      include_examples 'org_admin_plans expectations' do
+        let(:included) { all_plans }
+        let(:excluded) { other_org_plan }
       end
-
-      it { is_expected.to include(plan) }
     end
 
-    context 'read_all is false, visibility private and user org_admin' do
-      before do
-        Rails.configuration.x.plans.org_admins_read_all = false
-        @perm = build(:perm)
-        @perm.name = 'grant_permissions'
-        user.perms << @perm
-        plan.add_user!(user.id, :reviewer)
-        plan.privately_visible!
+    context 'default context with org_admins_read_all = false' do
+      let(:private_and_test_plans) do
+        plans.fetch_values(:native, :affiliated).flat_map do |h|
+          h.values_at(:private, :test)
+        end
       end
 
-      it { is_expected.not_to include(plan) }
+      include_examples 'org_admin_plans expectations', org_admins_read_all: false do
+        let(:included) { (all_plans - private_and_test_plans).flatten }
+        let(:excluded) { private_and_test_plans + [other_org_plan] }
+      end
     end
 
-    context 'read_all is false, visibility public and user org_admin' do
+    context 'creator role is deactivated for some native and affiliated plans' do
+      # Deactivate the creator role for both a native and an affiliated plan
+      let(:plans_to_deactivate) { [plans[:native][:public], plans[:affiliated][:public]] }
       before do
-        Rails.configuration.x.plans.org_admins_read_all = false
-        @perm = build(:perm)
-        @perm.name = 'grant_permissions'
-        user.perms << @perm
-        plan.add_user!(user.id, :reviewer)
-        plan.publicly_visible!
+        deactivate_roles_for_plans(plans_to_deactivate, Role.creator_condition)
       end
 
-      it { is_expected.to include(plan) }
+      include_examples 'org_admin_plans expectations' do
+        let(:included) { (all_plans - plans_to_deactivate).flatten }
+        let(:excluded) { plans_to_deactivate + [other_org_plan] }
+      end
+    end
+
+    context 'administrator role is deactivated for some affiliated plans' do
+      # Deactivate the administrator role for some affiliated plans
+      let(:plans_to_deactivate) { [plans[:affiliated][:public], plans[:affiliated][:org]] }
+      before do
+        deactivate_roles_for_plans(plans_to_deactivate, Role.administrator_condition)
+      end
+
+      include_examples 'org_admin_plans expectations' do
+        let(:included) { (all_plans - plans_to_deactivate).flatten }
+        let(:excluded) { plans_to_deactivate + [other_org_plan] }
+      end
     end
   end
 
