@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title><%= @plan.title %></title>
+    <title><%= sanitize(@plan.title) %></title>
 
     <%= render partial: 'shared/export/plan_styling',
                locals: {
@@ -21,7 +21,7 @@
       <% if @hash[:all_phases] || (@selected_phase.present? && phase[:title] == @selected_phase.title) %>
         <%# Page break before each phase %>
         <div style="page-break-before:always;"></div>
-        <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
+        <h1><%= sanitize(download_plan_page_title(@plan, phase, @hash)) %></h1>
         <hr />
         <% phase[:sections].each do |section| %>
           <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>

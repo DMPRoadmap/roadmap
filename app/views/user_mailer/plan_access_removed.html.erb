@@ -2,7 +2,7 @@
   <%= _('Hello ') %><%= @user.email %>,
 </p>
 <p>
-  <%= _('Your access to ') %>"<%= @plan.title %>"<%= _(' has been removed by ') %><%= "#{@current_user.name(false)}"%>.
+  <%= _('Your access to ') %>"<%= sanitize(@plan.title) %>"<%= _(' has been removed by ') %><%= "#{@current_user.name(false)}"%>.
 </p>
 
 <%= render partial: 'email_signature' %>
