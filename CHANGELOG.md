@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v6.1.0
 
 - Add API V2 from DMPonline [#3587](https://github.com/DMPRoadmap/roadmap/pull/3587)
   - Add complete plan flag to V2 API [#3595](https://github.com/DMPRoadmap/roadmap/pull/3595)
