@@ -275,7 +275,7 @@ namespace :migrate do
       contact = contact.gsub(phone, '') unless phone.nil?
       contact = contact.gsub(/([Ee]mail|[Pp]hone|[Mm]obile|[Cc]ell|[Oo]ffice|[Hh]ome|[Ww]ork|[Tt]|[Ee]):?/, '')
       contact = contact.gsub(' , ', '').strip
-      contact = contact[0..(contact.length - 2)] if contact.ends_with?(',')
+      contact = contact[0..-2] if contact.ends_with?(',')
       contact = nil if contact == ','
 
       p.update(data_contact_email: email, data_contact_phone: phone, data_contact: contact)

@@ -143,6 +143,23 @@ de:
           has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}
             existiert.
           has_many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present: darf kein Fragment enthalten.
+              invalid_uri: muss ein valider URI (Identifier) sein.
+              unspecified_scheme: muss ein Schema angeben.
+              relative_uri: muss ein absoluter URI (Identifier) sein.
+              secured_uri: muss ein HTTPS/SSL URI (Identifier) sein.
+              forbidden_uri: ist vom server verboten.
+            scopes:
+              not_match_configured: stimmen nicht mit denen am server hinterlegten
+                überein.
+    attributes:
+      doorkeeper/application:
+        name: Name
+        redirect_uri: Redirect URI
   datetime:
     distance_in_words:
       half_a_minute: einer halben Minute
@@ -361,3 +378,146 @@ de:
         Sie es erneut.
       recaptcha_unreachable: Ups, wir konnten Ihre reCAPTCHA-Antwort nicht validieren.
         Bitte versuche es erneut.
+  doorkeeper:
+    applications:
+      confirmations:
+        destroy: Bist du sicher?
+      buttons:
+        edit: Bearbeiten
+        destroy: Löschen
+        submit: Übertragen
+        cancel: Abbrechen
+        authorize: Autorisieren
+      form:
+        error: Whoops! Bitte überprüfe das Formular auf Fehler!
+      help:
+        confidential: Application will be used where the client secret can be kept
+          confidential. Native mobile apps and Single Page Apps are considered non-confidential.
+        redirect_uri: Bitte benutze eine Zeile pro URI
+        blank_redirect_uri: Leave it blank if you configured your provider to use
+          Client Credentials, Resource Owner Password Credentials or any other grant
+          type that doesn't require redirect URI.
+        scopes: Bitte die "Scopes" mit Leerzeichen trennen. Bitte frei lassen für
+          die Verwendung der Default-Werte.
+      edit:
+        title: Applikation bearbeiten
+      index:
+        title: Deine Applikationen
+        new: Neue Applikation
+        name: Name
+        callback_url: Callback URL
+        confidential: Vertraulich?
+        actions: Aktionen
+        confidentiality:
+          'yes': Ja
+          'no': Nein
+      new:
+        title: Neue Applikation
+      show:
+        title: 'Applikation: %{name}'
+        application_id: Applikations-ID
+        secret: Secret
+        secret_hashed:
+        scopes: Scopes
+        confidential: Vertraulich
+        callback_urls: Callback URLs
+        actions: Aktionen
+        not_defined:
+    authorizations:
+      buttons:
+        authorize: Autorisieren
+        deny: Verweigern
+      error:
+        title: Ein Fehler ist aufgetreten
+      new:
+        title: Autorisierung erforderlich
+        prompt: Soll %{client_name} für die Benutzung dieses Accounts autorisiert
+          werden?
+        able_to: Diese Anwendung wird folgende Rechte haben
+      show:
+        title: Autorisierungscode
+      form_post:
+        title:
+    authorized_applications:
+      confirmations:
+        revoke: Bist du sicher?
+      buttons:
+        revoke: Ungültig machen
+      index:
+        title: Deine autorisierten Applikationen
+        application: Applikation
+        created_at: erstellt am
+        date_format: "%Y-%m-%d %H:%M:%S"
+    pre_authorization:
+      status: Pre-authorization
+    errors:
+      messages:
+        invalid_request:
+          unknown: Die Anfrage enthält einen nicht-unterstützten Parameter, ein Parameter
+            fehlt oder sie ist anderweitig fehlerhaft.
+          missing_param: 'Missing required parameter: %{value}.'
+          request_not_authorized: Request need to be authorized. Required parameter
+            for authorizing request is missing or invalid.
+          invalid_code_challenge:
+        invalid_redirect_uri: Der Redirect-URI in der Anfrage ist ungültig.
+        unauthorized_client: Der Client ist nicht autorisiert, diese Anfrage mit dieser
+          Methode auszuführen.
+        access_denied: Der Resource Owner oder der Autorisierungs-Server hat die Anfrage
+          verweigert.
+        invalid_scope: Der angeforderte Scope ist inkorrekt, unbekannt oder fehlerhaft.
+        invalid_code_challenge_method:
+          zero:
+          one:
+          other:
+        server_error: Der Autorisierungs-Server hat ein unerwartetes Problem festgestellt
+          und konnte die Anfrage nicht beenden.
+        temporarily_unavailable: Der Autorisierungs-Server ist derzeit auf Grund von
+          temporärer Überlastung oder Wartungsarbeiten am Server nicht in der Lage,
+          die Anfrage zu bearbeiten .
+        credential_flow_not_configured: 'Die Prozedur "Resource Owner Password Credentials"
+          ist fehlgeschlagen: Doorkeeper.configure.resource_owner_from_credentials
+          ist nicht konfiguriert.'
+        resource_owner_authenticator_not_configured: 'Die Prozedur "Resource Owner
+          find" ist fehlgeschlagen: Doorkeeper.configure.resource_owner_authenticator
+          ist nicht konfiguriert.'
+        admin_authenticator_not_configured: Access to admin panel is forbidden due
+          to Doorkeeper.configure.admin_authenticator being unconfigured.
+        unsupported_response_type: Der Autorisierungs-Server unterstützt diesen Antwort-Typ
+          nicht.
+        unsupported_response_mode:
+        invalid_client: 'Client-Autorisierung MKIM ist fehlgeschlagen: Unbekannter
+          Client, keine Autorisierung mitgeliefert oder Autorisierungsmethode nicht
+          unterstützt.'
+        invalid_grant: Die bereitgestellte Autorisierung ist inkorrekt, abgelaufen,
+          widerrufen, ist mit einem anderen Client verknüpft oder der Redirection
+          URI stimmt nicht mit der Autorisierungs-Anfrage überein.
+        unsupported_grant_type: Der Autorisierungs-Typ wird nicht vom Autorisierungs-Server
+          unterstützt.
+        invalid_token:
+          revoked: Der Access Token wurde annuliert
+          expired: Der Access Token ist abgelaufen
+          unknown: Der Access Token ist nicht gültig/korrekt
+        revoke:
+          unauthorized: Sie sind nicht berechtigt, dieses Token zu widerrufen
+        forbidden_token:
+          missing_scope:
+    flash:
+      applications:
+        create:
+          notice: Applikation erstellt.
+        destroy:
+          notice: Applikation gelöscht.
+        update:
+          notice: Applikation geupdated.
+      authorized_applications:
+        destroy:
+          notice: Applikation widerrufen.
+    layouts:
+      admin:
+        title: Doorkeeper
+        nav:
+          oauth2_provider: OAuth2 Provider
+          applications: Applikationen
+          home: Home
+      application:
+        title: OAuth Autorisierung erforderlich

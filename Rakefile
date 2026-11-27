@@ -13,5 +13,6 @@
 require_relative 'config/application'
 
 DMPRoadmap::Application.load_tasks
+Doorkeeper::Rake.load_tasks
 
 task default: :test

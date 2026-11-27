@@ -23,6 +23,5 @@ FactoryBot.define do
   factory :research_domain do
     identifier { SecureRandom.uuid }
     label { Faker::Lorem.unique.word }
-    uri { Faker::Internet.url }
   end
 end

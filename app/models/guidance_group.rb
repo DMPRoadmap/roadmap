@@ -107,7 +107,7 @@ class GuidanceGroup < ApplicationRecord
   # Returns Array
   def self.all_viewable(user)
     # first find all groups owned by the Default Orgs
-    default_org_groups = Org.includes(guidance_groups: [guidances: :themes])
+    default_org_groups = Org.includes(guidance_groups: [{ guidances: :themes }])
                             .default_orgs.collect(&:guidance_groups)
 
     # find all groups owned by  a Funder organisation

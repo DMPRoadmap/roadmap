@@ -105,8 +105,8 @@ module SuperAdmin
       @org = Org.includes(:templates, :tracker, :annotations,
                           :departments, :token_permission_types, :funded_plans,
                           identifiers: [:identifier_scheme],
-                          guidance_groups: [guidances: [:themes]],
-                          users: [identifiers: [:identifier_scheme]])
+                          guidance_groups: [{ guidances: [:themes] }],
+                          users: [{ identifiers: [:identifier_scheme] }])
                 .find(params[:id])
       authorize @org
 
@@ -116,8 +116,8 @@ module SuperAdmin
       @target_org = Org.includes(:templates, :tracker, :annotations,
                                  :departments, :token_permission_types, :funded_plans,
                                  identifiers: [:identifier_scheme],
-                                 guidance_groups: [guidances: [:themes]],
-                                 users: [identifiers: [:identifier_scheme]])
+                                 guidance_groups: [{ guidances: [:themes] }],
+                                 users: [{ identifiers: [:identifier_scheme] }])
                        .find(lookup.id)
     end
 

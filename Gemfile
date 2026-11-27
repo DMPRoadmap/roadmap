@@ -83,6 +83,8 @@ gem 'devise', '~> 5.0'
 # An invitation strategy for Devise (https://github.com/scambra/devise_invitable)
 gem 'devise_invitable'
 
+gem 'doorkeeper'
+
 # A generalized Rack framework for multiple-provider authentication.
 # (https://github.com/omniauth/omniauth)
 gem 'omniauth'

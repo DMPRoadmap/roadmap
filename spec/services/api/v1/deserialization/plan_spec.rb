@@ -53,8 +53,10 @@ RSpec.describe Api::V1::Deserialization::Plan do
       ],
       dmp_id: { type: 'doi', identifier: @identifier.value },
       extension: [
-        dmproadmap: {
-          template: { id: @template.id, title: @template.title }
+        {
+          dmproadmap: {
+            template: { id: @template.id, title: @template.title }
+          }
         }
       ]
     }

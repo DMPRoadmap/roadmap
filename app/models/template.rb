@@ -215,6 +215,16 @@ class Template < ApplicationRecord
              term: "%#{term}%")
   }
 
+  scope :for_api_v2, lambda { |org_id|
+    org_templates = organisationally_visible.where(org_id: org_id)
+    public_templates = publicly_visible.where(customization_of: nil)
+    includes(org: { identifiers: :identifier_scheme })
+      .joins(:org)
+      .published
+      .merge(org_templates.or(public_templates))
+      .order(:title)
+  }
+
   # defines the export setting for a template object
   has_settings :export, class_name: 'Settings::Template' do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS

@@ -52,7 +52,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-webpack-plugin": "^2.6.0",
     "jquery": "^3.5.1",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "1.13.3",
     "jquery-ui-sass": "^0.0.1",
     "js-cookie": "^3.0.1",
     "number-to-text": "^0.3.8",

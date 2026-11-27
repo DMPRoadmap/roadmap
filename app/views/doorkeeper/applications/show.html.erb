@@ -1,0 +1,42 @@
+<%= fields_for @application,  as: :doorkeeper_application, html: { role: 'form' } do |f| %>
+  <div class="form-group row mb-3">
+    <%= f.label :name, class: 'col-sm-2 col-form-label font-weight-bold' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: "form-control", required: true, style: "border: 1px solid #ced4da;", readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <%= f.label nil, "Client ID".html_safe, class: 'col-sm-2 col-form-label font-weight-bold' %>
+    <div class="col-sm-10">
+      <%= f.text_field :uid, class: "form-control", required: true, style: "border: 1px solid #ced4da;", readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <%= f.label nil, "Client secret".html_safe, class: 'col-sm-2 col-form-label font-weight-bold' %>
+    <div class="col-sm-10">
+      <%= f.text_field :secret, class: "form-control", required: true, style: "border: 1px solid #ced4da;", readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <%= f.label "Scope(s)", class: 'col-sm-2 col-form-label font-weight-bold' %>
+    <div class="col-sm-10">
+      <%= f.text_field :scopes, class: "form-control", style: "border: 1px solid #ced4da;", readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <%= f.label nil, 'Redirect URI(s)'.html_safe, class: 'col-sm-2 col-form-label font-weight-bold' %>
+    <div class="col-sm-10">
+      <%= f.text_area :redirect_uri, class: "form-control", style: "border: 1px solid #ced4da;", readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= link_to "Back", oauth_applications_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+<% end %>

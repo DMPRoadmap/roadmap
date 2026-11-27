@@ -144,6 +144,22 @@ fr-CA:
             la) %{record} dépendant(e)
           has_many: Vous ne pouvez pas supprimer l’enregistrement en raison du (de
             la) %{record} dépendant(e)
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present: ne peut contenir un fragment.
+              invalid_uri: doit être une URL valide.
+              unspecified_scheme: doit spécifier un schéma.
+              relative_uri: doit être une URL absolue.
+              secured_uri: doit être une URL HTTP/SSL.
+              forbidden_uri: est interdit par le serveur.
+            scopes:
+              not_match_configured: doesn't match configured on the server.
+    attributes:
+      doorkeeper/application:
+        name: Nom
+        redirect_uri: L'URL de redirection
   datetime:
     distance_in_words:
       half_a_minute: une demi-minute
@@ -242,7 +258,8 @@ fr-CA:
       not_found_in_database: "%{authentication_keys} ou mot de passe incorrect."
       timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
-      unconfirmed: Vous devez confirmer votre adresse courriel pour continuer.
+      unconfirmed: Vous devez confirmer votre compte avant de continuer. <a href="/users/confirmation/new"
+        class="a-orange">(cliquez pour demander un nouveau courriel de confirmation)</a>
       invited: Vous avez une invitation en attente. Acceptez-la pour terminer la création
         de votre compte.
     mailer:
@@ -363,3 +380,148 @@ fr-CA:
       previous: "&lsaquo; précédent(e)"
       next: "&rsaquo; suivant(e)"
       truncate: "&hellip;"
+  doorkeeper:
+    applications:
+      confirmations:
+        destroy: Êtes-vous certain?
+      buttons:
+        edit: Modifier
+        destroy: Supprimer
+        submit: Envoyer
+        cancel: Annuler
+        authorize: Autoriser
+      form:
+        error: Oups! Vérifier votre formulaire pour des erreurs possibles
+      help:
+        confidential: |
+          L'application sera utilisée quand la confidentialité du secret pourra
+          être maintenue. Les application mobile native, et les Applications
+          mono-page ne sont pas considérées comme sûr.
+        redirect_uri: Utiliser une ligne par URL
+        blank_redirect_uri: Leave it blank if you configured your provider to use
+          Client Credentials, Resource Owner Password Credentials or any other grant
+          type that doesn't require redirect URI.
+        scopes: Utilisez un espace entre chaque portée. Laissez vide pour utiliser
+          la portée par defaut
+      edit:
+        title: Modifier l'application
+      index:
+        title: Vos applications
+        new: Nouvelle application
+        name: Nom
+        callback_url: URL de retour d'appel
+        confidential: Confidential?
+        actions: Actions
+        confidentiality:
+          'yes': Oui
+          'no': Non
+      new:
+        title: Nouvelle application
+      show:
+        title: 'Application : %{name}'
+        application_id: ID de l'application
+        secret: Secret
+        secret_hashed:
+        scopes: Portées
+        confidential: Confidential
+        callback_urls: URL du retour d'appel
+        actions: Actions
+        not_defined:
+    authorizations:
+      buttons:
+        authorize: Autoriser
+        deny: Refuser
+      error:
+        title: Une erreur est survenue
+      new:
+        title: Autorisation requise
+        prompt: Autorisez %{client_name} à utiliser votre compte?
+        able_to: Cette application pourra
+      show:
+        title: Code d'autorisation
+      form_post:
+        title:
+    authorized_applications:
+      confirmations:
+        revoke: Êtes-vous certain?
+      buttons:
+        revoke: Annuler
+      index:
+        title: Vos applications autorisées
+        application: Application
+        created_at: Créé le
+        date_format: "%Y-%m-%d %H:%M:%S"
+    pre_authorization:
+      status: Pre-authorization
+    errors:
+      messages:
+        invalid_request:
+          unknown: La demande manque un paramètre requis, inclut une valeur de paramètre
+            non prise en charge, ou est autrement mal formée.
+          missing_param: 'Missing required parameter: %{value}.'
+          request_not_authorized: Request need to be authorized. Required parameter
+            for authorizing request is missing or invalid.
+          invalid_code_challenge:
+        invalid_redirect_uri: L'URL de redirection n'est pas valide.
+        unauthorized_client: Le client n'est pas autorisé à effectuer cette demande
+          à l'aide de cette méthode.
+        access_denied: Le propriétaire de la ressource ou le serveur d'autorisation
+          a refusé la demande.
+        invalid_scope: Le scope demandé n'est pas valide, est inconnu, ou est mal
+          formé.
+        invalid_code_challenge_method:
+          zero:
+          one:
+          other:
+        server_error: Le serveur d'autorisation a rencontré une condition inattendue
+          qui l'a empêché de remplir la demande.
+        temporarily_unavailable: Le serveur d'autorisation est actuellement incapable
+          de traiter la demande à cause d'une surcharge ou d'un entretien temporaire
+          du serveur.
+        credential_flow_not_configured: Le flux des identifiants du mot de passe du
+          propriétaire de la ressource a échoué en raison de Doorkeeper.configure.resource_owner_from_credentials
+          n'est pas configuré.
+        resource_owner_authenticator_not_configured: La recherche du propriétaire
+          de la ressource a échoué en raison de Doorkeeper.configure.resource_owner_authenticator
+          n'est pas configuré.
+        admin_authenticator_not_configured: Access to admin panel is forbidden due
+          to Doorkeeper.configure.admin_authenticator being unconfigured.
+        unsupported_response_type: Le serveur d'autorisation ne prend pas en charge
+          ce type de réponse.
+        unsupported_response_mode:
+        invalid_client: L'authentification du client a échoué à cause d'un client
+          inconnu, d'aucune authentification de client incluse, ou d'une méthode d'authentification
+          non prise en charge.
+        invalid_grant: Le consentement d'autorisation accordé n'est pas valide, a
+          expiré, est annulé, ne concorde pas avec l'URL de redirection utilisée dans
+          la demande d'autorisation, ou a été émis à un autre client.
+        unsupported_grant_type: Le type de consentement d'autorisation n'est pas pris
+          en charge par le serveur d'autorisation.
+        invalid_token:
+          revoked: Le jeton d'accès a été annulé
+          expired: Le jeton d'accès a expiré
+          unknown: Le jeton d'accès n'est pas valide
+        revoke:
+          unauthorized: Vous n'êtes pas autorisé à révoquer ce jeton
+        forbidden_token:
+          missing_scope:
+    flash:
+      applications:
+        create:
+          notice: Application créée.
+        destroy:
+          notice: Application supprimée.
+        update:
+          notice: Application mise à jour.
+      authorized_applications:
+        destroy:
+          notice: Application annulée.
+    layouts:
+      admin:
+        title: Doorkeeper
+        nav:
+          oauth2_provider: Fournisseur OAuth2
+          applications: Applications
+          home: Home
+      application:
+        title: Autorisation OAuth requise

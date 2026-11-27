@@ -963,11 +963,7 @@ namespace :upgrade do
       end
     end
 
-    if out.present?
-      file = File.open('tmp/ror_fundref_ids.csv', 'w')
-      file.puts out
-      file.close
-    end
+    File.write('tmp/ror_fundref_ids.csv', out) if out.present?
   end
 
   desc 'Attempts to migrate other_organisation entries to Orgs'

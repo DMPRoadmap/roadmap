@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
+  use_doorkeeper
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   devise_for(:users, controllers: {
@@ -202,6 +203,14 @@ Rails.application.routes.draw do
 
       resources :plans, only: %i[create show index]
       resources :templates, only: [:index]
+    end
+
+    namespace :v2 do
+      get :heartbeat, controller: :base_api
+      get :me, controller: :base_api
+
+      resources :plans, only: %i[index show]
+      resources :templates, only: :index
     end
   end
 

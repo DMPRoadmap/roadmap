@@ -1,5 +1,13 @@
 # Changelog
 
+## v6.1.0
+
+- Add API V2 from DMPonline [#3587](https://github.com/DMPRoadmap/roadmap/pull/3587)
+  - Add complete plan flag to V2 API [#3595](https://github.com/DMPRoadmap/roadmap/pull/3595)
+- chore(deps): `bundle update && yarn upgrade` and bump `node-version` in workflows [#3601](https://github.com/DMPRoadmap/roadmap/pull/3601)
+- Update `database.yml.sample`: add separate test db [#3521](https://github.com/DMPRoadmap/roadmap/pull/3521)
+- Patch inactive user issue in V2 API [#3610](https://github.com/DMPRoadmap/roadmap/pull/3610)
+
 ## v6.0.2
 
 - fix(ruby): bump ruby to secure v3.4.13 [#3629](https://github.com/DMPRoadmap/roadmap/pull/3629)

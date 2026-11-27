@@ -13,3 +13,4 @@ development:
 
 test:
   <<: *defaults
+  database: <%= ENV.fetch('TEST_DB_NAME', 'roadmap_test') %>

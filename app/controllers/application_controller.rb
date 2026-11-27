@@ -56,36 +56,31 @@ class ApplicationController < ActionController::Base
     # store last url - this is needed for post-login redirect to whatever the user last
     # visited.
     # don't store ajax calls
-    unless ['/users/sign_in',
-            '/users/sign_up',
-            '/users/password',
-            '/users/invitation/accept'].any? { |ur| request.fullpath.include?(ur) } || request.xhr?
-      session[:previous_url] = request.fullpath
-    end
+    devise_paths = %r{/users/(sign_in|sign_up|password|invitation/accept)}
+    return if request.fullpath.match?(devise_paths) || request.xhr?
+
+    session[:previous_url] = request.fullpath
   end
 
-  # rubocop:disable Metrics/AbcSize
   def after_sign_in_path_for(_resource)
-    referer_path = URI(request.referer).path unless request.referer.nil?
-    if from_external_domain? || referer_path.eql?(new_user_session_path) ||
-       referer_path.eql?(new_user_registration_path) ||
-       referer_path.nil?
-      root_path
-    else
-      request.referer
-    end
+    after_auth_path(disallowed_paths: [new_user_session_path, new_user_registration_path])
   end
-  # rubocop:enable Metrics/AbcSize
 
   def after_sign_up_path_for(_resource)
-    referer_path = URI(request.referer).path unless request.referer.nil?
-    if from_external_domain? ||
-       referer_path.eql?(new_user_session_path) ||
-       referer_path.nil?
-      root_path
-    else
-      request.referer
-    end
+    after_auth_path(disallowed_paths: [new_user_session_path])
+  end
+
+  def after_auth_path(disallowed_paths:)
+    # ensure oauth2 authorization flow is not interrupted
+    # TODO: Unless nil, should stored_location_for(resource) always be returned?
+    return stored_location_for(:user) if user_is_in_oauth_flow?
+
+    return root_path if request.referer.nil? || from_external_domain?
+
+    referer_path = URI(request.referer).path
+    return root_path if disallowed_paths.include?(referer_path)
+
+    request.referer
   end
 
   def after_sign_in_error_path_for(_resource)
@@ -196,5 +191,9 @@ class ApplicationController < ActionController::Base
         render '/api/v1/error', status: http_status
       end
     end
+  end
+
+  def user_is_in_oauth_flow?
+    session[:user_return_to]&.start_with?(oauth_authorization_path)
   end
 end

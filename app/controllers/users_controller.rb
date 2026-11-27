@@ -191,12 +191,14 @@ class UsersController < ApplicationController
   def preference_params
     params.require(:user).permit(
       prefs: [
-        users: %i[new_comment
-                  added_as_coowner
-                  admin_privileges
-                  feedback_requested
-                  feedback_provided],
-        owners_and_coowners: %i[visibility_changed]
+        {
+          users: %i[new_comment
+                    added_as_coowner
+                    admin_privileges
+                    feedback_requested
+                    feedback_provided],
+          owners_and_coowners: %i[visibility_changed]
+        }
       ]
     )
   end

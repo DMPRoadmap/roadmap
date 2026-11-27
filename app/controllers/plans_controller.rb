@@ -200,9 +200,9 @@ class PlansController < ApplicationController
     end
 
     # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? '' : org.name) }
+    @important_ggs = @important_ggs.sort_by { |org, _gg| org.nil? ? '' : org.name }
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
-      (org.nil? ? '' : org.name)
+      org.nil? ? '' : org.name
     end
     @selected_guidance_groups = @selected_guidance_groups.ids
 
@@ -526,7 +526,7 @@ class PlansController < ApplicationController
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a }
+    answers = plan.answers.to_h { |a| [a.question_id, a] }
     render('/phases/edit', locals: {
              base_template_org: phase.template.base_org,
              plan: plan,

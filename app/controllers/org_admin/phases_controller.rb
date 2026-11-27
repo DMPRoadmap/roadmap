@@ -58,7 +58,7 @@ module OrgAdmin
                  phase: phase,
                  prefix_section: phase.prefix_section,
                  sections: phase.sections.order(:number)
-                                         .select(:id, :title, :modifiable, :phase_id),
+                                .select(:id, :title, :modifiable, :phase_id),
                  suffix_sections: phase.suffix_sections.order(:number),
                  current_section: Section.find_by(id: params[:section], phase_id: phase.id)
                })

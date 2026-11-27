@@ -38,7 +38,7 @@ class GuidancePresenter
   # question  - The question to which guidance pretains
   #
   # Returns an array of tab hashes.  These
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize
   def tablist(question)
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
@@ -46,8 +46,7 @@ class GuidancePresenter
     orgs.each do |org|
       annotations = guidance_annotations(org: org, question: question)
       groups = guidance_groups_by_theme(org: org, question: question)
-      main_groups = groups.select { |group| group.optional_subset == false }
-      subsets = groups.reject { |group| group.optional_subset == false }
+      main_groups, subsets = groups.partition { |group| group.optional_subset == false }
       if annotations.present? || main_groups.present? # annotations and main group
         # Tab with org.abbreviation
         display_tabs << { name: org.abbreviation, groups: main_groups,
@@ -61,7 +60,7 @@ class GuidancePresenter
     end
     display_tabs
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -201,8 +200,8 @@ class GuidancePresenter
       org_guidance_groups = hashified_guidances.each_key.select do |gg|
         gg.org_id == org.id
       end
-      acc[org] = org_guidance_groups.each_with_object({}) do |gg, acc_inner|
-        acc_inner[gg] = hashified_guidances[gg]
+      acc[org] = org_guidance_groups.to_h do |gg|
+        [gg, hashified_guidances[gg]]
       end
     end
   end
@@ -215,8 +214,8 @@ class GuidancePresenter
       themes = Theme.includes(:guidances)
                     .joins(:guidances)
                     .merge(Guidance.where(guidance_group_id: gg.id, published: true))
-      acc[gg] = themes.each_with_object({}) do |theme, acc_inner|
-        acc_inner[theme] = theme.guidances
+      acc[gg] = themes.to_h do |theme|
+        [theme, theme.guidances]
       end
     end
   end
